@@ -2,17 +2,29 @@
 
 kos_release_profile() {
     local project="$1" profile="$2" package="$3" releng="$4" version repository file
+    local strip_tmp stripped_pkg _iso_entries
     version=$(kos_version "$project") || return 1
     [[ ! -e "$profile" && -f "$package" && -f "$releng/profiledef.sh" ]] || return 1
     cp -a "$releng" "$profile" || return 1
     repository="${profile%/*}/repository"
     install -d -m 755 "$repository"
-    cp "$package" "$repository/" || return 1
-    repo-add "$repository/kos.db.tar.gz" "$repository/"*.pkg.tar.zst || return 1
+    strip_tmp=$(mktemp -d) || return 1
+    stripped_pkg="$repository/$(basename "$package")"
+    bsdtar -C "$strip_tmp" -xf "$package" || { rm -rf "$strip_tmp"; return 1; }
+    if [[ -f "$strip_tmp/etc/skel/.bashrc" ]]; then
+        install -Dm644 "$strip_tmp/etc/skel/.bashrc" "$profile/airootfs/etc/skel/.bashrc" || { rm -rf "$strip_tmp"; return 1; }
+        rm -f "$strip_tmp/etc/skel/.bashrc"
+    fi
+    mapfile -d '' _iso_entries < <(cd "$strip_tmp" && find . \! \( -name .PKGINFO -o -name .MTREE \) -mindepth 1 -print0 | sort -z)
+    local _meta=()
+    [[ -f "$strip_tmp/.PKGINFO" ]] && _meta+=(.PKGINFO)
+    [[ -f "$strip_tmp/.MTREE" ]] && _meta+=(.MTREE)
+    bsdtar --format=gnutar -C "$strip_tmp" -cf - "${_meta[@]}" "${_iso_entries[@]}" | zstd -T0 > "$stripped_pkg" || { rm -rf "$strip_tmp"; return 1; }
+    rm -rf "$strip_tmp"
+    repo-add "$repository/kos.db.tar.gz" "$stripped_pkg" || return 1
     printf '\n[kos]\nSigLevel = Optional TrustAll\nServer = file://%s\n' "$repository" >> "$profile/pacman.conf" || return 1
     install -d -m 755 "$profile/airootfs"
     for file in etc/os-release etc/mkinitcpio.conf.d/kos_hooks.conf etc/pacman.d/hooks/90-mkinitcpio-install.hook etc/skel/.bashrc; do
-        [[ ! -e "$profile/airootfs/$file" ]] || rm "$profile/airootfs/$file" || return 1
         sed -i "/^\[options\]/a NoExtract = $file" "$profile/pacman.conf" || return 1
     done
     install -d -m 755 "$profile/airootfs/etc/pacman.d/hooks"
@@ -30,7 +42,6 @@ iso_label="KOS_${version//./_}"
 iso_publisher="kos <https://github.com/kairosci/kos>"
 iso_application="kos installation medium"
 iso_version="$version"
-pacman_args+=(--overwrite='etc/skel/.bashrc')
 PROFILE
     printf 'kos\n' > "$profile/airootfs/etc/hostname" || return 1
     cp "$project/conf/kos/data/iso-motd" "$profile/airootfs/etc/motd" || return 1
