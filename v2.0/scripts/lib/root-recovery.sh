@@ -33,7 +33,7 @@ root_recovery_shell() {
                 [[ ! -f "$directory" ]] || chown "$PRIMARY_USER:$PRIMARY_USER" "$directory" || return 1
             done
         done
-        user_as "$PRIMARY_USER" env "OMARCHY_PATH=${OMARCHY_PATH:-/usr/share/omarchy}" bash "$PROJECT_DIR/modules/conf/desktop/restore-native.sh" || return 1
+        user_as "$PRIMARY_USER" env "OMARCHY_PATH=${OMARCHY_PATH:-/usr/share/omarchy}" "$PROJECT_DIR/script/os-lua" restore-native || return 1
         omarchy_as "$PRIMARY_USER" restart terminal || return 1
     fi
     omarchy_as "$PRIMARY_USER" restart shell || return 1

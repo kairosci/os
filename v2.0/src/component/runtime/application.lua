@@ -40,7 +40,8 @@ function Application:apply(names, single)
         elseif policy.kind == "ini" then application = configuration:apply(name)
         elseif policy.kind == "native-panel" then application = require("component.application.panel").new(self.root, paths, publisher, registry):apply(name)
         elseif policy.kind == "retirement" or policy.kind == "json-provider" then application = require("component.application.retirement").new(paths, publisher, self.process, registry):apply(name)
-        elseif policy.kind == "file" or policy.kind == "desktop" then application = files:apply(name)
+        elseif policy.kind == "file" or policy.kind == "launcher" then application = files:apply(name)
+        elseif policy.kind == "desktop" then application = require("component.application.desktop").new(self.root, paths, publisher, self.process, self.catalog, File.json(self.root .. "/" .. policy.policy)):apply()
         else error("unknown_application_kind") end
         io.write(self.catalog:text("gui.install_done", application), "\n")
     end
@@ -215,6 +216,14 @@ function Application:run(arguments)
         local renderer = Renderer.new(self.root, self.process, paths, policy, self.catalog)
         if mode == "render-wallpaper" then return renderer:render(config) end
         return require("component.wallpaper.installer").new(renderer):apply()
+    end
+    if mode == "restore-native" then
+        assert(config == nil, "invalid_desktop_arguments")
+        local paths = require("core.paths").new(File.json(self.root .. "/" .. self.layout.paths))
+        local registry = File.json(self.root .. "/" .. self.layout.applications)
+        local policy = assert(registry.desktop, "unknown_application")
+        require("component.application.desktop").new(self.root, paths, Publisher.new(self.process), self.process, self.catalog, File.json(self.root .. "/" .. policy.policy)):restore()
+        return
     end
     if mode == "apply-settings" or mode == "apply-applications" then return self:apply(config, mode == "apply-settings") end
     local menu = Menu.new(self.process, File.json(self.root .. "/" .. self.layout.bootFormat))

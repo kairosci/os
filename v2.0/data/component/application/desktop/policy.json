@@ -1,0 +1,45 @@
+{
+  "display": "Desktop",
+  "namespace": "data/core/user-configuration.json",
+  "shell": {
+    "file": ".bashrc",
+    "blocks": [
+      {"first": "# >>> os micro >>>", "last": "# <<< os micro <<<"},
+      {"first": "# >>> os disk >>>", "last": "# <<< os disk <<<"}
+    ]
+  },
+  "retiredHooks": {
+    "root": "config",
+    "directory": "omarchy/hooks/theme-set.d",
+    "names": ["micro-theme", "disk-theme", "btop-theme"]
+  },
+  "retiredToggles": {
+    "root": "state",
+    "directory": "omarchy/toggles",
+    "names": ["screensaver-off"]
+  },
+  "launcher": {
+    "source": "data/component/application/desktop/mpv.desktop",
+    "root": "data",
+    "destination": "applications/mpv.desktop",
+    "mode": "644",
+    "refresh": {"command": "desktopDatabase", "directory": "applications"}
+  },
+  "files": [
+    {"source": "data/component/application/desktop/kmono.txt", "root": "config", "destination": "os/branding/screensaver.txt", "mode": "644"},
+    {"source": "data/component/application/desktop/kmono.txt", "root": "config", "destination": "os/branding/about.txt", "mode": "644"},
+    {"source": "data/component/application/desktop/fastfetch.jsonc", "root": "config", "destination": "fastfetch/config.jsonc", "mode": "644"}
+  ],
+  "restore": {
+    "upstreamVariable": "OMARCHY_PATH",
+    "upstreamDefault": "/usr/share/omarchy",
+    "upstreamConfig": "config",
+    "backupDirectory": "os/desktop-defaults",
+    "backupMode": "700",
+    "terminalFiles": ["kitty/kitty.conf", "alacritty/alacritty.toml", "ghostty/config", "foot/foot.ini"],
+    "brandingSource": "data/component/application/desktop/kmono.txt",
+    "brandingFiles": ["screensaver.txt", "about.txt"],
+    "fastfetchSource": "data/component/application/desktop/fastfetch.jsonc",
+    "fastfetchDestination": "fastfetch/config.jsonc"
+  }
+}

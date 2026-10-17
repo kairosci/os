@@ -8,10 +8,10 @@ end
 
 function Files:apply(name)
     local policy = assert(self.registry[name], "unknown_application")
-    assert(policy.kind == "file" or policy.kind == "desktop", "unsupported_file")
+    assert(policy.kind == "file" or policy.kind == "launcher", "unsupported_file")
     local source = policy.sourceRoot == "project" and self.root .. "/" .. policy.source or policy.source
     local content = File.read(source)
-    if policy.kind == "desktop" then
+    if policy.kind == "launcher" then
         assert(content:find("[Desktop Entry]", 1, true), "invalid_desktop_entry")
         content = content:gsub("([^\n]+)", function(line)
             if line:match("^Exec=") then return "Exec=" .. policy.execPrefix .. line:sub(6) end

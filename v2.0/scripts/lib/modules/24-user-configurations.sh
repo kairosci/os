@@ -9,6 +9,7 @@ for user_home in /home/*; do
     for _application in "${_applications[@]}"; do
         user_as "$_user" lua -E "$PROJECT_DIR/src/main.lua" "$PROJECT_DIR" apply-settings "$_application" || err "defaults.app_failed" "$_application"
     done
+    user_as "$_user" lua -E "$PROJECT_DIR/src/main.lua" "$PROJECT_DIR" install-wallpapers || err "defaults.app_failed" "wallpapers"
     for _installer in "$PROJECT_DIR"/modules/conf/*/install.sh; do
         [[ -f "$_installer" ]] || continue
         user_as "$_user" bash "$_installer" || err "defaults.app_failed" "$(basename "$(dirname "$_installer")")"

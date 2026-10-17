@@ -162,7 +162,7 @@ run_config_stage() (
         if [[ "$1" == lua ]]; then
             if read -r -t 0.01 _discarded; then :; fi
             [[ "${CONFIG_LUA_FAIL:-0}" == 0 ]] || return 7
-            printf 'lua settings loaded\n'
+            if [[ "${5:-}" == apply-settings ]]; then printf 'lua settings loaded\n'; else printf 'lua wallpaper stage loaded\n'; fi
         else
             "$@"
         fi
@@ -175,6 +175,7 @@ run_config_stage() (
 assert_true "config discovery installs Brave and a newly added app automatically" \
     "run_config_stage > '$WORKFLOW_SANDBOX/config-log'; grep -q 'brave loaded' '$WORKFLOW_SANDBOX/config-log' && grep -q 'new app loaded' '$WORKFLOW_SANDBOX/config-log'"
 assert_true "every Lua application runs even when a child reads standard input" '[[ $(grep -c "lua settings loaded" "$WORKFLOW_SANDBOX/config-log") == 2 ]]'
+assert_true "the wallpaper stage runs once for the user" '[[ $(grep -c "lua wallpaper stage loaded" "$WORKFLOW_SANDBOX/config-log") == 1 ]]'
 printf '#!/bin/bash\nexit 7\n' > "$WORKFLOW_SANDBOX/project/modules/conf/new-app/install.sh"
 assert_false "failed app configuration stops provisioning" "run_config_stage"
 assert_false "failed Lua settings stop provisioning" "CONFIG_LUA_FAIL=1 run_config_stage"

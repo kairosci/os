@@ -27,7 +27,7 @@ for user_home in /home/*; do
 done
 theme_policy_apply || err "theming.policy_failed"
 install -m 644 -o root -g root "$PROJECT_DIR/modules/conf/xdg-desktop-portal/data/portals.conf" \
-    "$PROJECT_DIR/modules/conf/desktop/data/mpv.desktop" /usr/local/lib/os/
+    "$PROJECT_DIR/data/component/application/desktop/mpv.desktop" /usr/local/lib/os/
 install -m 644 -o root -g root "$PROJECT_DIR"/data/catalog/*.msg /usr/local/lib/os/messages/
 install -Dm755 -o root -g root "$PROJECT_DIR/modules/theme-previews/scripts/update-previews.sh" /usr/local/libexec/os-update-previews
 cat > /etc/pacman.d/hooks/99-os-theme-previews.hook << 'HOOK'
@@ -132,7 +132,7 @@ for user_home in /home/*; do
     cp "$PROJECT_DIR/modules/theme-previews/scripts/lib/theme-preview.sh" "$_lib_dir/"
     cp "$PROJECT_DIR/scripts/lib/desktop-workflow.sh" "$_lib_dir/"
     cp "$PROJECT_DIR/modules/conf/xdg-desktop-portal/data/portals.conf" "$_lib_dir/"
-    cp "$PROJECT_DIR/modules/conf/desktop/data/mpv.desktop" "$_lib_dir/"
+    cp "$PROJECT_DIR/data/component/application/desktop/mpv.desktop" "$_lib_dir/"
     chmod 644 "$_i18n_dir/i18n.sh" "$_i18n_dir"/messages/*.msg "$_lib_dir/theme-preview.sh"
     chown "$_user":"$_user" "$user_home/.config/os" "$user_home/.config/os/hooks"
     chown -R "$_user":"$_user" "$_hook_dir" "$_i18n_dir" "$_lib_dir"
