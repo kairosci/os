@@ -42,4 +42,4 @@ Bu ortda qolgan `[themename]` mavzuning katalog nomi boʻladi, shuning uchun Arc
 
 Shuni esda tutingki, u repodan oʻrnatilgach, u joʻnatadigan har qanday `.lua`, terminal konfiguratsiyasi yoki `vscode.json` tushirib qoldiriladi, shuning uchun mavzuni ularning atrofida qurmang.
 
-Mavzuingizni [arch-site repo](https://github.com/kairosci/arch) ga pull request yuborish orqali [qoʻshimcha mavzular sahifasiga](https://github.com/kairosci/arch/themes/) qoʻshdirishingiz mumkin.
+Mavzuingizni [arch-site repo](https://github.com/kairosci/os) ga pull request yuborish orqali [qoʻshimcha mavzular sahifasiga](https://github.com/kairosci/os/themes/) qoʻshdirishingiz mumkin.

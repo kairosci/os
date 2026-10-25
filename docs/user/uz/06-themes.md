@@ -6,7 +6,7 @@ Har bir mavzu ish stoli, terminal, neovim, faoliyat ekrani (btop), Chromium va b
 
 Mavzularning `Super + Ctrl + Space` yordamida tanlash mumkin boʻlgan fon rasmlari toʻplami bor.
 
-Siz [qoʻshimcha mavzular sahifasida](https://github.com/kairosci/arch/themes/) yanada koʻproq mavzular topishingiz yoki hattoki [oʻz mavzuingizni yaratishingiz](43-making-your-own-theme.md) mumkin.
+Siz [qoʻshimcha mavzular sahifasida](https://github.com/kairosci/os/themes/) yanada koʻproq mavzular topishingiz yoki hattoki [oʻz mavzuingizni yaratishingiz](43-making-your-own-theme.md) mumkin.
 
  ![tokyo-night](../themes/tokyo-night/preview.png)
 _Tokyo Night_

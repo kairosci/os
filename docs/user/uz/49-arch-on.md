@@ -2,19 +2,19 @@
 
 ### Apple M1/M2 chiplar
 
-[Asahi Alarm](https://asahi-alarm.org/) [Asahi Linux](https://asahilinux.org/) ustiga qurilgan Apple M1/M2 kompyuterlari uchun Arch versiyasi. Arch ni ozgina harakat bilan uning tepasida ishlata olasiz. [Foydalanuvchi tomonidan boshqariladigan qoʻllanmani](https://github.com/kairosci/arch) koʻring.
+[Asahi Alarm](https://asahi-alarm.org/) [Asahi Linux](https://asahilinux.org/) ustiga qurilgan Apple M1/M2 kompyuterlari uchun Arch versiyasi. Arch ni ozgina harakat bilan uning tepasida ishlata olasiz. [Foydalanuvchi tomonidan boshqariladigan qoʻllanmani](https://github.com/kairosci/os) koʻring.
 
 ### Apple Virtual Machine
 
-Siz Arch ni Parallels VM ichida ham oʻrnatishingiz mumkin. Juda noqulay jarayon, lekin buning uchun ham [foydalanuvchi tomonidan boshqariladigan qoʻllanma](https://github.com/kairosci/arch) mavjud.
+Siz Arch ni Parallels VM ichida ham oʻrnatishingiz mumkin. Juda noqulay jarayon, lekin buning uchun ham [foydalanuvchi tomonidan boshqariladigan qoʻllanma](https://github.com/kairosci/os) mavjud.
 
 ### VirtualBox
 
-VirtualBox mashhur VM yurgizuvchi. [Siz Arch ni uning ichida ham ishlatishingiz mumkin](https://github.com/kairosci/arch). Lekin unumdorlik ehtimol baland boʻlmaydi.
+VirtualBox mashhur VM yurgizuvchi. [Siz Arch ni uning ichida ham ishlatishingiz mumkin](https://github.com/kairosci/os). Lekin unumdorlik ehtimol baland boʻlmaydi.
 
 ### VMware Workstation on Windows 11
 
-Windows uchun boshqa mashhur VM yurgizuvchi. [Arch bunda ham sozlangan](https://github.com/kairosci/arch).
+Windows uchun boshqa mashhur VM yurgizuvchi. [Arch bunda ham sozlangan](https://github.com/kairosci/os).
 
 ### Steam Deck
 

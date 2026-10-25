@@ -30,6 +30,6 @@ Bunga ochiq koʻz bilan qarang: u yoqilgan boʻlsa, sizning foydalanuvchingiz si
 
 ## Imzo kalitlari
 
-Barcha ISO imzolari va Arch repo paketi uchun ochiq kalit `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([openpgp.org da tekshiring](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch)). `arch/arch-keyring` paketi buni ham oʻz ichiga oladi va har qanday mumkin boʻlgan yangilanishlarni muammosiz joriy etish uchun ishlatiladi.
+Barcha ISO imzolari va Arch repo paketi uchun ochiq kalit `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([openpgp.org da tekshiring](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os)). `arch/arch-keyring` paketi buni ham oʻz ichiga oladi va har qanday mumkin boʻlgan yangilanishlarni muammosiz joriy etish uchun ishlatiladi.
 
-Har qanday ISO versiyasi uchun imzoni URL ga .sig qoʻshish orqali topishingiz mumkin. kabi: https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig.
+Har qanday ISO versiyasi uchun imzoni URL ga .sig qoʻshish orqali topishingiz mumkin. kabi: https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig.
