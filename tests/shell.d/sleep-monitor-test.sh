@@ -4,7 +4,7 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-sleep_monitor="$ROOT/bin/arch-system-sleep-monitor"
+sleep_monitor="$ROOT/src/cli/arch-system-sleep-monitor"
 tmpdir=$(mktemp -d)
 trap 'rm -rf "$tmpdir"' EXIT
 

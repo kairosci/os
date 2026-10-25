@@ -55,7 +55,7 @@ cat >"$scratch/bin/arch-toggle" <<'SH'
 printf 'toggle %s\n' "$*" >>"$CALL_LOG"
 SH
 for command in gum btrfs swapon limine-mkinitcpio; do
-  printf '#!/bin/bash\nprintf "%s %%s\\n" "$*" >>"$CALL_LOG"\n' "$command" >"$scratch/bin/$command"
+  printf '#!/bin/bash\nprintf "%s %%s\\n" "$*" >>"$CALL_LOG"\n' "$command" >"$scratch/src/cli/$command"
 done
 chmod +x "$scratch/bin"/*
 
@@ -64,7 +64,7 @@ run() {
   local machine=$1 config_dir=$2
   shift 2
   : >"$CALL_LOG"
-  PATH="$scratch/hw/$machine/bin:$scratch/bin:$ROOT/bin:$PATH" ARCH_PATH="$ROOT" \
+  PATH="$scratch/hw/$machine/bin:$scratch/bin:$ROOT/src/cli:$PATH" ARCH_PATH="$ROOT" \
     ARCH_PROC_ROOT="$scratch/hw/$machine/proc" ARCH_SYS_ROOT="$scratch/hw/$machine/sys" \
     ARCH_SLEEP_CONFIG_DIR="$config_dir" "$@"
 }
@@ -98,12 +98,12 @@ TEST_SUDO_STATUS=1 run spark "$scratch/failed" bash "$migration" >/dev/null &&
   fail "a failed migration stays pending"
 pass "the migration applies the setting once, only on a GB10"
 
-run spark "$scratch/spark" bash "$ROOT/bin/arch-toggle-suspend"
+run spark "$scratch/spark" bash "$ROOT/src/cli/arch-toggle-suspend"
 ! grep -q '^toggle ' "$CALL_LOG" || fail "the suspend toggle does nothing while sleep is disabled"
 grep -q '^notify .*Suspend is turned off on this machine' "$CALL_LOG" ||
   fail "the suspend toggle says suspend is turned off"
 # Refuse sudo so a missing check cannot reach this machine's swap or boot files.
-hibernation=$(TEST_SUDO_STATUS=1 run spark "$scratch/spark" bash "$ROOT/bin/arch-hibernation-setup" 2>&1) ||
+hibernation=$(TEST_SUDO_STATUS=1 run spark "$scratch/spark" bash "$ROOT/src/cli/arch-hibernation-setup" 2>&1) ||
   fail "hibernation setup exits cleanly while sleep is disabled"
 [[ $hibernation == *"Hibernation is turned off on this machine"* ]] ||
   fail "hibernation setup says hibernation is turned off" "$hibernation"

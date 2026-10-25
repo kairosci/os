@@ -7,7 +7,7 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 # The watcher half opens its event stream with {fd}> redirection.
 (( BASH_VERSINFO[0] * 100 + BASH_VERSINFO[1] >= 401 )) || fail "this test runs under bash 4.1 or newer" "$BASH_VERSION"
 
-lid_inhibit="$ROOT/bin/arch-system-lid-inhibit"
+lid_inhibit="$ROOT/src/cli/arch-system-lid-inhibit"
 
 test_tmp=$(mktemp -d)
 watch_pid=""
@@ -326,7 +326,7 @@ exec cat "$ARCH_TEST_EVENTS"
 SH
 
 for command in arch-hyprland-monitor-clamshell arch-hyprland-monitor-external-active; do
-  cat >"$fake_bin/$command" <<'SH'
+  cat >"$fake_src/cli/$command" <<'SH'
 #!/bin/bash
 
 exit 0
@@ -350,7 +350,7 @@ start_watcher() {
   XDG_RUNTIME_DIR="$test_tmp" \
   HYPRLAND_INSTANCE_SIGNATURE=test \
   ARCH_TEST_EVENTS="$events" \
-    "$ROOT/bin/arch-hyprland-monitor-watch" &
+    "$ROOT/src/cli/arch-hyprland-monitor-watch" &
   watch_pid=$!
 
   exec {events_fd}>"$events"

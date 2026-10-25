@@ -91,7 +91,7 @@ chmod +x "$mock_bin"/*
 
 export HOME="$test_tmp/home"
 export XDG_STATE_HOME="$test_tmp/state"
-export PATH="$mock_bin:$ROOT/bin:$PATH"
+export PATH="$mock_bin:$ROOT/src/cli:$PATH"
 export ARCH_PATH="$ROOT"
 export ARCH_TEST_NOTIFICATIONS="$notifications"
 export ARCH_TEST_BROWSER_LOG="$test_tmp/browser"
@@ -295,7 +295,7 @@ pass "remove forgets an added account without touching shared files"
 
 # A registry that can't be saved leaves the new login pending for recovery,
 # rather than in a home nothing can manage.
-STATE="$ROOT/bin/arch-agent-account-state" python3 - <<'PY' || fail "a failed registration rolls the new home back to pending"
+STATE="$ROOT/src/cli/arch-agent-account-state" python3 - <<'PY' || fail "a failed registration rolls the new home back to pending"
 import importlib.machinery, importlib.util, json, os, sys
 loader = importlib.machinery.SourceFileLoader("state", os.environ["STATE"])
 spec = importlib.util.spec_from_loader(loader.name, loader)

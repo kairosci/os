@@ -12,7 +12,7 @@ call_log="$tmpdir/calls"
 mkdir -p "$mock_bin"
 
 for command in arch-shell hyprctl pkill timeout; do
-  cat >"$mock_bin/$command" <<'SH'
+  cat >"$mock_src/cli/$command" <<'SH'
 #!/bin/bash
 printf '%s %s\n' "$(basename "$0")" "$*" >>"$CALL_LOG"
 SH
@@ -24,7 +24,7 @@ exit 1
 SH
 chmod +x "$mock_bin"/*
 
-PATH="$mock_bin:$PATH" CALL_LOG="$call_log" "$ROOT/bin/arch-system-lock"
+PATH="$mock_bin:$PATH" CALL_LOG="$call_log" "$ROOT/src/cli/arch-system-lock"
 mapfile -t shutdown < <(rg '^(pkill|timeout) ' "$call_log")
 
 [[ ${shutdown[0]} == "pkill -x ttfx" ]] ||

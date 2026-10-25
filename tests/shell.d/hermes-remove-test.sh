@@ -12,7 +12,7 @@ test_home="$test_tmp/home"
 mkdir -p "$mock_bin"
 
 # Keep package-path checks scoped to the fixture, even with a live app open.
-python3 - "$ROOT/bin/arch-remove-ai-hermes" "$test_tmp" <<'PY'
+python3 - "$ROOT/src/cli/arch-remove-ai-hermes" "$test_tmp" <<'PY'
 from pathlib import Path
 import sys
 source, scratch = map(Path, sys.argv[1:])

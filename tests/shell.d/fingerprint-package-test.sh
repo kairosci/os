@@ -13,7 +13,7 @@ scratch=$(mktemp -d)
 trap 'rm -rf "$scratch"' EXIT
 mkdir -p "$scratch/bin"
 export CALL_LOG="$scratch/calls"
-export PATH="$scratch/bin:$ROOT/bin:$PATH"
+export PATH="$scratch/bin:$ROOT/src/cli:$PATH"
 
 cat > "$scratch/bin/arch-hw-fingerprint" <<'STUB'
 #!/bin/bash
@@ -87,7 +87,7 @@ chmod +x "$scratch/bin/arch-apply-lock"
 
 export TEST_LOCK_PAM="$scratch/arch-lock-fingerprint"
 setup_script="$scratch/arch-setup-security-fingerprint"
-sed "s|/etc/pam.d/arch-lock-fingerprint|$TEST_LOCK_PAM|g" "$ROOT/bin/arch-setup-security-fingerprint" > "$setup_script"
+sed "s|/etc/pam.d/arch-lock-fingerprint|$TEST_LOCK_PAM|g" "$ROOT/src/cli/arch-setup-security-fingerprint" > "$setup_script"
 chmod +x "$setup_script"
 
 run_setup() {
@@ -219,7 +219,7 @@ pass "a failed verify fails setup, leaving PAM and the lock screen alone"
 # The verify step's results, in fprintd-verify's own format (each with " (done)"
 # or " (not done)"), through the functions setup uses.
 source <(sed -n '/^fprintd_chatter()/,/^}/p;/^enroll_progress()/,/^}/p;/^verify_progress()/,/^}/p' \
-  "$ROOT/bin/arch-setup-security-fingerprint")
+  "$ROOT/src/cli/arch-setup-security-fingerprint")
 [[ $(printf '%s\n' 'Using device /net/reactivated/Fprint/Device/0' 'Listing enrolled fingers:' ' - #0: right-index-finger' \
   'Verify started!' 'Verifying: right-index-finger' 'Verify result: verify-retry-scan (not done)' \
   'Verify result: verify-finger-not-centered (not done)' 'Verify result: verify-match (done)' |

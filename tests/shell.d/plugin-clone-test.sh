@@ -32,7 +32,7 @@ exit 0
 SH
 
 for command in arch-plugin-enable arch-notification-send fake-editor; do
-  cat >"$TMPDIR/bin/$command" <<'SH'
+  cat >"$TMPDIR/src/cli/$command" <<'SH'
 #!/bin/bash
 printf '%s %s\n' "${0##*/}" "$*" >>"$FAKE_CALLS"
 SH
@@ -49,7 +49,7 @@ clone_plugin() {
       }
     }
   }'
-  HOME="$TMPDIR/home" USER=tester ARCH_PATH="$ROOT" PATH="$TMPDIR/bin:$ROOT/bin:$PATH" \
+  HOME="$TMPDIR/home" USER=tester ARCH_PATH="$ROOT" PATH="$TMPDIR/bin:$ROOT/src/cli:$PATH" \
     FAKE_CALLS="$CALLS" ARCH_TEST_ROOT="$ROOT" \
     FAKE_SHELL_CONFIG="${FAKE_CLONE_CONFIG:-$default_config}" \
     arch-plugin-clone "$@"
@@ -109,7 +109,7 @@ grep -qx 'arch-plugin-enable tester.menu' "$CALLS" ||
   fail "clone does not enable a multi-kind plugin"
 pass "clone preserves and enables multi-kind plugins"
 
-remove_output=$(HOME="$TMPDIR/home" ARCH_PATH="$ROOT" PATH="$TMPDIR/bin:$ROOT/bin:$PATH" \
+remove_output=$(HOME="$TMPDIR/home" ARCH_PATH="$ROOT" PATH="$TMPDIR/bin:$ROOT/src/cli:$PATH" \
   FAKE_CALLS="$CALLS" ARCH_TEST_ROOT="$ROOT" \
   arch-plugin-remove tester.menu --yes)
 grep -qx 'arch-shell shell setPluginEnabled tester.menu false' "$CALLS" ||

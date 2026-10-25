@@ -4,7 +4,7 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-helper="$ROOT/bin/arch-install-camera"
+helper="$ROOT/src/cli/arch-install-camera"
 leaf="$ROOT/installer/hardware/qualcomm/camera.sh"
 migration=$(grep -l -- 'arch-install-camera' "$ROOT"/migrations/*.sh | head -n1)
 test_tmp=$(mktemp -d)
@@ -24,7 +24,7 @@ STUB
 chmod +x "$test_tmp/bin/arch-hw-aarch64-qualcomm" "$test_tmp/bin/arch-pkg-add"
 export ARCH_TEST_QUALCOMM="$test_tmp/qualcomm"
 export ARCH_TEST_PACKAGES="$test_tmp/packages"
-export PATH="$test_tmp/bin:$ROOT/bin:$PATH"
+export PATH="$test_tmp/bin:$ROOT/src/cli:$PATH"
 
 new_home() {
   local home="$test_tmp/home-$1"
@@ -47,7 +47,7 @@ pass "a Snapdragon laptop gets Chromium's PipeWire camera once, even when the he
 
 home=$(new_home both)
 cp "$shipped" "$home/.config/chromium-flags.conf"
-HOME=$home bash "$ROOT/bin/arch-install-video-decode"
+HOME=$home bash "$ROOT/src/cli/arch-install-video-decode"
 HOME=$home bash "$helper"
 grep -Fxq -- "$features,AcceleratedVideoDecoder,WebRtcPipeWireCamera" "$home/.config/chromium-flags.conf" ||
   fail "the video and camera features share Chromium's feature list" "$(cat "$home/.config/chromium-flags.conf")"
@@ -63,7 +63,7 @@ HOME=$home bash "$helper"
 [[ ! -e $home/.config/chromium-flags.conf ]] || fail "a missing Chromium flags file stays missing"
 pass "a feature the user set and a missing flags file stay as they are"
 
-if HOME=$home bash "$ROOT/bin/arch-chromium-add-feature" 'Foo/Bar' 2>/dev/null; then
+if HOME=$home bash "$ROOT/src/cli/arch-chromium-add-feature" 'Foo/Bar' 2>/dev/null; then
   fail "the feature helper refuses a name that isn't a Chromium feature"
 fi
 pass "the feature helper refuses a name that isn't a Chromium feature"

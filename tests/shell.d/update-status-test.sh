@@ -27,7 +27,7 @@ chmod +x "$stub_bin/arch-update-available" "$stub_bin/arch-shell"
 
 # An older arch-update, already parsed when the upgrade replaced it, still
 # calls this once the packages are in.
-PATH="$stub_bin:$PATH" CALLS="$calls" "$ROOT/bin/arch-update-status"
+PATH="$stub_bin:$PATH" CALLS="$calls" "$ROOT/src/cli/arch-update-status"
 [[ $(<"$calls") == "shell -q arch.system-update clear" ]] ||
   fail "update status clears the shell indicator without rechecking" "$(<"$calls")"
 pass "update status clears the shell indicator without rechecking"

@@ -80,7 +80,7 @@ run() { # booted cmdline, defaults conf
   : >"$test_dir/rebuilds"
   printf '%s\n' "$1" >"$test_dir/cmdline"
   printf '  cmdline: %s\n' "$1" >"$test_dir/limine.conf"
-  PATH="$stub_bin:$ROOT/bin:$PATH" REBUILDS="$test_dir/rebuilds" \
+  PATH="$stub_bin:$ROOT/src/cli:$PATH" REBUILDS="$test_dir/rebuilds" \
     LIMINE_CONF="$test_dir/limine.conf" NEW_CMDLINE="$built" ARCH_LIMINE_CONF="$test_dir/limine.conf" \
     ARCH_RUNNING_CMDLINE="$test_dir/cmdline" ARCH_LIMINE_DEFAULTS_CONF="$2" \
     ARCH_KERNEL_MODULES_DIR="$modules_dir" KERNEL_CMDLINES="$kernel_cmdlines" \
@@ -230,7 +230,7 @@ mkdir -p "$test_dir/tools"
 for tool in bash grep install cat sed tail; do ln -s "$(command -v "$tool")" "$test_dir/tools/$tool"; done
 : >"$test_dir/rebuilds"
 printf '%s\n' "$old_cmdline" >"$test_dir/cmdline"
-PATH="$stub_bin:$ROOT/bin:$test_dir/tools" REBUILDS="$test_dir/rebuilds" \
+PATH="$stub_bin:$ROOT/src/cli:$test_dir/tools" REBUILDS="$test_dir/rebuilds" \
   ARCH_RUNNING_CMDLINE="$test_dir/cmdline" ARCH_LIMINE_DEFAULTS_CONF="$ROOT/etc/limine-entry-tool.d/arch-defaults.conf" \
   ARCH_LIMINE_REBUILD_MARKER="$test_dir/marker" "$test_dir/tools/bash" -euo pipefail "$migration" >/dev/null
 [[ ! -e $test_dir/marker ]] || fail "a machine without Limine was marked as rebuilt"

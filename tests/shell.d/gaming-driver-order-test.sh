@@ -27,11 +27,11 @@ SH
 
 # Never change system files, launch a game, or update the host's desktop cache.
 for command in sudo setsid update-desktop-database; do
-  printf '#!/bin/bash\nexit 0\n' >"$stub_bin/$command"
+  printf '#!/bin/bash\nexit 0\n' >"$stub_src/cli/$command"
 done
 # Unexpected download or prefix-recovery paths must not reach the host.
 for command in curl pkill umu-run; do
-  printf '#!/bin/bash\nexit 99\n' >"$stub_bin/$command"
+  printf '#!/bin/bash\nexit 99\n' >"$stub_src/cli/$command"
 done
 chmod +x "$stub_bin"/*
 
@@ -41,7 +41,7 @@ run_installer() {
   : >"$test_tmp/calls"
   HOME="$test_home" ARCH_PATH="$ROOT" PATH="$stub_bin:$PATH" \
     ARCH_TEST_CALLS="$test_tmp/calls" ARCH_TEST_DRIVER_STATUS="$driver_status" \
-    bash "$ROOT/bin/$installer" >"$test_tmp/output" 2>&1
+    bash "$ROOT/src/cli/$installer" >"$test_tmp/output" 2>&1
 }
 
 for installer in arch-install-gaming-lutris arch-install-gaming-battlenet; do

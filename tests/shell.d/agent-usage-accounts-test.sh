@@ -49,7 +49,7 @@ JSON
 
 # Anthropic answers per token, so each account's probe is told apart by the
 # credential it carried.
-claude_record=$(COLLECTOR="$ROOT/bin/arch-agent-usage-claude" python3 - <<'PY'
+claude_record=$(COLLECTOR="$ROOT/src/cli/arch-agent-usage-claude" python3 - <<'PY'
 import importlib.machinery, importlib.util, io, json, os, sys
 
 loader = importlib.machinery.SourceFileLoader("collector", os.environ["COLLECTOR"])
@@ -96,7 +96,7 @@ pass "each account keeps its own limits cache"
 past_at=$(python3 -c 'import datetime as dt; print((dt.datetime.now(dt.timezone.utc) - dt.timedelta(minutes=5)).isoformat())')
 jq -nc --arg past "$past_at" '{fetchedAtMs: 1, limits: [{label: "Session (5-hour)", percent: 0.99, resetsAt: $past}]}' \
   >"$XDG_CACHE_HOME/arch/agent-usage/claude-limits-old.json"
-rested=$(COLLECTOR="$ROOT/bin/arch-agent-usage-claude" python3 - <<'PY'
+rested=$(COLLECTOR="$ROOT/src/cli/arch-agent-usage-claude" python3 - <<'PY'
 import importlib.machinery, importlib.util, io, json, os, sys
 
 loader = importlib.machinery.SourceFileLoader("collector", os.environ["COLLECTOR"])
@@ -117,7 +117,7 @@ pass "a lapsed account whose windows all reset reads as untouched"
 # A cache stamped ahead of a clock that later stepped back is still what the
 # account last saw, so its reset windows still read as untouched.
 touch -d "@$(( $(date +%s) + 3600 ))" "$XDG_CACHE_HOME/arch/agent-usage/claude-limits-old.json"
-rested_future=$(COLLECTOR="$ROOT/bin/arch-agent-usage-claude" python3 - <<'PY'
+rested_future=$(COLLECTOR="$ROOT/src/cli/arch-agent-usage-claude" python3 - <<'PY'
 import importlib.machinery, importlib.util, io, json, os, sys
 
 loader = importlib.machinery.SourceFileLoader("collector", os.environ["COLLECTOR"])
@@ -141,7 +141,7 @@ printf '{"oauthAccount":{"accountUuid":"u-new"}}\n' >"$HOME/.claude.json"
 now_ms=$(( $(date +%s) * 1000 ))
 jq -nc --arg open "$open_at" --argjson now "$now_ms" '{fetchedAtMs: $now, limits: [{label: "Session (5-hour)", percent: 0.55, resetsAt: $open}]}' \
   >"$XDG_CACHE_HOME/arch/agent-usage/claude-limits.json"
-resigned=$(COLLECTOR="$ROOT/bin/arch-agent-usage-claude" python3 - <<'PY'
+resigned=$(COLLECTOR="$ROOT/src/cli/arch-agent-usage-claude" python3 - <<'PY'
 import importlib.machinery, importlib.util, io, json, os, sys
 
 loader = importlib.machinery.SourceFileLoader("collector", os.environ["COLLECTOR"])
@@ -169,7 +169,7 @@ pass "a primary home signed in to another subscription doesn't inherit its limit
 # A registry with one account changes nothing about the record.
 jq '.accounts |= [.[0]] | .active = "main"' "$accounts/claude.json" >"$test_tmp/one.json"
 mv "$test_tmp/one.json" "$accounts/claude.json"
-single=$(COLLECTOR="$ROOT/bin/arch-agent-usage-claude" python3 - <<'PY'
+single=$(COLLECTOR="$ROOT/src/cli/arch-agent-usage-claude" python3 - <<'PY'
 import importlib.machinery, importlib.util, io, json, os, sys
 
 loader = importlib.machinery.SourceFileLoader("collector", os.environ["COLLECTOR"])
@@ -193,7 +193,7 @@ pass "a single account record is unchanged"
 hour_ago_ms=$(( ($(date +%s) - 3600) * 1000 ))
 jq -nc --arg open "$open_at" --argjson at "$hour_ago_ms" '{fetchedAtMs: $at, limits: [{label: "Session (5-hour)", percent: 0.42, resetsAt: $open}]}' \
   >"$XDG_CACHE_HOME/arch/agent-usage/claude-limits.json"
-kept=$(COLLECTOR="$ROOT/bin/arch-agent-usage-claude" python3 - <<'PY'
+kept=$(COLLECTOR="$ROOT/src/cli/arch-agent-usage-claude" python3 - <<'PY'
 import importlib.machinery, importlib.util, os, sys
 
 loader = importlib.machinery.SourceFileLoader("collector", os.environ["COLLECTOR"])
@@ -245,13 +245,13 @@ cat >"$accounts/codex.json" <<JSON
 }
 JSON
 
-codex_record=$(PATH="$test_tmp/bin:$PATH" "$ROOT/bin/arch-agent-usage-codex" --force)
+codex_record=$(PATH="$test_tmp/bin:$PATH" "$ROOT/src/cli/arch-agent-usage-codex" --force)
 [[ $(jq -c '[.accounts[] | {id, active, used: .limits[0].percent}]' <<<"$codex_record") == '[{"id":"main","active":true,"used":0.4},{"id":"side","active":false,"used":0.91}]' ]] ||
   fail "Codex record asks each account's own app-server" "$codex_record"
 [[ $(jq '.limits[0].percent' <<<"$codex_record") == 0.4 ]] || fail "Codex record's own limits describe the active account" "$codex_record"
 pass "Codex record lists every registered account"
 
-inherited=$(CODEX_HOME="$accounts/codex/side" PATH="$test_tmp/bin:$PATH" "$ROOT/bin/arch-agent-usage-codex" --force)
+inherited=$(CODEX_HOME="$accounts/codex/side" PATH="$test_tmp/bin:$PATH" "$ROOT/src/cli/arch-agent-usage-codex" --force)
 [[ $(jq -c '[.accounts[] | .limits[0].percent]' <<<"$inherited") == '[0.4,0.91]' ]] ||
   fail "Main's Codex limits come from ~/.codex whatever CODEX_HOME says" "$inherited"
 pass "Main's Codex limits come from ~/.codex whatever CODEX_HOME says"
@@ -259,7 +259,7 @@ pass "Main's Codex limits come from ~/.codex whatever CODEX_HOME says"
 # A secondary home nobody signed in to is waiting for auth, even while
 # ~/.codex holds a login, and its app-server is never started.
 rm "$accounts/codex/side/auth.json"
-signed_out=$(PATH="$test_tmp/bin:$PATH" "$ROOT/bin/arch-agent-usage-codex" --force)
+signed_out=$(PATH="$test_tmp/bin:$PATH" "$ROOT/src/cli/arch-agent-usage-codex" --force)
 [[ $(jq -c '[.accounts[] | {id, used: .limits[0].percent, status: .usageStatusText}]' <<<"$signed_out") == '[{"id":"main","used":0.4,"status":""},{"id":"side","used":null,"status":"Waiting for auth"}]' ]] ||
   fail "a signed-out Codex home waits for auth on its own" "$signed_out"
 touch "$accounts/codex/side/auth.json"

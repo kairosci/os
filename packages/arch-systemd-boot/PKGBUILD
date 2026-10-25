@@ -83,12 +83,12 @@ prepare() {
 package() {
   cd "$srcdir/arch"
 
-  # Runtime binaries — ship everything in bin/ except the debug helpers
+  # Runtime binaries — ship everything in src/cli/ except the debug helpers
   # that ship from arch-settings (needed before this package is installed,
   # e.g. on the ISO live env). Keep the sudo revocation hook and its helpers
   # together in this package; the installed settings package does not own them.
   install -d "$pkgdir/usr/bin" "$pkgdir/usr/share/arch/bin"
-  for bin in bin/*; do
+  for bin in src/cli/*; do
     [[ -f $bin ]] || continue
     local base
     base=$(basename "$bin")

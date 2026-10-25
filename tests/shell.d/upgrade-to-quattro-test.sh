@@ -4,7 +4,7 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-upgrade_to_quattro="$ROOT/bin/arch-upgrade-to-quattro"
+upgrade_to_quattro="$ROOT/src/cli/arch-upgrade-to-quattro"
 
 function_body() {
   awk -v name="$1" '$0 == name "() {" { inside = 1; next } inside && $0 == "}" { exit } inside' "$upgrade_to_quattro"

@@ -131,7 +131,7 @@ grep -Fq "DeviceTreeAuto=$scratch/dtbroot/qcom/x1e80100-stock.dtb" "$scratch/uki
 
 pass "Snapdragon setup tolerates missing firmware and preserves UKI settings"
 
-defaults=$(ARCH_PATH="$ROOT" "$ROOT/bin/arch-pkg-defaults" aarch64-qualcomm)
+defaults=$(ARCH_PATH="$ROOT" "$ROOT/src/cli/arch-pkg-defaults" aarch64-qualcomm)
 for package in linux-firmware-qcom qcom-firmware-extract systemd-ukify vulkan-freedreno; do
   grep -qx "$package" <<<"$defaults" ||
     fail "the Snapdragon package set has $package for offline setup"
@@ -154,7 +154,7 @@ run_leaves_on() (
   mkdir -p "$out"
   fake_platform "$scratch/platforms/$platform" "$platform"
   export ARCH_PROC_ROOT="$scratch/platforms/$platform/proc"
-  export PATH="$scratch/platforms/$platform/bin:$ROOT/bin:$PATH"
+  export PATH="$scratch/platforms/$platform/bin:$ROOT/src/cli:$PATH"
 
   arch-pkg-add() { :; }
   qcom-firmware-extract() { [[ $1 != "--list-missing" ]]; }

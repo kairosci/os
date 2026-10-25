@@ -24,7 +24,7 @@ awk '
   /^[a-z_]+\(\) \{/ { copying = 1 }
   copying { print }
   /^}/ { copying = 0 }
-' "$ROOT/bin/arch-system-factory-reset" >"$tmp/functions"
+' "$ROOT/src/cli/arch-system-factory-reset" >"$tmp/functions"
 
 # The fake boot package: each entrypoint records its call, reset-commit its
 # standard input, and reset-verify fails on request.
@@ -51,7 +51,7 @@ ESP_MNT=$TMP/esp-mount
 NEXT_NAME=@arch-reset-next
 PROVISIONING_DIR=/var/lib/arch/provisioning
 LOG_FILE=$TMP/reset.log
-DISPATCH=${TEST_DISPATCH:-$ROOT/bin/arch-lifecycle-dispatch}
+DISPATCH=${TEST_DISPATCH:-$ROOT/src/cli/arch-lifecycle-dispatch}
 RESET_BOOT=""
 RESET_BOOT_ERROR=""
 swap_done=0

@@ -17,7 +17,7 @@ STUB
 chmod +x "$stub_bin/sudo"
 
 run_helper() {
-  PATH="$stub_bin:$PATH" SUDO_CALL_LOG="$test_tmp/call" "$ROOT/bin/arch-update-pacman" "$@"
+  PATH="$stub_bin:$PATH" SUDO_CALL_LOG="$test_tmp/call" "$ROOT/src/cli/arch-update-pacman" "$@"
 }
 
 # The scope wrapper only applies on a systemd-booted host, so expect what the

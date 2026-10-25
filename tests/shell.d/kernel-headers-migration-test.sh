@@ -7,7 +7,7 @@ tmp_dir=$(mktemp -d)
 trap 'rm -rf "$tmp_dir"' EXIT
 mkdir -p "$tmp_dir/bin"
 export INSTALLED_PACKAGES="$tmp_dir/installed" CALL_LOG="$tmp_dir/calls"
-export PATH="$tmp_dir/bin:$ROOT/bin:$PATH"
+export PATH="$tmp_dir/bin:$ROOT/src/cli:$PATH"
 
 # Keep the real package helpers, but contain every pacman transaction here.
 cat > "$tmp_dir/bin/pacman" <<'SH'

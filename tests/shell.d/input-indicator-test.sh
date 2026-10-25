@@ -396,19 +396,19 @@ echo "$SHELL_REPLY"
 SH
 chmod +x "$stubs/arch-shell"
 
-CALLS=$calls SHELL_REPLY=ok PATH="$stubs:$PATH" ARCH_PATH="$ROOT" "$ROOT/bin/arch-input-method" cycle
+CALLS=$calls SHELL_REPLY=ok PATH="$stubs:$PATH" ARCH_PATH="$ROOT" "$ROOT/src/cli/arch-input-method" cycle
 [[ $(<"$calls") == "shell shell cycleInput next" ]] || fail "Super+I goes through the shell's reader" "$(<"$calls")"
 pass "Super+I goes through the shell's reader, which retains a choice made without focus"
 
-if CALLS=$calls SHELL_REPLY="not running" PATH="$stubs:$PATH" ARCH_PATH="$ROOT" "$ROOT/bin/arch-input-method" cycle 2>/dev/null; then
+if CALLS=$calls SHELL_REPLY="not running" PATH="$stubs:$PATH" ARCH_PATH="$ROOT" "$ROOT/src/cli/arch-input-method" cycle 2>/dev/null; then
   fail "Super+I reports a missing input reader"
 fi
 pass "Super+I reports a missing input reader instead of silently doing nothing"
 
 : >"$calls"
-CALLS=$calls SHELL_REPLY=ok PATH="$stubs:$PATH" ARCH_PATH="$ROOT" "$ROOT/bin/arch-input-method" cycle back
+CALLS=$calls SHELL_REPLY=ok PATH="$stubs:$PATH" ARCH_PATH="$ROOT" "$ROOT/src/cli/arch-input-method" cycle back
 [[ $(<"$calls") == "shell shell cycleInput back" ]] || fail "Super+Shift+I cycles back" "$(<"$calls")"
-if CALLS=$calls PATH="$stubs:$PATH" ARCH_PATH="$ROOT" "$ROOT/bin/arch-input-method" cycle sideways 2>/dev/null; then
+if CALLS=$calls PATH="$stubs:$PATH" ARCH_PATH="$ROOT" "$ROOT/src/cli/arch-input-method" cycle sideways 2>/dev/null; then
   fail "an unknown cycle direction is rejected"
 fi
 pass "Super+Shift+I cycles back through the shell, and other directions are rejected"

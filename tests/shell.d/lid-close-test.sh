@@ -4,7 +4,7 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-lid_close="$ROOT/bin/arch-system-lid-close"
+lid_close="$ROOT/src/cli/arch-system-lid-close"
 tmpdir=$(mktemp -d)
 trap 'rm -rf "$tmpdir"' EXIT
 
@@ -28,7 +28,7 @@ SH
 exit $docked
 SH
   for command in arch-system-lock arch-hyprland-monitor-clamshell; do
-    cat >"$mock_bin/$command" <<SH
+    cat >"$mock_src/cli/$command" <<SH
 #!/bin/bash
 echo $command >>"\$CALL_LOG"
 SH

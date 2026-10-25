@@ -19,7 +19,7 @@ printf '%s\n' "$*" >>"$TEST_AUDIO_CALLS"
 SH
 chmod +x "$tmp/bin/arch-capture-screenrecording-process" "$tmp/bin/pactl"
 
-export PATH="$tmp/bin:$ROOT/bin:$PATH"
+export PATH="$tmp/bin:$ROOT/src/cli:$PATH"
 export XDG_RUNTIME_DIR="$tmp/runtime"
 export ARCH_SCREENRECORD_DIR="$tmp/recordings"
 export TEST_HELPER_CALLS="$tmp/helper-calls"
@@ -31,7 +31,7 @@ for action in --status --stop-recording; do
   : >"$TEST_HELPER_CALLS"
   : >"$TEST_AUDIO_CALLS"
   status=0
-  "$ROOT/bin/arch-capture-screenrecording" "$action" >/dev/null 2>&1 || status=$?
+  "$ROOT/src/cli/arch-capture-screenrecording" "$action" >/dev/null 2>&1 || status=$?
   (( status == 1 )) || fail "$action reports no recorder after it exits" "$status"
   [[ $(<"$TEST_AUDIO_CALLS") == $'unload-module 12\nunload-module 11\nunload-module 10' ]] ||
     fail "$action releases the exited recorder's audio loopbacks before its sink" "$(<"$TEST_AUDIO_CALLS")"
@@ -42,7 +42,7 @@ done
 
 printf '10\n11\n12\n' >"$XDG_RUNTIME_DIR/arch-screenrecord-pa-modules"
 : >"$TEST_AUDIO_CALLS"
-TEST_RECORDER_ACTIVE=1 "$ROOT/bin/arch-capture-screenrecording" --status || fail "status recognizes the active recorder"
+TEST_RECORDER_ACTIVE=1 "$ROOT/src/cli/arch-capture-screenrecording" --status || fail "status recognizes the active recorder"
 [[ ! -s $TEST_AUDIO_CALLS && -e $XDG_RUNTIME_DIR/arch-screenrecord-pa-modules ]] ||
   fail "status leaves an active recording's audio modules loaded"
 pass "status preserves the active recorder's audio capture"
@@ -50,7 +50,7 @@ pass "status preserves the active recorder's audio capture"
 rm "$XDG_RUNTIME_DIR/arch-screenrecord-pid"
 : >"$TEST_AUDIO_CALLS"
 status=0
-"$ROOT/bin/arch-capture-screenrecording" --status >/dev/null 2>&1 || status=$?
+"$ROOT/src/cli/arch-capture-screenrecording" --status >/dev/null 2>&1 || status=$?
 (( status == 1 )) || fail "status reports inactive before the recorder starts"
 [[ ! -s $TEST_AUDIO_CALLS && -e $XDG_RUNTIME_DIR/arch-screenrecord-pa-modules ]] ||
   fail "status preserves the audio mix created before the recorder starts"

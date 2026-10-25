@@ -136,6 +136,6 @@ package() {
 
   # Support commands needed in the live installer before the runtime arrives.
   for command in arch-debug arch-debug-idle arch-upload-log; do
-    install -Dm755 "bin/$command" "$pkgdir/usr/bin/$command"
+    install -Dm755 "src/cli/$command" "$pkgdir/usr/bin/$command"
   done
 }

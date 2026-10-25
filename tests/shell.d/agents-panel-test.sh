@@ -36,7 +36,7 @@ assert(/case "Run `codex login` to authenticate\.":\s*return Commons\.I18n\.t\("
 // A reworded collector line would silently fall back to English, so every
 // fixed help line the collectors cache must still be one the panel maps.
 for (const name of ['claude', 'codex', 'grok', 'fireworks']) {
-  const collector = fs.readFileSync(root + '/bin/arch-agent-usage-' + name, 'utf8')
+  const collector = fs.readFileSync(root + '/src/cli/arch-agent-usage-' + name, 'utf8')
   const help = collector.match(/^AUTH_HELP = "([^"]+)"$/m)
   assert(help && panelSource.includes('case ' + JSON.stringify(help[1]) + ':'), name + ' auth help is translated in the panel')
 }

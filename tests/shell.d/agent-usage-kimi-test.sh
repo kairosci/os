@@ -11,13 +11,13 @@ trap 'rm -rf "$TEST_HOME"' EXIT
 # Without credentials the collector must still print a full, hidden-by-default
 # record: the update runner writes whatever valid JSON appears on stdout.
 no_key=$(HOME="$TEST_HOME" KIMI_CODE_HOME="$TEST_HOME/kimi-code" KIMI_API_KEY="" \
-  "$ROOT/bin/arch-agent-usage-kimi")
+  "$ROOT/src/cli/arch-agent-usage-kimi")
 
 [[ $(jq -r '.id + ":" + (.ready | tostring) + ":" + (.scope)' <<<"$no_key") == "kimi:false:account" ]] ||
   fail "Kimi collector prints a valid record without credentials" "$no_key"
 pass "Kimi collector prints a valid record without credentials"
 
-result=$(TEST_HOME="$TEST_HOME" python3 - "$ROOT/bin/arch-agent-usage-kimi" <<'PY'
+result=$(TEST_HOME="$TEST_HOME" python3 - "$ROOT/src/cli/arch-agent-usage-kimi" <<'PY'
 import importlib.machinery
 import importlib.util
 import io

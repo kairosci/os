@@ -26,7 +26,7 @@ ln -s "$tmpdir/dotfiles/Linked.desktop" "$apps/Linked.desktop"
 
 # Twice, as a retried update would.
 for run in 1 2; do
-  env -u XDG_DATA_HOME HOME="$tmpdir/home" PATH="$ROOT/bin:$PATH" bash -euo pipefail "$migration" >/dev/null
+  env -u XDG_DATA_HOME HOME="$tmpdir/home" PATH="$ROOT/src/cli:$PATH" bash -euo pipefail "$migration" >/dev/null
 done
 
 [[ $(sed -n 3,4p "$apps/WhatsApp.desktop") == $'Exec=arch-launch-webapp https://web.whatsapp.com/\nStartupWMClass=chrome-web.whatsapp.com__-Default' ]] ||

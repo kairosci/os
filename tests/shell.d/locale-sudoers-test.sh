@@ -4,8 +4,8 @@ set -euo pipefail
 
 source "$(dirname "$0")/base-test.sh"
 
-generator="$ROOT/bin/arch-locale-generate"
-language="$ROOT/bin/arch-language"
+generator="$ROOT/src/cli/arch-locale-generate"
+language="$ROOT/src/cli/arch-language"
 sudoers_file="$ROOT/etc/sudoers.d/arch-locale-generate"
 registry="$ROOT/default/i18n/locales.json"
 

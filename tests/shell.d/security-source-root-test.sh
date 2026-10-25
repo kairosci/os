@@ -4,17 +4,17 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 source "$SHELL_TEST_DIR/fixtures/sudo-boundary-test.sh"
-source "$SUDO_TEST_ROOT/bin/arch-security-functions"
+source "$SUDO_TEST_ROOT/src/cli/arch-security-functions"
 
-rm -f "$SUDO_TEST_ROOT/bin/arch-update"
-copy_boundary_file bin/arch-update
-arch_security_require_source_root "$SUDO_TEST_ROOT/bin/arch-update" || fail "matching checkout root was rejected"
+rm -f "$SUDO_TEST_ROOT/src/cli/arch-update"
+copy_boundary_file src/cli/arch-update
+arch_security_require_source_root "$SUDO_TEST_ROOT/src/cli/arch-update" || fail "matching checkout root was rejected"
 pass "a canonical checkout matches its own entrypoint"
 
 mkdir "$boundary_tmp/other-root"
 ln -s "$SUDO_TEST_ROOT" "$boundary_tmp/root-link"
 for root in "$boundary_tmp/other-root" "$boundary_tmp/root-link" .; do
-  if ARCH_PATH="$root" arch_security_require_source_root "$SUDO_TEST_ROOT/bin/arch-update" >"$boundary_tmp/output" 2>&1; then
+  if ARCH_PATH="$root" arch_security_require_source_root "$SUDO_TEST_ROOT/src/cli/arch-update" >"$boundary_tmp/output" 2>&1; then
     fail "a different or noncanonical source root was accepted"
   fi
 done
@@ -25,10 +25,10 @@ pass "different, symlink and relative roots are rejected"
 package_root="$boundary_tmp/usr/share/arch"
 package_bin="$boundary_tmp/usr/bin"
 mkdir -p "$package_root/bin" "$package_bin"
-cp "$SUDO_TEST_ROOT/bin/arch-update" "$package_bin/arch-update"
-cp "$SUDO_TEST_ROOT/bin/arch-update" "$package_bin/different-command"
+cp "$SUDO_TEST_ROOT/src/cli/arch-update" "$package_bin/arch-update"
+cp "$SUDO_TEST_ROOT/src/cli/arch-update" "$package_bin/different-command"
 ln -s "$package_bin/arch-update" "$package_root/bin/arch-update"
-python3 - "$SUDO_TEST_ROOT/bin/arch-security-functions" "$boundary_tmp/package-library" "$package_root" "$package_bin" <<'PY'
+python3 - "$SUDO_TEST_ROOT/src/cli/arch-security-functions" "$boundary_tmp/package-library" "$package_root" "$package_bin" <<'PY'
 import sys
 from pathlib import Path
 source, output, root, binaries = sys.argv[1:]
@@ -52,11 +52,11 @@ pass "a package link must resolve to its named command"
 # stop before any sudo or operational fixture command, not merely validate in
 # an isolated library test.
 for command in arch-update arch-refresh-pacman arch-update-stay-awake arch-channel-set; do
-  rm -f "$SUDO_TEST_ROOT/bin/$command"
-  copy_boundary_file "bin/$command"
+  rm -f "$SUDO_TEST_ROOT/src/cli/$command"
+  copy_boundary_file "src/cli/$command"
   for root in "$boundary_tmp/other-root" .; do
     reset_boundary
-    if ARCH_PATH="$root" "$SUDO_TEST_ROOT/bin/$command" >"$boundary_tmp/output" 2>&1; then
+    if ARCH_PATH="$root" "$SUDO_TEST_ROOT/src/cli/$command" >"$boundary_tmp/output" 2>&1; then
       fail "$command accepted a mismatched root"
     fi
     [[ ! -s $SUDO_TEST_LOG ]] || fail "$command ran work before rejecting its root"

@@ -14,7 +14,7 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 # arch-lifecycle-dispatch; on the x86 fixture that is a no-op.
 
 # Root's dispatcher ignores the fixtures and sees this machine.
-if (( EUID == 0 )) && [[ $("$ROOT/bin/arch-hw-platform") == "aarch64-apple" ]]; then
+if (( EUID == 0 )) && [[ $("$ROOT/src/cli/arch-hw-platform") == "aarch64-apple" ]]; then
   skip "running as root on Apple Silicon, where dispatch ignores fixtures; skipping"
   exit 0
 fi
@@ -268,9 +268,9 @@ use() {
   backend=$1 platform=$2
   export ARCH_PROC_ROOT=$tmp/$platform/proc
   if [[ $backend == "fake" ]]; then
-    export PATH="$tmp/$platform/bin:$tmp/bin:$ROOT/bin:$base_path"
+    export PATH="$tmp/$platform/bin:$tmp/bin:$ROOT/src/cli:$base_path"
   else
-    export PATH="$tmp/$platform/bin:$tmp/real:$tmp/bin:$ROOT/bin:$base_path"
+    export PATH="$tmp/$platform/bin:$tmp/real:$tmp/bin:$ROOT/src/cli:$base_path"
   fi
 }
 data=$tmp/dev/data
@@ -334,7 +334,7 @@ attempt() {
   echo "$crash_at" >"$tmp/crash-at"
   : >"$tmp/trace"
   {
-    CRASH_AT=$crash_at bash -c 'TEST_PID=$$ exec bash ${TEST_TRACE:+-x} "$0"' "$ROOT/bin/arch-drive-password"
+    CRASH_AT=$crash_at bash -c 'TEST_PID=$$ exec bash ${TEST_TRACE:+-x} "$0"' "$ROOT/src/cli/arch-drive-password"
   } >>"$tmp/output" 2>&1
 }
 
@@ -841,7 +841,7 @@ said "record both: sudo arch-lifecycle-dispatch luks-slots owner=0 recovery=1"
 said "sudo cryptsetup luksKillSlot $system <slot>"
 said "The system disk password did not change."
 ! grep -q 'luksChangeKey\|chpasswd' "$tmp/sudo-calls" && [[ ! -e $journal && ! -e $tmp/slot-record ]] || fail "apple: an unrecorded two-key disk changes nothing"
-"$ROOT/bin/arch-lifecycle-dispatch" luks-slots owner=0 recovery=1
+"$ROOT/src/cli/arch-lifecycle-dispatch" luks-slots owner=0 recovery=1
 : >"$tmp/slot-record"
 attempt 0 "$old_password" "$new_password" "$new_password" || fail "apple: once both slots are recorded the change goes through" "$(cat "$tmp/output")"
 consistent "slots recorded as the refusal said" "$new_password"

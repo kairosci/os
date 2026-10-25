@@ -72,7 +72,7 @@ grep -Fx 'systemctl enable --now snapper-cleanup.timer' "$test_tmp/calls.log" >/
 grep -Fx 'systemctl disable --now limine-snapper-sync.service arch-snapshot-entries.path arch-snapshot-entries.service' "$test_tmp/calls.log" >/dev/null || fail "snapshot configure disables Limine sync"
 pass "snapshot configure normalizes Snapper policy and services"
 
-setup_system="$ROOT/bin/arch-apply-system"
+setup_system="$ROOT/src/cli/arch-apply-system"
 grep -F 'config/all.sh' "$setup_system" >/dev/null ||
   fail "system setup runs the config phase"
 grep -F 'config/snapper.sh' "$ROOT/installer/config/all.sh" >/dev/null ||

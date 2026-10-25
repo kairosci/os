@@ -52,7 +52,7 @@ run_isolated() {
   env -i HOME="$account_test_home" \
     XDG_CONFIG_HOME="$test_tmp/config" XDG_DATA_HOME="$test_tmp/data" XDG_CACHE_HOME="$test_tmp/cache" \
     MISE_DATA_DIR="$mise_data" MISE_SYSTEM_CONFIG_DIR="$ROOT/etc/mise" MISE_OFFLINE=1 \
-    ARCH_PATH="$ROOT" PATH="$mise_data/command-wrappers/bin:$ROOT/bin:$real_bin:/usr/bin" \
+    ARCH_PATH="$ROOT" PATH="$mise_data/command-wrappers/bin:$ROOT/src/cli:$real_bin:/usr/bin" \
     "$@"
 }
 
@@ -150,7 +150,7 @@ run_isolated mise trust "$test_tmp/config/mise/config.toml" >/dev/null 2>&1
 # Existing tool shims used by SSH already dispatch wrappers, including with a
 # relocated mise data directory. No additional stock-only PAM path is needed.
 run_isolated mise reshim
-output=$(run_isolated env PATH="$mise_data/shims:$ROOT/bin:/usr/bin" claude)
+output=$(run_isolated env PATH="$mise_data/shims:$ROOT/src/cli:/usr/bin" claude)
 [[ $output == "$test_tmp/accounts/claude side" ]] || fail "SSH-style mise tool shims route through account dispatch in a custom data directory" "$output"
 pass "SSH-style mise tool shims route through account dispatch in a custom data directory"
 

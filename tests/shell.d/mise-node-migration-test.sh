@@ -28,7 +28,7 @@ run_migration() {
       XDG_STATE_HOME="$test_home/.local/state" \
       MISE_SYSTEM_DIR="$system_dir" \
       ARCH_MISE_CONFIG_PATH="$system_dir/conf.d/arch-tools.toml" \
-      PATH="$ROOT/bin:/usr/bin" \
+      PATH="$ROOT/src/cli:/usr/bin" \
       bash -euo pipefail "$migration"
   )
 }

@@ -22,7 +22,7 @@ SH
 
 calls="$test_tmp/calls"
 
-if ! HOME="$test_home" ARCH_PATH="$test_root" "$ROOT/bin/arch-migrate" --pending >"$test_tmp/pending.out"; then
+if ! HOME="$test_home" ARCH_PATH="$test_root" "$ROOT/src/cli/arch-migrate" --pending >"$test_tmp/pending.out"; then
   fail "migration runner reports pending migrations before state exists"
 fi
 grep -q '^100-first\.sh$' "$test_tmp/pending.out" || fail "migration runner lists first pending migration filename"
@@ -33,7 +33,7 @@ HOME="$test_home" \
 ARCH_PATH="$test_root" \
 TEST_EXPECTED_ARCH_PATH="$test_root" \
 TEST_CALLS="$calls" \
-  "$ROOT/bin/arch-migrate" >"$test_tmp/first-run.out"
+  "$ROOT/src/cli/arch-migrate" >"$test_tmp/first-run.out"
 [[ $(sed -n '1p' "$calls") == "first" ]] || fail "migration runner runs first migration"
 [[ $(sed -n '2p' "$calls") == "second" ]] || fail "migration runner runs second migration"
 [[ -f $test_home/.local/state/arch/migrations/100-first.sh ]] || fail "migration runner records first migration marker"
@@ -44,11 +44,11 @@ HOME="$test_home" \
 ARCH_PATH="$test_root" \
 TEST_EXPECTED_ARCH_PATH="$test_root" \
 TEST_CALLS="$calls" \
-  "$ROOT/bin/arch-migrate" >"$test_tmp/second-run.out"
+  "$ROOT/src/cli/arch-migrate" >"$test_tmp/second-run.out"
 [[ $(wc -l <"$calls") -eq 2 ]] || fail "migration runner skips completed migrations"
 pass "migration runner skips completed migrations"
 
-if HOME="$test_home" ARCH_PATH="$test_root" "$ROOT/bin/arch-migrate" --pending >"$test_tmp/not-pending.out"; then
+if HOME="$test_home" ARCH_PATH="$test_root" "$ROOT/src/cli/arch-migrate" --pending >"$test_tmp/not-pending.out"; then
   fail "migration runner reports no pending migrations after state exists"
 fi
 pass "migration runner detects no pending migrations"
@@ -66,7 +66,7 @@ SH
 deferred_calls="$test_tmp/deferred-calls"
 HOME="$deferred_home" ARCH_PATH="$deferred_root" \
 TEST_CALLS="$deferred_calls" TEST_DEFERRED=1 \
-  "$ROOT/bin/arch-migrate" >"$test_tmp/deferred-first.out"
+  "$ROOT/src/cli/arch-migrate" >"$test_tmp/deferred-first.out"
 [[ ! -e $deferred_home/.local/state/arch/migrations/100-deferred.sh ]] ||
   fail "a deferred migration is not marked complete"
 [[ -f $deferred_home/.local/state/arch/migrations/200-independent.sh ]] ||
@@ -75,7 +75,7 @@ TEST_CALLS="$deferred_calls" TEST_DEFERRED=1 \
   fail "the migration queue continues after a deferred migration"
 HOME="$deferred_home" ARCH_PATH="$deferred_root" \
 TEST_CALLS="$deferred_calls" TEST_DEFERRED=0 \
-  "$ROOT/bin/arch-migrate" >"$test_tmp/deferred-retry.out"
+  "$ROOT/src/cli/arch-migrate" >"$test_tmp/deferred-retry.out"
 [[ -f $deferred_home/.local/state/arch/migrations/100-deferred.sh ]] ||
   fail "a deferred migration can complete on a later run"
 [[ $(wc -l <"$deferred_calls") -eq 3 ]] ||
@@ -86,7 +86,7 @@ legacy_home="$test_tmp/legacy-home"
 mkdir -p "$legacy_home/.local/state/arch/migrations"
 touch "$legacy_home/.local/state/arch/migrations/100-first.sh"
 HOME="$legacy_home" ARCH_PATH="$test_root" \
-  "$ROOT/bin/arch-migrate" --pending >"$test_tmp/legacy-pending.out"
+  "$ROOT/src/cli/arch-migrate" --pending >"$test_tmp/legacy-pending.out"
 [[ $(cat "$test_tmp/legacy-pending.out") == "200-second.sh" ]] ||
   fail "migration runner recognizes completion markers in the previous state directory"
 pass "migration runner recognizes legacy completion markers"
@@ -95,7 +95,7 @@ os_legacy_home="$test_tmp/os-legacy-home"
 mkdir -p "$os_legacy_home/.local/state/os/migrations"
 touch "$os_legacy_home/.local/state/os/migrations/100-first.sh"
 HOME="$os_legacy_home" ARCH_PATH="$test_root" \
-  "$ROOT/bin/arch-migrate" --pending >"$test_tmp/os-legacy-pending.out"
+  "$ROOT/src/cli/arch-migrate" --pending >"$test_tmp/os-legacy-pending.out"
 [[ $(cat "$test_tmp/os-legacy-pending.out") == "200-second.sh" ]] ||
   fail "migration runner recognizes completion markers in the previous OS state directory"
 pass "migration runner recognizes OS-named completion markers"
@@ -187,7 +187,7 @@ set +e
 HOME="$failure_home" \
 ARCH_PATH="$failure_root" \
 TEST_CALLS="$calls" \
-  "$ROOT/bin/arch-migrate" >"$test_tmp/failure.out" 2>"$test_tmp/failure.err"
+  "$ROOT/src/cli/arch-migrate" >"$test_tmp/failure.out" 2>"$test_tmp/failure.err"
 failure_status=$?
 set -e
 [[ $failure_status -ne 0 ]] || fail "migration runner exits non-zero when a migration fails"
@@ -213,7 +213,7 @@ printf 'migration input\n' | \
   HOME="$stdin_home" \
   ARCH_PATH="$stdin_root" \
   TEST_CALLS="$stdin_calls" \
-  "$ROOT/bin/arch-migrate" >"$test_tmp/stdin.out"
+  "$ROOT/src/cli/arch-migrate" >"$test_tmp/stdin.out"
 
 grep -q '^reader:migration input$' "$stdin_calls" ||
   fail "migration runner preserves the caller's stdin for a migration" "$(cat "$stdin_calls")"

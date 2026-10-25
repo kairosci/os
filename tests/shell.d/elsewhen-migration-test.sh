@@ -40,7 +40,7 @@ chmod +x "$test_dir/bin/"*
 
 run() {
   : >"$CALL_LOG"
-  env HOME="$test_dir/home" ARCH_PATH="$ROOT" PATH="$test_dir/bin:$ROOT/bin:$PATH" "$@" \
+  env HOME="$test_dir/home" ARCH_PATH="$ROOT" PATH="$test_dir/bin:$ROOT/src/cli:$PATH" "$@" \
     bash -euo pipefail "$migration" >"$test_dir/output" 2>&1
 }
 
@@ -92,7 +92,7 @@ pass "a legacy entry is renamed rather than duplicated"
 state="$test_dir/state"
 mkdir -p "$state"
 touch "$state/1789581661.sh"
-ARCH_MIGRATION_STATE="$state" ARCH_PATH="$ROOT" "$ROOT/bin/arch-migrate" --pending >"$test_dir/pending" || true
+ARCH_MIGRATION_STATE="$state" ARCH_PATH="$ROOT" "$ROOT/src/cli/arch-migrate" --pending >"$test_dir/pending" || true
 grep -qx "$(basename "$migration")" "$test_dir/pending" || fail "the old marker must not satisfy the renamed migration" "$(cat "$test_dir/pending")"
 pass "a machine that applied the placement under its old name runs it again"
 

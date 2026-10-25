@@ -7,7 +7,7 @@ test_tmp=$(mktemp -d)
 trap 'rm -rf "$test_tmp"' EXIT
 mock_bin="$test_tmp/bin"
 export HOME="$test_tmp/home with spaces"
-export PATH="$mock_bin:$HOME/.local/bin:$ROOT/bin:/usr/local/bin:/usr/bin"
+export PATH="$mock_bin:$HOME/.local/bin:$ROOT/src/cli:/usr/local/bin:/usr/bin"
 export ARCH_TEST_MISE_LOG="$test_tmp/mise-log"
 mkdir -p "$mock_bin" "$HOME/.local/bin"
 cat >"$mock_bin/mise" <<'SH'

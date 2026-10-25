@@ -17,8 +17,8 @@ background_state="$test_home/.local/state/arch/theme-backgrounds"
 mkdir -p "$test_home" "$runtime_dir"
 
 set_theme() {
-  HOME="$test_home" XDG_RUNTIME_DIR="$runtime_dir" ARCH_PATH="$ROOT" PATH="$ROOT/bin:$PATH" \
-    ARCH_THEME_HEADLESS=1 "$ROOT/bin/arch-theme-set" "$1" >/dev/null
+  HOME="$test_home" XDG_RUNTIME_DIR="$runtime_dir" ARCH_PATH="$ROOT" PATH="$ROOT/src/cli:$PATH" \
+    ARCH_THEME_HEADLESS=1 "$ROOT/src/cli/arch-theme-set" "$1" >/dev/null
 }
 
 current_background_name() {
@@ -103,7 +103,7 @@ source <(awk '
   /^(theme_background_state_file|choose_theme_background|choose_staged_theme_background)\(\) \{/ { copying=1 }
   copying { print }
   copying && /^}$/ { copying=0 }
-' "$ROOT/bin/arch-theme-set")
+' "$ROOT/src/cli/arch-theme-set")
 
 HOME="$test_home"
 CURRENT_THEME_PATH="$current_state/theme"

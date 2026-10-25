@@ -258,7 +258,7 @@ cmp -s "$ROOT/config/hypr/bindings.lua" "$migration_home/.config/hypr/bindings.l
   fail "plain legacy bindings preserve preinstall removal state"
 pass "migration converts plain legacy bindings to package-owned defaults"
 
-upgrade_script="$ROOT/bin/arch-upgrade-to-quattro"
+upgrade_script="$ROOT/src/cli/arch-upgrade-to-quattro"
 grep -Fq 'touch "$state_dir/preinstalls-removed"' "$upgrade_script" ||
   fail "upgrade-to-quattro preserves preinstall removal state"
 

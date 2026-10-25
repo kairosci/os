@@ -90,7 +90,7 @@ JS
 printf '#!/bin/bash\nexit 0\n' > "$stage/bin/noop"
 chmod +x "$stage/bin/noop"
 for command in arch-dns arch-network-band; do
-  ln -s noop "$stage/bin/$command"
+  ln -s noop "$stage/src/cli/$command"
 done
 # Preview uses only synthetic details, never the host's SSID or addresses.
 # Normal assertions keep the details empty to exercise missing-route handling.

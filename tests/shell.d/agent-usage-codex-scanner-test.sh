@@ -14,7 +14,7 @@ trap 'rm -rf "$SCRATCH"' EXIT
 # Run a scratch copy of the collector with its 8s RPC timeout shortened to
 # 0.5s; the stall scenarios only need it to give up, not wait the full bound.
 collector="$SCRATCH/arch-agent-usage-codex"
-sed 's/timeout=8/timeout=0.5/g' "$ROOT/bin/arch-agent-usage-codex" >"$collector"
+sed 's/timeout=8/timeout=0.5/g' "$ROOT/src/cli/arch-agent-usage-codex" >"$collector"
 chmod +x "$collector"
 TEST_HOME=$(mktemp -d "$SCRATCH/home.XXXXXX")
 

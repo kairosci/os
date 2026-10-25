@@ -20,7 +20,7 @@ chmod +x "$test_tmp/bin/arch-notification-send"
 
 export HOME="$test_tmp/home"
 export XDG_STATE_HOME="$test_tmp/state"
-export PATH="$test_tmp/bin:$ROOT/bin:$PATH"
+export PATH="$test_tmp/bin:$ROOT/src/cli:$PATH"
 export ARCH_TEST_NOTIFICATIONS="$notifications"
 
 accounts="$XDG_STATE_HOME/arch/agents/accounts"

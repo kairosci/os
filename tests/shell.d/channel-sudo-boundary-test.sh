@@ -4,15 +4,15 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 source "$SHELL_TEST_DIR/fixtures/sudo-boundary-test.sh"
-copy_boundary_file bin/arch-channel-set
-copy_boundary_file bin/arch-refresh-pacman
-copy_boundary_file bin/arch-apply-pacman
-copy_boundary_file bin/arch-update
+copy_boundary_file src/cli/arch-channel-set
+copy_boundary_file src/cli/arch-refresh-pacman
+copy_boundary_file src/cli/arch-apply-pacman
+copy_boundary_file src/cli/arch-update
 export ARCH_UPDATE_LOGGED=1
 
 # Relocate the package root into the fixture, including the explicit handoff
 # from the development checkout. All privileged operations remain stand-ins.
-python3 - "$SUDO_TEST_ROOT/bin/arch-channel-set" "$SUDO_TEST_ROOT" <<'PY'
+python3 - "$SUDO_TEST_ROOT/src/cli/arch-channel-set" "$SUDO_TEST_ROOT" <<'PY'
 import sys
 from pathlib import Path
 p = Path(sys.argv[1])
@@ -20,7 +20,7 @@ p.write_text(p.read_text().replace('/usr/share/arch', sys.argv[2]))
 PY
 
 for command in arch-dev-link arch-dev-unlink arch-state gum git; do
-  cat >"$SUDO_TEST_ROOT/bin/$command" <<'STUB'
+  cat >"$SUDO_TEST_ROOT/src/cli/$command" <<'STUB'
 #!/bin/bash
 set -euo pipefail
 step=${0##*/}
@@ -34,7 +34,7 @@ case "$step" in
     ;;
 esac
 STUB
-  chmod +x "$SUDO_TEST_ROOT/bin/$command"
+  chmod +x "$SUDO_TEST_ROOT/src/cli/$command"
 done
 
 assert_scoped_channel() {
@@ -61,7 +61,7 @@ PY
 }
 
 run_channel() {
-  "$ARCH_PATH/bin/arch-channel-set" "$@" >"$boundary_tmp/output" 2>&1
+  "$ARCH_PATH/src/cli/arch-channel-set" "$@" >"$boundary_tmp/output" 2>&1
 }
 for channel in stable rc edge dev; do
   reset_boundary
@@ -130,7 +130,7 @@ pass "a stale dev checkout is rejected before linking or privileged work"
 # On aarch64 the checkout's own refresh keeps the machine's repositories only
 # once it tells platforms apart: a checkout without that is refused the same way.
 checkout="$SUDO_TEST_HOME/arch"
-for required in bin/arch-hw-platform installer/helpers/pacman.sh; do
+for required in src/cli/arch-hw-platform installer/helpers/pacman.sh; do
   for platform in aarch64; do
     reset_boundary
     mv "$checkout/$required" "$boundary_tmp/saved-required"
@@ -172,8 +172,8 @@ pass "leaving dev preserves no-update sudo through unlink and hands off to the p
 reset_boundary
 export SUDO_TEST_INSTALLED=$'arch 4.0.5-1\narch-settings 4.0.5-1'
 mv "$SUDO_TEST_ROOT/default/arch/sudo-no-update/sudo" "$boundary_tmp/saved-package-wrapper"
-mv "$SUDO_TEST_ROOT/bin/arch-update" "$boundary_tmp/saved-package-update"
-ln -s test-step "$SUDO_TEST_ROOT/bin/arch-update"
+mv "$SUDO_TEST_ROOT/src/cli/arch-update" "$boundary_tmp/saved-package-update"
+ln -s test-step "$SUDO_TEST_ROOT/src/cli/arch-update"
 if ARCH_PATH="$SUDO_TEST_HOME/arch" run_channel stable; then fail "an older packaged destination was updated with ordinary sudo" "$(<"$SUDO_TEST_LOG")"; fi
 grep -q "predates command-scoped sudo" "$boundary_tmp/output" || fail "an older packaged destination was not reported" "$(<"$boundary_tmp/output")"
 grep -Fq "Packages are switched to arch 4.0.5-1, arch-settings 4.0.5-1." "$boundary_tmp/output" || fail "an older packaged destination does not name what is installed" "$(<"$boundary_tmp/output")"
@@ -183,8 +183,8 @@ grep -Fxq 'step:arch-state set reboot-required' "$SUDO_TEST_LOG" || fail "leavin
 if grep -q '^step:arch-update ' "$SUDO_TEST_LOG"; then fail "an older packaged updater was launched from the hardened switch" "$(<"$SUDO_TEST_LOG")"; fi
 grep -q 'The channel switch did not complete' "$boundary_tmp/output" && fail "the stop was reported as an error needing a rerun" "$(<"$boundary_tmp/output")"
 assert_boundary_cold "older packaged destination"
-rm "$SUDO_TEST_ROOT/bin/arch-update"
-mv "$boundary_tmp/saved-package-update" "$SUDO_TEST_ROOT/bin/arch-update"
+rm "$SUDO_TEST_ROOT/src/cli/arch-update"
+mv "$boundary_tmp/saved-package-update" "$SUDO_TEST_ROOT/src/cli/arch-update"
 mv "$boundary_tmp/saved-package-wrapper" "$SUDO_TEST_ROOT/default/arch/sudo-no-update/sudo"
 pass "an older packaged destination stops the switch cold with instructions instead of running its updater"
 
@@ -192,13 +192,13 @@ pass "an older packaged destination stops the switch cold with instructions inst
 # without the wrapper. From then on a bare sudo would be the real one, so no
 # privileged step may follow either transaction without checking first. A decoy
 # sudo in the package bin catches any such call instead of reaching the host.
-rm "$SUDO_TEST_ROOT/bin/sudo"
-cat >"$SUDO_TEST_ROOT/bin/sudo" <<'STUB'
+rm "$SUDO_TEST_ROOT/src/cli/sudo"
+cat >"$SUDO_TEST_ROOT/src/cli/sudo" <<'STUB'
 #!/bin/bash
 printf 'unwrapped-sudo %s\n' "$*" >>"$SUDO_TEST_LOG"
 exit 97
 STUB
-chmod +x "$SUDO_TEST_ROOT/bin/sudo"
+chmod +x "$SUDO_TEST_ROOT/src/cli/sudo"
 cp "$SUDO_TEST_ROOT/default/arch/sudo-no-update/sudo" "$boundary_tmp/saved-package-wrapper"
 for pattern in 'pacman -Syyuu*' 'pacman -S --needed*'; do
   reset_boundary
@@ -236,8 +236,8 @@ PY
   cp "$boundary_tmp/saved-package-wrapper" "$SUDO_TEST_ROOT/default/arch/sudo-no-update/sudo"
   pass "a transaction that removes the wrapper stops the switch before any further sudo ($pattern)"
 done
-rm "$SUDO_TEST_ROOT/bin/sudo"
-ln -s ../mock/sudo "$SUDO_TEST_ROOT/bin/sudo"
+rm "$SUDO_TEST_ROOT/src/cli/sudo"
+ln -s ../mock/sudo "$SUDO_TEST_ROOT/src/cli/sudo"
 
 mkdir "$boundary_tmp/user tools"
 cat >"$boundary_tmp/user tools/channel-user-tool" <<'STUB'
@@ -246,8 +246,8 @@ printf 'user-tool:%s\n' "$*" >>"$SUDO_TEST_LOG"
 STUB
 chmod +x "$boundary_tmp/user tools/channel-user-tool"
 for command in arch-hook arch-update-mise; do
-  rm "$SUDO_TEST_ROOT/bin/$command"
-  cat >"$SUDO_TEST_ROOT/bin/$command" <<'STUB'
+  rm "$SUDO_TEST_ROOT/src/cli/$command"
+  cat >"$SUDO_TEST_ROOT/src/cli/$command" <<'STUB'
 #!/bin/bash
 if [[ ${1:-} == "pre-refresh-pacman" ]]; then
   [[ ! -e $SUDO_TEST_CACHE ]] || exit 91
@@ -258,7 +258,7 @@ else
 fi
 channel-user-tool "${0##*/}" "$@"
 STUB
-  chmod +x "$SUDO_TEST_ROOT/bin/$command"
+  chmod +x "$SUDO_TEST_ROOT/src/cli/$command"
 done
 reset_boundary
 PATH="$boundary_tmp/user tools:$PATH" run_channel stable || fail "channel hooks lost the user's PATH" "$(<"$boundary_tmp/output")"
@@ -267,7 +267,7 @@ for event in 'arch-hook post-update' 'arch-update-mise' 'arch-hook pre-refresh-p
 done
 assert_boundary_cold "channel user PATH"
 for command in arch-hook arch-update-mise; do
-  ln -sfn test-step "$SUDO_TEST_ROOT/bin/$command"
+  ln -sfn test-step "$SUDO_TEST_ROOT/src/cli/$command"
 done
 pass "channel switching preserves user tools for both hooks and mise"
 
@@ -281,7 +281,7 @@ done
 
 for signal in HUP INT TERM; do
   reset_boundary
-  cat >"$SUDO_TEST_ROOT/bin/arch-dev-unlink" <<'STUB'
+  cat >"$SUDO_TEST_ROOT/src/cli/arch-dev-unlink" <<'STUB'
 #!/bin/bash
 sudo /usr/bin/true || exit 1
 kill -s "$SUDO_TEST_CHANNEL_SIGNAL" "$PPID"
@@ -299,7 +299,7 @@ for refusal in unsupported-sudo failed-revocation ordinary-bash; do
     failed-revocation) export SUDO_TEST_REVOKE_FAIL=1 ;;
   esac
   if [[ $refusal == "ordinary-bash" ]]; then
-    if /usr/bin/bash "$SUDO_TEST_ROOT/bin/arch-channel-set" -p >"$boundary_tmp/output" 2>&1; then fail "$refusal was accepted"; fi
+    if /usr/bin/bash "$SUDO_TEST_ROOT/src/cli/arch-channel-set" -p >"$boundary_tmp/output" 2>&1; then fail "$refusal was accepted"; fi
   elif run_channel stable; then
     fail "$refusal was accepted"
   fi

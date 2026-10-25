@@ -17,19 +17,19 @@ For acceptance-test-only changes, reuse an installed base and sync the suite:
 
 ```bash
 cd ../arch-iso
-./bin/arch-iso-test release/<iso>.iso --reuse-base --sync-arch ../arch --no-preview
+./src/cli/arch-iso-test release/<iso>.iso --reuse-base --sync-arch ../arch --no-preview
 ```
 
 Use `--sync-all ../arch` instead of `--sync-arch ../arch` when the
-acceptance run must exercise local `bin/`, `config/`, or `src/shell/` source too.
+acceptance run must exercise local `src/cli/`, `config/`, or `src/shell/` source too.
 Changes to package manifests, installation, finalization, or shipped defaults
 require a fresh ISO built from the local checkouts and a run without
 `--reuse-base`:
 
 ```bash
 cd ../arch-iso
-./bin/arch-iso-make --no-boot-offer --local-source ../arch ../arch-pkgs
-./bin/arch-iso-test release/<generated-iso>.iso --no-preview
+./src/cli/arch-iso-make --no-boot-offer --local-source ../arch ../arch-pkgs
+./src/cli/arch-iso-test release/<generated-iso>.iso --no-preview
 ```
 
 Keep unrelated acceptance workflows in separate test files. The runner records

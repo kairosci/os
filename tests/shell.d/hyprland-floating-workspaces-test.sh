@@ -41,7 +41,7 @@ chmod +x "$stub_dir"/*
 
 run() {
   env HOME="$home_dir" XDG_STATE_HOME="$state_home" XDG_RUNTIME_DIR="$runtime_dir" FAKE="$fake" \
-    PATH="$stub_dir:$ROOT/bin:$PATH" "$@"
+    PATH="$stub_dir:$ROOT/src/cli:$PATH" "$@"
 }
 
 dispatched() {

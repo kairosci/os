@@ -89,7 +89,7 @@ mkdir -p "$test_home/.local/state/arch/indicators"
 touch "$test_home/.local/state/arch/indicators/stay-awake"
 cp -a "$ROOT/src/shell" "$test_root/shell"
 ln -s "$ROOT/config" "$test_root/config"
-ln -s "$ROOT/bin" "$test_root/bin"
+ln -s "$ROOT/src/cli" "$test_root/bin"
 ln -s "$ROOT/default" "$test_root/default"
 
 # The scratch shell must not reach the real session: the clipboard plugin
@@ -114,11 +114,11 @@ chmod +x "$stub_bin/bash"
 
 
 shell_ipc() {
-  ARCH_PATH="$test_root" "$ROOT/bin/arch-shell" "$@"
+  ARCH_PATH="$test_root" "$ROOT/src/cli/arch-shell" "$@"
 }
 
 shell_ipc_quiet() {
-  ARCH_PATH="$test_root" "$ROOT/bin/arch-shell" -q "$@"
+  ARCH_PATH="$test_root" "$ROOT/src/cli/arch-shell" -q "$@"
 }
 
 # mapped|absent|unknown: a failed compositor query proves nothing, so
@@ -151,7 +151,7 @@ HOME="$test_home" \
 XDG_CONFIG_HOME="$test_home/.config" \
 XDG_CACHE_HOME="$test_home/.cache" \
 XDG_STATE_HOME="$test_home/.local/state" \
-PATH="$stub_bin:$ROOT/bin:$PATH" \
+PATH="$stub_bin:$ROOT/src/cli:$PATH" \
   quickshell -p "$test_root/shell" --no-color >"$log" 2>&1 &
 QS_PID=$!
 
@@ -175,7 +175,7 @@ done
 panels=(arch.audio arch.bluetooth arch.monitor arch.network)
 # The power panel hides itself without a battery, so it can only be
 # timed where one exists.
-if "$ROOT/bin/arch-battery-present" >/dev/null 2>&1; then
+if "$ROOT/src/cli/arch-battery-present" >/dev/null 2>&1; then
   panels+=(arch.power)
 else
   skip "panel arch.power first open and reopen (no battery)"

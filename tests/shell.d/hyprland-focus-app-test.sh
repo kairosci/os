@@ -24,7 +24,7 @@ dispatch_log="$test_tmp/dispatch"
 clients_json='[{"address":"0xabc","class":"chromium"}]'
 PATH="$mock_bin:$PATH" ARCH_TEST_CLIENTS_JSON="$clients_json" \
   ARCH_TEST_FOCUS_DISPATCH="$dispatch_log" \
-  bash "$ROOT/bin/arch-hyprland-focus-app" '^chromium$'
+  bash "$ROOT/src/cli/arch-hyprland-focus-app" '^chromium$'
 
 grep -F 'hl.dsp.focus({ window = "address:0xabc" })' "$dispatch_log" >/dev/null || \
   fail "app focus uses the workspace-aware Hyprland dispatcher"
@@ -37,7 +37,7 @@ clients_json='[
 ]'
 PATH="$mock_bin:$PATH" ARCH_TEST_CLIENTS_JSON="$clients_json" \
   ARCH_TEST_FOCUS_DISPATCH="$dispatch_log" \
-  bash "$ROOT/bin/arch-hyprland-focus-app" kitty
+  bash "$ROOT/src/cli/arch-hyprland-focus-app" kitty
 
 grep -F 'hl.dsp.focus({ window = "address:0xagent" })' "$dispatch_log" >/dev/null || \
   fail "app focus falls back to the initial window title"
@@ -50,7 +50,7 @@ clients_json='[
 rm -f "$dispatch_log"
 if PATH="$mock_bin:$PATH" ARCH_TEST_CLIENTS_JSON="$clients_json" \
   ARCH_TEST_FOCUS_DISPATCH="$dispatch_log" \
-  bash "$ROOT/bin/arch-hyprland-focus-app" Mail; then
+  bash "$ROOT/src/cli/arch-hyprland-focus-app" Mail; then
   fail "app focus rejects title matches from non-agent windows"
 fi
 
@@ -64,7 +64,7 @@ clients_json='[
 ]'
 PATH="$mock_bin:$PATH" ARCH_TEST_CLIENTS_JSON="$clients_json" \
   ARCH_TEST_FOCUS_DISPATCH="$dispatch_log" \
-  bash "$ROOT/bin/arch-hyprland-focus-app" '^chromium$'
+  bash "$ROOT/src/cli/arch-hyprland-focus-app" '^chromium$'
 
 grep -F 'hl.dsp.focus({ window = "address:0xrecent" })' "$dispatch_log" >/dev/null || \
   fail "app focus picks the window focused last"

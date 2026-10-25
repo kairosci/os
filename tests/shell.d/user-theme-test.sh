@@ -15,11 +15,11 @@ SH
 chmod +x "$mock_bin/arch-theme-set"
 
 for command in arch-theme-set-pi arch-theme-set-fcitx5; do
-  cat >"$mock_bin/$command" <<'SH'
+  cat >"$mock_src/cli/$command" <<'SH'
 #!/bin/bash
 exit 0
 SH
-  chmod +x "$mock_bin/$command"
+  chmod +x "$mock_src/cli/$command"
 done
 
 calls="$test_tmp/theme-calls"

@@ -42,7 +42,7 @@ validate_dev_checkout() {
     fail "$checkout already exists and is not a git checkout."
   fi
 
-  if [[ -d $checkout/.git && ( ! -d $checkout/bin || ! -d $checkout/default || ! -d $checkout/shell ) ]]; then
+  if [[ -d $checkout/.git && ( ! -d $checkout/src/cli || ! -d $checkout/default || ! -d $checkout/src/shell ) ]]; then
     fail "$checkout is a git checkout, but it does not look like os."
   fi
 }
@@ -59,7 +59,7 @@ validate_dev_region() {
   # just a directory with the region's name: dev refreshes edge, and leaving
   # dev later refreshes stable or rc with this checkout's tools.
   local profile="$checkout/default/regions/$region/pacman" fragment supported=true
-  [[ -x $checkout/bin/arch-apply-pacman ]] || supported=false
+  [[ -x $checkout/src/cli/arch-apply-pacman ]] || supported=false
   for fragment in arch-{stable,rc,edge}.prepend mirrorlist-{stable,rc,edge}.prepend; do
     [[ -r $profile/$fragment ]] || supported=false
   done
@@ -77,9 +77,9 @@ link_dev_checkout() {
 
   # Check the destination before changing /etc/arch.conf or sudo's path.
   # An existing checkout is not pulled automatically and may predate this policy.
-  for required in bin/arch-security-functions bin/arch-update bin/arch-refresh-pacman default/arch/sudo-no-update/sudo; do
+  for required in src/cli/arch-security-functions src/cli/arch-update src/cli/arch-refresh-pacman default/arch/sudo-no-update/sudo; do
     if [[ ! -f $checkout/$required || ! -r $checkout/$required ||
-      ( $required != "bin/arch-security-functions" && ! -x $checkout/$required ) ]]; then
+      ( $required != "src/cli/arch-security-functions" && ! -x $checkout/$required ) ]]; then
       fail "Update the checkout before switching to dev; missing required update support in $required."
     fi
   done
@@ -93,9 +93,9 @@ link_dev_checkout() {
   # On aarch64 one from before it had platform templates would replace this
   # machine's repositories with x86's.
   if [[ $platform != "x86" ]]; then
-    for required in bin/arch-hw-platform installer/helpers/pacman.sh; do
+    for required in src/cli/arch-hw-platform installer/helpers/pacman.sh; do
       if [[ ! -f $checkout/$required || ! -r $checkout/$required ||
-        ( $required == "bin/arch-hw-platform" && ! -x $checkout/$required ) ]]; then
+        ( $required == "src/cli/arch-hw-platform" && ! -x $checkout/$required ) ]]; then
         fail "Update the checkout before switching to dev; on $platform it needs $required for this machine's repositories."
       fi
     done

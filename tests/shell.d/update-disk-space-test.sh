@@ -18,8 +18,8 @@ snapshot_marker="$test_tmp/snapshot"
 gum_marker="$test_tmp/gum"
 mkdir -p "$runtime_dir"
 for command in arch-update arch-update-requires-free-space arch-update-confirm arch-i18n; do
-  rm -f "$stub_bin/$command"
-  copy_boundary_file "bin/$command"
+  rm -f "$stub_src/cli/$command"
+  copy_boundary_file "src/cli/$command"
 done
 # The confirmation prompt reads its text from the English catalog.
 mkdir -p "$SUDO_TEST_ROOT/default/i18n/en"
@@ -29,7 +29,7 @@ cp "$ROOT/default/i18n/plural.jq" "$ROOT/default/i18n/locales.json" "$SUDO_TEST_
 run_update() {
   SUDO_TEST_HOME="$test_home" \
   XDG_RUNTIME_DIR="$runtime_dir" \
-  PATH="$stub_bin:$ROOT/bin:$PATH" \
+  PATH="$stub_bin:$ROOT/src/cli:$PATH" \
   LC_ALL=C \
   ARCH_UPDATE_LOGGED=1 \
   TEST_AVAILABLE_BYTES=${TEST_AVAILABLE_BYTES:-$((9 * 1024 * 1024 * 1024))} \
@@ -37,7 +37,7 @@ run_update() {
   SNAPSHOT_MARKER="$snapshot_marker" \
   GUM_MARKER="$gum_marker" \
   GUM_STATUS=${GUM_STATUS:-1} \
-    "$SUDO_TEST_ROOT/bin/arch-update" "$@"
+    "$SUDO_TEST_ROOT/src/cli/arch-update" "$@"
 }
 
 write_stub() {
@@ -95,8 +95,8 @@ write_stub pkexec 'exec "$@"'
 
 set +e
 TEST_AVAILABLE_BYTES=$((9 * 1024 * 1024 * 1024)) \
-  PATH="$stub_bin:$ROOT/bin:$PATH" \
-  "$ROOT/bin/arch-update-requires-free-space" >/dev/null
+  PATH="$stub_bin:$ROOT/src/cli:$PATH" \
+  "$ROOT/src/cli/arch-update-requires-free-space" >/dev/null
 status=$?
 set -e
 (( status == 1 )) || fail "free-space helper exits non-zero when disk space is low"

@@ -33,7 +33,7 @@ version() {
   ARCH_TEST_PACKAGES="$1" \
     ARCH_PATH="${2:-/usr/share/arch}" \
     PATH="$stub_bin:$PATH" \
-    "$ROOT/bin/arch-version"
+    "$ROOT/src/cli/arch-version"
 }
 
 [[ $(version arch) == "4.0.0-1" ]] || fail "version reports the stable package"

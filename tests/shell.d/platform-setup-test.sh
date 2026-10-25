@@ -43,7 +43,7 @@ leaf() {
   shift 2
   rm -f "$tmp/ran"
   env "$@" ARCH_PROC_ROOT="$tmp/$platform/proc" ARCH_LIFECYCLE_ROOT="$lifecycle" \
-    PATH="$tmp/$platform/bin:$ROOT/bin:$PATH" bash -eE -c 'source "$1"' bash "$script" >"$tmp/output" 2>&1
+    PATH="$tmp/$platform/bin:$ROOT/src/cli:$PATH" bash -eE -c 'source "$1"' bash "$script" >"$tmp/output" 2>&1
 }
 
 # ── system setup ─────────────────────────────────────────────────────────────
@@ -129,7 +129,7 @@ first_run() {
   rm -f "$tmp/ran" "$tmp/first-run-marker" "$tmp/home/.local/state/arch/first-run.log"
   HOME="$tmp/home" ARCH_PATH="$first_root" FIRST_RUN_MARKER="$tmp/first-run-marker" \
     ARCH_PROC_ROOT="$tmp/$platform/proc" ARCH_LIFECYCLE_ROOT="$lifecycle" \
-    PATH="$first_bin:$tmp/$platform/bin:$ROOT/bin:$PATH" bash "$ROOT/bin/arch-provision-first-run" >"$tmp/output" 2>&1
+    PATH="$first_bin:$tmp/$platform/bin:$ROOT/src/cli:$PATH" bash "$ROOT/src/cli/arch-provision-first-run" >"$tmp/output" 2>&1
 }
 
 first_run apple || fail "apple: first run finishes" "$(cat "$tmp/output")"

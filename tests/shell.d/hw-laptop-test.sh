@@ -27,7 +27,7 @@ run_laptop() {
     ARCH_ACPI_LID_PATH="$acpi_lid" \
     ARCH_INPUT_CLASS_PATH="$input_class" \
     PATH="$stub_bin:$PATH" \
-    "$ROOT/bin/arch-hw-laptop"
+    "$ROOT/src/cli/arch-hw-laptop"
 }
 
 run_lid_closed() {
@@ -36,7 +36,7 @@ run_lid_closed() {
     BUSCTL_LOG="$busctl_log" \
     PATH="$stub_bin:$PATH" \
     ARCH_TEST_LID_STATE="$1" \
-    "$ROOT/bin/arch-hw-laptop-closed"
+    "$ROOT/src/cli/arch-hw-laptop-closed"
 }
 
 # Input devices as sysfs shows them: a name and a switch capability bitmap

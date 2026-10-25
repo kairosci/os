@@ -19,7 +19,7 @@ printf '%s\n' '-- User look and feel' >"$looknfeel"
 
 run_fix() {
   HOME="$test_tmp/home" \
-    PATH="$test_tmp/bin:$ROOT/bin:$PATH" \
+    PATH="$test_tmp/bin:$ROOT/src/cli:$PATH" \
     ARCH_NVIDIA_MODPROBE_CONFIG="$test_tmp/nvidia.conf" \
     TEST_VIDEO_DRIVER="${1:-nouveau}" \
     bash -euo pipefail -c 'source "$ROOT/installer/user/hardware/fix-nouveau-cursor.sh"'

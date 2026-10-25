@@ -14,10 +14,13 @@ cat >"$test_tmp/bin/arch-agent-usage-update" <<'SH'
 printf '%s\n' "$*" >>"$ARCH_TEST_REFRESH"
 SH
 chmod +x "$test_tmp/bin"/*
-export ARCH_PATH="$ROOT"
+runtime_root="$test_tmp/arch-runtime"
+mkdir -p "$runtime_root"
+ln -s "$ROOT/src/cli" "$runtime_root/bin"
+export ARCH_PATH="$runtime_root"
 export ARCH_TEST_ROOT="$test_tmp"
 export ARCH_TEST_REFRESH="$test_tmp/refresh"
-export PATH="$test_tmp/bin:$ROOT/bin:$PATH"
+export PATH="$test_tmp/bin:$ROOT/src/cli:$PATH"
 unset CLAUDE_CONFIG_DIR CODEX_HOME GROK_HOME
 
 python3 - <<'PY'
@@ -395,7 +398,7 @@ printf '%s\n' "$*" >"$ARCH_TEST_ROOT/preferred-receiver"
 /usr/bin/python3 -c 'import json,sys; assert json.load(sys.stdin)["version"] == 1'
 SH
 chmod +x "$test_tmp/bin/arch-agent-account-transfer"
-HOME="$test_tmp/source" XDG_STATE_HOME="$test_tmp/source/state" "$ROOT/bin/arch-agent-account-transfer" bundle claude | /usr/bin/python3 -I -c "$(HOME="$test_tmp/source" XDG_STATE_HOME="$test_tmp/source/state" /usr/bin/python3 - <<'PYBOOT'
+HOME="$test_tmp/source" XDG_STATE_HOME="$test_tmp/source/state" "$ROOT/src/cli/arch-agent-account-transfer" bundle claude | /usr/bin/python3 -I -c "$(HOME="$test_tmp/source" XDG_STATE_HOME="$test_tmp/source/state" /usr/bin/python3 - <<'PYBOOT'
 import importlib.machinery, importlib.util, os
 loader=importlib.machinery.SourceFileLoader("transfer",os.environ["ARCH_PATH"]+"/bin/arch-agent-account-transfer")
 spec=importlib.util.spec_from_loader(loader.name,loader)

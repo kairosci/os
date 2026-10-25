@@ -66,14 +66,14 @@ mkdir -p "$runtime_dir"
 
 run_notify() {
   HOME="$test_home" \
-  PATH="$stub_bin:$ROOT/bin:$PATH" \
+  PATH="$stub_bin:$ROOT/src/cli:$PATH" \
   XDG_RUNTIME_DIR="$runtime_dir" \
   ARCH_TEST_PENDING_MIGRATIONS="$1" \
   ARCH_TEST_NOTIFY_ARGS="$test_tmp/notify-args" \
   ARCH_TEST_NOTIFY_SEND="${2:-send}" \
   ARCH_TEST_LOCK_DURING_WAIT="${ARCH_TEST_LOCK_DURING_WAIT:-0}" \
   ARCH_TEST_LOCK_HOLDER_PID="$test_tmp/lock-holder-pid" \
-    "$ROOT/bin/arch-migrate-notify"
+    "$ROOT/src/cli/arch-migrate-notify"
 }
 
 notify_args_written() {

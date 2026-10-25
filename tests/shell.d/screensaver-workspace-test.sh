@@ -51,7 +51,7 @@ chmod +x "$tmpdir/bin/"*
 printf '[{"class":"org.arch.screensaver","mapped":true}]\n' >"$tmpdir/clients.json"
 
 PATH="$tmpdir/bin:$PATH" TEST_DIR="$tmpdir" XDG_RUNTIME_DIR="$tmpdir" HYPRLAND_INSTANCE_SIGNATURE=test \
-  timeout 10 "$ROOT/bin/arch-launch-screensaver" force
+  timeout 10 "$ROOT/src/cli/arch-launch-screensaver" force
 
 mapfile -t spawns < <(grep exec_cmd "$tmpdir/calls")
 (( ${#spawns[@]} == 2 )) || fail "a screensaver opens on each monitor" "$(<"$tmpdir/calls")"
@@ -83,7 +83,7 @@ kill "$(<"$tmpdir/socat.pid")"
 : >"$tmpdir/calls"
 : >"$tmpdir/spawned"
 PATH="$tmpdir/bin:$PATH" TEST_DIR="$tmpdir" XDG_RUNTIME_DIR="$tmpdir" HYPRLAND_INSTANCE_SIGNATURE=test \
-  timeout 10 "$ROOT/bin/arch-launch-screensaver" force
+  timeout 10 "$ROOT/src/cli/arch-launch-screensaver" force
 for (( attempt = 0; attempt < 100; attempt++ )); do
   (( $(grep -c 'hl.dsp.focus({ monitor = "DP-1" })' "$tmpdir/calls") == 3 )) && break
   sleep 0.05

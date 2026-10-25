@@ -39,7 +39,7 @@ JSON
 }
 
 validate() {
-  ARCH_PATH="$ROOT" "$ROOT/bin/arch-plugin-validate" "$1" 2>&1
+  ARCH_PATH="$ROOT" "$ROOT/src/cli/arch-plugin-validate" "$1" 2>&1
 }
 
 # Every kind the shell knows how to load names the entry point it loads from.

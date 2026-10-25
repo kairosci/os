@@ -56,8 +56,8 @@ run() { # command STUB_GROUPS GUM_ANSWER DEFER(0|1)
   env HOME="$home" USER="tester" STUB_GROUPS="$2" GUM_ANSWER="$3" \
     GUM_CALLED="$gum_called" REBOOT_CALLED="$reboot_called" \
     GPASSWD_CALLS="$gpasswd_calls" USERMOD_CALLS="$usermod_calls" \
-    PATH="$stub_bin:$ROOT/bin:$PATH" "${defer_env[@]}" \
-    bash "$ROOT/bin/$1" >/dev/null 2>&1
+    PATH="$stub_bin:$ROOT/src/cli:$PATH" "${defer_env[@]}" \
+    bash "$ROOT/src/cli/$1" >/dev/null 2>&1
 }
 
 # Remove, interactive, reboot confirmed -> group removed, flag set, reboot fired.

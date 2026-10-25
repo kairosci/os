@@ -15,10 +15,10 @@ export HOME="$test_tmp/home"
 export XDG_STATE_HOME="$test_tmp/state"
 export XDG_RUNTIME_DIR="$test_tmp/runtime"
 export ARCH_PATH="$ROOT"
-export PATH="$test_tmp/bin:$ROOT/bin:$PATH"
+export PATH="$test_tmp/bin:$ROOT/src/cli:$PATH"
 unset CLAUDE_CONFIG_DIR CODEX_HOME GROK_HOME
 
-STATE="$ROOT/bin/arch-agent-account-state" python3 - <<'PY'
+STATE="$ROOT/src/cli/arch-agent-account-state" python3 - <<'PY'
 import importlib.machinery, importlib.util, json, os, subprocess, sys
 from pathlib import Path
 

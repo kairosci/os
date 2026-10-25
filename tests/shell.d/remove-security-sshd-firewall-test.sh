@@ -4,7 +4,7 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-remove="${REMOVE_SECURITY_SSHD_UNDER_TEST:-$ROOT/bin/arch-remove-security-sshd}"
+remove="${REMOVE_SECURITY_SSHD_UNDER_TEST:-$ROOT/src/cli/arch-remove-security-sshd}"
 test_dir=$(mktemp -d)
 stub_bin="$test_dir/bin"
 mkdir -p "$stub_bin"
@@ -71,7 +71,7 @@ prepare_case() {
 run_remove() {
   local failure="${1:-}"
   set +e
-  output=$(env HOME="$home" PATH="$stub_bin:$ROOT/bin:/usr/bin:/bin" \
+  output=$(env HOME="$home" PATH="$stub_bin:$ROOT/src/cli:/usr/bin:/bin" \
     CALL_LOG="$calls" UFW_STATE="$state" UFW_PRESENT="${UFW_PRESENT:-1}" FAIL_UFW="$failure" \
     bash "$remove" 2>&1)
   status=$?

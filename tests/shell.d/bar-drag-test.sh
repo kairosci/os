@@ -45,7 +45,7 @@ HOME="$TMPDIR/home" \
 XDG_CONFIG_HOME="$TMPDIR/home/.config" \
 XDG_CACHE_HOME="$TMPDIR/home/.cache" \
 XDG_STATE_HOME="$TMPDIR/home/.local/state" \
-PATH="$TMPDIR/bin:$ROOT/bin:$PATH" \
+PATH="$TMPDIR/bin:$ROOT/src/cli:$PATH" \
   quickshell -p "$config_dir" --no-color >"$log" 2>&1 &
 QS_PID=$!
 

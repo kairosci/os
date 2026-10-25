@@ -16,7 +16,7 @@ mkdir -p "$bin_dir"
 # one has to be reachable: this proves the template it writes today, not a
 # copy of it that could drift.
 run_migration() {
-  HOME="$home" PATH="$ROOT/bin:$PATH" bash -euo pipefail "$migration" >/dev/null
+  HOME="$home" PATH="$ROOT/src/cli:$PATH" bash -euo pipefail "$migration" >/dev/null
 }
 
 write_stale_wrapper() {
@@ -155,6 +155,6 @@ pass "migration only rewrites wrappers it recognizes"
 # A machine with no ~/.local/bin at all must not fail the run.
 empty_home="$test_dir/empty-home"
 mkdir -p "$empty_home"
-HOME="$empty_home" PATH="$ROOT/bin:$PATH" bash -euo pipefail "$migration" >/dev/null ||
+HOME="$empty_home" PATH="$ROOT/src/cli:$PATH" bash -euo pipefail "$migration" >/dev/null ||
   fail "migration succeeds when ~/.local/bin is missing"
 pass "migration succeeds when ~/.local/bin is missing"

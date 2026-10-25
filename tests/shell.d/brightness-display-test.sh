@@ -59,13 +59,13 @@ chmod +x "$mock_bin"/*
 platform_root="$test_tmp/platform"
 mkdir -p "$platform_root" "$test_tmp/copy"
 brightness_display="$test_tmp/copy/arch-brightness-display"
-platform_root_copy "$ROOT/bin/arch-brightness-display" "$brightness_display" "$platform_root"
+platform_root_copy "$ROOT/src/cli/arch-brightness-display" "$brightness_display" "$platform_root"
 sed -i "s|/sys/class/drm|$test_tmp/drm|g" "$brightness_display"
 grep -qF "$test_tmp/drm/card" "$brightness_display" || fail "arch-brightness-display reads DRM connectors from the fixture"
 
 run_brightness() {
   CALL_LOG="$call_log" XDG_RUNTIME_DIR="$runtime_dir" \
-    PATH="$mock_bin:$ROOT/bin:$PATH" "$brightness_display" "$@"
+    PATH="$mock_bin:$ROOT/src/cli:$PATH" "$brightness_display" "$@"
 }
 
 brightness=$(run_brightness --monitor DP-1)
@@ -148,9 +148,9 @@ printf '%s\n' '[
 SH
 chmod +x "$mock_bin/hyprctl"
 
-PATH="$mock_bin:$PATH" "$ROOT/bin/arch-hyprland-monitor-focused-apple" DP-2 || \
+PATH="$mock_bin:$PATH" "$ROOT/src/cli/arch-hyprland-monitor-focused-apple" DP-2 || \
   fail "named Apple display is detected independently of focus"
-if PATH="$mock_bin:$PATH" "$ROOT/bin/arch-hyprland-monitor-focused-apple"; then
+if PATH="$mock_bin:$PATH" "$ROOT/src/cli/arch-hyprland-monitor-focused-apple"; then
   fail "focused non-Apple display is not detected as Apple"
 fi
 pass "named Apple display is detected independently of focus"

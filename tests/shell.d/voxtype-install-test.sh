@@ -12,7 +12,7 @@ calls="$test_tmp/calls.log"
 mkdir -p "$stub_bin" "$lib_path"
 
 for command in gum arch-pkg-drop arch-pkg-add hyprctl arch-restart-shell arch-notification-send systemctl; do
-  printf '#!/bin/bash\nexit 0\n' >"$stub_bin/$command"
+  printf '#!/bin/bash\nexit 0\n' >"$stub_src/cli/$command"
 done
 printf '#!/bin/bash\nexit 1\n' >"$stub_bin/arch-pkg-present"
 # Voxtype is already installed, so the install asks nothing and only sets it up.
@@ -46,7 +46,7 @@ run_install() {
 
   HOME="$test_tmp/home" ARCH_PATH="$ROOT" ARCH_VOXTYPE_LIB_PATH="$lib_path" \
     VULKAN="$vulkan" TEST_LOG="$calls" PATH="$stub_bin:$PATH" \
-    XDG_CONFIG_HOME="$test_tmp/home/.config" bash "$ROOT/bin/arch-install-dictation-voxtype" >/dev/null ||
+    XDG_CONFIG_HOME="$test_tmp/home/.config" bash "$ROOT/src/cli/arch-install-dictation-voxtype" >/dev/null ||
     fail "Voxtype install completes (vulkan=$vulkan backend=$backend)"
 
   grep -Fx 'voxtype setup systemd' "$calls" >/dev/null ||

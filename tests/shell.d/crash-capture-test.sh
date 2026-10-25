@@ -26,10 +26,10 @@ test_home="$TMPDIR/home"
 flag="$test_home/.local/state/arch/toggles/crash-capture-off"
 
 toggle_crash_capture() {
-  PATH="$TMPDIR/bin:$ROOT/bin:$PATH" \
+  PATH="$TMPDIR/bin:$ROOT/src/cli:$PATH" \
   SYSTEMCTL_LOG="$SYSTEMCTL_LOG" \
   HOME="$test_home" \
-    "$ROOT/bin/arch-toggle-crash-capture"
+    "$ROOT/src/cli/arch-toggle-crash-capture"
 }
 
 toggle_crash_capture
@@ -112,11 +112,11 @@ run_watch() {
 
   : >"$NOTIFY_LOG"
 
-  PATH="$watch_bin:$ROOT/bin:$PATH" \
+  PATH="$watch_bin:$ROOT/src/cli:$PATH" \
   JOURNAL_ENTRIES="$JOURNAL_ENTRIES" \
   NOTIFY_LOG="$NOTIFY_LOG" \
   HOME="$watch_home" \
-    "$ROOT/bin/arch-crash-watch" || status=$?
+    "$ROOT/src/cli/arch-crash-watch" || status=$?
 
   (( status == 0 )) ||
     fail "the watcher exited $status rather than carrying on, so a mute takes the service down with it"
@@ -126,8 +126,8 @@ run_watch() {
 # are then the guard that the thing the diagnosis runs and the thing the watcher
 # reads have not drifted apart.
 mute() {
-  HOME="$watch_home" PATH="$ROOT/bin:$PATH" \
-    "$ROOT/bin/arch-crash-mute" "$1" "$2" >/dev/null
+  HOME="$watch_home" PATH="$ROOT/src/cli:$PATH" \
+    "$ROOT/src/cli/arch-crash-mute" "$1" "$2" >/dev/null
 }
 
 announced() {
@@ -258,7 +258,7 @@ mute_home="$TMPDIR/mute-home"
 mkdir -p "$mute_home"
 
 crash_mute() {
-  HOME="$mute_home" PATH="$ROOT/bin:$PATH" "$ROOT/bin/arch-crash-mute" "$@"
+  HOME="$mute_home" PATH="$ROOT/src/cli:$PATH" "$ROOT/src/cli/arch-crash-mute" "$@"
 }
 
 mute_flag() {
@@ -365,8 +365,8 @@ SH
 chmod +x "$failing_bin/arch-toggle"
 
 status=0
-refusal=$(HOME="$mute_home" PATH="$failing_bin:$ROOT/bin:$PATH" \
-  "$ROOT/bin/arch-crash-mute" hyprland 2>&1) || status=$?
+refusal=$(HOME="$mute_home" PATH="$failing_bin:$ROOT/src/cli:$PATH" \
+  "$ROOT/src/cli/arch-crash-mute" hyprland 2>&1) || status=$?
 (( status != 0 )) ||
   fail "a mute that could not be written exits zero, so nothing downstream learns it failed"
 ! grep -Fq "Muted crash notifications" <<<"$refusal" ||
@@ -378,7 +378,7 @@ grep -Fq 'arch-crash-mute' "$skill" ||
   fail "the diagnosis no longer names the command that mutes, so the offer it makes cannot be carried out"
 pass "the diagnosis names the command that mutes"
 
-grep -Fq 'GROUP_DESCRIPTIONS[crash]' "$ROOT/bin/arch" ||
+grep -Fq 'GROUP_DESCRIPTIONS[crash]' "$ROOT/src/cli/arch" ||
   fail "the crash group has no description, so the router lists a group it cannot describe"
 pass "the crash group is described in the router"
 

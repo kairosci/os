@@ -22,7 +22,7 @@ unit_source="$ROOT/installer/provisioning/$unit_name"
 # fixture root. Run a copy whose only change is that check, so a normal user
 # can build an image into a fixture root.
 apply_hardware="$test_tmp/arch-apply-hardware"
-sed 's/^if (( EUID != 0 )); then$/if false; then/' "$ROOT/bin/arch-apply-hardware" >"$apply_hardware"
+sed 's/^if (( EUID != 0 )); then$/if false; then/' "$ROOT/src/cli/arch-apply-hardware" >"$apply_hardware"
 chmod +x "$apply_hardware"
 grep -q '^if false; then$' "$apply_hardware" || fail "the test copy of arch-apply-hardware drops only its root check"
 
@@ -30,7 +30,7 @@ grep -q '^if false; then$' "$apply_hardware" || fail "the test copy of arch-appl
 stub_bin="$test_tmp/stub-bin"
 mkdir -p "$stub_bin"
 for command in sudo pacman pacman-key systemctl lspci arch-pkg-add modinfo; do
-  cat >"$stub_bin/$command" <<'SH'
+  cat >"$stub_src/cli/$command" <<'SH'
 #!/bin/bash
 printf '%s %s\n' "${0##*/}" "$*" >>"$LEAF_CALLS"
 exit 1
@@ -59,7 +59,7 @@ chmod +x "$stub_bin"/*
 export LEAF_CALLS="$test_tmp/leaf-calls" REBUILDS="$test_tmp/rebuilds"
 
 fake_platform "$test_tmp/hw" aarch64-apple
-base_path="$test_tmp/hw/bin:$stub_bin:$ROOT/bin:/usr/local/bin:/usr/bin:/bin"
+base_path="$test_tmp/hw/bin:$stub_bin:$ROOT/src/cli:/usr/local/bin:/usr/bin:/bin"
 
 # An os tree whose hardware setup is three leaves that log their runs.
 # Leaves a and b write initramfs drop-ins; b then fails while $FAIL_B exists.
@@ -114,7 +114,7 @@ build() {
 first_boot() {
   local root=$1
   ARCH_IMAGE_ROOT="$root" ARCH_PATH="$fixture" ARCH_PROC_ROOT="$test_tmp/hw/proc" \
-    PATH="$base_path" "$ROOT/bin/arch-provision-hardware"
+    PATH="$base_path" "$ROOT/src/cli/arch-provision-hardware"
 }
 
 reset_logs() {
@@ -273,7 +273,7 @@ root=$(new_root vm)
 write_manifest "$root"
 build "$root" >/dev/null || fail "the fixture image builds for a VM boot"
 output=$(ARCH_IMAGE_ROOT="$root" ARCH_PATH="$fixture" ARCH_PROC_ROOT="$test_tmp/vm/proc" \
-  PATH="$test_tmp/vm/bin:$stub_bin:$ROOT/bin:/usr/local/bin:/usr/bin:/bin" "$ROOT/bin/arch-provision-hardware") ||
+  PATH="$test_tmp/vm/bin:$stub_bin:$ROOT/src/cli:/usr/local/bin:/usr/bin:/bin" "$ROOT/src/cli/arch-provision-hardware") ||
   fail "the first boot on other hardware finishes" "$output"
 [[ $output == *"First boot of an image built for aarch64-apple, on aarch64 hardware"* ]] ||
   fail "the first boot reports the hardware it runs on, not the image target" "$output"
@@ -376,14 +376,14 @@ mkdir -p "$keyring_bin" "$fixture/install/post-install"
 cp "$ROOT/installer/post-install/pacman.sh" "$fixture/install/post-install/pacman.sh"
 cp "$ROOT/installer/helpers/pacman.sh" "$fixture/install/helpers/pacman.sh"
 target_etc='etc="${2:-/}/etc"'
-grep -Fqx "  $target_etc" "$ROOT/bin/arch-apply-pacman" || fail "arch-apply-pacman still names its target etc"
-sed "s|^  $target_etc\$|  etc=\"\${2:-\$ARCH_IMAGE_ROOT}/etc\"|" "$ROOT/bin/arch-apply-pacman" >"$fixture/bin/arch-apply-pacman"
+grep -Fqx "  $target_etc" "$ROOT/src/cli/arch-apply-pacman" || fail "arch-apply-pacman still names its target etc"
+sed "s|^  $target_etc\$|  etc=\"\${2:-\$ARCH_IMAGE_ROOT}/etc\"|" "$ROOT/src/cli/arch-apply-pacman" >"$fixture/bin/arch-apply-pacman"
 chmod +x "$fixture/bin/arch-apply-pacman"
 mkdir -p "$fixture/default"
 cp -r "$ROOT/default/pacman" "$ROOT/default/regions" "$fixture/default/"
 : >"$fixture/install/hardware/pacman.sh"
 for command in pacman-key arch-pkg-add; do
-  cat >"$keyring_bin/$command" <<'SH'
+  cat >"$keyring_src/cli/$command" <<'SH'
 #!/bin/bash
 printf '%s %s\n' "${0##*/}" "$*" >>"$KEYRING"
 [[ ${0##*/} != "pacman-key" || ! -e $KEYRING_FAIL ]]
@@ -402,7 +402,7 @@ finalize() {
 
 keyring_boot() {
   ARCH_IMAGE_ROOT="$1" ARCH_PATH="$fixture" ARCH_PROC_ROOT="$test_tmp/hw/proc" \
-    PATH="$keyring_bin:$base_path" "$ROOT/bin/arch-provision-hardware"
+    PATH="$keyring_bin:$base_path" "$ROOT/src/cli/arch-provision-hardware"
 }
 
 for platform in aarch64; do
@@ -548,7 +548,7 @@ output=$(first_boot "$root") || fail "the first-boot hardware setup succeeds wit
 [[ -z $output && ! -e $root/var/lib/arch ]] || fail "the first-boot hardware setup does nothing with nothing deferred" "$output"
 pass "with nothing deferred the first-boot hardware setup does nothing"
 
-if env -u ARCH_IMAGE_ROOT ARCH_PATH="$fixture" PATH="$base_path" "$ROOT/bin/arch-provision-hardware" >/dev/null 2>&1; then
+if env -u ARCH_IMAGE_ROOT ARCH_PATH="$fixture" PATH="$base_path" "$ROOT/src/cli/arch-provision-hardware" >/dev/null 2>&1; then
   fail "the first-boot hardware setup refuses a normal user"
 fi
 pass "the first-boot hardware setup refuses a normal user"
@@ -602,7 +602,7 @@ bt_image() {
 bt_first_boot() {
   rm -f "$SYSTEMCTL_CALLS" "$RUNS"
   ARCH_IMAGE_ROOT="$1" ARCH_PATH="$bt_fixture" ARCH_PROC_ROOT="$test_tmp/hw/proc" \
-    PATH="$bt_path" "$ROOT/bin/arch-provision-hardware" >/dev/null 2>&1
+    PATH="$bt_path" "$ROOT/src/cli/arch-provision-hardware" >/dev/null 2>&1
 }
 
 started=$'enable bluetooth.service\nstart --no-block bluetooth.service'
@@ -657,7 +657,7 @@ elif unshare --user --map-root-user true 2>/dev/null; then
   root=$(new_root root-build)
   write_manifest "$root"
   ARCH_IMAGE_ROOT="$root" ARCH_PATH="$fixture" ARCH_INSTALL_LOG_FILE="$root/var/log/arch-install.log" \
-    PATH="$base_path" "${root_runner[@]}" "$ROOT/bin/arch-apply-hardware" --defer-provisioning >/dev/null ||
+    PATH="$base_path" "${root_runner[@]}" "$ROOT/src/cli/arch-apply-hardware" --defer-provisioning >/dev/null ||
     fail "root runs hardware setup with a fixture root in its environment"
   [[ $(cat "$RUNS") == $'a user= path='"$fixture"$'\nb\nc' && ! -e $root/var/lib/arch/image/deferred-steps ]] ||
     fail "root ignores a fixture manifest named by its environment"

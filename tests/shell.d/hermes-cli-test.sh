@@ -71,7 +71,7 @@ run_installer() {
     ARCH_TEST_RAN="$ran" \
     HOME="$test_home" \
     PATH="$mock_bin:$test_home/.local/bin:$PATH" \
-    bash "$ROOT/bin/arch-install-hermes-cli" "$@" >"$test_tmp/output" 2>&1
+    bash "$ROOT/src/cli/arch-install-hermes-cli" "$@" >"$test_tmp/output" 2>&1
 }
 
 # A hermes that runs, defines the flags arch-agent passes unless a test says
@@ -215,7 +215,7 @@ run_installer_bare_path() {
   ARCH_TEST_DESKTOP_INSTALLED="${ARCH_TEST_DESKTOP_INSTALLED:-0}" \
     ARCH_TEST_MISE_LOG="$mise_log" ARCH_TEST_PKG_LOG="$pkg_log" ARCH_TEST_RAN="$ran" \
     HOME="$test_home" PATH="$mock_bin:/usr/bin" \
-    bash "$ROOT/bin/arch-install-hermes-cli" "$@" >"$test_tmp/output" 2>&1
+    bash "$ROOT/src/cli/arch-install-hermes-cli" "$@" >"$test_tmp/output" 2>&1
 }
 ARCH_TEST_DESKTOP_INSTALLED=1 run_installer_bare_path --check || fail "--check from a PATH without ~/.local/bin still follows a finished install" "$(cat "$test_tmp/output")"
 pass "--check does not need ~/.local/bin on the caller's PATH"

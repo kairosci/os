@@ -194,7 +194,7 @@ run_setup_on() (
   mkdir -p "$out"
   fake_platform "$scratch/platforms/$platform" "$platform"
   export ARCH_PROC_ROOT="$scratch/platforms/$platform/proc"
-  export PATH="$scratch/platforms/$platform/bin:$ROOT/bin:$PATH"
+  export PATH="$scratch/platforms/$platform/bin:$ROOT/src/cli:$PATH"
 
   arch-hw-match() { [[ $1 == "83ED" ]]; }
   systemctl() { printf '%s\n' "$*" >>"$out/systemctl.log"; }

@@ -44,11 +44,11 @@ hw_n1x() {
   mkdir -p "$shim"
   printf '#!/bin/bash\n[[ ${1:-} == -m ]] && { echo aarch64; exit 0; }\nexec /usr/bin/uname "$@"\n' >"$shim/uname"
   chmod +x "$shim/uname"
-  PATH="$shim:$ROOT/bin:$PATH" ARCH_SYS_ROOT="$tmp_dir/sys" "$ROOT/bin/arch-hw-aarch64-n1x" 2>/dev/null
+  PATH="$shim:$ROOT/src/cli:$PATH" ARCH_SYS_ROOT="$tmp_dir/sys" "$ROOT/src/cli/arch-hw-aarch64-n1x" 2>/dev/null
 }
 
 if [[ $(uname -m) != aarch64 ]]; then
-  assert_fails "$ROOT/bin/arch-hw-aarch64-n1x" "non-aarch64 host is never N1x"
+  assert_fails "$ROOT/src/cli/arch-hw-aarch64-n1x" "non-aarch64 host is never N1x"
 fi
 
 # Root reads the live machine, never a fixture.
@@ -99,7 +99,7 @@ assert_fails grep -Fq -- '--add-uki' "$n1x" "no one-off rescue UKI that kernel u
 assert_fails grep -Fq 'systemctl enable' "$n1x" "the probe runs on demand, not on every boot"
 assert_fails grep -Fq 'systemd-networkd.service' "$n1x" "n1x.sh does not fight network.sh over networkd"
 assert_succeeds grep -Fq 'modinfo -k "$n1x_kernel_version" nvidia nvidia_modeset nvidia_uvm nvidia_drm' "$n1x" "early KMS only when DKMS built every early-loaded module"
-assert_fails grep -Eq 'authorized_keys|recovery key|n1x-recovery' "$ROOT/bin/arch-n1x-probe" "the probe reports sshd state instead of claiming a key"
+assert_fails grep -Eq 'authorized_keys|recovery key|n1x-recovery' "$ROOT/src/cli/arch-n1x-probe" "the probe reports sshd state instead of claiming a key"
 assert_fails grep -Eq 'authorized_keys|sshd' "$n1x" "remote access is left to the development ISO"
 assert_succeeds grep -Fq 'Server = https://pkgs.github.com/kairosci/arch/edge/$arch' "$ROOT/default/pacman/aarch64/pacman-edge.conf" "installed aarch64 systems track os edge"
 all="$ROOT/installer/hardware/all.sh"

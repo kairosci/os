@@ -25,7 +25,7 @@ SH
 chmod +x "$stub_bin/mise"
 
 install_wrapper() {
-  HOME="$home" "$ROOT/bin/arch-mise-install" "$@"
+  HOME="$home" "$ROOT/src/cli/arch-mise-install" "$@"
 }
 
 # The ordinary case still works, and every call site in installer/user/mise.sh

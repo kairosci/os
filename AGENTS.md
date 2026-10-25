@@ -3,7 +3,7 @@
 Deeper instructions for specific kinds of work live in `agents/skills/`. Read the
 matching guide before starting:
 
-- [`agents/skills/command-metadata.md`](agents/skills/command-metadata.md) - adding or changing commands in `bin/`
+- [`agents/skills/command-metadata.md`](agents/skills/command-metadata.md) - adding or changing commands in `src/cli/`
 - [`agents/skills/install-scripts.md`](agents/skills/install-scripts.md) - working under `installer/` or on system/user setup commands
 - [`agents/skills/mise-tools.md`](agents/skills/mise-tools.md) - adding or changing mise-managed tools
 - [`agents/skills/shell-dev.md`](agents/skills/shell-dev.md) - editing the Quickshell desktop under `src/shell/`
@@ -36,7 +36,7 @@ Three documentation trees, split by genre and audience:
 
 All commands start with `arch-`. Prefixes indicate purpose.
 
-The authoritative list of user-facing command groups lives in `bin/arch` in `GROUP_DESCRIPTIONS`. Keep `GROUP_DESCRIPTIONS` updated when adding a new command prefix users are meant to browse to.
+The authoritative list of user-facing command groups lives in `src/cli/archctl` in `GROUP_DESCRIPTIONS`. Keep `GROUP_DESCRIPTIONS` updated when adding a new command prefix users are meant to browse to.
 
 A group whose commands are all `# arch:hidden=true` gets no entry. That table drives the top-level group listing on its own, so an entry there advertises the group even when every command in it is hidden. `apply-` and `provision-` are deliberately absent for that reason; both still route, and `arch <group>` still prints a group header without one.
 
@@ -62,7 +62,7 @@ guidance does not drift from the router.
 # Runtime Environment
 
 - `$ARCH_PATH` is set at the top level by the uwsm session environment and is always available to Arch runtime code.
-- Commands in `bin/` and Quickshell QML should rely on `$ARCH_PATH` / `Quickshell.env("ARCH_PATH")`; do not derive fallback paths from `HOME`, `Quickshell.shellDir`, or re-export/default `ARCH_PATH` manually.
+- Commands in `src/cli/` and Quickshell QML should rely on `$ARCH_PATH` / `Quickshell.env("ARCH_PATH")`; do not derive fallback paths from `HOME`, `Quickshell.shellDir`, or re-export/default `ARCH_PATH` manually.
 
 # Platforms
 
@@ -148,7 +148,7 @@ test entry points:
 How to run them without wasting runs:
 
 - Run the files for what you changed directly: `bash tests/shell.d/<area>-test.sh`. A change inside one plugin or command runs that area's files (and `i18n-test.sh` when catalog strings changed), not `./tests/shell`.
-- Run `./tests/shell` or `./tests/all` only when the change reaches shared code (`src/shell/Commons/`, `base-test.sh`, the runners, a widely used `bin/` helper), and then once, at the end.
+- Run `./tests/shell` or `./tests/all` only when the change reaches shared code (`src/shell/Commons/`, `base-test.sh`, the runners, a widely used `src/cli/` helper), and then once, at the end.
 - Always write the whole output to a log file and read it from there: `bash tests/shell.d/<area>-test.sh >/tmp/<area>.log 2>&1`. Never pipe a test run straight through `grep`, `head` or `tail`: what they drop is gone, and getting it back costs a whole run. `./tests/shell` keeps every file's log and prints the directory at the end; read a failure from its log.
 - Run a test again only after changing something it covers. Never rerun to see output, to confirm a pass, or in the hope that a failure goes away.
 - For a failure in a file you did not touch, run that one file once on the base branch (in a worktree, or with `git stash`). If it fails there too, it was already broken: report it and leave it out of this change.

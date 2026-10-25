@@ -31,7 +31,7 @@ assert_status() {
   PATH="$fake_bin:$PATH" \
   ARCH_TEST_MONITORS="$monitors" \
   ARCH_TEST_HYPRCTL_FAILS="$hyprctl_fails" \
-    "$ROOT/bin/arch-hyprland-session-locked" || actual=$?
+    "$ROOT/src/cli/arch-hyprland-session-locked" || actual=$?
 
   (( actual == expected )) || fail "$description" "expected exit $expected, got $actual"
   pass "$description"

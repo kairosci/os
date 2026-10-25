@@ -18,7 +18,7 @@ cat >"$home/.config/hypr/bindings.lua" <<'EOF'
 -- existing user config
 EOF
 
-HOME="$home" ARCH_PATH="$arch_path" "$ROOT/bin/arch-refresh-config" hypr/bindings.lua >/dev/null
+HOME="$home" ARCH_PATH="$arch_path" "$ROOT/src/cli/arch-refresh-config" hypr/bindings.lua >/dev/null
 
 cmp -s "$arch_path/config/hypr/bindings.lua" "$home/.config/hypr/bindings.lua" ||
   fail "refresh-config copies from ARCH_PATH/config"
@@ -30,7 +30,7 @@ grep -Fq -- '-- existing user config' "$backup" ||
 
 pass "refresh-config copies from ARCH_PATH/config and backs up existing files"
 
-if HOME="$home" ARCH_PATH="$arch_path" "$ROOT/bin/arch-refresh-config" hypr/missing.lua >"$tmpdir/out" 2>"$tmpdir/err"; then
+if HOME="$home" ARCH_PATH="$arch_path" "$ROOT/src/cli/arch-refresh-config" hypr/missing.lua >"$tmpdir/out" 2>"$tmpdir/err"; then
   fail "refresh-config rejects configs missing from ARCH_PATH/config"
 fi
 

@@ -118,7 +118,7 @@ assert(unreferencedShell.length === 0, 'every shell catalog key is referenced', 
 const unknownShell = [...shellKeys].filter((key) => !Object.hasOwn(enShell, key))
 assert(unknownShell.length === 0, 'every referenced shell key exists in the English catalog', JSON.stringify(unknownShell))
 
-const cliKeys = collectKeys(path.join(root, 'bin'), [''], /arch-i18n (?:--count \S+ )?([a-z][a-zA-Z0-9]*(?:\.[a-zA-Z0-9]+)+)/g)
+const cliKeys = collectKeys(path.join(root, 'src/cli'), [''], /arch-i18n (?:--count \S+ )?([a-z][a-zA-Z0-9]*(?:\.[a-zA-Z0-9]+)+)/g)
 const unreferencedCli = Object.keys(enCli).filter((key) => !cliKeys.has(key))
 assert(unreferencedCli.length === 0, 'every cli catalog key is referenced', JSON.stringify(unreferencedCli))
 const unknownCli = [...cliKeys].filter((key) => !Object.hasOwn(enCli, key))
@@ -270,7 +270,7 @@ JS
 work=$(mktemp -d)
 trap 'rm -rf "$work"' EXIT
 export ARCH_PATH=$ROOT
-export PATH="$ROOT/bin:$PATH"
+export PATH="$ROOT/src/cli:$PATH"
 export ARCH_LANGUAGE_FILE=$work/language
 export ARCH_LOCALE_GEN=$work/locale.gen
 export ARCH_LOCALE_REGISTRY=$ROOT/default/i18n/locales.json
@@ -475,7 +475,7 @@ assert_bash_equal "$extract_candidates" "0" "no embedded English literals await 
 # A miniature tree exercises staleness: one key changed in English, one
 # deleted from the translation, one manual chapter missing.
 fix=$work/fixture
-mkdir -p "$fix/default/i18n/en" "$fix/default/i18n/da" "$fix/default/arch" "$fix/docs/user" "$fix/src/shell" "$fix/bin"
+mkdir -p "$fix/default/i18n/en" "$fix/default/i18n/da" "$fix/default/arch" "$fix/docs/user" "$fix/src/shell" "$fix/src/cli"
 cat >"$fix/default/i18n/locales.json" <<'FIXJSON'
 {
   "en": {"name": "English", "englishName": "English", "formatLocale": "en-US", "locale": "en_US.UTF-8"},

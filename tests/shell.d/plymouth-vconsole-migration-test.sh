@@ -52,7 +52,7 @@ run() { # vconsole.conf content, plymouth hook
   else
     rm -f "$vconsole"
   fi
-  PATH="$stub_bin:$ROOT/bin:$PATH" REBUILDS="$test_dir/rebuilds" \
+  PATH="$stub_bin:$ROOT/src/cli:$PATH" REBUILDS="$test_dir/rebuilds" \
     ARCH_MKINITCPIO_CONF="$mkinitcpio_conf" ARCH_MKINITCPIO_CONF_DIR="$test_dir/conf.d" \
     ARCH_VCONSOLE_CONF="$vconsole" ARCH_PLYMOUTH_INSTALL_HOOK="$2" ARCH_VCONSOLE_REBUILD_MARKER="$test_dir/marker" \
     bash -euo pipefail "$migration" >/dev/null 2>&1
@@ -144,7 +144,7 @@ mkdir -p "$test_dir/tools"
 for tool in bash grep install cat mktemp tee rm; do ln -s "$(command -v "$tool")" "$test_dir/tools/$tool"; done
 printf '%s\n' "$russian" >"$vconsole"
 : >"$test_dir/rebuilds"
-PATH="$stub_bin:$ROOT/bin:$test_dir/tools" REBUILDS="$test_dir/rebuilds" \
+PATH="$stub_bin:$ROOT/src/cli:$test_dir/tools" REBUILDS="$test_dir/rebuilds" \
   ARCH_MKINITCPIO_CONF_DIR="$test_dir/conf.d" ARCH_VCONSOLE_CONF="$vconsole" \
   ARCH_PLYMOUTH_INSTALL_HOOK="$test_dir/plymouth-new" ARCH_VCONSOLE_REBUILD_MARKER="$test_dir/marker" \
   "$test_dir/tools/bash" -euo pipefail "$migration" >/dev/null

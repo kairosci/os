@@ -12,7 +12,7 @@ require_command lua
 # CPU for 27 hours after a single SUPER+K) or aborts halfway, silently dropping
 # every bind declared after the failing line.
 
-script="$ROOT/bin/arch-menu-keybindings"
+script="$ROOT/src/cli/arch-menu-keybindings"
 scan=$(awk '/lua (-E - )?<<.LUA.$/ { capture = 1; next } /^LUA$/ { capture = 0 } capture' "$script")
 [[ -n $scan ]] || fail "keybindings menu embeds the Lua bind scan"
 

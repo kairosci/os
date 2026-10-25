@@ -20,12 +20,12 @@ chmod +x "$mock_bin/arch-done" "$mock_bin/arch-provision-user"
 
 finalize_called="$test_tmp/finalize-called"
 HOME="$test_tmp/home" PATH="$mock_bin:$PATH" ARCH_TEST_FINALIZE_CALLED="$finalize_called" \
-  bash "$ROOT/bin/arch-provision-first-run" >"$test_tmp/output"
+  bash "$ROOT/src/cli/arch-provision-first-run" >"$test_tmp/output"
 
 [[ ! -e $finalize_called ]] || fail "completed first-run exits before any setup step"
 grep -F 'First-run already complete' "$test_tmp/output" >/dev/null || fail "completed first-run reports its lifecycle gate"
 
-if grep -F 'user-migration-notify-watch-enabled' "$ROOT/bin/arch-provision-first-run" >/dev/null; then
+if grep -F 'user-migration-notify-watch-enabled' "$ROOT/src/cli/arch-provision-first-run" >/dev/null; then
   fail "first-run does not track the migration watcher separately"
 fi
 if grep -F 'skip-first-run-update-notification' "$ROOT/installer/user/first-run/wifi.sh" >/dev/null; then

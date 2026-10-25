@@ -144,7 +144,7 @@ assert_helper_agrees() {
   shift 2
 
   local real=0 shadowed=0
-  PATH="$stub_dir:$PATH" "$ROOT/bin/$helper" "$@" >/dev/null 2>&1 || real=$?
+  PATH="$stub_dir:$PATH" "$ROOT/src/cli/$helper" "$@" >/dev/null 2>&1 || real=$?
   # No runtime dir, so the stub's set is built fresh rather than read from the
   # machine's stored one (or stored in its place).
   XDG_RUNTIME_DIR="" PATH="$stub_dir:$PATH" bash -c "$guard_prelude"$'\n'"$helper \"\$@\"" "$helper" "$@" >/dev/null 2>&1 || shadowed=$?
@@ -232,8 +232,8 @@ assert_themes_guard_agrees() {
   local description="$1" home="$2" expected="$3"
   local guarded=0 updated=0
 
-  HOME="$home" PATH="$ROOT/bin:$PATH" bash -e -c "{ $themes_guard; } >/dev/null 2>&1" || guarded=$?
-  [[ -n $(HOME="$home" PATH="$ROOT/bin:$stub_dir:$PATH" "$ROOT/bin/arch-theme-update" 2>/dev/null) ]] || updated=1
+  HOME="$home" PATH="$ROOT/src/cli:$PATH" bash -e -c "{ $themes_guard; } >/dev/null 2>&1" || guarded=$?
+  [[ -n $(HOME="$home" PATH="$ROOT/src/cli:$stub_dir:$PATH" "$ROOT/src/cli/arch-theme-update" 2>/dev/null) ]] || updated=1
   ((guarded == expected)) || fail "$description" "$home: guard=$guarded expected=$expected"
   ((updated == expected)) || fail "$description" "$home: update=$updated expected=$expected"
 }
@@ -267,15 +267,15 @@ many="$themes_home/many/.config/arch/themes"
 mkdir -p "$many/tokyo night/.git" "$many/zen/.git" "$many/handmade"
 ln -s "$themes_home/checkout" "$many/in-progress"
 
-listed=$(HOME="$themes_home/many" LC_ALL=C "$ROOT/bin/arch-theme-extras")
+listed=$(HOME="$themes_home/many" LC_ALL=C "$ROOT/src/cli/arch-theme-extras")
 [[ $listed == "$many/tokyo night"$'\n'"$many/zen" ]] ||
   fail "arch-theme-extras lists every clone and nothing else" "got: $listed"
 pass "arch-theme-extras lists every clone and nothing else"
 
 git_calls=$(mktemp)
 trap 'rm -rf "$stub_dir" "$themes_home" "$git_calls"' EXIT
-HOME="$themes_home/many" LC_ALL=C GIT_CALLS="$git_calls" PATH="$ROOT/bin:$stub_dir:$PATH" \
-  "$ROOT/bin/arch-theme-update" >/dev/null 2>&1
+HOME="$themes_home/many" LC_ALL=C GIT_CALLS="$git_calls" PATH="$ROOT/src/cli:$stub_dir:$PATH" \
+  "$ROOT/src/cli/arch-theme-update" >/dev/null 2>&1
 pulled=$(<"$git_calls")
 [[ $pulled == "<-C><$many/tokyo night><pull>"$'\n'"<-C><$many/zen><pull>" ]] ||
   fail "arch-theme-update pulls each clone by its whole path" "got: $pulled"

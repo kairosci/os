@@ -118,7 +118,7 @@ mock_bin="$TMPDIR/bin"
 mkdir -p "$mock_bin"
 printf '#!/bin/bash\nexit 0\n' >"$mock_bin/arch-shell"
 chmod +x "$mock_bin/arch-shell"
-arch_dock() { HOME="$home" PATH="$mock_bin:$ROOT/bin:$PATH" arch-dock "$@"; }
+arch_dock() { HOME="$home" PATH="$mock_bin:$ROOT/src/cli:$PATH" arch-dock "$@"; }
 
 [[ $(arch_dock position) == "bottom" ]] || fail "dock position defaults to bottom"
 arch_dock position left >/dev/null
@@ -179,7 +179,7 @@ STUB
 chmod +x "$mock_bin/hyprctl"
 printf '#!/bin/bash\n[[ $1 == 9 ]] && echo dwindle || echo floating\n' >"$mock_bin/arch-hyprland-workspace-layout-current"
 chmod +x "$mock_bin/arch-hyprland-workspace-layout-current"
-minimize() { PATH="$mock_bin:$ROOT/bin:$PATH" arch-hyprland-window-minimize "$@"; }
+minimize() { PATH="$mock_bin:$ROOT/src/cli:$PATH" arch-hyprland-window-minimize "$@"; }
 
 minimize 0xabc
 grep -qxF 'hl.dsp.window.tag({ tag = "+arch-minimized-from-3", window = "address:0xabc" })' "$TMPDIR/hyprctl.log" ||

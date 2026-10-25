@@ -13,7 +13,7 @@ scratch=$(mktemp -d)
 trap 'rm -rf "$scratch"' EXIT
 mkdir -p "$scratch/bin"
 export CALL_LOG="$scratch/calls"
-export PATH="$scratch/bin:$ROOT/bin:$PATH"
+export PATH="$scratch/bin:$ROOT/src/cli:$PATH"
 
 cat > "$scratch/bin/sudo" <<'STUB'
 #!/bin/bash

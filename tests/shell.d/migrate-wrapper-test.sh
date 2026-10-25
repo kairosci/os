@@ -25,10 +25,10 @@ SH
 run_migrate() {
   HOME="$test_home" \
   ARCH_PATH="$test_root" \
-  PATH="$stub_bin:$ROOT/bin:$PATH" \
+  PATH="$stub_bin:$ROOT/src/cli:$PATH" \
   TEST_CALLS="$test_tmp/calls" \
   TEST_DISMISSALS="$test_tmp/dismissals" \
-    "$ROOT/bin/arch-migrate" "$@"
+    "$ROOT/src/cli/arch-migrate" "$@"
 }
 
 : >"$test_tmp/calls"

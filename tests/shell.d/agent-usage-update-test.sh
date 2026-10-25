@@ -36,7 +36,7 @@ chmod +x "$FAKE_ARCH/bin/"arch-agent-usage-*
 usage_dir="$TEST_HOME/.local/state/arch/agents/usage"
 
 HOME="$TEST_HOME" ARCH_PATH="$FAKE_ARCH" XDG_STATE_HOME="" \
-  "$ROOT/bin/arch-agent-usage-update" --except skipped 2>/dev/null && fail "update reports a failing collector"
+  "$ROOT/src/cli/arch-agent-usage-update" --except skipped 2>/dev/null && fail "update reports a failing collector"
 pass "update reports a failing collector"
 
 [[ $(jq -r '.name' "$usage_dir/good.json") == "Good Agent" ]] ||
@@ -56,7 +56,7 @@ pass "update skips agents excluded with --except"
 pass "update does not treat itself as a collector"
 
 HOME="$TEST_HOME" ARCH_PATH="$FAKE_ARCH" XDG_STATE_HOME="" \
-  "$ROOT/bin/arch-agent-usage-update" skipped 2>/dev/null ||
+  "$ROOT/src/cli/arch-agent-usage-update" skipped 2>/dev/null ||
   fail "update succeeds when the requested collectors all pass"
 pass "update succeeds when the requested collectors all pass"
 

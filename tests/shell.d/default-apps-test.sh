@@ -73,7 +73,7 @@ cat >"$mock_bin/arch-test-installer" <<'SH'
 installer=${0##*/}
 
 if [[ $installer == "arch-install-browser" && ${ARCH_TEST_REAL_BROWSER_INSTALL:-false} == "true" ]]; then
-  exec "$ROOT/bin/arch-install-browser" "$@"
+  exec "$ROOT/src/cli/arch-install-browser" "$@"
 fi
 
 case $installer in
@@ -147,7 +147,7 @@ printf '#!/bin/bash\nexit 0\n' >"$mock_bin/arch-lifecycle-dispatch"
 chmod +x "$mock_bin"/*
 
 export HOME="$test_home"
-export PATH="$mock_bin:$ROOT/bin:$PATH"
+export PATH="$mock_bin:$ROOT/src/cli:$PATH"
 export ARCH_PATH="$ROOT"
 export ARCH_TEST_INSTALLED_DIR="$installed_dir"
 export ARCH_TEST_INSTALL_LOG="$install_log"

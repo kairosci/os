@@ -87,7 +87,7 @@ fi
 touch "${@: -3:1}"
 SH
 for command in arch-shell arch-notification-send ffprobe pkill; do
-  printf '#!/bin/bash\nexit 0\n' >"$tmp/bin/$command"
+  printf '#!/bin/bash\nexit 0\n' >"$tmp/src/cli/$command"
 done
 cat >"$tmp/bin/arch-shell" <<'SH'
 #!/bin/bash
@@ -106,9 +106,9 @@ fi
 exit 0
 SH
 chmod +x "$tmp/bin/"*
-export PATH="$tmp/bin:$ROOT/bin:$PATH" TEST_STATE="$tmp" XDG_RUNTIME_DIR="$tmp/runtime"
+export PATH="$tmp/bin:$ROOT/src/cli:$PATH" TEST_STATE="$tmp" XDG_RUNTIME_DIR="$tmp/runtime"
 export ARCH_SCREENRECORD_DIR="$tmp/recordings"
-record="$ROOT/bin/arch-capture-screenrecording"
+record="$ROOT/src/cli/arch-capture-screenrecording"
 export TEST_RECORD=$record
 
 wait_for() {

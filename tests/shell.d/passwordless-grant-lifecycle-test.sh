@@ -52,7 +52,7 @@ ln -s "$test_tmp/arch-sudo-passwordless" "$test_tmp/source/bin/arch-sudo-passwor
 printf 'echo "later migration ran"\n' >"$test_tmp/source/migrations/1788163636.sh"
 run_migrations() {
   TEST_MIGRATION=1 ARCH_PATH="$test_tmp/source" ARCH_MIGRATION_STATE="$test_tmp/$1" \
-    PATH="$test_tmp/bin:$PATH" /usr/bin/bash "$ROOT/bin/arch-migrate" >"$test_tmp/migrations.log" 2>&1
+    PATH="$test_tmp/bin:$PATH" /usr/bin/bash "$ROOT/src/cli/arch-migrate" >"$test_tmp/migrations.log" 2>&1
 }
 marker="$test_tmp/var/lib/arch/migrations/1788163635"
 (

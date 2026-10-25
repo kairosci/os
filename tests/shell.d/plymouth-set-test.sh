@@ -48,7 +48,7 @@ pass "SDDM refresh allowlist covers every packaged asset"
 printf 'not yours\n' >"$secret"
 ln -s "$secret" "$test_tmp/logo-link.png"
 
-output=$(ARCH_PATH="$ROOT" /bin/bash "$ROOT/bin/arch-plymouth-set" '#1d2021' '#ebdbb2' "$test_tmp/logo-link.png" 2>&1)
+output=$(ARCH_PATH="$ROOT" /bin/bash "$ROOT/src/cli/arch-plymouth-set" '#1d2021' '#ebdbb2' "$test_tmp/logo-link.png" 2>&1)
 status=$?
 
 (( status != 0 )) || fail "arch-plymouth-set refuses a symlinked logo"
@@ -62,13 +62,13 @@ pass "a themed logo cannot republish a file it merely points at"
 # without real privilege; retain a structural assertion on hosts that disable
 # them so the invariant never becomes an untested skip.
 if unshare --user --map-root-user true 2>/dev/null; then
-  output=$(unshare --user --map-root-user env ARCH_PATH="$ROOT" /bin/bash "$ROOT/bin/arch-plymouth-set" '#1d2021' '#ebdbb2' "$secret" 2>&1)
+  output=$(unshare --user --map-root-user env ARCH_PATH="$ROOT" /bin/bash "$ROOT/src/cli/arch-plymouth-set" '#1d2021' '#ebdbb2' "$secret" 2>&1)
   status=$?
   (( status != 0 )) || fail "arch-plymouth-set refuses to run as root"
   [[ $output == *"as your user"* && $output == *"not under sudo"* ]] ||
     fail "the root refusal explains how to invoke the publisher safely" "$output"
 else
-  grep -A2 -Eq '^if \(\( EUID == 0 \)\); then$' "$ROOT/bin/arch-plymouth-set" ||
+  grep -A2 -Eq '^if \(\( EUID == 0 \)\); then$' "$ROOT/src/cli/arch-plymouth-set" ||
     fail "arch-plymouth-set retains its root-invocation guard"
 fi
 pass "the logo descriptor can only be opened by an unprivileged caller"
@@ -113,7 +113,7 @@ STUB
 # Run the real presentation wrapper while replacing only its terminal launcher.
 # The launcher stub executes the final `bash -c` locally instead of opening a
 # terminal window.
-ln -s "$ROOT/bin/arch-launch-floating-terminal-with-presentation" "$stub_dir/arch-launch-floating-terminal-with-presentation"
+ln -s "$ROOT/src/cli/arch-launch-floating-terminal-with-presentation" "$stub_dir/arch-launch-floating-terminal-with-presentation"
 
 cat >"$stub_dir/arch-restart-gum" <<'STUB'
 #!/bin/bash
@@ -376,7 +376,7 @@ run_in_fake_root() {
   shift
   (
     umask "$requested_umask"
-    PATH="$fake_bin:$ROOT/bin:$PATH" \
+    PATH="$fake_bin:$ROOT/src/cli:$PATH" \
       TMPDIR="$stages" \
       ARCH_PATH="$ROOT" \
       TEST_FAKE_ROOT="$fake_root" \
@@ -393,7 +393,7 @@ run_set_colors() {
   local requested_umask="$1" background="$2" text="$3"
   shift 3
   run_in_fake_root "$requested_umask" "$@" \
-    /bin/bash "$ROOT/bin/arch-plymouth-set" "$background" "$text" "$test_tmp/logo.png"
+    /bin/bash "$ROOT/src/cli/arch-plymouth-set" "$background" "$text" "$test_tmp/logo.png"
 }
 
 run_set() {
@@ -403,15 +403,15 @@ run_set() {
 }
 
 run_refresh_plymouth() {
-  run_in_fake_root 022 "$@" /bin/bash "$ROOT/bin/arch-refresh-plymouth"
+  run_in_fake_root 022 "$@" /bin/bash "$ROOT/src/cli/arch-refresh-plymouth"
 }
 
 run_refresh_sddm() {
-  run_in_fake_root 022 "$@" /bin/bash "$ROOT/bin/arch-refresh-sddm"
+  run_in_fake_root 022 "$@" /bin/bash "$ROOT/src/cli/arch-refresh-sddm"
 }
 
 run_reset() {
-  run_in_fake_root 022 "$@" /bin/bash "$ROOT/bin/arch-plymouth-reset"
+  run_in_fake_root 022 "$@" /bin/bash "$ROOT/src/cli/arch-plymouth-reset"
 }
 
 assert_no_temporary_files() {

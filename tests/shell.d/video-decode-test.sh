@@ -4,7 +4,7 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-helper="$ROOT/bin/arch-install-video-decode"
+helper="$ROOT/src/cli/arch-install-video-decode"
 migration=$(grep -l -- 'arch-install-video-decode' "$ROOT"/migrations/*.sh | head -n1)
 test_tmp=$(mktemp -d)
 trap 'rm -rf "$test_tmp"' EXIT
@@ -17,7 +17,7 @@ cat >"$test_tmp/bin/arch-hw-aarch64-qualcomm" <<'STUB'
 STUB
 chmod +x "$test_tmp/bin/arch-hw-aarch64-qualcomm"
 export ARCH_TEST_QUALCOMM="$test_tmp/qualcomm"
-export PATH="$test_tmp/bin:$ROOT/bin:$PATH"
+export PATH="$test_tmp/bin:$ROOT/src/cli:$PATH"
 
 new_home() {
   local home="$test_tmp/home-$1"

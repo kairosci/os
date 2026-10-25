@@ -77,8 +77,8 @@ run_update() {
     OWNED_PATHS="${OWNED_PATHS:-}" \
     ARCH_PROC_ROOT="$test_tmp/$platform/proc" \
     ARCH_LIFECYCLE_ROOT="${LIFECYCLE_ROOT:-$test_tmp/no-boot-package}" \
-    PATH="$stub_bin:$test_tmp/$platform/bin:$ROOT/bin:$PATH" \
-    bash "$ROOT/bin/arch-update-system-pkgs"
+    PATH="$stub_bin:$test_tmp/$platform/bin:$ROOT/src/cli:$PATH" \
+    bash "$ROOT/src/cli/arch-update-system-pkgs"
 }
 
 # $1 blamed package, $2 path, $3 optional owning package.
@@ -282,8 +282,8 @@ pass "a dangling symlink is restored rather than stranded in the quarantine"
 fresh_work
 echo "ours" >"$stray"
 write_report arch-settings-dev "$stray"
-if PATH="$stub_bin:$ROOT/bin:$PATH" ARCH_REPLACED_DIR="$replaced" \
-  bash "$ROOT/bin/arch-update-system-pkgs-when-conflicted" "$test_tmp/report" \
+if PATH="$stub_bin:$ROOT/src/cli:$PATH" ARCH_REPLACED_DIR="$replaced" \
+  bash "$ROOT/src/cli/arch-update-system-pkgs-when-conflicted" "$test_tmp/report" \
   >"$test_tmp/out" 2>"$test_tmp/err"; then
   fail "the handler acts on a report handed to it outside an update"
 fi
