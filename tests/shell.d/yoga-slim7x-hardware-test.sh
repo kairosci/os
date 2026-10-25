@@ -4,8 +4,8 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-setup="$ROOT/install/hardware/lenovo/yoga-slim7x.sh"
-starter="$ROOT/install/hardware/lenovo/start-yoga-slim7x-remoteprocs.sh"
+setup="$ROOT/installer/hardware/lenovo/yoga-slim7x.sh"
+starter="$ROOT/installer/hardware/lenovo/start-yoga-slim7x-remoteprocs.sh"
 scratch=$(mktemp -d)
 trap 'rm -rf "$scratch"' EXIT
 

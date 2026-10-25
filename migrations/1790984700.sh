@@ -1,6 +1,6 @@
 echo "Leave the N1x GPU firmware room below its memory, which a large external display reaches into"
 
-# See install/hardware/fix-n1x-gpu-memory.sh. Installs from before it reclaim a
+# See installer/hardware/fix-n1x-gpu-memory.sh. Installs from before it reclaim a
 # second range right under the block the GPU firmware keeps; with a 5K monitor
 # the firmware wrote into it and corrupted kernel memory. Keep the first range.
 dropin="${ARCH_N1X_GPU_MEMORY_CONF:-/etc/limine-entry-tool.d/arch-n1x-gpu-memory.conf}"

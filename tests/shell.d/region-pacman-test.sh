@@ -15,8 +15,8 @@ printf '#!/bin/bash\necho "${REGION_TEST_PLATFORM:-x86}"\n' > "$scratch/bin/arch
 chmod +x "$scratch/bin/arch-hw-platform"
 export PATH="$scratch/bin:$PATH"
 fixture_root() {
-  mkdir -p "$1/install/helpers"
-  cp "$ROOT/install/helpers/pacman.sh" "$1/install/helpers/"
+  mkdir -p "$1/installer/helpers"
+  cp "$ROOT/installer/helpers/pacman.sh" "$1/installer/helpers/"
 }
 export ARCH_PATH="$scratch/root"
 fixture_root "$ARCH_PATH"

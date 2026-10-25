@@ -13,7 +13,7 @@ require_command pacman-conf
 work=$(mktemp -d)
 trap 'rm -rf "$work"' EXIT
 export ARCH_PATH="$ROOT"
-source "$ROOT/install/helpers/pacman.sh"
+source "$ROOT/installer/helpers/pacman.sh"
 
 platforms="x86 aarch64 aarch64-apple"
 # Apple Silicon has edge alone: its packages and Asahi ALARM are published for
@@ -109,16 +109,16 @@ chmod +x "$finalize_bin"/*
 # Finalization restores the templates through arch-apply-pacman, whose copy
 # here writes into the test's etc rather than the host's.
 finalize_root=$work/finalize-root
-mkdir -p "$finalize_root/bin" "$finalize_root/install/post-install" "$finalize_root/default"
-cp -r "$ROOT/install/helpers" "$finalize_root/install/"
+mkdir -p "$finalize_root/bin" "$finalize_root/installer/post-install" "$finalize_root/default"
+cp -r "$ROOT/installer/helpers" "$finalize_root/installer/"
 cp -r "$ROOT/default/pacman" "$ROOT/default/regions" "$finalize_root/default/"
-cp "$ROOT/install/post-install/pacman.sh" "$work/finalize.sh"
+cp "$ROOT/installer/post-install/pacman.sh" "$work/finalize.sh"
 target_etc='etc="${2:-/}/etc"'
 grep -Fqx "  $target_etc" "$ROOT/bin/arch-apply-pacman" || fail "arch-apply-pacman still names its target etc"
 sed "s|^  $target_etc\$|  etc=\"\${2:-$work}/etc\"|" "$ROOT/bin/arch-apply-pacman" >"$finalize_root/bin/arch-apply-pacman"
 chmod +x "$finalize_root/bin/arch-apply-pacman"
-mkdir -p "$work/install/hardware"
-: >"$work/install/hardware/pacman.sh"
+mkdir -p "$work/installer/hardware"
+: >"$work/installer/hardware/pacman.sh"
 
 # Finalization asks the image helper whether this is an image build, which root
 # answers from the real /var/lib/arch; everyone else from the test's root.

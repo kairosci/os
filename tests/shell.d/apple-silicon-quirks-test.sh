@@ -39,7 +39,7 @@ chmod +x "$stub_bin"/*
 
 run_fkeys() {
   APPLE_SILICON="$1" ARCH_HID_APPLE_CONF="$conf" PATH="$stub_bin:$PATH" TEST_LOG="$calls" \
-    bash -eE -o pipefail -c 'source "$1"' _ "$ROOT/install/hardware/fix-fkeys.sh"
+    bash -eE -o pipefail -c 'source "$1"' _ "$ROOT/installer/hardware/fix-fkeys.sh"
 }
 
 run_fkeys 0

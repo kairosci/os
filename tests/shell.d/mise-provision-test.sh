@@ -16,7 +16,7 @@ printf '%s\0' "$@" >>"$ARCH_TEST_MISE_LOG"
 SH
 chmod +x "$mock_bin/mise"
 
-source "$ROOT/install/user/mise.sh"
+source "$ROOT/installer/user/mise.sh"
 for agent in kimi cursor-agent muse; do
   [[ ! -e $HOME/.local/bin/$agent ]] || fail "provisioning must not create a handwritten $agent wrapper"
 done

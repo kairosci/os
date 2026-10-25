@@ -4,9 +4,9 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-leaf="$ROOT/install/hardware/apple/fix-brcmfmac-supplicant.sh"
-fix_t2="$ROOT/install/hardware/apple/fix-t2.sh"
-all="$ROOT/install/hardware/all.sh"
+leaf="$ROOT/installer/hardware/apple/fix-brcmfmac-supplicant.sh"
+fix_t2="$ROOT/installer/hardware/apple/fix-t2.sh"
+all="$ROOT/installer/hardware/all.sh"
 migration="$ROOT/migrations/1786391100.sh"
 
 # Apple Silicon's BCM4387 is in the ID list, but there the firmware supplicant

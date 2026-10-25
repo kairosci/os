@@ -18,7 +18,7 @@ arch-pkg-drop linux linux-headers linux-aarch64 linux-aarch64-headers
 mkdir -p /etc/mkinitcpio.conf.d
 cat > /etc/mkinitcpio.conf.d/arch-n1x-input.conf <<'CONF'
 # N1x: the internal keyboard is I2C-HID behind the MediaTek I2C controllers;
-# see install/hardware/n1x.sh.
+# see installer/hardware/n1x.sh.
 MODULES+=(i2c_mt65xx i2c_hid_acpi)
 CONF
 
@@ -55,7 +55,7 @@ CONF
 cat > /etc/udev/rules.d/71-arch-n1x-cppc.rules <<'RULES'
 # N1x: the firmware hands over each core with its CPPC floor raised to its
 # ceiling, so restore the full range and turn on autonomous selection, which
-# programs the floor and ceiling from it; see install/hardware/n1x.sh.
+# programs the floor and ceiling from it; see installer/hardware/n1x.sh.
 ACTION=="add", SUBSYSTEM=="module", KERNEL=="cppc_cpufreq", RUN+="/usr/bin/sh -c 'for p in /sys/devices/system/cpu/cpufreq/policy*; do echo 0 >$$p/auto_select; cat $$p/cpuinfo_max_freq >$$p/scaling_max_freq; cat $$p/cpuinfo_min_freq >$$p/scaling_min_freq; echo 1 >$$p/auto_select; done'"
 ACTION=="online", SUBSYSTEM=="cpu", TEST=="cpufreq/auto_select", ATTR{cpufreq/auto_select}="0", ATTR{cpufreq/scaling_max_freq}="$attr{cpufreq/cpuinfo_max_freq}", ATTR{cpufreq/scaling_min_freq}="$attr{cpufreq/cpuinfo_min_freq}", ATTR{cpufreq/auto_select}="1"
 RULES
@@ -80,18 +80,18 @@ RULES
 if arch-hw-match "H7407BA"; then
   cat > /etc/limine-entry-tool.d/00-arch-n1x-usb4.conf <<'CONF'
 # N1x: keep the USB4 host routers powered and leave room for docks behind them;
-# see install/hardware/n1x.sh.
+# see installer/hardware/n1x.sh.
 KERNEL_CMDLINE[default]+=" power_wrap_drv.usb4_release=0 pci=hpbussize=0x80,hpmmiosize=32M,hpmmioprefsize=32G"
 CONF
   cat > /etc/udev/rules.d/71-arch-n1x-usb4-root-ports.rules <<'RULES'
 # N1x: the USB4 tunnel root ports cannot wake for a hotplug, so keep them out of
-# runtime suspend; see install/hardware/n1x.sh.
+# runtime suspend; see installer/hardware/n1x.sh.
 ACTION=="add|bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{device}=="0x22cf", ATTR{power/control}="on"
 RULES
 else
   cat > /etc/limine-entry-tool.d/00-arch-n1x-usb4.conf <<'CONF'
 # N1x: keep USB4 powered for the Thunderbolt connection manager, and leave bus
-# numbers for docks. See install/hardware/n1x.sh.
+# numbers for docks. See installer/hardware/n1x.sh.
 KERNEL_CMDLINE[default]+=" power_wrap_drv.usb4_release=0 pci=hpbussize=0x20"
 CONF
 fi
@@ -111,7 +111,7 @@ if [[ -z $root_cmdline || $root_cmdline != *root=* ]]; then
 fi
 rescue_cmdline="$root_cmdline initramfs_async=0 console=tty0 acpi=nospcr plymouth.enable=0 nomodeset module_blacklist=nvidia,nvidia_drm,nvidia_modeset,nvidia_uvm,nvidia_peermem,nouveau modprobe.blacklist=nvidia,nvidia_drm,nvidia_modeset,nvidia_uvm,nvidia_peermem,nouveau nvidia_drm.modeset=0 systemd.unit=multi-user.target fbcon=map:0 loglevel=7 ignore_loglevel systemd.show_status=1 systemd.log_target=console vt.global_cursor_default=1"
 printf '%s\n' \
-  '# N1x: a text-console rescue entry sits right below the normal one; see install/hardware/n1x.sh.' \
+  '# N1x: a text-console rescue entry sits right below the normal one; see installer/hardware/n1x.sh.' \
   'MKINITCPIO_FALLBACK=linux' \
   "KERNEL_CMDLINE[fallback]=\"$rescue_cmdline\"" \
   'EXCLUDE_SNAPSHOT_ENTRIES="Windows*, windows*, *fallback"' \
@@ -209,7 +209,7 @@ run_hook() {
 }
 HOOK
   cat > /etc/mkinitcpio.conf.d/zz-arch-n1x-boot-brightness.conf <<'CONF'
-# N1x: light the panel for Plymouth's LUKS prompt; see install/hardware/n1x.sh.
+# N1x: light the panel for Plymouth's LUKS prompt; see installer/hardware/n1x.sh.
 # Sorts after arch_hooks.conf so HOOKS is already set.
 _arch_n1x_hooks=()
 for _arch_n1x_hook in "${HOOKS[@]}"; do
@@ -223,7 +223,7 @@ else
   rm -f /etc/limine-entry-tool.d/00-arch-n1x-gpu.conf \
     /etc/mkinitcpio.conf.d/zz-arch-n1x-boot-brightness.conf
   cat > /etc/modprobe.d/arch-n1x-nvidia-disable.conf <<'CONF'
-# N1x: the NVIDIA stack cannot drive this panel here; see install/hardware/n1x.sh.
+# N1x: the NVIDIA stack cannot drive this panel here; see installer/hardware/n1x.sh.
 blacklist nvidia
 blacklist nvidia_drm
 blacklist nvidia_modeset

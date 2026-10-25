@@ -103,7 +103,7 @@ for virt in vm none; do
   rm -rf "$test_home/.local/state/arch/toggles/hypr"
   printf '#!/bin/bash\n[[ %s == vm ]]\n' "$virt" >"$stub_bin/arch-hw-vm"
   chmod +x "$stub_bin/arch-hw-vm"
-  HOME="$test_home" ARCH_PATH="$ROOT" bash "$ROOT/install/user/hardware/vm-no-animations.sh" >/dev/null
+  HOME="$test_home" ARCH_PATH="$ROOT" bash "$ROOT/installer/user/hardware/vm-no-animations.sh" >/dev/null
   if [[ $virt == "vm" ]]; then
     [[ -f $animations_flag ]] || fail "a VM install turns animations off"
     [[ -f ${animations_flag%/*}/window-opaque.lua ]] || fail "a VM install starts with opaque windows"

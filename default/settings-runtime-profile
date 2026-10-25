@@ -14,11 +14,11 @@
 # etc/limine-entry-tool.d/, default/limine/
 #   Read only where Limine and its entry tool are installed.
 # etc/systemd/oomd.conf.d/, default/systemd/user/app.slice.d/10-oomd.conf
-#   Inert unless systemd-oomd runs (install/config/enable-services.sh,
+#   Inert unless systemd-oomd runs (installer/config/enable-services.sh,
 #   migration 1785424256).
 # default/systemd/zram-generator.conf.d/90-arch.conf,
 # etc/sysctl.d/99-arch-sysctl.conf, etc/tmpfiles.d/arch-zswap.conf
 #   Swap on zram everywhere: the installer provides zram-generator on x86_64,
-#   install/arch-aarch64.packages on aarch64.
+#   installer/arch-aarch64.packages on aarch64.
 # etc/modprobe.d/arch-usb-autosuspend.conf
 #   Applies where usbcore is a module; a kernel that builds it in ignores it.

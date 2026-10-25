@@ -49,7 +49,7 @@ EOF
 chmod +x "$test_bin/systemd-run"
 
 run_invitation_hook() {
-  cp "$ROOT/install/user/first-run/setup-fingerprint.hook" "$hook_path"
+  cp "$ROOT/installer/user/first-run/setup-fingerprint.hook" "$hook_path"
   HOME="$test_home" PATH="$test_bin:$ROOT/bin:$PATH" TEST_LOG="$log_file" TEST_HW_MARKER="$hw_marker" bash "$hook_path"
 }
 

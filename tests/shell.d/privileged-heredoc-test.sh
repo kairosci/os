@@ -30,7 +30,7 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 # literal, user-controlled value into a file root later reads or executes --
 # that is the bug. Runtime expansion (an escaped \$VAR left literal in the file
 # for a root daemon that does not have the variable set) is a different
-# mechanism and is not flagged. install/3-config.sh once used both in one
+# mechanism and is not flagged. installer/3-config.sh once used both in one
 # heredoc on purpose: $USER expanded at install time because it is a username,
 # while \$TERM stayed escaped for systemd to expand later.
 
@@ -434,7 +434,7 @@ command_destinations() {
     [[ $token != -* && $token != "|" && $token != "<"* && $token != ">" ]] && last=$token
   done
 
-  # install/cp/mv put the destination last.
+  # installer/cp/mv put the destination last.
   if ((copy_like == 0)) && [[ -n $last ]]; then
     printf '%s\n' "$last"
   fi
@@ -467,7 +467,7 @@ line_carries_destination() {
 }
 
 # Does the heredoc on this line reach a root-owned file? Either directly, or in
-# one hop: written to a scratch file that a later install/cp/mv carries into a
+# one hop: written to a scratch file that a later installer/cp/mv carries into a
 # privileged directory.
 privileged_destination() {
   local line="$1" start_index="$2"
@@ -784,8 +784,8 @@ scan_file() {
   done
 }
 
-# bin/, install/ and migrations/ are where privileged writes live: bin/ holds
-# the setup and upgrade commands, install/ runs during install, migrations/
+# bin/, installer/ and migrations/ are where privileged writes live: bin/ holds
+# the setup and upgrade commands, installer/ runs during install, migrations/
 # during update. default/ is scanned too even though the pattern is not
 # reachable there today -- it ships bash functions and completions whose only
 # "<<" uses are herestrings, with no privileged writes at all -- because the
@@ -823,7 +823,7 @@ while IFS= read -r -d '' file; do
 done < <(shell_sources)
 
 ((${#sources[@]} > 50)) || fail "the scan reaches the privileged-write scripts" \
-  "only ${#sources[@]} shell sources found under bin/, install/, migrations/ and default/"
+  "only ${#sources[@]} shell sources found under bin/, installer/, migrations/ and default/"
 pass "the scan reaches the privileged-write scripts (${#sources[@]} files)"
 
 for file in "${sources[@]}"; do

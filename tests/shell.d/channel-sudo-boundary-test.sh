@@ -130,7 +130,7 @@ pass "a stale dev checkout is rejected before linking or privileged work"
 # On aarch64 the checkout's own refresh keeps the machine's repositories only
 # once it tells platforms apart: a checkout without that is refused the same way.
 checkout="$SUDO_TEST_HOME/arch"
-for required in bin/arch-hw-platform install/helpers/pacman.sh; do
+for required in bin/arch-hw-platform installer/helpers/pacman.sh; do
   for platform in aarch64; do
     reset_boundary
     mv "$checkout/$required" "$boundary_tmp/saved-required"

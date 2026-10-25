@@ -51,7 +51,7 @@ cat >"$tmp_dir/driver" <<'EOF'
 set -euo pipefail
 set -T
 
-source "$ROOT/install/provisioning/setup-form.sh"
+source "$ROOT/installer/provisioning/setup-form.sh"
 
 notice() { printf '%s\n' "$1" >>"$NOTICES"; }
 
@@ -122,7 +122,7 @@ actual notices:   $actual"
 }
 
 # The contract both callers read, and the ordering the shared list exists to keep
-source "$ROOT/install/provisioning/setup-form.sh"
+source "$ROOT/installer/provisioning/setup-form.sh"
 
 ((ARCH_FORM_BACK == 1)) || fail "Esc reports status 1"
 ((ARCH_FORM_SIGNAL == 130)) || fail "Ctrl+C reports status 130"

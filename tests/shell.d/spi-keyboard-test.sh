@@ -25,9 +25,9 @@ STUB
 chmod +x "$work/bin/"*
 export SPI_CALLS="$work/calls"
 for failure in 1 13; do
-  DMI_STATUS=$failure PATH="$work/bin:$PATH" bash -eE "$ROOT/install/hardware/apple/fix-spi-keyboard.sh"
+  DMI_STATUS=$failure PATH="$work/bin:$PATH" bash -eE "$ROOT/installer/hardware/apple/fix-spi-keyboard.sh"
   [[ ! -f $SPI_CALLS ]] || fail 'missing/unreadable DMI must not install SPI drivers'
 done
-DMI_MODEL=MacBookPro13,2 PATH="$work/bin:$PATH" bash -eE "$ROOT/install/hardware/apple/fix-spi-keyboard.sh"
+DMI_MODEL=MacBookPro13,2 PATH="$work/bin:$PATH" bash -eE "$ROOT/installer/hardware/apple/fix-spi-keyboard.sh"
 grep -Fxq macbook12-spi-driver-dkms "$SPI_CALLS" || fail 'matching Intel Mac retains SPI driver'
 pass 'missing/unreadable DMI survives errexit and matching Intel Macs retain drivers'

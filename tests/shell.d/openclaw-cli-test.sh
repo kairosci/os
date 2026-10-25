@@ -504,7 +504,7 @@ for case in healthy stale stuck; do
     ! grep -q '^runtime doctor' "$events" || fail "a moved gateway that answers is not doctored" "$(cat "$events")"
     continue
   fi
-  after=$(sed -n '/^runtime gateway install/,$p' "$events" | grep -e '^systemctl --user st' -e '^runtime doctor' || true)
+  after=$(sed -n '/^runtime gateway installer/,$p' "$events" | grep -e '^systemctl --user st' -e '^runtime doctor' || true)
   [[ $after == $'systemctl --user stop openclaw-gateway.service\nruntime doctor --fix --non-interactive\nsystemctl --user start openclaw-gateway.service' ]] ||
     fail "a moved gateway that does not answer is stopped, doctored and started" "$(cat "$events")"
   [[ ! -e $test_home/stale-agent-db && -e $test_home/active-openclaw-gateway.service ]] || fail "a doctored gateway is running and answers"

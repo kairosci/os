@@ -20,8 +20,8 @@ chmod +x "$mock_bin"/*
 # os ships, so the install suite is stubbed out at its path instead. The
 # real one rethemes the session it runs in: hyprctl reload against the live
 # compositor, gsettings against the live desktop, and a global Node install.
-mkdir -p "$test_tmp/install/user"
-: >"$test_tmp/install/user/all.sh"
+mkdir -p "$test_tmp/installer/user"
+: >"$test_tmp/installer/user/all.sh"
 
 HOME="$test_tmp/home" PATH="$mock_bin:$ROOT/bin:$PATH" ARCH_PATH="$ROOT" \
   ARCH_INSTALL="$test_tmp/install" bash "$ROOT/bin/arch-provision-user" >/dev/null ||

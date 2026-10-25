@@ -1,6 +1,6 @@
 # Configure pacman after package installation completes. Offline target package
 # installs use the live ISO's offline pacman.conf until this final restore,
-# which copies the platform's channel templates (install/helpers/pacman.sh) plus
+# which copies the platform's channel templates (installer/helpers/pacman.sh) plus
 # this machine's regional additions (arch-apply-pacman). A Mac's image brings
 # its keyrings, as the ISO does on x86; every other aarch64 platform installs
 # Arch Linux ARM's before its repositories replace the offline ones, and trust
@@ -25,7 +25,7 @@ channel=${ARCH_MIRROR:-}
 "$ARCH_PATH/bin/arch-apply-pacman" "$channel"
 
 # An image build leaves the keyring to each machine's first boot, so no two
-# share a master key (install/helpers/image-target.sh).
+# share a master key (installer/helpers/image-target.sh).
 if (( alarm_keyring )); then
   if arch_image_init && arch_image_manifest_present; then
     install -m 0644 /dev/null "$arch_image_keyring_request"

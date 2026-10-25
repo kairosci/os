@@ -28,7 +28,7 @@ install_wrapper() {
   HOME="$home" "$ROOT/bin/arch-mise-install" "$@"
 }
 
-# The ordinary case still works, and every call site in install/user/mise.sh
+# The ordinary case still works, and every call site in installer/user/mise.sh
 # passes names of this shape.
 install_wrapper npm:playwright playwright >/dev/null
 [[ -x $home/.local/bin/playwright ]] ||

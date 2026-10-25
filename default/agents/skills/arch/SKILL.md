@@ -47,7 +47,7 @@ overwritten on the next `archctl update`.
 ├── default/                # System defaults
 ├── src/shell/                  # os shell source and defaults
 ├── migrations/             # Update migrations
-└── install/                # Installation scripts
+└── installer/                # Installation scripts
 ```
 
 **Reading `/usr/share/arch/` is SAFE and useful** - do it freely to:

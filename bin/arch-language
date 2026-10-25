@@ -10,7 +10,7 @@ locales_json=${ARCH_LOCALES_JSON:-$ARCH_PATH/default/i18n/locales.json}
 language_file=${ARCH_LANGUAGE_FILE:-${XDG_CONFIG_HOME:-$HOME/.config}/arch/language}
 
 # Root always writes the real file; the override is for unprivileged tests
-# (same convention as install/config/locale.sh).
+# (same convention as installer/config/locale.sh).
 locale_gen=/etc/locale.gen
 if (( EUID != 0 )); then
   locale_gen=${ARCH_LOCALE_GEN:-$locale_gen}

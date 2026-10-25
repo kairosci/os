@@ -70,7 +70,7 @@ fi
 # console pinned, the normal entry left quiet, a maintained rescue entry with
 # its own cmdline, NVIDIA kept unloaded only on pre-release firmware, and wired
 # before nvidia.sh.
-n1x="$ROOT/install/hardware/n1x.sh"
+n1x="$ROOT/installer/hardware/n1x.sh"
 assert_succeeds bash -n "$n1x" "n1x.sh parses"
 assert_succeeds grep -Fq 'arch-hw-aarch64-n1x || return 0' "$n1x" "n1x.sh is gated on the detector"
 assert_fails grep -Eq 'arch-pkg-add linux' "$n1x" "the kernel comes from the installer and the package list, not from hardware setup"
@@ -102,11 +102,11 @@ assert_succeeds grep -Fq 'modinfo -k "$n1x_kernel_version" nvidia nvidia_modeset
 assert_fails grep -Eq 'authorized_keys|recovery key|n1x-recovery' "$ROOT/bin/arch-n1x-probe" "the probe reports sshd state instead of claiming a key"
 assert_fails grep -Eq 'authorized_keys|sshd' "$n1x" "remote access is left to the development ISO"
 assert_succeeds grep -Fq 'Server = https://pkgs.github.com/kairosci/arch/edge/$arch' "$ROOT/default/pacman/aarch64/pacman-edge.conf" "installed aarch64 systems track os edge"
-all="$ROOT/install/hardware/all.sh"
+all="$ROOT/installer/hardware/all.sh"
 n1x_line=$(grep -n 'hardware/n1x.sh' "$all" | cut -d: -f1)
 nvidia_line=$(grep -n 'hardware/nvidia.sh' "$all" | cut -d: -f1)
 [[ -n $n1x_line && -n $nvidia_line && $n1x_line -lt $nvidia_line ]] || fail "n1x.sh must run before nvidia.sh"
-assert_succeeds grep -Fq 'if arch-hw-aarch64-n1x; then' "$ROOT/install/hardware/nvidia.sh" "nvidia.sh defers to the N1x policy"
+assert_succeeds grep -Fq 'if arch-hw-aarch64-n1x; then' "$ROOT/installer/hardware/nvidia.sh" "nvidia.sh defers to the N1x policy"
 hooks_conf="$ROOT/etc/mkinitcpio.conf.d/arch_hooks.conf"
 assert_fails grep -Fq 'uname -m' "$hooks_conf" "initramfs hooks are the same on every architecture"
 assert_fails grep -Fq 'i2c_mt65xx' "$hooks_conf" "N1x input modules stay out of the shared hooks"

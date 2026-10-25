@@ -19,7 +19,7 @@
 #
 # An image carries no pacman master key of its own, or every machine flashed
 # from it would share one: where install finalization would make the keyring
-# (install/post-install/pacman.sh), a build requests it in
+# (installer/post-install/pacman.sh), a build requests it in
 # /var/lib/arch/image/pacman-keyring instead, and the first boot makes it
 # before any deferred step runs.
 #
@@ -136,7 +136,7 @@ arch_image_write_queue() {
   chmod 0644 "$tmp" && mv -f "$tmp" "$arch_image_queue"
 }
 
-# Queue every leaf install/hardware/all.sh would run, in its order, running
+# Queue every leaf installer/hardware/all.sh would run, in its order, running
 # none of them, then arm the first-boot service. Rerunning rewrites the same queue.
 arch_image_defer_hardware() {
   local listing

@@ -276,10 +276,10 @@ timeout_rows=$(PATH="$test_tmp/bin:$PATH" XDG_CACHE_HOME="$timeout_cache" \
 timeout_marker=$(find "$timeout_cache/arch/image-selector" -maxdepth 1 -type f -name '*.failed' -print -quit)
 [[ -z $timeout_marker ]] || fail "a timed out video is left to retry rather than remembered as failed"
 
-if grep -Eq '^(owe|owe-lockfeed)$' "$ROOT/install/arch-base.packages"; then
+if grep -Eq '^(owe|owe-lockfeed)$' "$ROOT/installer/arch-base.packages"; then
   fail "the desktop no longer depends on an external wallpaper engine"
 fi
-grep -qx 'qt6-multimedia' "$ROOT/install/arch-base.packages" || fail "native video playback requires Qt Multimedia"
+grep -qx 'qt6-multimedia' "$ROOT/installer/arch-base.packages" || fail "native video playback requires Qt Multimedia"
 grep -rqs 'import QtMultimedia' "$ROOT/src/shell/Ui/BackgroundVideo.qml" || fail "the first-party player uses Qt Multimedia"
 
 pass "menu image generator creates thumbnails consumed by the picker"

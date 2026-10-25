@@ -5,8 +5,8 @@ set -euo pipefail
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 detector="$ROOT/bin/arch-hw-dell-xps13-sidecar-amps"
-leaf="$ROOT/install/hardware/dell-xps13-sidecar-amps.sh"
-all="$ROOT/install/hardware/all.sh"
+leaf="$ROOT/installer/hardware/dell-xps13-sidecar-amps.sh"
+all="$ROOT/installer/hardware/all.sh"
 migration=$(grep -l "dell-xps13-sidecar-amps" "$ROOT"/migrations/*.sh | head -1)
 
 grep -q 'run_logged .*hardware/dell-xps13-sidecar-amps.sh' "$all" ||

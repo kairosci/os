@@ -4,7 +4,7 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-packages="$ROOT/install/arch-base.packages"
+packages="$ROOT/installer/arch-base.packages"
 cups_browsed_conf="$ROOT/etc/cups/cups-browsed.conf"
 cups_files_conf="$ROOT/etc/cups/cups-files.conf"
 sysusers_conf="$ROOT/etc/sysusers.d/arch-cups-browsed.conf"
@@ -22,7 +22,7 @@ grep -qxF cups-pk-helper "$packages" || fail "Polkit printer administration is i
 # reworked. The hardened configuration below stays as the baseline discovery
 # comes back onto.
 ! grep -qxF cups-browsed "$packages" || fail "automatic printer discovery is out of the base package set"
-! grep -q 'cups-browsed' "$ROOT/install/config/enable-services.sh" ||
+! grep -q 'cups-browsed' "$ROOT/installer/config/enable-services.sh" ||
   fail "a fresh install does not enable a discovery service it no longer installs"
 ! grep -q 'enable_system_service cups-browsed' "$ROOT/bin/arch-upgrade-to-quattro" ||
   fail "the Quattro upgrade does not enable a discovery service it no longer installs"
@@ -32,7 +32,7 @@ pass "the base install keeps CUPS and Polkit administration, without automatic d
 # CUPS still ships /etc/cups/cups-files.conf, so its authorization override is
 # applied after the ISO installs that package. cups-browsed is absent, so the
 # installer must not write any of its package-owned configuration.
-post_install_pacman="$ROOT/install/post-install/pacman.sh"
+post_install_pacman="$ROOT/installer/post-install/pacman.sh"
 
 ! grep -q 'cups-cups-browsed.conf' "$post_install_pacman" ||
   fail "a fresh install does not write configuration for absent printer discovery"
@@ -60,9 +60,9 @@ grep -qxF 'PeerCred on' "$cups_files_conf" ||
   fail "the packaged CUPS policy has one SystemGroup directive"
 [[ $(grep -ciE '^[[:space:]]*PeerCred[[:space:]]' "$cups_files_conf") == 1 ]] ||
   fail "the packaged CUPS policy has one PeerCred directive"
-[[ ! -e $ROOT/install/config/printing.sh ]] ||
+[[ ! -e $ROOT/installer/config/printing.sh ]] ||
   fail "printing policy is not rewritten by an install script"
-! grep -q 'config/printing.sh' "$ROOT/install/config/all.sh" "$ROOT/migrations/1787815267.sh" ||
+! grep -q 'config/printing.sh' "$ROOT/installer/config/all.sh" "$ROOT/migrations/1787815267.sh" ||
   fail "neither install nor update invokes a printing rewrite script"
 
 pass "CUPS authorization ships as a canonical package override"

@@ -100,7 +100,7 @@ sudoers_hash_is_active() {
   return 1
 }
 
-# install/preflight/first-run-mode.sh (2025-08-25 to 2026-05-25) granted the
+# installer/preflight/first-run-mode.sh (2025-08-25 to 2026-05-25) granted the
 # installing account passwordless sudo for the rest of the first boot, including
 # an unrestricted /usr/bin/systemctl from 2025-10-14 on -- enough to link and
 # start a unit of the user's own, which is root. bin/arch-first-run was meant
@@ -110,7 +110,7 @@ sudoers_hash_is_active() {
 # nothing left to retry it.
 #
 # The installer rewrote this file nine times across two locations -- the last two
-# bodies came from install/post-install/first-run-mode.sh, whose cleanup alias
+# bodies came from installer/post-install/first-run-mode.sh, whose cleanup alias
 # names /usr/bin/rm as well as /bin/rm -- and only the later ones carry both
 # Cmnd_Alias lines, so keying on those would walk past the earlier ones. Instead
 # require every active line to be one the installer itself emitted, plus at least
@@ -206,7 +206,7 @@ tsui_sudoers_is_generated() {
   return 1
 }
 
-# install/plymouth.sh wrote this unit for two days (2025-07-05 to 2025-07-07)
+# installer/plymouth.sh wrote this unit for two days (2025-07-05 to 2025-07-07)
 # with an unquoted heredoc, so ExecStop names the installing user's home. The
 # unit is enabled WantedBy=multi-user.target, so systemd runs that path as uid 0
 # on every shutdown, with no hardware event needed to reach it.

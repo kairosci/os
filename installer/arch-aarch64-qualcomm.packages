@@ -1,6 +1,6 @@
 # Qualcomm (Snapdragon) additions, composed after arch-base.packages and
 # arch-aarch64.packages (arch-pkg-defaults aarch64-qualcomm): what every
-# Snapdragon laptop runs, which install/hardware/qualcomm/ and vulkan.sh also
+# Snapdragon laptop runs, which installer/hardware/qualcomm/ and vulkan.sh also
 # install.
 linux-firmware-qcom
 # Copies the vendor-signed firmware (GPU zap shader, DSP images) from Windows.

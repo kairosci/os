@@ -166,7 +166,7 @@ assert_lazy_stub "$cursor_agent_package" cursor-agent
 assert_lazy_stub "$muse_package" muse
 pass "custom agent lazy stubs preserve their mise packages"
 
-source "$ROOT/install/user/mise.sh"
+source "$ROOT/installer/user/mise.sh"
 lazy_config="$ROOT/etc/mise/conf.d/arch-tools.toml"
 [[ -f $lazy_config ]] || fail "os ships the system mise config"
 grep -Fx 'locked_scopes = ["project", "global"]' "$lazy_config" >/dev/null ||
@@ -192,7 +192,7 @@ done
 grep -Fx "reshim --system" "$mise_history" >/dev/null || fail "user setup builds the system lazy bootstrap shims"
 pass "user setup configures system lazy tools from registry shorthands"
 : >"$stub_log"
-source "$ROOT/install/user/mise.sh"
+source "$ROOT/installer/user/mise.sh"
 [[ ! -s $stub_log ]] || fail "user setup must not create handwritten mise wrappers"
 pass "user setup leaves ordinary lazy wrappers to mise"
 

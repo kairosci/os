@@ -342,7 +342,7 @@ pass "migration rejects malformed mktemp output before any privileged write"
 
 # A name can have the right prefix and six-character suffix but still name an
 # object mktemp would never return. Production must reject that object before
-# install/mv; its cleanup may address only that validated scratch sibling and
+# installer/mv; its cleanup may address only that validated scratch sibling and
 # must not recursively remove the unexpected directory.
 write_authfile 644 || fail "the test can stage the nonregular-output fixture"
 before_inode=$(stat -c %i "$authfile")

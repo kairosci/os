@@ -4,10 +4,10 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-leaf="$ROOT/install/hardware/dell-xps13-ptl-speaker-firmware.sh"
+leaf="$ROOT/installer/hardware/dell-xps13-ptl-speaker-firmware.sh"
 migration="$ROOT/migrations/1791265613.sh"
 
-grep -q 'run_logged .*hardware/dell-xps13-ptl-speaker-firmware.sh' "$ROOT/install/hardware/all.sh" ||
+grep -q 'run_logged .*hardware/dell-xps13-ptl-speaker-firmware.sh' "$ROOT/installer/hardware/all.sh" ||
   fail "hardware setup installs the Panther Lake XPS 13 firmware"
 pass "hardware setup installs the Panther Lake XPS 13 firmware"
 

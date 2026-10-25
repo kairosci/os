@@ -7,7 +7,7 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 scratch=$(mktemp -d)
 trap 'rm -rf "$scratch"' EXIT
 export ARCH_PATH="$ROOT"
-setup="$ROOT/install/hardware/lenovo/thinkpad-t14s-camera.sh"
+setup="$ROOT/installer/hardware/lenovo/thinkpad-t14s-camera.sh"
 migration="$ROOT/migrations/1791080527.sh"
 
 # Exercise the real scripts, redirecting privileged writes to a temporary root.
@@ -54,5 +54,5 @@ rule=$(sed '/^#/d; /^$/d' "$ROOT/default/udev/thinkpad-t14s-camera.rules")
 [[ $rule == 'SUBSYSTEM=="dma_heap", KERNEL=="system", TAG+="uaccess"' ]] || fail "access is restricted to the system heap via logind"
 pass "DMA heap access uses a scoped active-seat ACL"
 
-grep -Fxq 'pipewire-libcamera' "$ROOT/install/arch-other.packages" || fail "ISO can supply the camera backend offline"
+grep -Fxq 'pipewire-libcamera' "$ROOT/installer/arch-other.packages" || fail "ISO can supply the camera backend offline"
 pass "camera backend is included in the offline package inventory"

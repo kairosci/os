@@ -7,12 +7,12 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 # The two setup leaves and first run call the platform's own setup through the
 # real dispatcher: a Mac fixture with arch-mac's entrypoints, and x86.
 
-hardware_leaf="$ROOT/install/hardware/platform-setup.sh"
-user_leaf="$ROOT/install/user/platform-setup.sh"
+hardware_leaf="$ROOT/installer/hardware/platform-setup.sh"
+user_leaf="$ROOT/installer/user/platform-setup.sh"
 
-[[ $(grep '^run_logged' "$ROOT/install/hardware/all.sh" | tail -n 1) == 'run_logged "$ARCH_INSTALL/hardware/platform-setup.sh"' ]] ||
+[[ $(grep '^run_logged' "$ROOT/installer/hardware/all.sh" | tail -n 1) == 'run_logged "$ARCH_INSTALL/hardware/platform-setup.sh"' ]] ||
   fail "the platform's system setup is the last hardware leaf"
-[[ $(grep '^run_logged' "$ROOT/install/user/all.sh" | tail -n 1) == 'run_logged "$ARCH_INSTALL/user/platform-setup.sh"' ]] ||
+[[ $(grep '^run_logged' "$ROOT/installer/user/all.sh" | tail -n 1) == 'run_logged "$ARCH_INSTALL/user/platform-setup.sh"' ]] ||
   fail "the platform's user setup is the last user leaf"
 pass "the platform's setup is the last leaf of hardware and of user setup"
 
@@ -108,7 +108,7 @@ pass "x86: the user setup leaf is a no-op, even with Mac entrypoints on disk"
 # leaves first run pending for the next login, as a failed finalization does.
 first_bin=$tmp/first-bin
 first_root=$tmp/arch
-mkdir -p "$first_bin" "$first_root/install/user/first-run" "$tmp/home"
+mkdir -p "$first_bin" "$first_root/installer/user/first-run" "$tmp/home"
 cat >"$first_bin/arch-done" <<'SH'
 #!/bin/bash
 case "$1:$2" in
@@ -121,7 +121,7 @@ for helper in arch-provision-user arch-hook-install arch-notification-wait; do
 done
 chmod +x "$first_bin"/*
 for script in welcome.sh wifi.sh enable-user-units.sh gnome-theme.sh gtk-primary-paste.sh audio-tuning.sh; do
-  printf 'exit 0\n' >"$first_root/install/user/first-run/$script"
+  printf 'exit 0\n' >"$first_root/installer/user/first-run/$script"
 done
 
 first_run() {

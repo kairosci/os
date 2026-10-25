@@ -4,8 +4,8 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-setup="$ROOT/install/hardware/gb10/sleep.sh"
-all="$ROOT/install/hardware/all.sh"
+setup="$ROOT/installer/hardware/gb10/sleep.sh"
+all="$ROOT/installer/hardware/all.sh"
 menu="$ROOT/default/arch/arch-menu.jsonc"
 migration=$(grep -l "hardware/gb10/sleep.sh" "$ROOT"/migrations/*.sh | head -1 || true)
 

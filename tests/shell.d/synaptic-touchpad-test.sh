@@ -4,8 +4,8 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-leaf="$ROOT/install/hardware/fix-synaptic-touchpad.sh"
-all="$ROOT/install/hardware/all.sh"
+leaf="$ROOT/installer/hardware/fix-synaptic-touchpad.sh"
+all="$ROOT/installer/hardware/all.sh"
 
 grep -q 'run_logged .*hardware/fix-synaptic-touchpad.sh' "$all" ||
   fail "the synaptic touchpad quirk runs during hardware setup"

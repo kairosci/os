@@ -100,7 +100,7 @@ grep -q '^run_provisioning() {' "$tmp/provision.sh" && grep -q '^run_setup() {' 
 cat >"$tmp/attempt.sh" <<'SH'
 set -euo pipefail
 
-source "$ROOT/install/provisioning/luks-rekey.sh"
+source "$ROOT/installer/provisioning/luks-rekey.sh"
 source "$TMP/unlock.sh"
 source <(sed -n '/^luks_boot_layout() {/,/^}/p' "$ROOT/bin/arch-provision-owner" | sed "s|/etc/|$TMP/etc/|g")
 declare -F luks_boot_layout >/dev/null
@@ -731,7 +731,7 @@ fixture
 printf 'phase=owner\nstaged_slot=0\nowner_slot=2\nrecovery_slot=5\n' >"$tmp/provisioning/luks-rekey.state"
 chmod 600 "$tmp/provisioning/luks-rekey.state"
 (
-  source "$ROOT/install/provisioning/luks-rekey.sh"
+  source "$ROOT/installer/provisioning/luks-rekey.sh"
   REKEY_STATE=$tmp/provisioning/luks-rekey.state
   rekey_state_put phase boot
 )

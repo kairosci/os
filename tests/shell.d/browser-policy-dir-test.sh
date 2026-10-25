@@ -10,7 +10,7 @@ trap 'rm -rf "$test_tmp"' EXIT
 export ARCH_PATH="$ROOT"
 export ARCH_PROVISIONING_DIR="$test_tmp/provisioning"
 
-source "$ROOT/install/helpers/browser-policy.sh"
+source "$ROOT/installer/helpers/browser-policy.sh"
 
 # Temp dirs are user-owned; drop -o/-g so install(1) can run unprivileged.
 unprivileged_as_root() {
@@ -306,9 +306,9 @@ policy_files=(
   "$ROOT/bin/arch-theme-set-browser"
   "$ROOT/bin/arch-theme-set-browser-policy"
   "$ROOT/bin/arch-upgrade-to-quattro"
-  "$ROOT/install/config/theme-system.sh"
-  "$ROOT/install/config/browser-policy.sh"
-  "$ROOT/install/helpers/browser-policy.sh"
+  "$ROOT/installer/config/theme-system.sh"
+  "$ROOT/installer/config/browser-policy.sh"
+  "$ROOT/installer/helpers/browser-policy.sh"
   "$ROOT/migrations/1787515927.sh"
 )
 if grep -nE 'chmod a\+rwx\b|chmod a\+rw\b|chmod a\+w\b|chmod o\+w|chmod ugo\+w|chmod 2775\b|chmod 2777\b|chmod 0777\b|chmod 777\b|install -d -m 0?[27]?777|arch-browser-policy' "${policy_files[@]}" >/dev/null; then
@@ -327,7 +327,7 @@ grep -F 'BROWSER_POLICY_FIREFOX_DIRS' "${migrations[0]}" >/dev/null ||
   fail "the policy-directory migration covers Firefox and Zen"
 grep -F 'browser_policy_firefox_policy_file_ok' "${migrations[0]}" >/dev/null ||
   fail "the policy-directory migration keeps a trusted Firefox policies.json"
-grep -F '/opt/zen-browser/distribution' "$ROOT/install/helpers/browser-policy.sh" >/dev/null ||
+grep -F '/opt/zen-browser/distribution' "$ROOT/installer/helpers/browser-policy.sh" >/dev/null ||
   fail "the shared helper names the Zen distribution directory"
 pass "a migration locks existing policy directories"
 

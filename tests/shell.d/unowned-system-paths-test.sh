@@ -72,7 +72,7 @@ for code, writes in (
     sys.exit(1)
 
 problems = []
-for base in ("bin", "install", "migrations"):
+for base in ("bin", "installer", "migrations"):
   for path in sorted((root / base).rglob("*")):
     if not path.is_file():
       continue
@@ -97,7 +97,7 @@ for base in ("bin", "install", "migrations"):
       code = line.split("#", 1)[0]
       if not writer.search(code):
         continue
-      # A redirection names its destination directly. Otherwise cp/install/ln
+      # A redirection names its destination directly. Otherwise cp/installer/ln
       # put the destination last, and anything earlier is a source being read.
       redirect = re.search(r">\s*\"?(/usr/[^\s\"]+)", code)
       if redirect:
