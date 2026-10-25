@@ -6,7 +6,7 @@ Jedes Design gestaltet den Desktop, das Terminal, Neovim, den Aktivitätsbildsch
 
 Designs haben eine Reihe von Hintergrundbildern, zwischen denen du mit `Super + Ctrl + Space` wählen kannst.
 
-Noch mehr Designs findest du auf [der Seite für zusätzliche Designs](https://github.com/kairosci/arch/themes/) oder du kannst sogar [dein eigenes Design erstellen](43-making-your-own-theme.md).
+Noch mehr Designs findest du auf [der Seite für zusätzliche Designs](https://github.com/kairosci/os/themes/) oder du kannst sogar [dein eigenes Design erstellen](43-making-your-own-theme.md).
 
  ![tokyo-night](../themes/tokyo-night/preview.png)
 _Tokyo Night_

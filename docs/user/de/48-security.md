@@ -30,6 +30,6 @@ Sei dir bei diesem Punkt im Klaren: Solange er aktiv ist, kann alles, was als de
 
 ## Signaturschlüssel
 
-Der öffentliche Schlüssel für alle ISO-Signaturen und Arch-Repo-Pakete ist `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([überprüfe ihn auf openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch)). Das Paket `arch/arch-keyring` enthält ihn ebenfalls und wird verwendet, um mögliche Updates nahtlos auszurollen.
+Der öffentliche Schlüssel für alle ISO-Signaturen und Arch-Repo-Pakete ist `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([überprüfe ihn auf openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os)). Das Paket `arch/arch-keyring` enthält ihn ebenfalls und wird verwendet, um mögliche Updates nahtlos auszurollen.
 
-Die Signatur für jede ISO-Version findest du, indem du .sig an die URL anhängst. Wie https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig.
+Die Signatur für jede ISO-Version findest du, indem du .sig an die URL anhängst. Wie https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig.
