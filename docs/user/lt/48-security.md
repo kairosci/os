@@ -30,6 +30,6 @@ Arch nuostatų paketo atnaujinimas ar pašalinimas užbaigia bet kurį laikiną 
 
 ## Pasirašymo raktai
 
-Visų ISO parašų ir Arch saugyklos paketų viešas raktas yra `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([patikrinti openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch)). Paketas `arch/arch-keyring` taip pat jį turi ir bus naudojamas bet kokiems galimiems naujinimams sklandžiai išskleisti.
+Visų ISO parašų ir Arch saugyklos paketų viešas raktas yra `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([patikrinti openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os)). Paketas `arch/arch-keyring` taip pat jį turi ir bus naudojamas bet kokiems galimiems naujinimams sklandžiai išskleisti.
 
-Bet kurio ISO leidimo parašą rasi prie URL pridėjęs .sig. Pavyzdžiui, https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig.
+Bet kurio ISO leidimo parašą rasi prie URL pridėjęs .sig. Pavyzdžiui, https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig.

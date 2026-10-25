@@ -2,7 +2,7 @@
 
 Arch ir tavo paketai išlaikomi naujausi per _Atnaujinti > Arch_ Arch meniu (`Super + Space`).
 
-Pati Arch įdiegiama kaip įprastiniai pacman paketai iš [Arch Package Repository](https://github.com/kairosci/arch), tad atnaujinimas įdiegia [naujausią Arch leidimą](https://github.com/kairosci/arch), paleidžia visas laukiančias migracijas, kad tavo sistema būtų sinchronizuota su naujausia, ir atnaujina visus sistemos paketus iš [Arch Arch Mirror](https://github.com/kairosci/arch) ir [AUR](https://aur.archlinux.org/) (jei įdiegei kokius nors AUR paketus).
+Pati Arch įdiegiama kaip įprastiniai pacman paketai iš [Arch Package Repository](https://github.com/kairosci/os), tad atnaujinimas įdiegia [naujausią Arch leidimą](https://github.com/kairosci/os), paleidžia visas laukiančias migracijas, kad tavo sistema būtų sinchronizuota su naujausia, ir atnaujina visus sistemos paketus iš [Arch Arch Mirror](https://github.com/kairosci/os) ir [AUR](https://aur.archlinux.org/) (jei įdiegei kokius nors AUR paketus).
 
 Kai išleidžiami nauji leidimai, dešinėje nuo tavo laikrodžio pasirodys apskritimo rodyklės piktograma. Spustelėk ją ir atnaujinimo procesas prasidės.
 
@@ -10,7 +10,7 @@ Kai išleidžiami nauji leidimai, dešinėje nuo tavo laikrodžio pasirodys apsk
 
 ### Keturi kanalai
 
-Arch atnaujinama pagal keturis kanalus: stable, RC, edge ir dev. Nauji diegimai prasideda stable kanale, kuris seka [oficialius leidimus](https://github.com/kairosci/arch), taip pat [stable Arch Arch mirror](https://github.com/kairosci/arch), kuris atsilieka mėnesiu nuo naujausio, kad galėtume pagauti visus naujus nesuderinamumus, reikalaujančius konfigūracijos pakeitimų, kol jie nesukėlė problemų žmonėms.
+Arch atnaujinama pagal keturis kanalus: stable, RC, edge ir dev. Nauji diegimai prasideda stable kanale, kuris seka [oficialius leidimus](https://github.com/kairosci/os), taip pat [stable Arch Arch mirror](https://github.com/kairosci/os), kuris atsilieka mėnesiu nuo naujausio, kad galėtume pagauti visus naujus nesuderinamumus, reikalaujančius konfigūracijos pakeitimų, kol jie nesukėlė problemų žmonėms.
 
 Bet jei norėtum padėti pastebėti tas galimas problemas, gali veikti edge kanale. Tai leis tavo Arch paketams sekti naujausias kūrimo versijas ir leis atnaujinti iki naujausių Arch paketų, kai tik jie prieinami. Tai turėtum daryti tik jei esi patyręs su Linux ir žinai, kaip atkurti sistemą, kuri turi problemų.
 

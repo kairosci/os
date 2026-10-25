@@ -6,7 +6,7 @@ Kiekviena tema stilizuoja darbalaukį, terminalą, neovim, veiklos ekraną (btop
 
 Temos turi foninių paveikslėlių rinkinį, iš kurio galite rinktis naudodami `Super + Ctrl + Space`.
 
-Dar daugiau temų galite rasti [papildomų temų puslapyje](https://github.com/kairosci/arch/themes/) arba net [susikurti savo temą](43-making-your-own-theme.md).
+Dar daugiau temų galite rasti [papildomų temų puslapyje](https://github.com/kairosci/os/themes/) arba net [susikurti savo temą](43-making-your-own-theme.md).
 
  ![tokyo-night](../themes/tokyo-night/preview.png)
 _Tokyo Night_

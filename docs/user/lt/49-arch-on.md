@@ -2,19 +2,19 @@
 
 ### Apple M1/M2 lustų
 
-[Asahi Alarm](https://asahi-alarm.org/) yra Arch versija Apple M1/M2 kompiuteriams, pastatyta ant [Asahi Linux](https://asahilinux.org/). Su pastangomis gali ant jos paleisti Arch. Žr. [vartotojų parengtą vadovą](https://github.com/kairosci/arch).
+[Asahi Alarm](https://asahi-alarm.org/) yra Arch versija Apple M1/M2 kompiuteriams, pastatyta ant [Asahi Linux](https://asahilinux.org/). Su pastangomis gali ant jos paleisti Arch. Žr. [vartotojų parengtą vadovą](https://github.com/kairosci/os).
 
 ### Apple virtualios mašinos
 
-Arch taip pat gali įdiegti Parallels VM viduje. Gana gremėzdiškas procesas, bet ir tam yra [vartotojų parengtas vadovas](https://github.com/kairosci/arch).
+Arch taip pat gali įdiegti Parallels VM viduje. Gana gremėzdiškas procesas, bet ir tam yra [vartotojų parengtas vadovas](https://github.com/kairosci/os).
 
 ### VirtualBox
 
-VirtualBox yra populiarus VM paleidiklis. [Arch rasi paleisti ir jame](https://github.com/kairosci/arch). Bet našumas tikriausiai nebus didelis.
+VirtualBox yra populiarus VM paleidiklis. [Arch rasi paleisti ir jame](https://github.com/kairosci/os). Bet našumas tikriausiai nebus didelis.
 
 ### VMware Workstation ant Windows 11
 
-Kitas populiarus VM paleidiklis Windows. [Arch buvo nustatyta ir jo viduje](https://github.com/kairosci/arch).
+Kitas populiarus VM paleidiklis Windows. [Arch buvo nustatyta ir jo viduje](https://github.com/kairosci/os).
 
 ### Steam Deck
 

@@ -95,10 +95,10 @@ arch plugin validate ./my-plugin
 
 Tai paleidžia tuos pačius patikrinimus, kuriuos shell atlieka įkėlimo metu: schemos versiją, privalomus laukus, id, kuris nėra rezervuotas, įėjimo taškus, kurie yra saugūs santykiniai keliai ir iš tikrųjų egzistuoja, įėjimo tašką kiekvienam tipui, kurį pretendei, ir be simbolinių nuorodų niekur aplanko viduje.
 
-Įskiepių kūrimui žiūrėk [shell nuorodą](https://github.com/kairosci/arch) ir [pirmosios šalies įskiepių katalogą](https://github.com/kairosci/arch).
+Įskiepių kūrimui žiūrėk [shell nuorodą](https://github.com/kairosci/os) ir [pirmosios šalies įskiepių katalogą](https://github.com/kairosci/os).
 
 ## Dalinimasis savuoju su pasauliu
 
 Kai sukūrei kažką, kas tau patinka, įdėk tai į viešą git saugyklą. Tai visas platinimo mechanizmas — tada bet kas gali paleisti `arch plugin add` prieš tavo URL ir turėti jį veikiantį per kelias sekundes.
 
-Kad padėtum žmonėms jį iš tikrųjų rasti, išvardyk jį [plugins.github.com/kairosci/arch](https://plugins.github.com/kairosci/arch). Tai Arch shell įskiepių turgus (marketplace) ir pirmoji vieta, kurios žiūrėti, kai domiesi, ar kas nors jau sukūrę valdiklį, kurį ruošiesi rašyti. Peržiūrėk jį prieš pradedant!
+Kad padėtum žmonėms jį iš tikrųjų rasti, išvardyk jį [plugins.github.com/kairosci/os](https://plugins.github.com/kairosci/os). Tai Arch shell įskiepių turgus (marketplace) ir pirmoji vieta, kurios žiūrėti, kai domiesi, ar kas nors jau sukūrę valdiklį, kurį ruošiesi rašyti. Peržiūrėk jį prieš pradedant!
