@@ -101,7 +101,7 @@ runs inside the long-lived `arch-shell` process, replacing the old
 
 ## Dock
 
-App dock shown on floating workspaces, and hidden on tiled ones and behind a fullscreen window. Floating is not a Hyprland layout, so the dock reads each workspace's mode through `arch-hyprland-workspace-layout-current`, caches it, and is told to read again over `arch-shell arch.dock refresh` by the layout commands. `arch-shell arch.dock apps` toggles its grid of every app.
+App dock available across workspaces and hidden behind a fullscreen window. `arch-shell arch.dock apps` toggles its grid of every app.
 
 Its settings live in the `dock:` subtree of `shell.json`: `position` (`top`, `bottom`, `left` or `right`) and `pinned` (desktop ids). A `shell.json` without pins uses the defaults. `archctl dock` sets both.
 

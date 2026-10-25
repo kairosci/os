@@ -1,6 +1,7 @@
 -- See https://wiki.hypr.land/Configuring/Basics/Window-Rules/
 
-o.window(".*", { suppress_event = "maximize" })
+-- Keep all application windows in the configured tiling layout.
+o.window(".*", { tile = true, suppress_event = "maximize" })
 
 -- Fix some dragging issues with XWayland.
 o.window(
@@ -8,7 +9,6 @@ o.window(
     class = "^$",
     title = "^$",
     xwayland = true,
-    float = true,
     fullscreen = false,
     pin = false,
   },

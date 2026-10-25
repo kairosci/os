@@ -1,7 +1,6 @@
 import QtQuick
 import Quickshell
 import Quickshell.Hyprland
-import Quickshell.Io
 import qs.Commons
 import "DockModel.js" as DockModel
 
@@ -269,65 +268,8 @@ Item {
     }
   }
 
-  // Each workspace's layout is read once and cached. It only changes through
-  // the layout commands, which ask the dock to refresh, or a config reload.
-  property var modes: ({})
-  property var pendingModes: []
-  property int modeGeneration: 0
-  property int modeProcWorkspace: -1
-  property int modeProcGeneration: 0
-
-  function isFloating(workspaceId) {
-    return root.modes[workspaceId] === "floating"
-  }
-
-  function readMode(workspaceId) {
-    if (!(workspaceId >= 1) || root.modes[workspaceId] !== undefined) return
-    if (root.pendingModes.indexOf(workspaceId) === -1) root.pendingModes.push(workspaceId)
-    root.readNextMode()
-  }
-
-  function readNextMode() {
-    if (modeProc.running || root.pendingModes.length === 0) return
-    root.modeProcWorkspace = root.pendingModes.shift()
-    root.modeProcGeneration = root.modeGeneration
-    modeProc.command = ["arch-hyprland-workspace-layout-current", String(root.modeProcWorkspace)]
-    modeProc.running = true
-  }
-
-  function refresh() {
-    root.modes = ({})
-    root.pendingModes = []
-    root.modeGeneration++
-    var monitors = Hyprland.monitors.values
-    for (var i = 0; i < monitors.length; i++) {
-      if (monitors[i].activeWorkspace) root.readMode(monitors[i].activeWorkspace.id)
-    }
-    // Read the rest ahead of time, so the dock shows or hides the moment the
-    // user switches to one.
-    var workspaces = Hyprland.workspaces.values
-    for (var j = 0; j < workspaces.length; j++) root.readMode(workspaces[j].id)
-  }
-
   Component.onCompleted: {
-    refresh()
     syncItemModel()
-  }
-
-  Process {
-    id: modeProc
-    stdout: StdioCollector {
-      onStreamFinished: {
-        var mode = text.trim()
-        // A read that started before a refresh may predate the change.
-        if (!mode || root.modeProcGeneration !== root.modeGeneration) return
-        var next = Object.assign({}, root.modes)
-        next[root.modeProcWorkspace] = mode
-        root.modes = next
-      }
-    }
-    // Deferred: the process still reports running while it signals exit.
-    onExited: Qt.callLater(root.readNextMode)
   }
 
   Connections {
@@ -347,8 +289,6 @@ Item {
   ShellIpc {
     target: "arch.dock"
 
-    // The layout commands call this after changing a workspace's mode.
-    function refresh(): void { root.refresh() }
     function apps(): void { appGrid.toggle() }
   }
 

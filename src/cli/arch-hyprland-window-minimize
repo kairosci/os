@@ -14,9 +14,6 @@ fi
 
 [[ -n $ADDRESS && $WORKSPACE =~ ^[0-9]+$ ]] || exit 1
 
-# Only floating workspaces have the dock to bring a window back from.
-[[ $(arch-hyprland-workspace-layout-current "$WORKSPACE") == "floating" ]] || exit 0
-
 remember_minimized_from() {
   local address=$1 workspace=$2 clients tag
   if clients=$(hyprctl clients -j); then

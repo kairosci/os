@@ -24,10 +24,18 @@ done
 [[ $(<"$layouts/2.lua") == 'o.workspace_mode({ workspace = "2", mode = "scrolling" })' ]] ||
   fail "a saved layout rule becomes a mode" "$(cat "$layouts/2.lua")"
 [[ $(<"$layouts/3.lua") == 'o.workspace_mode({ workspace = "3", mode = "floating" })' ]] ||
-  fail "a saved mode is left alone" "$(cat "$layouts/3.lua")"
+  fail "the earlier migration leaves modes alone" "$(cat "$layouts/3.lua")"
 [[ $(<"$layouts/default.lua") == 'o.workspace_mode({ default = "floating" })' ]] ||
-  fail "the default layout is left alone" "$(cat "$layouts/default.lua")"
-pass "saved layout rules become modes, and modes are left alone"
+  fail "the earlier migration leaves the default alone" "$(cat "$layouts/default.lua")"
+pass "saved layout rules become modes, and existing modes are left alone"
+
+new_migration="$ROOT/migrations/1792937762.sh"
+env HOME="$tmpdir/home" bash -euo pipefail "$new_migration" >/dev/null
+[[ $(<"$layouts/3.lua") == 'o.workspace_mode({ workspace = "3", mode = "dwindle" })' ]] ||
+  fail "a legacy floating workspace is migrated to tiled dwindle" "$(cat "$layouts/3.lua")"
+[[ $(<"$layouts/default.lua") == 'o.workspace_mode({ default = "dwindle" })' ]] ||
+  fail "a legacy floating default is migrated to tiled dwindle" "$(cat "$layouts/default.lua")"
+pass "legacy floating layouts migrate to tiled dwindle"
 
 [[ -L $layouts/4.lua && $(<"$tmpdir/dotfiles/4.lua") == 'o.workspace_mode({ workspace = "4", mode = "dwindle" })' ]] ||
   fail "a symlinked layout stays linked and its target is converted" "$(ls -l "$layouts/4.lua"; cat "$tmpdir/dotfiles/4.lua")"
