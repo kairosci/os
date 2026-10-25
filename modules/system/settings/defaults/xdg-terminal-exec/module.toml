@@ -1,0 +1,13 @@
+id = "system.settings.defaults.xdg-terminal-exec"
+domain = "system"
+package = "arch-settings"
+sources = ["default/xdg-terminal-exec"]
+requires = ["system.settings.defaults"]
+
+[[output]]
+source = "default/xdg-terminal-exec"
+target = "usr/share/arch/default/xdg-terminal-exec"
+
+[[output]]
+source = "default/xdg-terminal-exec/hyprland-xdg-terminals.list"
+target = "usr/share/xdg-terminal-exec/hyprland-xdg-terminals.list"

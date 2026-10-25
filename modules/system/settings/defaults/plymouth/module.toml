@@ -1,0 +1,13 @@
+id = "system.settings.defaults.plymouth"
+domain = "system"
+package = "arch-settings"
+sources = ["default/plymouth"]
+requires = ["system.settings.defaults"]
+
+[[output]]
+source = "default/plymouth"
+target = "usr/share/arch/default/plymouth"
+
+[[output]]
+source = "default/plymouth"
+target = "usr/share/plymouth/themes/arch"

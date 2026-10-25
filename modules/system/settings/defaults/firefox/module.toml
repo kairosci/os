@@ -1,0 +1,9 @@
+id = "system.settings.defaults.firefox"
+domain = "system"
+package = "arch-settings"
+sources = ["default/firefox"]
+requires = ["system.settings.defaults"]
+
+[[output]]
+source = "default/firefox"
+target = "usr/share/arch/default/firefox"

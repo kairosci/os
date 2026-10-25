@@ -1,0 +1,9 @@
+id = "system.settings.defaults.audio"
+domain = "system"
+package = "arch-settings"
+sources = ["default/audio"]
+requires = ["system.settings.defaults"]
+
+[[output]]
+source = "default/audio"
+target = "usr/share/arch/default/audio"

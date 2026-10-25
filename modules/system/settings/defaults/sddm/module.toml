@@ -1,0 +1,17 @@
+id = "system.settings.defaults.sddm"
+domain = "system"
+package = "arch-settings"
+sources = ["default/sddm"]
+requires = ["system.settings.defaults"]
+
+[[output]]
+source = "default/sddm"
+target = "usr/share/arch/default/sddm"
+
+[[output]]
+source = "default/sddm/hyprland.lua"
+target = "usr/share/sddm/hyprland.lua"
+
+[[output]]
+source = "default/sddm/arch"
+target = "usr/share/sddm/themes/arch"

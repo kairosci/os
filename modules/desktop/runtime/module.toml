@@ -2,7 +2,7 @@ id = "desktop.runtime"
 domain = "desktop"
 package = "arch"
 sources = ["src/shell/Commons", "src/shell/Ui", "src/shell/services", "src/shell/shell.qml", "src/shell/README.md", "src/shell/plugins/README.md", "assets/themes"]
-requires = ["system.settings"]
+requires = ["system.settings", "desktop.branding"]
 
 [[output]]
 source = "src/shell/Commons"

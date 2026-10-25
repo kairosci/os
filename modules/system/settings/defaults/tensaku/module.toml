@@ -1,0 +1,9 @@
+id = "system.settings.defaults.tensaku"
+domain = "system"
+package = "arch-settings"
+sources = ["default/tensaku"]
+requires = ["system.settings.defaults"]
+
+[[output]]
+source = "default/tensaku"
+target = "usr/share/arch/default/tensaku"

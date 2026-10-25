@@ -26,7 +26,7 @@ A second edition built from this same repo — not a fork, not a mode toggle:
 
 ## What it looks like
 
-Mockups, generated from the repo's own `logo.txt` wordmark and the tokyo-night `colors.toml` — every theme restyles all three screens.
+Mockups, generated from the repo's own `assets/branding/logo.txt` wordmark and the tokyo-night `colors.toml` — every theme restyles all three screens.
 
 The login splash — pre-menu, both on the console and over SSH:
 

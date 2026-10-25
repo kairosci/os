@@ -70,6 +70,7 @@ Git submodules are reserved for separately released components with their own ma
 | `config/` | `config/user/` |
 | `applications/` | `assets/applications/` |
 | `themes/` | `assets/themes/` |
+| repository-root logos and icons | `assets/branding/` |
 | `install/` | `installer/` |
 | `migrations/` | `migrations/`, grouped by owning system module |
 | `test/` | `tests/` |

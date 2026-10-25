@@ -1,0 +1,9 @@
+id = "system.settings.defaults.gpg"
+domain = "system"
+package = "arch-settings"
+sources = ["default/gpg"]
+requires = ["system.settings.defaults"]
+
+[[output]]
+source = "default/gpg"
+target = "usr/share/arch/default/gpg"

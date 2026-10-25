@@ -1,0 +1,9 @@
+id = "system.settings.defaults.wayland-sessions"
+domain = "system"
+package = "arch-settings"
+sources = ["default/wayland-sessions"]
+requires = ["system.settings.defaults"]
+
+[[output]]
+source = "default/wayland-sessions"
+target = "usr/share/arch/default/wayland-sessions"

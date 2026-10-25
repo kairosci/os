@@ -266,7 +266,7 @@ pass "Hyprland bootstrap reloads cached os config modules"
 TMPDIR=$(mktemp -d)
 test_arch_root="$TMPDIR/arch-root"
 mkdir -p "$test_arch_root"
-for entry in config default etc migrations version arch-mark.svg icon.txt logo.txt logo.svg; do
+for entry in config default etc migrations version; do
   [[ -e $ROOT/$entry ]] && ln -s "$ROOT/$entry" "$test_arch_root/$entry"
 done
 mkdir -p "$test_arch_root/src"
@@ -276,6 +276,10 @@ ln -s "$ROOT/src/shell" "$test_arch_root/src/shell"
 mkdir -p "$test_arch_root/assets"
 ln -s "$ROOT/assets/themes" "$test_arch_root/assets/themes"
 ln -s "$ROOT/assets/applications" "$test_arch_root/assets/applications"
+mkdir -p "$test_arch_root/assets/branding"
+for entry in arch-mark.svg arch-symbol.png icon.txt logo.txt logo.svg; do
+  ln -s "$ROOT/assets/branding/$entry" "$test_arch_root/assets/branding/$entry"
+done
 mkdir -p "$TMPDIR/home/.config/arch"
 # The bar keeps its blur toggle where Hyprland reads it, under XDG_STATE_HOME,
 # so that points into the test home too.

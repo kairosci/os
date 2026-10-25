@@ -1,0 +1,9 @@
+id = "system.settings.defaults.wireplumber"
+domain = "system"
+package = "arch-settings"
+sources = ["default/wireplumber"]
+requires = ["system.settings.defaults"]
+
+[[output]]
+source = "default/wireplumber"
+target = "usr/share/arch/default/wireplumber"

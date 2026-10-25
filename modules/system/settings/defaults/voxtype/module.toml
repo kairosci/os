@@ -1,0 +1,9 @@
+id = "system.settings.defaults.voxtype"
+domain = "system"
+package = "arch-settings"
+sources = ["default/voxtype"]
+requires = ["system.settings.defaults"]
+
+[[output]]
+source = "default/voxtype"
+target = "usr/share/arch/default/voxtype"

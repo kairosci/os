@@ -1,0 +1,9 @@
+id = "system.settings.defaults.limine"
+domain = "system"
+package = "arch-settings"
+sources = ["default/limine"]
+requires = ["system.settings.defaults"]
+
+[[output]]
+source = "default/limine"
+target = "usr/share/arch/default/limine"

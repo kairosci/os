@@ -1,0 +1,9 @@
+id = "system.settings.defaults.mkinitcpio"
+domain = "system"
+package = "arch-settings"
+sources = ["default/mkinitcpio"]
+requires = ["system.settings.defaults"]
+
+[[output]]
+source = "default/mkinitcpio"
+target = "usr/share/arch/default/mkinitcpio"

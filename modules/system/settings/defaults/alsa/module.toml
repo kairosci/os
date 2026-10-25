@@ -1,0 +1,9 @@
+id = "system.settings.defaults.alsa"
+domain = "system"
+package = "arch-settings"
+sources = ["default/alsa"]
+requires = ["system.settings.defaults"]
+
+[[output]]
+source = "default/alsa"
+target = "usr/share/arch/default/alsa"

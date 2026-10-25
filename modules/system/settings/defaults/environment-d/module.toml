@@ -1,0 +1,13 @@
+id = "system.settings.defaults.environment-d"
+domain = "system"
+package = "arch-settings"
+sources = ["default/environment.d"]
+requires = ["system.settings.defaults"]
+
+[[output]]
+source = "default/environment.d"
+target = "usr/share/arch/default/environment.d"
+
+[[output]]
+source = "default/environment.d/10-arch-fcitx.conf"
+target = "usr/lib/environment.d/10-arch-fcitx.conf"

@@ -1,0 +1,9 @@
+id = "system.settings.defaults.themed"
+domain = "system"
+package = "arch-settings"
+sources = ["default/themed"]
+requires = ["system.settings.defaults"]
+
+[[output]]
+source = "default/themed"
+target = "usr/share/arch/default/themed"

@@ -1,7 +1,7 @@
 id = "desktop.branding"
 domain = "desktop"
 package = "arch"
-sources = ["version", "arch-mark.svg", "icon.txt", "logo.txt", "logo.svg"]
+sources = ["version", "assets/branding/arch-mark.svg", "assets/branding/icon.txt", "assets/branding/logo.txt", "assets/branding/logo.svg", "assets/branding/arch-symbol.png"]
 requires = ["system.settings"]
 
 [[output]]
@@ -9,17 +9,21 @@ source = "version"
 target = "usr/share/arch/version"
 
 [[output]]
-source = "arch-mark.svg"
-target = "usr/share/arch/arch-mark.svg"
+source = "assets/branding/arch-mark.svg"
+target = "usr/share/arch/assets/branding/arch-mark.svg"
 
 [[output]]
-source = "icon.txt"
-target = "usr/share/arch/icon.txt"
+source = "assets/branding/icon.txt"
+target = "usr/share/arch/assets/branding/icon.txt"
 
 [[output]]
-source = "logo.txt"
-target = "usr/share/arch/logo.txt"
+source = "assets/branding/logo.txt"
+target = "usr/share/arch/assets/branding/logo.txt"
 
 [[output]]
-source = "logo.svg"
-target = "usr/share/arch/logo.svg"
+source = "assets/branding/logo.svg"
+target = "usr/share/arch/assets/branding/logo.svg"
+
+[[output]]
+source = "assets/branding/arch-symbol.png"
+target = "usr/share/arch/assets/branding/arch-symbol.png"

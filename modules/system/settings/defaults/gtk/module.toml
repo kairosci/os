@@ -1,0 +1,9 @@
+id = "system.settings.defaults.gtk"
+domain = "system"
+package = "arch-settings"
+sources = ["default/gtk"]
+requires = ["system.settings.defaults"]
+
+[[output]]
+source = "default/gtk"
+target = "usr/share/arch/default/gtk"
