@@ -1,7 +1,7 @@
 id = "system.settings"
 domain = "system"
 package = "arch-settings"
-sources = ["config", "default", "applications", "etc", "logo.txt", "icon.txt", "icon.png", "logo.svg", "arch-mark.svg"]
+sources = ["config", "default", "assets/applications", "etc", "logo.txt", "icon.txt", "icon.png", "logo.svg", "arch-mark.svg"]
 requires = []
 
 [[output]]
@@ -13,7 +13,7 @@ source = "default"
 target = "usr/share/arch/default"
 
 [[output]]
-source = "applications"
+source = "assets/applications"
 target = "usr/share/arch/applications"
 
 [[output]]

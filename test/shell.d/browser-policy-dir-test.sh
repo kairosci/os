@@ -221,7 +221,7 @@ for malformed in "" "not,a,color" "1,2" "1,2,3,4" "256,0,0" "999,999,999" "-1,0,
 done
 pass "theme colour is six hex digits or the stock grey"
 
-for theme in "$ROOT"/themes/*/chromium.theme; do
+for theme in "$ROOT"/assets/themes/*/chromium.theme; do
   [[ -f $theme ]] || continue
   rgb=$(<$theme)
   hex=$(browser_policy_theme_hex "$rgb")

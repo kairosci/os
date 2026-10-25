@@ -18,10 +18,13 @@ browser_file="$test_tmp/browser"
 mkdir -p "$mock_bin" "$test_home/.config" "$installed_dir"
 
 terminal_home="$test_tmp/terminal-home"
-mkdir -p "$terminal_home/.local/share/applications"
+arch_runtime="$test_tmp/arch-runtime"
+mkdir -p "$terminal_home/.local/share/applications" "$arch_runtime/applications"
+cp -a assets/applications/. "$arch_runtime/applications/"
+cp -a config default install "$arch_runtime/"
 printf 'legacy desktop entry\n' >"$terminal_home/.local/share/applications/org.legacy.terminal.desktop"
-HOME="$terminal_home" ARCH_PATH="$ROOT" bash "$ROOT/migrations/1792867070.sh"
-cmp -s "$ROOT/applications/org.arch.terminal.desktop" \
+HOME="$terminal_home" ARCH_PATH="$arch_runtime" bash "$ROOT/migrations/1792867070.sh"
+cmp -s "$ROOT/assets/applications/org.arch.terminal.desktop" \
   "$terminal_home/.local/share/applications/org.arch.terminal.desktop" ||
   fail "the terminal launcher is migrated to the Arch desktop id"
 [[ ! -e $terminal_home/.local/share/applications/org.legacy.terminal.desktop ]] ||

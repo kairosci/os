@@ -74,9 +74,13 @@ SH
 chmod +x "$mock_bin"/* "$mount_dir/t3code"
 
 mkdir -p "$test_tmp/tmp"
+arch_runtime="$test_tmp/arch-runtime"
+mkdir -p "$arch_runtime/themes"
+cp -a assets/themes/. "$arch_runtime/themes/"
+cp -a default "$arch_runtime/"
 run_installer() {
   TMPDIR="$test_tmp/tmp" HOME="$test_home" T3CODE_HOME="$test_tmp/custom t3 home" \
-    ARCH_PATH="$ROOT" PATH="$mock_bin:$ROOT/bin:$PATH" \
+    ARCH_PATH="$arch_runtime" PATH="$mock_bin:$ROOT/bin:$PATH" \
     ARCH_THEME_HEADLESS=1 XDG_RUNTIME_DIR="$test_tmp" \
     "$ROOT/bin/arch-install-ai-t3-code" "$@" >"$test_tmp/output" 2>&1
 }
@@ -86,7 +90,7 @@ palette="$test_tmp/custom t3 home/userdata/themes/arch.json"
 settings="$test_tmp/custom t3 home/userdata/settings.json"
 mkdir -p "$state/theme"
 echo 'cosmic' >"$state/theme.name"
-cp "$ROOT/themes/cosmic/colors.toml" "$state/theme/colors.toml"
+cp "$ROOT/assets/themes/cosmic/colors.toml" "$state/theme/colors.toml"
 
 ARCH_TEST_GUM_PICK=Nightly run_installer || fail "installing after an update succeeds" "$(cat "$test_tmp/output")"
 [[ $(cat "$test_tmp/channel") == "nightly" ]] || fail "the channel picked at the prompt is installed"

@@ -30,7 +30,7 @@ for browser in chromium firefox; do
     "$browser" "$browser" >"$test_tmp/system/applications/$browser.desktop"
 done
 
-cp "$ROOT/applications/arch-browser.desktop" "$applications/"
+cp "$ROOT/assets/applications/arch-browser.desktop" "$applications/"
 cp "$ROOT/config/hyprland-mimeapps.list" "$XDG_CONFIG_HOME/"
 
 grep -qxF "Exec=arch-launch-browser %U" "$applications/arch-browser.desktop" ||
@@ -69,7 +69,11 @@ pass "the link entry is never taken for the browser"
 migration=$(grep -lF "arch-browser.desktop" "$ROOT"/migrations/*.sh | head -1)
 rm -f "$applications/arch-browser.desktop" "$XDG_CONFIG_HOME/hyprland-mimeapps.list"
 mkdir -p "$test_tmp/migrated/.config"
-HOME="$test_tmp/migrated" ARCH_PATH="$ROOT" bash -euo pipefail "$migration" >/dev/null
+arch_runtime="$test_tmp/arch-runtime"
+mkdir -p "$arch_runtime/applications"
+cp -a assets/applications/. "$arch_runtime/applications/"
+cp -a config "$arch_runtime/"
+HOME="$test_tmp/migrated" ARCH_PATH="$arch_runtime" bash -euo pipefail "$migration" >/dev/null
 [[ -f $test_tmp/migrated/.local/share/applications/arch-browser.desktop ]] ||
   fail "the migration installs the link entry"
 grep -qxF "x-scheme-handler/https=arch-browser.desktop" "$test_tmp/migrated/.config/hyprland-mimeapps.list" ||
@@ -77,15 +81,15 @@ grep -qxF "x-scheme-handler/https=arch-browser.desktop" "$test_tmp/migrated/.con
 pass "the migration installs the link entry and routes links to it"
 
 printf '[Default Applications]\ntext/plain=editor.desktop\n' >"$test_tmp/migrated/.config/hyprland-mimeapps.list"
-HOME="$test_tmp/migrated" ARCH_PATH="$ROOT" bash -euo pipefail "$migration" >/dev/null
-HOME="$test_tmp/migrated" ARCH_PATH="$ROOT" bash -euo pipefail "$migration" >/dev/null
+HOME="$test_tmp/migrated" ARCH_PATH="$arch_runtime" bash -euo pipefail "$migration" >/dev/null
+HOME="$test_tmp/migrated" ARCH_PATH="$arch_runtime" bash -euo pipefail "$migration" >/dev/null
 [[ $(grep -c "^x-scheme-handler/https=arch-browser.desktop$" "$test_tmp/migrated/.config/hyprland-mimeapps.list") == 1 ]] &&
   grep -qxF "text/plain=editor.desktop" "$test_tmp/migrated/.config/hyprland-mimeapps.list" ||
   fail "the migration adds the link handlers to an existing list once"
 pass "the migration adds the link handlers to an existing list once"
 
 printf '[Default Applications]\nx-scheme-handler/https=mine.desktop\n' >"$test_tmp/migrated/.config/hyprland-mimeapps.list"
-HOME="$test_tmp/migrated" ARCH_PATH="$ROOT" bash -euo pipefail "$migration" >/dev/null
+HOME="$test_tmp/migrated" ARCH_PATH="$arch_runtime" bash -euo pipefail "$migration" >/dev/null
 ! grep -qF "arch-browser.desktop" "$test_tmp/migrated/.config/hyprland-mimeapps.list" ||
   fail "the migration keeps a link handler the user set"
 pass "the migration keeps a link handler the user set"

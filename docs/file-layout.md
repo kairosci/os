@@ -82,7 +82,7 @@ default/libalpm/hooks/*.hook
 
 install/**                     ──►  arch             /usr/share/arch/install/
 migrations/**                  ──►  arch             /usr/share/arch/migrations/
-themes/**                      ──►  arch             /usr/share/arch/themes/
+assets/themes/**                      ──►  arch             /usr/share/arch/themes/
 shell/**                       ──►  arch             /usr/share/arch/shell/
 version                        ──►  arch             /usr/share/arch/version
                                                         + /etc/skel/.local/state/arch/migrations/*
@@ -95,12 +95,12 @@ etc/mpv/mpv.conf               ──►  arch-settings    /etc/mpv/mpv.conf    
 etc/xkb/{rules/evdev,symbols/arch}
                                ──►  arch-settings    /etc/xkb/                    (Shift + Caps Lock compose option)
 
-applications/*.desktop         ──►  arch-settings    /etc/skel/.local/share/applications/
+assets/applications/*.desktop         ──►  arch-settings    /etc/skel/.local/share/applications/
                                                         /usr/share/arch/applications/
 default/applications/*.desktop
                                 ──►  arch-settings    /usr/share/arch/default/applications/
                                                         (optional and legacy launcher templates)
-applications/icons/*           ──►  arch-settings    /usr/share/icons/hicolor/{48,256,scalable}/apps/
+assets/applications/icons/*           ──►  arch-settings    /usr/share/icons/hicolor/{48,256,scalable}/apps/
 
 etc/**                         ──►  arch-settings    /etc/**           (drop-ins we own outright)
   ├─ mkinitcpio.conf.d/{00-arch-hooks,arch_hooks,thunderbolt_module}.conf

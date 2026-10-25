@@ -14,7 +14,7 @@ log="$test_tmp/commands"
 mkdir -p "$state" "$commands" "$home/.local/state/arch/theme-backgrounds"
 for theme in alpha beta; do
   mkdir -p "$themes/$theme/backgrounds"
-  cp "$ROOT/themes/cosmic/colors.toml" "$themes/$theme/colors.toml"
+  cp "$ROOT/assets/themes/cosmic/colors.toml" "$themes/$theme/colors.toml"
   printf 'still\n' >"$themes/$theme/backgrounds/1-sky.webp"
 done
 cp -r "$themes/alpha" "$state/theme"

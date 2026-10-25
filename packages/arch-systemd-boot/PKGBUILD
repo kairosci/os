@@ -116,7 +116,7 @@ package() {
   cp -a install "$pkgdir/usr/share/arch/"
 
   # Cosmic is the only bundled theme.
-  cp -a themes "$pkgdir/usr/share/arch/"
+  cp -a assets/themes "$pkgdir/usr/share/arch/themes"
 
   # Versioned migrations runner reads from this tree.
   cp -a migrations "$pkgdir/usr/share/arch/"

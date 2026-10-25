@@ -1,7 +1,7 @@
 id = "desktop.runtime"
 domain = "desktop"
 package = "arch"
-sources = ["shell", "themes"]
+sources = ["shell", "assets/themes"]
 requires = ["system.settings"]
 
 [[output]]
@@ -9,5 +9,5 @@ source = "shell"
 target = "usr/share/arch/shell"
 
 [[output]]
-source = "themes"
+source = "assets/themes"
 target = "usr/share/arch/themes"

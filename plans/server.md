@@ -61,7 +61,7 @@ The existing provisioning flow, server flavor: hostname, user, then straight int
 
 ### Theming
 
-`themes/*/colors.toml` already defines everything the three screens need. A small bridge renders a theme into ANSI/truecolor escape palettes consumed by the splash, menu, and issue file; `arch-theme-set` on server applies the terminal-side targets it already knows (btop, starship, bat) plus the BBS palette. Switching themes restyles the whole front door — the mockups above are just tokyo-night.
+`assets/themes/*/colors.toml` already defines everything the three screens need. A small bridge renders a theme into ANSI/truecolor escape palettes consumed by the splash, menu, and issue file; `arch-theme-set` on server applies the terminal-side targets it already knows (btop, starship, bat) plus the BBS palette. Switching themes restyles the whole front door — the mockups above are just tokyo-night.
 
 ### Relationship to the other plans
 
