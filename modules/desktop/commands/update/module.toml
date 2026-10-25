@@ -1,0 +1,121 @@
+id = "desktop.commands.update"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-update",
+  "src/cli/arch-update-analyze-logs",
+  "src/cli/arch-update-aur-pkgs",
+  "src/cli/arch-update-available",
+  "src/cli/arch-update-boot",
+  "src/cli/arch-update-confirm",
+  "src/cli/arch-update-dev",
+  "src/cli/arch-update-firmware",
+  "src/cli/arch-update-keyring",
+  "src/cli/arch-update-lock",
+  "src/cli/arch-update-mise",
+  "src/cli/arch-update-orphan-pkgs",
+  "src/cli/arch-update-pacman",
+  "src/cli/arch-update-pacman-guard",
+  "src/cli/arch-update-pkg-prune",
+  "src/cli/arch-update-requires-free-space",
+  "src/cli/arch-update-restart",
+  "src/cli/arch-update-status",
+  "src/cli/arch-update-stay-awake",
+  "src/cli/arch-update-system-pkgs",
+  "src/cli/arch-update-system-pkgs-when-conflicted",
+  "src/cli/arch-update-time",
+  "src/cli/arch-update-user-notify",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-update"
+target = "usr/share/arch/src/cli/arch-update"
+
+[[output]]
+source = "src/cli/arch-update-analyze-logs"
+target = "usr/share/arch/src/cli/arch-update-analyze-logs"
+
+[[output]]
+source = "src/cli/arch-update-aur-pkgs"
+target = "usr/share/arch/src/cli/arch-update-aur-pkgs"
+
+[[output]]
+source = "src/cli/arch-update-available"
+target = "usr/share/arch/src/cli/arch-update-available"
+
+[[output]]
+source = "src/cli/arch-update-boot"
+target = "usr/share/arch/src/cli/arch-update-boot"
+
+[[output]]
+source = "src/cli/arch-update-confirm"
+target = "usr/share/arch/src/cli/arch-update-confirm"
+
+[[output]]
+source = "src/cli/arch-update-dev"
+target = "usr/share/arch/src/cli/arch-update-dev"
+
+[[output]]
+source = "src/cli/arch-update-firmware"
+target = "usr/share/arch/src/cli/arch-update-firmware"
+
+[[output]]
+source = "src/cli/arch-update-keyring"
+target = "usr/share/arch/src/cli/arch-update-keyring"
+
+[[output]]
+source = "src/cli/arch-update-lock"
+target = "usr/share/arch/src/cli/arch-update-lock"
+
+[[output]]
+source = "src/cli/arch-update-mise"
+target = "usr/share/arch/src/cli/arch-update-mise"
+
+[[output]]
+source = "src/cli/arch-update-orphan-pkgs"
+target = "usr/share/arch/src/cli/arch-update-orphan-pkgs"
+
+[[output]]
+source = "src/cli/arch-update-pacman"
+target = "usr/share/arch/src/cli/arch-update-pacman"
+
+[[output]]
+source = "src/cli/arch-update-pacman-guard"
+target = "usr/share/arch/src/cli/arch-update-pacman-guard"
+
+[[output]]
+source = "src/cli/arch-update-pkg-prune"
+target = "usr/share/arch/src/cli/arch-update-pkg-prune"
+
+[[output]]
+source = "src/cli/arch-update-requires-free-space"
+target = "usr/share/arch/src/cli/arch-update-requires-free-space"
+
+[[output]]
+source = "src/cli/arch-update-restart"
+target = "usr/share/arch/src/cli/arch-update-restart"
+
+[[output]]
+source = "src/cli/arch-update-status"
+target = "usr/share/arch/src/cli/arch-update-status"
+
+[[output]]
+source = "src/cli/arch-update-stay-awake"
+target = "usr/share/arch/src/cli/arch-update-stay-awake"
+
+[[output]]
+source = "src/cli/arch-update-system-pkgs"
+target = "usr/share/arch/src/cli/arch-update-system-pkgs"
+
+[[output]]
+source = "src/cli/arch-update-system-pkgs-when-conflicted"
+target = "usr/share/arch/src/cli/arch-update-system-pkgs-when-conflicted"
+
+[[output]]
+source = "src/cli/arch-update-time"
+target = "usr/share/arch/src/cli/arch-update-time"
+
+[[output]]
+source = "src/cli/arch-update-user-notify"
+target = "usr/share/arch/src/cli/arch-update-user-notify"

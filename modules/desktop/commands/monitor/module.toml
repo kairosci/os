@@ -1,0 +1,11 @@
+id = "desktop.commands.monitor"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-monitor-state",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-monitor-state"
+target = "usr/share/arch/src/cli/arch-monitor-state"

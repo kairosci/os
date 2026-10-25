@@ -1,0 +1,11 @@
+id = "desktop.commands.background"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-background-session-mark",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-background-session-mark"
+target = "usr/share/arch/src/cli/arch-background-session-mark"

@@ -1,0 +1,26 @@
+id = "desktop.commands.version"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-version",
+  "src/cli/arch-version-branch",
+  "src/cli/arch-version-channel",
+  "src/cli/arch-version-pkgs",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-version"
+target = "usr/share/arch/src/cli/arch-version"
+
+[[output]]
+source = "src/cli/arch-version-branch"
+target = "usr/share/arch/src/cli/arch-version-branch"
+
+[[output]]
+source = "src/cli/arch-version-channel"
+target = "usr/share/arch/src/cli/arch-version-channel"
+
+[[output]]
+source = "src/cli/arch-version-pkgs"
+target = "usr/share/arch/src/cli/arch-version-pkgs"

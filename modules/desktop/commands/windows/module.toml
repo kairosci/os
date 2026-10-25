@@ -1,0 +1,16 @@
+id = "desktop.commands.windows"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-windows-key",
+  "src/cli/arch-windows-vm",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-windows-key"
+target = "usr/share/arch/src/cli/arch-windows-key"
+
+[[output]]
+source = "src/cli/arch-windows-vm"
+target = "usr/share/arch/src/cli/arch-windows-vm"

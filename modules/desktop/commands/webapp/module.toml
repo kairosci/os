@@ -1,0 +1,36 @@
+id = "desktop.commands.webapp"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-webapp-handler-hey",
+  "src/cli/arch-webapp-handler-zoom",
+  "src/cli/arch-webapp-install",
+  "src/cli/arch-webapp-remove",
+  "src/cli/arch-webapp-remove-all",
+  "src/cli/arch-webapp-window-class",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-webapp-handler-hey"
+target = "usr/share/arch/src/cli/arch-webapp-handler-hey"
+
+[[output]]
+source = "src/cli/arch-webapp-handler-zoom"
+target = "usr/share/arch/src/cli/arch-webapp-handler-zoom"
+
+[[output]]
+source = "src/cli/arch-webapp-install"
+target = "usr/share/arch/src/cli/arch-webapp-install"
+
+[[output]]
+source = "src/cli/arch-webapp-remove"
+target = "usr/share/arch/src/cli/arch-webapp-remove"
+
+[[output]]
+source = "src/cli/arch-webapp-remove-all"
+target = "usr/share/arch/src/cli/arch-webapp-remove-all"
+
+[[output]]
+source = "src/cli/arch-webapp-window-class"
+target = "usr/share/arch/src/cli/arch-webapp-window-class"

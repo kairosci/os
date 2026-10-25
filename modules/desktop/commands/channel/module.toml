@@ -1,0 +1,16 @@
+id = "desktop.commands.channel"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-channel-current",
+  "src/cli/arch-channel-set",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-channel-current"
+target = "usr/share/arch/src/cli/arch-channel-current"
+
+[[output]]
+source = "src/cli/arch-channel-set"
+target = "usr/share/arch/src/cli/arch-channel-set"

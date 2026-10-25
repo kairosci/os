@@ -1,0 +1,21 @@
+id = "desktop.commands.sudo"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-sudo-docker",
+  "src/cli/arch-sudo-keepalive",
+  "src/cli/arch-sudo-passwordless",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-sudo-docker"
+target = "usr/share/arch/src/cli/arch-sudo-docker"
+
+[[output]]
+source = "src/cli/arch-sudo-keepalive"
+target = "usr/share/arch/src/cli/arch-sudo-keepalive"
+
+[[output]]
+source = "src/cli/arch-sudo-passwordless"
+target = "usr/share/arch/src/cli/arch-sudo-passwordless"

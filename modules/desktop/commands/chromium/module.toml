@@ -1,0 +1,21 @@
+id = "desktop.commands.chromium"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-chromium-add-feature",
+  "src/cli/arch-chromium-copy-url-host",
+  "src/cli/arch-chromium-ytdlp-host",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-chromium-add-feature"
+target = "usr/share/arch/src/cli/arch-chromium-add-feature"
+
+[[output]]
+source = "src/cli/arch-chromium-copy-url-host"
+target = "usr/share/arch/src/cli/arch-chromium-copy-url-host"
+
+[[output]]
+source = "src/cli/arch-chromium-ytdlp-host"
+target = "usr/share/arch/src/cli/arch-chromium-ytdlp-host"

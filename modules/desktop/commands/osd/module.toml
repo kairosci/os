@@ -1,0 +1,11 @@
+id = "desktop.commands.osd"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-osd",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-osd"
+target = "usr/share/arch/src/cli/arch-osd"

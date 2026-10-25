@@ -1,0 +1,31 @@
+id = "desktop.commands.apply"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-apply-hardware",
+  "src/cli/arch-apply-lock",
+  "src/cli/arch-apply-n1x-gpu-memory",
+  "src/cli/arch-apply-pacman",
+  "src/cli/arch-apply-system",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-apply-hardware"
+target = "usr/share/arch/src/cli/arch-apply-hardware"
+
+[[output]]
+source = "src/cli/arch-apply-lock"
+target = "usr/share/arch/src/cli/arch-apply-lock"
+
+[[output]]
+source = "src/cli/arch-apply-n1x-gpu-memory"
+target = "usr/share/arch/src/cli/arch-apply-n1x-gpu-memory"
+
+[[output]]
+source = "src/cli/arch-apply-pacman"
+target = "usr/share/arch/src/cli/arch-apply-pacman"
+
+[[output]]
+source = "src/cli/arch-apply-system"
+target = "usr/share/arch/src/cli/arch-apply-system"

@@ -1,0 +1,11 @@
+id = "desktop.commands.locale"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-locale-generate",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-locale-generate"
+target = "usr/share/arch/src/cli/arch-locale-generate"

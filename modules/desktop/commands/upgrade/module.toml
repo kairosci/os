@@ -1,0 +1,11 @@
+id = "desktop.commands.upgrade"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-upgrade-to-quattro",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-upgrade-to-quattro"
+target = "usr/share/arch/src/cli/arch-upgrade-to-quattro"

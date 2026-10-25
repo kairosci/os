@@ -1,0 +1,211 @@
+id = "desktop.commands.hw"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-hw-aarch64",
+  "src/cli/arch-hw-aarch64-apple",
+  "src/cli/arch-hw-aarch64-gb10",
+  "src/cli/arch-hw-aarch64-n1x",
+  "src/cli/arch-hw-aarch64-qualcomm",
+  "src/cli/arch-hw-apple-silicon",
+  "src/cli/arch-hw-asus-expertbook-b9406",
+  "src/cli/arch-hw-asus-rog",
+  "src/cli/arch-hw-asus-zenbook-ux5406aa",
+  "src/cli/arch-hw-clamshell",
+  "src/cli/arch-hw-dell-xps-haptic-touchpad",
+  "src/cli/arch-hw-dell-xps-oled",
+  "src/cli/arch-hw-dell-xps13-dx13260-ptl",
+  "src/cli/arch-hw-dell-xps13-sidecar-amps",
+  "src/cli/arch-hw-display",
+  "src/cli/arch-hw-elgato-camlink-4k",
+  "src/cli/arch-hw-external-monitors",
+  "src/cli/arch-hw-fingerprint",
+  "src/cli/arch-hw-framework16",
+  "src/cli/arch-hw-hybrid-gpu",
+  "src/cli/arch-hw-intel",
+  "src/cli/arch-hw-intel-ptl",
+  "src/cli/arch-hw-intel-sof",
+  "src/cli/arch-hw-laptop",
+  "src/cli/arch-hw-laptop-closed",
+  "src/cli/arch-hw-match",
+  "src/cli/arch-hw-match-device-tree",
+  "src/cli/arch-hw-n1x",
+  "src/cli/arch-hw-nvidia",
+  "src/cli/arch-hw-nvidia-display",
+  "src/cli/arch-hw-nvidia-gsp",
+  "src/cli/arch-hw-nvidia-without-gsp",
+  "src/cli/arch-hw-platform",
+  "src/cli/arch-hw-recover-internal-monitor",
+  "src/cli/arch-hw-surface",
+  "src/cli/arch-hw-touchpad",
+  "src/cli/arch-hw-touchscreen",
+  "src/cli/arch-hw-vm",
+  "src/cli/arch-hw-vulkan",
+  "src/cli/arch-hw-webcam",
+  "src/cli/arch-hw-x86",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-hw-aarch64"
+target = "usr/share/arch/src/cli/arch-hw-aarch64"
+
+[[output]]
+source = "src/cli/arch-hw-aarch64-apple"
+target = "usr/share/arch/src/cli/arch-hw-aarch64-apple"
+
+[[output]]
+source = "src/cli/arch-hw-aarch64-gb10"
+target = "usr/share/arch/src/cli/arch-hw-aarch64-gb10"
+
+[[output]]
+source = "src/cli/arch-hw-aarch64-n1x"
+target = "usr/share/arch/src/cli/arch-hw-aarch64-n1x"
+
+[[output]]
+source = "src/cli/arch-hw-aarch64-qualcomm"
+target = "usr/share/arch/src/cli/arch-hw-aarch64-qualcomm"
+
+[[output]]
+source = "src/cli/arch-hw-apple-silicon"
+target = "usr/share/arch/src/cli/arch-hw-apple-silicon"
+
+[[output]]
+source = "src/cli/arch-hw-asus-expertbook-b9406"
+target = "usr/share/arch/src/cli/arch-hw-asus-expertbook-b9406"
+
+[[output]]
+source = "src/cli/arch-hw-asus-rog"
+target = "usr/share/arch/src/cli/arch-hw-asus-rog"
+
+[[output]]
+source = "src/cli/arch-hw-asus-zenbook-ux5406aa"
+target = "usr/share/arch/src/cli/arch-hw-asus-zenbook-ux5406aa"
+
+[[output]]
+source = "src/cli/arch-hw-clamshell"
+target = "usr/share/arch/src/cli/arch-hw-clamshell"
+
+[[output]]
+source = "src/cli/arch-hw-dell-xps-haptic-touchpad"
+target = "usr/share/arch/src/cli/arch-hw-dell-xps-haptic-touchpad"
+
+[[output]]
+source = "src/cli/arch-hw-dell-xps-oled"
+target = "usr/share/arch/src/cli/arch-hw-dell-xps-oled"
+
+[[output]]
+source = "src/cli/arch-hw-dell-xps13-dx13260-ptl"
+target = "usr/share/arch/src/cli/arch-hw-dell-xps13-dx13260-ptl"
+
+[[output]]
+source = "src/cli/arch-hw-dell-xps13-sidecar-amps"
+target = "usr/share/arch/src/cli/arch-hw-dell-xps13-sidecar-amps"
+
+[[output]]
+source = "src/cli/arch-hw-display"
+target = "usr/share/arch/src/cli/arch-hw-display"
+
+[[output]]
+source = "src/cli/arch-hw-elgato-camlink-4k"
+target = "usr/share/arch/src/cli/arch-hw-elgato-camlink-4k"
+
+[[output]]
+source = "src/cli/arch-hw-external-monitors"
+target = "usr/share/arch/src/cli/arch-hw-external-monitors"
+
+[[output]]
+source = "src/cli/arch-hw-fingerprint"
+target = "usr/share/arch/src/cli/arch-hw-fingerprint"
+
+[[output]]
+source = "src/cli/arch-hw-framework16"
+target = "usr/share/arch/src/cli/arch-hw-framework16"
+
+[[output]]
+source = "src/cli/arch-hw-hybrid-gpu"
+target = "usr/share/arch/src/cli/arch-hw-hybrid-gpu"
+
+[[output]]
+source = "src/cli/arch-hw-intel"
+target = "usr/share/arch/src/cli/arch-hw-intel"
+
+[[output]]
+source = "src/cli/arch-hw-intel-ptl"
+target = "usr/share/arch/src/cli/arch-hw-intel-ptl"
+
+[[output]]
+source = "src/cli/arch-hw-intel-sof"
+target = "usr/share/arch/src/cli/arch-hw-intel-sof"
+
+[[output]]
+source = "src/cli/arch-hw-laptop"
+target = "usr/share/arch/src/cli/arch-hw-laptop"
+
+[[output]]
+source = "src/cli/arch-hw-laptop-closed"
+target = "usr/share/arch/src/cli/arch-hw-laptop-closed"
+
+[[output]]
+source = "src/cli/arch-hw-match"
+target = "usr/share/arch/src/cli/arch-hw-match"
+
+[[output]]
+source = "src/cli/arch-hw-match-device-tree"
+target = "usr/share/arch/src/cli/arch-hw-match-device-tree"
+
+[[output]]
+source = "src/cli/arch-hw-n1x"
+target = "usr/share/arch/src/cli/arch-hw-n1x"
+
+[[output]]
+source = "src/cli/arch-hw-nvidia"
+target = "usr/share/arch/src/cli/arch-hw-nvidia"
+
+[[output]]
+source = "src/cli/arch-hw-nvidia-display"
+target = "usr/share/arch/src/cli/arch-hw-nvidia-display"
+
+[[output]]
+source = "src/cli/arch-hw-nvidia-gsp"
+target = "usr/share/arch/src/cli/arch-hw-nvidia-gsp"
+
+[[output]]
+source = "src/cli/arch-hw-nvidia-without-gsp"
+target = "usr/share/arch/src/cli/arch-hw-nvidia-without-gsp"
+
+[[output]]
+source = "src/cli/arch-hw-platform"
+target = "usr/share/arch/src/cli/arch-hw-platform"
+
+[[output]]
+source = "src/cli/arch-hw-recover-internal-monitor"
+target = "usr/share/arch/src/cli/arch-hw-recover-internal-monitor"
+
+[[output]]
+source = "src/cli/arch-hw-surface"
+target = "usr/share/arch/src/cli/arch-hw-surface"
+
+[[output]]
+source = "src/cli/arch-hw-touchpad"
+target = "usr/share/arch/src/cli/arch-hw-touchpad"
+
+[[output]]
+source = "src/cli/arch-hw-touchscreen"
+target = "usr/share/arch/src/cli/arch-hw-touchscreen"
+
+[[output]]
+source = "src/cli/arch-hw-vm"
+target = "usr/share/arch/src/cli/arch-hw-vm"
+
+[[output]]
+source = "src/cli/arch-hw-vulkan"
+target = "usr/share/arch/src/cli/arch-hw-vulkan"
+
+[[output]]
+source = "src/cli/arch-hw-webcam"
+target = "usr/share/arch/src/cli/arch-hw-webcam"
+
+[[output]]
+source = "src/cli/arch-hw-x86"
+target = "usr/share/arch/src/cli/arch-hw-x86"

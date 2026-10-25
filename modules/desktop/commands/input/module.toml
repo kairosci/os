@@ -1,0 +1,11 @@
+id = "desktop.commands.input"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-input-method",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-input-method"
+target = "usr/share/arch/src/cli/arch-input-method"

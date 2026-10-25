@@ -27,13 +27,17 @@ installer/
   user/
 migrations/
 modules/
-  desktop/<capability>/<component>/
-  system/<capability>/<component>/
+  desktop/
+    commands/<capability>/module.toml
+    shell/<plugin>/module.toml
+    runtime/module.toml
+  system/
+    installation/<stage>/module.toml
+    settings/<component>/module.toml
   development/<capability>/<component>/
-  module.toml
 packages/<package-name>/
 src/
-  cli/<capability>/<command>/
+  cli/<command>
   shell/
     Commons/
     Ui/
@@ -59,7 +63,7 @@ Git submodules are reserved for separately released components with their own ma
 
 | Legacy source | Current or target owner |
 | --- | --- |
-| `bin/` | `src/cli/`, grouped under `src/cli/<capability>/` |
+| `bin/` | `src/cli/`, with command capability ownership declared under `modules/desktop/commands/` |
 | `src/shell/plugins/<plugin>/` | `src/shell/plugins/<plugin>/` |
 | `src/shell/Commons/`, `Ui/`, `services/`, `shell.qml` | `src/shell/` shared runtime |
 | `default/` | `config/system/` and the owning `modules/` component |
@@ -72,10 +76,10 @@ Git submodules are reserved for separately released components with their own ma
 | `manual/` | `docs/user/` |
 | `packaging/` | `packages/` |
 
-The installed tree is assembled from these source owners. Renames update the assembler, package manifests, documentation, and tests in the same pull request; no source-tree symlink layer is part of the layout.
+CLI entry points stay together in `src/cli/` because their executable names and sibling helper paths are part of the runtime interface. The module graph groups their ownership by capability without moving those files into nested PATH directories. The installed tree is assembled from source owners. Renames update the assembler, package manifests, documentation, and tests in the same pull request; no source-tree symlink layer is part of the layout.
 
 ## Pull request units
 
-The migration is reviewed in dependency order. A pull request owns one module boundary or one cross-module contract, updates its consumers, and includes the verification for that boundary. The module catalog currently has 36 modules: 16 shell plugins, eight installation submodules, and five settings, applications, and pre-install branding submodules are independently declared, alongside the shared runtime and system modules. The 222 existing migrations and the CLI command groups provide further reviewable units. The initial units are the module graph and assembler, CLI groups, shared shell runtime, each first-party shell plugin, system configuration groups, platform modules, installation stages, migrations, package builds, and user documentation. This is an incremental migration, with each pull request leaving the installable package tree complete.
+The migration is reviewed in dependency order. A pull request owns one module boundary or one cross-module contract, updates its consumers, and includes the verification for that boundary. Shell plugins, installer phases, settings, applications, pre-install branding, and CLI capabilities have independent nested module ownership alongside the shared runtime and system modules. Existing migrations and command groups provide further reviewable units. The initial units are the module graph and assembler, CLI groups, shared shell runtime, each first-party shell plugin, system configuration groups, platform modules, installation stages, migrations, package builds, and user documentation. This is an incremental migration, with each pull request leaving the installable package tree complete.
 
 The rebuilt repository starts with a protected `main`. Work lands through short-lived branches and pull requests. Direct pushes to `main` are disabled; required checks cover the changed module and its declared dependents.

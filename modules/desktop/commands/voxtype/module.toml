@@ -1,0 +1,16 @@
+id = "desktop.commands.voxtype"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-voxtype-config",
+  "src/cli/arch-voxtype-model",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-voxtype-config"
+target = "usr/share/arch/src/cli/arch-voxtype-config"
+
+[[output]]
+source = "src/cli/arch-voxtype-model"
+target = "usr/share/arch/src/cli/arch-voxtype-model"

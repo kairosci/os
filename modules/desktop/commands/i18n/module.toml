@@ -1,0 +1,11 @@
+id = "desktop.commands.i18n"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-i18n",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-i18n"
+target = "usr/share/arch/src/cli/arch-i18n"

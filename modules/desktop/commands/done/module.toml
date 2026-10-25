@@ -1,0 +1,11 @@
+id = "desktop.commands.done"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-done",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-done"
+target = "usr/share/arch/src/cli/arch-done"

@@ -1,0 +1,46 @@
+id = "desktop.commands.pkg"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-pkg-add",
+  "src/cli/arch-pkg-aur-accessible",
+  "src/cli/arch-pkg-aur-add",
+  "src/cli/arch-pkg-defaults",
+  "src/cli/arch-pkg-drop",
+  "src/cli/arch-pkg-missing",
+  "src/cli/arch-pkg-present",
+  "src/cli/arch-pkg-remove",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-pkg-add"
+target = "usr/share/arch/src/cli/arch-pkg-add"
+
+[[output]]
+source = "src/cli/arch-pkg-aur-accessible"
+target = "usr/share/arch/src/cli/arch-pkg-aur-accessible"
+
+[[output]]
+source = "src/cli/arch-pkg-aur-add"
+target = "usr/share/arch/src/cli/arch-pkg-aur-add"
+
+[[output]]
+source = "src/cli/arch-pkg-defaults"
+target = "usr/share/arch/src/cli/arch-pkg-defaults"
+
+[[output]]
+source = "src/cli/arch-pkg-drop"
+target = "usr/share/arch/src/cli/arch-pkg-drop"
+
+[[output]]
+source = "src/cli/arch-pkg-missing"
+target = "usr/share/arch/src/cli/arch-pkg-missing"
+
+[[output]]
+source = "src/cli/arch-pkg-present"
+target = "usr/share/arch/src/cli/arch-pkg-present"
+
+[[output]]
+source = "src/cli/arch-pkg-remove"
+target = "usr/share/arch/src/cli/arch-pkg-remove"

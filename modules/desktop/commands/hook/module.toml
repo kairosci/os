@@ -1,0 +1,16 @@
+id = "desktop.commands.hook"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-hook",
+  "src/cli/arch-hook-install",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-hook"
+target = "usr/share/arch/src/cli/arch-hook"
+
+[[output]]
+source = "src/cli/arch-hook-install"
+target = "usr/share/arch/src/cli/arch-hook-install"

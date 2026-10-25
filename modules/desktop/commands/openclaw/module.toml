@@ -1,0 +1,11 @@
+id = "desktop.commands.openclaw"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-openclaw-onboard",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-openclaw-onboard"
+target = "usr/share/arch/src/cli/arch-openclaw-onboard"

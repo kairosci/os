@@ -1,0 +1,11 @@
+id = "desktop.commands.dns"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-dns",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-dns"
+target = "usr/share/arch/src/cli/arch-dns"

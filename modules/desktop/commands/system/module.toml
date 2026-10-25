@@ -1,0 +1,56 @@
+id = "desktop.commands.system"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-system",
+  "src/cli/arch-system-factory-reset",
+  "src/cli/arch-system-factory-reset-finish",
+  "src/cli/arch-system-lid-close",
+  "src/cli/arch-system-lid-inhibit",
+  "src/cli/arch-system-lock",
+  "src/cli/arch-system-sleep-lock",
+  "src/cli/arch-system-sleep-monitor",
+  "src/cli/arch-system-stats",
+  "src/cli/arch-system-wake",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-system"
+target = "usr/share/arch/src/cli/arch-system"
+
+[[output]]
+source = "src/cli/arch-system-factory-reset"
+target = "usr/share/arch/src/cli/arch-system-factory-reset"
+
+[[output]]
+source = "src/cli/arch-system-factory-reset-finish"
+target = "usr/share/arch/src/cli/arch-system-factory-reset-finish"
+
+[[output]]
+source = "src/cli/arch-system-lid-close"
+target = "usr/share/arch/src/cli/arch-system-lid-close"
+
+[[output]]
+source = "src/cli/arch-system-lid-inhibit"
+target = "usr/share/arch/src/cli/arch-system-lid-inhibit"
+
+[[output]]
+source = "src/cli/arch-system-lock"
+target = "usr/share/arch/src/cli/arch-system-lock"
+
+[[output]]
+source = "src/cli/arch-system-sleep-lock"
+target = "usr/share/arch/src/cli/arch-system-sleep-lock"
+
+[[output]]
+source = "src/cli/arch-system-sleep-monitor"
+target = "usr/share/arch/src/cli/arch-system-sleep-monitor"
+
+[[output]]
+source = "src/cli/arch-system-stats"
+target = "usr/share/arch/src/cli/arch-system-stats"
+
+[[output]]
+source = "src/cli/arch-system-wake"
+target = "usr/share/arch/src/cli/arch-system-wake"

@@ -1,0 +1,126 @@
+id = "desktop.commands.launch"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-launch-1password",
+  "src/cli/arch-launch-about",
+  "src/cli/arch-launch-battlenet",
+  "src/cli/arch-launch-browser",
+  "src/cli/arch-launch-config-editor",
+  "src/cli/arch-launch-discord-community",
+  "src/cli/arch-launch-docker-tui",
+  "src/cli/arch-launch-editor",
+  "src/cli/arch-launch-floating-terminal-with-presentation",
+  "src/cli/arch-launch-nautilus",
+  "src/cli/arch-launch-nautilus-cwd",
+  "src/cli/arch-launch-openclaw",
+  "src/cli/arch-launch-or-focus",
+  "src/cli/arch-launch-or-focus-tui",
+  "src/cli/arch-launch-or-focus-webapp",
+  "src/cli/arch-launch-screensaver",
+  "src/cli/arch-launch-shell",
+  "src/cli/arch-launch-signal",
+  "src/cli/arch-launch-spotify",
+  "src/cli/arch-launch-terminal",
+  "src/cli/arch-launch-terminal-herdr",
+  "src/cli/arch-launch-terminal-tmux",
+  "src/cli/arch-launch-tui",
+  "src/cli/arch-launch-webapp",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-launch-1password"
+target = "usr/share/arch/src/cli/arch-launch-1password"
+
+[[output]]
+source = "src/cli/arch-launch-about"
+target = "usr/share/arch/src/cli/arch-launch-about"
+
+[[output]]
+source = "src/cli/arch-launch-battlenet"
+target = "usr/share/arch/src/cli/arch-launch-battlenet"
+
+[[output]]
+source = "src/cli/arch-launch-browser"
+target = "usr/share/arch/src/cli/arch-launch-browser"
+
+[[output]]
+source = "src/cli/arch-launch-config-editor"
+target = "usr/share/arch/src/cli/arch-launch-config-editor"
+
+[[output]]
+source = "src/cli/arch-launch-discord-community"
+target = "usr/share/arch/src/cli/arch-launch-discord-community"
+
+[[output]]
+source = "src/cli/arch-launch-docker-tui"
+target = "usr/share/arch/src/cli/arch-launch-docker-tui"
+
+[[output]]
+source = "src/cli/arch-launch-editor"
+target = "usr/share/arch/src/cli/arch-launch-editor"
+
+[[output]]
+source = "src/cli/arch-launch-floating-terminal-with-presentation"
+target = "usr/share/arch/src/cli/arch-launch-floating-terminal-with-presentation"
+
+[[output]]
+source = "src/cli/arch-launch-nautilus"
+target = "usr/share/arch/src/cli/arch-launch-nautilus"
+
+[[output]]
+source = "src/cli/arch-launch-nautilus-cwd"
+target = "usr/share/arch/src/cli/arch-launch-nautilus-cwd"
+
+[[output]]
+source = "src/cli/arch-launch-openclaw"
+target = "usr/share/arch/src/cli/arch-launch-openclaw"
+
+[[output]]
+source = "src/cli/arch-launch-or-focus"
+target = "usr/share/arch/src/cli/arch-launch-or-focus"
+
+[[output]]
+source = "src/cli/arch-launch-or-focus-tui"
+target = "usr/share/arch/src/cli/arch-launch-or-focus-tui"
+
+[[output]]
+source = "src/cli/arch-launch-or-focus-webapp"
+target = "usr/share/arch/src/cli/arch-launch-or-focus-webapp"
+
+[[output]]
+source = "src/cli/arch-launch-screensaver"
+target = "usr/share/arch/src/cli/arch-launch-screensaver"
+
+[[output]]
+source = "src/cli/arch-launch-shell"
+target = "usr/share/arch/src/cli/arch-launch-shell"
+
+[[output]]
+source = "src/cli/arch-launch-signal"
+target = "usr/share/arch/src/cli/arch-launch-signal"
+
+[[output]]
+source = "src/cli/arch-launch-spotify"
+target = "usr/share/arch/src/cli/arch-launch-spotify"
+
+[[output]]
+source = "src/cli/arch-launch-terminal"
+target = "usr/share/arch/src/cli/arch-launch-terminal"
+
+[[output]]
+source = "src/cli/arch-launch-terminal-herdr"
+target = "usr/share/arch/src/cli/arch-launch-terminal-herdr"
+
+[[output]]
+source = "src/cli/arch-launch-terminal-tmux"
+target = "usr/share/arch/src/cli/arch-launch-terminal-tmux"
+
+[[output]]
+source = "src/cli/arch-launch-tui"
+target = "usr/share/arch/src/cli/arch-launch-tui"
+
+[[output]]
+source = "src/cli/arch-launch-webapp"
+target = "usr/share/arch/src/cli/arch-launch-webapp"

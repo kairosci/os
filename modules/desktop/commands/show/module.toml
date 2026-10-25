@@ -1,0 +1,16 @@
+id = "desktop.commands.show"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-show-done",
+  "src/cli/arch-show-logo",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-show-done"
+target = "usr/share/arch/src/cli/arch-show-done"
+
+[[output]]
+source = "src/cli/arch-show-logo"
+target = "usr/share/arch/src/cli/arch-show-logo"

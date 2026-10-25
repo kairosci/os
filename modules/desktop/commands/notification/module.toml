@@ -1,0 +1,36 @@
+id = "desktop.commands.notification"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-notification-battery",
+  "src/cli/arch-notification-dismiss",
+  "src/cli/arch-notification-send",
+  "src/cli/arch-notification-time",
+  "src/cli/arch-notification-wait",
+  "src/cli/arch-notification-weather",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-notification-battery"
+target = "usr/share/arch/src/cli/arch-notification-battery"
+
+[[output]]
+source = "src/cli/arch-notification-dismiss"
+target = "usr/share/arch/src/cli/arch-notification-dismiss"
+
+[[output]]
+source = "src/cli/arch-notification-send"
+target = "usr/share/arch/src/cli/arch-notification-send"
+
+[[output]]
+source = "src/cli/arch-notification-time"
+target = "usr/share/arch/src/cli/arch-notification-time"
+
+[[output]]
+source = "src/cli/arch-notification-wait"
+target = "usr/share/arch/src/cli/arch-notification-wait"
+
+[[output]]
+source = "src/cli/arch-notification-weather"
+target = "usr/share/arch/src/cli/arch-notification-weather"

@@ -1,0 +1,31 @@
+id = "desktop.commands.brightness"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-brightness-display",
+  "src/cli/arch-brightness-display-apple",
+  "src/cli/arch-brightness-display-ddc",
+  "src/cli/arch-brightness-keyboard",
+  "src/cli/arch-brightness-keyboard-mute",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-brightness-display"
+target = "usr/share/arch/src/cli/arch-brightness-display"
+
+[[output]]
+source = "src/cli/arch-brightness-display-apple"
+target = "usr/share/arch/src/cli/arch-brightness-display-apple"
+
+[[output]]
+source = "src/cli/arch-brightness-display-ddc"
+target = "usr/share/arch/src/cli/arch-brightness-display-ddc"
+
+[[output]]
+source = "src/cli/arch-brightness-keyboard"
+target = "usr/share/arch/src/cli/arch-brightness-keyboard"
+
+[[output]]
+source = "src/cli/arch-brightness-keyboard-mute"
+target = "usr/share/arch/src/cli/arch-brightness-keyboard-mute"

@@ -1,0 +1,11 @@
+id = "desktop.commands.file"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-file-select",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-file-select"
+target = "usr/share/arch/src/cli/arch-file-select"
