@@ -42,4 +42,4 @@ Dieses übrig bleibende `[themename]` wird zum Verzeichnisnamen des Designs, als
 
 Denke daran, dass nach einer Installation aus einem Repo jede enthaltene `.lua`, Terminal-Konfiguration oder `vscode.json` wegfällt, also baue das Design nicht um diese Dateien herum.
 
-Dein Design lässt du auf [die Seite mit den zusätzlichen Designs](https://github.com/kairosci/arch/themes/) aufnehmen, indem du einen Pull Request an [das arch-site Repo](https://github.com/kairosci/arch) sendest.
+Dein Design lässt du auf [die Seite mit den zusätzlichen Designs](https://github.com/kairosci/os/themes/) aufnehmen, indem du einen Pull Request an [das arch-site Repo](https://github.com/kairosci/os) sendest.

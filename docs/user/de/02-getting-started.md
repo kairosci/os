@@ -2,7 +2,7 @@
 
 Arch wird mit einer ISO installiert. Du hast die Wahl zwischen einer Installation auf der gesamten Festplatte, die das ganze Laufwerk übernimmt, oder einer Installation im freien Speicherplatz, die Arch in den nicht zugewiesenen Bereich eines Laufwerks packt — so richtest du ein Dual Boot neben Windows oder einem anderen Betriebssystem ein (siehe [Dual-Boot-Installation](50-dual-boot-install.md) — beachte, dass du vorher BitLocker in Windows ausschalten musst). In beiden Fällen ist standardmäßig die vollständige Verschlüsselung aktiviert, und die Option für die gesamte Festplatte löscht das ausgewählte Laufwerk, also mache unbedingt ein Backup, bevor du ein vorhandenes verwendest!
 
-[Lade die Arch ISO herunter](https://github.com/kairosci/arch/), packe sie auf einen USB-Stick (nutze [balenaEtcher](https://etcher.balena.io/) auf Mac/Windows oder [caligula](https://github.com/ifd3f/caligula) auf Linux) und boote vom Stick.
+[Lade die Arch ISO herunter](https://github.com/kairosci/os/), packe sie auf einen USB-Stick (nutze [balenaEtcher](https://etcher.balena.io/) auf Mac/Windows oder [caligula](https://github.com/ifd3f/caligula) auf Linux) und boote vom Stick.
 
 _Du musst Secure Boot und/oder TPM im BIOS ausschalten. Du musst sie ausschalten, um Arch installieren zu können. Das sind Microsoft-Sicherheitsschemata für Windows und Microsoft-nahe Linux-Distributionen._
 
@@ -36,8 +36,8 @@ Aber unter besonderen Umständen, etwa bei entfernten Arch-Installationen auf ge
 
 ### Sprache
 
-Arch spricht 50 Sprachen — dieselben wie github.com/kairosci/arch — und Englisch ist die Standardeinstellung. Um zu wechseln, öffne das Arch-Menü und gehe zu _Setup > Sprache_, oder führe `archctl language <code>` in einem Terminal aus (`archctl language list` zeigt die Codes). Menü, Desktop und Archs eigene Benachrichtigungen wechseln sofort die Sprache, und jede Anwendung, die du danach öffnest, folgt ebenfalls. Apps, die schon offen waren, wechseln, sobald du sie neu startest.
+Arch spricht 50 Sprachen — dieselben wie github.com/kairosci/os — und Englisch ist die Standardeinstellung. Um zu wechseln, öffne das Arch-Menü und gehe zu _Setup > Sprache_, oder führe `archctl language <code>` in einem Terminal aus (`archctl language list` zeigt die Codes). Menü, Desktop und Archs eigene Benachrichtigungen wechseln sofort die Sprache, und jede Anwendung, die du danach öffnest, folgt ebenfalls. Apps, die schon offen waren, wechseln, sobald du sie neu startest.
 
 ### Hilfe, wenn du feststeckst
 
-Wenn du feststeckst, findest du im Kanal _#arch-help_ auf [dem Community-Discord](https://github.com/kairosci/arch/discord) meist jemanden, der dir helfen will.
+Wenn du feststeckst, findest du im Kanal _#arch-help_ auf [dem Community-Discord](https://github.com/kairosci/os/discord) meist jemanden, der dir helfen will.
