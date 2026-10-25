@@ -30,6 +30,6 @@ Arch के सेटिंग्स पैकेज को अपडेट य�
 
 ## हस्ताक्षर कुंजियाँ
 
-सभी ISO हस्ताक्षरों और Arch रेपो पैकेज के लिए सार्वजनिक कुंजी `40DFB630FF42BCFFB047046CF0134EE680CAC571` है ([openpgp.org पर सत्यापित करें](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch))। `arch/arch-keyring` पैकेज में यह भी शामिल है और इसका इस्तेमाल किसी भी संभावित अपडेट को निर्बाध रूप से रोलआउट करने के लिए किया जाएगा।
+सभी ISO हस्ताक्षरों और Arch रेपो पैकेज के लिए सार्वजनिक कुंजी `40DFB630FF42BCFFB047046CF0134EE680CAC571` है ([openpgp.org पर सत्यापित करें](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os))। `arch/arch-keyring` पैकेज में यह भी शामिल है और इसका इस्तेमाल किसी भी संभावित अपडेट को निर्बाध रूप से रोलआउट करने के लिए किया जाएगा।
 
-आप URL में .sig जोड़कर किसी भी ISO रिलीज़ के लिए हस्ताक्षर पा सकते हैं। जैसे https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig.
+आप URL में .sig जोड़कर किसी भी ISO रिलीज़ के लिए हस्ताक्षर पा सकते हैं। जैसे https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig.
