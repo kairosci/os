@@ -2,7 +2,7 @@
 
 Arch 和你的软件包通过 Arch 菜单（`Super + Space`）中的 _更新 > Arch_ 保持最新。
 
-Arch 本身从 [Arch Package Repository](https://github.com/kairosci/arch) 作为常规 pacman 软件包安装，所以更新会安装[最新的 Arch 发布](https://github.com/kairosci/arch)，运行任何待处理的迁移以使你的系统与最新版本同步，并从 [Arch Arch Mirror](https://github.com/kairosci/arch) 和 [AUR](https://aur.archlinux.org/) 更新所有系统软件包（如果你安装了任何 AUR 软件包的话）。
+Arch 本身从 [Arch Package Repository](https://github.com/kairosci/os) 作为常规 pacman 软件包安装，所以更新会安装[最新的 Arch 发布](https://github.com/kairosci/os)，运行任何待处理的迁移以使你的系统与最新版本同步，并从 [Arch Arch Mirror](https://github.com/kairosci/os) 和 [AUR](https://aur.archlinux.org/) 更新所有系统软件包（如果你安装了任何 AUR 软件包的话）。
 
 当新版本发布时，一个圆圈箭头图标会出现在你的时钟右侧。点击它，更新过程就会开始。
 
@@ -10,7 +10,7 @@ Arch 本身从 [Arch Package Repository](https://github.com/kairosci/arch) 作�
 
 ### 四个通道
 
-Arch 沿着四个通道更新：stable、RC、edge 和 dev。新安装从 stable 通道开始，它跟踪[官方发布](https://github.com/kairosci/arch)，以及比最新版落后一个月的 [stable Arch Arch mirror](https://github.com/kairosci/arch)，这样我们就可以在任何需要配置更改的新不兼容问题给人们带来麻烦之前发现它们。
+Arch 沿着四个通道更新：stable、RC、edge 和 dev。新安装从 stable 通道开始，它跟踪[官方发布](https://github.com/kairosci/os)，以及比最新版落后一个月的 [stable Arch Arch mirror](https://github.com/kairosci/os)，这样我们就可以在任何需要配置更改的新不兼容问题给人们带来麻烦之前发现它们。
 
 但如果你想帮助发现这些潜在问题，你可以在 edge 通道上运行。这会让你的 Arch 软件包跟踪最新的开发构建，并让你在最新的 Arch 软件包可用时立即更新到它们。你只有在有 Linux 经验、并且知道如何恢复一个出问题的系统时才应该这样做。
 

@@ -30,6 +30,6 @@ Arch 非常认真地对待安全。它意欲成为一个可以在 _真实世界_
 
 ## 签名密钥
 
-所有 ISO 签名和 Arch 仓库软件包的公钥是 `40DFB630FF42BCFFB047046CF0134EE680CAC571`（[在 openpgp.org 验证](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch)）。`arch/arch-keyring` 包也包含此密钥，并将用于无缝推出任何潜在的更新。
+所有 ISO 签名和 Arch 仓库软件包的公钥是 `40DFB630FF42BCFFB047046CF0134EE680CAC571`（[在 openpgp.org 验证](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os)）。`arch/arch-keyring` 包也包含此密钥，并将用于无缝推出任何潜在的更新。
 
-你可以通过在 URL 后添加 .sig 来找到任何 ISO 发行版的签名。例如 https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig.
+你可以通过在 URL 后添加 .sig 来找到任何 ISO 发行版的签名。例如 https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig.

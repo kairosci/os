@@ -2,7 +2,7 @@
 
 Arch 使用 ISO 进行安装。你可以选择全盘安装，它会占用整个驱动器；也可以选择空闲空间安装，它会将 Arch 安装到驱动器上未分配的空间中——这就是与 Windows 或其他操作系统双启动的方法（请参阅[双启动安装](50-dual-boot-install.md)——请注意，你需要先在 Windows 中关闭 BitLocker）。无论哪种方式，安装默认都启用全盘加密，而全盘选项会擦除所选驱动器，所以在使用现有驱动器之前，一定要先做好备份！
 
-先[下载 Arch ISO](https://github.com/kairosci/arch/)，将其写入 U 盘（在 Mac/Windows 上使用 [balenaEtcher](https://etcher.balena.io/)，在 Linux 上使用 [caligula](https://github.com/ifd3f/caligula)），然后从 U 盘启动。
+先[下载 Arch ISO](https://github.com/kairosci/os/)，将其写入 U 盘（在 Mac/Windows 上使用 [balenaEtcher](https://etcher.balena.io/)，在 Linux 上使用 [caligula](https://github.com/ifd3f/caligula)），然后从 U 盘启动。
 
 _你必须在 BIOS 中关闭 Secure Boot 和/或 TPM。你必须关闭这些功能才能安装 Arch。它们是 Microsoft 为 Windows 和与 Microsoft 相关的 Linux 发行版设计的安全方案。_
 
@@ -36,8 +36,8 @@ Arch 默认带加密安装。对于任何可能丢失或被盗的计算机来说
 
 ### 语言
 
-Arch 支持 50 种语言——与 github.com/kairosci/arch 相同的集合——默认语言为英语。要切换语言，请打开 Arch 菜单并前往 _设置 > 语言_，或在终端中运行 `archctl language <code>`（`archctl language list` 会显示语言代码）。菜单、桌面和 Arch 自身的通知会立即更改语言，你之后打开的每个应用程序也会跟随更改。已经打开的应用程序会在你重启它们后切换。
+Arch 支持 50 种语言——与 github.com/kairosci/os 相同的集合——默认语言为英语。要切换语言，请打开 Arch 菜单并前往 _设置 > 语言_，或在终端中运行 `archctl language <code>`（`archctl language list` 会显示语言代码）。菜单、桌面和 Arch 自身的通知会立即更改语言，你之后打开的每个应用程序也会跟随更改。已经打开的应用程序会在你重启它们后切换。
 
 ### 卡住时获取帮助
 
-如果你卡住了，通常可以在[社区 Discord](https://github.com/kairosci/arch/discord) 的 _#arch-help_ 频道中找到愿意帮助你的人。
+如果你卡住了，通常可以在[社区 Discord](https://github.com/kairosci/os/discord) 的 _#arch-help_ 频道中找到愿意帮助你的人。

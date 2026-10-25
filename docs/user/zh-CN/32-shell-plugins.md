@@ -95,10 +95,10 @@ arch plugin validate ./my-plugin
 
 这会运行 shell 在加载时做的相同检查：架构版本、必需字段、未被保留的 id、安全相对路径且确实存在的入口点、你声明的每个 kind 都有一个入口点，以及文件夹内任何地方都没有符号链接。
 
-有关插件开发，请参阅 [shell 参考](https://github.com/kairosci/arch) 和[第一方插件目录](https://github.com/kairosci/arch)。
+有关插件开发，请参阅 [shell 参考](https://github.com/kairosci/os) 和[第一方插件目录](https://github.com/kairosci/os)。
 
 ## 与全世界分享你的插件
 
 一旦你做出了喜欢的东西，把它放到一个公开的 git 仓库里。这就是整个分发机制——任何人都可以对你的 URL 运行 `arch plugin add`，并在几秒钟内运行它。
 
-为了帮助人们真正找到它，在 [plugins.github.com/kairosci/arch](https://plugins.github.com/kairosci/arch) 上列出它。这是 Arch shell 插件的市场，当你在想是否有人已经构建了你即将要写的小部件时，这是首先要看的地方。在开始之前浏览它！
+为了帮助人们真正找到它，在 [plugins.github.com/kairosci/os](https://plugins.github.com/kairosci/os) 上列出它。这是 Arch shell 插件的市场，当你在想是否有人已经构建了你即将要写的小部件时，这是首先要看的地方。在开始之前浏览它！
