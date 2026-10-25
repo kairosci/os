@@ -1,0 +1,9 @@
+id = "system.settings.system-files.sysctl-d"
+domain = "system"
+package = "arch-settings"
+sources = ["etc/sysctl.d"]
+requires = ["system.settings.system-files"]
+
+[[output]]
+source = "etc/sysctl.d"
+target = "etc/sysctl.d"

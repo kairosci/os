@@ -1,0 +1,9 @@
+id = "system.settings.system-files.mpv"
+domain = "system"
+package = "arch-settings"
+sources = ["etc/mpv"]
+requires = ["system.settings.system-files"]
+
+[[output]]
+source = "etc/mpv"
+target = "etc/mpv"

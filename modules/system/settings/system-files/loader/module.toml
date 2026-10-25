@@ -1,0 +1,9 @@
+id = "system.settings.system-files.loader"
+domain = "system"
+package = "arch-settings"
+sources = ["etc/loader"]
+requires = ["system.settings.system-files"]
+
+[[output]]
+source = "etc/loader"
+target = "etc/loader"

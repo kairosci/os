@@ -1,9 +1,16 @@
 id = "system.settings.system-files"
 domain = "system"
 package = "arch-settings"
-sources = ["etc"]
+sources = [
+  "etc/nsswitch.conf",
+  "etc/os-release",
+]
 requires = ["system.settings"]
 
 [[output]]
-source = "etc"
-target = "etc"
+source = "etc/nsswitch.conf"
+target = "etc/nsswitch.conf"
+
+[[output]]
+source = "etc/os-release"
+target = "etc/os-release"

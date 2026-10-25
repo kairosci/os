@@ -1,0 +1,9 @@
+id = "system.settings.system-files.profile-d"
+domain = "system"
+package = "arch-settings"
+sources = ["etc/profile.d"]
+requires = ["system.settings.system-files"]
+
+[[output]]
+source = "etc/profile.d"
+target = "etc/profile.d"

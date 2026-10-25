@@ -1,0 +1,9 @@
+id = "system.settings.system-files.plymouth"
+domain = "system"
+package = "arch-settings"
+sources = ["etc/plymouth"]
+requires = ["system.settings.system-files"]
+
+[[output]]
+source = "etc/plymouth"
+target = "etc/plymouth"

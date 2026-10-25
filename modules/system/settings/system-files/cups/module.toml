@@ -1,0 +1,9 @@
+id = "system.settings.system-files.cups"
+domain = "system"
+package = "arch-settings"
+sources = ["etc/cups"]
+requires = ["system.settings.system-files"]
+
+[[output]]
+source = "etc/cups"
+target = "etc/cups"

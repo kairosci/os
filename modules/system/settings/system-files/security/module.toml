@@ -1,0 +1,9 @@
+id = "system.settings.system-files.security"
+domain = "system"
+package = "arch-settings"
+sources = ["etc/security"]
+requires = ["system.settings.system-files"]
+
+[[output]]
+source = "etc/security"
+target = "etc/security"

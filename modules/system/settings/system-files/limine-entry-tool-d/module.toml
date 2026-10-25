@@ -1,0 +1,9 @@
+id = "system.settings.system-files.limine-entry-tool-d"
+domain = "system"
+package = "arch-settings"
+sources = ["etc/limine-entry-tool.d"]
+requires = ["system.settings.system-files"]
+
+[[output]]
+source = "etc/limine-entry-tool.d"
+target = "etc/limine-entry-tool.d"

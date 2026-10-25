@@ -1,0 +1,9 @@
+id = "system.settings.system-files.tmpfiles-d"
+domain = "system"
+package = "arch-settings"
+sources = ["etc/tmpfiles.d"]
+requires = ["system.settings.system-files"]
+
+[[output]]
+source = "etc/tmpfiles.d"
+target = "etc/tmpfiles.d"

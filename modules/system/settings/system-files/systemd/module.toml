@@ -1,0 +1,9 @@
+id = "system.settings.system-files.systemd"
+domain = "system"
+package = "arch-settings"
+sources = ["etc/systemd"]
+requires = ["system.settings.system-files"]
+
+[[output]]
+source = "etc/systemd"
+target = "etc/systemd"

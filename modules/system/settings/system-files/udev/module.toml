@@ -1,0 +1,9 @@
+id = "system.settings.system-files.udev"
+domain = "system"
+package = "arch-settings"
+sources = ["etc/udev"]
+requires = ["system.settings.system-files"]
+
+[[output]]
+source = "etc/udev"
+target = "etc/udev"

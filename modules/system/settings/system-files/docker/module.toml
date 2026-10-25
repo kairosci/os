@@ -1,0 +1,9 @@
+id = "system.settings.system-files.docker"
+domain = "system"
+package = "arch-settings"
+sources = ["etc/docker"]
+requires = ["system.settings.system-files"]
+
+[[output]]
+source = "etc/docker"
+target = "etc/docker"
