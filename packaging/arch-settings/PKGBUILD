@@ -1,12 +1,12 @@
 pkgname=arch-settings
 pkgver=4.0.6
-pkgrel=7
+pkgrel=8
 pkgdesc='Arch desktop defaults, system configuration, and greeter assets'
 arch=('x86_64' 'aarch64')
 url='https://github.com/kairosci/arch'
 license=('MIT')
 depends=('bash' 'curl' 'gum' 'hicolor-icon-theme' 'plymouth' 'sudo')
-makedepends=('git' 'imagemagick')
+makedepends=('git' 'imagemagick' 'python')
 backup=(
   'etc/docker/daemon.json'
   'etc/fastfetch/config.jsonc'
@@ -29,6 +29,7 @@ prepare() {
   }
   mkdir -p "$srcdir/arch"
   git -C "$ARCH_SRC" archive --format=tar HEAD | tar -x -C "$srcdir/arch"
+  python3 "$srcdir/arch/scripts/modules.py" validate --package "$pkgname"
 }
 
 package() {

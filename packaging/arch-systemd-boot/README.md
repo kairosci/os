@@ -16,8 +16,8 @@ Install them together so pacman can transfer shared files and resolve the new
 dependency in one transaction:
 
 ```sh
-sudo pacman -U packaging/arch-settings/arch-settings-4.0.6-7-x86_64.pkg.tar.zst \
-  packaging/arch-systemd-boot/arch-4.0.6-36-x86_64.pkg.tar.zst
+sudo pacman -U packaging/arch-settings/arch-settings-4.0.6-8-x86_64.pkg.tar.zst \
+  packaging/arch-systemd-boot/arch-4.0.6-37-x86_64.pkg.tar.zst
 ```
 
 Confirm that the machine has a working systemd-boot entry and Arch UKI before

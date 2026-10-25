@@ -1,0 +1,5 @@
+id = "desktop.runtime"
+domain = "desktop"
+package = "arch"
+sources = ["shell", "themes"]
+requires = ["system.settings"]

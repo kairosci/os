@@ -2,7 +2,7 @@
 # former Arch runtime package ID.
 pkgname='arch'
 pkgver=4.0.6
-pkgrel=36
+pkgrel=37
 pkgdesc='Arch desktop runtime and configuration'
 # The payload is architecture-independent, but the dependency set is not: the
 # boot stack differs per architecture (see depends_x86_64 / depends_aarch64),
@@ -62,6 +62,7 @@ depends_aarch64=(
 
 makedepends=(
   'git'
+  'python'
 )
 
 # Build only from the Arch fork checkout. Pulling upstream here would silently
@@ -76,6 +77,7 @@ prepare() {
   }
   mkdir -p "$srcdir/arch"
   git -C "$ARCH_SRC" archive --format=tar HEAD | tar -x -C "$srcdir/arch"
+  python3 "$srcdir/arch/scripts/modules.py" validate --package "$pkgname"
 }
 
 package() {
