@@ -2,7 +2,7 @@
 
 Arch i tvoji paketi održavaju se ažurnima putem _Ažuriraj > Arch_ u izborniku Arch (`Super + Space`).
 
-Sam Arch instaliran je kao redovni pacman paketi iz [Arch Package Repository](https://github.com/kairosci/arch), pa ažuriranje instalira [najnovije Arch izdanje](https://github.com/kairosci/arch), pokreće sve migracije na čekanju kako bi tvoj sustav uskladio s najnovijim i ažurira sve pakete sustava iz [Arch Arch Mirror](https://github.com/kairosci/arch) i [AUR](https://aur.archlinux.org/) (ako imaš instalirane bilo kakve AUR pakete).
+Sam Arch instaliran je kao redovni pacman paketi iz [Arch Package Repository](https://github.com/kairosci/os), pa ažuriranje instalira [najnovije Arch izdanje](https://github.com/kairosci/os), pokreće sve migracije na čekanju kako bi tvoj sustav uskladio s najnovijim i ažurira sve pakete sustava iz [Arch Arch Mirror](https://github.com/kairosci/os) i [AUR](https://aur.archlinux.org/) (ako imaš instalirane bilo kakve AUR pakete).
 
 Kad se objave nova izdanja, ikona kružne strelice pojavit će se desno od tvog sata. Klikni je i proces ažuriranja će započeti.
 
@@ -10,7 +10,7 @@ Kad se objave nova izdanja, ikona kružne strelice pojavit će se desno od tvog 
 
 ### Četiri kanala
 
-Arch se ažurira duž četiri kanala: stable, RC, edge i dev. Nove instalacije počinju na kanalu stable, koji prati [službena izdanja](https://github.com/kairosci/arch), kao i [stabilno Arch Arch zrcalo](https://github.com/kairosci/arch) koje zaostaje mjesec dana za najnovijim, kako bismo mogli uhvatiti sve nove nekompatibilnosti koje zahtijevaju promjene konfiguracije prije nego što ljudima uzrokuju probleme.
+Arch se ažurira duž četiri kanala: stable, RC, edge i dev. Nove instalacije počinju na kanalu stable, koji prati [službena izdanja](https://github.com/kairosci/os), kao i [stabilno Arch Arch zrcalo](https://github.com/kairosci/os) koje zaostaje mjesec dana za najnovijim, kako bismo mogli uhvatiti sve nove nekompatibilnosti koje zahtijevaju promjene konfiguracije prije nego što ljudima uzrokuju probleme.
 
 Ali ako želiš pomoći u uočavanju tih potencijalnih problema, možeš koristiti kanal edge. To će tvoje Arch pakete držati u praćenju najnovijih razvojnih buildova i omogućuje ti ažuriranje na najnovije Arch pakete čim budu dostupni. Ovo bi trebao raditi samo ako si iskusan s Linuxom i znaš kako oporaviti sustav koji ima probleme.
 

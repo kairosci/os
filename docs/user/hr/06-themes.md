@@ -6,7 +6,7 @@ Svaka tema stilizira radnu površinu, terminal, neovim, zaslon aktivnosti (btop)
 
 Teme imaju skup pozadinskih slika između kojih možete birati pomoću `Super + Ctrl + Space`.
 
-Još više tema možete pronaći na [stranici s dodatnim temama](https://github.com/kairosci/arch/themes/) ili čak [izraditi vlastitu temu](43-making-your-own-theme.md).
+Još više tema možete pronaći na [stranici s dodatnim temama](https://github.com/kairosci/os/themes/) ili čak [izraditi vlastitu temu](43-making-your-own-theme.md).
 
  ![tokyo-night](../themes/tokyo-night/preview.png)
 _Tokyo Night_

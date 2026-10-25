@@ -95,10 +95,10 @@ arch plugin validate ./my-plugin
 
 To pokreće iste provjere koje ljuska radi pri učitavanju: verziju sheme, obavezna polja, id koji nije rezerviran, ulazne točke koje su sigurne relativne putanje i zapravo postoje, ulaznu točku za svaku vrstu koju si prisvojio i nikakve simboličke poveznice nigdje unutar mape.
 
-Za razvoj dodataka pogledaj [referencu ljuske](https://github.com/kairosci/arch) i [katalog dodataka prve strane](https://github.com/kairosci/arch).
+Za razvoj dodataka pogledaj [referencu ljuske](https://github.com/kairosci/os) i [katalog dodataka prve strane](https://github.com/kairosci/os).
 
 ## Dijeljenje svog sa svijetom
 
 Nakon što napraviš nešto što ti se sviđa, stavi to u javni git repozitorij. To je cijeli mehanizam distribucije — svatko tada može pokrenuti `arch plugin add` protiv tvog URL-a i imati ga pokrenutog u sekundama.
 
-Da pomogneš ljudima da ga zapravo pronađu, navedi ga na [plugins.github.com/kairosci/arch](https://plugins.github.com/kairosci/arch). To je tržište za Arch dodatke ljuske i prvo je mjesto za pogledati kad se pitaš je li netko već izgradio widget koji se spremaš napisati. Pregledaj ga prije početka!
+Da pomogneš ljudima da ga zapravo pronađu, navedi ga na [plugins.github.com/kairosci/os](https://plugins.github.com/kairosci/os). To je tržište za Arch dodatke ljuske i prvo je mjesto za pogledati kad se pitaš je li netko već izgradio widget koji se spremaš napisati. Pregledaj ga prije početka!

@@ -30,6 +30,6 @@ Budite trezveni u ovome: dok je uključen, sve što radi kao vaš korisnik može
 
 ## Ključevi za potpisivanje
 
-Javni ključ za sve ISO potpise i Arch repo pakete je `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([provjerite na openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch)). Paket `arch/arch-keyring` također ga sadrži i koristit će se za neprimjetno uvođenje svih mogućih ažuriranja.
+Javni ključ za sve ISO potpise i Arch repo pakete je `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([provjerite na openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os)). Paket `arch/arch-keyring` također ga sadrži i koristit će se za neprimjetno uvođenje svih mogućih ažuriranja.
 
-Potpis za svako ISO izdanje možete pronaći dodavanjem .sig URL-u. Poput https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig.
+Potpis za svako ISO izdanje možete pronaći dodavanjem .sig URL-u. Poput https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig.
