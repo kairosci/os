@@ -42,4 +42,4 @@ Zbylé `[themename]` se stává názvem adresáře motivu, takže musí jít o n
 
 Nezapomeňte, že po instalaci z repozitáře se všechny dodávané soubory `.lua`, konfigurace terminálu nebo `vscode.json` zahodí, takže motiv kolem nich nestavějte.
 
-Svůj motiv můžete přidat na [stránku s dalšími motivy](https://github.com/kairosci/arch/themes/) zasláním pull requestu do [repozitáře arch-site](https://github.com/kairosci/arch).
+Svůj motiv můžete přidat na [stránku s dalšími motivy](https://github.com/kairosci/os/themes/) zasláním pull requestu do [repozitáře arch-site](https://github.com/kairosci/os).

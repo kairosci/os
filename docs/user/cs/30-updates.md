@@ -2,7 +2,7 @@
 
 Arch a vaše balíčky jsou udržovány aktuální prostřednictvím části _Aktualizovat > Arch_ v nabídce Arch (`Super + Space`).
 
-Samotné Arch je nainstalováno jako běžné balíčky pacman z [repozitáře balíčků Arch](https://github.com/kairosci/arch), takže aktualizace nainstaluje [nejnovější vydání Arch](https://github.com/kairosci/arch), spustí všechny čekající migrace, aby byl váš systém v souladu s nejnovějším vydáním, a aktualizuje všechny systémové balíčky ze [zrcadla Arch Arch Mirror](https://github.com/kairosci/arch) a [AUR](https://aur.archlinux.org/) (pokud jste nainstalovali nějaké balíčky z AUR).
+Samotné Arch je nainstalováno jako běžné balíčky pacman z [repozitáře balíčků Arch](https://github.com/kairosci/os), takže aktualizace nainstaluje [nejnovější vydání Arch](https://github.com/kairosci/os), spustí všechny čekající migrace, aby byl váš systém v souladu s nejnovějším vydáním, a aktualizuje všechny systémové balíčky ze [zrcadla Arch Arch Mirror](https://github.com/kairosci/os) a [AUR](https://aur.archlinux.org/) (pokud jste nainstalovali nějaké balíčky z AUR).
 
 Když vyjdou nová vydání, napravo od vašich hodin se objeví kruhová ikona se šipkou. Klikněte na ni a proces aktualizace začne.
 
@@ -10,7 +10,7 @@ Když vyjdou nová vydání, napravo od vašich hodin se objeví kruhová ikona 
 
 ### Čtyři kanály
 
-Arch se aktualizuje ve čtyřech kanálech: stable, RC, edge a dev. Nové instalace začínají na kanálu stable, který sleduje [oficiální vydání](https://github.com/kairosci/arch), a také [stabilní zrcadlo Arch Arch mirror](https://github.com/kairosci/arch), které je měsíc pozadu za nejnovějším vydáním, abychom mohli zachytit všechny nové nekompatibility, které vyžadují změny konfigurace, dříve, než lidem způsobí problémy.
+Arch se aktualizuje ve čtyřech kanálech: stable, RC, edge a dev. Nové instalace začínají na kanálu stable, který sleduje [oficiální vydání](https://github.com/kairosci/os), a také [stabilní zrcadlo Arch Arch mirror](https://github.com/kairosci/os), které je měsíc pozadu za nejnovějším vydáním, abychom mohli zachytit všechny nové nekompatibility, které vyžadují změny konfigurace, dříve, než lidem způsobí problémy.
 
 Pokud byste ale chtěli pomoct tyto potenciální problémy odhalovat, můžete běžet na kanálu edge. Vaše balíčky Arch díky tomu budou sledovat nejnovější vývojové sestavy a umožní vám aktualizovat na nejnovější balíčky Archu, jakmile budou k dispozici. Měli byste to dělat pouze v případě, že máte zkušenosti s Linuxem a víte, jak obnovit systém, který má problémy.
 

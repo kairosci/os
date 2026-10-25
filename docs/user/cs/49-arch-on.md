@@ -2,19 +2,19 @@
 
 ### Čipy Apple M1/M2
 
-[Asahi Alarm](https://asahi-alarm.org/) je verze distribuce Arch pro počítače Apple M1/M2 postavená na projektu [Asahi Linux](https://asahilinux.org/). S trochou snahy na něm můžete rozběhnout i Arch. Viz [uživatelský návod](https://github.com/kairosci/arch).
+[Asahi Alarm](https://asahi-alarm.org/) je verze distribuce Arch pro počítače Apple M1/M2 postavená na projektu [Asahi Linux](https://asahilinux.org/). S trochou snahy na něm můžete rozběhnout i Arch. Viz [uživatelský návod](https://github.com/kairosci/os).
 
 ### Virtuální počítač Apple
 
-Arch můžete nainstalovat také do virtuálního počítače Parallels. Je to docela složitý proces, ale i pro něj existuje [uživatelský návod](https://github.com/kairosci/arch).
+Arch můžete nainstalovat také do virtuálního počítače Parallels. Je to docela složitý proces, ale i pro něj existuje [uživatelský návod](https://github.com/kairosci/os).
 
 ### VirtualBox
 
-VirtualBox je oblíbený program pro virtuální počítače. [Arch můžete spustit i v něm](https://github.com/kairosci/arch). Výkon však pravděpodobně nebude vynikající.
+VirtualBox je oblíbený program pro virtuální počítače. [Arch můžete spustit i v něm](https://github.com/kairosci/os). Výkon však pravděpodobně nebude vynikající.
 
 ### VMware Workstation v systému Windows 11
 
-Další oblíbený program pro virtuální počítače v systému Windows. [Arch se podařilo zprovoznit i v něm](https://github.com/kairosci/arch).
+Další oblíbený program pro virtuální počítače v systému Windows. [Arch se podařilo zprovoznit i v něm](https://github.com/kairosci/os).
 
 ### Steam Deck
 

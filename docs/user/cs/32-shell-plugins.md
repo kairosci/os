@@ -95,10 +95,10 @@ arch plugin validate ./my-plugin
 
 Tím se spustí stejné kontroly, které shell provádí při načítání: verzi schématu, povinná pole, id, které není vyhrazené, vstupní body, které jsou bezpečnými relativními cestami a skutečně existují, vstupní bod pro každý druh, který jste si nárokovali, a žádné symbolické odkazy nikde uvnitř složky.
 
-Pro vývoj zásuvných modulů se podívejte na [referenci shellu](https://github.com/kairosci/arch) a [katalog zásuvných modulů první strany](https://github.com/kairosci/arch).
+Pro vývoj zásuvných modulů se podívejte na [referenci shellu](https://github.com/kairosci/os) a [katalog zásuvných modulů první strany](https://github.com/kairosci/os).
 
 ## Sdílení vašich modulů se světem
 
 Jakmile vytvoříte něco, co se vám líbí, vložte to do veřejného gitového repozitáře. To je celý distribuční mechanismus — kdokoli pak může spustit příkaz `arch plugin add` proti vaší adrese URL a mít ho za pár sekund spuštěný.
 
-Chcete-li lidem pomoci ho skutečně najít, uveďte ho na webu [plugins.github.com/kairosci/arch](https://plugins.github.com/kairosci/arch). To je tržiště pro zásuvné moduly shellu Arch a je to první místo, kam se podívat, když si lámete hlavu nad tím, zda už někdo nevytvořil widget, který se chystáte psát. Před začátkem si ho prohlédněte!
+Chcete-li lidem pomoci ho skutečně najít, uveďte ho na webu [plugins.github.com/kairosci/os](https://plugins.github.com/kairosci/os). To je tržiště pro zásuvné moduly shellu Arch a je to první místo, kam se podívat, když si lámete hlavu nad tím, zda už někdo nevytvořil widget, který se chystáte psát. Před začátkem si ho prohlédněte!
