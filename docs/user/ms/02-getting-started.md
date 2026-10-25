@@ -2,7 +2,7 @@
 
 Arch dipasang menggunakan ISO. Anda boleh memilih antara pemasangan cakera penuh, yang mengambil alih keseluruhan pemacu, atau pemasangan ruang kosong, yang meletakkan Arch dalam ruang yang tidak diperuntukkan pada pemacu — begitulah cara anda membuat dual boot bersama Windows atau OS lain (lihat [pemasangan dual-boot](50-dual-boot-install.md) — ambil perhatian bahawa anda perlu mematikan BitLocker dalam Windows terlebih dahulu). Walau apa pun, pemasangan secara lalai menggunakan penyulitan penuh, dan pilihan cakera penuh akan memadam pemacu yang dipilih, jadi pastikan anda membuat sandaran sebelum menggunakan pemacu sedia ada!
 
-[Muat turun ISO Arch](https://github.com/kairosci/arch/) terlebih dahulu, masukkannya ke dalam pemacu USB (gunakan [balenaEtcher](https://etcher.balena.io/) pada Mac/Windows atau [caligula](https://github.com/ifd3f/caligula) pada Linux), dan boot daripada pemacu tersebut.
+[Muat turun ISO Arch](https://github.com/kairosci/os/) terlebih dahulu, masukkannya ke dalam pemacu USB (gunakan [balenaEtcher](https://etcher.balena.io/) pada Mac/Windows atau [caligula](https://github.com/ifd3f/caligula) pada Linux), dan boot daripada pemacu tersebut.
 
 _Anda mesti mematikan Secure Boot dan/atau TPM dalam BIOS. Anda perlu mematikan kedua-duanya untuk dapat memasang Arch. Kedua-duanya ialah skema keselamatan Microsoft yang ditujukan untuk Windows dan pengedaran Linux yang bersekutu dengan Microsoft._
 
@@ -36,8 +36,8 @@ Tetapi dalam keadaan istimewa, seperti pemasangan Arch jauh pada komputer yang d
 
 ### Bahasa
 
-Arch bertutur dalam 50 bahasa — set yang sama seperti github.com/kairosci/arch — dan Bahasa Inggeris ialah lalainya. Untuk menukar, buka menu Arch dan pergi ke _Persediaan > Bahasa_, atau jalankan `archctl language <code>` dalam terminal (`archctl language list` menunjukkan kod-kod tersebut). Menu, desktop, dan pemberitahuan Arch sendiri akan bertukar bahasa serta-merta, dan setiap aplikasi yang anda buka selepas itu akan turut mengikutinya. Apl yang telah pun dibuka akan bertukar sebaik sahaja anda memulakannya semula.
+Arch bertutur dalam 50 bahasa — set yang sama seperti github.com/kairosci/os — dan Bahasa Inggeris ialah lalainya. Untuk menukar, buka menu Arch dan pergi ke _Persediaan > Bahasa_, atau jalankan `archctl language <code>` dalam terminal (`archctl language list` menunjukkan kod-kod tersebut). Menu, desktop, dan pemberitahuan Arch sendiri akan bertukar bahasa serta-merta, dan setiap aplikasi yang anda buka selepas itu akan turut mengikutinya. Apl yang telah pun dibuka akan bertukar sebaik sahaja anda memulakannya semula.
 
 ### Bantuan jika anda tersekat
 
-Jika anda tersekat, anda biasanya boleh mencari seseorang yang sudi membantu dalam saluran _#arch-help_ di [Discord komuniti](https://github.com/kairosci/arch/discord).
+Jika anda tersekat, anda biasanya boleh mencari seseorang yang sudi membantu dalam saluran _#arch-help_ di [Discord komuniti](https://github.com/kairosci/os/discord).

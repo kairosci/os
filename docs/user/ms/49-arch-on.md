@@ -2,19 +2,19 @@
 
 ### Cip Apple M1/M2
 
-[Asahi Alarm](https://asahi-alarm.org/) ialah versi Arch untuk komputer Apple M1/M2 yang dibina di atas [Asahi Linux](https://asahilinux.org/). Anda boleh menjalankan Arch di atasnya dengan sedikit usaha. Lihat [panduan dipacu pengguna](https://github.com/kairosci/arch).
+[Asahi Alarm](https://asahi-alarm.org/) ialah versi Arch untuk komputer Apple M1/M2 yang dibina di atas [Asahi Linux](https://asahilinux.org/). Anda boleh menjalankan Arch di atasnya dengan sedikit usaha. Lihat [panduan dipacu pengguna](https://github.com/kairosci/os).
 
 ### Mesin Maya Apple
 
-Anda juga boleh memasang Arch di dalam VM Parallels. Proses yang agak sukar, tetapi terdapat [panduan dipacu pengguna](https://github.com/kairosci/arch) untuk itu juga.
+Anda juga boleh memasang Arch di dalam VM Parallels. Proses yang agak sukar, tetapi terdapat [panduan dipacu pengguna](https://github.com/kairosci/os) untuk itu juga.
 
 ### VirtualBox
 
-VirtualBox ialah pelari VM yang popular. [Anda boleh menjalankan Arch di dalamnya juga](https://github.com/kairosci/arch). Tetapi prestasi mungkin tidak begitu baik.
+VirtualBox ialah pelari VM yang popular. [Anda boleh menjalankan Arch di dalamnya juga](https://github.com/kairosci/os). Tetapi prestasi mungkin tidak begitu baik.
 
 ### VMware Workstation pada Windows 11
 
-Satu lagi pelari VM popular untuk Windows. [Arch telah disediakan di dalamnya juga](https://github.com/kairosci/arch).
+Satu lagi pelari VM popular untuk Windows. [Arch telah disediakan di dalamnya juga](https://github.com/kairosci/os).
 
 ### Steam Deck
 
