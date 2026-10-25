@@ -13,8 +13,10 @@ import time
 
 
 ROOT = Path(os.environ["ARCH_PATH"])
-PRESETS = json.loads((ROOT / "default/input-methods/presets.json").read_text())
-NON_LATIN = set("af am ara bd bg by et ge gr il in iq ir kg kh kz la lk mk mm mn mv np rs ru sy th tj ua".split())
+DATA_ROOT = ROOT / "data/input-methods"
+PRESETS = json.loads((DATA_ROOT / "presets.json").read_text())
+NON_LATIN = set(json.loads((DATA_ROOT / "non-latin-layouts.json").read_text()))
+FONT_VARIANTS = tuple(dict.fromkeys(preset["font"] for preset in PRESETS.values() if preset.get("font")))
 CONTROLLER = ["busctl", "--user", "call", "org.fcitx.Fcitx5", "/controller", "org.fcitx.Fcitx.Controller1"]
 
 
@@ -214,9 +216,6 @@ def profile_text(layout, method):
   if method != "none":
     text += f"\n[Groups/0/Items/1]\nName={method}\nLayout={engine_layout(method, layout)}\n"
   return text + "\n[GroupOrder]\n0=Default\n"
-
-
-FONT_VARIANTS = ("JP", "KR", "SC", "TC", "HK")
 
 
 def font_path(config_home):
