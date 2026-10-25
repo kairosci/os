@@ -95,10 +95,10 @@ arch plugin validate ./my-plugin
 
 Det kjører de samme sjekkene som skallet gjør ved lasting: skjemaversjonen, påkrevde felter, en ID som ikke er reservert, inngangspunkter som er trygge relative stier og faktisk eksisterer, et inngangspunkt for hver type du hevdet, og ingen symlenker noe sted inni mappen.
 
-For utvidelsesutvikling, se [skallreferansen](https://github.com/kairosci/arch) og [katalogen over førstepartsutvidelser](https://github.com/kairosci/arch).
+For utvidelsesutvikling, se [skallreferansen](https://github.com/kairosci/os) og [katalogen over førstepartsutvidelser](https://github.com/kairosci/os).
 
 ## Dele din med verden
 
 Når du har laget noe du liker, legg det i et offentlig git-repo. Det er hele distribusjonsmekanismen — hvem som helst kan deretter kjøre `arch plugin add` mot URL-en din og ha det i gang på sekunder.
 
-For å hjelpe folk faktisk å finne den, list den på [plugins.github.com/kairosci/arch](https://plugins.github.com/kairosci/arch). Det er markedsplassen for Arch-skallutvidelser, og det er det første stedet å se når du lurer på om noen allerede har bygd widgeten du er i ferd med å skrive. Bla i den før du starter!
+For å hjelpe folk faktisk å finne den, list den på [plugins.github.com/kairosci/os](https://plugins.github.com/kairosci/os). Det er markedsplassen for Arch-skallutvidelser, og det er det første stedet å se når du lurer på om noen allerede har bygd widgeten du er i ferd med å skrive. Bla i den før du starter!

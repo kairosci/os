@@ -6,7 +6,7 @@ Hvert tema styler skrivebordet, terminalen, neovim, aktivitetsskjermen (btop), C
 
 Temaer har et sett med bakgrunnsbilder du kan velge mellom med `Super + Ctrl + Space`.
 
-Du kan finne enda flere temaer på [siden med ekstra temaer](https://github.com/kairosci/arch/themes/) eller til og med [lage ditt eget tema](43-making-your-own-theme.md).
+Du kan finne enda flere temaer på [siden med ekstra temaer](https://github.com/kairosci/os/themes/) eller til og med [lage ditt eget tema](43-making-your-own-theme.md).
 
  ![tokyo-night](../themes/tokyo-night/preview.png)
 _Tokyo Night_
