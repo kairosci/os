@@ -1,0 +1,9 @@
+id = "desktop.shell.services"
+domain = "desktop"
+package = "arch"
+sources = ["shell/plugins/services"]
+requires = ["desktop.runtime"]
+
+[[output]]
+source = "shell/plugins/services"
+target = "usr/share/arch/shell/plugins/services"

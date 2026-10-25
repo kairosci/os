@@ -1,0 +1,9 @@
+id = "desktop.shell.menu"
+domain = "desktop"
+package = "arch"
+sources = ["shell/plugins/menu"]
+requires = ["desktop.runtime"]
+
+[[output]]
+source = "shell/plugins/menu"
+target = "usr/share/arch/shell/plugins/menu"

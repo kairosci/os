@@ -1,0 +1,9 @@
+id = "desktop.shell.osd"
+domain = "desktop"
+package = "arch"
+sources = ["shell/plugins/osd"]
+requires = ["desktop.runtime"]
+
+[[output]]
+source = "shell/plugins/osd"
+target = "usr/share/arch/shell/plugins/osd"

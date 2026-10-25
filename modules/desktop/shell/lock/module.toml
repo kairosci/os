@@ -1,0 +1,9 @@
+id = "desktop.shell.lock"
+domain = "desktop"
+package = "arch"
+sources = ["shell/plugins/lock"]
+requires = ["desktop.runtime"]
+
+[[output]]
+source = "shell/plugins/lock"
+target = "usr/share/arch/shell/plugins/lock"

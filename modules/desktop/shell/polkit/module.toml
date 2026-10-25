@@ -1,0 +1,9 @@
+id = "desktop.shell.polkit"
+domain = "desktop"
+package = "arch"
+sources = ["shell/plugins/polkit"]
+requires = ["desktop.runtime"]
+
+[[output]]
+source = "shell/plugins/polkit"
+target = "usr/share/arch/shell/plugins/polkit"
