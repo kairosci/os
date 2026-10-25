@@ -32,7 +32,7 @@ reset_home() {
   rm -rf "$home"
   mkdir -p "$staged" "$remembered"
   printf '%s\n' "${1:-tokyo-night}" >"$state/current/theme.name"
-  cp "$ROOT/themes/${1:-tokyo-night}/backgrounds/"* "$staged/"
+  cp "$ROOT/assets/themes/${1:-tokyo-night}/backgrounds/"* "$staged/"
   : >"$call_log"
 }
 

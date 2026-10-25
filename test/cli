@@ -451,7 +451,7 @@ tokyo_bright_fg=$(awk -F'"' '/^bright_foreground =/ { print $2; exit }' "$ROOT/t
 [[ $tokyo_fg == "#a9b1d6" && $tokyo_light_fg == "#b4bee6" && $tokyo_bright_fg == "#c0caf5" ]] || fail "tokyo night foreground ramp stays ordered"
 pass "tokyo night foreground ramp stays ordered"
 
-if rg -q '^cursor\s*=' "$ROOT/themes" -g'colors.toml'; then
+if rg -q '^cursor\s*=' "$ROOT/assets/themes" -g'colors.toml'; then
   fail "built-in colors.toml files omit cursor token"
 fi
 pass "built-in colors.toml files omit cursor token"

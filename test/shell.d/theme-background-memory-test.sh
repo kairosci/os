@@ -42,7 +42,7 @@ mapfile -t theme_b_backgrounds < <(find "$current_state/theme/backgrounds" -maxd
 theme_b_first=${theme_b_backgrounds[0]##*/}
 
 common_background=$(comm -12 \
-  <(find "$ROOT/themes/$theme_a/backgrounds" -maxdepth 1 -type f -printf '%f\n' | sort) \
+  <(find "$ROOT/assets/themes/$theme_a/backgrounds" -maxdepth 1 -type f -printf '%f\n' | sort) \
   <(find "$current_state/theme/backgrounds" -maxdepth 1 -type f -printf '%f\n' | sort) | head -n 1)
 [[ -n $common_background ]] || fail "test themes share a background filename"
 theme_b_common_path=$(find "$current_state/theme/backgrounds" -maxdepth 1 -type f -name "$common_background" -print -quit)

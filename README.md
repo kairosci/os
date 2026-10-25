@@ -6,7 +6,7 @@ The maintained repository is [kairosci/arch](https://github.com/kairosci/arch), 
 
 ## Configuration
 
-User settings and state are stored under the home directory. The active theme is `themes/cosmic`.
+User settings and state are stored under the home directory. The active theme is `assets/themes/cosmic`.
 
 ## License and credits
 

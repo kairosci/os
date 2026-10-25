@@ -10,7 +10,7 @@ This repository is the source for Arch's packages. A running installation uses p
 assets/
   applications/
   branding/
-  themes/cosmic/
+  assets/themes/cosmic/
 config/
   system/
   user/

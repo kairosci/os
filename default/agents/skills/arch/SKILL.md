@@ -43,7 +43,7 @@ overwritten on the next `archctl update`.
 /usr/share/arch/     # READ-ONLY - NEVER EDIT (reading is OK)
 ├── bin/                    # Command source (packaged binaries are on PATH)
 ├── config/                 # Default config templates
-├── themes/                 # Stock themes
+├── assets/themes/                 # Stock themes
 ├── default/                # System defaults
 ├── shell/                  # os shell source and defaults
 ├── migrations/             # Update migrations
