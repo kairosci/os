@@ -35,25 +35,24 @@ prepare() {
 package() {
   cd "$srcdir/arch"
 
-  # Shared configuration, desktop entries, and defaults are owned by this
-  # package so /usr/share/arch has one source of truth.
-  install -d "$pkgdir/usr/share/arch"
-  cp -a config default "$pkgdir/usr/share/arch/"
-  cp -a assets/applications "$pkgdir/usr/share/arch/applications"
+  # Package payload paths are assembled from the module catalog. The steps
+  # below handle only transformations and package-manager metadata.
+  local module_stage
+  module_stage=$(mktemp -d "$srcdir/arch-settings-modules.XXXXXXXX")
+  python3 scripts/modules.py assemble --package "$pkgname" --destination "$module_stage"
+  cp -a "$module_stage/." "$pkgdir/"
+  rm -rf "$module_stage"
 
   # Seed new accounts with the same Arch config tree used by existing users.
   install -d "$pkgdir/etc/skel/.config" "$pkgdir/etc/skel/.local/share/applications"
-  cp -a config/. "$pkgdir/etc/skel/.config/"
-  if compgen -G 'assets/applications/*.desktop' >/dev/null; then
-    cp assets/applications/*.desktop "$pkgdir/etc/skel/.local/share/applications/"
+  cp -a "$pkgdir/usr/share/arch/config/." "$pkgdir/etc/skel/.config/"
+  if compgen -G "$pkgdir/usr/share/arch/applications/*.desktop" >/dev/null; then
+    cp "$pkgdir/usr/share/arch/applications"/*.desktop "$pkgdir/etc/skel/.local/share/applications/"
   fi
-  install -Dm644 logo.txt "$pkgdir/etc/skel/.config/arch/branding/screensaver.txt"
-  install -Dm644 icon.txt "$pkgdir/etc/skel/.config/arch/branding/about.txt"
 
   # Arch-owned system settings. System-owned files are staged under
   # /usr/share/arch/etc-overrides and published by the package scriptlet.
-  install -d "$pkgdir/etc" "$pkgdir/usr/share/arch/etc-overrides"
-  cp -a etc/. "$pkgdir/etc/"
+  install -d "$pkgdir/usr/share/arch/etc-overrides"
   for path in \
     etc/os-release \
     etc/nsswitch.conf \
@@ -105,37 +104,4 @@ package() {
     esac
   done
 
-  # The session environment, fonts, and terminal preferences used before a
-  # user profile has run.
-  install -Dm644 default/uwsm/env.d/10-arch "$pkgdir/usr/share/uwsm/env.d/10-arch"
-  install -Dm644 default/environment.d/10-arch-fcitx.conf \
-    "$pkgdir/usr/lib/environment.d/10-arch-fcitx.conf"
-  install -Dm644 default/xdg-terminal-exec/hyprland-xdg-terminals.list \
-    "$pkgdir/usr/share/xdg-terminal-exec/hyprland-xdg-terminals.list"
-  install -Dm644 default/applications/mimeapps.list \
-    "$pkgdir/usr/share/applications/mimeapps.list"
-  install -Dm644 default/fonts/arch/arch.ttf \
-    "$pkgdir/usr/share/fonts/arch/arch.ttf"
-  install -Dm644 default/sddm/hyprland.lua "$pkgdir/usr/share/sddm/hyprland.lua"
-
-  # The login and boot splash assets are available as soon as this package is
-  # installed, including the installer's live environment.
-  install -d "$pkgdir/usr/share/sddm/themes/arch" "$pkgdir/usr/share/plymouth/themes/arch"
-  cp -a default/sddm/arch/. "$pkgdir/usr/share/sddm/themes/arch/"
-  cp -a default/plymouth/. "$pkgdir/usr/share/plymouth/themes/arch/"
-  install -Dm644 icon.png "$pkgdir/usr/share/icons/hicolor/256x256/apps/arch.png"
-
-  # Package-owned services and system defaults referenced by setup commands.
-  install -d "$pkgdir/usr/lib/systemd/user" "$pkgdir/usr/lib/systemd/system"
-  cp -a default/systemd/user/. "$pkgdir/usr/lib/systemd/user/"
-  cp -a default/systemd/system/. "$pkgdir/usr/lib/systemd/system/"
-  install -Dm755 default/systemd/system-sleep/unmount-fuse \
-    "$pkgdir/usr/lib/systemd/system-sleep/unmount-fuse"
-  install -Dm644 default/systemd/zram-generator.conf.d/90-arch.conf \
-    "$pkgdir/usr/lib/systemd/zram-generator.conf.d/90-arch.conf"
-
-  # Support commands needed in the live installer before the runtime arrives.
-  for command in arch-debug arch-debug-idle arch-upload-log; do
-    install -Dm755 "src/cli/$command" "$pkgdir/usr/bin/$command"
-  done
 }
