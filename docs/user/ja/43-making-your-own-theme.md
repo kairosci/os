@@ -42,4 +42,4 @@ Archは、テーマの中に独自のgitリポジトリがあるかどうかで�
 
 リポジトリからインストールされた場合、テーマが含めるすべての`.lua`、ターミナル設定、`vscode.json`は削除されることを覚えておいてください。そのため、テーマをそれらを中心に構築しないでください。
 
-[arch-siteリポジトリ](https://github.com/kairosci/arch)にプルリクエストを送ることで、自分のテーマを[テーマ追加ページ](https://github.com/kairosci/arch/themes/)に追加してもらうことができます。
+[arch-siteリポジトリ](https://github.com/kairosci/os)にプルリクエストを送ることで、自分のテーマを[テーマ追加ページ](https://github.com/kairosci/os/themes/)に追加してもらうことができます。

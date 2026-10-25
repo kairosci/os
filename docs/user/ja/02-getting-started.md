@@ -2,7 +2,7 @@
 
 Arch は ISO を使ってインストールします。ドライブ全体を占有するフルディスク・インストールと、ドライブの未割り当て領域に Arch を入れる空き領域インストールから選べます — 後者が Windows や他の OS と並べてデュアルブートする方法です（[デュアルブート・インストール](50-dual-boot-install.md) を参照 — なお、先に Windows で BitLocker をオフにする必要があります）。どちらの場合も、インストールはデフォルトで完全暗号化されます。フルディスク・オプションは選択したドライブを消去するので、既存のドライブを使う前に必ずバックアップを取ってください!
 
-まず [Arch ISO をダウンロード](https://github.com/kairosci/arch/) し、USB メモリに入れて（Mac/Windows では [balenaEtcher](https://etcher.balena.io/)、Linux では [caligula](https://github.com/ifd3f/caligula) を使います）、そのメモリから起動してください。
+まず [Arch ISO をダウンロード](https://github.com/kairosci/os/) し、USB メモリに入れて（Mac/Windows では [balenaEtcher](https://etcher.balena.io/)、Linux では [caligula](https://github.com/ifd3f/caligula) を使います）、そのメモリから起動してください。
 
 _BIOS で Secure Boot および/または TPM をオフにしなければなりません。Arch をインストールするには、これらをオフにする必要があります。これらは Windows および Microsoft 傘下の Linux ディストリビューション向けの Microsoft のセキュリティ方式です。_
 
@@ -36,8 +36,8 @@ Arch はデフォルトで暗号化付きでインストールされます。紛
 
 ### 言語
 
-Arch は 50 言語に対応しています — github.com/kairosci/arch と同じセットで、デフォルトは英語です。切り替えるには、Arch メニューを開いて _Setup > Language_ に進むか、ターミナルで `archctl language <code>` を実行してください（`archctl language list` でコード一覧が表示されます）。メニュー、デスクトップ、Arch 自体の通知はすぐに言語が変わり、その後に開くすべてのアプリケーションもそれに従います。すでに開いていたアプリは、再起動すると切り替わります。
+Arch は 50 言語に対応しています — github.com/kairosci/os と同じセットで、デフォルトは英語です。切り替えるには、Arch メニューを開いて _Setup > Language_ に進むか、ターミナルで `archctl language <code>` を実行してください（`archctl language list` でコード一覧が表示されます）。メニュー、デスクトップ、Arch 自体の通知はすぐに言語が変わり、その後に開くすべてのアプリケーションもそれに従います。すでに開いていたアプリは、再起動すると切り替わります。
 
 ### 困ったときの助け
 
-困ったときは、通常 [コミュニティ Discord](https://github.com/kairosci/arch/discord) の _#arch-help_ チャンネルで、喜んで助けてくれる人が見つかります。
+困ったときは、通常 [コミュニティ Discord](https://github.com/kairosci/os/discord) の _#arch-help_ チャンネルで、喜んで助けてくれる人が見つかります。

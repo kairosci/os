@@ -2,7 +2,7 @@
 
 Arch とあなたのパッケージは、Arch メニュー（`Super + Space`）の _更新 > Arch_ 経由で最新に保たれます。
 
-Arch 自体は [Arch Package Repository](https://github.com/kairosci/arch) からの通常の pacman パッケージとしてインストールされているため、更新では [最新の Arch リリース](https://github.com/kairosci/arch) がインストールされ、あなたのシステムを最新と同期させるために保留中のマイグレーションがすべて実行され、すべてのシステムパッケージが [Arch Arch Mirror](https://github.com/kairosci/arch) と [AUR](https://aur.archlinux.org/)（AUR パッケージをインストールしている場合）から更新されます。
+Arch 自体は [Arch Package Repository](https://github.com/kairosci/os) からの通常の pacman パッケージとしてインストールされているため、更新では [最新の Arch リリース](https://github.com/kairosci/os) がインストールされ、あなたのシステムを最新と同期させるために保留中のマイグレーションがすべて実行され、すべてのシステムパッケージが [Arch Arch Mirror](https://github.com/kairosci/os) と [AUR](https://aur.archlinux.org/)（AUR パッケージをインストールしている場合）から更新されます。
 
 新しいリリースが作成されると、時計の右側に円形の矢印アイコンが現れます。それをクリックすると更新プロセスが開始します。
 
@@ -10,7 +10,7 @@ Arch 自体は [Arch Package Repository](https://github.com/kairosci/arch) か�
 
 ### 4つのチャネル
 
-Arch は stable、RC、edge、dev の4つのチャネルに沿って更新されます。新規インストールは stable チャネルから始まります。これは [公式リリース](https://github.com/kairosci/arch) を追跡するとともに、1か月遅れの [stable Arch Arch mirror](https://github.com/kairosci/arch) を追跡します。そのため、設定変更を必要とする新たな非互換性を、問題を引き起こす前にキャッチできます。
+Arch は stable、RC、edge、dev の4つのチャネルに沿って更新されます。新規インストールは stable チャネルから始まります。これは [公式リリース](https://github.com/kairosci/os) を追跡するとともに、1か月遅れの [stable Arch Arch mirror](https://github.com/kairosci/os) を追跡します。そのため、設定変更を必要とする新たな非互換性を、問題を引き起こす前にキャッチできます。
 
 しかし、それらの潜在的な問題を見つける手助けをしたいなら、edge チャネルで運用できます。それにより Arch パッケージは最新の開発ビルドを追跡しし続け、Arch パッケージが利用可能になり次第最新へ更新できます。あなたが Linux に経験があり、問題のあるシステムを復旧できる場合にのみそうしてください。
 

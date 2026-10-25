@@ -2,19 +2,19 @@
 
 ### Apple M1/M2チップ
 
-[Asahi Alarm](https://asahi-alarm.org/)は、[Asahi Linux](https://asahilinux.org/)を土台に構築されたApple M1/M2コンピューター向けArchです。努力すれば、その上でArchを動作させることができます。[ユーザー主導のガイド](https://github.com/kairosci/arch)をご覧ください。
+[Asahi Alarm](https://asahi-alarm.org/)は、[Asahi Linux](https://asahilinux.org/)を土台に構築されたApple M1/M2コンピューター向けArchです。努力すれば、その上でArchを動作させることができます。[ユーザー主導のガイド](https://github.com/kairosci/os)をご覧ください。
 
 ### Apple仮想マシン
 
-ArchをParallels VMの中にインストールすることもできます。かなり面倒なプロセスですが、そのための[ユーザー主導のガイド](https://github.com/kairosci/arch)もあります。
+ArchをParallels VMの中にインストールすることもできます。かなり面倒なプロセスですが、そのための[ユーザー主導のガイド](https://github.com/kairosci/os)もあります。
 
 ### VirtualBox
 
-VirtualBoxは人気のVMランナーです。[Archをその中でも実行できます](https://github.com/kairosci/arch)。しかし、パフォーマンスはおそらく優れたものにはならないでしょう。
+VirtualBoxは人気のVMランナーです。[Archをその中でも実行できます](https://github.com/kairosci/os)。しかし、パフォーマンスはおそらく優れたものにはならないでしょう。
 
 ### Windows 11上のVMware Workstation
 
-Windows向けの別の人気VMランナーです。[Archはその中でもセットアップされています](https://github.com/kairosci/arch)。
+Windows向けの別の人気VMランナーです。[Archはその中でもセットアップされています](https://github.com/kairosci/os)。
 
 ### Steam Deck
 
