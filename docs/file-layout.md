@@ -1,26 +1,23 @@
 # File layout
 
-How `arch/` is organized and where everything ends up on an installed
-system.
+How the Arch OS source tree is organized and where its package files end up
+on an installed system.
 
 ## Mental model
 
-Two Arch packages are built from this one repo (PKGBUILDs live in the
-separate `arch-pkgs` repository, under `pkgbuilds/`):
+Two Arch packages are built from this repository. Their PKGBUILDs live in
+`packages/<package-name>/`; `modules/` declares which source components each
+package owns and where they are installed:
 
-- **`arch`** — CLI sources (`src/cli/`), installed as runtime binaries under `bin/` (including `arch-dev-*`),
-  installer/finalize scripts (`installer/`), migrations, themes, and the
-  Quickshell desktop (`src/shell/`). Depends on `arch-settings`.
-- **`arch-settings`** — everything that has to be on the target *before*
-  the archctl package installs (specifically before `useradd -m` and the
-  limine bootloader install): all `/etc/skel/**`, `/etc/` drop-ins,
-  package-owned system files under `/usr/share` and `/usr/lib`, fonts,
-  plymouth theme, sddm theme, branding, plus the limine/snapper configs
-  (mkinitcpio hooks, limine-entry-tool drop-ins, snapper template, the
-  `default/limine/` and `default/snapper/` trees, and the boot/snapshot
-  story end-to-end). Also ships the three debug binaries
-  (`arch-debug`, `arch-debug-idle`, `arch-upload-log`) needed by
-  the live ISO env.
+- **`arch`** — the desktop runtime, command entry points in `/usr/bin`,
+  installer components, migrations, themes, and the Quickshell desktop.
+  Source files live under `src/`, `installer/`, `migrations/`, and `assets/`.
+  Its package tree is assembled from the `arch` modules and it depends on
+  `arch-settings`.
+- **`arch-settings`** — system defaults, `/etc` configuration, assets, and
+  `/etc/skel` files needed before user creation. It also ships the three
+  diagnostic binaries (`arch-debug`, `arch-debug-idle`, and `arch-upload-log`)
+  used by the live environment before the runtime package is installed.
 
 Two other packages live in `arch-pkgs` but stand alone:
 `arch-keyring` (GPG keys for pacman) and `neovim` (the Neovim
