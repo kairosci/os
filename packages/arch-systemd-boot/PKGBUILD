@@ -115,8 +115,15 @@ package() {
   # first login, future users, migrations, and reinstall/reset commands.
   cp -a install "$pkgdir/usr/share/arch/"
 
-  # Cosmic is the only bundled theme.
-  cp -a assets/themes "$pkgdir/usr/share/arch/themes"
+  # Assemble the shared shell runtime and its independently owned plugins
+  # from their module manifests into the installed tree.
+  local module_stage
+  module_stage=$(mktemp -d "$srcdir/arch-modules.XXXXXXXX")
+  python3 scripts/modules.py assemble --package "$pkgname" \
+    --module desktop.runtime --module 'desktop.shell.*' \
+    --destination "$module_stage"
+  cp -a "$module_stage/usr/share/arch/." "$pkgdir/usr/share/arch/"
+  rm -rf "$module_stage"
 
   # Versioned migrations runner reads from this tree.
   cp -a migrations "$pkgdir/usr/share/arch/"
@@ -133,9 +140,6 @@ package() {
       touch "$pkgdir/etc/skel/.local/state/arch/migrations/$(basename "$migration")"
     done
   fi
-  # Quickshell desktop shell tree.
-  cp -a shell "$pkgdir/usr/share/arch/"
-
   # Runtime version file.
   install -Dm644 version "$pkgdir/usr/share/arch/version"
 
