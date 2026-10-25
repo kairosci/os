@@ -2,19 +2,19 @@
 
 ### Apple M1/M2 சிப்கள்
 
-[Asahi Alarm](https://asahi-alarm.org/) என்பது [Asahi Linux](https://asahilinux.org/)-இன் மேல் கட்டப்பட்ட Apple M1/M2 கணினிகளுக்கான Arch-இன் பதிப்பு. சில முயற்சியுடன் அதன் மேல் Arch-ஐ இயக்க முடியும். [பயனரால் இயக்கப்படும் வழிகாட்டியைப்](https://github.com/kairosci/arch) பாருங்கள்.
+[Asahi Alarm](https://asahi-alarm.org/) என்பது [Asahi Linux](https://asahilinux.org/)-இன் மேல் கட்டப்பட்ட Apple M1/M2 கணினிகளுக்கான Arch-இன் பதிப்பு. சில முயற்சியுடன் அதன் மேல் Arch-ஐ இயக்க முடியும். [பயனரால் இயக்கப்படும் வழிகாட்டியைப்](https://github.com/kairosci/os) பாருங்கள்.
 
 ### Apple மெய்நிகர் இயந்திரம்
 
-Parallels VM-க்குள்ளும் Arch-ஐ நிறுவலாம். மிகவும் சிரமமான செயல்முறை, ஆனால் அதற்கும் [பயனரால் இயக்கப்படும் வழிகாட்டி](https://github.com/kairosci/arch) உள்ளது.
+Parallels VM-க்குள்ளும் Arch-ஐ நிறுவலாம். மிகவும் சிரமமான செயல்முறை, ஆனால் அதற்கும் [பயனரால் இயக்கப்படும் வழிகாட்டி](https://github.com/kairosci/os) உள்ளது.
 
 ### VirtualBox
 
-VirtualBox ஒரு பிரபலமான VM இயக்கி. [Arch-ஐ அதற்குள்ளும் இயக்கலாம்](https://github.com/kairosci/arch). ஆனால் செயல்திறன் ஒருவேளை சிறப்பாக இருக்காது.
+VirtualBox ஒரு பிரபலமான VM இயக்கி. [Arch-ஐ அதற்குள்ளும் இயக்கலாம்](https://github.com/kairosci/os). ஆனால் செயல்திறன் ஒருவேளை சிறப்பாக இருக்காது.
 
 ### Windows 11-இல் VMware Workstation
 
-Windows-க்கான மற்றொரு பிரபலமான VM இயக்கி. [Arch அதற்குள்ளும் அமைக்கப்பட்டுள்ளது](https://github.com/kairosci/arch).
+Windows-க்கான மற்றொரு பிரபலமான VM இயக்கி. [Arch அதற்குள்ளும் அமைக்கப்பட்டுள்ளது](https://github.com/kairosci/os).
 
 ### Steam Deck
 

@@ -30,6 +30,6 @@ Arch-இன் அமைப்புகள் தொகுப்பைப் ப
 
 ## கையொப்ப விசைகள்
 
-அனைத்து ISO கையொப்பங்கள் மற்றும் Arch களஞ்சியத் தொகுப்பிற்கான பொது விசை `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([openpgp.org-இல் சரிபார்க்கவும்](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch)). `arch/arch-keyring` தொகுப்பிலும் இது உள்ளது, எந்தச் சாத்தியமான புதுப்பிப்புகளையும் தடையின்றி வெளியிட இது பயன்படுத்தப்படும்.
+அனைத்து ISO கையொப்பங்கள் மற்றும் Arch களஞ்சியத் தொகுப்பிற்கான பொது விசை `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([openpgp.org-இல் சரிபார்க்கவும்](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os)). `arch/arch-keyring` தொகுப்பிலும் இது உள்ளது, எந்தச் சாத்தியமான புதுப்பிப்புகளையும் தடையின்றி வெளியிட இது பயன்படுத்தப்படும்.
 
-எந்த ISO வெளியீட்டிற்கும் URL-இல் .sig சேர்ப்பதன் மூலம் கையொப்பத்தைக் காணலாம். எடுத்துக்காட்டாக: https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig.
+எந்த ISO வெளியீட்டிற்கும் URL-இல் .sig சேர்ப்பதன் மூலம் கையொப்பத்தைக் காணலாம். எடுத்துக்காட்டாக: https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig.
