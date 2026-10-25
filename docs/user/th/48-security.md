@@ -30,6 +30,6 @@ Arch ให้ความสำคัญกับความปลอดภั
 
 ## คีย์ลงนาม
 
-คีย์สาธารณะสำหรับลายเซ็น ISO ทั้งหมดและแพ็กเกจ repo ของ Arch คือ `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([ตรวจสอบที่ openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch)) แพ็กเกจ `arch/arch-keyring` ก็บรรจุสิ่งนี้เช่นกันและจะถูกใช้เพื่อปล่อยอัปเดตที่อาจมีออกมาอย่างราบรื่น
+คีย์สาธารณะสำหรับลายเซ็น ISO ทั้งหมดและแพ็กเกจ repo ของ Arch คือ `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([ตรวจสอบที่ openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os)) แพ็กเกจ `arch/arch-keyring` ก็บรรจุสิ่งนี้เช่นกันและจะถูกใช้เพื่อปล่อยอัปเดตที่อาจมีออกมาอย่างราบรื่น
 
-คุณสามารถหาลายเซ็นสำหรับรุ่น ISO ใด ๆ ได้โดยเพิ่ม .sig ต่อท้าย URL เช่น https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig.
+คุณสามารถหาลายเซ็นสำหรับรุ่น ISO ใด ๆ ได้โดยเพิ่ม .sig ต่อท้าย URL เช่น https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig.

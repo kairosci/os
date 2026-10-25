@@ -6,7 +6,7 @@ Arch มาพร้อมธีมที่สวยงามยี่สิบ
 
 ธีมต่าง ๆ มีชุดภาพพื้นหลังที่คุณเลือกได้โดยใช้ `Super + Ctrl + Space`
 
-คุณค้นหาธีมเพิ่มเติมได้ที่ [หน้าธีมเพิ่มเติม](https://github.com/kairosci/arch/themes/) หรือแม้แต่ [สร้างธีมของคุณเอง](43-making-your-own-theme.md)
+คุณค้นหาธีมเพิ่มเติมได้ที่ [หน้าธีมเพิ่มเติม](https://github.com/kairosci/os/themes/) หรือแม้แต่ [สร้างธีมของคุณเอง](43-making-your-own-theme.md)
 
  ![tokyo-night](../themes/tokyo-night/preview.png)
 _Tokyo Night_
