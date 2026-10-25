@@ -42,4 +42,4 @@ Ef þú vilt dreifa þemanu þínu svo aðrir geti notað það þarftu að setj
 
 Mundu að þegar það er sett upp úr geymslu er sérhver `.lua`, terminal-stilling eða `vscode.json` sem það flytur með sér felld út, svo byggðu ekki þemað í kringum þau.
 
-Þú getur fengið þemað þitt bætt við [aukaþemasíðuna](https://github.com/kairosci/arch/themes/) með því að senda pull request í [arch-site geymsluna](https://github.com/kairosci/arch).
+Þú getur fengið þemað þitt bætt við [aukaþemasíðuna](https://github.com/kairosci/os/themes/) með því að senda pull request í [arch-site geymsluna](https://github.com/kairosci/os).

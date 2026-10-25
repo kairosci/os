@@ -6,7 +6,7 @@ Hvert þema stílar skjáborðið, terminal, neovim, virkniskjáinn (btop), Chro
 
 Þemu hafa safn af bakgrunnsmyndum sem þú getur valið á milli með `Super + Ctrl + Space`.
 
-Þú getur fundið enn fleiri þemu á [síðunni fyrir aukaþemu](https://github.com/kairosci/arch/themes/) eða jafnvel [búið til þitt eigið þema](43-making-your-own-theme.md).
+Þú getur fundið enn fleiri þemu á [síðunni fyrir aukaþemu](https://github.com/kairosci/os/themes/) eða jafnvel [búið til þitt eigið þema](43-making-your-own-theme.md).
 
  ![tokyo-night](../themes/tokyo-night/preview.png)
 _Tokyo Night_

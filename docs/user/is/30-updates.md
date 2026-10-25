@@ -2,7 +2,7 @@
 
 Arch og pökkunum þínum er haldið uppfærðum í gegnum _Uppfæra > Arch_ í Arch-valmyndinni (`Super + Space`).
 
-Arch sjálft er sett upp sem venjulegir pacman-pakkar frá [Arch Package Repository](https://github.com/kairosci/arch), þannig að uppfærsla setur upp [nýjustu Arch-útgáfuna](https://github.com/kairosci/arch), keyrir allar flutninga í bið til að koma kerfinu þínu í samstillingu við það nýjasta, og uppfærir alla kerfispakka frá [Arch Arch Mirror](https://github.com/kairosci/arch) og [AUR](https://aur.archlinux.org/) (ef þú hefur sett upp einhverja AUR-pakka).
+Arch sjálft er sett upp sem venjulegir pacman-pakkar frá [Arch Package Repository](https://github.com/kairosci/os), þannig að uppfærsla setur upp [nýjustu Arch-útgáfuna](https://github.com/kairosci/os), keyrir allar flutninga í bið til að koma kerfinu þínu í samstillingu við það nýjasta, og uppfærir alla kerfispakka frá [Arch Arch Mirror](https://github.com/kairosci/os) og [AUR](https://aur.archlinux.org/) (ef þú hefur sett upp einhverja AUR-pakka).
 
 Þegar nýjar útgáfur eru gefnar út mun hringörvartákn birtast hægra megin við klukkuna þína. Smelltu á það og uppfærsluferlið mun hefjast.
 
@@ -10,7 +10,7 @@ Arch sjálft er sett upp sem venjulegir pacman-pakkar frá [Arch Package Reposit
 
 ### Fjórar rásir
 
-Arch er uppfært eftir fjórum rásum: stable, RC, edge og dev. Nýjar uppsetningar byrja á stable-rásinni, sem fylgir [opinberu útgáfunum](https://github.com/kairosci/arch), auk [stable Arch Arch-spegilsins](https://github.com/kairosci/arch) sem keyrir einum mánuði á eftir því nýjasta, þannig að við getum gripið ný ósamræmi sem krefjast stillingarbreytinga áður en þau valda fólki vandamálum.
+Arch er uppfært eftir fjórum rásum: stable, RC, edge og dev. Nýjar uppsetningar byrja á stable-rásinni, sem fylgir [opinberu útgáfunum](https://github.com/kairosci/os), auk [stable Arch Arch-spegilsins](https://github.com/kairosci/os) sem keyrir einum mánuði á eftir því nýjasta, þannig að við getum gripið ný ósamræmi sem krefjast stillingarbreytinga áður en þau valda fólki vandamálum.
 
 En ef þú vilt hjálpa til við að koma auga á þau hugsanlegu vandamál geturðu keyrt á edge-rásinni. Það mun halda Arch-pökkunum þínum í takt við nýjustu þróunarbyggðirnar, og leyfir þér að uppfæra í nýjustu Arch-pakkana um leið og þeir eru fáanlegir. Þú ættir aðeins að gera þetta ef þú ert vanur Linux, og veist hvernig á að endurheimta kerfi sem á í vandræðum.
 

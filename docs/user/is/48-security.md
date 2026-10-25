@@ -30,6 +30,6 @@ Vertu hreinskilinn um þetta: á meðan það er á getur allt sem keyrir sem no
 
 ## Undirritunarlyklar
 
-Opinber lykill fyrir allar ISO-undirritanir og Arch geymslupakka er `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([staðfestu á openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch)). `arch/arch-keyring` pakkinn inniheldur þetta líka og verður notaður til að rúlla út hugsanlegum uppfærslum óaðfinnanlega.
+Opinber lykill fyrir allar ISO-undirritanir og Arch geymslupakka er `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([staðfestu á openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os)). `arch/arch-keyring` pakkinn inniheldur þetta líka og verður notaður til að rúlla út hugsanlegum uppfærslum óaðfinnanlega.
 
-Þú getur fundið undirritunina fyrir sérhverja ISO-útgáfu með því að bæta .sig við slóðina. Eins og https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig.
+Þú getur fundið undirritunina fyrir sérhverja ISO-útgáfu með því að bæta .sig við slóðina. Eins og https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig.
