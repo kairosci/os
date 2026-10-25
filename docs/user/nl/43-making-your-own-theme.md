@@ -42,4 +42,4 @@ Dat overgebleven `[themename]` wordt de mapnaam van het thema, dus het moet er e
 
 Onthoud dat zodra het uit een repo is geïnstalleerd, elke `.lua`, terminalconfig of `vscode.json` die het meelevert wordt weggelaten, dus bouw het thema daar niet omheen.
 
-Je kunt je thema laten toevoegen aan [de pagina met extra thema's](https://github.com/kairosci/arch/themes/) door een pull request te sturen naar [de arch-site repo](https://github.com/kairosci/arch).
+Je kunt je thema laten toevoegen aan [de pagina met extra thema's](https://github.com/kairosci/os/themes/) door een pull request te sturen naar [de arch-site repo](https://github.com/kairosci/os).

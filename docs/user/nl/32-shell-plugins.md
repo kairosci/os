@@ -95,10 +95,10 @@ arch plugin validate ./my-plugin
 
 Dat voert dezelfde controles uit die de shell doet bij het laden: de schemaversie, de vereiste velden, een id die niet gereserveerd is, entry points die veilige relatieve paden zijn en daadwerkelijk bestaan, een entry point voor elke soort die je hebt geclaimd, en geen symlinks ergens in de map.
 
-Voor pluginontwikkeling, zie de [shell-referentie](https://github.com/kairosci/arch) en [first-party plugincatalogus](https://github.com/kairosci/arch).
+Voor pluginontwikkeling, zie de [shell-referentie](https://github.com/kairosci/os) en [first-party plugincatalogus](https://github.com/kairosci/os).
 
 ## De jouwe delen met de wereld
 
 Zodra je iets hebt gemaakt dat je bevalt, zet je het in een publieke git-repo. Dat is het hele distributiemechanisme — iedereen kan dan `arch plugin add` uitvoeren tegen je URL en het binnen enkele seconden draaien.
 
-Om mensen te helpen het daadwerkelijk te vinden, vermeld je het op [plugins.github.com/kairosci/arch](https://plugins.github.com/kairosci/arch). Dat is de marktplaats voor Arch-shell-plugins, en het is de eerste plek om te kijken wanneer je je afvraagt of iemand de widget die je gaat schrijven al heeft gebouwd. Blader erdoor voordat je begint!
+Om mensen te helpen het daadwerkelijk te vinden, vermeld je het op [plugins.github.com/kairosci/os](https://plugins.github.com/kairosci/os). Dat is de marktplaats voor Arch-shell-plugins, en het is de eerste plek om te kijken wanneer je je afvraagt of iemand de widget die je gaat schrijven al heeft gebouwd. Blader erdoor voordat je begint!
