@@ -6,7 +6,7 @@ Iga teema stiilib töölaua, terminali, neovimi, aktiivsusekraani (btop), Chromi
 
 Teemadel on taustapiltide kogum, mille vahel saad valida `Super + Ctrl + Space` abil.
 
-Rohkem teemasid leiad [lisateemade lehelt](https://github.com/kairosci/arch/themes/) või saad isegi [oma teema teha](43-making-your-own-theme.md).
+Rohkem teemasid leiad [lisateemade lehelt](https://github.com/kairosci/os/themes/) või saad isegi [oma teema teha](43-making-your-own-theme.md).
 
  ![tokyo-night](../themes/tokyo-night/preview.png)
 _Tokyo Night_

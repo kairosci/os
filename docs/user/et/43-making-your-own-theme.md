@@ -42,4 +42,4 @@ See allesjääv `[themename]` saab teema kaustanimeks, nii et see peab olema sel
 
 Pea meeles, et kui see on repositooriumist paigaldatud, kukub iga koos sellega tulev `.lua`, terminali seadistus või `vscode.json` maha, nii et ära ehita teemat nende ümber.
 
-Sa saad lasta oma teema lisada [lisateemade lehele](https://github.com/kairosci/arch/themes/) saates pull requesti [arch-site repositooriumisse](https://github.com/kairosci/arch).
+Sa saad lasta oma teema lisada [lisateemade lehele](https://github.com/kairosci/os/themes/) saates pull requesti [arch-site repositooriumisse](https://github.com/kairosci/os).

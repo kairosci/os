@@ -30,6 +30,6 @@ Ole selle suhtes selge pilguga: kuni see on sees, saab kõik, mis sinu kasutajan
 
 ## Allkirjavõtmed
 
-Kõikide ISO allkirjade ja Arch repositooriumi pakettide avalik võti on `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([kinnita saidil openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch)). Pakett `arch/arch-keyring` sisaldab seda samuti ja seda kasutatakse võimalike värskenduste sujuvaks juurutamiseks.
+Kõikide ISO allkirjade ja Arch repositooriumi pakettide avalik võti on `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([kinnita saidil openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os)). Pakett `arch/arch-keyring` sisaldab seda samuti ja seda kasutatakse võimalike värskenduste sujuvaks juurutamiseks.
 
-Iga ISO väljalaske allkirja leiad, lisades URL-ile .sig. Nagu https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig.
+Iga ISO väljalaske allkirja leiad, lisades URL-ile .sig. Nagu https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig.

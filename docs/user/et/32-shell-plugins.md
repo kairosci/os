@@ -95,10 +95,10 @@ arch plugin validate ./my-plugin
 
 See käivitab samad kontrollid, mida kest teeb laadimisajal: skeemi versioon, nõutavad väljad, ID, mis pole reserveeritud, sisestuspunktid, mis on turvalised suhtelised teed ja tegelikult olemas, sisestuspunkt iga nõutud liigi jaoks ja sümbolviidade puudumine kuskil kaustas.
 
-Pistikprogrammide arendamiseks vaata [kesta viidet](https://github.com/kairosci/arch) ja [esmase osapoole pistikprogrammide kataloogi](https://github.com/kairosci/arch).
+Pistikprogrammide arendamiseks vaata [kesta viidet](https://github.com/kairosci/os) ja [esmase osapoole pistikprogrammide kataloogi](https://github.com/kairosci/os).
 
 ## Oma jagamine maailmaga
 
 Kui oled teinud midagi, mis sulle meeldib, pane see avalikku giti reposse. See on kogu levitamismehhanism — igaüks saab seejärel käivitada `arch plugin add` sinu URL-i vastu ja see töötab sekunditega.
 
-Et aidata inimestel seda tegelikult leida, loetle see aadressil [plugins.github.com/kairosci/arch](https://plugins.github.com/kairosci/arch). See on Arch kesta pistikprogrammide turg ja see on esimene koht, kust vaadata, kui mõtled, kas keegi on juba ehitanud vidina, mida sa hakkad kirjutama. Sirvi seda enne alustamist!
+Et aidata inimestel seda tegelikult leida, loetle see aadressil [plugins.github.com/kairosci/os](https://plugins.github.com/kairosci/os). See on Arch kesta pistikprogrammide turg ja see on esimene koht, kust vaadata, kui mõtled, kas keegi on juba ehitanud vidina, mida sa hakkad kirjutama. Sirvi seda enne alustamist!
