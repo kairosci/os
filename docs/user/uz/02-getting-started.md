@@ -2,7 +2,7 @@
 
 Arch ISO yordamida o'rnatiladi. Siz butun diskni egallaydigan to'liq diskka o'rnatishni yoki Arch-ni diskdagi ajratilmagan joyga joylashtiradigan bo'sh joyga o'rnatishni tanlashingiz mumkin — Windows yoki boshqa OS yonida dual boot qilish shunday amalga oshiriladi (qarang: [dual-boot o'rnatish](50-dual-boot-install.md) — e'tibor bering, avvalo Windows-da BitLocker-ni o'chirish kerak bo'ladi). Har qanday holatda ham o'rnatish sukut bo'yicha to'liq shifrlash bilan amalga oshiriladi va to'liq disk varianti tanlangan diskni tozalab yuboradi, shuning uchun mavjud diskdan foydalanishdan oldin albatta zaxira nusxasini oling!
 
-Avvalo [Arch ISO-ni yuklab oling](https://github.com/kairosci/arch/), uni USB xotira qurilmasiga yozing (Mac/Windows-da [balenaEtcher](https://etcher.balena.io/), Linux-da esa [caligula](https://github.com/ifd3f/caligula) dan foydalaning) va shu qurilmadan yuklang.
+Avvalo [Arch ISO-ni yuklab oling](https://github.com/kairosci/os/), uni USB xotira qurilmasiga yozing (Mac/Windows-da [balenaEtcher](https://etcher.balena.io/), Linux-da esa [caligula](https://github.com/ifd3f/caligula) dan foydalaning) va shu qurilmadan yuklang.
 
 _BIOS-da Secure Boot va/yoki TPM-ni o'chirishingiz shart. Arch-ni o'rnata olishingiz uchun bularni o'chirishingiz kerak. Bular Windows va Microsoft bilan bog'liq Linux distributivlari uchun mo'ljallangan Microsoft xavfsizlik sxemalaridir._
 
@@ -36,8 +36,8 @@ Lekin alohida holatlarda, masalan, himoyalangan kompyuterlarga masofadan Arch o'
 
 ### Til
 
-Arch 50 tilda gaplashadi — github.com/kairosci/arch dagi ayni to'plam — va sukut bo'yicha ingliz tili ishlatiladi. Almashtirish uchun Arch menyusini oching va _Setup > Language_ ga o'ting, yoki terminalda `archctl language <code>` buyrug'ini ishga tushiring (`archctl language list` kodlarni ko'rsatadi). Menyu, ish stoli va Arch-ning o'z bildirishnomalari tilni darhol o'zgartiradi va shundan keyin ochadigan har bir dasturingiz ham shunga ergashadi. Allaqachon ochiq bo'lgan dasturlar ularni qayta ishga tushirganingizdan keyin o'tadi.
+Arch 50 tilda gaplashadi — github.com/kairosci/os dagi ayni to'plam — va sukut bo'yicha ingliz tili ishlatiladi. Almashtirish uchun Arch menyusini oching va _Setup > Language_ ga o'ting, yoki terminalda `archctl language <code>` buyrug'ini ishga tushiring (`archctl language list` kodlarni ko'rsatadi). Menyu, ish stoli va Arch-ning o'z bildirishnomalari tilni darhol o'zgartiradi va shundan keyin ochadigan har bir dasturingiz ham shunga ergashadi. Allaqachon ochiq bo'lgan dasturlar ularni qayta ishga tushirganingizdan keyin o'tadi.
 
 ### Qiyin ahvolda qolsangiz yordam
 
-Agar qiyin ahvolda qolsangiz, odatda [hamjamiyat Discord](https://github.com/kairosci/arch/discord) dagi _#arch-help_ kanalida yordam berishga tayyor odamni topishingiz mumkin.
+Agar qiyin ahvolda qolsangiz, odatda [hamjamiyat Discord](https://github.com/kairosci/os/discord) dagi _#arch-help_ kanalida yordam berishga tayyor odamni topishingiz mumkin.

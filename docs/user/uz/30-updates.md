@@ -2,7 +2,7 @@
 
 Arch va paketlaringiz Arch menyusidagi (`Super + Space`) _Yangilash > Arch_ orqali yangilab turiladi.
 
-Arch ning oʻzi [Arch Package Repository](https://github.com/kairosci/arch) dan oddiy pacman paketlari sifatida oʻrnatilgan, shuning uchun yangilash [eng soʻnggi Arch relizi](https://github.com/kairosci/arch) ni oʻrnatadi, tizimingizni eng soʻnggisi bilan sinxron qilish uchun kutilayotgan har qanday migratsiyalarni ishga tushiradi va [Arch Arch Mirror](https://github.com/kairosci/arch) va [AUR](https://aur.archlinux.org/) dan (agar biror AUR paketlarini oʻrnatgan boʻlsangiz) barcha tizim paketlarini yangilaydi.
+Arch ning oʻzi [Arch Package Repository](https://github.com/kairosci/os) dan oddiy pacman paketlari sifatida oʻrnatilgan, shuning uchun yangilash [eng soʻnggi Arch relizi](https://github.com/kairosci/os) ni oʻrnatadi, tizimingizni eng soʻnggisi bilan sinxron qilish uchun kutilayotgan har qanday migratsiyalarni ishga tushiradi va [Arch Arch Mirror](https://github.com/kairosci/os) va [AUR](https://aur.archlinux.org/) dan (agar biror AUR paketlarini oʻrnatgan boʻlsangiz) barcha tizim paketlarini yangilaydi.
 
 Yangi relizlar chiqarilganda, soatingizning oʻng tomonida doira strelka piktogrammasi paydo boʻladi. Uni bosing va yangilash jarayoni boshlanadi.
 
@@ -10,7 +10,7 @@ Yangi relizlar chiqarilganda, soatingizning oʻng tomonida doira strelka piktogr
 
 ### Toʻrtta kanal
 
-Arch toʻrtta kanal boʻylab yangilanadi: stable, RC, edge va dev. Yangi oʻrnatishlar [rasmiy relizlar](https://github.com/kairosci/arch) ni, shuningdek eng soʻnggisidan bir oy orqada ishlaydigan [barqaror Arch Arch oynasi](https://github.com/kairosci/arch) ni kuzatuvchi stable kanalda boshlanadi, shunday qilib biz konfiguratsiya oʻzgarishlarini talab qiluvchi har qanday yangi mos kelmasliklarni ular odamlarga muammo tugʻdirishidan oldin tuta olamiz.
+Arch toʻrtta kanal boʻylab yangilanadi: stable, RC, edge va dev. Yangi oʻrnatishlar [rasmiy relizlar](https://github.com/kairosci/os) ni, shuningdek eng soʻnggisidan bir oy orqada ishlaydigan [barqaror Arch Arch oynasi](https://github.com/kairosci/os) ni kuzatuvchi stable kanalda boshlanadi, shunday qilib biz konfiguratsiya oʻzgarishlarini talab qiluvchi har qanday yangi mos kelmasliklarni ular odamlarga muammo tugʻdirishidan oldin tuta olamiz.
 
 Lekin oʻsha mumkin boʻlgan muammolarni aniqlashga yordam bermoqchi boʻlsangiz, edge kanalda ishlashingiz mumkin. Bu Arch paketlaringizni eng soʻnggi dasturlash yigʻmalarini kuzatib turishga majbur qiladi va eng soʻnggi Arch paketlari mavjud boʻlishi bilanoq yangilash imkonini beradi. Buni faqat Linux bilan tajribangiz boʻlsa va muammolari bor tizimni qanday tiklashni bilsangiz qilishingiz kerak.
 

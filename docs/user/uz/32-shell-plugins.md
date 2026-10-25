@@ -95,10 +95,10 @@ arch plugin validate ./my-plugin
 
 Bu shell yuklash vaqtida bajaradigan bir xil tekshiruvlarni ishga tushiradi: sxema versiyasi, talab qilinadigan maydonlar, zaxiralanmagan id, xavfsiz nisbiy yoʻllar boʻlgan va haqiqatan ham mavjud boʻlgan kirish nuqtalari, daʼvo qilgan har bir turingiz uchun kirish nuqtasi va jild ichida hech qanday symlinklar yoʻqligi.
 
-Plagin dasturlash uchun [shell maʼlumotnoma](https://github.com/kairosci/arch) va [birinchi tomon plagin katalogi](https://github.com/kairosci/arch) ga qarang.
+Plagin dasturlash uchun [shell maʼlumotnoma](https://github.com/kairosci/os) va [birinchi tomon plagin katalogi](https://github.com/kairosci/os) ga qarang.
 
 ## Oʻzingiznikini dunyo bilan ulashish
 
 Oʻzingizga yoqqan narsani yasaganingizdan soʻng, uni ommaviy git reporiga qoʻying. Bu butun tarqatish mexanizmidir — har kim keyin URL ingizga qarshi `arch plugin add` ni ishga tushirib, uni soniyalar ichida ishlatishi mumkin.
 
-Odamlar uni haqiqatan ham topishiga yordam berish uchun uni [plugins.github.com/kairosci/arch](https://plugins.github.com/kairosci/arch) da roʻyxat qiling. Bu Arch shell plaginlari uchun bozor va siz yozmoqchi boʻlgan vidjetni kimdir allaqachon yasagan-yasamagani haqida hayron boʻlganingizda qarash kerak boʻlgan birinchi joy. Boshlashdan oldin uni koʻrib chiqing!
+Odamlar uni haqiqatan ham topishiga yordam berish uchun uni [plugins.github.com/kairosci/os](https://plugins.github.com/kairosci/os) da roʻyxat qiling. Bu Arch shell plaginlari uchun bozor va siz yozmoqchi boʻlgan vidjetni kimdir allaqachon yasagan-yasamagani haqida hayron boʻlganingizda qarash kerak boʻlgan birinchi joy. Boshlashdan oldin uni koʻrib chiqing!
