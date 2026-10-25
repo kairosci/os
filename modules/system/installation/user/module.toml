@@ -1,0 +1,9 @@
+id = "system.installation.user"
+domain = "system"
+package = "arch"
+sources = ["installer/user"]
+requires = ["system.installation"]
+
+[[output]]
+source = "installer/user"
+target = "usr/share/arch/installer/user"
