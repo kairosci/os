@@ -1,5 +1,3 @@
--- Captive portal sign-in: a small floating window, like macOS's, that
--- arch-network-captive-portal closes once the internet is reachable.
+-- Captive portal sign-in; arch-network-captive-portal closes it once online.
 local captive_portal = "^chrome-ping\\.omacom\\.io__.*$"
 o.window(captive_portal, { tag = "-chromium-based-browser" })
-o.window(captive_portal, { float = true, center = true, size = { 900, 760 } })

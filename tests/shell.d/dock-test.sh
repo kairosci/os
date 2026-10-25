@@ -159,11 +159,11 @@ if arch_dock autohide sometimes 2>/dev/null; then
 fi
 pass "dock auto-hide is set through arch-dock autohide"
 
-# The dock only shows on floating workspaces, and gets out of the way of a
+# The dock is available on tiled workspaces too and gets out of the way of a
 # fullscreen window; a maximized one only tucks it away.
-grep -qF 'dock.isFloating(workspaceId) && fullscreenMode < 2' "$ROOT/src/shell/plugins/dock/DockWindow.qml" ||
-  fail "dock shows only on floating workspaces without a fullscreen window"
-pass "dock shows only on floating workspaces without a fullscreen window"
+grep -qF '!!dock && fullscreenMode < 2' "$ROOT/src/shell/plugins/dock/DockWindow.qml" ||
+  fail "dock shows on tiled workspaces without a fullscreen window"
+pass "dock shows on tiled workspaces without a fullscreen window"
 
 # Minimizing moves a window to the dock's hidden workspace without following
 # it, then focuses the workspace it left, so the next window opens there and
@@ -210,8 +210,7 @@ grep -qxF 'hl.dsp.window.tag({ tag = "+arch-minimized-from-7", window = "address
   fail "minimize remembers the workspace it leaves this time" "$(cat "$TMPDIR/hyprctl.log")"
 pass "minimize remembers only the workspace the window is leaving"
 
-# A tiled workspace has no dock to bring a window back from, so nothing there
-# is minimized.
+# Tiled workspaces can use the dock to minimize and restore windows.
 cat >"$mock_bin/hyprctl" <<STUB
 #!/bin/bash
 case "\$1" in
@@ -221,8 +220,8 @@ esac
 STUB
 : >"$TMPDIR/hyprctl.log"
 minimize
-[[ ! -s $TMPDIR/hyprctl.log ]] || fail "minimize leaves windows on a tiled workspace alone" "$(cat "$TMPDIR/hyprctl.log")"
-pass "minimize leaves windows on a tiled workspace alone"
+grep -qF 'workspace = "special:minimized"' "$TMPDIR/hyprctl.log" || fail "minimize works on a tiled workspace" "$(cat "$TMPDIR/hyprctl.log")"
+pass "minimize sends tiled windows to the dock"
 
 # Terminal apps launch through os's TUI launcher from every launcher that
 # uses the app library, so their windows carry an app id of their own.

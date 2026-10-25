@@ -210,9 +210,6 @@
   "appearance.workspace-layout.scrolling": {
     "label": "Vieritys"
   },
-  "appearance.workspace-layout.floating": {
-    "label": "Kelluva"
-  },
   "appearance.unlock": {
     "label": "Avaa lukitus"
   },
@@ -565,24 +562,6 @@
   },
   "install.style.font": {
     "label": "Fontti"
-  },
-  "install.style.font.cascadia": {
-    "label": "Cascadia Mono"
-  },
-  "install.style.font.meslo": {
-    "label": "Meslo LG Mono"
-  },
-  "install.style.font.fira": {
-    "label": "Fira Code"
-  },
-  "install.style.font.victor": {
-    "label": "Victor Code"
-  },
-  "install.style.font.bitstream": {
-    "label": "Bitstream Vera Mono"
-  },
-  "install.style.font.iosevka": {
-    "label": "Iosevka"
   },
   "install.gaming": {
     "label": "Pelaaminen"

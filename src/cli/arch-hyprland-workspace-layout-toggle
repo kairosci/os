@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# arch:summary=Cycle the current active workspace through the dwindle, scrolling, and floating layouts
+# arch:summary=Cycle the current active workspace through the dwindle and scrolling layouts
 # arch:args=[back]
 
 # Layout changes replace one notification instead of stacking a new one for
@@ -32,14 +32,13 @@ CURRENT_MODE=$(arch-hyprland-workspace-layout-current)
 
 if [[ $DIRECTION == "back" ]]; then
   case "$CURRENT_MODE" in
-    dwindle) NEW_MODE=floating ;;
-    floating) NEW_MODE=scrolling ;;
+    dwindle) NEW_MODE=scrolling ;;
     *) NEW_MODE=dwindle ;;
   esac
 else
   case "$CURRENT_MODE" in
     dwindle) NEW_MODE=scrolling ;;
-    scrolling) NEW_MODE=floating ;;
+    scrolling) NEW_MODE=dwindle ;;
     *) NEW_MODE=dwindle ;;
   esac
 fi
@@ -56,10 +55,6 @@ case $NEW_MODE in
   scrolling)
     SET_MESSAGE=$(arch-i18n layout.workspaceScrolling)
     UNSAVED_MESSAGE=$(arch-i18n layout.workspaceScrollingUnsaved)
-    ;;
-  *)
-    SET_MESSAGE=$(arch-i18n layout.workspaceFloating)
-    UNSAVED_MESSAGE=$(arch-i18n layout.workspaceFloatingUnsaved)
     ;;
 esac
 
@@ -84,15 +79,7 @@ else
   notify_layout "$UNSAVED_MESSAGE"
 fi
 
-# The bar shows the focused workspace's layout, and the dock shows on floating ones.
+# Refresh workspace indicators and dock state after applying the layout.
 if (( APPLIED )); then
   arch-shell -q arch.workspaces refresh
-  arch-shell -q arch.dock refresh
-fi
-
-# A workspace starting to float sets up its titlebars as the mode applies. The
-# titlebar plugin itself is only loaded while the config loads, so the first
-# floating workspace of a session still needs a reload to bring it in.
-if (( APPLIED )) && [[ $NEW_MODE == "floating" ]] && ! hyprctl plugin list -j 2>/dev/null | jq -e 'any(.[]?; .name == "hyprbars")' >/dev/null 2>&1; then
-  hyprctl reload >/dev/null
 fi

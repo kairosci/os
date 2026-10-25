@@ -16,6 +16,5 @@ package.path = paths.state_home .. "/?.lua;" .. package.path
 
 require_all.files(layouts_dir, "arch.workspace-layouts", { reload = true })
 
--- With every saved mode known, bring the open windows in line and set up what a
--- floating workspace needs.
+-- Restore only tiled layouts. Legacy floating modes are normalized to dwindle.
 workspace_modes.apply()
