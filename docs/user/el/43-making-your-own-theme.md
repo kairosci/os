@@ -42,4 +42,4 @@
 
 Θυμήσου ότι μόλις εγκατασταθεί από repo, οποιοδήποτε `.lua`, διαμόρφωση τερματικού ή `vscode.json` που φέρει απορρίπτεται, οπότε μην χτίσεις το θέμα γύρω από αυτά.
 
-Μπορείς να προσθέσεις το θέμα σου στη [σελίδα επιπλέον θεμάτων](https://github.com/kairosci/arch/themes/) στέλνοντας ένα pull request στο [repo arch-site](https://github.com/kairosci/arch).
+Μπορείς να προσθέσεις το θέμα σου στη [σελίδα επιπλέον θεμάτων](https://github.com/kairosci/os/themes/) στέλνοντας ένα pull request στο [repo arch-site](https://github.com/kairosci/os).

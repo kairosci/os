@@ -30,6 +30,6 @@
 
 ## Κλειδιά Υπογραφής
 
-Το δημόσιο κλειδί για όλες τις υπογραφές ISO και τα πακέτα repo Arch είναι `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([επαλήθευση στο openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch)). Το πακέτο `arch/arch-keyring` το περιέχει επίσης και θα χρησιμοποιηθεί για την απρόσκοπτη διανομή τυχόν πιθανών ενημερώσεων.
+Το δημόσιο κλειδί για όλες τις υπογραφές ISO και τα πακέτα repo Arch είναι `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([επαλήθευση στο openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os)). Το πακέτο `arch/arch-keyring` το περιέχει επίσης και θα χρησιμοποιηθεί για την απρόσκοπτη διανομή τυχόν πιθανών ενημερώσεων.
 
-Μπορείς να βρεις την υπογραφή για οποιαδήποτε έκδοση ISO προσθέτοντας .sig στο URL. Όπως https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig.
+Μπορείς να βρεις την υπογραφή για οποιαδήποτε έκδοση ISO προσθέτοντας .sig στο URL. Όπως https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig.
