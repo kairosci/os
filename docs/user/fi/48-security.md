@@ -30,6 +30,6 @@ Ole tässä rehellinen itsellesi: kun se on päällä, mikä tahansa käyttäjä
 
 ## Allekirjoitusavaimet
 
-Julkinen avain kaikille ISO-allekirjoituksille ja Arch-repo-paketille on `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([tarkista osoitteessa openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch)). Paketti `arch/arch-keyring` sisältää myös tämän, ja sitä käytetään mahdollisten päivitysten saumattomaan käyttöönottoon.
+Julkinen avain kaikille ISO-allekirjoituksille ja Arch-repo-paketille on `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([tarkista osoitteessa openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os)). Paketti `arch/arch-keyring` sisältää myös tämän, ja sitä käytetään mahdollisten päivitysten saumattomaan käyttöönottoon.
 
-Löydät allekirjoituksen mille tahansa ISO-julkaisulle lisäämällä URL-osoitteeseen .sig. Kuten https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig.
+Löydät allekirjoituksen mille tahansa ISO-julkaisulle lisäämällä URL-osoitteeseen .sig. Kuten https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig.

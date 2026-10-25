@@ -42,4 +42,4 @@ Jäljelle jäävästä `[themename]`-osasta tulee teeman hakemiston nimi, joten 
 
 Muista, että kun se asennetaan reposta, kaikki sen toimittamat `.lua`-tiedostot, terminaalimääritykset tai `vscode.json` pudotetaan, joten älä rakenna teemaa niiden varaan.
 
-Voit saada teemasi lisättyä [lisäteemojen sivulle](https://github.com/kairosci/arch/themes/) lähettämällä pull requestin [arch-site-repoon](https://github.com/kairosci/arch).
+Voit saada teemasi lisättyä [lisäteemojen sivulle](https://github.com/kairosci/os/themes/) lähettämällä pull requestin [arch-site-repoon](https://github.com/kairosci/os).

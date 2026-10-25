@@ -2,7 +2,7 @@
 
 Arch ja pakettisi pidetään ajan tasalla Arch-valikon (`Super + Space`) kohdan _Päivitä > Arch_ kautta.
 
-Itse Arch asennetaan tavallisina pacman-paketteina [Arch Package Repositorysta](https://github.com/kairosci/arch), joten päivitys asentaa [uusimman Arch-julkaisun](https://github.com/kairosci/arch), ajaa odottavat migraatiot saadakseen järjestelmäsi synkroniin uusimman kanssa ja päivittää kaikki järjestelmäpaketit lähteistä [Arch Arch Mirror](https://github.com/kairosci/arch) ja [AUR](https://aur.archlinux.org/) (jos olet asentanut AUR-paketteja).
+Itse Arch asennetaan tavallisina pacman-paketteina [Arch Package Repositorysta](https://github.com/kairosci/os), joten päivitys asentaa [uusimman Arch-julkaisun](https://github.com/kairosci/os), ajaa odottavat migraatiot saadakseen järjestelmäsi synkroniin uusimman kanssa ja päivittää kaikki järjestelmäpaketit lähteistä [Arch Arch Mirror](https://github.com/kairosci/os) ja [AUR](https://aur.archlinux.org/) (jos olet asentanut AUR-paketteja).
 
 Kun uusia julkaisuja tehdään, kellosi oikealle puolelle ilmestyy ympyränuolikuvake. Napsauta sitä, niin päivitysprosessi käynnistyy.
 
@@ -10,7 +10,7 @@ Kun uusia julkaisuja tehdään, kellosi oikealle puolelle ilmestyy ympyränuolik
 
 ### Neljä kanavaa
 
-Archa päivitetään neljällä kanavalla: stable, RC, edge ja dev. Uudet asennukset alkavat stable-kanavalla, joka seuraa [virallisia julkaisuja](https://github.com/kairosci/arch) sekä [vakaata Arch Arch -peiliä](https://github.com/kairosci/arch), joka kulkee kuukauden uusinta jäljessä, jotta voimme saada kiinni mahdolliset uudet yhteensopimattomuudet, jotka vaativat määritysmuutoksia, ennen kuin ne aiheuttavat ihmisille ongelmia.
+Archa päivitetään neljällä kanavalla: stable, RC, edge ja dev. Uudet asennukset alkavat stable-kanavalla, joka seuraa [virallisia julkaisuja](https://github.com/kairosci/os) sekä [vakaata Arch Arch -peiliä](https://github.com/kairosci/os), joka kulkee kuukauden uusinta jäljessä, jotta voimme saada kiinni mahdolliset uudet yhteensopimattomuudet, jotka vaativat määritysmuutoksia, ennen kuin ne aiheuttavat ihmisille ongelmia.
 
 Mutta jos haluat auttaa havaitsemaan nuo mahdolliset ongelmat, voit toimia edge-kanavalla. Se pitää Arch-pakettisi uusimpien kehityskoontiversioiden mukana ja antaa sinun päivittää uusimpiin Arch-paketteihin heti, kun ne ovat saatavilla. Tee tämä vain, jos olet kokenut Linuxin kanssa ja tiedät, kuinka palautetaan järjestelmä, jossa on ongelmia.
 

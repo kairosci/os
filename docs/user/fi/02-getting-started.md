@@ -2,7 +2,7 @@
 
 Arch asennetaan ISO:n avulla. Voit valita koko levyn asennuksen, joka ottaa koko aseman haltuunsa, tai vapaan tilan asennuksen, joka sijoittaa Archn asemalla olevaan varaamattomaan tilaan — näin teet dual boot -asennuksen Windowsin tai toisen käyttöjärjestelmän rinnalle (katso [dual-boot-asennus](50-dual-boot-install.md) — huomaa, että sinun on ensin kytkettävä BitLocker pois päältä Windowsissa). Kummassakin tapauksessa asennus käyttää oletuksena täyttä salausta, ja koko levyn vaihtoehto pyyhkii valitun aseman, joten muista ottaa varmuuskopio ennen olemassa olevan aseman käyttämistä!
 
-[Lataa Arch ISO](https://github.com/kairosci/arch/) ensin, laita se USB-tikulle (käytä Macilla/Windowsilla [balenaEtcheriä](https://etcher.balena.io/) tai Linuxilla [caligulaa](https://github.com/ifd3f/caligula)) ja käynnistä tikulta.
+[Lataa Arch ISO](https://github.com/kairosci/os/) ensin, laita se USB-tikulle (käytä Macilla/Windowsilla [balenaEtcheriä](https://etcher.balena.io/) tai Linuxilla [caligulaa](https://github.com/ifd3f/caligula)) ja käynnistä tikulta.
 
 _Sinun on kytkettävä Secure Boot ja/tai TPM pois päältä BIOSissa. Ne on pakko kytkeä pois, jotta voit asentaa Archn. Ne ovat Microsoftin tietoturvajärjestelmiä, jotka on tarkoitettu Windowsille ja Microsoftiin kytköksissä oleville Linux-jakeluille._
 
@@ -36,8 +36,8 @@ Mutta erityisolosuhteissa, kuten Archn etäasennuksissa suojattuihin tietokoneis
 
 ### Kieli
 
-Arch puhuu 50 kieltä — samaa joukkoa kuin github.com/kairosci/arch — ja englanti on oletus. Vaihtaaksesi avaa Arch-valikko ja siirry kohtaan _Asetukset > Kieli_, tai aja `archctl language <code>` terminaalissa (`archctl language list` näyttää koodit). Valikko, työpöytä ja Archn omat ilmoitukset vaihtavat kieltä välittömästi, ja jokainen sen jälkeen avaamasi sovellus seuraa perässä. Jo avoinna olleet sovellukset vaihtavat, kun käynnistät ne uudelleen.
+Arch puhuu 50 kieltä — samaa joukkoa kuin github.com/kairosci/os — ja englanti on oletus. Vaihtaaksesi avaa Arch-valikko ja siirry kohtaan _Asetukset > Kieli_, tai aja `archctl language <code>` terminaalissa (`archctl language list` näyttää koodit). Valikko, työpöytä ja Archn omat ilmoitukset vaihtavat kieltä välittömästi, ja jokainen sen jälkeen avaamasi sovellus seuraa perässä. Jo avoinna olleet sovellukset vaihtavat, kun käynnistät ne uudelleen.
 
 ### Apua, jos jäät jumiin
 
-Jos jäät jumiin, löydät yleensä jonkun, joka on valmis auttamaan, _#arch-help_-kanavalta [yhteisön Discordista](https://github.com/kairosci/arch/discord).
+Jos jäät jumiin, löydät yleensä jonkun, joka on valmis auttamaan, _#arch-help_-kanavalta [yhteisön Discordista](https://github.com/kairosci/os/discord).

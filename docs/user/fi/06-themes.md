@@ -6,7 +6,7 @@ Jokainen teema tyylittelee työpöydän, päätteen, neovimin, aktiivisuusnäyt�
 
 Teemoissa on joukko taustakuvia, joista voit valita yhdistelmällä `Super + Ctrl + Space`.
 
-Löydät vielä enemmän teemoja [lisäteemasivulta](https://github.com/kairosci/arch/themes/) tai voit jopa [tehdä oman teemasi](43-making-your-own-theme.md).
+Löydät vielä enemmän teemoja [lisäteemasivulta](https://github.com/kairosci/os/themes/) tai voit jopa [tehdä oman teemasi](43-making-your-own-theme.md).
 
  ![tokyo-night](../themes/tokyo-night/preview.png)
 _Tokyo Night_
