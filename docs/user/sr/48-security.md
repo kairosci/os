@@ -30,6 +30,6 @@ Arch безбедност схвата изузетно озбиљно. Ово �
 
 ## Кључеви за потписивање
 
-Јавни кључ за све потписе ISO-а и пакет Arch репозиторијума је `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([провери на openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch)). Пакет `arch/arch-keyring` такође ово садржи и користиће се за беспрекорно увођење свих потенцијалних ажурирања.
+Јавни кључ за све потписе ISO-а и пакет Arch репозиторијума је `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([провери на openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os)). Пакет `arch/arch-keyring` такође ово садржи и користиће се за беспрекорно увођење свих потенцијалних ажурирања.
 
-Потпис за свако ISO издање можеш да пронађеш додавањем .sig на URL. Попут https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig.
+Потпис за свако ISO издање можеш да пронађеш додавањем .sig на URL. Попут https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig.

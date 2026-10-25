@@ -6,7 +6,7 @@ Arch долази с двадесет две лепе теме. Можете б�
 
 Теме имају скуп позадинских слика између којих можете бирати помоћу `Super + Ctrl + Space`.
 
-Још више тема можете пронаћи на [страници додатних тема](https://github.com/kairosci/arch/themes/) или чак [направити сопствену тему](43-making-your-own-theme.md).
+Још више тема можете пронаћи на [страници додатних тема](https://github.com/kairosci/os/themes/) или чак [направити сопствену тему](43-making-your-own-theme.md).
 
  ![tokyo-night](../themes/tokyo-night/preview.png)
 _Tokyo Night_
