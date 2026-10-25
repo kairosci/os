@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# arch:summary=Install the NordVPN service with optional GUI.
+# arch:requires-sudo=true
+
+echo "Installing NordVPN..."
+arch-pkg-add nordvpn-bin
+
+echo "Enabling NordVPN daemon..."
+sudo systemctl enable --now nordvpnd
+
+echo "Adding user to nordvpn group..."
+sudo usermod -aG nordvpn "$USER"
+
+echo -e "\nNordVPN installed! After reboot, run 'nordvpn login' to authenticate."
+
+echo
+gum confirm --affirmative "$(arch-i18n common.yes)" --negative "$(arch-i18n common.no)" "$(arch-i18n nordvpn.rebootNow)" && arch-system reboot

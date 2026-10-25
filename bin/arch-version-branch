@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# arch:summary=Print the active Arch dev-link git branch
+# arch:hidden=true
+
+arch_path=${ARCH_PATH:-/usr/share/arch}
+arch_path=${arch_path%/}
+
+[[ $arch_path != "/usr/share/arch" ]] || exit 1
+
+branch=$(git -C "$arch_path" branch --show-current 2>/dev/null || true)
+if [[ -z $branch ]]; then
+  hash=$(git -C "$arch_path" rev-parse --short HEAD 2>/dev/null || true)
+  [[ -n $hash ]] || exit 1
+  branch="detached@$hash"
+fi
+
+echo "$branch"

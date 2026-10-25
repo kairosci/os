@@ -1,0 +1,14 @@
+
+# Python bytecode (orchestrator)
+__pycache__/
+*.pyc
+
+.claude/
+
+# Arch package build output
+/packaging/arch-systemd-boot/src/
+/packaging/arch-systemd-boot/pkg/
+/packaging/arch-systemd-boot/arch-*.pkg.tar.zst
+/packaging/arch-settings/src/
+/packaging/arch-settings/pkg/
+/packaging/arch-settings/arch-settings-*.pkg.tar.zst

@@ -1,0 +1,139 @@
+#!/bin/bash
+
+# arch:summary=Apply the current theme to GNOME color mode and icon settings
+# arch:hidden=true
+
+# gsettings needs a user DBus session. During ISO installs this command can be
+# reached from arch-chroot while applying the initial os theme; defer until
+# the user has a real session instead of emitting dconf warnings.
+if [[ -z ${DBUS_SESSION_BUS_ADDRESS:-} ]]; then
+  exit 0
+fi
+
+THEME_DIR=$HOME/.local/state/arch/current/theme
+COLORS_FILE="$THEME_DIR/colors.toml"
+
+syncGtkThemeCss() {
+  python3 - "$THEME_DIR/gtk.css" "${XDG_CONFIG_HOME:-$HOME/.config}" <<'PY'
+import os
+import re
+import stat
+import sys
+import tempfile
+from pathlib import Path
+
+theme_css = Path(sys.argv[1])
+config_home = Path(sys.argv[2])
+begin = "/* ARCH THEME CSS BEGIN */"
+end = "/* ARCH THEME CSS END */"
+theme_block = None
+if theme_css.is_file():
+    theme_block = f'{begin}\n@import url("{theme_css.resolve().as_uri()}");\n{end}\n'
+
+pattern = re.compile(r"(?ms)^/\* ARCH THEME CSS BEGIN \*/\n.*?^/\* ARCH THEME CSS END \*/\n?")
+for version in ("gtk-3.0", "gtk-4.0"):
+    path = config_home / version / "gtk.css"
+    if path.is_symlink():
+        print(f"Leaving user-managed GTK stylesheet symlink untouched: {path}", file=sys.stderr)
+        continue
+    previous = path.read_text(encoding="utf-8") if path.is_file() else ""
+    updated = pattern.sub("", previous)
+    if theme_block:
+        updated = theme_block + ("\n" if updated else "") + updated
+    if updated == previous:
+        continue
+    if not updated and not path.exists():
+        continue
+
+    path.parent.mkdir(parents=True, exist_ok=True)
+    mode = stat.S_IMODE(path.stat().st_mode) if path.exists() else 0o644
+    fd, temporary = tempfile.mkstemp(prefix=".gtk.css.", dir=path.parent)
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as stream:
+            stream.write(updated)
+            stream.flush()
+            os.fsync(stream.fileno())
+        os.chmod(temporary, mode)
+        os.replace(temporary, path)
+    finally:
+        if os.path.exists(temporary):
+            os.unlink(temporary)
+PY
+}
+
+syncCosmicIconFallback() {
+  local icon_theme="$1"
+  [[ $icon_theme == "Cosmic" ]] || return 0
+
+  local source="${ARCH_COSMIC_ICON_INDEX:-/usr/share/icons/Cosmic/index.theme}"
+  local config_home="${XDG_CONFIG_HOME:-$HOME/.config}"
+  local data_home="${XDG_DATA_HOME:-$HOME/.local/share}"
+  local inherits_file="$config_home/arch/icons/Cosmic/inherits"
+  local target_dir="$data_home/icons/Cosmic"
+  local target="$target_dir/index.theme"
+  local inherits="breeze-dark"
+  local temporary
+
+  [[ -r $source ]] || return 0
+  if [[ -f $inherits_file ]]; then
+    inherits=$(<"$inherits_file")
+    inherits=${inherits//$'\n'/}
+  fi
+  [[ $inherits =~ ^[A-Za-z0-9_.-]+(,[A-Za-z0-9_.-]+)*$ ]] || {
+    echo "Ignoring invalid Cosmic icon fallback list in $inherits_file." >&2
+    return 0
+  }
+
+  if [[ -L $target ]] || {
+    [[ -e $target && $(head -n1 "$target") != "# ARCH COSMIC FALLBACK OVERLAY" ]] &&
+      ! cmp -s -- "$target" "$source"
+  }; then
+    echo "Leaving user-managed Cosmic icon index untouched: $target" >&2
+    return 0
+  fi
+
+  mkdir -p "$target_dir"
+  temporary=$(mktemp "$target_dir/.index.theme.XXXXXX")
+  if ! awk -v inherits="$inherits" '
+    BEGIN { print "# ARCH COSMIC FALLBACK OVERLAY" }
+    /^\[Icon Theme\]$/ { section = 1 }
+    /^\[/ && $0 != "[Icon Theme]" { section = 0 }
+    section && /^Inherits=/ { print "Inherits=" inherits; replaced = 1; next }
+    { print }
+    END { if (!replaced) exit 1 }
+  ' "$source" >"$temporary"; then
+    rm -f -- "$temporary"
+    echo "Could not create a Cosmic icon fallback overlay from $source." >&2
+    return 1
+  fi
+
+  chmod 0644 "$temporary"
+  mv -f -- "$temporary" "$target"
+}
+
+# arch-theme-color resolves mode from colors.toml (`mode = "light"`), a
+# legacy light.mode marker beside it, or background luminance for user themes.
+mode=$(arch-theme-color --file "$COLORS_FILE" mode)
+
+if [[ $mode == "light" ]]; then
+  gsettings set org.gnome.desktop.interface color-scheme "prefer-light"
+  gsettings set org.gnome.desktop.interface gtk-theme "Breeze"
+else
+  gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
+  gsettings set org.gnome.desktop.interface gtk-theme "Breeze-Dark"
+fi
+
+syncGtkThemeCss
+
+GNOME_ICONS_THEME=$HOME/.local/state/arch/current/theme/icons.theme
+if [[ -f $GNOME_ICONS_THEME ]]; then
+  icon_theme=$(<"$GNOME_ICONS_THEME")
+else
+  icon_theme="Cosmic"
+fi
+
+# Cosmic provides its own icons first. Use the active dark GTK icon style for
+# the few entries Cosmic does not include instead of falling through to Pop's
+# Adwaita icon dependency.
+syncCosmicIconFallback "$icon_theme"
+gsettings set org.gnome.desktop.interface icon-theme "$icon_theme"

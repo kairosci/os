@@ -1,0 +1,59 @@
+# Single source of truth for ARCH_PATH + PATH adjustments. Sourced by:
+#   /etc/profile.d/arch.sh                 (system login shells)
+#   /etc/skel/.bashrc                         (interactive shells)
+#   /usr/share/uwsm/env.d/10-arch          (Hyprland session via uwsm)
+#   /usr/share/arch/default/bash/envs      (bash rc chain; SSH/non-login)
+
+# /etc/arch.conf is written by dev-link. Read the previous path variable only
+# as a compatibility fallback for installations being migrated.
+if [ -f /etc/arch.conf ]; then
+  . /etc/arch.conf
+fi
+ARCH_PATH=${ARCH_PATH:-/usr/share/arch}
+export ARCH_PATH
+
+# Only prepend in dev-link mode. On a production install, the binaries are
+# already on PATH as /usr/bin/arch-* via the archctl package — prepending
+# /usr/share/arch/bin would just be noise.
+if [ "$ARCH_PATH" != /usr/share/arch ]; then
+  case ":$PATH:" in
+    *":${ARCH_PATH%/}/bin:"*) ;;
+    *) PATH="${ARCH_PATH%/}/bin${PATH:+:$PATH}" ;;
+  esac
+fi
+
+# mise's command wrappers must precede real tool directories inherited from a
+# parent shell, so scripts follow account switches without Bash functions.
+# mise activate also keeps this directory ahead of its managed tool binaries.
+arch_wrapper_dir="${MISE_DATA_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/mise}/command-wrappers/bin"
+arch_wrapper_path=$arch_wrapper_dir
+if [ -n "${PATH:-}" ]; then
+  arch_remaining_path=$PATH
+  while :; do
+    arch_path_entry=${arch_remaining_path%%:*}
+    if [ "$arch_path_entry" != "$arch_wrapper_dir" ]; then
+      arch_wrapper_path="$arch_wrapper_path:$arch_path_entry"
+    fi
+    case "$arch_remaining_path" in
+      *:*) arch_remaining_path=${arch_remaining_path#*:} ;;
+      *) break ;;
+    esac
+  done
+fi
+PATH=$arch_wrapper_path
+unset arch_wrapper_dir arch_wrapper_path arch_remaining_path arch_path_entry
+
+# User-level tool paths, appended so system binaries keep precedence. This is
+# what lets login shells (ssh, bash -lc) and the uwsm session find mise-managed
+# tools without an interactive rc. Keep these directories in sync with the PAM
+# PATH line from install/config/ssh-command-path.sh, which covers SSH commands
+# that run no shell setup at all.
+case ":$PATH:" in
+  *":$HOME/.local/share/mise/shims:"*) ;;
+  *) PATH="${PATH:+$PATH:}$HOME/.local/share/mise/shims" ;;
+esac
+case ":$PATH:" in
+  *":$HOME/.local/bin:"*) ;;
+  *) PATH="${PATH:+$PATH:}$HOME/.local/bin" ;;
+esac
+export PATH

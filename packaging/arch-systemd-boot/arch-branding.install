@@ -1,0 +1,33 @@
+apply_arch_branding() {
+  ARCH_PATH=/usr/share/arch bash /usr/share/arch/install/config/arch-branding.sh
+}
+
+pause_hyprland_reload() {
+  if [[ -x /usr/bin/arch-hyprland-reload-guard ]]; then
+    /usr/bin/arch-hyprland-reload-guard pause || true
+  fi
+}
+
+resume_hyprland_reload() {
+  if [[ -x /usr/bin/arch-hyprland-reload-guard ]]; then
+    /usr/bin/arch-hyprland-reload-guard resume || true
+  fi
+}
+
+pre_install() {
+  pause_hyprland_reload
+}
+
+pre_upgrade() {
+  pause_hyprland_reload
+}
+
+post_install() {
+  apply_arch_branding
+  resume_hyprland_reload
+}
+
+post_upgrade() {
+  apply_arch_branding
+  resume_hyprland_reload
+}

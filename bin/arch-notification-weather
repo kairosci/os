@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# arch:summary=Toggle the current weather panel
+
+arch-shell shell toggle arch.weather

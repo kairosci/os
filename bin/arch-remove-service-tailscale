@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# arch:summary=Remove Tailscale and its bar plugin.
+# arch:requires-sudo=true
+
+tailscale down 2>/dev/null || true
+systemctl --user disable --now arch-tailscale-receive.service 2>/dev/null || true
+sudo systemctl disable --now tailscaled.service 2>/dev/null || true
+arch-plugin-disable arch.tailscale
+arch-webapp-remove "Tailscale" 2>/dev/null || true
+arch-pkg-drop tailscale
+
+echo ""
+echo "Tailscale has been removed."

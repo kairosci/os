@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# arch:summary=Launch or attach to the persistent herdr session in a terminal
+
+exec arch-launch-terminal herdr

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# arch:summary=Overwrite the user herdr config with the Arch default and reload herdr.
+
+arch-refresh-config herdr/config.toml
+arch-restart-herdr

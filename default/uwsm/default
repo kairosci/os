@@ -1,0 +1,28 @@
+# Changes require a restart to take effect.
+
+# The session name comes from SDDM's desktop-file basename. Keep the exported
+# session identity branded even while an old SDDM entry is being migrated.
+export DESKTOP_SESSION=arch
+
+# Install other terminals via Install > Terminal
+export TERMINAL=xdg-terminal-exec
+
+# BROWSER is intentionally not exported here: session-wide, it makes xdg-settings
+# refuse to change the default browser, which breaks the browsers' own "Set as
+# default" buttons. Interactive shells get BROWSER from default/bash/envs instead.
+
+# Used by terminal programs to open files with the selected os default editor
+export EDITOR="${EDITOR:-nvim}"
+export VISUAL="${VISUAL:-$EDITOR}"
+
+# A dev-linked checkout owns the commands the session invokes. Keep it ahead
+# of the packaged copies so CLI lookups and sudo commands agree on one tree.
+if [[ -n ${ARCH_PATH:-} && -d ${ARCH_PATH%/}/bin ]]; then
+  export PATH="${ARCH_PATH%/}/bin:$PATH"
+fi
+
+# Use a custom directory for screenshots
+# export OMASNAP_SCREENSHOT_DIR="$HOME/Pictures/Screenshots"
+
+# Use a custom directory for screenrecordings (remember to make the directory!)
+# export ARCH_SCREENRECORD_DIR="$HOME/Videos/Screencasts"

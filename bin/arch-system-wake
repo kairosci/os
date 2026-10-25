@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# arch:summary=Wake displays and restore brightness after idle
+# arch:group=system
+# arch:name=wake
+# arch:examples=archctl system wake
+
+arch-brightness-display on
+arch-brightness-keyboard restore
+arch-hyprland-monitor-clamshell >/dev/null 2>&1 || true

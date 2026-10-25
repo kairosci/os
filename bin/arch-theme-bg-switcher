@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# arch:summary=Open the Arch background switcher
+# arch:group=theme
+# arch:name=bg-switcher
+# arch:aliases=arch background
+
+theme_name=$(cat "$HOME/.local/state/arch/current/theme.name" 2>/dev/null)
+current_background=$(readlink -f "$HOME/.local/state/arch/current/background" 2>/dev/null)
+
+arch-menu-images \
+  --selected "$current_background" \
+  "$HOME/.local/state/arch/current/theme/backgrounds" \
+  "$HOME/.config/arch/backgrounds/$theme_name"

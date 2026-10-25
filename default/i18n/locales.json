@@ -1,0 +1,34 @@
+{
+  "en": {
+    "name": "English",
+    "englishName": "English",
+    "formatLocale": "en-US",
+    "locale": "en_US.UTF-8",
+    "decimal": ".",
+    "zeroDigit": "0"
+  },
+  "fr": {
+    "name": "Français",
+    "englishName": "French",
+    "formatLocale": "fr-FR",
+    "locale": "fr_FR.UTF-8",
+    "decimal": ",",
+    "zeroDigit": "0"
+  },
+  "es": {
+    "name": "Español",
+    "englishName": "Spanish",
+    "formatLocale": "es-ES",
+    "locale": "es_ES.UTF-8",
+    "decimal": ",",
+    "zeroDigit": "0"
+  },
+  "it": {
+    "name": "Italiano",
+    "englishName": "Italian",
+    "formatLocale": "it-IT",
+    "locale": "it_IT.UTF-8",
+    "decimal": ",",
+    "zeroDigit": "0"
+  }
+}

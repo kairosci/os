@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# arch:summary=Compatibility wrapper for arch-migrate-notify.
+# arch:hidden=true
+
+exec arch-migrate-notify "$@"

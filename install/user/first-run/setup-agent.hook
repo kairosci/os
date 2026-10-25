@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -e
+
+# os ships no default agent, so invite once rather than picking one. An
+# agent already chosen means the invitation has nothing to offer.
+if [[ -z $(arch-default-agent) ]] && arch-done ensure agent-setup-invitation; then
+  arch-notification-send -u critical -g 󰚩 "Set your default agent" \
+    "Let your favorite agent help with os." \
+    --exec archctl menu summon setup.default.agent
+fi

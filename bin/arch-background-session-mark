@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# arch:summary=Mark the current graphical login as checked for a background intro
+# arch:hidden=true
+
+set -euo pipefail
+
+# Background videos are rendered by Arch's Quickshell player. There is no
+# external wallpaper daemon or separate intro process to start.
+state_home="${XDG_STATE_HOME:-$HOME/.local/state}"
+marker="$state_home/arch/background-intro.session-id"
+mkdir -p "${marker%/*}"
+
+session_id=${ARCH_SESSION_ID:-${HYPRLAND_INSTANCE_SIGNATURE:-}}
+[[ -n $session_id ]] || exit 0
+
+exec 9>"$state_home/arch/background-intro.lock"
+flock 9
+[[ -f $marker && $(<"$marker") == "$session_id" ]] && exit 0
+printf '%s\n' "$session_id" >"$marker"

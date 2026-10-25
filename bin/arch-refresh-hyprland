@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# arch:summary=Overwrite all the user Hyprland Lua configs in ~/.config/hypr with the Arch defaults.
+
+arch-refresh-config hypr/.luarc.json
+arch-refresh-config hypr/autostart.lua
+arch-refresh-config hypr/bindings.lua
+arch-refresh-config hypr/input.lua
+arch-refresh-config hypr/looknfeel.lua
+arch-refresh-config hypr/hyprland.lua
+arch-refresh-config hypr/monitors.lua
+
+mkdir -p ~/.local/state/arch/toggles/hypr
+cp "$ARCH_PATH/default/hypr/toggles/flags.lua" ~/.local/state/arch/toggles/hypr/

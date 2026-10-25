@@ -1,0 +1,17 @@
+# mkinitcpio preset for Arch Linux on systemd-boot.
+
+kernel_modules_dir="${ARCH_KERNEL_MODULES_DIR:-/usr/lib/modules}"
+ALL_kver=""
+for pkgbase_file in "$kernel_modules_dir"/*/pkgbase; do
+  [[ -r $pkgbase_file ]] || continue
+  [[ $(<"$pkgbase_file") == "linux" ]] || continue
+  ALL_kver="${pkgbase_file%/pkgbase}/vmlinuz"
+  break
+done
+ALL_cmdline="/etc/kernel/cmdline"
+
+PRESETS=('default' 'fallback')
+
+default_uki="/boot/EFI/Linux/os_linux.efi"
+fallback_uki="/boot/EFI/Linux/os_linux-fallback.efi"
+fallback_options="-S autodetect"

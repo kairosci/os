@@ -1,0 +1,9 @@
+[Unit]
+Description=Watch Btrfs snapshot entries for systemd-boot
+
+[Path]
+PathChanged=/boot/limine.conf
+Unit=arch-snapshot-entries.service
+
+[Install]
+WantedBy=multi-user.target

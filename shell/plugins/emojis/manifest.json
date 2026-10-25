@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "arch.emojis",
+  "name": "Emojis",
+  "version": "1.0.0",
+  "author": "Arch",
+  "description": "Search, copy, and type emojis",
+  "kinds": [
+    "overlay"
+  ],
+  "keepLoaded": true,
+  "entryPoints": {
+    "overlay": "Emojis.qml"
+  }
+}

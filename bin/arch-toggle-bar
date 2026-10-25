@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# arch:summary=Toggle bar visibility without killing the Arch shell (on hides the bar, off shows it)
+# arch:args=[toggle|on|off]
+# arch:examples=archctl toggle bar | archctl toggle bar off | archctl toggle bar on
+
+arch-toggle bar-off "${1:-toggle}"
+
+# The shell's watch on the toggles directory can miss flag changes that land in
+# quick succession, stranding the bar off screen until the shell restarts.
+# Nudge the bar to re-read the flag; quiet best-effort so the toggle still
+# works when the shell is not up.
+arch-shell -q arch.bar syncHidden

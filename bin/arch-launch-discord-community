@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# arch:summary=Open the Arch Discord community in the Discord app or a browser.
+
+invite="https://discord.gg/tXFUdasqhY"
+
+if arch-cmd-present discord; then
+  exec setsid uwsm-app -- discord --url -- "discord://-/invite/${invite##*/}"
+else
+  exec arch-launch-webapp "$invite"
+fi

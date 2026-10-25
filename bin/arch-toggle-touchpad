@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# arch:summary=Enable, disable, or toggle the touchpad
+# arch:args=[on|off|toggle]
+
+exec arch-toggle-input-device touchpad "${1:-toggle}"

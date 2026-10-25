@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# arch:summary=List themes that can style the Plymouth boot screen
+# arch:examples=arch plymouth list
+
+{
+  find ~/.config/arch/themes/ -mindepth 1 -maxdepth 1 \( -type d -o -type l \) -printf '%f\n' 2>/dev/null
+  find "$ARCH_PATH/themes/" -mindepth 1 -maxdepth 1 -type d -printf '%f\n'
+} | sort -u | while read -r name; do
+  if [[ -f $(arch-theme-dir "$name")/preview-unlock.png ]]; then
+    echo "$name"
+  fi
+done

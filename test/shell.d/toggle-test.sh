@@ -1,0 +1,135 @@
+#!/bin/bash
+
+set -euo pipefail
+
+source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
+
+TMPDIR=""
+
+export PATH="$ROOT/bin:$PATH"
+
+cleanup() {
+  if [[ -n $TMPDIR && -d $TMPDIR ]]; then
+    rm -rf "$TMPDIR"
+  fi
+}
+trap cleanup EXIT
+
+TMPDIR=$(mktemp -d)
+test_home="$TMPDIR/home"
+flag="$test_home/.local/state/arch/toggles/example"
+bar_flag="$test_home/.local/state/arch/toggles/bar-off"
+
+HOME="$test_home" arch-toggle example on
+[[ -f $flag ]] || fail "generic toggle enables explicit on state"
+pass "generic toggle enables explicit on state"
+
+HOME="$test_home" arch-toggle example on
+[[ -f $flag ]] || fail "generic toggle on is idempotent"
+pass "generic toggle on is idempotent"
+
+HOME="$test_home" arch-toggle example off
+[[ ! -f $flag ]] || fail "generic toggle disables explicit off state"
+pass "generic toggle disables explicit off state"
+
+HOME="$test_home" arch-toggle example
+[[ -f $flag ]] || fail "generic toggle flips disabled state on"
+pass "generic toggle flips disabled state on"
+
+HOME="$test_home" arch-toggle example toggle
+[[ ! -f $flag ]] || fail "generic toggle flips enabled state off"
+pass "generic toggle flips enabled state off"
+
+HOME="$test_home" arch-toggle-bar on
+[[ -f $bar_flag ]] || fail "bar on enables bar-off toggle"
+pass "bar on enables bar-off toggle"
+
+HOME="$test_home" arch-toggle-bar on
+[[ -f $bar_flag ]] || fail "bar on is idempotent"
+pass "bar on is idempotent"
+
+HOME="$test_home" arch-toggle-bar off
+[[ ! -f $bar_flag ]] || fail "bar off disables bar-off toggle"
+pass "bar off disables bar-off toggle"
+
+# The gaps half of full screen copies a flag file in and reloads Hyprland, so
+# give it this checkout to copy from and a hyprctl that answers without a
+# compositor.
+export ARCH_PATH="$ROOT"
+stub_bin="$TMPDIR/bin"
+mkdir -p "$stub_bin"
+printf '#!/bin/bash\nexit 0\n' >"$stub_bin/hyprctl"
+chmod +x "$stub_bin/hyprctl"
+export PATH="$stub_bin:$PATH"
+
+gaps_flag="$test_home/.local/state/arch/toggles/hypr/window-no-gaps.lua"
+
+HOME="$test_home" arch-toggle-fullscreen-desktop
+[[ -f $bar_flag && -f $gaps_flag ]] || fail "fullscreen toggle hides the bar and the gaps together"
+pass "fullscreen toggle hides the bar and the gaps together"
+
+HOME="$test_home" arch-toggle-fullscreen-desktop
+[[ ! -f $bar_flag && ! -f $gaps_flag ]] || fail "fullscreen toggle restores the bar and the gaps together"
+pass "fullscreen toggle restores the bar and the gaps together"
+
+HOME="$test_home" arch-toggle-bar on
+HOME="$test_home" arch-toggle-fullscreen-desktop
+[[ -f $bar_flag && -f $gaps_flag ]] || fail "fullscreen toggle pulls a half-hidden desktop into full screen"
+pass "fullscreen toggle pulls a half-hidden desktop into full screen"
+
+HOME="$test_home" arch-toggle-fullscreen-desktop off
+[[ ! -f $bar_flag && ! -f $gaps_flag ]] || fail "fullscreen off leaves full screen"
+pass "fullscreen off leaves full screen"
+
+HOME="$test_home" arch-toggle-fullscreen-desktop on
+[[ -f $bar_flag && -f $gaps_flag ]] || fail "fullscreen on enters full screen"
+pass "fullscreen on enters full screen"
+
+# The flag records animations being off, so on and off are the other way round.
+printf '#!/bin/bash\nexit 0\n' >"$stub_bin/arch-notification-send"
+chmod +x "$stub_bin/arch-notification-send"
+animations_flag="$test_home/.local/state/arch/toggles/hypr/no-animations.lua"
+
+HOME="$test_home" arch-toggle-animations off
+[[ -f $animations_flag ]] || fail "animations off places the no-animations flag"
+HOME="$test_home" arch-toggle-animations on
+[[ ! -f $animations_flag ]] || fail "animations on removes the no-animations flag"
+HOME="$test_home" arch-toggle-animations
+[[ -f $animations_flag ]] || fail "toggling animations flips the flag"
+pass "animations toggle turns the no-animations flag the right way round"
+
+# A VM install starts without animations; other machines keep them.
+for virt in vm none; do
+  rm -rf "$test_home/.local/state/arch/toggles/hypr"
+  printf '#!/bin/bash\n[[ %s == vm ]]\n' "$virt" >"$stub_bin/arch-hw-vm"
+  chmod +x "$stub_bin/arch-hw-vm"
+  HOME="$test_home" ARCH_PATH="$ROOT" bash "$ROOT/install/user/hardware/vm-no-animations.sh" >/dev/null
+  if [[ $virt == "vm" ]]; then
+    [[ -f $animations_flag ]] || fail "a VM install turns animations off"
+    [[ -f ${animations_flag%/*}/window-opaque.lua ]] || fail "a VM install starts with opaque windows"
+  else
+    [[ ! -f $animations_flag ]] || fail "a machine that is not a VM keeps its animations"
+    [[ ! -f ${animations_flag%/*}/window-opaque.lua ]] || fail "a machine that is not a VM keeps transparent windows"
+  fi
+done
+pass "a VM install starts without animations and with opaque windows"
+
+# Animations off no longer makes windows opaque. The migration takes that rule
+# out of a saved flag, keeping anything else in it, and keeps those windows
+# opaque through Window Opacity instead.
+migration_home=$(mktemp -d)
+migration_flags="$migration_home/.local/state/arch/toggles/hypr"
+mkdir -p "$migration_flags"
+printf 'hl.config({ animations = { enabled = false } })\n\no.window(".*", { opacity = "1 1" })\n-- mine\n' >"$migration_flags/no-animations.lua"
+for _ in 1 2; do
+  HOME="$migration_home" XDG_STATE_HOME="" ARCH_PATH="$ROOT" bash -euo pipefail "$ROOT/migrations/1791705142.sh" >/dev/null
+done
+! grep -q 'opacity' "$migration_flags/no-animations.lua" || fail "the migration drops the opacity rule from a saved animations flag"
+grep -qx -- '-- mine' "$migration_flags/no-animations.lua" || fail "the migration keeps the rest of a saved animations flag"
+[[ -f $migration_flags/window-opaque.lua ]] || fail "the migration keeps windows opaque where animations are off"
+rm -f "$migration_flags/window-opaque.lua"
+printf 'x\n' >"$migration_flags/window-glassy.lua"
+HOME="$migration_home" XDG_STATE_HOME="" ARCH_PATH="$ROOT" bash -euo pipefail "$ROOT/migrations/1791705142.sh" >/dev/null
+[[ ! -f $migration_flags/window-opaque.lua ]] || fail "the migration leaves a chosen transparency alone"
+rm -rf "$migration_home"
+pass "the migration moves opaque windows from the animations flag to Window Opacity"

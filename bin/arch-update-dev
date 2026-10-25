@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# arch:summary=Update the active Arch dev checkout
+
+set -euo pipefail
+
+[[ $ARCH_PATH != "/usr/share/arch" ]] || exit 0
+
+if ! git -C "$ARCH_PATH" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  echo "Error: ARCH_PATH is not a git checkout: $ARCH_PATH" >&2
+  exit 1
+fi
+
+upstream=$(git -C "$ARCH_PATH" rev-parse --abbrev-ref --symbolic-full-name '@{upstream}' 2>/dev/null || true)
+if [[ -z $upstream ]]; then
+  echo -e "\e[33m\nSkip os dev checkout update (current branch has no upstream)\e[0m"
+  exit 0
+fi
+
+echo -e "\e[32m\nUpdate os dev checkout\e[0m"
+# A filtered fetch makes a full clone blobless once; git saves the filter, so
+# pulls then only fetch the file contents the new checkout needs.
+remote=$(git -C "$ARCH_PATH" for-each-ref --format='%(upstream:remotename)' "$(git -C "$ARCH_PATH" symbolic-ref -q HEAD)")
+if git -C "$ARCH_PATH" config "remote.$remote.url" >/dev/null && ! git -C "$ARCH_PATH" config "remote.$remote.promisor" >/dev/null; then
+  git -C "$ARCH_PATH" fetch --filter=blob:none "$remote"
+fi
+git -C "$ARCH_PATH" pull --ff-only

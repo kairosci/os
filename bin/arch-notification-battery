@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# arch:summary=Show the current battery status notification
+
+arch-notification-send -g 󰁹 -u low "$(arch-battery-status)"

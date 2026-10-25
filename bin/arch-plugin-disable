@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# arch:summary=Disable a shell plugin
+# arch:group=plugin
+# arch:args=<id>
+
+set -euo pipefail
+
+fail() {
+  echo "arch-plugin-disable: $*" >&2
+  exit 1
+}
+
+if [[ ${1:-} == "-h" || ${1:-} == "--help" ]]; then
+  echo "Usage: arch plugin disable <id>"
+  exit 0
+fi
+
+id="${1:-}"
+[[ -n $id ]] || fail "plugin id is required"
+
+result=$(arch-shell shell setPluginEnabled "$id" false)
+[[ $result == "ok" ]] ||
+  fail "plugin '$id' is not known; run: arch-shell shell rescanPlugins"
+
+echo "Disabled $id"

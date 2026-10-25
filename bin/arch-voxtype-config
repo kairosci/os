@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# arch:summary=Open Voxtype configuration
+
+set -e
+
+arch-launch-floating-terminal-with-presentation "voxtype configure"
+arch-restart-shell

@@ -1,0 +1,29 @@
+apply_arch_settings() {
+  local source target
+
+  while IFS=' ' read -r source target; do
+    [[ -f $source ]] || continue
+    install -Dm644 "$source" "$target"
+  done <<'OVERRIDES'
+/usr/share/arch/etc-overrides/os-release /etc/os-release
+/usr/share/arch/etc-overrides/nsswitch.conf /etc/nsswitch.conf
+/usr/share/arch/etc-overrides/security-faillock.conf /etc/security/faillock.conf
+/usr/share/arch/etc-overrides/cups-browsed.conf /etc/cups/cups-browsed.conf
+/usr/share/arch/etc-overrides/cups-files.conf /etc/cups/cups-files.conf
+/usr/share/arch/etc-overrides/plymouthd.conf /etc/plymouth/plymouthd.conf
+OVERRIDES
+
+  install -Dm644 /usr/share/arch/default/bashrc /etc/skel/.bashrc
+  install -Dm644 /usr/share/arch/default/wayland-sessions/arch.desktop \
+    /usr/local/share/wayland-sessions/arch.desktop
+  install -Dm644 /usr/share/arch/logo.svg /usr/share/pixmaps/arch-mark.svg
+  rm -f /etc/mise/conf.d/arch-tools.toml
+}
+
+post_install() {
+  apply_arch_settings
+}
+
+post_upgrade() {
+  apply_arch_settings
+}

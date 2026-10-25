@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# arch:summary=Ensure default application launchers are installed.
+
+# Copy .desktop declarations
+mkdir -p ~/.local/share/applications
+cp "$ARCH_PATH"/applications/*.desktop ~/.local/share/applications/
+
+if arch-cmd-present alacritty; then
+  cp "$ARCH_PATH/default/alacritty/Alacritty.desktop" ~/.local/share/applications/
+fi
+
+update-desktop-database ~/.local/share/applications

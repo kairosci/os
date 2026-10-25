@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "arch.system-update",
+  "name": "os update",
+  "version": "1.0.0",
+  "author": "Arch",
+  "description": "Indicates available os updates",
+  "kinds": [
+    "bar-widget"
+  ],
+  "entryPoints": {
+    "barWidget": "SystemUpdate.qml"
+  },
+  "barWidget": {
+    "displayName": "os update",
+    "description": "Indicates available os updates",
+    "category": "System",
+    "allowMultiple": false
+  }
+}

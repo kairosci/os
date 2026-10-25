@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Arch Linux (Hyprland)
+Comment=Arch Linux desktop session managed by uwsm
+Exec=uwsm start -g -1 -e -D Hyprland hyprland.desktop
+TryExec=uwsm
+Type=Application

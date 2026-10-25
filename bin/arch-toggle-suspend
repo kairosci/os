@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# arch:summary=Toggle suspend availability in the system menu
+
+if arch-sleep-disabled; then
+  arch-notification-send -g 󰒲 "$(arch-i18n suspend.turnedOffOnMachine)"
+  exit 0
+fi
+
+arch-toggle suspend-off
+
+if arch-toggle-enabled suspend-off; then
+  arch-notification-send -g 󰒲 "$(arch-i18n suspend.removedFromMenu)"
+else
+  arch-notification-send -g 󰒲 "$(arch-i18n suspend.availableInMenu)"
+fi

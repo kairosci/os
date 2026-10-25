@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# arch:summary=Toggle screensaver availability
+
+arch-toggle screensaver-off
+
+if arch-toggle-enabled screensaver-off; then
+  arch-notification-send -g 󱄄 "$(arch-i18n screensaver.disabled)"
+else
+  arch-notification-send -g 󱄄 "$(arch-i18n screensaver.enabled)"
+fi

@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# arch:summary=Print the installed Arch version
+
+arch_path=${ARCH_PATH:-/usr/share/arch}
+arch_path=${arch_path%/}
+
+if [[ $arch_path != "/usr/share/arch" ]]; then
+  hash=$(git -C "$arch_path" rev-parse --short HEAD 2>/dev/null || true)
+
+  if [[ -n $hash ]]; then
+    echo "dev ($hash)"
+  else
+    echo "dev"
+  fi
+
+  exit 0
+fi
+
+# The edge channel installs arch-dev instead of arch, so check both.
+for package in arch-dev arch; do
+  version=$(pacman -Q "$package" 2>/dev/null | awk '{ print $2 }')
+  [[ -n $version ]] && break
+done
+
+[[ -n $version ]] || exit 1
+
+echo "$version"

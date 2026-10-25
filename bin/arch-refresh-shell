@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# arch:summary=Reset shell.json to Arch defaults
+# arch:examples=archctl refresh shell
+
+set -euo pipefail
+
+arch-refresh-config arch/shell.json
+arch-bar defaults
+
+arch-restart-shell

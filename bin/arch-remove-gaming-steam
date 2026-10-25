@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# arch:summary=Remove Steam and all of its game libraries, configs, and caches.
+# arch:requires-sudo=true
+
+set -e
+
+arch-lifecycle-dispatch pre-remove steam
+arch-pkg-drop steam
+
+rm -rf \
+  "$HOME/.steam" \
+  "$HOME/.local/share/Steam" \
+  "$HOME/.config/steam" \
+  "$HOME/.cache/steam"
+
+echo ""
+echo "Steam and its data have been removed."

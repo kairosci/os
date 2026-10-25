@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# arch:summary=Open a config file in the user's editor and surface a toast
+# arch:args=<path>
+# arch:examples=archctl launch config-editor ~/.config/hypr/hyprland.lua
+
+path="${1-}"
+
+if [[ -z $path ]]; then
+  echo "Usage: arch-launch-config-editor <path>" >&2
+  exit 1
+fi
+
+arch-notification-send -u low "$(arch-i18n config.editing)" "$path"
+exec arch-launch-editor "$path"

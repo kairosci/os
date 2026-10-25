@@ -1,0 +1,6 @@
+[Unit]
+Description=Refresh Arch snapshot entries for systemd-boot
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/libexec/arch-sync-systemd-boot-snapshots

@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# arch:summary=Print the active Arch package channel
+
+set -euo pipefail
+
+# Dev is a linked source checkout: ARCH_PATH points somewhere other than
+# the package-backed install at /usr/share/arch. This takes precedence over
+# the package channels, since the checkout overrides whatever is installed.
+if [[ $ARCH_PATH != "/usr/share/arch" ]]; then
+  echo dev
+  exit 0
+fi
+
+# arch-dev / arch-settings-dev are only shipped from the edge package
+# repo, so their presence alone means edge. arch / arch-settings come
+# from either the stable or rc mirror, distinguished by arch-version-channel
+# (which reports the mirror as its first token).
+if pacman -Q arch-dev arch-settings-dev >/dev/null 2>&1; then
+  echo edge
+elif pacman -Q arch arch-settings >/dev/null 2>&1; then
+  channel=$(arch-version-channel 2>/dev/null | awk '{ print $1 }')
+  case "$channel" in
+    stable) echo stable ;;
+    rc) echo rc ;;
+    *) echo unknown ;;
+  esac
+else
+  echo unknown
+fi

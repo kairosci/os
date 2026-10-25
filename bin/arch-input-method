@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# arch:summary=Configure, inspect, or switch input methods
+# arch:args=<status|cycle [back]|configure --seed|--defaults>
+# arch:hidden=true
+
+set -euo pipefail
+
+if [[ ${1:-} == "cycle" ]]; then
+  direction=${2:-next}
+  if [[ $direction != "next" && $direction != "back" ]]; then
+    echo "Usage: arch-input-method cycle [back]" >&2
+    exit 1
+  fi
+  # The shell's reader retains a choice made while nothing has focus.
+  if [[ $(arch-shell shell cycleInput "$direction") != "ok" ]]; then
+    echo "The shell's input reader is not running" >&2
+    exit 1
+  fi
+else
+  /usr/bin/python3 "$ARCH_PATH/default/input-methods/configure.py" "$@"
+fi

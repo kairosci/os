@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# arch:summary=Restore the preinstalled Arch applications (web apps, TUIs, and selected packages).
+# arch:requires-sudo=true
+
+if gum confirm --affirmative "$(arch-i18n common.yes)" --negative "$(arch-i18n common.no)" "$(arch-i18n preinstalls.confirmRestore)"; then
+  echo -e "Restoring preinstalled os applications...\n"
+
+  # Recreates the shipped .desktop launchers (web apps and TUIs).
+  arch-refresh-applications || exit 1
+
+  # Re-enable os's default mise tools for this user and rebuild their shims.
+  if ! arch-mise-default-tools enable; then
+    echo -e "\nCould not restore mise tools. Preinstalls remain marked as removed."
+    exit 1
+  fi
+
+  # Mirrors the list in arch-remove-preinstalls; both track arch-base.packages
+  if ! arch-pkg-add \
+    aether \
+    cliamp \
+    libreoffice-fresh \
+    pinta \
+    obsidian \
+    moonlight-qt \
+    omacut \
+    monologue \
+    omacalc \
+    omawrite \
+    hype \
+    signed; then
+    echo -e "\nPreinstalls are still marked as removed. Fix the errors above and try again."
+    exit 1
+  fi
+
+  # Last, so a failure above leaves the opt-out intact rather than restoring
+  # keybindings for apps that never came back
+  rm -f ~/.local/state/arch/preinstalls-removed
+  hyprctl reload
+fi

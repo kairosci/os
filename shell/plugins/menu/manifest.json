@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "id": "arch.menu",
+  "name": "Menu",
+  "version": "1.0.0",
+  "author": "Arch Linux",
+  "description": "Quickshell-powered Arch application and command menu",
+  "kinds": [
+    "menu",
+    "bar-widget"
+  ],
+  "keepLoaded": true,
+  "entryPoints": {
+    "menu": "Menu.qml",
+    "barWidget": "BarWidget.qml"
+  },
+  "barWidget": {
+    "displayName": "Menu",
+    "description": "Launches the application menu",
+    "category": "Compositor",
+    "allowMultiple": false
+  }
+}

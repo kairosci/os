@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# arch:summary=Reload hyprland configuration (used by the Arch theme switching).
+
+hyprctl reload >/dev/null

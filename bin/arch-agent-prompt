@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# arch:summary=Launch the default coding agent with a prompt
+# arch:args=[--inline] <prompt...>
+# arch:examples=archctl agent prompt "Review this project"
+
+# Prompts live here rather than on `archctl agent`, where a bare prompt would
+# shadow the subcommands under that group.
+
+set -euo pipefail
+
+inline=()
+if [[ ${1:-} == "--inline" ]]; then
+  inline=(--inline)
+  shift
+fi
+
+if (($# == 0)); then
+  echo "Usage: archctl agent prompt [--inline] <prompt...>" >&2
+  exit 1
+fi
+
+exec arch-agent "${inline[@]}" --prompt "$*"

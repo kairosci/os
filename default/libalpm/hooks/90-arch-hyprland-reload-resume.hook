@@ -1,0 +1,13 @@
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Type = Package
+Target = arch
+Target = arch-settings
+Target = arch-settings-dev
+
+[Action]
+Description = Reloading Hyprland after Arch update...
+When = PostTransaction
+Depends = arch
+Exec = /usr/bin/arch-hyprland-reload-guard resume

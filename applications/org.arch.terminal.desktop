@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Terminal
+GenericName=Terminal Emulator
+Comment=Open a terminal
+Exec=xdg-terminal-exec --app-id=org.arch.terminal
+Icon=utilities-terminal
+Terminal=false
+Categories=System;TerminalEmulator;
+StartupWMClass=org.arch.terminal

@@ -1,0 +1,11 @@
+[Trigger]
+Operation = Upgrade
+Type = Package
+Target = *
+
+[Action]
+Description = Checking os update entrypoint...
+When = PreTransaction
+Depends = arch
+Exec = /usr/bin/arch-update-pacman-guard
+AbortOnFail

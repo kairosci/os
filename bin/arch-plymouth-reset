@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# arch:summary=Restore the default Arch Plymouth boot theme and SDDM login screen
+# arch:requires-sudo=true
+
+set -euo pipefail
+
+"$ARCH_PATH/bin/arch-refresh-plymouth"
+"$ARCH_PATH/bin/arch-refresh-sddm"

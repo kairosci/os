@@ -1,0 +1,7 @@
+[SddmGreeterTheme]
+Name=Arch Linux
+Description=Minimal terminal-style Arch Linux login theme
+Author=Arch Linux
+Type=sddm-theme
+Version=1.0
+QtVersion=6

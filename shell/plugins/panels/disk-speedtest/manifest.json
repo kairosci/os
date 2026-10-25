@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "arch.disk-speedtest",
+  "name": "Disk speed test",
+  "version": "1.0.0",
+  "author": "Arch",
+  "description": "Live disk write and read speed dials.",
+  "kinds": [
+    "panel"
+  ],
+  "entryPoints": {
+    "panel": "Panel.qml"
+  }
+}

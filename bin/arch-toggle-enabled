@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# arch:summary=Check if a toggle is enabled (flag file exists)
+# arch:args=<flag-name>
+
+[[ -f "$HOME/.local/state/arch/toggles/$1" ]]

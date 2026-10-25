@@ -1,0 +1,203 @@
+#!/bin/bash
+
+# arch:summary=Set up hibernation with swap and boot resume configuration
+# arch:requires-sudo=true
+# arch:args=[--force] [--no-rebuild]
+
+FORCE=false
+NO_REBUILD=false
+for arg in "$@"; do
+  case "$arg" in
+    --force) FORCE=true ;;
+    --no-rebuild) NO_REBUILD=true ;;
+  esac
+done
+
+# Hibernation is unreliable on Asahi.
+if arch-hw-aarch64-apple; then
+  echo "Skipping hibernation setup (not supported on Apple Silicon)"
+  exit 0
+fi
+
+if arch-sleep-disabled; then
+  echo "Hibernation is turned off on this machine" >&2
+  exit 0
+fi
+
+if [[ ! -f /sys/power/image_size ]]; then
+  echo -e "Hibernation is not supported on your system" >&2
+  exit 0
+fi
+
+MKINITCPIO_CONF="/etc/mkinitcpio.conf.d/arch_resume.conf"
+SWAP_FILE="/swap/swapfile"
+KERNEL_CMDLINE_FILE="/etc/kernel/cmdline"
+RESUME_DROP_IN="/etc/limine-entry-tool.d/resume.conf"
+SYSTEMD_BOOT_ACTIVE=false
+if bootctl status --no-pager 2>/dev/null | grep -Eq '^[[:space:]]*Product: systemd-boot([[:space:]]|$)'; then
+  SYSTEMD_BOOT_ACTIVE=true
+  RESUME_DROP_IN="$KERNEL_CMDLINE_FILE"
+fi
+
+resume_parameters_present() {
+  grep -Eq '(^|[[:space:]])resume=[^[:space:]]+' "$KERNEL_CMDLINE_FILE" &&
+    grep -Eq '(^|[[:space:]])resume_offset=[^[:space:]]+' "$KERNEL_CMDLINE_FILE"
+}
+
+write_resume_parameters() {
+  local resume_device resume_offset
+
+  if ! swapon --show | grep -q "$SWAP_FILE"; then
+    sudo swapon -p 0 "$SWAP_FILE"
+  fi
+  resume_device=$(findmnt -no SOURCE -T "$SWAP_FILE" | sed 's/\[.*\]//')
+  resume_offset=$(sudo btrfs inspect-internal map-swapfile -r "$SWAP_FILE" 2>/dev/null)
+  if [[ -z $resume_offset ]]; then
+    echo "Warning: Could not determine resume offset for $SWAP_FILE" >&2
+    return 1
+  fi
+
+  if $SYSTEMD_BOOT_ACTIVE; then
+    sudo python3 "$ARCH_PATH/install/boot/update-kernel-cmdline.py" \
+      "$KERNEL_CMDLINE_FILE" set "resume=$resume_device" "resume_offset=$resume_offset"
+  else
+    sudo mkdir -p /etc/limine-entry-tool.d
+    echo "KERNEL_CMDLINE[default]+=\" resume=$resume_device resume_offset=$resume_offset\"" |
+      sudo tee "$RESUME_DROP_IN" >/dev/null
+  fi
+}
+
+install_root_file() {
+  local source="$1"
+  local destination="$2"
+  local mode="$3"
+  local stage
+
+  stage=$(sudo /usr/bin/mktemp -- "${destination%/*}/.${destination##*/}.arch.XXXXXX") || return 1
+  safe_stage_path "$stage" "$destination" || return 1
+
+  if sudo /usr/bin/install -m "$mode" -o root -g root -T "$source" "$stage" &&
+    sudo /usr/bin/mv -Tf -- "$stage" "$destination"; then
+    return 0
+  else
+    safe_stage_path "$stage" "$destination" && sudo /usr/bin/rm -f -- "$stage"
+    return 1
+  fi
+}
+
+safe_stage_path() {
+  local stage="$1"
+  local destination="$2"
+  local prefix suffix
+
+  prefix="${destination%/*}/.${destination##*/}.arch."
+  [[ $stage == "$prefix"* ]] || return 1
+  suffix=${stage#"$prefix"}
+  [[ $suffix =~ ^[[:alnum:]]{6}$ ]]
+}
+
+# Check if hibernation is already configured
+if [[ -f $MKINITCPIO_CONF ]] && grep -q "^HOOKS+=(resume)$" "$MKINITCPIO_CONF"; then
+  if $SYSTEMD_BOOT_ACTIVE && [[ -f $SWAP_FILE ]] && ! resume_parameters_present; then
+    echo "Repairing resume parameters in $KERNEL_CMDLINE_FILE"
+    if write_resume_parameters && ! $NO_REBUILD; then
+      sudo arch-kernel-rebuild
+    fi
+  elif [[ -f $RESUME_DROP_IN ]] && grep -q 'resume_offset="$' "$RESUME_DROP_IN" && [[ -f $SWAP_FILE ]]; then
+    echo "Repairing the resume offset in $RESUME_DROP_IN"
+    if write_resume_parameters && ! $NO_REBUILD; then
+      sudo arch-kernel-rebuild
+    fi
+  fi
+  echo "Hibernation is already set up"
+  exit 0
+fi
+
+if ! $FORCE; then
+  MEM_TOTAL_HUMAN=$(LC_ALL=C free --human | awk '/Mem/ {print $2}')
+  if ! gum confirm "Use $MEM_TOTAL_HUMAN on boot drive to make hibernation available?"; then
+    exit 0
+  fi
+fi
+
+SWAP_SUBVOLUME="/swap"
+
+# Create btrfs subvolume for swap
+if ! sudo btrfs subvolume show "$SWAP_SUBVOLUME" &>/dev/null; then
+  echo "Creating Btrfs subvolume"
+  sudo btrfs subvolume create "$SWAP_SUBVOLUME"
+  sudo chattr +C "$SWAP_SUBVOLUME"
+fi
+
+# Create swapfile
+if ! sudo swaplabel "$SWAP_FILE" &>/dev/null; then
+  echo "Creating swapfile in Btrfs subvolume"
+  MEM_TOTAL_KB="$(awk '/MemTotal/ {print $2}' /proc/meminfo)k"
+  sudo btrfs filesystem mkswapfile -s "$MEM_TOTAL_KB" "$SWAP_FILE"
+fi
+
+# Add swapfile to fstab
+if ! grep -Fq "$SWAP_FILE" /etc/fstab; then
+  echo "Adding swapfile to /etc/fstab"
+  sudo cp -a /etc/fstab "/etc/fstab.$(date +%Y%m%d%H%M%S).back"
+  printf "\n# Btrfs swapfile for system hibernation\n%s none swap defaults,pri=0 0 0\n" "$SWAP_FILE" | sudo tee -a /etc/fstab >/dev/null
+fi
+
+# Enable swap
+if ! swapon --show | grep -q "$SWAP_FILE"; then
+  echo "Enabling swap on $SWAP_FILE"
+  sudo swapon -p 0 "$SWAP_FILE"
+fi
+
+# Ensure keyboard backlight doesn't prevent sleep
+# Install this before writing the resume marker so a failed install remains
+# retryable through the normal setup command.
+if ! install_root_file "$ARCH_PATH/default/systemd/system-sleep/keyboard-backlight" \
+  /usr/lib/systemd/system-sleep/keyboard-backlight 0755; then
+  echo "Could not install the keyboard-backlight system-sleep hook" >&2
+  exit 1
+fi
+
+# Add resume hook to mkinitcpio
+sudo mkdir -p /etc/mkinitcpio.conf.d
+echo "Adding resume hook to $MKINITCPIO_CONF"
+echo "HOOKS+=(resume)" | sudo tee "$MKINITCPIO_CONF" >/dev/null
+
+# Add resume= kernel parameters so the initramfs resume hook knows where to find the
+# hibernation image. Without these, resume happens late (after GPU drivers load) and fails.
+if $SYSTEMD_BOOT_ACTIVE; then
+  if ! resume_parameters_present; then
+    echo "Adding resume kernel parameters"
+    write_resume_parameters || true
+  fi
+elif [[ ! -f $RESUME_DROP_IN ]]; then
+  echo "Adding resume kernel parameters"
+  write_resume_parameters || true
+fi
+
+# Use ACPI alarm for RTC wakeup on s2idle systems (needed for suspend-then-hibernate)
+if grep -q "\[s2idle\]" /sys/power/mem_sleep 2>/dev/null; then
+  if $SYSTEMD_BOOT_ACTIVE; then
+    if ! grep -Fqw rtc_cmos.use_acpi_alarm=1 "$KERNEL_CMDLINE_FILE"; then
+      sudo python3 "$ARCH_PATH/install/boot/update-kernel-cmdline.py" \
+        "$KERNEL_CMDLINE_FILE" set rtc_cmos.use_acpi_alarm=1
+    fi
+  else
+    LIMINE_DROP_IN="/etc/limine-entry-tool.d/rtc-alarm.conf"
+    if [[ ! -f $LIMINE_DROP_IN ]]; then
+      echo "Enabling ACPI RTC alarm for s2idle suspend"
+      sudo mkdir -p /etc/limine-entry-tool.d
+      echo 'KERNEL_CMDLINE[default]+=" rtc_cmos.use_acpi_alarm=1"' | sudo tee "$LIMINE_DROP_IN" >/dev/null
+    fi
+  fi
+fi
+
+if ! $NO_REBUILD; then
+  echo "Regenerating initramfs..."
+  sudo arch-kernel-rebuild
+  echo
+fi
+
+if ! $FORCE && ! $NO_REBUILD && gum confirm "Reboot to enable hibernation?"; then
+  arch-system reboot
+fi

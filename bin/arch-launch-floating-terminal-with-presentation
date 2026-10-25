@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# arch:summary=Launch a floating terminal with the Arch presentation wrapper
+# arch:args=<command>
+
+# Export the current theme's gum styling so gum widgets match the active theme
+# even after a theme switch (the inherited environment is captured at login).
+source arch-restart-gum
+
+cmd="$*"
+# 130 is the user bailing with Ctrl-C; anything else gets the Done/Failed prompt.
+presentation_script="arch-show-logo; $cmd; code=\$?; if (( code != 130 )); then arch-show-done \$code; fi"
+
+exec setsid uwsm-app -- xdg-terminal-exec --app-id=org.arch.terminal --title=Arch -e bash -c "$presentation_script"

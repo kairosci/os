@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# arch:summary=Toggle mirroring theme changes to and from your herdr machines
+
+arch-toggle herdr-theme-sync
+
+if arch-toggle-enabled herdr-theme-sync; then
+  arch-notification-send -g 󰸌 "$(arch-i18n themeSync.enabled)"
+else
+  arch-notification-send -g 󰸌 "$(arch-i18n themeSync.disabled)"
+fi

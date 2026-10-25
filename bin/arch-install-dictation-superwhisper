@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# arch:summary=Install and configure Superwhisper dictation
+# arch:requires-sudo=true
+
+set -e
+
+arch-pkg-add superwhisper-bin
+bash /usr/share/superwhisper/setup-user
+# Existing profiles may still use Right Alt, which conflicts with os.
+# Keep a recording shortcut active while moving away from that binding.
+shortcuts=$(superwhisper shortcuts show)
+if [[ $(jq -r '.shortcuts.hold' <<< "$shortcuts") == "RightAlt" ]]; then
+  if [[ -z $(jq -r '.shortcuts.toggle' <<< "$shortcuts") ]]; then
+    superwhisper shortcuts set hold "RightSuper" >/dev/null
+  else
+    superwhisper shortcuts set hold none >/dev/null
+  fi
+fi
+# Superwhisper requires a native recording shortcut; keep it separate from
+# os's push-to-talk keys.
+superwhisper shortcuts set toggle "Alt+Space" >/dev/null
+superwhisper shortcuts set hold none >/dev/null
+arch-dictation-use superwhisper
+hyprctl reload >/dev/null
+arch-notification-send -g  "$(arch-i18n dictation.superwhisperReady)" "$(arch-i18n dictation.hint)" -t 10000
+superwhisper settings
