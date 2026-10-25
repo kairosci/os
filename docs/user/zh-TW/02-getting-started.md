@@ -2,7 +2,7 @@
 
 Arch 是透過 ISO 安裝的。你可以選擇完整磁碟安裝，將整個磁碟全部接管；或是可用空間安裝，將 Arch 裝進磁碟上未配置的空間——這就是與 Windows 或其他作業系統並存雙重開機的方式（請參閱[雙重開機安裝](50-dual-boot-install.md)——請注意，你需要先在 Windows 中關閉 BitLocker）。無論選擇哪種方式，安裝預設都會使用完整加密，而完整磁碟選項會清除所選磁碟的全部內容，所以使用現有磁碟前，務必先備份！
 
-先[下載 Arch ISO](https://github.com/kairosci/arch/)，把它寫入 USB 隨身碟（在 Mac/Windows 上使用 [balenaEtcher](https://etcher.balena.io/)，在 Linux 上使用 [caligula](https://github.com/ifd3f/caligula)），然後從隨身碟開機。
+先[下載 Arch ISO](https://github.com/kairosci/os/)，把它寫入 USB 隨身碟（在 Mac/Windows 上使用 [balenaEtcher](https://etcher.balena.io/)，在 Linux 上使用 [caligula](https://github.com/ifd3f/caligula)），然後從隨身碟開機。
 
 _你必須在 BIOS 中關閉 Secure Boot 和／或 TPM。你必須關閉它們，才能安裝 Arch。它們是為 Windows 和與 Microsoft 有關聯的 Linux 發行版而設計的 Microsoft 安全機制。_
 
@@ -36,8 +36,8 @@ Arch 預設安裝時會加密。對於任何有可能遺失或被偷的電腦來
 
 ### 語言
 
-Arch 支援 50 種語言——與 github.com/kairosci/arch 相同的一組語言——預設為英文。若要切換，請開啟 Arch 選單並前往 _Setup > Language_，或在終端機中執行 `archctl language <code>`（`archctl language list` 會顯示各語言代碼）。選單、桌面和 Arch 自己的通知會立即切換語言，之後你開啟的每個應用程式也會跟著切換。已經開啟的應用程式，重新啟動後就會切換。
+Arch 支援 50 種語言——與 github.com/kairosci/os 相同的一組語言——預設為英文。若要切換，請開啟 Arch 選單並前往 _Setup > Language_，或在終端機中執行 `archctl language <code>`（`archctl language list` 會顯示各語言代碼）。選單、桌面和 Arch 自己的通知會立即切換語言，之後你開啟的每個應用程式也會跟著切換。已經開啟的應用程式，重新啟動後就會切換。
 
 ### 卡住時的求助管道
 
-如果你卡住了，通常可以在[社群 Discord](https://github.com/kairosci/arch/discord) 的 _#arch-help_ 頻道找到願意幫忙的人。
+如果你卡住了，通常可以在[社群 Discord](https://github.com/kairosci/os/discord) 的 _#arch-help_ 頻道找到願意幫忙的人。

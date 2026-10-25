@@ -95,10 +95,10 @@ arch plugin validate ./my-plugin
 
 那會執行 shell 在載入時執行的相同檢查：綱要版本、必填欄位、未被保留的 id、安全的相對路徑且實際存在的進入點、你所聲稱的每個種類都有進入點，以及資料夾內任何地方都沒有符號連結。
 
-關於外掛程式開發，請參閱 [shell 參考文件](https://github.com/kairosci/arch)和[第一方外掛程式目錄](https://github.com/kairosci/arch)。
+關於外掛程式開發，請參閱 [shell 參考文件](https://github.com/kairosci/os)和[第一方外掛程式目錄](https://github.com/kairosci/os)。
 
 ## 與世界分享你的成果
 
 一旦你做出了喜歡的東西，就把它放在公開的 git 儲存庫中。這就是整個散佈機制——然後任何人都可以對你的 URL 執行 `arch plugin add`，並在幾秒內讓它執行起來。
 
-為了幫助人們實際找到它，將它列在 [plugins.github.com/kairosci/arch](https://plugins.github.com/kairosci/arch) 上。那裡是 Arch shell 外掛程式的市集，當你在想是否已經有人製作了你正要撰寫的小工具時，那也是你首先要看的地方。在開始之前先瀏覽它！
+為了幫助人們實際找到它，將它列在 [plugins.github.com/kairosci/os](https://plugins.github.com/kairosci/os) 上。那裡是 Arch shell 外掛程式的市集，當你在想是否已經有人製作了你正要撰寫的小工具時，那也是你首先要看的地方。在開始之前先瀏覽它！

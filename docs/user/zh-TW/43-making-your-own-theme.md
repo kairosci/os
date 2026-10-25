@@ -42,4 +42,4 @@ Arch 區分這兩者的方式，是看主題內部是否帶有它自己的 git r
 
 記住，一旦主題是從 repo 安裝的，它附帶的任何 `.lua`、終端機設定或 `vscode.json` 都會被丟掉，所以不要圍繞著這些東西來構建主題。
 
-你可以透過向 [arch-site repo](https://github.com/kairosci/arch) 送出 pull request，讓你的主題被加到[額外主題頁面](https://github.com/kairosci/arch/themes/)。
+你可以透過向 [arch-site repo](https://github.com/kairosci/os) 送出 pull request，讓你的主題被加到[額外主題頁面](https://github.com/kairosci/os/themes/)。
