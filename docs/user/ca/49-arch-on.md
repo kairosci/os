@@ -2,19 +2,19 @@
 
 ### Xips Apple M1/M2
 
-[Asahi Alarm](https://asahi-alarm.org/) és una versió d'Arch per a ordinadors Apple M1/M2 construïda damunt d'[Asahi Linux](https://asahilinux.org/). Pots fer funcionar Arch damunt d'això amb una mica d'esforç. Consulta [la guia impulsada per usuaris](https://github.com/kairosci/arch).
+[Asahi Alarm](https://asahi-alarm.org/) és una versió d'Arch per a ordinadors Apple M1/M2 construïda damunt d'[Asahi Linux](https://asahilinux.org/). Pots fer funcionar Arch damunt d'això amb una mica d'esforç. Consulta [la guia impulsada per usuaris](https://github.com/kairosci/os).
 
 ### Màquina virtual Apple
 
-També pots instal·lar Arch dins d'una màquina virtual de Parallels. És un procés força farragós, però també hi ha [una guia impulsada per usuaris](https://github.com/kairosci/arch) per a això.
+També pots instal·lar Arch dins d'una màquina virtual de Parallels. És un procés força farragós, però també hi ha [una guia impulsada per usuaris](https://github.com/kairosci/os) per a això.
 
 ### VirtualBox
 
-VirtualBox és un executor de màquines virtuals popular. [També pots executar Arch a dins d'això](https://github.com/kairosci/arch). Però probablement el rendiment no serà gaire bo.
+VirtualBox és un executor de màquines virtuals popular. [També pots executar Arch a dins d'això](https://github.com/kairosci/os). Però probablement el rendiment no serà gaire bo.
 
 ### VMware Workstation a Windows 11
 
-Un altre executor de màquines virtuals popular per a Windows. [Arch també hi ha estat configurat a dins](https://github.com/kairosci/arch).
+Un altre executor de màquines virtuals popular per a Windows. [Arch també hi ha estat configurat a dins](https://github.com/kairosci/os).
 
 ### Steam Deck
 

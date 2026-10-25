@@ -95,10 +95,10 @@ arch plugin validate ./my-plugin
 
 Això executa les mateixes comprovacions que fa l'intèrpret en carregar: la versió de l'esquema, els camps obligatoris, un identificador que no sigui reservat, punts d'entrada que siguin rutes relatives segures i que existeixin de debò, un punt d'entrada per a cada mena que hagis reclamat i cap enllaç simbòlic enlloc dins de la carpeta.
 
-Per al desenvolupament de connectors, consulta la [referència de l'intèrpret](https://github.com/kairosci/arch) i el [catàleg de connectors oficials](https://github.com/kairosci/arch).
+Per al desenvolupament de connectors, consulta la [referència de l'intèrpret](https://github.com/kairosci/os) i el [catàleg de connectors oficials](https://github.com/kairosci/os).
 
 ## Compartir el teu amb el món
 
 Un cop hagis fet alguna cosa que t'agradi, posa-ho en un repositori git públic. Aquest és tot el mecanisme de distribució: llavors qualsevol pot executar `arch plugin add` contra el teu URL i tenir-lo en funcionament en qüestió de segons.
 
-Per ajudar la gent a trobar-lo de debò, llista'l a [plugins.github.com/kairosci/arch](https://plugins.github.com/kairosci/arch). Aquest és el mercat de connectors de l'intèrpret d'Arch, i és el primer lloc on cal mirar quan et preguntes si algú ja ha creat el giny que estàs a punt d'escriure. Fes-hi un cop d'ull abans de començar!
+Per ajudar la gent a trobar-lo de debò, llista'l a [plugins.github.com/kairosci/os](https://plugins.github.com/kairosci/os). Aquest és el mercat de connectors de l'intèrpret d'Arch, i és el primer lloc on cal mirar quan et preguntes si algú ja ha creat el giny que estàs a punt d'escriure. Fes-hi un cop d'ull abans de començar!

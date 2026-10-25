@@ -30,6 +30,6 @@ Que quedi clar: mentre això està activat, qualsevol cosa que s'executi com el 
 
 ## Claus de signatura
 
-La clau pública per a totes les signatures de les ISO i els paquets del dipòsit d'Arch és `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([verifica-la a openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch)). El paquet `arch/arch-keyring` també la conté i es farà servir per desplegar sense problemes qualsevol possible actualització.
+La clau pública per a totes les signatures de les ISO i els paquets del dipòsit d'Arch és `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([verifica-la a openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os)). El paquet `arch/arch-keyring` també la conté i es farà servir per desplegar sense problemes qualsevol possible actualització.
 
-Pots trobar la signatura de qualsevol llançament d'ISO afegint .sig a l'URL. Com https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig.
+Pots trobar la signatura de qualsevol llançament d'ISO afegint .sig a l'URL. Com https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig.
