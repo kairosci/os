@@ -8,7 +8,7 @@ set -euo pipefail
 
 # Runs as root through the passwordless rule in etc/sudoers.d/arch-locale-generate,
 # which names each registry code as the whole argument. Under sudo's
-# secure_path a dev link prepends a user-writable checkout bin/ to PATH, and
+# secure_path a dev link prepends a user-writable checkout src/cli/ to PATH, and
 # every helper this calls by bare name (grep, sed, locale-gen) is a system
 # tool, so pin PATH to trusted system directories while holding root.
 if (( EUID == 0 )); then
