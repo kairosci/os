@@ -6,7 +6,7 @@ Každý motiv stylizuje plochu, terminál, neovim, obrazovku aktivity (btop), Ch
 
 Motivy mají sadu obrázků na pozadí, mezi kterými si můžete vybírat pomocí `Super + Ctrl + Space`.
 
-Ještě více motivů najdete na [stránce s dalšími motivy](https://github.com/kairosci/arch/themes/) nebo si dokonce [vytvořte vlastní motiv](43-making-your-own-theme.md).
+Ještě více motivů najdete na [stránce s dalšími motivy](https://github.com/kairosci/os/themes/) nebo si dokonce [vytvořte vlastní motiv](43-making-your-own-theme.md).
 
  ![tokyo-night](../themes/tokyo-night/preview.png)
 _Tokyo Night_
