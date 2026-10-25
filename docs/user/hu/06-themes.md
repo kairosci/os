@@ -6,7 +6,7 @@ Minden téma formázza az asztalt, a terminált, a neovimet, az activity képern
 
 A témáknak háttérképek készlete is van, amelyek között a `Super + Ctrl + Space` kombinációval választhatsz.
 
-Még több témát találsz [az extra témák oldalán](https://github.com/kairosci/arch/themes/), vagy [készíthetsz saját témát](43-making-your-own-theme.md).
+Még több témát találsz [az extra témák oldalán](https://github.com/kairosci/os/themes/), vagy [készíthetsz saját témát](43-making-your-own-theme.md).
 
  ![tokyo-night](../themes/tokyo-night/preview.png)
 _Tokyo Night_

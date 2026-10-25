@@ -95,10 +95,10 @@ arch plugin validate ./my-plugin
 
 Ez ugyanazokat az ellenőrzéseket futtatja, mint a shell betöltés közben: a séma-verziót, a szükséges mezőket, egy olyan azonosítót, ami nincs fenntartva, belépési pontokat, amelyek biztonságos, relatív utak, és ténylegesen léteznek, belépési pontot minden deklarált típushoz, és az abszolút szimbolikus hivatkozások hiányát a mappán belül bárhol.
 
-Bővítményfejlesztéshez lásd a [shell-hivatkozást](https://github.com/kairosci/arch) és az [első fél bővítmény-katalógust](https://github.com/kairosci/arch).
+Bővítményfejlesztéshez lásd a [shell-hivatkozást](https://github.com/kairosci/os) és az [első fél bővítmény-katalógust](https://github.com/kairosci/os).
 
 ## A sajátodd megosztása a világgal
 
 Ha egyszer készítettél valamit, amit szeretsz, tedd egy nyilvános git-repóba. Ez az egész terjesztési mechanizmus — bárki futtathat egy `arch plugin add` parancsot az URL-jénél, és másodperceken belül működik.
 
-Hogy az emberek megtalálják, tedd fel a [plugins.github.com/kairosci/arch](https://plugins.github.com/kairosci/arch) oldalra. Ez az Arch-shellbővítmények piaca, és ez az első hely, amelyet nézni érdemes, amikor azon töprengsz, vajon valaki már megépítette-e azt a widgetet, amelyet éppen írni készülsz. Böngéssz rajta, mielőtt elindulnál!
+Hogy az emberek megtalálják, tedd fel a [plugins.github.com/kairosci/os](https://plugins.github.com/kairosci/os) oldalra. Ez az Arch-shellbővítmények piaca, és ez az első hely, amelyet nézni érdemes, amikor azon töprengsz, vajon valaki már megépítette-e azt a widgetet, amelyet éppen írni készülsz. Böngéssz rajta, mielőtt elindulnál!
