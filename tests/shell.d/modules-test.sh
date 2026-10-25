@@ -81,6 +81,40 @@ pass "installation stages are declared as submodules of the shared installer con
 pass "settings, applications, and pre-install branding have independent module ownership"
 pass "CLI capabilities are owned by explicit command modules"
 
+python3 - "$ROOT/scripts/modules.py" "$stage/security" <<'PY'
+import importlib.util
+import sys
+from pathlib import Path
+
+script, sandbox = map(Path, sys.argv[1:])
+root = sandbox / "repo"
+(root / "modules/example").mkdir(parents=True)
+(root / "payload").mkdir()
+(root / "modules/example/module.toml").write_text(
+    'id = "example"\ndomain = "system"\npackage = "example"\n'
+    'sources = ["payload"]\nrequires = []\n\n'
+    '[[output]]\nsource = "payload"\ntarget = "usr/share/example/payload"\n'
+)
+loader = importlib.util.spec_from_file_location("modules", script)
+modules_tool = importlib.util.module_from_spec(loader)
+sys.modules[loader.name] = modules_tool
+loader.loader.exec_module(modules_tool)
+modules_tool.ROOT = root
+modules_tool.MODULES = root / "modules"
+
+outside = sandbox / "outside"
+outside.write_text("outside")
+(root / "payload/external").symlink_to(outside)
+_, _, errors = modules_tool.load_modules()
+assert any("source symlink leaves the repository" in error for error in errors), errors
+
+(root / "payload/external").unlink()
+(root / "payload/dangling").symlink_to(root / "missing")
+_, _, errors = modules_tool.load_modules()
+assert any("broken or cyclic symlink" in error for error in errors), errors
+PY
+pass "module validation rejects source symlinks that escape the repository or have no target"
+
 python3 "$ROOT/scripts/modules.py" assemble --package arch --destination "$stage/arch"
 for path in installer migrations; do
   diff -r --no-dereference "$ROOT/$path" "$stage/arch/usr/share/arch/$path"

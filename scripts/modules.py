@@ -33,6 +33,7 @@ def load_modules() -> tuple[dict[str, Module], list[str], list[str]]:
     modules: dict[str, Module] = {}
     source_owners: dict[tuple[str, str], str] = {}
     output_owners: dict[tuple[str, str], str] = {}
+    checked_symlinks: set[Path] = set()
     errors: list[str] = []
 
     for manifest in sorted(MODULES.glob("**/module.toml")):
@@ -91,6 +92,19 @@ def load_modules() -> tuple[dict[str, Module], list[str], list[str]]:
             if path.is_absolute() or ".." in path.parts or not resolved.is_relative_to(ROOT) or not (ROOT / path).exists():
                 errors.append(f"{manifest.relative_to(ROOT)}: source does not resolve inside the repository: {source}")
                 continue
+            source_path = ROOT / path
+            tree = (source_path, *source_path.rglob("*")) if source_path.is_dir() and not source_path.is_symlink() else (source_path,)
+            for entry in tree:
+                if not entry.is_symlink() or entry in checked_symlinks:
+                    continue
+                checked_symlinks.add(entry)
+                try:
+                    symlink_target = entry.resolve(strict=True)
+                except (OSError, RuntimeError):
+                    errors.append(f"{manifest.relative_to(ROOT)}: source contains a broken or cyclic symlink: {entry.relative_to(ROOT)}")
+                    continue
+                if not symlink_target.is_relative_to(ROOT):
+                    errors.append(f"{manifest.relative_to(ROOT)}: source symlink leaves the repository: {entry.relative_to(ROOT)}")
             owner_key = (package, path.as_posix())
             previous = source_owners.get(owner_key)
             if previous:
