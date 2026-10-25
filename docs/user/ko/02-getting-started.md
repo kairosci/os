@@ -2,7 +2,7 @@
 
 Arch는 ISO를 이용해 설치합니다. 드라이브 전체를 차지하는 전체 디스크 설치와, 드라이브의 할당되지 않은 공간에 Arch를 넣는 여유 공간 설치 중에서 선택할 수 있습니다. 여유 공간 설치가 Windows나 다른 OS와 함께 듀얼 부팅하는 방법입니다 ([듀얼 부팅 설치](50-dual-boot-install.md) 참조 — 먼저 Windows에서 BitLocker를 꺼야 한다는 점에 유의하세요). 어느 쪽을 선택하든 설치는 기본적으로 전체 암호화를 적용하고, 전체 디스크 옵션은 선택한 드라이브를 지워버리므로, 기존 드라이브를 사용하기 전에는 반드시 백업을 해두세요!
 
-먼저 [Arch ISO를 다운로드](https://github.com/kairosci/arch/)해서 USB 스틱에 넣고 (Mac/Windows에서는 [balenaEtcher](https://etcher.balena.io/)를, Linux에서는 [caligula](https://github.com/ifd3f/caligula)를 사용하세요), 그 스틱으로 부팅하세요.
+먼저 [Arch ISO를 다운로드](https://github.com/kairosci/os/)해서 USB 스틱에 넣고 (Mac/Windows에서는 [balenaEtcher](https://etcher.balena.io/)를, Linux에서는 [caligula](https://github.com/ifd3f/caligula)를 사용하세요), 그 스틱으로 부팅하세요.
 
 _BIOS에서 Secure Boot 및/또는 TPM을 반드시 끄세요. Arch를 설치하려면 이것들을 꺼야 합니다. 이것들은 Windows와 Microsoft 계열 Linux 배포판을 위한 Microsoft의 보안 방식입니다._
 
@@ -36,8 +36,8 @@ Arch는 기본적으로 암호화와 함께 설치됩니다. 잃어버리거나 
 
 ### 언어
 
-Arch는 github.com/kairosci/arch와 동일한 50개 언어를 지원하며, 기본값은 English입니다. 전환하려면 Arch 메뉴를 열어 _설정 > 언어_로 이동하거나, 터미널에서 `archctl language <code>`를 실행하세요 (`archctl language list`가 코드들을 보여줍니다). 메뉴, 데스크톱, 그리고 Arch 자체 알림은 즉시 언어가 바뀌고, 그 이후에 여는 모든 애플리케이션도 따라 바뀝니다. 이미 열려 있던 앱은 다시 시작하면 바뀝니다.
+Arch는 github.com/kairosci/os와 동일한 50개 언어를 지원하며, 기본값은 English입니다. 전환하려면 Arch 메뉴를 열어 _설정 > 언어_로 이동하거나, 터미널에서 `archctl language <code>`를 실행하세요 (`archctl language list`가 코드들을 보여줍니다). 메뉴, 데스크톱, 그리고 Arch 자체 알림은 즉시 언어가 바뀌고, 그 이후에 여는 모든 애플리케이션도 따라 바뀝니다. 이미 열려 있던 앱은 다시 시작하면 바뀝니다.
 
 ### 막혔을 때 도움 받기
 
-막혔다면 보통 [커뮤니티 Discord](https://github.com/kairosci/arch/discord)의 _#arch-help_ 채널에서 도와줄 사람을 찾을 수 있습니다.
+막혔다면 보통 [커뮤니티 Discord](https://github.com/kairosci/os/discord)의 _#arch-help_ 채널에서 도와줄 사람을 찾을 수 있습니다.

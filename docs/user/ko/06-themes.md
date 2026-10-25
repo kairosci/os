@@ -6,7 +6,7 @@ Arch에는 아름다운 테마가 스물두 가지 들어 있습니다. Arch 메
 
 테마에는 `Super + Ctrl + Space`로 고를 수 있는 배경 이미지 세트가 있습니다.
 
-[추가 테마 페이지](https://github.com/kairosci/arch/themes/)에서 더 많은 테마를 찾거나, [직접 테마 만들기](43-making-your-own-theme.md)도 할 수 있습니다.
+[추가 테마 페이지](https://github.com/kairosci/os/themes/)에서 더 많은 테마를 찾거나, [직접 테마 만들기](43-making-your-own-theme.md)도 할 수 있습니다.
 
  ![tokyo-night](../themes/tokyo-night/preview.png)
 _Tokyo Night_

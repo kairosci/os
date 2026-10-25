@@ -42,4 +42,4 @@ Arch는 테마 안에 자체 git 저장소가 있는지로 둘을 구분합니�
 
 저장소에서 설치되고 나면 함께 제공되는 모든 `.lua`, 터미널 설정 또는 `vscode.json`은 버려지므로, 테마를 그것들을 중심으로 만들지 마세요.
 
-[arch-site 저장소](https://github.com/kairosci/arch)에 풀 리퀘스트를 보내면 [추가 테마 페이지](https://github.com/kairosci/arch/themes/)에 테마를 추가할 수 있습니다.
+[arch-site 저장소](https://github.com/kairosci/os)에 풀 리퀘스트를 보내면 [추가 테마 페이지](https://github.com/kairosci/os/themes/)에 테마를 추가할 수 있습니다.
