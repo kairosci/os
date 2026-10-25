@@ -2,7 +2,7 @@
 
 Arch įdiegiama naudojant ISO. Galite rinktis viso disko įdiegimą, kuris perima visą diską, arba įdiegimą į laisvą vietą, kuris patalpina Arch nepaskirstytoje disko vietoje — taip galite naudoti dvigubą įkrovą kartu su Windows arba kita OS (žr. [dvigubos įkrovos įdiegimas](50-dual-boot-install.md) — atkreipkite dėmesį, kad pirmiausia Windows turėsite išjungti BitLocker). Bet kuriuo atveju įdiegimas pagal numatytuosius nustatymus atliekamas su visu šifravimu, o viso disko parinktis išvalys pasirinktą diską, todėl prieš naudodami esamą diską būtinai pasidarykite atsarginę kopiją!
 
-Pirmiausia [atsisiųskite Arch ISO](https://github.com/kairosci/arch/), įkelkite jį į USB atmintinę (naudokite [balenaEtcher](https://etcher.balena.io/) Mac/Windows arba [caligula](https://github.com/ifd3f/caligula) Linux) ir paleiskite kompiuterį iš šios atmintinės.
+Pirmiausia [atsisiųskite Arch ISO](https://github.com/kairosci/os/), įkelkite jį į USB atmintinę (naudokite [balenaEtcher](https://etcher.balena.io/) Mac/Windows arba [caligula](https://github.com/ifd3f/caligula) Linux) ir paleiskite kompiuterį iš šios atmintinės.
 
 _BIOS turite išjungti Secure Boot ir (arba) TPM. Turite juos išjungti, kad galėtumėte įdiegti Arch. Tai Microsoft saugos schemos, skirtos Windows ir su Microsoft susijusioms Linux distribucijoms._
 
@@ -36,8 +36,8 @@ Tačiau ypatingomis aplinkybėmis, pavyzdžiui, nuotoliniams Arch įdiegimams ap
 
 ### Kalba
 
-Arch kalba 50 kalbų — tuo pačiu rinkiniu kaip github.com/kairosci/arch — o anglų kalba yra numatytoji. Norėdami perjungti, atidarykite Arch meniu ir eikite į _Nustatymai > Kalba_ arba terminale paleiskite `archctl language <code>` (`archctl language list` rodo kodus). Meniu, darbalaukis ir paties Arch pranešimai kalbą pakeičia iš karto, o kiekviena vėliau atidaroma programa taip pat seks paskui. Jau atidarytos programos persijungs, kai jas paleisite iš naujo.
+Arch kalba 50 kalbų — tuo pačiu rinkiniu kaip github.com/kairosci/os — o anglų kalba yra numatytoji. Norėdami perjungti, atidarykite Arch meniu ir eikite į _Nustatymai > Kalba_ arba terminale paleiskite `archctl language <code>` (`archctl language list` rodo kodus). Meniu, darbalaukis ir paties Arch pranešimai kalbą pakeičia iš karto, o kiekviena vėliau atidaroma programa taip pat seks paskui. Jau atidarytos programos persijungs, kai jas paleisite iš naujo.
 
 ### Pagalba, jei įstrigote
 
-Jei įstrigsite, [bendruomenės Discord](https://github.com/kairosci/arch/discord) kanale _#arch-help_ paprastai galite rasti norinčių pagelbėti.
+Jei įstrigsite, [bendruomenės Discord](https://github.com/kairosci/os/discord) kanale _#arch-help_ paprastai galite rasti norinčių pagelbėti.

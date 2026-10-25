@@ -42,4 +42,4 @@ Tas likęs `[themename]` tampa temos katalogo pavadinimu, todėl jis turi būti 
 
 Atmink, kad kai ji įdiegiama iš saugyklos, bet kuris jos pateikiamas `.lua`, terminalo konfigūracija ar `vscode.json` išmetamas, todėl temos aplink juos nestatyk.
 
-Savo temą į [papildomų temų puslapį](https://github.com/kairosci/arch/themes/) gali įtraukti atsiuntęs pull requestą į [arch-site saugyklą](https://github.com/kairosci/arch).
+Savo temą į [papildomų temų puslapį](https://github.com/kairosci/os/themes/) gali įtraukti atsiuntęs pull requestą į [arch-site saugyklą](https://github.com/kairosci/os).
