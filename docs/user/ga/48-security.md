@@ -30,6 +30,6 @@ Bí soiléir machnaimh faoin gceann seo: fad is atá sé ar siúl, is féidir le
 
 ## Eochracha Sínithe
 
-Is é an eochair phoiblí do shínithe ISO go léir agus pacáiste repo Arch ná `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([fíoraigh ag openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch)). Tá sé seo sa phacáiste `arch/arch-keyring` freisin agus úsáidfear é chun aon nuashonruithe féideartha a rolladh amach gan uaim.
+Is é an eochair phoiblí do shínithe ISO go léir agus pacáiste repo Arch ná `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([fíoraigh ag openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os)). Tá sé seo sa phacáiste `arch/arch-keyring` freisin agus úsáidfear é chun aon nuashonruithe féideartha a rolladh amach gan uaim.
 
-Is féidir leat an síniú d'aon eisiúint ISO a fháil trí .sig a chur leis an URL. Cosúil le https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig.
+Is féidir leat an síniú d'aon eisiúint ISO a fháil trí .sig a chur leis an URL. Cosúil le https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig.

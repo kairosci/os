@@ -2,7 +2,7 @@
 
 Coinnítear Arch agus do phacáistí cothrom le dáta trí _Nuashonraigh > Arch_ sa roghchlár Arch (`Super + Space`).
 
-Suiteáiltear Arch féin mar phacáistí rialta pacman ó [Stóras Pacáistí Arch](https://github.com/kairosci/arch), mar sin suiteálann nuashonrú [an t-eisiúint Arch is déanaí](https://github.com/kairosci/arch), ritheann sé aon imircí ar feitheamh chun do chóras a chur i sioncron leis an gceann is déanaí, agus nuashonraíonn sé pacáistí córais go léir ó [Scáthán Arch Arch](https://github.com/kairosci/arch) agus [AUR](https://aur.archlinux.org/) (má tá aon phacáistí AUR suiteáilte agat).
+Suiteáiltear Arch féin mar phacáistí rialta pacman ó [Stóras Pacáistí Arch](https://github.com/kairosci/os), mar sin suiteálann nuashonrú [an t-eisiúint Arch is déanaí](https://github.com/kairosci/os), ritheann sé aon imircí ar feitheamh chun do chóras a chur i sioncron leis an gceann is déanaí, agus nuashonraíonn sé pacáistí córais go léir ó [Scáthán Arch Arch](https://github.com/kairosci/os) agus [AUR](https://aur.archlinux.org/) (má tá aon phacáistí AUR suiteáilte agat).
 
 Nuair a dhéantar eisiúintí nua, taispeánfar deilbhín saighead chiorcail ar thaobh deas do chloig. Cliceáil air agus tosóidh an próiseas nuashonraithe.
 
@@ -10,7 +10,7 @@ Nuair a dhéantar eisiúintí nua, taispeánfar deilbhín saighead chiorcail ar 
 
 ### Ceithre bhealach
 
-Nuashonraítear Arch feadh ceithre bhealach: stable, RC, edge, agus dev. Tosaíonn suiteálacha nua ar an mbealach cobhsaí, a rianaíonn na [heisiúintí oifigiúla](https://github.com/kairosci/arch), chomh maith le [scáthán Arch Arch cobhsaí](https://github.com/kairosci/arch) atá ag rith mí amháin chun deiridh ar an gceann is déanaí, ionas gur féidir linn aon neamh-chomhoiriúnachtaí nua a éilíonn athruithe cumraíochta a ghabháil sula gcuirfidh siad fadhbanna ar dhaoine.
+Nuashonraítear Arch feadh ceithre bhealach: stable, RC, edge, agus dev. Tosaíonn suiteálacha nua ar an mbealach cobhsaí, a rianaíonn na [heisiúintí oifigiúla](https://github.com/kairosci/os), chomh maith le [scáthán Arch Arch cobhsaí](https://github.com/kairosci/os) atá ag rith mí amháin chun deiridh ar an gceann is déanaí, ionas gur féidir linn aon neamh-chomhoiriúnachtaí nua a éilíonn athruithe cumraíochta a ghabháil sula gcuirfidh siad fadhbanna ar dhaoine.
 
 Ach más mian leat cabhrú leis na fadhbanna féideartha sin a aimsiú, is féidir leat rith ar bhealach edge. Coinneoidh sé sin do phacáistí Arch ag rianú na leaganacha forbartha is déanaí, agus ligeann duit nuashonrú chuig na pacáistí Arch is déanaí a luaithe atá siad ar fáil. Níor chóir duit é seo a dhéanamh ach má tá taithí agat le Linux, agus má tá a fhios agat conas córas a bhfuil fadhbanna aige a aisghabháil.
 

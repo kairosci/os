@@ -2,7 +2,7 @@
 
 Suiteáiltear Arch trí ISO a úsáid. Is féidir leat roghnú idir suiteáil lándiosca, a thógann an tiomántán ar fad chuici féin, nó suiteáil i spás saor, a chuireann Arch sa spás neamhleithdháilte ar thiomántán — sin an chaoi a ndéanann tú tosú déach taobh le Windows nó OS eile (féach [suiteáil tosaithe déach](50-dual-boot-install.md) — tabhair faoi deara go mbeidh ort BitLocker a mhúchadh i Windows ar dtús). Ar cheachtar den dá chaoi, is criptiú iomlán réamhshocrú na suiteála, agus scriosfaidh an rogha lándiosca an tiomántán roghnaithe, mar sin bí cinnte cúltaca a dhéanamh sula n-úsáideann tú ceann atá ann cheana!
 
-[Íoslódáil ISO Arch](https://github.com/kairosci/arch/) ar dtús, cuir ar mhaide USB é (úsáid [balenaEtcher](https://etcher.balena.io/) ar Mac/Windows nó [caligula](https://github.com/ifd3f/caligula) ar Linux), agus tosaigh ón maide.
+[Íoslódáil ISO Arch](https://github.com/kairosci/os/) ar dtús, cuir ar mhaide USB é (úsáid [balenaEtcher](https://etcher.balena.io/) ar Mac/Windows nó [caligula](https://github.com/ifd3f/caligula) ar Linux), agus tosaigh ón maide.
 
 _Caithfidh tú Secure Boot agus/nó TPM a mhúchadh sa BIOS. Caithfidh tú iad seo a mhúchadh chun go mbeidh tú in ann Arch a shuiteáil. Scéimeanna slándála de chuid Microsoft iad atá ceaptha do Windows agus do dháiltí Linux atá cleamhnaithe le Microsoft._
 
@@ -36,8 +36,8 @@ Ach i gcúinsí speisialta, cosúil le suiteálacha Arch cianda ar ríomhairí f
 
 ### Teanga
 
-Labhraíonn Arch 50 teanga — an tacar céanna le github.com/kairosci/arch — agus is é an Béarla an réamhshocrú. Chun athrú, oscail roghchlár Arch agus téigh go _Setup > Language_, nó rith `archctl language <code>` i dteirminéal (taispeánann `archctl language list` na cóid). Athraíonn an roghchlár, an deasc, agus fógraí Arch féin teanga láithreach, agus leanann gach feidhmchlár a osclaíonn tú ina dhiaidh sin é chomh maith. Athraíonn feidhmchláir a bhí ar oscailt cheana nuair a atosaíonn tú iad.
+Labhraíonn Arch 50 teanga — an tacar céanna le github.com/kairosci/os — agus is é an Béarla an réamhshocrú. Chun athrú, oscail roghchlár Arch agus téigh go _Setup > Language_, nó rith `archctl language <code>` i dteirminéal (taispeánann `archctl language list` na cóid). Athraíonn an roghchlár, an deasc, agus fógraí Arch féin teanga láithreach, agus leanann gach feidhmchlár a osclaíonn tú ina dhiaidh sin é chomh maith. Athraíonn feidhmchláir a bhí ar oscailt cheana nuair a atosaíonn tú iad.
 
 ### Cabhair má théann tú i bhfostú
 
-Má théann tú i bhfostú, is gnách go bhfaighidh tú duine éigin atá toilteanach cabhrú sa chainéal _#arch-help_ ar [Discord an phobail](https://github.com/kairosci/arch/discord).
+Má théann tú i bhfostú, is gnách go bhfaighidh tú duine éigin atá toilteanach cabhrú sa chainéal _#arch-help_ ar [Discord an phobail](https://github.com/kairosci/os/discord).
