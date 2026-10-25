@@ -30,6 +30,6 @@ Bersikaplah jernih tentang yang satu ini: selagi aktif, apa pun yang berjalan se
 
 ## Kunci Penandatanganan
 
-Kunci publik untuk semua tanda tangan ISO dan paket repo Arch adalah `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([verifikasi di openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch)). Paket `arch/arch-keyring` juga memuat ini dan akan digunakan untuk meluncurkan pembaruan potensial apa pun dengan mulus.
+Kunci publik untuk semua tanda tangan ISO dan paket repo Arch adalah `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([verifikasi di openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os)). Paket `arch/arch-keyring` juga memuat ini dan akan digunakan untuk meluncurkan pembaruan potensial apa pun dengan mulus.
 
-Kamu bisa menemukan tanda tangan untuk rilis ISO apa pun dengan menambahkan .sig ke URL. Seperti https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig.
+Kamu bisa menemukan tanda tangan untuk rilis ISO apa pun dengan menambahkan .sig ke URL. Seperti https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig.

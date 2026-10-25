@@ -6,7 +6,7 @@ Setiap tema memberi gaya pada desktop, terminal, neovim, layar aktivitas (btop),
 
 Tema memiliki serangkaian gambar latar belakang yang dapat Anda pilih menggunakan `Super + Ctrl + Space`.
 
-Anda dapat menemukan lebih banyak tema di [halaman tema tambahan](https://github.com/kairosci/arch/themes/) atau bahkan [buat tema Anda sendiri](43-making-your-own-theme.md).
+Anda dapat menemukan lebih banyak tema di [halaman tema tambahan](https://github.com/kairosci/os/themes/) atau bahkan [buat tema Anda sendiri](43-making-your-own-theme.md).
 
  ![tokyo-night](../themes/tokyo-night/preview.png)
 _Tokyo Night_

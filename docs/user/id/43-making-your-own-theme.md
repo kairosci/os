@@ -42,4 +42,4 @@ Sisa `[themename]` itu menjadi nama direktori tema, jadi ia harus menjadi nama y
 
 Ingat bahwa begitu ia dipasang dari repo, `.lua`, konfigurasi terminal, atau `vscode.json` apa pun yang disertakannya akan dibuang, jadi jangan membangun tema di sekitar hal-hal itu.
 
-Kamu bisa menambahkan temamu ke [halaman tema tambahan](https://github.com/kairosci/arch/themes/) dengan mengirimkan pull request ke [repo arch-site](https://github.com/kairosci/arch).
+Kamu bisa menambahkan temamu ke [halaman tema tambahan](https://github.com/kairosci/os/themes/) dengan mengirimkan pull request ke [repo arch-site](https://github.com/kairosci/os).
