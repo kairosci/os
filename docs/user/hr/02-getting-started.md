@@ -2,7 +2,7 @@
 
 Arch se instalira pomoću ISO-a. Možete birati između instalacije na cijeli disk, koja preuzima cijeli pogon, ili instalacije u slobodan prostor, koja Arch smješta u nedodijeljeni prostor na pogonu — tako se radi dvojno pokretanje uz Windows ili drugi OS (pogledajte [instalaciju s dvojnim pokretanjem](50-dual-boot-install.md) — imajte na umu da ćete najprije morati isključiti BitLocker u Windowsu). U svakom slučaju, instalacija prema zadanim postavkama koristi potpuno šifriranje, a opcija cijelog diska izbrisat će odabrani pogon, pa svakako napravite sigurnosnu kopiju prije nego što upotrijebite postojeći!
 
-Najprije [preuzmite Arch ISO](https://github.com/kairosci/arch/), stavite ga na USB stick (upotrijebite [balenaEtcher](https://etcher.balena.io/) na Macu/Windowsu ili [caligula](https://github.com/ifd3f/caligula) na Linuxu) i pokrenite računalo s tog sticka.
+Najprije [preuzmite Arch ISO](https://github.com/kairosci/os/), stavite ga na USB stick (upotrijebite [balenaEtcher](https://etcher.balena.io/) na Macu/Windowsu ili [caligula](https://github.com/ifd3f/caligula) na Linuxu) i pokrenite računalo s tog sticka.
 
 _Morate isključiti Secure Boot i/ili TPM u BIOS-u. Morate ih isključiti da biste mogli instalirati Arch. To su Microsoftove sigurnosne sheme namijenjene Windowsu i Linux distribucijama povezanim s Microsoftom._
 
@@ -36,8 +36,8 @@ Ali u posebnim okolnostima, poput udaljenih instalacija Archja na zaštićenim r
 
 ### Jezik
 
-Arch govori 50 jezika — isti skup kao github.com/kairosci/arch — a engleski je zadani. Za promjenu otvorite izbornik Archja i idite na _Setup > Language_ ili pokrenite `archctl language <code>` u terminalu (`archctl language list` prikazuje kodove). Izbornik, radna površina i Archjeve vlastite obavijesti odmah mijenjaju jezik, a svaka aplikacija koju nakon toga otvorite također slijedi. Aplikacije koje su već bile otvorene prebacuju se nakon što ih ponovno pokrenete.
+Arch govori 50 jezika — isti skup kao github.com/kairosci/os — a engleski je zadani. Za promjenu otvorite izbornik Archja i idite na _Setup > Language_ ili pokrenite `archctl language <code>` u terminalu (`archctl language list` prikazuje kodove). Izbornik, radna površina i Archjeve vlastite obavijesti odmah mijenjaju jezik, a svaka aplikacija koju nakon toga otvorite također slijedi. Aplikacije koje su već bile otvorene prebacuju se nakon što ih ponovno pokrenete.
 
 ### Pomoć ako zapnete
 
-Ako zapnete, obično možete pronaći nekoga tko je voljan pomoći u kanalu _#arch-help_ na [Discordu zajednice](https://github.com/kairosci/arch/discord).
+Ako zapnete, obično možete pronaći nekoga tko je voljan pomoći u kanalu _#arch-help_ na [Discordu zajednice](https://github.com/kairosci/os/discord).

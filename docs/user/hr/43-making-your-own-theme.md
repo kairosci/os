@@ -42,4 +42,4 @@ Taj preostali `[themename]` postaje ime direktorija teme, pa mora biti onaj koji
 
 Imajte na umu da se, nakon što se instalira iz repozitorija, bilo koji `.lua`, konfiguracija terminala ili `vscode.json` koji isporučuje odbacuje, pa nemojte temu graditi oko njih.
 
-Svoju temu možete dodati na [stranicu s dodatnim temama](https://github.com/kairosci/arch/themes/) slanjem pull requesta u [repozitorij arch-site](https://github.com/kairosci/arch).
+Svoju temu možete dodati na [stranicu s dodatnim temama](https://github.com/kairosci/os/themes/) slanjem pull requesta u [repozitorij arch-site](https://github.com/kairosci/os).

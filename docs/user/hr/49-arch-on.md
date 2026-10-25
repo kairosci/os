@@ -2,19 +2,19 @@
 
 ### Apple M1/M2 čipovi
 
-[Asahi Alarm](https://asahi-alarm.org/) je inačica Archa za Apple M1/M2 računala izgrađena na vrhu [Asahi Linuxa](https://asahilinux.org/). Arch na tome možete pokrenuti uz malo truda. Pogledajte [vodič koji vode korisnici](https://github.com/kairosci/arch).
+[Asahi Alarm](https://asahi-alarm.org/) je inačica Archa za Apple M1/M2 računala izgrađena na vrhu [Asahi Linuxa](https://asahilinux.org/). Arch na tome možete pokrenuti uz malo truda. Pogledajte [vodič koji vode korisnici](https://github.com/kairosci/os).
 
 ### Apple Virtual Machine
 
-Arch također možete instalirati unutar Parallels VM-a. Prilično glomazan postupak, ali postoji [vodič koji vode korisnici](https://github.com/kairosci/arch) i za to.
+Arch također možete instalirati unutar Parallels VM-a. Prilično glomazan postupak, ali postoji [vodič koji vode korisnici](https://github.com/kairosci/os) i za to.
 
 ### VirtualBox
 
-VirtualBox je popularan VM pokretač. [Arch možete pokrenuti i unutar toga](https://github.com/kairosci/arch). Ali performanse vjerojatno neće biti sjajne.
+VirtualBox je popularan VM pokretač. [Arch možete pokrenuti i unutar toga](https://github.com/kairosci/os). Ali performanse vjerojatno neće biti sjajne.
 
 ### VMware Workstation na Windows 11
 
-Još jedan popularan VM pokretač za Windows. [Arch je postavljen i unutar toga](https://github.com/kairosci/arch).
+Još jedan popularan VM pokretač za Windows. [Arch je postavljen i unutar toga](https://github.com/kairosci/os).
 
 ### Steam Deck
 
