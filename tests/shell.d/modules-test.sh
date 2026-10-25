@@ -112,10 +112,13 @@ from pathlib import Path
 
 script, sandbox = map(Path, sys.argv[1:])
 root = sandbox / "repo"
-(root / "modules/example").mkdir(parents=True)
+(root / "modules/system/example").mkdir(parents=True)
 (root / "payload").mkdir()
-(root / "modules/example/module.toml").write_text(
-    'id = "example"\ndomain = "system"\npackage = "example"\n'
+(root / "packages/example").mkdir(parents=True)
+(root / "packages/example/PKGBUILD").write_text("pkgname=example\n")
+manifest = root / "modules/system/example/module.toml"
+manifest.write_text(
+    'id = "system.example"\ndomain = "system"\npackage = "example"\n'
     'sources = ["payload"]\nrequires = []\n\n'
     '[[output]]\nsource = "payload"\ntarget = "usr/share/example/payload"\n'
 )
@@ -125,6 +128,30 @@ sys.modules[loader.name] = modules_tool
 loader.loader.exec_module(modules_tool)
 modules_tool.ROOT = root
 modules_tool.MODULES = root / "modules"
+modules_tool.PACKAGES = root / "packages"
+(root / "payload/first").write_text("first")
+
+(root / "packages/example/PKGBUILD").write_text("pkgname=other\n")
+_, _, errors = modules_tool.load_modules()
+assert any("package directory does not match pkgname" in error for error in errors), errors
+(root / "packages/example/PKGBUILD").write_text("pkgname=example\n")
+
+manifest.write_text(manifest.read_text().replace('id = "system.example"', 'id = "system.wrong"'))
+_, _, errors = modules_tool.load_modules()
+assert any("module id must match its directory" in error for error in errors), errors
+manifest.write_text(manifest.read_text().replace('id = "system.wrong"', 'id = "system.example"'))
+
+(root / "packages/second").mkdir(parents=True)
+(root / "packages/second/PKGBUILD").write_text("pkgname=second\n")
+(root / "payload/second").write_text("second")
+(root / "modules/system/second").mkdir()
+(root / "modules/system/second/module.toml").write_text(
+    'id = "system.second"\ndomain = "system"\npackage = "second"\n'
+    'sources = ["payload/second"]\nrequires = []\n\n'
+    '[[output]]\nsource = "payload/second"\ntarget = "usr/share/example/payload"\n'
+)
+_, _, errors = modules_tool.load_modules()
+assert any("package output usr/share/example/payload conflicts with a declared output directory" in error for error in errors), errors
 
 outside = sandbox / "outside"
 outside.write_text("outside")
