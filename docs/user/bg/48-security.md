@@ -30,6 +30,6 @@ Arch приема сигурността изключително сериозн
 
 ## Ключове за подписване
 
-Публичният ключ за всички подписи на ISO файлове и пакети от хранилището на Arch е `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([провери на openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch)). Пакетът `arch/arch-keyring` също го съдържа и ще бъде използван за безпроблемно разпространение на евентуални актуализации.
+Публичният ключ за всички подписи на ISO файлове и пакети от хранилището на Arch е `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([провери на openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os)). Пакетът `arch/arch-keyring` също го съдържа и ще бъде използван за безпроблемно разпространение на евентуални актуализации.
 
-Можеш да намериш подписа за всяка ISO версия, като добавиш .sig към URL адреса. Като https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig.
+Можеш да намериш подписа за всяка ISO версия, като добавиш .sig към URL адреса. Като https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig.

@@ -42,4 +42,4 @@ Arch различава двете по това дали темата има с
 
 Не забравяй, че щом бъде инсталирана от хранилище, всеки `.lua`, конфигурация на терминал или `vscode.json`, който доставя, се изпуска, така че не гради темата около тях.
 
-Можеш да добавиш темата си към [страницата с допълнителни теми](https://github.com/kairosci/arch/themes/), като изпратиш pull request до [хранилището arch-site](https://github.com/kairosci/arch).
+Можеш да добавиш темата си към [страницата с допълнителни теми](https://github.com/kairosci/os/themes/), като изпратиш pull request до [хранилището arch-site](https://github.com/kairosci/os).
