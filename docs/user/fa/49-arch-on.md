@@ -2,19 +2,19 @@
 
 ### تراشه‌های Apple M1/M2
 
-[Asahi Alarm](https://asahi-alarm.org/) نسخه‌ای از Arch برای رایانه‌های Apple M1/M2 است که روی [Asahi Linux](https://asahilinux.org/) ساخته شده است. می‌توانید با کمی تلاش Arch را روی آن به کار بیندازید. به [راهنمای کاربرمحور](https://github.com/kairosci/arch) مراجعه کنید.
+[Asahi Alarm](https://asahi-alarm.org/) نسخه‌ای از Arch برای رایانه‌های Apple M1/M2 است که روی [Asahi Linux](https://asahilinux.org/) ساخته شده است. می‌توانید با کمی تلاش Arch را روی آن به کار بیندازید. به [راهنمای کاربرمحور](https://github.com/kairosci/os) مراجعه کنید.
 
 ### ماشین مجازی اپل
 
-همچنین می‌توانید Arch را داخل یک VM Parallels نصب کنید. فرایند نسبتاً دست و پا گیری است، اما [یک راهنمای کاربرمحور](https://github.com/kairosci/arch) برای آن هم وجود دارد.
+همچنین می‌توانید Arch را داخل یک VM Parallels نصب کنید. فرایند نسبتاً دست و پا گیری است، اما [یک راهنمای کاربرمحور](https://github.com/kairosci/os) برای آن هم وجود دارد.
 
 ### VirtualBox
 
-VirtualBox یک اجراکننده محبوب VM است. [همچنین می‌توانید Arch را داخل آن اجرا کنید](https://github.com/kairosci/arch). اما عملکرد احتمالاً عالی نخواهد بود.
+VirtualBox یک اجراکننده محبوب VM است. [همچنین می‌توانید Arch را داخل آن اجرا کنید](https://github.com/kairosci/os). اما عملکرد احتمالاً عالی نخواهد بود.
 
 ### VMware Workstation روی Windows 11
 
-یک اجراکننده محبوب دیگر VM برای Windows. [Arch داخل آن هم راه‌اندازی شده است](https://github.com/kairosci/arch).
+یک اجراکننده محبوب دیگر VM برای Windows. [Arch داخل آن هم راه‌اندازی شده است](https://github.com/kairosci/os).
 
 ### Steam Deck
 
