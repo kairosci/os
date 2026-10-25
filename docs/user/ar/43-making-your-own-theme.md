@@ -42,4 +42,4 @@
 
 تذكّر أنه بمجرد تثبيته من مستودع، يُسقط أي `.lua` أو تكوين طرفية أو `vscode.json` يشحنه، لذا لا تبنِ السمة حول تلك.
 
-يمكنك إضافة سمتك إلى [صفحة السمات الإضافية](https://github.com/kairosci/arch/themes/) بإرسال طلب سحب إلى [مستودع arch-site](https://github.com/kairosci/arch).
+يمكنك إضافة سمتك إلى [صفحة السمات الإضافية](https://github.com/kairosci/os/themes/) بإرسال طلب سحب إلى [مستودع arch-site](https://github.com/kairosci/os).

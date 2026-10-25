@@ -6,7 +6,7 @@
 
 للسمات مجموعة من صور الخلفية التي يمكنك الاختيار بينها باستخدام `Super + Ctrl + Space`.
 
-يمكنك العثور على سمات أكثر على [صفحة السمات الإضافية](https://github.com/kairosci/arch/themes/) أو حتى [صناعة سمتك الخاصة](43-making-your-own-theme.md).
+يمكنك العثور على سمات أكثر على [صفحة السمات الإضافية](https://github.com/kairosci/os/themes/) أو حتى [صناعة سمتك الخاصة](43-making-your-own-theme.md).
 
  ![tokyo-night](../themes/tokyo-night/preview.png)
 _Tokyo Night_

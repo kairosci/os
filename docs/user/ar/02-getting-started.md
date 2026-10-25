@@ -2,7 +2,7 @@
 
 يُثبّت Arch باستخدام ISO. يمكنك الاختيار بين التثبيت على القرص بالكامل، الذي يستحوذ على القرص بأكمله، أو التثبيت في المساحة الخالية، الذي يضع Arch في المساحة غير المخصصة على القرص — وهذه هي الطريقة للإقلاع المزدوج إلى جانب Windows أو نظام تشغيل آخر (راجع [تثبيت الإقلاع المزدوج](50-dual-boot-install.md) — لاحظ أنك ستحتاج إلى إيقاف BitLocker في Windows أولاً). في كلتا الحالتين، يفترض التثبيت التشفير الكامل افتراضياً، وخيار القرص بالكامل سيمسح القرص المحدد، لذا تأكد من أخذ نسخة احتياطية قبل استخدام قرص موجود!
 
-[نزّل Arch ISO](https://github.com/kairosci/arch/) أولاً، وضعه على USB (استخدم [balenaEtcher](https://etcher.balena.io/) على Mac/Windows أو [caligula](https://github.com/ifd3f/caligula) على Linux)، وأقلع من USB.
+[نزّل Arch ISO](https://github.com/kairosci/os/) أولاً، وضعه على USB (استخدم [balenaEtcher](https://etcher.balena.io/) على Mac/Windows أو [caligula](https://github.com/ifd3f/caligula) على Linux)، وأقلع من USB.
 
 _يجب عليك إيقاف Secure Boot و/أو TPM في BIOS. عليك إيقافهما لتتمكن من تثبيت Arch. إنهما مخططا أمان من Microsoft مخصصان لـ Windows وتوزيعات Linux التابعة لـ Microsoft._
 
@@ -36,8 +36,8 @@ _يجب عليك إيقاف Secure Boot و/أو TPM في BIOS. عليك إيقا
 
 ### اللغة
 
-يتحدث Arch بـ 50 لغة — نفس مجموعة github.com/kairosci/arch — والإنجليزية هي الافتراضية. للتبديل، افتح قائمة Arch واذهب إلى _الإعداد > اللغة_، أو شغّل `archctl language <code>` في طرفية (`archctl language list` يعرض الرموز). تتغير لغة القائمة وسطح المكتب وإشعارات Arch الخاصة فوراً، وكل تطبيق تفتحه بعد ذلك يتبعها أيضاً. التطبيقات التي كانت مفتوحة بالفعل تتبدّل بمجرد إعادة تشغيلها.
+يتحدث Arch بـ 50 لغة — نفس مجموعة github.com/kairosci/os — والإنجليزية هي الافتراضية. للتبديل، افتح قائمة Arch واذهب إلى _الإعداد > اللغة_، أو شغّل `archctl language <code>` في طرفية (`archctl language list` يعرض الرموز). تتغير لغة القائمة وسطح المكتب وإشعارات Arch الخاصة فوراً، وكل تطبيق تفتحه بعد ذلك يتبعها أيضاً. التطبيقات التي كانت مفتوحة بالفعل تتبدّل بمجرد إعادة تشغيلها.
 
 ### المساعدة إذا علقت
 
-إذا علقت، يمكنك عادةً العثور على شخص مستعد للمساعدة في قناة _#arch-help_ على [Discord المجتمع](https://github.com/kairosci/arch/discord).
+إذا علقت، يمكنك عادةً العثور على شخص مستعد للمساعدة في قناة _#arch-help_ على [Discord المجتمع](https://github.com/kairosci/os/discord).
