@@ -2,7 +2,7 @@
 
 Pinapanatiling up to date ang Arch at ang iyong mga package sa pamamagitan ng _Update > Arch_ sa Arch menu (`Super + Space`).
 
-Ang Arch mismo ay naka-install bilang mga regular na pacman package mula sa [Arch Package Repository](https://github.com/kairosci/arch), kaya ang isang update ay nag-i-install ng [pinakabagong release ng Arch](https://github.com/kairosci/arch), nagpapatakbo ng anumang nakabinbing migration para i-sync ang sistema mo sa pinakabago, at nag-a-update ng lahat ng system package mula sa [Arch Arch Mirror](https://github.com/kairosci/arch) at [AUR](https://aur.archlinux.org/) (kung nag-install ka ng anumang AUR package).
+Ang Arch mismo ay naka-install bilang mga regular na pacman package mula sa [Arch Package Repository](https://github.com/kairosci/os), kaya ang isang update ay nag-i-install ng [pinakabagong release ng Arch](https://github.com/kairosci/os), nagpapatakbo ng anumang nakabinbing migration para i-sync ang sistema mo sa pinakabago, at nag-a-update ng lahat ng system package mula sa [Arch Arch Mirror](https://github.com/kairosci/os) at [AUR](https://aur.archlinux.org/) (kung nag-install ka ng anumang AUR package).
 
 Kapag may mga bagong release, lalabas ang isang circle arrow icon sa kanan ng iyong orasan. I-click ito at magsisimula ang proseso ng update.
 
@@ -10,7 +10,7 @@ Kapag may mga bagong release, lalabas ang isang circle arrow icon sa kanan ng iy
 
 ### Apat na channel
 
-Ina-update ang Arch sa apat na channel: stable, RC, edge, at dev. Nagsisimula ang mga bagong install sa stable channel, na sumusubaybay sa mga [opisyal na release](https://github.com/kairosci/arch), pati na rin sa [stable Arch Arch mirror](https://github.com/kairosci/arch) na tumatakbo nang isang buwan sa likod ng pinakabago, kaya mahuhuli namin ang anumang bagong incompatibility na nangangailangan ng mga pagbabago sa config bago ito magdulot ng problema sa mga tao.
+Ina-update ang Arch sa apat na channel: stable, RC, edge, at dev. Nagsisimula ang mga bagong install sa stable channel, na sumusubaybay sa mga [opisyal na release](https://github.com/kairosci/os), pati na rin sa [stable Arch Arch mirror](https://github.com/kairosci/os) na tumatakbo nang isang buwan sa likod ng pinakabago, kaya mahuhuli namin ang anumang bagong incompatibility na nangangailangan ng mga pagbabago sa config bago ito magdulot ng problema sa mga tao.
 
 Pero kung gusto mong tumulong na makita ang mga potensyal na isyung iyon, maaari kang tumakbo sa edge channel. Panatilihin niyon ang iyong mga Arch package na sumusubaybay sa pinakabagong development build, at nagbibigay-daan sa iyong mag-update sa pinakabagong mga Arch package sa sandaling available na sila. Dapat mo lang itong gawin kung may karanasan ka sa Linux, at alam mo kung paano i-recover ang isang sistemang may problema.
 
