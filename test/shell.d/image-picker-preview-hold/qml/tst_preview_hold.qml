@@ -1,6 +1,6 @@
 import QtQuick
 import QtTest
-import "../../../../shell/plugins/image-picker"
+import "../../../../src/shell/plugins/image-picker"
 
 // The picker keeps its decoded previews while open and for a grace period
 // after closing, then lets them go.

@@ -118,12 +118,12 @@ mkdir -p "$test_root" "$test_home" "$stub_bin"
 mkdir -p "$test_home/.local/state/arch/indicators"
 touch "$test_home/.local/state/arch/indicators/stay-awake"
 
-cc -shared -fPIC -O2 -o "$TMPDIR/exec-log.so" "$SHELL_TEST_DIR/fixtures/idle-shell/exec-log.c" -ldl ||
+cc -shared -fPIC -O2 -o "$TMPDIR/exec-log.so" "$SHELL_TEST_DIR/fixtures/idle-src/shell/exec-log.c" -ldl ||
   fail "the exec logger builds"
 
 # A copy, so the test shell gets its own IPC socket and never answers for, or
 # replaces, the shell running the session.
-cp -a "$ROOT/shell" "$test_root/shell"
+cp -a "$ROOT/src/shell" "$test_root/shell"
 ln -s "$ROOT/config" "$test_root/config"
 ln -s "$ROOT/bin" "$test_root/bin"
 ln -s "$ROOT/default" "$test_root/default"
@@ -249,7 +249,7 @@ allow() {
 # Which ones count is the widget's own call, so ask its model.
 keyboard_widget_polls() {
   hyprctl -j devices 2>/dev/null | ROOT="$ROOT" node -e '
-    const model = require(require("path").join(process.env.ROOT, "shell/plugins/bar/widgets/KeyboardLayoutModel.js"))
+    const model = require(require("path").join(process.env.ROOT, "src/shell/plugins/bar/widgets/KeyboardLayoutModel.js"))
     let devices = {}
     try { devices = JSON.parse(require("fs").readFileSync(0, "utf8")) } catch (e) {}
     const typed = (devices.keyboards || []).filter(keyboard => model.isTypedKeyboard(keyboard.name))
@@ -266,7 +266,7 @@ add_allowances() {
 
   # wl-paste runs the capture script for each clipboard change, which another
   # program on the desktop can make at any moment.
-  allow '/shell/plugins/clipboard/capture\.sh ' "" "runs on each clipboard change"
+  allow '/src/shell/plugins/clipboard/capture\.sh ' "" "runs on each clipboard change"
 
   # The keyboard layout widget, one per screen, asks every 10s while the seat
   # has more than one keyboard: Hyprland raises no event when a keyboard
@@ -282,7 +282,7 @@ add_allowances() {
   # Hyprland reports the screencast stopped whenever frames pause, and nothing
   # at all when the server exits.
   if pgrep -x -u "$(id -u)" gliff-server >/dev/null; then
-    allow '/shell/plugins/services/remote-session/probe\.sh$' $(( IDLE_WINDOW / 2 + 1 )) \
+    allow '/src/shell/plugins/services/remote-session/probe\.sh$' $(( IDLE_WINDOW / 2 + 1 )) \
       "the remote session's 2s check while a session is active"
   fi
 

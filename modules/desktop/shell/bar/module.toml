@@ -1,9 +1,9 @@
 id = "desktop.shell.bar"
 domain = "desktop"
 package = "arch"
-sources = ["shell/plugins/bar"]
+sources = ["src/shell/plugins/bar"]
 requires = ["desktop.runtime"]
 
 [[output]]
-source = "shell/plugins/bar"
+source = "src/shell/plugins/bar"
 target = "usr/share/arch/shell/plugins/bar"

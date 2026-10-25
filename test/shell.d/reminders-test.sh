@@ -5,7 +5,7 @@ set -euo pipefail
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 run_node_test <<'JS'
-const reminders = requireFromRoot('shell/plugins/reminders/ReminderFlowModel.js')
+const reminders = requireFromRoot('src/shell/plugins/reminders/ReminderFlowModel.js')
 
 assertEqual(reminders.validMinutes('15'), '15', 'reminders accepts positive integer minutes')
 assertEqual(reminders.validMinutes('  5  '), '5', 'reminders trims minute input')

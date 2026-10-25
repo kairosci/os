@@ -35,7 +35,7 @@ ShellRoot {
   }
 
   function run() {
-    var component = Qt.createComponent("file://" + rootPath + "/shell/plugins/lock/Service.qml", Component.PreferSynchronous)
+    var component = Qt.createComponent("file://" + rootPath + "/src/shell/plugins/lock/Service.qml", Component.PreferSynchronous)
     if (component.status !== Component.Ready) throw new Error(component.errorString())
     var service = component.createObject(host, { archPath: rootPath })
     if (!service) throw new Error(component.errorString())

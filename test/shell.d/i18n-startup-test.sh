@@ -63,7 +63,7 @@ class Probe:
         self.path = Path(self.tmp.name)
         self.config = self.path / 'config'
         self.config.mkdir()
-        (self.config / 'Commons').symlink_to(root / 'shell/Commons', target_is_directory=True)
+        (self.config / 'Commons').symlink_to(root / 'src/shell/Commons', target_is_directory=True)
         (self.config / 'shell.qml').write_text((root / 'test/shell.d/fixtures/i18n-startup/shell.qml').read_text())
         for name in ('runtime', 'home', 'cache', 'state'):
             (self.path / name).mkdir(mode=0o700)

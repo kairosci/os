@@ -28,7 +28,7 @@ with tempfile.TemporaryDirectory() as directory:
   launcher.write_text("#!/bin/bash\nexit 0\n")
   launcher.chmod(0o755)
   for name in ("Commons", "services"):
-    (stage / name).symlink_to(root / "shell" / name)
+    (stage / name).symlink_to(root / "src/shell" / name)
   fixture = root / "test/shell.d/fixtures/startup-cursor"
   (stage / "shell.qml").write_text((fixture / "shell.qml").read_text())
   env = os.environ.copy()

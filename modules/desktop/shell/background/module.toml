@@ -1,9 +1,9 @@
 id = "desktop.shell.background"
 domain = "desktop"
 package = "arch"
-sources = ["shell/plugins/background"]
+sources = ["src/shell/plugins/background"]
 requires = ["desktop.runtime"]
 
 [[output]]
-source = "shell/plugins/background"
+source = "src/shell/plugins/background"
 target = "usr/share/arch/shell/plugins/background"

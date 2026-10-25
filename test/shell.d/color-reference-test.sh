@@ -6,8 +6,8 @@ run_node_test <<'JS'
 const fs = require('fs')
 const vm = require('vm')
 
-const source = fs.readFileSync(path.join(root, 'shell/Commons/Color.qml'), 'utf8')
-const geometry = fs.readFileSync(path.join(root, 'shell/Commons/BorderGeometry.js'), 'utf8').replace(/^\.pragma library\n/, '')
+const source = fs.readFileSync(path.join(root, 'src/shell/Commons/Color.qml'), 'utf8')
+const geometry = fs.readFileSync(path.join(root, 'src/shell/Commons/BorderGeometry.js'), 'utf8').replace(/^\.pragma library\n/, '')
 const palette = { foreground: '#eeeeee', background: '#111111', accent: '#abcdef', urgent: '#ff0000', muted: '#777777' }
 const context = vm.createContext({ root: { ...palette, shellValues: {} }, Geometry: {} })
 vm.runInNewContext(geometry, context.Geometry)

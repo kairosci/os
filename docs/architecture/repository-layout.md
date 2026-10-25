@@ -10,7 +10,7 @@ This repository is the source for Arch's packages. A running installation uses p
 assets/
   applications/
   branding/
-  assets/themes/cosmic/
+  themes/cosmic/
 config/
   system/
   user/
@@ -34,7 +34,11 @@ modules/
 packages/<package-name>/
 src/
   cli/<capability>/<command>/
-  shell/<plugin>/
+  shell/
+    Commons/
+    Ui/
+    services/
+    plugins/<plugin>/
 tests/
   unit/
   integration/
@@ -56,8 +60,8 @@ Git submodules are reserved for separately released components with their own ma
 | Current source | Target owner |
 | --- | --- |
 | `bin/` | `src/cli/<capability>/<command>/` |
-| `shell/plugins/` | `src/shell/<plugin>/` |
-| `shell/` shared QML | `src/shell/core/` |
+| `src/shell/plugins/<plugin>/` | `src/shell/plugins/<plugin>/` |
+| `src/shell/Commons/`, `Ui/`, `services/`, `shell.qml` | `src/shell/` shared runtime |
 | `default/` | `config/system/` and the owning `modules/` component |
 | `config/` | `config/user/` |
 | `applications/` | `assets/applications/` |

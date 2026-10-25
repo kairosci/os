@@ -196,7 +196,7 @@ sparse_output=$(ARCH_POWER_SUPPLY_PATH="$hold_dir/power" PATH="$hold_dir/bin:$PA
 [[ $sparse_output == "Battery 60%  ·  "$' '"9W" ]] || fail "missing readings drop out of the status line" "$sparse_output"
 pass "battery status leaves out readings it doesn't have"
 
-if matches=$(rg -n 'arch-battery-(capacity|remaining|remaining-time)' "$ROOT/bin" "$ROOT/test" "$ROOT/shell" "$ROOT/docs"); then
+if matches=$(rg -n 'arch-battery-(capacity|remaining|remaining-time)' "$ROOT/bin" "$ROOT/test" "$ROOT/src/shell" "$ROOT/docs"); then
   fail "battery status owns capacity and remaining calculations" "$matches"
 fi
 

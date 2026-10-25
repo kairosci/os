@@ -5,7 +5,7 @@
 # arch:args=<plugin-folder>
 # arch:examples=arch plugin validate ./my-plugin
 
-# Mirrors the checks in shell/services/PluginRegistry.qml so the CLI refuses to
+# Mirrors the checks in src/shell/services/PluginRegistry.qml so the CLI refuses to
 # install anything the running shell would silently reject (or worse, load
 # unsafely). The shell never trusts manifests blindly; neither do we.
 

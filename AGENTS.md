@@ -6,7 +6,7 @@ matching guide before starting:
 - [`agents/skills/command-metadata.md`](agents/skills/command-metadata.md) - adding or changing commands in `bin/`
 - [`agents/skills/install-scripts.md`](agents/skills/install-scripts.md) - working under `install/` or on system/user setup commands
 - [`agents/skills/mise-tools.md`](agents/skills/mise-tools.md) - adding or changing mise-managed tools
-- [`agents/skills/shell-dev.md`](agents/skills/shell-dev.md) - editing the Quickshell desktop under `shell/`
+- [`agents/skills/shell-dev.md`](agents/skills/shell-dev.md) - editing the Quickshell desktop under `src/shell/`
 - [`agents/skills/icon-font.md`](agents/skills/icon-font.md) - adding branded glyphs to `default/fonts/arch/arch.ttf`
 - [`agents/skills/acceptance-tests.md`](agents/skills/acceptance-tests.md) - writing or running graphical acceptance tests under `test/acceptance.d/`
 - [`agents/skills/visual-verification.md`](agents/skills/visual-verification.md) - verifying any change with a visual effect in the running UI
@@ -148,7 +148,7 @@ test entry points:
 How to run them without wasting runs:
 
 - Run the files for what you changed directly: `bash test/shell.d/<area>-test.sh`. A change inside one plugin or command runs that area's files (and `i18n-test.sh` when catalog strings changed), not `./test/shell`.
-- Run `./test/shell` or `./test/all` only when the change reaches shared code (`shell/Commons/`, `base-test.sh`, the runners, a widely used `bin/` helper), and then once, at the end.
+- Run `./test/shell` or `./test/all` only when the change reaches shared code (`src/shell/Commons/`, `base-test.sh`, the runners, a widely used `bin/` helper), and then once, at the end.
 - Always write the whole output to a log file and read it from there: `bash test/shell.d/<area>-test.sh >/tmp/<area>.log 2>&1`. Never pipe a test run straight through `grep`, `head` or `tail`: what they drop is gone, and getting it back costs a whole run. `./test/shell` keeps every file's log and prints the directory at the end; read a failure from its log.
 - Run a test again only after changing something it covers. Never rerun to see output, to confirm a pass, or in the hope that a failure goes away.
 - For a failure in a file you did not touch, run that one file once on the base branch (in a worktree, or with `git stash`). If it fails there too, it was already broken: report it and leave it out of this change.

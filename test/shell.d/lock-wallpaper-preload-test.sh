@@ -7,9 +7,9 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 run_node_test <<'JS'
 const fs = require('fs')
 const read = (file) => fs.readFileSync(path.join(root, file), 'utf8')
-const media = read('shell/Ui/BackgroundMedia.qml')
-const view = read('shell/plugins/lock/LockView.qml')
-const service = read('shell/plugins/lock/Service.qml')
+const media = read('src/shell/Ui/BackgroundMedia.qml')
+const view = read('src/shell/plugins/lock/LockView.qml')
+const service = read('src/shell/plugins/lock/Service.qml')
 
 // The lock draws its wallpaper on the first frame only if the image it asks
 // for is already in the cache: same URL, same requested size, same fill mode.

@@ -384,7 +384,7 @@ pass "the crash group is described in the router"
 
 run_node_test <<'JS'
 const fs = require('fs')
-const menu = requireFromRoot('shell/plugins/menu/MenuModel.js')
+const menu = requireFromRoot('src/shell/plugins/menu/MenuModel.js')
 const items = menu.parseMenuJsonc(fs.readFileSync(path.join(root, 'default/arch/arch-menu.jsonc'), 'utf8'))
 const byId = Object.fromEntries(items.map(item => [item.id, item]))
 

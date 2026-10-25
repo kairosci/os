@@ -5,7 +5,7 @@ set -euo pipefail
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 run_node_test <<'JS'
-const menu = requireFromRoot('shell/plugins/menu/MenuModel.js')
+const menu = requireFromRoot('src/shell/plugins/menu/MenuModel.js')
 
 const items = {
   'setup.default.browser.brave': { id: 'setup.default.browser.brave', when: 'arch-pkg-present brave-bin', checked: '[[ "$(arch-default-browser)" == "brave" ]]' },
@@ -83,7 +83,7 @@ JS
 prelude() {
   node -e '
     const path = require("path")
-    const menu = require(path.join(process.env.ROOT, "shell/plugins/menu/MenuModel.js"))
+    const menu = require(path.join(process.env.ROOT, "src/shell/plugins/menu/MenuModel.js"))
     process.stdout.write(menu.guardScript({ probe: { id: "probe", when: "true" } }))
   ' | command sed '/^__arch_groups=()$/,$d'
 }
@@ -176,7 +176,7 @@ pass "guard prelude resolves commands as arch-cmd-present and arch-cmd-missing d
 # the substitution it stood in for -- including the trailing newline $() drops.
 reader_script=$(node -e '
   const path = require("path")
-  const menu = require(path.join(process.env.ROOT, "shell/plugins/menu/MenuModel.js"))
+  const menu = require(path.join(process.env.ROOT, "src/shell/plugins/menu/MenuModel.js"))
   process.stdout.write(menu.guardScript({
     hit: { id: "hit", checked: "[[ \"$(arch-dns)\" == \"Cloudflare\" ]]" },
     miss: { id: "miss", checked: "[[ \"$(arch-dns)\" == \"Google\" ]]" }
@@ -211,7 +211,7 @@ pass "guard batch survives a reader that exits nonzero under errexit"
 themes_guard=$(node -e '
   const fs = require("fs")
   const path = require("path")
-  const menu = require(path.join(process.env.ROOT, "shell/plugins/menu/MenuModel.js"))
+  const menu = require(path.join(process.env.ROOT, "src/shell/plugins/menu/MenuModel.js"))
   const items = menu.parseMenuJsonc(fs.readFileSync(path.join(process.env.ROOT, "default/arch/arch-menu.jsonc"), "utf8"))
   process.stdout.write(items.find(item => item.id === "update.themes").when)
 ')
@@ -323,7 +323,7 @@ chmod +x "$cache_bin/pacman" "$cache_bin/pacman-conf"
 
 cache_script=$(node -e '
   const path = require("path")
-  const menu = require(path.join(process.env.ROOT, "shell/plugins/menu/MenuModel.js"))
+  const menu = require(path.join(process.env.ROOT, "src/shell/plugins/menu/MenuModel.js"))
   process.stdout.write(menu.guardScript({
     bash: { id: "bash", when: "arch-pkg-present bash" },
     vim: { id: "vim", when: "arch-pkg-present vim" },

@@ -93,7 +93,7 @@ test_home="$TMPDIR/home"
 stub_bin="$TMPDIR/bin"
 log="$TMPDIR/quickshell.log"
 mkdir -p "$test_root" "$test_home" "$stub_bin"
-cp -a "$ROOT/shell" "$test_root/shell"
+cp -a "$ROOT/src/shell" "$test_root/shell"
 ln -s "$ROOT/config" "$test_root/config"
 ln -s "$ROOT/bin" "$test_root/bin"
 

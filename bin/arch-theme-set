@@ -429,7 +429,7 @@ echo "$THEME_NAME" >"$CURRENT_THEME_NAME_PATH"
 colors_payload=$([[ -f $CURRENT_THEME_PATH/colors.toml ]] && base64 -w 0 "$CURRENT_THEME_PATH/colors.toml")
 shell_payload=$([[ -f $CURRENT_THEME_PATH/shell.toml ]] && base64 -w 0 "$CURRENT_THEME_PATH/shell.toml")
 if [[ $THEME_HEADLESS == "1" ]]; then
-  # No shell/session bus exists during ISO chroot finalization, but the first
+  # No src/shell/session bus exists during ISO chroot finalization, but the first
   # real login still needs a current background symlink for arch-shell to
   # render.
   [[ $ARCH_THEME_SKIP_BACKGROUND == "1" ]] || set_theme_background_link || true

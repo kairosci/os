@@ -21,7 +21,7 @@ cd ../arch-iso
 ```
 
 Use `--sync-all ../arch` instead of `--sync-arch ../arch` when the
-acceptance run must exercise local `bin/`, `config/`, or `shell/` source too.
+acceptance run must exercise local `bin/`, `config/`, or `src/shell/` source too.
 Changes to package manifests, installation, finalization, or shipped defaults
 require a fresh ISO built from the local checkouts and a run without
 `--reuse-base`:

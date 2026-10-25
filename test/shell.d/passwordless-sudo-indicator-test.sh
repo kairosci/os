@@ -6,9 +6,9 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 run_node_test <<'JS'
 const fs = require('fs')
 const read = name => fs.readFileSync(path.join(root, name), 'utf8')
-const indicator = read('shell/plugins/bar/indicators/PasswordlessSudo.qml')
-const widget = read('shell/plugins/bar/widgets/Indicators.qml')
-const manifest = JSON.parse(read('shell/plugins/bar/widgets/Indicators.manifest.json'))
+const indicator = read('src/shell/plugins/bar/indicators/PasswordlessSudo.qml')
+const widget = read('src/shell/plugins/bar/widgets/Indicators.qml')
+const manifest = JSON.parse(read('src/shell/plugins/bar/widgets/Indicators.manifest.json'))
 assert(widget.match(/defaultIndicatorEntries: \[ "PasswordlessSudo", "ScreenRecording"/), 'passwordless sudo is included in the default indicator tray')
 assert(manifest.barWidget.schema.find(field => field.key === 'items').options.some(option => option.value === 'PasswordlessSudo'), 'passwordless sudo is configurable alongside Night Light')
 assert(indicator.includes('useActiveColor: true') && indicator.includes('activeColor: Commons.Color.urgent'), 'active passwordless sudo uses the theme danger color')

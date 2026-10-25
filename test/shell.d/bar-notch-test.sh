@@ -6,9 +6,9 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 run_node_test <<'JS'
 const fs = require('fs')
-const bar = requireFromRoot('shell/plugins/bar/BarModel.js')
-const barSource = fs.readFileSync(root + '/shell/plugins/bar/Bar.qml', 'utf8')
-const styleSource = fs.readFileSync(root + '/shell/Commons/Style.qml', 'utf8')
+const bar = requireFromRoot('src/shell/plugins/bar/BarModel.js')
+const barSource = fs.readFileSync(root + '/src/shell/plugins/bar/Bar.qml', 'utf8')
+const styleSource = fs.readFileSync(root + '/src/shell/Commons/Style.qml', 'utf8')
 const shellJson = fs.readFileSync(root + '/config/arch/shell.json', 'utf8')
 
 // A platform package's cutout description, as it would ship it.
@@ -217,8 +217,8 @@ assert(
 
 // The plugin facade copies the sizes, holding no reference into the bar, and
 // keeps barSize the configured size.
-const shellSource = fs.readFileSync(root + '/shell/shell.qml', 'utf8')
-const stateApiSource = fs.readFileSync(root + '/shell/services/PluginBarStateApi.qml', 'utf8')
+const shellSource = fs.readFileSync(root + '/src/shell/shell.qml', 'utf8')
+const stateApiSource = fs.readFileSync(root + '/src/shell/services/PluginBarStateApi.qml', 'utf8')
 const extract = (source, name) => {
   const match = source.match(new RegExp(`function ${name}\\((\\w+)\\) \\{([\\s\\S]*?)\\n  \\}\\n`))
   assert(match, `${name} is defined`)

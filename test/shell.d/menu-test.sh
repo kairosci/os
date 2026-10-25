@@ -6,8 +6,8 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 run_node_test <<'JS'
 const fs = require('fs')
-const menu = requireFromRoot('shell/plugins/menu/MenuModel.js')
-const menuQml = fs.readFileSync(path.join(root, 'shell/plugins/menu/Menu.qml'), 'utf8')
+const menu = requireFromRoot('src/shell/plugins/menu/MenuModel.js')
+const menuQml = fs.readFileSync(path.join(root, 'src/shell/plugins/menu/Menu.qml'), 'utf8')
 const defaultMenuJsonc = fs.readFileSync(path.join(root, 'default/arch/arch-menu.jsonc'), 'utf8')
 
 assertEqual(
@@ -572,7 +572,7 @@ assertDeepEqual(
   ['Show Battery %', 'Hide Battery %', 'Clock'],
   'menu gathers bar indicator options under Menu Bar > Bar Indicators'
 )
-const clockModel = requireFromRoot('shell/plugins/panels/clock/Model.js')
+const clockModel = requireFromRoot('src/shell/plugins/panels/clock/Model.js')
 const clockRows = defaultItems.filter(item => item.parent === 'appearance.top-bar.indicators.clock')
 // Each row hands bash its format, so ask bash what it hands over.
 const clockRowFormats = key => clockRows

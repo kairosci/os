@@ -11,15 +11,15 @@ stage=$(mktemp -d)
 trap 'rm -rf -- "$stage"' EXIT
 fixture="$SHELL_TEST_DIR/fixtures/network-owe-transition"
 mkdir -p "$stage/network" "$stage/bin" "$stage/home"
-ln -s "$ROOT/shell/Ui" "$stage/Ui"
-ln -s "$ROOT/shell/Commons" "$stage/Commons"
+ln -s "$ROOT/src/shell/Ui" "$stage/Ui"
+ln -s "$ROOT/src/shell/Commons" "$stage/Commons"
 cp -r "$SHELL_TEST_DIR/fixtures/network-captive-portal/mocks" "$stage/mocks"
 cp "$fixture/shell.qml" "$stage/shell.qml"
-cp "$ROOT/shell/plugins/panels/network/Model.js" "$stage/network/Model.js"
+cp "$ROOT/src/shell/plugins/panels/network/Model.js" "$stage/network/Model.js"
 node - "$ROOT" "$stage" <<'JS'
 const fs = require('fs')
 const [root, stage] = process.argv.slice(2)
-let source = fs.readFileSync(`${root}/shell/plugins/panels/network/Panel.qml`, 'utf8')
+let source = fs.readFileSync(`${root}/src/shell/plugins/panels/network/Panel.qml`, 'utf8')
 // Replace only the singleton and expose the private poll in the disposable copy.
 source = source.replace('import Quickshell.Networking', 'import Quickshell.Networking\nimport "../mocks"')
 source = source.replace(/\bNetworking\./g, 'NetworkMock.')

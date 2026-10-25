@@ -18,7 +18,7 @@ trap cleanup EXIT
 wrapper_root="$test_tmp/wrapper-root"
 wrapper_bin="$test_tmp/wrapper-bin"
 mkdir -p "$wrapper_root/shell" "$wrapper_bin"
-touch "$wrapper_root/shell/shell.qml"
+touch "$wrapper_root/src/shell/shell.qml"
 
 cat >"$wrapper_bin/qs" <<'SH'
 #!/bin/bash
@@ -76,7 +76,7 @@ dispatch_log="$test_tmp/dispatch.log"
 ipc_log="$test_tmp/ipc.log"
 runtime_dir="$test_tmp/runtime"
 mkdir -p "$restart_root/shell" "$restart_bin" "$runtime_dir"
-touch "$restart_root/shell/shell.qml"
+touch "$restart_root/src/shell/shell.qml"
 ln -s "$ROOT/bin/arch-shell" "$restart_bin/arch-shell"
 ln -s "$ROOT/bin/arch-launch-shell" "$restart_bin/arch-launch-shell"
 ln -s "$ROOT/bin/arch-cmd-missing" "$restart_bin/arch-cmd-missing"
@@ -205,7 +205,7 @@ printf '%s\n%s\n' "$restart_pid_one" "$restart_pid_two" >"$restart_state"
 
 caller_root="$test_tmp/caller-root"
 mkdir -p "$caller_root/shell"
-touch "$caller_root/shell/shell.qml"
+touch "$caller_root/src/shell/shell.qml"
 
 PATH="$restart_bin:$PATH" \
 ARCH_PATH="$caller_root" \

@@ -6,7 +6,7 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 run_node_test <<'JS'
 const fs = require('fs')
-const panelSource = fs.readFileSync(root + '/shell/plugins/agents/Panel.qml', 'utf8')
+const panelSource = fs.readFileSync(root + '/src/shell/plugins/agents/Panel.qml', 'utf8')
 
 assert(/function launchAgent\(\)/.test(panelSource), 'agents panel launches the default agent')
 assert(/root\.bar\.run\("arch-agent --pick"\)/.test(panelSource), 'agents panel uses the desktop agent launcher')
@@ -40,13 +40,13 @@ for (const name of ['claude', 'codex', 'grok', 'fireworks']) {
   const help = collector.match(/^AUTH_HELP = "([^"]+)"$/m)
   assert(help && panelSource.includes('case ' + JSON.stringify(help[1]) + ':'), name + ' auth help is translated in the panel')
 }
-const mainSource = fs.readFileSync(root + '/shell/plugins/agents/Main.qml', 'utf8')
+const mainSource = fs.readFileSync(root + '/src/shell/plugins/agents/Main.qml', 'utf8')
 assert(/var from = Math\.min\(0\.8, \(threshold - 15\) \/ 100\)/.test(mainSource), 'faster checks start 15 points below the switch threshold')
 assert(/rows\.push\(\[\{ kind: "provider", index: p \}\]\)/.test(panelSource), "every agent's header is a keyboard stop")
 assert(/reorderable: root\.addStage === "" && !root\.renaming/.test(panelSource) && /onEditingChanged: root\.renaming = editing/.test(panelSource) && /onReorderRequested: function\(dy\) \{ root\.reorderProvider\(dy\) \}/.test(panelSource), 'Ctrl+Up/Down moves the agent the cursor is in')
 assert(/onReleased: root\.dropProvider\(\)/.test(panelSource), 'an agent can be dragged by its mark')
 assert(/function moveProvider\(id, to\)/.test(mainSource) && /return orderedProviders\(result\)/.test(mainSource), 'the agents keep the order they were moved into')
-const catcherSource = fs.readFileSync(root + '/shell/Ui/PanelKeyCatcher.qml', 'utf8')
+const catcherSource = fs.readFileSync(root + '/src/shell/Ui/PanelKeyCatcher.qml', 'utf8')
 assert(/if \(reorderable && \(event\.modifiers & Qt\.ControlModifier\)\)/.test(catcherSource), 'only panels that ask for it turn Ctrl+Up/Down into a reorder')
 assert(/if \(\["account", "autoswitch", "signin"\]\.indexOf\(target\.kind\) < 0\) return -1/.test(panelSource), 'Ctrl+Up/Down does nothing outside an agent')
 JS

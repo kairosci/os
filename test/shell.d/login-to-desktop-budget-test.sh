@@ -98,7 +98,7 @@ mkdir -p "$test_root" "$test_home" "$stub_bin"
 # shell's idle service would eventually screensave/lock the real desktop.
 mkdir -p "$test_home/.local/state/arch/indicators"
 touch "$test_home/.local/state/arch/indicators/stay-awake"
-cp -a "$ROOT/shell" "$test_root/shell"
+cp -a "$ROOT/src/shell" "$test_root/shell"
 ln -s "$ROOT/config" "$test_root/config"
 ln -s "$ROOT/bin" "$test_root/bin"
 ln -s "$ROOT/default" "$test_root/default"

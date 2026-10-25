@@ -9,12 +9,12 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 # the test (or nothing at all on a non-os development machine).
 export ARCH_PATH="$ROOT"
 
-if perl -0ne 'exit(/drag\s*\.\s*target\s*:\s*[^;]*\bslot\b/s ? 0 : 1)' "$ROOT/shell/plugins/bar/Bar.qml"; then
+if perl -0ne 'exit(/drag\s*\.\s*target\s*:\s*[^;]*\bslot\b/s ? 0 : 1)' "$ROOT/src/shell/plugins/bar/Bar.qml"; then
   fail "bar module dragging must not mutate ModuleSlot positions"
 fi
 pass "bar module dragging leaves layout-managed slots in place"
 
-if rg -q 'barMoveSettling|barMoveSettleTimer' "$ROOT/shell/plugins/bar/Bar.qml"; then
+if rg -q 'barMoveSettling|barMoveSettleTimer' "$ROOT/src/shell/plugins/bar/Bar.qml"; then
   fail "bar move outline must clear when the pointer is released"
 fi
 pass "bar move outline has no post-release settling state"
@@ -25,7 +25,7 @@ pass "bar move outline has no post-release settling state"
 # reports pressed, which is what separates the two, so the guard has to stay
 # ahead of the drag.
 if ! perl -0ne 'exit(/onPressAndHold:\s*function[^{]*\{[^}]*?\bpressed\b[^}]*?\bstartDrag\b/s ? 0 : 1)' \
-  "$ROOT/shell/plugins/bar/Bar.qml"; then
+  "$ROOT/src/shell/plugins/bar/Bar.qml"; then
   fail "bar move ignores a press-and-hold the gesture area does not hold the press for"
 fi
 pass "bar move ignores a press-and-hold propagated from a widget above"
@@ -34,13 +34,13 @@ pass "bar move ignores a press-and-hold propagated from a widget above"
 # six monitors' worth of widgets that is hundreds of full walks at startup, so
 # the change handlers coalesce into one deferred resync and ownership lookups
 # are keyed by target instead of scanning an array.
-if ! rg -q 'onClickTargetsChanged: schedulePluginBarApiSync\(\)' "$ROOT/shell/plugins/bar/Bar.qml"; then
+if ! rg -q 'onClickTargetsChanged: schedulePluginBarApiSync\(\)' "$ROOT/src/shell/plugins/bar/Bar.qml"; then
   fail "bar coalesces plugin api resyncs instead of running one per click target change"
 fi
-if ! rg -q 'Qt\.callLater\(root\.syncAllPluginBarApiObjects\)' "$ROOT/shell/plugins/bar/Bar.qml"; then
+if ! rg -q 'Qt\.callLater\(root\.syncAllPluginBarApiObjects\)' "$ROOT/src/shell/plugins/bar/Bar.qml"; then
   fail "bar defers the coalesced plugin api resync to the event loop"
 fi
-if ! rg -q 'pluginObjectOwners\.get\(target\)' "$ROOT/shell/plugins/bar/Bar.qml"; then
+if ! rg -q 'pluginObjectOwners\.get\(target\)' "$ROOT/src/shell/plugins/bar/Bar.qml"; then
   fail "bar looks plugin object ownership up by target instead of scanning"
 fi
 pass "bar coalesces plugin api resyncs and looks ownership up by target"
@@ -48,16 +48,16 @@ pass "bar coalesces plugin api resyncs and looks ownership up by target"
 # Both bar orientations used to be instantiated and toggled with `visible`,
 # doubling every indicator (and every process an indicator spawns) per bar.
 if ! rg -q 'sourceComponent: root\.vertical \? verticalIndicatorsTree : horizontalIndicatorsTree' \
-  "$ROOT/shell/plugins/bar/widgets/Indicators.qml"; then
+  "$ROOT/src/shell/plugins/bar/widgets/Indicators.qml"; then
   fail "indicators instantiate only the tree for the current bar orientation"
 fi
 pass "indicators instantiate only the tree for the current bar orientation"
 
 run_node_test <<'JS'
 const fs = require('fs')
-const bar = requireFromRoot('shell/plugins/bar/BarModel.js')
-const barSource = fs.readFileSync(root + '/shell/plugins/bar/Bar.qml', 'utf8')
-const shellSource = fs.readFileSync(root + '/shell/shell.qml', 'utf8')
+const bar = requireFromRoot('src/shell/plugins/bar/BarModel.js')
+const barSource = fs.readFileSync(root + '/src/shell/plugins/bar/Bar.qml', 'utf8')
+const shellSource = fs.readFileSync(root + '/src/shell/shell.qml', 'utf8')
 
 assert(/function toggleBarTransparency\(\): string \{[\s\S]*?shell\.bar\.cycleBackground\(\)/.test(shellSource), 'shell exposes the bar background cycle over IPC')
 
@@ -500,11 +500,11 @@ assert(!/pinTrayToInner/.test(barSource) && bar.pinTrayToInner === undefined, 't
 
 // The section list lives in Util for QML and in BarModel and TrayModel for
 // plain JS; all three run the bar the same way.
-const utilSource = fs.readFileSync(root + '/shell/Commons/Util.qml', 'utf8')
+const utilSource = fs.readFileSync(root + '/src/shell/Commons/Util.qml', 'utf8')
 const utilSections = JSON.parse(utilSource.match(/readonly property var barSections: (\[[^\]]*\])/)[1])
 assertDeepEqual(bar.sections, ['left', 'centerBegin', 'center', 'centerEnd', 'right', 'tray'], 'the bar runs left, centerBegin, center, centerEnd, right, with tray in the tray\'s drawer')
 assertDeepEqual(utilSections, bar.sections, 'Util and BarModel list the same bar sections')
-const trayModel = requireFromRoot('shell/plugins/bar/widgets/TrayModel.js')
+const trayModel = requireFromRoot('src/shell/plugins/bar/widgets/TrayModel.js')
 for (const section of bar.sections)
   assert(trayModel.layoutHasWidget({ [section]: ['arch.dropbox'] }, 'arch.dropbox'), `the tray finds a widget in ${section}`)
 assert(/function normalizeLayout\(layout\) \{\s*return Util\.normalizeLayout\(/.test(barSource), 'bar normalizes every section the way the shared helper does')

@@ -5,7 +5,7 @@ set -e
 source "$(dirname "$0")/base-test.sh"
 
 run_node_test "dropbox model helpers" <<'JS'
-const dropbox = requireFromRoot('shell/plugins/panels/dropbox/Model.js')
+const dropbox = requireFromRoot('src/shell/plugins/panels/dropbox/Model.js')
 
 assertEqual(dropbox.fileKind('photo.JPG'), 'image', 'dropbox detects image files')
 assertEqual(dropbox.fileKind('clip.webm'), 'video', 'dropbox detects video files')

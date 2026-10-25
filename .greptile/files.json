@@ -95,7 +95,7 @@
       "path": "agents/skills/shell-dev.md",
       "description": "Quickshell plugin contract, IPC, event sources instead of polling, palette imports",
       "scope": [
-        "shell/**",
+        "src/shell/**",
         "bin/arch-shell*"
       ]
     },
@@ -103,7 +103,7 @@
       "path": "docs/arch-shell.md",
       "description": "Plugin manifest, third-party facades, shell.json, theme tokens and bar modules",
       "scope": [
-        "shell/**",
+        "src/shell/**",
         "config/arch/shell.json",
         "bin/arch-plugin*",
         "bin/arch-bar*"
@@ -114,7 +114,7 @@
       "description": "Menu schema, guards, providers and select/input modes",
       "scope": [
         "default/arch/arch-menu.jsonc",
-        "shell/plugins/menu/**",
+        "src/shell/plugins/menu/**",
         "bin/arch-menu*"
       ]
     },
@@ -122,7 +122,7 @@
       "path": "docs/notifications.md",
       "description": "Notification daemon, DND rules and the arch-notification-send contract",
       "scope": [
-        "shell/plugins/notifications/**",
+        "src/shell/plugins/notifications/**",
         "bin/arch-notification-*",
         "bin/arch-reminder*"
       ]
@@ -142,7 +142,7 @@
       "scope": [
         "default/i18n/**",
         "docs/user/**",
-        "shell/**",
+        "src/shell/**",
         "bin/**",
         "scripts/i18n-sync.py",
         ".github/workflows/**"
@@ -186,7 +186,7 @@
         "install/hardware/speaker-tuning.sh",
         "install/user/first-run/audio-tuning.sh",
         "bin/arch-audio-*",
-        "shell/plugins/panels/audio/**"
+        "src/shell/plugins/panels/audio/**"
       ]
     },
     {
@@ -194,7 +194,7 @@
       "description": "Input method setup for CJK languages",
       "scope": [
         "default/input-methods/**",
-        "shell/Commons/InputMethodState.qml",
+        "src/shell/Commons/InputMethodState.qml",
         "install/provisioning/setup-form.sh",
         "install/user/input-method.sh",
         "default/hypr/**"
@@ -204,7 +204,7 @@
       "path": "docs/elsewhen.md",
       "description": "The Elsewhen world clock plugin",
       "scope": [
-        "shell/plugins/panels/elsewhen/**"
+        "src/shell/plugins/panels/elsewhen/**"
       ]
     }
   ]

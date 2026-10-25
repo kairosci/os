@@ -84,7 +84,7 @@ require_command node
 unlock_action=$(node -e '
   const fs = require("fs")
   const path = require("path")
-  const menu = require(path.join(process.env.ROOT, "shell/plugins/menu/MenuModel.js"))
+  const menu = require(path.join(process.env.ROOT, "src/shell/plugins/menu/MenuModel.js"))
   const items = menu.parseMenuJsonc(fs.readFileSync(path.join(process.env.ROOT, "default/arch/arch-menu.jsonc"), "utf8"))
   process.stdout.write(items.find(item => item.id === "appearance.unlock").action)
 ')

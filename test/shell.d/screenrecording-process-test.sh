@@ -186,9 +186,9 @@ else
   skip "the real pgrep finds and signals both recorders by name (needs Linux /proc)"
 fi
 
-grep -Fq '["arch-capture-screenrecording", "--status"]' "$ROOT/shell/plugins/bar/indicators/ScreenRecording.qml" ||
+grep -Fq '["arch-capture-screenrecording", "--status"]' "$ROOT/src/shell/plugins/bar/indicators/ScreenRecording.qml" ||
   fail "the bar recording indicator asks the recorder script, which stop also uses"
-! grep -Fq 'gpu-screen-recorder' "$ROOT/shell/plugins/bar/indicators/ScreenRecording.qml" ||
+! grep -Fq 'gpu-screen-recorder' "$ROOT/src/shell/plugins/bar/indicators/ScreenRecording.qml" ||
   fail "the bar recording indicator still greps gpu-screen-recorder"
 grep -Fq '"when":"arch-capture-screenrecording --status"' "$ROOT/default/arch/arch-menu.jsonc" ||
   fail "Stop Screenrecording asks the recorder script, which its action also uses"

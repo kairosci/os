@@ -57,7 +57,7 @@ ShellRoot {
   }
 
   Component.onCompleted: {
-    var component = Qt.createComponent("file://" + Quickshell.env("ARCH_PATH") + "/shell/plugins/services/remote-session/Service.qml")
+    var component = Qt.createComponent("file://" + Quickshell.env("ARCH_PATH") + "/src/shell/plugins/services/remote-session/Service.qml")
     if (component.status !== Component.Ready) {
       fail("remote session service failed to load: " + component.errorString())
       writeResult()

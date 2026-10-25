@@ -5,7 +5,7 @@ set -euo pipefail
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 run_node_test <<'JS'
-const polkit = requireFromRoot('shell/plugins/polkit/PolkitModel.js')
+const polkit = requireFromRoot('src/shell/plugins/polkit/PolkitModel.js')
 
 assert(polkit.promptLooksFingerprint('Swipe your finger'), 'polkit detects fingerprint prompts')
 assert(polkit.promptLooksFingerprint('fprintd verification'), 'polkit detects fprint prompts')

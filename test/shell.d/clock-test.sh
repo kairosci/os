@@ -6,11 +6,11 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 run_node_test <<'JS'
 const fs = require('fs')
-const calendar = requireFromRoot('shell/plugins/panels/clock/Model.js')
-const panelSource = fs.readFileSync(root + '/shell/plugins/panels/clock/Panel.qml', 'utf8')
+const calendar = requireFromRoot('src/shell/plugins/panels/clock/Model.js')
+const panelSource = fs.readFileSync(root + '/src/shell/plugins/panels/clock/Panel.qml', 'utf8')
 // Comments stripped: a wiring assertion that a commented-out line can satisfy
 // passes while the widget is broken.
-const widgetSource = fs.readFileSync(root + '/shell/plugins/panels/clock/BarWidget.qml', 'utf8')
+const widgetSource = fs.readFileSync(root + '/src/shell/plugins/panels/clock/BarWidget.qml', 'utf8')
   .replace(/^\s*\/\/.*$/gm, '')
 
 // ---- week start resolution
@@ -301,10 +301,10 @@ assert(/hostWidget" in target\) target\.hostWidget = root/.test(widgetSource), '
 assert(/readonly property bool popoutSwitchClosing:/.test(widgetSource) && /function closeForPopoutSwitch\(\)/.test(widgetSource), 'clock widget forwards the popout-switch handshake')
 assert(/openPanelIndicatorWidth: button\.labelWidth/.test(widgetSource), 'clock sizes the open-panel dot to its label')
 assert(/openPanelIndicatorHeight: Math\.max/.test(widgetSource), 'clock sizes the vertical open-panel dot to one stacked line')
-const barSource = fs.readFileSync(root + '/shell/plugins/bar/Bar.qml', 'utf8')
+const barSource = fs.readFileSync(root + '/src/shell/plugins/bar/Bar.qml', 'utf8')
 assert(/openPanelIndicatorWidth/.test(barSource) && /openPanelIndicatorHeight/.test(barSource), 'bar honours a widget-supplied open-panel dot size on both axes')
 assert(/height: root\.vertical \? slot\.panelIndicatorExtent : Style\.space\(2\)/.test(barSource), 'bar sizes the vertical dot from the same hint as the horizontal one')
-assert(/readonly property real labelWidth:/.test(fs.readFileSync(root + '/shell/Ui/WidgetButton.qml', 'utf8')), 'widget buttons expose their painted label width')
+assert(/readonly property real labelWidth:/.test(fs.readFileSync(root + '/src/shell/Ui/WidgetButton.qml', 'utf8')), 'widget buttons expose their painted label width')
 
 // A horizontal wheel reports angleDelta.y === 0; without the guard every one
 // of them would read as a forward step.

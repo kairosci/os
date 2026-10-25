@@ -5,7 +5,7 @@ set -euo pipefail
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 run_node_test <<'JS'
-const model = requireFromRoot('shell/plugins/lock/FingerprintModel.js')
+const model = requireFromRoot('src/shell/plugins/lock/FingerprintModel.js')
 
 // Pacing: a reached attempt (streak 0) retries fast; unreached attempts back
 // off exponentially to a ceiling above fprintd's 30-second idle exit.

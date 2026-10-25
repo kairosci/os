@@ -1,6 +1,6 @@
 # Notifications
 
-The shell is the notification daemon: `shell/plugins/notifications/Service.qml` hosts a Quickshell `NotificationServer` that claims `org.freedesktop.Notifications` on the session bus, so anything that speaks the freedesktop protocol (notify-send, libnotify apps, Chromium web apps) is drawn as a card in a deck at the top-right corner. The end-user view is in `docs/user/10-notices.md`.
+The shell is the notification daemon: `src/shell/plugins/notifications/Service.qml` hosts a Quickshell `NotificationServer` that claims `org.freedesktop.Notifications` on the session bus, so anything that speaks the freedesktop protocol (notify-send, libnotify apps, Chromium web apps) is drawn as a card in a deck at the top-right corner. The end-user view is in `docs/user/10-notices.md`.
 
 ## Files
 
@@ -8,7 +8,7 @@ The shell is the notification daemon: `shell/plugins/notifications/Service.qml` 
 |---|---|
 | `Service.qml` | The daemon: admission, quiet rules, snoozes, the scene clock, click routing, offers, IPC, one layer surface per output |
 | `Toast.qml`, `DeedButton.qml` | One card and its buttons; a card is positioned by the service and animates nothing itself |
-| `NotificationPanel.qml`, `Picker.qml` | The panel and its preferences page, opened from the bar's Dnd indicator (`shell/plugins/bar/indicators/Dnd.qml`) |
+| `NotificationPanel.qml`, `Picker.qml` | The panel and its preferences page, opened from the bar's Dnd indicator (`src/shell/plugins/bar/indicators/Dnd.qml`) |
 | `Store.js` | Notification snapshots, normalisation, what a stored row keeps, the stored file formats, restore |
 | `Markup.js` | Safe body markup, source lifting (`web:app.slack.com`), one-line previews |
 | `Detect.js` | Verification codes and links |
@@ -219,6 +219,6 @@ The state therefore lives entirely in systemd: `show` and `clear` enumerate
 summary toast, `show --json` as the JSON the bar's Reminder indicator polls
 (refreshed by the same `arch-shell -q arch.indicators refresh` call the
 timers and mutations make). `arch-reminder -i` summons the
-`arch.reminders` overlay (`shell/plugins/reminders/ReminderFlow.qml`), a
+`arch.reminders` overlay (`src/shell/plugins/reminders/ReminderFlow.qml`), a
 two-step minutes/message prompt that shells back out to `arch-reminder` to
 do the setting.

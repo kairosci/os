@@ -47,7 +47,7 @@ else
 fi
 `, { mode: 0o755 })
 
-const qml = fs.readFileSync(path.join(root, 'shell/services/AppLibrary.qml'), 'utf8')
+const qml = fs.readFileSync(path.join(root, 'src/shell/services/AppLibrary.qml'), 'utf8')
 const themeMatch = qml.match(/property string iconThemeName: "([^"]+)"/)
 assert(themeMatch, 'app icon theme default is declared')
 assertEqual(themeMatch[1], 'Cosmic', 'app icons default to the Cosmic theme')

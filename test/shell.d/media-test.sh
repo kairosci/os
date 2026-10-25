@@ -5,7 +5,7 @@ set -euo pipefail
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 run_node_test <<'JS'
-const media = requireFromRoot('shell/plugins/services/media/MediaModel.js')
+const media = requireFromRoot('src/shell/plugins/services/media/MediaModel.js')
 
 assert(media.isProxyPlayer({ dbusName: 'org.mpris.MediaPlayer2.playerctld' }), 'media detects playerctld proxy by DBus name')
 assert(media.isProxyPlayer({ desktopEntry: 'playerctld' }), 'media detects playerctld proxy by desktop entry')
@@ -58,14 +58,14 @@ assertEqual(media.volumeOsdIcon(0, false), 'volume-muted', 'volume OSD shows mut
 // chain or EasyEffects above all, needs arch-audio-output-sink's live
 // resolution on every press, so its keys fall back to the script.
 const fs = require('fs')
-const serviceQml = fs.readFileSync(path.join(root, 'shell/plugins/services/media/Service.qml'), 'utf8')
+const serviceQml = fs.readFileSync(path.join(root, 'src/shell/plugins/services/media/Service.qml'), 'utf8')
 assert(
   serviceQml.includes('readonly property var volumeSink: defaultSink && String(defaultSink.name).indexOf("alsa_output.") === 0 ? defaultSink : null') &&
     /function handleVolumeKey\(action\) \{\s*var audio = volumeSink && volumeSink\.audio\s*if \(!audio\) return false/.test(serviceQml) &&
     !serviceQml.includes('volumeSinkName'),
   'volume keys act in the shell only on an ALSA sink and otherwise defer to the script'
 )
-const shellQml = fs.readFileSync(path.join(root, 'shell/shell.qml'), 'utf8')
+const shellQml = fs.readFileSync(path.join(root, 'src/shell/shell.qml'), 'utf8')
 assert(
   /if \(!media \|\| !media\.handleVolumeKey\(entry\.target\)\)\s*Util\.execArgv\(\["arch-audio-output-volume", entry\.target\]\)/.test(shellQml),
   'a volume key the shell declines runs arch-audio-output-volume'

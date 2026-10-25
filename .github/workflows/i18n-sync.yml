@@ -23,7 +23,7 @@ on:
       - 'default/arch/arch-menu.jsonc'
       - 'default/hypr/bindings/**'
       - 'docs/user/*.md'
-      - 'shell/**'
+      - 'src/shell/**'
       - 'bin/**'
   workflow_dispatch:
   schedule:
@@ -141,7 +141,7 @@ jobs:
           if-no-files-found: error
 
   # Applies the extraction patch and runs every check that loads its code, with
-  # no credentials: an extraction may change bin/ or shell/, and the i18n test
+  # no credentials: an extraction may change bin/ or src/shell/, and the i18n test
   # require()s shell JavaScript, so nothing that runs here may hold a token.
   validate-extract:
     needs: [prepare, extract]
@@ -211,7 +211,7 @@ jobs:
           from pathlib import Path
           patch = Path(os.environ['RUNNER_TEMP']) / 'extraction/extract.patch'
           out = subprocess.run(['git', 'apply', '--numstat', '-z', str(patch)], check=True, capture_output=True).stdout
-          allowed = ('bin/', 'shell/', 'default/i18n/en/', 'default/i18n/extract-allowlist.json')
+          allowed = ('bin/', 'src/shell/', 'default/i18n/en/', 'default/i18n/extract-allowlist.json')
           code = False
           for record in out.split(b'\0'):
               if not record:
@@ -219,7 +219,7 @@ jobs:
               path = record.decode().split('\t', 2)[2]
               if not path.startswith(allowed) or '..' in Path(path).parts:
                   sys.exit(f'extraction patch contains a disallowed path: {path}')
-              code = code or path.startswith(('bin/', 'shell/'))
+              code = code or path.startswith(('bin/', 'src/shell/'))
           print('true' if code else 'false')
           PY
             )
@@ -435,7 +435,7 @@ jobs:
               if [ "$(gh pr view "$pr" --json autoMergeRequest --jq '.autoMergeRequest != null')" = true ]; then
                 gh pr merge --disable-auto "$pr"
               fi
-              gh pr comment "$pr" --body 'This sync includes an automated extraction that changed executable code under `bin/` or `shell/`, so auto-merge is off: please review those hunks before merging.'
+              gh pr comment "$pr" --body 'This sync includes an automated extraction that changed executable code under `bin/` or `src/shell/`, so auto-merge is off: please review those hunks before merging.'
               echo "Extraction touched code; PR #$pr waits for human review."
             else
               gh pr merge --auto --squash "$pr" || echo "Auto-merge could not be enabled for #$pr (enable 'Allow auto-merge' in repository settings); the PR is left open for a human."

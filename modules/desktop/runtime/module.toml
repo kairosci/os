@@ -1,31 +1,31 @@
 id = "desktop.runtime"
 domain = "desktop"
 package = "arch"
-sources = ["shell/Commons", "shell/Ui", "shell/services", "shell/shell.qml", "shell/README.md", "shell/plugins/README.md", "assets/themes"]
+sources = ["src/shell/Commons", "src/shell/Ui", "src/shell/services", "src/shell/shell.qml", "src/shell/README.md", "src/shell/plugins/README.md", "assets/themes"]
 requires = ["system.settings"]
 
 [[output]]
-source = "shell/Commons"
+source = "src/shell/Commons"
 target = "usr/share/arch/shell/Commons"
 
 [[output]]
-source = "shell/Ui"
+source = "src/shell/Ui"
 target = "usr/share/arch/shell/Ui"
 
 [[output]]
-source = "shell/services"
+source = "src/shell/services"
 target = "usr/share/arch/shell/services"
 
 [[output]]
-source = "shell/shell.qml"
+source = "src/shell/shell.qml"
 target = "usr/share/arch/shell/shell.qml"
 
 [[output]]
-source = "shell/README.md"
+source = "src/shell/README.md"
 target = "usr/share/arch/shell/README.md"
 
 [[output]]
-source = "shell/plugins/README.md"
+source = "src/shell/plugins/README.md"
 target = "usr/share/arch/shell/plugins/README.md"
 
 [[output]]
