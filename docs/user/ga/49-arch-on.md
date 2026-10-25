@@ -2,19 +2,19 @@
 
 ### Sceallóga Apple M1/M2
 
-Is leagan de Arch do ríomhairí Apple M1/M2 é [Asahi Alarm](https://asahi-alarm.org/) a tógadh ar bharr [Asahi Linux](https://asahilinux.org/). Is féidir leat Arch a chur ag rith ar bharr air sin le roinnt iarrachta. Féach [an treoir tiomáinte ag an úsáideoir](https://github.com/kairosci/arch).
+Is leagan de Arch do ríomhairí Apple M1/M2 é [Asahi Alarm](https://asahi-alarm.org/) a tógadh ar bharr [Asahi Linux](https://asahilinux.org/). Is féidir leat Arch a chur ag rith ar bharr air sin le roinnt iarrachta. Féach [an treoir tiomáinte ag an úsáideoir](https://github.com/kairosci/os).
 
 ### Meaisín Fíorúil Apple
 
-Is féidir leat Arch a shuiteáil taobh istigh de VM Parallels freisin. Próiseas sách achrannach, ach tá [treoir tiomáinte ag an úsáideoir](https://github.com/kairosci/arch) chuige sin freisin.
+Is féidir leat Arch a shuiteáil taobh istigh de VM Parallels freisin. Próiseas sách achrannach, ach tá [treoir tiomáinte ag an úsáideoir](https://github.com/kairosci/os) chuige sin freisin.
 
 ### VirtualBox
 
-Is rádala VM coitianta é VirtualBox. [Is féidir leat Arch a rith taobh istigh de sin freisin](https://github.com/kairosci/arch). Ach is dócha nach mbeidh an fheidhmíocht iontach.
+Is rádala VM coitianta é VirtualBox. [Is féidir leat Arch a rith taobh istigh de sin freisin](https://github.com/kairosci/os). Ach is dócha nach mbeidh an fheidhmíocht iontach.
 
 ### VMware Workstation ar Windows 11
 
-Rádala VM coitianta eile do Windows. [Tá Arch curtha ar bun taobh istigh de sin freisin](https://github.com/kairosci/arch).
+Rádala VM coitianta eile do Windows. [Tá Arch curtha ar bun taobh istigh de sin freisin](https://github.com/kairosci/os).
 
 ### Steam Deck
 

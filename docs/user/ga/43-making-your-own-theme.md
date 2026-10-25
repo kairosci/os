@@ -42,4 +42,4 @@ Más mian leat do théama a dháileadh ionas gur féidir le daoine eile é a ús
 
 Cuimhnigh, a luaithe a shuiteáiltear ó repo é, go scaoiltear aon `.lua`, cumraíocht teirminéil nó `vscode.json` a sheolann sé, mar sin ná tóg an téama timpeall orthu sin.
 
-Is féidir leat do théama a chur le [leathanach na dtéamaí breise](https://github.com/kairosci/arch/themes/) trí iarratas tarraingthe a sheoladh chuig [repo arch-site](https://github.com/kairosci/arch).
+Is féidir leat do théama a chur le [leathanach na dtéamaí breise](https://github.com/kairosci/os/themes/) trí iarratas tarraingthe a sheoladh chuig [repo arch-site](https://github.com/kairosci/os).

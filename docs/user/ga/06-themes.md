@@ -6,7 +6,7 @@ Stílíonn gach téama an deasc, an teirminéal, neovim, an scáileán gníomha�
 
 Tá tacar íomhánna cúlra ag téamaí ar féidir leat roghnú eatarthu le `Super + Ctrl + Space`.
 
-Is féidir leat níos mó téamaí fós a fháil ar [leathanach na dtéamaí breise](https://github.com/kairosci/arch/themes/) nó fiú [do théama féin a dhéanamh](43-making-your-own-theme.md).
+Is féidir leat níos mó téamaí fós a fháil ar [leathanach na dtéamaí breise](https://github.com/kairosci/os/themes/) nó fiú [do théama féin a dhéanamh](43-making-your-own-theme.md).
 
  ![tokyo-night](../themes/tokyo-night/preview.png)
 _Tokyo Night_

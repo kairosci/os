@@ -95,10 +95,10 @@ arch plugin validate ./my-plugin
 
 Ritheann sé sin na seiceálacha céanna a ritheann an blaosc ag am lódála: leagan na scéime, na réimsí riachtanacha, id nach bhfuil in áirithe, pointí iontrála atá ina gconairí coibhneasta sábháilte agus atá ann i ndáiríre, pointe iontrála do gach cineál a d'éiligh tú, agus gan symlinks áit ar bith taobh istigh den fhillteán.
 
-Le haghaidh forbartha forlíontán, féach an [tagairt blaoisce](https://github.com/kairosci/arch) agus [catalóg forlíontán chéadpháirtí](https://github.com/kairosci/arch).
+Le haghaidh forbartha forlíontán, féach an [tagairt blaoisce](https://github.com/kairosci/os) agus [catalóg forlíontán chéadpháirtí](https://github.com/kairosci/os).
 
 ## Do chuid a chomhroinnt leis an domhan
 
 Nuair a dhéanann tú rud éigin a thaitníonn leat, cuir i stóras git poiblí é. Sin an mheicníocht dáileacháin iomlán — is féidir le duine ar bith `arch plugin add` a rith i gcoinne do URL ansin agus é a bheith ag rith i soicindí.
 
-Chun cabhrú le daoine é a aimsiú i ndáiríre, liostaigh é ag [plugins.github.com/kairosci/arch](https://plugins.github.com/kairosci/arch). Sin an margadh le haghaidh forlíontán blaoisce Arch, agus is é an chéad áit le féachaint nuair a bhíonn tú ag déanamh iontais ar thóg duine éigin an ghiuirléid atá tú ar tí a scríobh cheana. Brabhsáil é sula dtosaíonn tú!
+Chun cabhrú le daoine é a aimsiú i ndáiríre, liostaigh é ag [plugins.github.com/kairosci/os](https://plugins.github.com/kairosci/os). Sin an margadh le haghaidh forlíontán blaoisce Arch, agus is é an chéad áit le féachaint nuair a bhíonn tú ag déanamh iontais ar thóg duine éigin an ghiuirléid atá tú ar tí a scríobh cheana. Brabhsáil é sula dtosaíonn tú!
