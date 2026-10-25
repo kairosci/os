@@ -30,6 +30,6 @@ Arch-র সেটিংস প্যাকেজ আপডেট বা সর�
 
 ## Signing Keys
 
-সব ISO স্বাক্ষর ও Arch রেপো প্যাকেজের জন্য পাবলিক কী হলো `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([openpgp.org-এ যাচাই করুন](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch))। `arch/arch-keyring` প্যাকেজেও এটি আছে এবং যেকোনো সম্ভাব্য আপডেট নির্বিঘ্নে রোলআউট করতে ব্যবহৃত হবে।
+সব ISO স্বাক্ষর ও Arch রেপো প্যাকেজের জন্য পাবলিক কী হলো `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([openpgp.org-এ যাচাই করুন](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os))। `arch/arch-keyring` প্যাকেজেও এটি আছে এবং যেকোনো সম্ভাব্য আপডেট নির্বিঘ্নে রোলআউট করতে ব্যবহৃত হবে।
 
-URL-এ .sig যোগ করে যেকোনো ISO রিলিজের স্বাক্ষর পেতে পারেন। যেমন https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig.
+URL-এ .sig যোগ করে যেকোনো ISO রিলিজের স্বাক্ষর পেতে পারেন। যেমন https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig.
