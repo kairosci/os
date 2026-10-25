@@ -6,7 +6,7 @@ Cada tema le da estilo al escritorio, la terminal, neovim, la pantalla de activi
 
 Los temas tienen un conjunto de imágenes de fondo entre las que puedes elegir con `Super + Ctrl + Space`.
 
-Puedes encontrar aún más temas en [la página de temas extra](https://github.com/kairosci/arch/themes/) o incluso [crear tu propio tema](43-making-your-own-theme.md).
+Puedes encontrar aún más temas en [la página de temas extra](https://github.com/kairosci/os/themes/) o incluso [crear tu propio tema](43-making-your-own-theme.md).
 
  ![tokyo-night](../themes/tokyo-night/preview.png)
 _Tokyo Night_
