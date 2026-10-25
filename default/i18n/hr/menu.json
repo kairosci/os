@@ -5,9 +5,6 @@
   "apps": {
     "label": "Aplikacije"
   },
-  "learn": {
-    "label": "Nauči"
-  },
   "appearance": {
     "label": "Izgled"
   },
@@ -49,33 +46,6 @@
   },
   "system.shutdown": {
     "label": "Isključi"
-  },
-  "learn.keybindings": {
-    "label": "Prečaci"
-  },
-  "learn.repository": {
-    "label": "GitHub"
-  },
-  "learn.hyprland": {
-    "label": "Hyprland"
-  },
-  "learn.arch": {
-    "label": "Arch"
-  },
-  "learn.neovim": {
-    "label": "Neovim"
-  },
-  "learn.bash": {
-    "label": "Bash"
-  },
-  "learn.tmux-keybindings": {
-    "label": "Tmux"
-  },
-  "learn.herdr-keybindings": {
-    "label": "Herdr"
-  },
-  "learn.community": {
-    "label": "Zajednica"
   },
   "appearance.theme": {
     "label": "Tema"
