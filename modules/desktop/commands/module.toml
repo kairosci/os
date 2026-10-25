@@ -1,0 +1,5 @@
+id = "desktop.commands"
+domain = "desktop"
+package = "arch"
+sources = ["bin"]
+requires = ["system.settings"]

@@ -1,0 +1,5 @@
+id = "system.settings"
+domain = "system"
+package = "arch-settings"
+sources = ["config", "default", "applications", "etc", "logo.txt", "icon.txt", "icon.png", "logo.svg", "arch-mark.svg"]
+requires = []

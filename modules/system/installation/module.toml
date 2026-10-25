@@ -1,0 +1,5 @@
+id = "system.installation"
+domain = "system"
+package = "arch"
+sources = ["install"]
+requires = ["system.settings", "desktop.commands"]
