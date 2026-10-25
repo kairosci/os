@@ -2,19 +2,19 @@
 
 ### Apple M1/M2 චිප්
 
-[Asahi Alarm](https://asahi-alarm.org/) යනු [Asahi Linux](https://asahilinux.org/) මත ගොඩනගා ඇති Apple M1/M2 පරිගණක සඳහා Arch අනුනාදයකි. තරමක උත්සාහයක් සමඟ ඔබට Arch ඒ මත ක්‍රියා කරවීමට හැකි වේ. [පරිශීලකයා විසින් මෙහෙයවනු ලබන මාර්ගෝපදේශය](https://github.com/kairosci/arch) බලන්න.
+[Asahi Alarm](https://asahi-alarm.org/) යනු [Asahi Linux](https://asahilinux.org/) මත ගොඩනගා ඇති Apple M1/M2 පරිගණක සඳහා Arch අනුනාදයකි. තරමක උත්සාහයක් සමඟ ඔබට Arch ඒ මත ක්‍රියා කරවීමට හැකි වේ. [පරිශීලකයා විසින් මෙහෙයවනු ලබන මාර්ගෝපදේශය](https://github.com/kairosci/os) බලන්න.
 
 ### Apple අතථ්‍ය යන්ත්‍රය
 
-ඔබට Parallels VM එකක් ඇතුළත Arch ස්ථාපනය කළ හැකිය. තරමක් අපහසු ක්‍රියාවලියක්, නමුත් ඒ සඳහා ද [පරිශීලකයා විසින් මෙහෙයවනු ලබන මාර්ගෝපදේශයක්](https://github.com/kairosci/arch) ඇත.
+ඔබට Parallels VM එකක් ඇතුළත Arch ස්ථාපනය කළ හැකිය. තරමක් අපහසු ක්‍රියාවලියක්, නමුත් ඒ සඳහා ද [පරිශීලකයා විසින් මෙහෙයවනු ලබන මාර්ගෝපදේශයක්](https://github.com/kairosci/os) ඇත.
 
 ### VirtualBox
 
-VirtualBox යනු ජනප්‍රිය VM ධාවකයෙකි. [ඔබට ඒ තුළ ද Arch ක්‍රියාත්මක කළ හැකිය](https://github.com/kairosci/arch). නමුත් කාර්ය සාධනය බොහෝ විට හොඳ නොවනු ඇත.
+VirtualBox යනු ජනප්‍රිය VM ධාවකයෙකි. [ඔබට ඒ තුළ ද Arch ක්‍රියාත්මක කළ හැකිය](https://github.com/kairosci/os). නමුත් කාර්ය සාධනය බොහෝ විට හොඳ නොවනු ඇත.
 
 ### Windows 11 මත VMware Workstation
 
-Windows සඳහා තවත් ජනප්‍රිය VM ධාවකයකි. [Arch ඒ තුළ ද සකසා ඇත](https://github.com/kairosci/arch).
+Windows සඳහා තවත් ජනප්‍රිය VM ධාවකයකි. [Arch ඒ තුළ ද සකසා ඇත](https://github.com/kairosci/os).
 
 ### Steam Deck
 

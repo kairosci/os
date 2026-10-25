@@ -42,4 +42,4 @@
 
 රෙපෝ එකකින් එය ස්ථාපනය කළ පසු, එය එවන ඕනෑම `.lua`, ටර්මිනල වින්‍යාසයක් හෝ `vscode.json` ඉවත දමනු ලබන බව මතක තබා ගන්න, එබැවින් ඒවා වටා තේමාව ගොඩ නොනඟන්න.
 
-[the arch-site repo](https://github.com/kairosci/arch) වෙත pull request එකක් යැවීමෙන් ඔබට ඔබේ තේමාව [අතිරේක තේමා පිටුවට](https://github.com/kairosci/arch/themes/) එක් කර ගත හැකිය.
+[the arch-site repo](https://github.com/kairosci/os) වෙත pull request එකක් යැවීමෙන් ඔබට ඔබේ තේමාව [අතිරේක තේමා පිටුවට](https://github.com/kairosci/os/themes/) එක් කර ගත හැකිය.
