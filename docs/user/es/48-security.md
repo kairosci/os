@@ -30,6 +30,6 @@ Ten clara esta parte: mientras está activado, cualquier cosa que se ejecute com
 
 ## Llaves de firma
 
-La llave pública para todas las firmas de ISO y paquetes del repositorio de Arch es `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([verifica en openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch)). El paquete `arch/arch-keyring` también la contiene y se usará para implementar cualquier actualización potencial sin problemas.
+La llave pública para todas las firmas de ISO y paquetes del repositorio de Arch es `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([verifica en openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os)). El paquete `arch/arch-keyring` también la contiene y se usará para implementar cualquier actualización potencial sin problemas.
 
-Puedes encontrar la firma de cualquier lanzamiento ISO agregando .sig a la URL. Como https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig.
+Puedes encontrar la firma de cualquier lanzamiento ISO agregando .sig a la URL. Como https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig.
