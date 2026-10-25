@@ -30,6 +30,6 @@ Tenha os olhos bem abertos em relação a isto: enquanto estiver ligado, qualque
 
 ## Chaves de assinatura
 
-A chave pública para todas as assinaturas de ISO e pacotes do repositório Arch é `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([verificar em openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch)). O pacote `arch/arch-keyring` também a contém e será usado para distribuir sem problemas quaisquer potenciais atualizações.
+A chave pública para todas as assinaturas de ISO e pacotes do repositório Arch é `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([verificar em openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os)). O pacote `arch/arch-keyring` também a contém e será usado para distribuir sem problemas quaisquer potenciais atualizações.
 
-Pode encontrar a assinatura de qualquer lançamento ISO adicionando .sig ao URL. Como https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig.
+Pode encontrar a assinatura de qualquer lançamento ISO adicionando .sig ao URL. Como https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig.

@@ -95,10 +95,10 @@ arch plugin validate ./my-plugin
 
 Isso executa as mesmas verificações que a shell faz ao carregar: a versão do esquema, os campos obrigatórios, um id que não esteja reservado, pontos de entrada que sejam caminhos relativos seguros e que realmente existam, um ponto de entrada para cada tipo que reclamaste e nenhuma ligação simbólica em parte alguma dentro da pasta.
 
-Para desenvolvimento de plugins, vê a [referência da shell](https://github.com/kairosci/arch) e o [catálogo de plugins oficiais](https://github.com/kairosci/arch).
+Para desenvolvimento de plugins, vê a [referência da shell](https://github.com/kairosci/os) e o [catálogo de plugins oficiais](https://github.com/kairosci/os).
 
 ## Partilhar o teu com o mundo
 
 Depois de fazeres alguma coisa de que gostes, coloca-a num repositório git público. É esse todo o mecanismo de distribuição — qualquer pessoa pode então executar `arch plugin add` contra o teu URL e tê-lo a correr em segundos.
 
-Para ajudares as pessoas a encontrarem-no realmente, lista-o em [plugins.github.com/kairosci/arch](https://plugins.github.com/kairosci/arch). É o mercado de plugins da shell do Arch, e é o primeiro lugar onde procurar quando estiveres a pensar se alguém já construiu o widget que estás prestes a escrever. Explora-o antes de começares!
+Para ajudares as pessoas a encontrarem-no realmente, lista-o em [plugins.github.com/kairosci/os](https://plugins.github.com/kairosci/os). É o mercado de plugins da shell do Arch, e é o primeiro lugar onde procurar quando estiveres a pensar se alguém já construiu o widget que estás prestes a escrever. Explora-o antes de começares!
