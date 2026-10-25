@@ -5,9 +5,6 @@
   "apps": {
     "label": "Uygulamalar"
   },
-  "learn": {
-    "label": "Öğren"
-  },
   "appearance": {
     "label": "Görünüm"
   },
@@ -49,33 +46,6 @@
   },
   "system.shutdown": {
     "label": "Kapat"
-  },
-  "learn.keybindings": {
-    "label": "Kısayollar"
-  },
-  "learn.repository": {
-    "label": "GitHub"
-  },
-  "learn.hyprland": {
-    "label": "Hyprland"
-  },
-  "learn.arch": {
-    "label": "Arch"
-  },
-  "learn.neovim": {
-    "label": "Neovim"
-  },
-  "learn.bash": {
-    "label": "Bash"
-  },
-  "learn.tmux-keybindings": {
-    "label": "Tmux"
-  },
-  "learn.herdr-keybindings": {
-    "label": "Herdr"
-  },
-  "learn.community": {
-    "label": "Topluluk"
   },
   "appearance.theme": {
     "label": "Tema"
