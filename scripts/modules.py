@@ -5,6 +5,7 @@
 from __future__ import annotations
 
 import argparse
+import fnmatch
 import json
 import shutil
 import sys
@@ -157,8 +158,37 @@ def topological_order(modules: dict[str, Module], errors: list[str]) -> list[str
     return order
 
 
-def assemble(modules: dict[str, Module], order: list[str], package: str, destination: Path) -> int:
-    selected = [modules[module_id] for module_id in order if modules[module_id].package == package]
+def assemble(
+    modules: dict[str, Module],
+    order: list[str],
+    package: str,
+    destination: Path,
+    patterns: tuple[str, ...],
+) -> int:
+    selected_ids = {
+        module_id
+        for module_id in order
+        if modules[module_id].package == package
+        and (not patterns or any(fnmatch.fnmatchcase(module_id, pattern) for pattern in patterns))
+    }
+    unknown = [
+        pattern for pattern in patterns
+        if not any(fnmatch.fnmatchcase(module_id, pattern) for module_id in modules)
+    ]
+    if unknown:
+        print(f"module pattern matched no modules: {', '.join(unknown)}", file=sys.stderr)
+        return 1
+
+    for module_id in tuple(selected_ids):
+        pending = list(modules[module_id].requires)
+        while pending:
+            dependency = pending.pop()
+            if dependency not in modules or modules[dependency].package != package or dependency in selected_ids:
+                continue
+            selected_ids.add(dependency)
+            pending.extend(modules[dependency].requires)
+
+    selected = [modules[module_id] for module_id in order if module_id in selected_ids]
     if not selected:
         print(f"no modules are assigned to package {package}", file=sys.stderr)
         return 1
@@ -191,6 +221,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("command", choices=("validate", "graph", "assemble"))
     parser.add_argument("--package", help="select modules assigned to this package")
+    parser.add_argument("--module", action="append", default=[], help="module ID or glob pattern to assemble; repeatable")
     parser.add_argument("--destination", help="package root for module assembly")
     args = parser.parse_args()
 
@@ -215,7 +246,7 @@ def main() -> int:
             parser.error("assemble requires --package and --destination")
         if not modules:
             return 1
-        return assemble(modules, order, args.package, Path(args.destination).resolve())
+        return assemble(modules, order, args.package, Path(args.destination).resolve(), tuple(args.module))
 
     if args.package:
         selected = [module for module in modules.values() if module.package == args.package]
