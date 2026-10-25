@@ -2,7 +2,7 @@
 
 Arch installeres ved hjælp af en ISO. Du kan vælge mellem en installation på hele disken, som overtager hele drevet, eller en installation på ledig plads, som lægger Arch på den ikke-allokerede plads på et drev — det er sådan, du dual boot'er ved siden af Windows eller et andet OS (se [installation med dual boot](50-dual-boot-install.md) — bemærk, at du først skal slå BitLocker fra i Windows). Uanset hvad er installationen som standard med fuld kryptering, og muligheden med hele disken sletter det valgte drev, så sørg for at tage en backup, før du bruger et eksisterende drev!
 
-[Download Arch-ISO'en](https://github.com/kairosci/arch/) først, læg den på en USB-stick (brug [balenaEtcher](https://etcher.balena.io/) på Mac/Windows eller [caligula](https://github.com/ifd3f/caligula) på Linux), og boot fra sticken.
+[Download Arch-ISO'en](https://github.com/kairosci/os/) først, læg den på en USB-stick (brug [balenaEtcher](https://etcher.balena.io/) på Mac/Windows eller [caligula](https://github.com/ifd3f/caligula) på Linux), og boot fra sticken.
 
 _Du skal slå Secure Boot og/eller TPM fra i BIOS'en. Du er nødt til at slå dem fra for at kunne installere Arch. De er Microsoft-sikkerhedsordninger beregnet til Windows og Microsoft-tilknyttede Linux-distributioner._
 
@@ -36,8 +36,8 @@ Men under særlige omstændigheder, som fjerne Arch-installationer på beskytted
 
 ### Sprog
 
-Arch taler 50 sprog — det samme sæt som github.com/kairosci/arch — og engelsk er standarden. For at skifte skal du åbne Arch-menuen og gå til _Setup > Language_ eller køre `archctl language <code>` i en terminal (`archctl language list` viser koderne). Menuen, skrivebordet og Archs egne notifikationer skifter sprog med det samme, og alle programmer, du åbner bagefter, følger også med. Programmer, der allerede var åbne, skifter, når du genstarter dem.
+Arch taler 50 sprog — det samme sæt som github.com/kairosci/os — og engelsk er standarden. For at skifte skal du åbne Arch-menuen og gå til _Setup > Language_ eller køre `archctl language <code>` i en terminal (`archctl language list` viser koderne). Menuen, skrivebordet og Archs egne notifikationer skifter sprog med det samme, og alle programmer, du åbner bagefter, følger også med. Programmer, der allerede var åbne, skifter, når du genstarter dem.
 
 ### Hjælp, hvis du sidder fast
 
-Hvis du sidder fast, kan du som regel finde nogen, der er villig til at hjælpe, i kanalen _#arch-help_ på [fællesskabets Discord](https://github.com/kairosci/arch/discord).
+Hvis du sidder fast, kan du som regel finde nogen, der er villig til at hjælpe, i kanalen _#arch-help_ på [fællesskabets Discord](https://github.com/kairosci/os/discord).

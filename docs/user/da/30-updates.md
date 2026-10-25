@@ -2,7 +2,7 @@
 
 Arch og dine pakker holdes opdateret via _Opdater > Arch_ i Arch-menuen (`Super + Space`).
 
-Selve Arch installeres som almindelige pacman-pakker fra [Arch Package Repository](https://github.com/kairosci/arch), så en opdatering installerer [den seneste Arch-udgivelse](https://github.com/kairosci/arch), kører alle ventende migreringer for at få dit system i sync med det seneste og opdaterer alle systempakker fra [Arch Arch Mirror](https://github.com/kairosci/arch) og [AUR](https://aur.archlinux.org/) (hvis du har installeret nogen AUR-pakker).
+Selve Arch installeres som almindelige pacman-pakker fra [Arch Package Repository](https://github.com/kairosci/os), så en opdatering installerer [den seneste Arch-udgivelse](https://github.com/kairosci/os), kører alle ventende migreringer for at få dit system i sync med det seneste og opdaterer alle systempakker fra [Arch Arch Mirror](https://github.com/kairosci/os) og [AUR](https://aur.archlinux.org/) (hvis du har installeret nogen AUR-pakker).
 
 Når der laves nye udgivelser, vil et cirkelpil-ikon dukke op til højre for dit ur. Klik på det, og opdateringsprocessen starter.
 
@@ -10,7 +10,7 @@ Når der laves nye udgivelser, vil et cirkelpil-ikon dukke op til højre for dit
 
 ### Fire kanaler
 
-Arch opdateres langs fire kanaler: stable, RC, edge og dev. Nye installationer starter på stable-kanalen, som følger [de officielle udgivelser](https://github.com/kairosci/arch) samt [det stabile Arch Arch-spejl](https://github.com/kairosci/arch), der kører en måned bag det seneste, så vi kan fange eventuelle nye inkompatibiliteter, der kræver konfigurationsændringer, før de forårsager problemer for folk.
+Arch opdateres langs fire kanaler: stable, RC, edge og dev. Nye installationer starter på stable-kanalen, som følger [de officielle udgivelser](https://github.com/kairosci/os) samt [det stabile Arch Arch-spejl](https://github.com/kairosci/os), der kører en måned bag det seneste, så vi kan fange eventuelle nye inkompatibiliteter, der kræver konfigurationsændringer, før de forårsager problemer for folk.
 
 Men hvis du gerne vil hjælpe med at spotte de potentielle problemer, kan du køre på edge-kanalen. Det vil holde dine Arch-pakker med at følge de seneste udviklingsbuilds og lader dig opdatere til de seneste Arch-pakker, så snart de er tilgængelige. Du bør kun gøre dette, hvis du har erfaring med Linux og ved, hvordan man gendanner et system, der har problemer.
 

@@ -42,4 +42,4 @@ Det resterende `[themename]` bliver temaets mappenavn, så det skal være et, Ar
 
 Husk, at når det først er installeret fra et repo, droppes enhver `.lua`, terminalkonfiguration eller `vscode.json`, det leverer, så byg ikke temaet omkring dem.
 
-Du kan få dit tema tilføjet til [siden med ekstra temaer](https://github.com/kairosci/arch/themes/) ved at sende en pull request til [arch-site-repoen](https://github.com/kairosci/arch).
+Du kan få dit tema tilføjet til [siden med ekstra temaer](https://github.com/kairosci/os/themes/) ved at sende en pull request til [arch-site-repoen](https://github.com/kairosci/os).
