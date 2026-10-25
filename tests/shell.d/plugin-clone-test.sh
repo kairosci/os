@@ -32,7 +32,7 @@ exit 0
 SH
 
 for command in arch-plugin-enable arch-notification-send fake-editor; do
-  cat >"$TMPDIR/src/cli/$command" <<'SH'
+  cat >"$TMPDIR/bin/$command" <<'SH'
 #!/bin/bash
 printf '%s %s\n' "${0##*/}" "$*" >>"$FAKE_CALLS"
 SH

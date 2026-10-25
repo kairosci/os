@@ -1,7 +1,7 @@
 # Arch theming
 
 Arch themes live under `themes/<name>/` in the source tree (installed at
-`/usr/share/arch/themes/<name>/`), with optional user themes under
+`/usr/share/arch/assets/themes/<name>/`), with optional user themes under
 `~/.config/arch/themes/<name>/`. A theme normally starts with a
 `colors.toml`; Arch generates the active theme files from
 `default/themed/*.tpl` when `arch-theme-set <name>` runs.

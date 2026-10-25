@@ -4,7 +4,7 @@ Radna površina Arch radi kao jedan dugovječni Quickshell proces koji se zove `
 
 To nije samo detalj implementacije. To znači da dijelove radne površine možeš isključiti, zamijeniti ili napisati vlastite bez diranja retka Archjeva izvornog koda.
 
-Dodaci prve strane isporučuju se s Archjem i nalaze se u `$ARCH_PATH/shell/plugins/`. Sve što sam dodaš — vlastite eksperimente ili nešto što si pronašao na GitHubu — nalazi se u `~/.config/arch/plugins/`. Oba se otkrivaju na isti način pri pokretanju, ali ugrađeni dobivaju pouzdana sučelja ljuske, dok dodaci treće strane dobivaju ograničeno sučelje ograničeno na vlastitu uslugu i životni ciklus. Klonovi ugrađenih zadržavaju samo konfiguraciju specifičnu za izvor i pozive korisničkog sučelja potrebne za izvorno ponašanje.
+Dodaci prve strane isporučuju se s Archjem i nalaze se u `$ARCH_PATH/src/shell/plugins/`. Sve što sam dodaš — vlastite eksperimente ili nešto što si pronašao na GitHubu — nalazi se u `~/.config/arch/plugins/`. Oba se otkrivaju na isti način pri pokretanju, ali ugrađeni dobivaju pouzdana sučelja ljuske, dok dodaci treće strane dobivaju ograničeno sučelje ograničeno na vlastitu uslugu i životni ciklus. Klonovi ugrađenih zadržavaju samo konfiguraciju specifičnu za izvor i pozive korisničkog sučelja potrebne za izvorno ponašanje.
 
 ## Vidjeti što imaš
 

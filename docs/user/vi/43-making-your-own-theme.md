@@ -1,6 +1,6 @@
 # Tự làm chủ đề của riêng bạn
 
-Bạn có thể thêm chủ đề của riêng mình vào `~/.config/arch/themes`. Chỉ cần sao chép một trong các chủ đề hiện có làm nền (xem trong `/usr/share/arch/themes`), rồi tinh chỉnh theo ý thích của bạn. Miễn là chủ đề của bạn nằm trong thư mục đó, nó sẽ được đưa vào menu chọn chủ đề.
+Bạn có thể thêm chủ đề của riêng mình vào `~/.config/arch/themes`. Chỉ cần sao chép một trong các chủ đề hiện có làm nền (xem trong `/usr/share/arch/assets/themes`), rồi tinh chỉnh theo ý thích của bạn. Miễn là chủ đề của bạn nằm trong thư mục đó, nó sẽ được đưa vào menu chọn chủ đề.
 
 Tệp chính bạn phải tinh chỉnh là `colors.toml`. Tệp đó định nghĩa bộ màu sau đó được dùng để tạo các cấu hình cho terminal (Foot/Alacritty/Ghostty/Kitty), btop, Chromium, Hyprland, Neovim, Helix, VSCode, Obsidian và toàn bộ shell Arch (thanh trên cùng, menu, thông báo, OSD và màn hình khóa).
 

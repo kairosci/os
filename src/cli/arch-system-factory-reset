@@ -55,7 +55,7 @@ if (( EUID != 0 )); then
   exec sudo env "${gum_env[@]}" "$PACKAGED_PATH" "$@"
 fi
 
-export PATH="$ARCH_PATH/bin:$PATH"
+export PATH="$ARCH_PATH/src/cli:$PATH"
 
 # The questions read in the language of the person who asked for the reset.
 # Elevation left their HOME behind, so their language file is found from the
@@ -83,7 +83,7 @@ root_is_btrfs_at() {
   [[ $(findmnt -no FSTYPE /) == btrfs ]] && findmnt -no OPTIONS / | grep -q "subvol=/@\(,\|$\)"
 }
 
-DISPATCH="$ARCH_PATH/bin/arch-lifecycle-dispatch"
+DISPATCH="$ARCH_PATH/src/cli/arch-lifecycle-dispatch"
 
 # A platform whose boot package implements the reset operations rebuilds,
 # verifies and unlocks the factory root's boot chain itself; everywhere else
@@ -353,7 +353,7 @@ reset_limine_config() {
   local root="$1" esp="$2" old_id="$3" template="" candidate
   local conf="$root$esp/limine.conf"
 
-  for candidate in "$root/usr/share/arch/install/assets/limine/limine.conf" \
+  for candidate in "$root/usr/share/arch/installer/assets/limine/limine.conf" \
                    "$root/usr/share/arch/default/limine/limine.conf"; do
     if [[ -f $candidate ]]; then
       template=$candidate
@@ -634,7 +634,7 @@ stage_full_reset() {
   [[ -d $next ]] && btrfs subvolume delete --recursive "$next" >/dev/null
   btrfs subvolume snapshot "$top/@factory" "$next" >>"$LOG_FILE"
 
-  local unit_src="$next/usr/share/arch/install/provisioning"
+  local unit_src="$next/usr/share/arch/installer/provisioning"
   [[ -f $unit_src/arch-provision-owner.service && -x $next/usr/bin/arch-provision-owner ]] ||
     fail "the factory snapshot predates provisioning support; cannot reset from it"
 

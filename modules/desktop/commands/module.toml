@@ -6,4 +6,4 @@ requires = ["system.settings"]
 
 [[output]]
 source = "src/cli"
-target = "usr/share/arch/bin"
+target = "usr/share/arch/src/cli"

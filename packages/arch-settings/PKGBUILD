@@ -46,8 +46,8 @@ package() {
   # Seed new accounts with the same Arch config tree used by existing users.
   install -d "$pkgdir/etc/skel/.config" "$pkgdir/etc/skel/.local/share/applications"
   cp -a "$pkgdir/usr/share/arch/config/." "$pkgdir/etc/skel/.config/"
-  if compgen -G "$pkgdir/usr/share/arch/applications/*.desktop" >/dev/null; then
-    cp "$pkgdir/usr/share/arch/applications"/*.desktop "$pkgdir/etc/skel/.local/share/applications/"
+  if compgen -G "$pkgdir/usr/share/arch/assets/applications/*.desktop" >/dev/null; then
+    cp "$pkgdir/usr/share/arch/assets/applications"/*.desktop "$pkgdir/etc/skel/.local/share/applications/"
   fi
 
   # Arch-owned system settings. System-owned files are staged under

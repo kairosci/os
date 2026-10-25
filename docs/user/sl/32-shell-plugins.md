@@ -4,7 +4,7 @@ Namizje Arch teče kot en sam dolgotrajen proces Quickshell z imenom `arch-shell
 
 To ni le podrobnost izvajanja. Pomeni, da lahko dele namizja izklopite, jih zamenjate ali napisete svoje, ne da bi se dotaknili ene same vrstice izvorne kode Arch.
 
-Prvostrankarski vtičniki se dobavljajo z Arch in živijo v `$ARCH_PATH/shell/plugins/`. Vse, kar dodate sami — lastni poskusi ali kaj, kar ste našli na GitHubu — živi v `~/.config/arch/plugins/`. Oba se odkrijeta na enak način ob zagonu, vendar vgrajeni prejmejo zaupanja vredne vmesnike lupine, vtičniki tretjih oseb pa omejen vmesnik, omejen na lastno storitev in življenjski cikel. Kloni vgrajenih vtičnikov obdržijo le izvorno specifične konfiguracije in klice UI, potrebne za izvirno vedenje.
+Prvostrankarski vtičniki se dobavljajo z Arch in živijo v `$ARCH_PATH/src/shell/plugins/`. Vse, kar dodate sami — lastni poskusi ali kaj, kar ste našli na GitHubu — živi v `~/.config/arch/plugins/`. Oba se odkrijeta na enak način ob zagonu, vendar vgrajeni prejmejo zaupanja vredne vmesnike lupine, vtičniki tretjih oseb pa omejen vmesnik, omejen na lastno storitev in življenjski cikel. Kloni vgrajenih vtičnikov obdržijo le izvorno specifične konfiguracije in klice UI, potrebne za izvirno vedenje.
 
 ## Ogled tega, kar imate
 

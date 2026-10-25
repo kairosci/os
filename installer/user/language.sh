@@ -5,5 +5,5 @@ language_file=/etc/arch/language
 [[ -r $language_file ]] || language_file=/etc/arch/language
 [[ -r $language_file ]] && read -r code <"$language_file"
 if [[ -n $code ]]; then
-  "$ARCH_PATH/bin/arch-language" seed "$code" || echo "Could not set the preset language $code" >&2
+  "$ARCH_PATH/src/cli/arch-language" seed "$code" || echo "Could not set the preset language $code" >&2
 fi

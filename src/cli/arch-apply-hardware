@@ -72,9 +72,9 @@ export ARCH_INSTALL_USER="$install_user"
 # Only arch-provision-hardware runs steps as an image's first boot.
 unset ARCH_IMAGE_DEFERRED_HARDWARE
 export ARCH_PATH="${ARCH_PATH:-/usr/share/arch}"
-export ARCH_INSTALL="${ARCH_INSTALL:-$ARCH_PATH/install}"
+export ARCH_INSTALL="${ARCH_INSTALL:-$ARCH_PATH/installer}"
 export ARCH_INSTALL_LOG_FILE="${ARCH_INSTALL_LOG_FILE:-/var/log/arch-install.log}"
-export PATH="$ARCH_PATH/bin:$PATH"
+export PATH="$ARCH_PATH/src/cli:$PATH"
 
 source "$ARCH_INSTALL/helpers/logging.sh"
 source "$ARCH_INSTALL/helpers/image-target.sh"

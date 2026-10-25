@@ -1,6 +1,6 @@
 # Tworzenie własnego motywu
 
-Własne motywy możesz dodawać do `~/.config/arch/themes`. Po prostu skopiuj jeden z istniejących jako bazę (zajrzyj do `/usr/share/arch/themes`), a potem dostosowuj do woli. O ile twój motyw jest w tym folderze, będzie dostępny w menu wyboru motywu.
+Własne motywy możesz dodawać do `~/.config/arch/themes`. Po prostu skopiuj jeden z istniejących jako bazę (zajrzyj do `/usr/share/arch/assets/themes`), a potem dostosowuj do woli. O ile twój motyw jest w tym folderze, będzie dostępny w menu wyboru motywu.
 
 Głównym plikiem, który musisz dostosować, jest `colors.toml`. Definiuje on zestaw kolorów, który jest potem używany do generowania konfiguracji dla terminala (Foot/Alacritty/Ghostty/Kitty), btop, Chromium, Hyprland, Neovim, Helix, VSCode, Obsidian i całej powłoki Arch (pasek menu, menu, powiadomienia, OSD i ekran blokady).
 

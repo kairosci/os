@@ -24,7 +24,7 @@ exit 0
 SH
 chmod +x "$mock_bin/mise" "$mock_bin/noop"
 for command in gum hyprctl arch-webapp-remove-all arch-tui-remove-all arch-pkg-drop; do
-  ln -s noop "$mock_src/cli/$command"
+  ln -s noop "$mock_bin/$command"
 done
 
 apply_kimi() {

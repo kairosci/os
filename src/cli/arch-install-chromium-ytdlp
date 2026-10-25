@@ -5,7 +5,7 @@
 set -euo pipefail
 
 HOST_NAME="com.arch.ytdlp"
-HOST_PATH="$ARCH_PATH/bin/arch-chromium-ytdlp-host"
+HOST_PATH="$ARCH_PATH/src/cli/arch-chromium-ytdlp-host"
 TEMPLATE="$ARCH_PATH/default/chromium/native-messaging-hosts/$HOST_NAME.json"
 
 # Chromium-based browser profile roots that use the NativeMessagingHosts layout.

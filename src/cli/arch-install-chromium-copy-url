@@ -5,7 +5,7 @@
 set -euo pipefail
 
 HOST_NAME="com.arch.copy_url"
-HOST_PATH="$ARCH_PATH/bin/arch-chromium-copy-url-host"
+HOST_PATH="$ARCH_PATH/src/cli/arch-chromium-copy-url-host"
 TEMPLATE="$ARCH_PATH/default/chromium/native-messaging-hosts/$HOST_NAME.json"
 
 browser_dirs=(

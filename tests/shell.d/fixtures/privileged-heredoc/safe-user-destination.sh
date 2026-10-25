@@ -5,5 +5,5 @@ helper=$HOME/.local/share/arch/bin/arch-agent
 EOF
 
 cat >"$HOME/.local/bin/arch-shim" <<EOF
-exec "$ARCH_PATH/bin/arch-agent" "$@"
+exec "$ARCH_PATH/src/cli/arch-agent" "$@"
 EOF

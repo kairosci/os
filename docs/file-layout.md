@@ -72,7 +72,7 @@ arch/                            built into          installed at
 ─────────────────────────           ──────────────      ────────────────────────────────────
 
 src/cli/arch-*              ──►  arch             /usr/bin/arch-*
-                                                        (and symlinks in /usr/share/arch/bin/)
+                                                        (and symlinks in /usr/share/arch/src/cli/)
 src/cli/arch-debug,
 src/cli/arch-debug-idle,
 src/cli/arch-upload-log     ──►  arch-settings    /usr/bin/  (needed before arch is installed)
@@ -80,10 +80,10 @@ src/cli/arch-upload-log     ──►  arch-settings    /usr/bin/  (needed befor
 default/libalpm/hooks/*.hook
                                 ──►  arch             /usr/share/libalpm/hooks/*.hook
 
-installer/**                     ──►  arch             /usr/share/arch/install/
+installer/**                     ──►  arch             /usr/share/arch/installer/
 migrations/**                  ──►  arch             /usr/share/arch/migrations/
-assets/themes/**                      ──►  arch             /usr/share/arch/themes/
-src/shell/**                       ──►  arch             /usr/share/arch/shell/
+assets/themes/**                      ──►  arch             /usr/share/arch/assets/themes/
+src/shell/**                       ──►  arch             /usr/share/arch/src/shell/
 version                        ──►  arch             /usr/share/arch/version
                                                         + /etc/skel/.local/state/arch/migrations/*
 
@@ -96,7 +96,7 @@ etc/xkb/{rules/evdev,symbols/arch}
                                ──►  arch-settings    /etc/xkb/                    (Shift + Caps Lock compose option)
 
 assets/applications/*.desktop         ──►  arch-settings    /etc/skel/.local/share/applications/
-                                                        /usr/share/arch/applications/
+                                                        /usr/share/arch/assets/applications/
 default/applications/*.desktop
                                 ──►  arch-settings    /usr/share/arch/default/applications/
                                                         (optional and legacy launcher templates)
@@ -229,7 +229,7 @@ Single source of truth for `ARCH_PATH` and dev-link-aware `PATH`. It:
   package path by `arch-dev-unlink`) if present; otherwise forces
   `ARCH_PATH=/usr/share/arch` so a stale inherited value can't survive
   an `arch-dev-unlink`.
-- Prepends `$ARCH_PATH/bin` to `PATH` **only when** `ARCH_PATH` is
+- Prepends `$ARCH_PATH/src/cli` to `PATH` **only when** `ARCH_PATH` is
   not `/usr/share/arch`. On a production install the binaries are
   already on `PATH` as `/usr/bin/arch-*` via the `arch` package.
 - Prepends mise's `command-wrappers/bin` so subscription account dispatch runs before inherited tool binaries, then appends `~/.local/share/mise/shims` and `~/.local/bin` so login shells and the uwsm session find mise-managed tools. The existing mise tool shims also dispatch these wrappers for SSH commands that run no shell setup; the PAM path needs no additional entry. `etc/mise/conf.d/arch-agent-accounts.toml` declares the Claude, Codex, and Grok wrappers; `mise reshim` builds them during user setup and migration. Each invocation resolves the selected account through `arch-agent-account-exec`, while an explicit provider home takes precedence. Credentials and running sessions remain in their original account homes.

@@ -28,7 +28,7 @@ SH
 exit $docked
 SH
   for command in arch-system-lock arch-hyprland-monitor-clamshell; do
-    cat >"$mock_src/cli/$command" <<SH
+    cat >"$mock_bin/$command" <<SH
 #!/bin/bash
 echo $command >>"\$CALL_LOG"
 SH

@@ -107,7 +107,7 @@ arch_security_enable_no_update_sudo() {
     echo "The command-scoped sudo wrapper is missing." >&2
     return 1
   fi
-  PATH="$wrapper_dir:$ARCH_PATH/bin:/usr/bin:/usr/sbin:/bin:/sbin"
+  PATH="$wrapper_dir:$ARCH_PATH/src/cli:/usr/bin:/usr/sbin:/bin:/sbin"
   ARCH_SUDO_NO_UPDATE=1
   export PATH ARCH_SUDO_NO_UPDATE
 }

@@ -474,7 +474,7 @@ Item {
 
   Process {
     id: stockThemesProc
-    command: ["find", root.archPath + "/themes", "-mindepth", "1", "-maxdepth", "1", "-type", "d", "-printf", "%f\n"]
+    command: ["find", root.archPath + "/assets/themes", "-mindepth", "1", "-maxdepth", "1", "-type", "d", "-printf", "%f\n"]
     stdout: StdioCollector {
       onStreamFinished: root.stockThemeNames = ImagePickerModel.parseThemeNames(String(text || ""))
     }

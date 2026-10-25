@@ -139,7 +139,7 @@ fi
 pass "an unreadable config leaves the migration pending and the file untouched"
 rm "$config"
 
-for target in /usr/share/arch/shell/plugins/omacom.elsewhen /usr/share/arch/plugins/omacom.elsewhen; do
+for target in /usr/share/arch/src/shell/plugins/omacom.elsewhen /usr/share/arch/plugins/omacom.elsewhen; do
   ln -sfn "$target" "$plugin"
   run
   [[ ! -e $plugin && ! -L $plugin ]] || fail "a link to the packaged plugin is removed ($target)"

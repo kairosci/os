@@ -148,7 +148,7 @@ arch_image_defer_hardware() {
         echo "Error: cannot defer a step outside the hardware setup: $1" >&2
         exit 1
       }
-      printf 'install/%s\n' "${1#"$ARCH_INSTALL"/}"
+      printf 'installer/%s\n' "${1#"$ARCH_INSTALL"/}"
     }
     source "$ARCH_INSTALL/hardware/all.sh"
   ) || return 1

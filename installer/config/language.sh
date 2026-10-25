@@ -10,7 +10,7 @@ code=
 if [[ -n $code ]]; then
   locales=${ARCH_LOCALES_JSON:-$ARCH_PATH/default/i18n/locales.json}
   if [[ $code =~ ^[a-z]{2,3}(-[A-Z]{2})?$ ]] && jq -e --arg code "$code" 'has($code)' "$locales" >/dev/null 2>&1; then
-    "$ARCH_PATH/bin/arch-locale-generate" "$code"
+    "$ARCH_PATH/src/cli/arch-locale-generate" "$code"
   else
     echo "Ignoring an invalid language in $marker: $code" >&2
   fi

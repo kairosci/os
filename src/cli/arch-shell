@@ -38,7 +38,7 @@ fi
 
 (( $# >= 2 )) || fail "Usage: arch-shell <target> <method> [args...]"
 [[ -n ${ARCH_PATH:-} ]] || fail "ARCH_PATH is not set"
-[[ -f $ARCH_PATH/shell/shell.qml ]] || fail "arch-shell config not found: $ARCH_PATH/shell/shell.qml"
+[[ -f $ARCH_PATH/src/shell/shell.qml ]] || fail "arch-shell config not found: $ARCH_PATH/src/shell/shell.qml"
 
 # qs matches instances by display, and a caller from outside the session (an
 # ssh or TTY arch-restart-shell, and the migrations it runs for) has none,
@@ -68,7 +68,7 @@ fi
 # request is out is reported, not retried: the call may already have run.
 # Like qs ipc, the socket belongs to one shell, the one running this config on
 # this display, and the shell derives its name from the same two values.
-socket_id=$(printf '%s\n%s' "$ARCH_PATH/shell" "${WAYLAND_DISPLAY:-}" | md5sum)
+socket_id=$(printf '%s\n%s' "$ARCH_PATH/src/shell" "${WAYLAND_DISPLAY:-}" | md5sum)
 socket="${XDG_RUNTIME_DIR:-/run/user/$UID}/arch-shell-${socket_id:0:16}.sock"
 request="$*"
 if [[ -S $socket && $request != *$'\x1e'* && $request != *$'\x1f'* ]]; then
@@ -107,7 +107,7 @@ fi
 # positionals. qs reports connection failures with a nonzero exit, but IPC-level
 # failures (unknown target/function, bad arguments) go to stdout with exit 0.
 ipc_timeout=${ARCH_SHELL_IPC_TIMEOUT:-2s}
-output=$(timeout --kill-after=1s "$ipc_timeout" qs ipc -n -p "$ARCH_PATH/shell" call -- "$@" 2>/dev/null)
+output=$(timeout --kill-after=1s "$ipc_timeout" qs ipc -n -p "$ARCH_PATH/src/shell" call -- "$@" 2>/dev/null)
 ipc_status=$?
 
 if (( ipc_status == 124 || ipc_status == 137 )); then

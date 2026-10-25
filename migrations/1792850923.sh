@@ -27,7 +27,7 @@ os_release=$(mktemp)
 trap 'rm -f -- "$os_release"' EXIT
 
 sudo env ARCH_PATH="$ARCH_PATH" bash -euo pipefail -c \
-  'source "$ARCH_PATH/install/config/systemd-boot-kernel.sh"'
+  'source "$ARCH_PATH/installer/config/systemd-boot-kernel.sh"'
 sudo mkinitcpio -P
 
 read_uki_os_release() {

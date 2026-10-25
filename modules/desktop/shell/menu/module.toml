@@ -6,4 +6,4 @@ requires = ["desktop.runtime"]
 
 [[output]]
 source = "src/shell/plugins/menu"
-target = "usr/share/arch/shell/plugins/menu"
+target = "usr/share/arch/src/shell/plugins/menu"

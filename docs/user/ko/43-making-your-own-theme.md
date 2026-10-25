@@ -1,6 +1,6 @@
 # 직접 테마 만들기
 
-`~/.config/arch/themes`에 직접 테마를 추가할 수 있습니다. 기존 테마 중 하나를 기반으로 복사한 뒤(`/usr/share/arch/themes`를 보세요) 마음껏 조정하세요. 테마가 그 폴더 안에 있는 한 테마 선택 메뉴에 포함됩니다.
+`~/.config/arch/themes`에 직접 테마를 추가할 수 있습니다. 기존 테마 중 하나를 기반으로 복사한 뒤(`/usr/share/arch/assets/themes`를 보세요) 마음껏 조정하세요. 테마가 그 폴더 안에 있는 한 테마 선택 메뉴에 포함됩니다.
 
 주로 조정해야 하는 파일은 `colors.toml`입니다. 이 파일이 색상 집합을 정의하고, 그 색상은 터미널(Foot/Alacritty/Ghostty/Kitty), btop, Chromium, Hyprland, Neovim, Helix, VSCode, Obsidian, 그리고 전체 Arch 셸(상단 막대, 메뉴, 알림, OSD, 잠금 화면)용 설정을 생성하는 데 쓰입니다.
 

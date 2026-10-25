@@ -6,4 +6,4 @@ requires = ["system.settings", "desktop.commands"]
 
 [[output]]
 source = "installer"
-target = "usr/share/arch/install"
+target = "usr/share/arch/installer"

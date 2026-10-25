@@ -810,7 +810,7 @@ shell_sources() {
     if [[ $first =~ ^#!.*[[:space:]/](bash|sh)$ ]]; then
       printf '%s\0' "$file"
     fi
-  done < <(find "$ROOT/src/cli" "$ROOT/install" "$ROOT/migrations" "$ROOT/default" \
+  done < <(find "$ROOT/src/cli" "$ROOT/installer" "$ROOT/migrations" "$ROOT/default" \
     -type f -print0 2>/dev/null | sort -z)
 }
 

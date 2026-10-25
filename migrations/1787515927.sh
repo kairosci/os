@@ -1,6 +1,6 @@
 echo "Stop world-writable Chromium and Firefox policy directories"
 
-source "$ARCH_PATH/install/helpers/browser-policy.sh"
+source "$ARCH_PATH/installer/helpers/browser-policy.sh"
 
 repaired=0
 for dir in "${BROWSER_POLICY_MANAGED_DIRS[@]}"; do

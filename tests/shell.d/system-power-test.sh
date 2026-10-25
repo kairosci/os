@@ -41,7 +41,7 @@ trap 'rm -f "$CALL_LOG.inhibited"' EXIT
 SH
 
 for command in uwsm arch-state arch-hyprland-window-close-all arch-osd arch-notification-send sleep timeout systemctl; do
-  cat >"$mock_src/cli/$command" <<'SH'
+  cat >"$mock_bin/$command" <<'SH'
 #!/bin/bash
 
 command=${0##*/}

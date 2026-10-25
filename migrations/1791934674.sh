@@ -1,7 +1,7 @@
 echo "Route links from every app through the running default browser"
 
 mkdir -p ~/.local/share/applications
-cp -f "$ARCH_PATH/applications/arch-browser.desktop" ~/.local/share/applications/
+cp -f "$ARCH_PATH/assets/applications/arch-browser.desktop" ~/.local/share/applications/
 update-desktop-database ~/.local/share/applications
 
 # Keep an http or https handler the user already set for Hyprland.

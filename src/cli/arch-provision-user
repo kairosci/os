@@ -62,9 +62,9 @@ if arch-done check finalize-user && (( force == 0 )); then
 fi
 
 export ARCH_PATH="${ARCH_PATH:-/usr/share/arch}"
-export ARCH_INSTALL="${ARCH_INSTALL:-$ARCH_PATH/install}"
+export ARCH_INSTALL="${ARCH_INSTALL:-$ARCH_PATH/installer}"
 export ARCH_SETUP_CONTEXT="${ARCH_SETUP_CONTEXT:-runtime}"
-export PATH="$ARCH_PATH/bin:$PATH"
+export PATH="$ARCH_PATH/src/cli:$PATH"
 
 if (( first_install )) && [[ $ARCH_SETUP_CONTEXT == "runtime" ]]; then
   # The ISO chroot doesn't set a context; arch-provision-owner runs first-install

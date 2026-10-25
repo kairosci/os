@@ -31,7 +31,7 @@ ShellRoot {
   // sibling directories under plugins/. ARCH_PATH is provided by the uwsm
   // session environment and is the single source of truth for this checkout.
   property string archPath: Quickshell.env("ARCH_PATH")
-  readonly property string shellPath: archPath + "/shell"
+  readonly property string shellPath: archPath + "/src/shell"
   readonly property string firstPartyPluginsDir: shellPath + "/plugins"
   readonly property string defaultsPath: archPath + "/config/arch/shell.json"
   readonly property string userConfigPath: home + "/.config/arch/shell.json"

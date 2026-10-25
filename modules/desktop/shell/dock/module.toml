@@ -6,4 +6,4 @@ requires = ["desktop.runtime"]
 
 [[output]]
 source = "src/shell/plugins/dock"
-target = "usr/share/arch/shell/plugins/dock"
+target = "usr/share/arch/src/shell/plugins/dock"

@@ -6,7 +6,7 @@ theme_webp_source() {
   local original_name=${background##*/}
   local replacement_name="${original_name%.*}.webp"
   local user_theme_backgrounds="$HOME/.config/arch/themes/$theme/backgrounds"
-  local bundled_theme_backgrounds="$ARCH_PATH/themes/$theme/backgrounds"
+  local bundled_theme_backgrounds="$ARCH_PATH/assets/themes/$theme/backgrounds"
 
   if [[ -f $user_theme_backgrounds/$original_name || -f $bundled_theme_backgrounds/$original_name ]]; then
     return 1

@@ -1,6 +1,6 @@
 # Kutengeneza mandhari yako mwenyewe
 
-Unaweza kuongeza mandhari zako mwenyewe kwenye `~/.config/arch/themes`. Nakili tu moja ya zilizopo kama msingi (angalia katika `/usr/share/arch/themes`), kisha rekebisha kwa furaha yako. Mradi mandhari yako iko ndani ya folda hiyo, itajumuishwa katika menyu ya kuchagua mandhari.
+Unaweza kuongeza mandhari zako mwenyewe kwenye `~/.config/arch/themes`. Nakili tu moja ya zilizopo kama msingi (angalia katika `/usr/share/arch/assets/themes`), kisha rekebisha kwa furaha yako. Mradi mandhari yako iko ndani ya folda hiyo, itajumuishwa katika menyu ya kuchagua mandhari.
 
 Faili kuu unayopaswa kurekebisha ni `colors.toml`. Hiyo hufafanua seti ya rangi ambayo kisha hutumika kuzalisha usanidi kwa terminali (Foot/Alacritty/Ghostty/Kitty), btop, Chromium, Hyprland, Neovim, Helix, VSCode, Obsidian, na shell nzima ya Arch (upau wa juu, menyu, arifa, OSD, na skrini ya kufunga).
 

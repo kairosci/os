@@ -83,7 +83,7 @@ target=$(realpath -e "$1" 2>/dev/null) || {
   exit 1
 }
 
-for required in bin default shell; do
+for required in src/cli default src/shell; do
   if [[ ! -d $target/$required ]]; then
     echo "Warning: $target/$required not found — does this look like an os source checkout?" >&2
   fi
@@ -97,7 +97,7 @@ trap 'rm -f "$staged_sudoers"' EXIT
 
 {
   printf 'Defaults secure_path='
-  sudoers_quote "$target/bin:$system_secure_path"
+  sudoers_quote "$target/src/cli:$system_secure_path"
   printf '\n'
 } >"$staged_sudoers"
 
@@ -116,7 +116,7 @@ sudo rm -f /etc/arch.conf /etc/sudoers.d/arch-dev-path
 sudo install -Dm440 -o root -g root "$staged_sudoers" "$sudoers_file"
 
 echo "Pointed os at $target"
-echo "sudo now resolves arch-* from $target/bin"
+echo "sudo now resolves arch-* from $target/src/cli"
 echo
 
 if (( prompt_reboot )) && gum confirm "Reboot now to activate?"; then

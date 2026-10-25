@@ -6,11 +6,11 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 scratch=$(mktemp -d)
 trap 'rm -rf "$scratch"' EXIT
 export ARCH_PATH="$scratch/arch" ARCH_INSTALL="$ROOT/installer" COMMAND_LOG="$scratch/commands"
-mkdir -p "$ARCH_PATH/bin" "$ARCH_PATH/default/i18n"
+mkdir -p "$ARCH_PATH/src/cli" "$ARCH_PATH/default/i18n"
 printf '{"en":{},"fr":{},"es":{},"it":{}}\n' >"$ARCH_PATH/default/i18n/locales.json"
 for command in arch-locale-generate arch-language; do
-  printf '#!/bin/bash\nprintf "%%s %%s\\n" "${0##*/}" "$*" >>"$COMMAND_LOG"\n' >"$ARCH_PATH/bin/$command"
-  chmod +x "$ARCH_PATH/bin/$command"
+  printf '#!/bin/bash\nprintf "%%s %%s\\n" "${0##*/}" "$*" >>"$COMMAND_LOG"\n' >"$ARCH_PATH/src/cli/$command"
+  chmod +x "$ARCH_PATH/src/cli/$command"
 done
 export ARCH_LANGUAGE_MARKER="$scratch/language"
 
@@ -65,10 +65,10 @@ pass "seeding sets the user's language and session LANG without elevating or not
 # timezone; the function is taken from owner setup itself.
 eval "$(sed -n '/^configure_region() {$/,/^}$/p' "$ROOT/src/cli/arch-provision-owner")"
 region_root=$scratch/region
-mkdir -p "$region_root/arch/default/regions/cn" "$region_root/arch/bin" "$region_root/etc/arch"
+mkdir -p "$region_root/arch/default/regions/cn" "$region_root/arch/src/cli" "$region_root/etc/arch"
 printf 'Asia/Shanghai\nAsia/Urumqi\n' >"$region_root/arch/default/regions/cn/timezones"
-printf '#!/bin/bash\necho "apply $*" >>"$REGION_LOG"\n' >"$region_root/arch/bin/arch-apply-pacman"
-chmod +x "$region_root/arch/bin/arch-apply-pacman"
+printf '#!/bin/bash\necho "apply $*" >>"$REGION_LOG"\n' >"$region_root/arch/src/cli/arch-apply-pacman"
+chmod +x "$region_root/arch/src/cli/arch-apply-pacman"
 export ARCH_FORM_DEFAULTS=$region_root/etc/arch/form-defaults ARCH_REGION_FILE=$region_root/etc/arch/region \
   ARCH_PACMAN_CONF=$region_root/etc/pacman.conf ARCH_REGION_TARGET=$region_root REGION_LOG=$region_root/log
 printf '[arch]\nServer = https://pkgs.arch.cn/stable/$arch\nServer = https://pkgs.github.com/kairosci/arch/stable/$arch\n' >"$ARCH_PACMAN_CONF"

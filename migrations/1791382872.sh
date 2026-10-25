@@ -58,7 +58,7 @@ fi
 # The declarations reach every user, so keep them out for a user who removed the
 # preinstalls. Either way, create the replacement shims before removing a wrapper.
 if [[ -f $HOME/.local/state/arch/preinstalls-removed ]]; then
-  "$ARCH_PATH/bin/arch-mise-default-tools" disable
+  "$ARCH_PATH/src/cli/arch-mise-default-tools" disable
 else
   mise reshim --system
 fi

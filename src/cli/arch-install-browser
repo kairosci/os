@@ -6,7 +6,7 @@
 
 set -e
 
-source "$ARCH_PATH/install/helpers/browser-policy.sh"
+source "$ARCH_PATH/installer/helpers/browser-policy.sh"
 
 opt_path="${ARCH_OPT_PATH:-/opt}"
 

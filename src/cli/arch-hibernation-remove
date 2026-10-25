@@ -51,7 +51,7 @@ sudo rm "$MKINITCPIO_CONF"
 # Remove resume settings from either supported boot path.
 sudo rm -f /etc/limine-entry-tool.d/resume.conf
 if bootctl status --no-pager 2>/dev/null | grep -Eq '^[[:space:]]*Product: systemd-boot([[:space:]]|$)'; then
-  sudo python3 "$ARCH_PATH/install/boot/update-kernel-cmdline.py" \
+  sudo python3 "$ARCH_PATH/installer/boot/update-kernel-cmdline.py" \
     /etc/kernel/cmdline remove resume resume_offset
 fi
 

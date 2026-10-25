@@ -4,7 +4,7 @@ O ambiente de trabalho Arch corre como um único processo Quickshell de longa du
 
 Isso não é apenas um detalhe de implementação. Significa que podes desligar partes do ambiente de trabalho, trocá-las ou escrever as tuas próprias sem tocares numa linha do código-fonte do Arch.
 
-Os plugins oficiais vêm com o Arch e vivem em `$ARCH_PATH/shell/plugins/`. Tudo o que adicionares tu próprio — as tuas próprias experiências, ou alguma coisa que encontraste no GitHub — vive em `~/.config/arch/plugins/`. Ambos são descobertos da mesma forma no arranque, mas os integrados recebem interfaces de shell fidedignas, enquanto os plugins de terceiros recebem uma interface limitada, circunscrita ao seu próprio serviço e ciclo de vida. Os clones de integrados mantêm apenas a configuração específica da fonte e as chamadas de interface necessárias para o comportamento original.
+Os plugins oficiais vêm com o Arch e vivem em `$ARCH_PATH/src/shell/plugins/`. Tudo o que adicionares tu próprio — as tuas próprias experiências, ou alguma coisa que encontraste no GitHub — vive em `~/.config/arch/plugins/`. Ambos são descobertos da mesma forma no arranque, mas os integrados recebem interfaces de shell fidedignas, enquanto os plugins de terceiros recebem uma interface limitada, circunscrita ao seu próprio serviço e ciclo de vida. Os clones de integrados mantêm apenas a configuração específica da fonte e as chamadas de interface necessárias para o comportamento original.
 
 ## Ver o que tens
 

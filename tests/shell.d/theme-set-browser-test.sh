@@ -101,7 +101,7 @@ printf '%s\n' \
   'bash bash -c pgrep -f brave'
 FAKE
 for command in chromium google-chrome microsoft-edge-stable brave brave-origin; do
-  printf '#!/bin/bash\nprintf "%%s\\n" "%s" >>"$REFRESH_LOG"\n' "$command" >"$browser_src/cli/$command"
+  printf '#!/bin/bash\nprintf "%%s\\n" "%s" >>"$REFRESH_LOG"\n' "$command" >"$browser_bin/$command"
 done
 # Only the stubs count as installed, so a real browser on the host, such as
 # google-chrome-stable, is neither preferred nor launched.

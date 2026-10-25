@@ -173,7 +173,7 @@ esac
 
 # A channel this machine's platform has no templates for is refused before
 # anything changes (installer/helpers/pacman.sh).
-source "$ARCH_PATH/install/helpers/pacman.sh"
+source "$ARCH_PATH/installer/helpers/pacman.sh"
 platform=$(arch-hw-platform) || fail "Cannot tell this machine's platform; nothing changed."
 templates=$(arch_pacman_templates "$platform") || exit 1
 [[ -f $templates/pacman-$pacman_channel.conf && -f $templates/mirrorlist-$pacman_channel ]] ||
@@ -217,4 +217,4 @@ if [[ -z $dev_checkout ]]; then
   arch_security_enable_no_update_sudo 2>/dev/null || stop_for_older_destination
 fi
 
-ARCH_UPDATE_USER_PATH="$user_path" "$ARCH_PATH/bin/arch-update" -y
+ARCH_UPDATE_USER_PATH="$user_path" "$ARCH_PATH/src/cli/arch-update" -y

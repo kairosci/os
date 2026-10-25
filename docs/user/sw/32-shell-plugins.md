@@ -4,7 +4,7 @@ Eneo-kazi la Arch huendeshwa kama mchakato mmoja wa Quickshell wa muda mrefu una
 
 Hiyo si maelezo tu ya utekelezaji. Ina maana unaweza kuzima vipande vya eneo-kazi, kuvibadilisha, au kuandika vyako mwenyewe bila kugusa mstari wa chanzo cha Arch.
 
-Programu-jalizi za mtu wa kwanza huja na Arch na kukaa katika `$ARCH_PATH/shell/plugins/`. Chochote unachoongeza mwenyewe — majaribio yako mwenyewe, au kitu ulichopata kwenye GitHub — hukaa katika `~/.config/arch/plugins/`. Zote mbili hugunduliwa kwa njia ile ile wakati wa kuanza, lakini zilizo za ndani hupokea violesura vinavyoaminika vya shell wakati programu-jalizi za wahusika wengine hupokea kiolesura kidogo kilichowekewa wigo kwa huduma na mzunguko wa maisha wao wenyewe. Nakala za zilizo za ndani huhifadhi tu usanidi maalum wa chanzo na miito ya UI inayohitajika kwa tabia ya asili.
+Programu-jalizi za mtu wa kwanza huja na Arch na kukaa katika `$ARCH_PATH/src/shell/plugins/`. Chochote unachoongeza mwenyewe — majaribio yako mwenyewe, au kitu ulichopata kwenye GitHub — hukaa katika `~/.config/arch/plugins/`. Zote mbili hugunduliwa kwa njia ile ile wakati wa kuanza, lakini zilizo za ndani hupokea violesura vinavyoaminika vya shell wakati programu-jalizi za wahusika wengine hupokea kiolesura kidogo kilichowekewa wigo kwa huduma na mzunguko wa maisha wao wenyewe. Nakala za zilizo za ndani huhifadhi tu usanidi maalum wa chanzo na miito ya UI inayohitajika kwa tabia ya asili.
 
 ## Kuona ulivyonavyo
 

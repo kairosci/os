@@ -1,6 +1,6 @@
 # Criando seu próprio tema
 
-Você pode adicionar seus próprios temas em `~/.config/arch/themes`. É só copiar um dos existentes como base (veja em `/usr/share/arch/themes`) e depois ajustar à vontade. Desde que seu tema esteja dentro dessa pasta, ele será incluído no menu de seleção de temas.
+Você pode adicionar seus próprios temas em `~/.config/arch/themes`. É só copiar um dos existentes como base (veja em `/usr/share/arch/assets/themes`) e depois ajustar à vontade. Desde que seu tema esteja dentro dessa pasta, ele será incluído no menu de seleção de temas.
 
 O arquivo principal que você precisa ajustar é o `colors.toml`. Ele define o conjunto de cores que é então usado para gerar as configurações do terminal (Foot/Alacritty/Ghostty/Kitty), btop, Chromium, Hyprland, Neovim, Helix, VSCode, Obsidian e de toda a shell do Arch (barra superior, menu, notificações, OSD e tela de bloqueio).
 

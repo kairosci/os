@@ -4,7 +4,7 @@ Arch töölaud töötab ühe pikaealise Quickshelli protsessina nimega `arch-she
 
 See pole lihtsalt rakendusdetail. See tähendab, et saad töölaua osi välja lülitada, välja vahetada või kirjutada oma, puudutamata rida ka Arch lähtekoodi.
 
-Esmase osapoole pistikprogrammid tulevad Archga ja elavad kaustas `$ARCH_PATH/shell/plugins/`. Kõik, mida ise lisad — oma katsetused või midagi, mille GitHubist leidsid — elab kaustas `~/.config/arch/plugins/`. Mõlemad avastatakse käivitamisel samal viisil, kuid sisseehitatud saavad usaldusväärsed kesta liidesed, samas kui kolmanda osapoole pistikprogrammid saavad piiratud liidese, mis on piiratud nende oma teenuse ja elutsükliga. Sisseehitatute kloonid säilitavad ainult allikaspetsiifilise konfiguratsiooni ja UI kõned, mida on vaja algse käitumise jaoks.
+Esmase osapoole pistikprogrammid tulevad Archga ja elavad kaustas `$ARCH_PATH/src/shell/plugins/`. Kõik, mida ise lisad — oma katsetused või midagi, mille GitHubist leidsid — elab kaustas `~/.config/arch/plugins/`. Mõlemad avastatakse käivitamisel samal viisil, kuid sisseehitatud saavad usaldusväärsed kesta liidesed, samas kui kolmanda osapoole pistikprogrammid saavad piiratud liidese, mis on piiratud nende oma teenuse ja elutsükliga. Sisseehitatute kloonid säilitavad ainult allikaspetsiifilise konfiguratsiooni ja UI kõned, mida on vaja algse käitumise jaoks.
 
 ## Selle nägemine, mis sul on
 

@@ -6,4 +6,4 @@ requires = ["desktop.runtime"]
 
 [[output]]
 source = "src/shell/plugins/services"
-target = "usr/share/arch/shell/plugins/services"
+target = "usr/share/arch/src/shell/plugins/services"

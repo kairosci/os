@@ -10,7 +10,7 @@ work=$(mktemp -d)
 trap 'rm -rf "$work"' EXIT
 runtime_arch="$work/arch"
 mkdir -p "$runtime_arch"
-ln -s "$ROOT/installer" "$runtime_arch/install"
+ln -s "$ROOT/installer" "$runtime_arch/installer"
 export ARCH_PATH="$runtime_arch"
 export PATH="$ROOT/src/cli:$PATH"
 
@@ -65,9 +65,9 @@ pass "each platform composes the base, architecture and platform lists"
 # A hardware family's own list joins only that family's set, after the base and
 # architecture lists; plain aarch64 composes the others alone.
 tree="$work/tree"
-mkdir -p "$tree/install"
-cp "$ROOT"/installer/arch-*.packages "$tree/install/"
-printf '# test addition\nexample-board-support\nzram-generator\n' >"$tree/install/arch-aarch64-apple.packages"
+mkdir -p "$tree/installer"
+cp "$ROOT"/installer/arch-*.packages "$tree/installer/"
+printf '# test addition\nexample-board-support\nzram-generator\n' >"$tree/installer/arch-aarch64-apple.packages"
 for platform in aarch64-apple aarch64 x86; do
   defaults=$(ARCH_PATH="$tree" arch-pkg-defaults "$platform")
   if [[ $platform == "aarch64-apple" ]]; then

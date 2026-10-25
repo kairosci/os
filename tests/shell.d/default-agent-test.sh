@@ -111,7 +111,7 @@ exec "$@"
 SH
 
 for command in gum hyprctl arch-webapp-remove-all arch-tui-remove-all arch-pkg-drop; do
-  ln -s arch-test-noop "$mock_src/cli/$command"
+  ln -s arch-test-noop "$mock_bin/$command"
 done
 
 chmod +x "$mock_bin"/*

@@ -11,7 +11,7 @@ export PATH="$tmp_dir/bin:$PATH"
 
 # Every privileged or hardware-facing command is a shim that records its call.
 for command in arch-pkg-add arch-pkg-drop limine-entry-tool limine-mkinitcpio systemctl; do
-  printf '#!/bin/bash\necho "%s $*" >> "$CALL_LOG"\n' "$command" > "$tmp_dir/src/cli/$command"
+  printf '#!/bin/bash\necho "%s $*" >> "$CALL_LOG"\n' "$command" > "$tmp_dir/bin/$command"
 done
 cat > "$tmp_dir/bin/arch-hw-aarch64-n1x" <<'SH'
 #!/bin/bash

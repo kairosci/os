@@ -4,7 +4,7 @@ Arch-skjáborðið keyrir sem eitt langlíft Quickshell-ferli sem kallast `arch-
 
 Það er ekki bara útfærsluupplýsing. Það þýðir að þú getur slökkt á hlutum af skjáborðinu, skipt þeim út eða skrifað þína eigin án þess að snerta línu af frumkóða Arch.
 
-Fyrstu-flokks viðbæturnar koma með Arch og búa í `$ARCH_PATH/shell/plugins/`. Allt sem þú bætir við sjálfur — þínar eigin tilraunir, eða eitthvað sem þú fannst á GitHub — býr í `~/.config/arch/plugins/`. Bæði eru uppgötvuð á sama hátt við ræsingu, en innbyggðar fá traust shell-viðmót á meðan viðbætur frá þriðja aðila fá takmarkað viðmót sem afmarkast við þeirra eigin þjónustu og lífsferil. Klónar af innbyggðum halda aðeins stillingum og UI-köllum sem eru sértæk fyrir upprunann og þarf fyrir upprunalega hegðun.
+Fyrstu-flokks viðbæturnar koma með Arch og búa í `$ARCH_PATH/src/shell/plugins/`. Allt sem þú bætir við sjálfur — þínar eigin tilraunir, eða eitthvað sem þú fannst á GitHub — býr í `~/.config/arch/plugins/`. Bæði eru uppgötvuð á sama hátt við ræsingu, en innbyggðar fá traust shell-viðmót á meðan viðbætur frá þriðja aðila fá takmarkað viðmót sem afmarkast við þeirra eigin þjónustu og lífsferil. Klónar af innbyggðum halda aðeins stillingum og UI-köllum sem eru sértæk fyrir upprunann og þarf fyrir upprunalega hegðun.
 
 ## Að sjá hvað þú hefur
 

@@ -1,6 +1,6 @@
 # Savas tēmas veidošana
 
-Savas tēmas varat pievienot mapē `~/.config/arch/themes`. Vienkārši par pamatu nokopējiet kādu no esošajām (meklējiet mapē `/usr/share/arch/themes`), pēc tam pielāgojiet pēc sirds patikas. Kamēr jūsu tēma ir šajā mapē, tā tiks iekļauta tēmu atlases izvēlnē.
+Savas tēmas varat pievienot mapē `~/.config/arch/themes`. Vienkārši par pamatu nokopējiet kādu no esošajām (meklējiet mapē `/usr/share/arch/assets/themes`), pēc tam pielāgojiet pēc sirds patikas. Kamēr jūsu tēma ir šajā mapē, tā tiks iekļauta tēmu atlases izvēlnē.
 
 Galvenais fails, kas jāpielāgo, ir `colors.toml`. Tas nosaka krāsu kopu, ko pēc tam izmanto konfigurāciju ģenerēšanai terminālim (Foot/Alacritty/Ghostty/Kitty), btop, Chromium, Hyprland, Neovim, Helix, VSCode, Obsidian un visai Arch čaulai (augšējai joslai, izvēlnei, paziņojumiem, OSD un bloķēšanas ekrānam).
 

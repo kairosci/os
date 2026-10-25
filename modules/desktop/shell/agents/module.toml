@@ -6,4 +6,4 @@ requires = ["desktop.runtime"]
 
 [[output]]
 source = "src/shell/plugins/agents"
-target = "usr/share/arch/shell/plugins/agents"
+target = "usr/share/arch/src/shell/plugins/agents"

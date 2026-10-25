@@ -87,7 +87,7 @@ fi
 touch "${@: -3:1}"
 SH
 for command in arch-shell arch-notification-send ffprobe pkill; do
-  printf '#!/bin/bash\nexit 0\n' >"$tmp/src/cli/$command"
+  printf '#!/bin/bash\nexit 0\n' >"$tmp/bin/$command"
 done
 cat >"$tmp/bin/arch-shell" <<'SH'
 #!/bin/bash

@@ -21,7 +21,7 @@ printf 'browser_policy_setup_dir() { :; }\nas_root() { sudo "$@"; }\n' >"$arch_p
 cp "$ROOT/config/chromium-flags.conf" "$arch_path/config/"
 
 for command in arch-pkg-add arch-pkg-aur-add arch-install-chromium-copy-url arch-install-chromium-ytdlp arch-theme-set-browser arch-lifecycle-dispatch; do
-  printf '#!/bin/bash\nexit 0\n' >"$stub_src/cli/$command"
+  printf '#!/bin/bash\nexit 0\n' >"$stub_bin/$command"
 done
 cat >"$stub_bin/sudo" <<'SH'
 #!/bin/bash

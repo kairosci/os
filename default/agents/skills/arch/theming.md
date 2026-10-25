@@ -15,7 +15,7 @@ archctl theme install <url>     # Install from git repo
 ## Making a New Theme
 
 1. Create a directory under `~/.config/arch/themes`.
-2. See how an existing theme is done via `/usr/share/arch/themes/catppuccin`.
+2. See how an existing theme is done via `/usr/share/arch/assets/themes/catppuccin`.
 3. Download a matching background (or several) from the internet and put them in `~/.config/arch/themes/<name-of-new-theme>/backgrounds/`.
 4. When done with the theme, run `archctl theme set "Name of new theme"`.
 
@@ -44,7 +44,7 @@ built-in one. See `docs/theming.md` in the os repo.
 
 ## Customizing a Stock Theme
 
-Never edit stock themes under `/usr/share/arch/themes/` — changes are lost
+Never edit stock themes under `/usr/share/arch/assets/themes/` — changes are lost
 on update. Two safe options:
 
 Both write into `~/.config/arch/themes`, where a theme the user wrote is
@@ -56,7 +56,7 @@ applied, the stock theme is copied first and your files win on top:
 
 ```bash
 mkdir -p ~/.config/arch/themes/catppuccin
-cp /usr/share/arch/themes/catppuccin/colors.toml ~/.config/arch/themes/catppuccin/
+cp /usr/share/arch/assets/themes/catppuccin/colors.toml ~/.config/arch/themes/catppuccin/
 # Edit the copied colors.toml, then re-apply:
 archctl theme set catppuccin
 ```
@@ -65,7 +65,7 @@ archctl theme set catppuccin
 variant:
 
 ```bash
-cp -r /usr/share/arch/themes/catppuccin ~/.config/arch/themes/catppuccin-custom
+cp -r /usr/share/arch/assets/themes/catppuccin ~/.config/arch/themes/catppuccin-custom
 # Edit ~/.config/arch/themes/catppuccin-custom/, then:
 archctl theme set catppuccin-custom
 ```

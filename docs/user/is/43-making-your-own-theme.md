@@ -1,6 +1,6 @@
 # Að búa til þitt eigið þema
 
-Þú getur bætt þínum eigin þemum við í `~/.config/arch/themes`. Afritaðu bara eitt af núverandi þemum sem grunn (horfðu í `/usr/share/arch/themes`) og lagfærðu svo að vild þinni. Svo framarlega sem þemað þitt er inni í þeirri möppu verður það innifalið í þemavalsvalmyndinni.
+Þú getur bætt þínum eigin þemum við í `~/.config/arch/themes`. Afritaðu bara eitt af núverandi þemum sem grunn (horfðu í `/usr/share/arch/assets/themes`) og lagfærðu svo að vild þinni. Svo framarlega sem þemað þitt er inni í þeirri möppu verður það innifalið í þemavalsvalmyndinni.
 
 Aðalskráin sem þú þarft að lagfæra er `colors.toml`. Hún skilgreinir litasettið sem er svo notað til að búa til stillingar fyrir terminal (Foot/Alacritty/Ghostty/Kitty), btop, Chromium, Hyprland, Neovim, Helix, VSCode, Obsidian og alla Arch-skelina (valmyndastiku, valmynd, tilkynningar, OSD og læsiskjá).
 

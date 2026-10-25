@@ -4,7 +4,7 @@ Arch ish stoli `arch-shell` deb ataluvchi bitta uzoq yashovchi Quickshell jarayo
 
 Bu shunchaki amalga oshirish tafsiloti emas. Bu siz ish stolining qismlarini oʻchirishingiz, ularni almashtirishingiz yoki Arch manbasining bir qatoriga tegmasdan oʻzingiznikini yozishingiz mumkinligini anglatadi.
 
-Birinchi tomon plaginlari Arch bilan keladi va `$ARCH_PATH/shell/plugins/` da yashaydi. Oʻzingiz qoʻshgan har qanday narsa — oʻz tajribalaringiz yoki GitHub da topgan biror narsangiz — `~/.config/arch/plugins/` da yashaydi. Ikkalasi ham boshlangʻichda bir xil tarzda topiladi, lekin oʻrnatilganlar ishonchli shell interfeyslarini oladi, uchinchi tomon plaginlari esa oʻz xizmati va hayot aylanishi bilan cheklangan interfeys oladi. Oʻrnatilganlarning klonlari faqat asl xulq-atvor uchun kerak boʻlgan manbaga xos konfiguratsiya va UI chaqiruvlarini saqlaydi.
+Birinchi tomon plaginlari Arch bilan keladi va `$ARCH_PATH/src/shell/plugins/` da yashaydi. Oʻzingiz qoʻshgan har qanday narsa — oʻz tajribalaringiz yoki GitHub da topgan biror narsangiz — `~/.config/arch/plugins/` da yashaydi. Ikkalasi ham boshlangʻichda bir xil tarzda topiladi, lekin oʻrnatilganlar ishonchli shell interfeyslarini oladi, uchinchi tomon plaginlari esa oʻz xizmati va hayot aylanishi bilan cheklangan interfeys oladi. Oʻrnatilganlarning klonlari faqat asl xulq-atvor uchun kerak boʻlgan manbaga xos konfiguratsiya va UI chaqiruvlarini saqlaydi.
 
 ## Sizda nima borligini koʻrish
 

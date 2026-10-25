@@ -1,6 +1,6 @@
 # Oʻz mavzuingizni yaratish
 
-Siz oʻzingizning mavzularingizni `~/.config/arch/themes` ga qoʻshishingiz mumkin. Faqat mavjudlaridan birini asos sifatida nusxalang (`/usr/share/arch/themes` ga qarang), keyin koʻngildagidek sozlang. Mavzuingiz ushbu jild ichida ekan, u mavzu tanlash menyusiga kiritiladi.
+Siz oʻzingizning mavzularingizni `~/.config/arch/themes` ga qoʻshishingiz mumkin. Faqat mavjudlaridan birini asos sifatida nusxalang (`/usr/share/arch/assets/themes` ga qarang), keyin koʻngildagidek sozlang. Mavzuingiz ushbu jild ichida ekan, u mavzu tanlash menyusiga kiritiladi.
 
 Siz sozlashingiz kerak boʻlgan asosiy fayl `colors.toml`. Bu keyinchalik terminal (Foot/Alacritty/Ghostty/Kitty), btop, Chromium, Hyprland, Neovim, Helix, VSCode, Obsidian va butun Arch shell (yuqori panel, menyu, bildirishnomalar, OSD va qulf ekrani) uchun konfiguratsiyalarni yaratish uchun ishlatiladigan ranglar toʻplamini belgilaydi.
 

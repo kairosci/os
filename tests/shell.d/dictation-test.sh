@@ -48,7 +48,7 @@ exit "${DICTATION_EXIT:-0}"
 SH
 done
 for command in arch-pkg-add arch-notification-send hyprctl arch-restart-shell; do
-  cat > "$test_tmp/src/cli/$command" <<'SH'
+  cat > "$test_tmp/bin/$command" <<'SH'
 #!/bin/bash
 printf '%s %s\n' "${0##*/}" "$*" >> "$DICTATION_LOG"
 exit "${SETUP_EXIT:-0}"

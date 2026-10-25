@@ -4,7 +4,7 @@ L'escriptori d'Arch s'executa com un únic procés Quickshell de llarga durada a
 
 Això no és només un detall d'implementació. Vol dir que pots apagar peces de l'escriptori, intercanviar-les o escriure'n de pròpies sense tocar ni una línia del codi font d'Arch.
 
-Els connectors oficials venen amb Arch i viuen a `$ARCH_PATH/shell/plugins/`. Qualsevol cosa que afegeixis tu mateix — els teus propis experiments, o alguna cosa que hagis trobat a GitHub — viu a `~/.config/arch/plugins/`. Tots dos es descobreixen de la mateixa manera a l'arrencada, però els integrats reben interfícies de l'intèrpret de confiança mentre que els connectors de tercers reben una interfície limitada restringida al seu propi servei i cicle de vida. Els clons dels integrats conserven només la configuració i les crides a la interfície d'usuari específiques de l'origen necessàries per al comportament original.
+Els connectors oficials venen amb Arch i viuen a `$ARCH_PATH/src/shell/plugins/`. Qualsevol cosa que afegeixis tu mateix — els teus propis experiments, o alguna cosa que hagis trobat a GitHub — viu a `~/.config/arch/plugins/`. Tots dos es descobreixen de la mateixa manera a l'arrencada, però els integrats reben interfícies de l'intèrpret de confiança mentre que els connectors de tercers reben una interfície limitada restringida al seu propi servei i cicle de vida. Els clons dels integrats conserven només la configuració i les crides a la interfície d'usuari específiques de l'origen necessàries per al comportament original.
 
 ## Veure què tens
 

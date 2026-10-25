@@ -326,7 +326,7 @@ exec cat "$ARCH_TEST_EVENTS"
 SH
 
 for command in arch-hyprland-monitor-clamshell arch-hyprland-monitor-external-active; do
-  cat >"$fake_src/cli/$command" <<'SH'
+  cat >"$fake_bin/$command" <<'SH'
 #!/bin/bash
 
 exit 0

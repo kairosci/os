@@ -4,7 +4,7 @@ A área de trabalho do Arch é executada como um único processo Quickshell de v
 
 Isso não é apenas um detalhe de implementação. Isso significa que você pode desligar partes da área de trabalho, trocá-las ou escrever as suas próprias sem tocar em uma linha do código-fonte do Arch.
 
-Os plug-ins originais vêm com o Arch e ficam em `$ARCH_PATH/shell/plugins/`. Qualquer coisa que você adicione você mesmo — seus próprios experimentos, ou algo que você encontrou no GitHub — fica em `~/.config/arch/plugins/`. Os dois são descobertos da mesma maneira na inicialização, mas os integrados recebem interfaces de shell confiáveis, enquanto plug-ins de terceiros recebem uma interface limitada, restrita ao seu próprio serviço e ciclo de vida. Clones dos integrados mantêm apenas a configuração específica da fonte e as chamadas de interface necessárias para o comportamento original.
+Os plug-ins originais vêm com o Arch e ficam em `$ARCH_PATH/src/shell/plugins/`. Qualquer coisa que você adicione você mesmo — seus próprios experimentos, ou algo que você encontrou no GitHub — fica em `~/.config/arch/plugins/`. Os dois são descobertos da mesma maneira na inicialização, mas os integrados recebem interfaces de shell confiáveis, enquanto plug-ins de terceiros recebem uma interface limitada, restrita ao seu próprio serviço e ciclo de vida. Clones dos integrados mantêm apenas a configuração específica da fonte e as chamadas de interface necessárias para o comportamento original.
 
 ## Vendo o que você tem
 

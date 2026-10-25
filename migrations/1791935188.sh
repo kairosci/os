@@ -8,7 +8,7 @@ for flags_file in "$HOME"/.config/{chromium,chrome,microsoft-edge-stable,brave,b
   echo '--no-default-browser-check' >>"$flags_file"
 done
 
-source "$ARCH_PATH/install/helpers/browser-policy.sh"
+source "$ARCH_PATH/installer/helpers/browser-policy.sh"
 
 for dir in "${BROWSER_POLICY_FIREFOX_DIRS[@]}"; do
   if browser_policy_firefox_hardened "$dir"; then

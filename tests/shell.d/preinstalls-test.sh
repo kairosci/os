@@ -15,7 +15,7 @@ pkg_log="$test_tmp/packages"
 mkdir -p "$mock_bin" "$test_home/.local/state/arch"
 
 for command in arch-webapp-remove-all arch-tui-remove-all arch-refresh-applications hyprctl; do
-  printf '#!/bin/bash\nexit 0\n' >"$mock_src/cli/$command"
+  printf '#!/bin/bash\nexit 0\n' >"$mock_bin/$command"
 done
 
 cat >"$mock_bin/gum" <<'SH'

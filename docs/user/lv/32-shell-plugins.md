@@ -4,7 +4,7 @@ Arch darbvirsma darbojas kā viens ilgi dzīvojošs Quickshell process ar nosauk
 
 Tas nav tikai īstenošanas sīkums. Tas nozīmē, ka jūs varat darbvirsmas daļas izslēgt, tās izmainīt vietām vai rakstīt savējās, nepieskaroties nevienai Arch avota rindai.
 
-Pirmās puses spraudņi tiek piegādāti kopā ar Arch un dzīvo mapē `$ARCH_PATH/shell/plugins/`. Viss, ko pievienojat pats — savi eksperimenti vai kaut kas GitHub vietnē atrasts —, dzīvo mapē `~/.config/arch/plugins/`. Abi startēšanās laikā tiek atklāti vienādi, taču iebūvētie saņem uzticamas čaulas saskarnes, kamēr trešo pušu spraudņi saņem ierobežotu saskarni, kas norobežota līdz viņu pašu pakalpojumam un dzīves ciklam. Iebūvēto kloniem saglabājas tikai avotam raksturīgās konfigurācijas un lietotāja saskarnes izsaukumi, kas nepieciešami sākotnējai uzvedībai.
+Pirmās puses spraudņi tiek piegādāti kopā ar Arch un dzīvo mapē `$ARCH_PATH/src/shell/plugins/`. Viss, ko pievienojat pats — savi eksperimenti vai kaut kas GitHub vietnē atrasts —, dzīvo mapē `~/.config/arch/plugins/`. Abi startēšanās laikā tiek atklāti vienādi, taču iebūvētie saņem uzticamas čaulas saskarnes, kamēr trešo pušu spraudņi saņem ierobežotu saskarni, kas norobežota līdz viņu pašu pakalpojumam un dzīves ciklam. Iebūvēto kloniem saglabājas tikai avotam raksturīgās konfigurācijas un lietotāja saskarnes izsaukumi, kas nepieciešami sākotnējai uzvedībai.
 
 ## Skatoties, kas jums ir
 

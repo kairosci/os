@@ -24,10 +24,10 @@ pass "different, symlink and relative roots are rejected"
 # still uses real readlink/realpath; no host /usr/bin file is changed or run.
 package_root="$boundary_tmp/usr/share/arch"
 package_bin="$boundary_tmp/usr/bin"
-mkdir -p "$package_root/bin" "$package_bin"
+mkdir -p "$package_root/src/cli" "$package_bin"
 cp "$SUDO_TEST_ROOT/src/cli/arch-update" "$package_bin/arch-update"
 cp "$SUDO_TEST_ROOT/src/cli/arch-update" "$package_bin/different-command"
-ln -s "$package_bin/arch-update" "$package_root/bin/arch-update"
+ln -s "$package_bin/arch-update" "$package_root/src/cli/arch-update"
 python3 - "$SUDO_TEST_ROOT/src/cli/arch-security-functions" "$boundary_tmp/package-library" "$package_root" "$package_bin" <<'PY'
 import sys
 from pathlib import Path
@@ -39,11 +39,11 @@ Path(output).write_text(text)
 PY
 source "$boundary_tmp/package-library"
 ARCH_PATH="$package_root" arch_security_require_source_root "$package_bin/arch-update" || fail "package binary was rejected"
-ARCH_PATH="$package_root" arch_security_require_source_root "$package_root/bin/arch-update" || fail "package link was rejected"
+ARCH_PATH="$package_root" arch_security_require_source_root "$package_root/src/cli/arch-update" || fail "package link was rejected"
 pass "the package binary and its matching source-tree link are accepted"
 
-ln -sfn "$package_bin/different-command" "$package_root/bin/arch-update"
-if ARCH_PATH="$package_root" arch_security_require_source_root "$package_root/bin/arch-update" >"$boundary_tmp/output" 2>&1; then
+ln -sfn "$package_bin/different-command" "$package_root/src/cli/arch-update"
+if ARCH_PATH="$package_root" arch_security_require_source_root "$package_root/src/cli/arch-update" >"$boundary_tmp/output" 2>&1; then
   fail "a package link to a different command was accepted"
 fi
 pass "a package link must resolve to its named command"
