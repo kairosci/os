@@ -1,7 +1,7 @@
 # The Arch CLI router
 
 `src/cli/archctl` maps spaced commands onto the flat `src/cli/arch-*` namespace:
-`archctl theme set foo` becomes `exec bin/arch-theme-set foo`. There is no
+`archctl theme set foo` becomes `exec arch-theme-set foo`. There is no
 registry to maintain — every executable `src/cli/arch-*` file is a command, and
 its filename is its default route. Metadata comments in the file header refine
 how it presents and routes; the keys are documented in

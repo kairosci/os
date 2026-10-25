@@ -41,7 +41,7 @@ overwritten on the next `archctl update`.
 
 ```
 /usr/share/arch/     # READ-ONLY - NEVER EDIT (reading is OK)
-├── bin/                    # Command source (packaged binaries are on PATH)
+├── src/cli/                # Command source (packaged binaries are on PATH)
 ├── config/                 # Default config templates
 ├── assets/themes/                 # Stock themes
 ├── default/                # System defaults
