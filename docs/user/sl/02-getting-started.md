@@ -2,7 +2,7 @@
 
 Arch se namesti z ISO. Izberete lahko med namestitvijo na cel disk, ki prevzame celoten pogon, ali namestitvijo v prosti prostor, ki Arch namesti v nedodeljeni prostor na pogonu — tako ga lahko poganjate v dvojnem zagonu ob sistemu Windows ali drugem operacijskem sistemu (glejte [namestitev za dvojni zagon](50-dual-boot-install.md) — upoštevajte, da morate v sistemu Windows najprej izklopiti BitLocker). V obeh primerih namestitev privzeto uporabi popolno šifriranje, možnost namestitve na cel disk pa bo izbrisala izbrani pogon, zato pred uporabo obstoječega pogona obvezno naredite varnostno kopijo!
 
-Najprej [prenesite ISO za Arch](https://github.com/kairosci/arch/), ga zapišite na USB ključek (uporabite [balenaEtcher](https://etcher.balena.io/) v Macu/Windows ali [caligula](https://github.com/ifd3f/caligula) v Linuxu) in zaženite računalnik s ključka.
+Najprej [prenesite ISO za Arch](https://github.com/kairosci/os/), ga zapišite na USB ključek (uporabite [balenaEtcher](https://etcher.balena.io/) v Macu/Windows ali [caligula](https://github.com/ifd3f/caligula) v Linuxu) in zaženite računalnik s ključka.
 
 _V BIOS-u morate izklopiti Secure Boot in/ali TPM. Izklopiti ju morate, da lahko namestite Arch. Gre za Microsoftova varnostna mehanizma, namenjena sistemu Windows in z Microsoftom povezanim distribucijam Linuxa._
 
@@ -36,8 +36,8 @@ V posebnih okoliščinah, na primer pri oddaljenih namestitvah sistema Arch na z
 
 ### Jezik
 
-Arch govori 50 jezikov — isti nabor kot github.com/kairosci/arch — privzeta pa je angleščina. Za zamenjavo odprite meni Arch in pojdite v _Setup > Language_ ali v terminalu zaženite `archctl language <code>` (`archctl language list` pokaže kode). Meni, namizje in obvestila sistema Arch zamenjajo jezik takoj, temu pa sledi tudi vsaka aplikacija, ki jo odprete pozneje. Aplikacije, ki so bile že odprte, se zamenjajo, ko jih znova zaženete.
+Arch govori 50 jezikov — isti nabor kot github.com/kairosci/os — privzeta pa je angleščina. Za zamenjavo odprite meni Arch in pojdite v _Setup > Language_ ali v terminalu zaženite `archctl language <code>` (`archctl language list` pokaže kode). Meni, namizje in obvestila sistema Arch zamenjajo jezik takoj, temu pa sledi tudi vsaka aplikacija, ki jo odprete pozneje. Aplikacije, ki so bile že odprte, se zamenjajo, ko jih znova zaženete.
 
 ### Pomoč, če se zataknete
 
-Če se zataknete, lahko v kanalu _#arch-help_ na [skupnostnem Discordu](https://github.com/kairosci/arch/discord) običajno najdete nekoga, ki vam je pripravljen pomagati.
+Če se zataknete, lahko v kanalu _#arch-help_ na [skupnostnem Discordu](https://github.com/kairosci/os/discord) običajno najdete nekoga, ki vam je pripravljen pomagati.

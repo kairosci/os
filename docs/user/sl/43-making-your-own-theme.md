@@ -42,4 +42,4 @@ Ta preostali `[themename]` postane ime imenika teme, zato mora biti tak, da ga A
 
 Ne pozabite, da je po namestitvi iz repozitorija vsaka `.lua`, konfiguracija terminala ali `vscode.json`, ki jo prinaša, izpuščena, zato teme ne gradite okoli teh.
 
-Svojo temo lahko dodate na [stran z dodatnimi temami](https://github.com/kairosci/arch/themes/) tako, da pošljete zahtevek za vlečenje v [repozitorij arch-site](https://github.com/kairosci/arch).
+Svojo temo lahko dodate na [stran z dodatnimi temami](https://github.com/kairosci/os/themes/) tako, da pošljete zahtevek za vlečenje v [repozitorij arch-site](https://github.com/kairosci/os).

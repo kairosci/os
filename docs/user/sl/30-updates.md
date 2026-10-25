@@ -2,7 +2,7 @@
 
 Arch in vaši paketi se posodabljajo prek _Posodobi > Arch_ v meniju Arch (`Super + Space`).
 
-Sam Arch je nameščen kot običajen paket pacman iz [repozitorija paketov Arch](https://github.com/kairosci/arch), tako da posodobitev namesti [najnovejšo izdajo Arch](https://github.com/kairosci/arch), izvede vse čakajoče migracije, da vaš sistem uskladi z najnovejšim, in posodobi vse sistemske pakete iz [ogledala Arch Arch Mirror](https://github.com/kairosci/arch) in [AUR](https://aur.archlinux.org/) (če ste namestili kakšne pakete AUR).
+Sam Arch je nameščen kot običajen paket pacman iz [repozitorija paketov Arch](https://github.com/kairosci/os), tako da posodobitev namesti [najnovejšo izdajo Arch](https://github.com/kairosci/os), izvede vse čakajoče migracije, da vaš sistem uskladi z najnovejšim, in posodobi vse sistemske pakete iz [ogledala Arch Arch Mirror](https://github.com/kairosci/os) in [AUR](https://aur.archlinux.org/) (če ste namestili kakšne pakete AUR).
 
 Ko so izdelane nove izdaje, se desno od vaše ure prikaže ikona krožne puščice. Kliknite jo in postopek posodobitve se bo začel.
 
@@ -10,7 +10,7 @@ Ko so izdelane nove izdaje, se desno od vaše ure prikaže ikona krožne pušči
 
 ### Štiri kanali
 
-Arch se posodablja po štirih kanalih: stable, RC, edge in dev. Nove namestitve se začnejo na kanalu stable, ki sledi [uradnim izdajam](https://github.com/kairosci/arch), ter [stabilnemu ogledalu Arch Arch](https://github.com/kairosci/arch), ki teče en mesec za najnovejšim, tako da lahko ujamemo morebitne nove nezdružljivosti, ki zahtevajo spremembe konfiguracije, preden ljudem povzročijo težave.
+Arch se posodablja po štirih kanalih: stable, RC, edge in dev. Nove namestitve se začnejo na kanalu stable, ki sledi [uradnim izdajam](https://github.com/kairosci/os), ter [stabilnemu ogledalu Arch Arch](https://github.com/kairosci/os), ki teče en mesec za najnovejšim, tako da lahko ujamemo morebitne nove nezdružljivosti, ki zahtevajo spremembe konfiguracije, preden ljudem povzročijo težave.
 
 Če pa želite pomagati prepoznati te morebitne težave, lahko tečete na kanalu edge. To bo vaše pakete Arch ohranjalo na najnovejših razvojnih zgradbah in vam omogoča posodobitev na najnovejše pakete Arch takoj, ko so na voljo. To počnite le, če imate izkušnje z Linuxom in veste, kako obnoviti sistem, ki ima težave.
 

@@ -95,10 +95,10 @@ arch plugin validate ./my-plugin
 
 To izvede ista preverjanja kot lupina ob obremenitvi: različica sheme, zahtevana polja, id, ki ni rezerviran, vstopne točke, ki so varne relativne poti in dejansko obstajajo, vstopna točka za vsako vrsto, ki ste jo zahtevali, in nobenih simbolnih povezav znotraj mape.
 
-Za razvoj vtičnikov glejte [referenco lupine](https://github.com/kairosci/arch) in [katalog prvostrankarskih vtičnikov](https://github.com/kairosci/arch).
+Za razvoj vtičnikov glejte [referenco lupine](https://github.com/kairosci/os) in [katalog prvostrankarskih vtičnikov](https://github.com/kairosci/os).
 
 ## Deljenje svojega s svetom
 
 Ko naredite nekaj, kar vam je všeč, to postavite v javni repozitorij git. To je celoten mehanizem distribucije — kdorkoli lahko nato zažene `arch plugin add` proti vašemu URL-ju in ga ima v nekaj sekundah zagnanega.
 
-Da ga bodo ljudje dejansko našli, ga navedete na [plugins.github.com/kairosci/arch](https://plugins.github.com/kairosci/arch). To je tržnica za vtičnike lupine Arch in prvo mesto, kamor pogledati, ko se sprašujete, ali je nekdo že zgradil pripomoček, ki ga nameravate napisati. Pred začetkom ga prebrskajte!
+Da ga bodo ljudje dejansko našli, ga navedete na [plugins.github.com/kairosci/os](https://plugins.github.com/kairosci/os). To je tržnica za vtičnike lupine Arch in prvo mesto, kamor pogledati, ko se sprašujete, ali je nekdo že zgradil pripomoček, ki ga nameravate napisati. Pred začetkom ga prebrskajte!

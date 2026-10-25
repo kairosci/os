@@ -2,19 +2,19 @@
 
 ### Čipi Apple M1/M2
 
-[Asahi Alarm](https://asahi-alarm.org/) je različica Archa za računalnike Apple M1/M2, zgrajena na podlagi [Asahi Linux](https://asahilinux.org/). Arch lahko zaženete na tem z nekaj truda. Glejte [vodnik, ki ga vodijo uporabniki](https://github.com/kairosci/arch).
+[Asahi Alarm](https://asahi-alarm.org/) je različica Archa za računalnike Apple M1/M2, zgrajena na podlagi [Asahi Linux](https://asahilinux.org/). Arch lahko zaženete na tem z nekaj truda. Glejte [vodnik, ki ga vodijo uporabniki](https://github.com/kairosci/os).
 
 ### Navidezni stroj Apple
 
-Arch lahko namestite tudi znotraj VM Parallels. Kar zapleten postopek, a tudi za to obstaja [vodnik, ki ga vodijo uporabniki](https://github.com/kairosci/arch).
+Arch lahko namestite tudi znotraj VM Parallels. Kar zapleten postopek, a tudi za to obstaja [vodnik, ki ga vodijo uporabniki](https://github.com/kairosci/os).
 
 ### VirtualBox
 
-VirtualBox je priljubljen zaganjalnik VM. [Arch lahko zaženete tudi znotraj tega](https://github.com/kairosci/arch). A zmogljivost verjetno ne bo odlična.
+VirtualBox je priljubljen zaganjalnik VM. [Arch lahko zaženete tudi znotraj tega](https://github.com/kairosci/os). A zmogljivost verjetno ne bo odlična.
 
 ### VMware Workstation na Windows 11
 
-Še en priljubljen zaganjalnik VM za Windows. [Arch je bil nastavljen tudi znotraj tega](https://github.com/kairosci/arch).
+Še en priljubljen zaganjalnik VM za Windows. [Arch je bil nastavljen tudi znotraj tega](https://github.com/kairosci/os).
 
 ### Steam Deck
 
