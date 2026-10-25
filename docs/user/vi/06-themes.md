@@ -6,7 +6,7 @@ Mỗi chủ đề tạo kiểu cho desktop, terminal, neovim, màn hình hoạt 
 
 Các chủ đề có một bộ hình nền mà bạn có thể chọn bằng `Super + Ctrl + Space`.
 
-Bạn có thể tìm thêm nhiều chủ đề nữa trên [trang chủ đề bổ sung](https://github.com/kairosci/arch/themes/) hoặc thậm chí [tự tạo chủ đề của riêng bạn](43-making-your-own-theme.md).
+Bạn có thể tìm thêm nhiều chủ đề nữa trên [trang chủ đề bổ sung](https://github.com/kairosci/os/themes/) hoặc thậm chí [tự tạo chủ đề của riêng bạn](43-making-your-own-theme.md).
 
  ![tokyo-night](../themes/tokyo-night/preview.png)
 _Tokyo Night_

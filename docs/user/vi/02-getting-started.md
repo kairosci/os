@@ -2,7 +2,7 @@
 
 Arch được cài đặt bằng một ISO. Bạn có thể chọn giữa cài đặt toàn bộ ổ đĩa, tức chiếm toàn bộ ổ đĩa, hoặc cài đặt vào vùng trống, tức đặt Arch vào vùng chưa cấp phát trên ổ đĩa — đó là cách bạn dual boot song song với Windows hoặc một hệ điều hành khác (xem [cài đặt dual-boot](50-dual-boot-install.md) — lưu ý rằng trước tiên bạn sẽ cần tắt BitLocker trong Windows). Dù theo cách nào, quá trình cài đặt cũng mặc định dùng mã hóa toàn bộ, và tùy chọn toàn bộ ổ đĩa sẽ xóa sạch ổ đĩa đã chọn, vì vậy hãy chắc chắn sao lưu trước khi dùng một ổ đĩa có sẵn!
 
-Hãy [tải Arch ISO](https://github.com/kairosci/arch/) trước, chép nó vào một USB (dùng [balenaEtcher](https://etcher.balena.io/) trên Mac/Windows hoặc [caligula](https://github.com/ifd3f/caligula) trên Linux), và khởi động từ USB đó.
+Hãy [tải Arch ISO](https://github.com/kairosci/os/) trước, chép nó vào một USB (dùng [balenaEtcher](https://etcher.balena.io/) trên Mac/Windows hoặc [caligula](https://github.com/ifd3f/caligula) trên Linux), và khởi động từ USB đó.
 
 _Bạn phải tắt Secure Boot và/hoặc TPM trong BIOS. Bạn phải tắt chúng mới cài đặt được Arch. Chúng là các cơ chế bảo mật của Microsoft dành cho Windows và các bản phân phối Linux liên kết với Microsoft._
 
@@ -36,8 +36,8 @@ Nhưng trong những trường hợp đặc biệt, như cài đặt Arch từ x
 
 ### Ngôn ngữ
 
-Arch nói được 50 ngôn ngữ — cùng một bộ ngôn ngữ với github.com/kairosci/arch — và Tiếng Anh là mặc định. Để chuyển đổi, hãy mở menu Arch và vào _Setup > Language_, hoặc chạy `archctl language <code>` trong terminal (`archctl language list` sẽ hiển thị các mã). Menu, desktop và các thông báo riêng của chính Arch sẽ thay đổi ngôn ngữ ngay lập tức, và mọi ứng dụng bạn mở sau đó cũng sẽ đi theo. Các ứng dụng đã mở sẵn sẽ chuyển đổi sau khi bạn khởi động lại chúng.
+Arch nói được 50 ngôn ngữ — cùng một bộ ngôn ngữ với github.com/kairosci/os — và Tiếng Anh là mặc định. Để chuyển đổi, hãy mở menu Arch và vào _Setup > Language_, hoặc chạy `archctl language <code>` trong terminal (`archctl language list` sẽ hiển thị các mã). Menu, desktop và các thông báo riêng của chính Arch sẽ thay đổi ngôn ngữ ngay lập tức, và mọi ứng dụng bạn mở sau đó cũng sẽ đi theo. Các ứng dụng đã mở sẵn sẽ chuyển đổi sau khi bạn khởi động lại chúng.
 
 ### Trợ giúp nếu bạn bị kẹt
 
-Nếu bạn bị kẹt, bạn thường có thể tìm được người sẵn sàng giúp đỡ trong kênh _#arch-help_ trên [Discord của cộng đồng](https://github.com/kairosci/arch/discord).
+Nếu bạn bị kẹt, bạn thường có thể tìm được người sẵn sàng giúp đỡ trong kênh _#arch-help_ trên [Discord của cộng đồng](https://github.com/kairosci/os/discord).

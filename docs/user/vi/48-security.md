@@ -30,6 +30,6 @@ Hãy nhìn rõ về việc này: trong khi nó đang bật, bất cứ thứ gì
 
 ## Khóa ký
 
-Khóa công khai cho mọi chữ ký ISO và gói repo Arch là `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([xác minh tại openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch)). Gói `arch/arch-keyring` cũng chứa khóa này và sẽ được dùng để triển khai mọi bản cập nhật tiềm năng một cách liền mạch.
+Khóa công khai cho mọi chữ ký ISO và gói repo Arch là `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([xác minh tại openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os)). Gói `arch/arch-keyring` cũng chứa khóa này và sẽ được dùng để triển khai mọi bản cập nhật tiềm năng một cách liền mạch.
 
-Bạn có thể tìm chữ ký cho bất kỳ bản phát hành ISO nào bằng cách thêm .sig vào URL. Như https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig.
+Bạn có thể tìm chữ ký cho bất kỳ bản phát hành ISO nào bằng cách thêm .sig vào URL. Như https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig.

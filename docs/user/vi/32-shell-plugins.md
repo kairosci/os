@@ -95,10 +95,10 @@ arch plugin validate ./my-plugin
 
 Lệnh đó chạy các kiểm tra giống như shell thực hiện tại thời điểm tải: phiên bản lược đồ, các trường bắt buộc, một id không bị dành riêng, các điểm vào là đường dẫn tương đối an toàn và thực sự tồn tại, một điểm vào cho mỗi loại bạn đã tuyên bố, và không có liên kết tượng trưng nào ở bất cứ đâu bên trong thư mục.
 
-Để phát triển plugin, xem [tài liệu tham khảo về shell](https://github.com/kairosci/arch) và [danh mục plugin chính thức](https://github.com/kairosci/arch).
+Để phát triển plugin, xem [tài liệu tham khảo về shell](https://github.com/kairosci/os) và [danh mục plugin chính thức](https://github.com/kairosci/os).
 
 ## Chia sẻ plugin của bạn với thế giới
 
 Khi bạn đã tạo ra thứ gì đó bạn thích, hãy đưa nó vào một kho git công khai. Đó là toàn bộ cơ chế phân phối — bất kỳ ai sau đó đều có thể chạy `arch plugin add` đối với URL của bạn và có nó chạy trong vài giây.
 
-Để giúp mọi người thực sự tìm thấy nó, hãy liệt kê nó tại [plugins.github.com/kairosci/arch](https://plugins.github.com/kairosci/arch). Đó là thị trường cho các plugin shell của Arch, và đó là nơi đầu tiên để tìm khi bạn đang tự hỏi liệu ai đó đã xây dựng widget bạn sắp viết hay chưa. Hãy duyệt nó trước khi bạn bắt đầu!
+Để giúp mọi người thực sự tìm thấy nó, hãy liệt kê nó tại [plugins.github.com/kairosci/os](https://plugins.github.com/kairosci/os). Đó là thị trường cho các plugin shell của Arch, và đó là nơi đầu tiên để tìm khi bạn đang tự hỏi liệu ai đó đã xây dựng widget bạn sắp viết hay chưa. Hãy duyệt nó trước khi bạn bắt đầu!
