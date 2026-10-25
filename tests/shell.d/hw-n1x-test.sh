@@ -101,7 +101,7 @@ assert_fails grep -Fq 'systemd-networkd.service' "$n1x" "n1x.sh does not fight n
 assert_succeeds grep -Fq 'modinfo -k "$n1x_kernel_version" nvidia nvidia_modeset nvidia_uvm nvidia_drm' "$n1x" "early KMS only when DKMS built every early-loaded module"
 assert_fails grep -Eq 'authorized_keys|recovery key|n1x-recovery' "$ROOT/src/cli/arch-n1x-probe" "the probe reports sshd state instead of claiming a key"
 assert_fails grep -Eq 'authorized_keys|sshd' "$n1x" "remote access is left to the development ISO"
-assert_succeeds grep -Fq 'Server = https://pkgs.github.com/kairosci/arch/edge/$arch' "$ROOT/default/pacman/aarch64/pacman-edge.conf" "installed aarch64 systems track os edge"
+assert_succeeds grep -Fq 'Server = https://pkgs.github.com/kairosci/os/edge/$arch' "$ROOT/default/pacman/aarch64/pacman-edge.conf" "installed aarch64 systems track os edge"
 all="$ROOT/installer/hardware/all.sh"
 n1x_line=$(grep -n 'hardware/n1x.sh' "$all" | cut -d: -f1)
 nvidia_line=$(grep -n 'hardware/nvidia.sh' "$all" | cut -d: -f1)

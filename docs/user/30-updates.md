@@ -2,7 +2,7 @@
 
 Arch and your packages are kept up to date via _Update > Arch_ in the Arch menu (`Super + Space`).
 
-Arch itself is installed as regular pacman packages from the [Arch Package Repository](https://github.com/kairosci/arch), so an update installs [the latest Arch release](https://github.com/kairosci/arch), runs any pending migrations to get your system in sync with the latest, and updates all system packages from the [Arch Arch Mirror](https://github.com/kairosci/arch) and [AUR](https://aur.archlinux.org/) (if you have installed any AUR packages).
+Arch itself is installed as regular pacman packages from the [Arch Package Repository](https://github.com/kairosci/os), so an update installs [the latest Arch release](https://github.com/kairosci/os), runs any pending migrations to get your system in sync with the latest, and updates all system packages from the [Arch Arch Mirror](https://github.com/kairosci/os) and [AUR](https://aur.archlinux.org/) (if you have installed any AUR packages).
 
 When new releases are made, a circle arrow icon will appear to the right of your clock. Click it and the update process will start.
 
@@ -10,7 +10,7 @@ When new releases are made, a circle arrow icon will appear to the right of your
 
 ### Four channels
 
-Arch is updated along four channels: stable, RC, edge, and dev. New installations start on the stable channel, which tracks the [official releases](https://github.com/kairosci/arch), as well as the [stable Arch Arch mirror](https://github.com/kairosci/arch) that's running one month behind the latest, so we can catch any new incompatibilities that require config changes before they cause problems for people.
+Arch is updated along four channels: stable, RC, edge, and dev. New installations start on the stable channel, which tracks the [official releases](https://github.com/kairosci/os), as well as the [stable Arch Arch mirror](https://github.com/kairosci/os) that's running one month behind the latest, so we can catch any new incompatibilities that require config changes before they cause problems for people.
 
 But if you'd like to help spot those potential issues, you can run on the edge channel. That'll keep your Arch packages tracking the latest development builds, and lets you update to the latest Arch packages as soon as they're available. You should only do this if you're experienced with Linux, and know how to recover a system that has problems.
 

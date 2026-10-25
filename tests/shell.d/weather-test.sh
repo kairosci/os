@@ -33,7 +33,7 @@ assertEqual(weather.wttrLocationQuery('  ', null, null), '', 'weather treats a b
 
 const unset = weather.parseLocationFile('')
 const detected = weather.parseLocationFile('{"name":"Amsterdam","latitude":52.37403,"longitude":4.88969,"country":"NL","timezone":"Europe/Amsterdam"}')
-assertDeepEqual(detected, { name: 'Amsterdam', latitude: 52.37403, longitude: 4.88969 }, 'weather reads a geo.github.com/kairosci/arch answer with the weather.json parser')
+assertDeepEqual(detected, { name: 'Amsterdam', latitude: 52.37403, longitude: 4.88969 }, 'weather reads a geo.github.com/kairosci/os answer with the weather.json parser')
 assertDeepEqual(weather.effectiveLocation(unset, detected), detected, 'weather reports for the detected place when none is stored')
 assertDeepEqual(weather.effectiveLocation({ name: 'New York', latitude: null, longitude: null }, detected).name, 'New York', 'weather keeps a stored name over the detected place')
 assertDeepEqual(weather.effectiveLocation({ name: '', latitude: 34.02577, longitude: -118.7804 }, detected).latitude, 34.02577, 'weather keeps stored coordinates over the detected place')
@@ -197,6 +197,6 @@ printf '%s\n' "${@: -1}" >>"$HOME/curl-urls"
 printf '%s\n' '{"name":"Amsterdam","latitude":52.37403,"longitude":4.88969,"country":"NL","timezone":"Europe/Amsterdam"}'
 EOF
 chmod +x "$test_tmp/bin/curl"
-[[ $(PATH="$test_tmp/bin:$PATH" weather_location) == "Amsterdam" ]] || fail "weather location names the place geo.github.com/kairosci/arch detected"
-[[ $(cat "$test_tmp/curl-urls") == "https://geo.github.com/kairosci/arch/" ]] || fail "weather location asks only geo.github.com/kairosci/arch" "$(cat "$test_tmp/curl-urls")"
-pass "weather location names the place geo.github.com/kairosci/arch detected when none is stored"
+[[ $(PATH="$test_tmp/bin:$PATH" weather_location) == "Amsterdam" ]] || fail "weather location names the place geo.github.com/kairosci/os detected"
+[[ $(cat "$test_tmp/curl-urls") == "https://geo.github.com/kairosci/os/" ]] || fail "weather location asks only geo.github.com/kairosci/os" "$(cat "$test_tmp/curl-urls")"
+pass "weather location names the place geo.github.com/kairosci/os detected when none is stored"

@@ -52,16 +52,16 @@ valid_channel() {
 }
 
 # The channel the legacy install is already on, read the way
-# arch-version-channel reads it. Order matters: mirror.github.com/kairosci/arch is a
+# arch-version-channel reads it. Order matters: mirror.github.com/kairosci/os is a
 # substring of both of the others.
 detect_installed_channel() {
   [[ -f /etc/pacman.d/mirrorlist ]] || return 1
 
-  if grep -q 'https://stable-mirror.github.com/kairosci/arch/' /etc/pacman.d/mirrorlist; then
+  if grep -q 'https://stable-mirror.github.com/kairosci/os/' /etc/pacman.d/mirrorlist; then
     echo stable
-  elif grep -q 'https://rc-mirror.github.com/kairosci/arch/' /etc/pacman.d/mirrorlist; then
+  elif grep -q 'https://rc-mirror.github.com/kairosci/os/' /etc/pacman.d/mirrorlist; then
     echo rc
-  elif grep -q 'https://mirror.github.com/kairosci/arch/' /etc/pacman.d/mirrorlist; then
+  elif grep -q 'https://mirror.github.com/kairosci/os/' /etc/pacman.d/mirrorlist; then
     echo edge
   else
     return 1
@@ -319,16 +319,16 @@ channel=$(normalize_channel "${channel_override:-stable}")
 
 case "$channel" in
   stable)
-    mirror_server='https://stable-mirror.github.com/kairosci/arch/$repo/os/$arch'
-    package_server='https://pkgs.github.com/kairosci/arch/stable/$arch'
+    mirror_server='https://stable-mirror.github.com/kairosci/os/$repo/os/$arch'
+    package_server='https://pkgs.github.com/kairosci/os/stable/$arch'
     ;;
   rc)
-    mirror_server='https://rc-mirror.github.com/kairosci/arch/$repo/os/$arch'
-    package_server='https://pkgs.github.com/kairosci/arch/edge/$arch'
+    mirror_server='https://rc-mirror.github.com/kairosci/os/$repo/os/$arch'
+    package_server='https://pkgs.github.com/kairosci/os/edge/$arch'
     ;;
   edge)
-    mirror_server='https://mirror.github.com/kairosci/arch/$repo/os/$arch'
-    package_server='https://pkgs.github.com/kairosci/arch/edge/$arch'
+    mirror_server='https://mirror.github.com/kairosci/os/$repo/os/$arch'
+    package_server='https://pkgs.github.com/kairosci/os/edge/$arch'
     ;;
 esac
 
@@ -1031,7 +1031,7 @@ populate_legacy_hypr_defaults() {
     tmp_dir=$(mktemp -d)
     archive_dir="$tmp_dir/archive"
     mkdir -p "$archive_dir"
-    if curl -fsSL https://github.com/kairosci/arch | tar -xz -C "$archive_dir" &&
+    if curl -fsSL https://github.com/kairosci/os | tar -xz -C "$archive_dir" &&
       [[ -d $archive_dir/arch-master/default/hypr ]]; then
       cp -a "$archive_dir/arch-master/default/hypr/." "$shim_hypr_dir/"
     fi

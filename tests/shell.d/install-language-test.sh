@@ -71,7 +71,7 @@ printf '#!/bin/bash\necho "apply $*" >>"$REGION_LOG"\n' >"$region_root/arch/src/
 chmod +x "$region_root/arch/src/cli/arch-apply-pacman"
 export ARCH_FORM_DEFAULTS=$region_root/etc/arch/form-defaults ARCH_REGION_FILE=$region_root/etc/arch/region \
   ARCH_PACMAN_CONF=$region_root/etc/pacman.conf ARCH_REGION_TARGET=$region_root REGION_LOG=$region_root/log
-printf '[arch]\nServer = https://pkgs.arch.cn/stable/$arch\nServer = https://pkgs.github.com/kairosci/arch/stable/$arch\n' >"$ARCH_PACMAN_CONF"
+printf '[arch]\nServer = https://pkgs.arch.cn/stable/$arch\nServer = https://pkgs.github.com/kairosci/os/stable/$arch\n' >"$ARCH_PACMAN_CONF"
 settle() {
   timezone=$1
   printf 'cn\n' >"$ARCH_REGION_FILE"

@@ -8,7 +8,7 @@ pkgdesc='Arch desktop runtime and configuration'
 # boot stack differs per architecture (see depends_x86_64 / depends_aarch64),
 # and makepkg only honours arch-suffixed arrays on arch-specific packages.
 arch=('x86_64' 'aarch64')
-url='https://github.com/kairosci/arch'
+url='https://github.com/kairosci/os'
 license=('MIT')
 install=arch-branding.install
 # Hard depends: only packages whose removal would brick the desktop. The ISO

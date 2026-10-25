@@ -13,7 +13,7 @@ description: >
 
 # os Skill
 
-Manage [os](https://github.com/kairosci/arch/) Linux systems - a beautiful, fun, agentic Arch Linux distribution with Hyprland.
+Manage [os](https://github.com/kairosci/os/) Linux systems - a beautiful, fun, agentic Arch Linux distribution with Hyprland.
 
 This skill is for end-user customization on installed systems.
 It is not for contributing to os source code.

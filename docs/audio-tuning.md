@@ -94,7 +94,7 @@ Two hard requirements:
 ## Building one
 
 Measuring a laptop and fitting a filter-chain to it is a separate job with its own
-tools, in [arch-audio-tuner](https://github.com/kairosci/arch).
+tools, in [arch-audio-tuner](https://github.com/kairosci/os).
 It is not installed by default — almost nobody authoring a tuning, and it needs
 python, ffmpeg and mpv.
 

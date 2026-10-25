@@ -44,7 +44,7 @@ case "$1" in
     ;;
   config)
     case "$2" in
-      remote.origin.url) echo https://github.com/kairosci/arch ;;
+      remote.origin.url) echo https://github.com/kairosci/os ;;
       remote.origin.promisor) [[ ${TEST_GIT_PROMISOR:-no} == "yes" ]] && echo true ;;
       *) exit 1 ;;
     esac

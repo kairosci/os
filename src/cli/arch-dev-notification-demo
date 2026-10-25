@@ -35,7 +35,7 @@ NOTIFICATIONS = [
   dict(web="3.basecamp.com", summary="os", gap=0.7,
        body="Ryan Hughes: one more go at the icon size and I think that is it"),
   dict(web="3.basecamp.com", summary="os",
-       body="DHH: ship it, latest build is up at https://github.com/kairosci/arch"),
+       body="DHH: ship it, latest build is up at https://github.com/kairosci/os"),
   dict(app="Grok Bot", icon="grok-bot", summary="Grok Bot", actions=["default=View"],
        body="2 things need you since lunch: DHH asked about the 4.5 release notes, "
             "and the Omapager PR has a new review waiting on you."),
