@@ -6,7 +6,7 @@ Arch இருபத்தி இரண்டு அழகான தீம்க
 
 தீம்களில் பின்னணி படங்களின் தொகுப்பு உள்ளது, அவற்றுக்கு இடையே `Super + Ctrl + Space` ஐப் பயன்படுத்தித் தேர்ந்தெடுக்கலாம்.
 
-[கூடுதல் தீம்கள் பக்கத்தில்](https://github.com/kairosci/arch/themes/) இன்னும் அதிகமான தீம்களைக் காணலாம் அல்லது [உங்கள் சொந்த தீமை உருவாக்கலாம்](43-making-your-own-theme.md).
+[கூடுதல் தீம்கள் பக்கத்தில்](https://github.com/kairosci/os/themes/) இன்னும் அதிகமான தீம்களைக் காணலாம் அல்லது [உங்கள் சொந்த தீமை உருவாக்கலாம்](43-making-your-own-theme.md).
 
  ![tokyo-night](../themes/tokyo-night/preview.png)
 _Tokyo Night_

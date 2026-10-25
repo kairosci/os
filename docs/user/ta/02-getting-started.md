@@ -2,7 +2,7 @@
 
 Arch ஒரு ISO ஐப் பயன்படுத்தி நிறுவப்படுகிறது. முழு drive ஐயும் கைப்பற்றும் full-disk நிறுவல் அல்லது ஒரு drive இல் ஒதுக்கப்படாத இடத்தில் Arch ஐ வைக்கும் free-space நிறுவல் ஆகியவற்றில் ஒன்றை நீங்கள் தேர்வு செய்யலாம் — Windows அல்லது வேறொரு OS உடன் dual boot செய்வது அப்படித்தான் (பார்க்க [dual-boot நிறுவல்](50-dual-boot-install.md) — முதலில் Windows இல் BitLocker ஐ அணைக்க வேண்டும் என்பதைக் கவனிக்கவும்). எப்படி இருந்தாலும், நிறுவல் இயல்பாகவே முழு encryption ஐக் கொண்டிருக்கும், மேலும் full-disk விருப்பம் தேர்ந்தெடுக்கப்பட்ட drive ஐ முற்றிலும் அழித்துவிடும், எனவே ஏற்கனவே உள்ள ஒன்றைப் பயன்படுத்துவதற்கு முன் கண்டிப்பாக backup எடுத்துக்கொள்ளுங்கள்!
 
-முதலில் [Arch ISO ஐப் பதிவிறக்கவும்](https://github.com/kairosci/arch/), அதை ஒரு USB stick இல் போடவும் (Mac/Windows இல் [balenaEtcher](https://etcher.balena.io/) அல்லது Linux இல் [caligula](https://github.com/ifd3f/caligula) பயன்படுத்தவும்), பிறகு அந்த stick இலிருந்து boot செய்யவும்.
+முதலில் [Arch ISO ஐப் பதிவிறக்கவும்](https://github.com/kairosci/os/), அதை ஒரு USB stick இல் போடவும் (Mac/Windows இல் [balenaEtcher](https://etcher.balena.io/) அல்லது Linux இல் [caligula](https://github.com/ifd3f/caligula) பயன்படுத்தவும்), பிறகு அந்த stick இலிருந்து boot செய்யவும்.
 
 _BIOS இல் Secure Boot மற்றும்/அல்லது TPM ஐ அணைக்க வேண்டும். Arch ஐ நிறுவ முடிய வேண்டுமென்றால் இவற்றை அணைத்தாக வேண்டும். இவை Windows மற்றும் Microsoft உடன் இணைந்த Linux distributions க்காக வடிவமைக்கப்பட்ட Microsoft பாதுகாப்புத் திட்டங்கள்._
 
@@ -36,8 +36,8 @@ Arch இயல்பாகவே encryption உடன் நிறுவப்�
 
 ### மொழி
 
-Arch 50 மொழிகள் பேசுகிறது — github.com/kairosci/arch இன் அதே தொகுப்பு — மேலும் English தான் இயல்புநிலை. மாற்ற, Arch menu ஐத் திறந்து _Setup > Language_ க்குச் செல்லவும், அல்லது terminal இல் `archctl language <code>` ஐ இயக்கவும் (`archctl language list` குறியீடுகளைக் காட்டுகிறது). menu, desktop மற்றும் Arch இன் சொந்த அறிவிப்புகள் உடனடியாக மொழியை மாற்றும், மேலும் அதற்குப் பிறகு நீங்கள் திறக்கும் ஒவ்வொரு application உம் அதைப் பின்பற்றும். ஏற்கனவே திறந்திருந்த apps நீங்கள் அவற்றை மீண்டும் தொடங்கியதும் மாறும்.
+Arch 50 மொழிகள் பேசுகிறது — github.com/kairosci/os இன் அதே தொகுப்பு — மேலும் English தான் இயல்புநிலை. மாற்ற, Arch menu ஐத் திறந்து _Setup > Language_ க்குச் செல்லவும், அல்லது terminal இல் `archctl language <code>` ஐ இயக்கவும் (`archctl language list` குறியீடுகளைக் காட்டுகிறது). menu, desktop மற்றும் Arch இன் சொந்த அறிவிப்புகள் உடனடியாக மொழியை மாற்றும், மேலும் அதற்குப் பிறகு நீங்கள் திறக்கும் ஒவ்வொரு application உம் அதைப் பின்பற்றும். ஏற்கனவே திறந்திருந்த apps நீங்கள் அவற்றை மீண்டும் தொடங்கியதும் மாறும்.
 
 ### சிக்கிக்கொண்டால் உதவி
 
-நீங்கள் சிக்கிக்கொண்டால், [சமூக Discord](https://github.com/kairosci/arch/discord) இல் உள்ள _#arch-help_ channel இல் உதவ விரும்பும் ஒருவரை வழக்கமாக நீங்கள் கண்டுபிடிக்கலாம்.
+நீங்கள் சிக்கிக்கொண்டால், [சமூக Discord](https://github.com/kairosci/os/discord) இல் உள்ள _#arch-help_ channel இல் உதவ விரும்பும் ஒருவரை வழக்கமாக நீங்கள் கண்டுபிடிக்கலாம்.
