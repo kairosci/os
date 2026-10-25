@@ -30,6 +30,6 @@ Arch относится к безопасности чрезвычайно се�
 
 ## Ключи подписи
 
-Публичный ключ для всех подписей ISO и пакетов репозитория Arch — `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([проверить на openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch)). Пакет `arch/arch-keyring` также содержит его и будет использоваться для бесшовного внедрения возможных обновлений.
+Публичный ключ для всех подписей ISO и пакетов репозитория Arch — `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([проверить на openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os)). Пакет `arch/arch-keyring` также содержит его и будет использоваться для бесшовного внедрения возможных обновлений.
 
-Подпись любого выпуска ISO можно найти, добавив .sig к URL. Например, https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig.
+Подпись любого выпуска ISO можно найти, добавив .sig к URL. Например, https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig.

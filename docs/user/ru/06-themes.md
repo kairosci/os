@@ -6,7 +6,7 @@ Arch поставляется с двадцатью двумя красивым�
 
 У тем есть набор фоновых изображений, между которыми можно выбирать через `Super + Ctrl + Space`.
 
-Ещё больше тем можно найти на [странице дополнительных тем](https://github.com/kairosci/arch/themes/) или даже [создать собственную тему](43-making-your-own-theme.md).
+Ещё больше тем можно найти на [странице дополнительных тем](https://github.com/kairosci/os/themes/) или даже [создать собственную тему](43-making-your-own-theme.md).
 
  ![tokyo-night](../themes/tokyo-night/preview.png)
 _Tokyo Night_
