@@ -30,6 +30,6 @@ Var klarsynt för denna: medan den är på kan allt som körs som din användare
 
 ## Signeringsnycklar
 
-Den offentliga nyckeln för alla ISO-signaturer och Arch-repo-paket är `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([verifiera på openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch)). Paketet `arch/arch-keyring` innehåller också detta och kommer att användas för att rulla ut eventuella uppdateringar sömlöst.
+Den offentliga nyckeln för alla ISO-signaturer och Arch-repo-paket är `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([verifiera på openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os)). Paketet `arch/arch-keyring` innehåller också detta och kommer att användas för att rulla ut eventuella uppdateringar sömlöst.
 
-Du kan hitta signaturen för vilken ISO-version som helst genom att lägga till .sig till URL:en. Som https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig.
+Du kan hitta signaturen för vilken ISO-version som helst genom att lägga till .sig till URL:en. Som https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig.
