@@ -95,10 +95,10 @@ arch plugin validate ./my-plugin
 
 Asta rulează aceleași verificări pe care le face shell-ul la momentul încărcării: versiunea schemei, câmpurile cerute, un id care nu este rezervat, puncte de intrare care sunt căi relative sigure și există de fapt, un punct de intrare pentru fiecare tip revendicat și fără legături simbolice nicăieri în interiorul folderului.
 
-Pentru dezvoltarea de pluginuri, vezi [referința de shell](https://github.com/kairosci/arch) și [catalogul de pluginuri primare](https://github.com/kairosci/arch).
+Pentru dezvoltarea de pluginuri, vezi [referința de shell](https://github.com/kairosci/os) și [catalogul de pluginuri primare](https://github.com/kairosci/os).
 
 ## Partajarea pluginului tău cu lumea
 
 Odată ce ai făcut ceva ce-ți place, pune-l într-un depozit git public. Acesta este întregul mecanism de distribuție — oricine poate apoi rula `arch plugin add` pentru URL-ul tău și îl poate avea rulând în câteva secunde.
 
-Ca să ajuți oamenii să-l găsească de fapt, listează-l la [plugins.github.com/kairosci/arch](https://plugins.github.com/kairosci/arch). Aceea este piața pentru pluginurile de shell Arch și este primul loc în care să te uiți când te întrebi dacă cineva a construit deja widgetul pe care ești pe cale să-l scrii. Răsfoiește-o înainte să începi!
+Ca să ajuți oamenii să-l găsească de fapt, listează-l la [plugins.github.com/kairosci/os](https://plugins.github.com/kairosci/os). Aceea este piața pentru pluginurile de shell Arch și este primul loc în care să te uiți când te întrebi dacă cineva a construit deja widgetul pe care ești pe cale să-l scrii. Răsfoiește-o înainte să începi!

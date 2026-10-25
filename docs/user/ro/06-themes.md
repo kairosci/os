@@ -6,7 +6,7 @@ Fiecare temă stilizează desktopul, terminalul, neovim, ecranul de activitate (
 
 Temele au un set de imagini de fundal dintre care poți alege folosind `Super + Ctrl + Space`.
 
-Poți găsi și mai multe teme pe [pagina cu teme suplimentare](https://github.com/kairosci/arch/themes/) sau îți poți [face chiar tema ta](43-making-your-own-theme.md).
+Poți găsi și mai multe teme pe [pagina cu teme suplimentare](https://github.com/kairosci/os/themes/) sau îți poți [face chiar tema ta](43-making-your-own-theme.md).
 
  ![tokyo-night](../themes/tokyo-night/preview.png)
 _Tokyo Night_
