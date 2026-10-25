@@ -50,25 +50,11 @@ hl.config({
 })
 ```
 
-### Ujuvad tööruumid
-
-Ujuv tööruum toimib nagu traditsiooniline töölaud: aknad kattuvad ning liigutate ja muudate nende suurust ise. Iga aken saab tiitliriba teie teema värvides, nuppudega minimeerimiseks, maksimeerimiseks ja sulgemiseks. `Super + M` minimeerib ka fookuses oleva akna. Minimeeritud aken ootab dokis; klõpsake selle rakendust, et see tagasi tuua. Klõpsake akent, et see ette tuua. Muutke selle suurust mis tahes servast või nurgast. Topeltklõpsake tiitliribal, et aken maksimeerida, säilitades samas ülemise riba nähtaval, ja uuesti, et selle vana suurus tagasi saada.
-
-Ujuv tööruum näitab ka dokki, kus on teie kinnitatud rakendused, kõik, mis töötab, ja kõigi rakenduste ruudustik rakenduste nupu taga, mille avavad ka `Super + Alt + Space` ja _Rakendused_ Arch menüüs. Paremklõpsake ruudustikus rakendust või vajutage `Delete`, et see desinstallida. Klõpsake rakendust, et see avada või selle aken ette tuua; klõpsake uuesti, et selle aknaid järgemööda läbida. Keskmine klõps avab uue akna. Lohistage ikooni mööda dokki, et seda liigutada; töötava rakenduse lohistamine teiste sekka jätab selle sinna. Paremklõpsake, et hoida rakendust dokis, võtta see sealt välja või sellest väljuda. Dokk taandub täisekraani akna eest. Paremklõpsake rakenduste nuppu, et liigutada dokk teise serva või panna see peituma, kuni kursor jõuab selle servani. Asukoht on ka jaotises _Trigger > Välimus > Dock > Doki asukoht_ ning `archctl dock position left` ja `archctl dock autohide on` määravad mõlemad terminalist. Rakendused, mida dokis hoiate, on tuhmunud, kuni need ei tööta.
-
-Uued tööruumid ja ükskõik millised, millele te ei ole klahvidega `Super + L` omaenda paigutust andnud, kasutavad vaikepaigutust. Vaikesätte muutmine lähtestab iga akendeta tööruumi sellele, samas kui tööruum, millel on aknad, säilitab paigutuse, mis sellel on. Dokki minimeeritud aken loeb endiselt aknana tööruumil, millelt see lahkus. Valige see jaotises _Trigger > Välimus > Tööruumi paigutus_: Plaatimine, Kerimine või Ujuv. `arch-hyprland-workspace-layout-default scrolling` määrab selle terminalist.
-
 ### Akende rühmitamine
 
 Aknaid saab rühmitada klahvidega `Super + G`. Kui olete rühmas, kuulub iga aken, mille selle aktiivsena käivitate, rühma. Saate rühmitatud akende vahel liikuda klahvidega `Super + Ctrl + Arrow Left/Right` või klahvidega `Super + Alt + 1/2/3/4`, et minna otse rühmitatud akna juurde järjekorras.
 
 Saate akna rühmitusest välja liigutada klahvidega `Super + Alt + G` või kogu rühma lahti võtta, vajutades uuesti `Super + G`. Lõpuks saate liigutada väljaspool rühma olevaid aknaid sinna sisse klahvidega `Super + Alt + Arrows`.
-
-### Akende väljatõstmine
-
-Saate akna selle tööruumi jaotusest välja tõsta klahvidega `Super + O`. See kinnitab selle ujuva aknana, mis järgneb teile, mis tahes tööruumile te lähete. Suurepärane videomängijate ja muu sellise jaoks.
-
- ![navigation-popped-window](images/navigation-popped-window.webp)
 
 ### Scratchpadi tööruum
 

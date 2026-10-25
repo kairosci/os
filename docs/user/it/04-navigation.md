@@ -50,25 +50,11 @@ hl.config({
 })
 ```
 
-### Workspace fluttuanti
-
-Un workspace fluttuante funziona come un desktop tradizionale: le finestre si sovrappongono, e le sposti e le dimensioni tu. Ogni finestra riceve una barra del titolo nei colori del tuo tema, con pulsanti per minimizzare, massimizzare e chiudere. Anche `Super + M` minimizza la finestra attiva. Una finestra minimizzata aspetta nel dock; fai clic sulla sua app per riportarla. Fai clic su una finestra per portarla in primo piano. Ridimensionala da qualsiasi bordo o angolo. Fai doppio clic su una barra del titolo per massimizzare la finestra mantenendo visibile la barra superiore, e di nuovo per riottenere le sue vecchie dimensioni.
-
-Un workspace fluttuante mostra anche un dock, con le tue app fissate, tutto ciò che è in esecuzione e una griglia di ogni app dietro il pulsante delle app, che aprono anche `Super + Alt + Space` e _Apps_ nel menu di Arch. Fai clic con il pulsante destro su un'app nella griglia, o premi `Delete`, per disinstallarla. Fai clic su un'app per aprirla, o per portare in primo piano la sua finestra; fai di nuovo clic per scorrere le sue finestre. Il clic centrale apre una nuova finestra. Trascina un'icona lungo il dock per spostarla; trascinare un'app in esecuzione in mezzo alle altre la mantiene lì. Fai clic con il pulsante destro per mantenere un'app nel dock, toglierla o chiuderla. Il dock si toglie di mezzo davanti a una finestra a schermo intero. Fai clic con il pulsante destro sul pulsante delle app per spostare il dock su un altro bordo o farlo nascondere finché il puntatore non raggiunge il suo bordo. La posizione si trova anche in _Trigger > Appearance > Dock > Dock Position_, e `archctl dock position left` e `archctl dock autohide on` impostano entrambe le cose da un terminale. Le app che mantieni nel dock sono sbiadite mentre non sono in esecuzione.
-
-I nuovi workspace, e tutti quelli a cui non hai dato un layout proprio con `Super + L`, usano il layout predefinito. Cambiare il predefinito reimposta su di esso ogni workspace senza finestre, mentre uno con finestre su di esso mantiene il layout che ha. Una finestra minimizzata nel dock conta ancora come una finestra sul workspace che ha lasciato. Sceglilo in _Trigger > Appearance > Workspace Layout_: Tiling, Scrolling o Floating. `arch-hyprland-workspace-layout-default scrolling` lo imposta da un terminale.
-
 ### Raggruppare le finestre
 
 Le finestre possono essere raggruppate usando `Super + G`. Una volta che sei in un gruppo, ogni finestra che avvii mentre è attivo apparterrà al gruppo. Puoi spostarti tra queste finestre raggruppate usando `Super + Ctrl + Arrow Left/Right` o `Super + Alt + 1/2/3/4` per andare direttamente alla finestra raggruppata in ordine.
 
 Puoi spostare una finestra fuori dal raggruppamento con `Super + Alt + G` o smontare l'intero gruppo premendo di nuovo `Super + G`. Infine, puoi spostare le finestre fuori dal gruppo al suo interno con `Super + Alt + Arrows`.
-
-### Estrarre le finestre
-
-Puoi estrarre una finestra dalla sua assegnazione al workspace con `Super + O`. Questo la fisserà come una finestra fluttuante che ti segue in qualsiasi workspace tu vada. Ottimo per i riproduttori video e simili.
-
- ![navigation-popped-window](images/navigation-popped-window.webp)
 
 ### Workspace scratchpad
 

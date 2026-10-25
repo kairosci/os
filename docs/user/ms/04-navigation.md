@@ -50,25 +50,11 @@ hl.config({
 })
 ```
 
-### Ruang kerja terapung
-
-Ruang kerja terapung berfungsi seperti desktop tradisional: tetingkap bertindih, dan anda mengalih dan menetapkan saiznya sendiri. Setiap tetingkap dapat titlebar dalam warna tema anda, dengan butang untuk meminimumkan, memaksimumkan, dan menutup. `Super + M` turut meminimumkan tetingkap yang difokuskan. Tetingkap yang diminimumkan menunggu di dock; klik aplikasinya untuk membawanya kembali. Klik tetingkap untuk membawanya ke hadapan. Ubah saiznya dari mana-mana tepi atau sudut. Klik dua kali pada titlebar untuk memaksimumkan tetingkap sambil mengekalkan bar atas kelihatan, dan sekali lagi untuk mendapatkan semula saiz lamanya.
-
-Ruang kerja terapung juga menunjukkan dock, dengan aplikasi yang anda pin, segala yang sedang dijalankan, dan grid setiap aplikasi di sebalik butang aplikasi, yang `Super + Alt + Space` dan _Apps_ dalam Arch menu turut buka. Klik kanan aplikasi pada grid, atau tekan `Delete`, untuk menyahpasangnya. Klik aplikasi untuk membukanya, atau untuk membawa tetingkapnya ke hadapan; klik sekali lagi untuk bergilir melalui tetingkapnya. Klik tengah membuka tetingkap baharu. Seret ikon di sepanjang dock untuk mengalihkannya; menyeret aplikasi yang sedang dijalankan masuk ke antara yang lain mengekalkannya di situ. Klik kanan untuk mengekalkan aplikasi di dock, mengeluarkannya, atau keluar daripadanya. Dock menyingkir daripada tetingkap skrin penuh. Klik kanan butang aplikasi untuk memindahkan dock ke tepi lain atau menjadikannya tersembunyi sehingga penuding sampai ke tepinya. Kedudukan juga berada di bawah _Trigger > Appearance > Dock > Dock Position_, dan `archctl dock position left` dan `archctl dock autohide on` menetapkan kedua-duanya dari terminal. Aplikasi yang anda kekalkan di dock kelihatan pudar semasa tidak dijalankan.
-
-Ruang kerja baharu, dan mana-mana yang anda belum berikan susun atur sendiri dengan `Super + L`, menggunakan susun atur lalai. Menukar lalai menetapkan semula setiap ruang kerja tanpa tetingkap kepadanya, manakala ruang kerja dengan tetingkap di atasnya mengekalkan susun atur yang dimilikinya. Tetingkap yang diminimumkan ke dock masih dikira sebagai tetingkap pada ruang kerja yang ditinggalkannya. Pilihnya di bawah _Trigger > Appearance > Workspace Layout_: Tiling, Scrolling, atau Floating. `arch-hyprland-workspace-layout-default scrolling` menetapkannya dari terminal.
-
 ### Mengumpulkan tetingkap
 
 Tetingkap boleh dikumpulkan menggunakan `Super + G`. Sebaik sahaja anda berada dalam kumpulan, setiap tetingkap yang anda mulakan semasa itu aktif akan tergolong dalam kumpulan. Anda boleh bergerak antara tetingkap terkumpul ini menggunakan `Super + Ctrl + Arrow Left/Right` atau `Super + Alt + 1/2/3/4` untuk pergi terus ke tetingkap terkumpul mengikut turutan.
 
 Anda boleh memindahkan tetingkap keluar daripada kumpulan dengan `Super + Alt + G` atau membubarkan seluruh kumpulan dengan menekan `Super + G` sekali lagi. Akhir sekali, anda boleh memindahkan tetingkap di luar kumpulan ke dalamnya dengan `Super + Alt + Arrows`.
-
-### Mengeluarkan tetingkap
-
-Anda boleh mengeluarkan tetingkap daripada peruntukan ruang kerjanya dengan `Super + O`. Itu akan menyematkannya sebagai tetingkap terapung yang mengikuti anda ke mana-mana ruang kerja yang anda pergi. Bagus untuk pemain video dan seumpamanya.
-
- ![navigation-popped-window](images/navigation-popped-window.webp)
 
 ### Ruang kerja scratchpad
 

@@ -50,25 +50,11 @@ hl.config({
 })
 ```
 
-### Plutajući radni prostori
-
-Plutajući radni prostor radi poput tradicionalne radne površine: prozori se preklapaju, a vi ih sami premještate i prilagođavate njihovu veličinu. Svaki prozor dobiva naslovnu traku u bojama vaše teme, s gumbima za minimiziranje, maksimiziranje i zatvaranje. `Super + M` također minimizira fokusirani prozor. Minimizirani prozor čeka u docku; kliknite njegovu aplikaciju da ga vratite. Kliknite prozor da ga dovedete u prvi plan. Promijenite mu veličinu s bilo kojeg ruba ili kuta. Dvokliknite naslovnu traku da maksimizirate prozor i pritom zadržite gornju traku u vidokrugu, i ponovno da vratite njegovu staru veličinu.
-
-Plutajući radni prostor također prikazuje dock, s vašim prikvačenim aplikacijama, svime što je pokrenuto i mrežom svake aplikacije iza gumba za aplikacije, koju također otvaraju `Super + Alt + Space` i _Apps_ u Arch izborniku. Kliknite desnom tipkom aplikaciju na mreži ili pritisnite `Delete` da je deinstalirate. Kliknite aplikaciju da je otvorite ili da njezin prozor dovedete u prvi plan; kliknite ponovno da ciklički prolazite kroz njezine prozore. Srednji klik otvara novi prozor. Povucite ikonu duž docka da je premjestite; povlačenje pokrenute aplikacije među ostale zadržava je ondje. Kliknite desnom tipkom da zadržite aplikaciju u docku, uklonite je ili je zatvorite. Dock se miče s puta prozoru na cijelom zaslonu. Kliknite desnom tipkom gumb za aplikacije da premjestite dock na drugi rub ili ga postavite da se skriva dok pokazivač ne dosegne njegov rub. Položaj se nalazi i pod _Trigger > Appearance > Dock > Dock Position_, a `archctl dock position left` i `archctl dock autohide on` postavljaju oboje iz terminala. Aplikacije koje držite u docku izblijedjele su dok nisu pokrenute.
-
-Novi radni prostori, i svi kojima niste dali vlastiti raspored pomoću `Super + L`, koriste zadani raspored. Promjena zadanog rasporeda vraća na njega svaki radni prostor bez prozora, dok onaj s prozorima zadržava raspored koji ima. Prozor minimiziran u dock i dalje se ubraja kao prozor na radnom prostoru koji je napustio. Odaberite ga pod _Trigger > Appearance > Workspace Layout_: Tiling, Scrolling ili Floating. `arch-hyprland-workspace-layout-default scrolling` postavlja ga iz terminala.
-
 ### Grupiranje prozora
 
 Prozore je moguće grupirati pomoću `Super + G`. Kad ste jednom u grupi, svaki prozor koji pokrenete dok je ona aktivna pripadat će grupi. Između tih grupiranih prozora možete se kretati pomoću `Super + Ctrl + Arrow Left/Right` ili `Super + Alt + 1/2/3/4` da izravno odete na grupirani prozor po redu.
 
 Prozor možete izbaciti iz grupiranja pomoću `Super + Alt + G` ili rastaviti cijelu grupu ponovnim pritiskom na `Super + G`. Na kraju, prozore izvan grupe možete premjestiti u nju pomoću `Super + Alt + Arrows`.
-
-### Izbacivanje prozora
-
-Prozor možete izbaciti iz dodjele njegova radnog prostora pomoću `Super + O`. Time ćete ga prikvačiti kao plutajući prozor koji vas prati na koji god radni prostor odete. Odlično za videoreproduktore i slično.
-
- ![navigation-popped-window](images/navigation-popped-window.webp)
 
 ### Radni prostor scratchpad
 

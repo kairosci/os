@@ -50,25 +50,11 @@ hl.config({
 })
 ```
 
-### Plovoucí pracovní plochy
-
-Plovoucí pracovní plocha funguje jako tradiční desktop: okna se překrývají a sami je přesouváte a měníte jejich velikost. Každé okno dostane titulkový pruh v barvách vašeho motivu s tlačítky pro minimalizaci, maximalizaci a zavření. Zaměřené okno minimalizuje také `Super + M`. Minimalizované okno čeká v docku; klikněte na jeho aplikaci a přivedete ho zpět. Klikněte na okno a přivedete ho dopředu. Změňte jeho velikost z kteréhokoli okraje nebo rohu. Poklepejte na titulkový pruh a maximalizujete okno při zachování horní lišty na očích, a znovu a dostanete zpět jeho starou velikost.
-
-Plovoucí pracovní plocha také ukazuje dock s vašimi připnutými aplikacemi, vším, co právě běží, a mřížkou všech aplikací za tlačítkem aplikací, které otevírá také `Super + Alt + Space` a _Apps_ v menu Arch. Klikněte na aplikaci v mřížce pravým tlačítkem, nebo stiskněte `Delete`, a odinstalujete ji. Klikněte na aplikaci a otevřete ji, nebo přivedete její okno dopředu; klikněte znovu a procházíte jejími okny. Kliknutí prostředním tlačítkem otevře nové okno. Táhněte ikonu podél docku a přesunete ji; přetažení běžící aplikace mezi ostatní ji tam nechá. Klikněte pravým tlačítkem a ponecháte aplikaci v docku, odstraníte ji z něj, nebo ji ukončíte. Dock se klidí z cesty oknu na celou obrazovku. Klikněte pravým tlačítkem na tlačítko aplikací a přesunete dock na jiný okraj, nebo ho necháte skrývat, dokud ukazatel nedosáhne jeho okraje. Pozice je také pod _Trigger > Appearance > Dock > Dock Position_ a `archctl dock position left` a `archctl dock autohide on` nastaví obojí z terminálu. Aplikace, které si necháte v docku, jsou vybledlé, zatímco neběží.
-
-Nové pracovní plochy a všechny, kterým jste nedali vlastní rozvržení pomocí `Super + L`, používají výchozí rozvržení. Změna výchozího nastavení na něj resetuje každou pracovní plochu bez oken, zatímco ta, která na sobě okna má, si ponechá rozvržení, které má. Okno minimalizované do docku se stále počítá jako okno na pracovní ploše, kterou opustilo. Vyberte ho pod _Trigger > Appearance > Workspace Layout_: Tiling, Scrolling, nebo Floating. `arch-hyprland-workspace-layout-default scrolling` ho nastaví z terminálu.
-
 ### Seskupování oken
 
 Okna můžete seskupovat pomocí `Super + G`. Jakmile jste ve skupině, každé okno, které spustíte, zatímco je to aktivní, bude patřit do skupiny. Mezi těmito seskupenými okny se můžete pohybovat pomocí `Super + Ctrl + Arrow Left/Right` nebo `Super + Alt + 1/2/3/4` a přejít přímo na seskupené okno v pořadí.
 
 Okno můžete ze seskupení přesunout ven pomocí `Super + Alt + G` nebo rozebrat celou skupinu opětovným stisknutím `Super + G`. Nakonec můžete okna mimo skupinu přesunout do ní pomocí `Super + Alt + Arrows`.
-
-### Vysouvání oken
-
-Okno můžete vysunout z jeho přidělení na pracovní plochu pomocí `Super + O`. Tím ho připnete jako plovoucí okno, které vás následuje na kteroukoli pracovní plochu, na kterou přejdete. Skvělé pro přehrávače videa a podobné.
-
- ![navigation-popped-window](images/navigation-popped-window.webp)
 
 ### Pracovní plocha scratchpad
 

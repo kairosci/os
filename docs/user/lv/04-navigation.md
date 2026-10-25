@@ -50,25 +50,11 @@ hl.config({
 })
 ```
 
-### Peldošās darba vietas
-
-Peldoša darba vieta darbojas kā tradicionāla darbvirsma: logi pārklājas, un tu pats tos pārvieto un maini to izmērus. Katram logam ir virsrakstjosla tavas tēmas krāsās, ar pogām minimizēšanai, maksimizēšanai un aizvēršanai. `Super + M` arī minimizē fokusēto logu. Minimizēts logs gaida dokā; noklikšķini uz tā lietotnes, lai to atgādātu atpakaļ. Noklikšķini uz loga, lai izceltu to priekšplānā. Maini tā izmēru no jebkuras malas vai stūra. Veic dubultklikšķi uz virsrakstjoslas, lai maksimizētu logu, vienlaikus saglabājot augšējo joslu redzamu, un vēlreiz, lai atgūtu tā veco izmēru.
-
-Peldoša darba vieta rāda arī doku ar tavām piespraustajām lietotnēm, visu, kas darbojas, un visu lietotņu režģi aiz lietotņu pogas, ko atver arī `Super + Alt + Space` un _Apps_ Arch menu. Ar labo pogu noklikšķini uz lietotnes režģī vai nospied `Delete`, lai to atinstalētu. Noklikšķini uz lietotnes, lai to atvērtu vai izceltu tās logu priekšplānā; noklikšķini vēlreiz, lai cikli pārslēgtos cauri tās logiem. Klikšķis ar vidējo pogu atver jaunu logu. Velc ikonu gar doku, lai to pārvietotu; ievelkot darboties spējušu lietotni starp pārējām, tā tur paliks. Ar labo pogu vari lietotni paturēt dokā, izņemt to no doka vai aizvērt. Doks netraucē pilnekrāna logam. Ar labo pogu noklikšķini uz lietotņu pogas, lai pārvietotu doku uz citu malu vai liktu tam slēpties, līdz rādītājs sasniedz tā malu. Pozīcija atrodas arī _Trigger > Appearance > Dock > Dock Position_, un `archctl dock position left` un `archctl dock autohide on` abus iestata no termināļa. Lietotnes, ko turi dokā, ir izbalējušas, kamēr tās nedarbojas.
-
-Jaunas darba vietas un jebkura, kurai neesi piešķīris savu izkārtojumu ar `Super + L`, izmanto noklusējuma izkārtojumu. Mainot noklusējumu, visas darba vietas bez logiem tiek atiestatītas uz to, bet darba vieta ar logiem saglabā to izkārtojumu, kas tai ir. Logs, kas minimizēts dokā, joprojām skaitās kā logs darba vietā, kuru tas pameta. Izvēlies to sadaļā _Trigger > Appearance > Workspace Layout_: Tiling, Scrolling vai Floating. `arch-hyprland-workspace-layout-default scrolling` to iestata no termināļa.
-
 ### Logu grupēšana
 
 Logus var grupēt ar `Super + G`. Kad esi grupā, katrs logs, ko startē, kamēr tā ir aktīva, piederēs grupai. Starp šiem grupētajiem logiem vari pārvietoties ar `Super + Ctrl + Arrow Left/Right` vai `Super + Alt + 1/2/3/4`, lai dotos tieši uz grupēto logu pēc kārtas.
 
 Logu no grupējuma vari izņemt ar `Super + Alt + G` vai izjaukt visu grupu, vēlreiz nospiežot `Super + G`. Visbeidzot, logus ārpus grupas vari pārvietot tajā iekšā ar `Super + Alt + Arrows`.
-
-### Logu izcelšana
-
-Logu vari izcelt ārā no tā darba vietas piešķīruma ar `Super + O`. Tas to piespraudīs kā peldošu logu, kas tev sekos uz jebkuru darba vietu, uz kuru dosies. Lieliski video atskaņotājiem un līdzīgām lietām.
-
- ![navigation-popped-window](images/navigation-popped-window.webp)
 
 ### Scratchpad darba vieta
 

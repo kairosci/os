@@ -50,25 +50,11 @@ hl.config({
 })
 ```
 
-### Mga floating na workspace
-
-Ang isang floating na workspace ay gumagana tulad ng isang tradisyonal na desktop: nagpapatong-patong ang mga window, at ikaw mismo ang naglilipat at nagbabago ng laki ng mga ito. Bawat window ay nakakakuha ng titlebar sa mga kulay ng iyong tema, na may mga button para mag-minimize, mag-maximize, at magsara. Pina-minimize rin ng `Super + M` ang naka-focus na window. Ang isang naka-minimize na window ay naghihintay sa dock; i-click ang app nito para ibalik ito. I-click ang isang window para dalhin ito sa unahan. Baguhin ang laki nito mula sa anumang gilid o sulok. I-double-click ang isang titlebar para i-maximize ang window habang pinapanatiling nakikita ang bar sa itaas, at ulit para maibalik ang dati nitong laki.
-
-Ang isang floating na workspace ay nagpapakita rin ng isang dock, kasama ang iyong mga naka-pin na app, lahat ng tumatakbo, at isang grid ng bawat app sa likod ng apps na button, na binubuksan din ng `Super + Alt + Space` at ng _Apps_ sa menu ng Arch. I-right-click ang isang app sa grid, o pindutin ang `Delete`, para i-uninstall ito. I-click ang isang app para buksan ito, o para dalhin ang window nito sa unahan; i-click ulit para magpalipat-lipat sa mga window nito. Ang middle-click ay nagbubukas ng bagong window. I-drag ang isang icon sa haba ng dock para ilipat ito; ang pag-drag sa isang tumatakbong app papasok sa gitna ng iba pa ay pinapanatili ito roon. I-right-click para panatilihin ang isang app sa dock, alisin ito, o isara ito. Umiwas ang dock sa daan ng isang fullscreen na window. I-right-click ang apps na button para ilipat ang dock sa ibang gilid o para itago ito hanggang maabot ng pointer ang gilid nito. Ang posisyon ay nasa ilalim din ng _Trigger > Appearance > Dock > Dock Position_, at itinatakda ng `archctl dock position left` at `archctl dock autohide on` ang dalawa mula sa isang terminal. Ang mga app na pinapanatili mo sa dock ay malabo habang hindi sila tumatakbo.
-
-Ang mga bagong workspace, at anumang hindi mo pa binigyan ng sariling layout gamit ang `Super + L`, ay gumagamit ng default na layout. Ang pagpapalit sa default ay nire-reset ang bawat workspace na walang mga window papunta rito, habang ang isang may mga window dito ay pinapanatili ang layout na mayroon ito. Ang isang window na naka-minimize sa dock ay binibilang pa rin bilang isang window sa workspace na iniwan nito. Piliin ito sa ilalim ng _Trigger > Appearance > Workspace Layout_: Tiling, Scrolling, o Floating. Itinatakda ito ng `arch-hyprland-workspace-layout-default scrolling` mula sa isang terminal.
-
 ### Pagpapangkat ng mga window
 
 Maaaring ipangkat ang mga window gamit ang `Super + G`. Kapag nasa isang grupo ka na, bawat window na sisimulan mo habang aktibo iyon ay mapapabilang sa grupo. Maaari kang lumipat sa pagitan ng mga nakapangkat na window na ito gamit ang `Super + Ctrl + Arrow Left/Right` o `Super + Alt + 1/2/3/4` para direktang pumunta sa nakapangkat na window ayon sa pagkakasunod-sunod.
 
 Maaari mong ilipat ang isang window palabas ng pagpapangkat gamit ang `Super + Alt + G` o buwagin ang buong grupo sa pamamagitan ng pagpindot ulit sa `Super + G`. Panghuli, maaari mong ilipat ang mga window sa labas ng grupo papasok dito gamit ang `Super + Alt + Arrows`.
-
-### Pag-pop ng mga window
-
-Maaari mong i-pop ang isang window palabas ng alokasyon nito sa workspace gamit ang `Super + O`. Ipi-pin nito iyon bilang isang floating na window na sumusunod sa iyo sa anumang workspace na puntahan mo. Mahusay para sa mga video player at mga katulad niyon.
-
- ![navigation-popped-window](images/navigation-popped-window.webp)
 
 ### Scratchpad na workspace
 

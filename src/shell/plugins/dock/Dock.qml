@@ -4,9 +4,8 @@ import Quickshell.Hyprland
 import qs.Commons
 import "DockModel.js" as DockModel
 
-// An app dock that shows on floating workspaces. A floating workspace has no
-// tiles to hand the apps out, so the dock gives back a place to find them:
-// pinned apps, running apps, and a grid of every app.
+// An app dock available across workspaces, with pinned apps, running apps,
+// and a grid of every app.
 Item {
   id: root
 

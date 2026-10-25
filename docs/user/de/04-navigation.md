@@ -50,25 +50,11 @@ hl.config({
 })
 ```
 
-### Schwebende Arbeitsbereiche
-
-Ein schwebender Arbeitsbereich funktioniert wie ein traditioneller Desktop: Fenster überlagern sich, und du verschiebst und dimensionierst sie selbst. Jedes Fenster bekommt eine Titelleiste in den Farben deines Themes, mit Schaltflächen zum Minimieren, Maximieren und Schließen. `Super + M` minimiert auch das fokussierte Fenster. Ein minimiertes Fenster wartet im Dock; klicke auf seine App, um es zurückzuholen. Klicke auf ein Fenster, um es in den Vordergrund zu holen. Ziehe es an einer beliebigen Kante oder Ecke auf eine andere Größe. Doppelklicke auf eine Titelleiste, um das Fenster zu maximieren, während die obere Leiste sichtbar bleibt, und noch einmal, um seine alte Größe zurückzubekommen.
-
-Ein schwebender Arbeitsbereich zeigt auch ein Dock, mit deinen angehefteten Apps, allem, was gerade läuft, und einem Raster aller Apps hinter der Apps-Schaltfläche, die auch `Super + Alt + Space` und _Apps_ im Arch-Menü öffnen. Klicke mit der rechten Maustaste auf eine App im Raster oder drücke `Delete`, um sie zu deinstallieren. Klicke auf eine App, um sie zu öffnen oder ihr Fenster in den Vordergrund zu holen; klicke erneut, um durch ihre Fenster durchzuschalten. Ein Mittelklick öffnet ein neues Fenster. Ziehe ein Symbol entlang des Docks, um es zu verschieben; eine laufende App zwischen die anderen zu ziehen, behält sie dort. Klicke mit der rechten Maustaste, um eine App im Dock zu behalten, sie herauszunehmen oder sie zu beenden. Das Dock geht einem Vollbildfenster aus dem Weg. Klicke mit der rechten Maustaste auf die Apps-Schaltfläche, um das Dock an eine andere Kante zu verschieben oder es auszublenden, bis der Zeiger seine Kante erreicht. Die Position findest du auch unter _Trigger > Appearance > Dock > Dock Position_, und `archctl dock position left` und `archctl dock autohide on` stellen beides von einem Terminal aus ein. Apps, die du im Dock behältst, sind ausgeblasst, solange sie nicht laufen.
-
-Neue Arbeitsbereiche und alle, denen du mit `Super + L` kein eigenes Layout gegeben hast, verwenden das Standardlayout. Das Ändern des Standards setzt jeden Arbeitsbereich ohne Fenster auf ihn zurück, während einer mit Fenstern das Layout behält, das er hat. Ein in das Dock minimiertes Fenster zählt weiterhin als Fenster auf dem Arbeitsbereich, den es verlassen hat. Wähle es unter _Trigger > Appearance > Workspace Layout_: Tiling, Scrolling oder Floating. `arch-hyprland-workspace-layout-default scrolling` stellt es von einem Terminal aus ein.
-
 ### Fenster gruppieren
 
 Fenster können mit `Super + G` gruppiert werden. Sobald du in einer Gruppe bist, gehört jedes Fenster, das du startest, solange das aktiv ist, zu dieser Gruppe. Zwischen diesen gruppierten Fenstern kannst du dich mit `Super + Ctrl + Arrow Left/Right` bewegen oder mit `Super + Alt + 1/2/3/4` direkt zu einem gruppierten Fenster in der Reihenfolge wechseln.
 
 Du kannst ein Fenster mit `Super + Alt + G` aus der Gruppierung herausbewegen oder die gesamte Gruppe auflösen, indem du erneut `Super + G` drückst. Schließlich kannst du Fenster außerhalb der Gruppe mit `Super + Alt + Arrows` in sie hineinbewegen.
-
-### Fenster herauslösen
-
-Du kannst ein Fenster mit `Super + O` aus seiner Arbeitsbereich-Zuweisung herauslösen. Dadurch wird es als schwebendes Fenster angeheftet, das dir folgt, auf welchen Arbeitsbereich du auch gehst. Großartig für Videoplayer und Ähnliches.
-
- ![navigation-popped-window](images/navigation-popped-window.webp)
 
 ### Scratchpad-Arbeitsbereich
 

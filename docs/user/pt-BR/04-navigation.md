@@ -50,25 +50,11 @@ hl.config({
 })
 ```
 
-### Áreas de trabalho flutuantes
-
-Uma área de trabalho flutuante funciona como uma área de trabalho tradicional: as janelas se sobrepõem, e você move e dimensiona elas por conta própria. Cada janela ganha uma barra de título nas cores do seu tema, com botões para minimizar, maximizar e fechar. `Super + M` também minimiza a janela em foco. Uma janela minimizada aguarda no dock; clique no aplicativo dela para trazê-la de volta. Clique em uma janela para trazê-la para a frente. Redimensione ela a partir de qualquer borda ou canto. Clique duas vezes em uma barra de título para maximizar a janela mantendo a barra superior à vista, e de novo para recuperar o tamanho antigo dela.
-
-Uma área de trabalho flutuante também mostra um dock, com seus aplicativos fixados, tudo o que está em execução, e uma grade com todos os aplicativos atrás do botão de aplicativos, que `Super + Alt + Space` e _Apps_ no menu do Arch também abrem. Clique com o botão direito em um aplicativo na grade, ou pressione `Delete`, para desinstalá-lo. Clique em um aplicativo para abri-lo, ou para trazer a janela dele para a frente; clique novamente para alternar entre as janelas dele em ciclo. O clique com o botão do meio abre uma nova janela. Arraste um ícone ao longo do dock para movê-lo; arrastar um aplicativo em execução para o meio dos outros mantém ele ali. Clique com o botão direito para manter um aplicativo no dock, tirá-lo de lá ou encerrá-lo. O dock sai do caminho de uma janela em tela cheia. Clique com o botão direito no botão de aplicativos para mover o dock para outra borda ou fazer ele se esconder até que o ponteiro alcance a borda dele. A posição também fica em _Trigger > Appearance > Dock > Dock Position_, e `archctl dock position left` e `archctl dock autohide on` definem as duas coisas a partir de um terminal. Os aplicativos que você mantém no dock ficam esmaecidos enquanto não estão em execução.
-
-Novas áreas de trabalho, e qualquer uma à qual você não tenha dado um layout próprio com `Super + L`, usam o layout padrão. Mudar o padrão redefine para ele todas as áreas de trabalho sem janelas, enquanto uma com janelas mantém o layout que ela tem. Uma janela minimizada para o dock ainda conta como uma janela na área de trabalho de onde ela saiu. Escolha ele em _Trigger > Appearance > Workspace Layout_: Tiling, Scrolling ou Floating. `arch-hyprland-workspace-layout-default scrolling` define isso a partir de um terminal.
-
 ### Agrupando janelas
 
 As janelas podem ser agrupadas usando `Super + G`. Quando você estiver em um grupo, todas as janelas que você iniciar enquanto ele estiver ativo pertencerão ao grupo. Você pode se mover entre essas janelas agrupadas usando `Super + Ctrl + Arrow Left/Right` ou `Super + Alt + 1/2/3/4` para ir diretamente para a janela agrupada na ordem.
 
 Você pode mover uma janela para fora do agrupamento com `Super + Alt + G` ou desfazer o grupo inteiro pressionando `Super + G` novamente. Por fim, você pode mover janelas de fora do grupo para dentro dele com `Super + Alt + Arrows`.
-
-### Destacando janelas
-
-Você pode destacar uma janela da alocação dela na área de trabalho com `Super + O`. Isso vai fixá-la como uma janela flutuante que segue você para qualquer área de trabalho aonde você for. Ótimo para players de vídeo e coisas do tipo.
-
- ![navigation-popped-window](images/navigation-popped-window.webp)
 
 ### Área de trabalho scratchpad
 

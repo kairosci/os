@@ -50,25 +50,11 @@ hl.config({
 })
 ```
 
-### Lebdeči delovni prostori
-
-Lebdeči delovni prostor deluje kot tradicionalno namizje: okna se prekrivajo, ti pa jih premikaš in jim spreminjaš velikost sam. Vsako okno dobi naslovno vrstico v barvah tvoje teme, z gumbi za minimiziranje, maksimiranje in zapiranje. `Super + M` minimizira tudi fokusirano okno. Minimizirano okno čaka v doku; klikni njegovo aplikacijo, da ga prikličeš nazaj. Klikni okno, da ga pripelješ v ospredje. Velikost mu spreminjaj s katerega koli roba ali vogala. Dvakrat klikni naslovno vrstico, da okno maksimiraš, pri čemer zgornja vrstica ostane vidna, in znova dvakrat klikni, da mu vrneš staro velikost.
-
-Lebdeči delovni prostor prikazuje tudi dok s pripetimi aplikacijami, vsem, kar se izvaja, in mrežo vseh aplikacij za gumbom za aplikacije, ki jo odpreta tudi `Super + Alt + Space` in _Aplikacije_ v meniju Arch. Z desno miškino tipko klikni aplikacijo na mreži ali pritisni `Delete`, da jo odstraniš. Klikni aplikacijo, da jo odpreš ali pripelješ njeno okno v ospredje; znova klikni, da krožiš med njenimi okni. Srednji klik odpre novo okno. Ikono povleci vzdolž doka, da jo premakneš; če delujočo aplikacijo povlečeš med druge, tam ostane. Z desno miškino tipko klikni, da aplikacijo obdržiš v doku, jo vzameš iz njega ali zapreš. Dok se umakne s poti celozaslonskemu oknu. Z desno miškino tipko klikni gumb za aplikacije, da dok premakneš na drug rob ali poskrbiš, da se skriva, dokler kazalec ne doseže njegovega roba. Položaj je tudi pod _Trigger > Videz > Dock > Položaj Docka_, `archctl dock position left` in `archctl dock autohide on` pa oba nastavita iz terminala. Aplikacije, ki jih obdržiš v doku, so zbledele, dokler se ne izvajajo.
-
-Novi delovni prostori in vsi, ki jim nisi dal lastne postavitve s `Super + L`, uporabljajo privzeto postavitev. Sprememba privzete nastavitve na novo nastavi vsak delovni prostor brez oken nanjo, medtem ko tisti z okni obdrži postavitev, ki jo ima. Okno, minimizirano v dok, še vedno šteje kot okno na delovnem prostoru, ki ga je zapustilo. Izberi jo pod _Trigger > Videz > Postavitev delovnega prostora_: Ploščice, Drsenje ali Lebdenje. `arch-hyprland-workspace-layout-default scrolling` jo nastavi iz terminala.
-
 ### Združevanje oken v skupine
 
 Okna je mogoče združiti v skupine s `Super + G`. Ko si enkrat v skupini, bo vsako okno, ki ga zaženeš, medtem ko je ta aktivna, pripadalo skupini. Med temi združenimi okni se lahko premikaš s `Super + Ctrl + Arrow Left/Right` ali neposredno na združeno okno po vrsti s `Super + Alt + 1/2/3/4`.
 
 Okno lahko iz skupine premakneš s `Super + Alt + G` ali celotno skupino razstaviš tako, da znova pritisneš `Super + G`. Nazadnje lahko okna zunaj skupine premakneš vanjo s `Super + Alt + Arrows`.
-
-### Izvlečenje oken
-
-Okno lahko izvlečeš iz njegove dodelitve delovnemu prostoru s `Super + O`. To ga bo pripelo kot lebdeče okno, ki ti sledi na kateri koli delovni prostor, na katerega greš. Odlično za predvajalnike videa in podobno.
-
- ![navigation-popped-window](images/navigation-popped-window.webp)
 
 ### Delovni prostor scratchpad
 

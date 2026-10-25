@@ -50,25 +50,11 @@ hl.config({
 })
 ```
 
-### Flydende arbejdsområder
-
-Et flydende arbejdsområde fungerer som et traditionelt skrivebord: vinduer overlapper, og du flytter og tilpasser dem selv. Hvert vindue får en titellinje i dit temas farver med knapper til at minimere, maksimere og lukke. `Super + M` minimerer også det fokuserede vindue. Et minimeret vindue venter i docken; klik på dets app for at bringe det tilbage. Klik på et vindue for at bringe det frem. Ændr størrelsen fra enhver kant eller ethvert hjørne. Dobbeltklik på en titellinje for at maksimere vinduet, mens den øverste bar stadig er synlig, og igen for at få dets gamle størrelse tilbage.
-
-Et flydende arbejdsområde viser også en dock med dine fastgjorte apps, alt det, der kører, og et gitter med alle apps bag apps-knappen, som `Super + Alt + Space` og _Apps_ i Arch-menuen også åbner. Højreklik på en app i gitteret, eller tryk på `Delete`, for at afinstallere den. Klik på en app for at åbne den eller bringe dens vindue frem; klik igen for at bladre igennem dens vinduer. Midterklik åbner et nyt vindue. Træk et ikon langs docken for at flytte det; hvis du trækker en kørende app ind blandt de andre, bliver den der. Højreklik for at beholde en app i docken, tage den ud eller afslutte den. Docken flytter sig af vejen for et vindue i fuld skærm. Højreklik på apps-knappen for at flytte docken til en anden kant eller få den til at skjule sig, indtil markøren når dens kant. Placeringen findes også under _Trigger > Appearance > Dock > Dock Position_, og `archctl dock position left` og `archctl dock autohide on` indstiller begge dele fra en terminal. Apps, du beholder i docken, er nedtonede, mens de ikke kører.
-
-Nye arbejdsområder, og ethvert arbejdsområde du ikke har givet dets eget layout med `Super + L`, bruger standardlayoutet. Hvis du ændrer standarden, nulstilles alle arbejdsområder uden vinduer til den, mens et arbejdsområde med vinduer på beholder det layout, det har. Et vindue, der er minimeret til docken, tæller stadig som et vindue på det arbejdsområde, det forlod. Vælg den under _Trigger > Appearance > Workspace Layout_: Tiling, Scrolling eller Floating. `arch-hyprland-workspace-layout-default scrolling` indstiller den fra en terminal.
-
 ### Gruppering af vinduer
 
 Vinduer kan grupperes med `Super + G`. Når du er i en gruppe, vil hvert vindue, du starter, mens den er aktiv, tilhøre gruppen. Du kan flytte mellem disse grupperede vinduer med `Super + Ctrl + Arrow Left/Right` eller `Super + Alt + 1/2/3/4` for at gå direkte til et grupperet vindue i rækkefølge.
 
 Du kan flytte et vindue ud af grupperingen med `Super + Alt + G` eller opløse hele gruppen ved at trykke på `Super + G` igen. Endelig kan du flytte vinduer uden for gruppen ind i den med `Super + Alt + Arrows`.
-
-### At poppe vinduer ud
-
-Du kan poppe et vindue ud af dets tildeling til arbejdsområdet med `Super + O`. Det fastgør det som et flydende vindue, der følger dig på ethvert arbejdsområde, du går til. Fremragende til videoafspillere og den slags.
-
- ![navigation-popped-window](images/navigation-popped-window.webp)
 
 ### Scratchpad-arbejdsområde
 

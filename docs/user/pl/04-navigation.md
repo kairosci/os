@@ -50,25 +50,11 @@ hl.config({
 })
 ```
 
-### Pływające obszary robocze
-
-Pływający obszar roboczy działa jak tradycyjny pulpit: okna nakładają się na siebie, a ty sam je przesuwasz i zmieniasz ich rozmiar. Każde okno dostaje pasek tytułu w kolorach twojego motywu, z przyciskami do minimalizowania, maksymalizowania i zamykania. `Super + M` również minimalizuje okno z fokusem. Zminimalizowane okno czeka w docku; kliknij jego aplikację, aby je przywrócić. Kliknij okno, aby przenieść je na przód. Zmień jego rozmiar z dowolnej krawędzi lub rogu. Kliknij dwukrotnie pasek tytułu, aby zmaksymalizować okno, zachowując górny pasek w widoku, i ponownie, aby przywrócić jego dawny rozmiar.
-
-Pływający obszar roboczy pokazuje też dock, z twoimi przypiętymi aplikacjami, wszystkim, co jest uruchomione, oraz siatką każdej aplikacji za przyciskiem aplikacji, który otwierają też `Super + Alt + Space` oraz _Apps_ w menu Arch. Kliknij prawym przyciskiem aplikację na siatce lub naciśnij `Delete`, aby ją odinstalować. Kliknij aplikację, aby ją otworzyć lub przenieść jej okno na przód; kliknij ponownie, aby przechodzić w cyklu przez jej okna. Kliknięcie środkowym przyciskiem otwiera nowe okno. Przeciągnij ikonę wzdłuż docka, aby ją przenieść; przeciągnięcie uruchomionej aplikacji pomiędzy pozostałe zostawia ją tam. Kliknij prawym przyciskiem, aby zostawić aplikację w docku, usunąć ją z niego lub ją zamknąć. Dock ustępuje miejsca oknu pełnoekranowemu. Kliknij prawym przyciskiem przycisk aplikacji, aby przenieść dock na inną krawędź lub sprawić, by chował się, dopóki wskaźnik nie dotrze do jego krawędzi. Pozycja znajduje się też w _Trigger > Appearance > Dock > Dock Position_, a `archctl dock position left` i `archctl dock autohide on` ustawiają obie opcje z terminala. Aplikacje, które trzymasz w docku, są przygaszone, gdy nie są uruchomione.
-
-Nowe obszary robocze oraz wszystkie, którym nie nadałeś własnego układu za pomocą `Super + L`, używają domyślnego układu. Zmiana domyślnego układu resetuje do niego każdy obszar roboczy bez okien, natomiast ten z oknami zachowuje układ, który ma. Okno zminimalizowane do docka nadal liczy się jako okno na obszarze roboczym, który opuściło. Wybierz go w _Trigger > Appearance > Workspace Layout_: Tiling, Scrolling lub Floating. `arch-hyprland-workspace-layout-default scrolling` ustawia go z terminala.
-
 ### Grupowanie okien
 
 Okna można grupować za pomocą `Super + G`. Gdy już znajdziesz się w grupie, każde okno, które uruchomisz, gdy jest ona aktywna, będzie należało do tej grupy. Możesz poruszać się między tymi pogrupowanymi oknami za pomocą `Super + Ctrl + Arrow Left/Right` lub `Super + Alt + 1/2/3/4`, aby przejść bezpośrednio do pogrupowanego okna w kolejności.
 
 Możesz przenieść okno poza grupowanie za pomocą `Super + Alt + G` lub rozłożyć całą grupę, naciskając ponownie `Super + G`. Na koniec możesz przenieść okna spoza grupy do niej za pomocą `Super + Alt + Arrows`.
-
-### Wyciąganie okien
-
-Możesz wyciągnąć okno z jego przydziału do obszaru roboczego za pomocą `Super + O`. Spowoduje to przypięcie go jako pływającego okna, które podąża za tobą na każdy obszar roboczy, na który przejdziesz. Świetne do odtwarzaczy wideo itp.
-
- ![navigation-popped-window](images/navigation-popped-window.webp)
 
 ### Obszar roboczy scratchpad
 

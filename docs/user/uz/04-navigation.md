@@ -50,25 +50,11 @@ hl.config({
 })
 ```
 
-### Suzuvchi ish maydonlari
-
-Suzuvchi ish maydoni an’anaviy ish stoli kabi ishlaydi: oynalar bir-birining ustiga chiqadi, ularni o‘zingiz ko‘chirasiz va o‘lchamini o‘zingiz belgilaysiz. Har bir oyna mavzuingiz ranglaridagi sarlavha paneliga ega bo‘ladi, unda kichraytirish, kattalashtirish va yopish tugmalari bo‘ladi. `Super + M` ham fokuslangan oynani kichraytiradi. Kichraytirilgan oyna dock’da kutadi; uni qaytarish uchun uning ilovasini bosing. Oynani oldinga chiqarish uchun uni bosing. Uning o‘lchamini istalgan chetidan yoki burchagidan o‘zgartiring. Yuqori panelni ko‘rinishda saqlab qolgan holda oynani kattalashtirish uchun sarlavha panelini ikki marta bosing, eski o‘lchamini qaytarish uchun esa yana bosing.
-
-Suzuvchi ish maydoni, shuningdek, biriktirib qo‘yilgan ilovalaringiz, ishlayotgan hamma narsa va ilovalar tugmasi ortidagi har bir ilovaning to‘ri joylashgan dock’ni ham ko‘rsatadi, uni `Super + Alt + Space` va Arch menyusidagi _Apps_ ham ochadi. Ilovani o‘chirib tashlash uchun to‘rdagi ilovani o‘ng tugma bilan bosing yoki `Delete` ni bosing. Ilovani ochish yoki uning oynasini oldinga chiqarish uchun uni bosing; uning oynalari bo‘ylab aylanish uchun yana bosing. O‘rta tugma bilan bosish yangi oyna ochadi. Belgini ko‘chirish uchun uni dock bo‘ylab torting; ishlayotgan ilovani boshqalar orasiga tortib kiritsangiz, u o‘sha yerda qoladi. Ilovani dock’da saqlash, undan olib tashlash yoki undan chiqish uchun o‘ng tugma bilan bosing. Dock to‘liq ekranli oynaga yo‘l bo‘shatib beradi. Dock’ni boshqa chetga ko‘chirish yoki ko‘rsatkich uning chetiga yetguniga qadar uni yashirib turish uchun ilovalar tugmasini o‘ng tugma bilan bosing. Holat, shuningdek, _Trigger > Appearance > Dock > Dock Position_ ostida ham bor, va `archctl dock position left` hamda `archctl dock autohide on` ularning ikkalasini ham terminaldan sozlaydi. Siz dock’da saqlaydigan ilovalar ishlamayotgan paytida xiralashgan bo‘ladi.
-
-Yangi ish maydonlari va `Super + L` bilan o‘z tartibini bermagan har qanday ish maydoni standart tartibdan foydalanadi. Standartni o‘zgartirish oynalari bo‘lmagan har bir ish maydonini unga qayta sozlaydi, oynalari bor ish maydoni esa o‘zidagi tartibni saqlab qoladi. Dock’ga kichraytirilgan oyna hamon o‘zi tark etgan ish maydonidagi oyna sifatida hisoblanadi. Uni _Trigger > Appearance > Workspace Layout_ ostida tanlang: Tiling, Scrolling yoki Floating. `arch-hyprland-workspace-layout-default scrolling` uni terminaldan sozlaydi.
-
 ### Oynalarni guruhlash
 
 Oynalarni `Super + G` yordamida guruhlash mumkin. Guruh ichiga kirganingizdan so‘ng, u faol bo‘lgan paytda ishga tushirgan har bir oynangiz guruhga tegishli bo‘ladi. Ushbu guruhlangan oynalar orasida `Super + Ctrl + Arrow Left/Right` yordamida yoki tartib bo‘yicha guruhlangan oynaga to‘g‘ridan-to‘g‘ri o‘tish uchun `Super + Alt + 1/2/3/4` yordamida harakatlanishingiz mumkin.
 
 Siz oynani `Super + Alt + G` bilan guruhlashdan chiqarishingiz yoki `Super + G` ni yana bosib, butun guruhni tarqatib yuborishingiz mumkin. Nihoyat, guruhdan tashqaridagi oynalarni `Super + Alt + Arrows` bilan uning ichiga ko‘chirishingiz mumkin.
-
-### Oynalarni chiqarib olish
-
-Siz oynani `Super + O` bilan uning ish maydoni taqsimotidan chiqarib olishingiz mumkin. Bu uni qaysi ish maydoniga borsangiz ham siz bilan birga yuradigan suzuvchi oyna sifatida biriktirib qo‘yadi. Video pleyerlar va shunga o‘xshashlar uchun ajoyib.
-
- ![navigation-popped-window](images/navigation-popped-window.webp)
 
 ### Scratchpad ish maydoni
 

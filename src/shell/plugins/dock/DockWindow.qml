@@ -7,9 +7,8 @@ import qs.Commons as Commons
 import qs.Ui
 import "DockModel.js" as DockModel
 
-// One screen's dock. It stays mapped and only hides its contents, so switching
-// to a floating workspace does not wait on a fresh layer surface. While hidden the
-// mask is empty and clicks fall through to the windows below.
+// One screen's dock. It stays mapped and only hides its contents. While hidden
+// the mask is empty and clicks fall through to the windows below.
 PanelWindow {
   id: window
   // Right-to-left languages read this window mirrored.
@@ -268,9 +267,8 @@ PanelWindow {
 
     width: slots.implicitWidth
     height: slots.implicitHeight
-    // How far the dock is tucked past its edge. Auto-hide slides it, but only
-    // while the dock is on screen: arriving on a floating workspace shows it
-    // where it belongs at once.
+    // How far the dock is tucked past its edge. Auto-hide slides it while the
+    // dock is on screen.
     property real tuck: window.tucked ? window.slotSize + window.gap : 0
 
     Behavior on tuck {
@@ -284,10 +282,8 @@ PanelWindow {
     y: window.position === "top" ? window.gap - tuck
       : window.position === "bottom" ? window.height - height - window.gap + tuck
       : Math.round((window.height - height) / 2)
-    // Switching between tiled and floating workspaces shows and hides the dock
-    // at once, with nothing to watch in between. Hidden by opacity rather than
-    // visibility, so the icons keep their textures and are drawn on the first
-    // frame back instead of being uploaded again.
+    // Hidden by opacity rather than visibility, so the icons keep their textures
+    // and are drawn on the first frame back instead of being uploaded again.
     opacity: window.shown ? 1 : 0
 
     HoverHandler {
