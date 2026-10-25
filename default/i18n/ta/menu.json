@@ -210,9 +210,6 @@
   "appearance.workspace-layout.scrolling": {
     "label": "உருட்டுதல்"
   },
-  "appearance.workspace-layout.floating": {
-    "label": "மிதக்கும்"
-  },
   "appearance.unlock": {
     "label": "திற"
   },
@@ -565,24 +562,6 @@
   },
   "install.style.font": {
     "label": "எழுத்துரு"
-  },
-  "install.style.font.cascadia": {
-    "label": "Cascadia Mono"
-  },
-  "install.style.font.meslo": {
-    "label": "Meslo LG Mono"
-  },
-  "install.style.font.fira": {
-    "label": "Fira Code"
-  },
-  "install.style.font.victor": {
-    "label": "Victor Code"
-  },
-  "install.style.font.bitstream": {
-    "label": "Bitstream Vera Mono"
-  },
-  "install.style.font.iosevka": {
-    "label": "Iosevka"
   },
   "install.gaming": {
     "label": "விளையாட்டு"

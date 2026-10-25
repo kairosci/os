@@ -210,9 +210,6 @@
   "appearance.workspace-layout.scrolling": {
     "label": "Przewijanie"
   },
-  "appearance.workspace-layout.floating": {
-    "label": "Pływające"
-  },
   "appearance.unlock": {
     "label": "Odblokuj"
   },
@@ -565,24 +562,6 @@
   },
   "install.style.font": {
     "label": "Czcionka"
-  },
-  "install.style.font.cascadia": {
-    "label": "Cascadia Mono"
-  },
-  "install.style.font.meslo": {
-    "label": "Meslo LG Mono"
-  },
-  "install.style.font.fira": {
-    "label": "Fira Code"
-  },
-  "install.style.font.victor": {
-    "label": "Victor Code"
-  },
-  "install.style.font.bitstream": {
-    "label": "Bitstream Vera Mono"
-  },
-  "install.style.font.iosevka": {
-    "label": "Iosevka"
   },
   "install.gaming": {
     "label": "Gry"
