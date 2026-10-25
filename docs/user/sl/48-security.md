@@ -30,6 +30,6 @@ Bodite trezne glave glede tega: medtem ko je vklopljeno, lahko vse, kar se izvaj
 
 ## Podpisni ključi
 
-Javni ključ za vse podpise ISO in paket repo Arch je `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([preverite na openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch)). Paket `arch/arch-keyring` to prav tako vsebuje in bo uporabljen za brezhibno uvajanje morebitnih posodobitev.
+Javni ključ za vse podpise ISO in paket repo Arch je `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([preverite na openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os)). Paket `arch/arch-keyring` to prav tako vsebuje in bo uporabljen za brezhibno uvajanje morebitnih posodobitev.
 
-Podpis za katero koli izdajo ISO najdete tako, da URL-ju dodate .sig. Kot https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig.
+Podpis za katero koli izdajo ISO najdete tako, da URL-ju dodate .sig. Kot https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig.

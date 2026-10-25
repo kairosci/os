@@ -6,7 +6,7 @@ Vsaka tema oblikuje namizje, terminal, neovim, zaslon dejavnosti (btop), Chromiu
 
 Teme imajo nabor ozadij, med katerimi lahko izbirate s `Super + Ctrl + Space`.
 
-Še več tem najdete na [strani z dodatnimi temami](https://github.com/kairosci/arch/themes/) ali celo [izdelate lastno temo](43-making-your-own-theme.md).
+Še več tem najdete na [strani z dodatnimi temami](https://github.com/kairosci/os/themes/) ali celo [izdelate lastno temo](43-making-your-own-theme.md).
 
  ![tokyo-night](../themes/tokyo-night/preview.png)
 _Tokyo Night_
