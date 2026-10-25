@@ -1,0 +1,9 @@
+id = "system.settings.system-files.sudoers-d"
+domain = "system"
+package = "arch-settings"
+sources = ["etc/sudoers.d"]
+requires = ["system.settings.system-files"]
+
+[[output]]
+source = "etc/sudoers.d"
+target = "etc/sudoers.d"

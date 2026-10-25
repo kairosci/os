@@ -1,0 +1,9 @@
+id = "system.settings.system-files.fastfetch"
+domain = "system"
+package = "arch-settings"
+sources = ["etc/fastfetch"]
+requires = ["system.settings.system-files"]
+
+[[output]]
+source = "etc/fastfetch"
+target = "etc/fastfetch"

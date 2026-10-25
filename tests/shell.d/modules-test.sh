@@ -10,8 +10,9 @@ trap 'rm -rf "$stage"' EXIT
 
 python3 "$ROOT/scripts/modules.py" validate
 python3 "$ROOT/scripts/modules.py" graph >"$stage/graph.json"
-python3 - "$stage/graph.json" "$ROOT/src/cli" "$ROOT/default" <<'PY'
+python3 - "$stage/graph.json" "$ROOT/src/cli" "$ROOT/default" "$ROOT/etc" <<'PY'
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -41,6 +42,10 @@ default_modules = {
     module_id: module for module_id, module in modules.items()
     if module_id.startswith("system.settings.defaults.")
 }
+system_file_modules = {
+    module_id: module for module_id, module in modules.items()
+    if module_id.startswith("system.settings.system-files.")
+}
 command_modules = {
     module_id: module for module_id, module in modules.items()
     if module_id.startswith("desktop.commands.")
@@ -64,12 +69,19 @@ expected_groups = {
     if source != "src/cli/archctl"
 }
 default_roots = Path(sys.argv[3])
+etc_roots = Path(sys.argv[4])
 expected_default_sources = {
     f"default/{path.name}" for path in default_roots.iterdir()
 }
 declared_default_sources = {
     source for module_id, module in modules.items()
     if module_id == "system.settings.defaults" or module_id in default_modules
+    for source in module["sources"]
+}
+expected_etc_sources = {f"etc/{path.name}" for path in etc_roots.iterdir()}
+declared_etc_sources = {
+    source for module_id, module in modules.items()
+    if module_id == "system.settings.system-files" or module_id in system_file_modules
     for source in module["sources"]
 }
 assert stages <= modules.keys(), stages - modules.keys()
@@ -81,11 +93,22 @@ assert declared_default_sources == expected_default_sources, (
     expected_default_sources - declared_default_sources,
     declared_default_sources - expected_default_sources,
 )
+assert declared_etc_sources == expected_etc_sources, (
+    expected_etc_sources - declared_etc_sources,
+    declared_etc_sources - expected_etc_sources,
+)
 for module_id, module in default_modules.items():
     assert module["package"] == "arch-settings", module_id
     assert module["requires"] == ["system.settings.defaults"], (module_id, module["requires"])
     assert len(module["sources"]) == 1 and len(module["sources"][0].split('/')) == 2, module_id
     expected_id = f"system.settings.defaults.{Path(module['sources'][0]).name.replace('.', '-')}"
+    assert module_id == expected_id, (module_id, expected_id)
+for module_id, module in system_file_modules.items():
+    assert module["package"] == "arch-settings", module_id
+    assert module["requires"] == ["system.settings.system-files"], (module_id, module["requires"])
+    assert len(module["sources"]) == 1 and len(module["sources"][0].split('/')) == 2, module_id
+    slug = re.sub(r"[^a-z0-9]+", "-", Path(module["sources"][0]).name.lower()).strip("-")
+    expected_id = f"system.settings.system-files.{slug}"
     assert module_id == expected_id, (module_id, expected_id)
 for module_id in stages:
     module = modules[module_id]
@@ -112,6 +135,7 @@ pass "installation stages are declared as submodules of the shared installer con
 pass "settings, applications, and pre-install branding have independent module ownership"
 pass "CLI capabilities are owned by explicit command modules"
 pass "each top-level default configuration has an explicit module owner"
+pass "each /etc subsystem has an explicit module owner"
 
 python3 - "$ROOT/scripts/modules.py" "$stage/security" <<'PY'
 import importlib.util

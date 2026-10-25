@@ -1,0 +1,9 @@
+id = "system.settings.system-files.gnupg"
+domain = "system"
+package = "arch-settings"
+sources = ["etc/gnupg"]
+requires = ["system.settings.system-files"]
+
+[[output]]
+source = "etc/gnupg"
+target = "etc/gnupg"

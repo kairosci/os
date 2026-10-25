@@ -1,0 +1,9 @@
+id = "system.settings.system-files.mise"
+domain = "system"
+package = "arch-settings"
+sources = ["etc/mise"]
+requires = ["system.settings.system-files"]
+
+[[output]]
+source = "etc/mise"
+target = "etc/mise"

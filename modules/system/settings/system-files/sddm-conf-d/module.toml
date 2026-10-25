@@ -1,0 +1,9 @@
+id = "system.settings.system-files.sddm-conf-d"
+domain = "system"
+package = "arch-settings"
+sources = ["etc/sddm.conf.d"]
+requires = ["system.settings.system-files"]
+
+[[output]]
+source = "etc/sddm.conf.d"
+target = "etc/sddm.conf.d"

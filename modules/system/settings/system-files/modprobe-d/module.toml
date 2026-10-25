@@ -1,0 +1,9 @@
+id = "system.settings.system-files.modprobe-d"
+domain = "system"
+package = "arch-settings"
+sources = ["etc/modprobe.d"]
+requires = ["system.settings.system-files"]
+
+[[output]]
+source = "etc/modprobe.d"
+target = "etc/modprobe.d"

@@ -1,0 +1,9 @@
+id = "system.settings.system-files.networkmanager"
+domain = "system"
+package = "arch-settings"
+sources = ["etc/NetworkManager"]
+requires = ["system.settings.system-files"]
+
+[[output]]
+source = "etc/NetworkManager"
+target = "etc/NetworkManager"

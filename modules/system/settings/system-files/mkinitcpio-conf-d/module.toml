@@ -1,0 +1,9 @@
+id = "system.settings.system-files.mkinitcpio-conf-d"
+domain = "system"
+package = "arch-settings"
+sources = ["etc/mkinitcpio.conf.d"]
+requires = ["system.settings.system-files"]
+
+[[output]]
+source = "etc/mkinitcpio.conf.d"
+target = "etc/mkinitcpio.conf.d"

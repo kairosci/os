@@ -1,0 +1,9 @@
+id = "system.settings.system-files.sysusers-d"
+domain = "system"
+package = "arch-settings"
+sources = ["etc/sysusers.d"]
+requires = ["system.settings.system-files"]
+
+[[output]]
+source = "etc/sysusers.d"
+target = "etc/sysusers.d"

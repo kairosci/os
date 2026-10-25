@@ -1,0 +1,9 @@
+id = "system.settings.system-files.xdg"
+domain = "system"
+package = "arch-settings"
+sources = ["etc/xdg"]
+requires = ["system.settings.system-files"]
+
+[[output]]
+source = "etc/xdg"
+target = "etc/xdg"
