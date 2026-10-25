@@ -45,7 +45,7 @@ A door in action — `[U]` runs the standard `arch-update` pipeline, snapshot fi
 ### Edition mechanics
 
 - The installer writes the edition (e.g. `/etc/arch-edition`), read by a new `arch-edition` helper with quiet predicates in the `hw-` tradition (`arch-edition-server`, exit-code interface) so scripts and migrations can gate.
-- `install/arch-server.packages` is a hand-curated subset of `arch-base.packages` — subtraction, not a parallel list that drifts: keep the CLI, TUIs, docker, networking, security, and theming plumbing; drop compositor, shell, GUI apps, audio/bluetooth/printing stacks, fonts beyond the console.
+- `installer/arch-server.packages` is a hand-curated subset of `arch-base.packages` — subtraction, not a parallel list that drifts: keep the CLI, TUIs, docker, networking, security, and theming plumbing; drop compositor, shell, GUI apps, audio/bluetooth/printing stacks, fonts beyond the console.
 - Migrations and refresh commands that touch GUI surfaces gate on edition; everything else (pacman, snapper, CLI, themes' terminal side) runs identically. One update pipeline, two editions.
 
 ### First boot
@@ -70,7 +70,7 @@ The existing provisioning flow, server flavor: hostname, user, then straight int
 
 ## Rollout
 
-- Phase 1 (this repo): `arch-edition` + predicates, `install/arch-server.packages`, edition gating in migrations/refresh commands, `arch-server-menu` + greeting + issue generation, theme bridge, `server` group in `GROUP_DESCRIPTIONS`.
+- Phase 1 (this repo): `arch-edition` + predicates, `installer/arch-server.packages`, edition gating in migrations/refresh commands, `arch-server-menu` + greeting + issue generation, theme bridge, `server` group in `GROUP_DESCRIPTIONS`.
 - Phase 2 (coordinated): ISO/installer work in the ISO pipeline repo — a Server choice at install (or a separate slim ISO; open question), provisioning flow, offline mirror subset.
 - Docs: a manual section for Arch Server (install, first boot, the menu, greet settings, headless conventions); `docs/` reference for edition gating so future migrations know the rule.
 - Tests: greeting guards are the safety-critical bit — shell.d tests that non-interactive shells, scp/sftp, and `ssh host command` never see the menu; menu routing smoke tests; edition-predicate tests; CLI metadata via `archctl commands --check`. Visual checks of splash/menu on a real console and over ssh per the visual-verification skill's spirit, adapted to a VM TTY.

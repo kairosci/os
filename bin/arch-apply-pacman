@@ -44,7 +44,7 @@ case "$region" in
   *) echo "Unsupported region: $region (expected global or cn)" >&2; exit 1 ;;
 esac
 
-# Each platform has its own channel templates (install/helpers/pacman.sh).
+# Each platform has its own channel templates (installer/helpers/pacman.sh).
 source "$ARCH_PATH/install/helpers/pacman.sh"
 platform=$(arch-hw-platform)
 templates=$(arch_pacman_templates "$platform")

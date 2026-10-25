@@ -72,7 +72,7 @@ export PATH="$stub_bin:$PATH"
 
 {
   sed -n '/^keyboard_form() {/,/^}/p; /^keyboard_xkb_settings() {/,/^}/p; /^apply_keyboard() {/,/^}/p' "$ROOT/bin/arch-provision-owner"
-  sed -n '/^arch_persist_input_selection() {/,/^}/p' "$ROOT/install/provisioning/setup-form.sh"
+  sed -n '/^arch_persist_input_selection() {/,/^}/p' "$ROOT/installer/provisioning/setup-form.sh"
 } | sed "s|/etc/|$root/etc/|g" >"$tmp/keyboard.sh"
 grep -q '^keyboard_form() {' "$tmp/keyboard.sh" && grep -q '^apply_keyboard() {' "$tmp/keyboard.sh" ||
   fail "arch-provision-owner defines the keyboard step"
@@ -193,7 +193,7 @@ pass "a keymap systemd-firstboot has no XKB layout for gets one from setup"
 # setup's own. A keymap in neither could never finish the keyboard step.
 model_map=/usr/share/systemd/kbd-model-map
 if [[ -r $model_map ]]; then
-  source "$ROOT/install/provisioning/setup-form.sh"
+  source "$ROOT/installer/provisioning/setup-form.sh"
   source "$tmp/keyboard.sh"
   while IFS='|' read -r label keymap _; do
     awk -v k="$keymap" '$1 == k { found = 1 } END { exit !found }' "$model_map" ||

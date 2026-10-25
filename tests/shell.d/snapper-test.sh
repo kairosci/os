@@ -63,7 +63,7 @@ ARCH_SNAPPER_CONFIGURE_TEST=1 \
 ARCH_PATH="$ROOT" \
 ARCH_SNAPPER_CONFIG_PATH="$test_tmp/etc/snapper/configs/root" \
 ARCH_SNAPPER_CONF_PATH="$test_tmp/etc/conf.d/snapper" \
-  bash -euo pipefail "$ROOT/install/config/snapper.sh" >/dev/null
+  bash -euo pipefail "$ROOT/installer/config/snapper.sh" >/dev/null
 
 cmp -s "$template" "$test_tmp/etc/snapper/configs/root" || fail "snapshot configure installs the os Snapper template"
 grep -Fx 'SNAPPER_CONFIGS="root"' "$test_tmp/etc/conf.d/snapper" >/dev/null || fail "snapshot configure writes /etc/conf.d/snapper"
@@ -75,7 +75,7 @@ pass "snapshot configure normalizes Snapper policy and services"
 setup_system="$ROOT/bin/arch-apply-system"
 grep -F 'config/all.sh' "$setup_system" >/dev/null ||
   fail "system setup runs the config phase"
-grep -F 'config/snapper.sh' "$ROOT/install/config/all.sh" >/dev/null ||
+grep -F 'config/snapper.sh' "$ROOT/installer/config/all.sh" >/dev/null ||
   fail "config phase normalizes Snapper"
 pass "system setup normalizes Snapper during fresh installs"
 

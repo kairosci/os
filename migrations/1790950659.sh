@@ -1,6 +1,6 @@
 echo "Light the N1x panel for Plymouth's LUKS prompt"
 
-# See install/hardware/n1x.sh: the panel stays at its dim power-on backlight
+# See installer/hardware/n1x.sh: the panel stays at its dim power-on backlight
 # until the NVIDIA backlight is first written, which only happened after unlock.
 # Only N1x installs where the GPU drives the panel have that backlight.
 gpu_conf="${ARCH_N1X_GPU_CONF:-/etc/limine-entry-tool.d/00-arch-n1x-gpu.conf}"
@@ -39,7 +39,7 @@ run_hook() {
 EOF
 
 sudo install -Dm644 /dev/stdin "$hooks_conf" <<'EOF'
-# N1x: light the panel for Plymouth's LUKS prompt; see install/hardware/n1x.sh.
+# N1x: light the panel for Plymouth's LUKS prompt; see installer/hardware/n1x.sh.
 # Sorts after arch_hooks.conf so HOOKS is already set.
 _arch_n1x_hooks=()
 for _arch_n1x_hook in "${HOOKS[@]}"; do

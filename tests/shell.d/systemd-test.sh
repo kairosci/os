@@ -26,7 +26,7 @@ grep -Fx 'ConditionEnvironment=WAYLAND_DISPLAY' "$sleep_service" >/dev/null ||
   fail "sleep lock monitor can start without a Wayland display"
 pass "sleep lock service follows the initialized graphical session"
 
-first_run_units="$ROOT/install/user/first-run/enable-user-units.sh"
+first_run_units="$ROOT/installer/user/first-run/enable-user-units.sh"
 grep -Fx 'systemctl --user daemon-reload' "$first_run_units" >/dev/null
 grep -F 'arch-sleep-lock.service' "$first_run_units" >/dev/null
 pass "first-run reloads and enables the sleep lock service"
@@ -104,6 +104,6 @@ grep -Fx 'DefaultMemoryPressureDurationSec=20s' "$oomd_conf" >/dev/null ||
   fail "no pressure duration set for the tightened limit"
 pass "systemd-oomd acts on sustained memory stall"
 
-grep -Fx 'systemctl enable systemd-oomd.service' "$ROOT/install/config/enable-services.sh" >/dev/null ||
+grep -Fx 'systemctl enable systemd-oomd.service' "$ROOT/installer/config/enable-services.sh" >/dev/null ||
   fail "new installs ship the oomd drop-ins with the daemon that reads them disabled"
 pass "new installs enable systemd-oomd"

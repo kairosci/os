@@ -28,7 +28,7 @@ grep -F 'First-run already complete' "$test_tmp/output" >/dev/null || fail "comp
 if grep -F 'user-migration-notify-watch-enabled' "$ROOT/bin/arch-provision-first-run" >/dev/null; then
   fail "first-run does not track the migration watcher separately"
 fi
-if grep -F 'skip-first-run-update-notification' "$ROOT/install/user/first-run/wifi.sh" >/dev/null; then
+if grep -F 'skip-first-run-update-notification' "$ROOT/installer/user/first-run/wifi.sh" >/dev/null; then
   fail "first-run does not track update notifications separately"
 fi
 
@@ -50,7 +50,7 @@ chmod +x "$mock_bin/systemctl" "$mock_bin/arch-hook-install"
 enable_user_units() {
   rm -f "$test_tmp/calls"
   PATH="$mock_bin:$PATH" ARCH_TEST_CALLS="$test_tmp/calls" ARCH_TEST_MISSING_UNIT="$1" \
-    bash "$ROOT/install/user/first-run/enable-user-units.sh"
+    bash "$ROOT/installer/user/first-run/enable-user-units.sh"
 }
 
 enable_user_units no-such-unit || fail "first-run enables its user units"
@@ -100,7 +100,7 @@ offers_update() {
   : >"$test_tmp/calls"
   ARCH_PATH="$1" PATH="$mock_bin:$PATH" ARCH_TEST_CALLS="$test_tmp/calls" \
     ARCH_TEST_ARCH_UPDATE="$2" ARCH_TEST_CHECKUPDATES="$3" \
-    bash -c 'source "$1"; wait' _ "$ROOT/install/user/first-run/wifi.sh"
+    bash -c 'source "$1"; wait' _ "$ROOT/installer/user/first-run/wifi.sh"
   grep -Fq 'Update System' "$test_tmp/calls"
 }
 

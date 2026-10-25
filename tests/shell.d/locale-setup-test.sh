@@ -4,11 +4,11 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-leaf="$ROOT/install/config/locale.sh"
+leaf="$ROOT/installer/config/locale.sh"
 
 [[ -f $leaf ]] || fail "the locale step ships"
 
-grep -Fq 'config/locale.sh' "$ROOT/install/config/all.sh" ||
+grep -Fq 'config/locale.sh' "$ROOT/installer/config/all.sh" ||
   fail "config phase sets a UTF-8 locale"
 pass "config phase sets a UTF-8 locale"
 

@@ -323,7 +323,7 @@ pass "an unaffected machine is a successful no-op"
 # Setup leaves are sourced. A manual rerun on an old or partially migrated
 # system must leave the fallback in place for the migration's proven cutover.
 reset_state
-bash -eE -c 'source "$1"' bash "$ROOT/install/hardware/fix-yt6801-ethernet-adapter.sh"
+bash -eE -c 'source "$1"' bash "$ROOT/installer/hardware/fix-yt6801-ethernet-adapter.sh"
 [[ -e $TEST_STATE/package && -e $TEST_STATE/vendor-loaded ]] ||
   fail "manual hardware setup retired the YT6801 fallback"
 [[ ! -s $TEST_CALLS ]] ||
@@ -351,7 +351,7 @@ assert_complete
   fail "successful retry must mark completion and continue the queue"
 pass "the real migration runner keeps failures pending and completes successful retries"
 
-if grep -Fxq 'yt6801-dkms' "$ROOT/install/arch-other.packages"; then
+if grep -Fxq 'yt6801-dkms' "$ROOT/installer/arch-other.packages"; then
   fail "default package list still installs yt6801-dkms"
 fi
 pass "the default package list no longer installs the vendor driver"

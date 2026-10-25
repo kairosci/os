@@ -19,7 +19,7 @@ assert_packages() {
         printf "%s\n" "$*"
         exit 0
       }
-      source "$ROOT/install/hardware/nvidia.sh"
+      source "$ROOT/installer/hardware/nvidia.sh"
     ')
   [[ $actual == "$expected" ]] || fail "$description" "expected: $expected; actual: $actual"
   pass "$description"

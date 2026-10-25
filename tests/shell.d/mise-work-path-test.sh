@@ -93,7 +93,7 @@ env \
   MISE_TEST_LOG="$install_log" \
   ARCH_SETUP_CONTEXT=runtime \
   PATH="$test_dir/bin:/usr/bin" \
-  bash -euo pipefail -c 'source "$1"' bash "$ROOT/install/user/mise-work.sh"
+  bash -euo pipefail -c 'source "$1"' bash "$ROOT/installer/user/mise-work.sh"
 
 [[ -d $install_home/Work/tries ]] || fail "installer creates the work and tries directories"
 [[ ! -e $install_home/Work/.mise.toml ]] || fail "installer does not create a trusted Work Mise config"

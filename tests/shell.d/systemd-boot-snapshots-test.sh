@@ -4,8 +4,8 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-sync_script="$ROOT/install/boot/sync-systemd-boot-snapshots.sh"
-snapper_plugin="$ROOT/install/boot/systemd-boot-snapper-plugin.sh"
+sync_script="$ROOT/installer/boot/sync-systemd-boot-snapshots.sh"
+snapper_plugin="$ROOT/installer/boot/systemd-boot-snapper-plugin.sh"
 scratch=$(mktemp -d)
 trap 'rm -rf "$scratch"' EXIT
 esp="$scratch/esp"
@@ -105,7 +105,7 @@ export ARCH_KERNEL_UKI="$kernel_test/esp/EFI/Linux/os_linux.efi"
 export ARCH_KERNEL_PRESET_TEMPLATE="$ROOT/default/mkinitcpio/linux.preset"
 export ARCH_MKINITCPIO_DEFAULT_PRESET=/usr/share/mkinitcpio/hook.preset
 export ARCH_HW_X86_HELPER="$kernel_test/arch-hw-x86"
-source "$ROOT/install/config/systemd-boot-kernel.sh"
+source "$ROOT/installer/config/systemd-boot-kernel.sh"
 cmdline=$(<"$kernel_test/etc/kernel/cmdline")
 [[ $cmdline == *'root=/dev/mapper/custom'* ]] || fail "a custom systemd root parameter is preserved" "$cmdline"
 [[ $cmdline == *'resume=/dev/mapper/root quiet splash'* ]] || fail "the UKI's additional boot parameters are carried into mkinitcpio" "$cmdline"
@@ -135,13 +135,13 @@ default_uki="/boot/EFI/Linux/os_linux.efi"
 fallback_uki="/boot/EFI/Linux/os_linux-fallback.efi"
 fallback_options="-S autodetect"
 PRESET
-source "$ROOT/install/config/systemd-boot-kernel.sh"
+source "$ROOT/installer/config/systemd-boot-kernel.sh"
 cmp -s "$ROOT/default/mkinitcpio/linux.preset" "$kernel_test/etc/mkinitcpio.d/linux.preset" ||
   fail "the previous shipped preset is updated to the current Arch kernel path"
 pass "the previous shipped Arch preset is upgraded without overwriting custom presets"
 
 printf '%s\n' 'user preset' >"$kernel_test/etc/mkinitcpio.d/linux.preset"
-if source "$ROOT/install/config/systemd-boot-kernel.sh"; then
+if source "$ROOT/installer/config/systemd-boot-kernel.sh"; then
   fail "a custom mkinitcpio preset is not overwritten"
 fi
 grep -Fxq 'user preset' "$kernel_test/etc/mkinitcpio.d/linux.preset" ||

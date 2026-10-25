@@ -69,7 +69,7 @@ export ARCH_TEST_PKG_LOG="$pkg_log"
 # Both scripts restore and remove the same set, and every package in it has to be
 # one os actually ships, or Remove Preinstalls takes out an app the user
 # chose from the menu and Install Preinstalls puts back one we retired.
-mapfile -t shipped < <(sed -e 's/[[:space:]]*#.*$//' -e '/^[[:space:]]*$/d' "$ROOT/install/arch-base.packages")
+mapfile -t shipped < <(sed -e 's/[[:space:]]*#.*$//' -e '/^[[:space:]]*$/d' "$ROOT/installer/arch-base.packages")
 
 "$ROOT/bin/arch-install-preinstalls" >/dev/null
 mapfile -t restored <"$pkg_log"

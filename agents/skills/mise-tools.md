@@ -1,6 +1,6 @@
 # mise-managed tools
 
-Read this before adding or changing a mise-managed tool. Default tools belong in `etc/mise/conf.d/arch-tools.toml`, which the settings package installs; `install/user/mise.sh` creates their native mise shims during user setup.
+Read this before adding or changing a mise-managed tool. Default tools belong in `etc/mise/conf.d/arch-tools.toml`, which the settings package installs; `installer/user/mise.sh` creates their native mise shims during user setup.
 
 ## Leave the user's config alone
 

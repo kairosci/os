@@ -192,7 +192,7 @@ if installs_first(named + "systemctl --user enable a.service\n"):
 if installs_first(named + 'systemctl --user enable a.service\ninstall -Dm644 "$unit" "$target"\n'):
   errors.append("unit check accepts a command that installs a unit after enabling it")
 
-scripts = [path.read_text(errors="ignore") for folder in ("bin", "install", "migrations")
+scripts = [path.read_text(errors="ignore") for folder in ("bin", "installer", "migrations")
            for path in (root / folder).rglob("*") if path.is_file()]
 for unit in sorted(path.name for path in (root / "default/systemd/user").glob("*.service")):
   if f"/usr/lib/systemd/user/{unit}" in pkgbuild:

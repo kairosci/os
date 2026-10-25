@@ -93,7 +93,7 @@ link_dev_checkout() {
   # On aarch64 one from before it had platform templates would replace this
   # machine's repositories with x86's.
   if [[ $platform != "x86" ]]; then
-    for required in bin/arch-hw-platform install/helpers/pacman.sh; do
+    for required in bin/arch-hw-platform installer/helpers/pacman.sh; do
       if [[ ! -f $checkout/$required || ! -r $checkout/$required ||
         ( $required == "bin/arch-hw-platform" && ! -x $checkout/$required ) ]]; then
         fail "Update the checkout before switching to dev; on $platform it needs $required for this machine's repositories."
@@ -172,7 +172,7 @@ case "$channel" in
 esac
 
 # A channel this machine's platform has no templates for is refused before
-# anything changes (install/helpers/pacman.sh).
+# anything changes (installer/helpers/pacman.sh).
 source "$ARCH_PATH/install/helpers/pacman.sh"
 platform=$(arch-hw-platform) || fail "Cannot tell this machine's platform; nothing changed."
 templates=$(arch_pacman_templates "$platform") || exit 1

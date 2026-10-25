@@ -63,7 +63,7 @@ run_migration
 grep -Fxq '# administrator copy' "$rules" && pass "an existing rule file is kept" || fail "an existing rule file is kept"
 
 # n1x.sh writes the same rule for new installs, so the two cannot drift apart.
-n1x="$ROOT/install/hardware/n1x.sh"
+n1x="$ROOT/installer/hardware/n1x.sh"
 rule_from() { sed -n "/$2/,/^ *$3\$/p" "$1" | sed '1d;$d;s/^ *//'; }
 n1x_rule=$(rule_from "$n1x" '71-arch-n1x-cppc.rules <<' RULES)
 if [[ -n $n1x_rule && $n1x_rule == "$(rule_from "$migration" '"$rules" <<' EOF)" ]]; then

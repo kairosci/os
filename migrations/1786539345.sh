@@ -1,7 +1,7 @@
 echo "Announce process crashes and offer an AI diagnosis"
 
 # Both halves are set up in paths that only run once -- arch-provision-user
-# exits after finalize-user is marked, and install/user/first-run is skipped
+# exits after finalize-user is marked, and installer/user/first-run is skipped
 # after the first login -- so existing installs need them done here.
 
 skills_source="$ARCH_PATH/default/agents/skills"

@@ -4,8 +4,8 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-setup="$ROOT/install/hardware/nvidia/dgx-spark-boot.sh"
-all="$ROOT/install/hardware/all.sh"
+setup="$ROOT/installer/hardware/nvidia/dgx-spark-boot.sh"
+all="$ROOT/installer/hardware/all.sh"
 direct_boot="$ROOT/bin/arch-boot-direct"
 migration=$(grep -l "nvidia/dgx-spark-boot.sh" "$ROOT"/migrations/*.sh | head -1 || true)
 config_name=zz-arch-dgx-spark.conf

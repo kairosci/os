@@ -25,7 +25,7 @@ run() { : > "$CALL_LOG"; bash -euo pipefail "$migration" >/dev/null; }
 # A ProArt P14 or XPS 16 drop-in from before the change, as both scripts wrote it.
 cat > "$ARCH_N1X_GPU_MEMORY_CONF" <<'CONF'
 # ASUS ProArt P14: use the idle part of the firmware's Windows GPU memory as RAM;
-# see install/hardware/asus/fix-asus-proart-p14-gpu-memory.sh.
+# see installer/hardware/asus/fix-asus-proart-p14-gpu-memory.sh.
 KERNEL_CMDLINE[default]+=" efi_reclaim_reserved=58G@8G,3968M@67712M"
 CONF
 run

@@ -1,6 +1,6 @@
 echo "Give the ASUS ProArt P14 (NVIDIA N1x) the RAM its firmware reserves for Windows' GPU"
 
-# See install/hardware/asus/fix-asus-proart-p14-gpu-memory.sh. The kernel option
+# See installer/hardware/asus/fix-asus-proart-p14-gpu-memory.sh. The kernel option
 # takes effect with linux-n1x; older N1x kernels ignore it.
 dropin="${ARCH_PROART_GPU_MEMORY_CONF:-/etc/limine-entry-tool.d/arch-n1x-gpu-memory.conf}"
 iomem="${ARCH_IOMEM:-/proc/iomem}"
@@ -17,7 +17,7 @@ if [[ ! -f $dropin ]]; then
 
   sudo install -Dm644 /dev/stdin "$dropin" <<'EOF'
 # ASUS ProArt P14: use the idle part of the firmware's Windows GPU memory as RAM;
-# see install/hardware/asus/fix-asus-proart-p14-gpu-memory.sh.
+# see installer/hardware/asus/fix-asus-proart-p14-gpu-memory.sh.
 KERNEL_CMDLINE[default]+=" efi_reclaim_reserved=58G@8G,3968M@67712M"
 EOF
 fi

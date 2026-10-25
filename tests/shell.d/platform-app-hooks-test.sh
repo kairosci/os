@@ -33,9 +33,9 @@ chmod -R go-w "$lifecycle"
 
 stub_bin=$tmp/bin
 arch_path=$tmp/arch
-mkdir -p "$stub_bin" "$arch_path/install/helpers" "$arch_path/config"
+mkdir -p "$stub_bin" "$arch_path/installer/helpers" "$arch_path/config"
 printf 'browser_policy_setup_dir() { :; }\nbrowser_policy_setup_firefox_distribution() { :; }\nas_root() { "$@"; }\n' \
-  >"$arch_path/install/helpers/browser-policy.sh"
+  >"$arch_path/installer/helpers/browser-policy.sh"
 cp "$ROOT/config/chromium-flags.conf" "$arch_path/config/"
 for command in arch-pkg-add arch-pkg-aur-add arch-pkg-drop arch-install-gaming-gpu-lib32; do
   printf '#!/bin/bash\nprintf "%%s %%s\\n" "%s" "$*" >>"%s"\n' "$command" "$tmp/calls" >"$stub_bin/$command"

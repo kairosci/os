@@ -10,11 +10,11 @@ mkdir -p "$tmpdir/bin"
 
 cmdline_file="$tmpdir/kernel.cmdline"
 printf '%s\n' 'root=/dev/mapper/root rw resume=/dev/old resume_offset=123 quiet' >"$cmdline_file"
-python3 "$ROOT/install/boot/update-kernel-cmdline.py" "$cmdline_file" set \
+python3 "$ROOT/installer/boot/update-kernel-cmdline.py" "$cmdline_file" set \
   resume=/dev/mapper/root resume_offset=456 rtc_cmos.use_acpi_alarm=1
 grep -Fxq 'root=/dev/mapper/root rw quiet resume=/dev/mapper/root resume_offset=456 rtc_cmos.use_acpi_alarm=1' \
   "$cmdline_file" || fail "setting kernel arguments replaces old values and preserves unrelated options"
-python3 "$ROOT/install/boot/update-kernel-cmdline.py" "$cmdline_file" remove resume resume_offset
+python3 "$ROOT/installer/boot/update-kernel-cmdline.py" "$cmdline_file" remove resume resume_offset
 grep -Fxq 'root=/dev/mapper/root rw quiet rtc_cmos.use_acpi_alarm=1' "$cmdline_file" ||
   fail "removing kernel arguments preserves unrelated options"
 pass "systemd-boot kernel command line parameters can be updated safely"

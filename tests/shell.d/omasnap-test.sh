@@ -4,7 +4,7 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-packages="$ROOT/install/arch-base.packages"
+packages="$ROOT/installer/arch-base.packages"
 migration="$ROOT/migrations/1788129995.sh"
 
 grep -qxF omasnap "$packages" || fail "fresh installs include Omasnap"

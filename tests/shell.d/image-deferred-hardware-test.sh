@@ -16,7 +16,7 @@ test_tmp=$(mktemp -d)
 trap 'rm -rf "$test_tmp"' EXIT
 
 unit_name=arch-provision-hardware.service
-unit_source="$ROOT/install/provisioning/$unit_name"
+unit_source="$ROOT/installer/provisioning/$unit_name"
 
 # arch-apply-hardware refuses anyone but root, and root never reads the
 # fixture root. Run a copy whose only change is that check, so a normal user
@@ -65,7 +65,7 @@ base_path="$test_tmp/hw/bin:$stub_bin:$ROOT/bin:/usr/local/bin:/usr/bin:/bin"
 # Leaves a and b write initramfs drop-ins; b then fails while $FAIL_B exists.
 fixture="$test_tmp/arch"
 mkdir -p "$fixture/install/helpers" "$fixture/install/provisioning" "$fixture/install/hardware/apple" "$fixture/bin"
-cp "$ROOT/install/helpers/logging.sh" "$ROOT/install/helpers/image-target.sh" "$fixture/install/helpers/"
+cp "$ROOT/installer/helpers/logging.sh" "$ROOT/installer/helpers/image-target.sh" "$fixture/install/helpers/"
 cp "$unit_source" "$fixture/install/provisioning/"
 cat >"$fixture/install/hardware/all.sh" <<'SH'
 run_logged "$ARCH_INSTALL/hardware/a.sh"
@@ -106,7 +106,8 @@ write_manifest() {
 
 build() {
   local root=$1 arch=${2:-$fixture}
-  ARCH_IMAGE_ROOT="$root" ARCH_PATH="$arch" ARCH_INSTALL_LOG_FILE="$root/var/log/arch-install.log" \
+  local install_dir=${3:-$arch/install}
+  ARCH_IMAGE_ROOT="$root" ARCH_PATH="$arch" ARCH_INSTALL="$install_dir" ARCH_INSTALL_LOG_FILE="$root/var/log/arch-install.log" \
     PATH="$base_path" "$apply_hardware" --defer-provisioning
 }
 
@@ -130,8 +131,8 @@ queue_of() {
 reset_logs
 root=$(new_root real)
 write_manifest "$root"
-output=$(build "$root" "$ROOT") || fail "an image build defers the real hardware setup" "$output"
-expected=$(sed -n 's|^run_logged "\$ARCH_INSTALL/\(hardware/[^"]*\)"$|install/\1|p' "$ROOT/install/hardware/all.sh")
+output=$(build "$root" "$ROOT" "$ROOT/installer") || fail "an image build defers the real hardware setup" "$output"
+expected=$(sed -n 's|^run_logged "\$ARCH_INSTALL/\(hardware/[^"]*\)"$|install/\1|p' "$ROOT/installer/hardware/all.sh")
 [[ -n $expected && $(queue_of "$root") == "$expected" ]] ||
   fail "an image build queues every hardware leaf in order" "expected:
 $expected
@@ -153,7 +154,7 @@ pass "an image build queues every hardware leaf in order and runs none of them"
 pass "an image build arms the first-boot hardware service"
 
 before=$(queue_of "$root")
-build "$root" "$ROOT" >/dev/null || fail "an image build can run hardware setup again"
+build "$root" "$ROOT" "$ROOT/installer" >/dev/null || fail "an image build can run hardware setup again"
 [[ $(queue_of "$root") == "$before" ]] || fail "running hardware setup again in the build queues the same steps"
 pass "running hardware setup again in the build queues the same steps"
 
@@ -372,8 +373,8 @@ keyring_bin="$test_tmp/keyring-bin"
 mkdir -p "$keyring_bin" "$fixture/install/post-install"
 # Finalization's repositories are pacman-templates-test.sh's; here they land in
 # the root under test, never the host's /etc.
-cp "$ROOT/install/post-install/pacman.sh" "$fixture/install/post-install/pacman.sh"
-cp "$ROOT/install/helpers/pacman.sh" "$fixture/install/helpers/pacman.sh"
+cp "$ROOT/installer/post-install/pacman.sh" "$fixture/install/post-install/pacman.sh"
+cp "$ROOT/installer/helpers/pacman.sh" "$fixture/install/helpers/pacman.sh"
 target_etc='etc="${2:-/}/etc"'
 grep -Fqx "  $target_etc" "$ROOT/bin/arch-apply-pacman" || fail "arch-apply-pacman still names its target etc"
 sed "s|^  $target_etc\$|  etc=\"\${2:-\$ARCH_IMAGE_ROOT}/etc\"|" "$ROOT/bin/arch-apply-pacman" >"$fixture/bin/arch-apply-pacman"
@@ -475,7 +476,7 @@ install -m 0644 /dev/null "$root/$request"
 output=$(KEYRING=$RUNS keyring_boot "$root") || fail "a first boot with only a keyring request finishes" "$output"
 [[ $(cat "$RUNS") == "pacman-key --gpgdir $root/etc/pacman.d/gnupg --init"$'\n'"pacman-key --gpgdir $root/etc/pacman.d/gnupg --populate" && ! -e $root/$request ]] ||
   fail "a keyring request is honoured with no queued step" "$(cat "$RUNS" 2>/dev/null)"
-grep -qx 'ConditionPathExists=|/var/lib/arch/image/pacman-keyring' "$ROOT/install/provisioning/arch-provision-hardware.service" ||
+grep -qx 'ConditionPathExists=|/var/lib/arch/image/pacman-keyring' "$ROOT/installer/provisioning/arch-provision-hardware.service" ||
   fail "the first-boot unit also starts for a keyring request alone"
 pass "a keyring request with no queued step still gets the machine's own keyring"
 
@@ -569,9 +570,9 @@ pass "the first-boot hardware service runs on the queue before owner setup and t
 # does: an install or a rerun of hardware setup leaves the service as it finds it.
 bt_fixture="$test_tmp/arch-bluetooth"
 mkdir -p "$bt_fixture/install/helpers" "$bt_fixture/install/provisioning" "$bt_fixture/install/hardware"
-cp "$ROOT/install/helpers/logging.sh" "$ROOT/install/helpers/image-target.sh" "$bt_fixture/install/helpers/"
+cp "$ROOT/installer/helpers/logging.sh" "$ROOT/installer/helpers/image-target.sh" "$bt_fixture/install/helpers/"
 cp "$unit_source" "$bt_fixture/install/provisioning/"
-cp "$ROOT/install/hardware/bluetooth.sh" "$bt_fixture/install/hardware/"
+cp "$ROOT/installer/hardware/bluetooth.sh" "$bt_fixture/install/hardware/"
 cp "$fixture/install/hardware/c.sh" "$bt_fixture/install/hardware/"
 printf 'run_logged "$ARCH_INSTALL/hardware/%s"\n' bluetooth.sh c.sh >"$bt_fixture/install/hardware/all.sh"
 
@@ -665,7 +666,7 @@ elif unshare --user --map-root-user true 2>/dev/null; then
   # the live ones whatever the environment says.
   resolved=$(ARCH_IMAGE_ROOT="$root" "${root_runner[@]}" bash -c \
     'source "$1"; arch_image_init && printf "%s\n" "$arch_image_manifest" "$arch_image_queue" "$arch_image_systemd_dir"' \
-    bash "$ROOT/install/helpers/image-target.sh") || fail "root resolves the image paths"
+    bash "$ROOT/installer/helpers/image-target.sh") || fail "root resolves the image paths"
   [[ $resolved == $'/var/lib/arch/image/target\n/var/lib/arch/image/deferred-steps\n/etc/systemd/system' ]] ||
     fail "root resolves the live image paths whatever its environment names" "$resolved"
   pass "root ignores fixture roots in its environment"

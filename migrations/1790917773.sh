@@ -13,7 +13,7 @@ rebuild_marker="${ARCH_LIMINE_REBUILD_MARKER:-/var/lib/arch/migrations/179091777
 if grep -Fq 'loglevel=7' "$console_conf"; then
   sudo tee "$console_conf" >/dev/null <<'EOF'
 # N1x: keep the console on the panel rather than the firmware's serial port;
-# see install/hardware/n1x.sh.
+# see installer/hardware/n1x.sh.
 KERNEL_CMDLINE[default]+=" console=tty0 acpi=nospcr"
 EOF
 fi

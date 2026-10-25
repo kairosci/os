@@ -4,8 +4,8 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-fix_t2="$ROOT/install/hardware/apple/fix-t2.sh"
-other_packages="$ROOT/install/arch-other.packages"
+fix_t2="$ROOT/installer/hardware/apple/fix-t2.sh"
+other_packages="$ROOT/installer/arch-other.packages"
 migration="$ROOT/migrations/1785944594.sh"
 
 grep -Fq 'KERNEL_CMDLINE[default]+=" intel_iommu=on iommu=pt pm_async=off mem_sleep_default=deep"' "$fix_t2" ||

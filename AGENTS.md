@@ -4,7 +4,7 @@ Deeper instructions for specific kinds of work live in `agents/skills/`. Read th
 matching guide before starting:
 
 - [`agents/skills/command-metadata.md`](agents/skills/command-metadata.md) - adding or changing commands in `bin/`
-- [`agents/skills/install-scripts.md`](agents/skills/install-scripts.md) - working under `install/` or on system/user setup commands
+- [`agents/skills/install-scripts.md`](agents/skills/install-scripts.md) - working under `installer/` or on system/user setup commands
 - [`agents/skills/mise-tools.md`](agents/skills/mise-tools.md) - adding or changing mise-managed tools
 - [`agents/skills/shell-dev.md`](agents/skills/shell-dev.md) - editing the Quickshell desktop under `src/shell/`
 - [`agents/skills/icon-font.md`](agents/skills/icon-font.md) - adding branded glyphs to `default/fonts/arch/arch.ttf`
@@ -30,7 +30,7 @@ Three documentation trees, split by genre and audience:
 - Prefer a full `if`/`else` conditional for simple two-path control flow; don't rely on `exec` or `exit` in one branch to make following statements unreachable
 - For strings/paths with spaces, quote them instead of escaping spaces with `\ ` (e.g., `"$APP_DIR/Disk Usage.desktop"`, not `$APP_DIR/Disk\ Usage.desktop`)
 - Shebangs must use `#!/bin/bash` consistently (never `#!/usr/bin/env bash`). A security-sensitive entrypoint may use the exact `#!/bin/bash -p` form only when it must suppress `BASH_ENV` and exported-function startup injection before its first command; that exception must be explained at the boundary and covered by a regression that rejects an ordinary Bash launch with a decoy `-p` argument.
-- Scripts under `install/` and `migrations/` may be sourced and intentionally omit shebangs
+- Scripts under `installer/` and `migrations/` may be sourced and intentionally omit shebangs
 
 # Command Naming
 
@@ -84,9 +84,9 @@ Ask a helper; don't read `uname -m` or the device tree in feature code:
 
 Where platform code lives:
 
-- Packages: `install/arch-base.packages` for everyone, `install/arch-aarch64.packages` for every ARM machine, `install/arch-<platform>.packages` for one family, and base packages with no aarch64 build in `install/arch-x86_64-only.packages`. `arch-pkg-defaults` composes them.
+- Packages: `installer/arch-base.packages` for everyone, `installer/arch-aarch64.packages` for every ARM machine, `installer/arch-<platform>.packages` for one family, and base packages with no aarch64 build in `installer/arch-x86_64-only.packages`. `arch-pkg-defaults` composes them.
 - Pacman templates: `default/pacman/` for x86, `default/pacman/<platform>/` for each ARM platform.
-- Hardware setup: `install/hardware/<vendor-or-family>/`, gated by a predicate. `install/hardware/apple/` holds Intel Mac quirks; Apple Silicon's own setup ships in the arch-mac packages.
+- Hardware setup: `installer/hardware/<vendor-or-family>/`, gated by a predicate. `installer/hardware/apple/` holds Intel Mac quirks; Apple Silicon's own setup ships in the arch-mac packages.
 - Boot chains Arch can't drive generically: a platform package behind `arch-lifecycle-dispatch` ([`docs/lifecycle-dispatch.md`](docs/lifecycle-dispatch.md)). Platforms that boot Limine with UKIs like x86 keep the generic path.
 
 The experience should be the same on every platform. When a package or feature is missing or broken on one, the default is to get it fixed upstream (an aarch64 build, a bug report, a patch to the maintainer) and leave the gap visible meanwhile, not to paper over it. When asked for a platform workaround, say so and propose the upstream fix first. Hiding a menu entry or skipping a package is fine only for things that can't exist there (an x86 guest VM, an x86-only proprietary binary). Alternative packages and platform-only replacements are a last resort, used only when upstream can't or won't fix it, with the reason written next to the code.

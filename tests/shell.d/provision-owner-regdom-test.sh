@@ -18,11 +18,11 @@ arch=$tmp/arch
 stub_bin=$tmp/bin
 conf=$root/etc/conf.d/wireless-regdom
 calls=$tmp/calls
-mkdir -p "$stub_bin" "$arch/bin" "$arch/install/hardware"
+mkdir -p "$stub_bin" "$arch/bin" "$arch/installer/hardware"
 
 ln -s "$ROOT/bin/arch-cmd-present" "$arch/bin/arch-cmd-present"
 sed -e "s|/etc/|$root/etc/|g" -e "s|/usr/share/zoneinfo|$root/usr/share/zoneinfo|g" \
-  "$ROOT/install/hardware/set-wireless-regdom.sh" >"$arch/install/hardware/set-wireless-regdom.sh"
+  "$ROOT/installer/hardware/set-wireless-regdom.sh" >"$arch/installer/hardware/set-wireless-regdom.sh"
 
 cat >"$stub_bin/timedatectl" <<SH
 #!/bin/bash
@@ -77,13 +77,13 @@ regdom_lines() {
 # the radios untouched until the reboot that follows an install.
 fresh_root
 ln -sfn ../usr/share/zoneinfo/America/New_York "$root/etc/localtime"
-bash "$arch/install/hardware/set-wireless-regdom.sh"
+bash "$arch/installer/hardware/set-wireless-regdom.sh"
 [[ $(regdom_lines) == 'WIRELESS_REGDOM="US"' ]] || fail "an up-front install persists its timezone's country" "$(cat "$conf")"
 [[ ! -s $calls ]] || fail "an up-front install leaves the radios alone" "$(cat "$calls")"
 pass "an up-front install persists its timezone's country and leaves the radios to the reboot"
 
 fresh_root
-bash "$arch/install/hardware/set-wireless-regdom.sh"
+bash "$arch/installer/hardware/set-wireless-regdom.sh"
 [[ -z $(regdom_lines) ]] || fail "the UTC placeholder names no country" "$(cat "$conf")"
 pass "a deferred install's hardware step sets nothing from the UTC placeholder"
 

@@ -177,5 +177,5 @@ files committed.
   tarball, with `.arch/package.json` set to `"source": "local"`,
   `"auto_merge": true`, and an `upstream.watch` on the GitHub repo so later
   releases sync on their own. Only once that package is published can
-  os install it: `install/arch-base.packages`, the preinstall
+  os install it: `installer/arch-base.packages`, the preinstall
   scripts, and a migration for existing machines.

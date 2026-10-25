@@ -12,7 +12,7 @@ url='https://github.com/kairosci/arch'
 license=('MIT')
 install=arch-branding.install
 # Hard depends: only packages whose removal would brick the desktop. The ISO
-# pacstraps the full default install set from install/arch-base.packages.
+# pacstraps the full default install set from installer/arch-base.packages.
 depends=(
   # Keep the runtime and system defaults from different Arch source revisions
   # from getting mixed in one install.

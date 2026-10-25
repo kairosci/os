@@ -18,7 +18,7 @@ set +e
 (
   set -euo pipefail
   export ARCH_INSTALL_LOG_FILE="$log_file"
-  source "$ROOT/install/helpers/logging.sh"
+  source "$ROOT/installer/helpers/logging.sh"
   run_logged "$failing_script"
   echo "unreachable"
 )
@@ -36,7 +36,7 @@ set +e
   set -euo pipefail
   export ARCH_INSTALL_LOG_FILE="$work_dir/iso-owned.log"
   export ARCH_LOG_TO_STDOUT=1
-  source "$ROOT/install/helpers/logging.sh"
+  source "$ROOT/installer/helpers/logging.sh"
   run_logged "$failing_script"
 ) >"$stdout_log" 2>&1
 stdout_status=$?

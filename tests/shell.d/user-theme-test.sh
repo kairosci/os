@@ -25,14 +25,14 @@ done
 calls="$test_tmp/theme-calls"
 touch "$test_tmp/home/.config/chromium/SingletonLock"
 HOME="$test_tmp/home" PATH="$mock_bin:$PATH" ARCH_TEST_THEME_CALLS="$calls" \
-  bash "$ROOT/install/user/theme.sh"
+  bash "$ROOT/installer/user/theme.sh"
 grep -Fx 'Cosmic' "$calls" >/dev/null || fail "user theme setup seeds Cosmic when no theme exists"
 [[ -f $test_tmp/home/.config/chromium/SingletonLock ]] || fail "runtime user theme setup preserves Chromium's singleton lock"
 
 : >"$calls"
 printf 'Solitude\n' >"$test_tmp/home/.local/state/arch/current/theme.name"
 HOME="$test_tmp/home" PATH="$mock_bin:$PATH" ARCH_TEST_THEME_CALLS="$calls" \
-  bash "$ROOT/install/user/theme.sh"
+  bash "$ROOT/installer/user/theme.sh"
 [[ ! -s $calls ]] || fail "user theme setup preserves an existing theme"
 
 pass "user theme setup only seeds the default theme once"

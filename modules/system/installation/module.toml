@@ -1,9 +1,9 @@
 id = "system.installation"
 domain = "system"
 package = "arch"
-sources = ["install"]
+sources = ["installer"]
 requires = ["system.settings", "desktop.commands"]
 
 [[output]]
-source = "install"
+source = "installer"
 target = "usr/share/arch/install"

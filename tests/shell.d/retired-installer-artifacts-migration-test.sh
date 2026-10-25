@@ -118,7 +118,7 @@ EOF
 # Every distinct body the first-run-mode installer wrote across its nine rewrites,
 # oldest first. Only the later ones carry both Cmnd_Alias lines, so a predicate
 # keyed on those would leave the earlier grants on disk. The last body is the one
-# install/post-install/first-run-mode.sh shipped until it was retired: its cleanup
+# installer/post-install/first-run-mode.sh shipped until it was retired: its cleanup
 # alias names /usr/bin/rm as well as /bin/rm, and it still grants passwordless
 # /usr/bin/systemctl.
 first_run_variants=(

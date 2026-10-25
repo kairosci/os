@@ -5,7 +5,7 @@ set -euo pipefail
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 helper="$ROOT/bin/arch-install-camera"
-leaf="$ROOT/install/hardware/qualcomm/camera.sh"
+leaf="$ROOT/installer/hardware/qualcomm/camera.sh"
 migration=$(grep -l -- 'arch-install-camera' "$ROOT"/migrations/*.sh | head -n1)
 test_tmp=$(mktemp -d)
 trap 'rm -rf "$test_tmp"' EXIT
@@ -82,8 +82,8 @@ touch "$ARCH_TEST_QUALCOMM"
 rm -f "$ARCH_TEST_PACKAGES"
 bash -c "source '$leaf'"
 [[ $(cat "$ARCH_TEST_PACKAGES") == "pipewire-libcamera" ]] || fail "a Snapdragon laptop gets the PipeWire camera backend" "$(cat "$ARCH_TEST_PACKAGES" 2>/dev/null)"
-grep -Fxq 'pipewire-libcamera' "$ROOT/install/arch-aarch64-qualcomm.packages" || fail "new Snapdragon installs get the camera backend"
-grep -Fxq 'pipewire-libcamera' "$ROOT/install/arch-other.packages" || fail "the ISO can supply the camera backend offline"
+grep -Fxq 'pipewire-libcamera' "$ROOT/installer/arch-aarch64-qualcomm.packages" || fail "new Snapdragon installs get the camera backend"
+grep -Fxq 'pipewire-libcamera' "$ROOT/installer/arch-other.packages" || fail "the ISO can supply the camera backend offline"
 pass "Snapdragon installs get the PipeWire camera backend, new and existing"
 
 [[ -n $migration ]] || fail "a migration runs the camera setup on existing installs"

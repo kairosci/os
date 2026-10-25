@@ -15,8 +15,8 @@ names() {
   sed -e 's/[[:space:]]*#.*$//' -e '/^[[:space:]]*$/d' "$@"
 }
 
-base=$(names "$ROOT/install/arch-base.packages")
-aarch64=$(names "$ROOT/install/arch-aarch64.packages")
+base=$(names "$ROOT/installer/arch-base.packages")
+aarch64=$(names "$ROOT/installer/arch-aarch64.packages")
 
 for platform in aarch64-apple aarch64 x86; do
   fake_platform "$work/$platform" "$platform"
@@ -29,14 +29,14 @@ for platform in aarch64-apple aarch64 x86; do
   [[ -z $(sort "$work/$platform.packages" | uniq -d) ]] || fail "$platform: each package is listed once"
   # aarch64 platforms leave out the base packages only x86_64 builds.
   expected_base=$base
-  [[ $platform == "x86" ]] || expected_base=$(grep -vxF -f <(names "$ROOT/install/arch-x86_64-only.packages") <<<"$base")
+  [[ $platform == "x86" ]] || expected_base=$(grep -vxF -f <(names "$ROOT/installer/arch-x86_64-only.packages") <<<"$base")
   [[ $(head -n "$(wc -l <<<"$expected_base")" "$work/$platform.packages") == "$expected_base" ]] ||
     fail "$platform: the base list comes first, unchanged"
 
   case $platform in
     x86)
       [[ $defaults == "$base" ]] || fail "x86_64 installs exactly the base list"
-      [[ $defaults == "$(grep -v '^#' "$ROOT/install/arch-base.packages" | grep -v '^$')" ]] ||
+      [[ $defaults == "$(grep -v '^#' "$ROOT/installer/arch-base.packages" | grep -v '^$')" ]] ||
         fail "x86_64 installs what arch-reinstall-pkgs read from the base list before"
       grep -Fxq cosmic-icon-theme <<<"$base" || fail "x86_64 installs the Cosmic icon theme"
       ;;
@@ -63,8 +63,8 @@ pass "each platform composes the base, architecture and platform lists"
 # architecture lists; plain aarch64 composes the others alone.
 tree="$work/tree"
 mkdir -p "$tree/install"
-cp "$ROOT"/install/arch-*.packages "$tree/install/"
-printf '# test addition\nexample-board-support\nzram-generator\n' >"$tree/install/arch-aarch64-apple.packages"
+cp "$ROOT"/installer/arch-*.packages "$tree/installer/"
+printf '# test addition\nexample-board-support\nzram-generator\n' >"$tree/installer/arch-aarch64-apple.packages"
 for platform in aarch64-apple aarch64 x86; do
   defaults=$(ARCH_PATH="$tree" arch-pkg-defaults "$platform")
   if [[ $platform == "aarch64-apple" ]]; then
@@ -78,7 +78,7 @@ pass "a platform list joins only its own platform's set"
 
 # Snapdragon, the N1x and the GB10 add their own lists after the aarch64
 # additions; no other platform gets them.
-names_of() { sed -e 's/[[:space:]]*#.*$//' -e '/^[[:space:]]*$/d' "$ROOT/install/arch-$1.packages"; }
+names_of() { sed -e 's/[[:space:]]*#.*$//' -e '/^[[:space:]]*$/d' "$ROOT/installer/arch-$1.packages"; }
 for family in aarch64-qualcomm aarch64-n1x aarch64-gb10; do
   defaults=$(ARCH_PATH="$ROOT" arch-pkg-defaults "$family")
   [[ $(tail -n "$(names_of "$family" | wc -l)" <<<"$defaults") == "$(names_of "$family")" ]] ||
@@ -114,7 +114,7 @@ for platform in aarch64-apple aarch64 x86; do
     else
       ! grep -Fxq "$name" <<<"$defaults" || fail "$platform leaves out the x86_64-only $name"
     fi
-  done <"$ROOT/install/arch-x86_64-only.packages"
+  done <"$ROOT/installer/arch-x86_64-only.packages"
 done
 pass "base packages only x86_64 builds stay out of every aarch64 set"
 

@@ -46,7 +46,7 @@ unset arch_wrapper_dir arch_wrapper_path arch_remaining_path arch_path_entry
 # User-level tool paths, appended so system binaries keep precedence. This is
 # what lets login shells (ssh, bash -lc) and the uwsm session find mise-managed
 # tools without an interactive rc. Keep these directories in sync with the PAM
-# PATH line from install/config/ssh-command-path.sh, which covers SSH commands
+# PATH line from installer/config/ssh-command-path.sh, which covers SSH commands
 # that run no shell setup at all.
 case ":$PATH:" in
   *":$HOME/.local/share/mise/shims:"*) ;;

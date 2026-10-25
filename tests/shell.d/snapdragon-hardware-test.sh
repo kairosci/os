@@ -4,8 +4,8 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-firmware_setup="$ROOT/install/hardware/qualcomm/firmware.sh"
-dtb_setup="$ROOT/install/hardware/qualcomm/dtb-uki.sh"
+firmware_setup="$ROOT/installer/hardware/qualcomm/firmware.sh"
+dtb_setup="$ROOT/installer/hardware/qualcomm/dtb-uki.sh"
 scratch=$(mktemp -d)
 trap 'rm -rf "$scratch"' EXIT
 
@@ -142,8 +142,8 @@ pass "the Snapdragon package set has every package its setup installs"
 # detector: a Snapdragon device tree gets the setup and no other platform does.
 require_platform_fixtures "Snapdragon setup under the real detector"
 
-kernel_params_setup="$ROOT/install/hardware/qualcomm/kernel-params.sh"
-initramfs_setup="$ROOT/install/hardware/qualcomm/initramfs.sh"
+kernel_params_setup="$ROOT/installer/hardware/qualcomm/kernel-params.sh"
+initramfs_setup="$ROOT/installer/hardware/qualcomm/initramfs.sh"
 for script in "$kernel_params_setup" "$initramfs_setup"; do
   bash -n "$script" || fail "Snapdragon hardware scripts have valid syntax"
 done

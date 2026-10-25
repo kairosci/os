@@ -40,7 +40,7 @@ PY
 copy_boundary_file bin/arch-security-functions
 copy_boundary_file bin/arch-update-pacman
 copy_boundary_file default/arch/sudo-no-update/sudo
-copy_boundary_file install/helpers/pacman.sh
+copy_boundary_file installer/helpers/pacman.sh
 # Channel changes copy the platform's templates; the copy itself is a stand-in.
 cp -r "$ROOT/default/pacman" "$SUDO_TEST_ROOT/default/"
 

@@ -40,8 +40,8 @@ export PATH="$TMPDIR/bin:$PATH"
 export ARCH_PATH="$ROOT"
 
 # A deferred-provisioning install records neither privileged group.
-ARCH_INSTALL_USER="" bash -eE "$ROOT/install/config/docker.sh"
-ARCH_INSTALL_USER="" bash -eE "$ROOT/install/config/browser-policy.sh"
+ARCH_INSTALL_USER="" bash -eE "$ROOT/installer/config/docker.sh"
+ARCH_INSTALL_USER="" bash -eE "$ROOT/installer/config/browser-policy.sh"
 
 [[ ! -f $ARCH_PROVISIONING_DIR/groups ]] ||
   ! grep -Eq '^(docker|input)$' "$ARCH_PROVISIONING_DIR/groups" ||
@@ -54,12 +54,12 @@ grep -F -- '-d -m 0755 -o root -g root /etc/chromium/policies/managed' "$TMPDIR/
 pass "deferred provisioning records no privileged groups"
 
 # The same remains true when an install user already exists.
-ARCH_INSTALL_USER=existing bash -eE "$ROOT/install/config/docker.sh"
-ARCH_INSTALL_USER=existing bash -eE "$ROOT/install/config/browser-policy.sh"
+ARCH_INSTALL_USER=existing bash -eE "$ROOT/installer/config/docker.sh"
+ARCH_INSTALL_USER=existing bash -eE "$ROOT/installer/config/browser-policy.sh"
 [[ ! -f $TMPDIR/usermod.calls ]] || fail "default install must not grant privileged groups"
 pass "existing install user gets neither docker nor input access"
 
-! grep -q 'hardware/input-group.sh' "$ROOT/install/hardware/all.sh" ||
+! grep -q 'hardware/input-group.sh' "$ROOT/installer/hardware/all.sh" ||
   fail "hardware setup must not call the removed input-group grant"
-[[ ! -e $ROOT/install/hardware/input-group.sh ]] || fail "blanket input-group grant is removed"
+[[ ! -e $ROOT/installer/hardware/input-group.sh ]] || fail "blanket input-group grant is removed"
 pass "hardware setup has no blanket input-group grant"

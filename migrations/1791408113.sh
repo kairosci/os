@@ -1,6 +1,6 @@
 echo "Make the ASUS ProArt P14 keyboard's top row send media keys by default"
 
-# See install/hardware/asus/fix-asus-proart-p14-fkeys.sh. hid-asus loads from
+# See installer/hardware/asus/fix-asus-proart-p14-fkeys.sh. hid-asus loads from
 # the initramfs, so the option needs a rebuild to reach it.
 conf="${ARCH_HID_ASUS_CONF:-/etc/modprobe.d/hid_asus.conf}"
 rebuild_marker="${ARCH_LIMINE_REBUILD_MARKER:-/var/lib/arch/migrations/1791408113}"

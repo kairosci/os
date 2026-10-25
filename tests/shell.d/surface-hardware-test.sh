@@ -4,8 +4,8 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-surface_setup="$ROOT/install/hardware/surface.sh"
-keyboard_setup="$ROOT/install/hardware/fix-surface-keyboard.sh"
+surface_setup="$ROOT/installer/hardware/surface.sh"
+keyboard_setup="$ROOT/installer/hardware/fix-surface-keyboard.sh"
 scratch=$(mktemp -d)
 trap 'rm -rf "$scratch"' EXIT
 

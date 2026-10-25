@@ -459,7 +459,7 @@ else
     printf 'format=1\nplatform=%s\n' "$platform" >"$image_root/var/lib/arch/image/target"
     chmod 644 "$image_root/var/lib/arch/image/target"
     (
-      source "$ROOT/install/helpers/image-target.sh"
+      source "$ROOT/installer/helpers/image-target.sh"
       ARCH_IMAGE_ROOT=$image_root
       arch_image_init && arch_image_read_manifest && [[ $arch_image_platform == "$platform" ]]
     ) 2>"$test_tmp/error" || fail "the image setup reads platform=$platform from a manifest" "$(cat "$test_tmp/error")"

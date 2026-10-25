@@ -1,6 +1,6 @@
 echo "Keep the ASUS ProArt P14's USB4 tunnel root ports awake so a dock's Ethernet appears"
 
-# See install/hardware/n1x.sh, which sets up new installs the same way.
+# See installer/hardware/n1x.sh, which sets up new installs the same way.
 rules="${ARCH_N1X_USB4_ROOT_PORT_RULES:-/etc/udev/rules.d/71-arch-n1x-usb4-root-ports.rules}"
 pci_devices="${ARCH_PCI_DEVICES_PATH:-/sys/bus/pci/devices}"
 
@@ -11,7 +11,7 @@ fi
 if [[ ! -f $rules ]]; then
   sudo install -Dm644 /dev/stdin "$rules" <<'EOF'
 # N1x: the USB4 tunnel root ports cannot wake for a hotplug, so keep them out of
-# runtime suspend; see install/hardware/n1x.sh.
+# runtime suspend; see installer/hardware/n1x.sh.
 ACTION=="add|bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{device}=="0x22cf", ATTR{power/control}="on"
 EOF
 fi

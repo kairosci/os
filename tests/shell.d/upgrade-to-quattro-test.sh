@@ -115,7 +115,7 @@ if grep -F 'PATH="$root_path"' <<<"$user_arch_body" >/dev/null; then
 fi
 pass "os 4 upgrade separates privileged and target-user command paths"
 
-grep -F 'install/helpers/browser-policy.sh' "$upgrade_to_quattro" >/dev/null ||
+grep -F 'installer/helpers/browser-policy.sh' "$upgrade_to_quattro" >/dev/null ||
   fail "os 4 upgrade uses the shared browser-policy helper"
 grep -F 'as_root test -f "$browser_policy_helper"' "$upgrade_to_quattro" >/dev/null ||
   fail "os 4 upgrade survives a packaged tree without the browser-policy helper"

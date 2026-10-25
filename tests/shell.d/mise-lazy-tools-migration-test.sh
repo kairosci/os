@@ -117,7 +117,7 @@ bash -euo pipefail "$ROOT/migrations/1791382872.sh" >/dev/null
 [[ $("$test_home/.local/bin/muse") == user-muse ]] || fail "migration preserves a user-owned Muse command"
 pass "migration preserves user-owned Cursor and Muse files"
 
-# Matching install/exec lines do not prove ownership of the rest of a file.
+# Matching installer/exec lines do not prove ownership of the rest of a file.
 for customization in environment comment before after changed-bin trailing-blank; do
   write_wrapper codex codex
   wrapper="$test_home/.local/bin/codex"

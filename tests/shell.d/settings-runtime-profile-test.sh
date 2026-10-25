@@ -22,6 +22,6 @@ grep -q 'arch-hw-platform' "$ROOT/etc/mkinitcpio.conf.d/00-arch-hooks.conf" ||
   fail "the HOOKS baseline asks the platform"
 grep -q 'modinfo' "$ROOT/etc/mkinitcpio.conf.d/thunderbolt_module.conf" ||
   fail "thunderbolt is added only where the kernel has the module"
-grep -qx zram-generator "$ROOT/install/arch-aarch64.packages" ||
+grep -qx zram-generator "$ROOT/installer/arch-aarch64.packages" ||
   fail "aarch64 installs the zram generator the zram drop-in needs"
 pass "the profile's runtime decisions are in place"

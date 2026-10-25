@@ -9,7 +9,7 @@ Two Arch packages are built from this one repo (PKGBUILDs live in the
 separate `arch-pkgs` repository, under `pkgbuilds/`):
 
 - **`arch`** — runtime binaries (`bin/`, including `bin/arch-dev-*`),
-  install/finalize scripts (`install/`), migrations, themes, and the
+  installer/finalize scripts (`installer/`), migrations, themes, and the
   Quickshell desktop (`src/shell/`). Depends on `arch-settings`.
 - **`arch-settings`** — everything that has to be on the target *before*
   the archctl package installs (specifically before `useradd -m` and the
@@ -50,15 +50,15 @@ defaults must use the resync command.
 Deferred-provisioning installs (`arch-apply-system --defer-provisioning`)
 create no user at all: the ISO leaves `/var/lib/arch/provisioning/pending`
 behind, which arms `arch-provision-owner.service` (shipped from
-`install/provisioning/`, alongside the factory-reset finish unit and
+`installer/provisioning/`, alongside the factory-reset finish unit and
 `setup-form.sh`). On first boot `bin/arch-provision-owner` creates the
 user on tty1 and runs the finalize step itself.
 
-On an encrypted install `arch-provision-owner` then re-keys LUKS from the staged install key to the owner's password through `install/provisioning/luks-rekey.sh`, which journals each step (phase and slot numbers, never keys) in `/var/lib/arch/provisioning/luks-rekey.state` so an interrupted first boot resumes. Setup finishes only once the staged key opens nothing, and removes the journal with `pending`, so a retry after the staged key is retired must use the password the disk holds. On a platform whose boot package owns the boot chain, the check before the owner form, the boot-time unlock and the record of the kept key slot go through `arch-lifecycle-dispatch`. See [lifecycle-dispatch.md](lifecycle-dispatch.md).
+On an encrypted install `arch-provision-owner` then re-keys LUKS from the staged install key to the owner's password through `installer/provisioning/luks-rekey.sh`, which journals each step (phase and slot numbers, never keys) in `/var/lib/arch/provisioning/luks-rekey.state` so an interrupted first boot resumes. Setup finishes only once the staged key opens nothing, and removes the journal with `pending`, so a retry after the staged key is retired must use the password the disk holds. On a platform whose boot package owns the boot chain, the check before the owner form, the boot-time unlock and the record of the kept key slot go through `arch-lifecycle-dispatch`. See [lifecycle-dispatch.md](lifecycle-dispatch.md).
 
 `arch-drive-password` reuses those journal helpers when the owner changes the password of the disk holding `/`: it changes the LUKS key and confirms the new key opens the disk and the old one no longer does. The login and root passwords are left alone. `~/.local/state/arch/drive-password.state` records the disk's UUID, the key slots and the phase (never a password) until the change is confirmed and its slot recorded, and the next run finishes an interrupted change with whichever of the old or new password the disk opens with.
 
-Prebuilt images are set up away from the machine they will run on, so their hardware setup waits for that machine. The builder writes a root-owned manifest, `/var/lib/arch/image/target` (`format=1`, `platform=<arch-hw-platform value>`), before `arch-apply-system`. While it exists, `arch-apply-hardware` runs no hardware leaf: it queues each one in `/var/lib/arch/image/deferred-steps` and arms `arch-provision-hardware.service` (shipped from `install/provisioning/`). On the machine's first boot, before owner setup and the login screen, `bin/arch-provision-hardware` renames the manifest to `target.booted` and runs the queue in order, dropping each step that succeeds. Before the first step it makes the machine's own pacman keyring when the build asked for one (`/var/lib/arch/image/pacman-keyring`, which install finalization writes on aarch64 platforms other than Apple Silicon instead of running `pacman-key --init`, so no two machines share a master key). A failed step stays queued for the next boot. It refreshes no package databases: the image carries its sync databases and every package its queued steps install, so the queue runs offline (the image build checks that it carries them; a step whose package is missing stays queued). Once the queue is empty it rebuilds the initramfs if a step changed its inputs (the mkinitcpio configuration, module options in `/etc/modprobe.d/` and `/usr/lib/modprobe.d/`, or the kernel command line in `/etc/default/limine` and `/etc/limine-entry-tool.d/`) or asked for the rebuild (`/var/lib/arch/image/boot-rebuild`), and disables the service; the unit file stays, so a start job already queued is skipped on the emptied queue rather than failed. A platform's own first boot may run `arch-provision-hardware` itself: runs are serialised, and it exits 75 when a step or the keyring failed and stays queued, and 1 when it refused to run (an untrusted manifest or queue) or the final rebuild failed, which the next run retries. Steps know they run on an image's first boot from `ARCH_IMAGE_DEFERRED_HARDWARE=1` (Bluetooth starts its service there, since boot already brought up its target). `install/helpers/image-target.sh` holds the contract. Root always uses these fixed paths; no environment variable turns a live system into an image build.
+Prebuilt images are set up away from the machine they will run on, so their hardware setup waits for that machine. The builder writes a root-owned manifest, `/var/lib/arch/image/target` (`format=1`, `platform=<arch-hw-platform value>`), before `arch-apply-system`. While it exists, `arch-apply-hardware` runs no hardware leaf: it queues each one in `/var/lib/arch/image/deferred-steps` and arms `arch-provision-hardware.service` (shipped from `installer/provisioning/`). On the machine's first boot, before owner setup and the login screen, `bin/arch-provision-hardware` renames the manifest to `target.booted` and runs the queue in order, dropping each step that succeeds. Before the first step it makes the machine's own pacman keyring when the build asked for one (`/var/lib/arch/image/pacman-keyring`, which install finalization writes on aarch64 platforms other than Apple Silicon instead of running `pacman-key --init`, so no two machines share a master key). A failed step stays queued for the next boot. It refreshes no package databases: the image carries its sync databases and every package its queued steps install, so the queue runs offline (the image build checks that it carries them; a step whose package is missing stays queued). Once the queue is empty it rebuilds the initramfs if a step changed its inputs (the mkinitcpio configuration, module options in `/etc/modprobe.d/` and `/usr/lib/modprobe.d/`, or the kernel command line in `/etc/default/limine` and `/etc/limine-entry-tool.d/`) or asked for the rebuild (`/var/lib/arch/image/boot-rebuild`), and disables the service; the unit file stays, so a start job already queued is skipped on the emptied queue rather than failed. A platform's own first boot may run `arch-provision-hardware` itself: runs are serialised, and it exits 75 when a step or the keyring failed and stays queued, and 1 when it refused to run (an untrusted manifest or queue) or the final rebuild failed, which the next run retries. Steps know they run on an image's first boot from `ARCH_IMAGE_DEFERRED_HARDWARE=1` (Bluetooth starts its service there, since boot already brought up its target). `installer/helpers/image-target.sh` holds the contract. Root always uses these fixed paths; no environment variable turns a live system into an image build.
 
 Current generated theme state lives under
 `~/.local/state/arch/current/`. Keep `~/.config/arch/` for files a user
@@ -80,7 +80,7 @@ bin/arch-upload-log         ──►  arch-settings    /usr/bin/  (needed befor
 default/libalpm/hooks/*.hook
                                 ──►  arch             /usr/share/libalpm/hooks/*.hook
 
-install/**                     ──►  arch             /usr/share/arch/install/
+installer/**                     ──►  arch             /usr/share/arch/install/
 migrations/**                  ──►  arch             /usr/share/arch/migrations/
 assets/themes/**                      ──►  arch             /usr/share/arch/themes/
 src/shell/**                       ──►  arch             /usr/share/arch/shell/
@@ -274,7 +274,7 @@ It only does the things `/etc/skel` can't:
 - `xdg-settings set default-web-browser chromium.desktop` and
   `xdg-mime default HEY.desktop x-scheme-handler/mailto` (XDG-aware paths).
 - `arch-refresh-applications` (composes generated `.desktop` launchers).
-- Sources `install/user/all.sh` — theme, chromium, git, xcompose, mise,
+- Sources `installer/user/all.sh` — theme, chromium, git, xcompose, mise,
   keyring, per-user hardware quirks (asus mic/mixer, framework f13 audio, …).
 - On `--first-install`, marks every shipped user migration as already applied
   for the freshly-created user.
@@ -331,7 +331,7 @@ and/or a working user systemd instance:
 
 - `arch-hook-install post-update` for the two shipped hooks
   (`setup-fingerprint.hook`, `setup-agent.hook`).
-- `install/user/first-run/enable-user-units.sh` — daemon-reload, then
+- `installer/user/first-run/enable-user-units.sh` — daemon-reload, then
   `systemctl --user enable --now` the shipped user units (`bt-agent`,
   `arch-sleep-lock`, `arch-recover-internal-monitor`,
   `arch-migrate-notify.service`, `arch-fcitx5.service`,
@@ -342,15 +342,15 @@ and/or a working user systemd instance:
 - `arch-lifecycle-dispatch setup-user` — the platform's own user setup,
   now with the session up (a no-op where the platform registers none; see
   [lifecycle-dispatch.md](lifecycle-dispatch.md)).
-- `install/user/first-run/gnome-theme.sh`,
-  `install/user/first-run/gtk-primary-paste.sh` — GNOME/GTK settings that
+- `installer/user/first-run/gnome-theme.sh`,
+  `installer/user/first-run/gtk-primary-paste.sh` — GNOME/GTK settings that
   need the dconf daemon.
-- `install/user/first-run/audio-tuning.sh` — apply speaker tuning.
-- `install/user/first-run/welcome.sh` — keybindings toast that greets the
+- `installer/user/first-run/audio-tuning.sh` — apply speaker tuning.
+- `installer/user/first-run/welcome.sh` — keybindings toast that greets the
   first login and opens the cheatsheet when clicked. The caller runs
   `arch-notification-wait` once before this and the Wi-Fi step, so both
   toasts land on a live notification server.
-- `install/user/first-run/wifi.sh` — Wi-Fi/update toasts (waits detached on
+- `installer/user/first-run/wifi.sh` — Wi-Fi/update toasts (waits detached on
   `nm-online` so the update prompt only lands once there is a connection).
 
 The entire sequence has one idempotency marker:
@@ -370,27 +370,27 @@ the legacy finalization marker from `~/.local/state/arch/` into `done/`.
 `arch-apply-system` (root, in chroot) runs target-side setup at ISO
 finalization. It sources:
 
-- `install/config/all.sh` — theme links, lockout limits, lockscreen PAM,
+- `installer/config/all.sh` — theme links, lockout limits, lockscreen PAM,
   powerprofilesctl shebang fix, SSH command path and keepalive, docker setup,
   Snapper retention, locate index tuning, service enablement, firewall.
-- `install/hardware/all.sh` via `arch-apply-hardware` — vendor- and
+- `installer/hardware/all.sh` via `arch-apply-hardware` — vendor- and
   device-specific kernel modules, udev rules, microcode, wireless regdom,
   ASUS / Framework / Intel / Apple / Lenovo quirks.
-- `install/login/all.sh` — SDDM theme/session config.
-- `install/post-install/all.sh` — final pacman/udev/localdb passes.
+- `installer/login/all.sh` — SDDM theme/session config.
+- `installer/post-install/all.sh` — final pacman/udev/localdb passes.
 
 Logging goes to `/var/log/arch-install.log` via
-`install/helpers/logging.sh`.
+`installer/helpers/logging.sh`.
 
 Platform-specific setup asks `arch-hw-platform`, which prints `x86`, `aarch64`, `aarch64-apple`, `aarch64-qualcomm`, `aarch64-n1x` or `aarch64-gb10` (the naming standard is in AGENTS.md under Platforms). It reads the vendor prefix of each token in the device tree's root `compatible` (`apple,` or `qcom,`, from `/proc/device-tree` or `/sys/firmware/devicetree/base`) and the CPU architecture, and fails when they contradict each other. A Snapdragon laptop's `qcom,` tree is `aarch64-qualcomm`. The NVIDIA N1x boots with ACPI and no device tree; it is `aarch64-n1x` when its MediaTek I2C controllers (ACPI `NVDA0200`) or its GPU (PCI `10de:2e06`) are present, and a device tree naming Apple or Qualcomm alongside them is a contradiction. An NVIDIA GB10 desktop, such as the DGX Spark, also boots with ACPI; it is `aarch64-gb10` when its GPU (PCI `10de:2e12`) is present, with the same contradictions, and an N1x signature alongside it is one too. A manifest written by an older image builder may still say `apple-silicon`, `generic-aarch64`, `generic` or `qualcomm`, which read as `aarch64-apple`, `aarch64`, `x86` and `aarch64-qualcomm`.
 
 An image built away from the machine it will run on names its target in a root-owned manifest, `/var/lib/arch/image/target` (`format=1`, `platform=<arch-hw-platform value>`, unknown keys ignored). While the root is being built rather than booted, the detector answers from the manifest and never reads the build host's device tree. The root counts as built when it shows it: no `/run/systemd/system`, PID 1's root is another one (a chroot), or PID 1 is not systemd (a PID namespace). A booted system always answers from its hardware, even with a manifest left behind, so no unit that asks the detector may use `PrivatePIDs=`. As root the detector restarts in an empty environment and ignores the fixture variables its tests use.
 
-The package lists the ISO pacstraps live at `install/arch-base.packages`
-and `install/arch-other.packages`; the ISO builder also reads them when
+The package lists the ISO pacstraps live at `installer/arch-base.packages`
+and `installer/arch-other.packages`; the ISO builder also reads them when
 constructing its offline mirror.
 
-A platform's default package set is the base list, then its architecture's additions, then its own: `install/arch-aarch64.packages` on every aarch64 platform, then `install/arch-<platform>.packages` when that platform has one (`install/arch-aarch64-apple.packages` on Apple Silicon, `install/arch-aarch64-qualcomm.packages` on Snapdragon, `install/arch-aarch64-n1x.packages` on the N1x, `install/arch-aarch64-gb10.packages` on the GB10). x86 installs the base list alone. `arch-pkg-defaults [platform]` prints the composed set, for the running machine by default (via `arch-hw-platform`, so an image build gets its target's set), and `arch-reinstall-pkgs` installs it.
+A platform's default package set is the base list, then its architecture's additions, then its own: `installer/arch-aarch64.packages` on every aarch64 platform, then `installer/arch-<platform>.packages` when that platform has one (`installer/arch-aarch64-apple.packages` on Apple Silicon, `installer/arch-aarch64-qualcomm.packages` on Snapdragon, `installer/arch-aarch64-n1x.packages` on the N1x, `installer/arch-aarch64-gb10.packages` on the GB10). x86 installs the base list alone. `arch-pkg-defaults [platform]` prints the composed set, for the running machine by default (via `arch-hw-platform`, so an image build gets its target's set), and `arch-reinstall-pkgs` installs it.
 
 ## Platform display hints (`/usr/share/arch-platform/displays.conf`)
 
@@ -430,8 +430,8 @@ return to the packaged default.
 | `/etc/` file owned by an upstream package | `etc/` (see `etc/security/faillock.conf`), then add to `etc-overrides` in `arch-settings` PKGBUILD + scriptlet |
 | Package-owned system file (e.g. systemd user service in `/usr/lib`) | `default/`, then add the `install -Dm644` line in `arch-settings` PKGBUILD |
 | Per-user file that's static but lives outside `~/.config` | `default/`, then add `install -Dm644 ... $pkgdir/etc/skel/...` in `arch-settings` PKGBUILD |
-| Runtime tweak that needs `$HOME` or live system state | extend `arch-provision-user`, or add a per-user leaf under `install/user/` and wire into `install/user/all.sh` |
-| One-time root-side setup step | `install/config/*.sh` or `install/hardware/*.sh`, wire into `install/config/all.sh` or `install/hardware/all.sh` |
+| Runtime tweak that needs `$HOME` or live system state | extend `arch-provision-user`, or add a per-user leaf under `installer/user/` and wire into `installer/user/all.sh` |
+| One-time root-side setup step | `installer/config/*.sh` or `installer/hardware/*.sh`, wire into `installer/config/all.sh` or `installer/hardware/all.sh` |
 | One-time fix for existing installs | `migrations/<unix-timestamp>.sh` |
 | Package-owned path something else may already write | Prefer a path nothing else writes, such as a vendor drop-in under `/usr/lib`. Otherwise the `--overwrite` entry in `bin/arch-update-system-pkgs` has to ship a release before the file |
 | User-facing `arch-*` command | `bin/arch-<group>-<verb>` — see `GROUP_DESCRIPTIONS` in `bin/arch` |
