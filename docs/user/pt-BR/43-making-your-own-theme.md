@@ -42,4 +42,4 @@ Esse `[nome-do-tema]` restante se torna o nome do diretório do tema, então ele
 
 Lembre-se de que, uma vez instalado a partir de um repositório, qualquer `.lua`, configuração de terminal ou `vscode.json` que ele traga é descartado, então não construa o tema em torno disso.
 
-Você pode ter seu tema adicionado à [página de temas extras](https://github.com/kairosci/arch/themes/) enviando um pull request para [o repositório arch-site](https://github.com/kairosci/arch).
+Você pode ter seu tema adicionado à [página de temas extras](https://github.com/kairosci/os/themes/) enviando um pull request para [o repositório arch-site](https://github.com/kairosci/os).

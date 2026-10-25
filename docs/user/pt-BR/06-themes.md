@@ -6,7 +6,7 @@ Cada tema estiliza o desktop, o terminal, o neovim, a tela de atividade (btop), 
 
 Os temas têm um conjunto de imagens de fundo entre as quais você pode escolher usando `Super + Ctrl + Space`.
 
-Você pode encontrar ainda mais temas em [a página de temas extras](https://github.com/kairosci/arch/themes/) ou até [fazer seu próprio tema](43-making-your-own-theme.md).
+Você pode encontrar ainda mais temas em [a página de temas extras](https://github.com/kairosci/os/themes/) ou até [fazer seu próprio tema](43-making-your-own-theme.md).
 
  ![tokyo-night](../themes/tokyo-night/preview.png)
 _Tokyo Night_
