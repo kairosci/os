@@ -2,7 +2,7 @@
 
 Arch와 패키지는 Arch 메뉴(`Super + Space`)의 _업데이트 > Arch_를 통해 최신 상태로 유지됩니다.
 
-Arch 자체는 [Arch Package Repository](https://github.com/kairosci/arch)에서 일반 pacman 패키지로 설치되므로, 업데이트하면 [최신 Arch 릴리스](https://github.com/kairosci/arch)를 설치하고, 시스템을 최신 상태와 동기화하기 위해 보류 중인 마이그레이션을 실행하며, [Arch Arch Mirror](https://github.com/kairosci/arch)와 [AUR](https://aur.archlinux.org/)(AUR 패키지를 설치한 경우)에서 모든 시스템 패키지를 업데이트합니다.
+Arch 자체는 [Arch Package Repository](https://github.com/kairosci/os)에서 일반 pacman 패키지로 설치되므로, 업데이트하면 [최신 Arch 릴리스](https://github.com/kairosci/os)를 설치하고, 시스템을 최신 상태와 동기화하기 위해 보류 중인 마이그레이션을 실행하며, [Arch Arch Mirror](https://github.com/kairosci/os)와 [AUR](https://aur.archlinux.org/)(AUR 패키지를 설치한 경우)에서 모든 시스템 패키지를 업데이트합니다.
 
 새 릴리스가 나오면 시계 오른쪽에 원형 화살표 아이콘이 나타납니다. 클릭하면 업데이트 프로세스가 시작됩니다.
 
@@ -10,7 +10,7 @@ Arch 자체는 [Arch Package Repository](https://github.com/kairosci/arch)에서
 
 ### 네 가지 채널
 
-Arch는 네 가지 채널, stable, RC, edge, dev를 따라 업데이트됩니다. 새 설치는 stable 채널에서 시작하며, 이는 [공식 릴리스](https://github.com/kairosci/arch)를 추적합니다. 또한 최신 버전보다 한 달 뒤처진 [stable Arch Arch mirror](https://github.com/kairosci/arch)도 추적합니다. 덕분에 구성 변경이 필요한 새로운 비호환성이 사용자에게 문제를 일으키기 전에 잡아낼 수 있습니다.
+Arch는 네 가지 채널, stable, RC, edge, dev를 따라 업데이트됩니다. 새 설치는 stable 채널에서 시작하며, 이는 [공식 릴리스](https://github.com/kairosci/os)를 추적합니다. 또한 최신 버전보다 한 달 뒤처진 [stable Arch Arch mirror](https://github.com/kairosci/os)도 추적합니다. 덕분에 구성 변경이 필요한 새로운 비호환성이 사용자에게 문제를 일으키기 전에 잡아낼 수 있습니다.
 
 하지만 그러한 잠재적 문제를 발견하는 일을 돕고 싶다면 edge 채널을 실행할 수 있습니다. 그러면 Arch 패키지가 최신 개발 빌드를 추적하고, Arch 패키지가 나올 때마다 즉시 업데이트할 수 있습니다. Linux에 능숙하고 문제가 생긴 시스템을 복구하는 법을 아는 경우에만 이렇게 하세요.
 

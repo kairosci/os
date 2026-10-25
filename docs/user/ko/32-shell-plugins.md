@@ -95,10 +95,10 @@ arch plugin validate ./my-plugin
 
 그러면 셸이 로드할 때 수행하는 것과 같은 검사를 실행합니다. 스키마 버전, 필수 필드, 예약되지 않은 id, 안전하고 실제로 존재하는 상대 경로인 엔트리 포인트, 주장한 모든 kind에 대한 엔트리 포인트, 폴더 안에 심볼릭 링크가 없는지 검사합니다.
 
-플러그인 개발에 대해서는 [셸 참조](https://github.com/kairosci/arch)와 [자체 플러그인 카탈로그](https://github.com/kairosci/arch)를 참고하세요.
+플러그인 개발에 대해서는 [셸 참조](https://github.com/kairosci/os)와 [자체 플러그인 카탈로그](https://github.com/kairosci/os)를 참고하세요.
 
 ## 당신의 플러그인을 세상과 공유하기
 
 마음에 드는 것을 만들었다면, 공개 git repo에 넣으세요. 그게 전체 배포 메커니즘입니다 — 그러면 누구나 당신의 URL에 `arch plugin add`를 실행해 몇 초 만에 실행할 수 있습니다.
 
-사람들이 실제로 찾을 수 있도록 하려면, [plugins.github.com/kairosci/arch](https://plugins.github.com/kairosci/arch)에 등록하세요. 그곳은 Arch 셸 플러그인을 위한 마켓플레이스이며, 누군가 이미 작성하려던 위젯을 만들었는지 궁금할 때 가장 먼저 살펴볼 곳입니다. 시작하기 전에 둘러보세요!
+사람들이 실제로 찾을 수 있도록 하려면, [plugins.github.com/kairosci/os](https://plugins.github.com/kairosci/os)에 등록하세요. 그곳은 Arch 셸 플러그인을 위한 마켓플레이스이며, 누군가 이미 작성하려던 위젯을 만들었는지 궁금할 때 가장 먼저 살펴볼 곳입니다. 시작하기 전에 둘러보세요!

@@ -30,6 +30,6 @@ Arch의 설정 패키지를 업데이트하거나 제거하면 만료 지원이 
 
 ## 서명 키
 
-모든 ISO 서명과 Arch 저장소 패키지의 공개 키는 `40DFB630FF42BCFFB047046CF0134EE680CAC571`입니다([openpgp.org에서 확인하세요](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch)). `arch/arch-keyring` 패키지에도 이것이 들어 있으며, 향후 업데이트를 원활하게 배포하는 데 사용될 것입니다.
+모든 ISO 서명과 Arch 저장소 패키지의 공개 키는 `40DFB630FF42BCFFB047046CF0134EE680CAC571`입니다([openpgp.org에서 확인하세요](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os)). `arch/arch-keyring` 패키지에도 이것이 들어 있으며, 향후 업데이트를 원활하게 배포하는 데 사용될 것입니다.
 
-모든 ISO 릴리스의 서명은 URL에 .sig를 추가해 찾을 수 있습니다. 예: https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig.
+모든 ISO 릴리스의 서명은 URL에 .sig를 추가해 찾을 수 있습니다. 예: https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig.

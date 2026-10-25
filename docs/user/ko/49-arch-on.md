@@ -2,19 +2,19 @@
 
 ### Apple M1/M2 칩
 
-[Asahi Alarm](https://asahi-alarm.org/)은 [Asahi Linux](https://asahilinux.org/) 위에 구축된 Apple M1/M2 컴퓨터용 Arch 버전입니다. 약간의 노력을 들이면 그 위에서 Arch를 실행할 수 있습니다. [사용자 주도 가이드](https://github.com/kairosci/arch)를 참조하세요.
+[Asahi Alarm](https://asahi-alarm.org/)은 [Asahi Linux](https://asahilinux.org/) 위에 구축된 Apple M1/M2 컴퓨터용 Arch 버전입니다. 약간의 노력을 들이면 그 위에서 Arch를 실행할 수 있습니다. [사용자 주도 가이드](https://github.com/kairosci/os)를 참조하세요.
 
 ### Apple 가상 컴퓨터
 
-Parallels VM 안에 Arch를 설치할 수도 있습니다. 꽤 번거로운 과정이지만 이를 위한 [사용자 주도 가이드](https://github.com/kairosci/arch)도 있습니다.
+Parallels VM 안에 Arch를 설치할 수도 있습니다. 꽤 번거로운 과정이지만 이를 위한 [사용자 주도 가이드](https://github.com/kairosci/os)도 있습니다.
 
 ### VirtualBox
 
-VirtualBox는 인기 있는 VM 실행 도구입니다. [그 안에서도 Arch를 실행할 수 있습니다](https://github.com/kairosci/arch). 하지만 성능이 좋지는 않을 겁니다.
+VirtualBox는 인기 있는 VM 실행 도구입니다. [그 안에서도 Arch를 실행할 수 있습니다](https://github.com/kairosci/os). 하지만 성능이 좋지는 않을 겁니다.
 
 ### Windows 11의 VMware Workstation
 
-Windows용으로 또 인기 있는 VM 실행 도구입니다. [그 안에도 Arch가 설치되었습니다](https://github.com/kairosci/arch).
+Windows용으로 또 인기 있는 VM 실행 도구입니다. [그 안에도 Arch가 설치되었습니다](https://github.com/kairosci/os).
 
 ### Steam Deck
 
