@@ -42,4 +42,4 @@ Ja vēlaties izplatīt savu tēmu, lai citi to varētu izmantot, jums tā jālie
 
 Atcerieties, ka, tiklīdz tā ir instalēta no repozitorija, jebkurš tās `.lua`, termināļa konfigurācija vai `vscode.json` tiek atmests, tāpēc nebūvējiet tēmu ap tiem.
 
-Savu tēmu varat pievienot [papildu tēmu lapai](https://github.com/kairosci/arch/themes/), nosūtot pull request uz [arch-site repozitoriju](https://github.com/kairosci/arch).
+Savu tēmu varat pievienot [papildu tēmu lapai](https://github.com/kairosci/os/themes/), nosūtot pull request uz [arch-site repozitoriju](https://github.com/kairosci/os).

@@ -95,10 +95,10 @@ arch plugin validate ./my-plugin
 
 Tas palaiž tās pašas pārbaudes, ko čaula veic ielādes laikā: shēmas versiju, nepieciešamos laukus, nerezervētu identifikatoru, drošus relatīvus ceļus, kas patiesībā pastāv, — ieejas punktu katram jūsu pieprasītajam veidam, un nevienu simbolisko saiti nekādā vietā mapes iekšienē.
 
-Par spraudņu izstrādi skatiet [čaulas atsauci](https://github.com/kairosci/arch) un [pirmās puses spraudņu katalogu](https://github.com/kairosci/arch).
+Par spraudņu izstrādi skatiet [čaulas atsauci](https://github.com/kairosci/os) un [pirmās puses spraudņu katalogu](https://github.com/kairosci/os).
 
 ## Sava koplietošana ar pasauli
 
 Kad esat izveidojis kaut ko, kas jums patīk, ielieciet publiskā git repozitorijā. Tas ir viss izplatīšanas mehānisms — pēc tam ikviens pret jūsu vietrādi var palaist `arch plugin add` un tas pāris sekunžu laikā darbosies.
 
-Lai palīdzētu cilvēkiem to patiesībā atrast, uzskaitiet to tīmekļa vietnē [plugins.github.com/kairosci/arch](https://plugins.github.com/kairosci/arch). Tas ir Arch čaulas spraudņu tirdzniecības laukums, un tā ir pirmā vieta, kur skatīties, kad prātojat, vai kāds jau nav uzbūvējis to logrīku, ko gatavojaties rakstīt. Pārlūkojiet to pirms sākšanas!
+Lai palīdzētu cilvēkiem to patiesībā atrast, uzskaitiet to tīmekļa vietnē [plugins.github.com/kairosci/os](https://plugins.github.com/kairosci/os). Tas ir Arch čaulas spraudņu tirdzniecības laukums, un tā ir pirmā vieta, kur skatīties, kad prātojat, vai kāds jau nav uzbūvējis to logrīku, ko gatavojaties rakstīt. Pārlūkojiet to pirms sākšanas!

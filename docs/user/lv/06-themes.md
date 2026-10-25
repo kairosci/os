@@ -6,7 +6,7 @@ Katra tēma veido darbvirsmu, termināli, neovim, aktivitāšu ekrānu (btop), C
 
 Tēmām ir fona attēlu kopa, starp kurām vari izvēlēties, izmantojot `Super + Ctrl + Space`.
 
-Vēl vairāk tēmu vari atrast [papildu tēmu lapā](https://github.com/kairosci/arch/themes/) vai pat [izveidot savu tēmu](43-making-your-own-theme.md).
+Vēl vairāk tēmu vari atrast [papildu tēmu lapā](https://github.com/kairosci/os/themes/) vai pat [izveidot savu tēmu](43-making-your-own-theme.md).
 
  ![tokyo-night](../themes/tokyo-night/preview.png)
 _Tokyo Night_

@@ -2,19 +2,19 @@
 
 ### Apple M1/M2 mikroshēmām
 
-[Asahi Alarm](https://asahi-alarm.org/) ir Arch versija Apple M1/M2 datoriem, būvēta uz [Asahi Linux](https://asahilinux.org/). Ar zināmu piepūli varat panākt, ka Arch darbojas virs tās. Skatiet [lietotāju veidoto ceļvedi](https://github.com/kairosci/arch).
+[Asahi Alarm](https://asahi-alarm.org/) ir Arch versija Apple M1/M2 datoriem, būvēta uz [Asahi Linux](https://asahilinux.org/). Ar zināmu piepūli varat panākt, ka Arch darbojas virs tās. Skatiet [lietotāju veidoto ceļvedi](https://github.com/kairosci/os).
 
 ### Apple virtuālajā mašīnā
 
-Arch varat instalēt arī Parallels VM iekšpusē. Diezgan apgrūtinošs process, bet tam arī ir [lietotāju veidots ceļvedis](https://github.com/kairosci/arch).
+Arch varat instalēt arī Parallels VM iekšpusē. Diezgan apgrūtinošs process, bet tam arī ir [lietotāju veidots ceļvedis](https://github.com/kairosci/os).
 
 ### VirtualBox
 
-VirtualBox ir populārs VM palaišanas līdzeklis. [Arch varat darbināt arī tā iekšpusē](https://github.com/kairosci/arch). Bet veiktspēja, iespējams, nebūs lieliska.
+VirtualBox ir populārs VM palaišanas līdzeklis. [Arch varat darbināt arī tā iekšpusē](https://github.com/kairosci/os). Bet veiktspēja, iespējams, nebūs lieliska.
 
 ### VMware Workstation operētājsistēmā Windows 11
 
-Vēl viens populārs VM palaišanas līdzeklis Windows. [Arch ir iestatīta arī tā iekšpusē](https://github.com/kairosci/arch).
+Vēl viens populārs VM palaišanas līdzeklis Windows. [Arch ir iestatīta arī tā iekšpusē](https://github.com/kairosci/os).
 
 ### Steam Deck
 

@@ -2,7 +2,7 @@
 
 Arch tiek instalēta, izmantojot ISO. Tu vari izvēlēties starp pilna diska instalāciju, kas pārņem visu disku, vai instalāciju brīvajā vietā, kas Arch ievieto diska nepiešķirtajā vietā — tā tu veic divkāršu palaišanu līdzās Windows vai citai OS (sk. [divkāršās palaišanas instalāciju](50-dual-boot-install.md) — ņem vērā, ka tev vispirms Windows būs jāizslēdz BitLocker). Jebkurā gadījumā instalācija pēc noklusējuma izmanto pilnu šifrēšanu, un pilna diska opcija izdzēsīs atlasīto disku, tāpēc pirms esoša diska izmantošanas noteikti izveido rezerves kopiju!
 
-Vispirms [lejupielādē Arch ISO](https://github.com/kairosci/arch/), ieraksti to USB zibatmiņā (izmanto [balenaEtcher](https://etcher.balena.io/) Mac/Windows vai [caligula](https://github.com/ifd3f/caligula) Linux) un palaid datoru no zibatmiņas.
+Vispirms [lejupielādē Arch ISO](https://github.com/kairosci/os/), ieraksti to USB zibatmiņā (izmanto [balenaEtcher](https://etcher.balena.io/) Mac/Windows vai [caligula](https://github.com/ifd3f/caligula) Linux) un palaid datoru no zibatmiņas.
 
 _Tev BIOS ir jāizslēdz Secure Boot un/vai TPM. Tev tie ir jāizslēdz, lai varētu instalēt Arch. Tās ir Microsoft drošības shēmas, kas paredzētas Windows un ar Microsoft saistītām Linux distributīvām._
 
@@ -36,8 +36,8 @@ Taču īpašos apstākļos, piemēram, attālinātām Arch instalācijām aizsar
 
 ### Valoda
 
-Arch runā 50 valodās — tādā pašā kopumā kā github.com/kairosci/arch —, un noklusējuma valoda ir angļu. Lai pārslēgtos, atver Arch izvēlni un ej uz _Setup > Language_ vai terminālī izpildi `archctl language <code>` (`archctl language list` parāda kodus). Izvēlne, darbvirsma un paša Arch paziņojumi valodu nomaina nekavējoties, un katra lietotne, ko tu atvērs pēc tam, arī tai sekos. Jau atvērtās lietotnes pārslēgsies, tiklīdz tu tās restartēsi.
+Arch runā 50 valodās — tādā pašā kopumā kā github.com/kairosci/os —, un noklusējuma valoda ir angļu. Lai pārslēgtos, atver Arch izvēlni un ej uz _Setup > Language_ vai terminālī izpildi `archctl language <code>` (`archctl language list` parāda kodus). Izvēlne, darbvirsma un paša Arch paziņojumi valodu nomaina nekavējoties, un katra lietotne, ko tu atvērs pēc tam, arī tai sekos. Jau atvērtās lietotnes pārslēgsies, tiklīdz tu tās restartēsi.
 
 ### Palīdzība, ja esi iestrēdzis
 
-Ja esi iestrēdzis, tu parasti vari atrast kādu, kurš ir gatavs palīdzēt, _#arch-help_ kanālā [kopienas Discord](https://github.com/kairosci/arch/discord).
+Ja esi iestrēdzis, tu parasti vari atrast kādu, kurš ir gatavs palīdzēt, _#arch-help_ kanālā [kopienas Discord](https://github.com/kairosci/os/discord).

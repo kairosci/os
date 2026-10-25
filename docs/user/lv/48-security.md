@@ -30,6 +30,6 @@ Par šo skaidru acu priekšā: kamēr tas ir ieslēgts, jebkas, kas darbojas kā
 
 ## Paraksta atslēgas
 
-Publiskā atslēga visiem ISO parakstiem un Arch repozitorija pakotnei ir `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([pārbaudiet vietnē openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch)). Pakotne `arch/arch-keyring` arī to satur un tiks izmantota, lai nemanāmi ieviestu jebkurus iespējamos atjauninājumus.
+Publiskā atslēga visiem ISO parakstiem un Arch repozitorija pakotnei ir `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([pārbaudiet vietnē openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os)). Pakotne `arch/arch-keyring` arī to satur un tiks izmantota, lai nemanāmi ieviestu jebkurus iespējamos atjauninājumus.
 
-Jebkura ISO laidiena parakstu varat atrast, URL pievienojot .sig. Piemēram, https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig.
+Jebkura ISO laidiena parakstu varat atrast, URL pievienojot .sig. Piemēram, https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig.
