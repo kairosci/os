@@ -6,9 +6,9 @@ __pycache__/
 .claude/
 
 # Arch package build output
-/packaging/arch-systemd-boot/src/
-/packaging/arch-systemd-boot/pkg/
-/packaging/arch-systemd-boot/arch-*.pkg.tar.zst
-/packaging/arch-settings/src/
-/packaging/arch-settings/pkg/
-/packaging/arch-settings/arch-settings-*.pkg.tar.zst
+/packages/arch-systemd-boot/src/
+/packages/arch-systemd-boot/pkg/
+/packages/arch-systemd-boot/arch-*.pkg.tar.zst
+/packages/arch-settings/src/
+/packages/arch-settings/pkg/
+/packages/arch-settings/arch-settings-*.pkg.tar.zst
