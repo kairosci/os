@@ -41,9 +41,9 @@ chmod +x "$stage/bin/arch-plugin-list" "$stage/bin/arch-background-session-mark"
 HOME="$stage/home" USER=intro-test ARCH_PATH="$ROOT" PATH="$stage/bin:$ROOT/bin:$PATH" \
   "$ROOT/bin/arch-plugin-clone" arch.background >/dev/null
 ln -s "$stage/home/.config/arch/plugins/intro-test.background" "$stage/clone"
-ln -s "$ROOT/shell/Commons" "$stage/Commons"
-ln -s "$ROOT/shell/Ui" "$stage/Ui"
-ln -s "$ROOT/shell/services" "$stage/services"
+ln -s "$ROOT/src/shell/Commons" "$stage/Commons"
+ln -s "$ROOT/src/shell/Ui" "$stage/Ui"
+ln -s "$ROOT/src/shell/services" "$stage/services"
 cp "$SHELL_TEST_DIR/fixtures/background-intro-clone/shell.qml" "$stage/shell.qml"
 magick -size 128x128 xc:magenta "$stage/still.png"
 ln -s "$stage/still.png" "$stage/home/.local/state/arch/current/background"

@@ -374,7 +374,7 @@ QString Translator::readLanguage(const QString &path) {
 }
 
 // CLDR cardinal plural categories for whole counts, for os's languages
-// (the same rules as os's shell/Commons/Plural.js).
+// (the same rules as os's src/shell/Commons/Plural.js).
 QString Translator::pluralCategory(const QString &language, long long count) {
     const long long n = count < 0 ? -count : count, n10 = n % 10, n100 = n % 100;
     const bool millions = n != 0 && n % 1000000 == 0;

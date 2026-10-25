@@ -17,7 +17,7 @@ fi
 tmp=$(mktemp -d)
 trap 'rm -rf "$tmp"' EXIT
 
-service="$ROOT/shell/plugins/notifications/Service.qml"
+service="$ROOT/src/shell/plugins/notifications/Service.qml"
 
 # The startup step that makes the state directory, run as the service runs
 # it, on a scratch HOME. It must keep the current files, replace a symlinked

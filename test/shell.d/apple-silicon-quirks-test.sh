@@ -84,7 +84,7 @@ pass "Windows VM runs as before on x86_64"
 
 run_node_test <<'JS'
 const fs = require('fs')
-const menu = requireFromRoot('shell/plugins/menu/MenuModel.js')
+const menu = requireFromRoot('src/shell/plugins/menu/MenuModel.js')
 const items = menu.parseMenuJsonc(fs.readFileSync(path.join(root, 'default/arch/arch-menu.jsonc'), 'utf8'))
 const when = id => (items.find(entry => entry.id === id) || {}).when
 assertEqual(when('install.windows'), 'arch-hw-x86', 'install.windows is offered on x86_64 only')

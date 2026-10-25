@@ -7,8 +7,8 @@ runtime from `$ARCH_PATH`) and overlaid by the user's
 at startup and watches them for changes, so the keybind → IPC → visible path
 never shells out to parse anything, and edits to either file take effect
 without restarting the shell. Rendering and behavior live in
-`shell/plugins/menu/Menu.qml`; the pure logic lives in
-`shell/plugins/menu/MenuModel.js`, which is plain JavaScript that Node can
+`src/shell/plugins/menu/Menu.qml`; the pure logic lives in
+`src/shell/plugins/menu/MenuModel.js`, which is plain JavaScript that Node can
 also load — the shell tests in `test/shell.d/menu-test.sh` and
 `menu-guards-test.sh` exercise it directly.
 

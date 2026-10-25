@@ -1,9 +1,9 @@
 id = "desktop.shell.reminders"
 domain = "desktop"
 package = "arch"
-sources = ["shell/plugins/reminders"]
+sources = ["src/shell/plugins/reminders"]
 requires = ["desktop.runtime"]
 
 [[output]]
-source = "shell/plugins/reminders"
+source = "src/shell/plugins/reminders"
 target = "usr/share/arch/shell/plugins/reminders"

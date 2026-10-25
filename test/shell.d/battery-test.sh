@@ -5,7 +5,7 @@ set -euo pipefail
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 run_node_test <<'JS'
-const battery = requireFromRoot('shell/plugins/services/battery/BatteryModel.js')
+const battery = requireFromRoot('src/shell/plugins/services/battery/BatteryModel.js')
 const discharging = 1
 
 assertEqual(battery.batteryPercentage({ isPresent: true, percentage: 0.126 }), 13, 'battery rounds display percentage')

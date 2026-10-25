@@ -44,8 +44,8 @@ run() {
     bash -euo pipefail "$migration" >"$test_dir/output" 2>&1
 }
 
-[[ -f $ROOT/shell/plugins/panels/elsewhen/manifest.json ]] || fail "Elsewhen ships in the shell tree"
-[[ $(jq -r .id "$ROOT/shell/plugins/panels/elsewhen/manifest.json") == "arch.elsewhen" ]] ||
+[[ -f $ROOT/src/shell/plugins/panels/elsewhen/manifest.json ]] || fail "Elsewhen ships in the shell tree"
+[[ $(jq -r .id "$ROOT/src/shell/plugins/panels/elsewhen/manifest.json") == "arch.elsewhen" ]] ||
   fail "Elsewhen uses the first-party namespace"
 ! grep -qx elsewhen "$ROOT/install/arch-base.packages" || fail "fresh installs do not install the retired package"
 pass "Elsewhen ships in the shell tree as arch.elsewhen"

@@ -6,9 +6,9 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 run_node_test <<'JS'
 const fs = require('fs')
-const weather = requireFromRoot('shell/plugins/panels/weather/Model.js')
-const panelSource = fs.readFileSync(root + '/shell/plugins/panels/weather/Panel.qml', 'utf8')
-const widgetSource = fs.readFileSync(root + '/shell/plugins/panels/weather/BarWidget.qml', 'utf8')
+const weather = requireFromRoot('src/shell/plugins/panels/weather/Model.js')
+const panelSource = fs.readFileSync(root + '/src/shell/plugins/panels/weather/Panel.qml', 'utf8')
+const widgetSource = fs.readFileSync(root + '/src/shell/plugins/panels/weather/BarWidget.qml', 'utf8')
 
 assertDeepEqual(weather.parseLocationFile('{"name": "Malibu", "latitude": 34.02577, "longitude": -118.7804}\n'), { name: 'Malibu', latitude: 34.02577, longitude: -118.7804 }, 'weather parses name plus coordinates from weather.json')
 assertDeepEqual(weather.parseLocationFile('{"name": "New York"}'), { name: 'New York', latitude: null, longitude: null }, 'weather parses a name-only weather.json')

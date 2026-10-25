@@ -45,7 +45,7 @@ overwritten on the next `archctl update`.
 ├── config/                 # Default config templates
 ├── assets/themes/                 # Stock themes
 ├── default/                # System defaults
-├── shell/                  # os shell source and defaults
+├── src/shell/                  # os shell source and defaults
 ├── migrations/             # Update migrations
 └── install/                # Installation scripts
 ```
@@ -236,7 +236,7 @@ When user requests system changes:
 3. **Is it a theme customization?** Follow [`theming.md`](theming.md); create a NEW custom theme directory
 4. **Is it automation?** Follow [`hooks.md`](hooks.md); use `archctl hook install` and the hook `.d` directories
 5. **Is it a package install?** Use `archctl pkg add <pkgs...>` (or `archctl pkg aur add <pkgs...>` for AUR-only packages)
-6. **Is it built-in shell/plugin code?** Follow [`plugins.md`](plugins.md); clone it with `arch plugin clone`, never edit the packaged copy
+6. **Is it built-in src/shell/plugin code?** Follow [`plugins.md`](plugins.md); clone it with `arch plugin clone`, never edit the packaged copy
 7. **Unsure if command exists?** Run `archctl commands` (or `arch <group> --help` for one group)
 
 ### Reminder Requests
@@ -253,7 +253,7 @@ arch reminder clear
 ## Out of Scope
 
 This skill intentionally does not cover os source development. Do not use this skill for:
-- Editing files in `/usr/share/arch/` (`bin/`, `config/`, `default/`, `shell/`, `themes/`, `migrations/`, etc.)
+- Editing files in `/usr/share/arch/` (`bin/`, `config/`, `default/`, `src/shell/`, `themes/`, `migrations/`, etc.)
 - Creating or editing migrations
 - Running `arch dev ...` commands
 
@@ -271,6 +271,6 @@ This skill intentionally does not cover os source development. Do not use this s
 - "Run a script every time I change themes" -> Install it with `archctl hook install theme-set <script>`
 - "Change how workspace labels are rendered" -> Clone `arch.workspaces`, which switches the bar to `<username>.workspaces`, then edit the clone
 - "Lock after ten minutes" -> Set `idle.lock` to `600` in `~/.config/arch/shell.json`
-- "Reset shell/bar to defaults" -> `archctl refresh shell`
+- "Reset src/shell/bar to defaults" -> `archctl refresh shell`
 - "Record my screen" -> `arch screenrecord --fullscreen`, then `arch screenrecord --stop-recording` (see `capture.md`)
 - "Report this bug to os" -> Gather diagnostics and a capture of the problem, then file it (see `contributing.md`)

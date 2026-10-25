@@ -10,8 +10,8 @@ pass "bt-agent is skipped on machines without Bluetooth hardware"
 
 run_node_test <<'JS'
 const fs = require('fs')
-const bluetooth = requireFromRoot('shell/plugins/panels/bluetooth/Model.js')
-const panelSource = fs.readFileSync(root + '/shell/plugins/panels/bluetooth/Panel.qml', 'utf8')
+const bluetooth = requireFromRoot('src/shell/plugins/panels/bluetooth/Model.js')
+const panelSource = fs.readFileSync(root + '/src/shell/plugins/panels/bluetooth/Panel.qml', 'utf8')
 
 assert(/IpcHandler[\s\S]*?function toggleBluetooth\(\) \{ root\.toggleBluetooth\(\) \}/.test(panelSource), 'bluetooth exposes the radio toggle over IPC')
 assert(/manageIpc: false/.test(panelSource), 'bluetooth owns its IPC handler so it can extend the target methods')

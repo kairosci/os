@@ -4,7 +4,7 @@ source "$(dirname "$0")/base-test.sh"
 run_node_test <<'JS'
 const fs = require('fs')
 
-const menuQml = fs.readFileSync(path.join(root, 'shell/plugins/menu/Menu.qml'), 'utf8')
+const menuQml = fs.readFileSync(path.join(root, 'src/shell/plugins/menu/Menu.qml'), 'utf8')
 
 assert(
   /rowReservedBorderLeft:\s*Border\.left\(selectedBorderSpec\)/.test(menuQml)

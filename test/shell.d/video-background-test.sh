@@ -7,20 +7,20 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 run_node_test <<'JS'
 const fs = require('fs')
 
-const utilQml = fs.readFileSync(path.join(root, 'shell/Commons/Util.qml'), 'utf8')
-const mediaQml = fs.readFileSync(path.join(root, 'shell/Ui/BackgroundMedia.qml'), 'utf8')
-const backgroundQml = fs.readFileSync(path.join(root, 'shell/plugins/background/Background.qml'), 'utf8')
-const lockQml = fs.readFileSync(path.join(root, 'shell/plugins/lock/LockView.qml'), 'utf8')
-const lockVideoQml = fs.readFileSync(path.join(root, 'shell/plugins/lock/LockVideoSurface.qml'), 'utf8')
-const videoQml = fs.readFileSync(path.join(root, 'shell/Ui/BackgroundVideo.qml'), 'utf8')
+const utilQml = fs.readFileSync(path.join(root, 'src/shell/Commons/Util.qml'), 'utf8')
+const mediaQml = fs.readFileSync(path.join(root, 'src/shell/Ui/BackgroundMedia.qml'), 'utf8')
+const backgroundQml = fs.readFileSync(path.join(root, 'src/shell/plugins/background/Background.qml'), 'utf8')
+const lockQml = fs.readFileSync(path.join(root, 'src/shell/plugins/lock/LockView.qml'), 'utf8')
+const lockVideoQml = fs.readFileSync(path.join(root, 'src/shell/plugins/lock/LockVideoSurface.qml'), 'utf8')
+const videoQml = fs.readFileSync(path.join(root, 'src/shell/Ui/BackgroundVideo.qml'), 'utf8')
 const themeSwitcher = fs.readFileSync(path.join(root, 'bin/arch-theme-switcher'), 'utf8')
 const quattroUpgrade = fs.readFileSync(path.join(root, 'bin/arch-upgrade-to-quattro'), 'utf8')
 const barTextColor = fs.readFileSync(path.join(root, 'bin/arch-bar-text-color'), 'utf8')
 const menuImages = fs.readFileSync(path.join(root, 'bin/arch-menu-images'), 'utf8')
-const lockService = fs.readFileSync(path.join(root, 'shell/plugins/lock/Service.qml'), 'utf8')
-const batteryService = fs.readFileSync(path.join(root, 'shell/plugins/services/battery/Service.qml'), 'utf8')
+const lockService = fs.readFileSync(path.join(root, 'src/shell/plugins/lock/Service.qml'), 'utf8')
+const batteryService = fs.readFileSync(path.join(root, 'src/shell/plugins/services/battery/Service.qml'), 'utf8')
 const themeSet = fs.readFileSync(path.join(root, 'bin/arch-theme-set'), 'utf8')
-const directImageList = fs.readFileSync(path.join(root, 'shell/plugins/image-picker/list.sh'), 'utf8')
+const directImageList = fs.readFileSync(path.join(root, 'src/shell/plugins/image-picker/list.sh'), 'utf8')
 
 assert(
   /function isVideoPath\(path\)[\s\S]*\.test\(String\(path \|\| ""\)\)/.test(utilQml) &&
@@ -28,7 +28,7 @@ assert(
   'shared media helper identifies video paths without truncating valid local names'
 )
 assert(
-  fs.existsSync(path.join(root, 'shell/Ui/BackgroundVideo.qml')) &&
+  fs.existsSync(path.join(root, 'src/shell/Ui/BackgroundVideo.qml')) &&
     /^import QtMultimedia$/m.test(videoQml) && videoQml.includes('MediaPlayer {') && videoQml.includes('VideoOutput {'),
   'the shell has a first-party Qt Multimedia player for video backgrounds'
 )
@@ -199,13 +199,13 @@ PATH="$test_tmp/bin:$PATH" XDG_CACHE_HOME="$test_tmp/generator-cache" MD5_FILE_C
 generator_thumbnail=$(find "$test_tmp/generator-cache/arch/image-selector" -maxdepth 1 -type f -name '*.jpg' -print -quit)
 [[ -s $generator_thumbnail ]] || fail "menu image generator creates a video thumbnail"
 
-generator_row=$(XDG_CACHE_HOME="$test_tmp/generator-cache" "$ROOT/shell/plugins/image-picker/list.sh" "$test_tmp/backgrounds")
+generator_row=$(XDG_CACHE_HOME="$test_tmp/generator-cache" "$ROOT/src/shell/plugins/image-picker/list.sh" "$test_tmp/backgrounds")
 IFS=$'\t' read -r generator_row_path generator_row_thumbnail <<<"$generator_row"
 [[ $generator_row_path == "$test_tmp/backgrounds/sample.mp4" && $generator_row_thumbnail == "$generator_thumbnail" ]] || \
   fail "direct picker consumes the menu image generator thumbnail" "$generator_row"
 
 row=$(PATH="$test_tmp/bin:$PATH" XDG_CACHE_HOME="$test_tmp/direct-cache" MD5_FILE_CALLS="$md5_file_calls" \
-  "$ROOT/shell/plugins/image-picker/list.sh" "$test_tmp/backgrounds")
+  "$ROOT/src/shell/plugins/image-picker/list.sh" "$test_tmp/backgrounds")
 
 IFS=$'\t' read -r row_path row_thumbnail <<<"$row"
 [[ $row_path == "$test_tmp/backgrounds/sample.mp4" && $row_thumbnail == *.jpg && -s $row_thumbnail ]] || \
@@ -222,11 +222,11 @@ exit 1
 SH
 
 cached_row=$(PATH="$test_tmp/bin:$PATH" XDG_CACHE_HOME="$test_tmp/direct-cache" MD5_FILE_CALLS="$md5_file_calls" \
-  "$ROOT/shell/plugins/image-picker/list.sh" "$test_tmp/backgrounds")
+  "$ROOT/src/shell/plugins/image-picker/list.sh" "$test_tmp/backgrounds")
 [[ $cached_row == "$row" ]] || fail "direct picker reuses its cached video thumbnail" "$cached_row"
 
 failed_rows=$(PATH="$test_tmp/bin:$PATH" XDG_CACHE_HOME="$failed_cache" MD5_FILE_CALLS="$md5_file_calls" \
-  "$ROOT/shell/plugins/image-picker/list.sh" "$failed_backgrounds")
+  "$ROOT/src/shell/plugins/image-picker/list.sh" "$failed_backgrounds")
 [[ -z $failed_rows ]] || fail "direct picker omits a video whose thumbnail fails" "$failed_rows"
 
 failed_marker=$(find "$failed_cache/arch/image-selector" -maxdepth 1 -type f -name '*.failed' -print -quit)
@@ -240,7 +240,7 @@ exit 1
 SH
 
 failed_rows=$(PATH="$test_tmp/bin:$PATH" XDG_CACHE_HOME="$failed_cache" THUMBNAILER_CALLS="$thumbnailer_calls" \
-  "$ROOT/shell/plugins/image-picker/list.sh" "$failed_backgrounds")
+  "$ROOT/src/shell/plugins/image-picker/list.sh" "$failed_backgrounds")
 [[ -z $failed_rows && ! -e $thumbnailer_calls ]] || fail "direct picker skips a rejected video on the next scan" "$(cat "$thumbnailer_calls" 2>/dev/null)"
 
 generator_failed_cache="$test_tmp/generator-failed-cache"
@@ -271,7 +271,7 @@ cat >"$test_tmp/bin/ffmpegthumbnailer" <<'SH'
 exit 124
 SH
 timeout_rows=$(PATH="$test_tmp/bin:$PATH" XDG_CACHE_HOME="$timeout_cache" \
-  "$ROOT/shell/plugins/image-picker/list.sh" "$timeout_backgrounds")
+  "$ROOT/src/shell/plugins/image-picker/list.sh" "$timeout_backgrounds")
 [[ -z $timeout_rows ]] || fail "direct picker omits a video whose thumbnail timed out" "$timeout_rows"
 timeout_marker=$(find "$timeout_cache/arch/image-selector" -maxdepth 1 -type f -name '*.failed' -print -quit)
 [[ -z $timeout_marker ]] || fail "a timed out video is left to retry rather than remembered as failed"
@@ -280,7 +280,7 @@ if grep -Eq '^(owe|owe-lockfeed)$' "$ROOT/install/arch-base.packages"; then
   fail "the desktop no longer depends on an external wallpaper engine"
 fi
 grep -qx 'qt6-multimedia' "$ROOT/install/arch-base.packages" || fail "native video playback requires Qt Multimedia"
-grep -rqs 'import QtMultimedia' "$ROOT/shell/Ui/BackgroundVideo.qml" || fail "the first-party player uses Qt Multimedia"
+grep -rqs 'import QtMultimedia' "$ROOT/src/shell/Ui/BackgroundVideo.qml" || fail "the first-party player uses Qt Multimedia"
 
 pass "menu image generator creates thumbnails consumed by the picker"
 pass "direct picker generates and reuses still thumbnails"

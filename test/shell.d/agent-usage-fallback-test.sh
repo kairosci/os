@@ -21,8 +21,8 @@ function extract(source, signature, file) {
   return source.slice(start, end + '\n  }'.length)
 }
 
-const main = fs.readFileSync(root + '/shell/plugins/agents/Main.qml', 'utf8')
-const agent = fs.readFileSync(root + '/shell/plugins/agents/Agent.qml', 'utf8')
+const main = fs.readFileSync(root + '/src/shell/plugins/agents/Main.qml', 'utf8')
+const agent = fs.readFileSync(root + '/src/shell/plugins/agents/Agent.qml', 'utf8')
 
 const updateStart = main.indexOf('    id: updateProcess')
 const exited = main.slice(main.indexOf('    onExited: {', updateStart), main.indexOf('\n    }', updateStart))

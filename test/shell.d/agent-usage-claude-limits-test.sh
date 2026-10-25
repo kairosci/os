@@ -322,7 +322,7 @@ pass "Claude collector caches a successful probe"
 # that states the title outright is taken at its word.
 run_node_test <<'JS'
 const fs = require('fs')
-const source = fs.readFileSync(root + '/shell/plugins/agents/Panel.qml', 'utf8')
+const source = fs.readFileSync(root + '/src/shell/plugins/agents/Panel.qml', 'utf8')
 const panelRoot = { nowMs: Date.now() }
 const start = source.indexOf('function windowIsLong')
 const end = source.indexOf('// The window that decides')

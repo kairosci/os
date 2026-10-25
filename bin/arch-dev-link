@@ -31,7 +31,7 @@ Writes /etc/arch.conf so ARCH_PATH resolves to <path-to-checkout>
 after reboot. This intentionally does not rewrite the running Hyprland,
 systemd, shell, or app-launcher environment; reboot to make every layer agree.
 
-Affects only \$ARCH_PATH-resolved trees: bin/, default/, shell/,
+Affects only \$ARCH_PATH-resolved trees: bin/, default/, src/shell/,
 assets/themes/, assets/applications/, config/. Files installed at fixed system paths
 (/etc/, /usr/lib/systemd/, udev rule bodies, /etc/skel after user
 creation) are NOT covered — for those, use arch-dev-pkg-test to build

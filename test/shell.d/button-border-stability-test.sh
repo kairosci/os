@@ -4,7 +4,7 @@ source "$(dirname "$0")/base-test.sh"
 run_node_test <<'JS'
 const fs = require('fs')
 
-const buttonQml = fs.readFileSync(path.join(root, 'shell/Ui/Button.qml'), 'utf8')
+const buttonQml = fs.readFileSync(path.join(root, 'src/shell/Ui/Button.qml'), 'utf8')
 
 assert(
   /anchors\.leftMargin:\s*root\.leftAlign \? root\._reservedContentLeftInset : 0/.test(buttonQml),
@@ -32,8 +32,8 @@ cleanup() {
 }
 trap cleanup EXIT
 
-ln -s "$ROOT/shell/Ui" "$TMPDIR/Ui"
-ln -s "$ROOT/shell/Commons" "$TMPDIR/Commons"
+ln -s "$ROOT/src/shell/Ui" "$TMPDIR/Ui"
+ln -s "$ROOT/src/shell/Commons" "$TMPDIR/Commons"
 
 cat >"$TMPDIR/shell.qml" <<'QML'
 import QtQuick

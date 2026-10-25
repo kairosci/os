@@ -6,8 +6,8 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 run_node_test <<'JS'
 const fs = require('fs')
-const idle = requireFromRoot('shell/plugins/services/idle/IdleModel.js')
-const serviceSource = fs.readFileSync(root + '/shell/plugins/services/idle/Service.qml', 'utf8')
+const idle = requireFromRoot('src/shell/plugins/services/idle/IdleModel.js')
+const serviceSource = fs.readFileSync(root + '/src/shell/plugins/services/idle/Service.qml', 'utf8')
 
 assertEqual(idle.secondsFromConfig('42.9', 10), 42, 'idle floors configured seconds')
 assertEqual(idle.secondsFromConfig('-1', 10), 10, 'idle rejects negative seconds')

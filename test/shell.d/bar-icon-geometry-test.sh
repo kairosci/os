@@ -14,10 +14,10 @@ fi
 test_tmp=$(mktemp -d)
 trap 'rm -rf "$test_tmp"' EXIT
 
-ln -s "$ROOT/shell/Ui" "$test_tmp/Ui"
-ln -s "$ROOT/shell/Commons" "$test_tmp/Commons"
-ln -s "$ROOT/shell/plugins/panels/dropbox/DropboxIcon.qml" "$test_tmp/DropboxIcon.qml"
-ln -s "$ROOT/shell/plugins/panels/tailscale/TailscaleIcon.qml" "$test_tmp/TailscaleIcon.qml"
+ln -s "$ROOT/src/shell/Ui" "$test_tmp/Ui"
+ln -s "$ROOT/src/shell/Commons" "$test_tmp/Commons"
+ln -s "$ROOT/src/shell/plugins/panels/dropbox/DropboxIcon.qml" "$test_tmp/DropboxIcon.qml"
+ln -s "$ROOT/src/shell/plugins/panels/tailscale/TailscaleIcon.qml" "$test_tmp/TailscaleIcon.qml"
 
 cat >"$test_tmp/shell.qml" <<'QML'
 import QtQuick
@@ -460,8 +460,8 @@ ShellRoot {
 QML
 
 output=$(timeout 15 env \
-  QML2_IMPORT_PATH="$ROOT/shell${QML2_IMPORT_PATH:+:$QML2_IMPORT_PATH}" \
-  QML_IMPORT_PATH="$ROOT/shell${QML_IMPORT_PATH:+:$QML_IMPORT_PATH}" \
+  QML2_IMPORT_PATH="$ROOT/src/shell${QML2_IMPORT_PATH:+:$QML2_IMPORT_PATH}" \
+  QML_IMPORT_PATH="$ROOT/src/shell${QML_IMPORT_PATH:+:$QML_IMPORT_PATH}" \
   quickshell -p "$test_tmp" --no-color 2>&1) || {
   printf '%s\n' "$output" >&2
   fail "bar icon geometry fixture exits cleanly"

@@ -6,7 +6,7 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 run_node_test <<'JS'
 const { execFileSync } = require('child_process')
-const M = requireFromRoot('shell/plugins/panels/elsewhen/Model.js')
+const M = requireFromRoot('src/shell/plugins/panels/elsewhen/Model.js')
 
 const probe = (ids, withLocal) => {
   const command = M.probeCommand(ids, withLocal)

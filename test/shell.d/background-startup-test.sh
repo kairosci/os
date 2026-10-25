@@ -11,8 +11,8 @@ trap 'rm -rf "$stage"' EXIT
 mkdir -p "$stage/services" "$stage/bin" "$stage/home/.local/state/arch/current"
 printf 'P6\n1 1\n255\n\377\000\377' >"$stage/still.ppm"
 ln -s "$stage/still.ppm" "$stage/home/.local/state/arch/current/background"
-ln -s "$ROOT/shell/Commons" "$stage/Commons"
-cp "$ROOT/shell/services/BackgroundIntro.qml" "$stage/services/"
+ln -s "$ROOT/src/shell/Commons" "$stage/Commons"
+cp "$ROOT/src/shell/services/BackgroundIntro.qml" "$stage/services/"
 cp "$SHELL_TEST_DIR/fixtures/background-startup/shell.qml" "$stage/shell.qml"
 cat >"$stage/bin/arch-background-session-mark" <<'SH'
 #!/bin/bash

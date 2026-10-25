@@ -6,7 +6,7 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 run_node_test <<'JS'
 const fs = require('fs')
-const shellQml = fs.readFileSync(path.join(root, 'shell/shell.qml'), 'utf8')
+const shellQml = fs.readFileSync(path.join(root, 'src/shell/shell.qml'), 'utf8')
 
 // Handing the Instantiator a fresh array rebuilt every panel on each plugin
 // change, several times during startup, so a keepLoaded panel such as the OSD

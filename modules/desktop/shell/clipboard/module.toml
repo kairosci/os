@@ -1,9 +1,9 @@
 id = "desktop.shell.clipboard"
 domain = "desktop"
 package = "arch"
-sources = ["shell/plugins/clipboard"]
+sources = ["src/shell/plugins/clipboard"]
 requires = ["desktop.runtime"]
 
 [[output]]
-source = "shell/plugins/clipboard"
+source = "src/shell/plugins/clipboard"
 target = "usr/share/arch/shell/plugins/clipboard"

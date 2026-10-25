@@ -65,7 +65,7 @@ mkdir -p "$test_root" "$test_home" "$stub_bin" "$screenshot_dir"
 # the solid new-login startup cover over the bar being screenshotted.
 mkdir -p "$test_home/.local/state/arch"
 printf '%s\n' "$HYPRLAND_INSTANCE_SIGNATURE" >"$test_home/.local/state/arch/background-intro.session-id"
-cp -a "$ROOT/shell" "$test_root/shell"
+cp -a "$ROOT/src/shell" "$test_root/shell"
 ln -s "$ROOT/config" "$test_root/config"
 ln -s "$ROOT/bin" "$test_root/bin"
 

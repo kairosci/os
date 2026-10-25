@@ -41,7 +41,7 @@ guard_scripts() {
   node -e '
     const path = require("path")
     const fs = require("fs")
-    const menu = require(path.join(process.env.ROOT, "shell/plugins/menu/MenuModel.js"))
+    const menu = require(path.join(process.env.ROOT, "src/shell/plugins/menu/MenuModel.js"))
     const shipped = menu.parseMenuJsonc(fs.readFileSync(path.join(process.env.ROOT, "default/arch/arch-menu.jsonc"), "utf8"))
     const all = {}
     for (const item of shipped) all[item.id] = item

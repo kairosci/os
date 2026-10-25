@@ -10,7 +10,7 @@ TMPDIR=$(mktemp -d)
 trap 'rm -rf "$TMPDIR"' EXIT
 
 ROOT="$ROOT" run_node_test <<'JS'
-const dock = requireFromRoot('shell/plugins/dock/DockModel.js')
+const dock = requireFromRoot('src/shell/plugins/dock/DockModel.js')
 
 assertEqual(dock.normalizePosition('left'), 'left', 'dock accepts a valid position')
 assertEqual(dock.normalizePosition(' Top '), 'top', 'dock reads a position loosely')
@@ -161,7 +161,7 @@ pass "dock auto-hide is set through arch-dock autohide"
 
 # The dock only shows on floating workspaces, and gets out of the way of a
 # fullscreen window; a maximized one only tucks it away.
-grep -qF 'dock.isFloating(workspaceId) && fullscreenMode < 2' "$ROOT/shell/plugins/dock/DockWindow.qml" ||
+grep -qF 'dock.isFloating(workspaceId) && fullscreenMode < 2' "$ROOT/src/shell/plugins/dock/DockWindow.qml" ||
   fail "dock shows only on floating workspaces without a fullscreen window"
 pass "dock shows only on floating workspaces without a fullscreen window"
 
@@ -226,7 +226,7 @@ pass "minimize leaves windows on a tiled workspace alone"
 
 # Terminal apps launch through os's TUI launcher from every launcher that
 # uses the app library, so their windows carry an app id of their own.
-grep -qF 'var command = root.terminalCommand(DesktopEntries.byId(id))' "$ROOT/shell/services/AppLibrary.qml" &&
-  grep -qF '"arch-launch-tui "' "$ROOT/shell/services/AppLibrary.qml" ||
+grep -qF 'var command = root.terminalCommand(DesktopEntries.byId(id))' "$ROOT/src/shell/services/AppLibrary.qml" &&
+  grep -qF '"arch-launch-tui "' "$ROOT/src/shell/services/AppLibrary.qml" ||
   fail "the app library launches terminal apps through the TUI launcher"
 pass "the app library launches terminal apps through the TUI launcher"

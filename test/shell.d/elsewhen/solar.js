@@ -3,7 +3,7 @@
 const fs = require('fs')
 const path = require('path')
 
-const dir = path.join(__dirname, '../../../shell/plugins/panels/elsewhen')
+const dir = path.join(__dirname, '../../../src/shell/plugins/panels/elsewhen')
 
 function load(file, scope) {
   const source = fs.readFileSync(path.join(dir, file), 'utf8').replace(/^\.(pragma|import) .*$/gm, '')

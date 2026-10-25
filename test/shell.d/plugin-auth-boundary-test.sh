@@ -18,10 +18,10 @@ cleanup() {
 }
 trap cleanup EXIT
 
-shell_qml="$ROOT/shell/shell.qml"
-bar_qml="$ROOT/shell/plugins/bar/Bar.qml"
-plugin_shell_api="$ROOT/shell/services/PluginShellApi.qml"
-idle_service="$ROOT/shell/plugins/services/idle/Service.qml"
+shell_qml="$ROOT/src/shell/shell.qml"
+bar_qml="$ROOT/src/shell/plugins/bar/Bar.qml"
+plugin_shell_api="$ROOT/src/shell/services/PluginShellApi.qml"
+idle_service="$ROOT/src/shell/plugins/services/idle/Service.qml"
 
 # Normalize horizontal and vertical whitespace so the wiring assertions survive
 # harmless QML reflow. The runtime fixture below behaviorally covers
@@ -52,7 +52,7 @@ const vm = require('vm')
 const store = {}
 vm.createContext(store)
 vm.runInContext(
-  fs.readFileSync(path.join(root, 'shell/services/AuthServiceStore.js'), 'utf8'),
+  fs.readFileSync(path.join(root, 'src/shell/services/AuthServiceStore.js'), 'utf8'),
   store
 )
 const service = { destroy() {} }
@@ -168,7 +168,7 @@ log="$TMPDIR/quickshell.log"
 config_dir="$TMPDIR/plugin-auth-boundary"
 mkdir -p "$config_dir" "$TMPDIR/home"
 cp "$SHELL_TEST_DIR/fixtures/plugin-auth-boundary/"*.qml "$config_dir/"
-ln -s "$ROOT/shell/services" "$config_dir/services"
+ln -s "$ROOT/src/shell/services" "$config_dir/services"
 
 ARCH_QML_TEST_RESULT="$result" \
 HOME="$TMPDIR/home" \

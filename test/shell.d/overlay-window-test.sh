@@ -7,7 +7,7 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 run_node_test <<'JS'
 const fs = require('fs')
 const read = (file) => fs.readFileSync(path.join(root, file), 'utf8')
-const overlay = read('shell/Ui/OverlayWindow.qml')
+const overlay = read('src/shell/Ui/OverlayWindow.qml')
 
 // Closing must unmap, not leave a surface on an output that may disappear.
 assert(
@@ -127,13 +127,13 @@ pending.shift()()
 assertEqual(window.targetScreen, screen, 'a deferred remap preserves the screen chosen by a newer open')
 
 const overlays = {
-  'shell/plugins/menu/Menu.qml': 'shown: root.opened && root.rowsLoaded',
-  'shell/plugins/emojis/Emojis.qml': 'shown: root.opened',
-  'shell/plugins/clipboard/Clipboard.qml': 'shown: root.opened',
-  'shell/plugins/osd/Osd.qml': 'shown: root.opened',
-  'shell/plugins/reminders/ReminderFlow.qml': 'shown: root.opened',
-  'shell/plugins/panels/wifiqr/Panel.qml': 'shown: root.opened',
-  'shell/plugins/image-picker/ImagePicker.qml': 'shown: root.opened',
+  'src/shell/plugins/menu/Menu.qml': 'shown: root.opened && root.rowsLoaded',
+  'src/shell/plugins/emojis/Emojis.qml': 'shown: root.opened',
+  'src/shell/plugins/clipboard/Clipboard.qml': 'shown: root.opened',
+  'src/shell/plugins/osd/Osd.qml': 'shown: root.opened',
+  'src/shell/plugins/reminders/ReminderFlow.qml': 'shown: root.opened',
+  'src/shell/plugins/panels/wifiqr/Panel.qml': 'shown: root.opened',
+  'src/shell/plugins/image-picker/ImagePicker.qml': 'shown: root.opened',
 }
 for (const [file, shown] of Object.entries(overlays)) {
   const qml = read(file)
@@ -144,7 +144,7 @@ for (const [file, shown] of Object.entries(overlays)) {
 }
 
 // Layout resets on a requested close, independent of mapping readiness.
-const menuQml = read('shell/plugins/menu/Menu.qml')
+const menuQml = read('src/shell/plugins/menu/Menu.qml')
 assert(
   menuQml.includes('onShownChanged: if (!shown) { cardTop = -1; maxRowsHeight = -1 }') &&
     menuQml.includes('if (shown && cardTop < 0) {') &&
@@ -170,7 +170,7 @@ for (const file of Object.keys(overlays)) {
 }
 
 // The OSD never takes the keyboard or input, shown or not.
-const osd = read('shell/plugins/osd/Osd.qml')
+const osd = read('src/shell/plugins/osd/Osd.qml')
 assert(
   osd.includes('shownKeyboardFocus: WlrKeyboardFocus.None') && osd.includes('mask: Region {}'),
   'the OSD stays click-through and keyboard-free while shown'

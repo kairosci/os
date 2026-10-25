@@ -1,9 +1,9 @@
 id = "desktop.shell.notifications"
 domain = "desktop"
 package = "arch"
-sources = ["shell/plugins/notifications"]
+sources = ["src/shell/plugins/notifications"]
 requires = ["desktop.runtime"]
 
 [[output]]
-source = "shell/plugins/notifications"
+source = "src/shell/plugins/notifications"
 target = "usr/share/arch/shell/plugins/notifications"

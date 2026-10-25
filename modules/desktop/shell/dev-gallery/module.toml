@@ -1,9 +1,9 @@
 id = "desktop.shell.dev-gallery"
 domain = "desktop"
 package = "arch"
-sources = ["shell/plugins/dev-gallery"]
+sources = ["src/shell/plugins/dev-gallery"]
 requires = ["desktop.runtime"]
 
 [[output]]
-source = "shell/plugins/dev-gallery"
+source = "src/shell/plugins/dev-gallery"
 target = "usr/share/arch/shell/plugins/dev-gallery"

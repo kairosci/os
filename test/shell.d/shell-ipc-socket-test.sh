@@ -18,7 +18,7 @@ root_dir="$test_tmp/root"
 run_dir="$test_tmp/run"
 stub_bin="$test_tmp/bin"
 mkdir -p "$root_dir/shell" "$run_dir" "$stub_bin"
-touch "$root_dir/shell/shell.qml"
+touch "$root_dir/src/shell/shell.qml"
 # The shell names its socket after its config and display, as arch-shell
 # derives it.
 display="test-display"
@@ -134,14 +134,14 @@ pass "a call for another display does not reach this shell's socket"
 run_node_test <<'JS'
 const fs = require('fs')
 const { execSync } = require('child_process')
-const shellQml = fs.readFileSync(path.join(root, 'shell/shell.qml'), 'utf8')
-const registry = fs.readFileSync(path.join(root, 'shell/Commons/IpcRegistry.qml'), 'utf8')
+const shellQml = fs.readFileSync(path.join(root, 'src/shell/shell.qml'), 'utf8')
+const registry = fs.readFileSync(path.join(root, 'src/shell/Commons/IpcRegistry.qml'), 'utf8')
 
 // Only handlers that register can answer over the socket, so every
 // first-party one does; the registry's own bare handler is the reference for
 // the functions a handler never exposes.
-const bare = execSync(`grep -rln 'IpcHandler {' ${path.join(root, 'shell')} --include=*.qml || true`).toString().trim().split('\n').filter(Boolean)
-assertDeepEqual(bare.map((f) => path.relative(root, f)).sort(), ['shell/Commons/IpcRegistry.qml', 'shell/Commons/ShellIpc.qml'], 'first-party IPC handlers register through ShellIpc')
+const bare = execSync(`grep -rln 'IpcHandler {' ${path.join(root, 'src/shell')} --include=*.qml || true`).toString().trim().split('\n').filter(Boolean)
+assertDeepEqual(bare.map((f) => path.relative(root, f)).sort(), ['src/shell/Commons/IpcRegistry.qml', 'src/shell/Commons/ShellIpc.qml'], 'first-party IPC handlers register through ShellIpc')
 
 // Declared functions are allowed by name: destroy() and other QObject
 // methods are callable yet not enumerable, so subtracting builtins from what a

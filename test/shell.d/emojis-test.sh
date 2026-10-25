@@ -6,9 +6,9 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 run_node_test <<'JS'
 const fs = require('fs')
-const emojis = requireFromRoot('shell/plugins/emojis/EmojiSearch.js')
+const emojis = requireFromRoot('src/shell/plugins/emojis/EmojiSearch.js')
 
-const raw = fs.readFileSync(path.join(root, 'shell/plugins/emojis/emojis.json'), 'utf8')
+const raw = fs.readFileSync(path.join(root, 'src/shell/plugins/emojis/emojis.json'), 'utf8')
 const data = emojis.parseEmojis(raw)
 
 assert(data.length > 1000, 'emoji dataset parses')

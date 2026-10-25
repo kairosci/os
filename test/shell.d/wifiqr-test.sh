@@ -5,7 +5,7 @@ set -euo pipefail
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 run_node_test <<'JS'
-const wifiqr = requireFromRoot('shell/plugins/panels/wifiqr/Model.js')
+const wifiqr = requireFromRoot('src/shell/plugins/panels/wifiqr/Model.js')
 
 assertDeepEqual(
   wifiqr.parseQrOutput('meta\twlan0\tWPA\tCafe WiFi\n010\n111\n010\n'),

@@ -73,10 +73,10 @@ pass "power profile retains performance as AC default"
 [[ $(tail -n 1 "$tmp_dir/calls") == "power-saver" ]] || fail "init restores the autodetected preference"
 pass "power profile init restores the autodetected preference"
 
-rg -F '["arch-powerprofiles-set", pendingPowerSource]' "$ROOT/shell/plugins/services/battery/Service.qml" >/dev/null ||
+rg -F '["arch-powerprofiles-set", pendingPowerSource]' "$ROOT/src/shell/plugins/services/battery/Service.qml" >/dev/null ||
   fail "battery service applies profiles through os command"
 pass "battery service applies profiles through os command"
 
-rg -F 'arch-powerprofiles-set autodetect' "$ROOT/shell/plugins/menu/Menu.qml" >/dev/null ||
+rg -F 'arch-powerprofiles-set autodetect' "$ROOT/src/shell/plugins/menu/Menu.qml" >/dev/null ||
   fail "power profile menu persists selections through os command"
 pass "power profile menu persists selections through os command"
