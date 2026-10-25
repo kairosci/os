@@ -2,7 +2,7 @@
 
 Arch ve paketleriniz, Arch menüsündeki (`Super + Space`) _Güncelle > Arch_ aracılığıyla güncel tutulur.
 
-Arch'nin kendisi, [Arch Package Repository](https://github.com/kairosci/arch) üzerinden normal pacman paketleri olarak kurulur; bu yüzden bir güncelleme, [en son Arch sürümünü](https://github.com/kairosci/arch) kurar, sisteminizi en son sürümle senkronize etmek için bekleyen taşımaları çalıştırır ve [Arch Arch Mirror](https://github.com/kairosci/arch) ve [AUR](https://aur.archlinux.org/) (herhangi bir AUR paketi kurduysanız) üzerinden tüm sistem paketlerini günceller.
+Arch'nin kendisi, [Arch Package Repository](https://github.com/kairosci/os) üzerinden normal pacman paketleri olarak kurulur; bu yüzden bir güncelleme, [en son Arch sürümünü](https://github.com/kairosci/os) kurar, sisteminizi en son sürümle senkronize etmek için bekleyen taşımaları çalıştırır ve [Arch Arch Mirror](https://github.com/kairosci/os) ve [AUR](https://aur.archlinux.org/) (herhangi bir AUR paketi kurduysanız) üzerinden tüm sistem paketlerini günceller.
 
 Yeni sürümler yayınlandığında, saatinizin sağında bir daire ok simgesi belirecektir. Ona tıklayın, güncelleme süreci başlayacaktır.
 
@@ -10,7 +10,7 @@ Yeni sürümler yayınlandığında, saatinizin sağında bir daire ok simgesi b
 
 ### Dört kanal
 
-Arch dört kanal boyunca güncellenir: stable, RC, edge ve dev. Yeni kurulumlar, [resmi sürümleri](https://github.com/kairosci/arch) izleyen stable kanalında başlar; ayrıca en son sürümün bir ay gerisinde çalışan [stable Arch Arch aynası](https://github.com/kairosci/arch) kullanılır, böylece yapılandırma değişiklikleri gerektiren yeni uyumsuzlukları, insanlara sorun çıkarmadan önce yakalayabiliriz.
+Arch dört kanal boyunca güncellenir: stable, RC, edge ve dev. Yeni kurulumlar, [resmi sürümleri](https://github.com/kairosci/os) izleyen stable kanalında başlar; ayrıca en son sürümün bir ay gerisinde çalışan [stable Arch Arch aynası](https://github.com/kairosci/os) kullanılır, böylece yapılandırma değişiklikleri gerektiren yeni uyumsuzlukları, insanlara sorun çıkarmadan önce yakalayabiliriz.
 
 Ancak bu olası sorunları tespit etmeye yardımcı olmak isterseniz edge kanalında çalışabilirsiniz. Bu, Arch paketlerinizin en son geliştirme sürümlerini izlemesini sağlar ve en son Arch paketlerine kullanılabilir olur olmaz güncellemenize olanak tanır. Bunu yalnızca Linux konusunda deneyimliyseniz ve sorun yaşayan bir sistemi nasıl kurtaracağınızı biliyorsanız yapmalısınız.
 

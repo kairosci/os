@@ -42,4 +42,4 @@ Geride kalan o `[themename]` temanın dizin adı olur, bu yüzden Arch'nin güve
 
 Unutmayın ki bir depodan kurulduktan sonra, içerdiği herhangi bir `.lua`, terminal yapılandırması veya `vscode.json` bırakılır, bu yüzden temayı bunların etrafında kurmayın.
 
-Temanızı, [arch-site deposuna](https://github.com/kairosci/arch) bir çekme isteği göndererek [ekstra temalar sayfasına](https://github.com/kairosci/arch/themes/) ekletebilirsiniz.
+Temanızı, [arch-site deposuna](https://github.com/kairosci/os) bir çekme isteği göndererek [ekstra temalar sayfasına](https://github.com/kairosci/os/themes/) ekletebilirsiniz.

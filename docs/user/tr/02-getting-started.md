@@ -2,7 +2,7 @@
 
 Arch bir ISO kullanılarak kurulur. Sürücünün tamamını ele geçiren tam disk kurulumu ile Arch'yi bir sürücüdeki ayrılmamış alana yerleştiren boş alan kurulumu arasında seçim yapabilirsiniz — Windows veya başka bir işletim sisteminin yanında çift önyükleme bu şekilde yapılır (bkz. [çift önyükleme kurulumu](50-dual-boot-install.md) — önce Windows'ta BitLocker'ı kapatmanız gerekeceğini unutmayın). Her iki durumda da kurulum varsayılan olarak tam şifreleme kullanır ve tam disk seçeneği seçilen sürücüyü siler, bu yüzden mevcut bir sürücüyü kullanmadan önce mutlaka yedek alın!
 
-Önce [Arch ISO'sunu indirin](https://github.com/kairosci/arch/), bir USB belleğe yazın (Mac/Windows'ta [balenaEtcher](https://etcher.balena.io/) veya Linux'ta [caligula](https://github.com/ifd3f/caligula) kullanın) ve bellekten önyükleme yapın.
+Önce [Arch ISO'sunu indirin](https://github.com/kairosci/os/), bir USB belleğe yazın (Mac/Windows'ta [balenaEtcher](https://etcher.balena.io/) veya Linux'ta [caligula](https://github.com/ifd3f/caligula) kullanın) ve bellekten önyükleme yapın.
 
 _BIOS'ta Secure Boot ve/veya TPM özelliğini kapatmalısınız. Arch kurabilmek için bunları kapatmanız gerekir. Bunlar Windows ve Microsoft ile ilişkili Linux dağıtımları için tasarlanmış Microsoft güvenlik düzenleridir._
 
@@ -36,8 +36,8 @@ Ancak korunaklı bilgisayarlara uzaktan Arch kurulumu gibi özel durumlarda veya
 
 ### Dil
 
-Arch, github.com/kairosci/arch ile aynı set olmak üzere 50 dil konuşur ve varsayılan dil İngilizcedir. Değiştirmek için Arch menüsünü açın ve _Kurulum > Dil_ bölümüne gidin veya bir terminalde `archctl language <code>` komutunu çalıştırın (`archctl language list` kodları gösterir). Menü, masaüstü ve Arch'nin kendi bildirimleri dilini hemen değiştirir ve sonrasında açtığınız her uygulama da buna uyar. Zaten açık olan uygulamalar, onları yeniden başlattığınızda geçiş yapar.
+Arch, github.com/kairosci/os ile aynı set olmak üzere 50 dil konuşur ve varsayılan dil İngilizcedir. Değiştirmek için Arch menüsünü açın ve _Kurulum > Dil_ bölümüne gidin veya bir terminalde `archctl language <code>` komutunu çalıştırın (`archctl language list` kodları gösterir). Menü, masaüstü ve Arch'nin kendi bildirimleri dilini hemen değiştirir ve sonrasında açtığınız her uygulama da buna uyar. Zaten açık olan uygulamalar, onları yeniden başlattığınızda geçiş yapar.
 
 ### Takılırsanız yardım alın
 
-Takılırsanız, [topluluk Discord'undaki](https://github.com/kairosci/arch/discord) _#arch-help_ kanalında genellikle yardım etmeye istekli birini bulabilirsiniz.
+Takılırsanız, [topluluk Discord'undaki](https://github.com/kairosci/os/discord) _#arch-help_ kanalında genellikle yardım etmeye istekli birini bulabilirsiniz.

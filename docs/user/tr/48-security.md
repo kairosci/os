@@ -30,6 +30,6 @@ Bu konuda açık göz olun: açıkken, kullanıcınız olarak çalışan her şe
 
 ## İmzalama Anahtarları
 
-Tüm ISO imzaları ve Arch depo paketi için genel anahtar `40DFB630FF42BCFFB047046CF0134EE680CAC571` anahtarıdır ([openpgp.org adresinde doğrulayın](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch)). `arch/arch-keyring` paketi bunu da içerir ve olası güncelleştirmeleri sorunsuz şekilde dağıtmak için kullanılacaktır.
+Tüm ISO imzaları ve Arch depo paketi için genel anahtar `40DFB630FF42BCFFB047046CF0134EE680CAC571` anahtarıdır ([openpgp.org adresinde doğrulayın](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os)). `arch/arch-keyring` paketi bunu da içerir ve olası güncelleştirmeleri sorunsuz şekilde dağıtmak için kullanılacaktır.
 
-Herhangi bir ISO sürümünün imzasını URL'ye .sig ekleyerek bulabilirsiniz. Örneğin https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig.
+Herhangi bir ISO sürümünün imzasını URL'ye .sig ekleyerek bulabilirsiniz. Örneğin https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig.

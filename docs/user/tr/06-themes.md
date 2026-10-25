@@ -6,7 +6,7 @@ Her tema masaüstünü, terminali, neovim'i, aktivite ekranını (btop), Chromiu
 
 Temaların, `Super + Ctrl + Space` kullanarak aralarından seçim yapabileceğiniz bir dizi arka plan görüntüsü vardır.
 
-Daha fazla temayı [ek temalar sayfasında](https://github.com/kairosci/arch/themes/) bulabilir veya hatta [kendi temanızı yapabilirsiniz](43-making-your-own-theme.md).
+Daha fazla temayı [ek temalar sayfasında](https://github.com/kairosci/os/themes/) bulabilir veya hatta [kendi temanızı yapabilirsiniz](43-making-your-own-theme.md).
 
  ![tokyo-night](../themes/tokyo-night/preview.png)
 _Tokyo Night_
