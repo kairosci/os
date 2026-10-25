@@ -2,19 +2,19 @@
 
 ### Apple M1/M2 -sirut
 
-[Asahi Alarm](https://asahi-alarm.org/) on versio Archista Apple M1/M2 -tietokoneille, rakennettu [Asahi Linuxin](https://asahilinux.org/) päälle. Saat Archn toimimaan sen päällä hieman vaivaa nähden. Katso [käyttäjien tekemää opasta](https://github.com/kairosci/arch).
+[Asahi Alarm](https://asahi-alarm.org/) on versio Archista Apple M1/M2 -tietokoneille, rakennettu [Asahi Linuxin](https://asahilinux.org/) päälle. Saat Archn toimimaan sen päällä hieman vaivaa nähden. Katso [käyttäjien tekemää opasta](https://github.com/kairosci/os).
 
 ### Apple-virtuaalikone
 
-Voit asentaa Archn myös Parallels VM:ään. Melko työläs prosessi, mutta siihenkin on [käyttäjien tekemä opas](https://github.com/kairosci/arch).
+Voit asentaa Archn myös Parallels VM:ään. Melko työläs prosessi, mutta siihenkin on [käyttäjien tekemä opas](https://github.com/kairosci/os).
 
 ### VirtualBox
 
-VirtualBox on suosittu VM-ajuri. [Voit ajaa Archn myös siinä](https://github.com/kairosci/arch). Mutta suorituskyky ei todennäköisesti ole hääppöinen.
+VirtualBox on suosittu VM-ajuri. [Voit ajaa Archn myös siinä](https://github.com/kairosci/os). Mutta suorituskyky ei todennäköisesti ole hääppöinen.
 
 ### VMware Workstation Windows 11:ssä
 
-Toinen suosittu VM-ajuri Windowsille. [Arch on asetettu myös sen sisään](https://github.com/kairosci/arch).
+Toinen suosittu VM-ajuri Windowsille. [Arch on asetettu myös sen sisään](https://github.com/kairosci/os).
 
 ### Steam Deck
 

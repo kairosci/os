@@ -95,10 +95,10 @@ arch plugin validate ./my-plugin
 
 Se ajaa samat tarkistukset, jotka shell tekee latausaikana: skeemaversion, vaaditut kentät, id:n, joka ei ole varattu, aloituspisteet, jotka ovat turvallisia suhteellisia polkuja ja oikeasti olemassa, aloituspisteen jokaiselle lajille, jonka väitit, eikä symbolisia linkkejä missään kansion sisällä.
 
-Lisäosakehitykseen katso [shell-viite](https://github.com/kairosci/arch) ja [ensimmäisen osapuolen lisäosaluettelo](https://github.com/kairosci/arch).
+Lisäosakehitykseen katso [shell-viite](https://github.com/kairosci/os) ja [ensimmäisen osapuolen lisäosaluettelo](https://github.com/kairosci/os).
 
 ## Omasi jakaminen maailmalle
 
 Kun olet tehnyt jotain, mistä pidät, laita se julkiseen git-repoon. Se on koko jakelumekanismi — kuka tahansa voi sitten ajaa `arch plugin add` URL-osoitettasi vasten ja saada sen käyntiin sekunneissa.
 
-Auttaaksesi ihmisiä oikeasti löytämään sen, listaa se osoitteessa [plugins.github.com/kairosci/arch](https://plugins.github.com/kairosci/arch). Se on Arch-shell-lisäosien kauppapaikka, ja se on ensimmäinen paikka, josta kannattaa katsoa, kun pohdit, onko joku jo rakentanut widgetin, jota olet aikeissa kirjoittaa. Selaa sitä ennen kuin aloitat!
+Auttaaksesi ihmisiä oikeasti löytämään sen, listaa se osoitteessa [plugins.github.com/kairosci/os](https://plugins.github.com/kairosci/os). Se on Arch-shell-lisäosien kauppapaikka, ja se on ensimmäinen paikka, josta kannattaa katsoa, kun pohdit, onko joku jo rakentanut widgetin, jota olet aikeissa kirjoittaa. Selaa sitä ennen kuin aloitat!
