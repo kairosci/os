@@ -643,7 +643,7 @@ def main():
     if readme:
         print('  - check the new line in %s' % os.path.relpath(readme))
     print('  - point a menu entry at it: "icon":"%s","iconFont":"Arch"' % chr(cp))
-    print('  - bump the charset range in test/shell.d/menu-test.sh to e900-%x' % cp)
+    print('  - bump the charset range in tests/shell.d/menu-test.sh to e900-%x' % cp)
     print('  - the font is package-owned, so it reaches the desktop through an')
     print('    arch-settings release, not through archctl update')
 

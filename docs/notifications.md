@@ -18,7 +18,7 @@ The shell is the notification daemon: `src/shell/plugins/notifications/Service.q
 | `Delivery.js` | Quiet rules, ephemeral rules, bar clearance |
 | `Settings.js` | Defaults and validation for `notifications` in `shell.json` |
 
-The JS modules also load in Node: `test/shell.d/notifications-test.sh` covers them without a compositor, along with the startup cleanup.
+The JS modules also load in Node: `tests/shell.d/notifications-test.sh` covers them without a compositor, along with the startup cleanup.
 
 ## Decks and the scene clock
 

@@ -1,13 +1,13 @@
 # Acceptance Tests
 
 Read this before writing or running the graphical acceptance suite under
-`test/acceptance.d/`.
+`tests/acceptance.d/`.
 
-The graphical acceptance suite lives in `test/acceptance` with test files under
-`test/acceptance.d/*-test.sh`. It exercises a real installed Arch desktop,
+The graphical acceptance suite lives in `tests/acceptance` with test files under
+`tests/acceptance.d/*-test.sh`. It exercises a real installed Arch desktop,
 including session health, shell surfaces, panels, keyboard navigation,
 representative applications, and system setup. Source
-`test/acceptance.d/base-test.sh` for the shared helpers.
+`tests/acceptance.d/base-test.sh` for the shared helpers.
 
 Run acceptance tests in a disposable VM through the sibling `arch-iso`
 repository, not in the active development session. The suite opens and closes

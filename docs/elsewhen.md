@@ -1,6 +1,6 @@
 # Elsewhen
 
-A world clock for the Arch shell: a globe in the bar that opens a panel of clocks, one row per city, with a spinnable globe behind it. It lives in `src/shell/plugins/panels/elsewhen/` under the plugin id `arch.elsewhen`, and file names below are relative to that directory. Its checks live in `test/shell.d/elsewhen/` and run as part of `./test/shell` through `test/shell.d/elsewhen-test.sh`.
+A world clock for the Arch shell: a globe in the bar that opens a panel of clocks, one row per city, with a spinnable globe behind it. It lives in `src/shell/plugins/panels/elsewhen/` under the plugin id `arch.elsewhen`, and file names below are relative to that directory. Its checks live in `tests/shell.d/elsewhen/` and run as part of `./tests/shell` through `tests/shell.d/elsewhen-test.sh`.
 
 Everything it needs is already on an Arch install: `date` and `timedatectl` for zone offsets, `curl` for weather and places, and `jq` for reading GitHub profiles. The network is touched for three things only: [Open-Meteo](https://open-meteo.com) geocoding and forecasts, without an API key, and the public GitHub profile of anyone added to a city by handle. The globe's coastlines are [Natural Earth](https://www.naturalearthdata.com) 110m (public domain), shipped as `world.json`. Settings live inline on the widget's `shell.json` entry; see [Settings](#settings).
 
@@ -36,7 +36,7 @@ Candidates are taken in order of how well known they are, and one is kept only i
 
 It costs one process: the same `date` probe that reads the local zone also prices the candidate cities on that first run, and never again. The local zone is emitted twice in that probe - once as the `LOCAL` marker and once as an ordinary row - so home's own offset is available like any other city's, which the picker needs and cannot ask for in advance.
 
-Everything is written to `shell.json` as a normal list, so the first thing anyone can do is delete or reorder it. `test/shell.d/elsewhen-model-test.sh` runs the whole thing from fifteen different home cities, including UTC, Kathmandu's forty-five-minute offset, and the Pacific.
+Everything is written to `shell.json` as a normal list, so the first thing anyone can do is delete or reorder it. `tests/shell.d/elsewhen-model-test.sh` runs the whole thing from fifteen different home cities, including UTC, Kathmandu's forty-five-minute offset, and the Pacific.
 
 ## Adding and removing cities
 
@@ -110,7 +110,7 @@ The marker turns gold while it is inside the lit band and stays white outside it
 
 `Sun.js` computes the day, built on the globe's own `subsolarPoint` rather than a second copy of the astronomy. Declination comes straight off that function and the equation of time is recovered from it - `subsolarPoint` builds its meridian as `lon = -15 * (utcHours - 12) - eot`, so running that relation backwards hands the correction back with nothing new to keep in step. Local solar noon is found by iterating: the subsolar meridian sweeps west at a steady 15 degrees an hour, so the gap between where the sun is and where you want it converts straight into a time correction, and three passes put the residual under a second.
 
-`test/shell.d/elsewhen-sun-test.sh` checks it against Open-Meteo's published sunrise and sunset for thirteen cities - both hemispheres, both solstices, the equator, and Kashgar, which runs on Beijing time and sees the sun rise at 08:23 by the clock. The reference rows are held in the test verbatim so it stays offline.
+`tests/shell.d/elsewhen-sun-test.sh` checks it against Open-Meteo's published sunrise and sunset for thirteen cities - both hemispheres, both solstices, the equator, and Kashgar, which runs on Beijing time and sees the sun rise at 08:23 by the clock. The reference rows are held in the test verbatim so it stays offline.
 
 It is inside a minute at mid-latitudes, and about four minutes at Nuuk and Anadyr, both a little past 64 degrees north. That is the shared low-precision solar position doing what it says: it is good to a fraction of a degree, and near the poles the sun crosses the horizon at such a shallow angle that a fraction of a degree is minutes of time. The two high-latitude cities are in the test with the tolerance they actually need rather than left out.
 
@@ -142,7 +142,7 @@ Clicking anywhere else on the row puts the chip away. A tooltip that can only be
 
 A click on an arrow stops at the arrow: the scrub bar and the row's reorder grab underneath record no press at all, so the scrub bar needs no guard against the arrows drawn on top of it. That is measured rather than reasoned - see [Testing what the pointer does](#testing-what-the-pointer-does).
 
-A press on the row body does still reach the grab, which dismisses, so the two decisions can meet on one click. Neither rule reads the live value; both are answered from what was showing when the press began, which is the same number whichever runs first. The two rules are `Model.chipAfterTap` and `Model.chipAfterRelease`, and `test/shell.d/elsewhen-model-test.sh` plays a click through both delivery orders across every case: opening, closing, swapping one chip for another, and a release that must not undo a chip opened during the same press.
+A press on the row body does still reach the grab, which dismisses, so the two decisions can meet on one click. Neither rule reads the live value; both are answered from what was showing when the press began, which is the same number whichever runs first. The two rules are `Model.chipAfterTap` and `Model.chipAfterRelease`, and `tests/shell.d/elsewhen-model-test.sh` plays a click through both delivery orders across every case: opening, closing, swapping one chip for another, and a release that must not undo a chip opened during the same press.
 
 ## Weather
 
@@ -152,7 +152,7 @@ Open-Meteo reports WMO present-weather codes - nearly a hundred of them, separat
 
 The sun is `white-balance-sunny`, not `weather-sunny`. The obvious one is a hollow ring inside a six-point burst, which at eleven pixels reads as a snowflake - sitting directly beside an actual snowflake. The one in use is a solid disc with short rays, which cannot be mistaken for anything else in the set.
 
-`Number(null)` is `0`, and `0` is the WMO code for *clear sky* - so a missing reading would quietly render a sun. Absent values are rejected before the conversion; `test/shell.d/elsewhen-model-test.sh` covers it.
+`Number(null)` is `0`, and `0` is the WMO code for *clear sky* - so a missing reading would quietly render a sun. Absent values are rejected before the conversion; `tests/shell.d/elsewhen-model-test.sh` covers it.
 
 The panel fetches it with `curl`, in two steps: one geocoding request per city it has no coordinates for yet, then one batched forecast for every city. Both results live in memory as `facts`, keyed `label|zone`. Geocodes last the session (a city does not move) and weather twenty minutes (the resolution the source offers), so opening the panel again soon does no network at all. Nothing here is fatal - a failed fetch keeps the previous value, and failing that the row simply renders without it.
 
@@ -180,7 +180,7 @@ The panel's own monospace family carries none of these scripts. Fontconfig subst
 
 The overrides earn their place by being few. Honolulu is Hawaiian though the United States is English, Montreal is French though Canada is not, and that is nearly the whole list - the country is the right answer almost everywhere.
 
-`test/shell.d/elsewhen-greetings-test.sh` checks everything around the words - that every zone the picker can offer maps to a language, that no hour of any day falls into a gap, that adjacent bands actually differ, and that every non-Latin greeting carries a pronunciation while no Latin one does. The words themselves are the one thing here with no independent reference on this machine, and they want a speaker's eye rather than a test.
+`tests/shell.d/elsewhen-greetings-test.sh` checks everything around the words - that every zone the picker can offer maps to a language, that no hour of any day falls into a gap, that adjacent bands actually differ, and that every non-Latin greeting carries a pronunciation while no Latin one does. The words themselves are the one thing here with no independent reference on this machine, and they want a speaker's eye rather than a test.
 
 ### The legacy aliases
 
@@ -200,7 +200,7 @@ The drag maps *absolutely*: the pointer's position across the strip is a local t
 
 The rows are modelled on the zone list rather than on the computed clock rows. The clock rows are a binding on the scrubbable, ticking time, so using them as the model would rebuild every delegate on every tick and destroy the `MouseArea` mid-gesture, turning every drag into a single click.
 
-`test/shell.d/elsewhen-model-test.sh` covers the scrub arithmetic, including scrub direction and the short way round midnight.
+`tests/shell.d/elsewhen-model-test.sh` covers the scrub arithmetic, including scrub direction and the short way round midnight.
 
 ## Globe mode
 
@@ -236,7 +236,7 @@ On each row's daylight strip the marker is **gold by day and the moon by night**
 
 It is one element carrying two facts rather than a new thing on the row, which is the only reason it earns its place. The phase follows the scrubber too, so dragging time walks the moon through its month.
 
-`GlobeModel.moonPhase` is the mean synodic month against a known new moon - enough to draw a phase, not enough to predict an eclipse. It drifts from the true lunation by up to about half a day, which is under 6% of illumination and sub-pixel on a marker this size. `test/shell.d/elsewhen-globe-test.sh` pins it against five eclipses, which are the one thing that fixes a lunation to a wall clock: a solar eclipse can only happen at new moon and a lunar eclipse only at full. The drawn shape is checked by rasterising it and counting lit pixels against the illumination formula.
+`GlobeModel.moonPhase` is the mean synodic month against a known new moon - enough to draw a phase, not enough to predict an eclipse. It drifts from the true lunation by up to about half a day, which is under 6% of illumination and sub-pixel on a marker this size. `tests/shell.d/elsewhen-globe-test.sh` pins it against five eclipses, which are the one thing that fixes a lunation to a wall clock: a solar eclipse can only happen at new moon and a lunar eclipse only at full. The drawn shape is checked by rasterising it and counting lit pixels against the illumination formula.
 
 City dots on the globe use the same rule as the list: gold in daylight, pale at night.
 
@@ -262,7 +262,7 @@ Measured over the open transition, with `smoothMotion` off and on: average paint
 
 Nothing here touches the network at runtime. The coastlines are Natural Earth 110m, simplified with Douglas-Peucker to 68 rings and 1337 points (14 KB), and the cities were geocoded once at build time - both are plain data files in the plugin. Zone offsets come from the same `date` probe the list uses.
 
-`test/shell.d/elsewhen-globe-test.sh` covers the projection and solar maths, including a check of the terminator against Open-Meteo's `is_day` for every city.
+`tests/shell.d/elsewhen-globe-test.sh` covers the projection and solar maths, including a check of the terminator against Open-Meteo's `is_day` for every city.
 
 ### One selection, two views
 
@@ -276,7 +276,7 @@ A globe city the list does not track is the ordinary case - the globe draws ever
 
 The list's own focus is held the same way. `focusKey` is the city's `label|zone` and the row number is derived from it, because `zones` is a binding too - replaced wholesale on a reorder or a removal - so a stored index would silently come to mean a different city. Deriving the index means a reorder carries the focus with the city and removing the focused city drops it back to home.
 
-The crossing is made on `label|zone`, not on an index. The two views index different things - a row is an index into the settings list, the globe's selection is an index into its own catalogue of everything it draws - and that catalogue is a binding, rebuilt whenever the home row, a tracked city's coordinates or a session city lands. A key survives the rebuild. `test/shell.d/elsewhen-model-test.sh` covers the crossing, including the untracked city and the case where both fields have to agree.
+The crossing is made on `label|zone`, not on an index. The two views index different things - a row is an index into the settings list, the globe's selection is an index into its own catalogue of everything it draws - and that catalogue is a binding, rebuilt whenever the home row, a tracked city's coordinates or a session city lands. A key survives the rebuild. `tests/shell.d/elsewhen-model-test.sh` covers the crossing, including the untracked city and the case where both fields have to agree.
 
 ### Jumping to a city
 
@@ -316,7 +316,7 @@ Both globes fill their continents from the same clipping code in `GlobeModel.js`
 
 Filling means labels and city dots cross light land as often as dark ocean, so labels are outlined and every dot carries a dark edge.
 
-Clipping a coastline to the visible hemisphere has to produce **one** polygon per ring. Keeping each visible run and closing it makes self-intersecting shapes whose area jumps whenever a run splits, and that is visible: continents morph and pulse at the limb, worst as the spin slows. Sutherland-Hodgman against the hemisphere keeps the ring whole, and walking the limb between an exit and the next entry (rather than cutting straight across) makes the silhouette continuous. Measured over a full rotation, the worst area change per quarter-degree of spin goes from 356 px^2 (split runs) to 278 (whole ring, chords) to **3.5** (whole ring, limb arcs) on a 2463 px^2 disc. `test/shell.d/elsewhen-globe-test.sh` holds it there.
+Clipping a coastline to the visible hemisphere has to produce **one** polygon per ring. Keeping each visible run and closing it makes self-intersecting shapes whose area jumps whenever a run splits, and that is visible: continents morph and pulse at the limb, worst as the spin slows. Sutherland-Hodgman against the hemisphere keeps the ring whole, and walking the limb between an exit and the next entry (rather than cutting straight across) makes the silhouette continuous. Measured over a full rotation, the worst area change per quarter-degree of spin goes from 356 px^2 (split runs) to 278 (whole ring, chords) to **3.5** (whole ring, limb arcs) on a 2463 px^2 disc. `tests/shell.d/elsewhen-globe-test.sh` holds it there.
 
 The globe leans by `GlobeModel.AXIAL_TILT` - 23.44 degrees, the real obliquity, and the same constant the subsolar calculation uses.
 
@@ -388,23 +388,23 @@ One setting for all rows, not one per row, for the same reason the offsets move 
 
 The starting notation follows the machine. With `hour24` unset, the locale's own short time format decides: `Qt.locale().timeFormat` gives `h:mm Ap` for `en_US` and `en_AU`, `HH:mm` for `en_GB`, `de_DE`, `fr_FR` and `zh_CN`, `H:mm` for `ja_JP` and `H.mm` for `fi_FI`. The test is the AM/PM designator rather than the case of the hour letter - `h` means 1-12 and `H` means 0-23, which is the same answer, but a locale may spell a 24-hour clock with either while a designator only ever belongs to a 12-hour one. Quoted literal text is stripped first, because some locales write the separator as `H'h'mm`.
 
-Those patterns were read off the running shell, and the ones that matter are in `test/shell.d/elsewhen-model-test.sh` verbatim - including the detail that Qt spells the designator `Ap` and puts U+202F in front of it, not a space.
+Those patterns were read off the running shell, and the ones that matter are in `tests/shell.d/elsewhen-model-test.sh` verbatim - including the detail that Qt spells the designator `Ap` and puts U+202F in front of it, not a space.
 
 The starting unit follows the machine too. With `units` unset, `Qt.locale().measurementSystem` decides: the US system means Fahrenheit and everything else means Celsius. `en_US` reports `ImperialUSSystem`, `en_GB` reports `ImperialUKSystem` and `de_DE` and `ja_JP` report `MetricSystem`, so the rule gives Britain Celsius, which is what Britain uses for weather whatever else it measures in miles.
 
-The rule is Qt's CLDR data and it is not a survey of thermometers: Liberia, which does use Fahrenheit day to day, reports as metric. That is what the click is for. An explicit `C` or `F` always wins over the automatic answer, so one click is the whole escape hatch, and `""` puts it back on the system's units. `Model.resolveUnits` holds those rules and `test/shell.d/elsewhen-model-test.sh` covers them, including the junk values a hand-edited `shell.json` can produce.
+The rule is Qt's CLDR data and it is not a survey of thermometers: Liberia, which does use Fahrenheit day to day, reports as metric. That is what the click is for. An explicit `C` or `F` always wins over the automatic answer, so one click is the whole escape hatch, and `""` puts it back on the system's units. `Model.resolveUnits` holds those rules and `tests/shell.d/elsewhen-model-test.sh` covers them, including the junk values a hand-edited `shell.json` can produce.
 
 ## Testing what the pointer does
 
 No pointer can be injected into the running shell, but `qmltestrunner` synthesises real mouse events into an offscreen window, and the structures worth checking are small enough to rebuild in a test:
 
 ```bash
-QT_QPA_PLATFORM=offscreen /usr/lib/qt6/bin/qmltestrunner -input test/shell.d/elsewhen/qml
+QT_QPA_PLATFORM=offscreen /usr/lib/qt6/bin/qmltestrunner -input tests/shell.d/elsewhen/qml
 ```
 
 Use that full path. `/usr/bin/qmltestrunner` is the Qt5 binary; it exits 0 having run nothing and printed nothing, which looks exactly like success.
 
-`test/shell.d/elsewhen/qml/tst_arrows.qml` settles whether a click on an item in front also reaches a `MouseArea` behind it. It does not.
+`tests/shell.d/elsewhen/qml/tst_arrows.qml` settles whether a click on an item in front also reaches a `MouseArea` behind it. It does not.
 
 ## Keys
 

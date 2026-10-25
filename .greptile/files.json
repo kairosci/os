@@ -16,7 +16,7 @@
       "description": "How bin/arch resolves routes and what archctl commands --check enforces",
       "scope": [
         "bin/**",
-        "test/cli"
+        "tests/cli"
       ]
     },
     {
@@ -160,15 +160,15 @@
       "path": "docs/testing.md",
       "description": "Suite map, base-test.sh contract, compositor gating and performance guards",
       "scope": [
-        "test/**"
+        "tests/**"
       ]
     },
     {
       "path": "agents/skills/acceptance-tests.md",
       "description": "Graphical acceptance suite run in a disposable VM",
       "scope": [
-        "test/acceptance",
-        "test/acceptance.d/**"
+        "tests/acceptance",
+        "tests/acceptance.d/**"
       ]
     },
     {
