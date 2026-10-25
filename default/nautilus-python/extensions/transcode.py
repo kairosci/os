@@ -1,5 +1,8 @@
 import shlex
 import shutil
+import json
+import os
+from pathlib import Path
 
 from gi import require_version
 
@@ -8,11 +11,20 @@ require_version("Nautilus", "4.1")
 from gi.repository import GObject, Gio, Nautilus
 
 
-SUPPORTED_MIME_PREFIXES = ("image/", "video/")
-SUPPORTED_EXTENSIONS = {
-    ".jpg", ".jpeg", ".png", ".webp", ".gif", ".heic", ".avif",
-    ".mp4", ".mov", ".m4v", ".mkv", ".webm", ".avi",
-}
+def load_supported_types():
+    roots = []
+    if os.environ.get("ARCH_PATH"):
+        roots.append(Path(os.environ["ARCH_PATH"]))
+    roots.extend(Path(__file__).resolve().parents)
+    for root in roots:
+        path = root / "data/python/transcode-supported-types.json"
+        if path.is_file():
+            data = json.loads(path.read_text(encoding="utf-8"))
+            return tuple(data["mime_prefixes"]), frozenset(data["extensions"])
+    raise FileNotFoundError("could not locate data/python/transcode-supported-types.json")
+
+
+SUPPORTED_MIME_PREFIXES, SUPPORTED_EXTENSIONS = load_supported_types()
 
 
 class TranscodeAction(GObject.GObject, Nautilus.MenuProvider):

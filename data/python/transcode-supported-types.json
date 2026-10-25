@@ -1,0 +1,7 @@
+{
+  "mime_prefixes": ["image/", "video/"],
+  "extensions": [
+    ".jpg", ".jpeg", ".png", ".webp", ".gif", ".heic", ".avif",
+    ".mp4", ".mov", ".m4v", ".mkv", ".webm", ".avi"
+  ]
+}

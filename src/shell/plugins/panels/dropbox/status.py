@@ -7,13 +7,20 @@ import heapq
 from pathlib import Path
 
 
-PLAN_QUOTAS = {
-  "basic": 2_000_000_000,
-  "plus": 2_000_000_000_000,
-  "pro": 3_000_000_000_000,
-  "professional": 3_000_000_000_000,
-  "essentials": 3_000_000_000_000,
-}
+def load_plan_quotas():
+  roots = []
+  if os.environ.get("ARCH_PATH"):
+    roots.append(Path(os.environ["ARCH_PATH"]))
+  roots.extend(Path(__file__).resolve().parents)
+  for root in roots:
+    path = root / "data/python/dropbox-plan-quotas.json"
+    if path.is_file():
+      with path.open("r", encoding="utf-8") as handle:
+        return json.load(handle)
+  raise FileNotFoundError("could not locate data/python/dropbox-plan-quotas.json")
+
+
+PLAN_QUOTAS = load_plan_quotas()
 
 
 def read_info():
