@@ -1,0 +1,9 @@
+id = "system.installation.boot"
+domain = "system"
+package = "arch"
+sources = ["installer/boot"]
+requires = ["system.installation"]
+
+[[output]]
+source = "installer/boot"
+target = "usr/share/arch/installer/boot"

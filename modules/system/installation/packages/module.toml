@@ -1,0 +1,46 @@
+id = "system.installation.packages"
+domain = "system"
+package = "arch"
+sources = [
+  "installer/arch-aarch64.packages",
+  "installer/arch-aarch64-apple.packages",
+  "installer/arch-aarch64-gb10.packages",
+  "installer/arch-aarch64-n1x.packages",
+  "installer/arch-aarch64-qualcomm.packages",
+  "installer/arch-base.packages",
+  "installer/arch-other.packages",
+  "installer/arch-x86_64-only.packages",
+]
+requires = ["system.installation"]
+
+[[output]]
+source = "installer/arch-aarch64.packages"
+target = "usr/share/arch/installer/arch-aarch64.packages"
+
+[[output]]
+source = "installer/arch-aarch64-apple.packages"
+target = "usr/share/arch/installer/arch-aarch64-apple.packages"
+
+[[output]]
+source = "installer/arch-aarch64-gb10.packages"
+target = "usr/share/arch/installer/arch-aarch64-gb10.packages"
+
+[[output]]
+source = "installer/arch-aarch64-n1x.packages"
+target = "usr/share/arch/installer/arch-aarch64-n1x.packages"
+
+[[output]]
+source = "installer/arch-aarch64-qualcomm.packages"
+target = "usr/share/arch/installer/arch-aarch64-qualcomm.packages"
+
+[[output]]
+source = "installer/arch-base.packages"
+target = "usr/share/arch/installer/arch-base.packages"
+
+[[output]]
+source = "installer/arch-other.packages"
+target = "usr/share/arch/installer/arch-other.packages"
+
+[[output]]
+source = "installer/arch-x86_64-only.packages"
+target = "usr/share/arch/installer/arch-x86_64-only.packages"

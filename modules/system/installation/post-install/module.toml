@@ -1,0 +1,9 @@
+id = "system.installation.post-install"
+domain = "system"
+package = "arch"
+sources = ["installer/post-install"]
+requires = ["system.installation"]
+
+[[output]]
+source = "installer/post-install"
+target = "usr/share/arch/installer/post-install"

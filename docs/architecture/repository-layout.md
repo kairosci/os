@@ -49,7 +49,7 @@ The directory groups have distinct owners: `src` contains executable source, `mo
 
 ## Module contract
 
-Each module in the target layout has one `module.toml` declaring its stable ID, owning domain, dependencies, source roots, installed destinations, package owner, and verification commands. Dependencies form an acyclic directed graph. The module assembler validates that graph and rejects two modules that claim the same installed destination. It emits the package tree used by PKGBUILDs; runtime paths remain package-owned and are not derived from the checkout. A manifest is added with its real component, source, and verification in the same change.
+Each module in the target layout has one `module.toml` declaring its stable ID, owning domain, dependencies, source roots, installed destinations, and package owner. Dependencies form an acyclic directed graph. The module assembler validates that graph and rejects two modules that claim the same installed destination. It emits the package tree used by PKGBUILDs; runtime paths remain package-owned and are not derived from the checkout. A module manifest and focused verification are added with the component in the same change.
 
 Nested capabilities live below their domain, and independently installable components live one level below the capability. A shell plugin is a module; its manifest, QML, and focused tests stay together. Hardware-specific behavior is a platform module selected by architecture and detected hardware. Shared user configuration is owned by the config module and installed into the user's home by the setup commands.
 
@@ -57,9 +57,9 @@ Git submodules are reserved for separately released components with their own ma
 
 ## Migration map
 
-| Current source | Target owner |
+| Legacy source | Current or target owner |
 | --- | --- |
-| `bin/` | `src/cli/<capability>/<command>/` |
+| `bin/` | `src/cli/`, grouped under `src/cli/<capability>/` |
 | `src/shell/plugins/<plugin>/` | `src/shell/plugins/<plugin>/` |
 | `src/shell/Commons/`, `Ui/`, `services/`, `shell.qml` | `src/shell/` shared runtime |
 | `default/` | `config/system/` and the owning `modules/` component |
@@ -76,6 +76,6 @@ The installed tree is assembled from these source owners. Renames update the ass
 
 ## Pull request units
 
-The migration is reviewed in dependency order. A pull request owns one module boundary or one cross-module contract, updates its consumers, and includes the verification for that boundary. The initial units are the module graph and assembler, CLI groups, shared shell runtime, each first-party shell plugin, system configuration groups, platform modules, installation stages, migrations, package builds, and user documentation. The 16 shell plugins and 222 existing migrations provide independently reviewable units; command and platform groups are split along their actual ownership boundaries. This is an incremental migration, with each pull request leaving the installable package tree complete.
+The migration is reviewed in dependency order. A pull request owns one module boundary or one cross-module contract, updates its consumers, and includes the verification for that boundary. The module catalog currently has 31 modules: 16 shell plugins and eight installation submodules are independently declared, alongside the shared runtime and system modules. The 222 existing migrations and the CLI command groups provide further reviewable units. The initial units are the module graph and assembler, CLI groups, shared shell runtime, each first-party shell plugin, system configuration groups, platform modules, installation stages, migrations, package builds, and user documentation. This is an incremental migration, with each pull request leaving the installable package tree complete.
 
 The rebuilt repository starts with a protected `main`. Work lands through short-lived branches and pull requests. Direct pushes to `main` are disabled; required checks cover the changed module and its declared dependents.

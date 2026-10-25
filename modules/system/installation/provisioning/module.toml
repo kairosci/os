@@ -1,0 +1,9 @@
+id = "system.installation.provisioning"
+domain = "system"
+package = "arch"
+sources = ["installer/provisioning"]
+requires = ["system.installation"]
+
+[[output]]
+source = "installer/provisioning"
+target = "usr/share/arch/installer/provisioning"

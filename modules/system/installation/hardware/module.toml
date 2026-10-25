@@ -1,0 +1,9 @@
+id = "system.installation.hardware"
+domain = "system"
+package = "arch"
+sources = ["installer/hardware"]
+requires = ["system.installation"]
+
+[[output]]
+source = "installer/hardware"
+target = "usr/share/arch/installer/hardware"

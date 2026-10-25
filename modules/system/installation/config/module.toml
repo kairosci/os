@@ -1,0 +1,9 @@
+id = "system.installation.config"
+domain = "system"
+package = "arch"
+sources = ["installer/config"]
+requires = ["system.installation"]
+
+[[output]]
+source = "installer/config"
+target = "usr/share/arch/installer/config"
