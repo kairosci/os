@@ -2,19 +2,19 @@
 
 ### Mga chip na Apple M1/M2
 
-Ang [Asahi Alarm](https://asahi-alarm.org/) ay isang bersyon ng Arch para sa mga computer na Apple M1/M2 na binuo sa ibabaw ng [Asahi Linux](https://asahilinux.org/). Maaari mong paganahin ang Arch sa ibabaw niyon nang may kaunting pagsisikap. Tingnan ang [gabay na ginawa ng mga user](https://github.com/kairosci/arch).
+Ang [Asahi Alarm](https://asahi-alarm.org/) ay isang bersyon ng Arch para sa mga computer na Apple M1/M2 na binuo sa ibabaw ng [Asahi Linux](https://asahilinux.org/). Maaari mong paganahin ang Arch sa ibabaw niyon nang may kaunting pagsisikap. Tingnan ang [gabay na ginawa ng mga user](https://github.com/kairosci/os).
 
 ### Apple Virtual Machine
 
-Maaari mo ring i-install ang Arch sa loob ng isang Parallels VM. Medyo mahirap na proseso iyon, pero may [gabay na ginawa ng mga user](https://github.com/kairosci/arch) para diyan din.
+Maaari mo ring i-install ang Arch sa loob ng isang Parallels VM. Medyo mahirap na proseso iyon, pero may [gabay na ginawa ng mga user](https://github.com/kairosci/os) para diyan din.
 
 ### VirtualBox
 
-Ang VirtualBox ay isang sikat na runner ng VM. [Maaari mo ring patakbuhin ang Arch sa loob niyon](https://github.com/kairosci/arch). Pero marahil ay hindi magiging maganda ang performance.
+Ang VirtualBox ay isang sikat na runner ng VM. [Maaari mo ring patakbuhin ang Arch sa loob niyon](https://github.com/kairosci/os). Pero marahil ay hindi magiging maganda ang performance.
 
 ### VMware Workstation sa Windows 11
 
-Isa pang sikat na runner ng VM para sa Windows. [Na-setup na rin ang Arch sa loob niyon](https://github.com/kairosci/arch).
+Isa pang sikat na runner ng VM para sa Windows. [Na-setup na rin ang Arch sa loob niyon](https://github.com/kairosci/os).
 
 ### Steam Deck
 

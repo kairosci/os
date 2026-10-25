@@ -6,7 +6,7 @@ Bawat tema ay nag-i-istilo sa desktop, terminal, neovim, activity screen (btop),
 
 Ang mga tema ay may set ng mga background image na maaari mong pagpilian gamit ang `Super + Ctrl + Space`.
 
-Makakahanap ka ng higit pang mga tema sa [pahina ng mga dagdag na tema](https://github.com/kairosci/arch/themes/) o kahit [gumawa ng sarili mong tema](43-making-your-own-theme.md).
+Makakahanap ka ng higit pang mga tema sa [pahina ng mga dagdag na tema](https://github.com/kairosci/os/themes/) o kahit [gumawa ng sarili mong tema](43-making-your-own-theme.md).
 
  ![tokyo-night](../themes/tokyo-night/preview.png)
 _Tokyo Night_

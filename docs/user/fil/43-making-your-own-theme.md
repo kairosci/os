@@ -42,4 +42,4 @@ Ang natitirang `[themename]` na iyon ay nagiging pangalan ng direktoryo ng tema,
 
 Tandaan na kapag na-install na ito mula sa isang repo, ang anumang `.lua`, config ng terminal o `vscode.json` na kasama nito ay aalisin, kaya huwag mong buuin ang tema sa paligid ng mga iyon.
 
-Maaari mong ipadagdag ang tema mo sa [pahina ng mga dagdag na tema](https://github.com/kairosci/arch/themes/) sa pamamagitan ng pagpapadala ng pull request sa [repo ng arch-site](https://github.com/kairosci/arch).
+Maaari mong ipadagdag ang tema mo sa [pahina ng mga dagdag na tema](https://github.com/kairosci/os/themes/) sa pamamagitan ng pagpapadala ng pull request sa [repo ng arch-site](https://github.com/kairosci/os).

@@ -30,6 +30,6 @@ Maging malinaw ang mata mo tungkol dito: habang naka-on ito, anumang tumatakbo b
 
 ## Mga Signing Key
 
-Ang pampublikong key para sa lahat ng lagda ng ISO at pakete ng repo ng Arch ay `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([i-verify sa openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch)). Ang pakete na `arch/arch-keyring` ay naglalaman din nito at gagamitin para ilabas ang anumang potensyal na update nang walang aberya.
+Ang pampublikong key para sa lahat ng lagda ng ISO at pakete ng repo ng Arch ay `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([i-verify sa openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os)). Ang pakete na `arch/arch-keyring` ay naglalaman din nito at gagamitin para ilabas ang anumang potensyal na update nang walang aberya.
 
-Makakahanap ka ng lagda para sa anumang release ng ISO sa pamamagitan ng pagdaragdag ng .sig sa URL. Tulad ng https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig.
+Makakahanap ka ng lagda para sa anumang release ng ISO sa pamamagitan ng pagdaragdag ng .sig sa URL. Tulad ng https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig.
