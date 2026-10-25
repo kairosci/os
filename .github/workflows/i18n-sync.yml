@@ -168,7 +168,7 @@ jobs:
             git apply --index "$RUNNER_TEMP/extraction/extract.patch"
           fi
           python3 scripts/i18n-sync.py extract-scan --check
-          I18N_STRUCTURAL=1 bash test/shell.d/i18n-test.sh
+          I18N_STRUCTURAL=1 bash tests/shell.d/i18n-test.sh
           for f in $(git diff --cached --name-only -- bin/); do bash -n "$f"; done
 
   # Publishes the vetted extraction to the i18n-sync branch. This job holds the
@@ -344,7 +344,7 @@ jobs:
           expected=$(python3 -c "import json,sys; print(','.join(json.loads(sys.argv[1])))" "$EXPECTED_LOCALES")
           python3 scripts/i18n-sync.py collect "$RUNNER_TEMP/translations" --expected "$expected"
       - name: Validate combined translations
-        run: I18N_STRUCTURAL=1 bash test/shell.d/i18n-test.sh
+        run: I18N_STRUCTURAL=1 bash tests/shell.d/i18n-test.sh
       - name: Package the collected translations
         run: |
           mkdir -p "$RUNNER_TEMP/collected"

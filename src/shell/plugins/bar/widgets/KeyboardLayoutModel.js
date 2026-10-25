@@ -1,5 +1,5 @@
 // Label math for the keyboard layout widget, kept Qt-free so it can be unit
-// tested under node (test/shell.d/keyboard-layout-test.sh).
+// tested under node (tests/shell.d/keyboard-layout-test.sh).
 
 // xkbcli list prints YAML, and every layout and variant block pairs a brief with
 // the description hyprctl reports as the active keymap:

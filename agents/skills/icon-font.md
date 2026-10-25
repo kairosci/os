@@ -49,7 +49,7 @@ Pick a source whose silhouette alone reads.
 The command prints these, and all of them matter:
 
 - Point the menu entry at the new codepoint with `"iconFont":"Arch"`.
-- Bump the charset range asserted in `test/shell.d/menu-test.sh`; that test
+- Bump the charset range asserted in `tests/shell.d/menu-test.sh`; that test
   pins the font's coverage and fails until it matches.
 - Check the README line the command added, and give it a proper display name
   with `--label` if the glyph name is not the brand's name.

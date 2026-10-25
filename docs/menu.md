@@ -9,7 +9,7 @@ never shells out to parse anything, and edits to either file take effect
 without restarting the shell. Rendering and behavior live in
 `src/shell/plugins/menu/Menu.qml`; the pure logic lives in
 `src/shell/plugins/menu/MenuModel.js`, which is plain JavaScript that Node can
-also load — the shell tests in `test/shell.d/menu-test.sh` and
+also load — the shell tests in `tests/shell.d/menu-test.sh` and
 `menu-guards-test.sh` exercise it directly.
 
 JSONC here means JSON plus comments and trailing commas, stripped by the

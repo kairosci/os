@@ -8,11 +8,11 @@ VM; see [`agents/skills/acceptance-tests.md`](../agents/skills/acceptance-tests.
 
 ## Suite map
 
-`./test/all` runs both suites below and keeps going when one fails, so a single
+`./tests/all` runs both suites below and keeps going when one fails, so a single
 failure cannot hide the other suite behind it. It reports the failed suites at
 the end and exits non-zero.
 
-- **`./test/cli`** — one big script, one suite. It owns the CLI router: help
+- **`./tests/cli`** — one big script, one suite. It owns the CLI router: help
   and group rendering, route resolution, aliases, hidden commands, and the
   guarantee that a trailing `--help` never executes the target. It also owns
   the metadata lint — every `arch-*` executable under `bin/` is checked for a
@@ -21,16 +21,16 @@ the end and exits non-zero.
   `arch-theme-color`, `arch-theme-osc`), the theme sync commands
   (tmux, GNOME, VS Code, Pi, Claude) run against stub binaries and a fake
   `$HOME`.
-- **`./test/shell`** — runs every `test/shell.d/*-test.sh` (except
+- **`./tests/shell`** — runs every `tests/shell.d/*-test.sh` (except
   `base-test.sh` itself). Each file is an independent suite covering one area:
   a shell plugin, a `bin/` command, a config invariant, or a still-live migration. This is where new tests go.
 - **Acceptance** — everything that needs a real desktop doing real things.
-  Deliberately excluded from `./test/all`; it runs in a VM, not the
+  Deliberately excluded from `./tests/all`; it runs in a VM, not the
   development session.
 
 A new shell test only needs the right name: drop `<area>-test.sh` into
-`test/shell.d/` and `./test/shell` picks it up automatically. Shared fixtures
-live under `test/shell.d/fixtures/`.
+`tests/shell.d/` and `./tests/shell` picks it up automatically. Shared fixtures
+live under `tests/shell.d/fixtures/`.
 
 ## The base-test.sh contract
 
@@ -60,7 +60,7 @@ Assertions are TAP-flavored and blunt:
   already invalidated.
 - `require_command <cmd>` fails the file when a needed tool is absent.
 
-The runner compensates for that early exit: `./test/shell` continues past a failing file and summarizes the failures at the end. Aborting the whole run at the first bad file once let a single packaging failure mask 114 of 134 files. Failure granularity is therefore per file inside a run, per assertion inside a file.
+The runner compensates for that early exit: `./tests/shell` continues past a failing file and summarizes the failures at the end. Aborting the whole run at the first bad file once let a single packaging failure mask 114 of 134 files. Failure granularity is therefore per file inside a run, per assertion inside a file.
 
 Each file's output is kept in a fresh directory under `$TMPDIR` (`arch-test-shell.*`), whose path the runner prints at the end, next to each failed file. Read a failure from its log there; running the suite again only to see output is never needed.
 
@@ -94,10 +94,10 @@ that runs unconditionally before or beside it.
 
 A handful of tests fail when a fast path gets slow again. Each prefers a count that is the same on every machine over a wall-clock time. Where it has to time something it takes the fastest of several runs, and either compares two paths timed in the same run or scales its budget with `process_speed_percent` from `base-test.sh`: how long 100 fork/execs take here against the 25ms they take on the laptop the budgets were set on. A machine more than 8x slower skips the timing (`require_comparable_speed`) rather than guess.
 
-- `test/shell.d/shell-idle-spawn-test.sh` starts a second shell on the default config, waits for its startup work to go quiet, then fails if it starts any process over 30 idle seconds, naming each command line. A preloaded shim (`fixtures/idle-src/shell/exec-log.c`, built with `cc` at test time) logs every exec, fork and spawn the shell and its descendants make, so a probe that lives for a millisecond is caught, and nothing outside the shell's process tree can be. A command that legitimately runs while idle is allowed with `allow` in that file, only while its reason holds and at most as often as the reason implies. The test watches Hyprland, UPower and NetworkManager events meanwhile; a spawn that coincides with one is given a second window before it fails, and the events are printed with it. The test shell gets stubs for everything that would act on the session (signals, power profiles, `bash -l`). Compositor-gated, and skipped without a C compiler.
-- `test/cli` times `archctl screenshot` against help for it on a copy of the real command table, and fails unless the alias dispatch costs under a quarter of the full load (13ms against 190ms today).
-- `test/shell.d/menu-guard-budget-test.sh` runs the shipped menu's guard batch on this machine's real hardware: the batch within 200ms (about 50ms today) and each guard alone within 100ms (the slowest is about 30ms), scaled to the machine, listing the slowest guards when either fails. Skipped without `$XDG_RUNTIME_DIR`, which holds the package snapshot the menu relies on.
-- `test/shell.d/theme-set-budget-test.sh` runs the whole `arch-theme-set` in a scratch home where every app is a stub given its real cost (a running Hunk, VS Code's Electron boot, three tmux sessions). It fails when either theme's switch takes over 500ms scaled to the machine (about 80ms today), starts more than a handful of tmux clients, starts VS Code to list its extensions, or waits for Hunk's settle nudge.
+- `tests/shell.d/shell-idle-spawn-test.sh` starts a second shell on the default config, waits for its startup work to go quiet, then fails if it starts any process over 30 idle seconds, naming each command line. A preloaded shim (`fixtures/idle-src/shell/exec-log.c`, built with `cc` at test time) logs every exec, fork and spawn the shell and its descendants make, so a probe that lives for a millisecond is caught, and nothing outside the shell's process tree can be. A command that legitimately runs while idle is allowed with `allow` in that file, only while its reason holds and at most as often as the reason implies. The test watches Hyprland, UPower and NetworkManager events meanwhile; a spawn that coincides with one is given a second window before it fails, and the events are printed with it. The test shell gets stubs for everything that would act on the session (signals, power profiles, `bash -l`). Compositor-gated, and skipped without a C compiler.
+- `tests/cli` times `archctl screenshot` against help for it on a copy of the real command table, and fails unless the alias dispatch costs under a quarter of the full load (13ms against 190ms today).
+- `tests/shell.d/menu-guard-budget-test.sh` runs the shipped menu's guard batch on this machine's real hardware: the batch within 200ms (about 50ms today) and each guard alone within 100ms (the slowest is about 30ms), scaled to the machine, listing the slowest guards when either fails. Skipped without `$XDG_RUNTIME_DIR`, which holds the package snapshot the menu relies on.
+- `tests/shell.d/theme-set-budget-test.sh` runs the whole `arch-theme-set` in a scratch home where every app is a stub given its real cost (a running Hunk, VS Code's Electron boot, three tmux sessions). It fails when either theme's switch takes over 500ms scaled to the machine (about 80ms today), starts more than a handful of tmux clients, starts VS Code to list its extensions, or waits for Hunk's settle nudge.
 
 Override a budget through the environment variable named at the top of each file when measuring something slower on purpose.
 

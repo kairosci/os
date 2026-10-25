@@ -112,7 +112,7 @@ examples, aliases, `filename_route`, and `routes` (the union of everything
 that resolves to the binary). Per-command JSON comes from `arch <route>
 --help --json`.
 
-`archctl commands --check` is the metadata lint, run by `test/cli`. It fails
+`archctl commands --check` is the metadata lint, run by `tests/cli`. It fails
 on:
 
 - route collisions between binaries

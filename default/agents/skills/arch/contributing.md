@@ -60,6 +60,6 @@ cd arch
 
 Follow the repository's own `AGENTS.md` for style, testing, and commit
 conventions — it is the authority on contributions. Keep commits atomic, run
-`./test/all` before pushing, and open the PR with `gh pr create`. A PR that
+`./tests/all` before pushing, and open the PR with `gh pr create`. A PR that
 fixes a visual problem should include before/after captures (again, see
 [`capture.md`](capture.md)).

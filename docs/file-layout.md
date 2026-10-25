@@ -28,7 +28,7 @@ setup; independently seeds `/etc/skel`).
 
 Some trees ship in neither package and exist only in the repo: `docs/user/`
 (user manual chapters), `agents/skills/` (contributor task guides), `docs/`,
-`test/`, and `plans/`.
+`tests/`, and `plans/`.
 
 Three layers populate `$HOME`:
 
@@ -177,13 +177,13 @@ See [lifecycle-dispatch.md](lifecycle-dispatch.md#platform-files).
 - `backlight-prefer <name>`: the built-in panel's backlight, a literal name, tried after `gmux_backlight` and before the GPU and ACPI ones, in file order.
 - `ddc-require-connector-ddc`: the display driver registers no DDC channel, so a probe would only walk unrelated I2C buses. An external monitor (other than an Apple Studio or XDR Display, which `arch-brightness-display-apple` drives with asdcontrol) is probed only when its DRM connector has a `ddc` node (`/sys/class/drm/card*-<connector>/ddc`); otherwise it gets no DDC or backlight control, and the built-in panel is never dimmed in its place.
 
-No environment variable moves the file: these commands also run under `sudo` and from the brightness keys. Their tests (`test/shell.d/hw-display-test.sh`, `test/shell.d/brightness-display-test.sh`) run a copy rewritten to read a fixture in its place.
+No environment variable moves the file: these commands also run under `sudo` and from the brightness keys. Their tests (`tests/shell.d/hw-display-test.sh`, `tests/shell.d/brightness-display-test.sh`) run a copy rewritten to read a fixture in its place.
 
 #### Fingerprint readers (`fingerprint-readers`)
 
 `arch-hw-fingerprint` finds USB readers by their product string or vendor. A reader the kernel drives some other way (a Mac's Touch ID sensor, behind its Secure Enclave) is named by the platform package in `/usr/share/arch-platform/fingerprint-readers`; Arch ships none. Each line is an absolute path, a shell glob, then the value that file reads once the reader is usable; the reader is present when any file the glob matches reads that value. The value must be the file's whole content, not part of it (Touch ID reads `not-ready` before it reads `ready`). Three details decide a match: the file's trailing newlines are dropped before comparing (sysfs ends every value with one), fields are split on whitespace (so neither the glob nor the value can contain a space), and the file is read as the user running the check, the session user, so it must be readable by that user and not only by root. Blank lines, whole-line `#` comments, relative paths and lines with a missing or extra word are ignored. A platform file never hides a USB reader: when no platform-named file matches, the USB scan still runs. On Apple Silicon, arch-mac names `/sys/bus/platform/drivers/apple_sep/*/diag/touchid ready`. That file is `0444 root:root`, so the session user can read it. The line follows the kernel's names for the Secure Enclave driver (`apple_sep`) and its `diag/touchid` attribute: if a kernel renames either, the reader and the first-run invitation quietly stop appearing, so the platform package changes the line along with its kernel.
 
-The rest of the fingerprint path is the same for every reader: the setup's first-run invitation follows `arch-hw-fingerprint`, so it reaches a machine once its platform's reader is usable, and `arch-setup-security-fingerprint` installs `libfprint-git`. Setup can only enroll a platform's reader once that package carries its driver; for a Mac's Touch ID that is the aarch64 build from omacom/arch-pkgs#806. `test/shell.d/hw-fingerprint-test.sh` runs a copy rewritten to read a fixture in place of the file.
+The rest of the fingerprint path is the same for every reader: the setup's first-run invitation follows `arch-hw-fingerprint`, so it reaches a machine once its platform's reader is usable, and `arch-setup-security-fingerprint` installs `libfprint-git`. Setup can only enroll a platform's reader once that package carries its driver; for a Mac's Touch ID that is the aarch64 build from omacom/arch-pkgs#806. `tests/shell.d/hw-fingerprint-test.sh` runs a copy rewritten to read a fixture in place of the file.
 
 #### Audio hints (`audio.json`)
 
@@ -196,7 +196,7 @@ The audio panel lists every output, input and playback stream PipeWire has, and 
 }
 ```
 
-A pattern is a JavaScript regular expression matched against a whole `node.name`. A `hidden` node is never listed as an output, an input or an app stream, unless it is the current default output or input (so the panel always shows what's in use), and never lights the microphone widget; a `replaced` node is left out only while a node matching `by` exists (a mono processed microphone behind a stereo copy of it, say). Missing or malformed JSON means no hints, and an invalid pattern or entry is skipped. The shell reads the file at that fixed path, which no environment variable moves (`src/shell/Commons/AudioNodes.qml`), and `test/shell.d/audio-test.sh` covers the parsing.
+A pattern is a JavaScript regular expression matched against a whole `node.name`. A `hidden` node is never listed as an output, an input or an app stream, unless it is the current default output or input (so the panel always shows what's in use), and never lights the microphone widget; a `replaced` node is left out only while a node matching `by` exists (a mono processed microphone behind a stereo copy of it, say). Missing or malformed JSON means no hints, and an invalid pattern or entry is skipped. The shell reads the file at that fixed path, which no environment variable moves (`src/shell/Commons/AudioNodes.qml`), and `tests/shell.d/audio-test.sh` covers the parsing.
 
 A virtual source (an `Audio/Source/Virtual`, such as EasyEffects' or a platform's microphone mapping) needs no hint: Quickshell leaves it untyped, so the panel and widget set its volume and mute through `wpctl` (`src/shell/Commons/UntypedInput.qml`, one `pactl subscribe` for the whole shell), shows no level meter for it (Quickshell's peak monitor takes typed nodes only), and the panel lists it because PulseAudio does (`arch-audio-sink-availability sources`).
 
@@ -400,7 +400,7 @@ A platform's default package set is the base list, then its architecture's addit
 - `backlight-prefer <name>`: the built-in panel's backlight, a literal name, tried after `gmux_backlight` and before the GPU and ACPI ones, in file order.
 - `ddc-require-connector-ddc`: the display driver registers no DDC channel, so a probe would only walk unrelated I2C buses. An external monitor (other than an Apple Studio or XDR Display, which `arch-brightness-display-apple` drives with asdcontrol) is probed only when its DRM connector has a `ddc` node (`/sys/class/drm/card*-<connector>/ddc`); otherwise it gets no DDC or backlight control, and the built-in panel is never dimmed in its place.
 
-No environment variable moves the file: these commands also run under `sudo` and from the brightness keys. Their tests (`test/shell.d/hw-display-test.sh`, `test/shell.d/brightness-display-test.sh`) run a copy rewritten to read a fixture in its place.
+No environment variable moves the file: these commands also run under `sudo` and from the brightness keys. Their tests (`tests/shell.d/hw-display-test.sh`, `tests/shell.d/brightness-display-test.sh`) run a copy rewritten to read a fixture in its place.
 
 ## Explicit resync (`arch-reinstall-configs`)
 

@@ -8,7 +8,7 @@ matching guide before starting:
 - [`agents/skills/mise-tools.md`](agents/skills/mise-tools.md) - adding or changing mise-managed tools
 - [`agents/skills/shell-dev.md`](agents/skills/shell-dev.md) - editing the Quickshell desktop under `src/shell/`
 - [`agents/skills/icon-font.md`](agents/skills/icon-font.md) - adding branded glyphs to `default/fonts/arch/arch.ttf`
-- [`agents/skills/acceptance-tests.md`](agents/skills/acceptance-tests.md) - writing or running graphical acceptance tests under `test/acceptance.d/`
+- [`agents/skills/acceptance-tests.md`](agents/skills/acceptance-tests.md) - writing or running graphical acceptance tests under `tests/acceptance.d/`
 - [`agents/skills/visual-verification.md`](agents/skills/visual-verification.md) - verifying any change with a visual effect in the running UI
 - [`agents/skills/migrations.md`](agents/skills/migrations.md) - creating or changing migrations under `migrations/`
 
@@ -120,7 +120,7 @@ Exceptions are allowed for migration and package-helper scripts where the helper
 # Background Work
 
 - Long-running code (the shell, daemons, watchers) reacts to events instead of polling with a timer. Polling is the last resort, for state with no change signal; [`agents/skills/shell-dev.md`](agents/skills/shell-dev.md) lists the event sources and the push-refresh pattern.
-- `test/shell.d/shell-idle-spawn-test.sh` fails when an idle shell starts any process, and other tests hold the router, menu guards and theme switch to budgets; see "Performance guards" in [`docs/testing.md`](docs/testing.md).
+- `tests/shell.d/shell-idle-spawn-test.sh` fails when an idle shell starts any process, and other tests hold the router, menu guards and theme switch to budgets; see "Performance guards" in [`docs/testing.md`](docs/testing.md).
 
 # Menu
 
@@ -141,15 +141,15 @@ Run focused automated tests for the area you changed;
 [`docs/testing.md`](docs/testing.md) covers how the suites are shaped. Current
 test entry points:
 
-- `./test/all` - aggregate runner for CLI and shell tests; it intentionally does not run graphical acceptance tests
-- `./test/cli` - CLI routing, command metadata, theme helpers, and safe dispatch coverage
-- `./test/shell` - all Arch shell tests under `test/shell.d/`
+- `./tests/all` - aggregate runner for CLI and shell tests; it intentionally does not run graphical acceptance tests
+- `./tests/cli` - CLI routing, command metadata, theme helpers, and safe dispatch coverage
+- `./tests/shell` - all Arch shell tests under `tests/shell.d/`
 
 How to run them without wasting runs:
 
-- Run the files for what you changed directly: `bash test/shell.d/<area>-test.sh`. A change inside one plugin or command runs that area's files (and `i18n-test.sh` when catalog strings changed), not `./test/shell`.
-- Run `./test/shell` or `./test/all` only when the change reaches shared code (`src/shell/Commons/`, `base-test.sh`, the runners, a widely used `bin/` helper), and then once, at the end.
-- Always write the whole output to a log file and read it from there: `bash test/shell.d/<area>-test.sh >/tmp/<area>.log 2>&1`. Never pipe a test run straight through `grep`, `head` or `tail`: what they drop is gone, and getting it back costs a whole run. `./test/shell` keeps every file's log and prints the directory at the end; read a failure from its log.
+- Run the files for what you changed directly: `bash tests/shell.d/<area>-test.sh`. A change inside one plugin or command runs that area's files (and `i18n-test.sh` when catalog strings changed), not `./tests/shell`.
+- Run `./tests/shell` or `./tests/all` only when the change reaches shared code (`src/shell/Commons/`, `base-test.sh`, the runners, a widely used `bin/` helper), and then once, at the end.
+- Always write the whole output to a log file and read it from there: `bash tests/shell.d/<area>-test.sh >/tmp/<area>.log 2>&1`. Never pipe a test run straight through `grep`, `head` or `tail`: what they drop is gone, and getting it back costs a whole run. `./tests/shell` keeps every file's log and prints the directory at the end; read a failure from its log.
 - Run a test again only after changing something it covers. Never rerun to see output, to confirm a pass, or in the hope that a failure goes away.
 - For a failure in a file you did not touch, run that one file once on the base branch (in a worktree, or with `git stash`). If it fails there too, it was already broken: report it and leave it out of this change.
 - Tests that use the live session (`require_compositor`, `shell-idle-spawn-test.sh`) read the real desktop, so the user working at it can fail them. One that fails in a full run and passes alone is session noise: say so; do not loop on it.
@@ -161,11 +161,11 @@ When to add a test. A test earns its place only by catching a regression nothing
 - A test must fail without your change. Revert the fix, or reason it through, and check that the test goes red for the reason the change exists. One that stays green guards nothing.
 - Don't test your own stub. If a fake binary or fixture the test writes provides the behaviour under test, nothing real is tested.
 - No change-detectors: snapshots of large output, file lists, or exact counts that break whenever someone adds an unrelated entry.
-- Extend the area's existing test file (`git grep` the command or function under `test/`) rather than adding a new `*-test.sh`, and follow its style.
+- Extend the area's existing test file (`git grep` the command or function under `tests/`) rather than adding a new `*-test.sh`, and follow its style.
 - Keep tests in proportion to the change. A few lines of change rarely justify more than a few lines of test, and usually none.
 - Do test real logic: parsing, routing, a migration's idempotence and no-op paths, a guard on hardware without the feature, the edge case a fix handles. A bug fix with logic in it gets the one test that fails on the base branch and passes with the fix.
 
-New Arch shell tests should live in `test/shell.d/*-test.sh` so `./test/shell` picks them up automatically. Source `test/shell.d/base-test.sh` for shared root-path discovery, assertions, and Node test helpers.
+New Arch shell tests should live in `tests/shell.d/*-test.sh` so `./tests/shell` picks them up automatically. Source `tests/shell.d/base-test.sh` for shared root-path discovery, assertions, and Node test helpers.
 
 The graphical acceptance suite runs in a disposable VM, not in the active
 development session; see [`agents/skills/acceptance-tests.md`](agents/skills/acceptance-tests.md).
