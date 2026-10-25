@@ -6,7 +6,7 @@ Arch ලස්සන තේමා විසි දෙකක් සමඟ එය�
 
 තේමාවලට `Super + Ctrl + Space` භාවිතයෙන් ඔබට තෝරාගත හැකි පසුබිම් රූප කට්ටලයක් ඇත.
 
-ඔබට [අමතර තේමා පිටුවේ](https://github.com/kairosci/arch/themes/) තවත් තේමා සොයාගත හැකිය නැතහොත් [ඔබේම තේමාවක් සාදාගත හැකිය](43-making-your-own-theme.md).
+ඔබට [අමතර තේමා පිටුවේ](https://github.com/kairosci/os/themes/) තවත් තේමා සොයාගත හැකිය නැතහොත් [ඔබේම තේමාවක් සාදාගත හැකිය](43-making-your-own-theme.md).
 
  ![tokyo-night](../themes/tokyo-night/preview.png)
 _Tokyo Night_

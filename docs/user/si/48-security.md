@@ -30,6 +30,6 @@ Arch හි සැකසුම් පැකේජය යාවත්කාලී
 
 ## අත්සන් යතුරු
 
-සියලු ISO අත්සන් සහ Arch රෙපෝ පැකේජය සඳහා පොදු යතුර `40DFB630FF42BCFFB047046CF0134EE680CAC571` ය ([openpgp.org හි තහවුරු කරන්න](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch)). `arch/arch-keyring` පැකේජයෙහි මෙය ද අඩංගු වන අතර ඕනෑම විභව යාවත්කාලීන කිරීමක් බාධාවකින් තොරව නිකුත් කිරීමට භාවිතා කරනු ලැබේ.
+සියලු ISO අත්සන් සහ Arch රෙපෝ පැකේජය සඳහා පොදු යතුර `40DFB630FF42BCFFB047046CF0134EE680CAC571` ය ([openpgp.org හි තහවුරු කරන්න](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os)). `arch/arch-keyring` පැකේජයෙහි මෙය ද අඩංගු වන අතර ඕනෑම විභව යාවත්කාලීන කිරීමක් බාධාවකින් තොරව නිකුත් කිරීමට භාවිතා කරනු ලැබේ.
 
-URL එකට .sig එක් කිරීමෙන් ඔබට ඕනෑම ISO නිකුතුවක් සඳහා අත්සන සොයා ගත හැකිය. https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig. වැනි
+URL එකට .sig එක් කිරීමෙන් ඔබට ඕනෑම ISO නිකුතුවක් සඳහා අත්සන සොයා ගත හැකිය. https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig. වැනි
