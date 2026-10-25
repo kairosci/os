@@ -30,6 +30,6 @@ Arch امنیت را فوق‌العاده جدی می‌گیرد. این قرا
 
 ## کلیدهای امضا
 
-کلید عمومی برای همه امضاهای ISO و بسته مخزن Arch `40DFB630FF42BCFFB047046CF0134EE680CAC571` است ([در openpgp.org تأیید کنید](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch)). بسته `arch/arch-keyring` هم این را دارد و برای عرضه بدون درز هر به‌روزرسانی احتمالی استفاده خواهد شد.
+کلید عمومی برای همه امضاهای ISO و بسته مخزن Arch `40DFB630FF42BCFFB047046CF0134EE680CAC571` است ([در openpgp.org تأیید کنید](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os)). بسته `arch/arch-keyring` هم این را دارد و برای عرضه بدون درز هر به‌روزرسانی احتمالی استفاده خواهد شد.
 
-می‌توانید امضای هر نسخه ISO را با اضافه کردن .sig به URL پیدا کنید. مثل https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig.
+می‌توانید امضای هر نسخه ISO را با اضافه کردن .sig به URL پیدا کنید. مثل https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig.

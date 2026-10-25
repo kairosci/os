@@ -42,4 +42,4 @@ Arch این دو را از این تشخیص می‌دهد که آیا تم مخ
 
 به یاد داشته باشید که وقتی از یک مخزن نصب شود، هر `.lua` یا پیکربندی ترمینال یا `vscode.json`ای که عرضه می‌کند حذف می‌شود، بنابراین تم را حول آن‌ها نسازید.
 
-می‌توانید تمتان را با ارسال یک درخواست pull به [مخزن arch-site](https://github.com/kairosci/arch) به [صفحه تم‌های اضافی](https://github.com/kairosci/arch/themes/) اضافه کنید.
+می‌توانید تمتان را با ارسال یک درخواست pull به [مخزن arch-site](https://github.com/kairosci/os) به [صفحه تم‌های اضافی](https://github.com/kairosci/os/themes/) اضافه کنید.

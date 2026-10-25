@@ -6,7 +6,7 @@ Arch با بیست‌ودو تم زیبا عرضه می‌شود. می‌توا�
 
 تم‌ها مجموعه‌ای از تصاویر پس‌زمینه دارند که می‌توانید با `Super + Ctrl + Space` بین آن‌ها انتخاب کنید.
 
-می‌توانید تم‌های بیشتری را در [صفحهٔ تم‌های اضافی](https://github.com/kairosci/arch/themes/) پیدا کنید یا حتی [تم خودتان را بسازید](43-making-your-own-theme.md).
+می‌توانید تم‌های بیشتری را در [صفحهٔ تم‌های اضافی](https://github.com/kairosci/os/themes/) پیدا کنید یا حتی [تم خودتان را بسازید](43-making-your-own-theme.md).
 
  ![tokyo-night](../themes/tokyo-night/preview.png)
 _Tokyo Night_
