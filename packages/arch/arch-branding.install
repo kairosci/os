@@ -1,5 +1,5 @@
 apply_arch_branding() {
-  ARCH_PATH=/usr/share/arch bash /usr/share/arch/install/config/arch-branding.sh
+  ARCH_PATH=/usr/share/arch bash /usr/share/arch/installer/config/arch-branding.sh
 }
 
 pause_hyprland_reload() {

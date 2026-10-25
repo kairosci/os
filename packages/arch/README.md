@@ -9,7 +9,7 @@ Build both packages from the repository root:
 
 ```sh
 ARCH_SRC="$PWD" makepkg -Csf --nodeps --dir packages/arch-settings
-ARCH_SRC="$PWD" makepkg -Csf --nodeps --dir packages/arch-systemd-boot
+ARCH_SRC="$PWD" makepkg -Csf --nodeps --dir packages/arch
 ```
 
 Install them together so pacman can transfer shared files and resolve the new
@@ -17,7 +17,7 @@ dependency in one transaction:
 
 ```sh
 sudo pacman -U packages/arch-settings/arch-settings-4.0.6-8-x86_64.pkg.tar.zst \
-  packages/arch-systemd-boot/arch-4.0.6-37-x86_64.pkg.tar.zst
+  packages/arch/arch-4.0.6-37-x86_64.pkg.tar.zst
 ```
 
 Confirm that the machine has a working systemd-boot entry and Arch UKI before

@@ -235,9 +235,9 @@ else
   skip "package-owned defaults live outside config: needs the arch-pkgs checkout; set ARCH_PKGS_PATH to it"
 fi
 
-grep -Fq 'pre_upgrade() {' "$ROOT/packages/arch-systemd-boot/arch-branding.install" &&
-  grep -Fq 'arch-hyprland-reload-guard pause' "$ROOT/packages/arch-systemd-boot/arch-branding.install" &&
-  grep -Fq 'arch-hyprland-reload-guard resume' "$ROOT/packages/arch-systemd-boot/arch-branding.install" ||
+grep -Fq 'pre_upgrade() {' "$ROOT/packages/arch/arch-branding.install" &&
+  grep -Fq 'arch-hyprland-reload-guard pause' "$ROOT/packages/arch/arch-branding.install" &&
+  grep -Fq 'arch-hyprland-reload-guard resume' "$ROOT/packages/arch/arch-branding.install" ||
   fail "Arch package upgrades pause Hyprland config reload until the payload is replaced"
 
 grep -F 'dofile((os.getenv("ARCH_PATH") or "/usr/share/arch") .. "/default/hypr/bootstrap.lua")' "$ROOT/config/hypr/hyprland.lua" >/dev/null
@@ -269,11 +269,13 @@ mkdir -p "$test_arch_root"
 for entry in config default etc migrations version arch-mark.svg icon.txt logo.txt logo.svg; do
   [[ -e $ROOT/$entry ]] && ln -s "$ROOT/$entry" "$test_arch_root/$entry"
 done
-ln -s "$ROOT/src/cli" "$test_arch_root/bin"
-ln -s "$ROOT/installer" "$test_arch_root/install"
-ln -s "$ROOT/src/shell" "$test_arch_root/shell"
-ln -s "$ROOT/assets/themes" "$test_arch_root/themes"
-ln -s "$ROOT/assets/applications" "$test_arch_root/applications"
+mkdir -p "$test_arch_root/src"
+ln -s "$ROOT/src/cli" "$test_arch_root/src/cli"
+ln -s "$ROOT/installer" "$test_arch_root/installer"
+ln -s "$ROOT/src/shell" "$test_arch_root/src/shell"
+mkdir -p "$test_arch_root/assets"
+ln -s "$ROOT/assets/themes" "$test_arch_root/assets/themes"
+ln -s "$ROOT/assets/applications" "$test_arch_root/assets/applications"
 mkdir -p "$TMPDIR/home/.config/arch"
 # The bar keeps its blur toggle where Hyprland reads it, under XDG_STATE_HOME,
 # so that points into the test home too.
