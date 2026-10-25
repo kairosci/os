@@ -32,7 +32,7 @@ test_run_id="test-$BASHPID-$RANDOM"
 state_dir="$runtime_dir/arch-update-stay-awake-$test_run_id"
 state_hardlink="$runtime_dir/.arch-update-stay-awake-hardlink-$test_run_id"
 inhibitor_log="$test_tmp/inhibitors"
-mkdir -p "$stub_bin" "$test_home" "$mapped_root/bin" "$mapped_root/default/arch/sudo-no-update"
+mkdir -p "$stub_bin" "$test_home" "$mapped_root/src/cli" "$mapped_root/default/arch/sudo-no-update"
 : >"$inhibitor_log"
 
 cat >"$stub_bin/pkexec" <<'SH'
@@ -105,15 +105,15 @@ case "$1" in
 esac
 SH
 chmod +x "$stub_bin"/*
-ln -s "$stub_bin/arch-toggle-idle" "$mapped_root/bin/arch-toggle-idle"
+ln -s "$stub_bin/arch-toggle-idle" "$mapped_root/src/cli/arch-toggle-idle"
 
-mapped_helper="$mapped_root/bin/arch-update-stay-awake"
+mapped_helper="$mapped_root/src/cli/arch-update-stay-awake"
 cp "$ROOT/src/cli/arch-update-stay-awake" "$mapped_helper"
-cp "$ROOT/src/cli/arch-security-functions" "$mapped_root/bin/arch-security-functions"
+cp "$ROOT/src/cli/arch-security-functions" "$mapped_root/src/cli/arch-security-functions"
 cp "$ROOT/default/arch/sudo-no-update/sudo" "$mapped_root/default/arch/sudo-no-update/sudo"
 for mapped_file in \
   "$mapped_helper" \
-  "$mapped_root/bin/arch-security-functions" \
+  "$mapped_root/src/cli/arch-security-functions" \
   "$mapped_root/default/arch/sudo-no-update/sudo"; do
   sed -i \
     -e "s#/usr/bin/sudo#$stub_bin/sudo#g" \
@@ -558,7 +558,7 @@ run_fallback() {
   setpriv --reuid="$uid" --regid="$uid" --clear-groups /usr/bin/env -i \
     HOME="$home" ARCH_PATH="$fixture/arch" ARCH_TEST_RUN_ID="$run_id" \
     INHIBITOR_LOG="$home/inhibitors" PATH="$fixture/bin:/usr/bin:/bin" \
-    "$fixture/arch/bin/arch-update-stay-awake" "$@"
+    "$fixture/arch/src/cli/arch-update-stay-awake" "$@"
 }
 
 setpriv --reuid=1001 --regid=1001 --clear-groups /usr/bin/bash -c '

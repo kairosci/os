@@ -6,7 +6,7 @@ source "$(dirname "$0")/base-test.sh"
 
 source "$SHELL_TEST_DIR/fixtures/sudo-boundary-test.sh"
 test_tmp="$boundary_tmp"
-stub_bin="$SUDO_TEST_ROOT/bin"
+stub_bin="$SUDO_TEST_ROOT/src/cli"
 test_home="$SUDO_TEST_HOME"
 runtime_dir="/run/user/$(id -u)"
 test_run_id="test-$BASHPID-$RANDOM"
@@ -77,9 +77,9 @@ for command in \
 done
 write_stub arch-update-available 'exit 1'
 write_stub pkexec 'exec "$@"'
-ln -s ../bin/pkexec "$SUDO_TEST_ROOT/mock/pkexec"
+ln -s ../src/cli/pkexec "$SUDO_TEST_ROOT/mock/pkexec"
 write_stub systemd-inhibit 'while [[ $1 == --* ]]; do shift; done; exec "$@"'
-ln -s ../bin/systemd-inhibit "$SUDO_TEST_ROOT/mock/systemd-inhibit"
+ln -s ../src/cli/systemd-inhibit "$SUDO_TEST_ROOT/mock/systemd-inhibit"
 
 # arch-update should hold the lock before snapshotting, so a second update
 # cannot even enter its pre-update snapshot.
@@ -100,7 +100,9 @@ ARCH_UPDATE_LOGGED=1 TEST_MARKER="$test_tmp/update-second-snapshot-started" run_
 update_second_status=$?
 set -e
 
-wait "$update_pid"
+update_status=0
+wait "$update_pid" || update_status=$?
+(( update_status == 0 )) || fail "first arch-update completes" "$(cat "$test_tmp/update-first.out")"
 
 [[ $update_second_status -ne 0 ]] || fail "second arch-update exits non-zero while update lock is held"
 grep -q "already running" "$test_tmp/update-second.out" || fail "second arch-update reports held update lock"

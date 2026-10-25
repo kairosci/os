@@ -149,13 +149,13 @@ Item {
   function applySelected(emoji) {
     if (!emoji) return
     root.dismiss()
-    Quickshell.execDetached([root.archPath + "/bin/arch-menu-emoji-insert", emoji])
+    Quickshell.execDetached([root.archPath + "/src/cli/arch-menu-emoji-insert", emoji])
   }
 
   ListModel { id: displayModel }
 
   FileView {
-    path: root.archPath + "/shell/plugins/emojis/emojis.json"
+    path: root.archPath + "/src/shell/plugins/emojis/emojis.json"
     onLoaded: root.loadEmojis(text())
   }
   OverlayWindow {

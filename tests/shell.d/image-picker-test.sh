@@ -129,7 +129,7 @@ assert(
   'image picker opens themes from held rows before refreshing them'
 )
 assert(
-  /command: \[root\.archPath \+ "\/bin\/arch-theme-switcher", "--print-rows"\]/.test(imagePickerQml),
+  /command: \[root\.archPath \+ "\/src\/cli\/arch-theme-switcher", "--print-rows"\]/.test(imagePickerQml),
   'image picker refreshes theme rows from the theme switcher'
 )
 assert(
@@ -384,7 +384,7 @@ assertEqual(retention.deleteSelectionPath, '', 'no landing is remembered when th
 assertDeepEqual(retention.deleteThemeProc.command, ['arch-theme-remove', 'bravo'], 'the confirmed theme is still the one removed')
 
 assert(
-  /id: stockThemesProc\s*command: \["find", root\.archPath \+ "\/themes", "-mindepth", "1", "-maxdepth", "1", "-type", "d", "-printf", "%f\\n"\]/.test(imagePickerQml) &&
+  /id: stockThemesProc\s*command: \["find", root\.archPath \+ "\/assets\/themes", "-mindepth", "1", "-maxdepth", "1", "-type", "d", "-printf", "%f\\n"\]/.test(imagePickerQml) &&
     /root\.stockThemeNames = ImagePickerModel\.parseThemeNames\(String\(text \|\| ""\)\)/.test(imagePickerQml) &&
     /canDeleteTheme\(selectedThemeName\(\), extraThemeNames, stockThemeNames\)/.test(imagePickerQml),
   'image picker knows stock theme names so overrides stay undeletable'

@@ -17,7 +17,7 @@ trap cleanup EXIT
 
 wrapper_root="$test_tmp/wrapper-root"
 wrapper_bin="$test_tmp/wrapper-bin"
-mkdir -p "$wrapper_root/shell" "$wrapper_bin"
+mkdir -p "$wrapper_root/src/shell" "$wrapper_bin"
 touch "$wrapper_root/src/shell/shell.qml"
 
 cat >"$wrapper_bin/qs" <<'SH'
@@ -75,7 +75,7 @@ restart_env_log="$test_tmp/restart-env.log"
 dispatch_log="$test_tmp/dispatch.log"
 ipc_log="$test_tmp/ipc.log"
 runtime_dir="$test_tmp/runtime"
-mkdir -p "$restart_root/shell" "$restart_bin" "$runtime_dir"
+mkdir -p "$restart_root/src/shell" "$restart_bin" "$runtime_dir"
 touch "$restart_root/src/shell/shell.qml"
 ln -s "$ROOT/src/cli/arch-shell" "$restart_bin/arch-shell"
 ln -s "$ROOT/src/cli/arch-launch-shell" "$restart_bin/arch-launch-shell"
@@ -89,7 +89,7 @@ printf '%s\n' "$*" >>"$ARCH_TEST_IPC_LOG"
 
 case "$*" in
   *'shell ping')
-    [[ $* == *"-p $ARCH_TEST_SESSION_PATH/shell"* ]] &&
+    [[ $* == *"-p $ARCH_TEST_SESSION_PATH/src/shell"* ]] &&
       grep -Fx '303' "$ARCH_TEST_QS_STATE" >/dev/null &&
       printf 'ok\n'
     ;;
@@ -204,7 +204,7 @@ restart_pid_two=$!
 printf '%s\n%s\n' "$restart_pid_one" "$restart_pid_two" >"$restart_state"
 
 caller_root="$test_tmp/caller-root"
-mkdir -p "$caller_root/shell"
+mkdir -p "$caller_root/src/shell"
 touch "$caller_root/src/shell/shell.qml"
 
 PATH="$restart_bin:$PATH" \
@@ -232,10 +232,10 @@ restart_pid_one=""
 restart_pid_two=""
 [[ $(<"$restart_state") == 303 ]] || fail "restart leaves exactly one fresh shell instance"
 [[ $(grep -c '^-n -p ' "$restart_log") == 1 ]] || fail "restart launches one fresh shell process"
-grep -F "kill -p $restart_root/shell --any-display" "$restart_log" >/dev/null || fail "restart stops the shell from the session checkout"
+grep -F "kill -p $restart_root/src/shell --any-display" "$restart_log" >/dev/null || fail "restart stops the shell from the session checkout"
 [[ $(<"$restart_env_log") == "unset" ]] || fail "restart uses the Hyprland session environment for the fresh shell"
 grep -F 'hl.dsp.exec_cmd("arch-launch-shell")' "$dispatch_log" >/dev/null || fail "restart launches the fresh shell through Hyprland"
-grep -F "ipc -n -p $restart_root/shell call -- shell ping" "$ipc_log" >/dev/null || fail "restart checks readiness in the session checkout"
+grep -F "ipc -n -p $restart_root/src/shell call -- shell ping" "$ipc_log" >/dev/null || fail "restart checks readiness in the session checkout"
 pass "restart replaces duplicate shell instances from the session checkout"
 [[ $(<"$test_tmp/notification-checks") == 4 ]] || fail "restart waits for the existing notification service after core IPC is ready"
 pass "restart waits for notification readiness before one-time update hooks"
@@ -288,8 +288,8 @@ fi
 wait "$restart_pid_one" 2>/dev/null || true
 restart_pid_one=""
 [[ $(<"$restart_state") == 303 ]] || fail "dead-lock recovery leaves one fresh shell instance"
-grep -F "ipc -n -p $restart_root/shell call -- lock lock" "$ipc_log" >/dev/null || fail "dead-lock recovery re-acquires the session lock"
-grep -F "ipc -n -p $restart_root/shell call -- lock status" "$ipc_log" >/dev/null || fail "dead-lock recovery waits for the lock to become secure"
+grep -F "ipc -n -p $restart_root/src/shell call -- lock lock" "$ipc_log" >/dev/null || fail "dead-lock recovery re-acquires the session lock"
+grep -F "ipc -n -p $restart_root/src/shell call -- lock status" "$ipc_log" >/dev/null || fail "dead-lock recovery waits for the lock to become secure"
 pass "restart recovers a locked session whose lock client died"
 
 # Lock recovery must not wait on the notification plugin: a stranded user gets
@@ -319,7 +319,7 @@ if PATH="$restart_bin:$PATH" \
 fi
 wait "$restart_pid_one" 2>/dev/null || true
 restart_pid_one=""
-grep -F "ipc -n -p $restart_root/shell call -- lock lock" "$ipc_log" >/dev/null || fail "lock recovery waited on the notification service" "$(cat "$ipc_log")"
+grep -F "ipc -n -p $restart_root/src/shell call -- lock lock" "$ipc_log" >/dev/null || fail "lock recovery waited on the notification service" "$(cat "$ipc_log")"
 [[ -f $restart_state.locked ]] || fail "lock recovery did not re-secure the session without notifications"
 grep -q "notification service did not become ready" "$test_tmp/dead-notifications.out" || fail "a missing notification service is not reported" "$(cat "$test_tmp/dead-notifications.out")"
 pass "restart recovers the lock even when the notification service never returns"

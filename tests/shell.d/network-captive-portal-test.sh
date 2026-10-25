@@ -56,9 +56,10 @@ require_command quickshell
 stage=$(mktemp -d)
 trap 'rm -rf -- "$stage"' EXIT
 fixture="$SHELL_TEST_DIR/fixtures/network-captive-portal"
-mkdir -p "$stage/network" "$stage/bin" "$stage/home"
+mkdir -p "$stage/network" "$stage/bin" "$stage/home" "$stage/src/cli"
 ln -s "$ROOT/src/shell/Ui" "$stage/Ui"
 ln -s "$ROOT/src/shell/Commons" "$stage/Commons"
+ln -s "$ROOT/default" "$stage/default"
 cp -r "$fixture/mocks" "$stage/mocks"
 cp "$fixture/shell.qml" "$stage/shell.qml"
 cp "$ROOT/src/shell/plugins/panels/network/Model.js" "$stage/network/Model.js"
@@ -90,7 +91,7 @@ JS
 printf '#!/bin/bash\nexit 0\n' > "$stage/bin/noop"
 chmod +x "$stage/bin/noop"
 for command in arch-dns arch-network-band; do
-  ln -s noop "$stage/src/cli/$command"
+  ln -s ../../bin/noop "$stage/src/cli/$command"
 done
 # Preview uses only synthetic details, never the host's SSID or addresses.
 # Normal assertions keep the details empty to exercise missing-route handling.
@@ -101,7 +102,7 @@ chmod +x "$stage/bin/arch-network-captive-portal"
 
 # All networking and external actions are mocked; the real connection and
 # browser are never touched, and the fixture writes only to its scratch HOME.
-output=$(HOME="$stage/home" ARCH_PATH="$ROOT" PATH="$stage/bin:$PATH" \
+output=$(HOME="$stage/home" ARCH_PATH="$stage" PATH="$stage/bin:$PATH" \
   NETWORK_TEST_BROWSER_LOG="$stage/browser.log" \
   timeout 30 quickshell -p "$stage" --no-color 2>&1) || fail "network portal fixture exits cleanly" "$output"
 [[ $output == *"RESULT pass"* ]] || fail "network portal runtime assertions pass" "$output"

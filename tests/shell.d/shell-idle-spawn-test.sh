@@ -118,12 +118,13 @@ mkdir -p "$test_root" "$test_home" "$stub_bin"
 mkdir -p "$test_home/.local/state/arch/indicators"
 touch "$test_home/.local/state/arch/indicators/stay-awake"
 
-cc -shared -fPIC -O2 -o "$TMPDIR/exec-log.so" "$SHELL_TEST_DIR/fixtures/idle-src/shell/exec-log.c" -ldl ||
+cc -shared -fPIC -O2 -o "$TMPDIR/exec-log.so" "$SHELL_TEST_DIR/fixtures/idle-shell/exec-log.c" -ldl ||
   fail "the exec logger builds"
 
 # A copy, so the test shell gets its own IPC socket and never answers for, or
 # replaces, the shell running the session.
-cp -a "$ROOT/src/shell" "$test_root/shell"
+mkdir -p "$test_root/src"
+cp -a "$ROOT/src/shell" "$test_root/src/shell"
 ln -s "$ROOT/config" "$test_root/config"
 ln -s "$ROOT/src/cli" "$test_root/bin"
 ln -s "$ROOT/default" "$test_root/default"
@@ -178,7 +179,7 @@ ARCH_EXEC_LOG="$exec_log" \
 LD_PRELOAD="$TMPDIR/exec-log.so" \
 QS_DISABLE_FILE_WATCHER=1 \
 QS_NO_RELOAD_POPUP=1 \
-  quickshell -p "$test_root/shell" --no-color >"$log" 2>&1 &
+  quickshell -p "$test_root/src/shell" --no-color >"$log" 2>&1 &
 QS_PID=$!
 
 ready=0

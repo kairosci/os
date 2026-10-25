@@ -86,7 +86,7 @@ ForceCommand /bin/bash {remote}
           time.sleep(0.05)
       for theme in ('tokyo-night', 'nord'):
         (current / 'theme.name').write_text(theme + '\n')
-        result = subprocess.run([str(root / 'bin/arch-theme-set-herdr-machines')], env=environment, capture_output=True, text=True, timeout=10)
+        result = subprocess.run([str(root / 'src/cli/arch-theme-set-herdr-machines')], env=environment, capture_output=True, text=True, timeout=10)
         assert result.returncode == 0 and 'theme-received' in result.stdout, (result.stdout, result.stderr, log_path.read_text())
         if theme == 'tokyo-night':
           (stage / 'identity').rename(stage / 'identity-unavailable')

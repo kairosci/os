@@ -44,8 +44,8 @@ fail() {
 # shell removes it afterwards: killing the shell leaves the file behind.
 shell_ipc_socket() {
   local id
-  id=$(printf '%s\n%s' "$1/shell" "${WAYLAND_DISPLAY:-}" | md5sum)
-  printf '%s/os-shell-%s.sock\n' "${XDG_RUNTIME_DIR:-/run/user/$UID}" "${id:0:16}"
+  id=$(printf '%s\n%s' "$1/src/shell" "${WAYLAND_DISPLAY:-}" | md5sum)
+  printf '%s/arch-shell-%s.sock\n' "${XDG_RUNTIME_DIR:-/run/user/$UID}" "${id:0:16}"
 }
 
 require_command() {

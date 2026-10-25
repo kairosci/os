@@ -27,13 +27,13 @@ hl.env("XCOMPOSEFILE", paths.home .. "/.XCompose")
 -- hyprctl setenv doesn't reach keybind dispatcher env; use hl.env.
 hl.env("ARCH_PATH", paths.arch_path)
 
-local bin_dir = paths.arch_path .. "/bin"
-local inherited_arch_bin = (os.getenv("ARCH_PATH") or "") .. "/bin"
+local cli_dir = paths.arch_path .. "/src/cli"
+local inherited_arch_cli = (os.getenv("ARCH_PATH") or "") .. "/src/cli"
 local kept = {}
 for entry in (os.getenv("PATH") or "/usr/local/bin:/usr/bin"):gmatch("[^:]+") do
-  if entry ~= bin_dir and entry ~= inherited_arch_bin then table.insert(kept, entry) end
+  if entry ~= cli_dir and entry ~= inherited_arch_cli then table.insert(kept, entry) end
 end
-table.insert(kept, 1, bin_dir)
+table.insert(kept, 1, cli_dir)
 hl.env("PATH", table.concat(kept, ":"))
 
 -- Hardware-specific environment.

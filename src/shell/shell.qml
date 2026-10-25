@@ -1658,7 +1658,7 @@ ShellRoot {
   // one running this config on this display. arch-shell derives the same
   // name from the same two values.
   readonly property string ipcSocketPath: Quickshell.env("XDG_RUNTIME_DIR") + "/arch-shell-"
-    + Qt.md5(shell.archPath + "/shell\n" + Quickshell.env("WAYLAND_DISPLAY")).slice(0, 16) + ".sock"
+    + Qt.md5(shell.archPath + "/src/shell\n" + Quickshell.env("WAYLAND_DISPLAY")).slice(0, 16) + ".sock"
 
   SocketServer {
     active: shell.archPath !== ""

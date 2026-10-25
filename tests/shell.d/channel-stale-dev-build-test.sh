@@ -79,7 +79,7 @@ for source in edge dev; do
     [[ $source != "dev" ]] || root=$checkout
 
     status=0
-    ARCH_PATH="$root" "$root/bin/arch-channel-set" "$channel" >"$boundary_tmp/output" 2>&1 || status=$?
+    ARCH_PATH="$root" "$root/src/cli/arch-channel-set" "$channel" >"$boundary_tmp/output" 2>&1 || status=$?
 
     if grep -q '^model:downgraded' "$SUDO_TEST_LOG"; then
       fail "$source to $channel: the refresh moved arch-dev onto the repository's older build" "$(<"$SUDO_TEST_LOG")"

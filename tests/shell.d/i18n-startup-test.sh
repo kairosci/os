@@ -67,7 +67,7 @@ class Probe:
         (self.config / 'shell.qml').write_text((root / 'tests/shell.d/fixtures/i18n-startup/shell.qml').read_text())
         for name in ('runtime', 'home', 'cache', 'state'):
             (self.path / name).mkdir(mode=0o700)
-        self.catalogs = self.path / 'installer/default/i18n'
+        self.catalogs = self.path / 'install/default/i18n'
         self.plugin = self.path / 'plugin'
         for code, catalog in [('en', en_catalog), ('da', da_catalog), ('pt-BR', pt_catalog), ('fa', fa_catalog)]:
             write_json(self.catalogs / code / 'shell.json', catalog)

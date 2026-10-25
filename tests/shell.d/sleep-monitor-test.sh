@@ -12,7 +12,7 @@ mock_bin="$tmpdir/bin"
 mock_arch="$tmpdir/arch"
 producer_pid_file="$tmpdir/producer-pid"
 lock_log="$tmpdir/lock-log"
-mkdir -p "$mock_bin" "$mock_arch/bin"
+mkdir -p "$mock_bin" "$mock_arch/src/cli"
 
 cat >"$mock_bin/systemd-inhibit" <<'SH'
 #!/bin/bash
@@ -32,7 +32,7 @@ printf '   boolean true\n'
 exec sleep 30
 SH
 
-cat >"$mock_arch/bin/arch-system-sleep-lock" <<'SH'
+cat >"$mock_arch/src/cli/arch-system-sleep-lock" <<'SH'
 #!/bin/bash
 
 echo locked >>"$LOCK_LOG"
@@ -41,8 +41,8 @@ SH
 chmod +x \
   "$mock_bin/systemd-inhibit" \
   "$mock_bin/dbus-monitor" \
-  "$mock_arch/bin/arch-system-sleep-lock"
-ln -s "$sleep_monitor" "$mock_arch/bin/arch-system-sleep-monitor"
+  "$mock_arch/src/cli/arch-system-sleep-lock"
+ln -s "$sleep_monitor" "$mock_arch/src/cli/arch-system-sleep-monitor"
 
 start_us=${EPOCHREALTIME//[!0-9]/}
 ARCH_PATH="$mock_arch" \

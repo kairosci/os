@@ -8,7 +8,7 @@
 session_arch_path=$(systemctl --user show-environment 2>/dev/null | sed -n 's/^ARCH_PATH=//p' | tail -n 1)
 : "${session_arch_path:=$ARCH_PATH}"
 
-CONFIG_DIR="$session_arch_path/shell"
+CONFIG_DIR="$session_arch_path/src/shell"
 [[ -f $CONFIG_DIR/shell.qml ]] || { echo "os shell config not found: $CONFIG_DIR" >&2; exit 1; }
 
 # Allow running from outside the session (e.g. over ssh) by deriving the

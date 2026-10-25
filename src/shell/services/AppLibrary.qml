@@ -111,7 +111,7 @@ Item {
   function remove(desktopId, name) {
     var id = String(desktopId || "")
     if (!id) return
-    Util.execDetached(Util.shellQuote(root.archPath + "/bin/arch-remove-launcher-entry") + " " + Util.shellQuote(id) + " " + Util.shellQuote(String(name || id)))
+    Util.execDetached(Util.shellQuote(root.archPath + "/src/cli/arch-remove-launcher-entry") + " " + Util.shellQuote(id) + " " + Util.shellQuote(String(name || id)))
   }
 
   function normalizeDesktopId(id) {
@@ -174,7 +174,7 @@ Item {
 
   function hiddenEntryScanCommand() {
     var desktop = [Quickshell.env("XDG_CURRENT_DESKTOP"), Quickshell.env("XDG_SESSION_DESKTOP"), Quickshell.env("DESKTOP_SESSION")].filter(function(v) { return String(v || "").length > 0 }).join(":")
-    var script = root.archPath + "/shell/services/hidden-entries.sh"
+    var script = root.archPath + "/src/shell/services/hidden-entries.sh"
     return Util.shellQuote(script) + " " + Util.shellQuote(desktop)
   }
 

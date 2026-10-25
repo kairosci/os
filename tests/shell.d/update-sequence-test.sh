@@ -6,7 +6,7 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 source "$SHELL_TEST_DIR/fixtures/sudo-boundary-test.sh"
 copy_boundary_file bin/arch-update
 test_tmp="$boundary_tmp"
-stub_bin="$SUDO_TEST_ROOT/bin"
+stub_bin="$SUDO_TEST_ROOT/src/cli"
 
 # Every step arch-update runs, recorded in order with the unattended flag it
 # was handed. One of them can be told to fail. arch-update-available is here
