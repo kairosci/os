@@ -30,6 +30,6 @@ Archの設定パッケージを更新または削除すると、期限切れサ�
 
 ## 署名鍵
 
-すべてのISO署名とArchリポジトリパッケージの公開鍵は`40DFB630FF42BCFFB047046CF0134EE680CAC571`です（[openpgp.orgで検証](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch)）。`arch/arch-keyring`パッケージにもこれが含まれており、潜在的な更新をシームレスに展開するために使用されます。
+すべてのISO署名とArchリポジトリパッケージの公開鍵は`40DFB630FF42BCFFB047046CF0134EE680CAC571`です（[openpgp.orgで検証](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os)）。`arch/arch-keyring`パッケージにもこれが含まれており、潜在的な更新をシームレスに展開するために使用されます。
 
-ISOリリースの署名は、URLに.sigを追加することで見つけることができます。たとえば次のようなものです: https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig.
+ISOリリースの署名は、URLに.sigを追加することで見つけることができます。たとえば次のようなものです: https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig.

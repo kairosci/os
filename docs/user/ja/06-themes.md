@@ -6,7 +6,7 @@ Arch には 22 の美しいテーマが付属しています。Arch メニュー
 
 テーマには背景画像のセットがあり、`Super + Ctrl + Space` で選べます。
 
-さらに多くのテーマは [追加テーマページ](https://github.com/kairosci/arch/themes/) で見つけたり、[自分のテーマを作る](43-making-your-own-theme.md) ことさえできます。
+さらに多くのテーマは [追加テーマページ](https://github.com/kairosci/os/themes/) で見つけたり、[自分のテーマを作る](43-making-your-own-theme.md) ことさえできます。
 
  ![tokyo-night](../themes/tokyo-night/preview.png)
 _Tokyo Night_
