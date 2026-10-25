@@ -81,6 +81,9 @@ installer/**                     ──►  arch             /usr/share/arch/ins
 migrations/**                  ──►  arch             /usr/share/arch/migrations/
 assets/themes/**                      ──►  arch             /usr/share/arch/assets/themes/
 src/shell/**                       ──►  arch             /usr/share/arch/src/shell/
+assets/branding/**                 ──►  arch             /usr/share/arch/assets/branding/
+assets/branding/{logo.txt,icon.txt} ──►  arch-settings    /etc/skel/.config/arch/branding/
+assets/branding/arch-symbol.png    ──►  arch-settings    /usr/share/icons/hicolor/256x256/apps/arch.png
 version                        ──►  arch             /usr/share/arch/version
                                                         + /etc/skel/.local/state/arch/migrations/*
 

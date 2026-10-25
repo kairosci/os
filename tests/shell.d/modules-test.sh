@@ -10,7 +10,7 @@ trap 'rm -rf "$stage"' EXIT
 
 python3 "$ROOT/scripts/modules.py" validate
 python3 "$ROOT/scripts/modules.py" graph >"$stage/graph.json"
-python3 - "$stage/graph.json" "$ROOT/src/cli" <<'PY'
+python3 - "$stage/graph.json" "$ROOT/src/cli" "$ROOT/default" <<'PY'
 import json
 import sys
 from pathlib import Path
@@ -34,6 +34,10 @@ settings = {
     "desktop.applications",
     "desktop.branding.preinstall",
 }
+default_modules = {
+    module_id: module for module_id, module in modules.items()
+    if module_id.startswith("system.settings.defaults.")
+}
 command_modules = {
     module_id: module for module_id, module in modules.items()
     if module_id.startswith("desktop.commands.")
@@ -56,10 +60,29 @@ expected_groups = {
     for source in cli_files
     if source != "src/cli/archctl"
 }
+default_roots = Path(sys.argv[3])
+expected_default_sources = {
+    f"default/{path.name}" for path in default_roots.iterdir()
+}
+declared_default_sources = {
+    source for module_id, module in modules.items()
+    if module_id == "system.settings.defaults" or module_id in default_modules
+    for source in module["sources"]
+}
 assert stages <= modules.keys(), stages - modules.keys()
 assert settings <= modules.keys(), settings - modules.keys()
 assert set(command_modules) == expected_groups, (set(command_modules) ^ expected_groups)
 assert command_sources == cli_files, (cli_files - command_sources, command_sources - cli_files)
+assert declared_default_sources == expected_default_sources, (
+    expected_default_sources - declared_default_sources,
+    declared_default_sources - expected_default_sources,
+)
+for module_id, module in default_modules.items():
+    assert module["package"] == "arch-settings", module_id
+    assert module["requires"] == ["system.settings.defaults"], (module_id, module["requires"])
+    assert len(module["sources"]) == 1 and len(module["sources"][0].split('/')) == 2, module_id
+    expected_id = f"system.settings.defaults.{Path(module['sources'][0]).name.replace('.', '-')}"
+    assert module_id == expected_id, (module_id, expected_id)
 for module_id in stages:
     module = modules[module_id]
     assert module["package"] == "arch", module_id
@@ -80,6 +103,7 @@ PY
 pass "installation stages are declared as submodules of the shared installer contract"
 pass "settings, applications, and pre-install branding have independent module ownership"
 pass "CLI capabilities are owned by explicit command modules"
+pass "each top-level default configuration has an explicit module owner"
 
 python3 - "$ROOT/scripts/modules.py" "$stage/security" <<'PY'
 import importlib.util
@@ -147,4 +171,58 @@ for path in \
   usr/share/icons/hicolor/256x256/apps/arch.png; do
   [[ -f $stage/settings/$path ]] || fail "settings module assembles $path"
 done
+
+python3 - "$stage/graph.json" "$ROOT" "$stage" <<'PY'
+import json
+import stat
+import sys
+from pathlib import Path
+
+graph_path, source_root, stage_root = map(Path, sys.argv[1:])
+source_root, stage_root = source_root.resolve(), stage_root.resolve()
+package_roots = {
+    "arch": stage_root / "arch",
+    "arch-settings": stage_root / "settings",
+}
+expected: dict[str, set[str]] = {name: set() for name in package_roots}
+
+for module in json.loads(graph_path.read_text()):
+    package = module["package"]
+    for source, target in module["outputs"]:
+        source_path = source_root / source
+        target_root = package_roots[package]
+        if source_path.is_dir() and not source_path.is_symlink():
+            entries = source_path.rglob("*")
+            for entry in entries:
+                if entry.is_dir() and not entry.is_symlink():
+                    continue
+                relative = entry.relative_to(source_path)
+                destination = target_root / target / relative
+                original = entry
+                expected[package].add(destination.relative_to(target_root).as_posix())
+                assert destination.is_symlink() if original.is_symlink() else destination.is_file(), destination
+                if original.is_symlink():
+                    assert destination.readlink() == original.readlink(), destination
+                else:
+                    assert destination.read_bytes() == original.read_bytes(), destination
+                    assert stat.S_IMODE(destination.stat().st_mode) == stat.S_IMODE(original.stat().st_mode), destination
+        else:
+            destination = target_root / target
+            expected[package].add(destination.relative_to(target_root).as_posix())
+            assert destination.is_symlink() if source_path.is_symlink() else destination.is_file(), destination
+            if source_path.is_symlink():
+                assert destination.readlink() == source_path.readlink(), destination
+            else:
+                assert destination.read_bytes() == source_path.read_bytes(), destination
+                assert stat.S_IMODE(destination.stat().st_mode) == stat.S_IMODE(source_path.stat().st_mode), destination
+
+for package, package_root in package_roots.items():
+    actual = {
+        entry.relative_to(package_root).as_posix()
+        for entry in package_root.rglob("*")
+        if entry.is_file() or entry.is_symlink()
+    }
+    assert actual == expected[package], (package, expected[package] - actual, actual - expected[package])
+PY
 pass "the settings package assembles user configuration and defaults from their declared modules"
+pass "module outputs exactly cover both package trees with matching file contents and modes"

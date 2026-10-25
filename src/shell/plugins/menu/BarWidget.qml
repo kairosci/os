@@ -15,7 +15,7 @@ BarWidget {
     bar: root.bar
     iconComponent: Component {
       Image {
-        source: Quickshell.env("ARCH_PATH") + "/arch-mark.svg"
+        source: Quickshell.env("ARCH_PATH") + "/assets/branding/arch-mark.svg"
         width: 20
         height: 20
         fillMode: Image.PreserveAspectFit

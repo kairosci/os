@@ -1409,7 +1409,7 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
             width: Style.space(28)
             height: width
-            source: root.archPath + "/arch-mark.svg"
+            source: root.archPath + "/assets/branding/arch-mark.svg"
             fillMode: Image.PreserveAspectFit
             smooth: true
             sourceSize.width: width * Screen.devicePixelRatio

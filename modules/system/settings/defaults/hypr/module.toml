@@ -1,0 +1,9 @@
+id = "system.settings.defaults.hypr"
+domain = "system"
+package = "arch-settings"
+sources = ["default/hypr"]
+requires = ["system.settings.defaults"]
+
+[[output]]
+source = "default/hypr"
+target = "usr/share/arch/default/hypr"

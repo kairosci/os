@@ -1,0 +1,9 @@
+id = "system.settings.defaults.v4l2-relayd"
+domain = "system"
+package = "arch-settings"
+sources = ["default/v4l2-relayd"]
+requires = ["system.settings.defaults"]
+
+[[output]]
+source = "default/v4l2-relayd"
+target = "usr/share/arch/default/v4l2-relayd"

@@ -1,0 +1,13 @@
+id = "system.settings.defaults.fonts"
+domain = "system"
+package = "arch-settings"
+sources = ["default/fonts"]
+requires = ["system.settings.defaults"]
+
+[[output]]
+source = "default/fonts"
+target = "usr/share/arch/default/fonts"
+
+[[output]]
+source = "default/fonts/arch/arch.ttf"
+target = "usr/share/fonts/arch/arch.ttf"

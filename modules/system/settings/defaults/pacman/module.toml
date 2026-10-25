@@ -1,0 +1,9 @@
+id = "system.settings.defaults.pacman"
+domain = "system"
+package = "arch-settings"
+sources = ["default/pacman"]
+requires = ["system.settings.defaults"]
+
+[[output]]
+source = "default/pacman"
+target = "usr/share/arch/default/pacman"

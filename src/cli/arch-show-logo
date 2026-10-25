@@ -7,7 +7,7 @@ echo -e "\033[37m"
 # Leave room for the command and its prompt below the logo. Read the actual
 # terminal grid rather than the dimensions inherited from the launching shell.
 if [[ -t 1 ]] && read -r rows columns < <(stty size < /dev/tty 2>/dev/null) && (( rows > 0 && columns > 0 )); then
-  if ! python3 - "$ARCH_PATH/logo.svg" "$columns" "$rows" <<'PY'
+  if ! python3 - "$ARCH_PATH/assets/branding/logo.svg" "$columns" "$rows" <<'PY'
 import sys
 import subprocess
 import xml.etree.ElementTree as ET
@@ -36,10 +36,10 @@ for y in range(0, height, 4):
     print("".join(line))
 PY
   then
-    cat < "$ARCH_PATH/logo.txt"
+    cat < "$ARCH_PATH/assets/branding/logo.txt"
   fi
 else
-  cat < "$ARCH_PATH/logo.txt"
+  cat < "$ARCH_PATH/assets/branding/logo.txt"
 fi
 echo -e "\033[0m"
 echo

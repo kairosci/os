@@ -1,0 +1,9 @@
+id = "system.settings.defaults.udev"
+domain = "system"
+package = "arch-settings"
+sources = ["default/udev"]
+requires = ["system.settings.defaults"]
+
+[[output]]
+source = "default/udev"
+target = "usr/share/arch/default/udev"

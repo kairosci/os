@@ -1,0 +1,9 @@
+id = "system.settings.defaults.alacritty"
+domain = "system"
+package = "arch-settings"
+sources = ["default/alacritty"]
+requires = ["system.settings.defaults"]
+
+[[output]]
+source = "default/alacritty"
+target = "usr/share/arch/default/alacritty"

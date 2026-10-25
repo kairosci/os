@@ -1,0 +1,9 @@
+id = "system.settings.defaults.input-methods"
+domain = "system"
+package = "arch-settings"
+sources = ["default/input-methods"]
+requires = ["system.settings.defaults"]
+
+[[output]]
+source = "default/input-methods"
+target = "usr/share/arch/default/input-methods"

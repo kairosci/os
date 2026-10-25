@@ -1,0 +1,13 @@
+id = "system.settings.defaults.applications"
+domain = "system"
+package = "arch-settings"
+sources = ["default/applications"]
+requires = ["system.settings.defaults"]
+
+[[output]]
+source = "default/applications"
+target = "usr/share/arch/default/applications"
+
+[[output]]
+source = "default/applications/mimeapps.list"
+target = "usr/share/applications/mimeapps.list"

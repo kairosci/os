@@ -1,0 +1,13 @@
+id = "system.settings.defaults.uwsm"
+domain = "system"
+package = "arch-settings"
+sources = ["default/uwsm"]
+requires = ["system.settings.defaults"]
+
+[[output]]
+source = "default/uwsm"
+target = "usr/share/arch/default/uwsm"
+
+[[output]]
+source = "default/uwsm/env.d/10-arch"
+target = "usr/share/uwsm/env.d/10-arch"

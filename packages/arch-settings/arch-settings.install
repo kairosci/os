@@ -16,7 +16,7 @@ OVERRIDES
   install -Dm644 /usr/share/arch/default/bashrc /etc/skel/.bashrc
   install -Dm644 /usr/share/arch/default/wayland-sessions/arch.desktop \
     /usr/local/share/wayland-sessions/arch.desktop
-  install -Dm644 /usr/share/arch/logo.svg /usr/share/pixmaps/arch-mark.svg
+  install -Dm644 /usr/share/arch/assets/branding/logo.svg /usr/share/pixmaps/arch-mark.svg
   rm -f /etc/mise/conf.d/arch-tools.toml
 }
 

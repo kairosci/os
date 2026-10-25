@@ -1,0 +1,9 @@
+id = "system.settings.defaults.libalpm"
+domain = "system"
+package = "arch-settings"
+sources = ["default/libalpm"]
+requires = ["system.settings.defaults"]
+
+[[output]]
+source = "default/libalpm"
+target = "usr/share/arch/default/libalpm"

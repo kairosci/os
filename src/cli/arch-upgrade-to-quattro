@@ -2066,8 +2066,8 @@ for extension in localsend.py transcode.py; do
 done
 
 mkdir -p "$HOME/.config/arch/branding"
-[[ -f $root/icon.txt ]] && cp "$root/icon.txt" "$HOME/.config/arch/branding/about.txt"
-[[ -f $root/logo.txt ]] && cp "$root/logo.txt" "$HOME/.config/arch/branding/screensaver.txt"
+[[ -f $root/assets/branding/icon.txt ]] && cp "$root/assets/branding/icon.txt" "$HOME/.config/arch/branding/about.txt"
+[[ -f $root/assets/branding/logo.txt ]] && cp "$root/assets/branding/logo.txt" "$HOME/.config/arch/branding/screensaver.txt"
 
 mkdir -p "$HOME/Downloads" "$HOME/Pictures" "$HOME/Videos" "$HOME/Projects" "$HOME/.config/gtk-3.0"
 if command -v xdg-user-dirs-update >/dev/null 2>&1; then

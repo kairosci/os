@@ -1,0 +1,9 @@
+id = "system.settings.defaults.i18n"
+domain = "system"
+package = "arch-settings"
+sources = ["default/i18n"]
+requires = ["system.settings.defaults"]
+
+[[output]]
+source = "default/i18n"
+target = "usr/share/arch/default/i18n"

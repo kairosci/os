@@ -1,0 +1,9 @@
+id = "system.settings.defaults.foot"
+domain = "system"
+package = "arch-settings"
+sources = ["default/foot"]
+requires = ["system.settings.defaults"]
+
+[[output]]
+source = "default/foot"
+target = "usr/share/arch/default/foot"

@@ -1,0 +1,25 @@
+id = "system.settings.defaults.systemd"
+domain = "system"
+package = "arch-settings"
+sources = ["default/systemd"]
+requires = ["system.settings.defaults"]
+
+[[output]]
+source = "default/systemd"
+target = "usr/share/arch/default/systemd"
+
+[[output]]
+source = "default/systemd/user"
+target = "usr/lib/systemd/user"
+
+[[output]]
+source = "default/systemd/system"
+target = "usr/lib/systemd/system"
+
+[[output]]
+source = "default/systemd/system-sleep/unmount-fuse"
+target = "usr/lib/systemd/system-sleep/unmount-fuse"
+
+[[output]]
+source = "default/systemd/zram-generator.conf.d/90-arch.conf"
+target = "usr/lib/systemd/zram-generator.conf.d/90-arch.conf"
