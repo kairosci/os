@@ -2,7 +2,7 @@
 
 Arch i twoje pakiety są utrzymywane na bieżąco za pośrednictwem _Aktualizuj > Arch_ w menu Arch (`Super + Space`).
 
-Sam Arch jest instalowany jako zwykłe pakiety pacman z [Repozytorium Pakietów Arch](https://github.com/kairosci/arch), więc aktualizacja instaluje [najnowszą wersję Arch](https://github.com/kairosci/arch), uruchamia wszelkie oczekujące migracje, aby zsynchronizować system z najnowszą wersją, i aktualizuje wszystkie pakiety systemowe z [Mirror Arch Arch](https://github.com/kairosci/arch) i [AUR](https://aur.archlinux.org/) (jeśli zainstalowałeś jakiekolwiek pakiety AUR).
+Sam Arch jest instalowany jako zwykłe pakiety pacman z [Repozytorium Pakietów Arch](https://github.com/kairosci/os), więc aktualizacja instaluje [najnowszą wersję Arch](https://github.com/kairosci/os), uruchamia wszelkie oczekujące migracje, aby zsynchronizować system z najnowszą wersją, i aktualizuje wszystkie pakiety systemowe z [Mirror Arch Arch](https://github.com/kairosci/os) i [AUR](https://aur.archlinux.org/) (jeśli zainstalowałeś jakiekolwiek pakiety AUR).
 
 Gdy zostaną wydane nowe wersje, po prawej stronie zegara pojawi się ikona strzałki w kółku. Kliknij ją, a rozpocznie się proces aktualizacji.
 
@@ -10,7 +10,7 @@ Gdy zostaną wydane nowe wersje, po prawej stronie zegara pojawi się ikona strz
 
 ### Cztery kanały
 
-Arch jest aktualizowany wzdłuż czterech kanałów: stable, RC, edge i dev. Nowe instalacje rozpoczynają się na kanale stable, który śledzi [oficjalne wydania](https://github.com/kairosci/arch), a także [stabilny mirror Arch Arch](https://github.com/kairosci/arch), który działa miesiąc za najnowszym, abyśmy mogli wyłapać wszelkie nowe niekompatybilności wymagające zmian konfiguracji, zanim spowodują problemy dla ludzi.
+Arch jest aktualizowany wzdłuż czterech kanałów: stable, RC, edge i dev. Nowe instalacje rozpoczynają się na kanale stable, który śledzi [oficjalne wydania](https://github.com/kairosci/os), a także [stabilny mirror Arch Arch](https://github.com/kairosci/os), który działa miesiąc za najnowszym, abyśmy mogli wyłapać wszelkie nowe niekompatybilności wymagające zmian konfiguracji, zanim spowodują problemy dla ludzi.
 
 Ale jeśli chcesz pomóc wyłapać te potencjalne problemy, możesz działać na kanale edge. To utrzyma twoje pakiety Arch śledzące najnowsze kompilacje deweloperskie i pozwoli ci aktualizować do najnowszych pakietów Arch, gdy tylko będą dostępne. Powinieneś robić to tylko, jeśli masz doświadczenie z Linuksem i wiesz, jak odzyskać system, który ma problemy.
 
