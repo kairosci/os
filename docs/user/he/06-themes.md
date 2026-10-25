@@ -6,7 +6,7 @@ Arch מגיעה עם עשרים ושתיים ערכות נושא יפות. אפ�
 
 לערכות נושא יש סט של תמונות רקע שאפשר לבחור ביניהן באמצעות `Super + Ctrl + Space`.
 
-אפשר למצוא עוד ערכות נושא ב-[דף ערכות הנושא הנוספות](https://github.com/kairosci/arch/themes/) או אפילו [ליצור ערכת נושא משלכם](43-making-your-own-theme.md).
+אפשר למצוא עוד ערכות נושא ב-[דף ערכות הנושא הנוספות](https://github.com/kairosci/os/themes/) או אפילו [ליצור ערכת נושא משלכם](43-making-your-own-theme.md).
 
  ![tokyo-night](../themes/tokyo-night/preview.png)
 _Tokyo Night_

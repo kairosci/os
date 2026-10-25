@@ -30,6 +30,6 @@ Arch מתייחס לאבטחה ברצינות רבה מאוד. זו אמורה �
 
 ## מפתחות חתימה
 
-המפתח הציבורי עבור כל חתימות ISO וחבילת מאגר Arch הוא `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([אימות ב-openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch)). חבילת `arch/arch-keyring` מכילה גם זאת ותשמש להפצת עדכונים פוטנציאליים בצורה חלקה.
+המפתח הציבורי עבור כל חתימות ISO וחבילת מאגר Arch הוא `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([אימות ב-openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os)). חבילת `arch/arch-keyring` מכילה גם זאת ותשמש להפצת עדכונים פוטנציאליים בצורה חלקה.
 
-תוכלו למצוא את החתימה עבור כל מהדורת ISO על ידי הוספת .sig לכתובת URL. כמו https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig.
+תוכלו למצוא את החתימה עבור כל מהדורת ISO על ידי הוספת .sig לכתובת URL. כמו https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig.

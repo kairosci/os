@@ -42,4 +42,4 @@ Arch מבחין בין השניים לפי האם לערכת הנושא יש מ�
 
 זכרו שברגע שהיא מותקנת ממאגר, כל `.lua`, תצורת טרמינל או `vscode.json` שהיא שולחת מושלכים, אז אל תבנו את ערכת הנושא סביב אלה.
 
-תוכלו להוסיף את ערכת הנושא שלכם ל[עמוד ערכות הנושא הנוספות](https://github.com/kairosci/arch/themes/) על ידי שליחת בקשת משיכה ל[מאגר arch-site](https://github.com/kairosci/arch).
+תוכלו להוסיף את ערכת הנושא שלכם ל[עמוד ערכות הנושא הנוספות](https://github.com/kairosci/os/themes/) על ידי שליחת בקשת משיכה ל[מאגר arch-site](https://github.com/kairosci/os).
