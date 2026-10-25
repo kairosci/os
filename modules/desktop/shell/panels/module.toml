@@ -1,0 +1,9 @@
+id = "desktop.shell.panels"
+domain = "desktop"
+package = "arch"
+sources = ["shell/plugins/panels"]
+requires = ["desktop.runtime"]
+
+[[output]]
+source = "shell/plugins/panels"
+target = "usr/share/arch/shell/plugins/panels"

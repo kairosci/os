@@ -1,0 +1,9 @@
+id = "desktop.shell.dock"
+domain = "desktop"
+package = "arch"
+sources = ["shell/plugins/dock"]
+requires = ["desktop.runtime"]
+
+[[output]]
+source = "shell/plugins/dock"
+target = "usr/share/arch/shell/plugins/dock"
