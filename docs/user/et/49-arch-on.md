@@ -2,19 +2,19 @@
 
 ### Apple M1/M2 kiibid
 
-[Asahi Alarm](https://asahi-alarm.org/) on Archi versioon Apple M1/M2 arvutitele, mis on ehitatud [Asahi Linuxi](https://asahilinux.org/) peale. Sa saad Arch selle peale mõningase vaevaga tööle. Vaata [kasutajate juhitud juhendit](https://github.com/kairosci/arch).
+[Asahi Alarm](https://asahi-alarm.org/) on Archi versioon Apple M1/M2 arvutitele, mis on ehitatud [Asahi Linuxi](https://asahilinux.org/) peale. Sa saad Arch selle peale mõningase vaevaga tööle. Vaata [kasutajate juhitud juhendit](https://github.com/kairosci/os).
 
 ### Apple Virtual Machine
 
-Sa saad Arch paigaldada ka Parallels VM-i sisse. Üsna tülikas protsess, aga selleks on samuti olemas [kasutajate juhitud juhend](https://github.com/kairosci/arch).
+Sa saad Arch paigaldada ka Parallels VM-i sisse. Üsna tülikas protsess, aga selleks on samuti olemas [kasutajate juhitud juhend](https://github.com/kairosci/os).
 
 ### VirtualBox
 
-VirtualBox on populaarne VM-i käitaja. [Sa saad Archt käivitada ka selle sees](https://github.com/kairosci/arch). Aga jõudlus pole tõenäoliselt suurepärane.
+VirtualBox on populaarne VM-i käitaja. [Sa saad Archt käivitada ka selle sees](https://github.com/kairosci/os). Aga jõudlus pole tõenäoliselt suurepärane.
 
 ### VMware Workstation Windows 11-s
 
-Veel üks populaarne VM-i käitaja Windowsile. [Arch on seadistatud ka selle sisse](https://github.com/kairosci/arch).
+Veel üks populaarne VM-i käitaja Windowsile. [Arch on seadistatud ka selle sisse](https://github.com/kairosci/os).
 
 ### Steam Deck
 

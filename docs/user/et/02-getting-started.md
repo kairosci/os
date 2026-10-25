@@ -2,7 +2,7 @@
 
 Arch paigaldatakse ISO abil. Saad valida täisketta paigalduse, mis võtab kogu ketta enda alla, või vaba ruumi paigalduse, mis paneb Arch ketta jaotamata ruumi — nii saad dual bootida Windowsi või mõne muu OS-i kõrvale (vaata [dual-boot paigaldus](50-dual-boot-install.md) — pane tähele, et pead esmalt Windowsis BitLockeri välja lülitama). Mõlemal juhul on paigalduse vaikesäte täielik krüptimine ja täisketta valik pühib valitud ketta tühjaks, nii et enne olemasoleva ketta kasutamist tee kindlasti varukoopia!
 
-[Laadi alla Arch ISO](https://github.com/kairosci/arch/), pane see USB-mälupulgale (kasuta Macis/Windowsis [balenaEtcherit](https://etcher.balena.io/) või Linuxis [caligulat](https://github.com/ifd3f/caligula)) ja käivita arvuti pulgalt.
+[Laadi alla Arch ISO](https://github.com/kairosci/os/), pane see USB-mälupulgale (kasuta Macis/Windowsis [balenaEtcherit](https://etcher.balena.io/) või Linuxis [caligulat](https://github.com/ifd3f/caligula)) ja käivita arvuti pulgalt.
 
 _Pead BIOS-is Secure Booti ja/või TPM-i välja lülitama. Arch paigaldamiseks pead need välja lülitama. Need on Microsofti turvasüsteemid, mis on mõeldud Windowsi ja Microsoftiga seotud Linuxi distributsioonide jaoks._
 
@@ -36,8 +36,8 @@ Aga erilistel asjaoludel, näiteks Arch kaugpaigaldustel kaitstud arvutitesse v�
 
 ### Keel
 
-Arch räägib 50 keelt — sama komplekt kui github.com/kairosci/arch — ja vaikekeel on inglise keel. Vahetamiseks ava Arch menüü ja mine _Setup > Language_, või käivita terminalis `archctl language <code>` (`archctl language list` näitab koode). Menüü, töölaud ja Arch enda teavitused vahetavad kohe keelt ja iga rakendus, mille seejärel avad, järgib samuti. Juba avatud rakendused vahetavad keelt, kui need taaskäivitad.
+Arch räägib 50 keelt — sama komplekt kui github.com/kairosci/os — ja vaikekeel on inglise keel. Vahetamiseks ava Arch menüü ja mine _Setup > Language_, või käivita terminalis `archctl language <code>` (`archctl language list` näitab koode). Menüü, töölaud ja Arch enda teavitused vahetavad kohe keelt ja iga rakendus, mille seejärel avad, järgib samuti. Juba avatud rakendused vahetavad keelt, kui need taaskäivitad.
 
 ### Abi, kui jääd hätta
 
-Kui jääd hätta, leiad tavaliselt kedagi, kes on nõus aitama, _#arch-help_ kanalis [kogukonna Discordis](https://github.com/kairosci/arch/discord).
+Kui jääd hätta, leiad tavaliselt kedagi, kes on nõus aitama, _#arch-help_ kanalis [kogukonna Discordis](https://github.com/kairosci/os/discord).

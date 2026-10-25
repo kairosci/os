@@ -2,7 +2,7 @@
 
 Arch ja sinu paketid hoitakse ajakohasena Arch menüü (`Super + Space`) jaotise _Uuenda > Arch_ kaudu.
 
-Arch ise paigaldatakse tavaliste pacmani pakettidena [Arch paketirepost](https://github.com/kairosci/arch), nii et uuendus paigaldab [uusima Arch väljalaske](https://github.com/kairosci/arch), käivitab kõik ootel migratsioonid, et sinu süsteem uusimaga sünkroonida, ja uuendab kõiki süsteemipakette [Arch Archi peeglist](https://github.com/kairosci/arch) ja [AUR-st](https://aur.archlinux.org/) (kui sul on AUR-pakette paigaldatud).
+Arch ise paigaldatakse tavaliste pacmani pakettidena [Arch paketirepost](https://github.com/kairosci/os), nii et uuendus paigaldab [uusima Arch väljalaske](https://github.com/kairosci/os), käivitab kõik ootel migratsioonid, et sinu süsteem uusimaga sünkroonida, ja uuendab kõiki süsteemipakette [Arch Archi peeglist](https://github.com/kairosci/os) ja [AUR-st](https://aur.archlinux.org/) (kui sul on AUR-pakette paigaldatud).
 
 Kui tehakse uusi väljalaskeid, ilmub sinu kella paremale ringnoole ikoon. Klõpsa seda ja uuendusprotsess algab.
 
@@ -10,7 +10,7 @@ Kui tehakse uusi väljalaskeid, ilmub sinu kella paremale ringnoole ikoon. Klõp
 
 ### Neli kanalit
 
-Arch't uuendatakse nelja kanali kaudu: stable, RC, edge ja dev. Uued paigaldused alustavad stable kanalil, mis jälgib [ametlikke väljalaskeid](https://github.com/kairosci/arch) ning [stabiilset Arch Archi peeglit](https://github.com/kairosci/arch), mis on uusimast ühe kuu võrra maas, et saaksime kinni püüda kõik uued ühildamatused, mis nõuavad konfiguratsioonimuudatusi, enne kui need inimestele probleeme põhjustavad.
+Arch't uuendatakse nelja kanali kaudu: stable, RC, edge ja dev. Uued paigaldused alustavad stable kanalil, mis jälgib [ametlikke väljalaskeid](https://github.com/kairosci/os) ning [stabiilset Arch Archi peeglit](https://github.com/kairosci/os), mis on uusimast ühe kuu võrra maas, et saaksime kinni püüda kõik uued ühildamatused, mis nõuavad konfiguratsioonimuudatusi, enne kui need inimestele probleeme põhjustavad.
 
 Kuid kui soovid aidata neid võimalikke probleeme märgata, saad töötada edge kanalil. See hoiab sinu Arch paketid uusimaid arendusversioone jälgimas ja võimaldab sul uuendada uusimatele Archi pakettidele kohe, kui need saadaval on. Seda peaksid tegema ainult siis, kui oled Linuxiga kogenud ja tead, kuidas probleemidega süsteemi taastada.
 
