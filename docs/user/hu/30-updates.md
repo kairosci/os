@@ -2,7 +2,7 @@
 
 Az Arch és a csomagjaid naprakészek maradnak az Arch menü (`Super + Space`) _Update > Arch_ pontján keresztül.
 
-Maga az Arch szokásos pacman-csomagokként települ az [Arch Package Repositoryból](https://github.com/kairosci/arch), így egy frissítés telepíti [a legújabb Arch-kiadást](https://github.com/kairosci/arch), lefuttat minden függőben lévő migrációt, hogy a rendszered szinkronba kerüljön a legújabbal, és frissíti az összes rendszercsomagot az [Arch Arch Mirrorról](https://github.com/kairosci/arch) és az [AUR-ból](https://aur.archlinux.org/) (ha telepítettél AUR-csomagokat).
+Maga az Arch szokásos pacman-csomagokként települ az [Arch Package Repositoryból](https://github.com/kairosci/os), így egy frissítés telepíti [a legújabb Arch-kiadást](https://github.com/kairosci/os), lefuttat minden függőben lévő migrációt, hogy a rendszered szinkronba kerüljön a legújabbal, és frissíti az összes rendszercsomagot az [Arch Arch Mirrorról](https://github.com/kairosci/os) és az [AUR-ból](https://aur.archlinux.org/) (ha telepítettél AUR-csomagokat).
 
 Amikor új kiadások jelennek meg, egy környíl ikon jelenik meg az órádtól jobbra. Kattints rá, és elindul a frissítési folyamat.
 
@@ -10,7 +10,7 @@ Amikor új kiadások jelennek meg, egy környíl ikon jelenik meg az órádtól 
 
 ### Négy csatorna
 
-Az Arch négy csatornán frissül: stable, RC, edge és dev. Az új telepítések a stable csatornán indulnak, amely a [hivatalos kiadásokat](https://github.com/kairosci/arch) követi, valamint a [stable Arch Arch mirrort](https://github.com/kairosci/arch), amely egy hónappal lemarad a legújabbról, hogy kiszúrjunk minden új inkompatibilitást, amely konfigurációs módosítást igényel, mielőtt problémákat okozna az embereknek.
+Az Arch négy csatornán frissül: stable, RC, edge és dev. Az új telepítések a stable csatornán indulnak, amely a [hivatalos kiadásokat](https://github.com/kairosci/os) követi, valamint a [stable Arch Arch mirrort](https://github.com/kairosci/os), amely egy hónappal lemarad a legújabbról, hogy kiszúrjunk minden új inkompatibilitást, amely konfigurációs módosítást igényel, mielőtt problémákat okozna az embereknek.
 
 De ha segíteni szeretnél ezeknek a lehetséges problémáknak a megtalálásában, futtathatod az edge csatornát. Ez az Arch-csomagoknak a legújabb fejlesztői buildeket követve tartja, és lehetővé teszi, hogy a legújabb Arch csomagokra frissíts, amint elérhetők. Csak akkor tedd ezt, ha tapasztalt Linux-használó vagy, és tudod, hogyan állíts helyre egy problémákkal küzdő rendszert.
 

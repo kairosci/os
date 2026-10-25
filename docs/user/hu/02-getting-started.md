@@ -2,7 +2,7 @@
 
 Az Arch telepítése ISO segítségével történik. Választhatsz a teljes lemezes telepítés között, amely átveszi az egész meghajtót, vagy a szabad helyre történő telepítés között, amely egy meghajtó fel nem osztott területére teszi az Archt — így tudsz kettős rendszerindítást használni Windows vagy egy másik operációs rendszer mellett (lásd: [kettős rendszerindításos telepítés](50-dual-boot-install.md) — vedd figyelembe, hogy Windowsban előbb ki kell kapcsolnod a BitLockert). Akárhogy is, a telepítés alapértelmezés szerint teljes titkosítást használ, a teljes lemezes opció pedig törli a kiválasztott meghajtót, ezért feltétlenül készíts biztonsági mentést, mielőtt egy meglévőt használnál!
 
-Először [Töltsd le az Arch ISO-t](https://github.com/kairosci/arch/), tedd rá egy USB-kulcsra (Macen/Windowson használd a [balenaEtcher](https://etcher.balena.io/) alkalmazást, Linuxon pedig a [caligula](https://github.com/ifd3f/caligula) alkalmazást), és indítsd el a gépet a kulcsról.
+Először [Töltsd le az Arch ISO-t](https://github.com/kairosci/os/), tedd rá egy USB-kulcsra (Macen/Windowson használd a [balenaEtcher](https://etcher.balena.io/) alkalmazást, Linuxon pedig a [caligula](https://github.com/ifd3f/caligula) alkalmazást), és indítsd el a gépet a kulcsról.
 
 _Ki kell kapcsolnod a Secure Bootot és/vagy a TPM-et a BIOS-ban. Ezeket ki kell kapcsolnod ahhoz, hogy telepíteni tudd az Archt. Ezek Microsoft-biztonsági megoldások, amelyeket Windowshoz és a Microsofthoz kötődő Linux-disztribúciókhoz szántak._
 
@@ -36,8 +36,8 @@ De különleges körülmények között, például védett számítógépeken v�
 
 ### Nyelv
 
-Az Arch 50 nyelven beszél — ugyanabban a készletben, mint az github.com/kairosci/arch —, és az angol az alapértelmezett. A váltáshoz nyisd meg az Arch menüt, és lépj a _Beállítás > Nyelv_ pontra, vagy futtasd terminálban az `archctl language <code>` parancsot (az `archctl language list` megmutatja a kódokat). A menü, az asztal és az Arch saját értesítései azonnal nyelvet váltanak, és minden ezután megnyitott alkalmazás is követi őket. A már nyitva lévő alkalmazások az újraindításuk után váltanak.
+Az Arch 50 nyelven beszél — ugyanabban a készletben, mint az github.com/kairosci/os —, és az angol az alapértelmezett. A váltáshoz nyisd meg az Arch menüt, és lépj a _Beállítás > Nyelv_ pontra, vagy futtasd terminálban az `archctl language <code>` parancsot (az `archctl language list` megmutatja a kódokat). A menü, az asztal és az Arch saját értesítései azonnal nyelvet váltanak, és minden ezután megnyitott alkalmazás is követi őket. A már nyitva lévő alkalmazások az újraindításuk után váltanak.
 
 ### Segítség, ha elakadtál
 
-Ha elakadsz, általában találsz valakit, aki szívesen segít a [közösségi Discord](https://github.com/kairosci/arch/discord) _#arch-help_ csatornáján.
+Ha elakadsz, általában találsz valakit, aki szívesen segít a [közösségi Discord](https://github.com/kairosci/os/discord) _#arch-help_ csatornáján.

@@ -42,4 +42,4 @@ Ez a megmaradó `[themename]` válik a téma könyvtárnevévé, így olyannak k
 
 Emlékezz, hogy amint egy repóból települ, minden olyan `.lua`, terminálkonfiguráció vagy `vscode.json`, amelyet szállít, eldobódik, úgyhogy ne ezek köré építsd a témát.
 
-A témádat hozzáadhatod [az extra témák oldalához](https://github.com/kairosci/arch/themes/), ha pull requestet küldesz [az arch-site repónak](https://github.com/kairosci/arch).
+A témádat hozzáadhatod [az extra témák oldalához](https://github.com/kairosci/os/themes/), ha pull requestet küldesz [az arch-site repónak](https://github.com/kairosci/os).

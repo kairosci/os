@@ -2,19 +2,19 @@
 
 ### Apple M1/M2 chipek
 
-Az [Asahi Alarm](https://asahi-alarm.org/) az Arch egy Apple M1/M2 számítógépekre szánt változata, amely az [Asahi Linux](https://asahilinux.org/) tetejére épül. Némi erőfeszítéssel az Archt is futtathatod felette. Lásd [a felhasználók által írt útmutatót](https://github.com/kairosci/arch).
+Az [Asahi Alarm](https://asahi-alarm.org/) az Arch egy Apple M1/M2 számítógépekre szánt változata, amely az [Asahi Linux](https://asahilinux.org/) tetejére épül. Némi erőfeszítéssel az Archt is futtathatod felette. Lásd [a felhasználók által írt útmutatót](https://github.com/kairosci/os).
 
 ### Apple virtuális gép
 
-Az Archt egy Parallels VM-en belül is telepítheted. Elég körülményes folyamat, de van [egy felhasználók által írt útmutató](https://github.com/kairosci/arch) ahhoz is.
+Az Archt egy Parallels VM-en belül is telepítheted. Elég körülményes folyamat, de van [egy felhasználók által írt útmutató](https://github.com/kairosci/os) ahhoz is.
 
 ### VirtualBox
 
-A VirtualBox egy népszerű VM-futtató. [Az Archt abban is futtathatod](https://github.com/kairosci/arch). De a teljesítmény valószínűleg nem lesz nagyszerű.
+A VirtualBox egy népszerű VM-futtató. [Az Archt abban is futtathatod](https://github.com/kairosci/os). De a teljesítmény valószínűleg nem lesz nagyszerű.
 
 ### VMware Workstation Windows 11-en
 
-Egy másik népszerű VM-futtató Windowsra. [Az Archt abban is beállították](https://github.com/kairosci/arch).
+Egy másik népszerű VM-futtató Windowsra. [Az Archt abban is beállították](https://github.com/kairosci/os).
 
 ### Steam Deck
 

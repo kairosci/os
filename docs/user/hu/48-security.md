@@ -30,6 +30,6 @@ Légy tisztán látó ebben az ügyben: amíg be van kapcsolva, bármi, ami a fe
 
 ## Aláírókulcsok
 
-Az összes ISO-aláírás és Arch repócsomag nyilvános kulcsa `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([ellenőrzés az openpgp.org oldalon](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch)). Az `arch/arch-keyring` csomag ezt is tartalmazza, és zökkenőmentesen minden esetleges frissítés terjesztésére használják.
+Az összes ISO-aláírás és Arch repócsomag nyilvános kulcsa `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([ellenőrzés az openpgp.org oldalon](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os)). Az `arch/arch-keyring` csomag ezt is tartalmazza, és zökkenőmentesen minden esetleges frissítés terjesztésére használják.
 
-Bármely ISO-kiadás aláírását megtalálod, ha .sig utótagot adsz az URL-hez. Például https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig.
+Bármely ISO-kiadás aláírását megtalálod, ha .sig utótagot adsz az URL-hez. Például https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig.
