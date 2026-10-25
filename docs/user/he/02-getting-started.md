@@ -2,7 +2,7 @@
 
 Arch מותקן באמצעות ISO. אפשר לבחור בין התקנה על כל הדיסק, שמשתלטת על הכונן כולו, לבין התקנה בשטח פנוי, שמציבה את Arch בשטח הלא מוקצה בכונן — כך עושים אתחול כפול לצד Windows או מערכת הפעלה אחרת (ראו [התקנת אתחול כפול](50-dual-boot-install.md) — שימו לב שתצטרכו לכבות תחילה את BitLocker ב-Windows). בכל מקרה, ההתקנה מוגדרת כברירת מחדל להצפנה מלאה, והאפשרות של כל הדיסק תמחק את הכונן הנבחר, אז הקפידו לגבות לפני שאתם משתמשים בכונן קיים!
 
-[הורידו את ה-ISO של Arch](https://github.com/kairosci/arch/) תחילה, שימו אותו על דיסק און קי USB (השתמשו ב-[balenaEtcher](https://etcher.balena.io/) ב-Mac/Windows או ב-[caligula](https://github.com/ifd3f/caligula) ב-Linux), ואתחלו מהדיסק און קי.
+[הורידו את ה-ISO של Arch](https://github.com/kairosci/os/) תחילה, שימו אותו על דיסק און קי USB (השתמשו ב-[balenaEtcher](https://etcher.balena.io/) ב-Mac/Windows או ב-[caligula](https://github.com/ifd3f/caligula) ב-Linux), ואתחלו מהדיסק און קי.
 
 _עליכם לכבות את Secure Boot ו/או את TPM ב-BIOS. עליכם לכבות אותם כדי שתוכלו להתקין את Arch. אלה תוכניות אבטחה של Microsoft שנועדו ל-Windows ולהפצות Linux המסונפות ל-Microsoft._
 
@@ -36,8 +36,8 @@ Arch מותקן עם הצפנה כברירת מחדל. זו הבחירה הבט�
 
 ### שפה
 
-Arch דובר 50 שפות — אותה קבוצה כמו github.com/kairosci/arch — ואנגלית היא ברירת המחדל. כדי להחליף, פתחו את תפריט Arch ועברו אל _Setup > Language_, או הריצו `archctl language <code>` במסוף (`archctl language list` מציג את הקודים). התפריט, שולחן העבודה וההתראות של Arch עצמו מחליפים שפה מיד, וכל יישום שתפתחו אחר כך עוקב גם הוא. יישומים שכבר היו פתוחים מתחלפים ברגע שתפעילו אותם מחדש.
+Arch דובר 50 שפות — אותה קבוצה כמו github.com/kairosci/os — ואנגלית היא ברירת המחדל. כדי להחליף, פתחו את תפריט Arch ועברו אל _Setup > Language_, או הריצו `archctl language <code>` במסוף (`archctl language list` מציג את הקודים). התפריט, שולחן העבודה וההתראות של Arch עצמו מחליפים שפה מיד, וכל יישום שתפתחו אחר כך עוקב גם הוא. יישומים שכבר היו פתוחים מתחלפים ברגע שתפעילו אותם מחדש.
 
 ### עזרה אם נתקעתם
 
-אם נתקעתם, בדרך כלל תוכלו למצוא מישהו שמוכן לעזור בערוץ _#arch-help_ ב-[Discord של הקהילה](https://github.com/kairosci/arch/discord).
+אם נתקעתם, בדרך כלל תוכלו למצוא מישהו שמוכן לעזור בערוץ _#arch-help_ ב-[Discord של הקהילה](https://github.com/kairosci/os/discord).
