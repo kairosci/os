@@ -2,7 +2,7 @@
 
 Arch کو ایک ISO استعمال کر کے انسٹال کیا جاتا ہے۔ آپ full-disk انسٹال کے درمیان انتخاب کر سکتے ہیں، جو پوری ڈرائیو پر قبضہ کر لیتا ہے، یا free-space انسٹال کے درمیان، جو Arch کو ڈرائیو پر موجود غیر مختص جگہ میں رکھتا ہے — اسی طرح آپ Windows یا کسی دوسرے OS کے ساتھ dual boot کرتے ہیں (دیکھیں [dual-boot انسٹال](50-dual-boot-install.md) — نوٹ کریں کہ آپ کو پہلے Windows میں BitLocker بند کرنا ہوگا)۔ کسی بھی صورت میں، انسٹالیشن بطور ڈیفالٹ مکمل encryption پر ہوتی ہے، اور full-disk آپشن منتخب ڈرائیو کو صاف کر دے گا، اس لیے موجودہ ڈرائیو استعمال کرنے سے پہلے backup لینا یقینی بنائیں!
 
-پہلے [Arch ISO ڈاؤن لوڈ کریں](https://github.com/kairosci/arch/)، اسے ایک USB stick پر رکھیں (Mac/Windows پر [balenaEtcher](https://etcher.balena.io/) یا Linux پر [caligula](https://github.com/ifd3f/caligula) استعمال کریں)، اور stick سے boot کریں۔
+پہلے [Arch ISO ڈاؤن لوڈ کریں](https://github.com/kairosci/os/)، اسے ایک USB stick پر رکھیں (Mac/Windows پر [balenaEtcher](https://etcher.balena.io/) یا Linux پر [caligula](https://github.com/ifd3f/caligula) استعمال کریں)، اور stick سے boot کریں۔
 
 _آپ کو BIOS میں Secure Boot اور/یا TPM بند کرنا ہوگا۔ Arch انسٹال کر سکنے کے لیے آپ کو انہیں بند کرنا ہوگا۔ یہ Microsoft کی security اسکیمیں ہیں جو Windows اور Microsoft سے وابستہ Linux distributions کے لیے بنی ہیں۔_
 
@@ -36,8 +36,8 @@ Arch بطور ڈیفالٹ encryption کے ساتھ انسٹال ہوتا ہے۔
 
 ### زبان
 
-Arch 50 زبانیں بولتا ہے — وہی مجموعہ جو github.com/kairosci/arch کا ہے — اور انگریزی ڈیفالٹ ہے۔ تبدیل کرنے کے لیے، Arch menu کھولیں اور _Setup > Language_ پر جائیں، یا terminal میں `archctl language <code>` چلائیں (`archctl language list` codes دکھاتا ہے)۔ menu، desktop، اور Arch کی اپنی notifications فوراً زبان بدل دیتی ہیں، اور اس کے بعد آپ جو بھی application کھولتے ہیں وہ بھی اسی کی پیروی کرتی ہے۔ جو apps پہلے سے کھلی تھیں وہ انہیں restart کرنے کے بعد تبدیل ہوتی ہیں۔
+Arch 50 زبانیں بولتا ہے — وہی مجموعہ جو github.com/kairosci/os کا ہے — اور انگریزی ڈیفالٹ ہے۔ تبدیل کرنے کے لیے، Arch menu کھولیں اور _Setup > Language_ پر جائیں، یا terminal میں `archctl language <code>` چلائیں (`archctl language list` codes دکھاتا ہے)۔ menu، desktop، اور Arch کی اپنی notifications فوراً زبان بدل دیتی ہیں، اور اس کے بعد آپ جو بھی application کھولتے ہیں وہ بھی اسی کی پیروی کرتی ہے۔ جو apps پہلے سے کھلی تھیں وہ انہیں restart کرنے کے بعد تبدیل ہوتی ہیں۔
 
 ### اگر آپ پھنس جائیں تو مدد
 
-اگر آپ پھنس جائیں، تو آپ کو عام طور پر [کمیونٹی Discord](https://github.com/kairosci/arch/discord) پر _#arch-help_ چینل میں مدد کے لیے تیار کوئی نہ کوئی مل جاتا ہے۔
+اگر آپ پھنس جائیں، تو آپ کو عام طور پر [کمیونٹی Discord](https://github.com/kairosci/os/discord) پر _#arch-help_ چینل میں مدد کے لیے تیار کوئی نہ کوئی مل جاتا ہے۔

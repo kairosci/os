@@ -30,6 +30,6 @@ Arch کے سیٹنگز پیکیج کو اپ ڈیٹ کرنا یا ہٹانا اس
 
 ## دستخطی کلیدیں
 
-تمام ISO دستخطوں اور Arch repo پیکیج کے لیے عوامی کلید `40DFB630FF42BCFFB047046CF0134EE680CAC571` ہے ([openpgp.org پر تصدیق کریں](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch))۔ `arch/arch-keyring` پیکیج میں یہ بھی موجود ہے اور کسی بھی ممکنہ اپ ڈیٹ کو بغیر دقعت پھیلانے کے لیے استعمال کیا جائے گا۔
+تمام ISO دستخطوں اور Arch repo پیکیج کے لیے عوامی کلید `40DFB630FF42BCFFB047046CF0134EE680CAC571` ہے ([openpgp.org پر تصدیق کریں](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os))۔ `arch/arch-keyring` پیکیج میں یہ بھی موجود ہے اور کسی بھی ممکنہ اپ ڈیٹ کو بغیر دقعت پھیلانے کے لیے استعمال کیا جائے گا۔
 
-آپ URL میں .sig شامل کر کے کسی بھی ISO ریلیز کے لیے دستخط پا سکتے ہیں۔ جیسے https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig.
+آپ URL میں .sig شامل کر کے کسی بھی ISO ریلیز کے لیے دستخط پا سکتے ہیں۔ جیسے https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig.
