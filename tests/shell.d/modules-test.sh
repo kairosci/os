@@ -34,6 +34,9 @@ settings = {
     "desktop.applications",
     "desktop.branding.preinstall",
 }
+runtime_data = {
+    "system.runtime-data.libalpm-hooks",
+}
 default_modules = {
     module_id: module for module_id, module in modules.items()
     if module_id.startswith("system.settings.defaults.")
@@ -71,6 +74,7 @@ declared_default_sources = {
 }
 assert stages <= modules.keys(), stages - modules.keys()
 assert settings <= modules.keys(), settings - modules.keys()
+assert runtime_data <= modules.keys(), runtime_data - modules.keys()
 assert set(command_modules) == expected_groups, (set(command_modules) ^ expected_groups)
 assert command_sources == cli_files, (cli_files - command_sources, command_sources - cli_files)
 assert declared_default_sources == expected_default_sources, (
@@ -91,6 +95,10 @@ for module_id in settings:
     module = modules[module_id]
     assert module["package"] == "arch-settings", module_id
     assert module["requires"] == ["system.settings"], (module_id, module["requires"])
+for module_id in runtime_data:
+    module = modules[module_id]
+    assert module["package"] == "arch", module_id
+    assert module["requires"] == ["system.runtime-data"], (module_id, module["requires"])
 for module_id in command_modules:
     module = command_modules[module_id]
     assert module["package"] == "arch", module_id
