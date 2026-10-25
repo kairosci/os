@@ -2,7 +2,7 @@
 
 Arch 及其套件透過 Arch 選單（`Super + Space`）中的 _更新 > Arch_ 保持最新狀態。
 
-Arch 本身是以來自 [Arch Package Repository](https://github.com/kairosci/arch) 的一般 pacman 套件安裝的，所以一次更新會安裝[最新的 Arch 版本](https://github.com/kairosci/arch)，執行任何待處理的遷移，讓你的系統與最新版保持同步，並從 [Arch Arch Mirror](https://github.com/kairosci/arch) 和 [AUR](https://aur.archlinux.org/)（如果你已安裝任何 AUR 套件）更新所有系統套件。
+Arch 本身是以來自 [Arch Package Repository](https://github.com/kairosci/os) 的一般 pacman 套件安裝的，所以一次更新會安裝[最新的 Arch 版本](https://github.com/kairosci/os)，執行任何待處理的遷移，讓你的系統與最新版保持同步，並從 [Arch Arch Mirror](https://github.com/kairosci/os) 和 [AUR](https://aur.archlinux.org/)（如果你已安裝任何 AUR 套件）更新所有系統套件。
 
 當新版本發布時，會在時鐘右側出現一個圓圈箭頭圖示。按一下它，更新流程就會開始。
 
@@ -10,7 +10,7 @@ Arch 本身是以來自 [Arch Package Repository](https://github.com/kairosci/ar
 
 ### 四個頻道
 
-Arch 沿著四個頻道更新：stable、RC、edge 和 dev。新安裝從 stable 頻道開始，它追蹤[官方版本](https://github.com/kairosci/arch)，以及落後最新版本一個月的[穩定版 Arch Arch 鏡像](https://github.com/kairosci/arch)，這樣我們就能在任何需要更改設定的新不相容性給人們帶來問題之前，將其攔截下來。
+Arch 沿著四個頻道更新：stable、RC、edge 和 dev。新安裝從 stable 頻道開始，它追蹤[官方版本](https://github.com/kairosci/os)，以及落後最新版本一個月的[穩定版 Arch Arch 鏡像](https://github.com/kairosci/os)，這樣我們就能在任何需要更改設定的新不相容性給人們帶來問題之前，將其攔截下來。
 
 但如果你想幫忙發現這些潛在問題，你可以執行 edge 頻道。這會讓你的 Arch 套件追蹤最新的開發版本，並讓你一有最新的 Arch 套件就能更新。你只應在你有 Linux 經驗、且知道如何復原出現問題的系統時才這樣做。
 

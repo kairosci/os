@@ -30,6 +30,6 @@ Arch 極度重視安全性。這是一個讓你能在 _真實世界_ 中做 _真
 
 ## 簽章金鑰
 
-所有 ISO 簽章和 Arch repo 套件的公開金鑰是 `40DFB630FF42BCFFB047046CF0134EE680CAC571`（[在 openpgp.org 驗證](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch)）。`arch/arch-keyring` 套件也包含這把金鑰，並將用於無縫推出任何潛在更新。
+所有 ISO 簽章和 Arch repo 套件的公開金鑰是 `40DFB630FF42BCFFB047046CF0134EE680CAC571`（[在 openpgp.org 驗證](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os)）。`arch/arch-keyring` 套件也包含這把金鑰，並將用於無縫推出任何潛在更新。
 
-你可以透過在 URL 後加上 .sig 來找到任何 ISO 版本的簽章。例如 https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig.
+你可以透過在 URL 後加上 .sig 來找到任何 ISO 版本的簽章。例如 https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig.
