@@ -1,0 +1,26 @@
+id = "desktop.commands.font"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-font-cjk",
+  "src/cli/arch-font-current",
+  "src/cli/arch-font-list",
+  "src/cli/arch-font-set",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-font-cjk"
+target = "usr/share/arch/src/cli/arch-font-cjk"
+
+[[output]]
+source = "src/cli/arch-font-current"
+target = "usr/share/arch/src/cli/arch-font-current"
+
+[[output]]
+source = "src/cli/arch-font-list"
+target = "usr/share/arch/src/cli/arch-font-list"
+
+[[output]]
+source = "src/cli/arch-font-set"
+target = "usr/share/arch/src/cli/arch-font-set"

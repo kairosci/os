@@ -1,0 +1,16 @@
+id = "desktop.commands.installed"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-installed-service-dropbox",
+  "src/cli/arch-installed-service-tailscale",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-installed-service-dropbox"
+target = "usr/share/arch/src/cli/arch-installed-service-dropbox"
+
+[[output]]
+source = "src/cli/arch-installed-service-tailscale"
+target = "usr/share/arch/src/cli/arch-installed-service-tailscale"

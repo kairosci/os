@@ -1,0 +1,176 @@
+id = "desktop.commands.remove"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-remove-ai-chatgpt",
+  "src/cli/arch-remove-ai-claude",
+  "src/cli/arch-remove-ai-grok-bot",
+  "src/cli/arch-remove-ai-hermes",
+  "src/cli/arch-remove-ai-lm-studio",
+  "src/cli/arch-remove-ai-ollama",
+  "src/cli/arch-remove-ai-openclaw",
+  "src/cli/arch-remove-ai-perplexity",
+  "src/cli/arch-remove-ai-t3-code",
+  "src/cli/arch-remove-browser",
+  "src/cli/arch-remove-dev-env",
+  "src/cli/arch-remove-dictation-superwhisper",
+  "src/cli/arch-remove-dictation-voxtype",
+  "src/cli/arch-remove-gaming-battlenet",
+  "src/cli/arch-remove-gaming-geforce-now",
+  "src/cli/arch-remove-gaming-heroic",
+  "src/cli/arch-remove-gaming-lutris",
+  "src/cli/arch-remove-gaming-minecraft",
+  "src/cli/arch-remove-gaming-retroarch",
+  "src/cli/arch-remove-gaming-steam",
+  "src/cli/arch-remove-gaming-xbox-cloud",
+  "src/cli/arch-remove-gaming-xbox-controllers",
+  "src/cli/arch-remove-launcher-entry",
+  "src/cli/arch-remove-preinstalls",
+  "src/cli/arch-remove-security-fido2",
+  "src/cli/arch-remove-security-fingerprint",
+  "src/cli/arch-remove-security-sshd",
+  "src/cli/arch-remove-security-sudoless-docker",
+  "src/cli/arch-remove-service-1password",
+  "src/cli/arch-remove-service-dropbox",
+  "src/cli/arch-remove-service-microsoft",
+  "src/cli/arch-remove-service-ssh-agent",
+  "src/cli/arch-remove-service-sunshine",
+  "src/cli/arch-remove-service-tailscale",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-remove-ai-chatgpt"
+target = "usr/share/arch/src/cli/arch-remove-ai-chatgpt"
+
+[[output]]
+source = "src/cli/arch-remove-ai-claude"
+target = "usr/share/arch/src/cli/arch-remove-ai-claude"
+
+[[output]]
+source = "src/cli/arch-remove-ai-grok-bot"
+target = "usr/share/arch/src/cli/arch-remove-ai-grok-bot"
+
+[[output]]
+source = "src/cli/arch-remove-ai-hermes"
+target = "usr/share/arch/src/cli/arch-remove-ai-hermes"
+
+[[output]]
+source = "src/cli/arch-remove-ai-lm-studio"
+target = "usr/share/arch/src/cli/arch-remove-ai-lm-studio"
+
+[[output]]
+source = "src/cli/arch-remove-ai-ollama"
+target = "usr/share/arch/src/cli/arch-remove-ai-ollama"
+
+[[output]]
+source = "src/cli/arch-remove-ai-openclaw"
+target = "usr/share/arch/src/cli/arch-remove-ai-openclaw"
+
+[[output]]
+source = "src/cli/arch-remove-ai-perplexity"
+target = "usr/share/arch/src/cli/arch-remove-ai-perplexity"
+
+[[output]]
+source = "src/cli/arch-remove-ai-t3-code"
+target = "usr/share/arch/src/cli/arch-remove-ai-t3-code"
+
+[[output]]
+source = "src/cli/arch-remove-browser"
+target = "usr/share/arch/src/cli/arch-remove-browser"
+
+[[output]]
+source = "src/cli/arch-remove-dev-env"
+target = "usr/share/arch/src/cli/arch-remove-dev-env"
+
+[[output]]
+source = "src/cli/arch-remove-dictation-superwhisper"
+target = "usr/share/arch/src/cli/arch-remove-dictation-superwhisper"
+
+[[output]]
+source = "src/cli/arch-remove-dictation-voxtype"
+target = "usr/share/arch/src/cli/arch-remove-dictation-voxtype"
+
+[[output]]
+source = "src/cli/arch-remove-gaming-battlenet"
+target = "usr/share/arch/src/cli/arch-remove-gaming-battlenet"
+
+[[output]]
+source = "src/cli/arch-remove-gaming-geforce-now"
+target = "usr/share/arch/src/cli/arch-remove-gaming-geforce-now"
+
+[[output]]
+source = "src/cli/arch-remove-gaming-heroic"
+target = "usr/share/arch/src/cli/arch-remove-gaming-heroic"
+
+[[output]]
+source = "src/cli/arch-remove-gaming-lutris"
+target = "usr/share/arch/src/cli/arch-remove-gaming-lutris"
+
+[[output]]
+source = "src/cli/arch-remove-gaming-minecraft"
+target = "usr/share/arch/src/cli/arch-remove-gaming-minecraft"
+
+[[output]]
+source = "src/cli/arch-remove-gaming-retroarch"
+target = "usr/share/arch/src/cli/arch-remove-gaming-retroarch"
+
+[[output]]
+source = "src/cli/arch-remove-gaming-steam"
+target = "usr/share/arch/src/cli/arch-remove-gaming-steam"
+
+[[output]]
+source = "src/cli/arch-remove-gaming-xbox-cloud"
+target = "usr/share/arch/src/cli/arch-remove-gaming-xbox-cloud"
+
+[[output]]
+source = "src/cli/arch-remove-gaming-xbox-controllers"
+target = "usr/share/arch/src/cli/arch-remove-gaming-xbox-controllers"
+
+[[output]]
+source = "src/cli/arch-remove-launcher-entry"
+target = "usr/share/arch/src/cli/arch-remove-launcher-entry"
+
+[[output]]
+source = "src/cli/arch-remove-preinstalls"
+target = "usr/share/arch/src/cli/arch-remove-preinstalls"
+
+[[output]]
+source = "src/cli/arch-remove-security-fido2"
+target = "usr/share/arch/src/cli/arch-remove-security-fido2"
+
+[[output]]
+source = "src/cli/arch-remove-security-fingerprint"
+target = "usr/share/arch/src/cli/arch-remove-security-fingerprint"
+
+[[output]]
+source = "src/cli/arch-remove-security-sshd"
+target = "usr/share/arch/src/cli/arch-remove-security-sshd"
+
+[[output]]
+source = "src/cli/arch-remove-security-sudoless-docker"
+target = "usr/share/arch/src/cli/arch-remove-security-sudoless-docker"
+
+[[output]]
+source = "src/cli/arch-remove-service-1password"
+target = "usr/share/arch/src/cli/arch-remove-service-1password"
+
+[[output]]
+source = "src/cli/arch-remove-service-dropbox"
+target = "usr/share/arch/src/cli/arch-remove-service-dropbox"
+
+[[output]]
+source = "src/cli/arch-remove-service-microsoft"
+target = "usr/share/arch/src/cli/arch-remove-service-microsoft"
+
+[[output]]
+source = "src/cli/arch-remove-service-ssh-agent"
+target = "usr/share/arch/src/cli/arch-remove-service-ssh-agent"
+
+[[output]]
+source = "src/cli/arch-remove-service-sunshine"
+target = "usr/share/arch/src/cli/arch-remove-service-sunshine"
+
+[[output]]
+source = "src/cli/arch-remove-service-tailscale"
+target = "usr/share/arch/src/cli/arch-remove-service-tailscale"

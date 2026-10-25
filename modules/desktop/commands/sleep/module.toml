@@ -1,0 +1,11 @@
+id = "desktop.commands.sleep"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-sleep-disabled",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-sleep-disabled"
+target = "usr/share/arch/src/cli/arch-sleep-disabled"

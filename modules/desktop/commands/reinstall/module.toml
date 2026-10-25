@@ -1,0 +1,21 @@
+id = "desktop.commands.reinstall"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-reinstall",
+  "src/cli/arch-reinstall-configs",
+  "src/cli/arch-reinstall-pkgs",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-reinstall"
+target = "usr/share/arch/src/cli/arch-reinstall"
+
+[[output]]
+source = "src/cli/arch-reinstall-configs"
+target = "usr/share/arch/src/cli/arch-reinstall-configs"
+
+[[output]]
+source = "src/cli/arch-reinstall-pkgs"
+target = "usr/share/arch/src/cli/arch-reinstall-pkgs"

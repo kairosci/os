@@ -1,0 +1,66 @@
+id = "desktop.commands.refresh"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-refresh-applications",
+  "src/cli/arch-refresh-chromium",
+  "src/cli/arch-refresh-config",
+  "src/cli/arch-refresh-herdr",
+  "src/cli/arch-refresh-hyprland",
+  "src/cli/arch-refresh-hyprsunset",
+  "src/cli/arch-refresh-limine",
+  "src/cli/arch-refresh-pacman",
+  "src/cli/arch-refresh-plymouth",
+  "src/cli/arch-refresh-sddm",
+  "src/cli/arch-refresh-shell",
+  "src/cli/arch-refresh-tmux",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-refresh-applications"
+target = "usr/share/arch/src/cli/arch-refresh-applications"
+
+[[output]]
+source = "src/cli/arch-refresh-chromium"
+target = "usr/share/arch/src/cli/arch-refresh-chromium"
+
+[[output]]
+source = "src/cli/arch-refresh-config"
+target = "usr/share/arch/src/cli/arch-refresh-config"
+
+[[output]]
+source = "src/cli/arch-refresh-herdr"
+target = "usr/share/arch/src/cli/arch-refresh-herdr"
+
+[[output]]
+source = "src/cli/arch-refresh-hyprland"
+target = "usr/share/arch/src/cli/arch-refresh-hyprland"
+
+[[output]]
+source = "src/cli/arch-refresh-hyprsunset"
+target = "usr/share/arch/src/cli/arch-refresh-hyprsunset"
+
+[[output]]
+source = "src/cli/arch-refresh-limine"
+target = "usr/share/arch/src/cli/arch-refresh-limine"
+
+[[output]]
+source = "src/cli/arch-refresh-pacman"
+target = "usr/share/arch/src/cli/arch-refresh-pacman"
+
+[[output]]
+source = "src/cli/arch-refresh-plymouth"
+target = "usr/share/arch/src/cli/arch-refresh-plymouth"
+
+[[output]]
+source = "src/cli/arch-refresh-sddm"
+target = "usr/share/arch/src/cli/arch-refresh-sddm"
+
+[[output]]
+source = "src/cli/arch-refresh-shell"
+target = "usr/share/arch/src/cli/arch-refresh-shell"
+
+[[output]]
+source = "src/cli/arch-refresh-tmux"
+target = "usr/share/arch/src/cli/arch-refresh-tmux"

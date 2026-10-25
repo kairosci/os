@@ -1,0 +1,196 @@
+id = "desktop.commands.theme"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-theme-bg-cache",
+  "src/cli/arch-theme-bg-current",
+  "src/cli/arch-theme-bg-install",
+  "src/cli/arch-theme-bg-next",
+  "src/cli/arch-theme-bg-set",
+  "src/cli/arch-theme-bg-switcher",
+  "src/cli/arch-theme-color",
+  "src/cli/arch-theme-colors-from-alacritty",
+  "src/cli/arch-theme-current",
+  "src/cli/arch-theme-dir",
+  "src/cli/arch-theme-extras",
+  "src/cli/arch-theme-install",
+  "src/cli/arch-theme-list",
+  "src/cli/arch-theme-osc",
+  "src/cli/arch-theme-refresh",
+  "src/cli/arch-theme-remove",
+  "src/cli/arch-theme-set",
+  "src/cli/arch-theme-set-browser",
+  "src/cli/arch-theme-set-browser-policy",
+  "src/cli/arch-theme-set-claude",
+  "src/cli/arch-theme-set-fcitx5",
+  "src/cli/arch-theme-set-foot",
+  "src/cli/arch-theme-set-glass",
+  "src/cli/arch-theme-set-gnome",
+  "src/cli/arch-theme-set-herdr-machines",
+  "src/cli/arch-theme-set-hermes",
+  "src/cli/arch-theme-set-hunk",
+  "src/cli/arch-theme-set-keyboard",
+  "src/cli/arch-theme-set-keyboard-asus-rog",
+  "src/cli/arch-theme-set-keyboard-f16",
+  "src/cli/arch-theme-set-obsidian",
+  "src/cli/arch-theme-set-pi",
+  "src/cli/arch-theme-set-t3code",
+  "src/cli/arch-theme-set-templates",
+  "src/cli/arch-theme-set-tmux",
+  "src/cli/arch-theme-set-vscode",
+  "src/cli/arch-theme-switcher",
+  "src/cli/arch-theme-update",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-theme-bg-cache"
+target = "usr/share/arch/src/cli/arch-theme-bg-cache"
+
+[[output]]
+source = "src/cli/arch-theme-bg-current"
+target = "usr/share/arch/src/cli/arch-theme-bg-current"
+
+[[output]]
+source = "src/cli/arch-theme-bg-install"
+target = "usr/share/arch/src/cli/arch-theme-bg-install"
+
+[[output]]
+source = "src/cli/arch-theme-bg-next"
+target = "usr/share/arch/src/cli/arch-theme-bg-next"
+
+[[output]]
+source = "src/cli/arch-theme-bg-set"
+target = "usr/share/arch/src/cli/arch-theme-bg-set"
+
+[[output]]
+source = "src/cli/arch-theme-bg-switcher"
+target = "usr/share/arch/src/cli/arch-theme-bg-switcher"
+
+[[output]]
+source = "src/cli/arch-theme-color"
+target = "usr/share/arch/src/cli/arch-theme-color"
+
+[[output]]
+source = "src/cli/arch-theme-colors-from-alacritty"
+target = "usr/share/arch/src/cli/arch-theme-colors-from-alacritty"
+
+[[output]]
+source = "src/cli/arch-theme-current"
+target = "usr/share/arch/src/cli/arch-theme-current"
+
+[[output]]
+source = "src/cli/arch-theme-dir"
+target = "usr/share/arch/src/cli/arch-theme-dir"
+
+[[output]]
+source = "src/cli/arch-theme-extras"
+target = "usr/share/arch/src/cli/arch-theme-extras"
+
+[[output]]
+source = "src/cli/arch-theme-install"
+target = "usr/share/arch/src/cli/arch-theme-install"
+
+[[output]]
+source = "src/cli/arch-theme-list"
+target = "usr/share/arch/src/cli/arch-theme-list"
+
+[[output]]
+source = "src/cli/arch-theme-osc"
+target = "usr/share/arch/src/cli/arch-theme-osc"
+
+[[output]]
+source = "src/cli/arch-theme-refresh"
+target = "usr/share/arch/src/cli/arch-theme-refresh"
+
+[[output]]
+source = "src/cli/arch-theme-remove"
+target = "usr/share/arch/src/cli/arch-theme-remove"
+
+[[output]]
+source = "src/cli/arch-theme-set"
+target = "usr/share/arch/src/cli/arch-theme-set"
+
+[[output]]
+source = "src/cli/arch-theme-set-browser"
+target = "usr/share/arch/src/cli/arch-theme-set-browser"
+
+[[output]]
+source = "src/cli/arch-theme-set-browser-policy"
+target = "usr/share/arch/src/cli/arch-theme-set-browser-policy"
+
+[[output]]
+source = "src/cli/arch-theme-set-claude"
+target = "usr/share/arch/src/cli/arch-theme-set-claude"
+
+[[output]]
+source = "src/cli/arch-theme-set-fcitx5"
+target = "usr/share/arch/src/cli/arch-theme-set-fcitx5"
+
+[[output]]
+source = "src/cli/arch-theme-set-foot"
+target = "usr/share/arch/src/cli/arch-theme-set-foot"
+
+[[output]]
+source = "src/cli/arch-theme-set-glass"
+target = "usr/share/arch/src/cli/arch-theme-set-glass"
+
+[[output]]
+source = "src/cli/arch-theme-set-gnome"
+target = "usr/share/arch/src/cli/arch-theme-set-gnome"
+
+[[output]]
+source = "src/cli/arch-theme-set-herdr-machines"
+target = "usr/share/arch/src/cli/arch-theme-set-herdr-machines"
+
+[[output]]
+source = "src/cli/arch-theme-set-hermes"
+target = "usr/share/arch/src/cli/arch-theme-set-hermes"
+
+[[output]]
+source = "src/cli/arch-theme-set-hunk"
+target = "usr/share/arch/src/cli/arch-theme-set-hunk"
+
+[[output]]
+source = "src/cli/arch-theme-set-keyboard"
+target = "usr/share/arch/src/cli/arch-theme-set-keyboard"
+
+[[output]]
+source = "src/cli/arch-theme-set-keyboard-asus-rog"
+target = "usr/share/arch/src/cli/arch-theme-set-keyboard-asus-rog"
+
+[[output]]
+source = "src/cli/arch-theme-set-keyboard-f16"
+target = "usr/share/arch/src/cli/arch-theme-set-keyboard-f16"
+
+[[output]]
+source = "src/cli/arch-theme-set-obsidian"
+target = "usr/share/arch/src/cli/arch-theme-set-obsidian"
+
+[[output]]
+source = "src/cli/arch-theme-set-pi"
+target = "usr/share/arch/src/cli/arch-theme-set-pi"
+
+[[output]]
+source = "src/cli/arch-theme-set-t3code"
+target = "usr/share/arch/src/cli/arch-theme-set-t3code"
+
+[[output]]
+source = "src/cli/arch-theme-set-templates"
+target = "usr/share/arch/src/cli/arch-theme-set-templates"
+
+[[output]]
+source = "src/cli/arch-theme-set-tmux"
+target = "usr/share/arch/src/cli/arch-theme-set-tmux"
+
+[[output]]
+source = "src/cli/arch-theme-set-vscode"
+target = "usr/share/arch/src/cli/arch-theme-set-vscode"
+
+[[output]]
+source = "src/cli/arch-theme-switcher"
+target = "usr/share/arch/src/cli/arch-theme-switcher"
+
+[[output]]
+source = "src/cli/arch-theme-update"
+target = "usr/share/arch/src/cli/arch-theme-update"

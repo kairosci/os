@@ -1,0 +1,11 @@
+id = "desktop.commands.power"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-power-present",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-power-present"
+target = "usr/share/arch/src/cli/arch-power-present"

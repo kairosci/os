@@ -1,0 +1,21 @@
+id = "desktop.commands.clipboard"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-clipboard-open",
+  "src/cli/arch-clipboard-paste-file",
+  "src/cli/arch-clipboard-paste-text",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-clipboard-open"
+target = "usr/share/arch/src/cli/arch-clipboard-open"
+
+[[output]]
+source = "src/cli/arch-clipboard-paste-file"
+target = "usr/share/arch/src/cli/arch-clipboard-paste-file"
+
+[[output]]
+source = "src/cli/arch-clipboard-paste-text"
+target = "usr/share/arch/src/cli/arch-clipboard-paste-text"

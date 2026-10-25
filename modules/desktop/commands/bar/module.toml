@@ -1,0 +1,16 @@
+id = "desktop.commands.bar"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-bar",
+  "src/cli/arch-bar-text-color",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-bar"
+target = "usr/share/arch/src/cli/arch-bar"
+
+[[output]]
+source = "src/cli/arch-bar-text-color"
+target = "usr/share/arch/src/cli/arch-bar-text-color"

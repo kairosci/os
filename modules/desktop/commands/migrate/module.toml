@@ -1,0 +1,16 @@
+id = "desktop.commands.migrate"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-migrate",
+  "src/cli/arch-migrate-notify",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-migrate"
+target = "usr/share/arch/src/cli/arch-migrate"
+
+[[output]]
+source = "src/cli/arch-migrate-notify"
+target = "usr/share/arch/src/cli/arch-migrate-notify"

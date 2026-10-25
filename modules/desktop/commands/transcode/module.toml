@@ -1,0 +1,16 @@
+id = "desktop.commands.transcode"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-transcode",
+  "src/cli/arch-transcode-ascii",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-transcode"
+target = "usr/share/arch/src/cli/arch-transcode"
+
+[[output]]
+source = "src/cli/arch-transcode-ascii"
+target = "usr/share/arch/src/cli/arch-transcode-ascii"

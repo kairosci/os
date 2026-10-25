@@ -1,0 +1,66 @@
+id = "desktop.commands.dev"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-dev-add-migration",
+  "src/cli/arch-dev-benchmark-cli",
+  "src/cli/arch-dev-benchmark-theme-switcher",
+  "src/cli/arch-dev-font",
+  "src/cli/arch-dev-install-ydoo",
+  "src/cli/arch-dev-link",
+  "src/cli/arch-dev-notification-demo",
+  "src/cli/arch-dev-pkg-test",
+  "src/cli/arch-dev-status",
+  "src/cli/arch-dev-theme-preview",
+  "src/cli/arch-dev-ui-preview",
+  "src/cli/arch-dev-unlink",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-dev-add-migration"
+target = "usr/share/arch/src/cli/arch-dev-add-migration"
+
+[[output]]
+source = "src/cli/arch-dev-benchmark-cli"
+target = "usr/share/arch/src/cli/arch-dev-benchmark-cli"
+
+[[output]]
+source = "src/cli/arch-dev-benchmark-theme-switcher"
+target = "usr/share/arch/src/cli/arch-dev-benchmark-theme-switcher"
+
+[[output]]
+source = "src/cli/arch-dev-font"
+target = "usr/share/arch/src/cli/arch-dev-font"
+
+[[output]]
+source = "src/cli/arch-dev-install-ydoo"
+target = "usr/share/arch/src/cli/arch-dev-install-ydoo"
+
+[[output]]
+source = "src/cli/arch-dev-link"
+target = "usr/share/arch/src/cli/arch-dev-link"
+
+[[output]]
+source = "src/cli/arch-dev-notification-demo"
+target = "usr/share/arch/src/cli/arch-dev-notification-demo"
+
+[[output]]
+source = "src/cli/arch-dev-pkg-test"
+target = "usr/share/arch/src/cli/arch-dev-pkg-test"
+
+[[output]]
+source = "src/cli/arch-dev-status"
+target = "usr/share/arch/src/cli/arch-dev-status"
+
+[[output]]
+source = "src/cli/arch-dev-theme-preview"
+target = "usr/share/arch/src/cli/arch-dev-theme-preview"
+
+[[output]]
+source = "src/cli/arch-dev-ui-preview"
+target = "usr/share/arch/src/cli/arch-dev-ui-preview"
+
+[[output]]
+source = "src/cli/arch-dev-unlink"
+target = "usr/share/arch/src/cli/arch-dev-unlink"

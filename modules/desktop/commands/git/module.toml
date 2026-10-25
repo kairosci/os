@@ -1,0 +1,11 @@
+id = "desktop.commands.git"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-git-url-check",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-git-url-check"
+target = "usr/share/arch/src/cli/arch-git-url-check"

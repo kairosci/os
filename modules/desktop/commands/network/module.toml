@@ -1,0 +1,41 @@
+id = "desktop.commands.network"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-network-band",
+  "src/cli/arch-network-captive-portal",
+  "src/cli/arch-network-password",
+  "src/cli/arch-network-qr",
+  "src/cli/arch-network-speedtest",
+  "src/cli/arch-network-status",
+  "src/cli/arch-network-wifi-connected",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-network-band"
+target = "usr/share/arch/src/cli/arch-network-band"
+
+[[output]]
+source = "src/cli/arch-network-captive-portal"
+target = "usr/share/arch/src/cli/arch-network-captive-portal"
+
+[[output]]
+source = "src/cli/arch-network-password"
+target = "usr/share/arch/src/cli/arch-network-password"
+
+[[output]]
+source = "src/cli/arch-network-qr"
+target = "usr/share/arch/src/cli/arch-network-qr"
+
+[[output]]
+source = "src/cli/arch-network-speedtest"
+target = "usr/share/arch/src/cli/arch-network-speedtest"
+
+[[output]]
+source = "src/cli/arch-network-status"
+target = "usr/share/arch/src/cli/arch-network-status"
+
+[[output]]
+source = "src/cli/arch-network-wifi-connected"
+target = "usr/share/arch/src/cli/arch-network-wifi-connected"

@@ -1,0 +1,11 @@
+id = "desktop.commands.screensaver"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-screensaver",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-screensaver"
+target = "usr/share/arch/src/cli/arch-screensaver"

@@ -1,0 +1,21 @@
+id = "desktop.commands.tui"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-tui-install",
+  "src/cli/arch-tui-remove",
+  "src/cli/arch-tui-remove-all",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-tui-install"
+target = "usr/share/arch/src/cli/arch-tui-install"
+
+[[output]]
+source = "src/cli/arch-tui-remove"
+target = "usr/share/arch/src/cli/arch-tui-remove"
+
+[[output]]
+source = "src/cli/arch-tui-remove-all"
+target = "usr/share/arch/src/cli/arch-tui-remove-all"

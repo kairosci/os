@@ -1,0 +1,86 @@
+id = "desktop.commands.restart"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-restart-app",
+  "src/cli/arch-restart-audio",
+  "src/cli/arch-restart-bluetooth",
+  "src/cli/arch-restart-btop",
+  "src/cli/arch-restart-gum",
+  "src/cli/arch-restart-helix",
+  "src/cli/arch-restart-herdr",
+  "src/cli/arch-restart-hyprctl",
+  "src/cli/arch-restart-hyprsunset",
+  "src/cli/arch-restart-opencode",
+  "src/cli/arch-restart-shell",
+  "src/cli/arch-restart-terminal",
+  "src/cli/arch-restart-tmux",
+  "src/cli/arch-restart-trackpad",
+  "src/cli/arch-restart-wifi",
+  "src/cli/arch-restart-xcompose",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-restart-app"
+target = "usr/share/arch/src/cli/arch-restart-app"
+
+[[output]]
+source = "src/cli/arch-restart-audio"
+target = "usr/share/arch/src/cli/arch-restart-audio"
+
+[[output]]
+source = "src/cli/arch-restart-bluetooth"
+target = "usr/share/arch/src/cli/arch-restart-bluetooth"
+
+[[output]]
+source = "src/cli/arch-restart-btop"
+target = "usr/share/arch/src/cli/arch-restart-btop"
+
+[[output]]
+source = "src/cli/arch-restart-gum"
+target = "usr/share/arch/src/cli/arch-restart-gum"
+
+[[output]]
+source = "src/cli/arch-restart-helix"
+target = "usr/share/arch/src/cli/arch-restart-helix"
+
+[[output]]
+source = "src/cli/arch-restart-herdr"
+target = "usr/share/arch/src/cli/arch-restart-herdr"
+
+[[output]]
+source = "src/cli/arch-restart-hyprctl"
+target = "usr/share/arch/src/cli/arch-restart-hyprctl"
+
+[[output]]
+source = "src/cli/arch-restart-hyprsunset"
+target = "usr/share/arch/src/cli/arch-restart-hyprsunset"
+
+[[output]]
+source = "src/cli/arch-restart-opencode"
+target = "usr/share/arch/src/cli/arch-restart-opencode"
+
+[[output]]
+source = "src/cli/arch-restart-shell"
+target = "usr/share/arch/src/cli/arch-restart-shell"
+
+[[output]]
+source = "src/cli/arch-restart-terminal"
+target = "usr/share/arch/src/cli/arch-restart-terminal"
+
+[[output]]
+source = "src/cli/arch-restart-tmux"
+target = "usr/share/arch/src/cli/arch-restart-tmux"
+
+[[output]]
+source = "src/cli/arch-restart-trackpad"
+target = "usr/share/arch/src/cli/arch-restart-trackpad"
+
+[[output]]
+source = "src/cli/arch-restart-wifi"
+target = "usr/share/arch/src/cli/arch-restart-wifi"
+
+[[output]]
+source = "src/cli/arch-restart-xcompose"
+target = "usr/share/arch/src/cli/arch-restart-xcompose"

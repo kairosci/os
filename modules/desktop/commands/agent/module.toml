@@ -1,0 +1,106 @@
+id = "desktop.commands.agent"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-agent",
+  "src/cli/arch-agent-account-add",
+  "src/cli/arch-agent-account-copy",
+  "src/cli/arch-agent-account-exec",
+  "src/cli/arch-agent-account-home",
+  "src/cli/arch-agent-account-list",
+  "src/cli/arch-agent-account-mode",
+  "src/cli/arch-agent-account-remove",
+  "src/cli/arch-agent-account-rename",
+  "src/cli/arch-agent-account-state",
+  "src/cli/arch-agent-account-transfer",
+  "src/cli/arch-agent-account-use",
+  "src/cli/arch-agent-crash",
+  "src/cli/arch-agent-prompt",
+  "src/cli/arch-agent-usage-claude",
+  "src/cli/arch-agent-usage-codex",
+  "src/cli/arch-agent-usage-fireworks",
+  "src/cli/arch-agent-usage-grok",
+  "src/cli/arch-agent-usage-kimi",
+  "src/cli/arch-agent-usage-update",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-agent"
+target = "usr/share/arch/src/cli/arch-agent"
+
+[[output]]
+source = "src/cli/arch-agent-account-add"
+target = "usr/share/arch/src/cli/arch-agent-account-add"
+
+[[output]]
+source = "src/cli/arch-agent-account-copy"
+target = "usr/share/arch/src/cli/arch-agent-account-copy"
+
+[[output]]
+source = "src/cli/arch-agent-account-exec"
+target = "usr/share/arch/src/cli/arch-agent-account-exec"
+
+[[output]]
+source = "src/cli/arch-agent-account-home"
+target = "usr/share/arch/src/cli/arch-agent-account-home"
+
+[[output]]
+source = "src/cli/arch-agent-account-list"
+target = "usr/share/arch/src/cli/arch-agent-account-list"
+
+[[output]]
+source = "src/cli/arch-agent-account-mode"
+target = "usr/share/arch/src/cli/arch-agent-account-mode"
+
+[[output]]
+source = "src/cli/arch-agent-account-remove"
+target = "usr/share/arch/src/cli/arch-agent-account-remove"
+
+[[output]]
+source = "src/cli/arch-agent-account-rename"
+target = "usr/share/arch/src/cli/arch-agent-account-rename"
+
+[[output]]
+source = "src/cli/arch-agent-account-state"
+target = "usr/share/arch/src/cli/arch-agent-account-state"
+
+[[output]]
+source = "src/cli/arch-agent-account-transfer"
+target = "usr/share/arch/src/cli/arch-agent-account-transfer"
+
+[[output]]
+source = "src/cli/arch-agent-account-use"
+target = "usr/share/arch/src/cli/arch-agent-account-use"
+
+[[output]]
+source = "src/cli/arch-agent-crash"
+target = "usr/share/arch/src/cli/arch-agent-crash"
+
+[[output]]
+source = "src/cli/arch-agent-prompt"
+target = "usr/share/arch/src/cli/arch-agent-prompt"
+
+[[output]]
+source = "src/cli/arch-agent-usage-claude"
+target = "usr/share/arch/src/cli/arch-agent-usage-claude"
+
+[[output]]
+source = "src/cli/arch-agent-usage-codex"
+target = "usr/share/arch/src/cli/arch-agent-usage-codex"
+
+[[output]]
+source = "src/cli/arch-agent-usage-fireworks"
+target = "usr/share/arch/src/cli/arch-agent-usage-fireworks"
+
+[[output]]
+source = "src/cli/arch-agent-usage-grok"
+target = "usr/share/arch/src/cli/arch-agent-usage-grok"
+
+[[output]]
+source = "src/cli/arch-agent-usage-kimi"
+target = "usr/share/arch/src/cli/arch-agent-usage-kimi"
+
+[[output]]
+source = "src/cli/arch-agent-usage-update"
+target = "usr/share/arch/src/cli/arch-agent-usage-update"

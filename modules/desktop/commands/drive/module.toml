@@ -1,0 +1,21 @@
+id = "desktop.commands.drive"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-drive-info",
+  "src/cli/arch-drive-password",
+  "src/cli/arch-drive-select",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-drive-info"
+target = "usr/share/arch/src/cli/arch-drive-info"
+
+[[output]]
+source = "src/cli/arch-drive-password"
+target = "usr/share/arch/src/cli/arch-drive-password"
+
+[[output]]
+source = "src/cli/arch-drive-select"
+target = "usr/share/arch/src/cli/arch-drive-select"

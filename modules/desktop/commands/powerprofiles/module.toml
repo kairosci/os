@@ -1,0 +1,21 @@
+id = "desktop.commands.powerprofiles"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-powerprofiles-init",
+  "src/cli/arch-powerprofiles-list",
+  "src/cli/arch-powerprofiles-set",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-powerprofiles-init"
+target = "usr/share/arch/src/cli/arch-powerprofiles-init"
+
+[[output]]
+source = "src/cli/arch-powerprofiles-list"
+target = "usr/share/arch/src/cli/arch-powerprofiles-list"
+
+[[output]]
+source = "src/cli/arch-powerprofiles-set"
+target = "usr/share/arch/src/cli/arch-powerprofiles-set"

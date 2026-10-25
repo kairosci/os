@@ -1,0 +1,16 @@
+id = "desktop.commands.bluetooth"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-bluetooth-device",
+  "src/cli/arch-bluetooth-power",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-bluetooth-device"
+target = "usr/share/arch/src/cli/arch-bluetooth-device"
+
+[[output]]
+source = "src/cli/arch-bluetooth-power"
+target = "usr/share/arch/src/cli/arch-bluetooth-power"

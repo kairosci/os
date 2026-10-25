@@ -1,0 +1,156 @@
+id = "desktop.commands.hyprland"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-hyprland-corners",
+  "src/cli/arch-hyprland-focus-app",
+  "src/cli/arch-hyprland-monitor-clamshell",
+  "src/cli/arch-hyprland-monitor-external-active",
+  "src/cli/arch-hyprland-monitor-focused",
+  "src/cli/arch-hyprland-monitor-focused-apple",
+  "src/cli/arch-hyprland-monitor-internal",
+  "src/cli/arch-hyprland-monitor-internal-mirror",
+  "src/cli/arch-hyprland-monitor-laptop",
+  "src/cli/arch-hyprland-monitor-modeless",
+  "src/cli/arch-hyprland-monitor-scaling",
+  "src/cli/arch-hyprland-monitor-watch",
+  "src/cli/arch-hyprland-reload-guard",
+  "src/cli/arch-hyprland-session-lock-stranded",
+  "src/cli/arch-hyprland-session-locked",
+  "src/cli/arch-hyprland-toggle",
+  "src/cli/arch-hyprland-toggle-disabled",
+  "src/cli/arch-hyprland-toggle-enabled",
+  "src/cli/arch-hyprland-window-close-all",
+  "src/cli/arch-hyprland-window-gaps-toggle",
+  "src/cli/arch-hyprland-window-minimize",
+  "src/cli/arch-hyprland-window-pop",
+  "src/cli/arch-hyprland-window-single-square-aspect-toggle",
+  "src/cli/arch-hyprland-window-tiled-fullscreen-toggle",
+  "src/cli/arch-hyprland-window-transparency",
+  "src/cli/arch-hyprland-window-transparency-toggle",
+  "src/cli/arch-hyprland-window-width",
+  "src/cli/arch-hyprland-workspace-layout-current",
+  "src/cli/arch-hyprland-workspace-layout-default",
+  "src/cli/arch-hyprland-workspace-layout-toggle",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-hyprland-corners"
+target = "usr/share/arch/src/cli/arch-hyprland-corners"
+
+[[output]]
+source = "src/cli/arch-hyprland-focus-app"
+target = "usr/share/arch/src/cli/arch-hyprland-focus-app"
+
+[[output]]
+source = "src/cli/arch-hyprland-monitor-clamshell"
+target = "usr/share/arch/src/cli/arch-hyprland-monitor-clamshell"
+
+[[output]]
+source = "src/cli/arch-hyprland-monitor-external-active"
+target = "usr/share/arch/src/cli/arch-hyprland-monitor-external-active"
+
+[[output]]
+source = "src/cli/arch-hyprland-monitor-focused"
+target = "usr/share/arch/src/cli/arch-hyprland-monitor-focused"
+
+[[output]]
+source = "src/cli/arch-hyprland-monitor-focused-apple"
+target = "usr/share/arch/src/cli/arch-hyprland-monitor-focused-apple"
+
+[[output]]
+source = "src/cli/arch-hyprland-monitor-internal"
+target = "usr/share/arch/src/cli/arch-hyprland-monitor-internal"
+
+[[output]]
+source = "src/cli/arch-hyprland-monitor-internal-mirror"
+target = "usr/share/arch/src/cli/arch-hyprland-monitor-internal-mirror"
+
+[[output]]
+source = "src/cli/arch-hyprland-monitor-laptop"
+target = "usr/share/arch/src/cli/arch-hyprland-monitor-laptop"
+
+[[output]]
+source = "src/cli/arch-hyprland-monitor-modeless"
+target = "usr/share/arch/src/cli/arch-hyprland-monitor-modeless"
+
+[[output]]
+source = "src/cli/arch-hyprland-monitor-scaling"
+target = "usr/share/arch/src/cli/arch-hyprland-monitor-scaling"
+
+[[output]]
+source = "src/cli/arch-hyprland-monitor-watch"
+target = "usr/share/arch/src/cli/arch-hyprland-monitor-watch"
+
+[[output]]
+source = "src/cli/arch-hyprland-reload-guard"
+target = "usr/share/arch/src/cli/arch-hyprland-reload-guard"
+
+[[output]]
+source = "src/cli/arch-hyprland-session-lock-stranded"
+target = "usr/share/arch/src/cli/arch-hyprland-session-lock-stranded"
+
+[[output]]
+source = "src/cli/arch-hyprland-session-locked"
+target = "usr/share/arch/src/cli/arch-hyprland-session-locked"
+
+[[output]]
+source = "src/cli/arch-hyprland-toggle"
+target = "usr/share/arch/src/cli/arch-hyprland-toggle"
+
+[[output]]
+source = "src/cli/arch-hyprland-toggle-disabled"
+target = "usr/share/arch/src/cli/arch-hyprland-toggle-disabled"
+
+[[output]]
+source = "src/cli/arch-hyprland-toggle-enabled"
+target = "usr/share/arch/src/cli/arch-hyprland-toggle-enabled"
+
+[[output]]
+source = "src/cli/arch-hyprland-window-close-all"
+target = "usr/share/arch/src/cli/arch-hyprland-window-close-all"
+
+[[output]]
+source = "src/cli/arch-hyprland-window-gaps-toggle"
+target = "usr/share/arch/src/cli/arch-hyprland-window-gaps-toggle"
+
+[[output]]
+source = "src/cli/arch-hyprland-window-minimize"
+target = "usr/share/arch/src/cli/arch-hyprland-window-minimize"
+
+[[output]]
+source = "src/cli/arch-hyprland-window-pop"
+target = "usr/share/arch/src/cli/arch-hyprland-window-pop"
+
+[[output]]
+source = "src/cli/arch-hyprland-window-single-square-aspect-toggle"
+target = "usr/share/arch/src/cli/arch-hyprland-window-single-square-aspect-toggle"
+
+[[output]]
+source = "src/cli/arch-hyprland-window-tiled-fullscreen-toggle"
+target = "usr/share/arch/src/cli/arch-hyprland-window-tiled-fullscreen-toggle"
+
+[[output]]
+source = "src/cli/arch-hyprland-window-transparency"
+target = "usr/share/arch/src/cli/arch-hyprland-window-transparency"
+
+[[output]]
+source = "src/cli/arch-hyprland-window-transparency-toggle"
+target = "usr/share/arch/src/cli/arch-hyprland-window-transparency-toggle"
+
+[[output]]
+source = "src/cli/arch-hyprland-window-width"
+target = "usr/share/arch/src/cli/arch-hyprland-window-width"
+
+[[output]]
+source = "src/cli/arch-hyprland-workspace-layout-current"
+target = "usr/share/arch/src/cli/arch-hyprland-workspace-layout-current"
+
+[[output]]
+source = "src/cli/arch-hyprland-workspace-layout-default"
+target = "usr/share/arch/src/cli/arch-hyprland-workspace-layout-default"
+
+[[output]]
+source = "src/cli/arch-hyprland-workspace-layout-toggle"
+target = "usr/share/arch/src/cli/arch-hyprland-workspace-layout-toggle"

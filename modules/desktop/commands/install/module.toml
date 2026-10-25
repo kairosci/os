@@ -1,0 +1,236 @@
+id = "desktop.commands.install"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-install-ai-chatgpt",
+  "src/cli/arch-install-ai-claude",
+  "src/cli/arch-install-ai-hermes",
+  "src/cli/arch-install-ai-openclaw",
+  "src/cli/arch-install-ai-t3-code",
+  "src/cli/arch-install-and-launch",
+  "src/cli/arch-install-app",
+  "src/cli/arch-install-browser",
+  "src/cli/arch-install-camera",
+  "src/cli/arch-install-chromium-claude",
+  "src/cli/arch-install-chromium-copy-url",
+  "src/cli/arch-install-chromium-google-account",
+  "src/cli/arch-install-chromium-ytdlp",
+  "src/cli/arch-install-dev-env",
+  "src/cli/arch-install-dictation-superwhisper",
+  "src/cli/arch-install-dictation-voxtype",
+  "src/cli/arch-install-docker-dbs",
+  "src/cli/arch-install-editor-emacs",
+  "src/cli/arch-install-editor-helix",
+  "src/cli/arch-install-editor-vscode",
+  "src/cli/arch-install-editor-zed",
+  "src/cli/arch-install-font",
+  "src/cli/arch-install-gaming-battlenet",
+  "src/cli/arch-install-gaming-geforce-now",
+  "src/cli/arch-install-gaming-gpu-lib32",
+  "src/cli/arch-install-gaming-heroic",
+  "src/cli/arch-install-gaming-lutris",
+  "src/cli/arch-install-gaming-retroarch",
+  "src/cli/arch-install-gaming-steam",
+  "src/cli/arch-install-gaming-xbox-cloud",
+  "src/cli/arch-install-gaming-xbox-controllers",
+  "src/cli/arch-install-hermes-cli",
+  "src/cli/arch-install-openclaw-cli",
+  "src/cli/arch-install-preinstalls",
+  "src/cli/arch-install-service-1password",
+  "src/cli/arch-install-service-dropbox",
+  "src/cli/arch-install-service-microsoft",
+  "src/cli/arch-install-service-nordvpn",
+  "src/cli/arch-install-service-once",
+  "src/cli/arch-install-service-signal",
+  "src/cli/arch-install-service-spotify",
+  "src/cli/arch-install-service-sunshine",
+  "src/cli/arch-install-service-tailscale",
+  "src/cli/arch-install-t3code-app",
+  "src/cli/arch-install-terminal",
+  "src/cli/arch-install-video-decode",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-install-ai-chatgpt"
+target = "usr/share/arch/src/cli/arch-install-ai-chatgpt"
+
+[[output]]
+source = "src/cli/arch-install-ai-claude"
+target = "usr/share/arch/src/cli/arch-install-ai-claude"
+
+[[output]]
+source = "src/cli/arch-install-ai-hermes"
+target = "usr/share/arch/src/cli/arch-install-ai-hermes"
+
+[[output]]
+source = "src/cli/arch-install-ai-openclaw"
+target = "usr/share/arch/src/cli/arch-install-ai-openclaw"
+
+[[output]]
+source = "src/cli/arch-install-ai-t3-code"
+target = "usr/share/arch/src/cli/arch-install-ai-t3-code"
+
+[[output]]
+source = "src/cli/arch-install-and-launch"
+target = "usr/share/arch/src/cli/arch-install-and-launch"
+
+[[output]]
+source = "src/cli/arch-install-app"
+target = "usr/share/arch/src/cli/arch-install-app"
+
+[[output]]
+source = "src/cli/arch-install-browser"
+target = "usr/share/arch/src/cli/arch-install-browser"
+
+[[output]]
+source = "src/cli/arch-install-camera"
+target = "usr/share/arch/src/cli/arch-install-camera"
+
+[[output]]
+source = "src/cli/arch-install-chromium-claude"
+target = "usr/share/arch/src/cli/arch-install-chromium-claude"
+
+[[output]]
+source = "src/cli/arch-install-chromium-copy-url"
+target = "usr/share/arch/src/cli/arch-install-chromium-copy-url"
+
+[[output]]
+source = "src/cli/arch-install-chromium-google-account"
+target = "usr/share/arch/src/cli/arch-install-chromium-google-account"
+
+[[output]]
+source = "src/cli/arch-install-chromium-ytdlp"
+target = "usr/share/arch/src/cli/arch-install-chromium-ytdlp"
+
+[[output]]
+source = "src/cli/arch-install-dev-env"
+target = "usr/share/arch/src/cli/arch-install-dev-env"
+
+[[output]]
+source = "src/cli/arch-install-dictation-superwhisper"
+target = "usr/share/arch/src/cli/arch-install-dictation-superwhisper"
+
+[[output]]
+source = "src/cli/arch-install-dictation-voxtype"
+target = "usr/share/arch/src/cli/arch-install-dictation-voxtype"
+
+[[output]]
+source = "src/cli/arch-install-docker-dbs"
+target = "usr/share/arch/src/cli/arch-install-docker-dbs"
+
+[[output]]
+source = "src/cli/arch-install-editor-emacs"
+target = "usr/share/arch/src/cli/arch-install-editor-emacs"
+
+[[output]]
+source = "src/cli/arch-install-editor-helix"
+target = "usr/share/arch/src/cli/arch-install-editor-helix"
+
+[[output]]
+source = "src/cli/arch-install-editor-vscode"
+target = "usr/share/arch/src/cli/arch-install-editor-vscode"
+
+[[output]]
+source = "src/cli/arch-install-editor-zed"
+target = "usr/share/arch/src/cli/arch-install-editor-zed"
+
+[[output]]
+source = "src/cli/arch-install-font"
+target = "usr/share/arch/src/cli/arch-install-font"
+
+[[output]]
+source = "src/cli/arch-install-gaming-battlenet"
+target = "usr/share/arch/src/cli/arch-install-gaming-battlenet"
+
+[[output]]
+source = "src/cli/arch-install-gaming-geforce-now"
+target = "usr/share/arch/src/cli/arch-install-gaming-geforce-now"
+
+[[output]]
+source = "src/cli/arch-install-gaming-gpu-lib32"
+target = "usr/share/arch/src/cli/arch-install-gaming-gpu-lib32"
+
+[[output]]
+source = "src/cli/arch-install-gaming-heroic"
+target = "usr/share/arch/src/cli/arch-install-gaming-heroic"
+
+[[output]]
+source = "src/cli/arch-install-gaming-lutris"
+target = "usr/share/arch/src/cli/arch-install-gaming-lutris"
+
+[[output]]
+source = "src/cli/arch-install-gaming-retroarch"
+target = "usr/share/arch/src/cli/arch-install-gaming-retroarch"
+
+[[output]]
+source = "src/cli/arch-install-gaming-steam"
+target = "usr/share/arch/src/cli/arch-install-gaming-steam"
+
+[[output]]
+source = "src/cli/arch-install-gaming-xbox-cloud"
+target = "usr/share/arch/src/cli/arch-install-gaming-xbox-cloud"
+
+[[output]]
+source = "src/cli/arch-install-gaming-xbox-controllers"
+target = "usr/share/arch/src/cli/arch-install-gaming-xbox-controllers"
+
+[[output]]
+source = "src/cli/arch-install-hermes-cli"
+target = "usr/share/arch/src/cli/arch-install-hermes-cli"
+
+[[output]]
+source = "src/cli/arch-install-openclaw-cli"
+target = "usr/share/arch/src/cli/arch-install-openclaw-cli"
+
+[[output]]
+source = "src/cli/arch-install-preinstalls"
+target = "usr/share/arch/src/cli/arch-install-preinstalls"
+
+[[output]]
+source = "src/cli/arch-install-service-1password"
+target = "usr/share/arch/src/cli/arch-install-service-1password"
+
+[[output]]
+source = "src/cli/arch-install-service-dropbox"
+target = "usr/share/arch/src/cli/arch-install-service-dropbox"
+
+[[output]]
+source = "src/cli/arch-install-service-microsoft"
+target = "usr/share/arch/src/cli/arch-install-service-microsoft"
+
+[[output]]
+source = "src/cli/arch-install-service-nordvpn"
+target = "usr/share/arch/src/cli/arch-install-service-nordvpn"
+
+[[output]]
+source = "src/cli/arch-install-service-once"
+target = "usr/share/arch/src/cli/arch-install-service-once"
+
+[[output]]
+source = "src/cli/arch-install-service-signal"
+target = "usr/share/arch/src/cli/arch-install-service-signal"
+
+[[output]]
+source = "src/cli/arch-install-service-spotify"
+target = "usr/share/arch/src/cli/arch-install-service-spotify"
+
+[[output]]
+source = "src/cli/arch-install-service-sunshine"
+target = "usr/share/arch/src/cli/arch-install-service-sunshine"
+
+[[output]]
+source = "src/cli/arch-install-service-tailscale"
+target = "usr/share/arch/src/cli/arch-install-service-tailscale"
+
+[[output]]
+source = "src/cli/arch-install-t3code-app"
+target = "usr/share/arch/src/cli/arch-install-t3code-app"
+
+[[output]]
+source = "src/cli/arch-install-terminal"
+target = "usr/share/arch/src/cli/arch-install-terminal"
+
+[[output]]
+source = "src/cli/arch-install-video-decode"
+target = "usr/share/arch/src/cli/arch-install-video-decode"

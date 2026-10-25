@@ -1,0 +1,21 @@
+id = "desktop.commands.battery"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-battery-low",
+  "src/cli/arch-battery-present",
+  "src/cli/arch-battery-status",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-battery-low"
+target = "usr/share/arch/src/cli/arch-battery-low"
+
+[[output]]
+source = "src/cli/arch-battery-present"
+target = "usr/share/arch/src/cli/arch-battery-present"
+
+[[output]]
+source = "src/cli/arch-battery-status"
+target = "usr/share/arch/src/cli/arch-battery-status"

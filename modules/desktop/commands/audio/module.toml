@@ -1,0 +1,51 @@
+id = "desktop.commands.audio"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/cli/arch-audio-input-mute",
+  "src/cli/arch-audio-input-set-default",
+  "src/cli/arch-audio-output-set-default",
+  "src/cli/arch-audio-output-sink",
+  "src/cli/arch-audio-output-switch",
+  "src/cli/arch-audio-output-volume",
+  "src/cli/arch-audio-sink-availability",
+  "src/cli/arch-audio-source-switch",
+  "src/cli/arch-audio-tuning",
+]
+requires = ["desktop.commands"]
+
+[[output]]
+source = "src/cli/arch-audio-input-mute"
+target = "usr/share/arch/src/cli/arch-audio-input-mute"
+
+[[output]]
+source = "src/cli/arch-audio-input-set-default"
+target = "usr/share/arch/src/cli/arch-audio-input-set-default"
+
+[[output]]
+source = "src/cli/arch-audio-output-set-default"
+target = "usr/share/arch/src/cli/arch-audio-output-set-default"
+
+[[output]]
+source = "src/cli/arch-audio-output-sink"
+target = "usr/share/arch/src/cli/arch-audio-output-sink"
+
+[[output]]
+source = "src/cli/arch-audio-output-switch"
+target = "usr/share/arch/src/cli/arch-audio-output-switch"
+
+[[output]]
+source = "src/cli/arch-audio-output-volume"
+target = "usr/share/arch/src/cli/arch-audio-output-volume"
+
+[[output]]
+source = "src/cli/arch-audio-sink-availability"
+target = "usr/share/arch/src/cli/arch-audio-sink-availability"
+
+[[output]]
+source = "src/cli/arch-audio-source-switch"
+target = "usr/share/arch/src/cli/arch-audio-source-switch"
+
+[[output]]
+source = "src/cli/arch-audio-tuning"
+target = "usr/share/arch/src/cli/arch-audio-tuning"
