@@ -2,19 +2,19 @@
 
 ### Τσιπ Apple M1/M2
 
-Το [Asahi Alarm](https://asahi-alarm.org/) είναι μια έκδοση του Arch για υπολογιστές Apple M1/M2 χτισμένη πάνω στο [Asahi Linux](https://asahilinux.org/). Μπορείς να κάνεις το Arch να τρέχει πάνω σε αυτό με κάποια προσπάθεια. Δες [τον οδηγό που οδηγείται από χρήστες](https://github.com/kairosci/arch).
+Το [Asahi Alarm](https://asahi-alarm.org/) είναι μια έκδοση του Arch για υπολογιστές Apple M1/M2 χτισμένη πάνω στο [Asahi Linux](https://asahilinux.org/). Μπορείς να κάνεις το Arch να τρέχει πάνω σε αυτό με κάποια προσπάθεια. Δες [τον οδηγό που οδηγείται από χρήστες](https://github.com/kairosci/os).
 
 ### Εικονική Μηχανή Apple
 
-Μπορείς επίσης να εγκαταστήσεις το Arch μέσα σε μια VM Parallels. Αρκετά πολύπλοκη διαδικασία, αλλά υπάρχει [ένας οδηγός που οδηγείται από χρήστες](https://github.com/kairosci/arch) και γι' αυτό.
+Μπορείς επίσης να εγκαταστήσεις το Arch μέσα σε μια VM Parallels. Αρκετά πολύπλοκη διαδικασία, αλλά υπάρχει [ένας οδηγός που οδηγείται από χρήστες](https://github.com/kairosci/os) και γι' αυτό.
 
 ### VirtualBox
 
-Το VirtualBox είναι ένας δημοφιλής δρομέας VM. [Μπορείς να τρέξεις το Arch και μέσα σε αυτό](https://github.com/kairosci/arch). Αλλά η απόδοση πιθανώς δεν θα είναι σπουδαία.
+Το VirtualBox είναι ένας δημοφιλής δρομέας VM. [Μπορείς να τρέξεις το Arch και μέσα σε αυτό](https://github.com/kairosci/os). Αλλά η απόδοση πιθανώς δεν θα είναι σπουδαία.
 
 ### VMware Workstation σε Windows 11
 
-Ένας άλλος δημοφιλής δρομέας VM για Windows. [Το Arch έχει ρυθμιστεί και μέσα σε αυτό](https://github.com/kairosci/arch).
+Ένας άλλος δημοφιλής δρομέας VM για Windows. [Το Arch έχει ρυθμιστεί και μέσα σε αυτό](https://github.com/kairosci/os).
 
 ### Steam Deck
 

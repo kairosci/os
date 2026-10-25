@@ -6,7 +6,7 @@
 
 Τα θέματα έχουν ένα σύνολο εικόνων φόντου από τις οποίες μπορείς να διαλέξεις χρησιμοποιώντας το `Super + Ctrl + Space`.
 
-Μπορείς να βρεις ακόμα περισσότερα θέματα στη [σελίδα επιπλέον θεμάτων](https://github.com/kairosci/arch/themes/) ή ακόμα και να [φτιάξεις το δικό σου θέμα](43-making-your-own-theme.md).
+Μπορείς να βρεις ακόμα περισσότερα θέματα στη [σελίδα επιπλέον θεμάτων](https://github.com/kairosci/os/themes/) ή ακόμα και να [φτιάξεις το δικό σου θέμα](43-making-your-own-theme.md).
 
  ![tokyo-night](../themes/tokyo-night/preview.png)
 _Tokyo Night_
