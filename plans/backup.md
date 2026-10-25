@@ -6,7 +6,7 @@ Revision 2. Rev 2 incorporates adversarial review by codex (xhigh): honest threa
 
 Arch has no answer for "my disk died", "my laptop was stolen", or "I deleted a folder I needed last month":
 
-- Snapper snapshots cover the root filesystem only, live on the same disk, and `manual/47-system-snapshots.md` says outright they don't recover personal files.
+- Snapper snapshots cover the root filesystem only, live on the same disk, and `docs/user/47-system-snapshots.md` says outright they don't recover personal files.
 - The dots plan (`plans/dots.md`) is config history + sync, and is explicit that it is *not* a backup — the local repo dies with the disk.
 - The manual's file-safety story is "install Dropbox", which is sync with bounded retention, not backup: it only covers folders you move into it, deleted-file recovery is time-limited, and your data's survival is tied to one account at one vendor.
 - Full-disk encryption (the install default) protects a lost laptop's *confidentiality*. Nothing protects your data's *existence*.
@@ -119,7 +119,7 @@ Explicitly part of the design, and deliberately boring:
 
 - Fully opt-in: no packages installed, no units enabled, no scheduled work, no widget until _Setup > Backup_ runs (the unit files themselves ship disabled with `arch-settings`, like every other default unit).
 - No migration needed for existing users.
-- Docs per the documentation layout: a new `manual/49-backups.md` (user guide: setup, restore, browse, the passphrase warning and recovery card, multi-machine, the threat model in plain words — including provider lifecycle policies: cold-storage/archival tiers silently break restic and must not be enabled on the bucket), `docs/backup.md` (reference: state file schema, unit wiring, retention, lock/maintenance topology), and `manual/47-system-snapshots.md` / `24-commercial-apps-services.md` cross-links so "snapshots vs backup vs sync" is stated in one place.
+- Docs per the documentation layout: a new `docs/user/49-backups.md` (user guide: setup, restore, browse, the passphrase warning and recovery card, multi-machine, the threat model in plain words — including provider lifecycle policies: cold-storage/archival tiers silently break restic and must not be enabled on the bucket), `docs/backup.md` (reference: state file schema, unit wiring, retention, lock/maintenance topology), and `docs/user/47-system-snapshots.md` / `24-commercial-apps-services.md` cross-links so "snapshots vs backup vs sync" is stated in one place.
 - Tests: restic's local backend covers the engine logic hermetically — CLI metadata (`archctl commands --check` via `test/cli`), state-file transitions including stale-run reconciliation and partial results, pause expiry, exclude expansion (tilde-free, absolute), retention args, restore round-trip into staging (fixture tree → local repo → restore → diff), wizard's unattended flag path and resume-after-abort, menu acceptance. S3 specifics (endpoint styles, auth failures, prefixes) get an integration pass against MinIO in the acceptance VM. The widget and panel go through `agents/skills/visual-verification.md` in the running UI: unconfigured, first backup, running, partial, failure, stale, paused, browse-mounted, long labels, teardown.
 
 ## Open questions

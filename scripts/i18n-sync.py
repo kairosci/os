@@ -117,7 +117,7 @@ def english_units(root):
     for mid, fields in read_json(i18n / "menu.json", {}).items():
         for field, value in fields.items():
             units[f"menu:{mid}.{field}"] = value
-    for chapter in sorted((root / "manual").glob("*.md")):
+    for chapter in sorted((root / "docs/user").glob("*.md")):
         units[f"manual:{chapter.name}"] = chapter.read_text(encoding="utf-8")
     return units
 
@@ -132,7 +132,7 @@ def translated_units(root, code):
         if isinstance(fields, dict):
             for field, value in fields.items():
                 units[f"menu:{mid}.{field}"] = value
-    manual_dir = root / "manual" / code
+    manual_dir = root / "docs/user" / code
     if manual_dir.is_dir():
         for chapter in sorted(manual_dir.glob("*.md")):
             units[f"manual:{chapter.name}"] = chapter.read_text(encoding="utf-8")
@@ -398,7 +398,7 @@ def menu_catalog_stale(root):
             if item:
                 catalog[mid] = item
     current = read_json(root / "default/i18n/en/menu.json", {})
-    expected = {"root": {"label": "Go"}}
+    expected = {"root": {"label": "Menu"}}
     expected.update(catalog)
     return expected, current
 
@@ -665,7 +665,7 @@ def apply_prune(root, code, prune):
                     del data["menu"][mid]
                 changed.add("menu")
         elif kind == "manual":
-            chapter = root / "manual" / code / rest
+            chapter = root / "docs/user" / code / rest
             if chapter.exists():
                 chapter.unlink()
     for kind in changed:
@@ -704,7 +704,7 @@ def cmd_translate(args):
     def one_manual(unit):
         filename = split_unit(unit)[1]
         text = translate_manual(english[unit], code, name, args.model)
-        atomic_write(root / "manual" / code / filename, text)
+        atomic_write(root / "docs/user" / code / filename, text)
         return unit
 
     with ThreadPoolExecutor(max_workers=args.concurrency) as pool:
@@ -767,7 +767,7 @@ def git(root, *argv, **kwargs):
 
 
 def language_paths(code):
-    return [f"default/i18n/{code}", f"manual/{code}"]
+    return [f"default/i18n/{code}", f"docs/user/{code}"]
 
 
 def cmd_pack(args):

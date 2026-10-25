@@ -170,7 +170,7 @@ assertEqual(frRow.previewText, frShell['clipboard.screenshotFrom'].replace('%1',
 // inline code. Prose, link text, and synopsis placeholders in <...> or
 // [...] may be localized. In structural mode, chapters the manifest marks
 // stale are exempt: their repair is pending sync work, not corruption.
-const manualDir = path.join(root, 'manual')
+const manualDir = path.join(root, 'docs', 'user')
 const englishManual = fs.readdirSync(manualDir).filter((name) => name.endsWith('.md')).sort()
 assert(englishManual.length > 0, 'English manual exists')
 const englishTexts = {}
@@ -199,7 +199,7 @@ for (const code of codes) {
   if (code === 'en') continue
   const dir = path.join(manualDir, code)
   if (!fs.existsSync(dir)) {
-    assert(structural, `manual/${code} exists`)
+    assert(structural, `docs/user/${code} exists`)
     continue
   }
   const chapters = fs.readdirSync(dir).filter((name) => name.endsWith('.md')).sort()
@@ -214,13 +214,13 @@ for (const code of codes) {
     for (const problem of manualProblems(englishTexts[file], texts[file])) broken.push(`${file}: ${problem}`)
     if (broken.length > 5) break
   }
-  assert(broken.length === 0, `manual/${code} preserves commands, links, and code blocks`, JSON.stringify(broken.slice(0, 5)))
+  assert(broken.length === 0, `docs/user/${code} preserves commands, links, and code blocks`, JSON.stringify(broken.slice(0, 5)))
   if (structural) {
     // Extra chapters are prune-pending (their English was deleted or renamed).
-    assert(empty.length === 0, `manual/${code} chapters present are translated`, JSON.stringify(empty))
+    assert(empty.length === 0, `docs/user/${code} chapters present are translated`, JSON.stringify(empty))
   } else {
     const missing = englishManual.filter((file) => !chapters.includes(file))
-    assert(JSON.stringify(chapters) === JSON.stringify(englishManual) && empty.length === 0, `manual/${code} has every English chapter translated`, JSON.stringify([...missing, ...empty]))
+    assert(JSON.stringify(chapters) === JSON.stringify(englishManual) && empty.length === 0, `docs/user/${code} has every English chapter translated`, JSON.stringify([...missing, ...empty]))
   }
 }
 JS
@@ -475,7 +475,7 @@ assert_bash_equal "$extract_candidates" "0" "no embedded English literals await 
 # A miniature tree exercises staleness: one key changed in English, one
 # deleted from the translation, one manual chapter missing.
 fix=$work/fixture
-mkdir -p "$fix/default/i18n/en" "$fix/default/i18n/da" "$fix/default/arch" "$fix/manual" "$fix/shell" "$fix/bin"
+mkdir -p "$fix/default/i18n/en" "$fix/default/i18n/da" "$fix/default/arch" "$fix/docs/user" "$fix/shell" "$fix/bin"
 cat >"$fix/default/i18n/locales.json" <<'FIXJSON'
 {
   "en": {"name": "English", "englishName": "English", "formatLocale": "en-US", "locale": "en_US.UTF-8"},
@@ -484,21 +484,21 @@ cat >"$fix/default/i18n/locales.json" <<'FIXJSON'
 FIXJSON
 printf '{\n  "a.one": "One",\n  "a.two": "Two"\n}\n' >"$fix/default/i18n/en/shell.json"
 printf '{}\n' >"$fix/default/i18n/en/cli.json"
-printf '{\n  "root": {\n    "label": "Go"\n  }\n}\n' >"$fix/default/i18n/en/menu.json"
+printf '{\n  "root": {\n    "label": "Menu"\n  }\n}\n' >"$fix/default/i18n/en/menu.json"
 printf '{}\n' >"$fix/default/arch/arch-menu.jsonc"
 printf '{\n  "strings": [],\n  "files": []\n}\n' >"$fix/default/i18n/extract-allowlist.json"
 printf '{\n  "a.one": "En",\n  "a.two": "To"\n}\n' >"$fix/default/i18n/da/shell.json"
 printf '{}\n' >"$fix/default/i18n/da/cli.json"
 printf '{\n  "root": {\n    "label": "Gaa"\n  }\n}\n' >"$fix/default/i18n/da/menu.json"
-printf '# Hello\n\nWorld.\n' >"$fix/manual/01-hello.md"
-mkdir -p "$fix/manual/da"
-printf '# Hej\n\nVerden.\n' >"$fix/manual/da/01-hello.md"
+printf '# Hello\n\nWorld.\n' >"$fix/docs/user/01-hello.md"
+mkdir -p "$fix/docs/user/da"
+printf '# Hej\n\nVerden.\n' >"$fix/docs/user/da/01-hello.md"
 python3 "$ROOT/scripts/i18n-sync.py" --root "$fix" manifest >/dev/null
 assert_bash_equal "$(python3 "$ROOT/scripts/i18n-sync.py" --root "$fix" pending | jq -c '.locales')" "[]" "sync fixture starts with nothing pending"
 
 printf '{\n  "a.one": "One changed",\n  "a.two": "Two"\n}\n' >"$fix/default/i18n/en/shell.json"
 printf '{\n  "a.two": "To"\n}\n' >"$fix/default/i18n/da/shell.json"
-printf '# New\n' >"$fix/manual/02-new.md"
+printf '# New\n' >"$fix/docs/user/02-new.md"
 pending_units=$(python3 "$ROOT/scripts/i18n-sync.py" --root "$fix" pending | jq -c '.jobs.da.pending | sort')
 assert_bash_equal "$pending_units" '["manual:02-new.md","shell:a.one"]' "sync detects changed English and missing chapters"
 

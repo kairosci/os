@@ -1439,7 +1439,7 @@ Item {
             anchors.bottom: filterInput.bottom
             verticalAlignment: Text.AlignVCenter
             visible: !root.filterText && !filterInput.preeditText
-            text: root.dmenuActive ? (root.dmenuPrompt + "…") : ((root.item(root.activeMenu) ? (root.item(root.activeMenu).title || root.item(root.activeMenu).label) : "Menu") + "…")
+            text: root.dmenuActive ? (root.dmenuPrompt + "…") : ((root.item(root.activeMenu) ? (root.item(root.activeMenu).title || root.item(root.activeMenu).label) : (root.item("root") ? root.item("root").label : "")) + "…")
             color: root.foreground
             opacity: 0.58
             font.family: root.fontFamily
