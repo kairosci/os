@@ -5,9 +5,6 @@
   "apps": {
     "label": "אפליקציות"
   },
-  "learn": {
-    "label": "למידה"
-  },
   "appearance": {
     "label": "מראה"
   },
@@ -49,33 +46,6 @@
   },
   "system.shutdown": {
     "label": "כיבוי"
-  },
-  "learn.keybindings": {
-    "label": "קיצורי מקלדת"
-  },
-  "learn.repository": {
-    "label": "GitHub"
-  },
-  "learn.hyprland": {
-    "label": "Hyprland"
-  },
-  "learn.arch": {
-    "label": "Arch"
-  },
-  "learn.neovim": {
-    "label": "Neovim"
-  },
-  "learn.bash": {
-    "label": "Bash"
-  },
-  "learn.tmux-keybindings": {
-    "label": "Tmux"
-  },
-  "learn.herdr-keybindings": {
-    "label": "Herdr"
-  },
-  "learn.community": {
-    "label": "קהילה"
   },
   "appearance.theme": {
     "label": "ערכת נושא"
