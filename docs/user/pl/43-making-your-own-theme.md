@@ -42,4 +42,4 @@ Ten pozostały `[themename]` staje się nazwą katalogu motywu, więc musi być 
 
 Pamiętaj, że po zainstalowaniu z repozytorium każdy dostarczony przez motyw plik `.lua`, konfiguracja terminala albo `vscode.json` jest odrzucany, więc nie buduj motywu wokół nich.
 
-Swój motyw możesz dodać do [strony z dodatkowymi motywami](https://github.com/kairosci/arch/themes/), wysyłając pull request do [repozytorium arch-site](https://github.com/kairosci/arch).
+Swój motyw możesz dodać do [strony z dodatkowymi motywami](https://github.com/kairosci/os/themes/), wysyłając pull request do [repozytorium arch-site](https://github.com/kairosci/os).

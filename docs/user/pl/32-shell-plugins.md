@@ -95,10 +95,10 @@ arch plugin validate ./my-plugin
 
 To uruchamia te same kontrole, które powłoka przeprowadza podczas ładowania: wersję schematu, wymagane pola, id, które nie jest zastrzeżone, punkty wejścia, które są bezpiecznymi ścieżkami względnymi i rzeczywiście istnieją, punkt wejścia dla każdego zgłoszonego rodzaju i brak dowiązań symbolicznych w dowolnym miejscu wewnątrz folderu.
 
-W kwestii rozwoju wtyczek zobacz [dokumentację powłoki](https://github.com/kairosci/arch) i [katalog wtyczek własnych](https://github.com/kairosci/arch).
+W kwestii rozwoju wtyczek zobacz [dokumentację powłoki](https://github.com/kairosci/os) i [katalog wtyczek własnych](https://github.com/kairosci/os).
 
 ## Dzielenie się swoimi ze światem
 
 Gdy stworzysz coś, co ci się podoba, umieść to w publicznym repozytorium git. To cały mechanizm dystrybucji — każdy może wtedy uruchomić `arch plugin add` na twój URL i mieć to działające w kilka sekund.
 
-Aby pomóc ludziom rzeczywiście to znaleźć, umieść to na [plugins.github.com/kairosci/arch](https://plugins.github.com/kairosci/arch). To marketplace dla wtyczek powłoki Arch i pierwsze miejsce, do którego należy zajrzeć, gdy zastanawiasz się, czy ktoś nie zbudował już widżetu, który zamierzasz napisać. Przejrzyj go przed rozpoczęciem!
+Aby pomóc ludziom rzeczywiście to znaleźć, umieść to na [plugins.github.com/kairosci/os](https://plugins.github.com/kairosci/os). To marketplace dla wtyczek powłoki Arch i pierwsze miejsce, do którego należy zajrzeć, gdy zastanawiasz się, czy ktoś nie zbudował już widżetu, który zamierzasz napisać. Przejrzyj go przed rozpoczęciem!

@@ -2,19 +2,19 @@
 
 ### Układy Apple M1/M2
 
-[Asahi Alarm](https://asahi-alarm.org/) to wersja Archa dla komputerów Apple M1/M2 zbudowana na [Asahi Linux](https://asahilinux.org/). Przy odrobinie wysiłku możesz uruchomić na niej Arch. Zobacz [przewodnik tworzony przez użytkowników](https://github.com/kairosci/arch).
+[Asahi Alarm](https://asahi-alarm.org/) to wersja Archa dla komputerów Apple M1/M2 zbudowana na [Asahi Linux](https://asahilinux.org/). Przy odrobinie wysiłku możesz uruchomić na niej Arch. Zobacz [przewodnik tworzony przez użytkowników](https://github.com/kairosci/os).
 
 ### Maszyna wirtualna Apple
 
-Arch możesz też zainstalować w maszynie wirtualnej Parallels. To dość żmudny proces, ale i na to jest [przewodnik tworzony przez użytkowników](https://github.com/kairosci/arch).
+Arch możesz też zainstalować w maszynie wirtualnej Parallels. To dość żmudny proces, ale i na to jest [przewodnik tworzony przez użytkowników](https://github.com/kairosci/os).
 
 ### VirtualBox
 
-VirtualBox to popularny program do maszyn wirtualnych. [Arch możesz uruchomić też w nim](https://github.com/kairosci/arch). Ale wydajność prawdopodobnie nie będzie świetna.
+VirtualBox to popularny program do maszyn wirtualnych. [Arch możesz uruchomić też w nim](https://github.com/kairosci/os). Ale wydajność prawdopodobnie nie będzie świetna.
 
 ### VMware Workstation na Windows 11
 
-Kolejny popularny program do maszyn wirtualnych dla Windowsa. [Arch skonfigurowano też w nim](https://github.com/kairosci/arch).
+Kolejny popularny program do maszyn wirtualnych dla Windowsa. [Arch skonfigurowano też w nim](https://github.com/kairosci/os).
 
 ### Steam Deck
 

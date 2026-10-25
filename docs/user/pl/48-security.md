@@ -30,6 +30,6 @@ Patrz na to trzeźwo: gdy jest włączone, wszystko, co działa jako twój użyt
 
 ## Klucze podpisywania
 
-Klucz publiczny dla wszystkich podpisów ISO i pakietów repozytorium Arch to `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([zweryfikuj na openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch)). Pakiet `arch/arch-keyring` również go zawiera i zostanie użyty, aby bezproblemowo wprowadzić ewentualne aktualizacje.
+Klucz publiczny dla wszystkich podpisów ISO i pakietów repozytorium Arch to `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([zweryfikuj na openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os)). Pakiet `arch/arch-keyring` również go zawiera i zostanie użyty, aby bezproblemowo wprowadzić ewentualne aktualizacje.
 
-Podpis dla dowolnego wydania ISO znajdziesz, dodając .sig do adresu URL. Na przykład https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig.
+Podpis dla dowolnego wydania ISO znajdziesz, dodając .sig do adresu URL. Na przykład https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig.

@@ -6,7 +6,7 @@ Każdy motyw stylizuje pulpit, terminal, neovim, ekran aktywności (btop), Chrom
 
 Motywy mają zestaw obrazów tła, spośród których możesz wybierać przez `Super + Ctrl + Space`.
 
-Jeszcze więcej motywów znajdziesz na [stronie dodatkowych motywów](https://github.com/kairosci/arch/themes/), a nawet możesz [zrobić własny motyw](43-making-your-own-theme.md).
+Jeszcze więcej motywów znajdziesz na [stronie dodatkowych motywów](https://github.com/kairosci/os/themes/), a nawet możesz [zrobić własny motyw](43-making-your-own-theme.md).
 
  ![tokyo-night](../themes/tokyo-night/preview.png)
 _Tokyo Night_
