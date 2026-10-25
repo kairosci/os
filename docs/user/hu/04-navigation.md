@@ -50,25 +50,11 @@ hl.config({
 })
 ```
 
-### Lebegő munkaterületek
-
-Egy lebegő munkaterület úgy működik, mint egy hagyományos asztal: az ablakok átfedik egymást, és magad mozgatod és méretezed őket. Minden ablak kap egy címsort a témád színeivel, gombokkal a minimalizáláshoz, maximalizáláshoz és bezáráshoz. A `Super + M` a fókuszált ablakot is minimalizálja. Egy minimalizált ablak a dockban várakozik; kattints az alkalmazására, hogy visszahozd. Kattints egy ablakra, hogy előtérbe hozd. Bármelyik szélétől vagy sarkától átméretezheted. Kattints duplán egy címsorra, hogy maximalizáld az ablakot, miközben a felső sáv látható marad, és még egyszer, hogy visszakapd a régi méretét.
-
-Egy lebegő munkaterület egy dockot is mutat, a kitűzött alkalmazásaiddal, mindennel, ami fut, és minden alkalmazás rácsával az alkalmazások gomb mögött, amelyet a `Super + Alt + Space` és az Arch menüben az _Apps_ is megnyit. Kattints jobb gombbal egy alkalmazásra a rácson, vagy nyomd meg a `Delete` billentyűt, hogy eltávolítsd. Kattints egy alkalmazásra, hogy megnyisd, vagy előtérbe hozd az ablakát; kattints újra, hogy végiglépegess az ablakain. A középső gombbal való kattintás új ablakot nyit. Húzz egy ikont a dock mentén, hogy áthelyezd; egy futó alkalmazás behúzása a többiek közé ott tartja azt. Kattints jobb gombbal, hogy egy alkalmazást megtarts a dockban, kivegyél belőle, vagy kilépj belőle. A dock kitér egy teljes képernyős ablak útjából. Kattints jobb gombbal az alkalmazások gombra, hogy a dockot egy másik szélre helyezd, vagy elrejtsd, amíg a mutató el nem éri a szélét. A pozíció a _Trigger > Appearance > Dock > Dock Position_ alatt is megtalálható, és az `archctl dock position left` és az `archctl dock autohide on` mindkettőt beállítja terminálból. Az alkalmazások, amelyeket a dockban tartasz, halványak, amíg nem futnak.
-
-Az új munkaterületek, és azok, amelyeknek nem adtál saját elrendezést a `Super + L` billentyűkkel, az alapértelmezett elrendezést használják. Az alapértelmezett megváltoztatása minden ablak nélküli munkaterületet visszaállít arra, míg egy ablakokkal rendelkező megtartja a meglévő elrendezését. Egy dockba minimalizált ablak továbbra is ablaknak számít azon a munkaterületen, amelyet elhagyott. A _Trigger > Appearance > Workspace Layout_ alatt válaszd ki: Tiling, Scrolling vagy Floating. Az `arch-hyprland-workspace-layout-default scrolling` terminálból állítja be.
-
 ### Ablakok csoportosítása
 
 Az ablakok a `Super + G` billentyűkkel csoportosíthatók. Amint egy csoportban vagy, minden ablak, amelyet amíg ez aktív, elindítasz, a csoporthoz fog tartozni. Ezek között a csoportosított ablakok között a `Super + Ctrl + Arrow Left/Right` billentyűkkel léphetsz, vagy a `Super + Alt + 1/2/3/4` billentyűkkel közvetlenül a sorrendben lévő csoportosított ablakhoz ugorhatsz.
 
 Egy ablakot a `Super + Alt + G` billentyűkkel vehetsz ki a csoportosításból, vagy a `Super + G` ismételt megnyomásával felbonthatod az egész csoportot. Végül a csoporton kívül lévő ablakokat a `Super + Alt + Arrows` billentyűkkel mozgathatod be a csoportba.
-
-### Ablakok kiemelése
-
-Egy ablakot a `Super + O` billentyűkkel emelhetsz ki a munkaterület-kiosztásából. Ez lebegő ablakként rögzíti, amely követ téged, bármelyik munkaterületre mész. Nagyszerű videólejátszókhoz és hasonlókhoz.
-
- ![navigation-popped-window](images/navigation-popped-window.webp)
 
 ### Scratchpad munkaterület
 

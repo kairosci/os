@@ -50,25 +50,11 @@ hl.config({
 })
 ```
 
-### Floating workspaces
-
-Floating workspace पारंपरिक desktop की तरह काम करता है: windows overlap होती हैं, और आप उन्हें खुद हटाते और उनका आकार तय करते हैं। प्रत्येक window को आपकी theme के रंगों में एक titlebar मिलता है, जिसमें minimize, maximize, और close करने के buttons होते हैं। `Super + M` focused window को भी minimize कर देता है। Minimize की गई window dock में प्रतीक्षा करती है; उसे वापस लाने के लिए उसकी app पर click करें। किसी window को आगे लाने के लिए उस पर click करें। उसे किसी भी किनारे या कोने से resize करें। Window को maximize करते हुए top bar को दिखाई देता रखने के लिए titlebar पर double-click करें, और उसका पुराना आकार वापस पाने के लिए फिर से double-click करें।
-
-Floating workspace एक dock भी दिखाता है, जिसमें आपकी pinned apps, जो कुछ भी चल रहा है वह सब, और apps button के पीछे हर app का grid होता है, जिसे `Super + Alt + Space` और Arch menu में _Apps_ भी खोलते हैं। किसी app को uninstall करने के लिए grid पर उस पर right-click करें, या `Delete` दबाएँ। किसी app को खोलने के लिए, या उसकी window को आगे लाने के लिए उस पर click करें; उसकी windows में चक्र लगाने के लिए फिर से click करें। Middle-click से नई window खुलती है। किसी icon को हटाने के लिए उसे dock के साथ-साथ drag करें; चल रही app को दूसरों के बीच drag करने से वह वहीं बनी रहती है। किसी app को dock में रखने, उसे बाहर निकालने, या उसे quit करने के लिए right-click करें। Dock fullscreen window के रास्ते से हट जाता है। Dock को किसी दूसरे किनारे पर ले जाने के लिए या pointer के उसके किनारे तक पहुँचने तक उसे छिपाए रखने के लिए apps button पर right-click करें। यह स्थिति _Trigger > Appearance > Dock > Dock Position_ के अंतर्गत भी है, और `archctl dock position left` और `archctl dock autohide on` दोनों को terminal से set करते हैं। Dock में आप जिन apps को रखते हैं वे तब फीके होते हैं जब वे नहीं चल रहे होते हैं।
-
-नए workspaces, और जिन्हें भी आपने `Super + L` से अपना खुद का layout नहीं दिया है, वे default layout का उपयोग करते हैं। Default बदलने से बिना windows वाला हर workspace उस पर reset हो जाता है, जबकि जिस पर windows हैं वह अपना मौजूदा layout बनाए रखता है। Dock में minimize की गई window अभी भी उस workspace पर एक window मानी जाती है जिसे उसने छोड़ा था। उसे _Trigger > Appearance > Workspace Layout_ के अंतर्गत चुनें: Tiling, Scrolling, या Floating। `arch-hyprland-workspace-layout-default scrolling` उसे terminal से set करता है।
-
 ### Windows को group करना
 
 Windows को `Super + G` का उपयोग करके group किया जा सकता है। एक बार जब आप किसी group में होते हैं, तो उसके active रहते हुए आप जो हर window शुरू करेंगे वह group से संबंधित होगी। आप `Super + Ctrl + Arrow Left/Right` का उपयोग करके या क्रम में सीधे grouped window पर जाने के लिए `Super + Alt + 1/2/3/4` का उपयोग करके इन grouped windows के बीच जा सकते हैं।
 
 आप `Super + Alt + G` से किसी window को grouping से बाहर ले जा सकते हैं या `Super + G` फिर से दबाकर पूरे group को खत्म कर सकते हैं। अंत में, आप `Super + Alt + Arrows` से group के बाहर की windows को उसके भीतर ले जा सकते हैं।
-
-### Windows को pop करना
-
-आप `Super + O` से किसी window को उसके workspace आवंटन से बाहर pop कर सकते हैं। वह उसे एक floating window के रूप में pin कर देगा जो आप जिस भी workspace पर जाते हैं वहाँ आपका पीछा करेगी। Video players और ऐसी ही चीज़ों के लिए बढ़िया है।
-
- ![navigation-popped-window](images/navigation-popped-window.webp)
 
 ### Scratchpad workspace
 

@@ -50,25 +50,11 @@ hl.config({
 })
 ```
 
-### Yüzen çalışma alanları
-
-Yüzen bir çalışma alanı geleneksel bir masaüstü gibi çalışır: pencereler üst üste biner ve onları kendiniz taşır ve boyutlandırırsınız. Her pencere, temanızın renklerinde, simge durumuna küçültme, büyütme ve kapatma düğmeleri olan bir başlık çubuğu alır. `Super + M` de odaklanılan pencereyi simge durumuna küçültür. Simge durumuna küçültülmüş bir pencere dock'ta bekler; geri getirmek için uygulamasına tıklayın. Bir pencereyi öne getirmek için tıklayın. Herhangi bir kenarından veya köşesinden yeniden boyutlandırın. Üst çubuğu görünürde tutarken pencereyi büyütmek için başlık çubuğuna çift tıklayın, eski boyutu geri almak için tekrar çift tıklayın.
-
-Yüzen bir çalışma alanı ayrıca bir dock gösterir; burada sabitlenmiş uygulamalarınız, çalışan her şey ve uygulamalar düğmesinin arkasında, `Super + Alt + Space` ile ve Arch menüsündeki _Uygulamalar_ ile de açılan, her uygulamanın bir ızgarası bulunur. Bir uygulamayı kaldırmak için ızgarada ona sağ tıklayın veya `Delete` tuşuna basın. Bir uygulamayı açmak veya penceresini öne getirmek için ona tıklayın; pencereleri arasında geçiş yapmak için tekrar tıklayın. Orta tıklama yeni bir pencere açar. Bir simgeyi taşımak için dock boyunca sürükleyin; çalışan bir uygulamayı diğerlerinin arasına sürüklemek onu orada tutar. Bir uygulamayı dock'ta tutmak, çıkarmak veya kapatmak için sağ tıklayın. Dock, tam ekran bir pencerenin yolundan çekilir. Dock'u başka bir kenara taşımak veya imleç kenarına ulaşana kadar gizlenmesini sağlamak için uygulamalar düğmesine sağ tıklayın. Konum ayrıca _Tetikleyici > Görünüm > Dock > Dock Konumu_ altındadır ve `archctl dock position left` ile `archctl dock autohide on` ikisini de bir terminalden ayarlar. Dock'ta tuttuğunuz uygulamalar çalışmıyorken soluk görünür.
-
-Yeni çalışma alanları ve `Super + L` ile kendi düzenini vermedikleriniz varsayılan düzeni kullanır. Varsayılanı değiştirmek, penceresi olmayan her çalışma alanını ona sıfırlar; üzerinde pencereleri olan biri ise sahip olduğu düzeni korur. Dock'a simge durumuna küçültülmüş bir pencere yine de ayrıldığı çalışma alanındaki bir pencere sayılır. Bunu _Tetikleyici > Görünüm > Çalışma Alanı Düzeni_ altından seçin: Döşeme, Kayan veya Yüzen. `arch-hyprland-workspace-layout-default scrolling` bunu bir terminalden ayarlar.
-
 ### Pencereleri gruplama
 
 Pencereler `Super + G` kullanılarak gruplanabilir. Bir gruba girdikten sonra, bu etkinken başlattığınız her pencere gruba ait olacaktır. Bu gruplanmış pencereler arasında `Super + Ctrl + Arrow Left/Right` kullanarak veya doğrudan sırayla gruplanmış pencereye gitmek için `Super + Alt + 1/2/3/4` kullanarak gezinebilirsiniz.
 
 Bir pencereyi `Super + Alt + G` ile gruptan çıkarabilir veya tekrar `Super + G` tuşlarına basarak tüm grubu dağıtabilirsiniz. Son olarak, grup dışındaki pencereleri `Super + Alt + Arrows` ile grubun içine taşıyabilirsiniz.
-
-### Pencereleri dışarı çıkarma
-
-Bir pencereyi `Super + O` ile çalışma alanı yerleşiminden dışarı çıkarabilirsiniz. Bu, onu hangi çalışma alanına giderseniz gidin sizi takip eden yüzen bir pencere olarak sabitler. Video oynatıcılar ve benzerleri için harikadır.
-
- ![navigation-popped-window](images/navigation-popped-window.webp)
 
 ### Scratchpad çalışma alanı
 

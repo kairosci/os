@@ -50,25 +50,11 @@ hl.config({
 })
 ```
 
-### Slankiosios darbo sritys
-
-Slankioji darbo sritis veikia kaip tradicinis darbalaukis: langai persidengia, o jūs patys juos perkeliate ir keičiate jų dydį. Kiekvienas langas gauna jūsų temos spalvų antraštės juostą su mygtukais sumažinti, padidinti ir uždaryti. `Super + M` taip pat sumažina fokusuotą langą. Sumažintas langas laukia doke; spustelėkite jo programą, kad jį grąžintumėte. Spustelėkite langą, kad iškeltumėte jį į priekį. Keiskite jo dydį iš bet kurio krašto arba kampo. Dukart spustelėkite antraštės juostą, kad padidintumėte langą paliekant viršutinę juostą matomą, ir dar kartą, kad grąžintumėte ankstesnį jo dydį.
-
-Slankioji darbo sritis taip pat rodo doką su jūsų prisegtomis programomis, viskuo, kas šiuo metu veikia, ir kiekvienos programos tinkleliu už programų mygtuko, kurį taip pat atveria `Super + Alt + Space` ir _Apps_ Arch meniu. Dešiniuoju pelės mygtuku spustelėkite programą tinklelyje arba paspauskite `Delete`, kad ją pašalintumėte. Spustelėkite programą, kad ją atvertumėte arba iškeltumėte jos langą į priekį; spustelėkite dar kartą, kad pereitumėte per jos langus ciklu. Vidurinysis spustelėjimas atveria naują langą. Vilkite piktogramą išilgai doko, kad ją perkeltumėte; nutempus veikiančią programą tarp kitų, ji ten ir lieka. Dešiniuoju pelės mygtuku spustelėkite, kad programą išlaikytumėte doke, išimtumėte ją iš jo arba ją uždarytumėte. Dokas pasitraukia iš kelio viso ekrano langui. Dešiniuoju pelės mygtuku spustelėkite programų mygtuką, kad perkeltumėte doką prie kito krašto arba kad jis slėptųsi, kol žymeklis pasieks jo kraštą. Padėtis taip pat yra skiltyje _Trigger > Appearance > Dock > Dock Position_, o `archctl dock position left` ir `archctl dock autohide on` nustato abu iš terminalo. Programos, kurias laikote doke, yra išblukusios, kol jos neveikia.
-
-Naujos darbo sritys ir bet kurios, kurioms neskyrėte atskiro išdėstymo paspaudę `Super + L`, naudoja numatytąjį išdėstymą. Pakeitus numatytąjį išdėstymą, kiekviena darbo sritis be langų nustatoma į jį iš naujo, o sritis su langais išlaiko turimą išdėstymą. Į doką sumažintas langas vis tiek skaičiuojamas kaip langas darbo srityje, kurią jis paliko. Pasirinkite jį skiltyje _Trigger > Appearance > Workspace Layout_: Tiling, Scrolling arba Floating. `arch-hyprland-workspace-layout-default scrolling` nustato jį iš terminalo.
-
 ### Langų grupavimas
 
 Langus galima grupuoti paspaudus `Super + G`. Kai būsite grupėje, kiekvienas langas, kurį paleisite jai esant aktyviai, priklausys grupei. Tarp šių sugrupuotų langų galite judėti paspaudę `Super + Ctrl + Arrow Left/Right` arba `Super + Alt + 1/2/3/4`, kad iš eilės eitumėte tiesiai prie sugrupuoto lango.
 
 Langą iš grupavimo galite išimti paspaudę `Super + Alt + G` arba išardyti visą grupę dar kartą paspaudę `Super + G`. Galiausiai langus, esančius už grupės ribų, į ją galite perkelti paspaudę `Super + Alt + Arrows`.
-
-### Langų iškėlimas
-
-Langą iš jo darbo srities paskyrimo galite iškelti paspaudę `Super + O`. Tai prisegs jį kaip slankųjį langą, kuris seka paskui jus į bet kurią darbo sritį, į kurią einate. Puiku vaizdo grotuvams ir panašiems dalykams.
-
- ![navigation-popped-window](images/navigation-popped-window.webp)
 
 ### Scratchpad darbo sritis
 

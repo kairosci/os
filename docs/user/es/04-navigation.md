@@ -50,25 +50,11 @@ hl.config({
 })
 ```
 
-### Espacios de trabajo flotantes
-
-Un espacio de trabajo flotante funciona como un escritorio tradicional: las ventanas se superponen y tú las mueves y les cambias el tamaño. Cada ventana recibe una barra de título con los colores de tu tema, con botones para minimizar, maximizar y cerrar. `Super + M` también minimiza la ventana enfocada. Una ventana minimizada espera en el dock; haz clic en su app para traerla de regreso. Haz clic en una ventana para traerla al frente. Cámbiale el tamaño desde cualquier borde o esquina. Haz doble clic en una barra de título para maximizar la ventana manteniendo visible la barra superior, y otra vez para recupere su tamaño anterior.
-
-Un espacio de trabajo flotante también muestra un dock, con tus apps fijadas, todo lo que está en ejecución y una cuadrícula de todas las apps detrás del botón de aplicaciones, que `Super + Alt + Space` y _Aplicaciones_ en el menú de Arch también abren. Haz clic derecho en una app de la cuadrícula, o presiona `Delete`, para desinstalarla. Haz clic en una app para abrirla, o para traer su ventana al frente; haz clic otra vez para alternar entre sus ventanas. Un clic con el botón central abre una ventana nueva. Arrastra un ícono por el dock para moverlo; arrastrar una app en ejecución entre las demás la deja ahí. Haz clic derecho para mantener una app en el dock, sacarla o cerrarla. El dock se quita del camino de una ventana en pantalla completa. Haz clic derecho en el botón de aplicaciones para mover el dock a otro borde o hacer que se oculte hasta que el puntero llegue a su borde. La posición también está en _Trigger > Apariencia > Dock > Posición del dock_, y `archctl dock position left` y `archctl dock autohide on` configuran ambas cosas desde una terminal. Las apps que mantienes en el dock se ven atenuadas mientras no están en ejecución.
-
-Los espacios de trabajo nuevos, y cualquiera al que no le hayas dado un diseño propio con `Super + L`, usan el diseño predeterminado. Cambiar el predeterminado restablece a ese diseño todo espacio de trabajo sin ventanas, mientras que uno con ventanas conserva el diseño que tiene. Una ventana minimizada al dock sigue contando como una ventana en el espacio de trabajo que dejó. Elígelo en _Trigger > Apariencia > Diseño del espacio de trabajo_: En mosaico, Con desplazamiento o Flotante. `arch-hyprland-workspace-layout-default scrolling` lo configura desde una terminal.
-
 ### Agrupar ventanas
 
 Las ventanas se pueden agrupar con `Super + G`. Una vez que estás en un grupo, cada ventana que abras mientras eso está activo pertenecerá al grupo. Puedes moverte entre estas ventanas agrupadas con `Super + Ctrl + Arrow Left/Right` o con `Super + Alt + 1/2/3/4` para ir directamente a una ventana agrupada en orden.
 
 Puedes sacar una ventana del grupo con `Super + Alt + G` o desarmar todo el grupo presionando `Super + G` otra vez. Por último, puedes mover ventanas fuera del grupo hacia dentro de él con `Super + Alt + Arrows`.
-
-### Desprender ventanas
-
-Puedes desprender una ventana de su asignación en el espacio de trabajo con `Super + O`. Eso la fijará como una ventana flotante que te sigue a cualquier espacio de trabajo al que vayas. Ideal para reproductores de video y cosas por el estilo.
-
- ![navigation-popped-window](images/navigation-popped-window.webp)
 
 ### Espacio de trabajo scratchpad
 

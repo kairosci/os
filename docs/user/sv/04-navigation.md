@@ -50,25 +50,11 @@ hl.config({
 })
 ```
 
-### Flytande arbetsytor
-
-En flytande arbetsyta fungerar som ett traditionellt skrivbord: fönstren överlappar varandra, och du flyttar och storleksändrar dem själv. Varje fönster får en titelrad i ditt temas färger, med knappar för att minimera, maximera och stänga. `Super + M` minimerar också det fokuserade fönstret. Ett minimerat fönster väntar i dockan; klicka på dess app för att ta tillbaka det. Klicka på ett fönster för att ta fram det. Ändra storlek på det från valfri kant eller valfritt hörn. Dubbelklicka på en titelrad för att maximera fönstret samtidigt som den övre raden fortfarande syns, och dubbelklicka igen för att få tillbaka dess gamla storlek.
-
-En flytande arbetsyta visar också en docka, med dina fästa appar, allt som körs, och ett rutnät med alla appar bakom appknappen, som `Super + Alt + Space` och _Appar_ i Arch-menyn också öppnar. Högerklicka på en app i rutnätet, eller tryck på `Delete`, för att avinstallera den. Klicka på en app för att öppna den, eller för att ta fram dess fönster; klicka igen för att växla igenom dess fönster. Ett klick med mittenknappen öppnar ett nytt fönster. Dra en ikon längs dockan för att flytta den; om du drar en app som körs in bland de andra behålls den där. Högerklicka för att behålla en app i dockan, ta bort den därifrån eller avsluta den. Dockan flyttar sig ur vägen för ett helskärmsfönster. Högerklicka på appknappen för att flytta dockan till en annan kant eller låta den dölja sig tills pekaren når dess kant. Positionen finns också under _Trigger > Utseende > Dock > Dockposition_, och `archctl dock position left` och `archctl dock autohide on` ställer in båda från en terminal. Appar du behåller i dockan är nedtonade medan de inte körs.
-
-Nya arbetsytor, och alla som du inte har gett en egen layout med `Super + L`, använder standardlayouten. Att ändra standardlayouten återställer varje arbetsyta utan fönster till den, medan en arbetsyta med fönster på behåller layouten den har. Ett fönster som minimerats till dockan räknas fortfarande som ett fönster på arbetsytan det lämnade. Välj den under _Trigger > Utseende > Arbetsytelayout_: Tiling, Scrolling eller Flytande. `arch-hyprland-workspace-layout-default scrolling` ställer in den från en terminal.
-
 ### Gruppera fönster
 
 Fönster kan grupperas med `Super + G`. När du väl är i en grupp tillhör varje fönster du startar medan den är aktiv gruppen. Du kan flytta mellan dessa grupperade fönster med `Super + Ctrl + Arrow Left/Right` eller `Super + Alt + 1/2/3/4` för att gå direkt till ett grupperat fönster i ordning.
 
 Du kan flytta ett fönster ut ur grupperingen med `Super + Alt + G` eller lösa upp hela gruppen genom att trycka på `Super + G` igen. Slutligen kan du flytta fönster utanför gruppen in i den med `Super + Alt + Arrows`.
-
-### Poppa ut fönster
-
-Du kan poppa ut ett fönster ur dess tilldelning på arbetsytan med `Super + O`. Det fäster det som ett flytande fönster som följer med dig till vilken arbetsyta du än går till. Perfekt för videospelare och liknande.
-
- ![navigation-popped-window](images/navigation-popped-window.webp)
 
 ### Scratchpad-arbetsyta
 

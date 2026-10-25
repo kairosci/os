@@ -50,25 +50,11 @@ hl.config({
 })
 ```
 
-### Spații de lucru plutitoare
-
-Un spațiu de lucru plutitor funcționează ca un desktop tradițional: ferestrele se suprapun, iar tu le muți și le dimensionezi singur. Fiecare fereastră primește o bară de titlu în culorile temei tale, cu butoane pentru minimizare, maximizare și închidere. Și `Super + M` minimizează fereastra focalizată. O fereastră minimizată așteaptă în dock; fă clic pe aplicația ei pentru a o readuce. Fă clic pe o fereastră pentru a o aduce în față. Redimensioneaz-o de pe orice margine sau colț. Fă dublu clic pe o bară de titlu pentru a maximiza fereastra, păstrând bara de sus vizibilă, și din nou pentru a-i recupera dimensiunea veche.
-
-Un spațiu de lucru plutitor arată și un dock, cu aplicațiile tale fixate, cu tot ce rulează și cu o grilă cu toate aplicațiile în spatele butonului de aplicații, pe care îl deschid și `Super + Alt + Space`, și _Apps_ din meniul Arch. Fă clic dreapta pe o aplicație din grilă sau apasă `Delete` pentru a o dezinstala. Fă clic pe o aplicație pentru a o deschide sau pentru a-i aduce fereastra în față; fă clic din nou pentru a parcurge ciclic ferestrele ei. Clicul mijlociu deschide o fereastră nouă. Trage o pictogramă de-a lungul dockului pentru a o muta; dacă tragi o aplicație care rulează printre celelalte, ea rămâne acolo. Fă clic dreapta pentru a păstra o aplicație în dock, pentru a o scoate sau pentru a o închide. Dockul se dă la o parte din calea unei ferestre pe ecran complet. Fă clic dreapta pe butonul de aplicații pentru a muta dockul pe altă margine sau pentru a-l face să se ascundă până când indicatorul ajunge la marginea lui. Poziția se află și sub _Trigger > Appearance > Dock > Dock Position_, iar `archctl dock position left` și `archctl dock autohide on` le setează pe amândouă dintr-un terminal. Aplicațiile pe care le păstrezi în dock sunt estompate cât timp nu rulează.
-
-Spațiile de lucru noi și oricare cărora nu le-ai dat o dispunere proprie cu `Super + L` folosesc dispunerea implicită. Schimbarea celei implicite resetează la ea fiecare spațiu de lucru fără ferestre, în timp ce unul cu ferestre pe el își păstrează dispunerea pe care o are. O fereastră minimizată în dock încă se consideră o fereastră pe spațiul de lucru pe care l-a părăsit. Alege-o sub _Trigger > Appearance > Workspace Layout_: Tiling, Scrolling sau Floating. `arch-hyprland-workspace-layout-default scrolling` o setează dintr-un terminal.
-
 ### Gruparea ferestrelor
 
 Ferestrele pot fi grupate folosind `Super + G`. Odată ce ești într-un grup, fiecare fereastră pe care o pornești cât timp acela este activ va aparține grupului. Te poți deplasa între aceste ferestre grupate folosind `Super + Ctrl + Arrow Left/Right` sau `Super + Alt + 1/2/3/4` pentru a merge direct la fereastra grupată, în ordine.
 
 Poți scoate o fereastră din grupare cu `Super + Alt + G` sau poți desface întregul grup apăsând din nou `Super + G`. În sfârșit, poți muta ferestre din afara grupului în el cu `Super + Alt + Arrows`.
-
-### Desprinderea ferestrelor
-
-Poți desprinde o fereastră din alocarea ei pe spațiul de lucru cu `Super + O`. Asta o va fixa ca fereastră plutitoare care te urmează pe orice spațiu de lucru mergi. Grozav pentru playere video și altele asemenea.
-
- ![navigation-popped-window](images/navigation-popped-window.webp)
 
 ### Spațiul de lucru scratchpad
 

@@ -50,25 +50,11 @@ hl.config({
 })
 ```
 
-### Kelluvat työtilat
-
-Kelluva työtila toimii kuten perinteinen työpöytä: ikkunat limittyvät, ja siirrät ja mitoitat ne itse. Jokainen ikkuna saa otsikkopalkin teemasi väreissä, jossa on painikkeet pienentämistä, suurentamista ja sulkemista varten. `Super + M` pienentää myös fokusoituna olevan ikkunan. Pienennetty ikkuna odottaa dockissa; klikkaa sen sovellusta tuodaksesi sen takaisin. Klikkaa ikkunaa tuodaksesi sen etualalle. Muuta sen kokoa mistä tahansa reunasta tai kulmasta. Kaksoisklikkaa otsikkopalkkia suurentaaksesi ikkunan pitäen yläpalkin näkyvissä, ja uudelleen saadaksesi sen vanhan koon takaisin.
-
-Kelluvassa työtilassa näkyy myös dock, jossa on kiinnitetyt sovelluksesi, kaikki käynnissä oleva, ja ruudukko kaikista sovelluksista sovelluspainikkeen takana, jonka myös `Super + Alt + Space` ja Arch-valikon _Apps_ avaavat. Klikkaa sovellusta ruudukossa hiiren oikealla painikkeella, tai paina `Delete`, poistaaksesi sen asennuksen. Klikkaa sovellusta avataksesi sen, tai tuodaksesi sen ikkunan etualalle; klikkaa uudelleen kierrättääksesi sen ikkunoita. Keskiklikkaus avaa uuden ikkunan. Vedä kuvaketta dockia pitkin siirtääksesi sitä; käynnissä olevan sovelluksen vetäminen muiden joukkoon pitää sen siellä. Klikkaa hiiren oikealla painikkeella pitääksesi sovelluksen dockissa, poistaaksesi sen sieltä tai lopettaaksesi sen. Dock väistyy koko näytön ikkunan tieltä. Klikkaa sovelluspainiketta hiiren oikealla painikkeella siirtääksesi dockin toiselle reunalle tai saadaksesi sen piiloutumaan, kunnes osoitin saavuttaa sen reunan. Sijainti on myös kohdassa _Trigger > Appearance > Dock > Dock Position_, ja `archctl dock position left` ja `archctl dock autohide on` asettavat molemmat päätteeltä. Sovellukset, jotka pidät dockissa, ovat haalistuneita, kun ne eivät ole käynnissä.
-
-Uudet työtilat, ja kaikki, joille et ole antanut omaa asetteluaan näppäimillä `Super + L`, käyttävät oletusasettelua. Oletuksen vaihtaminen palauttaa jokaisen ikkunattoman työtilan siihen, kun taas työtila, jolla on ikkunoita, säilyttää nykyisen asettelunsa. Dockiin pienennetty ikkuna lasketaan edelleen ikkunaksi työtilalla, jolta se lähti. Valitse se kohdasta _Trigger > Appearance > Workspace Layout_: Tiling, Scrolling tai Floating. `arch-hyprland-workspace-layout-default scrolling` asettaa sen päätteeltä.
-
 ### Ikkunoiden ryhmittely
 
 Ikkunoita voidaan ryhmitellä näppäimillä `Super + G`. Kun olet ryhmässä, jokainen ikkuna, jonka käynnistät sen ollessa aktiivisena, kuuluu ryhmään. Voit liikkua näiden ryhmiteltyjen ikkunoiden välillä näppäimillä `Super + Ctrl + Arrow Left/Right` tai `Super + Alt + 1/2/3/4` siirtyäksesi suoraan ryhmiteltyyn ikkunaan järjestyksessä.
 
 Voit siirtää ikkunan pois ryhmittelystä näppäimillä `Super + Alt + G` tai purkaa koko ryhmän painamalla `Super + G` uudelleen. Lopuksi voit siirtää ryhmän ulkopuolisia ikkunoita siihen näppäimillä `Super + Alt + Arrows`.
-
-### Ikkunoiden ponnauttaminen
-
-Voit ponnauttaa ikkunan ulos työtila-allokaatiostaan näppäimillä `Super + O`. Se kiinnittää sen kelluvana ikkunana, joka seuraa sinua mille tahansa työtilalle menetkin. Erinomainen videosoittimille ja vastaaville.
-
- ![navigation-popped-window](images/navigation-popped-window.webp)
 
 ### Scratchpad-työtila
 

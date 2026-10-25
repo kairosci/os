@@ -50,25 +50,11 @@ hl.config({
 })
 ```
 
-### Không gian làm việc nổi
-
-Một không gian làm việc nổi hoạt động như một desktop truyền thống: các cửa sổ chồng lên nhau, và bạn tự di chuyển và thay đổi kích thước chúng. Mỗi cửa sổ có một thanh tiêu đề theo màu sắc của theme của bạn, với các nút để thu nhỏ, phóng to tối đa, và đóng. `Super + M` cũng thu nhỏ cửa sổ đang được tập trung. Một cửa sổ đã thu nhỏ sẽ chờ trong dock; hãy nhấp vào ứng dụng của nó để đưa nó trở lại. Nhấp vào một cửa sổ để đưa nó lên trước. Thay đổi kích thước nó từ bất kỳ cạnh hoặc góc nào. Nhấp đúp vào thanh tiêu đề để phóng to tối đa cửa sổ trong khi vẫn giữ thanh trên cùng trong tầm nhìn, và nhấp đúp lần nữa để lấy lại kích thước cũ.
-
-Một không gian làm việc nổi cũng hiển thị một dock, với các ứng dụng đã ghim của bạn, mọi thứ đang chạy, và một lưới gồm mọi ứng dụng đằng sau nút ứng dụng, thứ mà `Super + Alt + Space` và _Apps_ trong Arch menu cũng mở. Nhấp chuột phải vào một ứng dụng trên lưới, hoặc nhấn `Delete`, để gỡ cài đặt nó. Nhấp vào một ứng dụng để mở nó, hoặc để đưa cửa sổ của nó lên trước; nhấp lần nữa để chuyển qua các cửa sổ của nó theo vòng tròn. Nhấp chuột giữa sẽ mở một cửa sổ mới. Kéo một biểu tượng dọc theo dock để di chuyển nó; kéo một ứng dụng đang chạy vào giữa các ứng dụng khác sẽ giữ nó ở đó. Nhấp chuột phải để giữ một ứng dụng trong dock, loại nó ra, hoặc thoát nó. Dock sẽ tránh đường cho một cửa sổ toàn màn hình. Nhấp chuột phải vào nút ứng dụng để di chuyển dock sang một cạnh khác hoặc để nó ẩn đi cho đến khi con trỏ chạm đến cạnh của nó. Vị trí cũng nằm trong _Trigger > Appearance > Dock > Dock Position_, và `archctl dock position left` và `archctl dock autohide on` đặt cả hai từ một terminal. Các ứng dụng bạn giữ trong dock sẽ bị mờ đi khi chúng không chạy.
-
-Các không gian làm việc mới, và bất kỳ không gian nào bạn chưa tự cấp một bố cục riêng bằng `Super + L`, sẽ dùng bố cục mặc định. Thay đổi bố cục mặc định sẽ đặt lại mọi không gian làm việc không có cửa sổ về bố cục đó, trong khi một không gian có cửa sổ trên đó sẽ giữ bố cục mà nó đang có. Một cửa sổ được thu nhỏ xuống dock vẫn được tính là một cửa sổ trên không gian làm việc mà nó đã rời khỏi. Hãy chọn nó trong _Trigger > Appearance > Workspace Layout_: Tiling, Scrolling, hoặc Floating. `arch-hyprland-workspace-layout-default scrolling` đặt nó từ một terminal.
-
 ### Nhóm các cửa sổ
 
 Các cửa sổ có thể được nhóm lại bằng `Super + G`. Khi bạn đã ở trong một nhóm, mọi cửa sổ bạn khởi động trong khi nhóm đó đang hoạt động sẽ thuộc về nhóm. Bạn có thể di chuyển giữa các cửa sổ đã nhóm này bằng `Super + Ctrl + Arrow Left/Right` hoặc `Super + Alt + 1/2/3/4` để đi trực tiếp đến cửa sổ đã nhóm theo thứ tự.
 
 Bạn có thể di chuyển một cửa sổ ra khỏi nhóm bằng `Super + Alt + G` hoặc tháo rời toàn bộ nhóm bằng cách nhấn `Super + G` lần nữa. Cuối cùng, bạn có thể di chuyển các cửa sổ bên ngoài nhóm vào trong nhóm bằng `Super + Alt + Arrows`.
-
-### Tách cửa sổ ra ngoài
-
-Bạn có thể tách một cửa sổ ra khỏi phần được phân bổ trong không gian làm việc của nó bằng `Super + O`. Thao tác đó sẽ ghim nó thành một cửa sổ nổi đi theo bạn đến bất kỳ không gian làm việc nào bạn đi tới. Rất tuyệt cho trình phát video và những thứ tương tự.
-
- ![navigation-popped-window](images/navigation-popped-window.webp)
 
 ### Không gian làm việc scratchpad
 

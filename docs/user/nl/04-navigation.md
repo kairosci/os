@@ -50,25 +50,11 @@ hl.config({
 })
 ```
 
-### Zwevende werkbladen
-
-Een zwevend werkblad werkt als een traditioneel bureaublad: vensters overlappen, en je verplaatst en vergroot of verkleint ze zelf. Elk venster krijgt een titelbalk in de kleuren van je thema, met knoppen om te minimaliseren, maximaliseren en sluiten. `Super + M` minimaliseert het gefocuste venster ook. Een geminimaliseerd venster wacht in het dock; klik op de bijbehorende app om het terug te halen. Klik op een venster om het naar voren te halen. Verander de grootte vanaf elke rand of hoek. Dubbelklik op een titelbalk om het venster te maximaliseren terwijl de bovenbalk in beeld blijft, en nogmaals om de oude grootte terug te krijgen.
-
-Een zwevend werkblad toont ook een dock, met je vastgezette apps, alles wat draait, en een raster van elke app achter de apps-knop, die `Super + Alt + Space` en _Apps_ in het Arch-menu ook openen. Klik met rechts op een app in het raster, of druk op `Delete`, om hem te deïnstalleren. Klik op een app om hem te openen, of om zijn venster naar voren te halen; klik nogmaals om door zijn vensters te bladeren. Middelklik opent een nieuw venster. Sleep een pictogram langs het dock om het te verplaatsen; een draaiende app tussen de anderen slepen houdt hem daar. Klik met rechts om een app in het dock te houden, hem eruit te halen, of hem af te sluiten. Het dock gaat uit de weg voor een venster op volledig scherm. Klik met rechts op de apps-knop om het dock naar een andere rand te verplaatsen of het te laten verbergen totdat de aanwijzer zijn rand bereikt. De positie staat ook onder _Trigger > Appearance > Dock > Dock Position_, en `archctl dock position left` en `archctl dock autohide on` stellen beide in vanaf een terminal. Apps die je in het dock houdt, zijn vervaagd zolang ze niet draaien.
-
-Nieuwe werkbladen, en elk werkblad dat je met `Super + L` geen eigen layout hebt gegeven, gebruiken de standaardlayout. De standaard veranderen reset elk werkblad zonder vensters daarnaar, terwijl een werkblad met vensters erop de layout behoudt die het heeft. Een venster dat naar het dock is geminimaliseerd telt nog steeds als een venster op het werkblad dat het verliet. Kies hem onder _Trigger > Appearance > Workspace Layout_: Tiling, Scrolling, of Floating. `arch-hyprland-workspace-layout-default scrolling` stelt hem in vanaf een terminal.
-
 ### Vensters groeperen
 
 Vensters kunnen worden gegroepeerd met `Super + G`. Zodra je in een groep zit, zal elk venster dat je start terwijl die actief is tot de groep behoren. Je kunt tussen deze gegroepeerde vensters bewegen met `Super + Ctrl + Arrow Left/Right` of `Super + Alt + 1/2/3/4` om direct in volgorde naar een gegroepeerd venster te gaan.
 
 Je kunt een venster uit de groepering verplaatsen met `Super + Alt + G` of de hele groep ontbinden door nogmaals op `Super + G` te drukken. Ten slotte kun je vensters buiten de groep erin verplaatsen met `Super + Alt + Arrows`.
-
-### Vensters losmaken
-
-Je kunt een venster uit zijn werkbladtoewijzing laten springen met `Super + O`. Dat zet het vast als een zwevend venster dat je volgt naar welk werkblad je ook gaat. Geweldig voor videospelers en dergelijke.
-
- ![navigation-popped-window](images/navigation-popped-window.webp)
 
 ### Scratchpad-werkblad
 
