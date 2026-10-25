@@ -30,6 +30,6 @@
 
 ## مفاتيح التوقيع
 
-المفتاح العام لجميع توقيعات ISO وحزمة مستودع Arch هو `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([التحقق على openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch)). تحتوي حزمة `arch/arch-keyring` على هذا أيضًا وستُستخدم لطرح أي تحديثات محتملة بسلاسة.
+المفتاح العام لجميع توقيعات ISO وحزمة مستودع Arch هو `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([التحقق على openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os)). تحتوي حزمة `arch/arch-keyring` على هذا أيضًا وستُستخدم لطرح أي تحديثات محتملة بسلاسة.
 
-يمكنك العثور على توقيع أي إصدار ISO بإضافة .sig إلى URL. مثل https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig.
+يمكنك العثور على توقيع أي إصدار ISO بإضافة .sig إلى URL. مثل https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig.
