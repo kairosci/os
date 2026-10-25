@@ -2,19 +2,19 @@
 
 ### Apple M1/M2 芯片
 
-[Asahi Alarm](https://asahi-alarm.org/) 是建立在 [Asahi Linux](https://asahilinux.org/) 之上、面向 Apple M1/M2 电脑的 Arch 版本。你可以费点劲让 Arch 在其上运行。参见[用户驱动的指南](https://github.com/kairosci/arch)。
+[Asahi Alarm](https://asahi-alarm.org/) 是建立在 [Asahi Linux](https://asahilinux.org/) 之上、面向 Apple M1/M2 电脑的 Arch 版本。你可以费点劲让 Arch 在其上运行。参见[用户驱动的指南](https://github.com/kairosci/os)。
 
 ### Apple 虚拟机
 
-你也可以在 Parallels VM 中安装 Arch。过程相当繁琐，但也有一个[用户驱动的指南](https://github.com/kairosci/arch)。
+你也可以在 Parallels VM 中安装 Arch。过程相当繁琐，但也有一个[用户驱动的指南](https://github.com/kairosci/os)。
 
 ### VirtualBox
 
-VirtualBox 是一个流行的虚拟机运行器。[你也可以在里面运行 Arch](https://github.com/kairosci/arch)。但性能可能不会太出色。
+VirtualBox 是一个流行的虚拟机运行器。[你也可以在里面运行 Arch](https://github.com/kairosci/os)。但性能可能不会太出色。
 
 ### Windows 11 上的 VMware Workstation
 
-另一个面向 Windows 的流行虚拟机运行器。[Arch 也在里面被设置成功了](https://github.com/kairosci/arch)。
+另一个面向 Windows 的流行虚拟机运行器。[Arch 也在里面被设置成功了](https://github.com/kairosci/os)。
 
 ### Steam Deck
 

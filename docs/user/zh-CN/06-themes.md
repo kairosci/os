@@ -6,7 +6,7 @@ Arch 附带二十二个美丽的主题。你可以通过 Arch 菜单（`Super + 
 
 主题有一组背景图片，你可以使用 `Super + Ctrl + Space` 在其中进行选择。
 
-你可以在[更多主题页面](https://github.com/kairosci/arch/themes/)上找到更多主题，甚至可以[制作自己的主题](43-making-your-own-theme.md)。
+你可以在[更多主题页面](https://github.com/kairosci/os/themes/)上找到更多主题，甚至可以[制作自己的主题](43-making-your-own-theme.md)。
 
  ![tokyo-night](../themes/tokyo-night/preview.png)
 _Tokyo Night_

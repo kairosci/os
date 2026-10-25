@@ -42,4 +42,4 @@ Arch 通过主题内是否有自己的 git 仓库来区分这两者，这正是 
 
 请记住，一旦从仓库安装，它所附带的任何 `.lua`、终端配置或 `vscode.json` 都会被丢弃，所以不要围绕这些来构建主题。
 
-你可以通过向 [arch-site 仓库](https://github.com/kairosci/arch) 发送一个合并请求，把你的主题添加到[额外主题页面](https://github.com/kairosci/arch/themes/)。
+你可以通过向 [arch-site 仓库](https://github.com/kairosci/os) 发送一个合并请求，把你的主题添加到[额外主题页面](https://github.com/kairosci/os/themes/)。
