@@ -95,10 +95,10 @@ arch plugin validate ./my-plugin
 
 Bu, kabuğun yükleme sırasında yaptığı aynı kontrolleri çalıştırır: şema sürümü, gerekli alanlar, ayrılmamış bir kimlik, güvenli göreli yollar olan ve gerçekten var olan giriş noktaları, talep ettiğiniz her tür için bir giriş noktası ve klasör içinde hiçbir sembolik bağ yok.
 
-Eklenti geliştirme için, [kabuk referansına](https://github.com/kairosci/arch) ve [birinci taraf eklenti kataloğuna](https://github.com/kairosci/arch) bakın.
+Eklenti geliştirme için, [kabuk referansına](https://github.com/kairosci/os) ve [birinci taraf eklenti kataloğuna](https://github.com/kairosci/os) bakın.
 
 ## Kendinizinkini dünyayla paylaşmak
 
 Sevdiğiniz bir şey yaptıktan sonra onu herkese açık bir git deposuna koyun. Tüm dağıtım mekanizması budur — ardından herkes URL'nize karşı `arch plugin add` çalıştırabilir ve onu saniyeler içinde çalışır hale getirebilir.
 
-İnsanların onu gerçekten bulmasına yardımcı olmak için, onu [plugins.github.com/kairosci/arch](https://plugins.github.com/kairosci/arch) adresinde listeleyin. Bu, Arch kabuk eklentileri için pazardır ve yazmak üzere olduğunuz widget'ı birinin zaten yapıp yapmadığını merak ettiğinizde bakılacak ilk yerdir. Başlamadan önce ona göz atın!
+İnsanların onu gerçekten bulmasına yardımcı olmak için, onu [plugins.github.com/kairosci/os](https://plugins.github.com/kairosci/os) adresinde listeleyin. Bu, Arch kabuk eklentileri için pazardır ve yazmak üzere olduğunuz widget'ı birinin zaten yapıp yapmadığını merak ettiğinizde bakılacak ilk yerdir. Başlamadan önce ona göz atın!
