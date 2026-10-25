@@ -42,4 +42,4 @@ Arch دونوں کو اس سے الگ بتاتا ہے کہ آیا تھیم کے 
 
 یاد رکھیں کہ ایک بار جب یہ کسی ریپو سے انسٹال ہو جائے تو اس کے ساتھ آنے والی کوئی بھی `.lua`، ٹرمینل کنفگ یا `vscode.json` چھوڑ دی جاتی ہے، لہٰذا تھیم ان کے گرد نہ بنائیں۔
 
-آپ [arch-site repo](https://github.com/kairosci/arch) کو پل ریکویسٹ بھیج کر اپنی تھیم [اضافی تھیمز صفحے](https://github.com/kairosci/arch/themes/) میں شامل کروا سکتے ہیں۔
+آپ [arch-site repo](https://github.com/kairosci/os) کو پل ریکویسٹ بھیج کر اپنی تھیم [اضافی تھیمز صفحے](https://github.com/kairosci/os/themes/) میں شامل کروا سکتے ہیں۔

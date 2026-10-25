@@ -2,19 +2,19 @@
 
 ### Apple M1/M2 چپس
 
-[Asahi Alarm](https://asahi-alarm.org/) Apple M1/M2 کمپیوٹرز کے لیے Arch کا ایک ورژن ہے جو [Asahi Linux](https://asahilinux.org/) پر بنا ہے۔ آپ کچھ محنت سے اس کے اوپر Arch چلا سکتے ہیں۔ [صارف کی چلائی ہوئی گائیڈ](https://github.com/kairosci/arch) دیکھیں۔
+[Asahi Alarm](https://asahi-alarm.org/) Apple M1/M2 کمپیوٹرز کے لیے Arch کا ایک ورژن ہے جو [Asahi Linux](https://asahilinux.org/) پر بنا ہے۔ آپ کچھ محنت سے اس کے اوپر Arch چلا سکتے ہیں۔ [صارف کی چلائی ہوئی گائیڈ](https://github.com/kairosci/os) دیکھیں۔
 
 ### Apple ورچوئل مشین
 
-آپ Arch کو Parallels VM کے اندر بھی انسٹال کر سکتے ہیں۔ کافی دشوار عمل ہے، لیکن اس کے لیے بھی [صارف کی چلائی ہوئی گائیڈ](https://github.com/kairosci/arch) موجود ہے۔
+آپ Arch کو Parallels VM کے اندر بھی انسٹال کر سکتے ہیں۔ کافی دشوار عمل ہے، لیکن اس کے لیے بھی [صارف کی چلائی ہوئی گائیڈ](https://github.com/kairosci/os) موجود ہے۔
 
 ### VirtualBox
 
-VirtualBox ایک مقبول VM رنر ہے۔ [آپ اس کے اندر بھی Arch چلا سکتے ہیں](https://github.com/kairosci/arch)۔ لیکن کارکردگی شاید عظیم نہ ہو۔
+VirtualBox ایک مقبول VM رنر ہے۔ [آپ اس کے اندر بھی Arch چلا سکتے ہیں](https://github.com/kairosci/os)۔ لیکن کارکردگی شاید عظیم نہ ہو۔
 
 ### Windows 11 پر VMware Workstation
 
-Windows کے لیے ایک اور مقبول VM رنر۔ [Arch اس کے اندر بھی لگایا گیا ہے](https://github.com/kairosci/arch)۔
+Windows کے لیے ایک اور مقبول VM رنر۔ [Arch اس کے اندر بھی لگایا گیا ہے](https://github.com/kairosci/os)۔
 
 ### Steam Deck
 

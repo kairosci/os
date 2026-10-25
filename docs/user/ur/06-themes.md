@@ -6,7 +6,7 @@ Arch بائیس خوبصورت تھیمز کے ساتھ آتا ہے۔ آپ Arch 
 
 تھیمز میں پس منظر کی تصاویر کا ایک سیٹ ہوتا ہے جن کے درمیان آپ `Super + Ctrl + Space` استعمال کر کے انتخاب کر سکتے ہیں۔
 
-آپ [اضافی تھیمز کے صفحے](https://github.com/kairosci/arch/themes/) پر اور بھی تھیمز تلاش کر سکتے ہیں یا یہاں تک کہ [اپنی تھیم خود بنا سکتے ہیں](43-making-your-own-theme.md)۔
+آپ [اضافی تھیمز کے صفحے](https://github.com/kairosci/os/themes/) پر اور بھی تھیمز تلاش کر سکتے ہیں یا یہاں تک کہ [اپنی تھیم خود بنا سکتے ہیں](43-making-your-own-theme.md)۔
 
  ![tokyo-night](../themes/tokyo-night/preview.png)
 _Tokyo Night_
