@@ -2,19 +2,19 @@
 
 ### Apple M1/M2 kubbar
 
-[Asahi Alarm](https://asahi-alarm.org/) er útgáfa af Arch fyrir Apple M1/M2 tölvur byggð ofan á [Asahi Linux](https://asahilinux.org/). Þú getur fengið Arch til að keyra ofan á því með einhverri fyrirhöfn. Sjá [leiðbeininguna frá notendum](https://github.com/kairosci/arch).
+[Asahi Alarm](https://asahi-alarm.org/) er útgáfa af Arch fyrir Apple M1/M2 tölvur byggð ofan á [Asahi Linux](https://asahilinux.org/). Þú getur fengið Arch til að keyra ofan á því með einhverri fyrirhöfn. Sjá [leiðbeininguna frá notendum](https://github.com/kairosci/os).
 
 ### Apple sýndarvél
 
-Þú getur líka sett Arch upp inni í Parallels VM. Frekar fyrirhafnarsamt ferli, en það er [leiðbeining frá notendum](https://github.com/kairosci/arch) fyrir það líka.
+Þú getur líka sett Arch upp inni í Parallels VM. Frekar fyrirhafnarsamt ferli, en það er [leiðbeining frá notendum](https://github.com/kairosci/os) fyrir það líka.
 
 ### VirtualBox
 
-VirtualBox er vinsæll VM keyrsluhugbúnaður. [Þú getur keyrt Arch inni í því líka](https://github.com/kairosci/arch). En afköst verða líklega ekki mikil.
+VirtualBox er vinsæll VM keyrsluhugbúnaður. [Þú getur keyrt Arch inni í því líka](https://github.com/kairosci/os). En afköst verða líklega ekki mikil.
 
 ### VMware Workstation á Windows 11
 
-Annar vinsæll VM keyrsluhugbúnaður fyrir Windows. [Arch hefur líka verið sett upp inni í því](https://github.com/kairosci/arch).
+Annar vinsæll VM keyrsluhugbúnaður fyrir Windows. [Arch hefur líka verið sett upp inni í því](https://github.com/kairosci/os).
 
 ### Steam Deck
 

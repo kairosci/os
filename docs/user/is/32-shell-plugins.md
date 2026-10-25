@@ -95,10 +95,10 @@ arch plugin validate ./my-plugin
 
 Það keyrir sömu athuganir og shellið gerir við hleðslutíma: skemaútgáfuna, nauðsynlegu reitina, kenni sem er ekki frátekið, inngangspunkta sem eru öruggar afstæðar slóðir og eru raunverulega til, inngangspunkt fyrir hverja tegund sem þú gerðir tilkall til, og enga tákntengla neins staðar inni í möppunni.
 
-Fyrir viðbótarþróun, sjá [shell-tilvísunina](https://github.com/kairosci/arch) og [fyrstu-flokks viðbótakatalóginn](https://github.com/kairosci/arch).
+Fyrir viðbótarþróun, sjá [shell-tilvísunina](https://github.com/kairosci/os) og [fyrstu-flokks viðbótakatalóginn](https://github.com/kairosci/os).
 
 ## Að deila þinni með heiminum
 
 Þegar þú hefur gert eitthvað sem þér líkar skaltu setja það í opinbert git-repo. Það er allt dreififyrirkomulagið — hver sem er getur þá keyrt `arch plugin add` gegn vefslóðinni þinni og fengið það keyrandi á nokkrum sekúndum.
 
-Til að hjálpa fólki raunverulega að finna það skaltu skrá það á [plugins.github.com/kairosci/arch](https://plugins.github.com/kairosci/arch). Það er markaðstorgið fyrir Arch shell-viðbætur, og það er fyrsti staðurinn til að leita þegar þú veltir fyrir þér hvort einhver hafi þegar byggt græjuna sem þú ert að fara að skrifa. Skoðaðu það áður en þú byrjar!
+Til að hjálpa fólki raunverulega að finna það skaltu skrá það á [plugins.github.com/kairosci/os](https://plugins.github.com/kairosci/os). Það er markaðstorgið fyrir Arch shell-viðbætur, og það er fyrsti staðurinn til að leita þegar þú veltir fyrir þér hvort einhver hafi þegar byggt græjuna sem þú ert að fara að skrifa. Skoðaðu það áður en þú byrjar!

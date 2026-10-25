@@ -2,7 +2,7 @@
 
 Arch er sett upp með ISO. Þú getur valið á milli uppsetningar á öllum diskinum, sem tekur yfir allt drifið, eða uppsetningar í laust pláss, sem setur Arch í óúthlutað pláss á drifi — þannig ræsir þú í tvöfaldri ræsingu við hlið Windows eða annars OS (sjá [uppsetning með tvöfaldri ræsingu](50-dual-boot-install.md) — athugaðu að þú þarft að slökkva á BitLocker í Windows fyrst). Hvort sem er er sjálfgefið að uppsetningin noti fulla dulkóðun, og valkosturinn fyrir allan diskinn mun þurrka út valda drifið, svo vertu viss um að taka öryggisafrit áður en þú notar drif sem þegar er í notkun!
 
-[Sæktu Arch ISO-ið](https://github.com/kairosci/arch/) fyrst, settu það á USB-lykil (notaðu [balenaEtcher](https://etcher.balena.io/) á Mac/Windows eða [caligula](https://github.com/ifd3f/caligula) á Linux) og ræstu af lyklinum.
+[Sæktu Arch ISO-ið](https://github.com/kairosci/os/) fyrst, settu það á USB-lykil (notaðu [balenaEtcher](https://etcher.balena.io/) á Mac/Windows eða [caligula](https://github.com/ifd3f/caligula) á Linux) og ræstu af lyklinum.
 
 _Þú verður að slökkva á Secure Boot og/eða TPM í BIOS. Þú verður að slökkva á þessu til að geta sett upp Arch. Þetta eru öryggiskerfi frá Microsoft sem eru ætluð fyrir Windows og Linux-dreifingar sem eru tengdar Microsoft._
 
@@ -36,8 +36,8 @@ En við sérstakar aðstæður, eins og við fjaruppsetningar á Arch á verndu�
 
 ### Tungumál
 
-Arch talar 50 tungumál — sama safn og github.com/kairosci/arch — og enska er sjálfgefna tungumálið. Til að skipta skaltu opna Arch-valmyndina og fara í _Setup > Language_, eða keyra `archctl language <code>` í terminal (`archctl language list` sýnir kóðana). Valmyndin, skjáborðið og tilkynningar frá Arch sjálfu skipta um tungumál strax, og sérhvert forrit sem þú opnar eftir það fylgir á eftir líka. Forrit sem voru þegar opin skipta þegar þú endurræsir þau.
+Arch talar 50 tungumál — sama safn og github.com/kairosci/os — og enska er sjálfgefna tungumálið. Til að skipta skaltu opna Arch-valmyndina og fara í _Setup > Language_, eða keyra `archctl language <code>` í terminal (`archctl language list` sýnir kóðana). Valmyndin, skjáborðið og tilkynningar frá Arch sjálfu skipta um tungumál strax, og sérhvert forrit sem þú opnar eftir það fylgir á eftir líka. Forrit sem voru þegar opin skipta þegar þú endurræsir þau.
 
 ### Hjálp ef þú festist
 
-Ef þú festist finnurðu yfirleitt einhvern sem er til í að hjálpa í _#arch-help_ rásinni á [Discord samfélagsins](https://github.com/kairosci/arch/discord).
+Ef þú festist finnurðu yfirleitt einhvern sem er til í að hjálpa í _#arch-help_ rásinni á [Discord samfélagsins](https://github.com/kairosci/os/discord).
