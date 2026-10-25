@@ -30,6 +30,6 @@ Kuwa wazi kuhusu hii: wakati imewashwa, chochote kinachoendeshwa kama mtumiaji w
 
 ## Funguo za Kutia Sahihi
 
-Ufunguo wa umma kwa sahihi zote za ISO na kifurushi cha repo ya Arch ni `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([thibitisha katika openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch)). Kifurushi cha `arch/arch-keyring` pia kina hii na kitatumika kueneza masasisho yoyote yanayowezekana kwa urahisi.
+Ufunguo wa umma kwa sahihi zote za ISO na kifurushi cha repo ya Arch ni `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([thibitisha katika openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os)). Kifurushi cha `arch/arch-keyring` pia kina hii na kitatumika kueneza masasisho yoyote yanayowezekana kwa urahisi.
 
-Unaweza kupata sahihi ya toleo lolote la ISO kwa kuongeza .sig kwenye URL. Kama https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig.
+Unaweza kupata sahihi ya toleo lolote la ISO kwa kuongeza .sig kwenye URL. Kama https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig.

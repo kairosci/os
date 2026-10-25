@@ -95,10 +95,10 @@ arch plugin validate ./my-plugin
 
 Hiyo huendesha ukaguzi ule ule ambao shell hufanya wakati wa kupakia: toleo la schema, sehemu zinazohitajika, kitambulisho kisichohifadhiwa, pointi za kuingia ambazo ni njia salama za uhusiano na kwa kweli zipo, pointi ya kuingia kwa kila aina uliyodai, na hakuna viungo vya kiishara popote ndani ya folda.
 
-Kwa uendelezaji wa programu-jalizi, tazama [rejeleo la shell](https://github.com/kairosci/arch) na [orodha ya programu-jalizi za mtu wa kwanza](https://github.com/kairosci/arch).
+Kwa uendelezaji wa programu-jalizi, tazama [rejeleo la shell](https://github.com/kairosci/os) na [orodha ya programu-jalizi za mtu wa kwanza](https://github.com/kairosci/os).
 
 ## Kushiriki yako na dunia
 
 Mara umetengeneza kitu unachokipenda, kiweke katika hazina ya git ya umma. Hiyo ndiyo utaratibu mzima wa usambazaji — yeyote anaweza kisha kuendesha `arch plugin add` dhidi ya URL yako na kuifanya ifanye kazi katika sekunde chache.
 
-Ili kuwasaidia watu kuipata kwa kweli, iorodheshe katika [plugins.github.com/kairosci/arch](https://plugins.github.com/kairosci/arch). Hilo ndilo soko la programu-jalizi za shell za Arch, na ni mahali pa kwanza pa kutazama unapojiuliza kama mtu tayari amejenga wijeti unayotaka kuiandika. Ivinjari kabla hujaanza!
+Ili kuwasaidia watu kuipata kwa kweli, iorodheshe katika [plugins.github.com/kairosci/os](https://plugins.github.com/kairosci/os). Hilo ndilo soko la programu-jalizi za shell za Arch, na ni mahali pa kwanza pa kutazama unapojiuliza kama mtu tayari amejenga wijeti unayotaka kuiandika. Ivinjari kabla hujaanza!

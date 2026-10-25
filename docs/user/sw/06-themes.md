@@ -6,7 +6,7 @@ Kila mandhari huweka mtindo kwenye eneo-kazi, terminali, neovim, skrini ya shugh
 
 Mandhari yana seti ya picha za mandhari ya nyuma ambazo unaweza kuchagua kati yake ukitumia `Super + Ctrl + Space`.
 
-Unaweza kupata mandhari zaidi kwenye [ukurasa wa mandhari za ziada](https://github.com/kairosci/arch/themes/) au hata [kutengeneza mandhari yako mwenyewe](43-making-your-own-theme.md).
+Unaweza kupata mandhari zaidi kwenye [ukurasa wa mandhari za ziada](https://github.com/kairosci/os/themes/) au hata [kutengeneza mandhari yako mwenyewe](43-making-your-own-theme.md).
 
  ![tokyo-night](../themes/tokyo-night/preview.png)
 _Tokyo Night_
