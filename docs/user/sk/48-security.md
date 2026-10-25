@@ -30,6 +30,6 @@ Pri tomto majte otvorené oči: kým je to zapnuté, čokoľvek, čo beží ako 
 
 ## Podpisové kľúče
 
-Verejný kľúč pre všetky podpisy ISO a balíky repozitára Arch je `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([overiť na openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch)). Balík `arch/arch-keyring` ho obsahuje tiež a bude sa používať na bezproblémové zavedenie prípadných aktualizácií.
+Verejný kľúč pre všetky podpisy ISO a balíky repozitára Arch je `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([overiť na openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os)). Balík `arch/arch-keyring` ho obsahuje tiež a bude sa používať na bezproblémové zavedenie prípadných aktualizácií.
 
-Podpis pre každé vydanie ISO nájdete pridaním .sig k adrese URL. Napríklad https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig.
+Podpis pre každé vydanie ISO nájdete pridaním .sig k adrese URL. Napríklad https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig.

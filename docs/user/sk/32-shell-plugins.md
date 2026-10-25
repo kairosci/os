@@ -95,10 +95,10 @@ arch plugin validate ./my-plugin
 
 Tým sa spustia tie isté kontroly, ktoré shell vykonáva pri načítavaní: verzia schémy, povinné polia, id, ktoré nie je vyhradené, vstupné body, ktoré sú bezpečnými relatívnymi cestami a skutočne existujú, vstupný bod pre každý druh, ktorý si deklaroval, a žiadne symbolické odkazy kdekoľvek vnútri priečinka.
 
-Informácie o vývoji pluginov nájdeš v [referencii shellu](https://github.com/kairosci/arch) a v [katalógu pluginov prvej strany](https://github.com/kairosci/arch).
+Informácie o vývoji pluginov nájdeš v [referencii shellu](https://github.com/kairosci/os) a v [katalógu pluginov prvej strany](https://github.com/kairosci/os).
 
 ## Zdieľanie svojho pluginu so svetom
 
 Keď vytvoríš niečo, čo sa ti páči, umiestni to do verejného git repozitára. To je celý distribučný mechanizmus — ktokoľvek potom môže spustiť `arch plugin add` na tvoju URL a mať to spustené za pár sekúnd.
 
-Aby ľudia tvoj plugin skutočne našli, uveď ho na [plugins.github.com/kairosci/arch](https://plugins.github.com/kairosci/arch). To je trh s pluginmi shellu Arch a prvé miesto, kam sa pozrieť, keď rozmýšľaš, či už niekto vytvoril widget, ktorý sa chystáš napísať. Skôr než začneš, prezri si to!
+Aby ľudia tvoj plugin skutočne našli, uveď ho na [plugins.github.com/kairosci/os](https://plugins.github.com/kairosci/os). To je trh s pluginmi shellu Arch a prvé miesto, kam sa pozrieť, keď rozmýšľaš, či už niekto vytvoril widget, ktorý sa chystáš napísať. Skôr než začneš, prezri si to!

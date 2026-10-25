@@ -6,7 +6,7 @@ Každá téma štylizuje pracovnú plochu, terminál, neovim, obrazovku aktivity
 
 Témy majú sadu obrázkov pozadia, medzi ktorými si môžete vyberať pomocou `Super + Ctrl + Space`.
 
-Ešte viac tém nájdete na [stránke s extra témami](https://github.com/kairosci/arch/themes/) alebo si dokonca môžete [vytvoriť vlastnú tému](43-making-your-own-theme.md).
+Ešte viac tém nájdete na [stránke s extra témami](https://github.com/kairosci/os/themes/) alebo si dokonca môžete [vytvoriť vlastnú tému](43-making-your-own-theme.md).
 
  ![tokyo-night](../themes/tokyo-night/preview.png)
 _Tokyo Night_
