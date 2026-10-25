@@ -2,7 +2,7 @@
 
 Arch dan paketmu tetap mutakhir melalui _Perbarui > Arch_ di menu Arch (`Super + Space`).
 
-Arch itu sendiri dipasang sebagai paket pacman biasa dari [Arch Package Repository](https://github.com/kairosci/arch), jadi pembaruan memasang [rilis Arch terbaru](https://github.com/kairosci/arch), menjalankan migrasi yang tertunda untuk menyinkronkan sistemmu dengan yang terbaru, dan memperbarui semua paket sistem dari [Arch Arch Mirror](https://github.com/kairosci/arch) dan [AUR](https://aur.archlinux.org/) (jika kamu telah memasang paket AUR apa pun).
+Arch itu sendiri dipasang sebagai paket pacman biasa dari [Arch Package Repository](https://github.com/kairosci/os), jadi pembaruan memasang [rilis Arch terbaru](https://github.com/kairosci/os), menjalankan migrasi yang tertunda untuk menyinkronkan sistemmu dengan yang terbaru, dan memperbarui semua paket sistem dari [Arch Arch Mirror](https://github.com/kairosci/os) dan [AUR](https://aur.archlinux.org/) (jika kamu telah memasang paket AUR apa pun).
 
 Saat rilis baru dibuat, ikon panah lingkaran akan muncul di sebelah kanan jam-mu. Klik itu dan proses pembaruan akan dimulai.
 
@@ -10,7 +10,7 @@ Saat rilis baru dibuat, ikon panah lingkaran akan muncul di sebelah kanan jam-mu
 
 ### Empat saluran
 
-Arch diperbarui sepanjang empat saluran: stable, RC, edge, dan dev. Pemasangan baru dimulai pada saluran stable, yang melacak [rilis resmi](https://github.com/kairosci/arch), serta [mirror Arch Arch stable](https://github.com/kairosci/arch) yang berjalan satu bulan di belakang yang terbaru, jadi kami dapat menangkap ketidakcocokan baru apa pun yang memerlukan perubahan konfigurasi sebelum menyebabkan masalah bagi orang-orang.
+Arch diperbarui sepanjang empat saluran: stable, RC, edge, dan dev. Pemasangan baru dimulai pada saluran stable, yang melacak [rilis resmi](https://github.com/kairosci/os), serta [mirror Arch Arch stable](https://github.com/kairosci/os) yang berjalan satu bulan di belakang yang terbaru, jadi kami dapat menangkap ketidakcocokan baru apa pun yang memerlukan perubahan konfigurasi sebelum menyebabkan masalah bagi orang-orang.
 
 Tetapi jika kamu ingin membantu menemukan potensi masalah tersebut, kamu dapat berjalan di saluran edge. Itu akan membuat paket Arch-mu melacak build pengembangan terbaru, dan memungkinkan kamu memperbarui ke paket Arch terbaru segera setelah tersedia. Kamu hanya boleh melakukan ini jika kamu berpengalaman dengan Linux, dan tahu cara memulihkan sistem yang bermasalah.
 
