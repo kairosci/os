@@ -2,7 +2,7 @@
 
 Arch s'instal·la fent servir una ISO. Pots triar entre una instal·lació de disc complet, que s'apodera de tota la unitat, o una instal·lació en l'espai lliure, que posa Arch a l'espai no assignat d'una unitat — així és com arrenques en dual boot al costat de Windows o d'un altre OS (consulta [instal·lació en dual boot](50-dual-boot-install.md) — tingues en compte que primer hauràs de desactivar BitLocker a Windows). Sigui com sigui, la instal·lació fa servir per defecte el xifratge complet, i l'opció de disc complet esborrarà la unitat seleccionada, així que assegura't de fer una còpia de seguretat abans de fer servir una unitat existent!
 
-[Descarrega primer la ISO d'Arch](https://github.com/kairosci/arch/), posa-la en una memòria USB (fes servir [balenaEtcher](https://etcher.balena.io/) a Mac/Windows o [caligula](https://github.com/ifd3f/caligula) a Linux), i arrenca des de la memòria.
+[Descarrega primer la ISO d'Arch](https://github.com/kairosci/os/), posa-la en una memòria USB (fes servir [balenaEtcher](https://etcher.balena.io/) a Mac/Windows o [caligula](https://github.com/ifd3f/caligula) a Linux), i arrenca des de la memòria.
 
 _Has de desactivar Secure Boot i/o TPM a la BIOS. Has de desactivar-los per poder instal·lar Arch. Són esquemes de seguretat de Microsoft pensats per a Windows i per a distribucions de Linux afiliades a Microsoft._
 
@@ -36,8 +36,8 @@ Però en circumstàncies especials, com ara instal·lacions remotes d'Arch en or
 
 ### Idioma
 
-Arch parla 50 idiomes — el mateix conjunt que github.com/kairosci/arch — i l'anglès és el predeterminat. Per canviar-lo, obre el menú d'Arch i ves a _Setup > Language_, o executa `archctl language <code>` en un terminal (`archctl language list` mostra els codis). El menú, l'escriptori i les notificacions pròpies d'Arch canvien d'idioma immediatament, i totes les aplicacions que obris després també hi segueixen. Les aplicacions que ja estaven obertes canvien un cop les reinicies.
+Arch parla 50 idiomes — el mateix conjunt que github.com/kairosci/os — i l'anglès és el predeterminat. Per canviar-lo, obre el menú d'Arch i ves a _Setup > Language_, o executa `archctl language <code>` en un terminal (`archctl language list` mostra els codis). El menú, l'escriptori i les notificacions pròpies d'Arch canvien d'idioma immediatament, i totes les aplicacions que obris després també hi segueixen. Les aplicacions que ja estaven obertes canvien un cop les reinicies.
 
 ### Ajuda si t'encalles
 
-Si t'encalles, normalment pots trobar algú disposat a ajudar al canal _#arch-help_ del [Discord de la comunitat](https://github.com/kairosci/arch/discord).
+Si t'encalles, normalment pots trobar algú disposat a ajudar al canal _#arch-help_ del [Discord de la comunitat](https://github.com/kairosci/os/discord).

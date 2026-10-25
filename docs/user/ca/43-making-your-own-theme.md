@@ -42,4 +42,4 @@ Aquest `[themename]` restant es converteix en el nom de directori del tema, de m
 
 Recorda que, un cop instal·lat des d'un dipòsit, qualsevol `.lua`, configuració de terminal o `vscode.json` que inclogui es descarta, de manera que no construeixis el tema al seu voltant.
 
-Pots fer que el teu tema s'afegeixi a [la pàgina de temes extra](https://github.com/kairosci/arch/themes/) enviant una sol·licitud d'extracció al [dipòsit arch-site](https://github.com/kairosci/arch).
+Pots fer que el teu tema s'afegeixi a [la pàgina de temes extra](https://github.com/kairosci/os/themes/) enviant una sol·licitud d'extracció al [dipòsit arch-site](https://github.com/kairosci/os).
