@@ -30,6 +30,6 @@ Sii lucido su questo punto: mentre è attivo, qualsiasi cosa eseguita come il tu
 
 ## Chiavi di firma
 
-La chiave pubblica per tutte le firme ISO e i pacchetti del repository Arch è `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([verifica su openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch)). Anche il pacchetto `arch/arch-keyring` la contiene e verrà usato per distribuire senza intoppi eventuali aggiornamenti.
+La chiave pubblica per tutte le firme ISO e i pacchetti del repository Arch è `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([verifica su openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os)). Anche il pacchetto `arch/arch-keyring` la contiene e verrà usato per distribuire senza intoppi eventuali aggiornamenti.
 
-Puoi trovare la firma per qualsiasi rilascio ISO aggiungendo .sig all'URL. Come https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig.
+Puoi trovare la firma per qualsiasi rilascio ISO aggiungendo .sig all'URL. Come https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig.
