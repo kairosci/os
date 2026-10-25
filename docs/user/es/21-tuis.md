@@ -12,8 +12,6 @@ Saltas entre los distintos paneles usando `Tab`. En el panel Files, seleccionas 
 
 [Btop](https://github.com/aristocratos/btop) es un hermoso gestor de recursos que muestra el uso de memoria, CPU, disco y red. También lista todos los procesos activos y te permite gestionarlos.
 
-Arch lo llama Activity, y lo inicias presionando `Super + Ctrl + T`. Se abre como una ventana flotante, que puedes poner en mosaico con `Super + T`.
-
 ## Herdr
 
 [Herdr](https://github.com/omacom-io/herdr) es un gestor de espacios de trabajo de terminal que te da espacios de trabajo, pestañas y paneles, y los mantiene todos ejecutándose en una sesión persistente de la que puedes desconectarte y volver después.

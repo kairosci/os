@@ -12,7 +12,7 @@ Pak můžete stisknout `Super + J` a naskládat je na sebe místo vedle sebe:
 
 Stiskněte `Super + J` znovu a vrátíte je zpět do pozic vedle sebe. Pak zkuste `Super + Shift + Arrow Right`, zatímco jste na prohlížeči, a prohoďte okna.
 
-Teď zkuste `Super + Ctrl + T` a spusťte monitor aktivity. Ten se objeví jako plovoucí okno. Můžete ho vydláždit pomocí `Super + T` (a stisknout to znovu, aby bylo zase plovoucí). Teď stiskněte `Super + Shift + F` a otevřete správce souborů. Budete mít pěkné čtyřdílné uspořádání:
+
 
  ![navigation-fourway-tiling](images/navigation-fourway-tiling.webp)
 
@@ -34,7 +34,6 @@ Výchozí rozvržení Arch se jmenuje dwindle. Udržuje všechna okna, která ot
 
 Ale můžete se také rozhodnout změnit pracovní plochu na rozvržení scrolling, kde jsou okna seřazená vedle sebe, za viditelným okrajem displeje. Jednotlivou pracovní plochu do tohoto rozvržení přepnete pomocí `Super + L`.
 
-Opětovné stisknutí `Super + L` změní pracovní plochu na plovoucí, kde se okna volně překrývají a umisťujete je sami, a třetí stisknutí ji vrátí zpět na dwindle. `Super + Alt + L` jimi prochází opačným směrem. Okno, které je stejně plovoucí — takové, které jste vysunuli pomocí `Super + T`, nebo aplikace, která se vždy otevírá jako plovoucí — zůstane plovoucí, i když se pracovní plocha vrátí zpět k dlaždicování. Horní lišta označuje pracovní plochu, na které jste, jejím rozvržením: čtverec pro dwindle, kruh pro scrolling a trojúhelník pro plovoucí. Kliknutí na tuto značku rozvržení také přepíná.
 
  ![navigation-scrolling-layout](images/navigation-scrolling-layout.webp)
 

@@ -12,11 +12,7 @@ Sve glavne poveznice tipkovnice možete vidjeti prečacom `Super + K` (poveznice
 | `Super + Ctrl + L` | Zaključaj računalo |
 | `Super + W` ili `Super + Q` | Zatvori prozor             |
 | `Ctrl + Alt + Del` | Zatvori sve prozore |
-| `Super + T`               | Prebaci prozor između popločavanja/plutanja             |
 | `Super + J` | Prebaci položaj prozora (vodoravno/okomito) |
-| `Super + O`               | Prebaci izbacivanje prozora u ljepljivo plutajuće |
-| `Super + L`               | Kruži kroz rasporede dwindle, pomicanje i plutanje |
-| `Super + Alt + L`         | Kruži kroz rasporede obrnutim redoslijedom |
 | `Super + P`               | Prebaci pseudo stil prozora (prirodno nasuprot rastezanju) |
 | `Super + F`                 | Idi na cijeli zaslon              |
 | `Super + Alt + F`                 | Idi na cijelu širinu              |

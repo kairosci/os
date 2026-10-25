@@ -12,7 +12,7 @@ Lalu kamu bisa menekan `Super + J` untuk menumpuknya satu di atas yang lain, buk
 
 Tekan `Super + J` lagi untuk mengembalikannya ke posisi berdampingan. Lalu coba `Super + Shift + Arrow Right` saat berada di browser untuk menukar jendelanya.
 
-Sekarang coba `Super + Ctrl + T` untuk memulai monitor Activity. Itu akan muncul sebagai jendela mengambang. Kamu bisa men-tiling-nya menggunakan `Super + T` (dan tekannya lagi untuk membuatnya mengambang lagi). Sekarang tekan `Super + Shift + F` untuk membuka pengelola file. Kamu akan memiliki susunan empat arah yang rapi:
+Sekarang coba `Super + Ctrl + T` untuk memulai monitor Activity. Sekarang tekan `Super + Shift + F` untuk membuka pengelola file. Kamu akan memiliki susunan empat arah yang rapi:
 
  ![navigation-fourway-tiling](images/navigation-fourway-tiling.webp)
 
@@ -34,7 +34,6 @@ Tata letak default Arch disebut dwindle. Tata letak ini menjaga semua jendela ya
 
 Tapi kamu juga bisa memilih untuk mengubah sebuah workspace menjadi tata letak scrolling, di mana jendela-jendela berjajar berdampingan, melampaui tepi layar yang terlihat. Kamu mengubah satu workspace menjadi tata letak ini lewat `Super + L`.
 
-Menekan `Super + L` lagi membuat workspace itu mengambang, di mana jendela-jendela saling tumpang tindih dengan bebas dan kamu menempatkannya sendiri, dan tekanan ketiga mengembalikannya ke dwindle. `Super + Alt + L` melewatinya ke arah sebaliknya. Jendela yang memang sudah mengambang — yang kamu keluarkan dengan `Super + T`, atau aplikasi yang selalu terbuka mengambang — tetap mengambang saat workspace kembali ke tiling. Bar atas menandai workspace tempatmu berada dengan tata letaknya: persegi untuk dwindle, lingkaran untuk scrolling, dan segitiga untuk mengambang. Mengklik tanda itu juga akan mengganti tata letaknya secara bergantian.
 
  ![navigation-scrolling-layout](images/navigation-scrolling-layout.webp)
 

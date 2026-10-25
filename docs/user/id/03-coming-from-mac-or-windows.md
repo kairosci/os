@@ -16,7 +16,7 @@ Tidak ada yang bisa diklik untuk meluncurkan sesuatu, tidak ada ikon untuk diatu
 
 Pergeseran pola pikir terbesar: Anda tidak menyeret jendela ke sana kemari atau menempelkannya ke separuh layar. Buka sebuah jendela dan ia mengambil seluruh layar. Buka yang kedua dan keduanya membaginya. Anda tidak pernah memancing jendela dari bawah jendela lain, karena jendela tidak tumpang tindih.
 
-Ketika Anda benar-benar membutuhkan jendela melayang, `Super + T` mengalihkan jendela aktif keluar dari tiling (dan kembali). Namun berikan tiling kesempatan yang nyata terlebih dahulu — itulah inti dari keseluruhan ini. [Navigasi](04-navigation.md) memandu Anda melaluinya.
+
 
 Ruang kerja akan terasa familier: mereka adalah macOS Spaces atau desktop virtual Windows, kecuali Anda benar-benar akan menggunakannya, karena `Super + 1/2/3/4` langsung melompat ke salah satunya dan `Super + Shift + 1/2/3/4` mengirim jendela aktif ke sana. Tanpa jeda animasi, hanya lompatan instan. Ini berarti Anda bahkan mungkin tidak memerlukan banyak monitor, jika Anda terbiasa dengan itu sebelumnya.
 

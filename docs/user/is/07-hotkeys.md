@@ -12,11 +12,7 @@
 | `Super + Ctrl + L` | Læsa tölvu |
 | `Super + W` eða `Super + Q` | Loka glugga             |
 | `Ctrl + Alt + Del` | Loka öllum gluggum |
-| `Super + T`               | Víxla glugga á milli flísalagnar og fljótandi             |
 | `Super + J` | Víxla stöðu glugga (lárétt/lóðrétt) |
-| `Super + O`               | Víxla því að taka glugga út í límfljótandi |
-| `Super + L`               | Skipta á milli dwindle-, skrun- og fljótandi skipulags |
-| `Super + Alt + L`         | Skipta á milli skipulaga í öfugri röð |
 | `Super + P`               | Víxla gervigluggastíl (náttúrulegur á móti teygður) |
 | `Super + F`                 | Fara í fullan skjá              |
 | `Super + Alt + F`                 | Fara í fulla breidd              |

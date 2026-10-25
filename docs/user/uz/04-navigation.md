@@ -12,7 +12,7 @@ Keyin ularni yonma-yon emas, bir-birining ustiga taxlash uchun `Super + J` ni bo
 
 Ularni yonma-yon holatiga qaytarish uchun yana `Super + J` ni bosing. Keyin brauzerda turganingizda oynalarni almashtirish uchun `Super + Shift + Arrow Right` ni sinab ko‘ring.
 
-Endi Faollik monitorini ishga tushirish uchun `Super + Ctrl + T` ni sinab ko‘ring. U suzuvchi oyna sifatida paydo bo‘ladi. Uni `Super + T` yordamida plitkalashingiz mumkin (va uni yana suzuvchi qilish uchun shu tugmani yana bosing). Endi fayllar menejerini ochish uchun `Super + Shift + F` ni bosing. Sizda to‘rt qismli tartibli joylashuv hosil bo‘ladi:
+
 
  ![navigation-fourway-tiling](images/navigation-fourway-tiling.webp)
 
@@ -34,7 +34,6 @@ Arch’ning standart tartibi dwindle deb ataladi. U bitta ish maydonida ochgan b
 
 Lekin siz ish maydonini oynalar yonma-yon, displeyning ko‘rinadigan chetidan tashqariga tizilib ketadigan scrolling tartibiga aylantirishni ham tanlashingiz mumkin. Bitta ish maydonini `Super + L` orqali ushbu tartibga aylantirasiz.
 
-`Super + L` ni yana bosish ish maydonini suzuvchi holatga aylantiradi, bunda oynalar erkin bir-birining ustiga chiqadi va ularni o‘zingiz joylashtirasiz, uchinchi marta bosish esa uni dwindle’ga qaytaradi. `Super + Alt + L` ularni teskari tartibda aylanib o‘tadi. Baribir suzuvchi bo‘lgan oyna — `Super + T` bilan chiqarib olganingiz yoki har doim suzuvchi bo‘lib ochiladigan ilova — ish maydoni plitkalashga qaytganda ham suzuvchi bo‘lib qoladi. Yuqori panel siz turgan ish maydonini uning tartibi bilan belgilaydi: dwindle uchun kvadrat, scrolling uchun doira va suzuvchi uchun uchburchak. O‘sha belgini bosish ham tartibni aylantiradi.
 
  ![navigation-scrolling-layout](images/navigation-scrolling-layout.webp)
 

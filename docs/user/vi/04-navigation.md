@@ -12,7 +12,7 @@ Sau đó bạn có thể nhấn `Super + J` để xếp chúng chồng lên nhau
 
 Nhấn `Super + J` lần nữa để đưa chúng trở lại vị trí cạnh nhau. Sau đó hãy thử `Super + Shift + Arrow Right` khi đang ở trên trình duyệt để hoán đổi các cửa sổ.
 
-Bây giờ hãy thử `Super + Ctrl + T` để khởi động trình giám sát Activity. Nó sẽ xuất hiện dưới dạng cửa sổ nổi. Bạn có thể xếp lớp nó bằng `Super + T` (và nhấn lại phím đó để biến nó thành cửa sổ nổi trở lại). Bây giờ nhấn `Super + Shift + F` để mở trình quản lý files. Bạn sẽ có một bố cục bốn phần gọn gàng:
+Bây giờ hãy thử `Super + Ctrl + T` để khởi động trình giám sát Activity. Bây giờ nhấn `Super + Shift + F` để mở trình quản lý files. Bạn sẽ có một bố cục bốn phần gọn gàng:
 
  ![navigation-fourway-tiling](images/navigation-fourway-tiling.webp)
 
@@ -34,7 +34,6 @@ Bố cục mặc định của Arch được gọi là dwindle. Nó giữ tất 
 
 Nhưng bạn cũng có thể chọn biến một không gian làm việc thành bố cục cuộn, nơi các cửa sổ được xếp cạnh nhau, vượt ra ngoài cạnh hiển thị của màn hình. Bạn biến một không gian làm việc duy nhất thành bố cục này qua `Super + L`.
 
-Nhấn `Super + L` lần nữa sẽ biến không gian làm việc thành dạng nổi, nơi các cửa sổ tự do chồng lên nhau và bạn tự đặt chúng, và nhấn lần thứ ba sẽ đưa nó trở lại dwindle. `Super + Alt + L` đi qua chúng theo chiều ngược lại. Một cửa sổ vốn đã nổi — cửa sổ bạn đã tách ra bằng `Super + T`, hoặc một ứng dụng luôn mở ở dạng nổi — vẫn tiếp tục nổi khi không gian làm việc trở lại dạng xếp lớp. Thanh trên cùng đánh dấu không gian làm việc bạn đang ở bằng bố cục của nó: một hình vuông cho dwindle, một hình tròn cho bố cục cuộn, và một hình tam giác cho dạng nổi. Nhấp vào dấu đó cũng sẽ chuyển đổi bố cục theo vòng tròn.
 
  ![navigation-scrolling-layout](images/navigation-scrolling-layout.webp)
 

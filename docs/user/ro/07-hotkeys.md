@@ -12,11 +12,7 @@ Poți vedea toate mapările principale de tastatură cu `Super + K` (mapările T
 | `Super + Ctrl + L` | Blochează calculatorul |
 | `Super + W` sau `Super + Q` | Închide fereastra             |
 | `Ctrl + Alt + Del` | Închide toate ferestrele |
-| `Super + T`               | Comută fereastra între mozaic/plutitoare             |
 | `Super + J` | Comută poziția ferestrei (orizontal/vertical) |
-| `Super + O`               | Comută desprinderea ferestrei în lipicioasă și plutitoare |
-| `Super + L`               | Parcurge aranjările mozaic, defilantă și plutitoare |
-| `Super + Alt + L`         | Parcurge aranjările în sens invers |
 | `Super + P`               | Comută stilul pseudo al ferestrei (natural vs întins) |
 | `Super + F`                 | Treci la ecran complet              |
 | `Super + Alt + F`                 | Treci la lățime completă              |

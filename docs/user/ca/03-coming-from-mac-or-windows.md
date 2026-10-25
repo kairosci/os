@@ -16,8 +16,6 @@ Res on fer clic per llançar coses, cap icona per organitzar a l'escriptori. Les
 
 El canvi de mentalitat més gran: no arrossegueu les finestres ni les ajusteu a mitges pantalles. Obriu una finestra i ocupa tota la pantalla. N'obriu una segona i se la reparteixen. Mai no heu de pescar una finestra de sota d'una altra, perquè les finestres no se superposen.
 
-Quan realment necessiteu una finestra flotant, `Super + T` treu l'activa del mosaic (i n'hi torna). Però doneu primer una oportunitat real al mosaic — és el cor de tot plegat. [Navegació](04-navigation.md) us ho explica pas a pas.
-
 Els espais de treball us resultaran familiars: són els Spaces de macOS o els escriptoris virtuals de Windows, excepte que realment els fareu servir, perquè `Super + 1/2/3/4` salta directament a un i `Super + Shift + 1/2/3/4` hi envia la finestra activa. Sense retard d'animació, només salts instantanis. Això vol dir que potser ni tan sols necessitareu diversos monitors, si és el que fèieu servir abans.
 
 ### Copiar i enganxar simplement funciona

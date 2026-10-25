@@ -12,7 +12,7 @@ Apoi poți apăsa `Super + J` pentru a le stivui una peste alta, în loc să fie
 
 Apasă din nou `Super + J` pentru a le readuce în pozițiile lor una lângă alta. Apoi încearcă `Super + Shift + Arrow Right` în timp ce ești pe browser, pentru a schimba ferestrele între ele.
 
-Acum încearcă `Super + Ctrl + T` pentru a porni monitorul de activitate. Acela va apărea ca o fereastră plutitoare. Îl poți pune în mozaic folosind `Super + T` (și poți apăsa din nou pentru a-l face din nou plutitor). Acum apasă `Super + Shift + F` pentru a deschide managerul de fișiere. Vei avea o dispunere îngrijită în patru:
+
 
  ![navigation-fourway-tiling](images/navigation-fourway-tiling.webp)
 
@@ -34,7 +34,6 @@ Dispunerea implicită din Arch se numește dwindle. Ea păstrează vizibile în 
 
 Dar poți alege și să transformi un spațiu de lucru în dispunerea scrolling, în care ferestrele sunt aliniate una lângă alta, dincolo de marginea vizibilă a ecranului. Transformi un singur spațiu de lucru în această dispunere prin `Super + L`.
 
-Dacă apeși din nou `Super + L`, spațiul de lucru devine plutitor, ferestrele se suprapun liber și le așezi singur, iar o a treia apăsare îl readuce la dwindle. `Super + Alt + L` le parcurge în sens invers. O fereastră care oricum plutește — una pe care ai scos-o cu `Super + T` sau o aplicație care se deschide întotdeauna plutitoare — rămâne plutitoare când spațiul de lucru revine la mozaic. Bara de sus marchează spațiul de lucru pe care te afli cu dispunerea lui: un pătrat pentru dwindle, un cerc pentru scrolling și un triunghi pentru plutitor. Un clic pe acel marcaj comută și el, ciclic, dispunerea.
 
  ![navigation-scrolling-layout](images/navigation-scrolling-layout.webp)
 

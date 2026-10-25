@@ -12,8 +12,6 @@ Tarp skirtingų skydelių šokinėji naudodamas `Tab`. Files skydelyje failus ru
 
 [Btop](https://github.com/aristocratos/btop) yra gražus išteklių tvarkytuvas, rodantis atminties, CPU, disko ir tinklo naudojimą. Jis taip pat išvardija visus aktyvius procesus ir leidžia juos valdyti.
 
-Arch jį vadina Activity ir paleidi jį paspausdamas `Super + Ctrl + T`. Jis atsidaro kaip plūduriuojantis langas, kurį gali išdėlioti plytelėmis su `Super + T`.
-
 ## Herdr
 
 [Herdr](https://github.com/omacom-io/herdr) yra terminalo darbo sričių tvarkytuvas, suteikiantis darbo sritis, skirtukus ir skydelius bei laikantis juos visus veikiančius pastovioje sesijoje, nuo kurios gali atsijungti ir vėliau sugrįžti.

@@ -16,8 +16,6 @@ Rien à cliquer pour lancer des choses, pas d'icônes à organiser sur le bureau
 
 Le plus grand changement d'état d'esprit : vous ne déplacez pas les fenêtres à la souris et vous ne les collez pas aux moitiés d'écran. Ouvrez une fenêtre et elle prend tout l'écran. Ouvrez-en une deuxième et elles se le partagent. Vous ne pêchez jamais une fenêtre sous une autre, parce que les fenêtres ne se chevauchent pas.
 
-Quand vous avez vraiment besoin d'une fenêtre flottante, `Super + T` bascule la fenêtre active hors de la mosaïque (et inversement). Mais donnez d'abord une vraie chance à la mosaïque — c'est le cœur du tout. [Navigation](04-navigation.md) vous guide à travers tout cela.
-
 Les espaces de travail vous sembleront familiers : ce sont les Spaces de macOS ou les bureaux virtuels de Windows, sauf que vous les utiliserez réellement, parce que `Super + 1/2/3/4` saute directement à l'un d'eux et `Super + Shift + 1/2/3/4` y envoie la fenêtre active. Aucun délai d'animation, juste des sauts instantanés. Cela signifie que vous n'aurez peut-être même pas besoin de plusieurs écrans, si vous y étiez habitué avant.
 
 ### Copier-coller fonctionne simplement

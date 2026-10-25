@@ -12,11 +12,7 @@ Puoi vedere tutte le principali combinazioni da tastiera con `Super + K` (combin
 | `Super + Ctrl + L` | Blocca computer |
 | `Super + W` or `Super + Q` | Chiudi finestra             |
 | `Ctrl + Alt + Del` | Chiudi tutte le finestre |
-| `Super + T`               | Attiva/disattiva finestra tra affiancata/flottante             |
 | `Super + J` | Attiva/disattiva posizione finestra (orizzontale/verticale) |
-| `Super + O`               | Attiva/disattiva estrazione finestra in fissa e flottante |
-| `Super + L`               | Scorre i layout dwindle, scorrimento e flottante |
-| `Super + Alt + L`         | Scorre i layout al contrario |
 | `Super + P`               | Attiva/disattiva stile pseudo-finestra (naturale contro allungato) |
 | `Super + F`                 | Vai a schermo intero              |
 | `Super + Alt + F`                 | Vai a piena larghezza              |

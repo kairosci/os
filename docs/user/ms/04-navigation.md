@@ -12,7 +12,7 @@ Anda kemudian boleh tekan `Super + J` untuk menyusunnya bertindih di atas satu s
 
 Tekan `Super + J` sekali lagi untuk mengembalikannya ke kedudukan bersebelahan. Kemudian cuba `Super + Shift + Arrow Right` semasa berada di pelayar untuk menukar tetingkap-tetingkap tersebut.
 
-Sekarang cuba `Super + Ctrl + T` untuk memulakan Activity monitor. Ia akan muncul sebagai tetingkap terapung. Anda boleh menjadikannya tetingkap tiling menggunakan `Super + T` (dan tekan itu sekali lagi untuk menjadikannya terapung semula). Sekarang tekan `Super + Shift + F` untuk membuka pengurus fail. Anda akan mempunyai susunan empat bahagian yang kemas:
+Sekarang cuba `Super + Ctrl + T` untuk memulakan Activity monitor. Sekarang tekan `Super + Shift + F` untuk membuka pengurus fail. Anda akan mempunyai susunan empat bahagian yang kemas:
 
  ![navigation-fourway-tiling](images/navigation-fourway-tiling.webp)
 
@@ -34,7 +34,6 @@ Susun atur lalai Arch dipanggil dwindle. Ia memastikan semua tetingkap yang anda
 
 Tetapi anda juga boleh pilih untuk menukar ruang kerja kepada susun atur scrolling di mana tetingkap berbaris bersebelahan, melampaui tepi paparan yang kelihatan. Anda menukar satu ruang kerja kepada susun atur ini melalui `Super + L`.
 
-Menekan `Super + L` sekali lagi menjadikan ruang kerja terapung, di mana tetingkap bertindih dengan bebas dan anda meletakkannya sendiri, dan tekanan ketiga mengembalikannya kepada dwindle. `Super + Alt + L` melaluinya ke arah sebaliknya. Tetingkap yang memang terapung — tetingkap yang anda keluarkan dengan `Super + T`, atau aplikasi yang sentiasa dibuka dalam keadaan terapung — terus terapung apabila ruang kerja kembali kepada tiling. Bar atas menandakan ruang kerja yang anda berada dengan susun aturnya: segi empat untuk dwindle, bulatan untuk scrolling, dan segi tiga untuk floating. Mengklik tanda itu juga menukar susun atur secara bergilir.
 
  ![navigation-scrolling-layout](images/navigation-scrolling-layout.webp)
 

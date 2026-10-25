@@ -16,7 +16,7 @@ Inget att klicka på för att starta saker, inga ikoner att arrangera på skrivb
 
 Det största tankeskiftet: du drar inte runt fönster eller fäster dem vid skärmhalvor. Öppna ett fönster och det tar hela skärmen. Öppna ett andra och de delar den. Du fiskar aldrig fram ett fönster under ett annat, eftersom fönster inte överlappar.
 
-När du verkligen behöver ett flytande fönster växlar `Super + T` det aktiva fönstret ur kaklingen (och tillbaka). Men ge kaklingen en riktig chans först — den är hjärtat i hela grejen. [Navigering](04-navigation.md) går igenom det.
+
 
 Arbetsytor kommer att kännas bekanta: de är macOS Spaces eller Windows virtuella skrivbord, förutom att du faktiskt kommer att använda dem, eftersom `Super + 1/2/3/4` hoppar direkt till en och `Super + Shift + 1/2/3/4` skickar det aktiva fönstret dit. Ingen animationsfördröjning, bara omedelbara hopp. Det betyder att du kanske inte ens behöver flera skärmar, om du var van vid det förut.
 

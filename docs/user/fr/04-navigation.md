@@ -12,7 +12,7 @@ Vous pouvez ensuite appuyer sur `Super + J` pour les empiler l'un au-dessus de l
 
 Appuyez à nouveau sur `Super + J` pour les remettre côte à côte. Essayez ensuite `Super + Shift + Arrow Right` depuis le navigateur pour échanger les fenêtres.
 
-Essayez maintenant `Super + Ctrl + T` pour lancer le moniteur d'activité. Il apparaîtra sous forme de fenêtre flottante. Vous pouvez la tuiler avec `Super + T` (et appuyer à nouveau dessus pour la rendre à nouveau flottante). Appuyez maintenant sur `Super + Shift + F` pour ouvrir le gestionnaire de fichiers. Vous obtiendrez une jolie configuration en quatre parties :
+
 
  ![navigation-fourway-tiling](images/navigation-fourway-tiling.webp)
 
@@ -34,7 +34,6 @@ La disposition par défaut de Arch s'appelle dwindle. Elle garde toutes les fen�
 
 Mais vous pouvez aussi choisir de transformer un espace de travail en disposition défilante, où les fenêtres sont alignées côte à côte, au-delà du bord visible de l'écran. Vous transformez un seul espace de travail dans cette disposition via `Super + L`.
 
-Appuyer à nouveau sur `Super + L` rend l'espace de travail flottant, où les fenêtres se chevauchent librement et où vous les placez vous-même, et une troisième pression le ramène à dwindle. `Super + Alt + L` les parcourt dans l'autre sens. Une fenêtre qui flotte de toute façon — une que vous avez détachée avec `Super + T`, ou une application qui s'ouvre toujours en mode flottant — continue de flotter lorsque l'espace de travail repasse en tuilage. La barre supérieure marque l'espace de travail sur lequel vous vous trouvez avec sa disposition : un carré pour dwindle, un cercle pour le défilement et un triangle pour le flottant. Cliquer sur cette marque fait également défiler les dispositions.
 
  ![navigation-scrolling-layout](images/navigation-scrolling-layout.webp)
 

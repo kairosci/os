@@ -12,7 +12,7 @@ Du kannst dann `Super + J` drücken, um sie übereinander statt nebeneinander zu
 
 Drücke erneut `Super + J`, um sie in ihre Positionen nebeneinander zurückzubringen. Probiere dann `Super + Shift + Arrow Right` aus, während du auf dem Browser bist, um die Fenster zu tauschen.
 
-Probiere jetzt `Super + Ctrl + T` aus, um den Aktivitätsmonitor zu starten. Er erscheint als schwebendes Fenster. Du kannst ihn mit `Super + T` kacheln (und das erneut drücken, um ihn wieder schwebend zu machen). Drücke jetzt `Super + Shift + F`, um den Dateimanager zu öffnen. Du erhältst ein hübsches Vierfach-Setup:
+
 
  ![navigation-fourway-tiling](images/navigation-fourway-tiling.webp)
 
@@ -34,7 +34,6 @@ Archs Standardlayout heißt dwindle. Es hält alle Fenster, die du auf einem ein
 
 Aber du kannst einen Arbeitsbereich auch in das Scrolling-Layout versetzen, bei dem die Fenster nebeneinander aufgereiht sind, über den sichtbaren Rand des Displays hinaus. Einen einzelnen Arbeitsbereich versetzt du mit `Super + L` in dieses Layout.
 
-Ein erneutes Drücken von `Super + L` macht den Arbeitsbereich schwebend, bei dem sich Fenster frei überlagern und du sie selbst platzierst, und ein drittes Drücken bringt ihn zurück zu dwindle. `Super + Alt + L` geht sie in der anderen Richtung durch. Ein Fenster, das ohnehin schwebt — eines, das du mit `Super + T` herausgelöst hast, oder eine App, die immer schwebend öffnet — bleibt schwebend, wenn der Arbeitsbereich zum Tiling zurückkehrt. Die obere Leiste markiert den Arbeitsbereich, auf dem du dich befindest, mit seinem Layout: ein Quadrat für dwindle, ein Kreis für Scrolling und ein Dreieck für schwebend. Ein Klick auf diese Markierung wechselt das Layout ebenfalls durch.
 
  ![navigation-scrolling-layout](images/navigation-scrolling-layout.webp)
 

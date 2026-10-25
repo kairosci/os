@@ -12,7 +12,7 @@ Mezi různými panely přeskakujete pomocí klávesy `Tab`. V panelu Soubory vyb
 
 [Btop](https://github.com/aristocratos/btop) je krásný správce prostředků, který zobrazuje využití paměti, CPU, disku a sítě. Vypisuje také všechny aktivní procesy a umožňuje je spravovat.
 
-Arch ho nazývá Aktivita a spouštíte ho stisknutím `Super + Ctrl + T`. Otevře se jako plovoucí okno, které můžete vedle ostatních uspořádat pomocí `Super + T`.
+
 
 ## Herdr
 

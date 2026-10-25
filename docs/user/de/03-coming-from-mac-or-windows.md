@@ -16,7 +16,7 @@ Nichts zum Anklicken, um Dinge zu starten, keine Symbole zum Anordnen auf dem De
 
 Der größte Umdenken: Du ziehst Fenster nicht herum und rastest sie nicht an Bildschirmhälften ein. Öffne ein Fenster, und es nimmt den ganzen Bildschirm ein. Öffne ein zweites, und sie teilen ihn sich. Du fischst nie ein Fenster unter einem anderen hervor, weil sich Fenster nicht überlappen.
 
-Wenn du wirklich ein schwebendes Fenster brauchst, schaltet `Super + T` das aktive Fenster aus dem Tiling heraus (und wieder zurück). Aber gib dem Tiling zuerst eine echte Chance — es ist das Herz der ganzen Sache. [Navigation](04-navigation.md) führt dich hindurch.
+
 
 Arbeitsflächen werden sich vertraut anfühlen: Sie sind macOS Spaces oder virtuelle Desktops von Windows, nur dass du sie tatsächlich benutzen wirst, weil `Super + 1/2/3/4` direkt zu einer springt und `Super + Shift + 1/2/3/4` das aktive Fenster dorthin schickt. Keine Animationsverzögerung, nur sofortige Sprünge. Das bedeutet, dass du vielleicht nicht einmal mehrere Monitore brauchst, wenn du das vorher gewohnt warst.
 

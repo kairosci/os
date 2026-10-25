@@ -12,8 +12,6 @@ Farklı bölmeler arasında `Tab` kullanarak gezersiniz. Files bölmesinde, `Spa
 
 [Btop](https://github.com/aristocratos/btop), bellek, CPU, disk ve ağ kullanımını gösteren güzel bir kaynak yöneticisidir. Ayrıca tüm etkin işlemleri listeler ve onları yönetmenize olanak tanır.
 
-Arch buna Activity der ve `Super + Ctrl + T` tuşlarına basarak başlatırsınız. Yüzen bir pencere olarak açılır; bunu `Super + T` ile döşeyebilirsiniz.
-
 ## Herdr
 
 [Herdr](https://github.com/omacom-io/herdr), size çalışma alanları, sekmeler ve bölmeler veren ve hepsini daha sonra ayrılıp geri dönebileceğiniz kalıcı bir oturumda çalışır durumda tutan bir terminal çalışma alanı yöneticisidir.

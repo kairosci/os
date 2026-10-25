@@ -193,8 +193,7 @@ PanelWindow {
   WlrLayershell.namespace: "arch-dock"
   WlrLayershell.layer: WlrLayer.Top
   WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
-  // Kept clear of the bar's reserved edge, without reserving one of its own:
-  // floating windows go where they are put.
+  // The dock stays clear of the bar and reserves no space from the tiling layout.
   exclusionMode: ExclusionMode.Normal
   exclusiveZone: 0
 

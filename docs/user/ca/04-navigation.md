@@ -12,7 +12,7 @@ Després pots prémer `Super + J` per apilar-les una a sobre de l'altra en lloc 
 
 Prem `Super + J` de nou per tornar-les a les posicions de costat. Després prova `Super + Shift + Arrow Right` mentre ets al navegador per intercanviar les finestres.
 
-Ara prova `Super + Ctrl + T` per iniciar el monitor d'activitat. Apareixerà com a finestra flotant. Pots posar-lo en mosaic amb `Super + T` (i tornar a prémer-ho perquè torni a ser flotant). Ara prem `Super + Shift + F` per obrir el gestor de fitxers. Tindràs una disposició de quatre ben ordenada:
+
 
  ![navigation-fourway-tiling](images/navigation-fourway-tiling.webp)
 
@@ -34,7 +34,6 @@ La disposició predeterminada d'Arch s'anomena dwindle. Manté totes les finestr
 
 Però també pots triar convertir un espai de treball en la disposició scrolling, on les finestres s'alineen de costat, més enllà de la vora visible de la pantalla. Converteixes un sol espai de treball en aquesta disposició per mitjà de `Super + L`.
 
-Prémer `Super + L` de nou fa que l'espai de treball sigui flotant, on les finestres se superposen lliurement i les col·loques tu mateix, i una tercera pressió el torna a dwindle. `Super + Alt + L` hi passa en l'ordre invers. Una finestra que ja flota de totes maneres — una que has fet sortir amb `Super + T`, o una aplicació que sempre s'obre flotant — continua flotant quan l'espai de treball torna a la disposició en mosaic. La barra superior marca l'espai de treball on ets amb la seva disposició: un quadrat per a dwindle, un cercle per a scrolling i un triangle per a flotant. Fer clic en aquesta marca també recorre les disposicions.
 
  ![navigation-scrolling-layout](images/navigation-scrolling-layout.webp)
 

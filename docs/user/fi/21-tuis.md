@@ -12,8 +12,6 @@ Hyppäät eri ruutujen välillä näppäimellä `Tab`. Files-ruudussa valitset t
 
 [Btop](https://github.com/aristocratos/btop) on kaunis resurssienhallinta, joka näyttää muistin, suorittimen, levyn ja verkon käytön. Se myös listaa kaikki aktiiviset prosessit ja antaa sinun hallinnoida niitä.
 
-Arch kutsuu sitä nimellä Activity, ja käynnistät sen painamalla `Super + Ctrl + T`. Se avautuu kelluvana ikkunana, jonka voit laatoittaa näppäimillä `Super + T`.
-
 ## Herdr
 
 [Herdr](https://github.com/omacom-io/herdr) on pääte-työtilojen hallinta, joka antaa sinulle työtilat, välilehdet ja ruudut ja pitää ne kaikki käynnissä pysyvässä istunnossa, josta voit irrottautua ja johon voit palata myöhemmin.

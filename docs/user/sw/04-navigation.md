@@ -12,7 +12,7 @@ Kisha unaweza kubonyeza `Super + J` ili kuyapanga juu ya mengine badala ya kando
 
 Bonyeza `Super + J` tena ili kuyarudisha kwenye nafasi zao za kando kwa kando. Kisha jaribu `Super + Shift + Arrow Right` ukiwa kwenye kivinjari ili kubadilishana madirisha.
 
-Sasa jaribu `Super + Ctrl + T` ili kuanzisha kifuatiliaji cha Activity. Hicho kitaonekana kama dirisha linaloelea. Unaweza kulipanga kama kigae kwa kutumia `Super + T` (na bonyeza hiyo tena ili kulifanya lielee tena). Sasa bonyeza `Super + Shift + F` ili kufungua kidhibiti cha faili. Utakuwa na mpangilio mzuri wa sehemu nne:
+Sasa jaribu `Super + Ctrl + T` ili kuanzisha kifuatiliaji cha Activity. Sasa bonyeza `Super + Shift + F` ili kufungua kidhibiti cha faili. Utakuwa na mpangilio mzuri wa sehemu nne:
 
  ![navigation-fourway-tiling](images/navigation-fourway-tiling.webp)
 
@@ -34,7 +34,6 @@ Mpangilio wa chaguo-msingi wa Arch unaitwa dwindle. Huweka madirisha yote unayof
 
 Lakini unaweza pia kuchagua kugeuza nafasi ya kazi kuwa mpangilio wa kusogeza ambapo madirisha yamepangwa kando kwa kando, zaidi ya ukingo unaoonekana wa onyesho. Unageuza nafasi moja ya kazi kuwa mpangilio huu kupitia `Super + L`.
 
-Kubonyeza `Super + L` tena hugeuza nafasi ya kazi kuwa inayoelea, ambapo madirisha huingiliana kwa uhuru na unayaweka mwenyewe, na kubonyeza kwa mara ya tatu huirudisha kwenye dwindle. `Super + Alt + L` hupitia kwa njia nyingine. Dirisha linaloelea vyovyote vile — moja ulilotoa kwa `Super + T`, au programu ambayo hufunguka ikielea kila wakati — hubaki likielea nafasi ya kazi inapobudi kwenye kupanga vigae. Upau wa juu huweka alama kwenye nafasi ya kazi uliyopo kwa mpangilio wake: mraba kwa dwindle, duara kwa kusogeza, na pembetatu kwa kuelea. Kubofya alama hiyo pia huzungusha mpangilio.
 
  ![navigation-scrolling-layout](images/navigation-scrolling-layout.webp)
 

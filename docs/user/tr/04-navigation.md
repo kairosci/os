@@ -12,7 +12,7 @@ Ardından yan yana olmak yerine üst üste dizmek için `Super + J` tuşlarına 
 
 Yan yana konumlarına geri döndürmek için tekrar `Super + J` tuşlarına basın. Ardından tarayıcıdayken pencereleri takas etmek için `Super + Shift + Arrow Right` tuşlarını deneyin.
 
-Şimdi Etkinlik izleyicisini başlatmak için `Super + Ctrl + T` tuşlarını deneyin. Bu, yüzen bir pencere olarak görünecektir. `Super + T` kullanarak döşeyebilirsiniz (ve tekrar yüzen yapmak için yine aynı tuşlara basın). Şimdi dosya yöneticisini açmak için `Super + Shift + F` tuşlarına basın. Şık bir dörtlü düzeneğiniz olacak:
+
 
  ![navigation-fourway-tiling](images/navigation-fourway-tiling.webp)
 
@@ -34,7 +34,6 @@ Arch'nin varsayılan düzenine dwindle denir. Bir çalışma alanında açtığ�
 
 Ama bir çalışma alanını, pencerelerin ekranın görünür kenarının ötesine yan yana dizildiği kayan düzene çevirmeyi de seçebilirsiniz. Tek bir çalışma alanını `Super + L` ile bu düzene çevirirsiniz.
 
-Tekrar `Super + L` tuşlarına basmak çalışma alanını, pencerelerin serbestçe üst üste bindiği ve onları kendiniz yerleştirdiğiniz yüzen düzene çevirir, üçüncü bir basış ise onu dwindle düzenine geri döndürür. `Super + Alt + L` bunlar arasında diğer yönde gider. Zaten yüzen bir pencere — `Super + T` ile dışarı çıkardığınız veya her zaman yüzen açılan bir uygulama — çalışma alanı tekrar döşemeye döndüğünde yüzen kalmaya devam eder. Üst çubuk, üzerinde olduğunuz çalışma alanını düzeniyle işaretler: dwindle için bir kare, kayan için bir daire ve yüzen için bir üçgen. O işarete tıklamak da düzeni değiştirir.
 
  ![navigation-scrolling-layout](images/navigation-scrolling-layout.webp)
 

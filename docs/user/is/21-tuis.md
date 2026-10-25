@@ -12,8 +12,6 @@
 
 [Btop](https://github.com/aristocratos/btop) er fallegur auðlindastjóri sem sýnir minnis-, CPU-, diska- og netnotkun. Hann listar líka öll virk ferli og gerir þér kleift að stjórna þeim.
 
-Arch kallar það Activity, og þú ræsir það með því að ýta á `Super + Ctrl + T`. Það opnast sem fljótandi gluggi, sem þú getur flísalagt með `Super + T`.
-
 ## Herdr
 
 [Herdr](https://github.com/omacom-io/herdr) er terminal-vinnusvæðastjóri sem gefur þér vinnusvæði, flipa og rúður, og heldur þeim öllum gangandi í viðvarandi lotu sem þú getur aftengst og komið aftur í síðar.

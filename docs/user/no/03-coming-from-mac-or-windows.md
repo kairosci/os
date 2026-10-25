@@ -16,7 +16,7 @@ Ingenting å klikke på for å starte ting, ingen ikoner å ordne på skrivebord
 
 Det største tankeskiftet: du drar ikke vinduer rundt eller fester dem til skjermhalvdeler. Åpne et vindu, og det tar hele skjermen. Åpne et annet, og de deler den. Du fisker aldri et vindu frem fra under et annet, fordi vinduer ikke overlapper.
 
-Når du virkelig trenger et flytende vindu, veksler `Super + T` det aktive vinduet ut av flisleggingen (og tilbake). Men gi flisleggingen en reell sjanse først — den er hjertet i det hele. [Navigasjon](04-navigation.md) leder deg gjennom det.
+
 
 Arbeidsområder vil føles kjente: de er macOS' Spaces eller Windows' virtuelle skrivebord, bortsett fra at du faktisk vil bruke dem, fordi `Super + 1/2/3/4` hopper rett til ett og `Super + Shift + 1/2/3/4` sender det aktive vinduet dit. Ingen animasjonsforsinkelse, bare umiddelbare hopp. Det betyr at du kanskje ikke engang trenger flere skjermer, hvis du var vant til det før.
 

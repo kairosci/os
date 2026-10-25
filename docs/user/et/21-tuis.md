@@ -12,8 +12,6 @@ Erinevate paanide vahel hüppad klahviga `Tab`. Paanil Files valisid faile lavas
 
 [Btop](https://github.com/aristocratos/btop) on kaunis ressursihaldur, mis näitab mälu, CPU, ketta ja võrgu kasutust. See loetleb ka kõik aktiivsed protsessid ja võimaldab sul neid hallata.
 
-Arch nimetab seda Activity ja käivitad selle vajutades `Super + Ctrl + T`. See avaneb ujuva aknana, mille saad plaadistada kombinatsiooniga `Super + T`.
-
 ## Herdr
 
 [Herdr](https://github.com/omacom-io/herdr) on terminali tööruumi haldur, mis annab sulle tööalad, vahelehed ja paanid ning hoiab need kõik töötamas püsivas seansis, millest saad lahti ühenduda ja hiljem tagasi tulla.

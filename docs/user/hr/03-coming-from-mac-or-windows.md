@@ -16,8 +16,6 @@ Nema ničega što biste kliknuli za pokretanje stvari, nema ikona za raspoređiv
 
 Najveća promjena načina razmišljanja: ne povlačite prozore okolo niti ih pristajete na polovice zaslona. Otvorite prozor i on zauzme cijeli zaslon. Otvorite drugi i oni ga podijele. Nikada ne izvlačite prozor ispod drugoga, jer se prozori ne preklapaju.
 
-Kada vam doista treba plutajući prozor, `Super + T` prebacuje aktivni iz popločavanja (i natrag). Ali prvo dajte popločavanju pravu priliku — to je srce cijele stvari. [Navigacija](04-navigation.md) vodi vas kroz to.
-
 Radni prostori djelovat će vam poznato: oni su macOS Spaces ili virtualne radne površine u Windowsu, samo što ćete ih ovdje doista koristiti, jer `Super + 1/2/3/4` skače ravno na jedan, a `Super + Shift + 1/2/3/4` tamo šalje aktivni prozor. Nema odgode animacije, samo trenutačni skokovi. To znači da vam možda neće ni trebati više monitora, ako ste na to prije bili navikli.
 
 ### Kopiranje i lijepljenje jednostavno rade

@@ -16,8 +16,6 @@ Nada que hacer clic para abrir cosas, ni iconos que acomodar en el escritorio. L
 
 El cambio de mentalidad más grande: no arrastras ventanas ni las apegas a mitades de la pantalla. Abres una ventana y ocupa toda la pantalla. Abres una segunda y se reparten la pantalla. Nunca pescas una ventana debajo de otra, porque las ventanas no se enciman.
 
-Cuando de verdad necesitas una ventana flotante, `Super + T` saca la ventana activa del mosaico (y la regresa). Pero primero dale una oportunidad real al mosaico — es el corazón de todo esto. [Navegación](04-navigation.md) te guía paso a paso.
-
 Los espacios de trabajo te resultarán familiares: son los Spaces de macOS o los escritorios virtuales de Windows, excepto que sí los vas a usar, porque `Super + 1/2/3/4` salta directo a uno y `Super + Shift + 1/2/3/4` manda la ventana activa para allá. Sin retraso de animación, solo saltos instantáneos. Esto significa que quizá ni siquiera necesites varios monitores, si antes estabas acostumbrado a eso.
 
 ### Copiar y pegar simplemente funciona

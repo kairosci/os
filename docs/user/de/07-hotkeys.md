@@ -12,11 +12,7 @@ Alle wichtigsten Tastenzuordnungen siehst du mit `Super + K` (Tmux-Zuordnungen m
 | `Super + Ctrl + L` | Computer sperren |
 | `Super + W` oder `Super + Q` | Fenster schließen             |
 | `Ctrl + Alt + Del` | Alle Fenster schließen |
-| `Super + T`               | Fenster zwischen Tiling/Schwebend umschalten             |
 | `Super + J` | Fensterposition umschalten (horizontal/vertikal) |
-| `Super + O`               | Fenster in klebrig und schwebend herauslösen umschalten |
-| `Super + L`               | Durch die Layouts Dwindle, Scrollen und Schwebend wechseln |
-| `Super + Alt + L`         | In umgekehrter Reihenfolge durch die Layouts wechseln |
 | `Super + P`               | Pseudo-Fensterstil umschalten (natürlich vs. gestreckt) |
 | `Super + F`                 | Vollbild              |
 | `Super + Alt + F`                 | Volle Breite              |

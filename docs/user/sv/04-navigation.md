@@ -12,7 +12,7 @@ Du kan sedan trycka på `Super + J` för att stapla dem ovanpå varandra i stäl
 
 Tryck på `Super + J` igen för att flytta tillbaka dem till positionerna sida vid sida. Prova sedan `Super + Shift + Arrow Right` medan webbläsaren är aktiv för att byta plats på fönstren.
 
-Prova nu `Super + Ctrl + T` för att starta Aktivitetsmonitorn. Den visas som ett flytande fönster. Du kan lägga den i tiling-läge med `Super + T` (och trycka på det igen för att göra den flytande igen). Tryck nu på `Super + Shift + F` för att öppna filhanteraren. Då får du en snygg fyrdelad uppställning:
+
 
  ![navigation-fourway-tiling](images/navigation-fourway-tiling.webp)
 
@@ -34,7 +34,6 @@ Archs standardlayout heter dwindle. Den håller alla fönster du öppnar på en 
 
 Men du kan också välja att göra en arbetsyta till den scrollande layouten, där fönstren radas upp sida vid sida bortom skärmens synliga kant. Du gör en enskild arbetsyta till den här layouten med `Super + L`.
 
-Att trycka på `Super + L` igen gör arbetsytan flytande, där fönstren överlappar varandra fritt och du placerar dem själv, och ett tredje tryck återställer den till dwindle. `Super + Alt + L` går igenom dem åt andra hållet. Ett fönster som ändå flyter — ett som du poppade ut med `Super + T`, eller en app som alltid öppnas flytande — fortsätter att flyta när arbetsytan går tillbaka till tiling. Den övre raden markerar arbetsytan du befinner dig på med dess layout: en kvadrat för dwindle, en cirkel för scrolling och en triangel för flytande. Att klicka på den markeringen växlar också igenom layouterna.
 
  ![navigation-scrolling-layout](images/navigation-scrolling-layout.webp)
 

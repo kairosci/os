@@ -12,7 +12,7 @@ Voit sitten painaa `Super + J` pinotaksesi ne päällekkäin sen sijaan, että n
 
 Paina `Super + J` uudelleen palauttaaksesi ne vierekkäisiin asentoihinsa. Kokeile sitten `Super + Shift + Arrow Right` ollessasi selaimella vaihtaaksesi ikkunat keskenään.
 
-Kokeile nyt `Super + Ctrl + T` käynnistääksesi Activity-monitorin. Se ilmestyy kelluvana ikkunana. Voit laatoittaa sen näppäimillä `Super + T` (ja painaa sitä uudelleen tehdäksesi siitä taas kelluvan). Paina nyt `Super + Shift + F` avataksesi tiedostonhallinnan. Sinulla on siisti neljän ikkunan asetelma:
+Kokeile nyt `Super + Ctrl + T` käynnistääksesi Activity-monitorin. Paina nyt `Super + Shift + F` avataksesi tiedostonhallinnan. Sinulla on siisti neljän ikkunan asetelma:
 
  ![navigation-fourway-tiling](images/navigation-fourway-tiling.webp)
 
@@ -34,7 +34,6 @@ Archn oletusasettelun nimi on dwindle. Se pitää kaikki yhdellä työtilalla av
 
 Mutta voit myös valita muuttavasi työtilan vierittäväksi asetteluksi, jossa ikkunat on aseteltu vierekkäin näytön näkyvän reunan ulkopuolelle. Muutat yksittäisen työtilan tähän asetteluun näppäimillä `Super + L`.
 
-`Super + L` -näppäinten painaminen uudelleen muuttaa työtilan kelluvaksi, jossa ikkunat limittyvät vapaasti ja sijoitat ne itse, ja kolmas painallus palauttaa sen dwindleen. `Super + Alt + L` käy ne läpi toiseen suuntaan. Ikkuna, joka kelluu joka tapauksessa — sellainen, jonka ponnautit ulos näppäimillä `Super + T`, tai sovellus, joka aukeaa aina kelluvana — pysyy kelluvana, kun työtila palaa laatoitukseen. Yläpalkki merkitsee työtilan, jolla olet, sen asettelulla: neliö dwindlelle, ympyrä vierittävälle ja kolmio kelluvalle. Tuon merkin klikkaaminen kierrättää asettelua myös.
 
  ![navigation-scrolling-layout](images/navigation-scrolling-layout.webp)
 

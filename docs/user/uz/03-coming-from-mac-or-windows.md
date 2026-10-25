@@ -16,7 +16,7 @@ Narsalarni ishga tushirish uchun bosiladigan narsa yoʻq, ish stolida tartibga s
 
 Eng katta tafakkur oʻzgarishi: siz oynalarni sudrab yurmaysiz yoki ularni ekran yarimlariga yopishtirmaysiz. Oyna ochasiz va u butun ekranni egallaydi. Ikkinchisini ochasiz va ular uni boʻlishadi. Siz hech qachon oynani boshqasining ostidan chiqarib olmaysiz, chunki oynalar ustma-ust tushmaydi.
 
-Haqiqatan suzuvchi oyna kerak boʻlganda, `Super + T` faol oynani mozaikadan chiqaradi (va qaytaradi). Lekin avval mozaikaga haqiqiy imkoniyat bering — u butun narsaning yuragi. [Navigatsiya](04-navigation.md) sizni undan oʻtkazadi.
+
 
 Ish maydonlari tanish tuyuladi: ular macOS Spaces yoki Windows virtual ish stollariga oʻxshaydi, faqat siz ularni haqiqatan ishlatasiz, chunki `Super + 1/2/3/4` toʻgʻridan-toʻgʻri bittasiga sakraydi va `Super + Shift + 1/2/3/4` faol oynani u yerga yuboradi. Animatsiya kechikishi yoʻq, faqat bir zumda sakrashlar. Bu shuni anglatadiki, agar avval unga oʻrganib qolgan boʻlsangiz, bir nechta monitor ham kerak boʻlmasligi mumkin.
 

@@ -12,11 +12,7 @@ Tüm ana klavye bağlamalarını `Super + K` ile görebilirsiniz (Tmux bağlamal
 | `Super + Ctrl + L` | Bilgisayarı kilitle |
 | `Super + W` veya `Super + Q` | Pencereyi kapat             |
 | `Ctrl + Alt + Del` | Tüm pencereleri kapat |
-| `Super + T`               | Pencereyi döşeme/yüzen arasında değiştir             |
 | `Super + J` | Pencere konumunu değiştir (yatay/dikey) |
-| `Super + O`               | Pencereyi yapışkan yüzen duruma getirmeyi aç/kapat |
-| `Super + L`               | Dwindle, Kaydırma ve Yüzen düzenler arasında gezin |
-| `Super + Alt + L`         | Düzenler arasında ters yönde gezin |
 | `Super + P`               | Sözde pencere stilini aç/kapat (doğal ve germe) |
 | `Super + F`                 | Tam ekrana git              |
 | `Super + Alt + F`                 | Tam genişliğe git              |

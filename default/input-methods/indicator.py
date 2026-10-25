@@ -7,16 +7,22 @@ import re
 import subprocess
 import sys
 
+from pathlib import Path
+
 from gi.repository import Gio, GLib
 
 
-BUS = "org.fcitx.Fcitx5"
-INTERFACE = "org.fcitx.Fcitx.Controller1"
+ARCH_PATH = Path(os.environ.get("ARCH_PATH", "/usr/share/arch"))
+FCITX_DBUS = json.loads((ARCH_PATH / "data/input-methods/fcitx-dbus.json").read_text())
+SETTINGS = json.loads((ARCH_PATH / "data/input-methods/settings.json").read_text())
+BUS = FCITX_DBUS["service"]
+INTERFACE = FCITX_DBUS["interface"]
+OBJECT_PATH = FCITX_DBUS["path"]
 
 
 def call(bus, method, args=None):
   # Reading the bar must neither activate a stopped service nor wait indefinitely.
-  return bus.call_sync(BUS, "/controller", INTERFACE, method, args, None,
+  return bus.call_sync(BUS, OBJECT_PATH, INTERFACE, method, args, None,
                        Gio.DBusCallFlags.NO_AUTO_START, 1000, None).unpack()
 
 
@@ -30,7 +36,7 @@ def snapshot(bus):
 
 def layout_keyboard(keyboards):
   typed = [keyboard for keyboard in keyboards if not re.match(
-    r"^(hl-virtual-keyboard|power-button|sleep-button|lid-switch|video-bus)", keyboard.get("name", ""))]
+    "^(" + "|".join(map(re.escape, SETTINGS["excluded_keyboard_prefixes"])) + ")", keyboard.get("name", ""))]
   typed = [item for item in typed if len(item.get("layout", "").split(",")) > 1]
   if not typed:
     return None

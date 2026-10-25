@@ -5,8 +5,7 @@
 # arch:hidden=true
 
 # Chromium names an --app window after the URL's host and path, so a web app's
-# launcher can name its window in StartupWMClass, which titlebars use to show
-# the app's name rather than the page title.
+# launcher can match it through StartupWMClass and the dock shows its app name.
 
 url=${1:-}
 if [[ -z $url ]]; then

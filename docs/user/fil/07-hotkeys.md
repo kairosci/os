@@ -12,11 +12,7 @@ Makikita mo ang lahat ng pangunahing binding ng keyboard gamit ang `Super + K` (
 | `Super + Ctrl + L` | I-lock ang computer |
 | `Super + W` o `Super + Q` | Isara ang bintana             |
 | `Ctrl + Alt + Del` | Isara ang lahat ng bintana |
-| `Super + T`               | I-toggle ang bintana sa pagitan ng tiling/lumulutang             |
 | `Super + J` | I-toggle ang posisyon ng bintana (pahalang/patayo) |
-| `Super + O`               | I-toggle ang pag-pop ng bintana papunta sa sticky'n'floating |
-| `Super + L`               | Umikot sa mga layout na dwindle, scrolling, at lumulutang |
-| `Super + Alt + L`         | Umikot sa mga layout nang pabaligtad |
 | `Super + P`               | I-toggle ang istilo ng pseudo window (natural laban sa stretch) |
 | `Super + F`                 | Mag-full screen              |
 | `Super + Alt + F`                 | Mag-full width              |
@@ -373,4 +369,3 @@ Maaari mong gamitin ang `Super + Ctrl + E` para ipakita ang isang kumpletong tag
 | `Shift + CapsLock Space E` | Ang iyong email (tulad ng inilagay sa setup)  |
 
 Maaari kang magdagdag ng higit pa ng sarili mo sa pamamagitan ng pag-edit sa `~/.XCompose`, pagkatapos ay patakbuhin ang `arch-restart-xcompose` sa terminal para makuha ang mga pagbabago.
-

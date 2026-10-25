@@ -12,8 +12,6 @@ Turli panellar orasida `Tab` yordamida sakraysiz. Files panelida fayllarni stagi
 
 [Btop](https://github.com/aristocratos/btop) xotira, CPU, disk va tarmoq ishlatilishini koʻrsatuvchi chiroyli resurs boshqaruvchisidir. U barcha faol jarayonlarni ham roʻyxat qiladi va ularni boshqarish imkonini beradi.
 
-Arch uni Activity deb ataydi va siz uni `Super + Ctrl + T` ni bosish orqali boshlaysiz. U suzuvchi oyna sifatida ochiladi, uni `Super + T` bilan mozaika qilishingiz mumkin.
-
 ## Herdr
 
 [Herdr](https://github.com/omacom-io/herdr) sizga ish maydonlari, varaqlar va panellar beruvchi va hammasini uzilib, keyin qaytib kelishingiz mumkin boʻlgan doimiy sessiyada ishlatib turuvchi terminal ish maydoni boshqaruvchisidir.

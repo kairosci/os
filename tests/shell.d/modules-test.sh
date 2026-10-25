@@ -149,6 +149,8 @@ for module_id in settings:
     module = modules[module_id]
     assert module["package"] == "arch-settings", module_id
     assert module["requires"] == ["system.settings"], (module_id, module["requires"])
+assert modules["system.runtime-data"]["package"] == "arch"
+assert ["data", "usr/share/arch/data"] in modules["system.runtime-data"]["outputs"]
 for module_id in runtime_data:
     module = modules[module_id]
     assert module["package"] == "arch", module_id

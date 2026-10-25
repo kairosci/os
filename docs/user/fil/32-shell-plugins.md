@@ -79,7 +79,7 @@ Ang isang plugin ay isang direktoryo na may `manifest.json` at ilang QML. Ipinap
 | Uri | Ano ito |
 |------|------------|
 | `bar-widget` | Isang component na maaaring ilagay ng aktibong bar sa isang seksyon |
-| `panel` | Isang persistent o tinawag na floating window |
+| `panel` | Isang persistent o tinawag na layer-shell surface |
 | `overlay` | Isang fullscreen overlay |
 | `menu` | Isang tinawag na menu surface |
 | `service` | Isang headless singleton na walang UI |

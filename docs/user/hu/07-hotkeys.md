@@ -12,11 +12,7 @@ A fő billentyűhozzárendeléseket a `Super + K` (a Tmux-hozzárendeléseket a 
 | `Super + Ctrl + L` | Számítógép zárolása |
 | `Super + W` or `Super + Q` | Ablak bezárása             |
 | `Ctrl + Alt + Del` | Minden ablak bezárása |
-| `Super + T`               | Ablak csempézés/lebegés közötti váltása             |
 | `Super + J` | Ablak pozíciójának váltása (vízszintes/függőleges) |
-| `Super + O`               | Ablak kipattintása ragadós-lebegőbe |
-| `Super + L`               | Ciklus a dwindle, scrolling és lebegő kiosztások között |
-| `Super + Alt + L`         | Ciklus a kiosztások között visszafelé |
 | `Super + P`               | Pszeudó ablakstílus váltása (természetes vs nyúló) |
 | `Super + F`                 | Teljes képernyő              |
 | `Super + Alt + F`                 | Teljes szélesség              |

@@ -12,8 +12,6 @@ Između različitih okana skačeš pomoću `Tab`. U oknu Files odabireš datotek
 
 [Btop](https://github.com/aristocratos/btop) prekrasan je upravitelj resursa koji prikazuje korištenje memorije, CPU-a, diska i mreže. Također navodi sve aktivne procese i omogućuje ti da njima upravljaš.
 
-Arch ga zove Activity, a pokrećeš ga pritiskom na `Super + Ctrl + T`. Otvara se kao plutajući prozor, koji možeš popločiti sa `Super + T`.
-
 ## Herdr
 
 [Herdr](https://github.com/omacom-io/herdr) upravitelj je terminalskih radnih prostora koji ti daje radne prostore, kartice i okna te ih sve drži aktivnima u trajnoj sesiji iz koje se možeš odspojiti i kasnije se vratiti.

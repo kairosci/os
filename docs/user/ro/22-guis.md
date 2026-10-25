@@ -77,8 +77,6 @@ Pornești Signed prin lansatorul de aplicații (`Super + Space`) sau deschizi un
 
 ## Omacalc
 
-[Omacalc](https://github.com/omacom-io/omacalc) este calculatorul incredibil de simplu al Arch, care se deschide într-o fereastră plutitoare.
-
 Pornești Omacalc cu `Super + Ctrl + Q` (sau cu tasta de calculator, dacă tastatura ta are una).
 
 ## Signal

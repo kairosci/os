@@ -12,11 +12,7 @@ Puedes ver todas las asignaciones principales de teclado con `Super + K` (las de
 | `Super + Ctrl + L` | Bloquear la computadora |
 | `Super + W` or `Super + Q` | Cerrar ventana             |
 | `Ctrl + Alt + Del` | Cerrar todas las ventanas |
-| `Super + T`               | Cambiar la ventana entre mosaico/flotante             |
 | `Super + J` | Cambiar la posición de la ventana (horizontal/vertical) |
-| `Super + O`               | Activar/desactivar despegar la ventana a fija y flotante |
-| `Super + L`               | Recorrer las distribuciones dwindle, desplazamiento y flotante |
-| `Super + Alt + L`         | Recorrer las distribuciones al revés |
 | `Super + P`               | Cambiar el estilo de ventana pseudo (natural frente a estirado) |
 | `Super + F`                 | Ir a pantalla completa              |
 | `Super + Alt + F`                 | Ir a ancho completo              |

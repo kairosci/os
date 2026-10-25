@@ -12,7 +12,7 @@ Depois, você pode pressionar `Super + J` para empilhá-los um sobre o outro, em
 
 Pressione `Super + J` novamente para devolvê-los às suas posições lado a lado. Depois tente `Super + Shift + Arrow Right` enquanto estiver no navegador para trocar as janelas de lugar.
 
-Agora tente `Super + Ctrl + T` para iniciar o monitor de Atividade. Ele vai aparecer como uma janela flutuante. Você pode colocá-lo em tiling usando `Super + T` (e pressionar isso novamente para torná-lo flutuante de novo). Agora pressione `Super + Shift + F` para abrir o gerenciador de arquivos. Você terá uma bela configuração com quatro janelas:
+
 
  ![navigation-fourway-tiling](images/navigation-fourway-tiling.webp)
 
@@ -34,7 +34,6 @@ O layout padrão do Arch se chama dwindle. Ele mantém todas as janelas que voc�
 
 Mas você também pode optar por transformar uma área de trabalho no layout scrolling, em que as janelas ficam enfileiradas lado a lado, além da borda visível da tela. Você transforma uma única área de trabalho nesse layout com `Super + L`.
 
-Pressionar `Super + L` novamente torna a área de trabalho flutuante, em que as janelas se sobrepõem livremente e você as posiciona por conta própria, e uma terceira pressão devolve ela ao dwindle. `Super + Alt + L` percorre eles no sentido contrário. Uma janela que já flutua de qualquer forma — uma que você destacou com `Super + T`, ou um aplicativo que sempre abre flutuante — continua flutuando quando a área de trabalho volta ao tiling. A barra superior marca a área de trabalho em que você está com o layout dela: um quadrado para dwindle, um círculo para scrolling e um triângulo para flutuante. Clicar nessa marca também alterna o layout em ciclo.
 
  ![navigation-scrolling-layout](images/navigation-scrolling-layout.webp)
 

@@ -12,8 +12,6 @@ Je springt tussen de verschillende panelen met `Tab`. In het Files-paneel select
 
 [Btop](https://github.com/aristocratos/btop) is een prachtige resource-manager die geheugen-, CPU-, schijf- en netwerkgebruik toont. Het toont ook alle actieve processen en laat je ze beheren.
 
-Arch noemt het Activity, en je start het door op `Super + Ctrl + T` te drukken. Het opent als een zwevend venster, dat je kunt betegelen met `Super + T`.
-
 ## Herdr
 
 [Herdr](https://github.com/omacom-io/herdr) is een terminal workspace manager die je workspaces, tabs en panelen geeft, en ze allemaal draaiende houdt in een persistente sessie waar je van kunt loskoppelen en later naar terug kunt komen.

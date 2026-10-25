@@ -12,11 +12,7 @@ Podes ver todos os principais atalhos de teclado com `Super + K` (os atalhos do 
 | `Super + Ctrl + L` | Bloquear computador |
 | `Super + W` ou `Super + Q` | Fechar janela             |
 | `Ctrl + Alt + Del` | Fechar todas as janelas |
-| `Super + T`               | Alternar janela entre mosaico/flutuante             |
 | `Super + J` | Alternar posição da janela (horizontal/vertical) |
-| `Super + O`               | Alternar janela solta em fixa e flutuante |
-| `Super + L`               | Percorrer as disposições dwindle, deslizante e flutuante |
-| `Super + Alt + L`         | Percorrer as disposições no sentido inverso |
 | `Super + P`               | Alternar estilo de janela pseudo (natural vs. esticada) |
 | `Super + F`                 | Ir para ecrã inteiro              |
 | `Super + Alt + F`                 | Ir para largura total              |
@@ -371,4 +367,3 @@ Podes usar `Super + Ctrl + E` para mostrar um seletor de emoji completo que colo
 | `Shift + CapsLock Space E` | O teu e-mail (tal como introduzido na configuração)  |
 
 Podes adicionar mais da tua parte editando `~/.XCompose` e executando depois `arch-restart-xcompose` no terminal para que as alterações sejam apanhadas.
-

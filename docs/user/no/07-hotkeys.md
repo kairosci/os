@@ -12,11 +12,7 @@ Du kan se alle de viktigste tastebindingene med `Super + K` (Tmux-bindinger med 
 | `Super + Ctrl + L` | Lås datamaskinen |
 | `Super + W` or `Super + Q` | Lukk vindu             |
 | `Ctrl + Alt + Del` | Lukk alle vinduer |
-| `Super + T`               | Veksle vindu mellom flislegging/flytende             |
 | `Super + J` | Veksle vindusposisjon (horisontal/vertikal) |
-| `Super + O`               | Veksle spretting av vindu til klebrig og flytende |
-| `Super + L`               | Bla gjennom dwindle-, rulle- og flytendelayoutene |
-| `Super + Alt + L`         | Bla gjennom layoutene i omvendt rekkefølge |
 | `Super + P`               | Veksle pseudovindustil (naturlig vs. strukket) |
 | `Super + F`                 | Gå til fullskjerm              |
 | `Super + Alt + F`                 | Gå til full bredde              |

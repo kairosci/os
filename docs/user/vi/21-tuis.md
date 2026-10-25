@@ -12,8 +12,6 @@ Bạn nhảy qua lại giữa các ngăn khác nhau bằng `Tab`. Trong ngăn Fi
 
 [Btop](https://github.com/aristocratos/btop) là một trình quản lý tài nguyên đẹp mắt, hiển thị mức sử dụng bộ nhớ, CPU, đĩa và mạng. Nó cũng liệt kê mọi tiến trình đang hoạt động và cho phép bạn quản lý chúng.
 
-Arch gọi nó là Activity, và bạn khởi động nó bằng `Super + Ctrl + T`. Nó mở ra dưới dạng một cửa sổ nổi, mà bạn có thể xếp thành ô bằng `Super + T`.
-
 ## Herdr
 
 [Herdr](https://github.com/omacom-io/herdr) là một trình quản lý không gian làm việc terminal, cho bạn các workspace, tab và ngăn, và giữ tất cả chạy trong một phiên bền vững mà bạn có thể tách ra và quay lại sau.

@@ -12,11 +12,7 @@ Barcha asosiy klaviatura bogʻlanishlarini `Super + K` bilan koʻrishingiz mumki
 | `Super + Ctrl + L` | Kompyuterni qulflash |
 | `Super + W` yoki `Super + Q` | Oynani yopish             |
 | `Ctrl + Alt + Del` | Barcha oynalarni yopish |
-| `Super + T`               | Oynani mozaika/suzuvchi orasida almashtirish             |
 | `Super + J` | Oyna holatini almashtirish (gorizontal/vertikal) |
-| `Super + O`               | Chiqarilgan oynani yopishqoq suzuvchiga almashtirish |
-| `Super + L`               | Dwindle, siljitish va suzuvchi tartiblar orasida aylanish |
-| `Super + Alt + L`         | Tartiblar orasida teskari aylanish |
 | `Super + P`               | Pseudo oyna uslubini almashtirish (tabiiy va choʻzilgan) |
 | `Super + F`                 | Toʻliq ekranga oʻtish              |
 | `Super + Alt + F`                 | Toʻliq kenglikka oʻtish              |

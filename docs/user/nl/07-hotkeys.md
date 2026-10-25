@@ -12,11 +12,7 @@ Je kunt alle belangrijkste toetsenbordbindingen zien met `Super + K` (Tmux-bindi
 | `Super + Ctrl + L` | Computer vergrendelen |
 | `Super + W` of `Super + Q` | Venster sluiten             |
 | `Ctrl + Alt + Del` | Alle vensters sluiten |
-| `Super + T`               | Schakel venster tussen tegelen/zwevend             |
 | `Super + J` | Schakel vensterpositie (horizontaal/verticaal) |
-| `Super + O`               | Schakel venster uitklappen naar sticky'n'floating |
-| `Super + L`               | Doorloop de dwindle-, scroll- en zwevende indelingen |
-| `Super + Alt + L`         | Doorloop de indelingen in omgekeerde volgorde |
 | `Super + P`               | Schakel pseudo-vensterstijl (natuurlijk v uitrekken) |
 | `Super + F`                 | Volledig scherm              |
 | `Super + Alt + F`                 | Volledige breedte              |

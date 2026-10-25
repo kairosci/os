@@ -12,8 +12,6 @@ Kamu melompat di antara panel yang berbeda menggunakan `Tab`. Di panel Files, ka
 
 [Btop](https://github.com/aristocratos/btop) adalah manajer sumber daya yang indah yang menunjukkan penggunaan memori, CPU, disk, dan jaringan. Ini juga mencantumkan semua proses aktif, dan memungkinkan kamu mengelolanya.
 
-Arch menyebutnya Activity, dan kamu memulainya dengan menekan `Super + Ctrl + T`. Ini terbuka sebagai jendela melayang, yang dapat kamu ubin dengan `Super + T`.
-
 ## Herdr
 
 [Herdr](https://github.com/omacom-io/herdr) adalah manajer ruang kerja terminal yang memberimu ruang kerja, tab, dan panel, dan membuat semuanya tetap berjalan dalam sesi persisten yang dapat kamu lepaskan dan kembali lagi nanti.

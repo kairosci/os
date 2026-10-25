@@ -12,7 +12,7 @@ Puoi poi premere `Super + J` per impilarle una sopra l'altra invece che affianca
 
 Premi di nuovo `Super + J` per riportarle nelle loro posizioni affiancate. Poi prova `Super + Shift + Arrow Right` mentre sei sul browser per scambiare le finestre.
 
-Ora prova `Super + Ctrl + T` per avviare il monitor delle attività. Apparirà come una finestra fluttuante. Puoi affiancarla usando `Super + T` (e premilo di nuovo per renderla di nuovo fluttuante). Ora premi `Super + Shift + F` per aprire il gestore dei file. Avrai una bella disposizione a quattro:
+
 
  ![navigation-fourway-tiling](images/navigation-fourway-tiling.webp)
 
@@ -34,7 +34,6 @@ Il layout predefinito di Arch si chiama dwindle. Mantiene tutte le finestre che 
 
 Ma puoi anche scegliere di trasformare un workspace nel layout scorrevole, in cui le finestre sono allineate una accanto all'altra, oltre il bordo visibile dello schermo. Trasformi un singolo workspace in questo layout tramite `Super + L`.
 
-Premendo di nuovo `Super + L` il workspace diventa fluttuante, in cui le finestre si sovrappongono liberamente e le posizioni tu, e una terza pressione lo riporta a dwindle. `Super + Alt + L` li percorre nell'altro senso. Una finestra che è comunque fluttuante — una che hai estratto con `Super + T`, o un'app che si apre sempre fluttuante — resta fluttuante quando il workspace torna al tiling. La barra superiore contrassegna il workspace su cui ti trovi con il suo layout: un quadrato per dwindle, un cerchio per lo scorrevole e un triangolo per il fluttuante. Anche fare clic su quel segno fa scorrere i layout.
 
  ![navigation-scrolling-layout](images/navigation-scrolling-layout.webp)
 

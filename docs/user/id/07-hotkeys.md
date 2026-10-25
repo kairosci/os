@@ -12,11 +12,7 @@ Anda dapat melihat semua binding keyboard utama dengan `Super + K` (binding Tmux
 | `Super + Ctrl + L` | Kunci komputer |
 | `Super + W` atau `Super + Q` | Tutup jendela             |
 | `Ctrl + Alt + Del` | Tutup semua jendela |
-| `Super + T`               | Alihkan jendela antara ubin/melayang             |
 | `Super + J` | Alihkan posisi jendela (horizontal/vertikal) |
-| `Super + O`               | Alihkan jendela meletus menjadi lengket dan melayang |
-| `Super + L`               | Gilir tata letak dwindle, gulir, dan melayang |
-| `Super + Alt + L`         | Gilir tata letak secara terbalik |
 | `Super + P`               | Alihkan gaya jendela pseudo (alami vs regang) |
 | `Super + F`                 | Layar penuh              |
 | `Super + Alt + F`                 | Lebar penuh              |
@@ -373,5 +369,3 @@ Anda dapat menggunakan `Super + Ctrl + E` untuk menampilkan pemilih emoji lengka
 | `Shift + CapsLock Space E` | Email Anda (seperti dimasukkan saat penyiapan)  |
 
 Anda dapat menambahkan milik Anda sendiri dengan mengedit `~/.XCompose`, lalu menjalankan `arch-restart-xcompose` di terminal agar perubahan diambil.
-
-

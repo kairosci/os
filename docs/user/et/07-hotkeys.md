@@ -12,11 +12,7 @@ Saad näha kõiki peamisi klaviatuuriseoseid `Super + K` abil (Tmuxi seoseid `Su
 | `Super + Ctrl + L` | Lukusta arvuti |
 | `Super + W` or `Super + Q` | Sulge aken             |
 | `Ctrl + Alt + Del` | Sulge kõik aknad |
-| `Super + T`               | Lülita aken plaatide/ujuva vahel             |
 | `Super + J` | Lülita akna asend (horisontaalne/vertikaalne) |
-| `Super + O`               | Lülita akna hüppamine kleepuvasse ujuvasse |
-| `Super + L`               | Käi läbi dwindle'i, kerimise ja ujuva paigutused |
-| `Super + Alt + L`         | Käi paigutused läbi vastupidises järjekorras |
 | `Super + P`               | Lülita pseudo-akna stiili (loomulik vs venitatud) |
 | `Super + F`                 | Mine täisekraanile              |
 | `Super + Alt + F`                 | Mine täislaiusesse              |
@@ -373,4 +369,3 @@ Saad kasutada `Super + Ctrl + E`, et kuvada täielik emoji valija, mis paneb val
 | `Shift + CapsLock Space E` | Sinu e-post (nagu seadistamisel sisestatud)  |
 
 Saad lisada rohkem omi, muutes `~/.XCompose`, seejärel käivitades terminalis `arch-restart-xcompose`, et muudatused märgataks.
-

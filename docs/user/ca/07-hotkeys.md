@@ -12,11 +12,7 @@ Podeu veure totes les assignacions principals de teclat amb `Super + K` (les de 
 | `Super + Ctrl + L` | Bloqueja l'ordinador |
 | `Super + W` o `Super + Q` | Tanca la finestra             |
 | `Ctrl + Alt + Del` | Tanca totes les finestres |
-| `Super + T`               | Commuta la finestra entre mosaic/flotant             |
 | `Super + J` | Commuta la posició de la finestra (horitzontal/vertical) |
-| `Super + O`               | Commuta extreure la finestra a fixa i flotant |
-| `Super + L`               | Recorre les disposicions dwindle, de desplaçament i flotant |
-| `Super + Alt + L`         | Recorre les disposicions a l'inrevés |
 | `Super + P`               | Commuta l'estil pseudo de la finestra (natural enfront d'estirat) |
 | `Super + F`                 | Vés a pantalla completa              |
 | `Super + Alt + F`                 | Vés a amplada completa              |

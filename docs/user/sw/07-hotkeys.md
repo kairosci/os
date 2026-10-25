@@ -12,11 +12,7 @@ Unaweza kuona ufungaji wote mkuu wa kibodi kwa `Super + K` (ufungaji wa Tmux kwa
 | `Super + Ctrl + L` | Funga kompyuta |
 | `Super + W` or `Super + Q` | Funga dirisha             |
 | `Ctrl + Alt + Del` | Funga madirisha yote |
-| `Super + T`               | Badilisha dirisha kati ya vigae/kuelea             |
 | `Super + J` | Badilisha nafasi ya dirisha (ya usawa/wima) |
-| `Super + O`               | Badilisha kutoa dirisha kuwa lenye kunata na kuelea |
-| `Super + L`               | Pitisha mipangilio ya dwindle, kusogeza, na kuelea |
-| `Super + Alt + L`         | Pitisha mipangilio kinyume |
 | `Super + P`               | Badilisha mtindo wa dirisha bandia (asili dhidi ya kunyosha) |
 | `Super + F`                 | Nenda skrini kamili              |
 | `Super + Alt + F`                 | Nenda upana kamili              |

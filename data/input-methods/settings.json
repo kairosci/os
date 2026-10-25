@@ -1,0 +1,42 @@
+{
+  "config_files": [
+    "config",
+    "conf/quickphrase.conf",
+    "conf/wayland.conf",
+    "conf/xcb.conf",
+    "conf/pinyin.conf"
+  ],
+  "transaction_files": [
+    "profile",
+    "config",
+    "conf/quickphrase.conf",
+    "conf/wayland.conf",
+    "conf/xcb.conf",
+    "conf/pinyin.conf"
+  ],
+  "stock_lists": {
+    "Hotkey/ActivateKeys": {
+      "0": "Hangul_Hanja"
+    },
+    "Hotkey/DeactivateKeys": {
+      "0": "Hangul_Romaja"
+    },
+    "Hotkey/EnumerateGroupForwardKeys": {
+      "0": "Super+space"
+    },
+    "Hotkey/EnumerateGroupBackwardKeys": {
+      "0": "Super+Shift+space"
+    },
+    "TriggerKey": {
+      "0": "Super+grave",
+      "1": "Super+semicolon"
+    }
+  },
+  "excluded_keyboard_prefixes": [
+    "hl-virtual-keyboard",
+    "power-button",
+    "sleep-button",
+    "lid-switch",
+    "video-bus"
+  ]
+}

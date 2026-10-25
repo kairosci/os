@@ -12,11 +12,7 @@ Du kan se alla huvudsakliga tangentbindningar med `Super + K` (Tmux-bindningar m
 | `Super + Ctrl + L` | Lås datorn |
 | `Super + W` or `Super + Q` | Stäng fönster             |
 | `Ctrl + Alt + Del` | Stäng alla fönster |
-| `Super + T`               | Växla fönster mellan kakling/flytande             |
 | `Super + J` | Växla fönsterposition (horisontell/vertikal) |
-| `Super + O`               | Växla poppat fönster till klistrigt och flytande |
-| `Super + L`               | Cykla genom layouterna dwindle, rullning och flytande |
-| `Super + Alt + L`         | Cykla genom layouterna i omvänd ordning |
 | `Super + P`               | Växla pseudo-fönsterstil (naturlig vs sträckt) |
 | `Super + F`                 | Gå helskärm              |
 | `Super + Alt + F`                 | Gå helbredd              |

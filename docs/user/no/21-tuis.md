@@ -12,7 +12,7 @@ Du hopper mellom de ulike rutene med `Tab`. I Filer-ruten velger du filer for st
 
 [Btop](https://github.com/aristocratos/btop) er en vakker ressursforvalter som viser minne-, CPU-, disk- og nettverksbruk. Den lister også opp alle aktive prosesser og lar deg administrere dem.
 
-Arch kaller den Aktivitet, og du starter den med `Super + Ctrl + T`. Den åpnes som et flytende vindu, som du kan flislegge med `Super + T`.
+
 
 ## Herdr
 

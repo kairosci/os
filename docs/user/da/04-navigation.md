@@ -12,7 +12,7 @@ Du kan derefter trykke på `Super + J` for at stable dem oven på hinanden i ste
 
 Tryk på `Super + J` igen for at bringe dem tilbage til deres positioner side om side. Prøv derefter `Super + Shift + Arrow Right`, mens du er på browseren, for at bytte rundt på vinduerne.
 
-Prøv nu `Super + Ctrl + T` for at starte Aktivitetsmonitoren. Den vises som et flydende vindue. Du kan tile den med `Super + T` (og trykke på det igen for at gøre den flydende igen). Tryk nu på `Super + Shift + F` for at åbne filhåndteringen. Du får en smart opsætning med fire vinduer:
+
 
  ![navigation-fourway-tiling](images/navigation-fourway-tiling.webp)
 
@@ -34,7 +34,6 @@ Archs standardlayout hedder dwindle. Det holder alle de vinduer, du åbner på e
 
 Men du kan også vælge at gøre et arbejdsområde til scrolling-layoutet, hvor vinduer er stillet op side om side, ud over skærmens synlige kant. Du gør et enkelt arbejdsområde til dette layout via `Super + L`.
 
-Hvis du trykker på `Super + L` igen, bliver arbejdsområdet flydende, hvor vinduer overlapper frit, og du placerer dem selv, og et tredje tryk bringer det tilbage til dwindle. `Super + Alt + L` går igennem dem den anden vej. Et vindue, der alligevel flyder — et, du poppede ud med `Super + T`, eller en app, der altid åbner flydende — bliver ved med at flyde, når arbejdsområdet går tilbage til tiling. Den øverste bar markerer det arbejdsområde, du er på, med dets layout: en firkant for dwindle, en cirkel for scrolling og en trekant for flydende. Hvis du klikker på det mærke, skifter layoutet også.
 
  ![navigation-scrolling-layout](images/navigation-scrolling-layout.webp)
 

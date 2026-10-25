@@ -12,8 +12,6 @@
 
 [Btop](https://github.com/aristocratos/btop) 是一个漂亮的资源管理器，显示内存、CPU、磁盘和网络使用情况。它还列出所有活跃进程，并允许你管理它们。
 
-Arch 称它为 Activity，你按下 `Super + Ctrl + T` 启动它。它以浮动窗口打开，你可以用 `Super + T` 将其平铺。
-
 ## Herdr
 
 [Herdr](https://github.com/omacom-io/herdr) 是一个终端工作区管理器，为你提供工作区、标签页和窗格，并让它们都在一个持久会话中运行，你可以断开连接稍后再回来。

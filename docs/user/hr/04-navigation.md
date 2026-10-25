@@ -12,7 +12,7 @@ Zatim možete pritisnuti `Super + J` da ih složite jedan na drugi umjesto jedan
 
 Pritisnite `Super + J` ponovno da ih vratite u položaj jedan pokraj drugog. Zatim pokušajte `Super + Shift + Arrow Right` dok ste u pregledniku da zamijenite prozore.
 
-Sada pokušajte `Super + Ctrl + T` da pokrenete monitor aktivnosti. On će se pojaviti kao plutajući prozor. Možete ga popločati pomoću `Super + T` (i pritisnite to ponovno da opet postane plutajući). Sada pritisnite `Super + Shift + F` da otvorite upravitelj datoteka. Imat ćete uredan raspored s četiri prozora:
+
 
  ![navigation-fourway-tiling](images/navigation-fourway-tiling.webp)
 
@@ -34,7 +34,6 @@ Zadani raspored u Archju zove se dwindle. On drži sve prozore koje otvorite na 
 
 Ali možete odabrati i pretvoriti radni prostor u raspored scrolling, gdje su prozori poredani jedan pokraj drugog, izvan vidljivog ruba zaslona. Pojedini radni prostor u taj raspored pretvarate pomoću `Super + L`.
 
-Ponovni pritisak na `Super + L` pretvara radni prostor u plutajući, gdje se prozori slobodno preklapaju i sami ih postavljate, a treći pritisak vraća ga na dwindle. `Super + Alt + L` prolazi kroz njih u suprotnom smjeru. Prozor koji ionako pluta — onaj koji ste izbacili pomoću `Super + T` ili aplikacija koja se uvijek otvara plutajuća — nastavlja plutati kad se radni prostor vrati na popločavanje. Gornja traka označava radni prostor na kojem se nalazite njegovim rasporedom: kvadrat za dwindle, krug za scrolling i trokut za plutajući. Klik na tu oznaku također ciklički mijenja raspored.
 
  ![navigation-scrolling-layout](images/navigation-scrolling-layout.webp)
 

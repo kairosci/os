@@ -16,7 +16,7 @@ Nada para clicar para lançar coisas, nenhum ícone para organizar no ambiente d
 
 A maior mudança de mentalidade: não arrastas janelas nem as encostas a metades do ecrã. Abres uma janela e ela ocupa o ecrã inteiro. Abres uma segunda e elas dividem-no. Nunca andas à pesca de uma janela debaixo de outra, porque as janelas não se sobrepõem.
 
-Quando precisas mesmo de uma janela flutuante, `Super + T` retira a janela ativa do mosaico (e volta a colocá-la lá). Mas dá primeiro uma oportunidade a sério ao mosaico — é o coração de tudo isto. [Navegação](04-navigation.md) guia-te por ele.
+
 
 Os espaços de trabalho vão parecer familiares: são os Espaços do macOS ou os ambientes de trabalho virtuais do Windows, exceto que aqui vais mesmo usá-los, porque `Super + 1/2/3/4` salta diretamente para um deles e `Super + Shift + 1/2/3/4` envia para lá a janela ativa. Sem atrasos de animação, só saltos instantâneos. Isto significa que se calhar nem precisas de vários monitores, se era a isso que estavas habituado antes.
 

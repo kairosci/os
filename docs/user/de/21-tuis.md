@@ -12,8 +12,6 @@ Zwischen den verschiedenen Panes springst du mit `Tab`. Im Pane Files wählst du
 
 [Btop](https://github.com/aristocratos/btop) ist ein schöner Ressourcenmanager, der Speicher-, CPU-, Platten- und Netzwerkauslastung zeigt. Er listet auch alle aktiven Prozesse auf und erlaubt dir, sie zu verwalten.
 
-Arch nennt es Activity, und du startest es mit `Super + Ctrl + T`. Es öffnet sich als schwebendes Fenster, das du mit `Super + T` kacheln kannst.
-
 ## Herdr
 
 [Herdr](https://github.com/omacom-io/herdr) ist ein Terminal-Workspace-Manager, der dir Arbeitsflächen, Tabs und Panes bietet und sie alle in einer dauerhaften Sitzung laufen lässt, von der du dich trennen und zu der du später zurückkehren kannst.

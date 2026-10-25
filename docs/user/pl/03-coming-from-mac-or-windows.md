@@ -16,7 +16,7 @@ Nie ma w co klikać, żeby uruchamiać rzeczy, ani ikon do porządkowania na pul
 
 Największa zmiana myślenia: nie przeciągasz okien tu i tam ani nie przyciągasz ich do połów ekranu. Otwierasz okno i zajmuje cały ekran. Otwierasz drugie i dzielą ekran na pół. Nigdy nie wyciągasz okna spod innego, bo okna się nie nakładają.
 
-Gdy naprawdę potrzebujesz pływającego okna, `Super + T` przełącza aktywne okno poza układ kafelkowy (i z powrotem). Ale najpierw daj kafelkom prawdziwą szansę — to serce całej sprawy. [Nawigacja](04-navigation.md) przeprowadza cię przez temat krok po kroku.
+
 
 Obszary robocze będą znajome: to odpowiednik Spaces z macOS albo wirtualnych pulpitów z Windowsa, z tą różnicą, że faktycznie będziesz ich używać, bo `Super + 1/2/3/4` przenosi cię prosto na wybrany obszar, a `Super + Shift + 1/2/3/4` wysyła tam aktywne okno. Bez opóźnienia animacji, po prostu natychmiastowe skoki. Oznacza to, że być może nie będziesz nawet potrzebować wielu monitorów, jeśli wcześniej byłeś do nich przyzwyczajony.
 

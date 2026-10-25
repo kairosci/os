@@ -12,11 +12,7 @@ Všechny hlavní klávesové zkratky uvidíte pomocí `Super + K` (zkratky Tmuxu
 | `Super + Ctrl + L` | Zamknout počítač |
 | `Super + W` or `Super + Q` | Zavřít okno             |
 | `Ctrl + Alt + Del` | Zavřít všechna okna |
-| `Super + T`               | Přepnout okno mezi dlaždicemi/plovoucím             |
 | `Super + J` | Přepnout polohu okna (vodorovně/svisle) |
-| `Super + O`               | Přepnout vysunutí okna do připnutého a plovoucího |
-| `Super + L`               | Procházet rozloženími dwindle, posouvání a plovoucím |
-| `Super + Alt + L`         | Procházet rozloženími v opačném pořadí |
 | `Super + P`               | Přepnout styl pseudo okna (přirozený vs. roztažený) |
 | `Super + F`                 | Přejít na celou obrazovku              |
 | `Super + Alt + F`                 | Přejít na plnou šířku              |

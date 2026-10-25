@@ -12,11 +12,7 @@ Wszystkie główne przypisania klawiszy zobaczysz przez `Super + K` (przypisania
 | `Super + Ctrl + L` | Zablokowanie komputera |
 | `Super + W` lub `Super + Q` | Zamknięcie okna             |
 | `Ctrl + Alt + Del` | Zamknięcie wszystkich okien |
-| `Super + T`               | Przełączenie okna między kafelkowym a pływającym             |
 | `Super + J` | Przełączenie pozycji okna (poziomo/pionowo) |
-| `Super + O`               | Przełączenie wyskakującego okna przyklejonego i pływającego |
-| `Super + L`               | Przechodzenie przez układy dwindle, przewijany i pływający |
-| `Super + Alt + L`         | Przechodzenie przez układy w odwrotną stronę |
 | `Super + P`               | Przełączenie stylu pseudo okna (naturalny vs rozciągany) |
 | `Super + F`                 | Pełny ekran              |
 | `Super + Alt + F`                 | Pełna szerokość              |

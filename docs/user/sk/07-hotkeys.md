@@ -12,11 +12,7 @@ Všetky hlavné klávesové väzby uvidíte pomocou `Super + K` (väzby Tmux pom
 | `Super + Ctrl + L` | Uzamknúť počítač |
 | `Super + W` or `Super + Q` | Zatvoriť okno             |
 | `Ctrl + Alt + Del` | Zatvoriť všetky okná |
-| `Super + T`               | Prepnúť okno medzi dlaždicami/plávaním             |
 | `Super + J` | Prepnúť pozíciu okna (horizontálne/vertikálne) |
-| `Super + O`               | Prepnúť vysunuté okno na lepiace a plávajúce |
-| `Super + L`               | Cyklovať rozloženiami dwindle, posúvanie a plávanie |
-| `Super + Alt + L`         | Cyklovať rozloženiami v opačnom poradí |
 | `Super + P`               | Prepnúť pseudo štýl okna (prirodzený v. natiahnutý) |
 | `Super + F`                 | Prejsť na celú obrazovku              |
 | `Super + Alt + F`                 | Prejsť na celú šírku              |

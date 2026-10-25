@@ -12,7 +12,7 @@ Je kunt vervolgens op `Super + J` drukken om ze boven op elkaar te stapelen in p
 
 Druk nogmaals op `Super + J` om ze terug te brengen naar hun posities naast elkaar. Probeer dan `Super + Shift + Arrow Right` terwijl je in de browser zit om de vensters te verwisselen.
 
-Probeer nu `Super + Ctrl + T` om de Activity-monitor te starten. Die verschijnt als een zwevend venster. Je kunt hem tegelen met `Super + T` (en druk daar nogmaals op om hem weer zwevend te maken). Druk nu op `Super + Shift + F` om de bestandsbeheerder te openen. Je krijgt een nette opstelling in vieren:
+Probeer nu `Super + Ctrl + T` om de Activity-monitor te starten. Druk nu op `Super + Shift + F` om de bestandsbeheerder te openen. Je krijgt een nette opstelling in vieren:
 
  ![navigation-fourway-tiling](images/navigation-fourway-tiling.webp)
 
@@ -34,7 +34,6 @@ De standaardlayout van Arch heet dwindle. Die houdt alle vensters die je op een 
 
 Maar je kunt er ook voor kiezen om een werkblad te veranderen in de scrollende layout, waarbij vensters naast elkaar worden opgesteld, voorbij de zichtbare rand van het scherm. Je verandert een enkel werkblad in deze layout via `Super + L`.
 
-Nogmaals op `Super + L` drukken maakt het werkblad zwevend, waarbij vensters vrij overlappen en je ze zelf plaatst, en een derde keer drukken brengt het terug naar dwindle. `Super + Alt + L` doorloopt ze de andere kant op. Een venster dat sowieso zweeft — een dat je eruit hebt gehaald met `Super + T`, of een app die altijd zwevend opent — blijft zweven wanneer het werkblad teruggaat naar tiling. De bovenbalk markeert het werkblad waarop je zit met zijn layout: een vierkant voor dwindle, een cirkel voor scrollen en een driehoek voor zwevend. Klikken op die markering doorloopt de layout ook.
 
  ![navigation-scrolling-layout](images/navigation-scrolling-layout.webp)
 

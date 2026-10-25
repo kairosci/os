@@ -16,7 +16,7 @@ Nincs mi kattintani a dolgok indításához, nincsenek ikonok, amelyeket az aszt
 
 A legnagyobb szemléletváltás: nem húzogatod az ablakokat, és nem igazítod őket képernyőfelekhez. Megnyitsz egy ablakot, és az kitölti az egész képernyőt. Megnyitsz egy másodikat, és felosztják. Soha nem kell kiásnod egy ablakot egy másik alól, mert az ablakok nem fedik egymást.
 
-Ha valóban szükséged van lebegő ablakra, a `Super + T` ki- (és vissza-) kapcsolja az aktív ablakot a csempézésből. De először adj a csempézésnek egy igazi esélyt — ez az egész dolog szíve. A [Navigáció](04-navigation.md) végigvezet rajta.
+
 
 A munkaterületek ismerősnek fognak tűnni: ezek a macOS Spaces vagy a Windows virtuális asztalai, csak tényleg használni is fogod őket, mert a `Super + 1/2/3/4` egyenesen odaugrik, a `Super + Shift + 1/2/3/4` pedig az aktív ablakot küldi oda. Nincs animációs késleltetés, csak azonnali ugrások. Ez azt jelenti, hogy talán még több monitorra sincs szükséged, ha korábban ehhez voltál szokva.
 

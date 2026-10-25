@@ -12,8 +12,6 @@ Saltes entre els diferents panells amb `Tab`. Al panell de fitxers, selecciones 
 
 [Btop](https://github.com/aristocratos/btop) és un bonic gestor de recursos que mostra l'ús de memòria, CPU, disc i xarxa. També llista tots els processos actius i et permet gestionar-los.
 
-Arch l'anomena Activity, i l'inicies prement `Super + Ctrl + T`. S'obre com a finestra flotant, que pots posar en mosaic amb `Super + T`.
-
 ## Herdr
 
 [Herdr](https://github.com/omacom-io/herdr) és un gestor d'espais de treball de terminal que et dona espais de treball, pestanyes i panells, i els manté tots en funcionament en una sessió persistent de la qual et pots desconnectar i a la qual pots tornar més tard.
