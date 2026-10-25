@@ -86,9 +86,9 @@ make_fixture() {
   local top="$1" root_hash="${2:-original-root-hash}"
   local factory="$top/@factory"
   mkdir -p "$top/@" "$factory/etc" "$factory/home/seller" \
-    "$factory/usr/bin" "$factory/usr/share/arch/install/provisioning"
+    "$factory/usr/bin" "$factory/usr/share/arch/installer/provisioning"
   touch "$top/@/old-system" "$factory/home/seller/private-file" \
-    "$factory/usr/share/arch/install/provisioning/arch-provision-owner.service"
+    "$factory/usr/share/arch/installer/provisioning/arch-provision-owner.service"
   printf '#!/bin/bash\n' >"$factory/usr/bin/arch-provision-owner"
   chmod +x "$factory/usr/bin/arch-provision-owner"
   printf 'true\n' >"$factory/read-only"

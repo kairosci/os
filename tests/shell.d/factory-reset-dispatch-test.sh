@@ -164,9 +164,9 @@ device=$tmp/luks-device
 fixture() {
   rm -rf "$tmp/top" "$tmp/calls" "$tmp/screen" "$tmp/reset.log" "$tmp/committed-key" "$tmp"/*-fail
   mkdir -p "$tmp/top/@" "$tmp/top/@factory/etc" "$tmp/top/@factory/usr/bin" \
-    "$tmp/top/@factory/usr/share/arch/install/provisioning" "$tmp/top/@factory/boot"
+    "$tmp/top/@factory/usr/share/arch/installer/provisioning" "$tmp/top/@factory/boot"
   touch "$tmp/top/@/old-system" "$tmp/top/@factory/factory-system" "$tmp/esp" \
-    "$tmp/top/@factory/usr/share/arch/install/provisioning/arch-provision-owner.service"
+    "$tmp/top/@factory/usr/share/arch/installer/provisioning/arch-provision-owner.service"
   printf '#!/bin/bash\n' >"$tmp/top/@factory/usr/bin/arch-provision-owner"
   chmod +x "$tmp/top/@factory/usr/bin/arch-provision-owner"
   printf '%s /boot vfat defaults 0 2\n' "$tmp/esp" >"$tmp/top/@factory/etc/fstab"

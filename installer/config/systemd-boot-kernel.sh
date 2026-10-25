@@ -6,7 +6,7 @@ configure_systemd_boot_kernel() {
   local kernel_preset="$mkinitcpio_config_dir/linux.preset"
   local kernel_preset_template="${ARCH_KERNEL_PRESET_TEMPLATE:-$ARCH_PATH/default/mkinitcpio/linux.preset}"
   local mkinitcpio_default_preset="${ARCH_MKINITCPIO_DEFAULT_PRESET:-/usr/share/mkinitcpio/hook.preset}"
-  local hw_x86_helper="${ARCH_HW_X86_HELPER:-$ARCH_PATH/bin/arch-hw-x86}"
+  local hw_x86_helper="${ARCH_HW_X86_HELPER:-$ARCH_PATH/src/cli/arch-hw-x86}"
   local kernel_cmdline_dir temporary_section temporary_cmdline temporary_default_preset temporary_legacy_preset
   local embedded_cmdline argument key
   local -a cmdline_arguments=() embedded_arguments=()

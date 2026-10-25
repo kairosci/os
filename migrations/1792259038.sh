@@ -21,7 +21,7 @@ renumbered_source() {
   stem=${BASH_REMATCH[1]}
 
   # The user theme first: its files shadow bundled ones of the same name.
-  for dir in "$HOME/.config/arch/themes/$theme/backgrounds" "$ARCH_PATH/themes/$theme/backgrounds"; do
+  for dir in "$HOME/.config/arch/themes/$theme/backgrounds" "$ARCH_PATH/assets/themes/$theme/backgrounds"; do
     # A symlinked backgrounds folder is not staged from a cloned theme.
     [[ ! -L $dir ]] || return 1
     [[ -e $dir/$name || -e $dir/${name%.*}.webp ]] && return 1

@@ -11,4 +11,4 @@ fi
 sudo bootctl --esp-path="$systemd_boot_esp" set-default os_linux.efi
 
 sudo env ARCH_PATH="$ARCH_PATH" bash -euo pipefail -c \
-  'source "$ARCH_PATH/install/config/systemd-boot-snapshots.sh"'
+  'source "$ARCH_PATH/installer/config/systemd-boot-snapshots.sh"'

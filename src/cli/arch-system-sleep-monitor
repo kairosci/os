@@ -6,7 +6,7 @@
 
 consume_sleep_events() {
   local line sleep_lock
-  sleep_lock="$ARCH_PATH/bin/arch-system-sleep-lock"
+  sleep_lock="$ARCH_PATH/src/cli/arch-system-sleep-lock"
 
   while IFS= read -r line; do
     if [[ $line == *"boolean true"* ]]; then
@@ -51,7 +51,7 @@ case ${1:-} in
     ;;
 esac
 
-sleep_monitor="$ARCH_PATH/bin/arch-system-sleep-monitor"
+sleep_monitor="$ARCH_PATH/src/cli/arch-system-sleep-monitor"
 
 exec systemd-inhibit \
   --what=sleep \

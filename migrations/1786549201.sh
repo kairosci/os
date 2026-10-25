@@ -7,4 +7,4 @@ echo "Invite existing installs to pick a default agent"
 #
 # Post-update hooks run later in this same update, so the invitation appears
 # without waiting for another one. The hook decides whether to notify.
-arch-hook-install post-update "$ARCH_PATH/install/user/first-run/setup-agent.hook"
+arch-hook-install post-update "$ARCH_PATH/installer/user/first-run/setup-agent.hook"

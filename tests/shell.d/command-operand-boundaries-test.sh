@@ -241,7 +241,7 @@ cat >"$mock_bin/cp" <<'STUB'
 } >>"$ARCH_TEST_HOOK_CALLS"
 STUB
 for command in mkdir chmod; do
-  printf '#!/bin/bash\nexit 0\n' >"$mock_src/cli/$command"
+  printf '#!/bin/bash\nexit 0\n' >"$mock_bin/$command"
 done
 chmod +x "$mock_bin/basename" "$mock_bin/cp" "$mock_bin/mkdir" "$mock_bin/chmod"
 

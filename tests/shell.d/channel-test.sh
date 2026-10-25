@@ -55,6 +55,12 @@ for arg in "$@"; do printf "\t%s" "$arg" >>"$ARCH_CHANNEL_TEST_LOG"; done
 printf "\n" >>"$ARCH_CHANNEL_TEST_LOG"
 '
 
+cat >"$SUDO_TEST_ROOT/src/cli/arch-refresh-pacman" <<'STUB'
+#!/bin/bash
+printf 'refresh\t%s\n' "$1" >>"$ARCH_CHANNEL_TEST_LOG"
+STUB
+chmod +x "$SUDO_TEST_ROOT/src/cli/arch-refresh-pacman"
+
 write_stub arch-dev-unlink '#!/bin/bash
 printf "unlink" >>"$ARCH_CHANNEL_TEST_LOG"
 for arg in "$@"; do printf "\t%s" "$arg" >>"$ARCH_CHANNEL_TEST_LOG"; done
@@ -114,6 +120,10 @@ case "${ARCH_TEST_PACKAGES:-}" in
 esac
 '
 
+for command in "$stub_bin"/*; do
+  cp "$command" "$SUDO_TEST_ROOT/src/cli/${command##*/}"
+done
+
 run_channel() {
   : >"$log_file"
   ARCH_CHANNEL_TEST_LOG="$log_file" \
@@ -121,7 +131,7 @@ run_channel() {
     ARCH_REGION_FILE="${ARCH_TEST_REGION_FILE:-$test_tmp/no-region}" \
     HOME="$test_tmp/home" \
     PATH="$stub_bin:$ROOT/src/cli:$PATH" \
-    "${ARCH_TEST_PATH:-$package_root}/bin/arch-channel-set" "$@"
+    "${ARCH_TEST_PATH:-$package_root}/src/cli/arch-channel-set" "$@"
 }
 
 assert_log_line() {

@@ -6,28 +6,28 @@ requires = ["system.settings"]
 
 [[output]]
 source = "src/shell/Commons"
-target = "usr/share/arch/shell/Commons"
+target = "usr/share/arch/src/shell/Commons"
 
 [[output]]
 source = "src/shell/Ui"
-target = "usr/share/arch/shell/Ui"
+target = "usr/share/arch/src/shell/Ui"
 
 [[output]]
 source = "src/shell/services"
-target = "usr/share/arch/shell/services"
+target = "usr/share/arch/src/shell/services"
 
 [[output]]
 source = "src/shell/shell.qml"
-target = "usr/share/arch/shell/shell.qml"
+target = "usr/share/arch/src/shell/shell.qml"
 
 [[output]]
 source = "src/shell/README.md"
-target = "usr/share/arch/shell/README.md"
+target = "usr/share/arch/src/shell/README.md"
 
 [[output]]
 source = "src/shell/plugins/README.md"
-target = "usr/share/arch/shell/plugins/README.md"
+target = "usr/share/arch/src/shell/plugins/README.md"
 
 [[output]]
 source = "assets/themes"
-target = "usr/share/arch/themes"
+target = "usr/share/arch/assets/themes"

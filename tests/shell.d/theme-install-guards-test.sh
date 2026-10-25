@@ -28,7 +28,7 @@ exit 1
 SH
 
 for command in arch-theme-set arch-notification-send arch-menu-select; do
-  printf '#!/bin/bash\nprintf "%%s\\n" "$*" >>"$ARCH_TEST_THEME_CALLS"\nexit 0\n' >"$mock_src/cli/$command"
+  printf '#!/bin/bash\nprintf "%%s\\n" "$*" >>"$ARCH_TEST_THEME_CALLS"\nexit 0\n' >"$mock_bin/$command"
 done
 
 chmod +x "$mock_bin"/*

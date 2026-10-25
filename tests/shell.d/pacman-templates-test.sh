@@ -103,20 +103,20 @@ finalize_bin=$work/finalize-bin
 mkdir -p "$finalize_bin"
 printf '#!/bin/bash\necho "$PLATFORM"\n' >"$finalize_bin/arch-hw-platform"
 for command in arch-pkg-add pacman-key; do
-  printf '#!/bin/bash\nexit 0\n' >"$finalize_src/cli/$command"
+  printf '#!/bin/bash\nexit 0\n' >"$finalize_bin/$command"
 done
 chmod +x "$finalize_bin"/*
 # Finalization restores the templates through arch-apply-pacman, whose copy
 # here writes into the test's etc rather than the host's.
 finalize_root=$work/finalize-root
-mkdir -p "$finalize_root/bin" "$finalize_root/installer/post-install" "$finalize_root/default"
+mkdir -p "$finalize_root/src/cli" "$finalize_root/installer/post-install" "$finalize_root/default"
 cp -r "$ROOT/installer/helpers" "$finalize_root/installer/"
 cp -r "$ROOT/default/pacman" "$ROOT/default/regions" "$finalize_root/default/"
 cp "$ROOT/installer/post-install/pacman.sh" "$work/finalize.sh"
 target_etc='etc="${2:-/}/etc"'
 grep -Fqx "  $target_etc" "$ROOT/src/cli/arch-apply-pacman" || fail "arch-apply-pacman still names its target etc"
-sed "s|^  $target_etc\$|  etc=\"\${2:-$work}/etc\"|" "$ROOT/src/cli/arch-apply-pacman" >"$finalize_root/bin/arch-apply-pacman"
-chmod +x "$finalize_root/bin/arch-apply-pacman"
+sed "s|^  $target_etc\$|  etc=\"\${2:-$work}/etc\"|" "$ROOT/src/cli/arch-apply-pacman" >"$finalize_root/src/cli/arch-apply-pacman"
+chmod +x "$finalize_root/src/cli/arch-apply-pacman"
 mkdir -p "$work/installer/hardware"
 : >"$work/installer/hardware/pacman.sh"
 
@@ -135,7 +135,7 @@ for platform in $platforms; do
     rm -rf "$work/etc"
     mkdir -p "$work/etc/pacman.d"
     printf 'offline\n' | tee "$work/etc/pacman.conf" >"$work/etc/pacman.d/mirrorlist"
-    ARCH_PATH=$finalize_root ARCH_IMAGE_ROOT=$work ARCH_MIRROR=$channel PLATFORM=$platform ARCH_INSTALL="$work/install" PATH="$finalize_bin:$PATH" \
+    ARCH_PATH=$finalize_root ARCH_IMAGE_ROOT=$work ARCH_MIRROR=$channel PLATFORM=$platform ARCH_INSTALL="$work/installer" PATH="$finalize_bin:$PATH" \
       bash -e -c 'source "$1"' bash "$work/finalize.sh" >/dev/null || fail "$platform finalization on '$channel'"
     cmp -s "$work/etc/pacman.conf" "$templates/pacman-$expected.conf" || fail "$platform '$channel': finalization copies the $expected template"
     cmp -s "$work/etc/pacman.d/mirrorlist" "$templates/mirrorlist-$expected" || fail "$platform '$channel': finalization copies the $expected mirrorlist"

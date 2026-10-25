@@ -16,7 +16,7 @@ theme_name=$(<"$theme_name_path")
 # staged copy behind, so there is nothing left to re-stage from and those staged
 # files are exactly the ones this is here to drop. Seed the default instead,
 # which is where a fresh install starts and what the removal should have left.
-if [[ ! -d $ARCH_PATH/themes/$theme_name && ! -d $HOME/.config/arch/themes/$theme_name ]]; then
+if [[ ! -d $ARCH_PATH/assets/themes/$theme_name && ! -d $HOME/.config/arch/themes/$theme_name ]]; then
   echo "Theme '$theme_name' no longer exists; applying the default instead"
   arch-theme-set "Tokyo Night"
   exit 0

@@ -1,6 +1,6 @@
 # Oman teeman tekeminen
 
-Voit lisätä omia teemojasi kansioon `~/.config/arch/themes`. Kopioi vain yksi olemassa olevista pohjaksi (katso kansiota `/usr/share/arch/themes`) ja viilaa sitten mielesi mukaan. Niin kauan kuin teemasi on kyseisessä kansiossa, se sisältyy teemanvalintavalikkoon.
+Voit lisätä omia teemojasi kansioon `~/.config/arch/themes`. Kopioi vain yksi olemassa olevista pohjaksi (katso kansiota `/usr/share/arch/assets/themes`) ja viilaa sitten mielesi mukaan. Niin kauan kuin teemasi on kyseisessä kansiossa, se sisältyy teemanvalintavalikkoon.
 
 Tärkein viilattava tiedosto on `colors.toml`. Se määrittelee värisarjan, jota käytetään sitten määritysten luomiseen terminaalille (Foot/Alacritty/Ghostty/Kitty), btopille, Chromiumille, Hyprlandille, Neovimille, Helixille, VS Codelle, Obsidianille ja koko Arch-käyttöliittymälle (yläpalkki, valikko, ilmoitukset, OSD ja lukitusruutu).
 

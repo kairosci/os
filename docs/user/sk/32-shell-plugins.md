@@ -4,7 +4,7 @@ Pracovná plocha Arch beží ako jeden dlho žijúci proces Quickshell s názvom
 
 To nie je len detail implementácie. To znamená, že môžeš vypnúť časti pracovnej plochy, vymeniť ich alebo napísať vlastné bez toho, aby si sa dotkol jediného riadka zdrojového kódu Arch.
 
-Pluginy prvej strany sa dodávajú s Arch a žijú v `$ARCH_PATH/shell/plugins/`. Všetko, čo pridáš sám — vlastné experimenty alebo niečo, čo si našiel na GitHube — žije v `~/.config/arch/plugins/`. Oba sa zisťujú rovnakým spôsobom pri spustení, ale zabudované získavajú dôveryhodné rozhrania shellu, zatiaľ čo pluginy tretích strán získavajú obmedzené rozhranie obmedzené na ich vlastnú službu a životný cyklus. Klony zabudovaných si zachovávajú len konfiguráciu špecifickú pre zdroj a volania používateľského rozhrania potrebné pre pôvodné správanie.
+Pluginy prvej strany sa dodávajú s Arch a žijú v `$ARCH_PATH/src/shell/plugins/`. Všetko, čo pridáš sám — vlastné experimenty alebo niečo, čo si našiel na GitHube — žije v `~/.config/arch/plugins/`. Oba sa zisťujú rovnakým spôsobom pri spustení, ale zabudované získavajú dôveryhodné rozhrania shellu, zatiaľ čo pluginy tretích strán získavajú obmedzené rozhranie obmedzené na ich vlastnú službu a životný cyklus. Klony zabudovaných si zachovávajú len konfiguráciu špecifickú pre zdroj a volania používateľského rozhrania potrebné pre pôvodné správanie.
 
 ## Zobrazenie toho, čo máš
 

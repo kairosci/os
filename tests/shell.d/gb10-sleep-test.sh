@@ -55,7 +55,7 @@ cat >"$scratch/bin/arch-toggle" <<'SH'
 printf 'toggle %s\n' "$*" >>"$CALL_LOG"
 SH
 for command in gum btrfs swapon limine-mkinitcpio; do
-  printf '#!/bin/bash\nprintf "%s %%s\\n" "$*" >>"$CALL_LOG"\n' "$command" >"$scratch/src/cli/$command"
+  printf '#!/bin/bash\nprintf "%s %%s\\n" "$*" >>"$CALL_LOG"\n' "$command" >"$scratch/bin/$command"
 done
 chmod +x "$scratch/bin"/*
 

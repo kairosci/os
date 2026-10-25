@@ -4,7 +4,7 @@ Der Arch-Desktop läuft als ein einziger langlebiger Quickshell-Prozess namens `
 
 Das ist nicht nur ein Implementierungsdetail. Es bedeutet, dass du Teile des Desktops ausschalten, austauschen oder eigene schreiben kannst, ohne eine Zeile von Archs Quellcode zu berühren.
 
-Die eigenen Plugins werden mit Arch ausgeliefert und leben in `$ARCH_PATH/shell/plugins/`. Alles, was du selbst hinzufügst — deine eigenen Experimente oder etwas, das du auf GitHub gefunden hast — lebt in `~/.config/arch/plugins/`. Beide werden beim Start auf dieselbe Weise erkannt, aber Eingebaute erhalten vertrauenswürdige Shell-Schnittstellen, während Drittanbieter-Plugins eine begrenzte Schnittstelle erhalten, die auf ihren eigenen Dienst und Lebenszyklus beschränkt ist. Klone von Eingebauten behalten nur die quellenspezifischen Konfigurations- und UI-Aufrufe, die für das ursprüngliche Verhalten nötig sind.
+Die eigenen Plugins werden mit Arch ausgeliefert und leben in `$ARCH_PATH/src/shell/plugins/`. Alles, was du selbst hinzufügst — deine eigenen Experimente oder etwas, das du auf GitHub gefunden hast — lebt in `~/.config/arch/plugins/`. Beide werden beim Start auf dieselbe Weise erkannt, aber Eingebaute erhalten vertrauenswürdige Shell-Schnittstellen, während Drittanbieter-Plugins eine begrenzte Schnittstelle erhalten, die auf ihren eigenen Dienst und Lebenszyklus beschränkt ist. Klone von Eingebauten behalten nur die quellenspezifischen Konfigurations- und UI-Aufrufe, die für das ursprüngliche Verhalten nötig sind.
 
 ## Sehen, was du hast
 

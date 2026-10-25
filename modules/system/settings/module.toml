@@ -10,7 +10,7 @@ target = "usr/share/arch/config"
 
 [[output]]
 source = "assets/applications"
-target = "usr/share/arch/applications"
+target = "usr/share/arch/assets/applications"
 
 [[output]]
 source = "etc"

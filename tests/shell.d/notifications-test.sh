@@ -75,7 +75,7 @@ used=$(
   {
     sed -nE 's/^ipc notifications\.([A-Za-z]+)$/\1/p' "$ROOT/default/arch/shortcuts"
     grep -rhoE 'ipc = "notifications\.[A-Za-z]+"' "$ROOT/default/hypr" | sed -E 's/.*notifications\.([A-Za-z]+)"/\1/'
-    grep -rhoE 'arch-shell( -q)? notifications [A-Za-z]+' "$ROOT/src/cli" "$ROOT/install" "$ROOT/migrations" | awk '{print $NF}'
+    grep -rhoE 'arch-shell( -q)? notifications [A-Za-z]+' "$ROOT/src/cli" "$ROOT/installer" "$ROOT/migrations" | awk '{print $NF}'
   } | sort -u
 )
 missing=$(comm -13 <(echo "$declared") <(echo "$used"))

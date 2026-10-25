@@ -1,6 +1,6 @@
 # Kendi temanızı yapma
 
-`~/.config/arch/themes` içine kendi temalarınızı ekleyebilirsiniz. Var olanlardan birini temel olarak kopyalayın (`/usr/share/arch/themes` içine bakın), ardından gönlünüzce ince ayar yapın. Temanız o klasörün içinde olduğu sürece, tema seçim menüsüne dahil edilecektir.
+`~/.config/arch/themes` içine kendi temalarınızı ekleyebilirsiniz. Var olanlardan birini temel olarak kopyalayın (`/usr/share/arch/assets/themes` içine bakın), ardından gönlünüzce ince ayar yapın. Temanız o klasörün içinde olduğu sürece, tema seçim menüsüne dahil edilecektir.
 
 İnce ayar yapmanız gereken ana dosya `colors.toml` dosyasıdır. Bu, daha sonra terminal (Foot/Alacritty/Ghostty/Kitty), btop, Chromium, Hyprland, Neovim, Helix, VSCode, Obsidian ve Arch kabuğunun tamamı (üst çubuk, menü, bildirimler, OSD ve kilit ekranı) için yapılandırmalar oluşturmak üzere kullanılan renk setini tanımlar.
 

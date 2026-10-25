@@ -38,10 +38,10 @@ printf 'browser_policy_setup_dir() { :; }\nbrowser_policy_setup_firefox_distribu
   >"$arch_path/installer/helpers/browser-policy.sh"
 cp "$ROOT/config/chromium-flags.conf" "$arch_path/config/"
 for command in arch-pkg-add arch-pkg-aur-add arch-pkg-drop arch-install-gaming-gpu-lib32; do
-  printf '#!/bin/bash\nprintf "%%s %%s\\n" "%s" "$*" >>"%s"\n' "$command" "$tmp/calls" >"$stub_src/cli/$command"
+  printf '#!/bin/bash\nprintf "%%s %%s\\n" "%s" "$*" >>"%s"\n' "$command" "$tmp/calls" >"$stub_bin/$command"
 done
 for command in arch-install-chromium-copy-url arch-install-chromium-ytdlp arch-theme-set-browser setsid; do
-  printf '#!/bin/bash\nexit 0\n' >"$stub_src/cli/$command"
+  printf '#!/bin/bash\nexit 0\n' >"$stub_bin/$command"
 done
 chmod +x "$stub_bin"/*
 

@@ -5,8 +5,8 @@
 # its keyrings, as the ISO does on x86; every other aarch64 platform installs
 # Arch Linux ARM's before its repositories replace the offline ones, and trust
 # every installed keyring before the first signed sync.
-source "$ARCH_PATH/install/helpers/pacman.sh"
-source "$ARCH_PATH/install/helpers/image-target.sh"
+source "$ARCH_PATH/installer/helpers/pacman.sh"
+source "$ARCH_PATH/installer/helpers/image-target.sh"
 platform=$(arch-hw-platform)
 templates=$(arch_pacman_templates "$platform")
 alarm_keyring=0
@@ -22,7 +22,7 @@ fi
 # rc on aarch64) gets the platform's default channel instead.
 channel=${ARCH_MIRROR:-}
 [[ -n $channel && -f $templates/pacman-$channel.conf ]] || channel=$(arch_pacman_default_channel "$platform")
-"$ARCH_PATH/bin/arch-apply-pacman" "$channel"
+"$ARCH_PATH/src/cli/arch-apply-pacman" "$channel"
 
 # An image build leaves the keyring to each machine's first boot, so no two
 # share a master key (installer/helpers/image-target.sh).

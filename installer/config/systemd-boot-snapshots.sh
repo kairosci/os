@@ -1,5 +1,5 @@
 if arch-hw-x86 && [[ -f /boot/EFI/systemd/systemd-bootx64.efi ]]; then
-  install -Dm755 "$ARCH_PATH/install/boot/systemd-boot-snapper-plugin.sh" \
+  install -Dm755 "$ARCH_PATH/installer/boot/systemd-boot-snapper-plugin.sh" \
     /usr/lib/snapper/plugins/10-arch-systemd-boot
   systemctl disable --now limine-snapper-sync.service arch-snapshot-entries.path \
     arch-snapshot-entries.service >/dev/null 2>&1 || true

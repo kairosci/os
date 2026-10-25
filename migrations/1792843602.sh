@@ -34,7 +34,7 @@ sudo bootctl --esp-path=/boot install
 sudo systemctl enable systemd-boot-update.service
 
 sudo env ARCH_PATH="$ARCH_PATH" bash -c \
-  'source "$ARCH_PATH/install/config/systemd-boot-snapshots.sh"'
+  'source "$ARCH_PATH/installer/config/systemd-boot-snapshots.sh"'
 
 if ! sudo bootctl --esp-path=/boot list | grep -Fq 'id: os_linux.efi'; then
   echo "systemd-boot does not list the Arch kernel UKI; leaving Limine as the active loader." >&2

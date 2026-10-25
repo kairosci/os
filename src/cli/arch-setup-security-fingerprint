@@ -211,7 +211,7 @@ if (( enroll_status == 0 )); then
     # Editing the stacks up front would leave those machines pointing at
     # pam_fprintd with nothing to match.
     setup_pam_config
-    "$ARCH_PATH/bin/arch-apply-lock"
+    "$ARCH_PATH/src/cli/arch-apply-lock"
     if [[ ! -f /etc/pam.d/arch-lock-fingerprint ]]; then
       echo "Fingerprint enrollment succeeded, but lock-screen configuration could not be confirmed. Run arch-apply-lock and try again." >&2
       exit 1

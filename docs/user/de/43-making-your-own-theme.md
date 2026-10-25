@@ -1,6 +1,6 @@
 # Dein eigenes Design erstellen
 
-Du kannst eigene Designs in `~/.config/arch/themes` hinzufügen. Kopiere einfach eines der vorhandenen als Basis (schau in `/usr/share/arch/themes`) und passe es nach Belieben an. Solange dein Design in diesem Ordner liegt, erscheint es im Menü zur Designauswahl.
+Du kannst eigene Designs in `~/.config/arch/themes` hinzufügen. Kopiere einfach eines der vorhandenen als Basis (schau in `/usr/share/arch/assets/themes`) und passe es nach Belieben an. Solange dein Design in diesem Ordner liegt, erscheint es im Menü zur Designauswahl.
 
 Die Hauptdatei, die du anpassen musst, ist `colors.toml`. Sie definiert den Farbsatz, aus dem dann Konfigurationen für das Terminal (Foot/Alacritty/Ghostty/Kitty), btop, Chromium, Hyprland, Neovim, Helix, VSCode, Obsidian und die gesamte Arch-Shell (Menüleiste, Menü, Benachrichtigungen, OSD und Sperrbildschirm) erzeugt werden.
 

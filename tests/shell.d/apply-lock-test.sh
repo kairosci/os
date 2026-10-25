@@ -11,7 +11,7 @@ root_path_guard=$(awk '
   inside { print }
   inside && /^fi$/ { exit }
 ' "$apply_lock")
-grep -Fx '  export PATH=/usr/share/arch/bin:/usr/local/bin:/usr/bin:/bin' <<<"$root_path_guard" >/dev/null ||
+grep -Fx '  export PATH=/usr/share/arch/src/cli:/usr/local/bin:/usr/bin:/bin' <<<"$root_path_guard" >/dev/null ||
   fail "the root lock helper replaces its inherited command path"
 if grep -E '(\.local/bin|target_user|target_home)' <<<"$root_path_guard" >/dev/null; then
   fail "the root lock helper does not retain a user-controlled command directory"
@@ -127,7 +127,7 @@ prepare_helper() {
         print "if (( 0 )); then"
         next
       }
-      if (line == "  export PATH=/usr/share/arch/bin:/usr/local/bin:/usr/bin:/bin") {
+      if (line == "  export PATH=/usr/share/arch/src/cli:/usr/local/bin:/usr/bin:/bin") {
         print "  export PATH=\"" trusted_root_bin "\""
         next
       }

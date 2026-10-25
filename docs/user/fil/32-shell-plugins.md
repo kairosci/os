@@ -4,7 +4,7 @@ Ang Arch desktop ay tumatakbo bilang isang solong matagalang proseso ng Quickshe
 
 Hindi lang iyon isang detalye ng implementasyon. Ibig sabihin niyon ay maaari mong i-off ang mga piraso ng desktop, palitan ang mga ito, o isulat ang sarili mo nang hindi humahawak ng kahit isang linya ng source ng Arch.
 
-Ang mga first-party plugin ay kasama ng Arch at nakatira sa `$ARCH_PATH/shell/plugins/`. Anumang idaragdag mo mismo — ang sarili mong mga eksperimento, o isang bagay na nakita mo sa GitHub — ay nakatira sa `~/.config/arch/plugins/`. Parehong natutuklasan sa parehong paraan sa pagsisimula, pero tumatanggap ang mga built-in ng mga pinagkakatiwalaang shell interface habang tumatanggap ang mga third-party plugin ng limitadong interface na nakatuon sa sarili nilang serbisyo at lifecycle. Pinapanatili lang ng mga clone ng mga built-in ang source-specific na configuration at mga UI call na kailangan para sa orihinal na pag-uugali.
+Ang mga first-party plugin ay kasama ng Arch at nakatira sa `$ARCH_PATH/src/shell/plugins/`. Anumang idaragdag mo mismo — ang sarili mong mga eksperimento, o isang bagay na nakita mo sa GitHub — ay nakatira sa `~/.config/arch/plugins/`. Parehong natutuklasan sa parehong paraan sa pagsisimula, pero tumatanggap ang mga built-in ng mga pinagkakatiwalaang shell interface habang tumatanggap ang mga third-party plugin ng limitadong interface na nakatuon sa sarili nilang serbisyo at lifecycle. Pinapanatili lang ng mga clone ng mga built-in ang source-specific na configuration at mga UI call na kailangan para sa orihinal na pag-uugali.
 
 ## Pagtingin sa kung ano ang mayroon ka
 

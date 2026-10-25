@@ -24,7 +24,7 @@ from pathlib import Path
 source, target, name = map(Path,sys.argv[1:])
 source_name = Path("src/cli") / name.name if name.parts[0] == "bin" else name
 source_path = source / source_name
-p=target/name
+p=target/source_name
 p.parent.mkdir(parents=True,exist_ok=True)
 s=source_path.read_text().replace('$HOME', '$SUDO_TEST_HOME')
 for command in ['sudo','pkexec','pacman','arch-pkg-missing','systemd-inhibit','setpriv','snapper']:
@@ -36,20 +36,8 @@ if name.name == 'arch-apply-pacman':
  s=s.replace(render_etc, 'etc="${4:-$SUDO_TEST_TARGET}/etc"')
 p.write_text(s)
 p.chmod(source_path.stat().st_mode & 0o777)
-if name.parts[0] == "bin":
- checkout_path = target / source_name
- checkout_path.parent.mkdir(parents=True, exist_ok=True)
- checkout_path.write_text(s)
- checkout_path.chmod(source_path.stat().st_mode & 0o777)
- p.unlink()
- p.symlink_to(Path("../src/cli") / name.name)
-elif name.parts[:2] == ("src", "cli"):
- runtime_path = target / "bin" / name.name
- runtime_path.parent.mkdir(parents=True, exist_ok=True)
- runtime_path.unlink(missing_ok=True)
- runtime_path.symlink_to(Path("../src/cli") / name.name)
-elif name.parts[0] == "installer":
- runtime_path = target / "install" / Path(*name.parts[1:])
+if name.parts[0] == "installer":
+ runtime_path = target / "installer" / Path(*name.parts[1:])
  runtime_path.parent.mkdir(parents=True, exist_ok=True)
  runtime_path.write_text(s)
  runtime_path.chmod(source_path.stat().st_mode & 0o777)
@@ -121,7 +109,7 @@ STUB
 chmod +x "$SUDO_TEST_ROOT/mock/sudo"
 # The updater's own phases call a bare sudo from its fixed PATH. Resolve it to
 # the stand-in so no test can ever reach the host's sudo.
-ln -s ../mock/sudo "$SUDO_TEST_ROOT/src/cli/sudo"
+ln -s ../../mock/sudo "$SUDO_TEST_ROOT/src/cli/sudo"
 
 cat >"$SUDO_TEST_ROOT/src/cli/test-step" <<'STUB'
 #!/bin/bash

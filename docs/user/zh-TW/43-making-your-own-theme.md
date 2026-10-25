@@ -1,6 +1,6 @@
 # 製作你自己的主題
 
-你可以把自己的主題加到 `~/.config/arch/themes`。只要複製一個現有主題作為基礎（到 `/usr/share/arch/themes` 裡找），然後盡情調整即可。只要你的主題在那個資料夾裡，它就會出現在主題選擇選單中。
+你可以把自己的主題加到 `~/.config/arch/themes`。只要複製一個現有主題作為基礎（到 `/usr/share/arch/assets/themes` 裡找），然後盡情調整即可。只要你的主題在那個資料夾裡，它就會出現在主題選擇選單中。
 
 你主要需要調整的檔案是 `colors.toml`。它定義了色彩集合，接著會用來產生終端機（Foot/Alacritty/Ghostty/Kitty）、btop、Chromium、Hyprland、Neovim、Helix、VSCode、Obsidian 以及整個 Arch shell（選單列、選單、通知、OSD 和鎖定畫面）的設定。
 

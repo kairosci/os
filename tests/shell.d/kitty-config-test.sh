@@ -102,7 +102,7 @@ rm "$kitty_config"
 
 # Exercise the real font commands without changing the running desktop.
 for command in pkill arch-restart-shell arch-hook arch-notification-send; do
-  printf '#!/bin/bash\nexit 0\n' >"$test_dir/src/cli/$command"
+  printf '#!/bin/bash\nexit 0\n' >"$test_dir/bin/$command"
 done
 printf '#!/bin/bash\nexit 1\n' >"$test_dir/bin/pgrep"
 printf '#!/bin/bash\nprintf "Test Font\\n"\n' >"$test_dir/bin/fc-list"

@@ -4,7 +4,7 @@ Pulpit Arch działa jako pojedynczy długotrwały proces Quickshell o nazwie `ar
 
 To nie jest tylko szczegół implementacyjny. Oznacza to, że możesz wyłączać fragmenty pulpitu, wymieniać je lub pisać własne bez dotykania ani jednej linii kodu źródłowego Arch.
 
-Wtyczki własne są dostarczane z Arch i żyją w `$ARCH_PATH/shell/plugins/`. Wszystko, co dodasz sam — własne eksperymenty lub coś, co znalazłeś na GitHub — żyje w `~/.config/arch/plugins/`. Oba są wykrywane w ten sam sposób przy uruchomieniu, ale wbudowane otrzymują zaufane interfejsy powłoki, podczas gdy wtyczki stron trzecich otrzymują ograniczony interfejs ograniczony do ich własnej usługi i cyklu życia. Klony wbudowanych zachowują tylko konfigurację specyficzną dla źródła i wywołania interfejsu użytkownika potrzebne do pierwotnego zachowania.
+Wtyczki własne są dostarczane z Arch i żyją w `$ARCH_PATH/src/shell/plugins/`. Wszystko, co dodasz sam — własne eksperymenty lub coś, co znalazłeś na GitHub — żyje w `~/.config/arch/plugins/`. Oba są wykrywane w ten sam sposób przy uruchomieniu, ale wbudowane otrzymują zaufane interfejsy powłoki, podczas gdy wtyczki stron trzecich otrzymują ograniczony interfejs ograniczony do ich własnej usługi i cyklu życia. Klony wbudowanych zachowują tylko konfigurację specyficzną dla źródła i wywołania interfejsu użytkownika potrzebne do pierwotnego zachowania.
 
 ## Zobacz, co masz
 

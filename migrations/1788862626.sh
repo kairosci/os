@@ -1,7 +1,7 @@
 echo "Expose the Elgato Cam Link 4K as a 16:9 virtual camera"
 
 if arch-hw-elgato-camlink-4k; then
-  source "$ARCH_PATH/install/hardware/fix-elgato-camlink-4k.sh"
+  source "$ARCH_PATH/installer/hardware/fix-elgato-camlink-4k.sh"
 
   sudo systemctl daemon-reload
   sudo udevadm control --reload

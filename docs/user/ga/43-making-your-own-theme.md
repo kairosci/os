@@ -1,6 +1,6 @@
 # Do théama féin a dhéanamh
 
-Is féidir leat do théamaí féin a chur le `~/.config/arch/themes`. Ní gá duit ach ceann de na cinn atá ann cheana a chóipeáil mar bhunús (féach in `/usr/share/arch/themes`), ansin athraigh é go do dhíchealltaitneamh. Chomh fada is atá do théama taobh istigh den fhillteán sin, beidh sé san áireamh sa roghchlár roghnaithe téama.
+Is féidir leat do théamaí féin a chur le `~/.config/arch/themes`. Ní gá duit ach ceann de na cinn atá ann cheana a chóipeáil mar bhunús (féach in `/usr/share/arch/assets/themes`), ansin athraigh é go do dhíchealltaitneamh. Chomh fada is atá do théama taobh istigh den fhillteán sin, beidh sé san áireamh sa roghchlár roghnaithe téama.
 
 Is é `colors.toml` an príomhchomhad a chaithfidh tú a athrú. Sainmhíníonn sé sin an tacar dathanna a úsáidtear ansin chun cumraíochtaí a ghiniúint don teirminéal (Foot/Alacritty/Ghostty/Kitty), btop, Chromium, Hyprland, Neovim, Helix, VSCode, Obsidian, agus blaosc iomlán Arch (barra barr, roghchlár, fógraí, OSD, agus scáileán glais).
 

@@ -4,7 +4,7 @@ Le bureau Arch tourne sous forme d'un seul processus Quickshell de longue durée
 
 Ce n'est pas juste un détail d'implémentation. Cela signifie que vous pouvez désactiver des morceaux du bureau, les remplacer, ou écrire les vôtres sans toucher une ligne du code source d'Arch.
 
-Les plugins maison sont livrés avec Arch et vivent dans `$ARCH_PATH/shell/plugins/`. Tout ce que vous ajoutez vous-même — vos propres expériences, ou quelque chose que vous avez trouvé sur GitHub — vit dans `~/.config/arch/plugins/`. Les deux sont découverts de la même façon au démarrage, mais les plugins intégrés reçoivent des interfaces de shell de confiance tandis que les plugins tiers reçoivent une interface limitée, circonscrite à leur propre service et à leur cycle de vie. Les clones des plugins intégrés ne conservent que la configuration propre à la source et les appels d'interface nécessaires au comportement d'origine.
+Les plugins maison sont livrés avec Arch et vivent dans `$ARCH_PATH/src/shell/plugins/`. Tout ce que vous ajoutez vous-même — vos propres expériences, ou quelque chose que vous avez trouvé sur GitHub — vit dans `~/.config/arch/plugins/`. Les deux sont découverts de la même façon au démarrage, mais les plugins intégrés reçoivent des interfaces de shell de confiance tandis que les plugins tiers reçoivent une interface limitée, circonscrite à leur propre service et à leur cycle de vie. Les clones des plugins intégrés ne conservent que la configuration propre à la source et les appels d'interface nécessaires au comportement d'origine.
 
 ## Voir ce que vous avez
 

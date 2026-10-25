@@ -203,7 +203,7 @@ set_kernel() {
   # The root half runs from the packaged copy when there is one, else from the
   # checkout. Root resolves nothing here: pkexec clears the environment.
   local self=/usr/bin/arch-kernel
-  [[ -x $self ]] || self=$ARCH_PATH/bin/arch-kernel
+  [[ -x $self ]] || self=$ARCH_PATH/src/cli/arch-kernel
 
   if [[ -t 0 ]]; then
     sudo "$self" set "$kernel"

@@ -1,6 +1,6 @@
 # Izrada vlastite teme
 
-Vlastite teme možete dodati u `~/.config/arch/themes`. Samo kopirajte jednu od postojećih kao osnovu (potražite u `/usr/share/arch/themes`), a zatim je prilagodite do mile volje. Sve dok je vaša tema unutar te mape, bit će uključena u izbornik za odabir teme.
+Vlastite teme možete dodati u `~/.config/arch/themes`. Samo kopirajte jednu od postojećih kao osnovu (potražite u `/usr/share/arch/assets/themes`), a zatim je prilagodite do mile volje. Sve dok je vaša tema unutar te mape, bit će uključena u izbornik za odabir teme.
 
 Glavna datoteka koju morate prilagoditi je `colors.toml`. Ona definira skup boja koji se zatim koristi za generiranje konfiguracija za terminal (Foot/Alacritty/Ghostty/Kitty), btop, Chromium, Hyprland, Neovim, Helix, VSCode, Obsidian i cijelu Arch ljusku (gornja traka, izbornik, obavijesti, OSD i zaslon za zaključavanje).
 

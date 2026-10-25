@@ -30,7 +30,7 @@ grep -q '^if false; then$' "$apply_hardware" || fail "the test copy of arch-appl
 stub_bin="$test_tmp/stub-bin"
 mkdir -p "$stub_bin"
 for command in sudo pacman pacman-key systemctl lspci arch-pkg-add modinfo; do
-  cat >"$stub_src/cli/$command" <<'SH'
+  cat >"$stub_bin/$command" <<'SH'
 #!/bin/bash
 printf '%s %s\n' "${0##*/}" "$*" >>"$LEAF_CALLS"
 exit 1
@@ -64,26 +64,26 @@ base_path="$test_tmp/hw/bin:$stub_bin:$ROOT/src/cli:/usr/local/bin:/usr/bin:/bin
 # An os tree whose hardware setup is three leaves that log their runs.
 # Leaves a and b write initramfs drop-ins; b then fails while $FAIL_B exists.
 fixture="$test_tmp/arch"
-mkdir -p "$fixture/install/helpers" "$fixture/install/provisioning" "$fixture/install/hardware/apple" "$fixture/bin"
-cp "$ROOT/installer/helpers/logging.sh" "$ROOT/installer/helpers/image-target.sh" "$fixture/install/helpers/"
-cp "$unit_source" "$fixture/install/provisioning/"
-cat >"$fixture/install/hardware/all.sh" <<'SH'
+mkdir -p "$fixture/installer/helpers" "$fixture/installer/provisioning" "$fixture/installer/hardware/apple" "$fixture/src/cli"
+cp "$ROOT/installer/helpers/logging.sh" "$ROOT/installer/helpers/image-target.sh" "$fixture/installer/helpers/"
+cp "$unit_source" "$fixture/installer/provisioning/"
+cat >"$fixture/installer/hardware/all.sh" <<'SH'
 run_logged "$ARCH_INSTALL/hardware/a.sh"
 run_logged "$ARCH_INSTALL/hardware/apple/b.sh"
 run_logged "$ARCH_INSTALL/hardware/c.sh"
 SH
-cat >"$fixture/install/hardware/a.sh" <<'SH'
+cat >"$fixture/installer/hardware/a.sh" <<'SH'
 printf 'a user=%s path=%s\n' "${ARCH_INSTALL_USER-unset}" "$ARCH_PATH" >>"$RUNS"
 mkdir -p "$ARCH_IMAGE_ROOT/etc/mkinitcpio.conf.d"
 echo 'MODULES+=(a)' >"$ARCH_IMAGE_ROOT/etc/mkinitcpio.conf.d/a.conf"
 SH
-cat >"$fixture/install/hardware/apple/b.sh" <<'SH'
+cat >"$fixture/installer/hardware/apple/b.sh" <<'SH'
 mkdir -p "$ARCH_IMAGE_ROOT/etc/mkinitcpio.conf.d"
 echo 'MODULES+=(b)' >"$ARCH_IMAGE_ROOT/etc/mkinitcpio.conf.d/b.conf"
 [[ ! -e $FAIL_B ]] || return 1
 echo b >>"$RUNS"
 SH
-cat >"$fixture/install/hardware/c.sh" <<'SH'
+cat >"$fixture/installer/hardware/c.sh" <<'SH'
 echo c >>"$RUNS"
 [[ ! -e $REQUEST_REBUILD ]] || touch "$ARCH_IMAGE_BOOT_REBUILD"
 SH
@@ -106,7 +106,7 @@ write_manifest() {
 
 build() {
   local root=$1 arch=${2:-$fixture}
-  local install_dir=${3:-$arch/install}
+  local install_dir=${3:-$arch/installer}
   ARCH_IMAGE_ROOT="$root" ARCH_PATH="$arch" ARCH_INSTALL="$install_dir" ARCH_INSTALL_LOG_FILE="$root/var/log/arch-install.log" \
     PATH="$base_path" "$apply_hardware" --defer-provisioning
 }
@@ -132,7 +132,7 @@ reset_logs
 root=$(new_root real)
 write_manifest "$root"
 output=$(build "$root" "$ROOT" "$ROOT/installer") || fail "an image build defers the real hardware setup" "$output"
-expected=$(sed -n 's|^run_logged "\$ARCH_INSTALL/\(hardware/[^"]*\)"$|install/\1|p' "$ROOT/installer/hardware/all.sh")
+expected=$(sed -n 's|^run_logged "\$ARCH_INSTALL/\(hardware/[^"]*\)"$|installer/\1|p' "$ROOT/installer/hardware/all.sh")
 [[ -n $expected && $(queue_of "$root") == "$expected" ]] ||
   fail "an image build queues every hardware leaf in order" "expected:
 $expected
@@ -238,7 +238,7 @@ reset_logs
 root=$(new_root fresh)
 write_manifest "$root"
 build "$root" >/dev/null || fail "the fixture image builds"
-[[ $(queue_of "$root") == $'install/hardware/a.sh\ninstall/hardware/apple/b.sh\ninstall/hardware/c.sh' ]] ||
+[[ $(queue_of "$root") == $'installer/hardware/a.sh\ninstaller/hardware/apple/b.sh\ninstaller/hardware/c.sh' ]] ||
   fail "the fixture image queues its three leaves" "$(queue_of "$root")"
 
 output=$(first_boot "$root") || fail "the first boot finishes the deferred hardware setup" "$output"
@@ -254,7 +254,7 @@ output=$(first_boot "$root") || fail "the first boot finishes the deferred hardw
 [[ $(cat "$REBUILDS") == "mkinitcpio -P" ]] ||
   fail "the first boot rebuilds the initramfs once after a leaf changed it" "$(cat "$REBUILDS" 2>/dev/null)"
 [[ ! -e $root/var/lib/arch/image/initramfs-inputs ]] || fail "the first boot clears the rebuild it owed"
-grep -q 'Completed: .*/install/hardware/c.sh' "$root/var/log/arch-install.log" ||
+grep -q 'Completed: .*/installer/hardware/c.sh' "$root/var/log/arch-install.log" ||
   fail "the first boot logs each step to the install log"
 pass "the first boot runs the deferred hardware setup with no command from the owner"
 
@@ -292,10 +292,10 @@ touch "$FAIL_B"
 status=0
 output=$(first_boot "$root" 2>&1) || status=$?
 (( status == 75 )) || fail "a failed step exits 75, so a platform first boot can tell it from a refusal" "status $status: $output"
-[[ $output == *"Deferred hardware step failed: install/hardware/apple/b.sh"* ]] ||
+[[ $output == *"Deferred hardware step failed: installer/hardware/apple/b.sh"* ]] ||
   fail "the first boot names the failed step" "$output"
 [[ $(cat "$RUNS") == "a user= path=$fixture" ]] || fail "the first boot stops at the failed step" "$(cat "$RUNS")"
-[[ $(queue_of "$root") == $'install/hardware/apple/b.sh\ninstall/hardware/c.sh' ]] ||
+[[ $(queue_of "$root") == $'installer/hardware/apple/b.sh\ninstaller/hardware/c.sh' ]] ||
   fail "the failed step and those after it stay queued" "$(queue_of "$root")"
 [[ -f $root/var/lib/arch/image/target.booted && ! -e $root/var/lib/arch/image/target ]] ||
   fail "the machine stops being an image build once its first boot starts"
@@ -321,7 +321,7 @@ rm -f "$stub_bin/limine-mkinitcpio"
 root=$(new_root rebuild)
 write_manifest "$root"
 build "$root" >/dev/null || fail "the fixture image builds"
-printf '%s\n' install/hardware/apple/b.sh install/hardware/c.sh >"$root/var/lib/arch/image/deferred-steps"
+printf '%s\n' installer/hardware/apple/b.sh installer/hardware/c.sh >"$root/var/lib/arch/image/deferred-steps"
 touch "$FAIL_B"
 first_boot "$root" >/dev/null 2>&1 && fail "the first boot reports the failed step"
 rm -f "$FAIL_B"
@@ -336,15 +336,15 @@ reset_logs
 root=$(new_root cmdline)
 write_manifest "$root"
 build "$root" >/dev/null || fail "the fixture image builds"
-cat >"$fixture/install/hardware/cmdline.sh" <<'SH'
+cat >"$fixture/installer/hardware/cmdline.sh" <<'SH'
 mkdir -p "$ARCH_IMAGE_ROOT/etc/limine-entry-tool.d"
 echo 'KERNEL_CMDLINE[default]+=" example=on"' >"$ARCH_IMAGE_ROOT/etc/limine-entry-tool.d/example.conf"
 SH
-printf '%s\n' install/hardware/cmdline.sh >"$root/var/lib/arch/image/deferred-steps"
+printf '%s\n' installer/hardware/cmdline.sh >"$root/var/lib/arch/image/deferred-steps"
 first_boot "$root" >/dev/null || fail "a step that changes the kernel command line finishes"
 [[ $(cat "$REBUILDS" 2>/dev/null) == "mkinitcpio -P" ]] ||
   fail "a step that only changed Limine's kernel command line gets the rebuild" "$(cat "$REBUILDS" 2>/dev/null)"
-rm -f "$fixture/install/hardware/cmdline.sh"
+rm -f "$fixture/installer/hardware/cmdline.sh"
 pass "a step that only changed Limine's kernel command line gets the rebuild"
 
 # Module options reach the initramfs through mkinitcpio's modconf hook, so a
@@ -353,15 +353,15 @@ reset_logs
 root=$(new_root modprobe)
 write_manifest "$root"
 build "$root" >/dev/null || fail "the fixture image builds"
-cat >"$fixture/install/hardware/modprobe.sh" <<'SH'
+cat >"$fixture/installer/hardware/modprobe.sh" <<'SH'
 mkdir -p "$ARCH_IMAGE_ROOT/etc/modprobe.d"
 echo 'options example flag=1' >"$ARCH_IMAGE_ROOT/etc/modprobe.d/example.conf"
 SH
-printf '%s\n' install/hardware/modprobe.sh >"$root/var/lib/arch/image/deferred-steps"
+printf '%s\n' installer/hardware/modprobe.sh >"$root/var/lib/arch/image/deferred-steps"
 first_boot "$root" >/dev/null || fail "a step that changes module options finishes"
 [[ $(cat "$REBUILDS" 2>/dev/null) == "mkinitcpio -P" ]] ||
   fail "a step that only changed module options gets the rebuild" "$(cat "$REBUILDS" 2>/dev/null)"
-rm -f "$fixture/install/hardware/modprobe.sh"
+rm -f "$fixture/installer/hardware/modprobe.sh"
 pass "a step that only changed module options gets the rebuild"
 
 # --- The pacman keyring -------------------------------------------------------
@@ -370,20 +370,20 @@ pass "a step that only changed module options gets the rebuild"
 # An image build asks for it instead, so every machine flashed from the image
 # makes its own master key on its first boot, before any step installs a package.
 keyring_bin="$test_tmp/keyring-bin"
-mkdir -p "$keyring_bin" "$fixture/install/post-install"
+mkdir -p "$keyring_bin" "$fixture/installer/post-install"
 # Finalization's repositories are pacman-templates-test.sh's; here they land in
 # the root under test, never the host's /etc.
-cp "$ROOT/installer/post-install/pacman.sh" "$fixture/install/post-install/pacman.sh"
-cp "$ROOT/installer/helpers/pacman.sh" "$fixture/install/helpers/pacman.sh"
+cp "$ROOT/installer/post-install/pacman.sh" "$fixture/installer/post-install/pacman.sh"
+cp "$ROOT/installer/helpers/pacman.sh" "$fixture/installer/helpers/pacman.sh"
 target_etc='etc="${2:-/}/etc"'
 grep -Fqx "  $target_etc" "$ROOT/src/cli/arch-apply-pacman" || fail "arch-apply-pacman still names its target etc"
-sed "s|^  $target_etc\$|  etc=\"\${2:-\$ARCH_IMAGE_ROOT}/etc\"|" "$ROOT/src/cli/arch-apply-pacman" >"$fixture/bin/arch-apply-pacman"
-chmod +x "$fixture/bin/arch-apply-pacman"
+sed "s|^  $target_etc\$|  etc=\"\${2:-\$ARCH_IMAGE_ROOT}/etc\"|" "$ROOT/src/cli/arch-apply-pacman" >"$fixture/src/cli/arch-apply-pacman"
+chmod +x "$fixture/src/cli/arch-apply-pacman"
 mkdir -p "$fixture/default"
 cp -r "$ROOT/default/pacman" "$ROOT/default/regions" "$fixture/default/"
-: >"$fixture/install/hardware/pacman.sh"
+: >"$fixture/installer/hardware/pacman.sh"
 for command in pacman-key arch-pkg-add; do
-  cat >"$keyring_src/cli/$command" <<'SH'
+  cat >"$keyring_bin/$command" <<'SH'
 #!/bin/bash
 printf '%s %s\n' "${0##*/}" "$*" >>"$KEYRING"
 [[ ${0##*/} != "pacman-key" || ! -e $KEYRING_FAIL ]]
@@ -396,8 +396,8 @@ request=var/lib/arch/image/pacman-keyring
 
 finalize() {
   mkdir -p "$1/etc/pacman.d"
-  ARCH_IMAGE_ROOT="$1" ARCH_PATH="$fixture" ARCH_INSTALL="$fixture/install" PLATFORM=$2 \
-    PATH="$keyring_bin:$base_path" bash -e -c 'source "$1"' bash "$fixture/install/post-install/pacman.sh"
+  ARCH_IMAGE_ROOT="$1" ARCH_PATH="$fixture" ARCH_INSTALL="$fixture/installer" PLATFORM=$2 \
+    PATH="$keyring_bin:$base_path" bash -e -c 'source "$1"' bash "$fixture/installer/post-install/pacman.sh"
 }
 
 keyring_boot() {
@@ -452,7 +452,7 @@ output=$(KEYRING=$RUNS keyring_boot "$root" 2>&1) || status=$?
 [[ $output == *"could not create the pacman keyring"* ]] || fail "the first boot says the keyring failed" "$output"
 [[ $(cat "$RUNS") == "pacman-key --gpgdir $root/etc/pacman.d/gnupg --init" ]] ||
   fail "no step runs before the keyring exists" "$(cat "$RUNS")"
-[[ -f $root/$request && $(queue_of "$root") == $'install/hardware/a.sh\ninstall/hardware/apple/b.sh\ninstall/hardware/c.sh' ]] ||
+[[ -f $root/$request && $(queue_of "$root") == $'installer/hardware/a.sh\ninstaller/hardware/apple/b.sh\ninstaller/hardware/c.sh' ]] ||
   fail "the keyring request and the whole queue stay for the next boot"
 pass "a keyring that can't be made stays requested and holds back every step"
 
@@ -486,9 +486,9 @@ reset_logs
 root=$(new_root gone)
 write_manifest "$root"
 build "$root" >/dev/null || fail "the fixture image builds"
-printf '%s\n' install/hardware/removed.sh install/hardware/c.sh >"$root/var/lib/arch/image/deferred-steps"
+printf '%s\n' installer/hardware/removed.sh installer/hardware/c.sh >"$root/var/lib/arch/image/deferred-steps"
 output=$(first_boot "$root") || fail "a step no longer shipped does not block the rest" "$output"
-[[ $output == *"Skipping deferred hardware step install/hardware/removed.sh"* && $(cat "$RUNS") == "c" ]] ||
+[[ $output == *"Skipping deferred hardware step installer/hardware/removed.sh"* && $(cat "$RUNS") == "c" ]] ||
   fail "a step no longer shipped is skipped and the rest run" "$output"
 pass "a deferred step os no longer ships is skipped"
 
@@ -499,14 +499,14 @@ reset_logs
 root=$(new_root request)
 write_manifest "$root"
 build "$root" >/dev/null || fail "the fixture image builds"
-printf '%s\n' install/hardware/c.sh >"$root/var/lib/arch/image/deferred-steps"
+printf '%s\n' installer/hardware/c.sh >"$root/var/lib/arch/image/deferred-steps"
 first_boot "$root" >/dev/null || fail "a step that asks for nothing finishes"
 [[ ! -e $REBUILDS ]] || fail "no rebuild without a changed input or a request" "$(cat "$REBUILDS")"
 reset_logs
 root=$(new_root request)
 write_manifest "$root"
 build "$root" >/dev/null || fail "the fixture image builds"
-printf '%s\n' install/hardware/c.sh >"$root/var/lib/arch/image/deferred-steps"
+printf '%s\n' installer/hardware/c.sh >"$root/var/lib/arch/image/deferred-steps"
 touch "$REQUEST_REBUILD"
 first_boot "$root" >/dev/null || fail "a step that asks for the rebuild finishes"
 rm -f "$REQUEST_REBUILD"
@@ -516,7 +516,7 @@ reset_logs
 root=$(new_root request)
 write_manifest "$root"
 build "$root" >/dev/null || fail "the fixture image builds"
-printf '%s\n' install/hardware/c.sh install/hardware/apple/b.sh >"$root/var/lib/arch/image/deferred-steps"
+printf '%s\n' installer/hardware/c.sh installer/hardware/apple/b.sh >"$root/var/lib/arch/image/deferred-steps"
 rm -f "$root/etc/mkinitcpio.conf.d/b.conf"
 touch "$REQUEST_REBUILD" "$FAIL_B"
 first_boot "$root" >/dev/null 2>&1 && fail "the first boot reports the failed step"
@@ -528,12 +528,12 @@ first_boot "$root" >/dev/null || fail "the next boot finishes the deferred hardw
   fail "the requested rebuild runs once after the last step and is then cleared" "$(cat "$REBUILDS" 2>/dev/null)"
 pass "a step can ask for the one rebuild after the last step"
 
-for entry in /etc/passwd install/hardware/../../bin/x.sh install/login/sddm.sh; do
+for entry in /etc/passwd installer/hardware/../../src/cli/x.sh installer/login/sddm.sh; do
   reset_logs
   root=$(new_root unsafe)
   write_manifest "$root"
   build "$root" >/dev/null || fail "the fixture image builds"
-  printf '%s\n' "$entry" install/hardware/c.sh >"$root/var/lib/arch/image/deferred-steps"
+  printf '%s\n' "$entry" installer/hardware/c.sh >"$root/var/lib/arch/image/deferred-steps"
   status=0
   first_boot "$root" >/dev/null 2>&1 || status=$?
   (( status == 1 )) || fail "the first boot refuses the queue entry $entry with status 1, not a step failure's 75" "status $status"
@@ -569,12 +569,12 @@ pass "the first-boot hardware service runs on the queue before owner setup and t
 # was made, so that boot has to start bluetooth.service itself. Nothing else
 # does: an install or a rerun of hardware setup leaves the service as it finds it.
 bt_fixture="$test_tmp/arch-bluetooth"
-mkdir -p "$bt_fixture/install/helpers" "$bt_fixture/install/provisioning" "$bt_fixture/install/hardware"
-cp "$ROOT/installer/helpers/logging.sh" "$ROOT/installer/helpers/image-target.sh" "$bt_fixture/install/helpers/"
-cp "$unit_source" "$bt_fixture/install/provisioning/"
-cp "$ROOT/installer/hardware/bluetooth.sh" "$bt_fixture/install/hardware/"
-cp "$fixture/install/hardware/c.sh" "$bt_fixture/install/hardware/"
-printf 'run_logged "$ARCH_INSTALL/hardware/%s"\n' bluetooth.sh c.sh >"$bt_fixture/install/hardware/all.sh"
+mkdir -p "$bt_fixture/installer/helpers" "$bt_fixture/installer/provisioning" "$bt_fixture/installer/hardware"
+cp "$ROOT/installer/helpers/logging.sh" "$ROOT/installer/helpers/image-target.sh" "$bt_fixture/installer/helpers/"
+cp "$unit_source" "$bt_fixture/installer/provisioning/"
+cp "$ROOT/installer/hardware/bluetooth.sh" "$bt_fixture/installer/hardware/"
+cp "$fixture/installer/hardware/c.sh" "$bt_fixture/installer/hardware/"
+printf 'run_logged "$ARCH_INSTALL/hardware/%s"\n' bluetooth.sh c.sh >"$bt_fixture/installer/hardware/all.sh"
 
 bt_bin="$test_tmp/bt-bin"
 mkdir -p "$bt_bin"

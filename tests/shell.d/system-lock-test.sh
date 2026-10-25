@@ -12,7 +12,7 @@ call_log="$tmpdir/calls"
 mkdir -p "$mock_bin"
 
 for command in arch-shell hyprctl pkill timeout; do
-  cat >"$mock_src/cli/$command" <<'SH'
+  cat >"$mock_bin/$command" <<'SH'
 #!/bin/bash
 printf '%s %s\n' "$(basename "$0")" "$*" >>"$CALL_LOG"
 SH

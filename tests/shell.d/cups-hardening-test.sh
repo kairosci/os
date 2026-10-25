@@ -119,7 +119,7 @@ cat >"$mock_bin/arch-pkg-present" <<'SH'
 [[ $1 == "cups" || $1 == "cups-browsed" ]]
 SH
 for command in arch-pkg-add arch-pkg-drop; do
-  cat >"$mock_src/cli/$command" <<'SH'
+  cat >"$mock_bin/$command" <<'SH'
 #!/bin/bash
 printf '%s\t%s\n' "${0##*/}" "$*" >>"$ARCH_CUPS_TEST_LOG"
 SH

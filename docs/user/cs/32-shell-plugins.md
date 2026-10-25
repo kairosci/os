@@ -4,7 +4,7 @@ Pracovní prostředí Arch běží jako jeden dlouhodobě běžící proces Quic
 
 To není jen implementační detail. Znamená to, že můžete části pracovního prostředí vypínat, vyměňovat je nebo psát své vlastní, aniž byste se dotkli jediného řádku zdrojového kódu Arch.
 
-Zásuvné moduly první strany jsou dodávány s Arch a žijí v adresáři `$ARCH_PATH/shell/plugins/`. Cokoli, co sami přidáte — vlastní experimenty, nebo něco, co jste našli na GitHubu — žije v adresáři `~/.config/arch/plugins/`. Oboje se při spuštění zjišťuje stejným způsobem, ale integrované zásuvné moduly dostávají důvěryhodná rozhraní shellu, zatímco zásuvné moduly třetích stran dostávají omezené rozhraní vymezené pro jejich vlastní službu a životní cyklus. Klonům integrovaných modulů zůstává pouze konfigurace specifická pro zdroj a volání uživatelského rozhraní potřebná pro původní chování.
+Zásuvné moduly první strany jsou dodávány s Arch a žijí v adresáři `$ARCH_PATH/src/shell/plugins/`. Cokoli, co sami přidáte — vlastní experimenty, nebo něco, co jste našli na GitHubu — žije v adresáři `~/.config/arch/plugins/`. Oboje se při spuštění zjišťuje stejným způsobem, ale integrované zásuvné moduly dostávají důvěryhodná rozhraní shellu, zatímco zásuvné moduly třetích stran dostávají omezené rozhraní vymezené pro jejich vlastní službu a životní cyklus. Klonům integrovaných modulů zůstává pouze konfigurace specifická pro zdroj a volání uživatelského rozhraní potřebná pro původní chování.
 
 ## Zobrazení toho, co máte
 

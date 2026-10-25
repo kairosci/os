@@ -178,7 +178,7 @@ target_uid=$(id -u "$target_user")
 target_runtime_dir="/run/user/$target_uid"
 # User-local commands are needed only after dropping to the target user. Never
 # expose their search path to commands run through as_root.
-root_path=/usr/share/arch/bin:/usr/local/bin:/usr/bin:/bin
+root_path=/usr/share/arch/src/cli:/usr/local/bin:/usr/bin:/bin
 package_path="$root_path:$target_home/.local/bin"
 
 as_root() {
@@ -687,7 +687,7 @@ verify_kernel_cmdline_root() {
 }
 
 configure_snapper_policy() {
-  local snapper_config_script=/usr/share/arch/install/config/snapper.sh
+  local snapper_config_script=/usr/share/arch/installer/config/snapper.sh
 
   if ! as_root test -f "$snapper_config_script"; then
     warn "$snapper_config_script is unavailable; Snapper snapshot retention was not normalized."
@@ -702,14 +702,14 @@ configure_lock_authentication() {
   # The upgrade runs against whatever the channel currently ships, which can
   # still predate the rename of arch-setup-lock to arch-apply-lock.
   local apply_lock="" candidate
-  for candidate in /usr/share/arch/bin/arch-{apply,setup}-lock; do
+  for candidate in /usr/share/arch/src/cli/arch-{apply,setup}-lock; do
     if [[ -x $candidate ]]; then
       apply_lock=$candidate
       break
     fi
   done
 
-  [[ -n $apply_lock ]] || fail "Neither arch-apply-lock nor arch-setup-lock is available under /usr/share/arch/bin; lock screen authentication could not be configured."
+  [[ -n $apply_lock ]] || fail "Neither arch-apply-lock nor arch-setup-lock is available under /usr/share/arch/src/cli; lock screen authentication could not be configured."
 
   log "Configuring lock screen authentication"
   as_root env \
@@ -1087,7 +1087,7 @@ CLEANUP_HOOK
 }
 
 # Existing terminals still have ARCH_PATH=$HOME/.local/share/arch and
-# often have $ARCH_PATH/bin early in PATH. Make that stale path resolve to
+# often have $ARCH_PATH/src/cli early in PATH. Make that stale path resolve to
 # the package-backed tree for the rest of the live session, while backing up
 # the old git checkout for inspection/rollback. If the live Hyprland session is
 # still using legacy ~/.config/hypr/*.conf files, keep those user files in place
@@ -1343,7 +1343,7 @@ apply_firewall_defaults() {
   # copy this replaces had drifted: it never installed the ufw-docker rules, so
   # upgraded machines came up without the Docker firewall protections a fresh
   # install gets.
-  local firewall_script=/usr/share/arch/install/config/firewall.sh
+  local firewall_script=/usr/share/arch/installer/config/firewall.sh
 
   if ! command -v ufw >/dev/null 2>&1; then
     warn "ufw is not installed; skipping firewall defaults."
@@ -1392,13 +1392,13 @@ apply_system_transition() {
     /usr/share/icons/Yaru/scalable/actions/go-next-symbolic.svg
   as_root gtk-update-icon-cache /usr/share/icons/Yaru >/dev/null 2>&1 || true
 
-  local browser_policy_helper=/usr/share/arch/install/helpers/browser-policy.sh
+  local browser_policy_helper=/usr/share/arch/installer/helpers/browser-policy.sh
   if ! as_root test -f "$browser_policy_helper"; then
     warn "$browser_policy_helper is unavailable; Chromium policy directories were not hardened."
   else
     as_root env ARCH_PATH=/usr/share/arch \
       bash -euo pipefail -c '
-        source "$ARCH_PATH/install/helpers/browser-policy.sh"
+        source "$ARCH_PATH/installer/helpers/browser-policy.sh"
         browser_policy_setup_dir /etc/chromium/policies/managed
         for dir in "${BROWSER_POLICY_MANAGED_DIRS[@]}"; do
           [[ $dir == "/etc/chromium/policies/managed" ]] && continue
@@ -1989,7 +1989,7 @@ repair_chromium_copy_url_extension_flags
 
 # Carry over user-added backgrounds from the legacy git checkout backup, then
 # remove old symlinks that pointed ~/.config/arch/themes/* back into the
-# pre-quattro checkout. os quattro reads stock themes from /usr/share/arch/themes.
+# pre-quattro checkout. os quattro reads stock themes from /usr/share/arch/assets/themes.
 legacy_arch_backup="$HOME/.local/share/arch.arch-upgrade-to-quattro.$BACKUP_SUFFIX.bak"
 if [[ -d $legacy_arch_backup/themes && -d $legacy_arch_backup/.git ]]; then
   (

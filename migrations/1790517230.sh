@@ -38,7 +38,7 @@ fi
 efi_labels=$(efibootmgr | cut -f1)
 
 if [[ ! -f $limine_config_dir/zz-arch-dgx-spark.conf ]]; then
-  sudo bash "$ARCH_PATH/install/hardware/nvidia/dgx-spark-boot.sh"
+  sudo bash "$ARCH_PATH/installer/hardware/nvidia/dgx-spark-boot.sh"
 fi
 
 if ! grep -Fxqs 'ENABLE_UKI=no' "$limine_config_dir/zz-arch-dgx-spark.conf"; then

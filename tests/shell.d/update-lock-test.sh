@@ -296,7 +296,7 @@ printf "%s %s\n" "$pid" "$(awk '\''{ print $22 }'\'' /proc/$pid/stat)" >"$state/
 printf "%s:1:1\n" "$$" >"$state/idle-owner"
 /usr/bin/cp "$state/idle-owner" "$SUDO_TEST_HOME/.local/state/arch/indicators/stay-awake"'
 write_stub arch-update-system-pkgs '
-/usr/bin/cp "$INHIBITOR_AFTER_UPGRADE" "$ARCH_PATH/bin/arch-update-stay-awake"'
+/usr/bin/cp "$INHIBITOR_AFTER_UPGRADE" "$ARCH_PATH/src/cli/arch-update-stay-awake"'
 write_stub arch-update-restart '
 if [[ $1 == "--reboot-only" ]]; then
   [[ ! -e $SUDO_TEST_HOME/.local/state/arch/indicators/stay-awake ]] || exit 91

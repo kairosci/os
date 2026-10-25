@@ -9,7 +9,7 @@ run_setup() (
   installed=$1
   failure=${2:-}
   export ARCH_IMAGE_DEFERRED_HARDWARE=${3:-}
-  export ARCH_INSTALL="$ROOT/install"
+  export ARCH_INSTALL="$ROOT/installer"
   arch-pkg-present() { [[ " $installed " == *" $1 "* ]]; }
   nvidia-ctk() {
     echo "nvidia-ctk $*" >> "$calls"

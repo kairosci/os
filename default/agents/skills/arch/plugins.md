@@ -59,7 +59,7 @@ Item {
 
 - A string missing from the current language falls back to its base language (`pt-BR` to `pt`), then to `en.json`, then to the key, so a plugin can ship English alone and add languages one file at a time.
 - Keep each string whole with `%1` placeholders filled by `.arg()`; never glue translated fragments into a sentence, since other languages reorder words.
-- A string that counts something is a plural entry, an object keyed by CLDR category, read with `strings.tn(key, count)`. English needs `one` and `other`; each translation supplies the categories its language uses (Russian `one`, `few`, `many`, `other`; Arabic six; Japanese only `other`; the rules are in `$ARCH_PATH/shell/Commons/Plural.js`).
+- A string that counts something is a plural entry, an object keyed by CLDR category, read with `strings.tn(key, count)`. English needs `one` and `other`; each translation supplies the categories its language uses (Russian `one`, `few`, `many`, `other`; Arabic six; Japanese only `other`; the rules are in `$ARCH_PATH/src/shell/Commons/Plural.js`).
 - Write displayed numbers with `Commons.I18n.formatNumber(value, decimals)` so they take the language's decimal separator and digits (`13,1` in Danish).
 - Arabic, Hebrew, Persian, and Urdu mirror the layout. A plugin built on `KeyboardPanel` or `PopupCard` is mirrored for free; anything it positions by explicit `x` should follow `LayoutMirroring.enabled`, glyphs that mean back or forward should swap with `Commons.I18n.rightToLeft`, and Left/Right keys should go through `Util.readingKey(event)`.
 - Keep calls to `strings.t(...)` inside bindings so a language switch re-renders them. Text built once when something happens keeps the old language until it is rebuilt.
@@ -87,7 +87,7 @@ edges. Put a widget beside the clock in `centerBegin` or `centerEnd`, not in
 
 ## Customizing Built-In Plugins and Widgets
 
-To customize a built-in bar widget, never edit `$ARCH_PATH/shell/plugins/`.
+To customize a built-in bar widget, never edit `$ARCH_PATH/src/shell/plugins/`.
 Clone it into the user plugin directory instead:
 
 ```bash

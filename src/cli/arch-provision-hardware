@@ -25,11 +25,11 @@ fail() {
 
 if (( EUID == 0 )); then
   export ARCH_PATH=/usr/share/arch
-  export PATH=/usr/share/arch/bin:/usr/local/sbin:/usr/local/bin:/usr/bin
+  export PATH=/usr/share/arch/src/cli:/usr/local/sbin:/usr/local/bin:/usr/bin
 elif [[ -z ${ARCH_IMAGE_ROOT:-} || -z ${ARCH_PATH:-} ]]; then
   fail "arch-provision-hardware must run as root"
 fi
-export ARCH_INSTALL=$ARCH_PATH/install
+export ARCH_INSTALL=$ARCH_PATH/installer
 export ARCH_INSTALL_USER=""
 
 source "$ARCH_INSTALL/helpers/logging.sh"
@@ -120,7 +120,7 @@ fi
 
 while (( ${#remaining[@]} )); do
   step=${remaining[0]}
-  [[ $step == install/hardware/*.sh && $step != *..* ]] || fail "Deferred step is not a hardware setup step: $step"
+  [[ $step == installer/hardware/*.sh && $step != *..* ]] || fail "Deferred step is not a hardware setup step: $step"
   script=$ARCH_PATH/$step
 
   if [[ -L $script ]]; then

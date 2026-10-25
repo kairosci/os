@@ -1,9 +1,9 @@
 echo "Normalize Snapper snapshot services"
 
 ARCH_PATH="${ARCH_PATH:-/usr/share/arch}"
-snapper_config_script=/usr/share/arch/install/config/snapper.sh
+snapper_config_script=/usr/share/arch/installer/config/snapper.sh
 if [[ ! -f $snapper_config_script ]]; then
-  snapper_config_script="$ARCH_PATH/install/config/snapper.sh"
+  snapper_config_script="$ARCH_PATH/installer/config/snapper.sh"
 fi
 
 as_root() {

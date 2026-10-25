@@ -33,7 +33,7 @@ esac
 # has no list of its own.
 files=()
 for list in "${lists[@]}"; do
-  file="$ARCH_PATH/install/arch-$list.packages"
+  file="$ARCH_PATH/installer/arch-$list.packages"
   if [[ $list == "base" || -f $file ]]; then
     files+=("$file")
   fi
@@ -48,7 +48,7 @@ names() {
 if [[ $platform == "x86" ]]; then
   names "${files[@]}" | awk '!seen[$0]++'
 else
-  names "${files[@]}" | awk -v skips=<(names "$ARCH_PATH/install/arch-x86_64-only.packages") '
+  names "${files[@]}" | awk -v skips=<(names "$ARCH_PATH/installer/arch-x86_64-only.packages") '
     BEGIN { while ((getline name < skips) > 0) skip[name] = 1 }
     !skip[$0] && !seen[$0]++'
 fi

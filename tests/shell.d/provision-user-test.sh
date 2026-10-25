@@ -11,12 +11,12 @@ mock_bin="$test_tmp/bin"
 mkdir -p "$mock_bin" "$test_tmp/home" "$test_tmp/home/.hermes/profiles/james"
 
 for command in xdg-user-dirs-update xdg-settings xdg-mime; do
-  printf '#!/bin/bash\nprintf "%%s %%s\\n" "${0##*/}" "$*" >>"$TEST_COMMAND_LOG"\n' >"$mock_src/cli/$command"
+  printf '#!/bin/bash\nprintf "%%s %%s\\n" "${0##*/}" "$*" >>"$TEST_COMMAND_LOG"\n' >"$mock_bin/$command"
 done
 export TEST_COMMAND_LOG=$test_tmp/commands.log
 chmod +x "$mock_bin"/*
 
-# Provisioning prepends $ARCH_PATH/bin, which shadows a mock for anything
+# Provisioning prepends $ARCH_PATH/src/cli, which shadows a mock for anything
 # os ships, so the install suite is stubbed out at its path instead. The
 # real one rethemes the session it runs in: hyprctl reload against the live
 # compositor, gsettings against the live desktop, and a global Node install.

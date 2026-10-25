@@ -4,7 +4,7 @@ Màn hình nền Arch chạy như một tiến trình Quickshell có tuổi th�
 
 Đó không chỉ là một chi tiết triển khai. Nó có nghĩa là bạn có thể tắt các phần của màn hình nền, hoán đổi chúng, hoặc viết cái của riêng bạn mà không cần đụng vào một dòng mã nguồn nào của Arch.
 
-Các plugin chính thức đi kèm Arch và nằm trong `$ARCH_PATH/shell/plugins/`. Bất cứ thứ gì bạn tự thêm — các thí nghiệm của riêng bạn, hoặc thứ gì đó bạn tìm thấy trên GitHub — nằm trong `~/.config/arch/plugins/`. Cả hai đều được khám phá theo cùng một cách khi khởi động, nhưng các plugin tích hợp sẵn nhận các giao diện shell đáng tin cậy trong khi các plugin của bên thứ ba nhận một giao diện giới hạn trong phạm vi dịch vụ và vòng đời của chính chúng. Các bản sao của plugin tích hợp sẵn chỉ giữ lại cấu hình dành riêng cho nguồn và các lệnh gọi giao diện người dùng cần thiết cho hành vi gốc.
+Các plugin chính thức đi kèm Arch và nằm trong `$ARCH_PATH/src/shell/plugins/`. Bất cứ thứ gì bạn tự thêm — các thí nghiệm của riêng bạn, hoặc thứ gì đó bạn tìm thấy trên GitHub — nằm trong `~/.config/arch/plugins/`. Cả hai đều được khám phá theo cùng một cách khi khởi động, nhưng các plugin tích hợp sẵn nhận các giao diện shell đáng tin cậy trong khi các plugin của bên thứ ba nhận một giao diện giới hạn trong phạm vi dịch vụ và vòng đời của chính chúng. Các bản sao của plugin tích hợp sẵn chỉ giữ lại cấu hình dành riêng cho nguồn và các lệnh gọi giao diện người dùng cần thiết cho hành vi gốc.
 
 ## Xem những gì bạn có
 

@@ -1,6 +1,6 @@
 # Saját téma készítése
 
-Saját témákat adhatsz hozzá a `~/.config/arch/themes` mappához. Csak másolj le egyet a meglévők közül alapnak (nézz körül a `/usr/share/arch/themes` mappában), majd hangold kedvedre. Amíg a témád abban a mappában van, benne lesz a témaválasztó menüben.
+Saját témákat adhatsz hozzá a `~/.config/arch/themes` mappához. Csak másolj le egyet a meglévők közül alapnak (nézz körül a `/usr/share/arch/assets/themes` mappában), majd hangold kedvedre. Amíg a témád abban a mappában van, benne lesz a témaválasztó menüben.
 
 A fő fájl, amelyet hangolnod kell, a `colors.toml`. Ez határozza meg azt a színkészletet, amelyet azután a terminál (Foot/Alacritty/Ghostty/Kitty), a btop, a Chromium, a Hyprland, a Neovim, a Helix, a VSCode, az Obsidian és a teljes Arch shell (felső sáv, menü, értesítések, OSD és zárolási képernyő) konfigurációinak előállításához használnak.
 

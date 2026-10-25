@@ -1,6 +1,6 @@
 # Vytvoření vlastního motivu
 
-Vlastní motivy můžete přidat do složky `~/.config/arch/themes`. Stačí zkopírovat jeden ze stávajících jako základ (podívejte se do složky `/usr/share/arch/themes`) a poté ho upravit podle svých představ. Pokud je váš motiv v této složce, objeví se v nabídce výběru motivu.
+Vlastní motivy můžete přidat do složky `~/.config/arch/themes`. Stačí zkopírovat jeden ze stávajících jako základ (podívejte se do složky `/usr/share/arch/assets/themes`) a poté ho upravit podle svých představ. Pokud je váš motiv v této složce, objeví se v nabídce výběru motivu.
 
 Hlavní soubor, který musíte upravit, je `colors.toml`. Definuje sadu barev, která se poté používá k vytváření konfigurací pro terminál (Foot/Alacritty/Ghostty/Kitty), btop, Chromium, Hyprland, Neovim, Helix, VSCode, Obsidian a celý shell Arch (horní panel, nabídku, oznámení, OSD a zamykací obrazovku).
 

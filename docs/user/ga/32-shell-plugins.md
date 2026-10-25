@@ -4,7 +4,7 @@ Ritheann deasc Arch mar phróiseas Quickshell fadó amháin ar a dtugtar `arch-s
 
 Ní mionsonra cur chun feidhme amháin é sin. Ciallaíonn sé gur féidir leat píosaí den deasc a mhúchadh, iad a mhalartú amach, nó do chuid féin a scríobh gan líne de fhoinse Arch a theagmháil.
 
-Tagann na forlíontáin chéadpháirtí le Arch agus cónaíonn siad in `$ARCH_PATH/shell/plugins/`. Cónaíonn aon rud a chuireann tú leat féin — do thurgnaimh féin, nó rud éigin a fuair tú ar GitHub — in `~/.config/arch/plugins/`. Aimsítear an dá cheann ar an mbealach céanna ag am tosaithe, ach faigheann na cinn ionsuite comhéadain iontaofa blaoisce agus faigheann forlíontáin tríú páirtí comhéadan teoranta atá dírithe ar a seirbhís agus saolré féin. Coinníonn clóna ionsuite ach an chumraíocht shonrach don fhoinse agus glaonna UI atá ag teastáil don iompar bunaidh.
+Tagann na forlíontáin chéadpháirtí le Arch agus cónaíonn siad in `$ARCH_PATH/src/shell/plugins/`. Cónaíonn aon rud a chuireann tú leat féin — do thurgnaimh féin, nó rud éigin a fuair tú ar GitHub — in `~/.config/arch/plugins/`. Aimsítear an dá cheann ar an mbealach céanna ag am tosaithe, ach faigheann na cinn ionsuite comhéadain iontaofa blaoisce agus faigheann forlíontáin tríú páirtí comhéadan teoranta atá dírithe ar a seirbhís agus saolré féin. Coinníonn clóna ionsuite ach an chumraíocht shonrach don fhoinse agus glaonna UI atá ag teastáil don iompar bunaidh.
 
 ## Féachaint ar a bhfuil agat
 

@@ -9,7 +9,7 @@ set -e
 # Install and upgrade callers can start this helper as root. Ignore their PATH
 # so optional commands never fall through to a user-writable directory.
 if (( EUID == 0 )); then
-  export PATH=/usr/share/arch/bin:/usr/local/bin:/usr/bin:/bin
+  export PATH=/usr/share/arch/src/cli:/usr/local/bin:/usr/bin:/bin
 fi
 
 target_user=${ARCH_INSTALL_USER:-${SUDO_USER:-}}

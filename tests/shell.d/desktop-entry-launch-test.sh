@@ -23,7 +23,7 @@ printf 'font:%s\n' "$*" >>"$ARCH_TEST_LOG"
 SH
 
 for command in arch-pkg-aur-add arch-install-emacs omazed arch-theme-set-vscode arch-install-gaming-gpu-lib32 arch-lifecycle-dispatch; do
-  cat >"$mock_src/cli/$command" <<'SH'
+  cat >"$mock_bin/$command" <<'SH'
 #!/bin/bash
 exit 0
 SH

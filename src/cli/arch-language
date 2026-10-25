@@ -72,7 +72,7 @@ session_env=${XDG_CONFIG_HOME:-$HOME/.config}/uwsm/env.d/50-arch-language
 # checkout; without the package (a bare dev checkout) the checkout's own copy
 # runs, behind a password prompt.
 generator=/usr/bin/arch-locale-generate
-[[ -x $generator ]] || generator=$ARCH_PATH/bin/arch-locale-generate
+[[ -x $generator ]] || generator=$ARCH_PATH/src/cli/arch-locale-generate
 
 # True when sudo would run the helper for this code without a password. `sudo
 # -l` alone only says a command is permitted, which the blanket %wheel rule

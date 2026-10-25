@@ -1,6 +1,6 @@
 # 独自のテーマを作る
 
-独自のテーマは`~/.config/arch/themes`に追加できます。既存のものをベースとしてコピーし（`/usr/share/arch/themes`を見てください）、思う存分調整してください。テーマがそのフォルダの中にある限り、テーマ選択メニューに含まれます。
+独自のテーマは`~/.config/arch/themes`に追加できます。既存のものをベースとしてコピーし（`/usr/share/arch/assets/themes`を見てください）、思う存分調整してください。テーマがそのフォルダの中にある限り、テーマ選択メニューに含まれます。
 
 調整しなければならない主要なファイルは`colors.toml`です。これが色のセットを定義し、それを使ってターミナル（Foot/Alacritty/Ghostty/Kitty）、btop、Chromium、Hyprland、Neovim、Helix、VSCode、Obsidian、そしてArchシェル全体（トップバー、メニュー、通知、OSD、ロック画面）の設定が生成されます。
 

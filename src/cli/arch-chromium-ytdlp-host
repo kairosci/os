@@ -13,7 +13,7 @@ SCRIPT_PATH="${BASH_SOURCE[0]}"
 export ARCH_PATH="${ARCH_PATH:-$(cd -- "$(dirname -- "$SCRIPT_PATH")/.." && pwd)}"
 
 # Make sure the os bin and yt-dlp are reachable when launched by the browser.
-export PATH="$ARCH_PATH/bin:/usr/local/bin:/usr/bin:$PATH"
+export PATH="$ARCH_PATH/src/cli:/usr/local/bin:/usr/bin:$PATH"
 
 DOWNLOAD_DIR="${ARCH_YTDLP_DIR:-$HOME/Videos}"
 

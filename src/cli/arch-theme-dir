@@ -14,5 +14,5 @@ fi
 if [[ -d $HOME/.config/arch/themes/$theme ]]; then
   echo "$HOME/.config/arch/themes/$theme"
 else
-  echo "$ARCH_PATH/themes/$theme"
+  echo "$ARCH_PATH/assets/themes/$theme"
 fi

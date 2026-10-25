@@ -4,7 +4,7 @@ Desktop Arch berjalan sebagai satu proses Quickshell yang berumur panjang yang d
 
 Itu bukan hanya detail implementasi. Ini berarti kamu dapat mematikan bagian desktop, menukarnya, atau menulis milikmu sendiri tanpa menyentuh satu baris pun kode sumber Arch.
 
-Plugin pihak pertama disertakan dengan Arch dan berada di `$ARCH_PATH/shell/plugins/`. Apa pun yang kamu tambahkan sendiri — eksperimenmu sendiri, atau sesuatu yang kamu temukan di GitHub — berada di `~/.config/arch/plugins/`. Keduanya ditemukan dengan cara yang sama saat startup, tetapi built-in menerima antarmuka shell tepercaya sementara plugin pihak ketiga menerima antarmuka terbatas yang dicakup ke layanan dan siklus hidup mereka sendiri. Klon dari built-in hanya mempertahankan konfigurasi spesifik sumber dan panggilan UI yang dibutuhkan untuk perilaku asli.
+Plugin pihak pertama disertakan dengan Arch dan berada di `$ARCH_PATH/src/shell/plugins/`. Apa pun yang kamu tambahkan sendiri — eksperimenmu sendiri, atau sesuatu yang kamu temukan di GitHub — berada di `~/.config/arch/plugins/`. Keduanya ditemukan dengan cara yang sama saat startup, tetapi built-in menerima antarmuka shell tepercaya sementara plugin pihak ketiga menerima antarmuka terbatas yang dicakup ke layanan dan siklus hidup mereka sendiri. Klon dari built-in hanya mempertahankan konfigurasi spesifik sumber dan panggilan UI yang dibutuhkan untuk perilaku asli.
 
 ## Melihat apa yang kamu miliki
 

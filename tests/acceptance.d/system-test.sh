@@ -8,7 +8,7 @@ status=0
 
 verify_core_packages() {
   local package
-  local manifest="$ARCH_PATH/install/arch-base.packages"
+  local manifest="$ARCH_PATH/installer/arch-base.packages"
   local -a missing=()
 
   # Without this, a missing manifest reads as an empty package list and the

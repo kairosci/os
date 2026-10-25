@@ -1,6 +1,6 @@
 # Savo temos kūrimas
 
-Gali pridėti savo temas į `~/.config/arch/themes`. Tiesiog nukopijuok vieną iš esamų kaip pagrindą (žiūrėk į `/usr/share/arch/themes`), tada tobulink iki soties. Kol tavo tema yra tame aplanke, ji bus įtraukta į temų pasirinkimo meniu.
+Gali pridėti savo temas į `~/.config/arch/themes`. Tiesiog nukopijuok vieną iš esamų kaip pagrindą (žiūrėk į `/usr/share/arch/assets/themes`), tada tobulink iki soties. Kol tavo tema yra tame aplanke, ji bus įtraukta į temų pasirinkimo meniu.
 
 Pagrindinis failas, kurį turi koreguoti, yra `colors.toml`. Jis apibrėžia spalvų rinkinį, iš kurio tada generuojamos konfigūracijos terminalui (Foot/Alacritty/Ghostty/Kitty), btop, Chromium, Hyprland, Neovim, Helix, VSCode, Obsidian ir visam Arch apvalkalui (viršutinei juostai, meniu, pranešimams, OSD ir užrakinimo ekranui).
 

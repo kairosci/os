@@ -4,7 +4,7 @@ El escritorio de Arch se ejecuta como un solo proceso Quickshell de larga vida l
 
 Eso no es solo un detalle de implementación. Significa que puedes apagar partes del escritorio, intercambiarlas o escribir las tuyas sin tocar una línea del código fuente de Arch.
 
-Los plugins oficiales vienen con Arch y viven en `$ARCH_PATH/shell/plugins/`. Todo lo que agregues tú —tus propios experimentos, o algo que encontraste en GitHub— vive en `~/.config/arch/plugins/`. Ambos se descubren de la misma forma al iniciar, pero los integrados reciben interfaces de shell de confianza mientras que los plugins de terceros reciben una interfaz limitada y acotada a su propio servicio y ciclo de vida. Los clones de los integrados conservan solo la configuración específica de la fuente y las llamadas de interfaz necesarias para el comportamiento original.
+Los plugins oficiales vienen con Arch y viven en `$ARCH_PATH/src/shell/plugins/`. Todo lo que agregues tú —tus propios experimentos, o algo que encontraste en GitHub— vive en `~/.config/arch/plugins/`. Ambos se descubren de la misma forma al iniciar, pero los integrados reciben interfaces de shell de confianza mientras que los plugins de terceros reciben una interfaz limitada y acotada a su propio servicio y ciclo de vida. Los clones de los integrados conservan solo la configuración específica de la fuente y las llamadas de interfaz necesarias para el comportamiento original.
 
 ## Ver lo que tienes
 

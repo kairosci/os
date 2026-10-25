@@ -4,7 +4,7 @@ Het Arch-bureaublad draait als één langlevend Quickshell-proces genaamd `arch-
 
 Dat is niet alleen een implementatiedetail. Het betekent dat je delen van het bureaublad kunt uitschakelen, ze kunt vervangen, of je eigen kunt schrijven zonder een regel van Arch's broncode aan te raken.
 
-De first-party plugins worden met Arch geleverd en leven in `$ARCH_PATH/shell/plugins/`. Alles wat je zelf toevoegt — je eigen experimenten, of iets dat je op GitHub hebt gevonden — leeft in `~/.config/arch/plugins/`. Beide worden op dezelfde manier ontdekt bij het opstarten, maar built-ins ontvangen vertrouwde shell-interfaces, terwijl third-party plugins een beperkte interface ontvangen die is beperkt tot hun eigen dienst en levenscyclus. Kloons van built-ins behouden alleen de bronspecifieke configuratie- en UI-aanroepen die nodig zijn voor het originele gedrag.
+De first-party plugins worden met Arch geleverd en leven in `$ARCH_PATH/src/shell/plugins/`. Alles wat je zelf toevoegt — je eigen experimenten, of iets dat je op GitHub hebt gevonden — leeft in `~/.config/arch/plugins/`. Beide worden op dezelfde manier ontdekt bij het opstarten, maar built-ins ontvangen vertrouwde shell-interfaces, terwijl third-party plugins een beperkte interface ontvangen die is beperkt tot hun eigen dienst en levenscyclus. Kloons van built-ins behouden alleen de bronspecifieke configuratie- en UI-aanroepen die nodig zijn voor het originele gedrag.
 
 ## Zien wat je hebt
 

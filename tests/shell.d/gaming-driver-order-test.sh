@@ -27,11 +27,11 @@ SH
 
 # Never change system files, launch a game, or update the host's desktop cache.
 for command in sudo setsid update-desktop-database; do
-  printf '#!/bin/bash\nexit 0\n' >"$stub_src/cli/$command"
+  printf '#!/bin/bash\nexit 0\n' >"$stub_bin/$command"
 done
 # Unexpected download or prefix-recovery paths must not reach the host.
 for command in curl pkill umu-run; do
-  printf '#!/bin/bash\nexit 99\n' >"$stub_src/cli/$command"
+  printf '#!/bin/bash\nexit 99\n' >"$stub_bin/$command"
 done
 chmod +x "$stub_bin"/*
 

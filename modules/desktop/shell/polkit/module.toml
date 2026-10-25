@@ -6,4 +6,4 @@ requires = ["desktop.runtime"]
 
 [[output]]
 source = "src/shell/plugins/polkit"
-target = "usr/share/arch/shell/plugins/polkit"
+target = "usr/share/arch/src/shell/plugins/polkit"

@@ -6,7 +6,7 @@ theme_name_path="$HOME/.local/state/arch/current/theme.name"
 
 theme_name=$(<"$theme_name_path")
 [[ $theme_name =~ ^[[:alnum:]_][[:alnum:].+_-]*$ ]] || exit 0
-[[ -d $ARCH_PATH/themes/$theme_name/backgrounds/intros ]] || exit 0
+[[ -d $ARCH_PATH/assets/themes/$theme_name/backgrounds/intros ]] || exit 0
 
 arch-theme-refresh
 

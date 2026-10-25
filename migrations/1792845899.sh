@@ -9,4 +9,4 @@ if ! sudo test -s /boot/EFI/systemd/systemd-bootx64.efi; then
 fi
 
 sudo env ARCH_PATH="$ARCH_PATH" bash -euo pipefail -c \
-  'source "$ARCH_PATH/install/config/systemd-boot-kernel.sh"'
+  'source "$ARCH_PATH/installer/config/systemd-boot-kernel.sh"'

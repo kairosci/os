@@ -21,7 +21,7 @@ export PATH="$mock_bin:$ROOT/src/cli:$PATH"
 unset BROWSER
 
 for command in chromium firefox arch-notification-send update-desktop-database; do
-  printf '#!/bin/bash\n' >"$mock_src/cli/$command"
+  printf '#!/bin/bash\n' >"$mock_bin/$command"
 done
 chmod +x "$mock_bin"/*
 

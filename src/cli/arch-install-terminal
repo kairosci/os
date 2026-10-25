@@ -33,7 +33,7 @@ if arch-pkg-add $package; then
     cp "$ARCH_PATH/default/alacritty/$desktop_id" ~/.local/share/applications/
   elif [[ $package == "foot" ]]; then
     mkdir -p ~/.local/share/applications
-    cp "$ARCH_PATH/applications/$desktop_id" ~/.local/share/applications/
+    cp "$ARCH_PATH/assets/applications/$desktop_id" ~/.local/share/applications/
   fi
 
   # Copy default config for optional terminals when missing

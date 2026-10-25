@@ -4,7 +4,7 @@ Arch-skrivebordet kører som en enkelt langlivet Quickshell-proces ved navn `arc
 
 Det er ikke bare en implementeringsdetalje. Det betyder, at du kan slukke for dele af skrivebordet, bytte dem ud eller skrive dine egne uden at røre en linje af Archs kildekode.
 
-De førsteparts-plugins leveres med Arch og lever i `$ARCH_PATH/shell/plugins/`. Alt, hvad du selv tilføjer — dine egne eksperimenter eller noget, du fandt på GitHub — lever i `~/.config/arch/plugins/`. Begge opdages på samme måde ved opstart, men de indbyggede modtager betroede shell-grænseflader, mens tredjeparts-plugins modtager en begrænset grænseflade afgrænset til deres egen tjeneste og livscyklus. Kloner af indbyggede beholder kun den kilde-specifikke konfiguration og de UI-kald, der er nødvendige for den oprindelige adfærd.
+De førsteparts-plugins leveres med Arch og lever i `$ARCH_PATH/src/shell/plugins/`. Alt, hvad du selv tilføjer — dine egne eksperimenter eller noget, du fandt på GitHub — lever i `~/.config/arch/plugins/`. Begge opdages på samme måde ved opstart, men de indbyggede modtager betroede shell-grænseflader, mens tredjeparts-plugins modtager en begrænset grænseflade afgrænset til deres egen tjeneste og livscyklus. Kloner af indbyggede beholder kun den kilde-specifikke konfiguration og de UI-kald, der er nødvendige for den oprindelige adfærd.
 
 ## Se, hvad du har
 

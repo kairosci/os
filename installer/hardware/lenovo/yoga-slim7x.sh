@@ -51,7 +51,7 @@ ConditionPathExists=!/etc/modprobe.d/qualcomm-adsp-nofw.conf
 
 [Service]
 Type=oneshot
-ExecStart=/bin/bash /usr/share/arch/install/hardware/lenovo/start-yoga-slim7x-remoteprocs.sh
+ExecStart=/bin/bash /usr/share/arch/installer/hardware/lenovo/start-yoga-slim7x-remoteprocs.sh
 RemainAfterExit=yes
 
 [Install]

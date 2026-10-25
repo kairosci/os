@@ -1,6 +1,6 @@
 # Vytvorenie vlastnej témy
 
-Vlastné témy môžete pridávať do `~/.config/arch/themes`. Stačí skopírovať jednu z existujúcich tém ako základ (pozrite sa do `/usr/share/arch/themes`) a potom si ju upravte podľa svojho gusta. Pokiaľ je vaša téma vo vnútri toho priečinka, bude zahrnutá do ponuky výberu témy.
+Vlastné témy môžete pridávať do `~/.config/arch/themes`. Stačí skopírovať jednu z existujúcich tém ako základ (pozrite sa do `/usr/share/arch/assets/themes`) a potom si ju upravte podľa svojho gusta. Pokiaľ je vaša téma vo vnútri toho priečinka, bude zahrnutá do ponuky výberu témy.
 
 Hlavný súbor, ktorý musíte upraviť, je `colors.toml`. Ten definuje sadu farieb, ktorá sa potom používa na generovanie konfigurácií pre terminál (Foot/Alacritty/Ghostty/Kitty), btop, Chromium, Hyprland, Neovim, Helix, VSCode, Obsidian a celý shell Arch (horná lišta, ponuka, upozornenia, OSD a zamknutá obrazovka).
 

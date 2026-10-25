@@ -4,7 +4,7 @@ Arch darbalaukis veikia kaip vienas ilgai gyvuojantis Quickshell procesas pavadi
 
 Tai ne vien įgyvendinimo detalė. Tai reiškia, kad gali išjungti darbalaukio dalis, jas pakeisti ar parašyti savo, neliesdamas nė vienos Arch šaltinio eilutės.
 
-Pirmosios šalies įskiepiai pristatomi su Arch ir gyvena `$ARCH_PATH/shell/plugins/`. Viskas, ką pridedi pats — savo eksperimentai ar kažkas rasta GitHub — gyvena `~/.config/arch/plugins/`. Abu atrandami tuo pačiu būdu paleidimo metu, bet įtaisyti gauna patikimas shell sąsajas, o trečiųjų šalių įskiepiai gauna ribotą sąsają, apribotą jų pačių paslauga ir gyvavimo ciklu. Įtaisytųjų klonai išlaiko tik su šaltiniu susijusią konfigūraciją ir UI iškvietimus, reikalingus originaliam veikimui.
+Pirmosios šalies įskiepiai pristatomi su Arch ir gyvena `$ARCH_PATH/src/shell/plugins/`. Viskas, ką pridedi pats — savo eksperimentai ar kažkas rasta GitHub — gyvena `~/.config/arch/plugins/`. Abu atrandami tuo pačiu būdu paleidimo metu, bet įtaisyti gauna patikimas shell sąsajas, o trečiųjų šalių įskiepiai gauna ribotą sąsają, apribotą jų pačių paslauga ir gyvavimo ciklu. Įtaisytųjų klonai išlaiko tik su šaltiniu susijusią konfigūraciją ir UI iškvietimus, reikalingus originaliam veikimui.
 
 ## Pamatyti, ką turi
 

@@ -4,7 +4,7 @@ Arch-työpöytä toimii yhtenä pitkään elävänä Quickshell-prosessina nimel
 
 Se ei ole vain toteutuksen yksityiskohta. Se tarkoittaa, että voit kytkeä työpöydän osia pois päältä, vaihtaa niitä tai kirjoittaa omia koskematta riviäkään Archn lähdekoodia.
 
-Ensimmäisen osapuolen lisäosat toimitetaan Archn mukana ja sijaitsevat hakemistossa `$ARCH_PATH/shell/plugins/`. Kaikki, mitä lisäät itse — omat kokeilusi tai jotain GitHubista löytämääsi — sijaitsee hakemistossa `~/.config/arch/plugins/`. Molemmat löydetään samalla tavalla käynnistyksen yhteydessä, mutta sisäänrakennetut saavat luotettuja shell-rajapintoja, kun taas kolmannen osapuolen lisäosat saavat rajoitetun rajapinnan, joka on rajattu niiden omaan palveluun ja elinkaareen. Sisäänrakennettujen kloonit säilyttävät vain lähdekohtaisen määrityksen ja käyttökutsut, joita alkuperäinen käyttäytyminen tarvitsee.
+Ensimmäisen osapuolen lisäosat toimitetaan Archn mukana ja sijaitsevat hakemistossa `$ARCH_PATH/src/shell/plugins/`. Kaikki, mitä lisäät itse — omat kokeilusi tai jotain GitHubista löytämääsi — sijaitsee hakemistossa `~/.config/arch/plugins/`. Molemmat löydetään samalla tavalla käynnistyksen yhteydessä, mutta sisäänrakennetut saavat luotettuja shell-rajapintoja, kun taas kolmannen osapuolen lisäosat saavat rajoitetun rajapinnan, joka on rajattu niiden omaan palveluun ja elinkaareen. Sisäänrakennettujen kloonit säilyttävät vain lähdekohtaisen määrityksen ja käyttökutsut, joita alkuperäinen käyttäytyminen tarvitsee.
 
 ## Sen näkeminen, mitä sinulla on
 

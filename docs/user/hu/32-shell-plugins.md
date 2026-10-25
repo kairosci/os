@@ -4,7 +4,7 @@ Az Arch asztal egyetlen hosszú életű Quickshell-folyamatként fut, az `arch-s
 
 Ez nem csak egy implementációs részlet. Ez azt jelenti, hogy az asztal egyes részeit kikapcsolhatod, kicserélheted, vagy írhatsz sajátokat, anélkül, hogy az Arch forráskódjának egyetlen sorát is megérintenéd.
 
-Az első fél bővítményei az Archval érkeznek, és a `$ARCH_PATH/shell/plugins/` helyen élnek. Bármi, amit magad adsz hozzá — saját kísérleteid, vagy valami, amit a GitHubon találtál — a `~/.config/arch/plugins/` helyen él. Mindkettő ugyanazon a módon fedeződik fel induláskor, de a beépítettek megbízható shell-felületeket kapnak, míg a harmadik felek korlátozott felületet kapnak, saját szolgáltatásuk és életciklusuk megkötve. A beépítettek klónjai csak az eredeti viselkedéshez szükséges forrásspecifikus konfigurációt és felületi hívásokat őrzik meg.
+Az első fél bővítményei az Archval érkeznek, és a `$ARCH_PATH/src/shell/plugins/` helyen élnek. Bármi, amit magad adsz hozzá — saját kísérleteid, vagy valami, amit a GitHubon találtál — a `~/.config/arch/plugins/` helyen él. Mindkettő ugyanazon a módon fedeződik fel induláskor, de a beépítettek megbízható shell-felületeket kapnak, míg a harmadik felek korlátozott felületet kapnak, saját szolgáltatásuk és életciklusuk megkötve. A beépítettek klónjai csak az eredeti viselkedéshez szükséges forrásspecifikus konfigurációt és felületi hívásokat őrzik meg.
 
 ## Megnézni, hogy mi van
 

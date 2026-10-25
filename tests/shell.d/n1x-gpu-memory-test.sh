@@ -19,7 +19,7 @@ cat > "$tmp_dir/bin/sudo" <<'SH'
 "$@"
 SH
 for command in chattr limine-mkinitcpio; do
-  cat > "$tmp_dir/src/cli/$command" <<'SH'
+  cat > "$tmp_dir/bin/$command" <<'SH'
 #!/bin/bash
 echo "${0##*/}${*:+ $*}" >> "$CALL_LOG"
 SH

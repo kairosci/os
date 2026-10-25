@@ -1,6 +1,6 @@
 # Oma teema tegemine
 
-Sa saad lisada oma teemasid kausta `~/.config/arch/themes`. Kopeeri lihtsalt üks olemasolevatest aluseks (vaata kausta `/usr/share/arch/themes`) ja kohanda siis oma rõõmuks. Kuni sinu teema on seal kaustas, kaasatakse see teemavaliku menüüsse.
+Sa saad lisada oma teemasid kausta `~/.config/arch/themes`. Kopeeri lihtsalt üks olemasolevatest aluseks (vaata kausta `/usr/share/arch/assets/themes`) ja kohanda siis oma rõõmuks. Kuni sinu teema on seal kaustas, kaasatakse see teemavaliku menüüsse.
 
 Põhifail, mida pead kohandama, on `colors.toml`. See määratleb värvikomplekti, mida seejärel kasutatakse seadistuste genereerimiseks terminalile (Foot/Alacritty/Ghostty/Kitty), btopile, Chromiumile, Hyprlandile, Neovimile, Helixile, VSCode'ile, Obsidianile ja kogu Arch kestale (menüüriba, menüü, teavitused, OSD ja lukuekraan).
 

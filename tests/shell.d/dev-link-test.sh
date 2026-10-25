@@ -65,7 +65,7 @@ run_link() {
 make_checkout() {
   local checkout="$test_tmp/$1"
 
-  mkdir -p "$checkout/src/cli" "$checkout/default" "$checkout/shell"
+  mkdir -p "$checkout/src/cli" "$checkout/default" "$checkout/src/shell"
   printf '%s' "$checkout"
 }
 

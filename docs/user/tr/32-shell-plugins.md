@@ -4,7 +4,7 @@ Arch masaüstü, `arch-shell` adlı tek, uzun ömürlü bir Quickshell işlemi o
 
 Bu sadece bir uygulama ayrıntısı değildir. Masaüstünün parçalarını kapatabileceğiniz, değiştirebileceğiniz veya Arch'nin kaynağının tek bir satırına dokunmadan kendinizinkini yazabileceğiniz anlamına gelir.
 
-Birinci taraf eklentiler Arch ile birlikte gelir ve `$ARCH_PATH/shell/plugins/` içinde yaşar. Kendinizin eklediği her şey — kendi deneyleriniz veya GitHub'da bulduğunuz bir şey — `~/.config/arch/plugins/` içinde yaşar. Her ikisi de başlangıçta aynı şekilde keşfedilir, ancak yerleşik eklentiler güvenilir kabuk arayüzleri alırken, üçüncü taraf eklentiler kendi hizmet ve yaşam döngülerine kapsamlandırılmış sınırlı bir arayüz alır. Yerleşik eklentilerin klonları, yalnızca orijinal davranış için gereken kaynağa özgü yapılandırma ve kullanıcı arayüzü çağrılarını korur.
+Birinci taraf eklentiler Arch ile birlikte gelir ve `$ARCH_PATH/src/shell/plugins/` içinde yaşar. Kendinizin eklediği her şey — kendi deneyleriniz veya GitHub'da bulduğunuz bir şey — `~/.config/arch/plugins/` içinde yaşar. Her ikisi de başlangıçta aynı şekilde keşfedilir, ancak yerleşik eklentiler güvenilir kabuk arayüzleri alırken, üçüncü taraf eklentiler kendi hizmet ve yaşam döngülerine kapsamlandırılmış sınırlı bir arayüz alır. Yerleşik eklentilerin klonları, yalnızca orijinal davranış için gereken kaynağa özgü yapılandırma ve kullanıcı arayüzü çağrılarını korur.
 
 ## Sahip olduklarınızı görmek
 
