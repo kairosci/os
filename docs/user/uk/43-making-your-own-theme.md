@@ -42,4 +42,4 @@ Arch розрізняє їх за тим, чи має тема власний р
 
 Пам'ятайте, що щойно її встановлено з репозиторію, будь-який `.lua`, конфігурація термінала або `vscode.json`, які вона постачає, відкидаються, тож не будуйте тему навколо них.
 
-Ви можете додати свою тему на [сторінку додаткових тем](https://github.com/kairosci/arch/themes/), надіславши pull request до [репозиторію arch-site](https://github.com/kairosci/arch).
+Ви можете додати свою тему на [сторінку додаткових тем](https://github.com/kairosci/os/themes/), надіславши pull request до [репозиторію arch-site](https://github.com/kairosci/os).

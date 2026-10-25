@@ -2,19 +2,19 @@
 
 ### Чипи Apple M1/M2
 
-[Asahi Alarm](https://asahi-alarm.org/) — це версія Arch для комп'ютерів Apple M1/M2, побудована на основі [Asahi Linux](https://asahilinux.org/). Ви можете змусити Arch працювати на ній, доклавши трохи зусиль. Дивіться [керівництво, створене користувачами](https://github.com/kairosci/arch).
+[Asahi Alarm](https://asahi-alarm.org/) — це версія Arch для комп'ютерів Apple M1/M2, побудована на основі [Asahi Linux](https://asahilinux.org/). Ви можете змусити Arch працювати на ній, доклавши трохи зусиль. Дивіться [керівництво, створене користувачами](https://github.com/kairosci/os).
 
 ### Віртуальна машина Apple
 
-Ви також можете встановити Arch всередині віртуальної машини Parallels. Досить громіздкий процес, але для нього також є [керівництво, створене користувачами](https://github.com/kairosci/arch).
+Ви також можете встановити Arch всередині віртуальної машини Parallels. Досить громіздкий процес, але для нього також є [керівництво, створене користувачами](https://github.com/kairosci/os).
 
 ### VirtualBox
 
-VirtualBox — популярний засіб запуску віртуальних машин. [Ви можете запустити Arch і всередині нього](https://github.com/kairosci/arch). Але продуктивність, ймовірно, не буде чудовою.
+VirtualBox — популярний засіб запуску віртуальних машин. [Ви можете запустити Arch і всередині нього](https://github.com/kairosci/os). Але продуктивність, ймовірно, не буде чудовою.
 
 ### VMware Workstation на Windows 11
 
-Ще один популярний засіб запуску віртуальних машин для Windows. [Arch також налаштовували всередині нього](https://github.com/kairosci/arch).
+Ще один популярний засіб запуску віртуальних машин для Windows. [Arch також налаштовували всередині нього](https://github.com/kairosci/os).
 
 ### Steam Deck
 
