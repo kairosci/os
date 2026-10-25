@@ -1,0 +1,17 @@
+id = "desktop.branding.preinstall"
+domain = "desktop"
+package = "arch-settings"
+sources = ["logo.txt", "icon.txt", "icon.png"]
+requires = ["system.settings"]
+
+[[output]]
+source = "icon.png"
+target = "usr/share/icons/hicolor/256x256/apps/arch.png"
+
+[[output]]
+source = "logo.txt"
+target = "etc/skel/.config/arch/branding/screensaver.txt"
+
+[[output]]
+source = "icon.txt"
+target = "etc/skel/.config/arch/branding/about.txt"

@@ -1,0 +1,9 @@
+id = "desktop.applications"
+domain = "desktop"
+package = "arch-settings"
+sources = ["assets/applications"]
+requires = ["system.settings"]
+
+[[output]]
+source = "assets/applications"
+target = "usr/share/arch/assets/applications"

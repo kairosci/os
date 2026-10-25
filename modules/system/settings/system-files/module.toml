@@ -1,0 +1,9 @@
+id = "system.settings.system-files"
+domain = "system"
+package = "arch-settings"
+sources = ["etc"]
+requires = ["system.settings"]
+
+[[output]]
+source = "etc"
+target = "etc"
