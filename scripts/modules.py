@@ -7,6 +7,7 @@ from __future__ import annotations
 import argparse
 import fnmatch
 import json
+import re
 import shutil
 import sys
 import tomllib
@@ -16,6 +17,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 MODULES = ROOT / "modules"
+PACKAGES = ROOT / "packages"
 
 
 @dataclass(frozen=True)
@@ -32,11 +34,15 @@ class Module:
 def load_modules() -> tuple[dict[str, Module], list[str], list[str]]:
     modules: dict[str, Module] = {}
     source_owners: dict[tuple[str, str], str] = {}
-    output_owners: dict[tuple[str, str], str] = {}
+    output_owners: dict[str, tuple[str, str]] = {}
+    package_names: dict[str, str | None] = {}
     checked_symlinks: set[Path] = set()
     errors: list[str] = []
 
     for manifest in sorted(MODULES.glob("**/module.toml")):
+        if manifest.is_symlink():
+            errors.append(f"{manifest.relative_to(ROOT)}: module manifests cannot be symlinks")
+            continue
         try:
             data = tomllib.loads(manifest.read_text(encoding="utf-8"))
         except (OSError, tomllib.TOMLDecodeError) as error:
@@ -52,6 +58,29 @@ def load_modules() -> tuple[dict[str, Module], list[str], list[str]]:
         if not all(isinstance(value, str) and value for value in (module_id, domain, package)):
             errors.append(f"{manifest.relative_to(ROOT)}: id, domain, and package must be non-empty strings")
             continue
+        module_path = manifest.parent.relative_to(MODULES).parts
+        expected_id = ".".join(module_path)
+        expected_domain = module_path[0] if module_path else ""
+        if domain != expected_domain:
+            errors.append(f"{manifest.relative_to(ROOT)}: domain must match its module directory: {expected_domain}")
+        if module_id != expected_id:
+            errors.append(f"{manifest.relative_to(ROOT)}: module id must match its directory: {expected_id}")
+        pkgbuild = PACKAGES / package / "PKGBUILD"
+        if package not in package_names:
+            pkgname = None
+            if not pkgbuild.is_file():
+                errors.append(f"{manifest.relative_to(ROOT)}: package has no PKGBUILD: {package}")
+            else:
+                for line in pkgbuild.read_text(encoding="utf-8").splitlines():
+                    if not line.startswith("pkgname="):
+                        continue
+                    match = re.fullmatch(r"pkgname=(?:'([^']+)'|\"([^\"]+)\"|([A-Za-z0-9@._+-]+))", line)
+                    if match:
+                        pkgname = next(value for value in match.groups() if value is not None)
+                    break
+                if pkgname != package:
+                    errors.append(f"{manifest.relative_to(ROOT)}: package directory does not match pkgname: {package}")
+            package_names[package] = pkgname
         if module_id in modules:
             errors.append(f"{manifest.relative_to(ROOT)}: duplicate module id {module_id}")
             continue
@@ -64,6 +93,8 @@ def load_modules() -> tuple[dict[str, Module], list[str], list[str]]:
         if not isinstance(raw_outputs, list) or not all(isinstance(value, dict) for value in raw_outputs):
             errors.append(f"{manifest.relative_to(ROOT)}: output must be an array of source/target tables")
             continue
+        if not raw_outputs:
+            errors.append(f"{manifest.relative_to(ROOT)}: module must declare at least one output")
 
         normalized_outputs: list[tuple[str, str]] = []
         for output in raw_outputs:
@@ -134,11 +165,23 @@ def load_modules() -> tuple[dict[str, Module], list[str], list[str]]:
                     if path.is_file() or path.is_symlink()
                 ]
             for output_path in output_paths:
-                owner_key = (package, output_path.as_posix())
+                owner_key = output_path.as_posix()
                 previous = output_owners.get(owner_key)
                 if previous:
-                    errors.append(f"{manifest.relative_to(ROOT)}: package output {output_path} is already owned by {previous}")
-                output_owners[owner_key] = module_id
+                    errors.append(
+                        f"{manifest.relative_to(ROOT)}: package output {output_path} is already owned "
+                        f"by {previous[1]} in package {previous[0]}"
+                    )
+                for parent in Path(owner_key).parents:
+                    parent_owner = output_owners.get(parent.as_posix())
+                    if parent_owner:
+                        errors.append(
+                            f"{manifest.relative_to(ROOT)}: package output {output_path} is nested under file "
+                            f"{parent} owned by {parent_owner[1]} in package {parent_owner[0]}"
+                        )
+                if any(existing.startswith(f"{owner_key}/") for existing in output_owners):
+                    errors.append(f"{manifest.relative_to(ROOT)}: package output {output_path} conflicts with a declared output directory")
+                output_owners[owner_key] = (package, module_id)
 
     order = topological_order(modules, errors)
     return modules, order, errors
