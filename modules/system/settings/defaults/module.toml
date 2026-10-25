@@ -1,0 +1,57 @@
+id = "system.settings.defaults"
+domain = "system"
+package = "arch-settings"
+sources = ["default"]
+requires = ["system.settings"]
+
+[[output]]
+source = "default"
+target = "usr/share/arch/default"
+
+[[output]]
+source = "default/uwsm/env.d/10-arch"
+target = "usr/share/uwsm/env.d/10-arch"
+
+[[output]]
+source = "default/environment.d/10-arch-fcitx.conf"
+target = "usr/lib/environment.d/10-arch-fcitx.conf"
+
+[[output]]
+source = "default/xdg-terminal-exec/hyprland-xdg-terminals.list"
+target = "usr/share/xdg-terminal-exec/hyprland-xdg-terminals.list"
+
+[[output]]
+source = "default/applications/mimeapps.list"
+target = "usr/share/applications/mimeapps.list"
+
+[[output]]
+source = "default/fonts/arch/arch.ttf"
+target = "usr/share/fonts/arch/arch.ttf"
+
+[[output]]
+source = "default/sddm/hyprland.lua"
+target = "usr/share/sddm/hyprland.lua"
+
+[[output]]
+source = "default/sddm/arch"
+target = "usr/share/sddm/themes/arch"
+
+[[output]]
+source = "default/plymouth"
+target = "usr/share/plymouth/themes/arch"
+
+[[output]]
+source = "default/systemd/user"
+target = "usr/lib/systemd/user"
+
+[[output]]
+source = "default/systemd/system"
+target = "usr/lib/systemd/system"
+
+[[output]]
+source = "default/systemd/system-sleep/unmount-fuse"
+target = "usr/lib/systemd/system-sleep/unmount-fuse"
+
+[[output]]
+source = "default/systemd/zram-generator.conf.d/90-arch.conf"
+target = "usr/lib/systemd/zram-generator.conf.d/90-arch.conf"
