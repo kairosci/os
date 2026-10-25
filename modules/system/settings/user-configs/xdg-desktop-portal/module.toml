@@ -1,0 +1,9 @@
+id = "system.settings.user-configs.xdg-desktop-portal"
+domain = "system"
+package = "arch-settings"
+sources = ["config/xdg-desktop-portal"]
+requires = ["system.settings"]
+
+[[output]]
+source = "config/xdg-desktop-portal"
+target = "usr/share/arch/config/xdg-desktop-portal"

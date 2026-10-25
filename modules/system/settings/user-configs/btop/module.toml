@@ -1,0 +1,9 @@
+id = "system.settings.user-configs.btop"
+domain = "system"
+package = "arch-settings"
+sources = ["config/btop"]
+requires = ["system.settings"]
+
+[[output]]
+source = "config/btop"
+target = "usr/share/arch/config/btop"

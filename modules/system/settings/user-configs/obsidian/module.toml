@@ -1,0 +1,9 @@
+id = "system.settings.user-configs.obsidian"
+domain = "system"
+package = "arch-settings"
+sources = ["config/obsidian"]
+requires = ["system.settings"]
+
+[[output]]
+source = "config/obsidian"
+target = "usr/share/arch/config/obsidian"

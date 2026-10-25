@@ -1,0 +1,9 @@
+id = "system.settings.user-configs.kitty"
+domain = "system"
+package = "arch-settings"
+sources = ["config/kitty"]
+requires = ["system.settings"]
+
+[[output]]
+source = "config/kitty"
+target = "usr/share/arch/config/kitty"

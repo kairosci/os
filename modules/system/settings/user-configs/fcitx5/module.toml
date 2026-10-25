@@ -1,0 +1,9 @@
+id = "system.settings.user-configs.fcitx5"
+domain = "system"
+package = "arch-settings"
+sources = ["config/fcitx5"]
+requires = ["system.settings"]
+
+[[output]]
+source = "config/fcitx5"
+target = "usr/share/arch/config/fcitx5"

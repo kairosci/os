@@ -1,0 +1,9 @@
+id = "system.settings.user-configs.imv"
+domain = "system"
+package = "arch-settings"
+sources = ["config/imv"]
+requires = ["system.settings"]
+
+[[output]]
+source = "config/imv"
+target = "usr/share/arch/config/imv"

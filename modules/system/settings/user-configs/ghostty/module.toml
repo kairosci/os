@@ -1,0 +1,9 @@
+id = "system.settings.user-configs.ghostty"
+domain = "system"
+package = "arch-settings"
+sources = ["config/ghostty"]
+requires = ["system.settings"]
+
+[[output]]
+source = "config/ghostty"
+target = "usr/share/arch/config/ghostty"

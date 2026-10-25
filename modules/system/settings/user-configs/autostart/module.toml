@@ -1,0 +1,9 @@
+id = "system.settings.user-configs.autostart"
+domain = "system"
+package = "arch-settings"
+sources = ["config/autostart"]
+requires = ["system.settings"]
+
+[[output]]
+source = "config/autostart"
+target = "usr/share/arch/config/autostart"

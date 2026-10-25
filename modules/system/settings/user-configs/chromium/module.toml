@@ -1,0 +1,9 @@
+id = "system.settings.user-configs.chromium"
+domain = "system"
+package = "arch-settings"
+sources = ["config/chromium"]
+requires = ["system.settings"]
+
+[[output]]
+source = "config/chromium"
+target = "usr/share/arch/config/chromium"

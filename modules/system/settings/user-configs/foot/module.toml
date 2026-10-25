@@ -1,0 +1,9 @@
+id = "system.settings.user-configs.foot"
+domain = "system"
+package = "arch-settings"
+sources = ["config/foot"]
+requires = ["system.settings"]
+
+[[output]]
+source = "config/foot"
+target = "usr/share/arch/config/foot"
