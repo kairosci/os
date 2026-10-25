@@ -6,7 +6,7 @@ Arch বাইশটি সুন্দর থিম নিয়ে আসে�
 
 থিমগুলোর একগুচ্ছ পটভূমি ছবি থাকে, যেগুলোর মধ্যে আপনি `Super + Ctrl + Space` ব্যবহার করে বেছে নিতে পারেন।
 
-আপনি [অতিরিক্ত থিমের পৃষ্ঠায়](https://github.com/kairosci/arch/themes/) আরও বেশি থিম পেতে পারেন, এমনকি [নিজের থিমও বানাতে পারেন](43-making-your-own-theme.md)।
+আপনি [অতিরিক্ত থিমের পৃষ্ঠায়](https://github.com/kairosci/os/themes/) আরও বেশি থিম পেতে পারেন, এমনকি [নিজের থিমও বানাতে পারেন](43-making-your-own-theme.md)।
 
  ![tokyo-night](../themes/tokyo-night/preview.png)
 _Tokyo Night_
