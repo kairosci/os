@@ -42,4 +42,4 @@ Kama unataka kusambaza mandhari yako ili wengine waweze kuitumia, unahitaji kuiw
 
 Kumbuka kwamba mara ikisakinishwa kutoka repo, `.lua` yoyote, usanidi wa terminali au `vscode.json` inayopeleka huachwa, kwa hivyo usiijenge mandhari karibu na hizo.
 
-Unaweza kuifanya mandhari yako iongezwe kwenye [ukurasa wa mandhari za ziada](https://github.com/kairosci/arch/themes/) kwa kutuma ombi la kuvuta (pull request) kwenye [repo ya arch-site](https://github.com/kairosci/arch).
+Unaweza kuifanya mandhari yako iongezwe kwenye [ukurasa wa mandhari za ziada](https://github.com/kairosci/os/themes/) kwa kutuma ombi la kuvuta (pull request) kwenye [repo ya arch-site](https://github.com/kairosci/os).

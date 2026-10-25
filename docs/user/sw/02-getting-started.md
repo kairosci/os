@@ -2,7 +2,7 @@
 
 Arch husakinishwa kwa kutumia ISO. Unaweza kuchagua kati ya usakinishaji wa diski kamili, ambao huchukua hifadhi nzima, au usakinishaji wa nafasi iliyokuwa wazi, ambao huweka Arch katika nafasi ambayo haijagawiwa kwenye hifadhi — hivyo ndivyo unavyowasha mara mbili pamoja na Windows au OS nyingine (tazama [usakinishaji wa kuwasha mara mbili](50-dual-boot-install.md) — kumbuka kwamba utahitaji kuzima BitLocker katika Windows kwanza). Vyovyote vile, usakinishaji huwa na usimbaji fiche kamili kwa chaguo-msingi, na chaguo la diski kamili litafuta hifadhi iliyochaguliwa, kwa hiyo hakikisha unachukua nakala rudufu kabla ya kutumia iliyopo!
 
-[Pakua ISO ya Arch](https://github.com/kairosci/arch/) kwanza, iweke kwenye kifimbo cha USB (tumia [balenaEtcher](https://etcher.balena.io/) kwenye Mac/Windows au [caligula](https://github.com/ifd3f/caligula) kwenye Linux), na anza kuwasha kutoka kwenye kifimbo.
+[Pakua ISO ya Arch](https://github.com/kairosci/os/) kwanza, iweke kwenye kifimbo cha USB (tumia [balenaEtcher](https://etcher.balena.io/) kwenye Mac/Windows au [caligula](https://github.com/ifd3f/caligula) kwenye Linux), na anza kuwasha kutoka kwenye kifimbo.
 
 _Lazima uzime Secure Boot na/au TPM katika BIOS. Lazima uzime hivi ili uweze kusakinisha Arch. Ni mipango ya usalama ya Microsoft iliyokusudiwa kwa ajili ya Windows na usambazaji wa Linux unaoshirikiana na Microsoft._
 
@@ -36,8 +36,8 @@ Lakini katika mazingira maalumu, kama vile usakinishaji wa Arch wa mbali kwenye 
 
 ### Lugha
 
-Arch huzungumza lugha 50 — seti ileile kama github.com/kairosci/arch — na Kiingereza ndicho chaguo-msingi. Ili kubadili, fungua menyu ya Arch na uende _Setup > Language_, au endesha `archctl language <code>` katika terminal (`archctl language list` huonyesha misimbo). Menyu, eneo-kazi, na arifa za Arch yenyewe hubadilisha lugha mara moja, na kila programu unayoifungua baada ya hapo pia hufuata. Programu ambazo tayari zilikuwa zimefunguliwa hubadilika mara unapoziwashia upya.
+Arch huzungumza lugha 50 — seti ileile kama github.com/kairosci/os — na Kiingereza ndicho chaguo-msingi. Ili kubadili, fungua menyu ya Arch na uende _Setup > Language_, au endesha `archctl language <code>` katika terminal (`archctl language list` huonyesha misimbo). Menyu, eneo-kazi, na arifa za Arch yenyewe hubadilisha lugha mara moja, na kila programu unayoifungua baada ya hapo pia hufuata. Programu ambazo tayari zilikuwa zimefunguliwa hubadilika mara unapoziwashia upya.
 
 ### Usaidizi ikiwa umekwama
 
-Ikiwa utakwama, kwa kawaida unaweza kupata mtu aliye tayari kusaidia katika kituo cha _#arch-help_ kwenye [Discord ya jumuiya](https://github.com/kairosci/arch/discord).
+Ikiwa utakwama, kwa kawaida unaweza kupata mtu aliye tayari kusaidia katika kituo cha _#arch-help_ kwenye [Discord ya jumuiya](https://github.com/kairosci/os/discord).

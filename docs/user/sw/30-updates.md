@@ -2,7 +2,7 @@
 
 Arch na vifurushi vyako huhifadhiwa vikiwa vya kisasa kupitia _Sasisha > Arch_ katika menyu ya Arch (`Super + Space`).
 
-Arch yenyewe husakinishwa kama vifurushi vya kawaida vya pacman kutoka [Hifadhi ya Vifurushi ya Arch](https://github.com/kairosci/arch), hivyo sasisho husakinisha [toleo jipya zaidi la Arch](https://github.com/kairosci/arch), huendesha uhamaji wowote unaosubiri kuweka mfumo wako sawia na jipya zaidi, na husasisha vifurushi vyote vya mfumo kutoka [Kioo cha Arch cha Arch](https://github.com/kairosci/arch) na [AUR](https://aur.archlinux.org/) (kama umesakinisha vifurushi vyovyote vya AUR).
+Arch yenyewe husakinishwa kama vifurushi vya kawaida vya pacman kutoka [Hifadhi ya Vifurushi ya Arch](https://github.com/kairosci/os), hivyo sasisho husakinisha [toleo jipya zaidi la Arch](https://github.com/kairosci/os), huendesha uhamaji wowote unaosubiri kuweka mfumo wako sawia na jipya zaidi, na husasisha vifurushi vyote vya mfumo kutoka [Kioo cha Arch cha Arch](https://github.com/kairosci/os) na [AUR](https://aur.archlinux.org/) (kama umesakinisha vifurushi vyovyote vya AUR).
 
 Wakati matoleo mapya yanapofanywa, aikoni ya mshale wa duara itaonekana kulia kwa saa yako. Ibofye na mchakato wa kusasisha utaanza.
 
@@ -10,7 +10,7 @@ Wakati matoleo mapya yanapofanywa, aikoni ya mshale wa duara itaonekana kulia kw
 
 ### Vituo vinne
 
-Arch husasishwa kupitia vituo vinne: stable, RC, edge, na dev. Usakinishaji mpya huanza kwenye kituo cha stable, ambacho hufuata [matoleo rasmi](https://github.com/kairosci/arch), pamoja na [kioo thabiti cha Arch cha Arch](https://github.com/kairosci/arch) kinachoendesha mwezi mmoja nyuma ya jipya zaidi, hivyo tunaweza kunasa kutokuingiliana kokote kupya kunakohitaji mabadiliko ya usanidi kabla hayajasababisha matatizo kwa watu.
+Arch husasishwa kupitia vituo vinne: stable, RC, edge, na dev. Usakinishaji mpya huanza kwenye kituo cha stable, ambacho hufuata [matoleo rasmi](https://github.com/kairosci/os), pamoja na [kioo thabiti cha Arch cha Arch](https://github.com/kairosci/os) kinachoendesha mwezi mmoja nyuma ya jipya zaidi, hivyo tunaweza kunasa kutokuingiliana kokote kupya kunakohitaji mabadiliko ya usanidi kabla hayajasababisha matatizo kwa watu.
 
 Lakini kama ungependa kusaidia kuona masuala hayo yanayowezekana, unaweza kuendesha kwenye kituo cha edge. Hiyo itaweka vifurushi vyako vya Arch kufuata majenzi mapya zaidi ya uendelezaji, na inakuwezesha kusasisha hadi vifurushi vya hivi karibuni vya Arch mara vinapopatikana. Unapaswa kufanya hili tu kama una uzoefu na Linux, na unajua jinsi ya kurejesha mfumo wenye matatizo.
 
