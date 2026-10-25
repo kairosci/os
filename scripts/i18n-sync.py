@@ -398,7 +398,7 @@ def menu_catalog_stale(root):
             if item:
                 catalog[mid] = item
     current = read_json(root / "default/i18n/en/menu.json", {})
-    expected = {"root": {"label": "Go"}}
+    expected = {"root": {"label": "Menu"}}
     expected.update(catalog)
     return expected, current
 
