@@ -82,7 +82,7 @@ a hand-audited file shipped with Arch — explicitly **not** derived from
 
 ### Dotfile-manager detection: stand down, don't fight
 
-`manual/31-dotfiles.md` sends users to Stow today, and migrations deliberately
+`docs/user/31-dotfiles.md` sends users to Stow today, and migrations deliberately
 write *through* symlinks. For those users git records an unchanged symlink, so
 snapshots would be silent no-ops — and `restore` could stomp a symlink with a
 regular file. Therefore:
