@@ -2,7 +2,7 @@
 
 Personal Arch Linux desktop configuration with Hyprland, Quickshell, and the Cosmic theme. The default theme is Cosmic, the application menu is compact and landscape-oriented, and kitty is the default terminal.
 
-The maintained repository is [kairosci/arch](https://github.com/kairosci/arch), on the `arch` branch. This is a configuration source tree, not an installable Arch ISO or a binary package repository.
+The maintained repository is [kairosci/os](https://github.com/kairosci/os), on the `main` branch. This is a configuration source tree, not an installable Arch ISO or a binary package repository.
 
 ## Configuration
 

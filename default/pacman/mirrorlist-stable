@@ -1,1 +1,1 @@
-Server = https://stable-mirror.github.com/kairosci/arch/$repo/os/$arch
+Server = https://stable-mirror.github.com/kairosci/os/$repo/os/$arch

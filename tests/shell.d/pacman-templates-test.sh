@@ -67,13 +67,13 @@ for platform in $platforms; do
     [[ $list == "$expected" ]] || fail "$platform $channel: repositories in order" "$list"
     # $arch stays literal: pacman fills it in on the machine.
     server=$(sed -n '/^\[arch\]/,/^\[/s/^Server = //p' "$templates/pacman-$channel.conf")
-    [[ $server == "https://pkgs.github.com/kairosci/arch/$channel/\$arch" ]] ||
+    [[ $server == "https://pkgs.github.com/kairosci/os/$channel/\$arch" ]] ||
       fail "$platform $channel: os's $channel repository" "$server"
     # The Arch mirror is the same channel's: x86's at <channel>-mirror, Arch
     # Linux ARM's at arm-<channel>-mirror, edge without the channel.
     case $platform in
-      x86) host=mirror.github.com/kairosci/arch layout='$repo/os/$arch' ;;
-      *) host=arm-mirror.github.com/kairosci/arch layout='$arch/$repo' ;;
+      x86) host=mirror.github.com/kairosci/os layout='$repo/os/$arch' ;;
+      *) host=arm-mirror.github.com/kairosci/os layout='$arch/$repo' ;;
     esac
     [[ $channel == "edge" ]] || host=${host/mirror/$channel-mirror}
     mirror=$(sed -n 's/^Server = //p' "$templates/mirrorlist-$channel")

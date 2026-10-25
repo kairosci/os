@@ -42,4 +42,4 @@ That leftover `[themename]` becomes the theme's directory name, so it has to be 
 
 Remember that once it's installed from a repo, any `.lua`, terminal config or `vscode.json` it ships is dropped, so don't build the theme around those.
 
-You can have your theme added to [the extra themes page](https://github.com/kairosci/arch/themes/) by sending a pull request to [the arch-site repo](https://github.com/kairosci/arch).
+You can have your theme added to [the extra themes page](https://github.com/kairosci/os/themes/) by sending a pull request to [the arch-site repo](https://github.com/kairosci/os).

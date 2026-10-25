@@ -2,19 +2,19 @@
 
 ### Apple M1/M2 chips
 
-[Asahi Alarm](https://asahi-alarm.org/) is a version of Arch for Apple M1/M2 computers built on top of [Asahi Linux](https://asahilinux.org/). You can get Arch running on top of that with some effort. See [the user-driven guide](https://github.com/kairosci/arch).
+[Asahi Alarm](https://asahi-alarm.org/) is a version of Arch for Apple M1/M2 computers built on top of [Asahi Linux](https://asahilinux.org/). You can get Arch running on top of that with some effort. See [the user-driven guide](https://github.com/kairosci/os).
 
 ### Apple Virtual Machine
 
-You can also install Arch inside a Parallels VM. Quite the cumbersome process, but there's [a user-driven guide](https://github.com/kairosci/arch) for that too.
+You can also install Arch inside a Parallels VM. Quite the cumbersome process, but there's [a user-driven guide](https://github.com/kairosci/os) for that too.
 
 ### VirtualBox
 
-VirtualBox is a popular VM runner. [You can run Arch inside that too](https://github.com/kairosci/arch). But performance probably won't be great.
+VirtualBox is a popular VM runner. [You can run Arch inside that too](https://github.com/kairosci/os). But performance probably won't be great.
 
 ### VMware Workstation on Windows 11
 
-Another popular VM runner for Windows. [Arch has been setup inside of that as well](https://github.com/kairosci/arch).
+Another popular VM runner for Windows. [Arch has been setup inside of that as well](https://github.com/kairosci/os).
 
 ### Steam Deck
 

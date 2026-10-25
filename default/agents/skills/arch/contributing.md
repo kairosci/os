@@ -3,15 +3,15 @@
 Read this when the user wants to report an os bug, suggest a feature, or
 contribute a fix upstream.
 
-os lives at https://github.com/kairosci/arch Route requests to the
+os lives at https://github.com/kairosci/os Route requests to the
 right place:
 
 - **Verified bugs** -> GitHub issues. Issues are for validated bugs only, not
   support requests.
 - **Feature ideas and suggestions** ->
-  https://github.com/kairosci/arch
+  https://github.com/kairosci/os
 - **Support and "is this a bug?" questions** -> the Discord community at
-  https://github.com/kairosci/arch/discord. Start here when the problem isn't clearly a bug
+  https://github.com/kairosci/os/discord. Start here when the problem isn't clearly a bug
   in os itself.
 
 ## Filing a Good Bug Report
@@ -26,7 +26,7 @@ archctl version
 archctl debug --no-sudo --print
 
 # Interactive variant: `archctl debug` offers to upload the log to
-# logs.github.com/kairosci/arch (expires after 24h) and prints a shareable URL to
+# logs.github.com/kairosci/os (expires after 24h) and prints a shareable URL to
 # include in the issue.
 ```
 

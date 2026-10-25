@@ -27,7 +27,7 @@ useful; filing there yourself is not part of this.
 
 1. **It is a verified bug in os's sphere**, established on evidence. Issues
    are for verified bugs only. An "is this even a bug?" belongs on the Discord at
-   <https://github.com/kairosci/arch/discord>; a feature idea belongs in GitHub Discussions
+   <https://github.com/kairosci/os/discord>; a feature idea belongs in GitHub Discussions
    under Suggestions.
 2. **The user has explicitly agreed.** Show them the exact title and body you
    propose, and wait for a yes. Never file unprompted.

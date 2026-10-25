@@ -6,7 +6,7 @@
 # arch:examples=archctl theme install git@github.com:example/arch-example-theme.git
 
 if [[ -z $1 ]]; then
-  echo -e "\e[32mSee https://github.com/kairosci/arch/themes/\n\e[0m"
+  echo -e "\e[32mSee https://github.com/kairosci/os/themes/\n\e[0m"
   REPO_URL=$(gum input --placeholder="$(arch-i18n theme.repoPlaceholder)" --header="")
 else
   REPO_URL="$1"

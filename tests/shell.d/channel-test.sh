@@ -187,11 +187,11 @@ run_channel dev
 assert_log_line $'gum\tconfirm\t--default=false\tSwitch to dev channel?' "dev asks for confirmation"
 assert_log_line $'refresh\tedge' "dev refreshes the edge pacman channel"
 assert_log_line $'update-pacman\t-S\t--needed\t--noconfirm\t--ask\t4\tarch-dev\tarch-settings-dev' "dev installs development os packages"
-assert_log_line $'git\tclone\t--filter=blob:none\thttps://github.com/kairosci/arch.git\t'"$checkout" "dev clones the source checkout to ~/arch"
+assert_log_line $'git\tclone\t--filter=blob:none\thttps://github.com/kairosci/os.git\t'"$checkout" "dev clones the source checkout to ~/arch"
 assert_log_line $'link\t'"$checkout"$'\t--no-reboot' "dev links ~/arch without an early reboot prompt"
 assert_log_line $'state\tset\treboot-required' "dev defers the reboot prompt to the update pipeline"
 assert_log_line $'update\t-y\tARCH_PATH='"$checkout" "dev runs the normal update pipeline from the source checkout"
-[[ $(grep -E '^(git|link|state|refresh|sudo|update)' "$log_file") == $'git\tclone\t--filter=blob:none\thttps://github.com/kairosci/arch.git\t'"$checkout"$'\nlink\t'"$checkout"$'\t--no-reboot\nstate\tset\treboot-required\nrefresh\tedge\nupdate-pacman\t-S\t--needed\t--noconfirm\t--ask\t4\tarch-dev\tarch-settings-dev\nupdate\t-y\tARCH_PATH='"$checkout" ]] ||
+[[ $(grep -E '^(git|link|state|refresh|sudo|update)' "$log_file") == $'git\tclone\t--filter=blob:none\thttps://github.com/kairosci/os.git\t'"$checkout"$'\nlink\t'"$checkout"$'\t--no-reboot\nstate\tset\treboot-required\nrefresh\tedge\nupdate-pacman\t-S\t--needed\t--noconfirm\t--ask\t4\tarch-dev\tarch-settings-dev\nupdate\t-y\tARCH_PATH='"$checkout" ]] ||
   fail "dev activates the checkout before changing or updating packages" "$(cat "$log_file")"
 pass "dev activates the checkout before changing or updating packages"
 

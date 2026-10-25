@@ -95,10 +95,10 @@ arch plugin validate ./my-plugin
 
 That runs the same checks the shell does at load time: the schema version, the required fields, an id that isn't reserved, entry points that are safe relative paths and actually exist, an entry point for every kind you claimed, and no symlinks anywhere inside the folder.
 
-For plugin development, see the [shell reference](https://github.com/kairosci/arch) and [first-party plugin catalog](https://github.com/kairosci/arch).
+For plugin development, see the [shell reference](https://github.com/kairosci/os) and [first-party plugin catalog](https://github.com/kairosci/os).
 
 ## Sharing yours with the world
 
 Once you've made something you like, put it in a public git repo. That's the whole distribution mechanism — anyone can then run `arch plugin add` against your URL and have it running in seconds.
 
-To help people actually find it, list it at [plugins.github.com/kairosci/arch](https://plugins.github.com/kairosci/arch). That's the marketplace for Arch shell plugins, and it's the first place to look when you're wondering whether someone has already built the widget you're about to write. Browse it before you start!
+To help people actually find it, list it at [plugins.github.com/kairosci/os](https://plugins.github.com/kairosci/os). That's the marketplace for Arch shell plugins, and it's the first place to look when you're wondering whether someone has already built the widget you're about to write. Browse it before you start!

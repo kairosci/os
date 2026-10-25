@@ -204,10 +204,10 @@ arch_prompt_hostname() {
 # often; guard it or a `set -e` caller dies before the filter fallback.
 arch_prompt_timezone() {
   local guess status
-  # A preset install media names its timezone; otherwise ask geo.github.com/kairosci/arch,
+  # A preset install media names its timezone; otherwise ask geo.github.com/kairosci/os,
   # os's own lookup of where this network is.
   guess=${ARCH_FORM_TIMEZONE_DEFAULT:-}
-  [[ -n $guess ]] || guess=$(curl -fsS --max-time 5 https://geo.github.com/kairosci/arch/ 2>/dev/null | jq -r '.timezone // empty' 2>/dev/null) || guess=""
+  [[ -n $guess ]] || guess=$(curl -fsS --max-time 5 https://geo.github.com/kairosci/os/ 2>/dev/null | jq -r '.timezone // empty' 2>/dev/null) || guess=""
 
   if [[ -n $guess ]]; then
     timezone=$(timedatectl list-timezones | gum choose --height 10 --selected "$guess" --header "Timezone") && status=0 || status=$?

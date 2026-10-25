@@ -40,12 +40,12 @@ pass "refresh keeps existing config file modes"
 printf 'cn\n' > "$TARGET_ROOT/etc/arch/region"
 for channel in stable rc edge; do
   case "$channel" in
-    stable) host=stable-mirror.arch ;;
-    rc) host=rc-mirror.arch ;;
-    edge) host=mirror.arch ;;
+    stable) host=stable-mirror ;;
+    rc) host=rc-mirror ;;
+    edge) host=mirror ;;
   esac
   apply "$channel"
-  expected=$(printf 'Server = https://%s.cn/$repo/os/$arch\nServer = https://%s.org/$repo/os/$arch' "$host" "$host")
+  expected=$(printf 'Server = https://%s.arch.cn/$repo/os/$arch\nServer = https://%s.github.com/kairosci/os/$repo/os/$arch' "$host" "$host")
   [[ $(<"$TARGET_ROOT/etc/pacman.d/mirrorlist") == "$expected" ]] || fail "$channel mirror order and variables"
   # The template plus one line: the China copy of [arch] ahead of .org.
   sed "/^\[arch\]\$/a Server = https://pkgs.arch.cn/$channel/\$arch" \
@@ -89,10 +89,10 @@ pass "missing fragment cannot leave a half-generated config"
 cp "$TARGET_ROOT/etc/pacman.conf" "$scratch/before.conf"
 mkdir -p "$scratch/rendered"
 "$ROOT/src/cli/arch-apply-pacman" --render rc "$scratch/rendered" "$TARGET_ROOT"
-rg -qxF 'Server = https://pkgs.github.com/kairosci/arch/rc/$arch' "$scratch/rendered/pacman.conf"
-[[ $(grep -A2 -xF '[arch]' "$scratch/rendered/pacman.conf") == $'[arch]\nServer = https://pkgs.arch.cn/rc/$arch\nServer = https://pkgs.github.com/kairosci/arch/rc/$arch' ]] ||
+rg -qxF 'Server = https://pkgs.github.com/kairosci/os/rc/$arch' "$scratch/rendered/pacman.conf"
+[[ $(grep -A2 -xF '[arch]' "$scratch/rendered/pacman.conf") == $'[arch]\nServer = https://pkgs.arch.cn/rc/$arch\nServer = https://pkgs.github.com/kairosci/os/rc/$arch' ]] ||
   fail "render puts the China [arch] server first"
-[[ $(<"$scratch/rendered/mirrorlist") == $'Server = https://rc-mirror.arch.cn/$repo/os/$arch\nServer = https://rc-mirror.github.com/kairosci/arch/$repo/os/$arch' ]] ||
+[[ $(<"$scratch/rendered/mirrorlist") == $'Server = https://rc-mirror.arch.cn/$repo/os/$arch\nServer = https://rc-mirror.github.com/kairosci/os/$repo/os/$arch' ]] ||
   fail "render puts the regional channel mirror first"
 cmp "$scratch/before.conf" "$TARGET_ROOT/etc/pacman.conf"
 pass "render builds the regional channel files without touching the target"
