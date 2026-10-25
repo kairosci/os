@@ -95,10 +95,10 @@ arch plugin validate ./my-plugin
 
 Det kör samma kontroller som skalet gör vid inläsning: schemaversionen, de obligatoriska fälten, ett id som inte är reserverat, entry points som är säkra relativa sökvägar och faktiskt existerar, en entry point för varje kind du gjort anspråk på, och inga symlinkar någonstans inne i mappen.
 
-För plugin-utveckling, se [shell-referensen](https://github.com/kairosci/arch) och [förstaparts-plugin-katalogen](https://github.com/kairosci/arch).
+För plugin-utveckling, se [shell-referensen](https://github.com/kairosci/os) och [förstaparts-plugin-katalogen](https://github.com/kairosci/os).
 
 ## Dela din med världen
 
 När du har gjort något du gillar, lägg det i ett offentligt git-repo. Det är hela distributionsmekanismen — vem som helst kan sedan köra `arch plugin add` mot din URL och ha den igång på sekunder.
 
-För att hjälpa folk att faktiskt hitta den, lista den på [plugins.github.com/kairosci/arch](https://plugins.github.com/kairosci/arch). Det är marknadsplatsen för Arch shell-plugins, och det är första stället att titta på när du undrar om någon redan har byggt widgeten du håller på att skriva. Bläddra där innan du sätter igång!
+För att hjälpa folk att faktiskt hitta den, lista den på [plugins.github.com/kairosci/os](https://plugins.github.com/kairosci/os). Det är marknadsplatsen för Arch shell-plugins, och det är första stället att titta på när du undrar om någon redan har byggt widgeten du håller på att skriva. Bläddra där innan du sätter igång!

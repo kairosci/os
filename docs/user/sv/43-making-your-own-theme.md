@@ -42,4 +42,4 @@ Det överblivna `[themename]` blir temats katalogsnamn, så det måste vara ett 
 
 Kom ihåg att när det väl är installerat från ett repo släpps alla `.lua`, terminalkonfigurationer eller `vscode.json` det levererar, så bygg inte temat kring dem.
 
-Du kan få ditt tema tillagt på [sidan för extrateman](https://github.com/kairosci/arch/themes/) genom att skicka en pull request till [repot arch-site](https://github.com/kairosci/arch).
+Du kan få ditt tema tillagt på [sidan för extrateman](https://github.com/kairosci/os/themes/) genom att skicka en pull request till [repot arch-site](https://github.com/kairosci/os).

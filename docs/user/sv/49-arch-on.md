@@ -2,19 +2,19 @@
 
 ### Apple M1/M2-chip
 
-[Asahi Alarm](https://asahi-alarm.org/) är en version av Arch för Apple M1/M2-datorer byggd ovanpå [Asahi Linux](https://asahilinux.org/). Du kan få Arch att köra ovanpå det med viss ansträngning. Se [den användardrivna guiden](https://github.com/kairosci/arch).
+[Asahi Alarm](https://asahi-alarm.org/) är en version av Arch för Apple M1/M2-datorer byggd ovanpå [Asahi Linux](https://asahilinux.org/). Du kan få Arch att köra ovanpå det med viss ansträngning. Se [den användardrivna guiden](https://github.com/kairosci/os).
 
 ### Apple Virtual Machine
 
-Du kan också installera Arch inuti en Parallels VM. En ganska omständig process, men det finns [en användardriven guide](https://github.com/kairosci/arch) för det också.
+Du kan också installera Arch inuti en Parallels VM. En ganska omständig process, men det finns [en användardriven guide](https://github.com/kairosci/os) för det också.
 
 ### VirtualBox
 
-VirtualBox är en populär VM-körare. [Du kan köra Arch inuti den också](https://github.com/kairosci/arch). Men prestandan kommer förmodligen inte att vara fantastisk.
+VirtualBox är en populär VM-körare. [Du kan köra Arch inuti den också](https://github.com/kairosci/os). Men prestandan kommer förmodligen inte att vara fantastisk.
 
 ### VMware Workstation på Windows 11
 
-En annan populär VM-körare för Windows. [Arch har konfigurerats inuti den också](https://github.com/kairosci/arch).
+En annan populär VM-körare för Windows. [Arch har konfigurerats inuti den också](https://github.com/kairosci/os).
 
 ### Steam Deck
 
