@@ -3,3 +3,11 @@ domain = "desktop"
 package = "arch"
 sources = ["shell", "themes"]
 requires = ["system.settings"]
+
+[[output]]
+source = "shell"
+target = "usr/share/arch/shell"
+
+[[output]]
+source = "themes"
+target = "usr/share/arch/themes"

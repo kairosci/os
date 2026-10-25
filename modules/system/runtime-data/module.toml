@@ -1,0 +1,9 @@
+id = "system.runtime-data"
+domain = "system"
+package = "arch"
+sources = ["etc"]
+requires = ["system.settings"]
+
+[[output]]
+source = "etc"
+target = "usr/share/arch/etc"

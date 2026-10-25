@@ -3,3 +3,7 @@ domain = "system"
 package = "arch"
 sources = ["install"]
 requires = ["system.settings", "desktop.commands"]
+
+[[output]]
+source = "install"
+target = "usr/share/arch/install"

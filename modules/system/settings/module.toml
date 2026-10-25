@@ -3,3 +3,31 @@ domain = "system"
 package = "arch-settings"
 sources = ["config", "default", "applications", "etc", "logo.txt", "icon.txt", "icon.png", "logo.svg", "arch-mark.svg"]
 requires = []
+
+[[output]]
+source = "config"
+target = "usr/share/arch/config"
+
+[[output]]
+source = "default"
+target = "usr/share/arch/default"
+
+[[output]]
+source = "applications"
+target = "usr/share/arch/applications"
+
+[[output]]
+source = "etc"
+target = "etc"
+
+[[output]]
+source = "logo.txt"
+target = "etc/skel/.config/arch/branding/screensaver.txt"
+
+[[output]]
+source = "icon.txt"
+target = "etc/skel/.config/arch/branding/about.txt"
+
+[[output]]
+source = "icon.png"
+target = "usr/share/icons/hicolor/256x256/apps/arch.png"
