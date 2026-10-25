@@ -1,0 +1,25 @@
+id = "desktop.branding"
+domain = "desktop"
+package = "arch"
+sources = ["version", "arch-mark.svg", "icon.txt", "logo.txt", "logo.svg"]
+requires = ["system.settings"]
+
+[[output]]
+source = "version"
+target = "usr/share/arch/version"
+
+[[output]]
+source = "arch-mark.svg"
+target = "usr/share/arch/arch-mark.svg"
+
+[[output]]
+source = "icon.txt"
+target = "usr/share/arch/icon.txt"
+
+[[output]]
+source = "logo.txt"
+target = "usr/share/arch/logo.txt"
+
+[[output]]
+source = "logo.svg"
+target = "usr/share/arch/logo.svg"
