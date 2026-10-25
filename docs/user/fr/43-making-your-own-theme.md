@@ -42,4 +42,4 @@ Ce `[themename]` restant devient le nom de répertoire du thème, il doit donc �
 
 Rappelez-vous qu'une fois installé depuis un dépôt, tout `.lua`, configuration de terminal ou `vscode.json` qu'il contient est écarté, alors ne construisez pas le thème autour d'eux.
 
-Vous pouvez faire ajouter votre thème à [la page des thèmes supplémentaires](https://github.com/kairosci/arch/themes/) en envoyant une pull request au [dépôt arch-site](https://github.com/kairosci/arch).
+Vous pouvez faire ajouter votre thème à [la page des thèmes supplémentaires](https://github.com/kairosci/os/themes/) en envoyant une pull request au [dépôt arch-site](https://github.com/kairosci/os).

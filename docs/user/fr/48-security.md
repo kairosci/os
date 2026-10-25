@@ -30,6 +30,6 @@ Soyez lucide sur ce point : tant qu'il est actif, tout ce qui s'exécute sous vo
 
 ## Clés de signature
 
-La clé publique pour toutes les signatures d'ISO et les paquets du dépôt Arch est `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([vérifier sur openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch)). Le paquet `arch/arch-keyring` la contient aussi et servira à déployer sans accroc d'éventuelles mises à jour.
+La clé publique pour toutes les signatures d'ISO et les paquets du dépôt Arch est `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([vérifier sur openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os)). Le paquet `arch/arch-keyring` la contient aussi et servira à déployer sans accroc d'éventuelles mises à jour.
 
-Vous pouvez trouver la signature de toute version d'ISO en ajoutant .sig à l'URL. Comme https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig.
+Vous pouvez trouver la signature de toute version d'ISO en ajoutant .sig à l'URL. Comme https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig.
