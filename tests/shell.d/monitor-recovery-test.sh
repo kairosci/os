@@ -4,16 +4,16 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-monitor_watch="$ROOT/bin/arch-hyprland-monitor-watch"
-monitor_internal="$ROOT/bin/arch-hyprland-monitor-internal"
-monitor_mirror="$ROOT/bin/arch-hyprland-monitor-internal-mirror"
-monitor_laptop="$ROOT/bin/arch-hyprland-monitor-laptop"
-monitor_external_active="$ROOT/bin/arch-hyprland-monitor-external-active"
-system_wake="$ROOT/bin/arch-system-wake"
-clamshell="$ROOT/bin/arch-hyprland-monitor-clamshell"
+monitor_watch="$ROOT/src/cli/arch-hyprland-monitor-watch"
+monitor_internal="$ROOT/src/cli/arch-hyprland-monitor-internal"
+monitor_mirror="$ROOT/src/cli/arch-hyprland-monitor-internal-mirror"
+monitor_laptop="$ROOT/src/cli/arch-hyprland-monitor-laptop"
+monitor_external_active="$ROOT/src/cli/arch-hyprland-monitor-external-active"
+system_wake="$ROOT/src/cli/arch-system-wake"
+clamshell="$ROOT/src/cli/arch-hyprland-monitor-clamshell"
 lock_service="$ROOT/src/shell/plugins/lock/Service.qml"
-hw_clamshell="$ROOT/bin/arch-hw-clamshell"
-hw_laptop_closed="$ROOT/bin/arch-hw-laptop-closed"
+hw_clamshell="$ROOT/src/cli/arch-hw-clamshell"
+hw_laptop_closed="$ROOT/src/cli/arch-hw-laptop-closed"
 utilities="$ROOT/default/hypr/bindings/utilities.lua"
 
 grep -F 'sleep "$delay"' "$monitor_watch" >/dev/null
@@ -55,8 +55,8 @@ pass "modeless recovery also runs after a config reload"
 grep -F 'arch-hyprland-reload-guard paused' "$monitor_watch" >/dev/null
 pass "modeless recovery does not reload into a package transaction"
 
-grep -F '.disabled != true and (.width == 0 or .height == 0)' "$ROOT/bin/arch-hyprland-monitor-modeless" >/dev/null
-grep -F 'hyprctl monitors all -j' "$ROOT/bin/arch-hyprland-monitor-modeless" >/dev/null
+grep -F '.disabled != true and (.width == 0 or .height == 0)' "$ROOT/src/cli/arch-hyprland-monitor-modeless" >/dev/null
+grep -F 'hyprctl monitors all -j' "$ROOT/src/cli/arch-hyprland-monitor-modeless" >/dev/null
 pass "modeless helper sees mirrors and ignores monitors disabled on purpose"
 
 grep -F 'arch-hw-laptop-closed && arch-hw-external-monitors' "$hw_clamshell" >/dev/null

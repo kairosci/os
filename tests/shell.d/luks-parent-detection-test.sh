@@ -29,7 +29,7 @@ lsblk() {
 
 for script in arch-provision-owner arch-system-factory-reset; do
   # Load only this read-only helper, never the provisioning/reset entrypoint.
-  sed -n '/^luks_device() {/,/^}/p' "$ROOT/bin/$script" |
+  sed -n '/^luks_device() {/,/^}/p' "$ROOT/src/cli/$script" |
     sed "s|/proc/cmdline|$test_tmp/cmdline|g" >"$test_tmp/helper"
   [[ -s $test_tmp/helper ]] || fail "$script exposes its LUKS lookup"
   source "$test_tmp/helper"

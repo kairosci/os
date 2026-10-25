@@ -2,7 +2,7 @@
 set -euo pipefail
 source "$(dirname "$0")/base-test.sh"
 
-SCRIPT="$ROOT/bin/arch-capture-screenrecording-process"
+SCRIPT="$ROOT/src/cli/arch-capture-screenrecording-process"
 
 tmp=$(mktemp -d)
 cleanup() {

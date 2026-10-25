@@ -4,7 +4,7 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-apply_lock="$ROOT/bin/arch-apply-lock"
+apply_lock="$ROOT/src/cli/arch-apply-lock"
 
 root_path_guard=$(awk '
   /^if \(\( EUID == 0 \)\); then$/ { inside = 1 }

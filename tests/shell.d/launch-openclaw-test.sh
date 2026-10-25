@@ -34,7 +34,7 @@ SCRIPT
 chmod +x "$tmp_dir/bin/systemctl"
 
 # A machine that never onboarded gets the wizard, not a dashboard probe.
-"$ROOT/bin/arch-launch-openclaw"
+"$ROOT/src/cli/arch-launch-openclaw"
 
 # Through arch-openclaw-onboard, never bare `openclaw onboard`, which as of
 # 2026.9.1 ends in a browser tab with a foreground gateway and never returns.
@@ -55,7 +55,7 @@ printf 'openclaw:%s\n' "$*" >>"$TEST_LOG"
   echo '{"ok":true,"url":"http://127.0.0.1:18789/?token=shared","browserUrl":"http://127.0.0.1:18789/#handoff"}'
 SCRIPT
 chmod +x "$tmp_dir/bin/openclaw"
-"$ROOT/bin/arch-launch-openclaw"
+"$ROOT/src/cli/arch-launch-openclaw"
 
 grep -q '^arch-launch-webapp:http://127.0.0.1:18789/#handoff$' "$TEST_LOG" ||
   fail "OpenClaw launch opens the running gateway's handoff URL"
@@ -81,7 +81,7 @@ rm -f "$tmp_dir/gateway-up" "$tmp_dir/gateway-enabled"
 mkdir -p "$HOME/.config/systemd/user"
 touch "$HOME/.config/systemd/user/openclaw-gateway.service"
 : >"$TEST_LOG"
-"$ROOT/bin/arch-launch-openclaw"
+"$ROOT/src/cli/arch-launch-openclaw"
 
 grep -q '^openclaw:gateway install --force$' "$TEST_LOG" ||
   fail "OpenClaw launch installs a never-enabled gateway before opening the app"
@@ -95,7 +95,7 @@ pass "OpenClaw launch installs a never-enabled gateway before opening the app"
 touch "$tmp_dir/gateway-enabled"
 rm -f "$tmp_dir/gateway-up"
 : >"$TEST_LOG"
-"$ROOT/bin/arch-launch-openclaw"
+"$ROOT/src/cli/arch-launch-openclaw"
 
 grep -q '^openclaw:gateway start$' "$TEST_LOG" ||
   fail "OpenClaw launch starts a stopped gateway before opening the app"
@@ -118,7 +118,7 @@ SCRIPT
 chmod +x "$tmp_dir/bin/timeout"
 : >"$TEST_LOG"
 rc=0
-"$ROOT/bin/arch-launch-openclaw" >/dev/null 2>&1 || rc=$?
+"$ROOT/src/cli/arch-launch-openclaw" >/dev/null 2>&1 || rc=$?
 [[ $rc != 0 ]] || fail "OpenClaw launch bounds a hanging dashboard probe"
 grep -q '^timeout:10$' "$TEST_LOG" || fail "OpenClaw launch bounds a hanging dashboard probe" "probe ran without a timeout"
 pass "OpenClaw launch bounds a hanging dashboard probe"
@@ -134,7 +134,7 @@ SCRIPT
 chmod +x "$tmp_dir/bin/openclaw"
 webapp_calls_before=$(grep -c '^arch-launch-webapp:' "$TEST_LOG" || true)
 rc=0
-"$ROOT/bin/arch-launch-openclaw" >/dev/null 2>&1 || rc=$?
+"$ROOT/src/cli/arch-launch-openclaw" >/dev/null 2>&1 || rc=$?
 webapp_calls_after=$(grep -c '^arch-launch-webapp:' "$TEST_LOG" || true)
 
 [[ $rc != 0 ]] || fail "OpenClaw launch fails cleanly when the gateway never comes up"
@@ -160,7 +160,7 @@ exit 0
 SCRIPT
 chmod +x "$tmp_dir/bin/openclaw"
 floating_calls_before=$(grep -c '^arch-launch-floating-terminal-with-presentation:' "$TEST_LOG" || true)
-"$ROOT/bin/arch-launch-openclaw" --tui
+"$ROOT/src/cli/arch-launch-openclaw" --tui
 
 grep -q '^arch-openclaw-onboard:$' "$TEST_LOG" ||
   fail "--tui onboards in the current terminal" "$(grep 'onboard' "$TEST_LOG")"
@@ -181,7 +181,7 @@ exit 0
 SCRIPT
 chmod +x "$tmp_dir/bin/openclaw"
 : >"$TEST_LOG"
-"$ROOT/bin/arch-launch-openclaw" --tui --message "Review this project"
+"$ROOT/src/cli/arch-launch-openclaw" --tui --message "Review this project"
 [[ $(grep -c '^argv:' "$TEST_LOG") == 3 ]] && grep -q '^argv:\[Review this project\]$' "$TEST_LOG" ||
   fail "--tui seeds the session through --message" "$(grep '^argv:' "$TEST_LOG" | tr '\n' ' ')"
 ! grep -q '^arch-launch-webapp:' "$TEST_LOG" ||
@@ -199,7 +199,7 @@ SCRIPT
   chmod +x "$tmp_dir/bin/$stub"
 done
 : >"$TEST_LOG"
-"$ROOT/bin/arch-launch-openclaw"
+"$ROOT/src/cli/arch-launch-openclaw"
 grep -Fxq 'arch-launch-floating-terminal-with-presentation:arch-install-openclaw-cli --now && arch-launch-openclaw' "$TEST_LOG" ||
   fail "OpenClaw launch sets up OpenClaw where the package has no command yet" "$(cat "$TEST_LOG")"
 pass "OpenClaw launch sets up OpenClaw where the package has no command yet"
@@ -216,7 +216,7 @@ printf 'arch-show-done:%s\n' "$*" >>"$TEST_LOG"
 SCRIPT
 chmod +x "$tmp_dir/bin/arch-install-openclaw-cli" "$tmp_dir/bin/arch-show-done"
 : >"$TEST_LOG"
-if "$ROOT/bin/arch-launch-openclaw" --tui >/dev/null 2>&1; then
+if "$ROOT/src/cli/arch-launch-openclaw" --tui >/dev/null 2>&1; then
   fail "a failed setup in the agent's terminal fails the launch"
 fi
 grep -Fxq 'arch-install-openclaw-cli:--now' "$TEST_LOG" && grep -Fxq 'arch-show-done:1' "$TEST_LOG" ||

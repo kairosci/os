@@ -27,7 +27,7 @@ Run `arch-restart-shell` after making changes to QML files.
 
 ## IPC
 
-- `bin/arch-shell` is the canonical IPC entry point. It forwards to
+- `src/cli/arch-shell` is the canonical IPC entry point. It forwards to
   the running shell and does not start it. Prefer it over re-implementing
   direct Quickshell socket calls in every CLI.
 - The `shell` IPC target exposes lifecycle and configuration methods including

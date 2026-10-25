@@ -13,7 +13,7 @@ fi
 test_tmp=$(mktemp -d)
 trap 'rm -rf "$test_tmp"' EXIT
 mkdir -p "$test_tmp/share" "$test_tmp/bin"
-installer="$ROOT/bin/arch-install-chromium-claude"
+installer="$ROOT/src/cli/arch-install-chromium-claude"
 extension_id=fcoeoabgfenejglbffodgkkbkcdhcgfn
 sandbox=(bwrap --ro-bind / / --bind "$test_tmp" "$test_tmp" --dev /dev --proc /proc --unshare-user)
 

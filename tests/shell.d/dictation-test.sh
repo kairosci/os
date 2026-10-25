@@ -8,7 +8,7 @@ trap 'rm -rf "$test_tmp"' EXIT
 export HOME="$test_tmp/home" XDG_CONFIG_HOME="$test_tmp/config" ARCH_PATH="$ROOT"
 export DICTATION_LOG="$test_tmp/calls" DICTATION_INSTALLED="voxtype superwhisper"
 mkdir -p "$test_tmp/bin" "$XDG_CONFIG_HOME/arch/defaults"
-export PATH="$test_tmp/bin:$ROOT/bin:$PATH"
+export PATH="$test_tmp/bin:$ROOT/src/cli:$PATH"
 config="$XDG_CONFIG_HOME/arch/defaults/dictation"
 
 cat > "$test_tmp/bin/arch-cmd-present" <<'SH'
@@ -48,7 +48,7 @@ exit "${DICTATION_EXIT:-0}"
 SH
 done
 for command in arch-pkg-add arch-notification-send hyprctl arch-restart-shell; do
-  cat > "$test_tmp/bin/$command" <<'SH'
+  cat > "$test_tmp/src/cli/$command" <<'SH'
 #!/bin/bash
 printf '%s %s\n' "${0##*/}" "$*" >> "$DICTATION_LOG"
 exit "${SETUP_EXIT:-0}"

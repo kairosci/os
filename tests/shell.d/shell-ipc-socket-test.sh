@@ -59,7 +59,7 @@ for _ in $(seq 50); do [[ -S $socket ]] && break; sleep 0.05; done
 shell_call() {
   : >"$calls"
   PATH="$stub_bin:$PATH" ARCH_PATH="$root_dir" XDG_RUNTIME_DIR="$run_dir" WAYLAND_DISPLAY="$display" QS_CALLS="$calls" \
-    ARCH_SHELL_IPC_TIMEOUT="${IPC_TIMEOUT:-2s}" "$ROOT/bin/arch-shell" "$@"
+    ARCH_SHELL_IPC_TIMEOUT="${IPC_TIMEOUT:-2s}" "$ROOT/src/cli/arch-shell" "$@"
 }
 
 printf 'ok' >"$mode"

@@ -4,7 +4,7 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-detector="$ROOT/bin/arch-hw-dell-xps13-sidecar-amps"
+detector="$ROOT/src/cli/arch-hw-dell-xps13-sidecar-amps"
 leaf="$ROOT/installer/hardware/dell-xps13-sidecar-amps.sh"
 all="$ROOT/installer/hardware/all.sh"
 migration=$(grep -l "dell-xps13-sidecar-amps" "$ROOT"/migrations/*.sh | head -1)
@@ -81,7 +81,7 @@ pass "the detector fails closed when the SKU attribute is missing"
 run_leaf() {
   : >"$call_log"
   printf '0E53\n' >"$sku_file"
-  PATH="$test_tmp/bin:$ROOT/bin:$PATH" \
+  PATH="$test_tmp/bin:$ROOT/src/cli:$PATH" \
     CALL_LOG="$call_log" \
     TEST_PRODUCT_NAME="${1-XPS 13 DX13260}" \
     TEST_PKG_ADD_STATUS="${2:-0}" \
@@ -115,7 +115,7 @@ pass "a failing package install fails the leaf without applying"
 run_migration() {
   : >"$call_log"
   printf '0E53\n' >"$sku_file"
-  PATH="$test_tmp/bin:$ROOT/bin:$PATH" \
+  PATH="$test_tmp/bin:$ROOT/src/cli:$PATH" \
     CALL_LOG="$call_log" \
     ARCH_PATH="$ROOT" \
     TEST_PRODUCT_NAME="${1-XPS 13 DX13260}" \

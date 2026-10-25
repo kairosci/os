@@ -11,7 +11,7 @@ mock_bin="$test_tmp/bin"
 mkdir -p "$mock_bin" "$test_tmp/home" "$test_tmp/home/.hermes/profiles/james"
 
 for command in xdg-user-dirs-update xdg-settings xdg-mime; do
-  printf '#!/bin/bash\nprintf "%%s %%s\\n" "${0##*/}" "$*" >>"$TEST_COMMAND_LOG"\n' >"$mock_bin/$command"
+  printf '#!/bin/bash\nprintf "%%s %%s\\n" "${0##*/}" "$*" >>"$TEST_COMMAND_LOG"\n' >"$mock_src/cli/$command"
 done
 export TEST_COMMAND_LOG=$test_tmp/commands.log
 chmod +x "$mock_bin"/*
@@ -23,8 +23,8 @@ chmod +x "$mock_bin"/*
 mkdir -p "$test_tmp/installer/user"
 : >"$test_tmp/installer/user/all.sh"
 
-HOME="$test_tmp/home" PATH="$mock_bin:$ROOT/bin:$PATH" ARCH_PATH="$ROOT" \
-  ARCH_INSTALL="$test_tmp/install" bash "$ROOT/bin/arch-provision-user" >/dev/null ||
+HOME="$test_tmp/home" PATH="$mock_bin:$ROOT/src/cli:$PATH" ARCH_PATH="$ROOT" \
+  ARCH_INSTALL="$test_tmp/install" bash "$ROOT/src/cli/arch-provision-user" >/dev/null ||
   fail "arch-provision-user finishes"
 
 for skill in arch diagnose-crash; do
@@ -55,8 +55,8 @@ pass "provisioning names the user folders in English before a first login in ano
 : >"$TEST_COMMAND_LOG"
 mkdir -p "$test_tmp/home/.config"
 printf 'XDG_DOWNLOAD_DIR="$HOME/下载"\n' >"$test_tmp/home/.config/user-dirs.dirs"
-HOME="$test_tmp/home" PATH="$mock_bin:$ROOT/bin:$PATH" ARCH_PATH="$ROOT" \
-  ARCH_INSTALL="$test_tmp/install" bash "$ROOT/bin/arch-provision-user" --force >/dev/null ||
+HOME="$test_tmp/home" PATH="$mock_bin:$ROOT/src/cli:$PATH" ARCH_PATH="$ROOT" \
+  ARCH_INSTALL="$test_tmp/install" bash "$ROOT/src/cli/arch-provision-user" --force >/dev/null ||
   fail "arch-provision-user finishes again"
 ! grep -q -- '--set DOWNLOAD ' "$TEST_COMMAND_LOG" || fail "provisioning keeps a folder the user already named"
 grep -q -- '--set PICTURES ' "$TEST_COMMAND_LOG" || fail "provisioning still names the folders the user has not"

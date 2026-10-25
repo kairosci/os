@@ -18,7 +18,7 @@ printf '#!/bin/bash\nprintf "%%s\\n" "$@"\n' >"$test_dir/bin/gum"
 chmod +x "$test_dir/bin/gum"
 
 run_migration() {
-  env HOME="$test_home" ARCH_PATH="$ROOT" PATH="$test_dir/bin:$ROOT/bin:$PATH" bash -euo pipefail "$migration"
+  env HOME="$test_home" ARCH_PATH="$ROOT" PATH="$test_dir/bin:$ROOT/src/cli:$PATH" bash -euo pipefail "$migration"
 }
 
 cp "$legacy" "$kitty_config"
@@ -102,7 +102,7 @@ rm "$kitty_config"
 
 # Exercise the real font commands without changing the running desktop.
 for command in pkill arch-restart-shell arch-hook arch-notification-send; do
-  printf '#!/bin/bash\nexit 0\n' >"$test_dir/bin/$command"
+  printf '#!/bin/bash\nexit 0\n' >"$test_dir/src/cli/$command"
 done
 printf '#!/bin/bash\nexit 1\n' >"$test_dir/bin/pgrep"
 printf '#!/bin/bash\nprintf "Test Font\\n"\n' >"$test_dir/bin/fc-list"
@@ -120,7 +120,7 @@ SH
 chmod +x "$test_dir/bin/"*
 
 run_command() {
-  env HOME="$test_home" ARCH_PATH="$ROOT" PATH="$test_dir/bin:$ROOT/bin:$PATH" "$ROOT/bin/$@"
+  env HOME="$test_home" ARCH_PATH="$ROOT" PATH="$test_dir/bin:$ROOT/src/cli:$PATH" "$ROOT/src/cli/$@"
 }
 
 cp "$ROOT/config/kitty/kitty.conf" "$kitty_config"
@@ -153,7 +153,7 @@ run_command arch-display-text-size 16
 grep -qx 'font_size 12.0' "$kitty_config" || fail "size command handles absent config"
 pass "font controls create missing Kitty overrides without restoring the theme include"
 
-if "$ROOT/bin/arch-cmd-present" kitty; then
+if "$ROOT/src/cli/arch-cmd-present" kitty; then
   kitty +runpy "$(cat "$ROOT/tests/shell.d/fixtures/kitty/check-config.py")"
 else
   skip "Kitty not installed; skipping native config parser checks"

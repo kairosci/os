@@ -25,7 +25,7 @@ chmod +x "$stub_bin/busctl"
 
 sync_theme() {
   HOME="$home" XDG_CONFIG_HOME= XDG_DATA_HOME= PATH="$stub_bin:$PATH" BUSCTL_CALLS="$calls" \
-    ARCH_FCITX5_PACKAGED_THEME="$packaged" bash "$ROOT/bin/arch-theme-set-fcitx5" "$@"
+    ARCH_FCITX5_PACKAGED_THEME="$packaged" bash "$ROOT/src/cli/arch-theme-set-fcitx5" "$@"
 }
 
 printf 'NormalColor=#a9b1d6\n' >"$source_conf"

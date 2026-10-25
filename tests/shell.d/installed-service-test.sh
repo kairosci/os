@@ -4,7 +4,7 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-export PATH="$ROOT/bin:$PATH"
+export PATH="$ROOT/src/cli:$PATH"
 
 TMPDIR=$(mktemp -d)
 trap 'rm -rf "$TMPDIR"' EXIT
@@ -73,7 +73,7 @@ esac
 SH
 
 chmod +x "$mock_bin"/*
-mock_path="$mock_bin:$ROOT/bin:$PATH"
+mock_path="$mock_bin:$ROOT/src/cli:$PATH"
 
 PATH="$mock_path" ARCH_TEST_DROPBOX_CLI=1 ARCH_TEST_DROPBOX_RUNNING=1 arch-installed-service-dropbox
 pass "installed Dropbox service check accepts running CLI"

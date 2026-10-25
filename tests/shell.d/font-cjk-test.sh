@@ -10,7 +10,7 @@ mkdir -p "$work/stubs"
 printf '#!/bin/bash\n' >"$work/stubs/arch-restart-shell"
 printf '#!/bin/bash\necho "$@" >>"$NOTIFY_LOG"\n' >"$work/stubs/arch-notification-send"
 chmod +x "$work/stubs/"*
-export PATH="$work/stubs:$ROOT/bin:$PATH"
+export PATH="$work/stubs:$ROOT/src/cli:$PATH"
 preference=$XDG_CONFIG_HOME/fontconfig/conf.d/50-arch-input-method.conf
 
 [[ $(arch-font-cjk) == "default" ]] || fail "with no preference the CJK forms are the default" "$(arch-font-cjk)"

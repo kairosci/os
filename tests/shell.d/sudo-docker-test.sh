@@ -14,7 +14,7 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 TMPDIR=$(mktemp -d)
 trap 'rm -rf "$TMPDIR"' EXIT
 
-command="$ROOT/bin/arch-sudo-docker"
+command="$ROOT/src/cli/arch-sudo-docker"
 
 # Stub id so the configured groups are controllable.
 mkdir -p "$TMPDIR/bin"

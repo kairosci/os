@@ -8,14 +8,14 @@ copy_boundary_file bin/arch-update
 
 # Model the two exec boundaries without a host update log or a real lock.
 # Both child processes inherit the environment exactly as script/lock would.
-cat >"$SUDO_TEST_ROOT/bin/script" <<'STUB'
+cat >"$SUDO_TEST_ROOT/src/cli/script" <<'STUB'
 #!/bin/bash
 printf 'logged-reexec\n' >>"$SUDO_TEST_LOG"
 [[ $1 == "-qefc" ]] || exit 90
 exec /usr/bin/bash -p -c "$2"
 STUB
-rm "$SUDO_TEST_ROOT/bin/arch-update-lock"
-cat >"$SUDO_TEST_ROOT/bin/arch-update-lock" <<'STUB'
+rm "$SUDO_TEST_ROOT/src/cli/arch-update-lock"
+cat >"$SUDO_TEST_ROOT/src/cli/arch-update-lock" <<'STUB'
 #!/bin/bash
 case "$1" in
   held) [[ ${SUDO_TEST_LOCKED:-0} == "1" ]] ;;
@@ -32,17 +32,17 @@ cat >"$boundary_tmp/user commands/update-user-tool" <<'STUB'
 #!/bin/bash
 printf 'user-tool:%s\n' "$1" >>"$SUDO_TEST_LOG"
 STUB
-chmod +x "$SUDO_TEST_ROOT/bin/script" "$SUDO_TEST_ROOT/bin/arch-update-lock" "$boundary_tmp/user commands/update-user-tool"
+chmod +x "$SUDO_TEST_ROOT/src/cli/script" "$SUDO_TEST_ROOT/src/cli/arch-update-lock" "$boundary_tmp/user commands/update-user-tool"
 
 for step in arch-hook arch-update-mise; do
-  rm "$SUDO_TEST_ROOT/bin/$step"
-  cat >"$SUDO_TEST_ROOT/bin/$step" <<'STUB'
+  rm "$SUDO_TEST_ROOT/src/cli/$step"
+  cat >"$SUDO_TEST_ROOT/src/cli/$step" <<'STUB'
 #!/bin/bash
 [[ -e $SUDO_TEST_CACHE ]] || exit 91
 [[ $(command -v sudo) != "$ARCH_PATH/default/arch/sudo-no-update/sudo" ]] || exit 92
 update-user-tool "${0##*/}"
 STUB
-  chmod +x "$SUDO_TEST_ROOT/bin/$step"
+  chmod +x "$SUDO_TEST_ROOT/src/cli/$step"
 done
 
 for entry in fresh logged locked; do
@@ -52,7 +52,7 @@ for entry in fresh logged locked; do
     logged) export ARCH_UPDATE_LOGGED=1 ;;
     locked) export ARCH_UPDATE_LOGGED=1 SUDO_TEST_LOCKED=1 ;;
   esac
-  PATH="$boundary_tmp/user commands:$PATH" "$SUDO_TEST_ROOT/bin/arch-update" -y >"$boundary_tmp/output" 2>&1 ||
+  PATH="$boundary_tmp/user commands:$PATH" "$SUDO_TEST_ROOT/src/cli/arch-update" -y >"$boundary_tmp/output" 2>&1 ||
     fail "$entry update lost the original user PATH" "$(<"$boundary_tmp/output")"
   grep -q '^user-tool:arch-hook$' "$SUDO_TEST_LOG" || fail "$entry hook could not run a user-installed tool"
   grep -q '^user-tool:arch-update-mise$' "$SUDO_TEST_LOG" || fail "$entry mise could not run a user-installed tool"

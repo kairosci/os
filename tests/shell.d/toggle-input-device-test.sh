@@ -53,8 +53,8 @@ run_toggle() {
   HOME="$home_dir" \
     XDG_STATE_HOME="$xdg_decoy" \
     HYPRCTL_LOG="$log_file" \
-    PATH="$stub_dir:$ROOT/bin:$PATH" \
-    "$ROOT/bin/arch-toggle-input-device" "$@"
+    PATH="$stub_dir:$ROOT/src/cli:$PATH" \
+    "$ROOT/src/cli/arch-toggle-input-device" "$@"
 }
 
 assert_decoy_untouched() {
@@ -219,7 +219,7 @@ pass "disable errors when no device is found"
 # ~/.local/state, so that is where it must look no matter what XDG says.
 run_migration() {
   HOME="$home_dir" XDG_STATE_HOME="$xdg_decoy" HYPRCTL_LOG="$log_file" \
-    PATH="$stub_dir:$ROOT/bin:$PATH" \
+    PATH="$stub_dir:$ROOT/src/cli:$PATH" \
     bash -euo pipefail "$ROOT/migrations/1787618700.sh" >/dev/null
 }
 

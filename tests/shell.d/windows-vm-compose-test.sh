@@ -30,7 +30,7 @@ chmod +x "$STUB_BIN/arch-hw-x86"
 PATH="$STUB_BIN:$PATH"
 
 set -- help
-source "$ROOT/bin/arch-windows-vm" >/dev/null 2>&1
+source "$ROOT/src/cli/arch-windows-vm" >/dev/null 2>&1
 COMPOSE="$ARCH_WINDOWS_DIR/docker-compose.yml"
 
 unmount_all() {

@@ -4,8 +4,8 @@ set -euo pipefail
 
 source "$(dirname "$0")/base-test.sh"
 
-helper="$ROOT/bin/arch-theme-set-browser-policy"
-setter="$ROOT/bin/arch-theme-set-browser"
+helper="$ROOT/src/cli/arch-theme-set-browser-policy"
+setter="$ROOT/src/cli/arch-theme-set-browser"
 sudoers_file="$ROOT/etc/sudoers.d/arch-theme-browser"
 rule='%wheel ALL=(root) NOPASSWD: /usr/bin/arch-theme-set-browser-policy [0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]'
 

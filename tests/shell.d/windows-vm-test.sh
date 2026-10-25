@@ -4,7 +4,7 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-windows_vm_command="$ROOT/bin/arch-windows-vm"
+windows_vm_command="$ROOT/src/cli/arch-windows-vm"
 
 rg -q '^    restart: "no"$' "$windows_vm_command" ||
   fail "Windows VM uses manual startup by default"

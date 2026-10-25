@@ -32,7 +32,7 @@ ln -s "$startup_wallpaper" "$launch_home/.local/state/arch/current/background"
 # 0.05s launch poll below so the signal case lands inside it.
 launch_shell_bin="$test_tmp/arch-launch-shell"
 sed -e 's/^  sleep 1$/  sleep 0.3/' -e 's/sleep 0.5$/sleep 0.05/' \
-  "$ROOT/bin/arch-launch-shell" >"$launch_shell_bin"
+  "$ROOT/src/cli/arch-launch-shell" >"$launch_shell_bin"
 chmod +x "$launch_shell_bin"
 
 # Each launch consumes the next status from ARCH_TEST_QS_STATUSES; "run"

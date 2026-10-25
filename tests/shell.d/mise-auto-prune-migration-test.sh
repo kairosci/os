@@ -28,7 +28,7 @@ in_home() {
       XDG_DATA_HOME="$test_home/.local/share" \
       XDG_STATE_HOME="$test_home/.local/state" \
       MISE_SYSTEM_DIR="$system_dir" \
-      PATH="$ROOT/bin:/usr/bin" \
+      PATH="$ROOT/src/cli:/usr/bin" \
       "$@"
   )
 }

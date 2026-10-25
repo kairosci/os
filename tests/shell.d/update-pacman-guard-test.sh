@@ -8,7 +8,7 @@ test_tmp=$(mktemp -d)
 trap 'rm -rf "$test_tmp"' EXIT
 
 run_guard() {
-  ARCH_PACMAN_CMDLINE="$1" "$ROOT/bin/arch-update-pacman-guard"
+  ARCH_PACMAN_CMDLINE="$1" "$ROOT/src/cli/arch-update-pacman-guard"
 }
 
 if run_guard "pacman -Syu --noconfirm" >"$test_tmp/direct.out" 2>"$test_tmp/direct.err"; then

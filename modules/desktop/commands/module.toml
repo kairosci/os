@@ -1,5 +1,9 @@
 id = "desktop.commands"
 domain = "desktop"
 package = "arch"
-sources = ["bin"]
+sources = ["src/cli"]
 requires = ["system.settings"]
+
+[[output]]
+source = "src/cli"
+target = "usr/share/arch/bin"

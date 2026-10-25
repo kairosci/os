@@ -85,7 +85,7 @@ Preferences live in the `notifications` object of `~/.config/arch/shell.json`; e
 
 ## The sender contract
 
-`bin/arch-notification-send` is the one way Arch code sends
+`src/cli/arch-notification-send` is the one way Arch code sends
 notifications — never raw `notify-send`. It calls
 `org.freedesktop.Notifications.Notify` directly over the session bus (via
 `busctl --user`), so each value is one typed D-Bus parameter and there is no
@@ -206,7 +206,7 @@ Everything goes through the same sender contract, so the pieces are small:
 ## Reminders
 
 Reminders ride on notifications rather than being their own daemon.
-`bin/arch-reminder <minutes> [message]` creates a transient systemd user
+`src/cli/arch-reminder <minutes> [message]` creates a transient systemd user
 timer via `systemd-run --user --collect --on-active=<minutes>m` under the
 unit name `arch-reminder-<minutes>m-<epoch>`; the timer's payload sends the
 reminder toast, deletes its message file, and refreshes the bar indicator.

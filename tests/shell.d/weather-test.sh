@@ -166,7 +166,7 @@ test_tmp=$(mktemp -d)
 trap 'rm -rf "$test_tmp"' EXIT
 
 weather_location() {
-  HOME="$test_tmp" "$ROOT/bin/arch-weather-location" "$@"
+  HOME="$test_tmp" "$ROOT/src/cli/arch-weather-location" "$@"
 }
 
 weather_location --set "Malibu" "34.02577,-118.7804"

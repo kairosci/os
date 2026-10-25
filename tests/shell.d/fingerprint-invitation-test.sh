@@ -50,7 +50,7 @@ chmod +x "$test_bin/systemd-run"
 
 run_invitation_hook() {
   cp "$ROOT/installer/user/first-run/setup-fingerprint.hook" "$hook_path"
-  HOME="$test_home" PATH="$test_bin:$ROOT/bin:$PATH" TEST_LOG="$log_file" TEST_HW_MARKER="$hw_marker" bash "$hook_path"
+  HOME="$test_home" PATH="$test_bin:$ROOT/src/cli:$PATH" TEST_LOG="$log_file" TEST_HW_MARKER="$hw_marker" bash "$hook_path"
 }
 
 run_invitation_hook
@@ -68,7 +68,7 @@ grep -qx 'exec:arch-launch-floating-terminal-with-presentation arch-setup-securi
   fail "fingerprint invitation attaches the setup to the notification"
 grep -q '^systemd-run:' "$log_file" && fail "fingerprint invitation needs no unit to hold an unanswered toast"
 
-HOME="$test_home" PATH="$test_bin:$ROOT/bin:$PATH" TEST_LOG="$log_file" TEST_HW_MARKER="$hw_marker" bash "$hook_path"
+HOME="$test_home" PATH="$test_bin:$ROOT/src/cli:$PATH" TEST_LOG="$log_file" TEST_HW_MARKER="$hw_marker" bash "$hook_path"
 
 [[ $(grep -c '^notification$' "$log_file") -eq 1 ]] || fail "completed fingerprint invitation hook does not notify again"
 

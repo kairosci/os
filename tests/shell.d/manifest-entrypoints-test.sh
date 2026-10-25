@@ -84,7 +84,7 @@ XDG_CACHE_HOME="$TMPDIR/home/.cache" \
 XDG_STATE_HOME="$TMPDIR/home/.local/state" \
 QML2_IMPORT_PATH="$ROOT/src/shell${QML2_IMPORT_PATH:+:$QML2_IMPORT_PATH}" \
 QML_IMPORT_PATH="$ROOT/src/shell${QML_IMPORT_PATH:+:$QML_IMPORT_PATH}" \
-PATH="$ROOT/bin:$PATH" \
+PATH="$ROOT/src/cli:$PATH" \
   quickshell -p "$config_dir" --no-color >"$log" 2>&1 &
 QS_PID=$!
 

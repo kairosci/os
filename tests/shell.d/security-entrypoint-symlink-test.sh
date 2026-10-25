@@ -12,9 +12,9 @@ export ARCH_UPDATE_LOGGED=1
 mkdir "$boundary_tmp/links"
 printf '%s\n' 'touch "$SUDO_TEST_HOME/wrong-library"' >"$boundary_tmp/links/arch-security-functions"
 for command in arch-update arch-refresh-pacman arch-update-stay-awake arch-channel-set; do
-  rm -f "$SUDO_TEST_ROOT/bin/$command"
-  copy_boundary_file "bin/$command"
-  ln -s "$SUDO_TEST_ROOT/bin/$command" "$boundary_tmp/links/$command"
+  rm -f "$SUDO_TEST_ROOT/src/cli/$command"
+  copy_boundary_file "src/cli/$command"
+  ln -s "$SUDO_TEST_ROOT/src/cli/$command" "$boundary_tmp/links/$command"
   reset_boundary
   args=(unexpected)
   [[ $command != "arch-update" ]] || args=(-y)

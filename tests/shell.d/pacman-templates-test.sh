@@ -85,7 +85,7 @@ pass "x86 and aarch64 have templates for stable, rc and edge and Apple Silicon f
 # arch-version-channel names each template pair's channel: the menu's
 # checkmarks and a refresh with no channel go by it.
 sed -e "s|/etc/pacman.d/mirrorlist|$work/mirrorlist|g" -e "s|/etc/pacman.conf|$work/pacman.conf|g" \
-  "$ROOT/bin/arch-version-channel" >"$work/version-channel"
+  "$ROOT/src/cli/arch-version-channel" >"$work/version-channel"
 for platform in $platforms; do
   templates=$(arch_pacman_templates "$platform")
   for channel in $(channels_for "$platform"); do
@@ -103,7 +103,7 @@ finalize_bin=$work/finalize-bin
 mkdir -p "$finalize_bin"
 printf '#!/bin/bash\necho "$PLATFORM"\n' >"$finalize_bin/arch-hw-platform"
 for command in arch-pkg-add pacman-key; do
-  printf '#!/bin/bash\nexit 0\n' >"$finalize_bin/$command"
+  printf '#!/bin/bash\nexit 0\n' >"$finalize_src/cli/$command"
 done
 chmod +x "$finalize_bin"/*
 # Finalization restores the templates through arch-apply-pacman, whose copy
@@ -114,8 +114,8 @@ cp -r "$ROOT/installer/helpers" "$finalize_root/installer/"
 cp -r "$ROOT/default/pacman" "$ROOT/default/regions" "$finalize_root/default/"
 cp "$ROOT/installer/post-install/pacman.sh" "$work/finalize.sh"
 target_etc='etc="${2:-/}/etc"'
-grep -Fqx "  $target_etc" "$ROOT/bin/arch-apply-pacman" || fail "arch-apply-pacman still names its target etc"
-sed "s|^  $target_etc\$|  etc=\"\${2:-$work}/etc\"|" "$ROOT/bin/arch-apply-pacman" >"$finalize_root/bin/arch-apply-pacman"
+grep -Fqx "  $target_etc" "$ROOT/src/cli/arch-apply-pacman" || fail "arch-apply-pacman still names its target etc"
+sed "s|^  $target_etc\$|  etc=\"\${2:-$work}/etc\"|" "$ROOT/src/cli/arch-apply-pacman" >"$finalize_root/bin/arch-apply-pacman"
 chmod +x "$finalize_root/bin/arch-apply-pacman"
 mkdir -p "$work/installer/hardware"
 : >"$work/installer/hardware/pacman.sh"
@@ -150,15 +150,15 @@ rm -rf "$work"
 source "$SHELL_TEST_DIR/fixtures/sudo-boundary-test.sh"
 copy_boundary_file bin/arch-refresh-pacman
 copy_boundary_file bin/arch-apply-pacman
-cat >"$SUDO_TEST_ROOT/bin/arch-channel-current" <<'STUB'
+cat >"$SUDO_TEST_ROOT/src/cli/arch-channel-current" <<'STUB'
 #!/bin/bash
 [[ ${SUDO_TEST_CHANNEL_FAIL:-0} != "1" ]] || exit 1
 echo "${SUDO_TEST_CHANNEL:-unknown}"
 STUB
-chmod +x "$SUDO_TEST_ROOT/bin/arch-channel-current"
+chmod +x "$SUDO_TEST_ROOT/src/cli/arch-channel-current"
 
 refresh() {
-  "$SUDO_TEST_ROOT/bin/arch-refresh-pacman" "$@" >"$boundary_tmp/output" 2>&1
+  "$SUDO_TEST_ROOT/src/cli/arch-refresh-pacman" "$@" >"$boundary_tmp/output" 2>&1
 }
 events() {
   grep -vE '^sudo (-h|-k)$' "$SUDO_TEST_LOG" || true
@@ -262,7 +262,7 @@ for platform in aarch64-apple; do
     assert_boundary_cold "$platform $channel"
   done
 done
-cat >"$SUDO_TEST_ROOT/bin/arch-hw-platform" <<'STUB'
+cat >"$SUDO_TEST_ROOT/src/cli/arch-hw-platform" <<'STUB'
 #!/bin/bash
 exit 1
 STUB

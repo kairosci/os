@@ -20,7 +20,7 @@ tmp=$(mktemp -d)
 trap 'rm -rf "$tmp"' EXIT
 mkdir -p "$tmp/bin"
 
-reset=$ROOT/bin/arch-system-factory-reset
+reset=$ROOT/src/cli/arch-system-factory-reset
 [[ $(tail -n 1 "$reset") == 'main "$@"' ]] || fail "factory reset ends by calling main"
 sed \
   -e "s|^PACKAGED_PATH=.*|PACKAGED_PATH=\"$tmp/reset\"|" \

@@ -7,7 +7,7 @@ test_tmp=$(mktemp -d)
 trap 'rm -rf "$test_tmp"' EXIT
 mock_bin="$test_tmp/bin"
 export HOME="$test_tmp/home with spaces"
-export PATH="$mock_bin:$HOME/.local/bin:$ROOT/bin:/usr/local/bin:/usr/bin"
+export PATH="$mock_bin:$HOME/.local/bin:$ROOT/src/cli:/usr/local/bin:/usr/bin"
 export ARCH_PATH="$ROOT"
 export ARCH_TEST_MISE_LOG="$test_tmp/mise-log"
 mkdir -p "$mock_bin" "$HOME/.local/bin"
@@ -24,7 +24,7 @@ exit 0
 SH
 chmod +x "$mock_bin/mise" "$mock_bin/noop"
 for command in gum hyprctl arch-webapp-remove-all arch-tui-remove-all arch-pkg-drop; do
-  ln -s noop "$mock_bin/$command"
+  ln -s noop "$mock_src/cli/$command"
 done
 
 apply_kimi() {

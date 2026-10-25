@@ -9,7 +9,7 @@ scratch=$(mktemp -d)
 trap 'rm -rf "$scratch"' EXIT
 mkdir -p "$scratch/bin" "$scratch/drop-ins"
 
-export PATH="$scratch/bin:$ROOT/bin:$PATH"
+export PATH="$scratch/bin:$ROOT/src/cli:$PATH"
 export CALL_LOG="$scratch/calls"
 export INSTALLED_PACKAGES="$scratch/packages"
 export ARCH_KERNEL_LIMINE_CONF="$scratch/limine"
@@ -140,9 +140,9 @@ export ARCH_PTL_REBUILD_MARKER="$scratch/state/1789095456"
 export ARCH_MIGRATION_STATE="$scratch/user-markers"
 touch "$ARCH_PTL_REBUILD_MARKER" "$ARCH_MIGRATION_STATE/1789095456.sh"
 cp "$migration" "$scratch/arch/migrations/"
-pending=$(ARCH_PATH="$scratch/arch" "$ROOT/bin/arch-migrate" --pending)
+pending=$(ARCH_PATH="$scratch/arch" "$ROOT/src/cli/arch-migrate" --pending)
 [[ $pending == "1789325478.sh" ]] || fail "the renamed migration is pending after completing the old migration"
-ARCH_PATH="$scratch/arch" "$ROOT/bin/arch-migrate" > "$scratch/output" 2>&1
+ARCH_PATH="$scratch/arch" "$ROOT/src/cli/arch-migrate" > "$scratch/output" 2>&1
 grep -Fxq "$kernel" "$INSTALLED_PACKAGES" || fail "the old completion markers cannot skip the generic kernel"
 [[ -f $ARCH_KERNEL_REBUILD_MARKER && -f $ARCH_MIGRATION_STATE/1789325478.sh ]] || fail "new machine and user completion markers are recorded"
 assert_preferred "$ARCH_KERNEL_LIMINE_CONF"
@@ -271,7 +271,7 @@ chmod +x "$retirement_test/bin/"*
 
 run_retirement() {
   env \
-    PATH="$retirement_test/bin:$ROOT/bin:$PATH" \
+    PATH="$retirement_test/bin:$ROOT/src/cli:$PATH" \
     ARCH_KERNEL_MODULES_DIR="$retirement_test/modules" \
     CALL_LOG="$retirement_test/calls" \
     "$@" bash -euo pipefail "$ROOT/migrations/1792850007.sh" >"$retirement_test/output" 2>&1
@@ -279,7 +279,7 @@ run_retirement() {
 
 run_original_retirement() {
   env \
-    PATH="$retirement_test/bin:$ROOT/bin:$PATH" \
+    PATH="$retirement_test/bin:$ROOT/src/cli:$PATH" \
     ARCH_KERNEL_MODULES_DIR="$retirement_test/modules" \
     CALL_LOG="$retirement_test/calls" \
     "$@" bash -euo pipefail "$ROOT/migrations/1792848227.sh" >"$retirement_test/output" 2>&1
@@ -388,7 +388,7 @@ printf '%s\n' 'NAME="Arch Linux"' 'ID=arch' >"$uki_test/os-release"
 
 run_uki_migration() {
   env \
-    PATH="$uki_test/bin:$ROOT/bin:$PATH" \
+    PATH="$uki_test/bin:$ROOT/src/cli:$PATH" \
     ARCH_PATH="$ROOT" \
     ARCH_KERNEL_MODULES_DIR="$uki_test/modules" \
     ARCH_OS_RELEASE_FILE="$uki_test/os-release" \

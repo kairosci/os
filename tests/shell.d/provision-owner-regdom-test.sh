@@ -20,7 +20,7 @@ conf=$root/etc/conf.d/wireless-regdom
 calls=$tmp/calls
 mkdir -p "$stub_bin" "$arch/bin" "$arch/installer/hardware"
 
-ln -s "$ROOT/bin/arch-cmd-present" "$arch/bin/arch-cmd-present"
+ln -s "$ROOT/src/cli/arch-cmd-present" "$arch/bin/arch-cmd-present"
 sed -e "s|/etc/|$root/etc/|g" -e "s|/usr/share/zoneinfo|$root/usr/share/zoneinfo|g" \
   "$ROOT/installer/hardware/set-wireless-regdom.sh" >"$arch/installer/hardware/set-wireless-regdom.sh"
 
@@ -63,7 +63,7 @@ export ARCH_PATH=$arch
 
 # The setup functions as arch-provision-owner defines them, with its fixed
 # paths moved into the fixture root.
-sed -n '/^configure_timezone() {/,/^}/p; /^configure_wireless_regdom() {/,/^}/p; /^configure_region() {/,/^}/p' "$ROOT/bin/arch-provision-owner" |
+sed -n '/^configure_timezone() {/,/^}/p; /^configure_wireless_regdom() {/,/^}/p; /^configure_region() {/,/^}/p' "$ROOT/src/cli/arch-provision-owner" |
   sed -e "s|/usr/share/zoneinfo|$root/usr/share/zoneinfo|g" -e "s|/etc/|$root/etc/|g" >"$tmp/setup.sh"
 grep -q '^configure_wireless_regdom() {' "$tmp/setup.sh" || fail "arch-provision-owner sets the regulatory domain in setup"
 # shellcheck disable=SC1091

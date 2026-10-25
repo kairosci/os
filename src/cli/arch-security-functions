@@ -56,7 +56,7 @@ arch_security_require_source_root() {
   # A runtime root selects the code used by this invocation. Accept the
   # canonical checkout containing the entrypoint or the package's bin links.
   if [[ ${ARCH_PATH:-} != /* || $(/usr/bin/realpath -e -- "$ARCH_PATH") != "$ARCH_PATH" ]] ||
-    ! { [[ $command_source == "$ARCH_PATH/bin/$command_name" ]] ||
+    ! { [[ $command_source == "$ARCH_PATH/src/cli/$command_name" ]] ||
       [[ $ARCH_PATH == "/usr/share/arch" && $command_source == "/usr/bin/$command_name" ]]; }; then
     echo "ARCH_PATH does not match this os command." >&2
     return 1

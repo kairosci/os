@@ -28,7 +28,7 @@ exit 1
 SH
 
 for command in arch-theme-set arch-notification-send arch-menu-select; do
-  printf '#!/bin/bash\nprintf "%%s\\n" "$*" >>"$ARCH_TEST_THEME_CALLS"\nexit 0\n' >"$mock_bin/$command"
+  printf '#!/bin/bash\nprintf "%%s\\n" "$*" >>"$ARCH_TEST_THEME_CALLS"\nexit 0\n' >"$mock_src/cli/$command"
 done
 
 chmod +x "$mock_bin"/*
@@ -40,9 +40,9 @@ install_theme() {
   : >"$git_calls"
   : >"$theme_calls"
 
-  HOME="$test_tmp/home" PATH="${2-$mock_bin:$ROOT/bin:$PATH}" \
+  HOME="$test_tmp/home" PATH="${2-$mock_bin:$ROOT/src/cli:$PATH}" \
     ARCH_TEST_GIT_CALLS="$git_calls" ARCH_TEST_THEME_CALLS="$theme_calls" \
-    bash "$ROOT/bin/arch-theme-install" "$1" >"$test_tmp/out" 2>&1 || return $?
+    bash "$ROOT/src/cli/arch-theme-install" "$1" >"$test_tmp/out" 2>&1 || return $?
 }
 
 mkdir -p "$test_tmp/home/.config/arch/themes"
@@ -79,7 +79,7 @@ mkdir -p "$missing_checker_bin"
 printf '#!/bin/bash\nexit 127\n' >"$missing_checker_bin/arch-git-url-check"
 chmod +x "$missing_checker_bin/arch-git-url-check"
 
-if install_theme "https://github.com/example/arch-cool-theme.git" "$missing_checker_bin:$mock_bin:$ROOT/bin:$PATH"; then
+if install_theme "https://github.com/example/arch-cool-theme.git" "$missing_checker_bin:$mock_bin:$ROOT/src/cli:$PATH"; then
   fail "arch-theme-install refuses a URL it cannot check"
 fi
 
@@ -195,7 +195,7 @@ remove_theme() {
   : >"$theme_calls"
 
   HOME="$test_tmp/home" PATH="$mock_bin:$PATH" ARCH_TEST_THEME_CALLS="$theme_calls" \
-    bash "$ROOT/bin/arch-theme-remove" "$1" >"$test_tmp/out" 2>&1 || return $?
+    bash "$ROOT/src/cli/arch-theme-remove" "$1" >"$test_tmp/out" 2>&1 || return $?
 }
 
 canary="$test_tmp/home/.config/arch/canary"

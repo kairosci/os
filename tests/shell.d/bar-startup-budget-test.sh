@@ -89,7 +89,7 @@ mkdir -p "$test_home/.local/state/arch/indicators"
 touch "$test_home/.local/state/arch/indicators/stay-awake"
 cp -a "$ROOT/src/shell" "$test_root/shell"
 ln -s "$ROOT/config" "$test_root/config"
-ln -s "$ROOT/bin" "$test_root/bin"
+ln -s "$ROOT/src/cli" "$test_root/bin"
 ln -s "$ROOT/default" "$test_root/default"
 
 # The scratch shell must not reach the real session: the clipboard plugin
@@ -133,7 +133,7 @@ cold_start_ms() {
   XDG_CONFIG_HOME="$test_home/.config" \
   XDG_CACHE_HOME="$test_home/.cache" \
   XDG_STATE_HOME="$test_home/.local/state" \
-  PATH="$stub_bin:$ROOT/bin:$PATH" \
+  PATH="$stub_bin:$ROOT/src/cli:$PATH" \
     quickshell -p "$test_root/shell" --no-color >"$log" 2>&1 &
   QS_PID=$!
 

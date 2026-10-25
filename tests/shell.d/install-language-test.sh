@@ -49,7 +49,7 @@ for command in sudo pkexec locale-gen arch-notification-send dbus-update-activat
   printf '#!/bin/bash\necho "%s $*" >>"$SEED_LOG"\n' "$command" >"$work/stubs/$command"
 done
 chmod +x "$work/stubs/"*
-seed() { : >"$SEED_LOG"; ARCH_PATH=$ROOT PATH="$work/stubs:$ROOT/bin:$PATH" "$ROOT/bin/arch-language" seed "$@" </dev/null; }
+seed() { : >"$SEED_LOG"; ARCH_PATH=$ROOT PATH="$work/stubs:$ROOT/src/cli:$PATH" "$ROOT/src/cli/arch-language" seed "$@" </dev/null; }
 seed it
 [[ $(<"$ARCH_LANGUAGE_FILE") == it ]] || fail "seeding persists the preset language"
 grep -qx 'export LANG=it_IT.UTF-8' "$XDG_CONFIG_HOME/uwsm/env.d/50-arch-language" || fail "seeding sets the session LANG for the first login"
@@ -63,7 +63,7 @@ pass "seeding sets the user's language and session LANG without elevating or not
 
 # A deferred install's region, settled at first boot against the owner's
 # timezone; the function is taken from owner setup itself.
-eval "$(sed -n '/^configure_region() {$/,/^}$/p' "$ROOT/bin/arch-provision-owner")"
+eval "$(sed -n '/^configure_region() {$/,/^}$/p' "$ROOT/src/cli/arch-provision-owner")"
 region_root=$scratch/region
 mkdir -p "$region_root/arch/default/regions/cn" "$region_root/arch/bin" "$region_root/etc/arch"
 printf 'Asia/Shanghai\nAsia/Urumqi\n' >"$region_root/arch/default/regions/cn/timezones"

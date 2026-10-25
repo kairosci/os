@@ -56,7 +56,7 @@ if [[ $name == arch-hook && -n ${TEST_SLOW_HOOK_THEME:-} && $2 == "$TEST_SLOW_HO
 fi
 # With TEST_HOOK_SWITCH, the theme-set hook switches to that theme itself.
 if [[ $name == arch-hook && -n ${TEST_HOOK_SWITCH:-} && $2 != "$TEST_HOOK_SWITCH" ]]; then
-  ARCH_THEME_WAIT=1 /bin/bash "$TEST_ROOT/bin/arch-theme-set" "$TEST_HOOK_SWITCH" </dev/null >/dev/null 2>&1
+  ARCH_THEME_WAIT=1 /bin/bash "$TEST_ROOT/src/cli/arch-theme-set" "$TEST_HOOK_SWITCH" </dev/null >/dev/null 2>&1
 fi
 # The VS Code retint fails, except for TEST_VSCODE_OK_THEME.
 [[ $name != arch-theme-set-vscode || $(<"$TEST_STATE/theme.name") == "${TEST_VSCODE_OK_THEME:-}" ]]
@@ -87,9 +87,9 @@ set_theme() {
 }
 
 switch_theme() {
-  HOME="$home" ARCH_PATH="$ROOT" PATH="$commands:$ROOT/bin:$PATH" XDG_RUNTIME_DIR="$test_tmp" \
+  HOME="$home" ARCH_PATH="$ROOT" PATH="$commands:$ROOT/src/cli:$PATH" XDG_RUNTIME_DIR="$test_tmp" \
     TEST_LOG="$log" TEST_TMP="$test_tmp" TEST_STATE="$state" TEST_ROOT="$ROOT" \
-    /bin/bash "$ROOT/bin/arch-theme-set" "$1" </dev/null >"$test_tmp/stdout" 2>"$test_tmp/stderr" ||
+    /bin/bash "$ROOT/src/cli/arch-theme-set" "$1" </dev/null >"$test_tmp/stdout" 2>"$test_tmp/stderr" ||
     fail "theme selection completes" "$(cat "$test_tmp/stderr")"
 }
 
@@ -112,7 +112,7 @@ wait_logged() {
 
 wait_for_detached_work() {
   for attempt in {1..250}; do
-    pgrep -f "^/bin/bash $ROOT/bin/arch-theme-set (alpha|beta)\$" >/dev/null || return 0
+    pgrep -f "^/bin/bash $ROOT/src/cli/arch-theme-set (alpha|beta)\$" >/dev/null || return 0
     sleep 0.02
   done
   fail "the detached retints finish"
@@ -217,9 +217,9 @@ rm -f "$test_tmp/held"
 touch "$test_tmp/release"
 : >"$log"
 printf 'typed-password\n' |
-  HOME="$home" ARCH_PATH="$ROOT" PATH="$commands:$ROOT/bin:$PATH" XDG_RUNTIME_DIR="$test_tmp" \
+  HOME="$home" ARCH_PATH="$ROOT" PATH="$commands:$ROOT/src/cli:$PATH" XDG_RUNTIME_DIR="$test_tmp" \
     TEST_LOG="$log" TEST_TMP="$test_tmp" TEST_STATE="$state" TEST_ROOT="$ROOT" TEST_READ_STDIN=1 \
-    ARCH_THEME_WAIT=1 ARCH_THEME_SKIP_BACKGROUND=1 /bin/bash "$ROOT/bin/arch-theme-set" alpha >/dev/null 2>&1
+    ARCH_THEME_WAIT=1 ARCH_THEME_SKIP_BACKGROUND=1 /bin/bash "$ROOT/src/cli/arch-theme-set" alpha >/dev/null 2>&1
 grep -qx 'browser-stdin typed-password' "$log" || fail "a waited-for retint reads the switch's stdin" "$(cat "$log")"
 pass "a waited-for switch gives the retints its stdin"
 

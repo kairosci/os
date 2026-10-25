@@ -42,23 +42,23 @@ chmod +x "$tmpdir/bin/"*
 
 ARCH_TEST_REBUILD_LOG="$tmpdir/rebuild.log" \
   ARCH_TEST_BOOTLOADER=systemd-boot \
-  PATH="$tmpdir/bin:$ROOT/bin:$PATH" \
-  "$ROOT/bin/arch-kernel-rebuild"
+  PATH="$tmpdir/bin:$ROOT/src/cli:$PATH" \
+  "$ROOT/src/cli/arch-kernel-rebuild"
 grep -Fxq 'mkinitcpio -P' "$tmpdir/rebuild.log" ||
   fail "systemd-boot rebuilds the mkinitcpio UKI preset"
 
 ARCH_TEST_REBUILD_LOG="$tmpdir/rebuild.log" \
   ARCH_TEST_BOOTLOADER=Limine \
   ARCH_TEST_HAVE_LIMINE=1 \
-  PATH="$tmpdir/bin:$ROOT/bin:$PATH" \
-  "$ROOT/bin/arch-kernel-rebuild"
+  PATH="$tmpdir/bin:$ROOT/src/cli:$PATH" \
+  "$ROOT/src/cli/arch-kernel-rebuild"
 grep -Fxq 'limine-mkinitcpio ' "$tmpdir/rebuild.log" ||
   fail "Limine keeps its own kernel image rebuild path"
 
 ARCH_TEST_REBUILD_LOG="$tmpdir/rebuild.log" \
   ARCH_TEST_BOOTLOADER=Limine \
-  PATH="$tmpdir/bin:$ROOT/bin:$PATH" \
-  "$ROOT/bin/arch-kernel-rebuild"
+  PATH="$tmpdir/bin:$ROOT/src/cli:$PATH" \
+  "$ROOT/src/cli/arch-kernel-rebuild"
 (( $(grep -cx 'mkinitcpio -P' "$tmpdir/rebuild.log") == 2 )) ||
   fail "mkinitcpio remains available without the optional Limine integration"
 pass "kernel image rebuilds follow the active bootloader"
@@ -98,7 +98,7 @@ EOF
 chmod +x "$tmpdir/bin/"*
 
 env -u LC_ALL PROMPT_LOG="$tmpdir/prompt" PATH="$tmpdir/bin:$PATH" \
-  "$ROOT/bin/arch-hibernation-setup"
+  "$ROOT/src/cli/arch-hibernation-setup"
 
 [[ $(<"$tmpdir/prompt") == "confirm Use 31Gi on boot drive to make hibernation available?" ]] ||
   fail "hibernation setup reads memory size independently of the user's locale"

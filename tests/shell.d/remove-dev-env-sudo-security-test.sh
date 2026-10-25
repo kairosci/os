@@ -71,7 +71,7 @@ cleanup() {
 trap cleanup EXIT
 
 mount -t tmpfs -o mode=0755,suid tmpfs "$test_tmp"
-install -m 0755 "$ROOT/bin/arch-remove-dev-env" "$test_helper"
+install -m 0755 "$ROOT/src/cli/arch-remove-dev-env" "$test_helper"
 mkdir -p "$stub_bin"
 touch "$event_log"
 

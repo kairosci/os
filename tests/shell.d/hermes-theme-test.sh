@@ -121,7 +121,7 @@ run_hook() {
     PATH="$mock_bin:$PATH" \
     HOME="$test_home" \
     HERMES_HOME='' \
-    "$ROOT/bin/arch-theme-set-hermes" "$@"
+    "$ROOT/src/cli/arch-theme-set-hermes" "$@"
 }
 
 # -- publishing ---------------------------------------------------------------

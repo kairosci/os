@@ -31,9 +31,9 @@ printf '{"name":"Hackerman","extension":"akamud.vscode-theme-onedark"}\n' >"$CUR
 
 EDITOR_PROBE_LOG="$TEST_HOME/editor-probes.log" \
   CURSOR_SHIM_CALLED="$TEST_HOME/cursor-shim-called" \
-  PATH="$FAKE_BIN:$ROOT/bin:$PATH" \
+  PATH="$FAKE_BIN:$ROOT/src/cli:$PATH" \
   HOME="$TEST_HOME" \
-  "$ROOT/bin/arch-theme-set-vscode"
+  "$ROOT/src/cli/arch-theme-set-vscode"
 
 grep -Fxq '/usr/bin/cursor' "$TEST_HOME/editor-probes.log" || fail "VS Code theme sync probes the packaged Cursor executable"
 [[ ! -e $TEST_HOME/cursor-shim-called ]] || fail "VS Code theme sync ignores a PATH-provided Cursor Agent shim"
@@ -71,9 +71,9 @@ run_vscode_sync() {
   rm -f "$EDITOR_LOG"
   EDITOR_LOG="$EDITOR_LOG" \
     LISTED_EXTENSIONS="${LISTED_EXTENSIONS:-}" \
-    PATH="$EDITOR_BIN:$ROOT/bin:$PATH" \
+    PATH="$EDITOR_BIN:$ROOT/src/cli:$PATH" \
     HOME="$TEST_HOME" \
-    "$ROOT/bin/arch-theme-set-vscode"
+    "$ROOT/src/cli/arch-theme-set-vscode"
 }
 
 editor_calls() {
@@ -117,6 +117,6 @@ cat >"$SKIP_BIN/arch-toggle-enabled" <<'EOF2'
 [[ $1 == "skip-cursor-theme-changes" ]]
 EOF2
 chmod +x "$SKIP_BIN/arch-toggle-enabled"
-EDITOR_PROBE_LOG="$TEST_HOME/editor-probes.log" PATH="$SKIP_BIN:$FAKE_BIN:$ROOT/bin:$PATH" HOME="$TEST_HOME" \
-  "$ROOT/bin/arch-theme-set-vscode" || fail "VS Code theme sync succeeds when the last editor is skipped by its toggle"
+EDITOR_PROBE_LOG="$TEST_HOME/editor-probes.log" PATH="$SKIP_BIN:$FAKE_BIN:$ROOT/src/cli:$PATH" HOME="$TEST_HOME" \
+  "$ROOT/src/cli/arch-theme-set-vscode" || fail "VS Code theme sync succeeds when the last editor is skipped by its toggle"
 pass "VS Code theme sync succeeds when the last editor is skipped by its toggle"

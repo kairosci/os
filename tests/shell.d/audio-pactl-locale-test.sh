@@ -80,7 +80,7 @@ export CALLS="$work/calls"
 
 # 1. arch-audio-output-set-default
 : >"$CALLS"
-LC_ALL=en_US.UTF-8 PATH="$work/bin:$ROOT/bin:$PATH" "$ROOT/bin/arch-audio-output-set-default" 42 alsa_output.speakers 2>/dev/null || true
+LC_ALL=en_US.UTF-8 PATH="$work/bin:$ROOT/src/cli:$PATH" "$ROOT/src/cli/arch-audio-output-set-default" 42 alsa_output.speakers 2>/dev/null || true
 grep -qx 'C pactl list sink-inputs' "$CALLS" ||
   fail 'audio-output-set-default reads sink-inputs in the C locale' "$(cat "$CALLS")"
 grep -q 'pactl move-sink-input 42 alsa_output.speakers' "$CALLS" ||
@@ -89,14 +89,14 @@ pass 'audio-output-set-default reads sink-inputs in the C locale'
 
 # 2. arch-audio-output-sink
 : >"$CALLS"
-res=$(LC_ALL=en_US.UTF-8 PATH="$work/bin:$ROOT/bin:$PATH" "$ROOT/bin/arch-audio-output-sink" "virtual_sink" 2>/dev/null)
+res=$(LC_ALL=en_US.UTF-8 PATH="$work/bin:$ROOT/src/cli:$PATH" "$ROOT/src/cli/arch-audio-output-sink" "virtual_sink" 2>/dev/null)
 grep -qx 'C pactl list sink-inputs' "$CALLS" ||
   fail 'audio-output-sink reads sink-inputs in the C locale' "$(cat "$CALLS")"
 pass 'audio-output-sink reads sink-inputs in the C locale'
 
 # 3. arch-audio-output-switch
 : >"$CALLS"
-LC_ALL=en_US.UTF-8 PATH="$work/bin:$ROOT/bin:$PATH" "$ROOT/bin/arch-audio-output-switch" 2>/dev/null || true
+LC_ALL=en_US.UTF-8 PATH="$work/bin:$ROOT/src/cli:$PATH" "$ROOT/src/cli/arch-audio-output-switch" 2>/dev/null || true
 grep -qx 'C pactl -f json list sinks' "$CALLS" ||
   fail 'audio-output-switch reads sinks in the C locale' "$(cat "$CALLS")"
 grep -qx 'C pactl get-sink-volume alsa_output.headphones' "$CALLS" ||
@@ -107,7 +107,7 @@ pass 'audio-output-switch reads pactl outputs in the C locale'
 
 # 4. arch-audio-output-volume
 : >"$CALLS"
-LC_ALL=en_US.UTF-8 PATH="$work/bin:$ROOT/bin:$PATH" "$ROOT/bin/arch-audio-output-volume" +5 2>/dev/null || true
+LC_ALL=en_US.UTF-8 PATH="$work/bin:$ROOT/src/cli:$PATH" "$ROOT/src/cli/arch-audio-output-volume" +5 2>/dev/null || true
 grep -qx 'C pactl get-sink-volume alsa_output.speakers' "$CALLS" ||
   fail 'audio-output-volume reads sink volume in the C locale' "$(cat "$CALLS")"
 grep -qx 'C pactl get-sink-mute alsa_output.speakers' "$CALLS" ||
@@ -117,8 +117,8 @@ pass 'audio-output-volume reads pactl outputs in the C locale'
 # 5. arch-audio-tuning app_streams
 : >"$CALLS"
 (
-  eval "$(sed -n '/^app_streams() {/,/^}/p' "$ROOT/bin/arch-audio-tuning")"
-  LC_ALL=en_US.UTF-8 PATH="$work/bin:$ROOT/bin:$PATH" app_streams 2>/dev/null >/dev/null
+  eval "$(sed -n '/^app_streams() {/,/^}/p' "$ROOT/src/cli/arch-audio-tuning")"
+  LC_ALL=en_US.UTF-8 PATH="$work/bin:$ROOT/src/cli:$PATH" app_streams 2>/dev/null >/dev/null
 )
 grep -qx 'C pactl list sink-inputs' "$CALLS" ||
   fail 'audio-tuning app_streams reads sink-inputs in the C locale' "$(cat "$CALLS")"

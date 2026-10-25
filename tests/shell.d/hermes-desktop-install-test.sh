@@ -200,7 +200,7 @@ chmod +x "$test_tmp/bin/"*
 # Substitute only system package paths in scratch copies of the actual scripts.
 # The runtime setup lives in arch-install-hermes-cli, which the desktop
 # installer finds on PATH under its own name.
-python3 - "$ROOT/bin" "$test_tmp" <<'PY'
+python3 - "$ROOT/src/cli" "$test_tmp" <<'PY'
 from pathlib import Path
 import sys
 source, scratch = Path(sys.argv[1]), Path(sys.argv[2])

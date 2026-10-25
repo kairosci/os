@@ -24,7 +24,7 @@ grep -qxF cups-pk-helper "$packages" || fail "Polkit printer administration is i
 ! grep -qxF cups-browsed "$packages" || fail "automatic printer discovery is out of the base package set"
 ! grep -q 'cups-browsed' "$ROOT/installer/config/enable-services.sh" ||
   fail "a fresh install does not enable a discovery service it no longer installs"
-! grep -q 'enable_system_service cups-browsed' "$ROOT/bin/arch-upgrade-to-quattro" ||
+! grep -q 'enable_system_service cups-browsed' "$ROOT/src/cli/arch-upgrade-to-quattro" ||
   fail "the Quattro upgrade does not enable a discovery service it no longer installs"
 
 pass "the base install keeps CUPS and Polkit administration, without automatic discovery"
@@ -119,7 +119,7 @@ cat >"$mock_bin/arch-pkg-present" <<'SH'
 [[ $1 == "cups" || $1 == "cups-browsed" ]]
 SH
 for command in arch-pkg-add arch-pkg-drop; do
-  cat >"$mock_bin/$command" <<'SH'
+  cat >"$mock_src/cli/$command" <<'SH'
 #!/bin/bash
 printf '%s\t%s\n' "${0##*/}" "$*" >>"$ARCH_CUPS_TEST_LOG"
 SH

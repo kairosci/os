@@ -60,7 +60,7 @@ chmod +x "$mock_bin"/*
 # A PATH with no mise on it at all, for a machine that has none: the mocks
 # minus theirs, and links to every system command but the real one, so the
 # ambient PATH cannot supply what the test says is missing.
-no_mise_path="$test_tmp/bin-without-mise:$test_home/.local/bin:$ROOT/bin:$test_tmp/usr-bin-without-mise"
+no_mise_path="$test_tmp/bin-without-mise:$test_home/.local/bin:$ROOT/src/cli:$test_tmp/usr-bin-without-mise"
 mkdir -p "$test_tmp/bin-without-mise"
 for mock in "$mock_bin"/*; do
   [[ $(basename "$mock") == mise ]] || ln -s "$mock" "$test_tmp/bin-without-mise/"
@@ -80,7 +80,7 @@ run_migration() {
   rm -f "$mise_log.removed" "$mise_log.unrequested"
   ARCH_TEST_MISE_LOG="$mise_log" \
     HOME="$test_home" \
-    PATH="${ARCH_TEST_PATH:-$mock_bin:$test_home/.local/bin:$ROOT/bin:$PATH}" \
+    PATH="${ARCH_TEST_PATH:-$mock_bin:$test_home/.local/bin:$ROOT/src/cli:$PATH}" \
     bash -euo pipefail "$migration" >"$test_tmp/output" 2>&1
 }
 

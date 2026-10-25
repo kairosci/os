@@ -107,8 +107,8 @@ fresh_home() {
 }
 
 install_app() {
-  HOME="$test_tmp/home" T3CODE_HOME="$test_tmp/home/.t3" PATH="$mock_bin:$ROOT/bin:$PATH" \
-    "$ROOT/bin/arch-install-t3code-app" "$@" >"$test_tmp/output" 2>&1
+  HOME="$test_tmp/home" T3CODE_HOME="$test_tmp/home/.t3" PATH="$mock_bin:$ROOT/src/cli:$PATH" \
+    "$ROOT/src/cli/arch-install-t3code-app" "$@" >"$test_tmp/output" 2>&1
 }
 
 home="$test_tmp/home"
@@ -179,8 +179,8 @@ pass "an install that stops partway leaves no AppImage, so a retry finishes it"
 # A desktop launcher expands %-field codes in Exec, so a literal % is doubled there.
 percent_home="$test_tmp/home%20name"
 mkdir -p "$percent_home"
-HOME="$percent_home" T3CODE_HOME="$percent_home/.t3" PATH="$mock_bin:$ROOT/bin:$PATH" \
-  "$ROOT/bin/arch-install-t3code-app" stable >"$test_tmp/output" 2>&1 ||
+HOME="$percent_home" T3CODE_HOME="$percent_home/.t3" PATH="$mock_bin:$ROOT/src/cli:$PATH" \
+  "$ROOT/src/cli/arch-install-t3code-app" stable >"$test_tmp/output" 2>&1 ||
   fail "an install under a home with % in its path succeeds" "$(cat "$test_tmp/output")"
 percent_desktop="$percent_home/.local/share/applications/t3code.desktop"
 grep -qxF "Exec=\"$test_tmp/home%%20name/.local/share/t3code/T3-Code.AppImage\" %U" "$percent_desktop" ||

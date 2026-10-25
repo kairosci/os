@@ -66,7 +66,7 @@ run_dev_update() {
   ARCH_PATH="$1" \
     TEST_GIT_LOG="$git_log" \
     PATH="$stub_bin:$PATH" \
-    "$ROOT/bin/arch-update-dev"
+    "$ROOT/src/cli/arch-update-dev"
 }
 
 : >"$git_log"
@@ -104,6 +104,6 @@ grep -F "ARCH_PATH is not a git checkout: $checkout" "$test_tmp/invalid.err" >/d
   fail "invalid dev checkout reports the configured path" "$(cat "$test_tmp/invalid.err")"
 pass "invalid dev checkout fails with a useful error"
 
-grep -qE '^ *arch-update-dev$' "$ROOT/bin/arch-update" ||
+grep -qE '^ *arch-update-dev$' "$ROOT/src/cli/arch-update" ||
   fail "top-level update includes the dev checkout step"
 pass "top-level update includes the dev checkout step"

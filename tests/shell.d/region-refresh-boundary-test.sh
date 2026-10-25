@@ -19,8 +19,8 @@ printf 'cn\n' >"$SUDO_TEST_TARGET/etc/arch/region"
 # cp still logs its step, but now really copies, so the rendered files exist.
 # Root's copies into /etc land in a capture directory instead of the host.
 export SUDO_TEST_CAPTURE="$boundary_tmp/capture"
-rm "$SUDO_TEST_ROOT/bin/cp"
-cat >"$SUDO_TEST_ROOT/bin/cp" <<'STUB'
+rm "$SUDO_TEST_ROOT/src/cli/cp"
+cat >"$SUDO_TEST_ROOT/src/cli/cp" <<'STUB'
 #!/bin/bash
 set -euo pipefail
 printf 'step:cp %s\n' "$*" >>"$SUDO_TEST_LOG"
@@ -33,12 +33,12 @@ if [[ $destination == /etc/* ]]; then
 fi
 exec /usr/bin/cp "$@"
 STUB
-chmod +x "$SUDO_TEST_ROOT/bin/cp"
+chmod +x "$SUDO_TEST_ROOT/src/cli/cp"
 
 # Regional rendering must stay unprivileged: root only copies finished files,
 # exactly as the channel refresh did before regions existed.
 reset_boundary
-"$SUDO_TEST_ROOT/bin/arch-refresh-pacman" rc >"$boundary_tmp/output" 2>&1 || fail "refresh failed" "$(<"$boundary_tmp/output")"
+"$SUDO_TEST_ROOT/src/cli/arch-refresh-pacman" rc >"$boundary_tmp/output" 2>&1 || fail "refresh failed" "$(<"$boundary_tmp/output")"
 assert_boundary_cold "regional refresh"
 python3 - "$SUDO_TEST_LOG" "$SUDO_TEST_ROOT" <<'PY'
 import re
@@ -68,7 +68,7 @@ cmp -s "$boundary_tmp/expected-mirrorlist" "$SUDO_TEST_CAPTURE/etc/pacman.d/mirr
 pass "refresh renders regional config unprivileged and gives root only plain copies"
 
 reset_boundary
-if "$SUDO_TEST_ROOT/bin/arch-refresh-pacman" dev >"$boundary_tmp/output" 2>&1; then
+if "$SUDO_TEST_ROOT/src/cli/arch-refresh-pacman" dev >"$boundary_tmp/output" 2>&1; then
   fail "refresh accepts an invalid channel"
 fi
 if grep -Eq '^(sudo -N cp |step:pacman )' "$SUDO_TEST_LOG"; then
@@ -78,18 +78,18 @@ pass "failed refresh does not proceed to privileged copies or a package update"
 
 # A failed render still removes its scratch directory and exits cold.
 reset_boundary
-mv "$SUDO_TEST_ROOT/bin/arch-apply-pacman" "$boundary_tmp/arch-apply-pacman"
-cat >"$SUDO_TEST_ROOT/bin/arch-apply-pacman" <<'STUB'
+mv "$SUDO_TEST_ROOT/src/cli/arch-apply-pacman" "$boundary_tmp/arch-apply-pacman"
+cat >"$SUDO_TEST_ROOT/src/cli/arch-apply-pacman" <<'STUB'
 #!/bin/bash
 : >"$3/pacman.conf"
 exit 1
 STUB
-chmod +x "$SUDO_TEST_ROOT/bin/arch-apply-pacman"
+chmod +x "$SUDO_TEST_ROOT/src/cli/arch-apply-pacman"
 mkdir -p "$boundary_tmp/scratch"
-if TMPDIR="$boundary_tmp/scratch" "$SUDO_TEST_ROOT/bin/arch-refresh-pacman" rc >"$boundary_tmp/output" 2>&1; then
+if TMPDIR="$boundary_tmp/scratch" "$SUDO_TEST_ROOT/src/cli/arch-refresh-pacman" rc >"$boundary_tmp/output" 2>&1; then
   fail "refresh succeeds after a failed render"
 fi
-mv "$boundary_tmp/arch-apply-pacman" "$SUDO_TEST_ROOT/bin/arch-apply-pacman"
+mv "$boundary_tmp/arch-apply-pacman" "$SUDO_TEST_ROOT/src/cli/arch-apply-pacman"
 [[ -z $(ls -A "$boundary_tmp/scratch") ]] || fail "failed render leaves its scratch directory" "$(ls -AR "$boundary_tmp/scratch")"
 if grep -Eq '^(sudo -N cp |step:pacman )' "$SUDO_TEST_LOG"; then
   fail "failed render reached privileged work" "$(<"$SUDO_TEST_LOG")"

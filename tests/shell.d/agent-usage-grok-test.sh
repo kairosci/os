@@ -28,7 +28,7 @@ signed_in() {
 
 # xAI answers per token, so each home's probe is told apart by its sign-in.
 collect() {
-  COLLECTOR="$ROOT/bin/arch-agent-usage-grok" python3 - "$@" <<'PY'
+  COLLECTOR="$ROOT/src/cli/arch-agent-usage-grok" python3 - "$@" <<'PY'
 import importlib.machinery, importlib.util, io, json, os, sys
 
 loader = importlib.machinery.SourceFileLoader("collector", os.environ["COLLECTOR"])

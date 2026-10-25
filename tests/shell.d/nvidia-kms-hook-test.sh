@@ -40,7 +40,7 @@ resolved_hooks() {
   # only KEYMAP; predefine XKBLAYOUT so its expansion survives set -u and the
   # test stays independent of the machine it runs on.
   ARCH_PCI_DEVICES_PATH="$tmp_dir/devices" ARCH_PROC_ROOT="$tmp_dir/generic/proc" \
-    PATH="$tmp_dir/generic/bin:$ROOT/bin:$PATH" bash -uc "
+    PATH="$tmp_dir/generic/bin:$ROOT/src/cli:$PATH" bash -uc "
     FILES=()
     XKBLAYOUT=us
     source '$baseline_conf'
@@ -113,7 +113,7 @@ printf 'MODULES=(%s)\n' "$nvidia_modules" >"$tmp_dir/conf/nvidia.conf"
 printf '#!/bin/bash\nexec "$@"\n' >"$tmp_dir/bin/sudo"
 printf '#!/bin/bash\necho rebuild >>"$TEST_REBUILD_LOG"\n' >"$tmp_dir/bin/limine-mkinitcpio"
 chmod +x "$tmp_dir/bin/"*
-export PATH="$tmp_dir/bin:$tmp_dir/generic/bin:$ROOT/bin:$PATH"
+export PATH="$tmp_dir/bin:$tmp_dir/generic/bin:$ROOT/src/cli:$PATH"
 export ARCH_PROC_ROOT="$tmp_dir/generic/proc" ARCH_PCI_DEVICES_PATH="$tmp_dir/devices"
 export ARCH_MKINITCPIO_HOOKS_CONF="$tmp_dir/conf/arch_hooks.conf"
 export ARCH_MKINITCPIO_NVIDIA_CONF="$tmp_dir/conf/nvidia.conf"

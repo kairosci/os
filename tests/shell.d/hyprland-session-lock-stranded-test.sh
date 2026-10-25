@@ -27,7 +27,7 @@ assert_status() {
   local expected="$1" locked="$2" lockers="$3" description="$4" actual=0
 
   PATH="$fake_bin:$PATH" ARCH_TEST_LOCKED="$locked" ARCH_TEST_LOCKERS="$lockers" \
-    "$ROOT/bin/arch-hyprland-session-lock-stranded" 100 || actual=$?
+    "$ROOT/src/cli/arch-hyprland-session-lock-stranded" 100 || actual=$?
 
   (( actual == expected )) || fail "$description" "expected exit $expected, got $actual"
   pass "$description"

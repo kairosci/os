@@ -711,7 +711,7 @@ JS
 put_tmp=$(mktemp -d)
 trap 'rm -rf "$put_tmp"' EXIT
 mkdir -p "$put_tmp/bin"
-ln -s "$ROOT/bin/arch-shell-config" "$put_tmp/bin/arch-shell-config"
+ln -s "$ROOT/src/cli/arch-shell-config" "$put_tmp/bin/arch-shell-config"
 
 cat >"$put_tmp/bin/arch-shell" <<'STUB'
 #!/bin/bash
@@ -779,61 +779,61 @@ echo "ok"
 STUB
 chmod +x "$put_tmp/bin/arch-shell"
 
-put_output=$(PATH="$put_tmp/bin:$ROOT/bin:$PATH" ARCH_TEST_SHELL_STATE=missing \
+put_output=$(PATH="$put_tmp/bin:$ROOT/src/cli:$PATH" ARCH_TEST_SHELL_STATE=missing \
   ARCH_SHELL_ABSENT_ATTEMPTS=2 \
-  "$ROOT/bin/arch-bar" put arch.keyboard-layout --after arch.clock 2>&1) ||
+  "$ROOT/src/cli/arch-bar" put arch.keyboard-layout --after arch.clock 2>&1) ||
   fail "put carries on when no shell is running" "$put_output"
 [[ $put_output == *"is not running"* ]] || fail "put says why it placed nothing" "$put_output"
 pass "put carries on when no shell is running"
 
-put_output=$(PATH="$put_tmp/bin:$ROOT/bin:$PATH" ARCH_TEST_SHELL_STATE=spawning \
+put_output=$(PATH="$put_tmp/bin:$ROOT/src/cli:$PATH" ARCH_TEST_SHELL_STATE=spawning \
   ARCH_TEST_SHELL_MARKER="$put_tmp/spawned" \
-  "$ROOT/bin/arch-bar" put arch.keyboard-layout --after arch.clock 2>&1) ||
+  "$ROOT/src/cli/arch-bar" put arch.keyboard-layout --after arch.clock 2>&1) ||
   fail "put waits for a shell that is being spawned" "$put_output"
 [[ $put_output == "arch.keyboard-layout is on the bar" ]] || fail "put places once the shell answers" "$put_output"
 pass "put waits for a shell that is being spawned"
 
-put_output=$(PATH="$put_tmp/bin:$ROOT/bin:$PATH" ARCH_TEST_SHELL_STATE=starting ARCH_SHELL_READY_ATTEMPTS=2 \
-  "$ROOT/bin/arch-bar" put arch.keyboard-layout --after arch.clock 2>&1) &&
+put_output=$(PATH="$put_tmp/bin:$ROOT/src/cli:$PATH" ARCH_TEST_SHELL_STATE=starting ARCH_SHELL_READY_ATTEMPTS=2 \
+  "$ROOT/src/cli/arch-bar" put arch.keyboard-layout --after arch.clock 2>&1) &&
   fail "put fails when the shell never becomes ready" "$put_output"
 [[ $put_output == *"did not become ready"* ]] || fail "put says the shell never became ready" "$put_output"
 pass "put fails when the shell never becomes ready"
 
-put_output=$(PATH="$put_tmp/bin:$ROOT/bin:$PATH" ARCH_TEST_SHELL_STATE=crashing \
+put_output=$(PATH="$put_tmp/bin:$ROOT/src/cli:$PATH" ARCH_TEST_SHELL_STATE=crashing \
   ARCH_TEST_SHELL_MARKER="$put_tmp/started" \
-  "$ROOT/bin/arch-bar" put arch.keyboard-layout --after arch.clock 2>&1) &&
+  "$ROOT/src/cli/arch-bar" put arch.keyboard-layout --after arch.clock 2>&1) &&
   fail "put fails when a starting shell disappears" "$put_output"
 [[ $put_output == *"did not become ready"* ]] || fail "put keeps a lost shell retryable" "$put_output"
 pass "put fails when a starting shell disappears"
 
-put_output=$(PATH="$put_tmp/bin:$ROOT/bin:$PATH" ARCH_TEST_SHELL_STATE=oldshell \
-  "$ROOT/bin/arch-bar" put arch.keyboard-layout --after arch.clock 2>&1) ||
+put_output=$(PATH="$put_tmp/bin:$ROOT/src/cli:$PATH" ARCH_TEST_SHELL_STATE=oldshell \
+  "$ROOT/src/cli/arch-bar" put arch.keyboard-layout --after arch.clock 2>&1) ||
   fail "put falls back against a shell that has not restarted yet" "$put_output"
 [[ $put_output == "arch.keyboard-layout is on the bar" ]] || fail "put places without the missing neighbour" "$put_output"
 pass "put falls back against a shell that has not restarted yet"
 
-put_output=$(PATH="$put_tmp/bin:$ROOT/bin:$PATH" ARCH_TEST_SHELL_STATE=vanishing \
+put_output=$(PATH="$put_tmp/bin:$ROOT/src/cli:$PATH" ARCH_TEST_SHELL_STATE=vanishing \
   ARCH_TEST_SHELL_MARKER="$put_tmp/vanished" \
-  "$ROOT/bin/arch-bar" put arch.keyboard-layout --after arch.clock 2>&1) &&
+  "$ROOT/src/cli/arch-bar" put arch.keyboard-layout --after arch.clock 2>&1) &&
   fail "put fails when the shell goes away mid-fallback" "$put_output"
 [[ $put_output == *"did not become ready"* ]] || fail "put remembers the shell answered once" "$put_output"
 pass "put fails when the shell goes away mid-fallback"
 
-put_output=$(PATH="$put_tmp/bin:$ROOT/bin:$PATH" ARCH_TEST_SHELL_STATE=unsupported \
-  "$ROOT/bin/arch-bar" put arch.keyboard-layout --after arch.clock 2>&1) &&
+put_output=$(PATH="$put_tmp/bin:$ROOT/src/cli:$PATH" ARCH_TEST_SHELL_STATE=unsupported \
+  "$ROOT/src/cli/arch-bar" put arch.keyboard-layout --after arch.clock 2>&1) &&
   fail "put fails when the shell cannot answer the call" "$put_output"
 [[ $put_output == *"Function not found"* ]] || fail "put passes on what the shell said" "$put_output"
 pass "put fails when the shell cannot answer the call"
 
-put_output=$(PATH="$put_tmp/bin:$ROOT/bin:$PATH" ARCH_TEST_SHELL_STATE=scanning \
+put_output=$(PATH="$put_tmp/bin:$ROOT/src/cli:$PATH" ARCH_TEST_SHELL_STATE=scanning \
   ARCH_TEST_SHELL_MARKER="$put_tmp/scanned" \
-  "$ROOT/bin/arch-bar" put arch.keyboard-layout --after arch.clock 2>&1) ||
+  "$ROOT/src/cli/arch-bar" put arch.keyboard-layout --after arch.clock 2>&1) ||
   fail "put asks again while the shell is still reading its plugins" "$put_output"
 [[ $put_output == "arch.keyboard-layout is on the bar" ]] || fail "put places once the plugins are read" "$put_output"
 pass "put asks again while the shell is still reading its plugins"
 
-put_output=$(PATH="$put_tmp/bin:$ROOT/bin:$PATH" \
-  "$ROOT/bin/arch-bar" put arch.keyboard-layout --after arch.clock 2>&1) ||
+put_output=$(PATH="$put_tmp/bin:$ROOT/src/cli:$PATH" \
+  "$ROOT/src/cli/arch-bar" put arch.keyboard-layout --after arch.clock 2>&1) ||
   fail "put places a widget through a ready shell" "$put_output"
 [[ $put_output == "arch.keyboard-layout is on the bar" ]] || fail "put reports the placed widget" "$put_output"
 pass "put places a widget through a ready shell"

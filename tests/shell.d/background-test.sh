@@ -20,7 +20,7 @@ assert(
   'background theme transition applies pending colors even if image reveal stalls'
 )
 
-const themeSet = fs.readFileSync(path.join(root, 'bin/arch-theme-set'), 'utf8')
+const themeSet = fs.readFileSync(path.join(root, 'src/cli/arch-theme-set'), 'utf8')
 
 // The next background decodes while the theme stages, rather than after the
 // transition arrives: WebP decodes take as long at screen size as at native.

@@ -123,13 +123,13 @@ run_theme_set() {
     USER="${USER:-arch}" \
     LANG=C.UTF-8 \
     ARCH_PATH="$ROOT" \
-    PATH="$stub_bin:$ROOT/bin:$tools_bin" \
+    PATH="$stub_bin:$ROOT/src/cli:$tools_bin" \
     XDG_RUNTIME_DIR="$sandbox/run" \
     TMUX_TMPDIR="$sandbox/tmux" \
     ARCH_THEME_SKIP_BACKGROUND=1 \
     ARCH_BROWSER_POLICY_DIRS="$sandbox/policy" \
     HUNK_GATE="${HUNK_GATE:-}" \
-    "$ROOT/bin/arch-theme-set" "$1" >"$sandbox/theme-set.log" 2>&1
+    "$ROOT/src/cli/arch-theme-set" "$1" >"$sandbox/theme-set.log" 2>&1
 }
 
 # A first switch sets up the scratch home, so the timed ones change between two

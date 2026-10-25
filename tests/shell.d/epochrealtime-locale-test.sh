@@ -22,7 +22,7 @@ for command in arch-dev-benchmark-cli arch-dev-benchmark-theme-switcher; do
   now=$(LOCPATH="$test_tmp/locales" LC_ALL=da_DK.UTF-8 bash -c '
     source <(awk "/^now_us\\(\\) \\{/ { copying=1 } copying { print } copying && /^}\$/ { exit }" "$1")
     now_us
-  ' _ "$ROOT/bin/$command")
+  ' _ "$ROOT/src/cli/$command")
   [[ $now =~ ^[0-9]{16}$ ]] || fail "$command measures microseconds under a comma locale" "$now"
 done
 pass "microsecond clocks ignore a comma decimal separator"

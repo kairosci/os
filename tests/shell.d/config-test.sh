@@ -4,7 +4,7 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-export PATH="$ROOT/bin:$PATH"
+export PATH="$ROOT/src/cli:$PATH"
 
 require_command jq
 require_command lua
@@ -52,13 +52,13 @@ pass "default center layout puts elsewhen immediately after the clock and before
 
 # Every CLI write goes through the normalizer, which keeps every bar section a
 # list, the ones beside the center box included.
-normalized=$(ARCH_PATH="$ROOT" bash -c 'source "$ARCH_PATH/bin/arch-shell-config" && jq -c "$NORMALIZE | .bar.layout" <<<"{\"bar\":{\"layout\":{\"centerBegin\":null}}}"')
+normalized=$(ARCH_PATH="$ROOT" bash -c 'source "$ARCH_PATH/src/cli/arch-shell-config" && jq -c "$NORMALIZE | .bar.layout" <<<"{\"bar\":{\"layout\":{\"centerBegin\":null}}}"')
 [[ $normalized == '{"centerBegin":[],"left":[],"center":[],"centerEnd":[],"right":[]}' ]] ||
   fail "shell config normalizer keeps every bar section a list" "$normalized"
 pass "shell config normalizer keeps every bar section a list"
 
 # A service widget defaulting to centerEnd goes after the weather.
-grep -qF 'def anchor_for(\$section): { left: \"arch.workspaces\", centerEnd: \"arch.weather\", right: \"arch.tray\" }[\$section];' "$ROOT/bin/arch-bar" ||
+grep -qF 'def anchor_for(\$section): { left: \"arch.workspaces\", centerEnd: \"arch.weather\", right: \"arch.tray\" }[\$section];' "$ROOT/src/cli/arch-bar" ||
   fail "bar defaults anchors centerEnd widgets after the weather"
 pass "bar defaults anchors centerEnd widgets after the weather"
 
@@ -266,9 +266,11 @@ pass "Hyprland bootstrap reloads cached os config modules"
 TMPDIR=$(mktemp -d)
 test_arch_root="$TMPDIR/arch-root"
 mkdir -p "$test_arch_root"
-for entry in bin config default etc install migrations version arch-mark.svg icon.txt logo.txt logo.svg; do
+for entry in config default etc migrations version arch-mark.svg icon.txt logo.txt logo.svg; do
   [[ -e $ROOT/$entry ]] && ln -s "$ROOT/$entry" "$test_arch_root/$entry"
 done
+ln -s "$ROOT/src/cli" "$test_arch_root/bin"
+ln -s "$ROOT/installer" "$test_arch_root/install"
 ln -s "$ROOT/src/shell" "$test_arch_root/shell"
 ln -s "$ROOT/assets/themes" "$test_arch_root/themes"
 ln -s "$ROOT/assets/applications" "$test_arch_root/applications"
@@ -508,7 +510,7 @@ set -euo pipefail
 SH
 
 chmod +x "$mock_bin"/*
-mock_path="$mock_bin:$ROOT/bin:$PATH"
+mock_path="$mock_bin:$ROOT/src/cli:$PATH"
 
 HOME="$TMPDIR/home" ARCH_PATH="$test_arch_root" PATH="$mock_path" ARCH_TEST_DROPBOX=0 ARCH_TEST_TAILSCALE=0 arch-bar defaults
 jq -e --slurpfile defaults "$ROOT/config/arch/shell.json" '

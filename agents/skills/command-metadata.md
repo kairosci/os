@@ -1,9 +1,9 @@
 # Command Metadata
 
-Read this before adding or changing commands in `bin/`.
+Read this before adding or changing commands in `src/cli/`.
 
-Commands in `bin/` can declare CLI metadata in comments near the top of the
-file. `bin/arch` scans the first 80 lines, and tests expect command metadata
+Commands in `src/cli/` can declare CLI metadata in comments near the top of the
+file. `src/cli/archctl` scans the first 80 lines, and tests expect command metadata
 to remain valid.
 
 Supported metadata keys:

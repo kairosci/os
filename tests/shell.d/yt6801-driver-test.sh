@@ -144,9 +144,9 @@ esac
 SH
 chmod +x "$stub_bin/stub"
 for command in lspci pacman lsmod readlink modinfo modprobe rmmod tee sudo arch-notification-dismiss; do
-  ln -s stub "$stub_bin/$command"
+  ln -s stub "$stub_src/cli/$command"
 done
-ln -s "$ROOT/bin/arch-pkg-drop" "$stub_bin/arch-pkg-drop"
+ln -s "$ROOT/src/cli/arch-pkg-drop" "$stub_bin/arch-pkg-drop"
 
 reset_state() {
   rm -rf "$TEST_STATE"
@@ -339,13 +339,13 @@ printf '%s\n' 'touch "$TEST_STATE/later-migration"' >"$test_tmp/arch/migrations/
 export ARCH_PATH="$test_tmp/arch"
 export ARCH_MIGRATION_STATE="$test_tmp/migration-state"
 TEST_FAULT=probe-noop
-if "$ROOT/bin/arch-migrate" >"$test_tmp/output" 2>&1; then
+if "$ROOT/src/cli/arch-migrate" >"$test_tmp/output" 2>&1; then
   fail "migration runner must fail when cutover is incomplete"
 fi
 [[ ! -e $ARCH_MIGRATION_STATE/1788279117.sh && ! -e $TEST_STATE/later-migration ]] ||
   fail "failed cutover must not write a completion marker or run later migrations"
 TEST_FAULT=""
-"$ROOT/bin/arch-migrate" >"$test_tmp/output" 2>&1
+"$ROOT/src/cli/arch-migrate" >"$test_tmp/output" 2>&1
 assert_complete
 [[ -f $ARCH_MIGRATION_STATE/1788279117.sh && -f $TEST_STATE/later-migration ]] ||
   fail "successful retry must mark completion and continue the queue"

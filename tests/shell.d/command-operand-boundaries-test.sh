@@ -6,16 +6,16 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 export ARCH_PATH="$ROOT"
 
-if "$ROOT/bin/arch-cmd-present" -p; then
+if "$ROOT/src/cli/arch-cmd-present" -p; then
   fail "cmd-present treats an option-shaped command name literally"
 fi
 pass "cmd-present treats an option-shaped command name literally"
 
-"$ROOT/bin/arch-cmd-missing" -p ||
+"$ROOT/src/cli/arch-cmd-missing" -p ||
   fail "cmd-missing treats an option-shaped command name literally"
 pass "cmd-missing treats an option-shaped command name literally"
 
-"$ROOT/bin/arch-cmd-present" bash || fail "cmd-present still finds an ordinary command"
+"$ROOT/src/cli/arch-cmd-present" bash || fail "cmd-present still finds an ordinary command"
 pass "cmd-present still finds an ordinary command"
 
 test_tmp=$(mktemp -d)
@@ -55,16 +55,16 @@ fi
 STUB
 chmod +x "$mock_bin/pacman"
 
-if PATH="$mock_bin:$PATH" "$ROOT/bin/arch-pkg-present" --help; then
+if PATH="$mock_bin:$PATH" "$ROOT/src/cli/arch-pkg-present" --help; then
   fail "pkg-present treats an option-shaped package name literally"
 fi
 pass "pkg-present treats an option-shaped package name literally"
 
-PATH="$mock_bin:$PATH" "$ROOT/bin/arch-pkg-missing" --help ||
+PATH="$mock_bin:$PATH" "$ROOT/src/cli/arch-pkg-missing" --help ||
   fail "pkg-missing treats an option-shaped package name literally"
 pass "pkg-missing treats an option-shaped package name literally"
 
-PATH="$mock_bin:$PATH" "$ROOT/bin/arch-pkg-present" installed ||
+PATH="$mock_bin:$PATH" "$ROOT/src/cli/arch-pkg-present" installed ||
   fail "pkg-present still finds an installed package"
 pass "pkg-present still finds an installed package"
 
@@ -92,8 +92,8 @@ STUB
 chmod +x "$mock_bin/arch-pkg-missing" "$mock_bin/sudo" "$mock_bin/yay"
 
 : >"$package_calls"
-PATH="$mock_bin:$ROOT/bin:$PATH" ARCH_TEST_PACKAGE_CALLS="$package_calls" \
-  "$ROOT/bin/arch-pkg-add" --hookdir=/tmp/hooks
+PATH="$mock_bin:$ROOT/src/cli:$PATH" ARCH_TEST_PACKAGE_CALLS="$package_calls" \
+  "$ROOT/src/cli/arch-pkg-add" --hookdir=/tmp/hooks
 
 grep -Fx 'pacman <-S> <--noconfirm> <--needed> <--> <--hookdir=/tmp/hooks>' "$package_calls" >/dev/null ||
   fail "pkg-add separates package operands from pacman options" "$(<"$package_calls")"
@@ -102,8 +102,8 @@ grep -Fx 'pacman <-Q> <--> <--hookdir=/tmp/hooks>' "$package_calls" >/dev/null |
 pass "pkg-add keeps option-shaped package names out of pacman option parsing"
 
 : >"$package_calls"
-PATH="$mock_bin:$ROOT/bin:$PATH" ARCH_TEST_PACKAGE_CALLS="$package_calls" \
-  "$ROOT/bin/arch-pkg-aur-add" --hookdir=/tmp/hooks
+PATH="$mock_bin:$ROOT/src/cli:$PATH" ARCH_TEST_PACKAGE_CALLS="$package_calls" \
+  "$ROOT/src/cli/arch-pkg-aur-add" --hookdir=/tmp/hooks
 
 grep -Fx 'yay <-S> <--noconfirm> <--needed> <--> <--hookdir=/tmp/hooks>' "$package_calls" >/dev/null ||
   fail "pkg-aur-add separates package operands from yay options" "$(<"$package_calls")"
@@ -128,12 +128,12 @@ fi
 STUB
 chmod +x "$mock_bin/grep"
 
-if PATH="$mock_bin:$PATH" "$ROOT/bin/arch-hw-match" --help; then
+if PATH="$mock_bin:$PATH" "$ROOT/src/cli/arch-hw-match" --help; then
   fail "hw-match treats an option-shaped hardware pattern literally"
 fi
 pass "hw-match treats an option-shaped hardware pattern literally"
 
-PATH="$mock_bin:$PATH" "$ROOT/bin/arch-hw-match" known-hardware ||
+PATH="$mock_bin:$PATH" "$ROOT/src/cli/arch-hw-match" known-hardware ||
   fail "hw-match still accepts an ordinary hardware pattern"
 pass "hw-match still accepts an ordinary hardware pattern"
 
@@ -155,7 +155,7 @@ STUB
 chmod +x "$mock_bin/pkill" "$mock_bin/setsid"
 
 PATH="$mock_bin:$PATH" ARCH_TEST_PKILL_CALLS="$pkill_calls" \
-  "$ROOT/bin/arch-restart-app" "-9 kitty"
+  "$ROOT/src/cli/arch-restart-app" "-9 kitty"
 
 pkill_argv=$(<"$pkill_calls")
 [[ $pkill_argv == $'<-x>\n<-->\n<-9 kitty>' ]] ||
@@ -175,8 +175,8 @@ printf '<%s>\n' "$@" >"$ARCH_TEST_EDITOR_CALLS"
 STUB
 chmod +x "$mock_bin/nvim"
 
-HOME="$fake_home" PATH="$mock_bin:$ROOT/bin:$PATH" ARCH_TEST_EDITOR_CALLS="$editor_calls" \
-  "$ROOT/bin/arch-launch-editor" --inline -cquit
+HOME="$fake_home" PATH="$mock_bin:$ROOT/src/cli:$PATH" ARCH_TEST_EDITOR_CALLS="$editor_calls" \
+  "$ROOT/src/cli/arch-launch-editor" --inline -cquit
 
 editor_argv=$(<"$editor_calls")
 [[ $editor_argv == $'<-->\n<-cquit>' ]] ||
@@ -191,8 +191,8 @@ printf '<%s>\n' "$@" >"$ARCH_TEST_EDITOR_CALLS"
 STUB
 chmod +x "$mock_bin/arch-launch-tui"
 
-HOME="$fake_home" PATH="$mock_bin:$ROOT/bin:$PATH" ARCH_TEST_EDITOR_CALLS="$editor_calls" \
-  "$ROOT/bin/arch-launch-editor" -cquit
+HOME="$fake_home" PATH="$mock_bin:$ROOT/src/cli:$PATH" ARCH_TEST_EDITOR_CALLS="$editor_calls" \
+  "$ROOT/src/cli/arch-launch-editor" -cquit
 
 editor_argv=$(<"$editor_calls")
 [[ $editor_argv == $'<nvim>\n<-->\n<-cquit>' ]] ||
@@ -208,8 +208,8 @@ exit 0
 STUB
 chmod +x "$mock_bin/code"
 
-HOME="$fake_home" PATH="$mock_bin:$ROOT/bin:$PATH" ARCH_TEST_SETSID_CALLS="$setsid_calls" \
-  "$ROOT/bin/arch-launch-editor" -cquit
+HOME="$fake_home" PATH="$mock_bin:$ROOT/src/cli:$PATH" ARCH_TEST_SETSID_CALLS="$setsid_calls" \
+  "$ROOT/src/cli/arch-launch-editor" -cquit
 
 setsid_argv=$(<"$setsid_calls")
 [[ $setsid_argv == $'<uwsm-app>\n<-->\n<code>\n<-->\n<-cquit>' ]] ||
@@ -241,7 +241,7 @@ cat >"$mock_bin/cp" <<'STUB'
 } >>"$ARCH_TEST_HOOK_CALLS"
 STUB
 for command in mkdir chmod; do
-  printf '#!/bin/bash\nexit 0\n' >"$mock_bin/$command"
+  printf '#!/bin/bash\nexit 0\n' >"$mock_src/cli/$command"
 done
 chmod +x "$mock_bin/basename" "$mock_bin/cp" "$mock_bin/mkdir" "$mock_bin/chmod"
 
@@ -249,7 +249,7 @@ chmod +x "$mock_bin/basename" "$mock_bin/cp" "$mock_bin/mkdir" "$mock_bin/chmod"
 (
   cd -- "$test_tmp"
   HOME="$hook_home" PATH="$mock_bin:$PATH" ARCH_TEST_HOOK_CALLS="$hook_calls" \
-    "$ROOT/bin/arch-hook-install" post-update --help >/dev/null
+    "$ROOT/src/cli/arch-hook-install" post-update --help >/dev/null
 )
 
 hook_argv=$(<"$hook_calls")

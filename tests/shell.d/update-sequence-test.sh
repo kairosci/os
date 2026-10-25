@@ -57,7 +57,7 @@ run_update() {
     FAILING_STEP="${FAILING_STEP:-}" \
     ARCH_UPDATE_LOGGED=1 \
     PATH="$stub_bin:$PATH" \
-    "$SUDO_TEST_ROOT/bin/arch-update" "$@" >"$test_tmp/out" 2>"$test_tmp/err"
+    "$SUDO_TEST_ROOT/src/cli/arch-update" "$@" >"$test_tmp/out" 2>"$test_tmp/err"
 }
 
 steps_run() {

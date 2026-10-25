@@ -111,13 +111,13 @@ exec "$@"
 SH
 
 for command in gum hyprctl arch-webapp-remove-all arch-tui-remove-all arch-pkg-drop; do
-  ln -s arch-test-noop "$mock_bin/$command"
+  ln -s arch-test-noop "$mock_src/cli/$command"
 done
 
 chmod +x "$mock_bin"/*
 
 export HOME="$test_home"
-export PATH="$mock_bin:$ROOT/bin:$PATH"
+export PATH="$mock_bin:$ROOT/src/cli:$PATH"
 export ARCH_TEST_NOTIFICATION_HISTORY="$notification_history"
 export ARCH_TEST_AGENT_OPEN_LOG="$agent_open_log"
 export ARCH_TEST_AGENT_LAUNCH_LOG="$launch_log"
@@ -149,7 +149,7 @@ assert_lazy_stub() {
   local command=$2
 
   : >"$mise_history"
-  "$ROOT/bin/arch-mise-install" "$package" "$command"
+  "$ROOT/src/cli/arch-mise-install" "$package" "$command"
   "$test_home/.local/bin/$command" --version
   mapfile -t mise_calls <"$mise_history"
 
@@ -243,7 +243,7 @@ grep -Fx "$crush_package" "$stub_log" >/dev/null || fail "agent migration create
 agent_file="$test_home/.config/arch/defaults/agent"
 mkdir -p "$(dirname "$agent_file")"
 printf '%s\n' gemini >"$agent_file"
-"$ROOT/bin/arch-mise-install" gemini
+"$ROOT/src/cli/arch-mise-install" gemini
 export ARCH_TEST_MISSING_COMMAND=agy
 source "$ROOT/migrations/1786719479.sh" >/dev/null
 unset ARCH_TEST_MISSING_COMMAND
@@ -311,7 +311,7 @@ pass "Antigravity migration preserves an existing Antigravity install"
 
 mkdir -p "$test_home/.local/state/arch"
 touch "$test_home/.local/state/arch/preinstalls-removed"
-"$ROOT/bin/arch-mise-install" oh-my-pi omp
+"$ROOT/src/cli/arch-mise-install" oh-my-pi omp
 : >"$stub_log"
 source "$ROOT/migrations/1785617047.sh" >/dev/null
 source "$ROOT/migrations/1785846769.sh" >/dev/null
@@ -450,8 +450,8 @@ grep -Fx "unuse -y -g $legacy_grok_package" "$mise_history" >/dev/null ||
   fail "Grok registry migration drops a leftover npm tool when the wrapper is gone"
 pass "agent migrations install working wrappers without overriding the preinstall opt-out"
 
-"$ROOT/bin/arch-mise-install" "$muse_package" muse
-"$ROOT/bin/arch-mise-install" "$kimi_package" kimi
+"$ROOT/src/cli/arch-mise-install" "$muse_package" muse
+"$ROOT/src/cli/arch-mise-install" "$kimi_package" kimi
 touch "$test_home/.local/bin/agy" "$test_home/.local/bin/ori"
 arch-remove-preinstalls >/dev/null
 for command in agy omp ori grok crush cursor-agent muse kimi; do
@@ -1024,7 +1024,7 @@ for agent in cursor-agent muse; do
   printf '#!/bin/bash\nprintf "official %s\\n"\n' "$agent" >"$test_home/.local/bin/$agent"
   chmod +x "$test_home/.local/bin/$agent"
   printf '%s\n' "$agent" >"$agent_file"
-  output=$("$ROOT/bin/arch-agent" --inline)
+  output=$("$ROOT/src/cli/arch-agent" --inline)
   [[ $output == "official $agent" ]] || fail "agent launcher preserves the user-installed $agent ahead of a mise shim"
   rm "$test_home/.local/bin/$agent"
 done

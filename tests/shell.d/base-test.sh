@@ -158,7 +158,7 @@ find_arch_pkgs() {
 
 # Fake the hardware identity arch-hw-platform reads: a device tree under
 # $1/proc and a uname in $1/bin reporting the platform's CPU. Run the code under
-# test with ARCH_PROC_ROOT="$1/proc" and PATH="$1/bin:$ROOT/bin:...", so the
+# test with ARCH_PROC_ROOT="$1/proc" and PATH="$1/bin:$ROOT/src/cli:...", so the
 # real detector and its wrappers answer from the fixture.
 fake_platform() {
   local dir="$1" platform="$2" machine=aarch64

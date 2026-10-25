@@ -56,13 +56,13 @@ notification_log="$tmpdir/notifications.log"
 toggle() {
   env HOME="$home_dir" XDG_STATE_HOME="$home_dir/.local/state" \
     HYPRCTL_LOG="$log_file" NOTIFICATION_LOG="$notification_log" \
-    PATH="$stub_dir:$ROOT/bin:$PATH" "$@" "$ROOT/bin/arch-hyprland-workspace-layout-toggle"
+    PATH="$stub_dir:$ROOT/src/cli:$PATH" "$@" "$ROOT/src/cli/arch-hyprland-workspace-layout-toggle"
 }
 
 toggle_back() {
   env HOME="$home_dir" XDG_STATE_HOME="$home_dir/.local/state" \
     HYPRCTL_LOG="$log_file" NOTIFICATION_LOG="$notification_log" \
-    PATH="$stub_dir:$ROOT/bin:$PATH" "$ROOT/bin/arch-hyprland-workspace-layout-toggle" "$@"
+    PATH="$stub_dir:$ROOT/src/cli:$PATH" "$ROOT/src/cli/arch-hyprland-workspace-layout-toggle" "$@"
 }
 
 saved_mode() {

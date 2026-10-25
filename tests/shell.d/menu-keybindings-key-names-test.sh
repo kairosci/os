@@ -92,8 +92,8 @@ chmod +x "$mock_bin/arch-cmd-present"
 # fixture root with key names, and one without.
 mkdir -p "$platform/root" "$platform/bin"
 printf '%s\n' 'XF86MonBrightnessUp F2' 'XF86MonBrightnessDown F1' 'not a line' 'Bad-Sym F3' >"$platform/root/key-names"
-platform_root_copy "$ROOT/bin/arch-menu-keybindings" "$platform/bin/with-names" "$platform/root"
-platform_root_copy "$ROOT/bin/arch-menu-keybindings" "$platform/bin/without-names" "$platform/none"
+platform_root_copy "$ROOT/src/cli/arch-menu-keybindings" "$platform/bin/with-names" "$platform/root"
+platform_root_copy "$ROOT/src/cli/arch-menu-keybindings" "$platform/bin/without-names" "$platform/none"
 
 # Pre-seed the exact cache file that v13, which knew no key names, would read
 # for these mocked inputs. Cached records use the rendered row as field 1, followed by
@@ -140,7 +140,7 @@ pass "keybindings menu shows a platform's key names (F1/F2), stale caches ignore
 # reads the same, as displays.conf does.
 mkdir -p "$platform/crlf"
 printf '%s\r\n' 'XF86MonBrightnessUp F2' '  XF86MonBrightnessDown	F1 ' >"$platform/crlf/key-names"
-platform_root_copy "$ROOT/bin/arch-menu-keybindings" "$platform/bin/crlf-names" "$platform/crlf"
+platform_root_copy "$ROOT/src/cli/arch-menu-keybindings" "$platform/bin/crlf-names" "$platform/crlf"
 output=$(PATH="$mock_bin:$PATH" XDG_CACHE_HOME="$cache_dir" "$platform/bin/crlf-names" --print)
 tr -s ' ' <<<"$output" | grep -qF 'SHIFT + F2 → Keyboard brightness up' && tr -s ' ' <<<"$output" | grep -qF 'SHIFT + F1 → Keyboard brightness down' ||
   fail "key names saved with CRLF line ends and blanks around them still apply" "$output"

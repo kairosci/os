@@ -6,16 +6,16 @@
     },
     {
       "path": "agents/skills/command-metadata.md",
-      "description": "Header metadata every bin/ command declares",
+      "description": "Header metadata every src/cli/ command declares",
       "scope": [
-        "bin/**"
+        "src/cli/**"
       ]
     },
     {
       "path": "docs/cli-router.md",
-      "description": "How bin/arch resolves routes and what archctl commands --check enforces",
+      "description": "How src/cli/archctl resolves routes and what archctl commands --check enforces",
       "scope": [
-        "bin/**",
+        "src/cli/**",
         "tests/cli"
       ]
     },
@@ -24,8 +24,8 @@
       "description": "Rules for installer/ leaves and the apply/finalize/provision commands",
       "scope": [
         "installer/**",
-        "bin/arch-apply-*",
-        "bin/arch-provision-*"
+        "src/cli/arch-apply-*",
+        "src/cli/arch-provision-*"
       ]
     },
     {
@@ -33,19 +33,19 @@
       "description": "Migration model, format, ordering and when tests are kept",
       "scope": [
         "migrations/**",
-        "bin/arch-migrate*",
-        "bin/arch-upgrade-to-quattro"
+        "src/cli/arch-migrate*",
+        "src/cli/arch-upgrade-to-quattro"
       ]
     },
     {
       "path": "docs/update-process.md",
       "description": "The archctl update pipeline, its sudo boundary, the pacman guard and channels",
       "scope": [
-        "bin/arch-update*",
-        "bin/arch-migrate*",
-        "bin/arch-channel-*",
-        "bin/arch-refresh-pacman",
-        "bin/arch-reinstall-pkgs",
+        "src/cli/arch-update*",
+        "src/cli/arch-migrate*",
+        "src/cli/arch-channel-*",
+        "src/cli/arch-refresh-pacman",
+        "src/cli/arch-reinstall-pkgs",
         "default/libalpm/**",
         "default/pacman/**",
         "installer/helpers/pacman.sh"
@@ -55,14 +55,14 @@
       "path": "docs/lifecycle-dispatch.md",
       "description": "Platform lifecycle operations, their callers and the trust rules for root entrypoints",
       "scope": [
-        "bin/arch-lifecycle-dispatch",
-        "bin/arch-provision-*",
-        "bin/arch-system-factory-reset",
-        "bin/arch-update-boot",
-        "bin/arch-drive-password",
-        "bin/arch-install-browser",
-        "bin/arch-install-gaming-steam",
-        "bin/arch-remove-gaming-steam",
+        "src/cli/arch-lifecycle-dispatch",
+        "src/cli/arch-provision-*",
+        "src/cli/arch-system-factory-reset",
+        "src/cli/arch-update-boot",
+        "src/cli/arch-drive-password",
+        "src/cli/arch-install-browser",
+        "src/cli/arch-install-gaming-steam",
+        "src/cli/arch-remove-gaming-steam",
         "installer/provisioning/**",
         "installer/hardware/platform-setup.sh",
         "installer/user/platform-setup.sh"
@@ -72,8 +72,8 @@
       "path": "docs/passwordless-sudo.md",
       "description": "Grant lifecycle and package ownership for passwordless sudo",
       "scope": [
-        "bin/arch-sudo-*",
-        "bin/arch-security-functions",
+        "src/cli/arch-sudo-*",
+        "src/cli/arch-security-functions",
         "etc/sudoers.d/**"
       ]
     },
@@ -86,9 +86,9 @@
         "etc/**",
         "applications/**",
         "installer/**",
-        "bin/arch-provision-*",
-        "bin/arch-reinstall-*",
-        "bin/arch-dev-*"
+        "src/cli/arch-provision-*",
+        "src/cli/arch-reinstall-*",
+        "src/cli/arch-dev-*"
       ]
     },
     {
@@ -96,7 +96,7 @@
       "description": "Quickshell plugin contract, IPC, event sources instead of polling, palette imports",
       "scope": [
         "src/shell/**",
-        "bin/arch-shell*"
+        "src/cli/arch-shell*"
       ]
     },
     {
@@ -105,8 +105,8 @@
       "scope": [
         "src/shell/**",
         "config/arch/shell.json",
-        "bin/arch-plugin*",
-        "bin/arch-bar*"
+        "src/cli/arch-plugin*",
+        "src/cli/arch-bar*"
       ]
     },
     {
@@ -115,7 +115,7 @@
       "scope": [
         "default/arch/arch-menu.jsonc",
         "src/shell/plugins/menu/**",
-        "bin/arch-menu*"
+        "src/cli/arch-menu*"
       ]
     },
     {
@@ -123,8 +123,8 @@
       "description": "Notification daemon, DND rules and the arch-notification-send contract",
       "scope": [
         "src/shell/plugins/notifications/**",
-        "bin/arch-notification-*",
-        "bin/arch-reminder*"
+        "src/cli/arch-notification-*",
+        "src/cli/arch-reminder*"
       ]
     },
     {
@@ -133,7 +133,7 @@
       "scope": [
         "themes/**",
         "default/themed/**",
-        "bin/arch-theme-*"
+        "src/cli/arch-theme-*"
       ]
     },
     {
@@ -143,7 +143,7 @@
         "default/i18n/**",
         "docs/user/**",
         "src/shell/**",
-        "bin/**",
+        "src/cli/**",
         "scripts/i18n-sync.py",
         ".github/workflows/**"
       ]
@@ -185,7 +185,7 @@
         "default/audio/**",
         "installer/hardware/speaker-tuning.sh",
         "installer/user/first-run/audio-tuning.sh",
-        "bin/arch-audio-*",
+        "src/cli/arch-audio-*",
         "src/shell/plugins/panels/audio/**"
       ]
     },

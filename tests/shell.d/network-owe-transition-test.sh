@@ -29,7 +29,7 @@ JS
 printf '#!/bin/bash\nexit 0\n' > "$stage/bin/noop"
 chmod +x "$stage/bin/noop"
 for command in arch-dns arch-network-band arch-network-status; do
-  ln -s noop "$stage/bin/$command"
+  ln -s noop "$stage/src/cli/$command"
 done
 # Answers in call order: 57, then a slow stale 11, then 33. Never touches the
 # host's NetworkManager.

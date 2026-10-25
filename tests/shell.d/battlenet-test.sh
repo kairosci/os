@@ -4,7 +4,7 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-install_script="$ROOT/bin/arch-install-gaming-battlenet"
+install_script="$ROOT/src/cli/arch-install-gaming-battlenet"
 
 [[ ! -f $ROOT/assets/applications/battlenet.desktop ]] || fail "Battle.net launcher is not part of default application refresh"
 [[ -f $ROOT/default/applications/battlenet.desktop ]] || fail "Battle.net launcher template is available to the installer"

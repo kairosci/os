@@ -16,7 +16,7 @@ export ARCH_OPENCLAW_ONBOARD_SETTLE_SECONDS=0
 # Run a scratch copy of the wrapper with its 2s gateway poll shortened;
 # every scenario otherwise costs at least one full poll interval.
 onboard="$tmp_dir/arch-openclaw-onboard"
-sed 's/^  sleep 2$/  sleep 0.1/' "$ROOT/bin/arch-openclaw-onboard" >"$onboard"
+sed 's/^  sleep 2$/  sleep 0.1/' "$ROOT/src/cli/arch-openclaw-onboard" >"$onboard"
 chmod +x "$onboard"
 unit="$HOME/.config/systemd/user/openclaw-gateway.service"
 export unit

@@ -29,7 +29,7 @@ chmod +x "$test_bin/arch-notification-send"
 
 run_invitation_hook() {
   cp "$ROOT/installer/user/first-run/setup-agent.hook" "$hook_path"
-  HOME="$test_home" PATH="$test_bin:$ROOT/bin:$PATH" TEST_LOG="$log_file" bash "$hook_path"
+  HOME="$test_home" PATH="$test_bin:$ROOT/src/cli:$PATH" TEST_LOG="$log_file" bash "$hook_path"
 }
 
 run_invitation_hook
@@ -53,7 +53,7 @@ mkdir -p "$fresh_home/.config/arch/defaults"
 printf 'claude\n' >"$fresh_home/.config/arch/defaults/agent"
 : >"$log_file"
 cp "$ROOT/installer/user/first-run/setup-agent.hook" "$hook_path"
-HOME="$fresh_home" PATH="$test_bin:$ROOT/bin:$PATH" TEST_LOG="$log_file" bash "$hook_path"
+HOME="$fresh_home" PATH="$test_bin:$ROOT/src/cli:$PATH" TEST_LOG="$log_file" bash "$hook_path"
 
 [[ ! -s $log_file ]] || fail "agent invitation stays quiet when a default is already set"
 [[ ! -f $fresh_home/.local/state/arch/done/agent-setup-invitation ]] ||

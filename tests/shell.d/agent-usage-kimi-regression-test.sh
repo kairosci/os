@@ -3,7 +3,7 @@
 set -euo pipefail
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-python3 - "$ROOT/bin/arch-agent-usage-kimi" <<'PY'
+python3 - "$ROOT/src/cli/arch-agent-usage-kimi" <<'PY'
 import contextlib
 import importlib.machinery
 import importlib.util

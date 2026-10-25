@@ -94,7 +94,7 @@ run_checker() {
   ARCH_PATH="${TEST_ARCH_PATH:-/usr/share/arch}" \
     TEST_GIT_LOG="$git_log" \
     PATH="$stub_bin:$PATH" \
-    "$ROOT/bin/arch-update-available"
+    "$ROOT/src/cli/arch-update-available"
 }
 
 capture_checker() {

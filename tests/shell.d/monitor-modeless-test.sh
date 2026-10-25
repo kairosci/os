@@ -109,7 +109,7 @@ SH
 cp "$fake_bin/arch-hyprland-monitor-clamshell" "$fake_bin/arch-system-lid-inhibit"
 
 chmod +x "$fake_bin"/*
-ln -s "$ROOT/bin/arch-hyprland-monitor-modeless" "$fake_bin/arch-hyprland-monitor-modeless"
+ln -s "$ROOT/src/cli/arch-hyprland-monitor-modeless" "$fake_bin/arch-hyprland-monitor-modeless"
 
 MODELESS=0
 WORKING=1
@@ -121,7 +121,7 @@ assert_state() {
   printf '%s' "$2" >"$monitors_file"
   PATH="$fake_bin:$PATH" ARCH_TEST_MONITORS_FILE="$monitors_file" \
   ARCH_TEST_HYPRCTL_FAIL_FLAG="$hyprctl_fail" \
-    "$ROOT/bin/arch-hyprland-monitor-modeless" || actual=$?
+    "$ROOT/src/cli/arch-hyprland-monitor-modeless" || actual=$?
 
   (( actual == expected )) || fail "$3" "expected exit $expected, got $actual"
   pass "$3"
@@ -164,7 +164,7 @@ touch "$hyprctl_fail"
 unreachable=0
 PATH="$fake_bin:$PATH" ARCH_TEST_MONITORS_FILE="$monitors_file" \
 ARCH_TEST_HYPRCTL_FAIL_FLAG="$hyprctl_fail" \
-  "$ROOT/bin/arch-hyprland-monitor-modeless" || unreachable=$?
+  "$ROOT/src/cli/arch-hyprland-monitor-modeless" || unreachable=$?
 rm -f "$hyprctl_fail"
 (( unreachable == UNDETERMINED )) || fail "an unreachable compositor cannot say" "got $unreachable"
 pass "an unreachable compositor cannot say"
@@ -183,7 +183,7 @@ start_watcher() {
   ARCH_TEST_RECOVERED_MONITORS="$recovered" \
   ARCH_TEST_GUARD_PAUSED="${1:-0}" \
   ARCH_TEST_HYPRCTL_FAIL_FLAG="$hyprctl_fail" \
-    "$ROOT/bin/arch-hyprland-monitor-watch" &
+    "$ROOT/src/cli/arch-hyprland-monitor-watch" &
   watch_pid=$!
 
   exec {events_fd}>"$events"

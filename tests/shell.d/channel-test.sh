@@ -8,7 +8,10 @@ source "$SHELL_TEST_DIR/fixtures/sudo-boundary-test.sh"
 test_tmp="$boundary_tmp"
 package_root="$SUDO_TEST_ROOT"
 copy_boundary_file bin/arch-channel-set
-python3 - "$SUDO_TEST_ROOT/bin/arch-channel-set" "$package_root" <<'PYTHON'
+copy_boundary_file bin/arch-refresh-pacman
+copy_boundary_file bin/arch-apply-pacman
+copy_boundary_file bin/arch-update
+python3 - "$SUDO_TEST_ROOT/src/cli/arch-channel-set" "$package_root" <<'PYTHON'
 import sys
 from pathlib import Path
 p = Path(sys.argv[1])
@@ -70,6 +73,8 @@ for arg in "$@"; do printf "\t%s" "$arg" >>"$ARCH_CHANNEL_TEST_LOG"; done
 printf "\tARCH_PATH=%s" "$ARCH_PATH" >>"$ARCH_CHANNEL_TEST_LOG"
 printf "\n" >>"$ARCH_CHANNEL_TEST_LOG"
 '
+cp "$stub_bin/arch-update" "$SUDO_TEST_ROOT/src/cli/arch-update"
+chmod +x "$SUDO_TEST_ROOT/src/cli/arch-update"
 
 write_stub gum '#!/bin/bash
 printf "gum" >>"$ARCH_CHANNEL_TEST_LOG"
@@ -85,7 +90,7 @@ printf "\n" >>"$ARCH_CHANNEL_TEST_LOG"
 if [[ $1 == "clone" ]]; then
   dest="${@: -1}"
   /usr/bin/cp -a "$SUDO_TEST_ROOT" "$dest"
-  mkdir -p "$dest/.git" "$dest/shell"
+  mkdir -p "$dest/.git" "$dest/src/shell"
 fi
 '
 
@@ -115,7 +120,7 @@ run_channel() {
     ARCH_PATH="${ARCH_TEST_PATH:-$package_root}" \
     ARCH_REGION_FILE="${ARCH_TEST_REGION_FILE:-$test_tmp/no-region}" \
     HOME="$test_tmp/home" \
-    PATH="$stub_bin:$ROOT/bin:$PATH" \
+    PATH="$stub_bin:$ROOT/src/cli:$PATH" \
     "${ARCH_TEST_PATH:-$package_root}/bin/arch-channel-set" "$@"
 }
 
@@ -204,8 +209,8 @@ pass "dev refuses a checkout without the region before touching pacman"
 # A directory with the region's name, or a helper that cannot run, is not
 # support: the refresh after linking would fail with dev already linked.
 mkdir -p "$checkout/default/regions/cn"
-touch "$checkout/bin/arch-apply-pacman"
-chmod +x "$checkout/bin/arch-apply-pacman"
+touch "$checkout/src/cli/arch-apply-pacman"
+chmod +x "$checkout/src/cli/arch-apply-pacman"
 if ARCH_TEST_REGION_FILE="$test_tmp/region" run_channel dev >"$test_tmp/region.out" 2>"$test_tmp/region.err"; then
   fail "dev refuses an empty region profile"
 fi
@@ -230,7 +235,7 @@ for missing in "${cn_fragments[@]}"; do
   fi
 done
 touch "${cn_fragments[@]/#/$checkout/default/regions/cn/pacman/}"
-chmod -x "$checkout/bin/arch-apply-pacman"
+chmod -x "$checkout/src/cli/arch-apply-pacman"
 if ARCH_TEST_REGION_FILE="$test_tmp/region" run_channel dev >"$test_tmp/region.out" 2>"$test_tmp/region.err"; then
   fail "dev refuses a checkout whose pacman helper cannot run"
 fi
@@ -239,7 +244,7 @@ if grep -Eq $'^(link|refresh)\t' "$log_file"; then
 fi
 pass "dev refuses a region profile missing any fragment or a helper that cannot run"
 
-chmod +x "$checkout/bin/arch-apply-pacman"
+chmod +x "$checkout/src/cli/arch-apply-pacman"
 ARCH_TEST_REGION_FILE="$test_tmp/region" run_channel dev
 assert_log_line $'refresh\tedge' "dev proceeds with a checkout that supports the region"
 
@@ -247,8 +252,8 @@ current_channel() {
   ARCH_TEST_VERSION_CHANNEL="$1" \
     ARCH_TEST_PACKAGES="$2" \
     ARCH_PATH="$3" \
-    PATH="$stub_bin:$ROOT/bin:$PATH" \
-    "$ROOT/bin/arch-channel-current"
+    PATH="$stub_bin:$ROOT/src/cli:$PATH" \
+    "$ROOT/src/cli/arch-channel-current"
 }
 
 [[ $(current_channel stable stable /usr/share/arch) == "stable" ]] || fail "current channel detects stable"

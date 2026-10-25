@@ -15,7 +15,7 @@ export ARCH_UPDATE_LOGGED=1
 # August (4.0.0.r1832) until October 2026, which predates command-scoped sudo,
 # and the refresh before the swap is a downgrade-capable upgrade. Every
 # privileged step is a stand-in; pacman is a model of that repository.
-python3 - "$SUDO_TEST_ROOT/bin/arch-channel-set" "$SUDO_TEST_ROOT" <<'PY'
+python3 - "$SUDO_TEST_ROOT/src/cli/arch-channel-set" "$SUDO_TEST_ROOT" <<'PY'
 import sys
 from pathlib import Path
 p = Path(sys.argv[1])
@@ -23,7 +23,7 @@ p.write_text(p.read_text().replace('/usr/share/arch', sys.argv[2]))
 PY
 
 for command in arch-dev-link arch-dev-unlink arch-state gum git; do
-  cat >"$SUDO_TEST_ROOT/bin/$command" <<'STUB'
+  cat >"$SUDO_TEST_ROOT/src/cli/$command" <<'STUB'
 #!/bin/bash
 set -euo pipefail
 step=${0##*/}
@@ -32,12 +32,12 @@ case "$step" in
   arch-dev-link|arch-dev-unlink) sudo /usr/bin/true ;;
 esac
 STUB
-  chmod +x "$SUDO_TEST_ROOT/bin/$command"
+  chmod +x "$SUDO_TEST_ROOT/src/cli/$command"
 done
 
 export SUDO_TEST_INSTALLED_FILE="$boundary_tmp/installed"
-rm "$SUDO_TEST_ROOT/bin/pacman"
-cat >"$SUDO_TEST_ROOT/bin/pacman" <<'STUB'
+rm "$SUDO_TEST_ROOT/src/cli/pacman"
+cat >"$SUDO_TEST_ROOT/src/cli/pacman" <<'STUB'
 #!/bin/bash
 set -euo pipefail
 printf 'step:pacman %s\n' "$*" >>"$SUDO_TEST_LOG"
@@ -63,7 +63,7 @@ case "$1" in
     ;;
 esac
 STUB
-chmod +x "$SUDO_TEST_ROOT/bin/pacman"
+chmod +x "$SUDO_TEST_ROOT/src/cli/pacman"
 
 cp "$SUDO_TEST_ROOT/default/arch/sudo-no-update/sudo" "$boundary_tmp/saved-package-wrapper"
 checkout="$SUDO_TEST_HOME/arch"

@@ -63,7 +63,7 @@ run_migration() {
   rm -f "$gpasswd_calls" "$reboot_flag" "$reboot_called"
   HOME="$home" ARCH_PATH="$arch_path" USER="tester" STUB_GROUPS="$1" \
     GPASSWD_CALLS="$gpasswd_calls" REBOOT_CALLED="$reboot_called" \
-    PATH="$stub_bin:$ROOT/bin:$PATH" \
+    PATH="$stub_bin:$ROOT/src/cli:$PATH" \
     bash -euo pipefail "$migration" >/dev/null 2>&1
 }
 

@@ -4,7 +4,7 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-dispatch="$ROOT/bin/arch-lifecycle-dispatch"
+dispatch="$ROOT/src/cli/arch-lifecycle-dispatch"
 tmp=$(mktemp -d)
 trap 'rm -rf "$tmp"' EXIT
 

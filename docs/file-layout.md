@@ -8,7 +8,7 @@ system.
 Two Arch packages are built from this one repo (PKGBUILDs live in the
 separate `arch-pkgs` repository, under `pkgbuilds/`):
 
-- **`arch`** — runtime binaries (`bin/`, including `bin/arch-dev-*`),
+- **`arch`** — CLI sources (`src/cli/`), installed as runtime binaries under `bin/` (including `arch-dev-*`),
   installer/finalize scripts (`installer/`), migrations, themes, and the
   Quickshell desktop (`src/shell/`). Depends on `arch-settings`.
 - **`arch-settings`** — everything that has to be on the target *before*
@@ -51,14 +51,14 @@ Deferred-provisioning installs (`arch-apply-system --defer-provisioning`)
 create no user at all: the ISO leaves `/var/lib/arch/provisioning/pending`
 behind, which arms `arch-provision-owner.service` (shipped from
 `installer/provisioning/`, alongside the factory-reset finish unit and
-`setup-form.sh`). On first boot `bin/arch-provision-owner` creates the
+`setup-form.sh`). On first boot `src/cli/arch-provision-owner` creates the
 user on tty1 and runs the finalize step itself.
 
 On an encrypted install `arch-provision-owner` then re-keys LUKS from the staged install key to the owner's password through `installer/provisioning/luks-rekey.sh`, which journals each step (phase and slot numbers, never keys) in `/var/lib/arch/provisioning/luks-rekey.state` so an interrupted first boot resumes. Setup finishes only once the staged key opens nothing, and removes the journal with `pending`, so a retry after the staged key is retired must use the password the disk holds. On a platform whose boot package owns the boot chain, the check before the owner form, the boot-time unlock and the record of the kept key slot go through `arch-lifecycle-dispatch`. See [lifecycle-dispatch.md](lifecycle-dispatch.md).
 
 `arch-drive-password` reuses those journal helpers when the owner changes the password of the disk holding `/`: it changes the LUKS key and confirms the new key opens the disk and the old one no longer does. The login and root passwords are left alone. `~/.local/state/arch/drive-password.state` records the disk's UUID, the key slots and the phase (never a password) until the change is confirmed and its slot recorded, and the next run finishes an interrupted change with whichever of the old or new password the disk opens with.
 
-Prebuilt images are set up away from the machine they will run on, so their hardware setup waits for that machine. The builder writes a root-owned manifest, `/var/lib/arch/image/target` (`format=1`, `platform=<arch-hw-platform value>`), before `arch-apply-system`. While it exists, `arch-apply-hardware` runs no hardware leaf: it queues each one in `/var/lib/arch/image/deferred-steps` and arms `arch-provision-hardware.service` (shipped from `installer/provisioning/`). On the machine's first boot, before owner setup and the login screen, `bin/arch-provision-hardware` renames the manifest to `target.booted` and runs the queue in order, dropping each step that succeeds. Before the first step it makes the machine's own pacman keyring when the build asked for one (`/var/lib/arch/image/pacman-keyring`, which install finalization writes on aarch64 platforms other than Apple Silicon instead of running `pacman-key --init`, so no two machines share a master key). A failed step stays queued for the next boot. It refreshes no package databases: the image carries its sync databases and every package its queued steps install, so the queue runs offline (the image build checks that it carries them; a step whose package is missing stays queued). Once the queue is empty it rebuilds the initramfs if a step changed its inputs (the mkinitcpio configuration, module options in `/etc/modprobe.d/` and `/usr/lib/modprobe.d/`, or the kernel command line in `/etc/default/limine` and `/etc/limine-entry-tool.d/`) or asked for the rebuild (`/var/lib/arch/image/boot-rebuild`), and disables the service; the unit file stays, so a start job already queued is skipped on the emptied queue rather than failed. A platform's own first boot may run `arch-provision-hardware` itself: runs are serialised, and it exits 75 when a step or the keyring failed and stays queued, and 1 when it refused to run (an untrusted manifest or queue) or the final rebuild failed, which the next run retries. Steps know they run on an image's first boot from `ARCH_IMAGE_DEFERRED_HARDWARE=1` (Bluetooth starts its service there, since boot already brought up its target). `installer/helpers/image-target.sh` holds the contract. Root always uses these fixed paths; no environment variable turns a live system into an image build.
+Prebuilt images are set up away from the machine they will run on, so their hardware setup waits for that machine. The builder writes a root-owned manifest, `/var/lib/arch/image/target` (`format=1`, `platform=<arch-hw-platform value>`), before `arch-apply-system`. While it exists, `arch-apply-hardware` runs no hardware leaf: it queues each one in `/var/lib/arch/image/deferred-steps` and arms `arch-provision-hardware.service` (shipped from `installer/provisioning/`). On the machine's first boot, before owner setup and the login screen, `src/cli/arch-provision-hardware` renames the manifest to `target.booted` and runs the queue in order, dropping each step that succeeds. Before the first step it makes the machine's own pacman keyring when the build asked for one (`/var/lib/arch/image/pacman-keyring`, which install finalization writes on aarch64 platforms other than Apple Silicon instead of running `pacman-key --init`, so no two machines share a master key). A failed step stays queued for the next boot. It refreshes no package databases: the image carries its sync databases and every package its queued steps install, so the queue runs offline (the image build checks that it carries them; a step whose package is missing stays queued). Once the queue is empty it rebuilds the initramfs if a step changed its inputs (the mkinitcpio configuration, module options in `/etc/modprobe.d/` and `/usr/lib/modprobe.d/`, or the kernel command line in `/etc/default/limine` and `/etc/limine-entry-tool.d/`) or asked for the rebuild (`/var/lib/arch/image/boot-rebuild`), and disables the service; the unit file stays, so a start job already queued is skipped on the emptied queue rather than failed. A platform's own first boot may run `arch-provision-hardware` itself: runs are serialised, and it exits 75 when a step or the keyring failed and stays queued, and 1 when it refused to run (an untrusted manifest or queue) or the final rebuild failed, which the next run retries. Steps know they run on an image's first boot from `ARCH_IMAGE_DEFERRED_HARDWARE=1` (Bluetooth starts its service there, since boot already brought up its target). `installer/helpers/image-target.sh` holds the contract. Root always uses these fixed paths; no environment variable turns a live system into an image build.
 
 Current generated theme state lives under
 `~/.local/state/arch/current/`. Keep `~/.config/arch/` for files a user
@@ -71,11 +71,11 @@ shell layout, plugins, and themed template overrides.
 arch/                            built into          installed at
 ─────────────────────────           ──────────────      ────────────────────────────────────
 
-bin/arch-*                  ──►  arch             /usr/bin/arch-*
+src/cli/arch-*              ──►  arch             /usr/bin/arch-*
                                                         (and symlinks in /usr/share/arch/bin/)
-bin/arch-debug,
-bin/arch-debug-idle,
-bin/arch-upload-log         ──►  arch-settings    /usr/bin/  (needed before arch is installed)
+src/cli/arch-debug,
+src/cli/arch-debug-idle,
+src/cli/arch-upload-log     ──►  arch-settings    /usr/bin/  (needed before arch is installed)
 
 default/libalpm/hooks/*.hook
                                 ──►  arch             /usr/share/libalpm/hooks/*.hook
@@ -433,8 +433,8 @@ return to the packaged default.
 | Runtime tweak that needs `$HOME` or live system state | extend `arch-provision-user`, or add a per-user leaf under `installer/user/` and wire into `installer/user/all.sh` |
 | One-time root-side setup step | `installer/config/*.sh` or `installer/hardware/*.sh`, wire into `installer/config/all.sh` or `installer/hardware/all.sh` |
 | One-time fix for existing installs | `migrations/<unix-timestamp>.sh` |
-| Package-owned path something else may already write | Prefer a path nothing else writes, such as a vendor drop-in under `/usr/lib`. Otherwise the `--overwrite` entry in `bin/arch-update-system-pkgs` has to ship a release before the file |
-| User-facing `arch-*` command | `bin/arch-<group>-<verb>` — see `GROUP_DESCRIPTIONS` in `bin/arch` |
+| Package-owned path something else may already write | Prefer a path nothing else writes, such as a vendor drop-in under `/usr/lib`. Otherwise the `--overwrite` entry in `src/cli/arch-update-system-pkgs` has to ship a release before the file |
+| User-facing `arch-*` command | `src/cli/arch-<group>-<verb>` — see `GROUP_DESCRIPTIONS` in `src/cli/archctl` |
 | New stock theme | `themes/<name>/` (+ matching templates under `default/themed/` if they need theme colors) |
 | User-installed theme | `~/.config/arch/themes/<name>/` |
 | Generated current theme/background state | `~/.local/state/arch/current/` |

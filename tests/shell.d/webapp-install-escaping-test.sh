@@ -25,7 +25,7 @@ export ARCH_TEST_ARGV="$test_tmp/argv"
 applications="$HOME/.local/share/applications"
 
 install_webapp() {
-  bash "$ROOT/bin/arch-webapp-install" "$@" >/dev/null
+  bash "$ROOT/src/cli/arch-webapp-install" "$@" >/dev/null
 }
 
 desktop_value() {

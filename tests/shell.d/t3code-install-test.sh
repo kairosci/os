@@ -80,9 +80,9 @@ cp -a assets/themes/. "$arch_runtime/themes/"
 cp -a default "$arch_runtime/"
 run_installer() {
   TMPDIR="$test_tmp/tmp" HOME="$test_home" T3CODE_HOME="$test_tmp/custom t3 home" \
-    ARCH_PATH="$arch_runtime" PATH="$mock_bin:$ROOT/bin:$PATH" \
+    ARCH_PATH="$arch_runtime" PATH="$mock_bin:$ROOT/src/cli:$PATH" \
     ARCH_THEME_HEADLESS=1 XDG_RUNTIME_DIR="$test_tmp" \
-    "$ROOT/bin/arch-install-ai-t3-code" "$@" >"$test_tmp/output" 2>&1
+    "$ROOT/src/cli/arch-install-ai-t3-code" "$@" >"$test_tmp/output" 2>&1
 }
 
 state="$test_home/.local/state/arch/current"
