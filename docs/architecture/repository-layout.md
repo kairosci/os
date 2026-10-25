@@ -60,7 +60,7 @@ tests/
 
 ## Module contract
 
-Each module has one `module.toml` declaring its stable ID, owning domain, dependencies, source roots, installed destinations, and package owner. The module ID and domain must match its directory, and its package must match a PKGBUILD in `packages/`. Dependencies form an acyclic directed graph. The module assembler rejects source symlinks that escape the repository, package output path overlaps, and duplicate destinations across packages. It emits the package tree used by PKGBUILDs; runtime paths remain package-owned. Module changes include focused verification in the same change.
+Each module has one `module.toml` declaring its stable ID, owning domain, dependencies, source roots, installed destinations, and package owner. The module ID and domain must match its directory, and its package must match a PKGBUILD in `packages/`. Dependencies form an acyclic directed graph. The module assembler rejects source symlinks that escape the repository, package output path overlaps, and duplicate destinations across packages. It emits the package tree used by PKGBUILDs; runtime paths remain package-owned. Application settings under `config/` each have an independent module owner, as do the top-level default trees and `/etc` subsystems. Module changes include focused verification in the same change.
 
 Capabilities live below their domain, with independent settings groups below the capability. Each shell plugin has a module, and installer phases, CLI groups, default trees, and `/etc` subsystems have separate module ownership. Hardware-specific scripts remain under `installer/hardware/` and are selected by the hardware provisioning flow.
 

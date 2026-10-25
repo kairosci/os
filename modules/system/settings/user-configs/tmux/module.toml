@@ -1,0 +1,9 @@
+id = "system.settings.user-configs.tmux"
+domain = "system"
+package = "arch-settings"
+sources = ["config/tmux"]
+requires = ["system.settings"]
+
+[[output]]
+source = "config/tmux"
+target = "usr/share/arch/config/tmux"

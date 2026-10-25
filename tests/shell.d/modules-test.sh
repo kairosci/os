@@ -10,7 +10,7 @@ trap 'rm -rf "$stage"' EXIT
 
 python3 "$ROOT/scripts/modules.py" validate
 python3 "$ROOT/scripts/modules.py" graph >"$stage/graph.json"
-python3 - "$stage/graph.json" "$ROOT/src/cli" "$ROOT/default" "$ROOT/etc" <<'PY'
+python3 - "$stage/graph.json" "$ROOT/src/cli" "$ROOT/default" "$ROOT/etc" "$ROOT/config" <<'PY'
 import json
 import re
 import sys
@@ -70,6 +70,7 @@ expected_groups = {
 }
 default_roots = Path(sys.argv[3])
 etc_roots = Path(sys.argv[4])
+config_roots = Path(sys.argv[5])
 expected_default_sources = {
     f"default/{path.name}" for path in default_roots.iterdir()
 }
@@ -84,6 +85,20 @@ declared_etc_sources = {
     if module_id == "system.settings.system-files" or module_id in system_file_modules
     for source in module["sources"]
 }
+config_modules = {
+    module_id: module for module_id, module in modules.items()
+    if module_id.startswith("system.settings.user-configs.")
+}
+expected_config_sources = {
+    f"config/{path.name}" for path in config_roots.iterdir() if path.is_dir()
+}
+declared_config_sources = {
+    source for module in config_modules.values() for source in module["sources"]
+}
+root_config_files = {
+    f"config/{path.name}" for path in config_roots.iterdir() if path.is_file()
+}
+declared_root_config_files = set(modules["system.settings"]["sources"])
 assert stages <= modules.keys(), stages - modules.keys()
 assert settings <= modules.keys(), settings - modules.keys()
 assert runtime_data <= modules.keys(), runtime_data - modules.keys()
@@ -96,6 +111,14 @@ assert declared_default_sources == expected_default_sources, (
 assert declared_etc_sources == expected_etc_sources, (
     expected_etc_sources - declared_etc_sources,
     declared_etc_sources - expected_etc_sources,
+)
+assert declared_config_sources == expected_config_sources, (
+    expected_config_sources - declared_config_sources,
+    declared_config_sources - expected_config_sources,
+)
+assert declared_root_config_files == root_config_files, (
+    root_config_files - declared_root_config_files,
+    declared_root_config_files - root_config_files,
 )
 for module_id, module in default_modules.items():
     assert module["package"] == "arch-settings", module_id
@@ -110,6 +133,14 @@ for module_id, module in system_file_modules.items():
     slug = re.sub(r"[^a-z0-9]+", "-", Path(module["sources"][0]).name.lower()).strip("-")
     expected_id = f"system.settings.system-files.{slug}"
     assert module_id == expected_id, (module_id, expected_id)
+for module_id, module in config_modules.items():
+    assert module["package"] == "arch-settings", module_id
+    assert module["requires"] == ["system.settings"], (module_id, module["requires"])
+    assert len(module["sources"]) == len(module["outputs"]) == 1, module_id
+    source = module["sources"][0]
+    slug = Path(source).name.lower().replace("_", "-")
+    assert module_id == f"system.settings.user-configs.{slug}", (module_id, source)
+    assert module["outputs"][0] == [source, f"usr/share/arch/{source}"], (module_id, module["outputs"])
 for module_id in stages:
     module = modules[module_id]
     assert module["package"] == "arch", module_id
@@ -136,6 +167,7 @@ pass "settings, applications, and pre-install branding have independent module o
 pass "CLI capabilities are owned by explicit command modules"
 pass "each top-level default configuration has an explicit module owner"
 pass "each /etc subsystem has an explicit module owner"
+pass "each application configuration tree has an explicit module owner"
 
 python3 - "$ROOT/scripts/modules.py" "$stage/security" <<'PY'
 import importlib.util

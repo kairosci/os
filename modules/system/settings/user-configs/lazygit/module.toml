@@ -1,0 +1,9 @@
+id = "system.settings.user-configs.lazygit"
+domain = "system"
+package = "arch-settings"
+sources = ["config/lazygit"]
+requires = ["system.settings"]
+
+[[output]]
+source = "config/lazygit"
+target = "usr/share/arch/config/lazygit"

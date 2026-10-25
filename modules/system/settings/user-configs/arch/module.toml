@@ -1,0 +1,9 @@
+id = "system.settings.user-configs.arch"
+domain = "system"
+package = "arch-settings"
+sources = ["config/arch"]
+requires = ["system.settings"]
+
+[[output]]
+source = "config/arch"
+target = "usr/share/arch/config/arch"

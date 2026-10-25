@@ -1,0 +1,9 @@
+id = "system.settings.user-configs.hyprland-preview-share-picker"
+domain = "system"
+package = "arch-settings"
+sources = ["config/hyprland-preview-share-picker"]
+requires = ["system.settings"]
+
+[[output]]
+source = "config/hyprland-preview-share-picker"
+target = "usr/share/arch/config/hyprland-preview-share-picker"

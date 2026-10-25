@@ -1,0 +1,9 @@
+id = "system.settings.user-configs.git"
+domain = "system"
+package = "arch-settings"
+sources = ["config/git"]
+requires = ["system.settings"]
+
+[[output]]
+source = "config/git"
+target = "usr/share/arch/config/git"

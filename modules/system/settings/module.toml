@@ -1,9 +1,21 @@
 id = "system.settings"
 domain = "system"
 package = "arch-settings"
-sources = ["config"]
+sources = [
+  "config/chromium-flags.conf",
+  "config/hyprland-mimeapps.list",
+  "config/starship.toml",
+]
 requires = []
 
 [[output]]
-source = "config"
-target = "usr/share/arch/config"
+source = "config/chromium-flags.conf"
+target = "usr/share/arch/config/chromium-flags.conf"
+
+[[output]]
+source = "config/hyprland-mimeapps.list"
+target = "usr/share/arch/config/hyprland-mimeapps.list"
+
+[[output]]
+source = "config/starship.toml"
+target = "usr/share/arch/config/starship.toml"
