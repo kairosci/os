@@ -42,4 +42,4 @@ Ten zvyšný `[themename]` sa stane názvom adresára témy, takže musí byť t
 
 Pamätajte, že akonáhle sa nainštaluje z repozitára, akýkoľvek súbor `.lua`, konfigurácia terminálu alebo `vscode.json`, ktorý dodáva, sa zahodí, takže tému okolo nich nebudujte.
 
-Vašu tému môžete pridať na [stránku s ďalšími témami](https://github.com/kairosci/arch/themes/) zaslaním pull requestu do [repozitára arch-site](https://github.com/kairosci/arch).
+Vašu tému môžete pridať na [stránku s ďalšími témami](https://github.com/kairosci/os/themes/) zaslaním pull requestu do [repozitára arch-site](https://github.com/kairosci/os).

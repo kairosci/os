@@ -2,7 +2,7 @@
 
 Arch sa inštaluje pomocou ISO. Môžete si vybrať medzi inštaláciou na celý disk, ktorá zaberie celý disk, alebo inštaláciou do voľného miesta, ktorá Arch umiestni do neprideleného miesta na disku — takto môžete mať dual boot popri Windowse alebo inom OS (pozri [inštalácia s dual bootom](50-dual-boot-install.md) — všimnite si, že najprv budete musieť vo Windowse vypnúť BitLocker). Tak či onak, inštalácia predvolene používa úplné šifrovanie a možnosť celého disku vymaže vybraný disk, takže pred použitím existujúceho disku si určite urobte zálohu!
 
-Najprv si [stiahnite Arch ISO](https://github.com/kairosci/arch/), dajte ho na USB kľúč (na Macu/Windowse použite [balenaEtcher](https://etcher.balena.io/) alebo na Linuxe [caligula](https://github.com/ifd3f/caligula)) a nabootujte z kľúča.
+Najprv si [stiahnite Arch ISO](https://github.com/kairosci/os/), dajte ho na USB kľúč (na Macu/Windowse použite [balenaEtcher](https://etcher.balena.io/) alebo na Linuxe [caligula](https://github.com/ifd3f/caligula)) a nabootujte z kľúča.
 
 _Secure Boot a/alebo TPM musíte v BIOSe vypnúť. Musíte ich vypnúť, aby ste mohli Arch nainštalovať. Sú to bezpečnostné schémy Microsoftu určené pre Windows a linuxové distribúcie spriaznené s Microsoftom._
 
@@ -36,8 +36,8 @@ Ale za zvláštnych okolností, ako sú vzdialené inštalácie Arch na chránen
 
 ### Jazyk
 
-Arch hovorí 50 jazykmi — rovnaká sada ako github.com/kairosci/arch — a angličtina je predvolená. Ak chcete prepnúť, otvorte menu Arch a prejdite na _Nastavenie > Jazyk_, alebo spustite `archctl language <code>` v termináli (`archctl language list` zobrazí kódy). Menu, pracovná plocha a vlastné oznámenia Arch okamžite zmenia jazyk a každá aplikácia, ktorú potom otvoríte, nasleduje tiež. Aplikácie, ktoré už boli otvorené, sa prepnú, keď ich reštartujete.
+Arch hovorí 50 jazykmi — rovnaká sada ako github.com/kairosci/os — a angličtina je predvolená. Ak chcete prepnúť, otvorte menu Arch a prejdite na _Nastavenie > Jazyk_, alebo spustite `archctl language <code>` v termináli (`archctl language list` zobrazí kódy). Menu, pracovná plocha a vlastné oznámenia Arch okamžite zmenia jazyk a každá aplikácia, ktorú potom otvoríte, nasleduje tiež. Aplikácie, ktoré už boli otvorené, sa prepnú, keď ich reštartujete.
 
 ### Pomoc, ak ste sa zasekli
 
-Ak ste sa zasekli, zvyčajne nájdete niekoho ochotného pomôcť v kanáli _#arch-help_ na [komunitnom Discorde](https://github.com/kairosci/arch/discord).
+Ak ste sa zasekli, zvyčajne nájdete niekoho ochotného pomôcť v kanáli _#arch-help_ na [komunitnom Discorde](https://github.com/kairosci/os/discord).

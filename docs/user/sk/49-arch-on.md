@@ -2,19 +2,19 @@
 
 ### Čipy Apple M1/M2
 
-[Asahi Alarm](https://asahi-alarm.org/) je verzia Archu pre počítače Apple M1/M2 postavená na [Asahi Linux](https://asahilinux.org/). S trochou úsilia na nej môžete rozbehnúť Arch. Pozrite si [sprievodcu od používateľov](https://github.com/kairosci/arch).
+[Asahi Alarm](https://asahi-alarm.org/) je verzia Archu pre počítače Apple M1/M2 postavená na [Asahi Linux](https://asahilinux.org/). S trochou úsilia na nej môžete rozbehnúť Arch. Pozrite si [sprievodcu od používateľov](https://github.com/kairosci/os).
 
 ### Virtuálny stroj na Apple
 
-Arch môžete nainštalovať aj do virtuálneho stroja Parallels. Je to pomerne ťažkopádny proces, ale aj na to existuje [sprievodca od používateľov](https://github.com/kairosci/arch).
+Arch môžete nainštalovať aj do virtuálneho stroja Parallels. Je to pomerne ťažkopádny proces, ale aj na to existuje [sprievodca od používateľov](https://github.com/kairosci/os).
 
 ### VirtualBox
 
-VirtualBox je obľúbený nástroj na spúšťanie virtuálnych strojov. [Arch môžete spustiť aj v ňom](https://github.com/kairosci/arch). Ale výkon pravdepodobne nebude skvelý.
+VirtualBox je obľúbený nástroj na spúšťanie virtuálnych strojov. [Arch môžete spustiť aj v ňom](https://github.com/kairosci/os). Ale výkon pravdepodobne nebude skvelý.
 
 ### VMware Workstation na systéme Windows 11
 
-Ďalší obľúbený nástroj na spúšťanie virtuálnych strojov pre Windows. [Arch bol nastavený aj v ňom](https://github.com/kairosci/arch).
+Ďalší obľúbený nástroj na spúšťanie virtuálnych strojov pre Windows. [Arch bol nastavený aj v ňom](https://github.com/kairosci/os).
 
 ### Steam Deck
 
