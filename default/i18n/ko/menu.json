@@ -5,9 +5,6 @@
   "apps": {
     "label": "앱"
   },
-  "learn": {
-    "label": "배우기"
-  },
   "appearance": {
     "label": "모양"
   },
@@ -49,33 +46,6 @@
   },
   "system.shutdown": {
     "label": "종료"
-  },
-  "learn.keybindings": {
-    "label": "단축키"
-  },
-  "learn.repository": {
-    "label": "GitHub"
-  },
-  "learn.hyprland": {
-    "label": "Hyprland"
-  },
-  "learn.arch": {
-    "label": "Arch"
-  },
-  "learn.neovim": {
-    "label": "Neovim"
-  },
-  "learn.bash": {
-    "label": "Bash"
-  },
-  "learn.tmux-keybindings": {
-    "label": "Tmux"
-  },
-  "learn.herdr-keybindings": {
-    "label": "Herdr"
-  },
-  "learn.community": {
-    "label": "커뮤니티"
   },
   "appearance.theme": {
     "label": "테마"

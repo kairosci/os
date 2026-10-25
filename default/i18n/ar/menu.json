@@ -5,9 +5,6 @@
   "apps": {
     "label": "التطبيقات"
   },
-  "learn": {
-    "label": "تعلّم"
-  },
   "appearance": {
     "label": "المظهر"
   },
@@ -49,33 +46,6 @@
   },
   "system.shutdown": {
     "label": "إيقاف التشغيل"
-  },
-  "learn.keybindings": {
-    "label": "اختصارات المفاتيح"
-  },
-  "learn.repository": {
-    "label": "GitHub"
-  },
-  "learn.hyprland": {
-    "label": "Hyprland"
-  },
-  "learn.arch": {
-    "label": "Arch"
-  },
-  "learn.neovim": {
-    "label": "Neovim"
-  },
-  "learn.bash": {
-    "label": "Bash"
-  },
-  "learn.tmux-keybindings": {
-    "label": "Tmux"
-  },
-  "learn.herdr-keybindings": {
-    "label": "Herdr"
-  },
-  "learn.community": {
-    "label": "المجتمع"
   },
   "appearance.theme": {
     "label": "السمة"

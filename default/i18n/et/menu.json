@@ -5,9 +5,6 @@
   "apps": {
     "label": "Rakendused"
   },
-  "learn": {
-    "label": "Õpi"
-  },
   "appearance": {
     "label": "Välimus"
   },
@@ -49,33 +46,6 @@
   },
   "system.shutdown": {
     "label": "Lülita välja"
-  },
-  "learn.keybindings": {
-    "label": "Kiirklahvid"
-  },
-  "learn.repository": {
-    "label": "GitHub"
-  },
-  "learn.hyprland": {
-    "label": "Hyprland"
-  },
-  "learn.arch": {
-    "label": "Arch"
-  },
-  "learn.neovim": {
-    "label": "Neovim"
-  },
-  "learn.bash": {
-    "label": "Bash"
-  },
-  "learn.tmux-keybindings": {
-    "label": "Tmux"
-  },
-  "learn.herdr-keybindings": {
-    "label": "Herdr"
-  },
-  "learn.community": {
-    "label": "Kogukond"
   },
   "appearance.theme": {
     "label": "Teema"

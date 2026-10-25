@@ -5,9 +5,6 @@
   "apps": {
     "label": "แอป"
   },
-  "learn": {
-    "label": "เรียนรู้"
-  },
   "appearance": {
     "label": "ลักษณะ"
   },
@@ -49,33 +46,6 @@
   },
   "system.shutdown": {
     "label": "ปิดเครื่อง"
-  },
-  "learn.keybindings": {
-    "label": "ปุ่มลัด"
-  },
-  "learn.repository": {
-    "label": "GitHub"
-  },
-  "learn.hyprland": {
-    "label": "Hyprland"
-  },
-  "learn.arch": {
-    "label": "Arch"
-  },
-  "learn.neovim": {
-    "label": "Neovim"
-  },
-  "learn.bash": {
-    "label": "Bash"
-  },
-  "learn.tmux-keybindings": {
-    "label": "Tmux"
-  },
-  "learn.herdr-keybindings": {
-    "label": "Herdr"
-  },
-  "learn.community": {
-    "label": "ชุมชน"
   },
   "appearance.theme": {
     "label": "ธีม"

@@ -26,7 +26,7 @@ Two other packages live in `arch-pkgs` but stand alone:
 `arch-keyring` (GPG keys for pacman) and `neovim` (the Neovim
 setup; independently seeds `/etc/skel`).
 
-Some trees ship in neither package and exist only in the repo: `manual/`
+Some trees ship in neither package and exist only in the repo: `docs/user/`
 (user manual chapters), `agents/skills/` (contributor task guides), `docs/`,
 `test/`, and `plans/`.
 

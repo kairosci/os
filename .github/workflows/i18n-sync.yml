@@ -22,7 +22,7 @@ on:
       - 'default/i18n/en/**'
       - 'default/arch/arch-menu.jsonc'
       - 'default/hypr/bindings/**'
-      - 'manual/*.md'
+      - 'docs/user/*.md'
       - 'shell/**'
       - 'bin/**'
   workflow_dispatch:
@@ -404,7 +404,7 @@ jobs:
           from pathlib import Path
           patch = Path(os.environ['RUNNER_TEMP']) / 'collected/translations.patch'
           out = subprocess.run(['git', 'apply', '--numstat', '-z', str(patch)], check=True, capture_output=True).stdout
-          allowed = re.compile(r'^(default/i18n/(?!en/)[a-zA-Z-]+/(menu|shell|cli|keybindings)\.json|default/i18n/translation-manifest\.json|manual/(?!en/)[a-zA-Z-]+/[^/]+\.md)$')
+          allowed = re.compile(r'^(default/i18n/(?!en/)[a-zA-Z-]+/(menu|shell|cli|keybindings)\.json|default/i18n/translation-manifest\.json|docs/user/(?!en/)[a-zA-Z-]+/[^/]+\.md)$')
           for record in out.split(b'\0'):
               if not record:
                   continue

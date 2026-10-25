@@ -235,9 +235,9 @@ else
   skip "package-owned defaults live outside config: needs the arch-pkgs checkout; set ARCH_PKGS_PATH to it"
 fi
 
-grep -Fq 'pre_upgrade() {' "$ROOT/packaging/arch-systemd-boot/arch-branding.install" &&
-  grep -Fq 'arch-hyprland-reload-guard pause' "$ROOT/packaging/arch-systemd-boot/arch-branding.install" &&
-  grep -Fq 'arch-hyprland-reload-guard resume' "$ROOT/packaging/arch-systemd-boot/arch-branding.install" ||
+grep -Fq 'pre_upgrade() {' "$ROOT/packages/arch-systemd-boot/arch-branding.install" &&
+  grep -Fq 'arch-hyprland-reload-guard pause' "$ROOT/packages/arch-systemd-boot/arch-branding.install" &&
+  grep -Fq 'arch-hyprland-reload-guard resume' "$ROOT/packages/arch-systemd-boot/arch-branding.install" ||
   fail "Arch package upgrades pause Hyprland config reload until the payload is replaced"
 
 grep -F 'dofile((os.getenv("ARCH_PATH") or "/usr/share/arch") .. "/default/hypr/bootstrap.lua")' "$ROOT/config/hypr/hyprland.lua" >/dev/null

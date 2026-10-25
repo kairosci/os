@@ -5,9 +5,6 @@
   "apps": {
     "label": "Aplikasi"
   },
-  "learn": {
-    "label": "Belajar"
-  },
   "appearance": {
     "label": "Tampilan"
   },
@@ -49,33 +46,6 @@
   },
   "system.shutdown": {
     "label": "Matikan"
-  },
-  "learn.keybindings": {
-    "label": "Pintasan Tombol"
-  },
-  "learn.repository": {
-    "label": "GitHub"
-  },
-  "learn.hyprland": {
-    "label": "Hyprland"
-  },
-  "learn.arch": {
-    "label": "Arch"
-  },
-  "learn.neovim": {
-    "label": "Neovim"
-  },
-  "learn.bash": {
-    "label": "Bash"
-  },
-  "learn.tmux-keybindings": {
-    "label": "Tmux"
-  },
-  "learn.herdr-keybindings": {
-    "label": "Herdr"
-  },
-  "learn.community": {
-    "label": "Komunitas"
   },
   "appearance.theme": {
     "label": "Tema"

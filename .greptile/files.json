@@ -141,7 +141,7 @@
       "description": "Catalogs, plural and number rules, translation sync and the translator brief",
       "scope": [
         "default/i18n/**",
-        "manual/**",
+        "docs/user/**",
         "shell/**",
         "bin/**",
         "scripts/i18n-sync.py",

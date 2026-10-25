@@ -5,9 +5,6 @@
   "apps": {
     "label": "Ứng dụng"
   },
-  "learn": {
-    "label": "Học"
-  },
   "appearance": {
     "label": "Giao diện"
   },
@@ -49,33 +46,6 @@
   },
   "system.shutdown": {
     "label": "Tắt máy"
-  },
-  "learn.keybindings": {
-    "label": "Phím tắt"
-  },
-  "learn.repository": {
-    "label": "GitHub"
-  },
-  "learn.hyprland": {
-    "label": "Hyprland"
-  },
-  "learn.arch": {
-    "label": "Arch"
-  },
-  "learn.neovim": {
-    "label": "Neovim"
-  },
-  "learn.bash": {
-    "label": "Bash"
-  },
-  "learn.tmux-keybindings": {
-    "label": "Tmux"
-  },
-  "learn.herdr-keybindings": {
-    "label": "Herdr"
-  },
-  "learn.community": {
-    "label": "Cộng đồng"
   },
   "appearance.theme": {
     "label": "Chủ đề"

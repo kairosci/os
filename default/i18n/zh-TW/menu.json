@@ -5,9 +5,6 @@
   "apps": {
     "label": "應用程式"
   },
-  "learn": {
-    "label": "學習"
-  },
   "appearance": {
     "label": "外觀"
   },
@@ -49,33 +46,6 @@
   },
   "system.shutdown": {
     "label": "關機"
-  },
-  "learn.keybindings": {
-    "label": "快捷鍵"
-  },
-  "learn.repository": {
-    "label": "GitHub"
-  },
-  "learn.hyprland": {
-    "label": "Hyprland"
-  },
-  "learn.arch": {
-    "label": "Arch"
-  },
-  "learn.neovim": {
-    "label": "Neovim"
-  },
-  "learn.bash": {
-    "label": "Bash"
-  },
-  "learn.tmux-keybindings": {
-    "label": "Tmux"
-  },
-  "learn.herdr-keybindings": {
-    "label": "Herdr"
-  },
-  "learn.community": {
-    "label": "社群"
   },
   "appearance.theme": {
     "label": "主題"

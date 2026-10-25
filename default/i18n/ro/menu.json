@@ -5,9 +5,6 @@
   "apps": {
     "label": "Aplicații"
   },
-  "learn": {
-    "label": "Învață"
-  },
   "appearance": {
     "label": "Aspect"
   },
@@ -49,33 +46,6 @@
   },
   "system.shutdown": {
     "label": "Oprește"
-  },
-  "learn.keybindings": {
-    "label": "Scurtături"
-  },
-  "learn.repository": {
-    "label": "GitHub"
-  },
-  "learn.hyprland": {
-    "label": "Hyprland"
-  },
-  "learn.arch": {
-    "label": "Arch"
-  },
-  "learn.neovim": {
-    "label": "Neovim"
-  },
-  "learn.bash": {
-    "label": "Bash"
-  },
-  "learn.tmux-keybindings": {
-    "label": "Tmux"
-  },
-  "learn.herdr-keybindings": {
-    "label": "Herdr"
-  },
-  "learn.community": {
-    "label": "Comunitate"
   },
   "appearance.theme": {
     "label": "Temă"

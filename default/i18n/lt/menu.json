@@ -5,9 +5,6 @@
   "apps": {
     "label": "Programos"
   },
-  "learn": {
-    "label": "Mokytis"
-  },
   "appearance": {
     "label": "Išvaizda"
   },
@@ -49,33 +46,6 @@
   },
   "system.shutdown": {
     "label": "Išjungti"
-  },
-  "learn.keybindings": {
-    "label": "Spartieji klavišai"
-  },
-  "learn.repository": {
-    "label": "GitHub"
-  },
-  "learn.hyprland": {
-    "label": "Hyprland"
-  },
-  "learn.arch": {
-    "label": "Arch"
-  },
-  "learn.neovim": {
-    "label": "Neovim"
-  },
-  "learn.bash": {
-    "label": "Bash"
-  },
-  "learn.tmux-keybindings": {
-    "label": "Tmux"
-  },
-  "learn.herdr-keybindings": {
-    "label": "Herdr"
-  },
-  "learn.community": {
-    "label": "Bendruomenė"
   },
   "appearance.theme": {
     "label": "Tema"

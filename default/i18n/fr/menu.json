@@ -5,9 +5,6 @@
   "apps": {
     "label": "Applis"
   },
-  "learn": {
-    "label": "Apprendre"
-  },
   "appearance": {
     "label": "Apparence"
   },
@@ -49,33 +46,6 @@
   },
   "system.shutdown": {
     "label": "Éteindre"
-  },
-  "learn.keybindings": {
-    "label": "Raccourcis clavier"
-  },
-  "learn.repository": {
-    "label": "GitHub"
-  },
-  "learn.hyprland": {
-    "label": "Hyprland"
-  },
-  "learn.arch": {
-    "label": "Arch"
-  },
-  "learn.neovim": {
-    "label": "Neovim"
-  },
-  "learn.bash": {
-    "label": "Bash"
-  },
-  "learn.tmux-keybindings": {
-    "label": "Tmux"
-  },
-  "learn.herdr-keybindings": {
-    "label": "Herdr"
-  },
-  "learn.community": {
-    "label": "Communauté"
   },
   "appearance.theme": {
     "label": "Thème"
