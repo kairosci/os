@@ -91,7 +91,7 @@ package() {
   python3 scripts/modules.py assemble --package "$pkgname" --destination "$module_stage"
 
   install -d "$pkgdir/usr/bin"
-  for bin in "$module_stage/usr/share/arch/bin"/*; do
+  for bin in "$module_stage/usr/share/arch/src/cli"/*; do
     [[ -f $bin ]] || continue
     local base
     base=$(basename "$bin")
