@@ -11,6 +11,7 @@ def load_plan_quotas():
   roots = []
   if os.environ.get("ARCH_PATH"):
     roots.append(Path(os.environ["ARCH_PATH"]))
+  roots.append(Path("/usr/share/arch"))
   roots.extend(Path(__file__).resolve().parents)
   for root in roots:
     path = root / "data/python/dropbox-plan-quotas.json"
