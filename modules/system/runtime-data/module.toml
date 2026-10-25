@@ -1,9 +1,17 @@
 id = "system.runtime-data"
 domain = "system"
 package = "arch"
-sources = ["etc"]
+sources = ["etc", "default/libalpm/hooks/10-arch-hyprland-reload-pause.hook", "default/libalpm/hooks/90-arch-hyprland-reload-resume.hook"]
 requires = ["system.settings"]
 
 [[output]]
 source = "etc"
 target = "usr/share/arch/etc"
+
+[[output]]
+source = "default/libalpm/hooks/10-arch-hyprland-reload-pause.hook"
+target = "usr/share/libalpm/hooks/10-arch-hyprland-reload-pause.hook"
+
+[[output]]
+source = "default/libalpm/hooks/90-arch-hyprland-reload-resume.hook"
+target = "usr/share/libalpm/hooks/90-arch-hyprland-reload-resume.hook"

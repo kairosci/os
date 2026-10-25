@@ -83,70 +83,44 @@ prepare() {
 package() {
   cd "$srcdir/arch"
 
-  # Runtime binaries — ship everything in src/cli/ except the debug helpers
-  # that ship from arch-settings (needed before this package is installed,
-  # e.g. on the ISO live env). Keep the sudo revocation hook and its helpers
-  # together in this package; the installed settings package does not own them.
-  install -d "$pkgdir/usr/bin" "$pkgdir/usr/share/arch/bin"
-  for bin in src/cli/*; do
+  # Assemble package-owned files from the module catalog. The catalog owns
+  # each source-to-package path; this package function only creates command
+  # entry points and applies the verified boot-path exclusions.
+  local module_stage
+  module_stage=$(mktemp -d "$srcdir/arch-modules.XXXXXXXX")
+  python3 scripts/modules.py assemble --package "$pkgname" --destination "$module_stage"
+
+  install -d "$pkgdir/usr/bin"
+  for bin in "$module_stage/usr/share/arch/bin"/*; do
     [[ -f $bin ]] || continue
     local base
     base=$(basename "$bin")
     case "$base" in
       arch-debug|arch-debug-idle|arch-upload-log)
+        rm -f "$bin"
         continue
         ;;
       arch-refresh-limine)
         # This runtime package targets the verified Arch UKI/systemd-boot path.
+        rm -f "$bin"
         continue
         ;;
     esac
     install -Dm755 "$bin" "$pkgdir/usr/bin/$base"
-    ln -s "/usr/bin/$base" "$pkgdir/usr/share/arch/bin/$base"
+    rm -f "$bin"
+    ln -s "/usr/bin/$base" "$bin"
   done
 
-  # Keep Hyprland live config reloads paused while settings files are replaced.
-  # Arch package upgrades remain managed directly by pacman; omit the fork's
-  # update guard so it does not block native transactions.
-  install -Dm644 default/libalpm/hooks/10-arch-hyprland-reload-pause.hook "$pkgdir/usr/share/libalpm/hooks/10-arch-hyprland-reload-pause.hook"
-  install -Dm644 default/libalpm/hooks/90-arch-hyprland-reload-resume.hook "$pkgdir/usr/share/libalpm/hooks/90-arch-hyprland-reload-resume.hook"
-
-  # Target-side setup scripts and package lists used by ISO finalization,
-  # first login, future users, migrations, and reinstall/reset commands.
-  cp -a install "$pkgdir/usr/share/arch/"
-
-  # Assemble the shared shell runtime and its independently owned plugins
-  # from their module manifests into the installed tree.
-  local module_stage
-  module_stage=$(mktemp -d "$srcdir/arch-modules.XXXXXXXX")
-  python3 scripts/modules.py assemble --package "$pkgname" \
-    --module desktop.runtime --module 'desktop.shell.*' \
-    --destination "$module_stage"
-  cp -a "$module_stage/usr/share/arch/." "$pkgdir/usr/share/arch/"
+  cp -a "$module_stage/." "$pkgdir/"
   rm -rf "$module_stage"
-
-  # Versioned migrations runner reads from this tree.
-  cp -a migrations "$pkgdir/usr/share/arch/"
-
-  # Shared system defaults referenced by migrations and first-run repair tools.
-  cp -a etc "$pkgdir/usr/share/arch/"
 
   # Fresh users created after install are already on the package layout in this
   # build, so seed migration markers through /etc/skel. Existing users keep
   # their own state and still run pending migrations on update.
-  if compgen -G 'migrations/*.sh' >/dev/null; then
+  if compgen -G "$pkgdir/usr/share/arch/migrations/*.sh" >/dev/null; then
     install -d "$pkgdir/etc/skel/.local/state/arch/migrations"
-    for migration in migrations/*.sh; do
+    for migration in "$pkgdir/usr/share/arch/migrations"/*.sh; do
       touch "$pkgdir/etc/skel/.local/state/arch/migrations/$(basename "$migration")"
     done
   fi
-  # Runtime version file.
-  install -Dm644 version "$pkgdir/usr/share/arch/version"
-
-  # Arch marks used by the shell launcher, lock screen, About, and screensaver.
-  install -Dm644 arch-mark.svg "$pkgdir/usr/share/arch/arch-mark.svg"
-  install -Dm644 icon.txt "$pkgdir/usr/share/arch/icon.txt"
-  install -Dm644 logo.txt "$pkgdir/usr/share/arch/logo.txt"
-  install -Dm644 logo.svg "$pkgdir/usr/share/arch/logo.svg"
-
 }
