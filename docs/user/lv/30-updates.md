@@ -2,7 +2,7 @@
 
 Arch un jūsu pakotnes tiek uzturētas aktuālas no Arch izvēlnes (`Super + Space`) sadaļas _Atjaunināt > Arch_.
 
-Pats Arch tiek instalēts kā ierastas pacman pakotnes no [Arch pakotņu repozitorija](https://github.com/kairosci/arch), tāpēc atjauninājums instalē [jaunāko Arch laidiņu](https://github.com/kairosci/arch), palaiž visas neizpildītās migrācijas, lai jūsu sistēma būtu sinhronā ar jaunāko versiju, un atjaunina visas sistēmas pakotnes no [Arch Arch spoguļa](https://github.com/kairosci/arch) un [AUR](https://aur.archlinux.org/) (ja jums ir instalētas kādas AUR pakotnes).
+Pats Arch tiek instalēts kā ierastas pacman pakotnes no [Arch pakotņu repozitorija](https://github.com/kairosci/os), tāpēc atjauninājums instalē [jaunāko Arch laidiņu](https://github.com/kairosci/os), palaiž visas neizpildītās migrācijas, lai jūsu sistēma būtu sinhronā ar jaunāko versiju, un atjaunina visas sistēmas pakotnes no [Arch Arch spoguļa](https://github.com/kairosci/os) un [AUR](https://aur.archlinux.org/) (ja jums ir instalētas kādas AUR pakotnes).
 
 Kad tiek izlaisti jauni laidieni, pa labi no jūsu pulksteņa parādīsies apļveida bultiņas ikona. Noklikšķiniet uz tās, un sāksies atjaunināšanas process.
 
@@ -10,7 +10,7 @@ Kad tiek izlaisti jauni laidieni, pa labi no jūsu pulksteņa parādīsies apļv
 
 ### Četri kanāli
 
-Arch tiek atjaunināts četros kanālos: stable, RC, edge un dev. Jaunas instalācijas sāk darbu stabilajā kanālā, kurš seko [oficiālajiem laidieniem](https://github.com/kairosci/arch), kā arī [stabilajam Arch Arch spogulim](https://github.com/kairosci/arch), kas par mēnesi atpaliek no jaunākā, lai mēs varētu pamanīt jebkādas jaunas nesaderības, kurām vajadzīgas konfigurācijas izmaiņas, pirms tās cilvēkiem sagādā problēmas.
+Arch tiek atjaunināts četros kanālos: stable, RC, edge un dev. Jaunas instalācijas sāk darbu stabilajā kanālā, kurš seko [oficiālajiem laidieniem](https://github.com/kairosci/os), kā arī [stabilajam Arch Arch spogulim](https://github.com/kairosci/os), kas par mēnesi atpaliek no jaunākā, lai mēs varētu pamanīt jebkādas jaunas nesaderības, kurām vajadzīgas konfigurācijas izmaiņas, pirms tās cilvēkiem sagādā problēmas.
 
 Taču, ja vēlaties palīdzēt pamanīt šīs iespējamās problēmas, varat darboties edge kanālā. Tajā jūsu Arch pakotnes sekos jaunākajām izstrādes būvēm un ļauj atjaunināt uz jaunākajām Arch pakotnēm, tiklīdz tās ir pieejamas. To vajadzētu darīt tikai tad, ja esat pieredzējis Linux lietošanā un zināt, kā atjaunot sistēmu, kurai ir problēmas.
 
