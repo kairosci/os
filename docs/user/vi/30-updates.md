@@ -2,7 +2,7 @@
 
 Arch và các gói của bạn được giữ cập nhật qua _Cập nhật > Arch_ trong menu Arch (`Super + Space`).
 
-Bản thân Arch được cài đặt dưới dạng các gói pacman thông thường từ [Kho gói Arch](https://github.com/kairosci/arch), vì vậy một bản cập nhật sẽ cài đặt [bản phát hành Arch mới nhất](https://github.com/kairosci/arch), chạy mọi di chuyển đang chờ xử lý để đưa hệ thống của bạn đồng bộ với phiên bản mới nhất, và cập nhật mọi gói hệ thống từ [Bản sao Arch của Arch](https://github.com/kairosci/arch) và [AUR](https://aur.archlinux.org/) (nếu bạn đã cài đặt bất kỳ gói AUR nào).
+Bản thân Arch được cài đặt dưới dạng các gói pacman thông thường từ [Kho gói Arch](https://github.com/kairosci/os), vì vậy một bản cập nhật sẽ cài đặt [bản phát hành Arch mới nhất](https://github.com/kairosci/os), chạy mọi di chuyển đang chờ xử lý để đưa hệ thống của bạn đồng bộ với phiên bản mới nhất, và cập nhật mọi gói hệ thống từ [Bản sao Arch của Arch](https://github.com/kairosci/os) và [AUR](https://aur.archlinux.org/) (nếu bạn đã cài đặt bất kỳ gói AUR nào).
 
 Khi các bản phát hành mới được tạo, một biểu tượng mũi tên hình tròn sẽ xuất hiện ở phía bên phải đồng hồ của bạn. Nhấp vào nó và quá trình cập nhật sẽ bắt đầu.
 
@@ -10,7 +10,7 @@ Khi các bản phát hành mới được tạo, một biểu tượng mũi tên
 
 ### Bốn kênh
 
-Arch được cập nhật theo bốn kênh: stable, RC, edge và dev. Các bản cài đặt mới bắt đầu trên kênh stable, theo dõi [các bản phát hành chính thức](https://github.com/kairosci/arch), cũng như [bản sao Arch ổn định của Arch](https://github.com/kairosci/arch) chạy chậm hơn phiên bản mới nhất một tháng, để chúng tôi có thể bắt được mọi khả năng không tương thích mới đòi hỏi thay đổi cấu hình trước khi chúng gây ra vấn đề cho mọi người.
+Arch được cập nhật theo bốn kênh: stable, RC, edge và dev. Các bản cài đặt mới bắt đầu trên kênh stable, theo dõi [các bản phát hành chính thức](https://github.com/kairosci/os), cũng như [bản sao Arch ổn định của Arch](https://github.com/kairosci/os) chạy chậm hơn phiên bản mới nhất một tháng, để chúng tôi có thể bắt được mọi khả năng không tương thích mới đòi hỏi thay đổi cấu hình trước khi chúng gây ra vấn đề cho mọi người.
 
 Nhưng nếu bạn muốn giúp phát hiện những vấn đề tiềm ẩn đó, bạn có thể chạy trên kênh edge. Điều đó sẽ giữ các gói Arch của bạn theo dõi các bản dựng phát triển mới nhất, và cho phép bạn cập nhật lên các gói Arch mới nhất ngay khi chúng có sẵn. Bạn chỉ nên làm điều này nếu bạn có kinh nghiệm với Linux, và biết cách khôi phục một hệ thống gặp vấn đề.
 

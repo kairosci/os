@@ -2,19 +2,19 @@
 
 ### Chip Apple M1/M2
 
-[Asahi Alarm](https://asahi-alarm.org/) là một phiên bản của Arch cho các máy tính Apple M1/M2 được xây dựng trên [Asahi Linux](https://asahilinux.org/). Bạn có thể cho Arch chạy trên đó với một chút nỗ lực. Xem [hướng dẫn do người dùng thực hiện](https://github.com/kairosci/arch).
+[Asahi Alarm](https://asahi-alarm.org/) là một phiên bản của Arch cho các máy tính Apple M1/M2 được xây dựng trên [Asahi Linux](https://asahilinux.org/). Bạn có thể cho Arch chạy trên đó với một chút nỗ lực. Xem [hướng dẫn do người dùng thực hiện](https://github.com/kairosci/os).
 
 ### Máy ảo Apple
 
-Bạn cũng có thể cài đặt Arch bên trong một VM Parallels. Một quá trình khá rườm rà, nhưng cũng có [một hướng dẫn do người dùng thực hiện](https://github.com/kairosci/arch) cho việc đó.
+Bạn cũng có thể cài đặt Arch bên trong một VM Parallels. Một quá trình khá rườm rà, nhưng cũng có [một hướng dẫn do người dùng thực hiện](https://github.com/kairosci/os) cho việc đó.
 
 ### VirtualBox
 
-VirtualBox là một trình chạy VM phổ biến. [Bạn cũng có thể chạy Arch bên trong đó](https://github.com/kairosci/arch). Nhưng hiệu năng có lẽ sẽ không tuyệt vời.
+VirtualBox là một trình chạy VM phổ biến. [Bạn cũng có thể chạy Arch bên trong đó](https://github.com/kairosci/os). Nhưng hiệu năng có lẽ sẽ không tuyệt vời.
 
 ### VMware Workstation trên Windows 11
 
-Một trình chạy VM phổ biến khác cho Windows. [Arch cũng đã được thiết lập bên trong đó](https://github.com/kairosci/arch).
+Một trình chạy VM phổ biến khác cho Windows. [Arch cũng đã được thiết lập bên trong đó](https://github.com/kairosci/os).
 
 ### Steam Deck
 

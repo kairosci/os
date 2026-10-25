@@ -42,4 +42,4 @@ Phần `[themename]` còn lại đó trở thành tên thư mục của chủ đ
 
 Hãy nhớ rằng một khi nó được cài đặt từ một repo, bất kỳ tệp `.lua`, cấu hình terminal hoặc `vscode.json` nào nó đi kèm đều bị loại bỏ, nên đừng xây dựng chủ đề xung quanh những thứ đó.
 
-Bạn có thể đưa chủ đề của mình vào [trang chủ đề bổ sung](https://github.com/kairosci/arch/themes/) bằng cách gửi một pull request tới [repo arch-site](https://github.com/kairosci/arch).
+Bạn có thể đưa chủ đề của mình vào [trang chủ đề bổ sung](https://github.com/kairosci/os/themes/) bằng cách gửi một pull request tới [repo arch-site](https://github.com/kairosci/os).
