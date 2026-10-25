@@ -6,7 +6,7 @@ Arch बाईस सुंदर थीम के साथ आता है।
 
 थीम में पृष्ठभूमि इमेज का एक सेट होता है जिनमें से आप `Super + Ctrl + Space` से चुन सकते हैं।
 
-आप [अतिरिक्त थीम पेज](https://github.com/kairosci/arch/themes/) पर और भी अधिक थीम पा सकते हैं या [अपनी खुद की थीम भी बना सकते हैं](43-making-your-own-theme.md)।
+आप [अतिरिक्त थीम पेज](https://github.com/kairosci/os/themes/) पर और भी अधिक थीम पा सकते हैं या [अपनी खुद की थीम भी बना सकते हैं](43-making-your-own-theme.md)।
 
  ![tokyo-night](../themes/tokyo-night/preview.png)
 _Tokyo Night_

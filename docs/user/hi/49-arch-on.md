@@ -2,19 +2,19 @@
 
 ### Apple M1/M2 चिप्स
 
-[Asahi Alarm](https://asahi-alarm.org/) [Asahi Linux](https://asahilinux.org/) के ऊपर निर्मित Apple M1/M2 कंप्यूटरों के लिए Arch का एक संस्करण है। आप कुछ प्रयास के साथ उसके ऊपर Arch चला सकते हैं। [यूज़र-संचालित गाइड](https://github.com/kairosci/arch) देखें।
+[Asahi Alarm](https://asahi-alarm.org/) [Asahi Linux](https://asahilinux.org/) के ऊपर निर्मित Apple M1/M2 कंप्यूटरों के लिए Arch का एक संस्करण है। आप कुछ प्रयास के साथ उसके ऊपर Arch चला सकते हैं। [यूज़र-संचालित गाइड](https://github.com/kairosci/os) देखें।
 
 ### Apple वर्चुअल मशीन
 
-आप Parallels VM के अंदर भी Arch इंस्टॉल कर सकते हैं। काफ़ी बोझिल प्रक्रिया है, लेकिन उसके लिए भी [एक यूज़र-संचालित गाइड](https://github.com/kairosci/arch) है।
+आप Parallels VM के अंदर भी Arch इंस्टॉल कर सकते हैं। काफ़ी बोझिल प्रक्रिया है, लेकिन उसके लिए भी [एक यूज़र-संचालित गाइड](https://github.com/kairosci/os) है।
 
 ### VirtualBox
 
-VirtualBox एक लोकप्रिय VM रनर है। [आप उसके अंदर भी Arch चला सकते हैं](https://github.com/kairosci/arch)। लेकिन प्रदर्शन शायद बढ़िया नहीं होगा।
+VirtualBox एक लोकप्रिय VM रनर है। [आप उसके अंदर भी Arch चला सकते हैं](https://github.com/kairosci/os)। लेकिन प्रदर्शन शायद बढ़िया नहीं होगा।
 
 ### Windows 11 पर VMware Workstation
 
-Windows के लिए एक और लोकप्रिय VM रनर। [Arch उसके अंदर भी सेट अप किया गया है](https://github.com/kairosci/arch)।
+Windows के लिए एक और लोकप्रिय VM रनर। [Arch उसके अंदर भी सेट अप किया गया है](https://github.com/kairosci/os)।
 
 ### Steam Deck
 
