@@ -41,7 +41,8 @@ depends=(
   'pacman-contrib'
 
   # System font (UI assumes it)
-  'ttf-jetbrains-mono-nerd-basic'
+  'adwaita-fonts'
+  'ttf-jetbrains-mono-nerd'
 )
 
 # The x86_64 install uses the Arch kernel with systemd-boot. Snapper remains
