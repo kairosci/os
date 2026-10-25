@@ -42,4 +42,4 @@ Acel `[themename]` rămas devine numele directorului temei, așa că trebuie să
 
 Amintește-ți că, odată ce este instalată dintr-un depozit, orice `.lua`, configurație de terminal sau `vscode.json` pe care le livrează este aruncat, așa că nu construi tema în jurul acestora.
 
-Poți avea tema adăugată la [pagina cu teme suplimentare](https://github.com/kairosci/arch/themes/) trimițând un pull request la [depozitul arch-site](https://github.com/kairosci/arch).
+Poți avea tema adăugată la [pagina cu teme suplimentare](https://github.com/kairosci/os/themes/) trimițând un pull request la [depozitul arch-site](https://github.com/kairosci/os).

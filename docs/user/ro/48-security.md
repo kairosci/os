@@ -30,6 +30,6 @@ Fii lucid în privința acesteia: cât timp este pornită, orice rulează ca uti
 
 ## Chei de semnare
 
-Cheia publică pentru toate semnăturile ISO și pentru pachetul din depozitul Arch este `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([verifică la openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch)). Pachetul `arch/arch-keyring` conține și asta și va fi folosit ca să lanseze fără probleme orice actualizări potențiale.
+Cheia publică pentru toate semnăturile ISO și pentru pachetul din depozitul Arch este `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([verifică la openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os)). Pachetul `arch/arch-keyring` conține și asta și va fi folosit ca să lanseze fără probleme orice actualizări potențiale.
 
-Poți găsi semnătura pentru orice lansare ISO adăugând .sig la URL. Precum https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig.
+Poți găsi semnătura pentru orice lansare ISO adăugând .sig la URL. Precum https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig.

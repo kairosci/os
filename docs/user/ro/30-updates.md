@@ -2,7 +2,7 @@
 
 Arch și pachetele tale sunt ținute la zi prin _Actualizează > Arch_ în meniul Arch (`Super + Space`).
 
-Arch însuși este instalat ca pachete pacman obișnuite din [depozitul de pachete Arch](https://github.com/kairosci/arch), așa că o actualizare instalează [cea mai recentă versiune Arch](https://github.com/kairosci/arch), rulează toate migrările în așteptare ca să-ți aducă sistemul în sincronizare cu cea mai recentă versiune și actualizează toate pachetele de sistem din [oglinda Arch a Arch](https://github.com/kairosci/arch) și [AUR](https://aur.archlinux.org/) (dacă ai instalat pachete AUR).
+Arch însuși este instalat ca pachete pacman obișnuite din [depozitul de pachete Arch](https://github.com/kairosci/os), așa că o actualizare instalează [cea mai recentă versiune Arch](https://github.com/kairosci/os), rulează toate migrările în așteptare ca să-ți aducă sistemul în sincronizare cu cea mai recentă versiune și actualizează toate pachetele de sistem din [oglinda Arch a Arch](https://github.com/kairosci/os) și [AUR](https://aur.archlinux.org/) (dacă ai instalat pachete AUR).
 
 Când sunt făcute versiuni noi, o pictogramă cu o săgeată în cerc va apărea în dreapta ceasului tău. Fă clic pe ea și procesul de actualizare va începe.
 
@@ -10,7 +10,7 @@ Când sunt făcute versiuni noi, o pictogramă cu o săgeată în cerc va apăre
 
 ### Patru canale
 
-Arch este actualizat pe patru canale: stable, RC, edge și dev. Instalările noi pornesc pe canalul stable, care urmărește [versiunile oficiale](https://github.com/kairosci/arch), precum și [oglinda Arch Arch stabilă](https://github.com/kairosci/arch) care rulează cu o lună în spatele celei mai recente, astfel încât să putem prinde orice incompatibilități noi care cer schimbări de configurare înainte ca ele să provoace probleme oamenilor.
+Arch este actualizat pe patru canale: stable, RC, edge și dev. Instalările noi pornesc pe canalul stable, care urmărește [versiunile oficiale](https://github.com/kairosci/os), precum și [oglinda Arch Arch stabilă](https://github.com/kairosci/os) care rulează cu o lună în spatele celei mai recente, astfel încât să putem prinde orice incompatibilități noi care cer schimbări de configurare înainte ca ele să provoace probleme oamenilor.
 
 Dar dacă ai vrea să ajuți la depistarea acestor probleme potențiale, poți rula pe canalul edge. Asta îți va ține pachetele Arch urmărind cele mai recente versiuni de dezvoltare și îți permite să actualizezi la cele mai recente pachete Arch de îndată ce sunt disponibile. Ar trebui să faci asta numai dacă ai experiență cu Linux și știi cum să recuperezi un sistem care are probleme.
 

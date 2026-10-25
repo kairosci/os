@@ -2,19 +2,19 @@
 
 ### Cipuri Apple M1/M2
 
-[Asahi Alarm](https://asahi-alarm.org/) este o versiune de Arch pentru computere Apple M1/M2 construită deasupra [Asahi Linux](https://asahilinux.org/). Poți face Arch să ruleze deasupra acesteia cu ceva efort. Vezi [ghidul condus de utilizatori](https://github.com/kairosci/arch).
+[Asahi Alarm](https://asahi-alarm.org/) este o versiune de Arch pentru computere Apple M1/M2 construită deasupra [Asahi Linux](https://asahilinux.org/). Poți face Arch să ruleze deasupra acesteia cu ceva efort. Vezi [ghidul condus de utilizatori](https://github.com/kairosci/os).
 
 ### Mașină virtuală Apple
 
-Poți instala Arch și în interiorul unei mașini virtuale Parallels. Un proces destul de greoi, dar există [un ghid condus de utilizatori](https://github.com/kairosci/arch) și pentru asta.
+Poți instala Arch și în interiorul unei mașini virtuale Parallels. Un proces destul de greoi, dar există [un ghid condus de utilizatori](https://github.com/kairosci/os) și pentru asta.
 
 ### VirtualBox
 
-VirtualBox este un program popular de rulare a mașinilor virtuale. [Poți rula Arch și în interiorul acestuia](https://github.com/kairosci/arch). Dar performanța probabil nu va fi grozavă.
+VirtualBox este un program popular de rulare a mașinilor virtuale. [Poți rula Arch și în interiorul acestuia](https://github.com/kairosci/os). Dar performanța probabil nu va fi grozavă.
 
 ### VMware Workstation pe Windows 11
 
-Alt program popular de rulare a mașinilor virtuale pentru Windows. [Arch a fost configurat și în interiorul acestuia](https://github.com/kairosci/arch).
+Alt program popular de rulare a mașinilor virtuale pentru Windows. [Arch a fost configurat și în interiorul acestuia](https://github.com/kairosci/os).
 
 ### Steam Deck
 
