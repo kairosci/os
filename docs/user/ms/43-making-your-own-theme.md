@@ -42,4 +42,4 @@ Lebihan `[themename]` itu menjadi nama direktori tema, jadi ia mestilah yang bol
 
 Ingat bahawa sebaik sahaja ia dipasang dari repo, mana-mana `.lua`, konfigurasi terminal atau `vscode.json` yang dibekalkannya akan digugurkan, jadi jangan bina tema berasaskan itu.
 
-Anda boleh mendapatkan tema anda ditambah ke [halaman tema tambahan](https://github.com/kairosci/arch/themes/) dengan menghantar pull request ke [repo arch-site](https://github.com/kairosci/arch).
+Anda boleh mendapatkan tema anda ditambah ke [halaman tema tambahan](https://github.com/kairosci/os/themes/) dengan menghantar pull request ke [repo arch-site](https://github.com/kairosci/os).

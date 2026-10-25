@@ -30,6 +30,6 @@ Jelas tentang perkara ini: semasa ia dihidupkan, apa sahaja yang berjalan sebaga
 
 ## Kekunci Tandatangan
 
-Kekunci awam untuk semua tandatangan ISO dan pakej repo Arch ialah `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([sahkan di openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch)). Pakej `arch/arch-keyring` mengandungi ini juga dan akan digunakan untuk melancarkan sebarang kemas kini berpotensi dengan lancar.
+Kekunci awam untuk semua tandatangan ISO dan pakej repo Arch ialah `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([sahkan di openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os)). Pakej `arch/arch-keyring` mengandungi ini juga dan akan digunakan untuk melancarkan sebarang kemas kini berpotensi dengan lancar.
 
-Anda boleh mencari tandatangan untuk mana-mana keluaran ISO dengan menambah .sig pada URL. Seperti https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig.
+Anda boleh mencari tandatangan untuk mana-mana keluaran ISO dengan menambah .sig pada URL. Seperti https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig.

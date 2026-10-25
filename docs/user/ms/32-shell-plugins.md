@@ -95,10 +95,10 @@ arch plugin validate ./my-plugin
 
 Itu menjalankan semakan yang sama yang dilakukan oleh shell semasa muat: versi skema, medan yang diperlukan, id yang tidak dikhaskan, titik masuk yang merupakan laluan relatif selamat dan sebenarnya wujud, titik masuk untuk setiap jenis yang anda tuntut, dan tiada symlink di mana-mana dalam folder.
 
-Untuk pembangunan plugin, lihat [rujukan shell](https://github.com/kairosci/arch) dan [katalog plugin pihak pertama](https://github.com/kairosci/arch).
+Untuk pembangunan plugin, lihat [rujukan shell](https://github.com/kairosci/os) dan [katalog plugin pihak pertama](https://github.com/kairosci/os).
 
 ## Berkongsi milik anda dengan dunia
 
 Setelah anda membuat sesuatu yang anda suka, letakkannya dalam repo git awam. Itulah keseluruhan mekanisme pengedaran — sesiapa sahaja boleh menjalankan `arch plugin add` terhadap URL anda dan menjalankannya dalam beberapa saat.
 
-Untuk membantu orang benar-benar mencarinya, senaraikannya di [plugins.github.com/kairosci/arch](https://plugins.github.com/kairosci/arch). Itulah pasaran untuk plugin shell Arch, dan ia adalah tempat pertama untuk dilihat apabila anda tertanya-tanya sama ada seseorang telah membina widget yang hendak anda tulis. Semaknya sebelum anda bermula!
+Untuk membantu orang benar-benar mencarinya, senaraikannya di [plugins.github.com/kairosci/os](https://plugins.github.com/kairosci/os). Itulah pasaran untuk plugin shell Arch, dan ia adalah tempat pertama untuk dilihat apabila anda tertanya-tanya sama ada seseorang telah membina widget yang hendak anda tulis. Semaknya sebelum anda bermula!

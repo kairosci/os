@@ -2,7 +2,7 @@
 
 Arch dan pakej anda sentiasa dikemas kini melalui _Kemas Kini > Arch_ dalam menu Arch (`Super + Space`).
 
-Arch itu sendiri dipasang sebagai pakej pacman biasa daripada [Repositori Pakej Arch](https://github.com/kairosci/arch), jadi kemas kini memasang [keluaran Arch terkini](https://github.com/kairosci/arch), menjalankan mana-mana migrasi tertangguh untuk menyelaraskan sistem anda dengan yang terkini, dan mengemas kini semua pakej sistem daripada [Cermin Arch Arch](https://github.com/kairosci/arch) dan [AUR](https://aur.archlinux.org/) (jika anda telah memasang mana-mana pakej AUR).
+Arch itu sendiri dipasang sebagai pakej pacman biasa daripada [Repositori Pakej Arch](https://github.com/kairosci/os), jadi kemas kini memasang [keluaran Arch terkini](https://github.com/kairosci/os), menjalankan mana-mana migrasi tertangguh untuk menyelaraskan sistem anda dengan yang terkini, dan mengemas kini semua pakej sistem daripada [Cermin Arch Arch](https://github.com/kairosci/os) dan [AUR](https://aur.archlinux.org/) (jika anda telah memasang mana-mana pakej AUR).
 
 Apabila keluaran baharu dibuat, ikon anak panah bulatan akan muncul di kanan jam anda. Klik dan proses kemas kini akan bermula.
 
@@ -10,7 +10,7 @@ Apabila keluaran baharu dibuat, ikon anak panah bulatan akan muncul di kanan jam
 
 ### Empat saluran
 
-Arch dikemas kini sepanjang empat saluran: stabil, RC, edge, dan dev. Pemasangan baharu bermula pada saluran stabil, yang menjejak [keluaran rasmi](https://github.com/kairosci/arch), serta [cermin Arch Arch stabil](https://github.com/kairosci/arch) yang berjalan sebulan di belakang yang terkini, supaya kami boleh menangkap sebarang ketidakserasian baharu yang memerlukan perubahan konfigurasi sebelum ia menyebabkan masalah kepada orang.
+Arch dikemas kini sepanjang empat saluran: stabil, RC, edge, dan dev. Pemasangan baharu bermula pada saluran stabil, yang menjejak [keluaran rasmi](https://github.com/kairosci/os), serta [cermin Arch Arch stabil](https://github.com/kairosci/os) yang berjalan sebulan di belakang yang terkini, supaya kami boleh menangkap sebarang ketidakserasian baharu yang memerlukan perubahan konfigurasi sebelum ia menyebabkan masalah kepada orang.
 
 Tetapi jika anda ingin membantu mengesan isu berpotensi itu, anda boleh berjalan pada saluran edge. Itu akan memastikan pakej Arch anda menjejak binaan pembangunan terkini, dan membolehkan anda mengemas kini ke pakej Arch terkini sebaik sahaja tersedia. Anda hanya patut melakukan ini jika anda berpengalaman dengan Linux, dan tahu cara memulihkan sistem yang bermasalah.
 

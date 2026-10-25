@@ -6,7 +6,7 @@ Setiap tema menggayakan desktop, terminal, neovim, skrin aktiviti (btop), Chromi
 
 Tema mempunyai set imej latar belakang yang anda boleh pilih antaranya menggunakan `Super + Ctrl + Space`.
 
-Anda boleh menemui lebih banyak tema pada [halaman tema tambahan](https://github.com/kairosci/arch/themes/) atau malah [membuat tema anda sendiri](43-making-your-own-theme.md).
+Anda boleh menemui lebih banyak tema pada [halaman tema tambahan](https://github.com/kairosci/os/themes/) atau malah [membuat tema anda sendiri](43-making-your-own-theme.md).
 
  ![tokyo-night](../themes/tokyo-night/preview.png)
 _Tokyo Night_
