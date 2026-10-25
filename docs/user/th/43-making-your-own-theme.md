@@ -42,4 +42,4 @@ Arch แยกสองอย่างนี้โดยดูว่าธีม
 
 จำไว้ว่าเมื่อมันถูกติดตั้งจาก repo แล้ว ไฟล์ `.lua` การกำหนดค่าเทอร์มินัล หรือ `vscode.json` ใด ๆ ที่มันมาพร้อมจะถูกทิ้ง ดังนั้นอย่าสร้างธีมรอบ ๆ สิ่งเหล่านั้น
 
-คุณสามารถให้ธีมของคุณถูกเพิ่มไปยัง [หน้า extra themes](https://github.com/kairosci/arch/themes/) ได้โดยส่ง pull request ไปยัง [repo arch-site](https://github.com/kairosci/arch)
+คุณสามารถให้ธีมของคุณถูกเพิ่มไปยัง [หน้า extra themes](https://github.com/kairosci/os/themes/) ได้โดยส่ง pull request ไปยัง [repo arch-site](https://github.com/kairosci/os)
