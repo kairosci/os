@@ -76,7 +76,7 @@ Item {
   }
 
   function scriptPath(name) {
-    return archPath + "/shell/plugins/image-picker/" + name
+    return archPath + "/src/shell/plugins/image-picker/" + name
   }
 
   function focusPicker() {
@@ -443,7 +443,7 @@ Item {
   Process {
     id: themeRowsProc
     property bool queued: false
-    command: [root.archPath + "/bin/arch-theme-switcher", "--print-rows"]
+    command: [root.archPath + "/src/cli/arch-theme-switcher", "--print-rows"]
     stdout: StdioCollector {
       onStreamFinished: root.updateThemeRows(String(text || "").trim())
     }

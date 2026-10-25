@@ -75,8 +75,8 @@ chmod +x "$mock_bin"/* "$mount_dir/t3code"
 
 mkdir -p "$test_tmp/tmp"
 arch_runtime="$test_tmp/arch-runtime"
-mkdir -p "$arch_runtime/themes"
-cp -a assets/themes/. "$arch_runtime/themes/"
+mkdir -p "$arch_runtime/assets"
+cp -a assets/themes "$arch_runtime/assets/"
 cp -a default "$arch_runtime/"
 run_installer() {
   TMPDIR="$test_tmp/tmp" HOME="$test_home" T3CODE_HOME="$test_tmp/custom t3 home" \

@@ -20,7 +20,7 @@ touch "$SUDO_TEST_HOME/.local/state/arch/reboot-required" "$SUDO_TEST_HOME/.loca
 
 for mode in --services-only --reboot-only; do
   reset_boundary
-  PATH="$SUDO_TEST_ROOT/bin:$PATH" "$SUDO_TEST_ROOT/src/cli/arch-update-restart" "$mode" >"$boundary_tmp/output" 2>&1
+  PATH="$SUDO_TEST_ROOT/src/cli:$SUDO_TEST_ROOT/mock:$PATH" "$SUDO_TEST_ROOT/src/cli/arch-update-restart" "$mode" >"$boundary_tmp/output" 2>&1
   if [[ $mode == "--services-only" ]]; then
     grep -q '^step:arch-restart-sshd ' "$SUDO_TEST_LOG" || fail "service phase did not restart a marked service"
     grep -q '^step:arch-restart-shell ' "$SUDO_TEST_LOG" || fail "service phase did not restart the shell"
@@ -32,7 +32,7 @@ for mode in --services-only --reboot-only; do
   pass "restart $mode performs only its selected phase"
 done
 reset_boundary
-ARCH_UPDATE_UNATTENDED=1 PATH="$SUDO_TEST_ROOT/bin:$PATH" "$SUDO_TEST_ROOT/src/cli/arch-update-restart" --reboot-only >"$boundary_tmp/output" 2>&1
+ARCH_UPDATE_UNATTENDED=1 PATH="$SUDO_TEST_ROOT/src/cli:$SUDO_TEST_ROOT/mock:$PATH" "$SUDO_TEST_ROOT/src/cli/arch-update-restart" --reboot-only >"$boundary_tmp/output" 2>&1
 if grep -Eq "^(prompt:|step:arch-restart-|step:arch-system)" "$SUDO_TEST_LOG"; then
   fail "unattended reboot phase prompted or performed service work"
 fi

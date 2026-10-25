@@ -17,8 +17,8 @@ export ARCH_PATH
 # /usr/share/arch/src/cli would just be noise.
 if [ "$ARCH_PATH" != /usr/share/arch ]; then
   case ":$PATH:" in
-    *":${ARCH_PATH%/}/bin:"*) ;;
-    *) PATH="${ARCH_PATH%/}/bin${PATH:+:$PATH}" ;;
+    *":${ARCH_PATH%/}/src/cli:"*) ;;
+    *) PATH="${ARCH_PATH%/}/src/cli${PATH:+:$PATH}" ;;
   esac
 fi
 

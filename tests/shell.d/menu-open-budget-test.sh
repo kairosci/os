@@ -87,9 +87,10 @@ mkdir -p "$test_root" "$test_home" "$stub_bin"
 # shell's idle service would eventually screensave/lock the real desktop.
 mkdir -p "$test_home/.local/state/arch/indicators"
 touch "$test_home/.local/state/arch/indicators/stay-awake"
-cp -a "$ROOT/src/shell" "$test_root/shell"
+mkdir -p "$test_root/src"
+cp -a "$ROOT/src/shell" "$test_root/src/shell"
 ln -s "$ROOT/config" "$test_root/config"
-ln -s "$ROOT/src/cli" "$test_root/bin"
+ln -s "$ROOT/src/cli" "$test_root/src/cli"
 ln -s "$ROOT/default" "$test_root/default"
 
 # The scratch shell must not reach the real session: the clipboard plugin
@@ -151,7 +152,7 @@ XDG_CONFIG_HOME="$test_home/.config" \
 XDG_CACHE_HOME="$test_home/.cache" \
 XDG_STATE_HOME="$test_home/.local/state" \
 PATH="$stub_bin:$ROOT/src/cli:$PATH" \
-  quickshell -p "$test_root/shell" --no-color >"$log" 2>&1 &
+  quickshell -p "$test_root/src/shell" --no-color >"$log" 2>&1 &
 QS_PID=$!
 
 for _ in {1..80}; do

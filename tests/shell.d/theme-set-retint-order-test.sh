@@ -66,7 +66,7 @@ cat >"$commands/noop" <<'STUB'
 exit 0
 STUB
 chmod +x "$commands/retint" "$commands/noop"
-for command in "$ROOT"/bin/arch-restart-* "$ROOT"/bin/arch-theme-set-* arch-hook arch-theme-bg-cache; do
+for command in "$ROOT"/src/cli/arch-restart-* "$ROOT"/src/cli/arch-theme-set-* arch-hook arch-theme-bg-cache; do
   ln -sf retint "$commands/${command##*/}"
 done
 for command in arch-theme-set-templates arch-theme-set-herdr-machines; do

@@ -22,7 +22,7 @@ fake_bin="$test_tmp/bin"
 shell_root="$test_tmp/root"
 launch_home="$test_tmp/home"
 startup_wallpaper="$test_tmp/Selected wallpaper.webp"
-mkdir -p "$fake_bin" "$shell_root/shell" "$launch_home/.local/state/arch/current"
+mkdir -p "$fake_bin" "$shell_root/src/shell" "$launch_home/.local/state/arch/current"
 touch "$startup_wallpaper"
 ln -s "$startup_wallpaper" "$launch_home/.local/state/arch/current/background"
 
@@ -122,7 +122,7 @@ launches() {
 
 launch_shell '0' || fail "a clean launch succeeds"
 [[ $(launches) == 1 ]] || fail "a shell that exits cleanly is not relaunched" "$(<"$qs_log")"
-grep -F -- "-n -p $shell_root/shell" "$qs_log" >/dev/null || fail "the shell launches from ARCH_PATH"
+grep -F -- "-n -p $shell_root/src/shell" "$qs_log" >/dev/null || fail "the shell launches from ARCH_PATH"
 pass "a shell that exits cleanly is left alone"
 
 # A misspelled variable would leave Quickshell hot-reloading the tree pacman

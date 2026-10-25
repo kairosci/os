@@ -93,9 +93,10 @@ test_home="$TMPDIR/home"
 stub_bin="$TMPDIR/bin"
 log="$TMPDIR/quickshell.log"
 mkdir -p "$test_root" "$test_home" "$stub_bin"
-cp -a "$ROOT/src/shell" "$test_root/shell"
+mkdir -p "$test_root/src"
+cp -a "$ROOT/src/shell" "$test_root/src/shell"
 ln -s "$ROOT/config" "$test_root/config"
-ln -s "$ROOT/src/cli" "$test_root/bin"
+ln -s "$ROOT/src/cli" "$test_root/src/cli"
 
 # Every plugin under ~/.config/arch/plugins hot-reloads, whoever wrote it.
 hot_reload_id="acme.hot-reload"
@@ -383,7 +384,7 @@ XDG_CONFIG_HOME="$test_home/.config" \
 XDG_CACHE_HOME="$test_home/.cache" \
 XDG_STATE_HOME="$test_home/.local/state" \
 PATH="$stub_bin:$ROOT/src/cli:$PATH" \
-  quickshell -p "$test_root/shell" --no-color >"$log" 2>&1 &
+  quickshell -p "$test_root/src/shell" --no-color >"$log" 2>&1 &
 QS_PID=$!
 
 for _ in {1..80}; do

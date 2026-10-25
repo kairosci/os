@@ -43,7 +43,7 @@ tmpdir=$(mktemp -d)
 trap 'rm -rf "$tmpdir"' EXIT
 
 home="$tmpdir/home"
-mkdir -p "$tmpdir/active/bin" "$tmpdir/unrelated/bin"
+mkdir -p "$tmpdir/active/src/cli" "$tmpdir/unrelated/bin"
 
 # Test against a copy so the test controls /etc/arch.conf without mutating the host.
 bootstrap="$tmpdir/env-bootstrap"
@@ -67,18 +67,18 @@ linked_path=${linked_result[1]}
 [[ ${linked_result[0]} == "$tmpdir/active" ]] || fail "env-bootstrap resolves linked ARCH_PATH" "actual: ${linked_result[0]}"
 pass "env-bootstrap resolves linked ARCH_PATH"
 assert_path_first "$linked_path" "$home/.local/share/mise/command-wrappers/bin" "env-bootstrap keeps command wrappers first in linked mode"
-assert_path_present "$linked_path" "$tmpdir/active/bin" "env-bootstrap includes the active checkout bin in linked mode"
+assert_path_present "$linked_path" "$tmpdir/active/src/cli" "env-bootstrap includes the active checkout CLI in linked mode"
 assert_path_present "$linked_path" "$tmpdir/unrelated/bin" "env-bootstrap preserves unrelated PATH entries in linked mode"
 
-mapfile -t linked_duplicate_result < <(run_bootstrap bash "$bootstrap" "$home" "$tmpdir/active/bin:/usr/bin:$home/.local/share/mise/shims:$home/.local/bin")
+mapfile -t linked_duplicate_result < <(run_bootstrap bash "$bootstrap" "$home" "$tmpdir/active/src/cli:/usr/bin:$home/.local/share/mise/shims:$home/.local/bin")
 linked_duplicate_path=${linked_duplicate_result[1]}
-[[ $linked_duplicate_path == "$home/.local/share/mise/command-wrappers/bin:$tmpdir/active/bin:/usr/bin:$home/.local/share/mise/shims:$home/.local/bin" ]] || fail "env-bootstrap does not duplicate PATH entries" "actual PATH: $linked_duplicate_path"
+[[ $linked_duplicate_path == "$home/.local/share/mise/command-wrappers/bin:$tmpdir/active/src/cli:/usr/bin:$home/.local/share/mise/shims:$home/.local/bin" ]] || fail "env-bootstrap does not duplicate PATH entries" "actual PATH: $linked_duplicate_path"
 pass "env-bootstrap does not duplicate PATH entries"
 
 # An empty PATH must not produce empty entries (a bare ":" means the cwd)
 mapfile -t empty_path_result < <(run_bootstrap bash "$bootstrap" "$home" "")
 empty_path=${empty_path_result[1]}
-[[ $empty_path == "$home/.local/share/mise/command-wrappers/bin:$tmpdir/active/bin:$home/.local/share/mise/shims:$home/.local/bin" ]] || fail "env-bootstrap builds a clean PATH from an empty one" "actual PATH: $empty_path"
+[[ $empty_path == "$home/.local/share/mise/command-wrappers/bin:$tmpdir/active/src/cli:$home/.local/share/mise/shims:$home/.local/bin" ]] || fail "env-bootstrap builds a clean PATH from an empty one" "actual PATH: $empty_path"
 pass "env-bootstrap builds a clean PATH from an empty one"
 
 if command -v zsh >/dev/null 2>&1; then
@@ -99,6 +99,6 @@ assert_path_first "${custom_data_result[1]}" "$tmpdir/custom-mise/command-wrappe
 # directory that was already present. Move the existing entry rather than skip it.
 inherited_path="$tmpdir/managed/bin:$home/.local/share/mise/command-wrappers/bin:/usr/bin"
 mapfile -t reordered_result < <(run_bootstrap bash "$bootstrap" "$home" "$inherited_path")
-[[ ${reordered_result[1]} == "$home/.local/share/mise/command-wrappers/bin:$tmpdir/active/bin:$tmpdir/managed/bin:/usr/bin:$home/.local/share/mise/shims:$home/.local/bin" ]] ||
+[[ ${reordered_result[1]} == "$home/.local/share/mise/command-wrappers/bin:$tmpdir/active/src/cli:$tmpdir/managed/bin:/usr/bin:$home/.local/share/mise/shims:$home/.local/bin" ]] ||
   fail "bootstrap moves existing wrappers ahead of inherited managed tool paths without duplication" "${reordered_result[1]}"
 pass "bootstrap moves existing wrappers ahead of inherited managed tool paths without duplication"

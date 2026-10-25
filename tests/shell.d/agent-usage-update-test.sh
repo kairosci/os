@@ -8,30 +8,30 @@ TEST_HOME=$(mktemp -d)
 FAKE_ARCH=$(mktemp -d)
 trap 'rm -rf "$TEST_HOME" "$FAKE_ARCH"' EXIT
 
-mkdir -p "$FAKE_ARCH/bin"
+mkdir -p "$FAKE_ARCH/src/cli"
 
-cat >"$FAKE_ARCH/bin/arch-agent-usage-good" <<'EOF'
+cat >"$FAKE_ARCH/src/cli/arch-agent-usage-good" <<'EOF'
 #!/bin/bash
 echo '{"schemaVersion":1,"id":"good","name":"Good Agent","totalPrompts":3}'
 EOF
 
-cat >"$FAKE_ARCH/bin/arch-agent-usage-noisy" <<'EOF'
+cat >"$FAKE_ARCH/src/cli/arch-agent-usage-noisy" <<'EOF'
 #!/bin/bash
 echo "this is not json"
 EOF
 
-cat >"$FAKE_ARCH/bin/arch-agent-usage-skipped" <<'EOF'
+cat >"$FAKE_ARCH/src/cli/arch-agent-usage-skipped" <<'EOF'
 #!/bin/bash
 echo '{"id":"skipped"}'
 EOF
 
 # The updater itself lives in the same namespace as the collectors it globs.
-cat >"$FAKE_ARCH/bin/arch-agent-usage-update" <<'EOF'
+cat >"$FAKE_ARCH/src/cli/arch-agent-usage-update" <<'EOF'
 #!/bin/bash
 echo '{"id":"update"}'
 EOF
 
-chmod +x "$FAKE_ARCH/bin/"arch-agent-usage-*
+chmod +x "$FAKE_ARCH/src/cli/"arch-agent-usage-*
 
 usage_dir="$TEST_HOME/.local/state/arch/agents/usage"
 

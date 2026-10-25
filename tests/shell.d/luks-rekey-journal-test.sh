@@ -866,13 +866,13 @@ fi
 
 # A boot package that implements only one of the commit/verify pair owns
 # nothing: provisioning fails closed rather than mixing it with the Limine path.
-mkdir -p "$tmp/half/bin"
-cat >"$tmp/half/bin/arch-lifecycle-dispatch" <<SH
+mkdir -p "$tmp/half/src/cli"
+cat >"$tmp/half/src/cli/arch-lifecycle-dispatch" <<SH
 #!/bin/bash
 echo "\$*" >>"$tmp/half-ran"
 [[ \$* != "--resolve provision-commit" ]] || echo /usr/lib/arch/mac-boot/provision-commit
 SH
-chmod +x "$tmp/half/bin/arch-lifecycle-dispatch"
+chmod +x "$tmp/half/src/cli/arch-lifecycle-dispatch"
 runtime=$tmp/half
 fixture
 rm -f "$tmp/limine-ran" "$tmp/half-ran"

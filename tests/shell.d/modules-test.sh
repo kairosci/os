@@ -253,7 +253,8 @@ pass "the runtime package assembles every installer, migration, and CLI source w
 
 python3 "$ROOT/scripts/modules.py" assemble --package arch-settings --destination "$stage/settings"
 for path in config default; do
-  diff -r --no-dereference "$ROOT/$path" "$stage/settings/usr/share/arch/$path"
+  diff -r --no-dereference --exclude=__pycache__ --exclude='*.pyc' --exclude='*.pyo' \
+    "$ROOT/$path" "$stage/settings/usr/share/arch/$path"
 done
 diff -r --no-dereference --exclude=skel "$ROOT/etc" "$stage/settings/etc"
 for path in \
@@ -283,7 +284,7 @@ for module in json.loads(graph_path.read_text()):
         source_path = source_root / source
         target_root = package_roots[package]
         if source_path.is_dir() and not source_path.is_symlink():
-            entries = source_path.rglob("*")
+            entries = (entry for entry in source_path.rglob("*") if "__pycache__" not in entry.parts and entry.suffix not in {".pyc", ".pyo"})
             for entry in entries:
                 if entry.is_dir() and not entry.is_symlink():
                     continue
@@ -311,6 +312,7 @@ for package, package_root in package_roots.items():
     actual = {
         entry.relative_to(package_root).as_posix()
         for entry in package_root.rglob("*")
+        if "__pycache__" not in entry.parts and entry.suffix not in {".pyc", ".pyo"}
         if entry.is_file() or entry.is_symlink()
     }
     assert actual == expected[package], (package, expected[package] - actual, actual - expected[package])

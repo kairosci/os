@@ -84,6 +84,8 @@ if [[ ${LOCK_SETUP_UNKNOWN:-0} != "1" ]]; then
 fi
 STUB
 chmod +x "$scratch/bin/arch-apply-lock"
+mkdir -p "$scratch/src/cli"
+cp "$scratch/bin/arch-apply-lock" "$scratch/src/cli/arch-apply-lock"
 
 export TEST_LOCK_PAM="$scratch/arch-lock-fingerprint"
 setup_script="$scratch/arch-setup-security-fingerprint"

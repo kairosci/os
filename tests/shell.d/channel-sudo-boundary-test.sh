@@ -30,7 +30,7 @@ case "$step" in
   git)
     [[ $1 == "clone" ]] || exit 90
     /usr/bin/cp -a "$SUDO_TEST_ROOT" "${@: -1}"
-    mkdir -p "${@: -1}/.git" "${@: -1}/shell"
+    mkdir -p "${@: -1}/.git" "${@: -1}/src/shell"
     ;;
 esac
 STUB
@@ -61,7 +61,7 @@ PY
 }
 
 run_channel() {
-  "$ARCH_PATH/src/cli/arch-channel-set" "$@" >"$boundary_tmp/output" 2>&1
+  PATH="$SUDO_TEST_ROOT/src/cli:$PATH" "$ARCH_PATH/src/cli/arch-channel-set" "$@" >"$boundary_tmp/output" 2>&1
 }
 for channel in stable rc edge dev; do
   reset_boundary
@@ -237,7 +237,7 @@ PY
   pass "a transaction that removes the wrapper stops the switch before any further sudo ($pattern)"
 done
 rm "$SUDO_TEST_ROOT/src/cli/sudo"
-ln -s ../mock/sudo "$SUDO_TEST_ROOT/src/cli/sudo"
+ln -s ../../mock/sudo "$SUDO_TEST_ROOT/src/cli/sudo"
 
 mkdir "$boundary_tmp/user tools"
 cat >"$boundary_tmp/user tools/channel-user-tool" <<'STUB'
@@ -261,7 +261,7 @@ STUB
   chmod +x "$SUDO_TEST_ROOT/src/cli/$command"
 done
 reset_boundary
-PATH="$boundary_tmp/user tools:$PATH" run_channel stable || fail "channel hooks lost the user's PATH" "$(<"$boundary_tmp/output")"
+PATH="$boundary_tmp/user tools:$PATH" run_channel stable || fail "channel hooks lost the user's PATH" "$(cat "$boundary_tmp/output" "$SUDO_TEST_LOG")"
 for event in 'arch-hook post-update' 'arch-update-mise' 'arch-hook pre-refresh-pacman'; do
   grep -Fxq "user-tool:$event" "$SUDO_TEST_LOG" || fail "user PATH was not preserved for $event"
 done

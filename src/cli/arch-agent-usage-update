@@ -59,7 +59,7 @@ if [[ -d $accounts_dir ]]; then
 fi
 
 pids=()
-for collector in "$ARCH_PATH"/bin/arch-agent-usage-*; do
+for collector in "$ARCH_PATH"/src/cli/arch-agent-usage-*; do
   [[ -x $collector ]] || continue
   agent="${collector##*/arch-agent-usage-}"
   [[ $agent == "update" ]] && continue

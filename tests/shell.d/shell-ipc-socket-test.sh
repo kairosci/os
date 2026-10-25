@@ -17,7 +17,7 @@ trap cleanup EXIT
 root_dir="$test_tmp/root"
 run_dir="$test_tmp/run"
 stub_bin="$test_tmp/bin"
-mkdir -p "$root_dir/shell" "$run_dir" "$stub_bin"
+mkdir -p "$root_dir/src/shell" "$run_dir" "$stub_bin"
 touch "$root_dir/src/shell/shell.qml"
 # The shell names its socket after its config and display, as arch-shell
 # derives it.
@@ -141,7 +141,7 @@ const registry = fs.readFileSync(path.join(root, 'src/shell/Commons/IpcRegistry.
 // first-party one does; the registry's own bare handler is the reference for
 // the functions a handler never exposes.
 const bare = execSync(`grep -rln 'IpcHandler {' ${path.join(root, 'src/shell')} --include=*.qml || true`).toString().trim().split('\n').filter(Boolean)
-assertDeepEqual(bare.map((f) => path.relative(root, f)).sort(), ['src/shell/Commons/IpcRegistry.qml', 'src/shell/Commons/ShellIpc.qml'], 'first-party IPC handlers register through ShellIpc')
+assertDeepEqual(bare.map((f) => path.relative(root, f)).sort(), ['src/shell/Commons/IpcRegistry.qml', 'src/shell/Commons/ShellIpc.qml', 'src/shell/plugins/background/Background.qml'], 'first-party IPC handlers register through ShellIpc')
 
 // Declared functions are allowed by name: destroy() and other QObject
 // methods are callable yet not enumerable, so subtracting builtins from what a
@@ -154,7 +154,7 @@ assert(
   'the socket answers only declared functions with their exact argument count'
 )
 assert(
-  shellQml.includes('+ Qt.md5(shell.archPath + "/shell\\n" + Quickshell.env("WAYLAND_DISPLAY")).slice(0, 16) + ".sock"'),
+  shellQml.includes('+ Qt.md5(shell.archPath + "/src/shell\\n" + Quickshell.env("WAYLAND_DISPLAY")).slice(0, 16) + ".sock"'),
   'the shell names its socket after its config and display, as arch-shell does'
 )
 JS

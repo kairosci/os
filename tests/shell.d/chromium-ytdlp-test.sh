@@ -172,7 +172,7 @@ pass "yt-dlp native host keeps a real file after a forged ARCH_FILE record"
 # stubbed tools so the yt-dlp invocation and the toast's click command are covered
 # too: a record template that carried the title again would pass every test above.
 fake_root="$TMPDIR/fake"
-mkdir -p "$fake_root/bin" "$fake_root/default"
+mkdir -p "$fake_root/src/cli" "$fake_root/default"
 # A real install root carries the i18n catalogs arch-i18n reads.
 ln -s "$ROOT/default/i18n" "$fake_root/default/i18n"
 fake_dir="$TMPDIR/fake-videos"
@@ -182,7 +182,7 @@ printf 'x' >"$fake_file"
 ytdlp_argv="$TMPDIR/ytdlp-argv"
 notify_argv="$TMPDIR/notify-argv"
 
-cat >"$fake_root/bin/yt-dlp" <<'EOF'
+cat >"$fake_root/src/cli/yt-dlp" <<'EOF'
 #!/bin/bash
 printf '%s\n' "$*" >>"$YTDLP_ARGV_LOG"
 for arg in "$@"; do
@@ -195,18 +195,18 @@ done
 exit 0
 EOF
 
-cat >"$fake_root/bin/arch-notification-send" <<'EOF'
+cat >"$fake_root/src/cli/arch-notification-send" <<'EOF'
 #!/bin/bash
 printf '%s\n' "$*" >>"$NOTIFY_ARGV_LOG"
 EOF
 
 for stub in arch-osd arch-shell ffmpeg; do
-  printf '#!/bin/bash\nexit 0\n' >"$fake_root/bin/$stub"
+  printf '#!/bin/bash\nexit 0\n' >"$fake_root/src/cli/$stub"
 done
-chmod +x "$fake_root/bin/"*
+chmod +x "$fake_root/src/cli/"*
 
 YTDLP_ARGV_LOG="$ytdlp_argv" NOTIFY_ARGV_LOG="$notify_argv" YTDLP_FAKE_FILE="$fake_file" \
-  ARCH_PATH="$fake_root" ARCH_YTDLP_DIR="$fake_dir" \
+  ARCH_PATH="$fake_root" ARCH_YTDLP_DIR="$fake_dir" PATH="$fake_root/src/cli:$PATH" \
   bash -c '
     source "$1"
     download_url "$2"
@@ -246,7 +246,7 @@ pass "yt-dlp native host toasts the page title, not the sanitised filename"
 : >"$notify_argv"
 : >"$ytdlp_argv"
 YTDLP_ARGV_LOG="$ytdlp_argv" NOTIFY_ARGV_LOG="$notify_argv" YTDLP_FAKE_FILE="$fake_file" \
-  YTDLP_SKIP_TITLE=1 ARCH_PATH="$fake_root" ARCH_YTDLP_DIR="$fake_dir" \
+  YTDLP_SKIP_TITLE=1 ARCH_PATH="$fake_root" ARCH_YTDLP_DIR="$fake_dir" PATH="$fake_root/src/cli:$PATH" \
   bash -c '
     source "$1"
     download_url "$2"

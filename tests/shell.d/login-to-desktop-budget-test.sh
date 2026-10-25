@@ -98,9 +98,10 @@ mkdir -p "$test_root" "$test_home" "$stub_bin"
 # shell's idle service would eventually screensave/lock the real desktop.
 mkdir -p "$test_home/.local/state/arch/indicators"
 touch "$test_home/.local/state/arch/indicators/stay-awake"
-cp -a "$ROOT/src/shell" "$test_root/shell"
+mkdir -p "$test_root/src"
+cp -a "$ROOT/src/shell" "$test_root/src/shell"
 ln -s "$ROOT/config" "$test_root/config"
-ln -s "$ROOT/src/cli" "$test_root/bin"
+ln -s "$ROOT/src/cli" "$test_root/src/cli"
 ln -s "$ROOT/default" "$test_root/default"
 
 # The scratch shell must not reach the real session: the clipboard plugin
@@ -127,7 +128,7 @@ chmod +x "$stub_bin/bash"
 # The shell the launcher starts: found by its scratch config path.
 launcher_shell_pid() {
   local p
-  for p in $(pgrep -f "quickshell -n -p $test_root/shell" || true); do
+  for p in $(pgrep -f "quickshell -n -p $test_root/src/shell" || true); do
     echo "$p"
     return 0
   done

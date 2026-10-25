@@ -34,7 +34,7 @@ Item {
 
   readonly property int refreshIntervalSec: intSetting("refreshIntervalSec", 60, 10, 3600)
   readonly property bool busy: statusProcess.running || loginProcess.running || controlProcess.running
-  readonly property string helperPath: (archPath || "") + "/shell/plugins/panels/dropbox/status.py"
+  readonly property string helperPath: (archPath || "") + "/src/shell/plugins/panels/dropbox/status.py"
 
   property string _statusOutput: ""
   property string _statusError: ""
@@ -58,7 +58,7 @@ Item {
   }
 
   function refresh() {
-    if (statusProcess.running || helperPath === "/shell/plugins/panels/dropbox/status.py") return
+    if (statusProcess.running || helperPath === "/src/shell/plugins/panels/dropbox/status.py") return
     _statusOutput = ""
     _statusError = ""
     refreshing = true

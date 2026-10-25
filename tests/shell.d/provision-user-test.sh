@@ -24,7 +24,7 @@ mkdir -p "$test_tmp/installer/user"
 : >"$test_tmp/installer/user/all.sh"
 
 HOME="$test_tmp/home" PATH="$mock_bin:$ROOT/src/cli:$PATH" ARCH_PATH="$ROOT" \
-  ARCH_INSTALL="$test_tmp/install" bash "$ROOT/src/cli/arch-provision-user" >/dev/null ||
+  ARCH_INSTALL="$test_tmp/installer" bash "$ROOT/src/cli/arch-provision-user" >/dev/null ||
   fail "arch-provision-user finishes"
 
 for skill in arch diagnose-crash; do
@@ -56,7 +56,7 @@ pass "provisioning names the user folders in English before a first login in ano
 mkdir -p "$test_tmp/home/.config"
 printf 'XDG_DOWNLOAD_DIR="$HOME/下载"\n' >"$test_tmp/home/.config/user-dirs.dirs"
 HOME="$test_tmp/home" PATH="$mock_bin:$ROOT/src/cli:$PATH" ARCH_PATH="$ROOT" \
-  ARCH_INSTALL="$test_tmp/install" bash "$ROOT/src/cli/arch-provision-user" --force >/dev/null ||
+  ARCH_INSTALL="$test_tmp/installer" bash "$ROOT/src/cli/arch-provision-user" --force >/dev/null ||
   fail "arch-provision-user finishes again"
 ! grep -q -- '--set DOWNLOAD ' "$TEST_COMMAND_LOG" || fail "provisioning keeps a folder the user already named"
 grep -q -- '--set PICTURES ' "$TEST_COMMAND_LOG" || fail "provisioning still names the folders the user has not"

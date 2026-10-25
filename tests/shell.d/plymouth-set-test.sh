@@ -509,7 +509,7 @@ preopen_marker="$run_dir/preopen-marker"
 printf 'ROOT ONLY\n' >"$secret"
 chmod 000 "$secret"
 cat >"$preopen_hook" <<'SH'
-if [[ $0 == */bin/arch-plymouth-set ]]; then
+if [[ $0 == */src/cli/arch-plymouth-set ]]; then
   set -T
   trap '
     if [[ $BASH_COMMAND == exec* && $BASH_COMMAND == *logo_fd* &&
@@ -547,7 +547,7 @@ setup_run
 nonregular_hook="$run_dir/nonregular-hook"
 nonregular_marker="$run_dir/nonregular-marker"
 cat >"$nonregular_hook" <<'SH'
-if [[ $0 == */bin/arch-plymouth-set ]]; then
+if [[ $0 == */src/cli/arch-plymouth-set ]]; then
   set -T
   trap '
     if [[ $BASH_COMMAND == exec* && $BASH_COMMAND == *logo_fd* &&

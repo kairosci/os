@@ -18,6 +18,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 MODULES = ROOT / "modules"
 PACKAGES = ROOT / "packages"
+PYTHON_BUILD_ARTIFACTS = {"__pycache__"}
+
+
+def is_python_build_artifact(path: Path) -> bool:
+    return bool(PYTHON_BUILD_ARTIFACTS.intersection(path.parts)) or path.suffix in {".pyc", ".pyo"}
 
 
 @dataclass(frozen=True)
@@ -124,7 +129,7 @@ def load_modules() -> tuple[dict[str, Module], list[str], list[str]]:
                 errors.append(f"{manifest.relative_to(ROOT)}: source does not resolve inside the repository: {source}")
                 continue
             source_path = ROOT / path
-            tree = (source_path, *source_path.rglob("*")) if source_path.is_dir() and not source_path.is_symlink() else (source_path,)
+            tree = (source_path, *(entry for entry in source_path.rglob("*") if not is_python_build_artifact(entry))) if source_path.is_dir() and not source_path.is_symlink() else (source_path,)
             for entry in tree:
                 if not entry.is_symlink() or entry in checked_symlinks:
                     continue
@@ -162,6 +167,7 @@ def load_modules() -> tuple[dict[str, Module], list[str], list[str]]:
                 output_paths = [
                     target_path / path.relative_to(source_path)
                     for path in source_path.rglob("*")
+                    if not is_python_build_artifact(path)
                     if path.is_file() or path.is_symlink()
                 ]
             for output_path in output_paths:
@@ -267,7 +273,13 @@ def assemble(
                     return 1
             target_path.parent.mkdir(parents=True, exist_ok=True)
             if source_path.is_dir():
-                shutil.copytree(source_path, target_path, dirs_exist_ok=True, symlinks=True)
+                shutil.copytree(
+                    source_path,
+                    target_path,
+                    dirs_exist_ok=True,
+                    symlinks=True,
+                    ignore=shutil.ignore_patterns("__pycache__", "*.pyc", "*.pyo"),
+                )
             else:
                 shutil.copy2(source_path, target_path, follow_symlinks=False)
     print(f"Assembled {len(selected)} module(s) for {package} into {destination}.")

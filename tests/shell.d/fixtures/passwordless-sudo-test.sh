@@ -113,7 +113,7 @@ from pathlib import Path
 import sys
 root, temp = map(Path, sys.argv[1:])
 for name in ('arch-sudo-passwordless', 'arch-security-functions'):
-    text = (root/'bin'/name).read_text()
+    text = (root/'src/cli'/name).read_text()
     for path in ('/etc/', '/var/lib', '/run/', '/usr/share/libalpm/hooks'):
         target = str(temp/'hooks') if path == '/usr/share/libalpm/hooks' else str(temp) + path
         text = text.replace(path, target)

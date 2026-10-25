@@ -58,16 +58,16 @@ stub_bin="$TMPDIR/bin"
 screenshot_dir="$TMPDIR/screenshots"
 log="$TMPDIR/quickshell.log"
 screenshot_err="$TMPDIR/screenshot.err"
-mkdir -p "$test_root" "$test_home" "$stub_bin" "$screenshot_dir"
+mkdir -p "$test_root/src" "$test_home" "$stub_bin" "$screenshot_dir"
 
 # This shell joins an already-running compositor session, like a shell
 # restart. Seed the background-intro session marker so it does not map
 # the solid new-login startup cover over the bar being screenshotted.
 mkdir -p "$test_home/.local/state/arch"
 printf '%s\n' "$HYPRLAND_INSTANCE_SIGNATURE" >"$test_home/.local/state/arch/background-intro.session-id"
-cp -a "$ROOT/src/shell" "$test_root/shell"
+cp -a "$ROOT/src/shell" "$test_root/src/shell"
 ln -s "$ROOT/config" "$test_root/config"
-ln -s "$ROOT/src/cli" "$test_root/bin"
+ln -s "$ROOT/src/cli" "$test_root/src/cli"
 
 cat >"$stub_bin/arch-update-available" <<'SH'
 #!/bin/bash
@@ -99,7 +99,7 @@ XDG_CONFIG_HOME="$test_home/.config" \
 XDG_CACHE_HOME="$test_home/.cache" \
 XDG_STATE_HOME="$test_home/.local/state" \
 PATH="$stub_bin:$ROOT/src/cli:$PATH" \
-  quickshell -p "$test_root/shell" --no-color >"$log" 2>&1 &
+  quickshell -p "$test_root/src/shell" --no-color >"$log" 2>&1 &
 QS_PID=$!
 
 for _ in {1..80}; do

@@ -15,8 +15,8 @@ printf '%s\n' "$*" >>"$ARCH_TEST_REFRESH"
 SH
 chmod +x "$test_tmp/bin"/*
 runtime_root="$test_tmp/arch-runtime"
-mkdir -p "$runtime_root"
-ln -s "$ROOT/src/cli" "$runtime_root/bin"
+mkdir -p "$runtime_root/src"
+ln -s "$ROOT/src/cli" "$runtime_root/src/cli"
 export ARCH_PATH="$runtime_root"
 export ARCH_TEST_ROOT="$test_tmp"
 export ARCH_TEST_REFRESH="$test_tmp/refresh"
@@ -27,7 +27,7 @@ python3 - <<'PY'
 import base64, contextlib, copy, ctypes, importlib.machinery, importlib.util, io, json, os, subprocess, sys
 from pathlib import Path
 
-loader = importlib.machinery.SourceFileLoader("transfer", str(Path(os.environ["ARCH_PATH"]) / "bin/arch-agent-account-transfer"))
+loader = importlib.machinery.SourceFileLoader("transfer", str(Path(os.environ["ARCH_PATH"]) / "src/cli/arch-agent-account-transfer"))
 spec = importlib.util.spec_from_loader(loader.name, loader)
 transfer = importlib.util.module_from_spec(spec)
 loader.exec_module(transfer)
@@ -199,7 +199,7 @@ transfer.write_json(Path.home() / ".claude.json", {"mcpServers": {"local": "inte
 code = """
 import importlib.machinery, importlib.util, json, os, sys
 from pathlib import Path
-loader = importlib.machinery.SourceFileLoader("transfer", str(Path(os.environ["ARCH_PATH"]) / "bin/arch-agent-account-transfer"))
+loader = importlib.machinery.SourceFileLoader("transfer", str(Path(os.environ["ARCH_PATH"]) / "src/cli/arch-agent-account-transfer"))
 spec = importlib.util.spec_from_loader(loader.name, loader)
 transfer = importlib.util.module_from_spec(spec)
 loader.exec_module(transfer)
@@ -278,15 +278,16 @@ assert state.load("claude")["switch"] == "manual" and state.load("claude")["thre
 machine("newer-backend")
 backend_root = root / "newer-arch"
 (backend_root / "bin").mkdir(parents=True)
-backend_source = (Path(os.environ["ARCH_PATH"]) / "bin/arch-agent-account-state").read_text()
+backend_source = (Path(os.environ["ARCH_PATH"]) / "src/cli/arch-agent-account-state").read_text()
 backend_source = backend_source.replace('return {"active": "main",', 'return {"futureSetting": "keep", "active": "main",')
-(backend_root / "bin/arch-agent-account-state").write_text(backend_source)
+(backend_root / "src/cli").mkdir(parents=True)
+(backend_root / "src/cli/arch-agent-account-state").write_text(backend_source)
 old_receiver = root / "old-receiver-bin"
 old_receiver.mkdir()
 command = old_receiver / "arch-agent-account-transfer"
 command.write_text("#!/bin/bash\nexit 1\n")
 command.chmod(0o755)
-child_env = dict(os.environ, ARCH_PATH=str(backend_root), PATH=str(old_receiver) + ":" + str(root / "bin"))
+child_env = dict(os.environ, ARCH_PATH=str(backend_root), PATH=str(old_receiver) + ":" + str(root / "src/cli"))
 bundle = {"version": 1, "backend": "raise RuntimeError('sender backend must not run')", "receiver": Path(transfer.__file__).read_text(), "accounts": payload}
 result = subprocess.run(["/usr/bin/python3", "-I", "-c", transfer.RECEIVER_BOOTSTRAP], input=json.dumps(bundle), text=True, capture_output=True, env=child_env)
 assert result.returncode == 0, result.stderr
@@ -295,7 +296,7 @@ assert state.read_json(state.registry_path("claude"))["futureSetting"] == "keep"
 # A missing optional refresh command must not undo a completed import.
 machine("no-updater")
 no_updater_env = dict(os.environ, PATH="")
-bundle["backend"] = (Path(os.environ["ARCH_PATH"]) / "bin/arch-agent-account-state").read_text()
+bundle["backend"] = (Path(os.environ["ARCH_PATH"]) / "src/cli/arch-agent-account-state").read_text()
 result = subprocess.run(["/usr/bin/python3", "-I", "-c", transfer.RECEIVER_BOOTSTRAP], input=json.dumps(bundle), text=True, capture_output=True, env=no_updater_env)
 assert result.returncode == 0, result.stderr
 assert "usage refresh could not start" in result.stderr
@@ -398,9 +399,9 @@ printf '%s\n' "$*" >"$ARCH_TEST_ROOT/preferred-receiver"
 /usr/bin/python3 -c 'import json,sys; assert json.load(sys.stdin)["version"] == 1'
 SH
 chmod +x "$test_tmp/bin/arch-agent-account-transfer"
-HOME="$test_tmp/source" XDG_STATE_HOME="$test_tmp/source/state" "$ROOT/src/cli/arch-agent-account-transfer" bundle claude | /usr/bin/python3 -I -c "$(HOME="$test_tmp/source" XDG_STATE_HOME="$test_tmp/source/state" /usr/bin/python3 - <<'PYBOOT'
+HOME="$test_tmp/source" XDG_STATE_HOME="$test_tmp/source/state" ARCH_PATH="$ROOT" "$ROOT/src/cli/arch-agent-account-transfer" bundle claude | /usr/bin/python3 -I -c "$(HOME="$test_tmp/source" XDG_STATE_HOME="$test_tmp/source/state" ARCH_PATH="$ROOT" /usr/bin/python3 - <<'PYBOOT'
 import importlib.machinery, importlib.util, os
-loader=importlib.machinery.SourceFileLoader("transfer",os.environ["ARCH_PATH"]+"/bin/arch-agent-account-transfer")
+loader=importlib.machinery.SourceFileLoader("transfer",os.environ["ARCH_PATH"]+"/src/cli/arch-agent-account-transfer")
 spec=importlib.util.spec_from_loader(loader.name,loader)
 m=importlib.util.module_from_spec(spec);loader.exec_module(m)
 print(m.RECEIVER_BOOTSTRAP)

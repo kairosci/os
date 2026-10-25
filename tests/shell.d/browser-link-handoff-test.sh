@@ -70,8 +70,8 @@ migration=$(grep -lF "arch-browser.desktop" "$ROOT"/migrations/*.sh | head -1)
 rm -f "$applications/arch-browser.desktop" "$XDG_CONFIG_HOME/hyprland-mimeapps.list"
 mkdir -p "$test_tmp/migrated/.config"
 arch_runtime="$test_tmp/arch-runtime"
-mkdir -p "$arch_runtime/applications"
-cp -a assets/applications/. "$arch_runtime/applications/"
+mkdir -p "$arch_runtime/assets"
+cp -a assets/applications "$arch_runtime/assets/"
 cp -a config "$arch_runtime/"
 HOME="$test_tmp/migrated" ARCH_PATH="$arch_runtime" bash -euo pipefail "$migration" >/dev/null
 [[ -f $test_tmp/migrated/.local/share/applications/arch-browser.desktop ]] ||
