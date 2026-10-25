@@ -2,7 +2,7 @@
 
 Arch wordt geïnstalleerd met een ISO. Je kunt kiezen tussen een installatie op de volledige schijf, die de hele schijf overneemt, of een installatie in vrije ruimte, die Arch in de niet-toegewezen ruimte op een schijf plaatst — zo dual-boot je naast Windows of een ander OS (zie [dual-boot-installatie](50-dual-boot-install.md) — let op dat je eerst BitLocker in Windows moet uitschakelen). Hoe dan ook gebruikt de installatie standaard volledige versleuteling, en de optie voor de volledige schijf wist de geselecteerde schijf, dus maak beslist een back-up voordat je een bestaande schijf gebruikt!
 
-[Download de Arch ISO](https://github.com/kairosci/arch/) eerst, zet hem op een USB-stick (gebruik [balenaEtcher](https://etcher.balena.io/) op Mac/Windows of [caligula](https://github.com/ifd3f/caligula) op Linux), en start op vanaf de stick.
+[Download de Arch ISO](https://github.com/kairosci/os/) eerst, zet hem op een USB-stick (gebruik [balenaEtcher](https://etcher.balena.io/) op Mac/Windows of [caligula](https://github.com/ifd3f/caligula) op Linux), en start op vanaf de stick.
 
 _Je moet Secure Boot en/of TPM uitschakelen in de BIOS. Je moet deze uitschakelen om Arch te kunnen installeren. Het zijn beveiligingsschema's van Microsoft, bedoeld voor Windows en aan Microsoft gelieerde Linux-distributies._
 
@@ -36,8 +36,8 @@ Maar in speciale omstandigheden, zoals externe Arch-installaties op beschermde c
 
 ### Taal
 
-Arch spreekt 50 talen — dezelfde set als github.com/kairosci/arch — en Engels is de standaard. Om te wisselen open je het Arch-menu en ga je naar _Setup > Language_, of voer je `archctl language <code>` uit in een terminal (`archctl language list` toont de codes). Het menu, het bureaublad en Arch's eigen meldingen veranderen onmiddellijk van taal, en elke applicatie die je daarna opent, volgt ook. Apps die al open waren, wisselen zodra je ze opnieuw opstart.
+Arch spreekt 50 talen — dezelfde set als github.com/kairosci/os — en Engels is de standaard. Om te wisselen open je het Arch-menu en ga je naar _Setup > Language_, of voer je `archctl language <code>` uit in een terminal (`archctl language list` toont de codes). Het menu, het bureaublad en Arch's eigen meldingen veranderen onmiddellijk van taal, en elke applicatie die je daarna opent, volgt ook. Apps die al open waren, wisselen zodra je ze opnieuw opstart.
 
 ### Help als je vastloopt
 
-Als je vastloopt, vind je meestal wel iemand die wil helpen in het kanaal _#arch-help_ op [de community-Discord](https://github.com/kairosci/arch/discord).
+Als je vastloopt, vind je meestal wel iemand die wil helpen in het kanaal _#arch-help_ op [de community-Discord](https://github.com/kairosci/os/discord).

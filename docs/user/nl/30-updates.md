@@ -2,7 +2,7 @@
 
 Arch en je pakketten worden up-to-date gehouden via _Bijwerken > Arch_ in het Arch-menu (`Super + Space`).
 
-Arch zelf wordt geïnstalleerd als gewone pacman-pakketten vanuit de [Arch Package Repository](https://github.com/kairosci/arch), dus een update installeert [de nieuwste Arch-release](https://github.com/kairosci/arch), voert eventuele openstaande migraties uit om je systeem synchroon te brengen met de nieuwste versie, en werkt alle systeem-pakketten bij vanuit de [Arch Arch Mirror](https://github.com/kairosci/arch) en [AUR](https://aur.archlinux.org/) (als je AUR-pakketten hebt geïnstalleerd).
+Arch zelf wordt geïnstalleerd als gewone pacman-pakketten vanuit de [Arch Package Repository](https://github.com/kairosci/os), dus een update installeert [de nieuwste Arch-release](https://github.com/kairosci/os), voert eventuele openstaande migraties uit om je systeem synchroon te brengen met de nieuwste versie, en werkt alle systeem-pakketten bij vanuit de [Arch Arch Mirror](https://github.com/kairosci/os) en [AUR](https://aur.archlinux.org/) (als je AUR-pakketten hebt geïnstalleerd).
 
 Wanneer er nieuwe releases worden gemaakt, verschijnt er een cirkelpijlpictogram rechts van je klok. Klik erop en het updateproces start.
 
@@ -10,7 +10,7 @@ Wanneer er nieuwe releases worden gemaakt, verschijnt er een cirkelpijlpictogram
 
 ### Vier kanalen
 
-Arch wordt bijgewerkt via vier kanalen: stable, RC, edge en dev. Nieuwe installaties beginnen op het stable-kanaal, dat de [officiële releases](https://github.com/kairosci/arch) volgt, evenals de [stable Arch Arch mirror](https://github.com/kairosci/arch) die een maand achterloopt op de nieuwste, zodat we nieuwe incompatibiliteiten die configuratiewijzigingen vereisen kunnen opvangen voordat ze problemen voor mensen veroorzaken.
+Arch wordt bijgewerkt via vier kanalen: stable, RC, edge en dev. Nieuwe installaties beginnen op het stable-kanaal, dat de [officiële releases](https://github.com/kairosci/os) volgt, evenals de [stable Arch Arch mirror](https://github.com/kairosci/os) die een maand achterloopt op de nieuwste, zodat we nieuwe incompatibiliteiten die configuratiewijzigingen vereisen kunnen opvangen voordat ze problemen voor mensen veroorzaken.
 
 Maar als je wilt helpen die potentiële problemen te spotten, kun je op het edge-kanaal draaien. Dat houdt je Arch-pakketten de nieuwste ontwikkelbuilds volgend, en laat je bijwerken naar de nieuwste Arch-pakketten zodra ze beschikbaar zijn. Je moet dit alleen doen als je ervaren bent met Linux, en weet hoe je een systeem met problemen kunt herstellen.
 

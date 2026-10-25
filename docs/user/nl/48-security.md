@@ -30,6 +30,6 @@ Wees hier nuchter over: zolang het aan staat, kan alles wat als jouw gebruiker d
 
 ## Ondertekeningssleutels
 
-De openbare sleutel voor alle ISO-handtekeningen en Arch-repo-pakketten is `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([verifieer op openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/arch)). Het pakket `arch/arch-keyring` bevat dit ook en zal worden gebruikt om eventuele updates naadloos uit te rollen.
+De openbare sleutel voor alle ISO-handtekeningen en Arch-repo-pakketten is `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([verifieer op openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os)). Het pakket `arch/arch-keyring` bevat dit ook en zal worden gebruikt om eventuele updates naadloos uit te rollen.
 
-Je kunt de handtekening voor elke ISO-release vinden door .sig aan de URL toe te voegen. Zoals https://iso.github.com/kairosci/arch/arch-x.x.x.iso.sig.
+Je kunt de handtekening voor elke ISO-release vinden door .sig aan de URL toe te voegen. Zoals https://iso.github.com/kairosci/os/arch-x.x.x.iso.sig.

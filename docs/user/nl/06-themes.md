@@ -6,7 +6,7 @@ Elk thema stijlt het bureaublad, de terminal, neovim, het activiteitenscherm (bt
 
 Thema's hebben een set achtergrondafbeeldingen waaruit je kunt kiezen met `Super + Ctrl + Space`.
 
-Je kunt nog meer thema's vinden op [de pagina met extra thema's](https://github.com/kairosci/arch/themes/) of zelfs [je eigen thema maken](43-making-your-own-theme.md).
+Je kunt nog meer thema's vinden op [de pagina met extra thema's](https://github.com/kairosci/os/themes/) of zelfs [je eigen thema maken](43-making-your-own-theme.md).
 
  ![tokyo-night](../themes/tokyo-night/preview.png)
 _Tokyo Night_
