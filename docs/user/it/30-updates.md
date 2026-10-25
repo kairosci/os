@@ -2,7 +2,7 @@
 
 Arch e i tuoi pacchetti sono mantenuti aggiornati tramite _Aggiorna > Arch_ nel menu Arch (`Super + Space`).
 
-Arch stesso è installato come normali pacchetti pacman dal [Repository pacchetti Arch](https://github.com/kairosci/arch), quindi un aggiornamento installa [l'ultima versione di Arch](https://github.com/kairosci/arch), esegue eventuali migrazioni in sospeso per sincronizzare il tuo sistema con l'ultima versione e aggiorna tutti i pacchetti di sistema dal [Mirror Arch di Arch](https://github.com/kairosci/arch) e dall'[AUR](https://aur.archlinux.org/) (se hai installato pacchetti AUR).
+Arch stesso è installato come normali pacchetti pacman dal [Repository pacchetti Arch](https://github.com/kairosci/os), quindi un aggiornamento installa [l'ultima versione di Arch](https://github.com/kairosci/os), esegue eventuali migrazioni in sospeso per sincronizzare il tuo sistema con l'ultima versione e aggiorna tutti i pacchetti di sistema dal [Mirror Arch di Arch](https://github.com/kairosci/os) e dall'[AUR](https://aur.archlinux.org/) (se hai installato pacchetti AUR).
 
 Quando vengono pubblicate nuove versioni, un'icona a freccia circolare apparirà a destra dell'orologio. Fai clic su di essa e il processo di aggiornamento inizierà.
 
@@ -10,7 +10,7 @@ Quando vengono pubblicate nuove versioni, un'icona a freccia circolare apparirà
 
 ### Quattro canali
 
-Arch è aggiornato lungo quattro canali: stabile, RC, edge e dev. Le nuove installazioni partono dal canale stabile, che segue le [versioni ufficiali](https://github.com/kairosci/arch), oltre al [mirror Arch stabile di Arch](https://github.com/kairosci/arch) che è indietro di un mese rispetto all'ultima versione, così possiamo intercettare eventuali nuove incompatibilità che richiedono modifiche alla configurazione prima che causino problemi alle persone.
+Arch è aggiornato lungo quattro canali: stabile, RC, edge e dev. Le nuove installazioni partono dal canale stabile, che segue le [versioni ufficiali](https://github.com/kairosci/os), oltre al [mirror Arch stabile di Arch](https://github.com/kairosci/os) che è indietro di un mese rispetto all'ultima versione, così possiamo intercettare eventuali nuove incompatibilità che richiedono modifiche alla configurazione prima che causino problemi alle persone.
 
 Ma se vuoi aiutare a individuare quei potenziali problemi, puoi usare il canale edge. Questo manterrà i tuoi pacchetti Arch allineati alle ultime build di sviluppo e ti permetterà di aggiornare agli ultimi pacchetti Arch non appena sono disponibili. Dovresti farlo solo se hai esperienza con Linux e sai come recuperare un sistema che ha problemi.
 
