@@ -12,11 +12,7 @@
 | `Super + Ctrl + L` | 锁定计算机 |
 | `Super + W` or `Super + Q` | 关闭窗口             |
 | `Ctrl + Alt + Del` | 关闭所有窗口 |
-| `Super + T`               | 在平铺/浮动之间切换窗口             |
 | `Super + J` | 切换窗口位置（水平/垂直） |
-| `Super + O`               | 切换将窗口弹出为粘滞浮动 |
-| `Super + L`               | 循环切换 dwindle、滚动和浮动布局 |
-| `Super + Alt + L`         | 反向循环切换布局 |
 | `Super + P`               | 切换伪窗口样式（自然与拉伸） |
 | `Super + F`                 | 进入全屏              |
 | `Super + Alt + F`                 | 进入全宽              |

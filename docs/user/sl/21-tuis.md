@@ -12,8 +12,6 @@ Med različnimi okni skačete s tipko `Tab`. V oknu Files izberete datoteke za p
 
 [Btop](https://github.com/aristocratos/btop) je lep upravitelj virov, ki prikazuje pomnilnik, CPU, disk in omrežno uporabo. Našteje tudi vse aktivne procese in omogoča upravljanje z njimi.
 
-Arch ga imenuje Activity, zaženete pa ga s pritiskom `Super + Ctrl + T`. Odpre se kot lebdeče okno, ki ga lahko razstavite v ploščice s `Super + T`.
-
 ## Herdr
 
 [Herdr](https://github.com/omacom-io/herdr) je upravitelj terminalskih delovnih prostorov, ki ponuja delovne prostore, zavihke in okna ter jih vse ohranja v trajni seji, iz katere se lahko odklopite in se pozneje vrnete.

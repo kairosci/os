@@ -16,7 +16,7 @@ Ekkert að smella á til að ræsa hluti, engin tákn til að raða á skjábor�
 
 Stærsta hugarfarsbreytingin: þú dregur ekki glugga um og smellir þeim ekki á skjáhelminga. Opnaðu glugga og hann tekur allan skjáinn. Opnaðu annan og þeir skipta honum. Þú þarft aldrei að fiska glugga upp undan öðrum, þar sem gluggar skarast ekki.
 
-Þegar þú raunverulega þarft fljótandi glugga víxlar `Super + T` virka glugganum út úr flísalögninni (og til baka). En gefðu flísalögninni almennilegt tækifæri fyrst — hún er hjartað í þessu öllu. [Leiðsögn](04-navigation.md) leiðir þig í gegnum þetta.
+
 
 Vinnusvæði munu virðast kunnugleg: þau eru macOS Spaces eða Windows sýndarskjáborð, nema þú munt í alvöru nota þau, þar sem `Super + 1/2/3/4` hoppar beint á eitt og `Super + Shift + 1/2/3/4` sendir virka gluggann þangað. Engin bið eftir hreyfingu, bara augnablikshopp. Þetta þýðir að þú gætir ekki einu sinni þurft marga skjái, ef þú varst vanur því áður.
 

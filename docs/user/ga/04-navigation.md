@@ -12,7 +12,7 @@ Is féidir leat `Super + J` a bhrú ansin chun iad a chruachadh ar bharr a chéi
 
 Brúigh `Super + J` arís chun iad a chur ar ais ina suíomhanna taobh le taobh. Ansin bain triail as `Super + Shift + Arrow Right` fad atá tú ar an mbrabhsálaí chun na fuinneoga a mhalartú.
 
-Anois bain triail as `Super + Ctrl + T` chun an monatóir Gníomhaíochta a thosú. Beidh sé sin le feiceáil mar fhuinneog ar snámh. Is féidir leat é a thíleáil le `Super + T` (agus é sin a bhrú arís chun é a chur ar snámh arís). Anois brúigh `Super + Shift + F` chun bainisteoir na gcomhad a oscailt. Beidh socrú néata ceithre threo agat:
+
 
  ![navigation-fourway-tiling](images/navigation-fourway-tiling.webp)
 
@@ -34,7 +34,6 @@ Tugtar dwindle ar leagan amach réamhshocraithe Arch. Coinníonn sé na fuinneog
 
 Ach is féidir leat a roghnú freisin spás oibre a thiontú ina leagan amach scrollaithe ina mbíonn fuinneoga líneáilte taobh le taobh, thar imeall infheicthe an taispeána. Tiontaíonn tú spás oibre amháin isteach sa leagan amach seo trí `Super + L`.
 
-Má bhrúnn tú `Super + L` arís déantar an spás oibre ar snámh, áit a bhforluíonn fuinneoga go saor agus a gcuireann tú féin iad, agus cuireann tríú brú ar ais go dwindle é. Téann `Super + Alt + L` tríothu an treo eile. Fuinneog a bhíonn ar snámh ar aon nós — ceann a phreab tú amach le `Super + T`, nó aip a osclaíonn ar snámh i gcónaí — fanann sí ar snámh nuair a théann an spás oibre ar ais go tíleáil. Marcálann an barra uachtarach an spás oibre a bhfuil tú air lena leagan amach: cearnóg do dwindle, ciorcal do scrollú, agus triantán do snámh. Má chliceálann tú an marc sin timthriallann sé an leagan amach freisin.
 
  ![navigation-scrolling-layout](images/navigation-scrolling-layout.webp)
 

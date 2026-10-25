@@ -40,7 +40,7 @@ wait).
 |--------------|---------------------------------------------|
 | `bar-widget` | Component the active bar drops into a section |
 | `bar`        | Full bar option that can replace `arch.bar` |
-| `panel`      | Floating window (e.g. OSD)                     |
+| `panel`      | Summoned layer surface (e.g. OSD)                     |
 | `overlay`    | Fullscreen overlay (e.g. background picker)    |
 | `menu`       | Summoned menu surface                          |
 | `service`    | Headless singleton, no UI                      |

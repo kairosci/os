@@ -16,7 +16,7 @@ Hakuna cha kubofya kuzindua vitu, hakuna aikoni za kupanga kwenye eneo-kazi. Pro
 
 Mabadiliko makubwa zaidi ya mawazo: huburuti madirisha huku na huko wala kuyabana kwenye nusu za skrini. Fungua dirisha na huchukua skrini yote. Fungua la pili na hugawanyika. Kamwe huvui dirisha kutoka chini ya jingine, kwa sababu madirisha hayaingiani.
 
-Unapohitaji kweli dirisha linaloelea, `Super + T` hubadilisha linalotumika kutoka katika vigae (na kurudi). Lakini ipe vigae nafasi halisi kwanza — ndio moyo wa jambo lote. [Urambazaji](04-navigation.md) hukuongoza humo.
+
 
 Nafasi za kazi zitaonekana kufahamika: ni Spaces za macOS au eneo-kazi pepe za Windows, isipokuwa utazatumia kweli, kwa sababu `Super + 1/2/3/4` huruka moja kwa moja hadi moja na `Super + Shift + 1/2/3/4` hutuma dirisha linalotumika huko. Hakuna uchelewaji wa uhuishaji, ni maruko ya papo hapo tu. Hii ina maana kwamba huenda usihitaji hata skrini nyingi, ikiwa umezoea hilo kabla.
 

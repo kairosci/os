@@ -12,7 +12,7 @@ Tuomet galite paspausti `Super + J`, kad sukrautumėte juos vieną ant kito, o n
 
 Paspauskite `Super + J` dar kartą, kad grąžintumėte juos į padėtį šalia vienas kito. Tada, būdami naršyklėje, pabandykite `Super + Shift + Arrow Right`, kad sukeistumėte langus vietomis.
 
-Dabar pabandykite `Super + Ctrl + T`, kad paleistumėte Activity monitorių. Jis pasirodys kaip slankusis langas. Galite jį įdėti į plytelių išdėstymą paspaudę `Super + T` (ir paspausti tai dar kartą, kad vėl taptų slankusis). Dabar paspauskite `Super + Shift + F`, kad atvertumėte failų tvarkytuvę. Turėsite tvarkingą keturių dalių išdėstymą:
+Dabar pabandykite `Super + Ctrl + T`, kad paleistumėte Activity monitorių. Dabar paspauskite `Super + Shift + F`, kad atvertumėte failų tvarkytuvę. Turėsite tvarkingą keturių dalių išdėstymą:
 
  ![navigation-fourway-tiling](images/navigation-fourway-tiling.webp)
 
@@ -34,7 +34,6 @@ Numatytasis Arch išdėstymas vadinamas dwindle. Jis visada laiko visus vienoje 
 
 Tačiau taip pat galite pasirinkti darbo sritį paversti slenkančiu išdėstymu, kuriame langai išrikiuojami šalia vienas kito, už matomo ekrano krašto ribų. Vieną darbo sritį į šį išdėstymą perjungiate paspaudę `Super + L`.
 
-Dar kartą paspaudus `Super + L`, darbo sritis tampa slankioji, kurioje langai laisvai persidengia ir juos išdėstote patys, o trečiasis paspaudimas grąžina ją į dwindle. `Super + Alt + L` pereina juos priešinga kryptimi. Langas, kuris ir taip yra slankusis — toks, kurį iškėlėte paspaudę `Super + T`, arba programa, kuri visada atveriama kaip slankioji — lieka slankusis, kai darbo sritis grįžta į plytelių išdėstymą. Viršutinėje juostoje darbo sritis, kurioje esate, pažymėta jos išdėstymu: kvadratu — dwindle, apskritimu — slenkančiam, o trikampiu — slankiajam. Spustelėjus tą žymę, išdėstymas taip pat keičiamas ciklu.
 
  ![navigation-scrolling-layout](images/navigation-scrolling-layout.webp)
 

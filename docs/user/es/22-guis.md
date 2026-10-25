@@ -77,8 +77,6 @@ Inicias Signed desde el lanzador de aplicaciones (`Super + Space`), o abres un P
 
 ## Omacalc
 
-[Omacalc](https://github.com/omacom-io/omacalc) es la calculadora súper simple de Arch, que se abre en una ventana flotante.
-
 Inicias Omacalc con `Super + Ctrl + Q` (o la tecla de calculadora, si tu teclado tiene una).
 
 ## Signal

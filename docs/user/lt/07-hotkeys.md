@@ -12,11 +12,7 @@ Visus pagrindinius klaviatūros susiejimus galite pamatyti su `Super + K` (Tmux 
 | `Super + Ctrl + L` | Užrakinti kompiuterį |
 | `Super + W` or `Super + Q` | Uždaryti langą             |
 | `Ctrl + Alt + Del` | Uždaryti visus langus |
-| `Super + T`               | Perjungti langą tarp plytelių / plūduriuojančio             |
 | `Super + J` | Perjungti lango padėtį (horizontali / vertikali) |
-| `Super + O`               | Perjungti lango išstūmimą į lipnų ir plūduriuojantį |
-| `Super + L`               | Cikliškai pereiti per dwindle, slenkantį ir plūduriuojantį išdėstymus |
-| `Super + Alt + L`         | Cikliškai pereiti per išdėstymus atvirkštine tvarka |
 | `Super + P`               | Perjungti pseudo lango stilių (natūralus ar ištemptas) |
 | `Super + F`                 | Pereiti į visą ekraną              |
 | `Super + Alt + F`                 | Pereiti į visą plotį              |

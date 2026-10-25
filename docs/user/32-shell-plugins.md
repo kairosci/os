@@ -79,7 +79,7 @@ A plugin is a directory with a `manifest.json` and some QML. The manifest declar
 | Kind | What it is |
 |------|------------|
 | `bar-widget` | A component the active bar can drop into a section |
-| `panel` | A persistent or summoned floating window |
+| `panel` | A persistent or summoned layer-shell surface |
 | `overlay` | A fullscreen overlay |
 | `menu` | A summoned menu surface |
 | `service` | A headless singleton with no UI |

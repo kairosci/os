@@ -12,11 +12,7 @@
 | `Super + Ctrl + L` | 컴퓨터 잠금 |
 | `Super + W` 또는 `Super + Q` | 창 닫기             |
 | `Ctrl + Alt + Del` | 모든 창 닫기 |
-| `Super + T`               | 창을 타일링/플로팅 간에 토글             |
 | `Super + J` | 창 위치 토글(가로/세로) |
-| `Super + O`               | 창을 고정/플로팅으로 튀기기 토글 |
-| `Super + L`               | dwindle, 스크롤링, 플로팅 레이아웃 순환 |
-| `Super + Alt + L`         | 레이아웃을 역순으로 순환 |
 | `Super + P`               | 가짜 창 스타일 토글(자연스럽게 대 늘리기) |
 | `Super + F`                 | 전체 화면으로 가기              |
 | `Super + Alt + F`                 | 전체 너비로 가기              |
@@ -373,4 +369,3 @@ Ghostty 터미널은 Arch 메뉴의 _설치 > 터미널_을 통해 설치합니�
 | `Shift + CapsLock Space E` | 여러분의 이메일(설정 때 입력한 대로)  |
 
 `~/.XCompose`를 편집한 뒤 터미널에서 `arch-restart-xcompose`를 실행하면 변경 사항이 반영되도록 직접 더 추가할 수 있습니다.
-

@@ -16,7 +16,7 @@ Niets om op te klikken om dingen te starten, geen pictogrammen om op het bureaub
 
 De grootste mindset-shift: je sleept geen vensters rond en klikt ze niet vast aan schermhelften. Open een venster en het neemt het hele scherm in beslag. Open een tweede en ze splitsen het. Je vist nooit een venster onder een ander vandaan, omdat vensters niet overlappen.
 
-Wanneer je echt een zwevend venster nodig hebt, schakelt `Super + T` het actieve venster uit de tegelindeling (en weer terug). Maar geef het tegelen eerst een echte kans — het is het hart van het hele ding. [Navigatie](04-navigation.md) leidt je erdoorheen.
+
 
 Werkbladen zullen vertrouwd voelen: het zijn macOS Spaces of virtuele bureaubladen van Windows, behalve dat je ze daadwerkelijk zult gebruiken, omdat `Super + 1/2/3/4` er rechtstreeks naartoe springt en `Super + Shift + 1/2/3/4` het actieve venster erheen stuurt. Geen animatievertraging, alleen instant sprongen. Dit betekent dat je misschien niet eens meerdere monitoren nodig hebt, als je dat vroeger gewend was.
 

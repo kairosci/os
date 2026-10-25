@@ -12,11 +12,7 @@ Vse glavne vezave tipkovnice si lahko ogledate s `Super + K` (vezave Tmux s `Sup
 | `Super + Ctrl + L` | Zakleni računalnik |
 | `Super + W` or `Super + Q` | Zapri okno             |
 | `Ctrl + Alt + Del` | Zapri vsa okna |
-| `Super + T`               | Preklopi okno med ploščicami/lebdenjem             |
 | `Super + J` | Preklopi položaj okna (vodoravno/navpično) |
-| `Super + O`               | Preklopi izskakanje okna v lepljivo in lebdeče |
-| `Super + L`               | Kroži skozi postavitve dwindle, drsenje in lebdenje |
-| `Super + Alt + L`         | Kroži skozi postavitve v obratni smeri |
 | `Super + P`               | Preklopi psevdoslog okna (naravno proti raztezanjem) |
 | `Super + F`                 | Pojdi na celoten zaslon              |
 | `Super + Alt + F`                 | Pojdi na celotno širino              |

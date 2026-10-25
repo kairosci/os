@@ -12,7 +12,7 @@ Léimeann tú idir na pánaí éagsúla trí `Tab` a úsáid. Sa phána Comhaid,
 
 Is bainisteoir acmhainní álainn é [Btop](https://github.com/aristocratos/btop) a thaispeánann úsáid chuimhne, LAP, diosca, agus líonra. Liostálann sé na próisis ghníomhacha go léir freisin, agus ligeann duit iad a bhainistiú.
 
-Glaonn Arch Gníomhaíocht air, agus tosaíonn tú é trí `Super + Ctrl + T` a bhrú. Osclaíonn sé mar fhuinneog ar snámh, ar féidir leat í a thìleáil le `Super + T`.
+
 
 ## Herdr
 

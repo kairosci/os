@@ -12,7 +12,7 @@ Ezután megnyomhatod a `Super + J` billentyűket, hogy egymás fölé rakd őket
 
 Nyomd meg újra a `Super + J` billentyűket, hogy visszaálljanak az egymás melletti pozíciójukba. Ezután, amíg a böngészőn vagy, próbáld ki a `Super + Shift + Arrow Right` billentyűket az ablakok felcseréléséhez.
 
-Most próbáld ki a `Super + Ctrl + T` billentyűket az Activity monitor indításához. Ez lebegő ablakként fog megjelenni. Csempézheted a `Super + T` segítségével (és nyomd meg újra, hogy ismét lebegő legyen). Most nyomd meg a `Super + Shift + F` billentyűket a fájlkezelő megnyitásához. Szép négyirányú elrendezésed lesz:
+Most próbáld ki a `Super + Ctrl + T` billentyűket az Activity monitor indításához. Most nyomd meg a `Super + Shift + F` billentyűket a fájlkezelő megnyitásához. Szép négyirányú elrendezésed lesz:
 
  ![navigation-fourway-tiling](images/navigation-fourway-tiling.webp)
 
@@ -34,7 +34,6 @@ Az Arch alapértelmezett elrendezését dwindle-nek hívják. Minden ablakot, am
 
 De azt is választhatod, hogy egy munkaterületet scrolling elrendezéssé alakítasz, ahol az ablakok egymás mellett sorakoznak, túl a kijelző látható szélén. Egyetlen munkaterületet a `Super + L` billentyűkkel alakíthatsz át ebbe az elrendezésbe.
 
-A `Super + L` ismételt megnyomása lebegővé teszi a munkaterületet, ahol az ablakok szabadon átfedik egymást, és magad helyezed el őket, egy harmadik megnyomás pedig visszaállítja dwindle-re. A `Super + Alt + L` a másik irányban megy végig rajtuk. Egy ablak, amely amúgy is lebeg — egy, amelyet a `Super + T` billentyűkkel emeltél ki, vagy egy alkalmazás, amely mindig lebegőként nyílik meg — lebegő marad, amikor a munkaterület visszatér a csempézéshez. A felső sáv azt a munkaterületet, amelyen vagy, az elrendezésével jelöli: négyzet a dwindle, kör a scrolling, és háromszög a lebegő esetén. Erre a jelre kattintva szintén váltogathatod az elrendezést.
 
  ![navigation-scrolling-layout](images/navigation-scrolling-layout.webp)
 

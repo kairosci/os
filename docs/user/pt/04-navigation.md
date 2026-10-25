@@ -12,7 +12,7 @@ Podes depois carregar em `Super + J` para as empilhar uma em cima da outra em ve
 
 Carrega outra vez em `Super + J` para as devolver às suas posições lado a lado. Depois experimenta `Super + Shift + Arrow Right` enquanto estás no navegador para trocar as janelas.
 
-Agora experimenta `Super + Ctrl + T` para arrancar o monitor Activity. Esse vai aparecer como uma janela flutuante. Podes colocá-lo em tiling com `Super + T` (e carregar outra vez nisso para o tornar flutuante outra vez). Agora carrega em `Super + Shift + F` para abrir o gestor de ficheiros. Vais ficar com uma arrumação impecável em quatro:
+Agora experimenta `Super + Ctrl + T` para arrancar o monitor Activity. Agora carrega em `Super + Shift + F` para abrir o gestor de ficheiros. Vais ficar com uma arrumação impecável em quatro:
 
  ![navigation-fourway-tiling](images/navigation-fourway-tiling.webp)
 
@@ -34,7 +34,6 @@ O esquema predefinido do Arch chama-se dwindle. Mantém todas as janelas que abr
 
 Mas também podes escolher transformar um espaço de trabalho no esquema scrolling, onde as janelas ficam alinhadas lado a lado, para além do limite visível do ecrã. Transformas um único espaço de trabalho neste esquema através de `Super + L`.
 
-Carregar outra vez em `Super + L` torna o espaço de trabalho flutuante, onde as janelas se sobrepõem livremente e és tu que as colocas, e um terceiro toque devolve-o ao dwindle. `Super + Alt + L` percorre-os no sentido inverso. Uma janela que já flutua de qualquer forma — uma que destacaste com `Super + T`, ou uma aplicação que abre sempre flutuante — continua a flutuar quando o espaço de trabalho volta ao tiling. A barra superior assinala o espaço de trabalho onde estás com o respetivo esquema: um quadrado para dwindle, um círculo para scrolling e um triângulo para flutuante. Clicar nessa marca também percorre os esquemas.
 
  ![navigation-scrolling-layout](images/navigation-scrolling-layout.webp)
 

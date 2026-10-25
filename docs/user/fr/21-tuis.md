@@ -12,8 +12,6 @@ Vous passez d'un volet à l'autre avec `Tab`. Dans le volet Fichiers, vous séle
 
 [Btop](https://github.com/aristocratos/btop) est un magnifique gestionnaire de ressources qui affiche l'utilisation de la mémoire, du CPU, du disque et du réseau. Il liste aussi tous les processus actifs et vous permet de les gérer.
 
-Arch l'appelle Activity, et vous le démarrez en appuyant sur `Super + Ctrl + T`. Il s'ouvre sous forme de fenêtre flottante, que vous pouvez mettre en mosaïque avec `Super + T`.
-
 ## Herdr
 
 [Herdr](https://github.com/omacom-io/herdr) est un gestionnaire d'espaces de travail de terminal qui vous donne des espaces de travail, des onglets et des volets, et les garde tous en cours d'exécution dans une session persistante dont vous pouvez vous détacher et à laquelle vous pouvez revenir plus tard.

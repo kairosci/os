@@ -16,7 +16,7 @@ Ei mitään klikattavaa asioiden käynnistämiseen, ei kuvakkeita järjesteltäv
 
 Suurin mielentavan muutos: et vedä ikkunoita ympäriinsä etkä napsauta niitä ruudun puolikkaille. Avaa ikkuna, ja se vie koko ruudun. Avaa toinen, ja ne jakavat sen. Et koskaan kaiva ikkunaa toisen alta, koska ikkunat eivät ole päällekkäin.
 
-Kun todella tarvitset kelluvan ikkunan, `Super + T` vaihtaa aktiivisen ikkunan pois laatoituksesta (ja takaisin). Mutta anna laatoitukselle ensin kunnon mahdollisuus — se on koko asian sydän. [Navigointi](04-navigation.md) opastaa sinut sen läpi.
+
 
 Työtilat tuntuvat tutuilta: ne ovat macOSin Spaces tai Windowsin virtuaalityöpöydät, paitsi että tulet todella käyttämään niitä, koska `Super + 1/2/3/4` hyppää suoraan yhteen ja `Super + Shift + 1/2/3/4` lähettää aktiivisen ikkunan sinne. Ei animaatioviivettä, vain välittömiä hyppyjä. Tämä tarkoittaa, että et välttämättä edes tarvitse useita näyttöjä, jos olit tottunut siihen aiemmin.
 

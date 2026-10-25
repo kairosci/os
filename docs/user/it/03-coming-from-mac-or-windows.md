@@ -16,8 +16,6 @@ Nulla da cliccare per avviare le cose, nessuna icona da disporre sul desktop. Le
 
 Il più grande cambio di mentalità: non trascini le finestre in giro né le agganci a metà schermo. Apri una finestra e occupa l'intero schermo. Ne apri una seconda e se lo dividono. Non peschi mai una finestra da sotto un'altra, perché le finestre non si sovrappongono.
 
-Quando ti serve davvero una finestra flottante, `Super + T` tira fuori quella attiva dall'affiancamento (e la rimette dentro). Ma prima dai all'affiancamento una vera possibilità — è il cuore di tutto. [Navigazione](04-navigation.md) ti guida passo passo.
-
 I workspace ti sembreranno familiari: sono gli Spazi di macOS o i desktop virtuali di Windows, solo che li userai davvero, perché `Super + 1/2/3/4` salta dritto su uno e `Super + Shift + 1/2/3/4` ci manda la finestra attiva. Nessun ritardo di animazione, solo salti istantanei. Questo significa che potresti non aver nemmeno bisogno di più monitor, se prima eri abituato così.
 
 ### Copia e incolla funzionano e basta

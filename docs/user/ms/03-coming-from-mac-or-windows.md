@@ -16,7 +16,7 @@ Tiada apa-apa untuk diklik bagi melancarkan sesuatu, tiada ikon untuk disusun pa
 
 Peralihan minda yang paling besar: anda tidak menyeret tetingkap ke sana sini atau melekatkannya pada separuh skrin. Buka tetingkap dan ia mengambil keseluruhan skrin. Buka yang kedua dan kedua-duanya membahaginya. Anda tidak pernah perlu mengeluarkan tetingkap dari bawah tetingkap lain, kerana tetingkap tidak bertindih.
 
-Apabila anda benar-benar memerlukan tetingkap terapung, `Super + T` menogol tetingkap aktif keluar daripada jubinan (dan kembali). Tetapi beri jubinan peluang yang sebenar terlebih dahulu — ia ialah nadi keseluruhan perkara ini. [Navigasi](04-navigation.md) membimbing anda melaluinya.
+
 
 Ruang kerja akan terasa biasa: ia ialah Spaces macOS atau desktop maya Windows, kecuali anda benar-benar akan menggunakannya, kerana `Super + 1/2/3/4` melompat terus kepada satu dan `Super + Shift + 1/2/3/4` menghantar tetingkap aktif ke sana. Tiada kelewatan animasi, hanya lompatan serta-merta. Ini bermakna anda mungkin tidak memerlukan berbilang monitor pun, jika anda sudah biasa dengannya sebelum ini.
 

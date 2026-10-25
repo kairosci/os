@@ -12,7 +12,7 @@ Unaruka kati ya vidirisha tofauti kwa kutumia `Tab`. Katika kidirisha cha Faili,
 
 [Btop](https://github.com/aristocratos/btop) ni meneja mzuri wa rasilimali anayeonyesha matumizi ya kumbukumbu, CPU, diski, na mtandao. Pia huorodhesha michakato yote hai, na hukuruhusu kuisimamia.
 
-Arch inaiita Shughuli, na unaianzisha kwa kubofya `Super + Ctrl + T`. Inafunguka kama dirisha linaloelea, ambalo unaweza kuliweka vigae kwa `Super + T`.
+
 
 ## Herdr
 

@@ -16,8 +16,6 @@ Nimic pe care să faci clic ca să lansezi lucruri, nici pictograme de aranjat p
 
 Cea mai mare schimbare de mentalitate: nu tragi ferestrele de colo-colo și nu le prinzi de jumătățile ecranului. Deschizi o fereastră și ocupă tot ecranul. Deschizi o a doua și îl împart. Nu scoți niciodată o fereastră de sub alta, pentru că ferestrele nu se suprapun.
 
-Când ai cu adevărat nevoie de o fereastră plutitoare, `Super + T` o scoate pe cea activă din mozaic (și o readuce). Dar dă-i mozaicului o șansă reală mai întâi — este inima întregului lucru. [Navigarea](04-navigation.md) te ghidează prin el.
-
 Spațiile de lucru îți vor părea familiare: sunt Spaces din macOS sau desktopurile virtuale din Windows, numai că le vei folosi cu adevărat, pentru că `Super + 1/2/3/4` sare direct la unul, iar `Super + Shift + 1/2/3/4` trimite fereastra activă acolo. Fără întârziere de animație, doar salturi instantanee. Asta înseamnă că s-ar putea să nu mai ai nevoie nici măcar de mai multe monitoare, dacă așa te obișnuiseși înainte.
 
 ### Copierea și lipirea funcționează pur și simplu

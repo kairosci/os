@@ -12,7 +12,7 @@ Maaari mo nang pindutin ang `Super + J` para pagpatung-patungin sila sa ibabaw n
 
 Pindutin ulit ang `Super + J` para ibalik sila sa kanilang magkatabing posisyon. Pagkatapos ay subukan ang `Super + Shift + Arrow Right` habang nasa browser para pagpalitin ang mga window.
 
-Ngayon subukan ang `Super + Ctrl + T` para simulan ang Activity monitor. Lilitaw iyon bilang isang floating na window. Maaari mo itong i-tile gamit ang `Super + T` (at pindutin iyon ulit para gawin itong floating ulit). Ngayon pindutin ang `Super + Shift + F` para buksan ang files manager. Magkakaroon ka ng maayos na four-way na setup:
+Ngayon subukan ang `Super + Ctrl + T` para simulan ang Activity monitor. Ngayon pindutin ang `Super + Shift + F` para buksan ang files manager. Magkakaroon ka ng maayos na four-way na setup:
 
  ![navigation-fourway-tiling](images/navigation-fourway-tiling.webp)
 
@@ -34,7 +34,6 @@ Ang default na layout ng Arch ay tinatawag na dwindle. Pinapanatili nitong nakik
 
 Pero maaari mo ring piliing gawing scrolling na layout ang isang workspace kung saan ang mga window ay nakahanay nang magkatabi, lampas sa nakikitang gilid ng display. Ginagawa mong ganitong layout ang isang workspace sa pamamagitan ng `Super + L`.
 
-Ang pagpindot ulit sa `Super + L` ay ginagawang floating ang workspace, kung saan malayang nagpapatong-patong ang mga window at ikaw mismo ang naglalagay sa kanila, at ang ikatlong pagpindot ay ibinabalik ito sa dwindle. Ang `Super + Alt + L` ay dumaraan sa kanila sa kabilang direksyon. Ang isang window na floating na rin naman — isa na inilabas mo gamit ang `Super + T`, o isang app na laging bumubukas nang floating — ay nananatiling floating kapag bumalik ang workspace sa tiling. Minamarkahan ng bar sa itaas ang workspace na kinaroroonan mo kasama ang layout nito: isang parisukat para sa dwindle, isang bilog para sa scrolling, at isang tatsulok para sa floating. Ang pag-click sa markang iyon ay nagpapalipat-lipat din sa layout.
 
  ![navigation-scrolling-layout](images/navigation-scrolling-layout.webp)
 

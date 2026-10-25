@@ -12,11 +12,7 @@ Is féidir leat na príomhcheangail méarchláir uile a fheiceáil le `Super + K
 | `Super + Ctrl + L` | Glasáil ríomhaire |
 | `Super + W` or `Super + Q` | Dún fuinneog             |
 | `Ctrl + Alt + Del` | Dún gach fuinneog |
-| `Super + T`               | Scoránaigh fuinneog idir tíliú/foluain             |
 | `Super + J` | Scoránaigh suíomh fuinneoige (cothrománach/ingearach) |
-| `Super + O`               | Scoránaigh fuinneog a phreabadh isteach i sticky'n'floating |
-| `Super + L`               | Timthriall trí leaganacha amach dwindle, scrollaithe, agus foluaineacha |
-| `Super + Alt + L`         | Timthriall trí na leaganacha amach ar gcúl |
 | `Super + P`               | Scoránaigh stíl fuinneoige pseudo (nádúrtha vs stráice) |
 | `Super + F`                 | Téigh lánscáileán              |
 | `Super + Alt + F`                 | Téigh lánleithead              |

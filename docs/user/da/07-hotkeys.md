@@ -12,11 +12,7 @@ Du kan se alle de vigtigste tastaturbindinger med `Super + K` (Tmux-bindinger me
 | `Super + Ctrl + L` | Lås computeren |
 | `Super + W` eller `Super + Q` | Luk vindue             |
 | `Ctrl + Alt + Del` | Luk alle vinduer |
-| `Super + T`               | Skift vindue mellem fliselægning/flydende             |
 | `Super + J` | Skift vinduesposition (vandret/lodret) |
-| `Super + O`               | Skift vindue til klæbrigt og flydende |
-| `Super + L`               | Bladr igennem layouterne dwindle, rulning og flydende |
-| `Super + Alt + L`         | Bladr igennem layouterne baglæns |
 | `Super + P`               | Skift pseudo-vinduesstil (naturlig vs. strakt) |
 | `Super + F`                 | Gå i fuld skærm              |
 | `Super + Alt + F`                 | Gå i fuld bredde              |

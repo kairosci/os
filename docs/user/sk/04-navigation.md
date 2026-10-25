@@ -12,7 +12,7 @@ Potom môžete stlačiť `Super + J` a naskladať ich na seba namiesto vedľa se
 
 Opätovným stlačením `Super + J` ich vrátite do polohy vedľa seba. Potom skúste v prehliadači stlačiť `Super + Shift + Arrow Right` a okná sa vymenia.
 
-Teraz skúste `Super + Ctrl + T` a spustite monitor aktivity. Ten sa zobrazí ako plávajúce okno. Môžete ho usporiadať do dlaždíc skratkou `Super + T` (a opätovným stlačením z neho znova urobiť plávajúce okno). Teraz stlačte `Super + Shift + F` a otvorte správcu súborov. Získate prehľadné usporiadanie do štyroch okien:
+
 
  ![navigation-fourway-tiling](images/navigation-fourway-tiling.webp)
 
@@ -34,7 +34,6 @@ Predvolené rozloženie v Arch sa nazýva dwindle. Všetky okná, ktoré otvorí
 
 Môžete sa však rozhodnúť zmeniť pracovnú plochu na rolujúce rozloženie, v ktorom sú okná zoradené vedľa seba až za viditeľný okraj displeja. Jednu pracovnú plochu do tohto rozloženia prepnete skratkou `Super + L`.
 
-Opätovným stlačením `Super + L` sa pracovná plocha zmení na plávajúcu, kde sa okná voľne prekrývajú a umiestňujete ich sami, a tretím stlačením sa vráti do rozloženia dwindle. Skratka `Super + Alt + L` nimi prechádza opačným smerom. Okno, ktoré je aj tak plávajúce — také, ktoré ste vytiahli skratkou `Super + T`, alebo aplikácia, ktorá sa vždy otvára ako plávajúca — zostane plávajúce aj vtedy, keď sa pracovná plocha vráti do dlaždicového usporiadania. Horný panel označuje pracovnú plochu, na ktorej sa nachádzate, jej rozložením: štvorcom pre dwindle, kruhom pre rolujúce a trojuholníkom pre plávajúce. Kliknutím na túto značku sa rozloženie tiež prepína.
 
  ![navigation-scrolling-layout](images/navigation-scrolling-layout.webp)
 

@@ -12,8 +12,6 @@ Sari între diferitele panouri folosind `Tab`. În panoul Files, selectezi fiși
 
 [Btop](https://github.com/aristocratos/btop) este un manager de resurse frumos care arată utilizarea memoriei, a CPU-ului, a discului și a rețelei. Listează și toate procesele active și îți permite să le gestionezi.
 
-Arch îl numește Activity și îl pornești apăsând `Super + Ctrl + T`. Se deschide ca o fereastră plutitoare, pe care o poți dispune în mozaic cu `Super + T`.
-
 ## Herdr
 
 [Herdr](https://github.com/omacom-io/herdr) este un manager de spații de lucru în terminal care îți oferă spații de lucru, file și panouri și le ține pe toate rulând într-o sesiune persistentă de la care te poți detașa și la care te poți întoarce mai târziu.

@@ -12,8 +12,6 @@ git으로 관리되는 아무 디렉터리로 가서 `lazygit`을 실행해 직�
 
 [Btop](https://github.com/aristocratos/btop)은 메모리, CPU, 디스크, 네트워크 사용량을 보여주는 아름다운 리소스 관리자입니다. 모든 활성 프로세스도 나열하고, 이를 관리할 수 있게 해줍니다.
 
-Arch는 이를 Activity라고 부르며, `Super + Ctrl + T`를 눌러 시작합니다. 떠 있는 창으로 열리며, `Super + T`로 타일링할 수 있습니다.
-
 ## Herdr
 
 [Herdr](https://github.com/omacom-io/herdr)는 워크스페이스, 탭, 창을 제공하며, 분리했다가 나중에 돌아올 수 있는 영구 세션에서 모두 계속 실행되는 터미널 워크스페이스 관리자입니다.

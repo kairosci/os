@@ -16,7 +16,7 @@ Không có gì để nhấp vào nhằm khởi chạy mọi thứ, không có bi
 
 Sự thay đổi tư duy lớn nhất: bạn không kéo cửa sổ đi khắp nơi hay gắn chúng vào nửa màn hình. Mở một cửa sổ và nó chiếm toàn bộ màn hình. Mở cửa sổ thứ hai và chúng chia đôi màn hình. Bạn không bao giờ phải lôi một cửa sổ ra khỏi phía dưới một cửa sổ khác, vì các cửa sổ không chồng lên nhau.
 
-Khi bạn thực sự cần một cửa sổ nổi, `Super + T` chuyển cửa sổ đang hoạt động ra khỏi chế độ xếp ô (và quay lại). Nhưng trước tiên hãy cho chế độ xếp ô một cơ hội thực sự — đó là trái tim của toàn bộ hệ thống. [Điều hướng](04-navigation.md) sẽ hướng dẫn bạn qua nó.
+
 
 Các không gian làm việc sẽ cảm thấy quen thuộc: chúng là Spaces của macOS hoặc desktop ảo của Windows, ngoại trừ việc bạn sẽ thực sự sử dụng chúng, vì `Super + 1/2/3/4` nhảy thẳng tới một không gian và `Super + Shift + 1/2/3/4` gửi cửa sổ đang hoạt động tới đó. Không có độ trễ hiệu ứng, chỉ là những cú nhảy tức thì. Điều này có nghĩa là bạn thậm chí có thể không cần nhiều màn hình, nếu trước đây bạn đã quen với điều đó.
 

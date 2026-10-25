@@ -12,8 +12,6 @@ Anda melompat antara anak tetingkap berbeza menggunakan `Tab`. Dalam anak teting
 
 [Btop](https://github.com/aristocratos/btop) ialah pengurus sumber yang cantik yang menunjukkan penggunaan memori, CPU, cakera, dan rangkaian. Ia juga menyenaraikan semua proses aktif, dan membolehkan anda mengurusnya.
 
-Arch memanggilnya Activity, dan anda memulakannya dengan menekan `Super + Ctrl + T`. Ia dibuka sebagai tetingkap terapung, yang boleh anda jubinkan dengan `Super + T`.
-
 ## Herdr
 
 [Herdr](https://github.com/omacom-io/herdr) ialah pengurus ruang kerja terminal yang memberikan anda ruang kerja, tab, dan anak tetingkap, dan memastikan semuanya berjalan dalam sesi berterusan yang boleh anda lepaskan dan kembali kemudian.

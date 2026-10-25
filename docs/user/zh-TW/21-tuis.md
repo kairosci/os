@@ -12,8 +12,6 @@
 
 [Btop](https://github.com/aristocratos/btop) 是一個漂亮的資源管理器，顯示記憶體、CPU、磁碟和網路使用情況。它還會列出所有作用中的處理程序，並讓你管理它們。
 
-Arch 叫它 Activity，你按 `Super + Ctrl + T` 啟動它。它會以浮動視窗開啟，你可以用 `Super + T` 將它平鋪。
-
 ## Herdr
 
 [Herdr](https://github.com/omacom-io/herdr) 是一個終端機工作區管理器，提供工作區、索引標籤和窗格，並將它們全部保持在一個持續的工作階段中執行，你可以分離後稍後再回來。

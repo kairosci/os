@@ -12,8 +12,6 @@ Lumulukso ka sa pagitan ng iba't ibang pane gamit ang `Tab`. Sa Files pane, pumi
 
 Ang [Btop](https://github.com/aristocratos/btop) ay isang magandang resource manager na nagpapakita ng paggamit ng memory, CPU, disk, at network. Inililista rin nito ang lahat ng aktibong proseso, at nagbibigay-daan sa iyong pamahalaan ang mga ito.
 
-Tinatawag itong Activity ng Arch, at sinisimulan mo ito sa pamamagitan ng pagpindot ng `Super + Ctrl + T`. Bumubukas ito bilang isang floating window, na maaari mong i-tile gamit ang `Super + T`.
-
 ## Herdr
 
 Ang [Herdr](https://github.com/omacom-io/herdr) ay isang terminal workspace manager na nagbibigay sa iyo ng mga workspace, tab, at pane, at pinapanatili ang lahat ng mga ito na tumatakbo sa isang persistent session na maaari mong i-detach at balikan mamaya.

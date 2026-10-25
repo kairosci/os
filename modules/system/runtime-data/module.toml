@@ -1,8 +1,12 @@
 id = "system.runtime-data"
 domain = "system"
 package = "arch"
-sources = ["etc"]
+sources = ["data", "etc"]
 requires = ["system.settings"]
+
+[[output]]
+source = "data"
+target = "usr/share/arch/data"
 
 [[output]]
 source = "etc"

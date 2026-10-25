@@ -16,7 +16,7 @@ Nič, kar bi kliknili za zagon stvari, nobenih ikon za urejanje na namizju. Apli
 
 Največji preskok v razmišljanju: oken ne vlečete naokoli in jih ne pripnete na polovice zaslona. Odprete okno in zasede celoten zaslon. Odprete drugo in si ga razdelita. Nikoli ne lovite okna izpod drugega, saj se okna ne prekrivajo.
 
-Kadar res potrebujete lebdeče okno, `Super + T` aktivno okno preklopi iz ploščic (in nazaj). Ampak ploščicam najprej dajte pravo priložnost — to je srce vsega. [Navigacija](04-navigation.md) vas vodi skozenj.
+
 
 Delovni prostori se bodo zdeli znani: so prostori v macOS-u ali navidezna namizja v Windowsih, le da jih boste dejansko uporabljali, saj `Super + 1/2/3/4` skoči naravnost na enega, `Super + Shift + 1/2/3/4` pa tja pošlje aktivno okno. Brez zakasnitve animacije, samo trenutni skoki. To pomeni, da morda sploh ne potrebujete več zaslonov, če ste bili tega vajeni prej.
 

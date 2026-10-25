@@ -12,7 +12,7 @@ Nato lahko pritisneš `Super + J`, da ju zložiš eno na drugo namesto eno ob dr
 
 Znova pritisni `Super + J`, da ju vrneš v položaj eno ob drugo. Nato v brskalniku poskusi `Super + Shift + Arrow Right`, da zamenjaš okni.
 
-Zdaj poskusi `Super + Ctrl + T`, da zaženeš nadzornik dejavnosti. Ta se bo prikazal kot lebdeče okno. V ploščice ga lahko spremeniš s `Super + T` (in to znova pritisneš, da spet postane lebdeče). Zdaj pritisni `Super + Shift + F`, da odpreš upravitelja datotek. Imel boš urejeno štiridelno postavitev:
+
 
  ![navigation-fourway-tiling](images/navigation-fourway-tiling.webp)
 
@@ -34,7 +34,6 @@ Privzeta postavitev v Archju se imenuje dwindle. Vsa okna, ki jih odpreš na ene
 
 Lahko pa se odločiš tudi, da delovni prostor spremeniš v drsno postavitev, kjer so okna zvrščena eno ob drugo, čez vidni rob zaslona. En delovni prostor v to postavitev spremeniš s `Super + L`.
 
-Če znova pritisneš `Super + L`, delovni prostor postane lebdeč, kjer se okna prosto prekrivajo in jih postaviš sam, tretji pritisk pa ga vrne v dwindle. `Super + Alt + L` gre skozi njih v drugo smer. Okno, ki tako ali tako lebdi — tisto, ki si ga izvlekel s `Super + T`, ali aplikacija, ki se vedno odpre lebdeče — še naprej lebdi, ko se delovni prostor vrne na ploščice. Zgornja vrstica delovni prostor, na katerem si, označuje z njegovo postavitvijo: kvadrat za dwindle, krog za drsenje in trikotnik za lebdenje. Klik na to oznako prav tako kroži med postavitvami.
 
  ![navigation-scrolling-layout](images/navigation-scrolling-layout.webp)
 

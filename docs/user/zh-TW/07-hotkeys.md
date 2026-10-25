@@ -12,11 +12,7 @@
 | `Super + Ctrl + L` | 鎖定電腦 |
 | `Super + W` or `Super + Q` | 關閉視窗             |
 | `Ctrl + Alt + Del` | 關閉所有視窗 |
-| `Super + T`               | 在平鋪/浮動之間切換視窗             |
 | `Super + J` | 切換視窗位置（水平/垂直） |
-| `Super + O`               | 將視窗切換為置頂浮動 |
-| `Super + L`               | 在 dwindle、捲動和浮動配置之間循環 |
-| `Super + Alt + L`         | 以相反方向循環配置 |
 | `Super + P`               | 切換偽視窗樣式（自然與拉伸） |
 | `Super + F`                 | 進入全螢幕              |
 | `Super + Alt + F`                 | 進入全寬              |

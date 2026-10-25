@@ -12,7 +12,7 @@ Luego puedes presionar `Super + J` para apilarlas una sobre otra en lugar de pon
 
 Presiona `Super + J` otra vez para regresarlas a sus posiciones lado a lado. Luego prueba `Super + Shift + Arrow Right` estando en el navegador para intercambiar las ventanas.
 
-Ahora prueba `Super + Ctrl + T` para abrir el monitor de actividad. Aparecerá como una ventana flotante. Puedes ponerla en mosaico con `Super + T` (y presionar eso otra vez para hacerla flotante de nuevo). Ahora presiona `Super + Shift + F` para abrir el administrador de archivos. Tendrás una ordenada configuración de cuatro ventanas:
+
 
  ![navigation-fourway-tiling](images/navigation-fourway-tiling.webp)
 
@@ -34,7 +34,6 @@ El diseño predeterminado de Arch se llama dwindle. Mantiene visibles en todo mo
 
 Pero también puedes elegir convertir un espacio de trabajo al diseño con desplazamiento, donde las ventanas se alinean lado a lado, más allá del borde visible de la pantalla. Conviertes un espacio de trabajo individual a este diseño con `Super + L`.
 
-Presionar `Super + L` otra vez vuelve flotante el espacio de trabajo, donde las ventanas se superponen libremente y tú las colocas, y una tercera vez lo regresa a dwindle. `Super + Alt + L` los recorre en el otro sentido. Una ventana que de por sí es flotante — una que desprendiste con `Super + T`, o una app que siempre se abre flotante — se mantiene flotante cuando el espacio de trabajo vuelve al mosaico. La barra superior marca el espacio de trabajo en el que estás con su diseño: un cuadrado para dwindle, un círculo para el diseño con desplazamiento y un triángulo para el flotante. Hacer clic en esa marca también alterna el diseño.
 
  ![navigation-scrolling-layout](images/navigation-scrolling-layout.webp)
 

@@ -16,7 +16,7 @@ Walang iki-click para maglunsad ng mga bagay, walang mga icon na aayusin sa desk
 
 Ang pinakamalaking pagbabago sa pag-iisip: hindi mo idina-drag ang mga bintana o ini-snap ang mga ito sa kalahati ng screen. Magbukas ng bintana at sasakupin nito ang buong screen. Magbukas ng pangalawa at hahatiin nila ito. Hindi mo kailanman kukunin ang isang bintana mula sa ilalim ng isa pa, dahil hindi nagpapatong-patong ang mga bintana.
 
-Kapag talagang kailangan mo ng isang lumulutang na bintana, ini-toggle ng `Super + T` ang aktibo palabas ng tiling (at pabalik). Pero bigyan mo muna ng totoong pagkakataon ang tiling — iyan ang puso ng buong bagay. Gagabayan ka ng [Nabigasyon](04-navigation.md) dito.
+
 
 Pamilyar ang pakiramdam ng mga workspace: sila ang mga Spaces ng macOS o mga virtual desktop ng Windows, maliban sa talagang gagamitin mo sila, dahil direktang tumatalon ang `Super + 1/2/3/4` sa isa at ipinapadala ng `Super + Shift + 1/2/3/4` ang aktibong bintana roon. Walang pagkaantala sa animation, instant na talon lang. Ibig sabihin, maaaring hindi mo na nga kailanganin ng maraming monitor, kung sanay ka na roon dati.
 

@@ -12,7 +12,7 @@ Seejärel saate vajutada `Super + J`, et laduda need üksteise peale, mitte kõr
 
 Vajutage uuesti `Super + J`, et viia need tagasi kõrvuti asendisse. Seejärel proovige brauseris olles `Super + Shift + Arrow Right`, et aknad omavahel vahetada.
 
-Nüüd proovige `Super + Ctrl + T`, et käivitada aktiivsusmonitor. See ilmub ujuva aknana. Saate selle plaatida klahvidega `Super + T` (ja vajutada seda uuesti, et muuta see taas ujuvaks). Nüüd vajutage `Super + Shift + F`, et avada failihaldur. Teil on kena neljaosaline paigutus:
+
 
  ![navigation-fourway-tiling](images/navigation-fourway-tiling.webp)
 
@@ -34,7 +34,6 @@ Arch vaikepaigutust nimetatakse dwindle'iks. See hoiab kõik aknad, mille ühes 
 
 Aga te saate valida ka tööruumi muutmise kerivaks paigutuseks, kus aknad on rivistatud kõrvuti, kaugemale ekraani nähtavast servast. Te muudate üksiku tööruumi selleks paigutuseks klahvidega `Super + L`.
 
-Uuesti `Super + L` vajutamine muudab tööruumi ujuvaks, kus aknad kattuvad vabalt ja paigutate need ise, ning kolmas vajutus viib selle tagasi dwindle'ile. `Super + Alt + L` läbib neid teistpidi. Aken, mis nagunii ujub — mille te tõstsite välja klahvidega `Super + T` või rakendus, mis avaneb alati ujuvalt — jääb ujuma ka siis, kui tööruum läheb tagasi plaatpaigutusele. Ülemine riba tähistab tööruumi, millel viibite, selle paigutusega: ruut dwindle'i jaoks, ring keriva jaoks ja kolmnurk ujuva jaoks. Selle märgi klõpsamine vahetab samuti paigutust järgemööda.
 
  ![navigation-scrolling-layout](images/navigation-scrolling-layout.webp)
 

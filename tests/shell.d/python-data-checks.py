@@ -40,8 +40,13 @@ sys.path.insert(0, str(ROOT / "default/input-methods"))
 configure = load("arch_input_method_configure", ROOT / "default/input-methods/configure.py")
 assert configure.PRESETS["mozc"]["packages"] == ["fcitx5-mozc"]
 assert configure.FONT_VARIANTS == ("JP", "KR", "SC", "TC", "HK")
+assert configure.CONTROLLER == ["busctl", "--user", "call", "org.fcitx.Fcitx5", "/controller", "org.fcitx.Fcitx.Controller1"]
 assert {"ara", "ru", "th"} <= configure.NON_LATIN
 
 for path in ROOT.joinpath("data").rglob("*.json"):
   json.loads(path.read_text(encoding="utf-8"))
-print("ok - Python runtime catalogs load from the root data directory")
+sync = load("arch_i18n_sync", ROOT / "scripts/i18n-sync.py")
+assert sync.SYNC_SETTINGS["regional_notes"]["pt-BR"] == "Brazilian Portuguese."
+assert sync.MODEL == os.environ.get("MUSE_MODEL", sync.SYNC_SETTINGS["model"])
+assert configure.SETTINGS["stock_lists"]["TriggerKey"]["0"] == "Super+grave"
+print("ok - Python runtime catalogs and tool settings load from the root data directory")

@@ -12,7 +12,7 @@ Du kan deretter trykke `Super + J` for å stable dem oppå hverandre i stedet fo
 
 Trykk `Super + J` igjen for å returnere dem til posisjonene side ved side. Prøv deretter `Super + Shift + Arrow Right` mens du er i nettleseren for å bytte om vinduene.
 
-Prøv nå `Super + Ctrl + T` for å starte Aktivitetsmonitoren. Den vises som et flytende vindu. Du kan flislegge den med `Super + T` (og trykke det igjen for å gjøre den flytende igjen). Trykk nå `Super + Shift + F` for å åpne filbehandleren. Da får du et ryddig firdelt oppsett:
+
 
  ![navigation-fourway-tiling](images/navigation-fourway-tiling.webp)
 
@@ -34,7 +34,6 @@ Archs standardoppsett kalles dwindle. Det holder alle vinduene du åpner på et 
 
 Men du kan også velge å gjøre et arbeidsområde om til det rullende oppsettet, der vinduer stilles opp side ved side, forbi skjermens synlige kant. Du gjør et enkelt arbeidsområde om til dette oppsettet via `Super + L`.
 
-Å trykke `Super + L` igjen gjør arbeidsområdet flytende, der vinduer overlapper fritt og du plasserer dem selv, og et tredje trykk returnerer det til dwindle. `Super + Alt + L` går gjennom dem den andre veien. Et vindu som flyter uansett — ett du løsnet med `Super + T`, eller en app som alltid åpnes flytende — fortsetter å flyte når arbeidsområdet går tilbake til flislegging. Topplinjen markerer arbeidsområdet du er på med oppsettet dets: en firkant for dwindle, en sirkel for rulling og en trekant for flytende. Å klikke på det merket sykler også gjennom oppsettene.
 
  ![navigation-scrolling-layout](images/navigation-scrolling-layout.webp)
 

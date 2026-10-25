@@ -16,7 +16,7 @@ Nav nekā, uz kā noklikšķināt, lai palaistu lietas, nav ikonu, ko sakārtot 
 
 Lielākā domāšanas maiņa: tu nevelc logus apkārt un nepiesaisti tos ekrāna pusēm. Atver logu, un tas aizņem visu ekrānu. Atver otru, un tie to sadala. Tu nekad nezvejo logu no cita apakšas, jo logi nepārklājas.
 
-Kad tev patiešām vajag peldošu logu, `Super + T` pārslēdz aktīvo logu ārā no mozaīkas (un atpakaļ). Bet vispirms dod mozaīkai reālu iespēju — tā ir visa būtība. [Navigācija](04-navigation.md) izved tevi cauri tam.
+
 
 Darbvietas šķitīs pazīstamas: tās ir macOS Spaces vai Windows virtuālās darbvirsmas, tikai tu tās patiešām lietosi, jo `Super + 1/2/3/4` lec tieši uz vienu, un `Super + Shift + 1/2/3/4` nosūta aktīvo logu turp. Nekādas animācijas kavēšanās, tikai tūlītēji lēcieni. Tas nozīmē, ka tev varbūt pat nevajadzēs vairākus monitorus, ja tu biji pieradis pie tā iepriekš.
 

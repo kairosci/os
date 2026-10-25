@@ -12,8 +12,6 @@ A különböző panelek között a `Tab` billentyűvel lépkedsz. A Files panelb
 
 A [Btop](https://github.com/aristocratos/btop) egy gyönyörű erőforráskezelő, amely mutatja a memória-, CPU-, lemez- és hálózathasználatot. Kilistázza az összes aktív folyamatot is, és lehetővé teszi azok kezelését.
 
-Az Arch Activitynek hívja, és a `Super + Ctrl + T` kombinációval indítod. Lebegő ablakként nyílik, amelyet a `Super + T` kombinációval mozaikolhatsz.
-
 ## Herdr
 
 A [Herdr](https://github.com/omacom-io/herdr) egy terminálos munkaterület-kezelő, amely munkaterületeket, lapokat és paneleket ad, és mindegyiket egy tartós munkamenetben tartja futva, amelyből leválaszthatsz, és később visszatérhetsz hozzá.

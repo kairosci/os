@@ -12,11 +12,7 @@ Você pode ver todos os principais atalhos de teclado com `Super + K` (atalhos d
 | `Super + Ctrl + L` | Bloquear o computador |
 | `Super + W` ou `Super + Q` | Fechar janela             |
 | `Ctrl + Alt + Del` | Fechar todas as janelas |
-| `Super + T`               | Alternar janela entre mosaico/flutuante             |
 | `Super + J` | Alternar a posição da janela (horizontal/vertical) |
-| `Super + O`               | Alternar destacar janela como fixa e flutuante |
-| `Super + L`               | Percorrer os layouts dwindle, de rolagem e flutuante |
-| `Super + Alt + L`         | Percorrer os layouts na ordem inversa |
 | `Super + P`               | Alternar o estilo pseudo da janela (natural vs. esticado) |
 | `Super + F`                 | Ir para tela cheia              |
 | `Super + Alt + F`                 | Ir para largura total              |

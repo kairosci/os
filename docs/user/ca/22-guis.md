@@ -77,8 +77,6 @@ Inicies Signed des del llançador d'aplicacions (`Super + Space`), o obres-hi un
 
 ## Omacalc
 
-[Omacalc](https://github.com/omacom-io/omacalc) és la senzillíssima calculadora pròpia d'Arch, que s'obre en una finestra flotant.
-
 Inicies Omacalc amb `Super + Ctrl + Q` (o la tecla de calculadora, si el teu teclat en té una).
 
 ## Signal

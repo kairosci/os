@@ -12,8 +12,6 @@ Arch 中的一切都通过键盘完成——_一切！_系统刚启动时，你�
 
 再次按 `Super + J` 将它们恢复到并排的位置。然后在浏览器上试一下 `Super + Shift + Arrow Right` 来交换窗口。
 
-现在试一下 `Super + Ctrl + T` 来启动 Activity 监视器。它会以浮动窗口的形式出现。你可以用 `Super + T` 将它平铺（再次按下该键可以让它重新浮动）。现在按 `Super + Shift + F` 打开文件管理器。你就会得到一个整齐的四分区布局：
-
  ![navigation-fourway-tiling](images/navigation-fourway-tiling.webp)
 
 你可以用 `Super + Arrow` 在你想要激活的窗口之间导航。这会切换焦点，并将光标移动到新应用程序的中心。
@@ -34,7 +32,6 @@ Arch 的默认布局叫做 dwindle。它始终让单个工作区上打开的所�
 
 但你也可以选择将工作区切换为滚动布局，在该布局中，窗口并排排列，延伸到显示屏的可见边缘之外。你可以通过 `Super + L` 将单个工作区切换为此布局。
 
-再次按 `Super + L` 会将工作区切换为浮动布局，在该布局中，窗口自由重叠，由你自己放置它们，再按第三次会将其恢复为 dwindle。`Super + Alt + L` 以相反的顺序切换它们。本来就浮动的窗口——用 `Super + T` 弹出的窗口，或者总是浮动打开的应用程序——当工作区恢复为平铺时，会保持浮动。顶部栏用其布局标记你所在的工作区：正方形表示 dwindle，圆形表示滚动，三角形表示浮动。点击该标记也会循环切换布局。
 
  ![navigation-scrolling-layout](images/navigation-scrolling-layout.webp)
 

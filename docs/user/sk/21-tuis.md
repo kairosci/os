@@ -12,8 +12,6 @@ Medzi rôznymi panelmi preskakuješ pomocou `Tab`. V paneli Files vyberieš súb
 
 [Btop](https://github.com/aristocratos/btop) je krásny správca prostriedkov, ktorý zobrazuje využitie pamäte, procesora, disku a siete. Vypisuje tiež všetky aktívne procesy a umožňuje ti ich spravovať.
 
-Arch ho nazýva Activity a spúšťaš ho stlačením `Super + Ctrl + T`. Otvorí sa ako plávajúce okno, ktoré môžeš vydláždiť pomocou `Super + T`.
-
 ## Herdr
 
 [Herdr](https://github.com/omacom-io/herdr) je správca terminálových pracovných priestorov, ktorý ti poskytuje pracovné priestory, karty a panely a udržuje ich všetky spustené v trvalej relácii, od ktorej sa môžeš odpojiť a vrátiť sa k nej neskôr.

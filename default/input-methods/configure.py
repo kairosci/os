@@ -17,7 +17,9 @@ DATA_ROOT = ROOT / "data/input-methods"
 PRESETS = json.loads((DATA_ROOT / "presets.json").read_text())
 NON_LATIN = set(json.loads((DATA_ROOT / "non-latin-layouts.json").read_text()))
 FONT_VARIANTS = tuple(dict.fromkeys(preset["font"] for preset in PRESETS.values() if preset.get("font")))
-CONTROLLER = ["busctl", "--user", "call", "org.fcitx.Fcitx5", "/controller", "org.fcitx.Fcitx.Controller1"]
+FCITX_DBUS = json.loads((DATA_ROOT / "fcitx-dbus.json").read_text())
+SETTINGS = json.loads((DATA_ROOT / "settings.json").read_text())
+CONTROLLER = ["busctl", "--user", "call", FCITX_DBUS["service"], FCITX_DBUS["path"], FCITX_DBUS["interface"]]
 
 
 def run(args, **kwargs):
@@ -91,7 +93,7 @@ def without_ctrl_space(text):
 
 def defaults(config_home, fresh=False):
   changed = False
-  files = ["config", "conf/quickphrase.conf", "conf/wayland.conf", "conf/xcb.conf", "conf/pinyin.conf"]
+  files = SETTINGS["config_files"]
   for name in files:
     target = config_home / "fcitx5" / name
     original = read(target)
@@ -107,13 +109,7 @@ def defaults(config_home, fresh=False):
           continue
         # Existing lists (including explicitly empty lists) are user choices.
         # A fresh profile has no working IME shortcut to preserve.
-        stock_lists = {
-          "Hotkey/ActivateKeys": {"0": "Hangul_Hanja"},
-          "Hotkey/DeactivateKeys": {"0": "Hangul_Romaja"},
-          "Hotkey/EnumerateGroupForwardKeys": {"0": "Super+space"},
-          "Hotkey/EnumerateGroupBackwardKeys": {"0": "Super+Shift+space"},
-          "TriggerKey": {"0": "Super+grave", "1": "Super+semicolon"},
-        }
+        stock_lists = SETTINGS["stock_lists"]
         if fresh and section in existing and section in stock_lists and (key_list(existing[section]) == key_list(stock_lists[section]) or (not existing[section] and section in {"Hotkey/ActivateKeys", "Hotkey/DeactivateKeys"})):
           original = re.sub(r"(?ms)^\[" + re.escape(section) + r"\]\s*\n.*?(?=^\[|\Z)", "", original)
           existing.pop(section)
@@ -151,7 +147,7 @@ def activation_default():
 @contextmanager
 def transaction(config_home):
   data_home = Path(os.environ.get("XDG_DATA_HOME") or str(Path.home() / ".local/share"))
-  paths = [config_home / "fcitx5" / name for name in ["profile", "config", "conf/quickphrase.conf", "conf/wayland.conf", "conf/xcb.conf", "conf/pinyin.conf"]]
+  paths = [config_home / "fcitx5" / name for name in SETTINGS["transaction_files"]]
   paths += [font_path(config_home), data_home / "dbus-1/services/org.fcitx.Fcitx5.service"]
   before = {path.resolve(): path.read_text() if path.exists() else None for path in paths}
   try:

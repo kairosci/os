@@ -12,8 +12,6 @@ Arch 裡的一切都靠鍵盤完成——_每件事都是！_ 系統剛啟動時
 
 再按一次 `Super + J`，它們就會回到並排的位置。然後在瀏覽器上試試 `Super + Shift + Arrow Right`，來交換這兩個視窗。
 
-現在試試 `Super + Ctrl + T` 來啟動 Activity 監視器。它會以浮動視窗的形式出現。你可以用 `Super + T` 把它平鋪（再按一次就能讓它重新浮動）。現在按下 `Super + Shift + F` 開啟檔案管理器。你會得到一個整齊的四格配置：
-
  ![navigation-fourway-tiling](images/navigation-fourway-tiling.webp)
 
 你用 `Super + Arrow` 在你想啟用的視窗之間導覽。這會切換焦點，並把游標移到新應用程式的中心。
@@ -34,7 +32,6 @@ Arch 的預設佈局叫做 dwindle。它讓你在單一工作區開啟的所有�
 
 但你也可以選擇把一個工作區改成捲動式佈局，在這種佈局下，視窗會並排排列，一路排到顯示器可見邊緣之外。你可以透過 `Super + L` 把單一工作區改成這種佈局。
 
-再按一次 `Super + L` 會把工作區改成浮動式，在那裡視窗可以自由重疊，由你自行擺放，按第三次則回到 dwindle。`Super + Alt + L` 則依相反方向切換這些佈局。一個本來就在浮動的視窗——你用 `Super + T` 彈出來的那種，或總是以浮動方式開啟的應用程式——當工作區回到平鋪時，仍會保持浮動。頂部列會用你所在工作區的佈局來標示它：正方形代表 dwindle，圓形代表捲動式，三角形代表浮動式。點一下那個標記也會循環切換佈局。
 
  ![navigation-scrolling-layout](images/navigation-scrolling-layout.webp)
 

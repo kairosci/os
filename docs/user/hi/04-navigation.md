@@ -12,7 +12,7 @@ Arch में सब कुछ keyboard के जरिए होता है
 
 `Super + J` फिर से दबाकर उन्हें उनकी बगल-बगल वाली स्थितियों में वापस लौटाएँ। फिर browser पर होते हुए windows की अदला-बदली के लिए `Super + Shift + Arrow Right` आज़माएँ।
 
-अब Activity monitor शुरू करने के लिए `Super + Ctrl + T` आज़माएँ। वह floating window के रूप में आएगा। आप `Super + T` से उसे tile कर सकते हैं (और उसे फिर से दबाकर उसे दोबारा floating बना सकते हैं)। अब files manager खोलने के लिए `Super + Shift + F` दबाएँ। आपके पास एक साफ-सुथरा चार-तरफ़ा setup होगा:
+अब Activity monitor शुरू करने के लिए `Super + Ctrl + T` आज़माएँ। अब files manager खोलने के लिए `Super + Shift + F` दबाएँ। आपके पास एक साफ-सुथरा चार-तरफ़ा setup होगा:
 
  ![navigation-fourway-tiling](images/navigation-fourway-tiling.webp)
 
@@ -34,7 +34,6 @@ Arch के default layout को dwindle कहा जाता है। य�
 
 लेकिन आप किसी workspace को scrolling layout में बदलने का विकल्प भी चुन सकते हैं जहाँ windows display के दिखाई देने वाले किनारे से परे, बगल-बगल में एक कतार में लगी होती हैं। आप `Super + L` के जरिए किसी एक workspace को इस layout में बदलते हैं।
 
-`Super + L` फिर से दबाने से workspace floating हो जाता है, जहाँ windows स्वतंत्र रूप से overlap होती हैं और आप उन्हें खुद रखते हैं, और तीसरी बार दबाने से वह dwindle पर लौट आता है। `Super + Alt + L` उन्हें दूसरी दिशा में ले जाता है। कोई window जो वैसे भी float करती है — जिसे आपने `Super + T` से बाहर निकाला है, या कोई app जो हमेशा floating खुलती है — workspace के tiling पर वापस जाने पर भी floating ही रहती है। Top bar जिस workspace पर आप हैं उसे उसके layout के साथ चिह्नित करता है: dwindle के लिए एक वर्ग, scrolling के लिए एक वृत्त, और floating के लिए एक त्रिभुज। उस चिह्न पर click करने से भी layout बदलता रहता है।
 
  ![navigation-scrolling-layout](images/navigation-scrolling-layout.webp)
 

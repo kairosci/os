@@ -12,11 +12,7 @@ Bạn có thể xem tất cả các phím gán chính trên bàn phím bằng `S
 | `Super + Ctrl + L` | Khóa máy tính |
 | `Super + W` or `Super + Q` | Đóng cửa sổ             |
 | `Ctrl + Alt + Del` | Đóng tất cả cửa sổ |
-| `Super + T`               | Chuyển cửa sổ giữa xếp ô/nổi             |
 | `Super + J` | Chuyển vị trí cửa sổ (ngang/dọc) |
-| `Super + O`               | Chuyển việc bật cửa sổ thành dính và nổi |
-| `Super + L`               | Chuyển qua các bố cục dwindle, cuộn và nổi |
-| `Super + Alt + L`         | Chuyển qua các bố cục theo chiều ngược lại |
 | `Super + P`               | Chuyển kiểu cửa sổ giả (tự nhiên so với kéo giãn) |
 | `Super + F`                 | Chuyển sang toàn màn hình              |
 | `Super + Alt + F`                 | Chuyển sang toàn chiều rộng              |

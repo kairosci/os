@@ -16,7 +16,7 @@ Ní féidir cliceáil ar rud ar bith chun rudaí a sheoladh, níl deilbhíní le
 
 An t-athrú meon is mó: ní tharraingíonn tú fuinneoga timpeall agus ní ghreamaíonn tú iad le leatha scáileáin. Oscail fuinneog agus glacann sí an scáileán ar fad. Oscail an dara ceann agus roinneann siad é. Ní bhíonn ort riamh fuinneog a iascaireacht amach ó faoi cheann eile, mar ní fhorluíonn fuinneoga.
 
-Nuair a bhíonn fuinneog ar foluain ag teastáil uait i ndáiríre, scoránaíonn `Super + T` an ceann gníomhach amach as an tíliú (agus ar ais). Ach tabhair seans ceart don tíliú ar dtús — is é croí an tsaoil ar fad é. Siúlann [Nascleanúint](04-navigation.md) tríd tú.
+
 
 Mothóidh spásanna oibre aithnideach: is Spaces macOS nó deasca fíorúla Windows iad, ach amháin go n-úsáidfidh tú iad i ndáiríre, mar léimeann `Super + 1/2/3/4` go díreach chuig ceann agus cuireann `Super + Shift + 1/2/3/4` an fhuinneog ghníomhach ann. Gan mhoill beochana, díreach léimeanna láithreacha. Ciallaíonn sé seo go mb'fhéidir nach mbeidh il-mhonatóirí ag teastáil uait fiú, má bhí tú cleachta leis sin roimhe seo.
 

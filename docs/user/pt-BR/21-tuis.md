@@ -12,8 +12,6 @@ Você pula entre os diferentes painéis usando `Tab`. No painel Arquivos, você 
 
 O [Btop](https://github.com/aristocratos/btop) é um belo gerenciador de recursos que mostra o uso de memória, CPU, disco e rede. Ele também lista todos os processos ativos e permite que você os gerencie.
 
-O Arch o chama de Activity, e você o inicia pressionando `Super + Ctrl + T`. Ele abre como uma janela flutuante, que você pode colocar em mosaico com `Super + T`.
-
 ## Herdr
 
 O [Herdr](https://github.com/omacom-io/herdr) é um gerenciador de áreas de trabalho do terminal que oferece áreas de trabalho, guias e painéis, e mantém todos eles em execução em uma sessão persistente da qual você pode se desconectar e à qual pode voltar mais tarde.

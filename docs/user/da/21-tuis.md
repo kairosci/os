@@ -12,8 +12,6 @@ Du hopper mellem de forskellige ruder ved hjælp af `Tab`. I ruden Files vælger
 
 [Btop](https://github.com/aristocratos/btop) er en smuk ressourcehåndtering, der viser hukommelse, CPU, disk og netværksforbrug. Den viser også alle aktive processer og lader dig administrere dem.
 
-Arch kalder det Activity, og du starter det ved at trykke på `Super + Ctrl + T`. Det åbner som et flydende vindue, som du kan fliselægge med `Super + T`.
-
 ## Herdr
 
 [Herdr](https://github.com/omacom-io/herdr) er en terminal-arbejdsområdehåndtering, der giver dig arbejdsområder, faner og ruder og holder dem alle kørende i en vedvarende session, som du kan koble fra og komme tilbage til senere.

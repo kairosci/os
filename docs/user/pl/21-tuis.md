@@ -12,8 +12,6 @@ Przeskakujesz między różnymi panelami za pomocą `Tab`. W panelu Files wybier
 
 [Btop](https://github.com/aristocratos/btop) jest pięknym menedżerem zasobów, który pokazuje użycie pamięci, CPU, dysku i sieci. Wyświetla również wszystkie aktywne procesy i pozwala nimi zarządzać.
 
-Arch nazywa go Activity i uruchamiasz go, naciskając `Super + Ctrl + T`. Otwiera się jako pływające okno, które możesz kafelkować za pomocą `Super + T`.
-
 ## Herdr
 
 [Herdr](https://github.com/omacom-io/herdr) jest menedżerem przestrzeni roboczej terminala, który zapewnia obszary robocze, karty i panele oraz utrzymuje je wszystkie działające w trwałej sesji, z której możesz się odłączyć i wrócić później.

@@ -12,7 +12,7 @@ Następnie możesz nacisnąć `Super + J`, aby ułożyć je jedno nad drugim zam
 
 Naciśnij `Super + J` ponownie, aby przywrócić je do pozycji obok siebie. Następnie spróbuj `Super + Shift + Arrow Right` w przeglądarce, aby zamienić okna miejscami.
 
-Teraz spróbuj `Super + Ctrl + T`, aby uruchomić monitor aktywności. Pojawi się on jako okno pływające. Możesz je ułożyć w kafelki za pomocą `Super + T` (i nacisnąć to ponownie, aby znów stało się pływające). Teraz naciśnij `Super + Shift + F`, aby otworzyć menedżer plików. Będziesz mieć zgrabny układ na cztery:
+
 
  ![navigation-fourway-tiling](images/navigation-fourway-tiling.webp)
 
@@ -34,7 +34,6 @@ Domyślny układ Arch nazywa się dwindle. Utrzymuje wszystkie okna otwarte na j
 
 Ale możesz też wybrać, aby zamienić obszar roboczy w układ scrolling, w którym okna są ustawione obok siebie, poza widoczną krawędź ekranu. Pojedynczy obszar roboczy zamieniasz w ten układ za pomocą `Super + L`.
 
-Ponowne naciśnięcie `Super + L` zamienia obszar roboczy w pływający, w którym okna swobodnie się nakładają i sam je umieszczasz, a trzecie naciśnięcie przywraca go do dwindle. `Super + Alt + L` przechodzi przez nie w drugą stronę. Okno, które i tak jest pływające — takie, które wyciągnąłeś za pomocą `Super + T`, lub aplikacja, która zawsze otwiera się jako pływająca — pozostaje pływające, gdy obszar roboczy wraca do kafelkowania. Górny pasek oznacza obszar roboczy, na którym jesteś, jego układem: kwadrat dla dwindle, koło dla scrolling i trójkąt dla pływającego. Kliknięcie tego znaku również zmienia układ w cyklu.
 
  ![navigation-scrolling-layout](images/navigation-scrolling-layout.webp)
 

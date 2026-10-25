@@ -16,7 +16,7 @@ Není na co klikat pro spouštění věcí, žádné ikony k uspořádání na p
 
 Největší změna myšlení: netaháte okna sem a tam ani je nepřichytáváte k polovinám obrazovky. Otevřete okno a zabere celou obrazovku. Otevřete druhé a rozdělí si ji. Nikdy nelovíte okno spod jiného, protože okna se nepřekrývají.
 
-Když skutečně potřebujete plovoucí okno, `Super + T` přepne aktivní okno ven z dlaždicového uspořádání (a zpět). Ale dejte dlaždicím nejdřív skutečnou šanci — je to srdce celé věci. [Navigace](04-navigation.md) vás tím provede.
+
 
 Pracovní plochy vám budou připadat povědomé: jsou to macOS Spaces nebo virtuální plochy Windows, až na to, že je skutečně budete používat, protože `Super + 1/2/3/4` skočí přímo na jednu z nich a `Super + Shift + 1/2/3/4` tam pošle aktivní okno. Žádné zpoždění animace, jen okamžité skoky. To znamená, že možná ani nebudete potřebovat více monitorů, pokud jste na to byli zvyklí dříve.
 

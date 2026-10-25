@@ -12,11 +12,7 @@ Näet kaikki tärkeimmät näppäimistösidokset yhdistelmällä `Super + K` (Tm
 | `Super + Ctrl + L` | Lukitse tietokone |
 | `Super + W` or `Super + Q` | Sulje ikkuna             |
 | `Ctrl + Alt + Del` | Sulje kaikki ikkunat |
-| `Super + T`               | Vaihda ikkuna laatoitus/kelluva             |
 | `Super + J` | Vaihda ikkunan sijaintia (vaaka/pysty) |
-| `Super + O`               | Vaihda ponnauttaminen tahmasessa-kelluvassa |
-| `Super + L`               | Kierrä dwindle-, vieritys- ja kelluva-asettelua |
-| `Super + Alt + L`         | Kierrä asetteluja käänteiseen suuntaan |
 | `Super + P`               | Vaihda vale-ikkunan tyyliä (luonnollinen vast. venytetty) |
 | `Super + F`                 | Mene koko ruutuun              |
 | `Super + Alt + F`                 | Mene koko leveyteen              |

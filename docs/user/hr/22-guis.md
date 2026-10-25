@@ -77,8 +77,6 @@ Signed pokrećeš putem pokretača aplikacija (`Super + Space`) ili njime otvori
 
 ## Omacalc
 
-[Omacalc](https://github.com/omacom-io/omacalc) Archjev je vlastiti krajnje jednostavan kalkulator, koji se otvara u plutajućem prozoru.
-
 Omacalc pokrećeš sa `Super + Ctrl + Q` (ili tipkom kalkulatora, ako je tvoja tipkovnica ima).
 
 ## Signal

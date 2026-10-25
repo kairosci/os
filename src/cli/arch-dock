@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# arch:summary=Configure the dock shown on floating workspaces
+# arch:summary=Configure the dock available across workspaces
 # arch:group=dock
 # arch:args=position [top|bottom|left|right] | autohide [on|off|toggle] | pinned [<desktop-id>...] | pin <desktop-id> | unpin <desktop-id>
 # arch:examples=archctl dock position left | archctl dock pin org.gnome.Nautilus

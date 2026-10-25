@@ -77,8 +77,6 @@ Avvii Signed dal launcher delle app (`Super + Space`), oppure apri un PDF con es
 
 ## Omacalc
 
-[Omacalc](https://github.com/omacom-io/omacalc) è la calcolatrice semplicissima di Arch, che si apre in una finestra flottante.
-
 Avvii Omacalc con `Super + Ctrl + Q` (o con il tasto calcolatrice, se la tua tastiera ne ha uno).
 
 ## Signal

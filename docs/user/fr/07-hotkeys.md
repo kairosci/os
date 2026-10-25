@@ -12,11 +12,7 @@ Vous pouvez voir tous les principaux raccourcis clavier avec `Super + K` (raccou
 | `Super + Ctrl + L` | Verrouiller l'ordinateur |
 | `Super + W` ou `Super + Q` | Fermer la fenêtre |
 | `Ctrl + Alt + Del` | Fermer toutes les fenêtres |
-| `Super + T`               | Basculer la fenêtre entre mosaïque/flottant |
 | `Super + J` | Basculer la position de la fenêtre (horizontal/vertical) |
-| `Super + O`               | Basculer la fenêtre détachée en collante et flottante |
-| `Super + L`               | Parcourir les dispositions dwindle, défilement et flottante |
-| `Super + Alt + L`         | Parcourir les dispositions dans l'ordre inverse |
 | `Super + P`               | Basculer le style pseudo-fenêtre (naturel contre étiré) |
 | `Super + F`                 | Passer en plein écran |
 | `Super + Alt + F`                 | Passer en pleine largeur |

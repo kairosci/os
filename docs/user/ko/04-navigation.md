@@ -12,7 +12,7 @@ Arch에서는 모든 일이 키보드로 이루어진다 — _전부 다!_ 시�
 
 `Super + J`를 다시 누르면 나란히 배치된 위치로 돌아간다. 그다음 브라우저에 있는 동안 `Super + Shift + Arrow Right`를 눌러 창을 서로 바꿔 보라.
 
-이제 `Super + Ctrl + T`를 눌러 Activity 모니터를 시작해 보라. 플로팅 창으로 나타날 것이다. `Super + T`를 이용해 타일링할 수 있고 (다시 누르면 다시 플로팅으로 바뀐다). 이제 `Super + Shift + F`를 눌러 파일 관리자를 열어라. 깔끔한 4분할 배치가 완성될 것이다:
+이제 `Super + Ctrl + T`를 눌러 Activity 모니터를 시작해 보라. 이제 `Super + Shift + F`를 눌러 파일 관리자를 열어라. 깔끔한 4분할 배치가 완성될 것이다:
 
  ![navigation-fourway-tiling](images/navigation-fourway-tiling.webp)
 
@@ -34,7 +34,6 @@ Arch의 기본 레이아웃은 dwindle이라고 한다. 단일 작업 공간에�
 
 하지만 작업 공간을 창이 디스플레이의 보이는 가장자리를 넘어 나란히 줄지어 서는 스크롤 레이아웃으로 바꾸도록 선택할 수도 있다. `Super + L`을 이용해 단일 작업 공간을 이 레이아웃으로 바꾼다.
 
-`Super + L`을 다시 누르면 작업 공간이 플로팅으로 바뀌어 창이 자유롭게 겹치고 직접 배치하게 되며, 세 번째로 누르면 dwindle로 돌아간다. `Super + Alt + L`은 반대 방향으로 순환한다. 어차피 떠 있는 창 — `Super + T`로 꺼낸 창이거나 항상 플로팅으로 열리는 앱 — 은 작업 공간이 타일링으로 돌아가도 계속 떠 있다. 상단 바는 현재 있는 작업 공간을 그 레이아웃으로 표시한다: dwindle은 사각형, 스크롤은 원, 플로팅은 삼각형이다. 그 표시를 클릭해도 레이아웃이 순환한다.
 
  ![navigation-scrolling-layout](images/navigation-scrolling-layout.webp)
 

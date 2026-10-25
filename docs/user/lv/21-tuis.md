@@ -12,8 +12,6 @@ Starp dažādajām rūtīm pārlec ar `Tab`. Failu rūtī failus sagatavošanai 
 
 [Btop](https://github.com/aristocratos/btop) ir skaists resursu pārvaldnieks, kas rāda atmiņas, centrālā procesora, diska un tīkla lietojumu. Tas uzskaita arī visus aktīvos procesus un ļauj tos pārvaldīt.
 
-Arch to sauc par Activity, un jūs to palaižat, nospiežot `Super + Ctrl + T`. Tas atveras kā peldošs logs, kuru var izklāt mozaīkā ar `Super + T`.
-
 ## Herdr
 
 [Herdr](https://github.com/omacom-io/herdr) ir termināļa darbvietu pārvaldnieks, kas sniedz darbvietas, cilnes un rūtis un uztur tās visas darbībā noturīgā sesijā, no kuras varat atvienoties un vēlāk atgriezties.

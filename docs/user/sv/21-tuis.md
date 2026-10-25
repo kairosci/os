@@ -12,8 +12,6 @@ Du hoppar mellan de olika panelerna med `Tab`. I panelen Files väljer du filer 
 
 [Btop](https://github.com/aristocratos/btop) är en vacker resurshanterare som visar minnes-, CPU-, disk- och nätverksanvändning. Den listar också alla aktiva processer och låter dig hantera dem.
 
-Arch kallar det Activity, och du startar det med `Super + Ctrl + T`. Det öppnas som ett flytande fönster, som du kan kakla med `Super + T`.
-
 ## Herdr
 
 [Herdr](https://github.com/omacom-io/herdr) är en terminalarbetsytehanterare som ger dig arbetsytor, flikar och paneler, och håller dem alla igång i en bestående session som du kan koppla bort från och komma tillbaka till senare.

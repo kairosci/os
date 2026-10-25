@@ -12,7 +12,7 @@ En Arch-valmyndin er ekki einu sinni ætluð sem helsta leiðin til að stjórna
 
 Ýttu aftur á `Super + J` til að færa þau aftur í stöðuna hlið við hlið. Prófaðu síðan `Super + Shift + Arrow Right` á meðan þú ert í vafranum til að skipta á gluggunum.
 
-Prófaðu nú `Super + Ctrl + T` til að ræsa Virknivaktina. Hún birtist sem fljótandi gluggi. Þú getur flísaröðað honum með `Super + T` (og ýtt aftur á það til að gera hann fljótandi aftur). Ýttu nú á `Super + Shift + F` til að opna skráastjórann. Þú færð snyrtilega fjögurra glugga uppsetningu:
+
 
  ![navigation-fourway-tiling](images/navigation-fourway-tiling.webp)
 
@@ -34,7 +34,6 @@ Sjálfgefna uppröðunin í Arch kallast dwindle. Hún heldur öllum gluggum sem
 
 En þú getur líka valið að breyta vinnusvæði í skrunuppröðunina þar sem gluggar raðast hlið við hlið, út fyrir sýnilega brún skjásins. Þú breytir einu vinnusvæði í þessa uppröðun með `Super + L`.
 
-Að ýta aftur á `Super + L` gerir vinnusvæðið fljótandi, þar sem gluggar skarast frjálst og þú staðsetur þá sjálfur, og þriðja ýtingin færir það aftur í dwindle. `Super + Alt + L` fer í gegnum þær í hina áttina. Gluggi sem flýtur hvort sem er — einn sem þú sprettir út með `Super + T`, eða forrit sem opnast alltaf fljótandi — helst fljótandi þegar vinnusvæðið fer aftur í flísaröðun. Efsta sláin merkir vinnusvæðið sem þú ert á með uppröðun þess: ferning fyrir dwindle, hring fyrir skrun og þríhyrning fyrir fljótandi. Að smella á það merki skiptir líka um uppröðun.
 
  ![navigation-scrolling-layout](images/navigation-scrolling-layout.webp)
 

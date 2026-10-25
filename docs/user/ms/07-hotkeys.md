@@ -12,11 +12,7 @@ Anda boleh melihat semua ikatan papan kekunci utama dengan `Super + K` (ikatan T
 | `Super + Ctrl + L` | Kunci komputer |
 | `Super + W` or `Super + Q` | Tutup tetingkap             |
 | `Ctrl + Alt + Del` | Tutup semua tetingkap |
-| `Super + T`               | Togol tetingkap antara jubinan/terapung             |
 | `Super + J` | Togol kedudukan tetingkap (mendatar/menegak) |
-| `Super + O`               | Togol mengeluarkan tetingkap menjadi melekat dan terapung |
-| `Super + L`               | Kitar melalui susun atur dwindle, penatalan, dan terapung |
-| `Super + Alt + L`         | Kitar melalui susun atur dalam arah songsang |
 | `Super + P`               | Togol gaya tetingkap pseudo (semula jadi lwn regang) |
 | `Super + F`                 | Pergi ke skrin penuh              |
 | `Super + Alt + F`                 | Pergi ke lebar penuh              |

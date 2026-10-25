@@ -12,11 +12,7 @@ Tu vari redzēt visas galvenās tastatūras piesaistes ar `Super + K` (Tmux pies
 | `Super + Ctrl + L` | Bloķēt datoru |
 | `Super + W` or `Super + Q` | Aizvērt logu             |
 | `Ctrl + Alt + Del` | Aizvērt visus logus |
-| `Super + T`               | Pārslēgt logu starp mozaīku/peldošu             |
 | `Super + J` | Pārslēgt loga pozīciju (horizontāli/vertikāli) |
-| `Super + O`               | Pārslēgt loga izcelšanu lipīgā un peldošā             |
-| `Super + L`               | Ciklēt cauri dwindle, ritināšanas un peldošajam izkārtojumam |
-| `Super + Alt + L`         | Ciklēt cauri izkārtojumiem pretējā virzienā |
 | `Super + P`               | Pārslēgt pseidologa stilu (dabīgs pret izstieptu) |
 | `Super + F`                 | Iet pilnekrānā              |
 | `Super + Alt + F`                 | Iet pilna platuma režīmā              |

@@ -1,0 +1,5 @@
+{
+  "service": "org.fcitx.Fcitx5",
+  "path": "/controller",
+  "interface": "org.fcitx.Fcitx.Controller1"
+}

@@ -3,7 +3,7 @@ o.window("((google-)?[cC]hrom(e|ium)|[bB]rave-browser|[mM]icrosoft-edge|Vivaldi-
 o.window("([fF]irefox|zen|librewolf)", { tag = "+firefox-based-browser" })
 o.window({ tag = "chromium-based-browser" }, { tile = true })
 
--- Video apps: remove the chromium browser tag so they can float.
+-- Video apps: remove the chromium browser tag so browser-specific rules do not affect them.
 o.window("(^.+-youtube\\.com__.*$|^.+-app\\.zoom\\.us__wc_home.*$)", { tag = "-chromium-based-browser" })
 
 -- Hide screen sharing notification windows.

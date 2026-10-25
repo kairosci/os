@@ -12,8 +12,6 @@ You hop between the different panes using `Tab`. In the Files pane, you select f
 
 [Btop](https://github.com/aristocratos/btop) is a beautiful resource manager that shows memory, CPU, disk, and network usage. It also lists all active processes, and allows you to manage them.
 
-Arch calls it Activity, and you start it by hitting `Super + Shift + T`. It opens as a floating window, which you can tile with `Super + T`.
-
 ## Herdr
 
 [Herdr](https://github.com/omacom-io/herdr) is a terminal workspace manager that gives you workspaces, tabs, and panes, and keeps them all running in a persistent session you can detach from and come back to later.

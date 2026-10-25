@@ -16,7 +16,7 @@ Nėra ko spausti, kad paleistumėte dalykus, nėra piktogramų, kurias reikėtų
 
 Didžiausias mąstysenos pokytis: jūs nevilkinate langų ir neprilipdote jų prie ekrano pusių. Atidarykite langą ir jis užims visą ekraną. Atidarykite antrą ir jie jį pasidalins. Niekada nereikia ištraukti lango iš po kito, nes langai nepersidengia.
 
-Kai jums tikrai reikia plūduriuojančio lango, `Super + T` perjungia aktyvųjį iš plytelių išdėstymo (ir atgal). Bet pirmiausia duokite plytelių išdėstymui tikrą šansą — tai viso dalyko širdis. [Naršymas](04-navigation.md) jus per tai praves.
+
 
 Darbo sritys atrodys pažįstamos: tai macOS Spaces arba Windows virtualūs darbalaukiai, tik jūs iš tikrųjų jomis naudositės, nes `Super + 1/2/3/4` šoka tiesiai į vieną, o `Super + Shift + 1/2/3/4` ten nusiunčia aktyvų langą. Jokios animacijos delsos, tik akimirksnio šuoliai. Tai reiškia, kad jums gali net neprireikti kelių monitorių, jei prie to buvote pripratę anksčiau.
 

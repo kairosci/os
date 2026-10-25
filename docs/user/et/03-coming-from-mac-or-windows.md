@@ -16,7 +16,7 @@ Pole midagi, millel asjade käivitamiseks klõpsata, pole ikoone, mida töölaua
 
 Suurim mõttelaadi muutus: sa ei lohista aknaid ringi ega kinnita neid ekraanipoolte külge. Ava aken ja see võtab kogu ekraani. Ava teine ja nad jagavad selle. Sa ei pea kunagi akent teise alt välja õngitsema, sest aknad ei katu.
 
-Kui vajad tõesti ujuvat akent, lülitab `Super + T` aktiivse akna paigutusest välja (ja tagasi). Kuid anna plaatidele esmalt tõeline võimalus — see on kogu asja süda. [Navigeerimine](04-navigation.md) juhendab sind läbi selle.
+
 
 Tööalad tunduvad tuttavad: need on macOSi Spaces või Windowsi virtuaalsed töölauad, ainult et sa hakkad neid päriselt kasutama, sest `Super + 1/2/3/4` hüppab otse ühe juurde ja `Super + Shift + 1/2/3/4` saadab aktiivse akna sinna. Pole animatsiooni viivitust, lihtsalt hetkehüpped. See tähendab, et sul ei pruugi isegi mitut kuvarit vaja olla, kui olid sellega varem harjunud.
 

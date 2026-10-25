@@ -16,7 +16,7 @@ Bir şeyleri başlatmak için tıklanacak bir şey yok, masaüstünde düzenlene
 
 En büyük zihniyet değişimi: pencereleri sürüklemiyor veya ekranın yarılarına oturtmuyorsunuz. Bir pencere açın, tüm ekranı kaplar. İkinci bir pencere açın, ekranı bölüşürler. Bir pencereyi asla bir başkasının altından çıkarmak zorunda kalmazsınız, çünkü pencereler çakışmaz.
 
-Gerçekten yüzen bir pencereye ihtiyacınız olduğunda, `Super + T` aktif pencereyi döşemenin dışına çıkarır (ve geri alır). Ama önce döşemeye gerçek bir şans verin — her şeyin kalbi odur. [Gezinme](04-navigation.md) sizi adım adım götürür.
+
 
 Çalışma alanları tanıdık gelecektir: macOS Spaces veya Windows sanal masaüstleri gibidirler, ancak bu sefer gerçekten kullanacaksınız, çünkü `Super + 1/2/3/4` doğrudan birine atlar ve `Super + Shift + 1/2/3/4` aktif pencereyi oraya gönderir. Animasyon gecikmesi yok, sadece anında atlamalar. Bu, daha önce alışkınsanız çoklu monitöre bile ihtiyacınız olmayabileceği anlamına gelir.
 
