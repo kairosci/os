@@ -391,6 +391,7 @@ assert_bash_equal "$(plural en --count 3 files.count 3)" "3 files" "arch-i18n --
 assert_bash_equal "$(plural it --count 1 files.count 1) / $(plural it --count 3 files.count 3)" "1 documento / 3 documenti" "arch-i18n --count follows Italian plural rules"
 assert_bash_equal "$(plural it files.count 5)" "5 documenti" "a plural entry without --count reads its other form"
 assert_bash_equal "$(plural it power.rate 13.1)" "13,1 W" "a number argument takes the language's decimal separator"
+printf '{"power.rate": "%%1 W"}\n' >"$plural_root/default/i18n/it/cli.json"
 assert_bash_equal "$(plural it --count 2 files.count 13.5)" "13,5 files" "a missing translation falls back to English and localizes its number"
 assert_bash_equal "$(plural it power.rate 10.0.0.1)" "10.0.0.1 W" "an argument that is not a plain number passes through"
 assert_bash_equal "$(plural it --number 13.1) $(plural it --number 13.5)" "13,1 13,5" "arch-i18n --number writes one number in the language"
