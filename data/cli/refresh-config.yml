@@ -1,14 +1,26 @@
 paths:
   source_directory: config
-  user_directory: .config
-  directory_mode: "0755"
-  forbidden_components:
-    - ""
-    - .
-    - ..
-files:
-  temporary_prefix: .
-  temporary_mode: "0600"
+  config_home_environment: XDG_CONFIG_HOME
+  home_environment: HOME
+  default_config_home: .config
+temporary_files:
+  replacement_prefix: .os-refresh.
   backup_suffix: .bak.
-  backup_timestamp_format: "%Y%m%d%H%M%S%f"
-  backup_mode: "0600"
+commands:
+  localize: [arch-i18n]
+  copy: [cp, --]
+  diff: [diff, --]
+messages:
+  usage: refreshConfig.usage
+  invalid_path: refreshConfig.invalidPath
+  not_shipped: refreshConfig.notShipped
+  unsafe_path: refreshConfig.unsafePath
+  replaced: refreshConfig.replaced
+statuses:
+  success: 0
+  failure: 1
+colors:
+  changed_start: "\u001b[31m"
+  changed_end: "\u001b[0m"
+validation:
+  forbidden_path_segments: ["", ".", ".."]
