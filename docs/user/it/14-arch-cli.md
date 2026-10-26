@@ -1,6 +1,6 @@
 # Arch CLI
 
-Arch di solito si controlla tramite le scorciatoie e il menu Arch (`Super + Space`). Ma puoi anche controllarlo tramite la CLI `arch`. Questo è particolarmente utile quando hai un agente AI che lavora con te su personalizzazione o configurazione.
+Arch di solito si controlla tramite le scorciatoie e il menu Arch (`Super + Space`). Ma puoi anche controllarlo tramite la CLI `arch`. È particolarmente utile per personalizzare e configurare il sistema.
 
 La CLI ha accesso a tutti gli strumenti interni usati sia tramite il menu che altrimenti. Puoi vedere tutto ciò che è disponibile eseguendo `arch` nel terminale.
 
@@ -25,7 +25,6 @@ Common commands:
   archctl debug               Print debugging information
 
 Groups:
-  agent          AI coding agents, their usage, and subscription accounts
   audio          Audio input and output controls
   bar            Arch shell bar layout and settings
   battery        Battery status helpers
