@@ -41,6 +41,8 @@ Item {
   // killing the entire shell. Hidden panels stay mapped but park off-screen
   // without an exclusion zone; updated by the FileView watcher further down.
   property bool barHidden: false
+  readonly property var idleService: shell && typeof shell.firstPartyServiceFor === "function" ? shell.firstPartyServiceFor("arch.idle") : null
+  readonly property bool screensaverActive: idleService ? idleService.screensaverWindowCount > 0 : false
   property string home: Quickshell.env("HOME")
   property string stateHome: home + "/.local/state"
   property string archConfigDir: home + "/.config/arch"
@@ -1544,7 +1546,7 @@ Item {
     // before it maps (see BarModel.cutoutPending), so it maps at its floor
     // instead of growing once the windows are laid out. The wait ends once, for
     // good: when the mode settles it, or after two seconds without one.
-    visible: !remapGuard.remapping && (cutoutWaitOver || !cutoutPending)
+    visible: !root.screensaverActive && !remapGuard.remapping && (cutoutWaitOver || !cutoutPending)
     exclusionMode: root.barHidden ? ExclusionMode.Ignore : ExclusionMode.Auto
 
     ScreenMoveRemap {
@@ -1595,7 +1597,10 @@ Item {
     color: root.transparent ? "transparent" : (root.glassy ? root.glassBackground : root.background)
     surfaceFormat.opaque: false
     WlrLayershell.namespace: "arch-bar"
-    WlrLayershell.layer: WlrLayer.Top
+    // Screensavers are normal fullscreen clients, so keep this surface below
+    // them while they are active. The visibility guard above also prevents a
+    // delayed layer-shell unmap from leaving the bar over the saver.
+    WlrLayershell.layer: root.screensaverActive ? WlrLayer.Background : WlrLayer.Top
 
     Loader {
       anchors.fill: parent
