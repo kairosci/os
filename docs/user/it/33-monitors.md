@@ -38,7 +38,7 @@ Quando stai estendendo, chiudere il coperchio del portatile spegnerà automatica
 
 ### Disporre più schermi
 
-Hyprland funziona ottimamente con più schermi. Leggi di più su come disporli nella [documentazione sui monitor di Hyprland](https://wiki.hypr.land/Configuring/Basics/Monitors/). Puoi anche [associare workspace specifici a monitor specifici](https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/). In Arch, queste regole vanno in `~/.config/hypr/monitors.lua` come voci `hl.monitor` — il file viene fornito con esempi commentati per fissare un monitor specifico a una risoluzione, posizione e rotazione.
+Hyprland funziona ottimamente con più schermi. Leggi di più su come disporli nella [documentazione sui monitor di Hyprland](https://wiki.hypr.land/Configuring/Basics/Monitors/). Puoi anche [associare workspace specifici a monitor specifici](https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/). In Arch, queste regole vanno in `~/.config/hypr/monitors.lua` come voci `hl.monitor` — il file viene fornito con esempi commentati per fissare un monitor specifico a una risoluzione, posizione e rotazione. `~/.local/state/arch/monitor-workspaces` elenca il blocco assegnato a ciascun monitor.
 
 Puoi anche dare un'occhiata a [Hyprmon](https://github.com/erans/hyprmon/), se vuoi una TUI che ti aiuti con il posizionamento di più schermi.
 
