@@ -176,30 +176,6 @@
   "appearance.branding.screensaver.default": {
     "label": "Pulihkan Lalai"
   },
-  "appearance.dock": {
-    "label": "Dok"
-  },
-  "appearance.dock.autohide": {
-    "label": "Dok Auto-sembunyi"
-  },
-  "appearance.dock.always-on": {
-    "label": "Dok Sentiasa Papar"
-  },
-  "appearance.dock.position": {
-    "label": "Kedudukan Dok"
-  },
-  "appearance.dock.position.top": {
-    "label": "Dok Atas"
-  },
-  "appearance.dock.position.bottom": {
-    "label": "Dok Bawah"
-  },
-  "appearance.dock.position.left": {
-    "label": "Dok Kiri"
-  },
-  "appearance.dock.position.right": {
-    "label": "Dok Kanan"
-  },
   "appearance.workspace-layout": {
     "label": "Susun Atur Ruang Kerja",
     "title": "Susun Atur Ruang Kerja Lalai"

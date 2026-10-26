@@ -9,7 +9,7 @@ hl.layer_rule({ match = { namespace = "arch-bar" }, no_anim = true, animation = 
 -- animations. Overlays open as soon as their scale is ready, without a
 -- compositor fade or slide. Panels keep their own QML opacity transition
 -- for normal open/close, and skip it for panel handoff.
-hl.layer_rule({ match = { namespace = "^(arch-menu|arch-image-selector|arch-emojis|arch-clipboard|arch-keyboard-panel|arch-osd|arch-reminders|arch-network-qr|arch-dock|arch-dock-apps)$" }, no_anim = true, animation = "none" })
+hl.layer_rule({ match = { namespace = "^(arch-menu|arch-image-selector|arch-emojis|arch-clipboard|arch-keyboard-panel|arch-osd|arch-reminders|arch-network-qr)$" }, no_anim = true, animation = "none" })
 
 -- A boot intro hands the desktop between OWE's video layer and the shell's
 -- background layer. The media fades itself, so a compositor fade on either

@@ -176,30 +176,6 @@
   "appearance.branding.screensaver.default": {
     "label": "පෙරනිමිය යළි පිහිටුවන්න"
   },
-  "appearance.dock": {
-    "label": "ඩොක්"
-  },
-  "appearance.dock.autohide": {
-    "label": "Dock ස්වයං-සඟවන්න"
-  },
-  "appearance.dock.always-on": {
-    "label": "සැමවිට පෙනෙන Dock"
-  },
-  "appearance.dock.position": {
-    "label": "Dock පිහිටුම"
-  },
-  "appearance.dock.position.top": {
-    "label": "ඉහළ Dock"
-  },
-  "appearance.dock.position.bottom": {
-    "label": "පහළ Dock"
-  },
-  "appearance.dock.position.left": {
-    "label": "වම් Dock"
-  },
-  "appearance.dock.position.right": {
-    "label": "දකුණු Dock"
-  },
   "appearance.workspace-layout": {
     "label": "වැඩබිම් සැකැස්ම",
     "title": "පෙරනිමි වැඩබිම් සැකැස්ම"

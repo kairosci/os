@@ -176,30 +176,6 @@
   "appearance.branding.screensaver.default": {
     "label": "Obnovit výchozí"
   },
-  "appearance.dock": {
-    "label": "Dock"
-  },
-  "appearance.dock.autohide": {
-    "label": "Automaticky skrýt Dock"
-  },
-  "appearance.dock.always-on": {
-    "label": "Vždy viditelný Dock"
-  },
-  "appearance.dock.position": {
-    "label": "Poloha Docku"
-  },
-  "appearance.dock.position.top": {
-    "label": "Dock nahoře"
-  },
-  "appearance.dock.position.bottom": {
-    "label": "Dock dole"
-  },
-  "appearance.dock.position.left": {
-    "label": "Dock vlevo"
-  },
-  "appearance.dock.position.right": {
-    "label": "Dock vpravo"
-  },
   "appearance.workspace-layout": {
     "label": "Rozložení plochy",
     "title": "Výchozí rozložení plochy"

@@ -176,30 +176,6 @@
   "appearance.branding.screensaver.default": {
     "label": "डिफ़ॉल्ट पुनर्स्थापित करें"
   },
-  "appearance.dock": {
-    "label": "डॉक"
-  },
-  "appearance.dock.autohide": {
-    "label": "ऑटो-छिपा डॉक"
-  },
-  "appearance.dock.always-on": {
-    "label": "हमेशा दृश्य डॉक"
-  },
-  "appearance.dock.position": {
-    "label": "डॉक स्थिति"
-  },
-  "appearance.dock.position.top": {
-    "label": "ऊपरी डॉक"
-  },
-  "appearance.dock.position.bottom": {
-    "label": "निचला डॉक"
-  },
-  "appearance.dock.position.left": {
-    "label": "बायां डॉक"
-  },
-  "appearance.dock.position.right": {
-    "label": "दायां डॉक"
-  },
   "appearance.workspace-layout": {
     "label": "वर्कस्पेस लेआउट",
     "title": "डिफ़ॉल्ट वर्कस्पेस लेआउट"

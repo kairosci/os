@@ -176,30 +176,6 @@
   "appearance.branding.screensaver.default": {
     "label": "Pulihkan Bawaan"
   },
-  "appearance.dock": {
-    "label": "Dock"
-  },
-  "appearance.dock.autohide": {
-    "label": "Dock Sembunyi Otomatis"
-  },
-  "appearance.dock.always-on": {
-    "label": "Dock Selalu Tampil"
-  },
-  "appearance.dock.position": {
-    "label": "Posisi Dock"
-  },
-  "appearance.dock.position.top": {
-    "label": "Dock Atas"
-  },
-  "appearance.dock.position.bottom": {
-    "label": "Dock Bawah"
-  },
-  "appearance.dock.position.left": {
-    "label": "Dock Kiri"
-  },
-  "appearance.dock.position.right": {
-    "label": "Dock Kanan"
-  },
   "appearance.workspace-layout": {
     "label": "Tata Letak Ruang Kerja",
     "title": "Tata Letak Ruang Kerja Bawaan"

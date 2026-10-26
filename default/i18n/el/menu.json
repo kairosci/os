@@ -176,30 +176,6 @@
   "appearance.branding.screensaver.default": {
     "label": "Επαναφορά προεπιλογής"
   },
-  "appearance.dock": {
-    "label": "Dock"
-  },
-  "appearance.dock.autohide": {
-    "label": "Αυτόματη απόκρυψη dock"
-  },
-  "appearance.dock.always-on": {
-    "label": "Πάντα ορατό dock"
-  },
-  "appearance.dock.position": {
-    "label": "Θέση dock"
-  },
-  "appearance.dock.position.top": {
-    "label": "Πάνω dock"
-  },
-  "appearance.dock.position.bottom": {
-    "label": "Κάτω dock"
-  },
-  "appearance.dock.position.left": {
-    "label": "Αριστερό dock"
-  },
-  "appearance.dock.position.right": {
-    "label": "Δεξί dock"
-  },
   "appearance.workspace-layout": {
     "label": "Διάταξη χώρου",
     "title": "Προεπιλεγμένη διάταξη χώρου"

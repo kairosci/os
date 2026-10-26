@@ -176,30 +176,6 @@
   "appearance.branding.screensaver.default": {
     "label": "恢复默认"
   },
-  "appearance.dock": {
-    "label": "程序坞"
-  },
-  "appearance.dock.autohide": {
-    "label": "自动隐藏程序坞"
-  },
-  "appearance.dock.always-on": {
-    "label": "常显程序坞"
-  },
-  "appearance.dock.position": {
-    "label": "程序坞位置"
-  },
-  "appearance.dock.position.top": {
-    "label": "顶部程序坞"
-  },
-  "appearance.dock.position.bottom": {
-    "label": "底部程序坞"
-  },
-  "appearance.dock.position.left": {
-    "label": "左侧程序坞"
-  },
-  "appearance.dock.position.right": {
-    "label": "右侧程序坞"
-  },
   "appearance.workspace-layout": {
     "label": "工作区布局",
     "title": "默认工作区布局"

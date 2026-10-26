@@ -176,30 +176,6 @@
   "appearance.branding.screensaver.default": {
     "label": "Återställ standard"
   },
-  "appearance.dock": {
-    "label": "Dock"
-  },
-  "appearance.dock.autohide": {
-    "label": "Dölj dock automatiskt"
-  },
-  "appearance.dock.always-on": {
-    "label": "Alltid synlig dock"
-  },
-  "appearance.dock.position": {
-    "label": "Dockplacering"
-  },
-  "appearance.dock.position.top": {
-    "label": "Övre dock"
-  },
-  "appearance.dock.position.bottom": {
-    "label": "Nedre dock"
-  },
-  "appearance.dock.position.left": {
-    "label": "Vänsterdock"
-  },
-  "appearance.dock.position.right": {
-    "label": "Högerdock"
-  },
   "appearance.workspace-layout": {
     "label": "Arbetsytelayout",
     "title": "Standardlayout för arbetsyta"

@@ -176,30 +176,6 @@
   "appearance.branding.screensaver.default": {
     "label": "Atkurti numatytąjį"
   },
-  "appearance.dock": {
-    "label": "Dokas"
-  },
-  "appearance.dock.autohide": {
-    "label": "Slėpti Dock automatiškai"
-  },
-  "appearance.dock.always-on": {
-    "label": "Visada rodyti Dock"
-  },
-  "appearance.dock.position": {
-    "label": "Dock padėtis"
-  },
-  "appearance.dock.position.top": {
-    "label": "Dock viršuje"
-  },
-  "appearance.dock.position.bottom": {
-    "label": "Dock apačioje"
-  },
-  "appearance.dock.position.left": {
-    "label": "Dock kairėje"
-  },
-  "appearance.dock.position.right": {
-    "label": "Dock dešinėje"
-  },
   "appearance.workspace-layout": {
     "label": "Darbo srities išdėstymas",
     "title": "Numatytasis darbo srities išdėstymas"

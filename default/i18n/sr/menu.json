@@ -176,30 +176,6 @@
   "appearance.branding.screensaver.default": {
     "label": "Врати подразумевано"
   },
-  "appearance.dock": {
-    "label": "Док"
-  },
-  "appearance.dock.autohide": {
-    "label": "Аутоматски сакриј Dock"
-  },
-  "appearance.dock.always-on": {
-    "label": "Увек видљив Dock"
-  },
-  "appearance.dock.position": {
-    "label": "Положај Dock-а"
-  },
-  "appearance.dock.position.top": {
-    "label": "Горњи Dock"
-  },
-  "appearance.dock.position.bottom": {
-    "label": "Доњи Dock"
-  },
-  "appearance.dock.position.left": {
-    "label": "Леви Dock"
-  },
-  "appearance.dock.position.right": {
-    "label": "Десни Dock"
-  },
   "appearance.workspace-layout": {
     "label": "Распоред радног простора",
     "title": "Подразумевани распоред радног простора"

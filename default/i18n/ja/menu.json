@@ -176,30 +176,6 @@
   "appearance.branding.screensaver.default": {
     "label": "デフォルトに戻す"
   },
-  "appearance.dock": {
-    "label": "ドック"
-  },
-  "appearance.dock.autohide": {
-    "label": "ドックを自動で隠す"
-  },
-  "appearance.dock.always-on": {
-    "label": "ドックを常に表示"
-  },
-  "appearance.dock.position": {
-    "label": "ドックの位置"
-  },
-  "appearance.dock.position.top": {
-    "label": "上部ドック"
-  },
-  "appearance.dock.position.bottom": {
-    "label": "下部ドック"
-  },
-  "appearance.dock.position.left": {
-    "label": "左ドック"
-  },
-  "appearance.dock.position.right": {
-    "label": "右ドック"
-  },
   "appearance.workspace-layout": {
     "label": "ワークスペース配置",
     "title": "既定のワークスペース配置"

@@ -176,30 +176,6 @@
   "appearance.branding.screensaver.default": {
     "label": "بازیابی پیش‌فرض"
   },
-  "appearance.dock": {
-    "label": "داک"
-  },
-  "appearance.dock.autohide": {
-    "label": "پنهان‌شدن خودکار داک"
-  },
-  "appearance.dock.always-on": {
-    "label": "داک همیشه روشن"
-  },
-  "appearance.dock.position": {
-    "label": "موقعیت داک"
-  },
-  "appearance.dock.position.top": {
-    "label": "داک بالا"
-  },
-  "appearance.dock.position.bottom": {
-    "label": "داک پایین"
-  },
-  "appearance.dock.position.left": {
-    "label": "داک چپ"
-  },
-  "appearance.dock.position.right": {
-    "label": "داک راست"
-  },
   "appearance.workspace-layout": {
     "label": "چیدمان فضای کاری",
     "title": "چیدمان پیش‌فرض فضای کاری"

@@ -176,30 +176,6 @@
   "appearance.branding.screensaver.default": {
     "label": "還原預設"
   },
-  "appearance.dock": {
-    "label": "Dock"
-  },
-  "appearance.dock.autohide": {
-    "label": "自動隱藏 Dock"
-  },
-  "appearance.dock.always-on": {
-    "label": "Dock 常駐"
-  },
-  "appearance.dock.position": {
-    "label": "Dock 位置"
-  },
-  "appearance.dock.position.top": {
-    "label": "頂部 Dock"
-  },
-  "appearance.dock.position.bottom": {
-    "label": "底部 Dock"
-  },
-  "appearance.dock.position.left": {
-    "label": "左側 Dock"
-  },
-  "appearance.dock.position.right": {
-    "label": "右側 Dock"
-  },
   "appearance.workspace-layout": {
     "label": "工作區配置",
     "title": "預設工作區配置"

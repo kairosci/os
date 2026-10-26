@@ -176,30 +176,6 @@
   "appearance.branding.screensaver.default": {
     "label": "Taasta vaikimisi"
   },
-  "appearance.dock": {
-    "label": "Dokk"
-  },
-  "appearance.dock.autohide": {
-    "label": "Doki autopeitmine"
-  },
-  "appearance.dock.always-on": {
-    "label": "Alati nähtav dokk"
-  },
-  "appearance.dock.position": {
-    "label": "Doki asukoht"
-  },
-  "appearance.dock.position.top": {
-    "label": "Ülemine dokk"
-  },
-  "appearance.dock.position.bottom": {
-    "label": "Alumine dokk"
-  },
-  "appearance.dock.position.left": {
-    "label": "Vasak dokk"
-  },
-  "appearance.dock.position.right": {
-    "label": "Parem dokk"
-  },
   "appearance.workspace-layout": {
     "label": "Tööala paigutus",
     "title": "Vaikimisi tööala paigutus"

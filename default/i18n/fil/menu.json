@@ -176,30 +176,6 @@
   "appearance.branding.screensaver.default": {
     "label": "Ibalik ang Default"
   },
-  "appearance.dock": {
-    "label": "Dock"
-  },
-  "appearance.dock.autohide": {
-    "label": "Awtomatikong Itago ang Dock"
-  },
-  "appearance.dock.always-on": {
-    "label": "Laging Kita ang Dock"
-  },
-  "appearance.dock.position": {
-    "label": "Posisyon ng Dock"
-  },
-  "appearance.dock.position.top": {
-    "label": "Dock sa Itaas"
-  },
-  "appearance.dock.position.bottom": {
-    "label": "Dock sa Ibaba"
-  },
-  "appearance.dock.position.left": {
-    "label": "Dock sa Kaliwa"
-  },
-  "appearance.dock.position.right": {
-    "label": "Dock sa Kanan"
-  },
   "appearance.workspace-layout": {
     "label": "Layout ng Workspace",
     "title": "Default na Layout ng Workspace"

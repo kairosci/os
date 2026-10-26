@@ -1,5 +1,4 @@
 o.bind("SUPER + SPACE", "Menu", { menu = "root" })
-o.bind("SUPER + ALT + SPACE", "Apps", "arch-shell arch.dock apps")
 o.bind("SUPER + CTRL + E", "Emojis", { panel = "arch.emojis" })
 o.bind("SUPER + CTRL + C", "Capture menu", { menu = "capture" })
 o.bind("SUPER + CTRL + O", "Toggle menu", { menu = "toggle" })

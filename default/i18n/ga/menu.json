@@ -176,30 +176,6 @@
   "appearance.branding.screensaver.default": {
     "label": "Athchóirigh réamhshocrú"
   },
-  "appearance.dock": {
-    "label": "Duga"
-  },
-  "appearance.dock.autohide": {
-    "label": "Uathfholaigh duga"
-  },
-  "appearance.dock.always-on": {
-    "label": "Duga i gcónaí air"
-  },
-  "appearance.dock.position": {
-    "label": "Suíomh duga"
-  },
-  "appearance.dock.position.top": {
-    "label": "Duga barr"
-  },
-  "appearance.dock.position.bottom": {
-    "label": "Duga bun"
-  },
-  "appearance.dock.position.left": {
-    "label": "Duga ar chlé"
-  },
-  "appearance.dock.position.right": {
-    "label": "Duga ar dheis"
-  },
   "appearance.workspace-layout": {
     "label": "Leagan amach oibre",
     "title": "Leagan amach réamhshocraithe"

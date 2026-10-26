@@ -200,30 +200,6 @@
   "appearance.branding.screensaver.default": {
     "label": "Restore Default"
   },
-  "appearance.dock": {
-    "label": "Dock"
-  },
-  "appearance.dock.autohide": {
-    "label": "Auto-hide Dock"
-  },
-  "appearance.dock.always-on": {
-    "label": "Always-on Dock"
-  },
-  "appearance.dock.position": {
-    "label": "Dock Position"
-  },
-  "appearance.dock.position.top": {
-    "label": "Top Dock"
-  },
-  "appearance.dock.position.bottom": {
-    "label": "Bottom Dock"
-  },
-  "appearance.dock.position.left": {
-    "label": "Left Dock"
-  },
-  "appearance.dock.position.right": {
-    "label": "Right Dock"
-  },
   "appearance.workspace-layout": {
     "label": "Workspace Layout",
     "title": "Default Workspace Layout"

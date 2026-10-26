@@ -176,30 +176,6 @@
   "appearance.branding.screensaver.default": {
     "label": "Restaurer défaut"
   },
-  "appearance.dock": {
-    "label": "Dock"
-  },
-  "appearance.dock.autohide": {
-    "label": "Dock auto-masqué"
-  },
-  "appearance.dock.always-on": {
-    "label": "Dock toujours visible"
-  },
-  "appearance.dock.position": {
-    "label": "Position du dock"
-  },
-  "appearance.dock.position.top": {
-    "label": "Dock du haut"
-  },
-  "appearance.dock.position.bottom": {
-    "label": "Dock du bas"
-  },
-  "appearance.dock.position.left": {
-    "label": "Dock de gauche"
-  },
-  "appearance.dock.position.right": {
-    "label": "Dock de droite"
-  },
   "appearance.workspace-layout": {
     "label": "Disposition des espaces",
     "title": "Disposition d'espace par défaut"

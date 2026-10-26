@@ -176,30 +176,6 @@
   "appearance.branding.screensaver.default": {
     "label": "Rejesha chaguomsingi"
   },
-  "appearance.dock": {
-    "label": "Dock"
-  },
-  "appearance.dock.autohide": {
-    "label": "Ficha Dock kiotomatiki"
-  },
-  "appearance.dock.always-on": {
-    "label": "Dock wa daima"
-  },
-  "appearance.dock.position": {
-    "label": "Nafasi ya Dock"
-  },
-  "appearance.dock.position.top": {
-    "label": "Dock wa juu"
-  },
-  "appearance.dock.position.bottom": {
-    "label": "Dock wa chini"
-  },
-  "appearance.dock.position.left": {
-    "label": "Dock wa kushoto"
-  },
-  "appearance.dock.position.right": {
-    "label": "Dock wa kulia"
-  },
   "appearance.workspace-layout": {
     "label": "Mpangilio wa nafasi ya kazi",
     "title": "Mpangilio chaguomsingi wa nafasi ya kazi"
