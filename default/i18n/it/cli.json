@@ -143,6 +143,11 @@
   "plugin.replacedByClone": "Il plugin originale è stato sostituito dal clone.",
   "preinstalls.confirmRemove": "Vuoi davvero rimuovere tutte le web app, i wrapper TUI e le applicazioni desktop preinstallate?",
   "preinstalls.confirmRestore": "Vuoi davvero ripristinare tutte le web app, i wrapper TUI e le applicazioni desktop preinstallate?",
+  "refreshConfig.invalidPath": "Usa un percorso relativo semplice per il file di configurazione: %1",
+  "refreshConfig.notShipped": "Configurazione utente non inclusa nel sistema: %1",
+  "refreshConfig.replaced": "Sostituito %1 con la configurazione predefinita.\nBackup salvato in %2.\n\nModifiche:",
+  "refreshConfig.unsafePath": "Il percorso esce dalla directory di configurazione consentita: %1",
+  "refreshConfig.usage": "Uso: %1 <percorso-configurazione>\n\nIndica un percorso relativo semplice, per esempio hypr/hyprland.lua.",
   "reminder.cleared": "Tutti i promemoria sono stati cancellati",
   "reminder.count": {
     "many": "%1 promemoria",
