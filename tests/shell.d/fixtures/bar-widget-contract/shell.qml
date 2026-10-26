@@ -98,7 +98,6 @@ ShellRoot {
     if (typeof item.setting === "function") {
       root.assertEqual(item.setting("missing", "fallback"), "fallback", entry.id + " exposes setting fallback")
     }
-
     safeCall(item, "refresh", entry)
     safeCall(item, "close", entry)
 

@@ -1,7 +1,0 @@
-#!/bin/bash
-
-# arch:summary=Reload opencode configuration (used by the Arch theme switching).
-
-if pgrep -x opencode >/dev/null; then
-  killall -SIGUSR2 opencode
-fi

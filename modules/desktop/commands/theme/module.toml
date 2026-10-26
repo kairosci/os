@@ -21,20 +21,16 @@ sources = [
   "src/cli/arch-theme-set",
   "src/cli/arch-theme-set-browser",
   "src/cli/arch-theme-set-browser-policy",
-  "src/cli/arch-theme-set-claude",
   "src/cli/arch-theme-set-fcitx5",
   "src/cli/arch-theme-set-foot",
   "src/cli/arch-theme-set-glass",
   "src/cli/arch-theme-set-gnome",
   "src/cli/arch-theme-set-herdr-machines",
-  "src/cli/arch-theme-set-hermes",
   "src/cli/arch-theme-set-hunk",
   "src/cli/arch-theme-set-keyboard",
   "src/cli/arch-theme-set-keyboard-asus-rog",
   "src/cli/arch-theme-set-keyboard-f16",
   "src/cli/arch-theme-set-obsidian",
-  "src/cli/arch-theme-set-pi",
-  "src/cli/arch-theme-set-t3code",
   "src/cli/arch-theme-set-templates",
   "src/cli/arch-theme-set-tmux",
   "src/cli/arch-theme-set-vscode",
@@ -120,10 +116,6 @@ source = "src/cli/arch-theme-set-browser-policy"
 target = "usr/share/arch/src/cli/arch-theme-set-browser-policy"
 
 [[output]]
-source = "src/cli/arch-theme-set-claude"
-target = "usr/share/arch/src/cli/arch-theme-set-claude"
-
-[[output]]
 source = "src/cli/arch-theme-set-fcitx5"
 target = "usr/share/arch/src/cli/arch-theme-set-fcitx5"
 
@@ -144,10 +136,6 @@ source = "src/cli/arch-theme-set-herdr-machines"
 target = "usr/share/arch/src/cli/arch-theme-set-herdr-machines"
 
 [[output]]
-source = "src/cli/arch-theme-set-hermes"
-target = "usr/share/arch/src/cli/arch-theme-set-hermes"
-
-[[output]]
 source = "src/cli/arch-theme-set-hunk"
 target = "usr/share/arch/src/cli/arch-theme-set-hunk"
 
@@ -166,14 +154,6 @@ target = "usr/share/arch/src/cli/arch-theme-set-keyboard-f16"
 [[output]]
 source = "src/cli/arch-theme-set-obsidian"
 target = "usr/share/arch/src/cli/arch-theme-set-obsidian"
-
-[[output]]
-source = "src/cli/arch-theme-set-pi"
-target = "usr/share/arch/src/cli/arch-theme-set-pi"
-
-[[output]]
-source = "src/cli/arch-theme-set-t3code"
-target = "usr/share/arch/src/cli/arch-theme-set-t3code"
 
 [[output]]
 source = "src/cli/arch-theme-set-templates"

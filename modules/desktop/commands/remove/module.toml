@@ -2,15 +2,6 @@ id = "desktop.commands.remove"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/cli/arch-remove-ai-chatgpt",
-  "src/cli/arch-remove-ai-claude",
-  "src/cli/arch-remove-ai-grok-bot",
-  "src/cli/arch-remove-ai-hermes",
-  "src/cli/arch-remove-ai-lm-studio",
-  "src/cli/arch-remove-ai-ollama",
-  "src/cli/arch-remove-ai-openclaw",
-  "src/cli/arch-remove-ai-perplexity",
-  "src/cli/arch-remove-ai-t3-code",
   "src/cli/arch-remove-browser",
   "src/cli/arch-remove-dev-env",
   "src/cli/arch-remove-dictation-superwhisper",
@@ -38,42 +29,6 @@ sources = [
   "src/cli/arch-remove-service-tailscale",
 ]
 requires = ["desktop.commands"]
-
-[[output]]
-source = "src/cli/arch-remove-ai-chatgpt"
-target = "usr/share/arch/src/cli/arch-remove-ai-chatgpt"
-
-[[output]]
-source = "src/cli/arch-remove-ai-claude"
-target = "usr/share/arch/src/cli/arch-remove-ai-claude"
-
-[[output]]
-source = "src/cli/arch-remove-ai-grok-bot"
-target = "usr/share/arch/src/cli/arch-remove-ai-grok-bot"
-
-[[output]]
-source = "src/cli/arch-remove-ai-hermes"
-target = "usr/share/arch/src/cli/arch-remove-ai-hermes"
-
-[[output]]
-source = "src/cli/arch-remove-ai-lm-studio"
-target = "usr/share/arch/src/cli/arch-remove-ai-lm-studio"
-
-[[output]]
-source = "src/cli/arch-remove-ai-ollama"
-target = "usr/share/arch/src/cli/arch-remove-ai-ollama"
-
-[[output]]
-source = "src/cli/arch-remove-ai-openclaw"
-target = "usr/share/arch/src/cli/arch-remove-ai-openclaw"
-
-[[output]]
-source = "src/cli/arch-remove-ai-perplexity"
-target = "usr/share/arch/src/cli/arch-remove-ai-perplexity"
-
-[[output]]
-source = "src/cli/arch-remove-ai-t3-code"
-target = "usr/share/arch/src/cli/arch-remove-ai-t3-code"
 
 [[output]]
 source = "src/cli/arch-remove-browser"

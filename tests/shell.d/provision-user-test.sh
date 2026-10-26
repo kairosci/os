@@ -27,21 +27,11 @@ HOME="$test_tmp/home" PATH="$mock_bin:$ROOT/src/cli:$PATH" ARCH_PATH="$ROOT" \
   ARCH_INSTALL="$test_tmp/installer" bash "$ROOT/src/cli/arch-provision-user" >/dev/null ||
   fail "arch-provision-user finishes"
 
-for skill in arch diagnose-crash; do
-  link="$test_tmp/home/.gemini/config/skills/$skill"
-  [[ -L $link && $(readlink "$link") == "$ROOT/default/agents/skills/$skill" ]] ||
-    fail "arch-provision-user provisions the $skill skill for Antigravity"
-
-  link="$test_tmp/home/.hermes/skills/$skill"
-  [[ -L $link && $(readlink "$link") == "$ROOT/default/agents/skills/$skill" ]] ||
-    fail "arch-provision-user provisions the $skill skill for Hermes"
-
-  link="$test_tmp/home/.hermes/profiles/james/skills/$skill"
-  [[ -L $link && $(readlink "$link") == "$ROOT/default/agents/skills/$skill" ]] ||
-    fail "arch-provision-user provisions the $skill skill for a Hermes profile"
-done
-
-pass "arch-provision-user provisions Antigravity and Hermes skills"
+[[ ! -e $test_tmp/home/.agents/skills && ! -e $test_tmp/home/.claude/skills &&
+  ! -e $test_tmp/home/.codex/skills && ! -e $test_tmp/home/.pi/agent/skills &&
+  ! -e $test_tmp/home/.gemini/config/skills && ! -e $test_tmp/home/.hermes/skills ]] ||
+  fail "arch-provision-user still creates agent skill directories"
+pass "arch-provision-user does not provision agent skill directories"
 
 for dir in DOWNLOAD:Downloads PICTURES:Pictures VIDEOS:Videos DOCUMENTS:Documents MUSIC:Music; do
   grep -qxF "xdg-user-dirs-update --set ${dir%%:*} $test_tmp/home/${dir#*:}" "$TEST_COMMAND_LOG" ||

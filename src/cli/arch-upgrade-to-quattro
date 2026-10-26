@@ -2040,14 +2040,6 @@ done
 repair_sleep_lock_unit_override
 install_bash_startup
 
-mkdir -p "$HOME/.agents/skills" "$HOME/.claude/skills" "$HOME/.codex/skills" "$HOME/.pi/agent/skills"
-if [[ -d $root/default/agents/skills/arch ]]; then
-  ln -sfn "$root/default/agents/skills/arch" "$HOME/.agents/skills/arch"
-  ln -sfn "$root/default/agents/skills/arch" "$HOME/.claude/skills/arch"
-  ln -sfn "$root/default/agents/skills/arch" "$HOME/.codex/skills/arch"
-  ln -sfn "$root/default/agents/skills/arch" "$HOME/.pi/agent/skills/arch"
-fi
-
 mkdir -p "$HOME/.local/state/arch/toggles/hypr"
 if [[ -f $root/default/hypr/toggles/flags.lua ]]; then
   cp "$root/default/hypr/toggles/flags.lua" "$HOME/.local/state/arch/toggles/hypr/"

@@ -13,15 +13,6 @@ local box = 2
 
 local SCRATCHPAD = "special:scratchpad"
 
--- Seed the console with the default agent the first time it opens, rather than
--- at boot, so nothing is running until it is wanted. The exec rule has to pin
--- the workspace itself: Hyprland only tags a spawn with the workspace it came
--- from while misc.initial_workspace_tracking is on, and looknfeel turns it off.
--- os ships without a default agent, and arch-agent exits without
--- opening anything when none is set, so until one is picked this just opens an
--- empty console.
-local seed = "[workspace special:scratchpad silent] arch-agent"
-
 -- Dimming only applies while a special workspace is open, so the console gets
 -- its separation from the workspace underneath without costing anything the
 -- rest of the time.
@@ -56,7 +47,6 @@ local function cover(side, bottom)
     -- is already set apart by the dimming behind it.
     no_border = true,
 
-    on_created_empty = seed,
   })
 
   return true

@@ -1,9 +1,0 @@
-id = "system.settings.user-configs.opencode"
-domain = "system"
-package = "arch-settings"
-sources = ["config/opencode"]
-requires = ["system.settings"]
-
-[[output]]
-source = "config/opencode"
-target = "usr/share/arch/config/opencode"

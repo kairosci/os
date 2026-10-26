@@ -14,7 +14,7 @@ printf '%s\n' "$*" >>"$ARCH_TEST_THEME_CALLS"
 SH
 chmod +x "$mock_bin/arch-theme-set"
 
-for command in arch-theme-set-pi arch-theme-set-fcitx5; do
+for command in arch-theme-set-fcitx5; do
   cat >"$mock_bin/$command" <<'SH'
 #!/bin/bash
 exit 0

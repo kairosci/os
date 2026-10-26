@@ -13,7 +13,6 @@ sources = [
   "src/cli/arch-launch-terminal-with-presentation",
   "src/cli/arch-launch-nautilus",
   "src/cli/arch-launch-nautilus-cwd",
-  "src/cli/arch-launch-openclaw",
   "src/cli/arch-launch-or-focus",
   "src/cli/arch-launch-or-focus-tui",
   "src/cli/arch-launch-or-focus-webapp",
@@ -72,10 +71,6 @@ target = "usr/share/arch/src/cli/arch-launch-nautilus"
 [[output]]
 source = "src/cli/arch-launch-nautilus-cwd"
 target = "usr/share/arch/src/cli/arch-launch-nautilus-cwd"
-
-[[output]]
-source = "src/cli/arch-launch-openclaw"
-target = "usr/share/arch/src/cli/arch-launch-openclaw"
 
 [[output]]
 source = "src/cli/arch-launch-or-focus"
