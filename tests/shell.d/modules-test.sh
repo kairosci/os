@@ -59,6 +59,11 @@ command_sources = {
 cli_files = {
     f"src/cli/{path.name}" for path in cli_directory.iterdir() if path.is_file()
 }
+python_cli_files = {
+    f"src/python/{path.relative_to(cli_directory.parent / 'python').as_posix()}"
+    for path in (cli_directory.parent / "python/cli").rglob("*.py")
+    if path.name != "__init__.py"
+}
 cli_files -= {
     "src/cli/arch-debug",
     "src/cli/arch-debug-idle",
@@ -104,7 +109,8 @@ assert stages <= modules.keys(), stages - modules.keys()
 assert settings <= modules.keys(), settings - modules.keys()
 assert runtime_data <= modules.keys(), runtime_data - modules.keys()
 assert set(command_modules) == expected_groups, (set(command_modules) ^ expected_groups)
-assert command_sources == cli_files, (cli_files - command_sources, command_sources - cli_files)
+expected_command_sources = cli_files | python_cli_files
+assert command_sources == expected_command_sources, (expected_command_sources - command_sources, command_sources - expected_command_sources)
 assert declared_default_sources == expected_default_sources, (
     expected_default_sources - declared_default_sources,
     declared_default_sources - expected_default_sources,
