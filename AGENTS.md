@@ -1,22 +1,22 @@
 # Task Guides
 
-Deeper instructions for specific kinds of work live in `agents/skills/`. Read the
+Deeper instructions for specific kinds of work live in `.agents/skills/`. Read the
 matching guide before starting:
 
-- [`agents/skills/command-metadata.md`](agents/skills/command-metadata.md) - adding or changing commands in `src/cli/`
-- [`agents/skills/install-scripts.md`](agents/skills/install-scripts.md) - working under `installer/` or on system/user setup commands
-- [`agents/skills/mise-tools.md`](agents/skills/mise-tools.md) - adding or changing mise-managed tools
-- [`agents/skills/shell-dev.md`](agents/skills/shell-dev.md) - editing the Quickshell desktop under `src/shell/`
-- [`agents/skills/icon-font.md`](agents/skills/icon-font.md) - adding branded glyphs to `default/fonts/arch/arch.ttf`
-- [`agents/skills/acceptance-tests.md`](agents/skills/acceptance-tests.md) - writing or running graphical acceptance tests under `tests/acceptance.d/`
-- [`agents/skills/visual-verification.md`](agents/skills/visual-verification.md) - verifying any change with a visual effect in the running UI
-- [`agents/skills/migrations.md`](agents/skills/migrations.md) - creating or changing migrations under `migrations/`
+- [`.agents/skills/command-metadata.md`](.agents/skills/command-metadata.md) - adding or changing commands in `src/cli/`
+- [`.agents/skills/install-scripts.md`](.agents/skills/install-scripts.md) - working under `installer/` or on system/user setup commands
+- [`.agents/skills/mise-tools.md`](.agents/skills/mise-tools.md) - adding or changing mise-managed tools
+- [`.agents/skills/shell-dev.md`](.agents/skills/shell-dev.md) - editing the Quickshell desktop under `src/shell/`
+- [`.agents/skills/icon-font.md`](.agents/skills/icon-font.md) - adding branded glyphs to `default/fonts/arch/arch.ttf`
+- [`.agents/skills/acceptance-tests.md`](.agents/skills/acceptance-tests.md) - writing or running graphical acceptance tests under `tests/acceptance.d/`
+- [`.agents/skills/visual-verification.md`](.agents/skills/visual-verification.md) - verifying any change with a visual effect in the running UI
+- [`.agents/skills/migrations.md`](.agents/skills/migrations.md) - creating or changing migrations under `migrations/`
 
 # Documentation Layout
 
 Three documentation trees, split by genre and audience:
 
-- `agents/skills/` - task procedure ("do this when doing X"), for anyone working on the codebase
+- `.agents/skills/` - task procedure ("do this when doing X"), for anyone working on the codebase
 - `docs/` - reference on how the system is shaped (file layout, update pipeline, theming, shell architecture), for anyone working on the codebase; skills link here for depth
 - `docs/user/` - end-user documentation for using Arch, published; never codebase internals
 
@@ -93,7 +93,7 @@ The experience should be the same on every platform. When a package or feature i
 
 # Privileged Commands
 
-- Follow the "Privilege Escalation" section of `default/agents/skills/arch/SKILL.md`. It draws the
+- Follow the "Privilege Escalation" section of `default/.agents/skills/arch/SKILL.md`. It draws the
   `sudo`/`pkexec` line by whether the caller has a terminal to enter a password in, and the repo's
   own scripts follow it.
 
@@ -119,7 +119,7 @@ Exceptions are allowed for migration and package-helper scripts where the helper
 
 # Background Work
 
-- Long-running code (the shell, daemons, watchers) reacts to events instead of polling with a timer. Polling is the last resort, for state with no change signal; [`agents/skills/shell-dev.md`](agents/skills/shell-dev.md) lists the event sources and the push-refresh pattern.
+- Long-running code (the shell, daemons, watchers) reacts to events instead of polling with a timer. Polling is the last resort, for state with no change signal; [`.agents/skills/shell-dev.md`](.agents/skills/shell-dev.md) lists the event sources and the push-refresh pattern.
 - `tests/shell.d/shell-idle-spawn-test.sh` fails when an idle shell starts any process, and other tests hold the router, menu guards and theme switch to budgets; see "Performance guards" in [`docs/testing.md`](docs/testing.md).
 
 # Menu
@@ -168,10 +168,10 @@ When to add a test. A test earns its place only by catching a regression nothing
 New Arch shell tests should live in `tests/shell.d/*-test.sh` so `./tests/shell` picks them up automatically. Source `tests/shell.d/base-test.sh` for shared root-path discovery, assertions, and Node test helpers.
 
 The graphical acceptance suite runs in a disposable VM, not in the active
-development session; see [`agents/skills/acceptance-tests.md`](agents/skills/acceptance-tests.md).
+development session; see [`.agents/skills/acceptance-tests.md`](.agents/skills/acceptance-tests.md).
 
 Visual changes must be verified in the running UI in addition to automated
-tests; follow [`agents/skills/visual-verification.md`](agents/skills/visual-verification.md).
+tests; follow [`.agents/skills/visual-verification.md`](.agents/skills/visual-verification.md).
 
 # Refresh Pattern
 

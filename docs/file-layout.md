@@ -24,7 +24,7 @@ Two other packages live in `arch-pkgs` but stand alone:
 setup; independently seeds `/etc/skel`).
 
 Some trees ship in neither package and exist only in the repo: `docs/user/`
-(user manual chapters), `agents/skills/` (contributor task guides), `docs/`,
+(user manual chapters), `.agents/skills/` (contributor task guides), `docs/`,
 `tests/`, and `plans/`.
 
 Three layers populate `$HOME`:
@@ -289,7 +289,7 @@ deferred first-boot provisioning.
 
 ## Migrations (`arch-migrate`)
 
-See [`migrations.md`](../agents/skills/migrations.md) for the full migration model, authoring
+See [`migrations.md`](../.agents/skills/migrations.md) for the full migration model, authoring
 guidelines, and troubleshooting notes.
 
 Arch migrations live in `migrations/*.sh` and run per-user through
