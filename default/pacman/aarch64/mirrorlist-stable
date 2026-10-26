@@ -1,3 +1,2 @@
-# os's mirror of Arch Linux ARM, over HTTPS since the repository databases
-# are unsigned. It keeps Arch Linux ARM's $arch/$repo layout.
-Server = https://arm-stable-mirror.github.com/kairosci/os/$arch/$repo
+# Official Arch Linux ARM GeoIP mirror.
+Server = http://mirror.archlinuxarm.org/$arch/$repo
