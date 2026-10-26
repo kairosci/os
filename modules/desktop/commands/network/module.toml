@@ -6,11 +6,12 @@ sources = [
   "src/cli/arch-network-captive-portal",
   "src/cli/arch-network-password",
   "src/cli/arch-network-qr",
+  "src/python/cli/network/qr.py",
   "src/cli/arch-network-speedtest",
   "src/cli/arch-network-status",
   "src/cli/arch-network-wifi-connected",
 ]
-requires = ["desktop.commands"]
+requires = ["desktop.commands", "system.runtime-data"]
 
 [[output]]
 source = "src/cli/arch-network-band"
@@ -27,6 +28,10 @@ target = "usr/share/arch/src/cli/arch-network-password"
 [[output]]
 source = "src/cli/arch-network-qr"
 target = "usr/share/arch/src/cli/arch-network-qr"
+
+[[output]]
+source = "src/python/cli/network/qr.py"
+target = "usr/share/arch/src/python/cli/network/qr.py"
 
 [[output]]
 source = "src/cli/arch-network-speedtest"

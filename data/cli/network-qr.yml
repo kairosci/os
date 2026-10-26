@@ -1,0 +1,61 @@
+encoding: utf-8
+commands:
+  i18n: [arch-i18n]
+  ip_route_get: [ip, route, get]
+  nmcli_device_status: [nmcli, -t, -f, 'DEVICE,TYPE,STATE', device, status]
+  nmcli_uuid: [nmcli, --get-values, GENERAL.CON-UUID, device, show]
+  nmcli_connection_fields: [nmcli, --show-secrets, --escape, no, --get-values, '802-11-wireless.ssid,802-11-wireless-security.key-mgmt,802-11-wireless-security.psk,802-11-wireless.hidden,802-11-wireless-security.wep-key0', connection, show, uuid]
+  qrencode: [qrencode, --type, ASCII, --margin, '4', --output, -]
+environment:
+  stable_locale: {LC_ALL: C}
+interface:
+  pattern: '^[A-Za-z0-9_.:-]{1,15}$'
+network:
+  route_target: 1.1.1.1
+  wireless_type: wifi
+  connected_prefix: connected
+  empty_nmcli_value: '--'
+  no_key_management: none
+  hidden_value: 'yes'
+  enterprise_markers: [eap, ieee8021x]
+  security: {wpa: WPA, wep: WEP, open: nopass}
+paths:
+  wireless_class_template: /sys/class/net/{interface}/wireless
+patterns:
+  route_device: '(?:^|\s)dev\s+([^\s]+)'
+  route_device_group: 1
+arguments:
+  meta_flag: --meta
+formats:
+  nmcli_separator: ':'
+  nmcli_field_limit: 2
+  nmcli_field_count: 3
+  connection_field_count: 5
+  maximum_interfaces: 1
+  metadata_template: "meta\t{interface}\t{security}\t{ssid}"
+encoding:
+  payload_template: 'WIFI:T:{security};S:{ssid};P:{password};'
+  hidden_suffix: 'H:true;'
+  terminator: ';'
+  escapes:
+    - {character: '\', replacement: '\\'}
+    - {character: ';', replacement: '\;'}
+    - {character: ',', replacement: '\,'}
+    - {character: ':', replacement: '\:'}
+  ascii_pair_width: 2
+  ascii_filled: '#'
+  matrix_on: '1'
+  matrix_off: '0'
+messages:
+  usage: networkQr.usage
+  no_connection: networkQr.noConnection
+  ssid_unavailable: networkQr.ssidUnavailable
+  enterprise_network: networkQr.enterprise
+  password_unavailable: networkQr.passwordUnavailable
+  connection_unavailable: networkQr.connectionUnavailable
+  generation_failed: networkQr.generationFailed
+  configuration_invalid: networkQr.configurationInvalid
+statuses:
+  success: 0
+  failure: 1
+  configuration_failure: 78
