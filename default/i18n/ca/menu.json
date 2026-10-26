@@ -176,30 +176,6 @@
   "appearance.branding.screensaver.default": {
     "label": "Restableix el defecte"
   },
-  "appearance.dock": {
-    "label": "Dock"
-  },
-  "appearance.dock.autohide": {
-    "label": "Amaga el Dock"
-  },
-  "appearance.dock.always-on": {
-    "label": "Dock sempre visible"
-  },
-  "appearance.dock.position": {
-    "label": "Posició del Dock"
-  },
-  "appearance.dock.position.top": {
-    "label": "Dock superior"
-  },
-  "appearance.dock.position.bottom": {
-    "label": "Dock inferior"
-  },
-  "appearance.dock.position.left": {
-    "label": "Dock esquerre"
-  },
-  "appearance.dock.position.right": {
-    "label": "Dock dret"
-  },
   "appearance.workspace-layout": {
     "label": "Disposició dels espais",
     "title": "Disposició per defecte dels espais"

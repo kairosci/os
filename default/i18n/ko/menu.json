@@ -176,30 +176,6 @@
   "appearance.branding.screensaver.default": {
     "label": "기본값 복원"
   },
-  "appearance.dock": {
-    "label": "독"
-  },
-  "appearance.dock.autohide": {
-    "label": "독 자동 숨기기"
-  },
-  "appearance.dock.always-on": {
-    "label": "독 항상 표시"
-  },
-  "appearance.dock.position": {
-    "label": "독 위치"
-  },
-  "appearance.dock.position.top": {
-    "label": "상단 독"
-  },
-  "appearance.dock.position.bottom": {
-    "label": "하단 독"
-  },
-  "appearance.dock.position.left": {
-    "label": "왼쪽 독"
-  },
-  "appearance.dock.position.right": {
-    "label": "오른쪽 독"
-  },
   "appearance.workspace-layout": {
     "label": "워크스페이스 레이아웃",
     "title": "기본 워크스페이스 레이아웃"

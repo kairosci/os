@@ -176,30 +176,6 @@
   "appearance.branding.screensaver.default": {
     "label": "Restabilește implicit"
   },
-  "appearance.dock": {
-    "label": "Dock"
-  },
-  "appearance.dock.autohide": {
-    "label": "Ascunde dock automat"
-  },
-  "appearance.dock.always-on": {
-    "label": "Dock permanent"
-  },
-  "appearance.dock.position": {
-    "label": "Poziție dock"
-  },
-  "appearance.dock.position.top": {
-    "label": "Dock sus"
-  },
-  "appearance.dock.position.bottom": {
-    "label": "Dock jos"
-  },
-  "appearance.dock.position.left": {
-    "label": "Dock stânga"
-  },
-  "appearance.dock.position.right": {
-    "label": "Dock dreapta"
-  },
   "appearance.workspace-layout": {
     "label": "Aranjare spații",
     "title": "Aranjare implicită spații"

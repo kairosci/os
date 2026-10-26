@@ -430,8 +430,6 @@ var GUARD_READERS = [
   "arch-default-terminal",
   "arch-default-dictation",
   "arch-dns",
-  "arch-dock autohide",
-  "arch-dock position",
   "arch-hyprland-corners",
   "arch-hyprland-window-transparency",
   "arch-hyprland-workspace-layout-default",

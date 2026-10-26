@@ -22,7 +22,6 @@ sources = [
   "src/cli/arch-hyprland-toggle-enabled",
   "src/cli/arch-hyprland-window-close-all",
   "src/cli/arch-hyprland-window-gaps-toggle",
-  "src/cli/arch-hyprland-window-minimize",
   "src/cli/arch-hyprland-window-single-square-aspect-toggle",
   "src/cli/arch-hyprland-window-tiled-fullscreen-toggle",
   "src/cli/arch-hyprland-window-transparency",
@@ -113,10 +112,6 @@ target = "usr/share/arch/src/cli/arch-hyprland-window-close-all"
 [[output]]
 source = "src/cli/arch-hyprland-window-gaps-toggle"
 target = "usr/share/arch/src/cli/arch-hyprland-window-gaps-toggle"
-
-[[output]]
-source = "src/cli/arch-hyprland-window-minimize"
-target = "usr/share/arch/src/cli/arch-hyprland-window-minimize"
 
 [[output]]
 source = "src/cli/arch-hyprland-window-single-square-aspect-toggle"

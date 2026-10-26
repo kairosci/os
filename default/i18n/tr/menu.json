@@ -176,30 +176,6 @@
   "appearance.branding.screensaver.default": {
     "label": "Varsayılanı Geri Yükle"
   },
-  "appearance.dock": {
-    "label": "Dock"
-  },
-  "appearance.dock.autohide": {
-    "label": "Otomatik Gizle"
-  },
-  "appearance.dock.always-on": {
-    "label": "Her Zaman Açık"
-  },
-  "appearance.dock.position": {
-    "label": "Dock Konumu"
-  },
-  "appearance.dock.position.top": {
-    "label": "Üst Dock"
-  },
-  "appearance.dock.position.bottom": {
-    "label": "Alt Dock"
-  },
-  "appearance.dock.position.left": {
-    "label": "Sol Dock"
-  },
-  "appearance.dock.position.right": {
-    "label": "Sağ Dock"
-  },
   "appearance.workspace-layout": {
     "label": "Çalışma Alanı Düzeni",
     "title": "Varsayılan Çalışma Alanı Düzeni"

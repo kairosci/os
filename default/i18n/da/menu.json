@@ -176,30 +176,6 @@
   "appearance.branding.screensaver.default": {
     "label": "Gendan standard"
   },
-  "appearance.dock": {
-    "label": "Dock"
-  },
-  "appearance.dock.autohide": {
-    "label": "Skjul dock automatisk"
-  },
-  "appearance.dock.always-on": {
-    "label": "Altid synlig dock"
-  },
-  "appearance.dock.position": {
-    "label": "Dockplacering"
-  },
-  "appearance.dock.position.top": {
-    "label": "Øverste dock"
-  },
-  "appearance.dock.position.bottom": {
-    "label": "Nederste dock"
-  },
-  "appearance.dock.position.left": {
-    "label": "Venstre dock"
-  },
-  "appearance.dock.position.right": {
-    "label": "Højre dock"
-  },
   "appearance.workspace-layout": {
     "label": "Arbejdsområdelayout",
     "title": "Standard arbejdsområdelayout"

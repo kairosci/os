@@ -176,30 +176,6 @@
   "appearance.branding.screensaver.default": {
     "label": "Standaard herstellen"
   },
-  "appearance.dock": {
-    "label": "Dock"
-  },
-  "appearance.dock.autohide": {
-    "label": "Dock auto-verbergen"
-  },
-  "appearance.dock.always-on": {
-    "label": "Dock altijd zichtbaar"
-  },
-  "appearance.dock.position": {
-    "label": "Dockpositie"
-  },
-  "appearance.dock.position.top": {
-    "label": "Dock boven"
-  },
-  "appearance.dock.position.bottom": {
-    "label": "Dock onder"
-  },
-  "appearance.dock.position.left": {
-    "label": "Dock links"
-  },
-  "appearance.dock.position.right": {
-    "label": "Dock rechts"
-  },
   "appearance.workspace-layout": {
     "label": "Werkbladindeling",
     "title": "Standaard werkbladindeling"

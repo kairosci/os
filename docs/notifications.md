@@ -52,7 +52,7 @@ At startup one process makes the directory and those files; a symlink in place o
 
 ## Icons
 
-Icons are resolved in the shell, the way the dock resolves its own, by each card (`Toast.qml`, with the names from `Icons.js`). The first that loads wins:
+Icons are resolved in the shell by each card (`Toast.qml`, with the names from `Icons.js`). The first that loads wins:
 
 1. The sender's image: an in-memory `image-data` picture (`image://qsimage/…`), or a local file named by the `image-path` hint.
 2. The icon theme (`Quickshell.iconPath`): for a browser notification the site's own names first (`app.slack.com`, then `slack`), then the app's icon hint (or its `desktop-entry` hint), source and name. An icon of your own under one of those names in `~/.local/share/icons/hicolor/` is found here, unless the active theme has its own by that name.

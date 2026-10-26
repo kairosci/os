@@ -176,30 +176,6 @@
   "appearance.branding.screensaver.default": {
     "label": "Відновити типові"
   },
-  "appearance.dock": {
-    "label": "Dock"
-  },
-  "appearance.dock.autohide": {
-    "label": "Автоприховування Dock"
-  },
-  "appearance.dock.always-on": {
-    "label": "Завжди видимий Dock"
-  },
-  "appearance.dock.position": {
-    "label": "Положення Dock"
-  },
-  "appearance.dock.position.top": {
-    "label": "Dock зверху"
-  },
-  "appearance.dock.position.bottom": {
-    "label": "Dock знизу"
-  },
-  "appearance.dock.position.left": {
-    "label": "Dock ліворуч"
-  },
-  "appearance.dock.position.right": {
-    "label": "Dock праворуч"
-  },
   "appearance.workspace-layout": {
     "label": "Схема робочого простору",
     "title": "Типова схема робочого простору"

@@ -37,7 +37,6 @@ User-installed plugins live alongside these conceptually but on disk under
 | Lock screen   | `arch.lock`            | `service`               | `lock/Service.qml`                    |
 | OSD           | `arch.osd`             | `panel`                 | `osd/Osd.qml`                         |
 | Polkit agent  | `arch.polkit`          | `service`               | `polkit/PolkitAgent.qml`              |
-| Dock          | `arch.dock`            | `service`               | `dock/Dock.qml`                       |
 
 First-party bar-only widgets also carry manifests next to their QML files,
 e.g. `bar/widgets/Workspaces.manifest.json`. Rich popup widgets live in their
@@ -97,12 +96,6 @@ Theme-aware authentication dialog for privileged actions. It uses
 Quickshell's native `Quickshell.Services.Polkit.PolkitAgent` backend and
 runs inside the long-lived `arch-shell` process, replacing the old
 `polkit-gnome-authentication-agent-1` autostart.
-
-## Dock
-
-App dock available across workspaces and hidden behind a fullscreen window. `arch-shell arch.dock apps` toggles its grid of every app.
-
-Its settings live in the `dock:` subtree of `shell.json`: `position` (`top`, `bottom`, `left` or `right`) and `pinned` (desktop ids). A `shell.json` without pins uses the defaults. `archctl dock` sets both.
 
 ## os menu
 

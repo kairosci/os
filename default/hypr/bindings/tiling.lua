@@ -28,7 +28,6 @@ end
 o.bind("SUPER + S", "Toggle scratchpad", hl.dsp.workspace.toggle_special("scratchpad"))
 o.bind("SUPER + ALT + S", "Move window to scratchpad", hl.dsp.window.move({ workspace = "special:scratchpad", follow = false }))
 o.bind("SUPER + grave", "Toggle scratchpad", hl.dsp.workspace.toggle_special("scratchpad"))
-o.bind("SUPER + M", "Minimize window to the dock", "arch-hyprland-window-minimize")
 o.bind("SUPER + SHIFT + grave", "Move window to scratchpad", hl.dsp.window.move({ workspace = "special:scratchpad", follow = false }))
 
 o.bind("SUPER + TAB", "Next workspace", hl.dsp.focus({ workspace = "m+1" }))

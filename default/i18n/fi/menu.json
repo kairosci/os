@@ -176,30 +176,6 @@
   "appearance.branding.screensaver.default": {
     "label": "Palauta oletus"
   },
-  "appearance.dock": {
-    "label": "Telakka"
-  },
-  "appearance.dock.autohide": {
-    "label": "Piilota Dock automaattisesti"
-  },
-  "appearance.dock.always-on": {
-    "label": "Dock aina näkyvissä"
-  },
-  "appearance.dock.position": {
-    "label": "Dockin sijainti"
-  },
-  "appearance.dock.position.top": {
-    "label": "Dock ylhäällä"
-  },
-  "appearance.dock.position.bottom": {
-    "label": "Dock alhaalla"
-  },
-  "appearance.dock.position.left": {
-    "label": "Dock vasemmalla"
-  },
-  "appearance.dock.position.right": {
-    "label": "Dock oikealla"
-  },
   "appearance.workspace-layout": {
     "label": "Työtilan asettelu",
     "title": "Oletustyötilan asettelu"

@@ -176,30 +176,6 @@
   "appearance.branding.screensaver.default": {
     "label": "استعادة الافتراضي"
   },
-  "appearance.dock": {
-    "label": "Dock"
-  },
-  "appearance.dock.autohide": {
-    "label": "إخفاء Dock تلقائيًا"
-  },
-  "appearance.dock.always-on": {
-    "label": "Dock دائم الظهور"
-  },
-  "appearance.dock.position": {
-    "label": "موضع Dock"
-  },
-  "appearance.dock.position.top": {
-    "label": "Dock علوي"
-  },
-  "appearance.dock.position.bottom": {
-    "label": "Dock سفلي"
-  },
-  "appearance.dock.position.left": {
-    "label": "Dock أيسر"
-  },
-  "appearance.dock.position.right": {
-    "label": "Dock أيمن"
-  },
   "appearance.workspace-layout": {
     "label": "تخطيط مساحة العمل",
     "title": "تخطيط مساحة العمل الافتراضي"
