@@ -256,7 +256,7 @@ assert(disagree.length === 0, 'shell and CLI plural rules agree for every langua
 
 assertEqual(['one', 'few', 'many'].map((_, i) => Plural.category('ru', [21, 22, 25][i])).join(), 'one,few,many', 'Russian counts take one, few, and many')
 assertEqual([0, 1, 2, 3, 11, 100].map((n) => Plural.category('ar', n)).join(), 'zero,one,two,few,many,other', 'Arabic counts take all six forms')
-assertEqual(Plural.category('it', 1000000), 'other', 'Italian uses the other form for a million')
+assertEqual(Plural.category('it', 1000000), 'many', 'Italian millions take the many form')
 assertEqual(Plural.categories('ja').join(), 'other', 'Japanese has one form')
 assertEqual(Plural.categories('pl').join(), 'one,few,many,other', 'Polish needs one, few, many, and other')
 assertEqual(Plural.pick({ one: '%1 file', other: '%1 files' }, 'en', 1), '%1 file', 'pick chooses the form for the count')
