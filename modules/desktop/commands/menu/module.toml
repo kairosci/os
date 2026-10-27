@@ -7,7 +7,6 @@ sources = [
   "src/cli/arch-menu-emoji",
   "src/cli/arch-menu-emoji-insert",
   "src/cli/arch-menu-file",
-  "src/cli/arch-menu-herdr-keybindings",
   "src/cli/arch-menu-images",
   "src/cli/arch-menu-input",
   "src/cli/arch-menu-keybindings",
@@ -38,10 +37,6 @@ target = "usr/share/arch/src/cli/arch-menu-emoji-insert"
 [[output]]
 source = "src/cli/arch-menu-file"
 target = "usr/share/arch/src/cli/arch-menu-file"
-
-[[output]]
-source = "src/cli/arch-menu-herdr-keybindings"
-target = "usr/share/arch/src/cli/arch-menu-herdr-keybindings"
 
 [[output]]
 source = "src/cli/arch-menu-images"

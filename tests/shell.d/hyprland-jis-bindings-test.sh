@@ -106,7 +106,7 @@ assert_fires "the JIS + key zooms Obsidian in with Ctrl + ^" \
 assert_fires "the JIS + key zooms the Obsidian Flatpak in with Ctrl + ^" \
   $'send CTRL asciicircum down\nsend CTRL asciicircum up' "$zoom" "md.obsidian.Obsidian"
 
-# The prefix bind has to pass Ctrl + Space on, or tmux and Herdr never see it.
+# The prefix bind has to pass Ctrl + Space on, or tmux never sees it.
 # Fcitx never toggles on it (configure --defaults removes it from its keys), so
 # a terminal can always return to direct input first.
 prefix="CTRL + SPACE"

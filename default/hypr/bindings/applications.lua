@@ -10,7 +10,6 @@ o.bind("SUPER + SHIFT + N", "Editor", { arch = "editor" })
 if o.preinstalled_bindings_enabled() then
   -- Bindings for preinstalled os applications, TUIs, and web apps.
   o.bind("SUPER + ALT + RETURN", "Tmux", { arch = "terminal-tmux" })
-  o.bind("SUPER + CTRL + RETURN", "Herdr", { arch = "terminal-herdr" })
   o.bind("SUPER + SHIFT + Q", "Calculator", "omacalc")
   o.bind("XF86Calculator", "Calculator", "omacalc")
   o.bind("SUPER + SHIFT + M", "Music", { arch = "spotify" })

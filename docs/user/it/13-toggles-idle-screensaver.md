@@ -15,7 +15,6 @@ Da terminale, gli stessi interruttori sono `archctl toggle <thing>`. Esegui `arc
 | Resta attivo (nessun blocco su inattività) | `Super + Ctrl + I` | `archctl toggle idle` |
 | Cattura crash | — | `archctl toggle crash-capture` |
 | Salvaschermo | — | `archctl toggle screensaver` |
-| Sincronia tema [Herdr](https://herdr.dev) | — | `archctl toggle theme sync` |
 | Barra menu | `Super + Shift + Space` | `archctl toggle bar` |
 | Touchpad | `XF86TouchpadToggle` | `archctl toggle touchpad` |
 | Touchscreen | — | `archctl toggle touchscreen` |

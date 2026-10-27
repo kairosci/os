@@ -69,7 +69,7 @@ chmod +x "$commands/retint" "$commands/noop"
 for command in "$ROOT"/src/cli/arch-restart-* "$ROOT"/src/cli/arch-theme-set-* arch-hook arch-theme-bg-cache; do
   ln -sf retint "$commands/${command##*/}"
 done
-for command in arch-theme-set-templates arch-theme-set-herdr-machines; do
+for command in arch-theme-set-templates; do
   ln -sf noop "$commands/$command"
 done
 cat >"$commands/arch-notification-send" <<'STUB'
