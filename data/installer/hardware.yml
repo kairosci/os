@@ -43,6 +43,14 @@ intel_panther_lake_fred:
   content: "# Intel Panther Lake FRED support\nKERNEL_CMDLINE[default]+=\" fred=on\"\n"
   install_command: [sudo, install, -D, -m, '0644']
 
+intel_wifi7_eht_workaround:
+  pci_command: [lspci, -nn]
+  device_pattern: '\[8086:(e440|272b)\]'
+  target: /etc/modprobe.d/iwlwifi-disable-eht.conf
+  mode: '0644'
+  content: "# Temporary fix Dell XPS 14/16 on Panther lake\n# Disable WiFi 7 (EHT) on Intel BE200/BE211 — broken RX rate adaptation\n# Remove this file when fixes land in the iwlwifi EHT data path\noptions iwlwifi disable_11be=Y\n"
+  statuses: {complete: 0, failed: 1}
+
 qualcomm_camera:
   check_command: [arch-hw-aarch64-qualcomm]
   package_command: [arch-pkg-add]
