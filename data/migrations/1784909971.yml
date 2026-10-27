@@ -1,0 +1,12 @@
+commands:
+  i18n: [arch-i18n]
+  install: [arch-mise-install]
+paths:
+  wrapper_dir: .local/bin
+patterns:
+  package: '^mise use -g "(.*)"$'
+  binary: '^exec "(.*)" "\$@"$'
+messages:
+  reason: migration.regenerateLegacyMiseWrappers
+statuses:
+  success: 0
