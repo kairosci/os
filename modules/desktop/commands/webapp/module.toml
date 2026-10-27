@@ -2,7 +2,6 @@ id = "desktop.commands.webapp"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/cli/arch-webapp-handler-hey",
   "src/cli/arch-webapp-handler-zoom",
   "src/cli/arch-webapp-install",
   "src/cli/arch-webapp-remove",
@@ -10,10 +9,6 @@ sources = [
   "src/cli/arch-webapp-window-class",
 ]
 requires = ["desktop.commands"]
-
-[[output]]
-source = "src/cli/arch-webapp-handler-hey"
-target = "usr/share/arch/src/cli/arch-webapp-handler-hey"
 
 [[output]]
 source = "src/cli/arch-webapp-handler-zoom"
