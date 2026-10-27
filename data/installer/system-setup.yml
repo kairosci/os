@@ -72,3 +72,19 @@ locale_setup:
       leaving: 'La locale resta {locale}'
       setting: 'Configurazione della locale ({locale})...'
       set: 'Locale impostata su {locale}'
+
+language_setup:
+  marker_environment: ARCH_LANGUAGE_MARKER
+  marker_default: /etc/arch/language
+  fallback_marker: /etc/arch/language
+  locales_file_environment: ARCH_LOCALES_JSON
+  locales_file_default: default/i18n/locales.json
+  code_pattern: '^[a-z]{2,3}(-[A-Z]{2})?$'
+  language_environment: LANG
+  default_language: en
+  generator_command: ['{arch_path}/src/cli/arch-locale-generate']
+  messages:
+    en:
+      invalid: 'Ignoring an invalid language in {marker}: {code}'
+    it:
+      invalid: 'Lingua non valida ignorata in {marker}: {code}'
