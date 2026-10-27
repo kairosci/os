@@ -12,9 +12,9 @@ BarWidget {
   moduleName: "arch.workspaces"
 
   // Every monitor has workspaces 1-10 of its own, which Hyprland numbers in a
-  // block of ten per monitor: 1-10, 11-20, and so on (see
-  // default/hypr/monitor-workspaces.lua). Each bar shows its own monitor's block,
-  // numbered 1-10, and the one that monitor shows, whichever monitor has focus.
+  // block of ten per monitor (see default/hypr/monitor-workspaces.lua). Each
+  // bar shows the actual workspace numbers in its monitor's block and the one
+  // that monitor shows, whichever monitor has focus.
   readonly property int slots: 10
 
   readonly property var monitor: {
@@ -54,16 +54,16 @@ BarWidget {
     return (id - 1) % root.slots + 1
   }
 
-  function activeWorkspaceId() {
-    return root.monitor && root.monitor.activeWorkspace ? root.monitor.activeWorkspace.id : -1
-  }
+  readonly property int activeId: root.monitor && root.monitor.activeWorkspace
+    ? root.monitor.activeWorkspace.id
+    : -1
 
   // Until Hyprland has written the file, the workspace a monitor shows is in
   // its own block.
   readonly property int block: {
     var block = root.blocks[root.monitorName]
     if (block !== undefined) return block
-    var active = root.activeWorkspaceId()
+    var active = root.activeId
     return active > 0 ? root.blockOf(active) : 0
   }
 
@@ -124,7 +124,7 @@ BarWidget {
     // Holds at either end rather than wrapping, so a touchpad swipe that runs
     // long stops on the last workspace.
     var ids = root.workspaceIds()
-    var index = ids.indexOf(root.activeWorkspaceId())
+    var index = ids.indexOf(root.activeId)
     if (index === -1) return
     var target = ids[Util.clamp(index - wheel.steps, 0, ids.length - 1)]
     if (target !== ids[index]) root.focusWorkspace(target)
@@ -176,7 +176,7 @@ BarWidget {
 
         readonly property var workspace: root.workspaceById(modelData)
         readonly property bool occupied: workspace !== null && workspace.toplevels.values.length > 0
-        readonly property bool shown: root.activeWorkspaceId() === modelData
+        readonly property bool shown: root.activeId === modelData
         readonly property int slot: root.slotOf(modelData)
         readonly property bool firstGuest: root.blockOf(modelData) !== root.block && index > 0 && root.blockOf(root.workspaceIds()[index - 1]) === root.block
         required property int index
@@ -186,7 +186,7 @@ BarWidget {
         Layout.topMargin: firstGuest && root.vertical ? Style.space(6) : 0
 
         bar: root.bar
-        text: String(slot)
+        text: String(modelData)
         active: shown
         activeColor: Commons.Color.accent
         useActiveColor: true
