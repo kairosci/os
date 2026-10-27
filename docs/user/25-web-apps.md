@@ -26,18 +26,6 @@ You can start HEY Email using `Super + Shift + E`, jump straight to composing a 
 
 You can start Basecamp using the application launcher (`Super + Space`)
 
-## ChatGPT
-
-[ChatGPT](https://chatgpt.com) is the most popular AI chat bot in the world.
-
-You can start ChatGPT using `Super + Shift + A`.
-
-## Grok
-
-[Grok](https://grok.com) is xAI's chat bot.
-
-You can start Grok using `Super + Shift + Alt + A`.
-
 ## WhatsApp
 
 [WhatsApp](https://www.whatsapp.com/) is one of the most popular messaging services in the world, and the web version is a great option for Linux.

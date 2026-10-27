@@ -1,6 +1,6 @@
 # Scorciatoie
 
-Puoi vedere tutte le principali combinazioni da tastiera con `Super + K` (combinazioni Tmux con `Super + Alt + K` e combinazioni Herdr con `Super + Ctrl + K`).
+Puoi vedere tutte le principali combinazioni da tastiera con `Super + K` (combinazioni Tmux con `Super + Alt + K`).
 
 ## Navigazione
 
@@ -75,7 +75,6 @@ Puoi vedere tutte le principali combinazioni da tastiera con `Super + K` (combin
 | `Super + Ctrl + Q` | Calcolatrice |
 | `Super + Ctrl + E` | Selettore emoji |
 | `Super + Ctrl + .` | Converti media |
-| `Super + Shift + Ctrl + A` | Scegli un agente AI |
 
 ## Regolazioni
 
@@ -96,7 +95,6 @@ Puoi vedere tutte le principali combinazioni da tastiera con `Super + K` (combin
 | ----------------------- | --------------------- |
 | `Super + Return`           | Terminale    |
 | `Super + Alt + Return` | Terminale Tmux |
-| `Super + Ctrl + Return` | Herdr (gestore agenti) |
 | `Super + Shift + Return`           | Browser    |
 | `Super + Shift + Alt + B`           | Browser (privato/in incognito)    |
 | `Super + Shift + F`           | Gestore file    |
@@ -108,8 +106,6 @@ Puoi vedere tutte le principali combinazioni da tastiera con `Super + K` (combin
 | `Super + Shift + C`           | Calendario ([HEY](https://hey.com/))  |
 | `Super + Shift + E`           | Email ([HEY](https://hey.com/))  |
 | `Super + Shift + Alt + E`           | Nuova email ([HEY](https://hey.com/))  |
-| `Super + Shift + A`           | AI (ChatGPT)  |
-| `Super + Shift + Alt + A`           | AI (Grok)  |
 | `Super + Shift + G`           | Messenger (Signal)  |
 | `Super + Shift + P`           | Google Photos  |
 | `Super + Shift + S`           | Google Maps  |
@@ -271,9 +267,6 @@ Queste funzioni devono essere eseguite dentro una sessione Tmux.
 
 | Comando | Funzione |
 | ------- | -------- |
-| `tdl <ai> [<second_ai>]` | Crea layout di sviluppo con editor, AI e terminale |
-| `tdlm <ai> [<second_ai>]` | Crea layout di sviluppo per sottocartella |
-| `tsl <count> <command>` | Crea layout sciame multi-pannello |
 
 ## Terminale Ghostty
 

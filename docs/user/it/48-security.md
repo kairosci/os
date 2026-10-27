@@ -20,7 +20,7 @@ Funziona ripristinando lo snapshot di base che il programma di installazione cre
 
 ## Sudo senza password
 
-A volte vuoi che `sudo` smetta di chiedere, più spesso quando un agente IA sta facendo per te un lungo tratto di lavoro di sistema. _Impostazioni > Sicurezza > Sudo senza password_ chiede per quanto tempo consentire l'accesso: **15 minuti**, **1 ora**, **1 giorno** o **Permanentemente**. Accanto agli altri indicatori della barra dei menu compare un'icona di avviso rossa mentre l'accesso è attivo. Fai clic su di essa o esegui di nuovo il comando per disattivare l'accesso. Puoi anche passare un tuo numero di minuti (da 1 a 1440) con `arch-sudo-passwordless 30`, oppure usare `arch-sudo-passwordless permanent`.
+_Impostazioni > Sicurezza > Sudo senza password_ chiede per quanto tempo consentire l'accesso: **15 minuti**, **1 ora**, **1 giorno** o **Permanentemente**. Accanto agli altri indicatori della barra dei menu compare un'icona di avviso rossa mentre l'accesso è attivo. Fai clic su di essa o esegui di nuovo il comando per disattivare l'accesso. Puoi anche passare un tuo numero di minuti (da 1 a 1440) con `arch-sudo-passwordless 30`, oppure usare `arch-sudo-passwordless permanent`.
 
 L'accesso a tempo scade automaticamente, anche subito dopo la ripresa da una sospensione che ha superato la scadenza. Riavviare il computer lo interrompe in anticipo. L'accesso permanente sopravvive ai riavvii e resta attivo finché non lo disattivi.
 

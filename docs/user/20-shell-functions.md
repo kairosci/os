@@ -12,17 +12,6 @@ Arch comes with a set of shell functions to simplify common tasks and encapsulat
 - `iso2sd [image.iso]`: Create a bootable drive on an SD card using the referenced iso file and picking the drive interactively.
 - `format-drive [device] [name]`: Format an entire disk with a single exFAT partition (which works on Windows and macOS too). Run it without arguments to see the available drives. Be careful!
 
-## Dev layouts
-
-Instant multi-pane development layouts for tmux:
-
-- `tdl [ai]`: Create a Tmux Dev Layout with your editor, an AI agent, and a terminal. Use the agent aliases, like `tdl c` for opencode or `tdl cx` for Claude Code, or pass a second agent to run both, like `tdl c cx`.
-- `tds`: Create a Tmux Dev Square with editor, diff watching (via `hunk diff --watch`), terminal, and opencode.
-- `tdlm [ai]`: Create a `tdl` window for every subdirectory in the current directory.
-- `tsl [count] [command]`: Create a swarm of panes tiled in a grid, all running the same command (great for AI agents).
-
-The same layouts are available for Herdr as `hdl`, `hds`, `hdlm`, and `hsl`.
-
 ## Git worktrees
 
 - `ga [branch]`: Create a new worktree and branch next to the current repository and jump into it.
