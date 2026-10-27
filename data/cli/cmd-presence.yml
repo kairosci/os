@@ -1,0 +1,7 @@
+commands:
+  missing:
+    any_missing: 0
+    all_present: 1
+  present:
+    any_missing: 1
+    all_present: 0
