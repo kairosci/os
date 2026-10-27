@@ -6,8 +6,10 @@ system_installs_dir = "~/.local/share/mise/installs"
 system_shims_dir = "~/.local/share/mise/shims"
 
 [tools]
+basecamp = { version = "latest", lazy = true, minimum_release_age = "0s" }
 gh = { version = "latest", lazy = true, minimum_release_age = "0s" }
 ghui = { version = "latest", lazy = true, minimum_release_age = "0s" }
+hey-cli = { version = "latest", lazy = true, minimum_release_age = "0s" }
 node = { version = "latest", lazy = true, minimum_release_age = "0s" }
 "npm:cf" = { version = "latest", lazy = true, lazy_bins = ["cf"], minimum_release_age = "0s" }
 playwright = { version = "latest", lazy = true, minimum_release_age = "0s" }
