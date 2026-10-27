@@ -1,0 +1,22 @@
+firewall:
+  rules:
+    - [ufw, default, deny, incoming]
+    - [ufw, default, allow, outgoing]
+    - [ufw, allow, 53317/udp]
+    - [ufw, allow, 53317/tcp]
+    - [ufw, allow, in, proto, udp, from, 172.16.0.0/12, to, 172.17.0.1, port, '53', comment, allow-docker-dns]
+    - [ufw, allow, in, proto, udp, from, 192.168.0.0/16, to, 172.17.0.1, port, '53', comment, allow-docker-dns]
+  docker:
+    executable: ufw-docker
+    install_arguments: [install]
+    path_pattern: '^PATH=.*$'
+    search_path: [/bin, /usr/bin, /sbin, /usr/sbin, /snap/bin]
+    status_command: [ufw, status]
+    active_status: 'Status: active'
+    executable_command: [/usr/bin/ufw]
+  configuration:
+    path: /etc/ufw/ufw.conf
+    environment_override: ARCH_UFW_CONFIG
+    enabled_pattern: '^ENABLED=.*$'
+    enabled_replacement: ENABLED=yes
+  enable_command: [systemctl, enable, ufw]

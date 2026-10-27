@@ -26,15 +26,6 @@ if ! ufw status 2>/dev/null | grep -Fq 'Status: active'; then
 fi
 STUB
 
-cat >"$stub_dir/sed" <<'STUB'
-#!/bin/bash
-printf 'sed %s\n' "$*" >>"$TEST_LOG"
-if [[ ${1:-} == 0,/^PATH=* ]]; then
-  exec /usr/bin/sed "$@"
-fi
-exit 0
-STUB
-
 cat >"$stub_dir/systemctl" <<'STUB'
 #!/bin/bash
 printf 'systemctl %s\n' "$*" >>"$TEST_LOG"
@@ -43,7 +34,9 @@ STUB
 chmod +x "$stub_dir"/*
 
 export TEST_LOG="$stub_dir/firewall.log"
-PATH="$stub_dir:$PATH" bash -eE -c 'source "$1"' bash "$ROOT/installer/config/firewall.sh"
+printf 'ENABLED=no\n' >"$stub_dir/ufw.conf"
+ARCH_PATH="$ROOT" ARCH_UFW_CONFIG="$stub_dir/ufw.conf" PATH="$stub_dir:$PATH" \
+  python3 -I "$ROOT/src/python/installer/system_setup/firewall.py"
 
 grep -q '^ufw-docker install$' "$TEST_LOG" || fail "ufw-docker rules are installed"
 grep -q '^systemctl enable ufw$' "$TEST_LOG" || fail "ufw is enabled for next boot"

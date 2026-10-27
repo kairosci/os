@@ -11,5 +11,5 @@ run_logged "$ARCH_PATH/src/python/installer/system_setup/systemd_boot_snapshots.
 run_logged "$ARCH_PATH/src/python/installer/system_setup/snapper_setup.py"
 run_logged "$ARCH_INSTALL/config/systemd-boot-kernel.sh"
 run_logged "$ARCH_PATH/src/python/installer/system_setup/enable_services.py"
-run_logged "$ARCH_INSTALL/config/firewall.sh"
+run_logged "$ARCH_PATH/src/python/installer/system_setup/firewall.py"
 run_logged "$ARCH_PATH/src/python/installer/system_setup/branding.py"
