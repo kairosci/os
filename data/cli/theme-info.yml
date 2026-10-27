@@ -1,0 +1,26 @@
+paths:
+  state_home_environment: XDG_STATE_HOME
+  state_home_default: "{home}/.local/state"
+  theme_name_file: "{state_home}/arch/current/theme.name"
+  user_themes: "{home}/.config/arch/themes"
+  bundled_themes: "{arch_path}/assets/themes"
+theme_name:
+  pattern: '(^|-)([a-z])'
+  prefix_group: 1
+  uppercase_group: 2
+  hyphen: '-'
+  separator: ' '
+theme_id_pattern: '^[A-Za-z0-9][A-Za-z0-9._-]*$'
+messages:
+  default_language: en
+  supported_languages: [en, it]
+  all_locale_environment: LC_ALL
+  locale_environment: LC_MESSAGES
+  fallback_environment: LANG
+  locale_separators: ['.', '_', '@']
+  usage:
+    en: "Usage: arch-theme-dir <theme-name>"
+    it: "Uso: arch-theme-dir <nome-tema>"
+  unknown:
+    en: Unknown
+    it: Sconosciuto

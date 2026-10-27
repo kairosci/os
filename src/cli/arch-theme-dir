@@ -1,18 +1,15 @@
-#!/bin/bash
+#!/usr/bin/python3 -I
 
 # arch:summary=Print the directory holding a theme, preferring a user-installed copy
 # arch:args=<theme-name>
 # arch:examples=archctl theme dir tokyo-night
 
-theme="${1:-}"
+import os
+from pathlib import Path
+import sys
 
-if [[ -z $theme ]]; then
-  echo "Usage: arch-theme-dir <theme-name>" >&2
-  exit 1
-fi
+sys.path.insert(0, str(Path(os.environ["ARCH_PATH"]) / "src/python"))
+from cli.theme_info import theme_dir_main
 
-if [[ -d $HOME/.config/arch/themes/$theme ]]; then
-  echo "$HOME/.config/arch/themes/$theme"
-else
-  echo "$ARCH_PATH/assets/themes/$theme"
-fi
+
+raise SystemExit(theme_dir_main(sys.argv[1:]))
