@@ -13,9 +13,9 @@ source = "src/cli/arch-channel-current"
 target = "usr/share/arch/src/cli/arch-channel-current"
 
 [[output]]
-source = "src/python/cli/channel.py"
-target = "usr/share/arch/src/python/cli/channel.py"
-
-[[output]]
 source = "src/cli/arch-channel-set"
 target = "usr/share/arch/src/cli/arch-channel-set"
+
+[[output]]
+source = "src/python/cli/channel.py"
+target = "usr/share/arch/src/python/cli/channel.py"
