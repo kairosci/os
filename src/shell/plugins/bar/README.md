@@ -8,7 +8,7 @@ the shell for its whole session.
 - `manifest.json` declares the plugin (`id: arch.bar`, `kind: bar`) and points at `Bar.qml` as the entry point.
 - `Bar.qml` is os-owned bar engine code, loaded by the arch-shell host. Users should not edit it directly.
 - `widgets/` holds simple first-party bar widgets with sibling manifests.
-- Feature plugins such as `../panels/audio/`, `../panels/network/`, `../panels/power/`, and `../agents/` provide richer popup bar plugins.
+- Feature plugins such as `../panels/audio/`, `../panels/network/`, and `../panels/power/` provide richer popup bar plugins.
 - The bar receives its config from the host shell as a `barConfig` property; the host loads it from `~/.config/arch/shell.json` (or `config/arch/shell.json` when the user has no file).
 - `archctl bar position` updates only the user shell.json file.
 
@@ -69,7 +69,6 @@ Example `shell.json` (bar subtree only shown):
 | `arch.audio` | Volume icon + popup with master slider, output-device picker, per-app mixer | left = popup · right = mute · middle = popup · scroll = volume |
 | `arch.network` | Wi-Fi/Ethernet icon + popup with Wi-Fi scan, signal, connect, DNS provider selection | left = popup |
 | `arch.tailscale` | Tailscale status, connection switcher, machine browser, and copy actions | left = popup · right = toggle · middle = refresh |
-| `arch.agents` | AI coding agent limits with pace, today, last week, and all-time model breakdown | left = panel · right = launch agent · middle = next subscription |
 | `arch.power` | Battery/AC icon + popup with battery stats, power profiles, and system info | left = popup · right = toggle percentage |
 | `arch.bluetooth` | Bluetooth icon + popup with device list, connect/disconnect, battery | left = popup · right = toggle radio |
 | `arch.monitor` | Brightness and laptop display controls | left = popup |

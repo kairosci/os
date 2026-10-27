@@ -28,7 +28,6 @@ User-installed plugins live alongside these conceptually but on disk under
 | Network       | `arch.network`         | `bar-widget`            | `panels/network/Panel.qml`            |
 | Power         | `arch.power`           | `bar-widget`            | `panels/power/Panel.qml`              |
 | Tailscale     | `arch.tailscale`       | `bar-widget`            | `panels/tailscale/Panel.qml`          |
-| Agents   | `arch.agents`     | `bar-widget`            | `agents/Panel.qml`               |
 | Weather       | `arch.weather`         | `bar-widget`            | `panels/weather/BarWidget.qml`        |
 | Media         | `arch.media`           | `service`, `bar-widget` | `services/media/Service.qml`, `services/media/BarWidget.qml` |
 | Battery       | `arch.battery`         | `service`               | `services/battery/Service.qml`        |

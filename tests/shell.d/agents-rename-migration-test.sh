@@ -69,8 +69,23 @@ pass "migration primes the usage data files"
 
 before=$(sha256sum "$config")
 run_migration
-[[ $before == $(sha256sum "$config") ]] || fail "migration is idempotent" "$(cat "$config")"
-pass "migration is idempotent"
+[[ $before == $(sha256sum "$config") ]] || fail "legacy migration is idempotent" "$(cat "$config")"
+pass "legacy migration is idempotent"
+
+retire_migration="$ROOT/migrations/1793067182.sh"
+bash -euo pipefail "$retire_migration" >/dev/null
+[[ $(jq -c '.bar.layout.right' "$config") == '[{"id":"arch.tray"}]' ]] ||
+  fail "retirement removes the agent widget but preserves other layout entries" "$(cat "$config")"
+[[ $(jq -c '.bar.layout.center' "$config") == '[]' ]] ||
+  fail "retirement removes string-form agent widget entries" "$(cat "$config")"
+[[ $(jq -c '.disabledPlugins' "$config") == '["arch.weather"]' ]] ||
+  fail "retirement removes the obsolete disabled plugin id" "$(cat "$config")"
+pass "retirement removes the obsolete agent widget from existing shell configs"
+
+before=$(sha256sum "$config")
+bash -euo pipefail "$retire_migration" >/dev/null
+[[ $before == $(sha256sum "$config") ]] || fail "widget retirement is idempotent" "$(cat "$config")"
+pass "widget retirement is idempotent"
 
 # A config the migration cannot parse is left alone rather than truncated.
 printf '{ not json' >"$config"
