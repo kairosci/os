@@ -1,0 +1,4 @@
+commands:
+  list_devices: [arch-capture-webcam-list]
+output:
+  trailing_newline: "\n"

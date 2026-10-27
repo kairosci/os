@@ -42,9 +42,10 @@ sources = [
   "src/cli/arch-hw-vm",
   "src/cli/arch-hw-vulkan",
   "src/cli/arch-hw-webcam",
+  "src/python/cli/webcam.py",
   "src/cli/arch-hw-x86",
 ]
-requires = ["desktop.commands"]
+requires = ["desktop.commands", "system.runtime-data"]
 
 [[output]]
 source = "src/cli/arch-hw-aarch64"
@@ -205,6 +206,10 @@ target = "usr/share/arch/src/cli/arch-hw-vulkan"
 [[output]]
 source = "src/cli/arch-hw-webcam"
 target = "usr/share/arch/src/cli/arch-hw-webcam"
+
+[[output]]
+source = "src/python/cli/webcam.py"
+target = "usr/share/arch/src/python/cli/webcam.py"
 
 [[output]]
 source = "src/cli/arch-hw-x86"
