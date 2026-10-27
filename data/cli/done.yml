@@ -1,0 +1,25 @@
+default_language: en
+directory: .local/state/arch/done
+mode: "0666"
+argument_counts:
+  exact: 3
+actions: [check, mark, ensure]
+actions_map:
+  check: check
+  mark: mark
+  ensure: ensure
+invalid_names: [., ..]
+exit_codes:
+  usage: 1
+  invalid_name: 1
+  incomplete: 1
+  operation_failed: 1
+messages:
+  en:
+    usage: 'Usage: arch-done <check|mark|ensure> <name>'
+    invalid_name: 'Invalid done marker name: {name}'
+    operation_failed: 'Could not update completion marker: {path}'
+  it:
+    usage: 'Uso: arch-done <check|mark|ensure> <nome>'
+    invalid_name: 'Nome del marker di completamento non valido: {name}'
+    operation_failed: 'Impossibile aggiornare il marker di completamento: {path}'
