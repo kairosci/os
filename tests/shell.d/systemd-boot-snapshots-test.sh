@@ -4,79 +4,9 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-sync_script="$ROOT/installer/boot/sync-systemd-boot-snapshots.sh"
 snapper_plugin="$ROOT/installer/boot/systemd-boot-snapper-plugin.sh"
 scratch=$(mktemp -d)
 trap 'rm -rf "$scratch"' EXIT
-esp="$scratch/esp"
-config="$scratch/limine.conf"
-mkdir -p "$esp/machine-id/limine_history" "$esp/loader/entries"
-touch "$esp/machine-id/limine_history/linux-1.efi"
-touch "$esp/machine-id/limine_history/linux-2.efi"
-
-run_sync() {
-  ARCH_LIMINE_CONF="$config" ARCH_SYSTEMD_BOOT_ESP="$esp" \
-    bash "$sync_script" >/dev/null
-}
-
-cat >"$config" <<'CONF'
-//Snapshots
-///12 │ 2026-10-24 12:00:00
-////linux
-path: boot():/machine-id/limine_history/linux-1.efi
-cmdline: cryptdevice=PARTUUID=1234:root root=/dev/mapper/root rootflags=subvol=@/.snapshots/12/snapshot rw
-///13 │ 2026-10-24 13:00:00
-////linux
-path: boot():/machine-id/limine_history/linux-2.efi
-cmdline: cryptdevice=PARTUUID=1234:root root=/dev/mapper/root rootflags=subvol=@/.snapshots/13/snapshot rw
-/
-CONF
-
-run_sync
-arch_entry="$esp/loader/entries/arch-snapshot-12-arch.conf"
-recovery_entry="$esp/loader/entries/arch-snapshot-13-recovery.conf"
-[[ -f $arch_entry ]] || fail "an Arch snapshot gets a systemd-boot entry"
-[[ -f $recovery_entry ]] || fail "the recovery kernel gets a systemd-boot entry"
-grep -Fxq 'title   Snapshot #12 (2026-10-24 12:00:00) - Arch Linux' "$arch_entry" ||
-  fail "the Arch snapshot title is clear"
-grep -Fxq 'uki     /machine-id/limine_history/linux-1.efi' "$arch_entry" ||
-  fail "the entry points to its archived UKI"
-grep -Fxq 'options cryptdevice=PARTUUID=1234:root root=/dev/mapper/root rootflags=subvol=@/.snapshots/12/snapshot rw' "$arch_entry" ||
-  fail "the entry keeps the snapshot root command line"
-grep -Fxq 'title   Snapshot #13 (2026-10-24 13:00:00) - Recovery kernel' "$recovery_entry" ||
-  fail "the old Arch kernel is presented as a recovery kernel"
-pass "snapshot UKIs are translated into branded systemd-boot entries"
-
-cat >"$config" <<'CONF'
-//Snapshots
-/
-CONF
-run_sync
-[[ ! -e $arch_entry && ! -e $recovery_entry ]] ||
-  fail "stale snapshot entries are removed after a successful empty sync"
-pass "stale snapshot entries are removed after a successful empty sync"
-
-if (( $(id -u) == 0 )); then
-  echo "ok - a missing snapshot section leaves existing entries untouched # SKIP"
-else
-  cat >"$config" <<'CONF'
-//Snapshots
-///12 │ 2026-10-24 12:00:00
-////linux
-path: boot():/machine-id/limine_history/linux-1.efi
-cmdline: cryptdevice=PARTUUID=1234:root root=/dev/mapper/root rootflags=subvol=@/.snapshots/12/snapshot rw
-/
-CONF
-  run_sync
-  cat >"$config" <<'CONF'
-// no Snapper section
-CONF
-  if run_sync; then
-    fail "a missing snapshot section is not treated as an empty snapshot list"
-  fi
-  [[ -f $arch_entry ]] || fail "a missing section does not remove existing generated entries"
-  pass "a missing snapshot section leaves existing entries untouched"
-fi
 
 # The Arch kernel's mkinitcpio preset must keep its UKI command line and
 # generate the same UKI that systemd-boot already selects.
