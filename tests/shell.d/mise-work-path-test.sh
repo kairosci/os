@@ -93,8 +93,10 @@ env \
   MISE_TEST_LOG="$install_log" \
   ARCH_SETUP_CONTEXT=runtime \
   PATH="$test_dir/bin:/usr/bin" \
-  bash -euo pipefail -c 'source "$1"' bash "$ROOT/installer/user/mise-work.sh"
+  ARCH_PATH="$ROOT" python3 -I "$ROOT/src/python/installer_user/setup/work_directories.py"
 
+grep -Fq 'run_logged "$ARCH_PATH/src/python/installer_user/setup/work_directories.py"' "$ROOT/installer/user/all.sh" ||
+  fail "user setup runs the Python work directory module"
 [[ -d $install_home/Work/tries ]] || fail "installer creates the work and tries directories"
 [[ ! -e $install_home/Work/.mise.toml ]] || fail "installer does not create a trusted Work Mise config"
 [[ ! -e $install_log ]] || fail "installer leaves Node to the lazy system declaration"
