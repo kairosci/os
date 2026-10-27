@@ -56,3 +56,9 @@ wireless_regdom:
   zone_table_country_column: 0
   zone_table_timezone_column: 2
   line_template: 'WIRELESS_REGDOM="{country}"'
+apple_keyboard_fkeys:
+  config_environment: ARCH_HID_APPLE_CONF
+  config_default: /etc/modprobe.d/hid_apple.conf
+  apple_predicate: [arch-hw-aarch64-apple]
+  content: "options hid_apple fnmode=2\n"
+  mode: '0644'

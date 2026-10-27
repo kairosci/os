@@ -38,8 +38,8 @@ SH
 chmod +x "$stub_bin"/*
 
 run_fkeys() {
-  APPLE_SILICON="$1" ARCH_HID_APPLE_CONF="$conf" PATH="$stub_bin:$PATH" TEST_LOG="$calls" \
-    bash -eE -o pipefail -c 'source "$1"' _ "$ROOT/installer/hardware/fix-fkeys.sh"
+  APPLE_SILICON="$1" ARCH_PATH="$ROOT" ARCH_HID_APPLE_CONF="$conf" PATH="$stub_bin:$PATH" TEST_LOG="$calls" \
+    python3 -I "$ROOT/src/python/installer/hardware/apple_keyboard_fkeys.py"
 }
 
 run_fkeys 0
