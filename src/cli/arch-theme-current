@@ -1,12 +1,14 @@
-#!/bin/bash
+#!/usr/bin/python3 -I
 
 # arch:summary=Show current theme
 # arch:examples=archctl theme current
 
-THEME_NAME_PATH="$HOME/.local/state/arch/current/theme.name"
+import os
+from pathlib import Path
+import sys
 
-if [[ -f $THEME_NAME_PATH ]]; then
-  sed -E 's/(^|-)([a-z])/\1\u\2/g; s/-/ /g' "$THEME_NAME_PATH"
-else
-  echo "Unknown"
-fi
+sys.path.insert(0, str(Path(os.environ["ARCH_PATH"]) / "src/python"))
+from cli.theme_info import theme_current_main
+
+
+raise SystemExit(theme_current_main())

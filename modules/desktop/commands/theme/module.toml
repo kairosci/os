@@ -35,8 +35,9 @@ sources = [
   "src/cli/arch-theme-set-vscode",
   "src/cli/arch-theme-switcher",
   "src/cli/arch-theme-update",
+  "src/python/cli/theme_info.py",
 ]
-requires = ["desktop.commands"]
+requires = ["desktop.commands", "system.runtime-data"]
 
 [[output]]
 source = "src/cli/arch-theme-bg-cache"
@@ -73,6 +74,10 @@ target = "usr/share/arch/src/cli/arch-theme-colors-from-alacritty"
 [[output]]
 source = "src/cli/arch-theme-current"
 target = "usr/share/arch/src/cli/arch-theme-current"
+
+[[output]]
+source = "src/python/cli/theme_info.py"
+target = "usr/share/arch/src/python/cli/theme_info.py"
 
 [[output]]
 source = "src/cli/arch-theme-dir"

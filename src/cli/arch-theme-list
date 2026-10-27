@@ -1,9 +1,14 @@
-#!/bin/bash
+#!/usr/bin/python3 -I
 
 # arch:summary=List available themes
 # arch:examples=archctl theme list | archctl theme set "Tokyo Night"
 
-{
-  find ~/.config/arch/themes/ -mindepth 1 -maxdepth 1 \( -type d -o -type l \) -printf '%f\n'
-  find "$ARCH_PATH/assets/themes/" -mindepth 1 -maxdepth 1 -type d -printf '%f\n'
-} | sort -u | sed -E 's/(^|-)([a-z])/\1\u\2/g; s/-/ /g'
+import os
+from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(os.environ["ARCH_PATH"]) / "src/python"))
+from cli.theme_info import theme_list_main
+
+
+raise SystemExit(theme_list_main())
