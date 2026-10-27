@@ -1,0 +1,20 @@
+commands:
+  i18n: [arch-i18n]
+paths:
+  default_data_directory: .local/share
+  applications_directory: applications
+  desktop_file: Disk Usage.desktop
+desktop:
+  generated_entry:
+    Version: "1.0"
+    Name: Disk Usage
+    Comment: Disk Usage
+    Exec: xdg-terminal-exec --app-id=TUI.float -e dua i
+    Terminal: "false"
+    Type: Application
+    Icon: Disk Usage
+    StartupNotify: "true"
+messages:
+  removed: migration.removeFloatingDiskUsageLauncher
+statuses:
+  success: 0

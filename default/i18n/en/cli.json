@@ -130,6 +130,7 @@
   "migration.installZbar": "Install QR code scanning support",
   "migration.moveKeyboardLayoutWidget": "Move the keyboard layout widget to the right side of the bar",
   "migration.refreshApplications": "Refresh application entries",
+  "migration.removeFloatingDiskUsageLauncher": "Removed the obsolete floating Disk Usage launcher",
   "migration.removeManagedSkillLinks": "Removed %1 Arch-managed agent skill link(s)",
   "migration.removeWorkspaceTitlebars": "Remove obsolete workspace titlebars",
   "migration.replaceSatty": "Replace Satty with Tensaku",
