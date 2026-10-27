@@ -42,6 +42,8 @@ luks_slot_for() {
 # LUKS2 lists keyslots under "Keyslots:", and a luks2-keyring token under
 # "Tokens:" looks the same, so read only the keyslot section.
 luks_dump_slots() {
+  local -
+  set -o pipefail
   cryptsetup luksDump "$1" | awk '
     /^[^ \t]/ { keyslots = ($0 == "Keyslots:") }
     keyslots && /^ +[0-9]+: luks2/ { sub(":", "", $1); print $1 }
