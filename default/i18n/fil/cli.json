@@ -65,7 +65,6 @@
   "corners.sharp": "Matalas na sulok para sa lahat ng tema",
   "crash.captureDisabled": "Naka-disable ang pagsagap ng crash",
   "crash.captureEnabled": "Naka-enable ang pagsagap ng crash",
-  "crash.diagnose": "I-click para ma-diagnose gamit ang AI",
   "crash.processCrashed": "Nag-crash ang proseso: %1",
   "default.browserSet": "Si %1 na ngayon ang default na browser",
   "default.editorSet": "Si %1 na ngayon ang default na editor",

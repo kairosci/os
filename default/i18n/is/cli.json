@@ -65,7 +65,6 @@
   "corners.sharp": "Skerp horn í öllum þemum",
   "crash.captureDisabled": "Hrungrip óvirkt",
   "crash.captureEnabled": "Hrungrip virkjað",
-  "crash.diagnose": "Smelltu til að greina með AI",
   "crash.processCrashed": "Ferli hrundi: %1",
   "default.browserSet": "%1 er nú sjálfgefinn vafri",
   "default.editorSet": "%1 er nú sjálfgefinn ritill",

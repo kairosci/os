@@ -65,7 +65,6 @@
   "corners.sharp": "Scharfe Ecken für alle Themes",
   "crash.captureDisabled": "Absturzerfassung deaktiviert",
   "crash.captureEnabled": "Absturzerfassung aktiviert",
-  "crash.diagnose": "Klicke, um mit KI zu diagnostizieren",
   "crash.processCrashed": "Prozess abgestürzt: %1",
   "default.browserSet": "%1 ist jetzt der Standard-Browser",
   "default.editorSet": "%1 ist jetzt der Standard-Editor",

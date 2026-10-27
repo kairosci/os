@@ -65,7 +65,6 @@
   "corners.sharp": "زوايا حادة لكل السمات",
   "crash.captureDisabled": "عُطّل التقاط الأعطال",
   "crash.captureEnabled": "فُعّل التقاط الأعطال",
-  "crash.diagnose": "انقر للتشخيص بـ AI",
   "crash.processCrashed": "تعطّلت العملية: %1",
   "default.browserSet": "أصبح %1 الآن المتصفح الافتراضي",
   "default.editorSet": "أصبح %1 الآن المحرر الافتراضي",

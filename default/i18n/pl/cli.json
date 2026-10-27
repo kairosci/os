@@ -65,7 +65,6 @@
   "corners.sharp": "Ostre narożniki dla wszystkich motywów",
   "crash.captureDisabled": "Rejestr awarii wyłączony",
   "crash.captureEnabled": "Rejestr awarii włączony",
-  "crash.diagnose": "Kliknij, aby zdiagnozować z AI",
   "crash.processCrashed": "Proces uległ awarii: %1",
   "default.browserSet": "%1 jest teraz domyślną przeglądarką",
   "default.editorSet": "%1 jest teraz domyślnym edytorem",

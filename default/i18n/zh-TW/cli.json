@@ -65,7 +65,6 @@
   "corners.sharp": "所有主題使用直角",
   "crash.captureDisabled": "當機擷取已停用",
   "crash.captureEnabled": "當機擷取已啟用",
-  "crash.diagnose": "點選用 AI 診斷",
   "crash.processCrashed": "處理程序當機：%1",
   "default.browserSet": "%1 已設為預設瀏覽器",
   "default.editorSet": "%1 已設為預設編輯器",

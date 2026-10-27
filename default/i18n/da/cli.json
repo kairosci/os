@@ -65,7 +65,6 @@
   "corners.sharp": "Skarpe hjørner til alle temaer",
   "crash.captureDisabled": "Nedbrudsregistrering deaktiveret",
   "crash.captureEnabled": "Nedbrudsregistrering aktiveret",
-  "crash.diagnose": "Klik for at diagnosticere med AI",
   "crash.processCrashed": "Processen gik ned: %1",
   "default.browserSet": "%1 er nu standardbrowseren",
   "default.editorSet": "%1 er nu standardeditoren",

@@ -65,7 +65,6 @@
   "corners.sharp": "সব থিমে ধারালো কোণ",
   "crash.captureDisabled": "ক্র্যাশ ক্যাপচার বন্ধ",
   "crash.captureEnabled": "ক্র্যাশ ক্যাপচার চালু",
-  "crash.diagnose": "AI দিয়ে ডায়াগনোস করতে ক্লিক করুন",
   "crash.processCrashed": "প্রসেস ক্র্যাশ করেছে: %1",
   "default.browserSet": "%1 এখন ডিফল্ট ব্রাউজার",
   "default.editorSet": "%1 এখন ডিফল্ট এডিটর",

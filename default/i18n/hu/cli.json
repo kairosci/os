@@ -65,7 +65,6 @@
   "corners.sharp": "Éles sarkok minden témánál",
   "crash.captureDisabled": "Összeomlás rögzítése kikapcsolva",
   "crash.captureEnabled": "Összeomlás rögzítése bekapcsolva",
-  "crash.diagnose": "Kattints az AI-diagnózishoz",
   "crash.processCrashed": "Folyamat összeomlott: %1",
   "default.browserSet": "%1 most az alapértelmezett böngésző",
   "default.editorSet": "%1 most az alapértelmezett szerkesztő",

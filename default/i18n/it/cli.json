@@ -65,7 +65,6 @@
   "corners.sharp": "Angoli squadrati per tutti i temi",
   "crash.captureDisabled": "Cattura crash disattivata",
   "crash.captureEnabled": "Cattura crash attivata",
-  "crash.diagnose": "Fai clic per diagnosticare con l'AI",
   "crash.processCrashed": "Processo andato in crash: %1",
   "default.browserSet": "%1 è ora il browser predefinito",
   "default.editorSet": "%1 è ora l'editor predefinito",

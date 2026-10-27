@@ -65,7 +65,6 @@
   "corners.sharp": "Aštrūs kampai visoms temoms",
   "crash.captureDisabled": "Strigčių fiksavimas išjungtas",
   "crash.captureEnabled": "Strigčių fiksavimas įjungtas",
-  "crash.diagnose": "Spustelėkite, kad diagnozuotumėte su AI",
   "crash.processCrashed": "Procesas strigo: %1",
   "default.browserSet": "%1 dabar yra numatytoji naršyklė",
   "default.editorSet": "%1 dabar yra numatytasis redaktorius",

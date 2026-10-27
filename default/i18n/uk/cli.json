@@ -65,7 +65,6 @@
   "corners.sharp": "Гострі кути для всіх тем",
   "crash.captureDisabled": "Перехоплення збоїв вимкнено",
   "crash.captureEnabled": "Перехоплення збоїв увімкнено",
-  "crash.diagnose": "Натисніть, щоб діагностувати зі ШІ",
   "crash.processCrashed": "Процес зазнав збою: %1",
   "default.browserSet": "%1 тепер типовий браузер",
   "default.editorSet": "%1 тепер типовий редактор",

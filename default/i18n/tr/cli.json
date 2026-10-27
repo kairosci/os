@@ -65,7 +65,6 @@
   "corners.sharp": "Tüm temalar için keskin köşeler",
   "crash.captureDisabled": "Çökme yakalama devre dışı",
   "crash.captureEnabled": "Çökme yakalama etkin",
-  "crash.diagnose": "Yapay zekâ ile tanılamak için tıklayın",
   "crash.processCrashed": "İşlem çöktü: %1",
   "default.browserSet": "%1 artık varsayılan tarayıcı",
   "default.editorSet": "%1 artık varsayılan editör",

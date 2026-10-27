@@ -65,7 +65,6 @@
   "corners.sharp": "Coins carrés pour tous les thèmes",
   "crash.captureDisabled": "Capture de crash désactivée",
   "crash.captureEnabled": "Capture de crash activée",
-  "crash.diagnose": "Cliquez pour diagnostiquer avec l'IA",
   "crash.processCrashed": "Processus planté : %1",
   "default.browserSet": "%1 est désormais le navigateur par défaut",
   "default.editorSet": "%1 est désormais l'éditeur par défaut",

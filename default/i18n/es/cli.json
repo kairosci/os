@@ -65,7 +65,6 @@
   "corners.sharp": "Esquinas rectas para todos los temas",
   "crash.captureDisabled": "Captura de fallos desactivada",
   "crash.captureEnabled": "Captura de fallos activada",
-  "crash.diagnose": "Haz clic para diagnosticar con IA",
   "crash.processCrashed": "El proceso falló: %1",
   "default.browserSet": "%1 ahora es el navegador predeterminado",
   "default.editorSet": "%1 ahora es el editor predeterminado",
