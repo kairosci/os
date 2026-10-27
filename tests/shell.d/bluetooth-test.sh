@@ -277,6 +277,6 @@ pass "bluetooth counts a secondary controller as on"
 
 # AutoEnable=false was the old attempt at persistence and never worked. Left set,
 # it would also keep bluetoothd from powering the adapter up after an unblock.
-grep -q 'AutoEnable=false' "$ROOT/installer/hardware/bluetooth.sh" &&
+grep -q 'AutoEnable=false' "$ROOT/data/installer/hardware.yml" &&
   fail "bluetooth install leaves AutoEnable at its default"
 pass "bluetooth install leaves AutoEnable at its default"

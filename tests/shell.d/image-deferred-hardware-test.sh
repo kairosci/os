@@ -569,12 +569,14 @@ pass "the first-boot hardware service runs on the queue before owner setup and t
 # was made, so that boot has to start bluetooth.service itself. Nothing else
 # does: an install or a rerun of hardware setup leaves the service as it finds it.
 bt_fixture="$test_tmp/arch-bluetooth"
-mkdir -p "$bt_fixture/installer/helpers" "$bt_fixture/installer/provisioning" "$bt_fixture/installer/hardware"
+mkdir -p "$bt_fixture/installer/helpers" "$bt_fixture/installer/provisioning" "$bt_fixture/installer/hardware" \
+  "$bt_fixture/src/python/installer/hardware" "$bt_fixture/data/installer"
 cp "$ROOT/installer/helpers/logging.sh" "$ROOT/installer/helpers/image-target.sh" "$bt_fixture/installer/helpers/"
 cp "$unit_source" "$bt_fixture/installer/provisioning/"
-cp "$ROOT/installer/hardware/bluetooth.sh" "$bt_fixture/installer/hardware/"
+cp "$ROOT/src/python/installer/hardware/bluetooth.py" "$bt_fixture/src/python/installer/hardware/"
+cp "$ROOT/data/installer/hardware.yml" "$bt_fixture/data/installer/hardware.yml"
 cp "$fixture/installer/hardware/c.sh" "$bt_fixture/installer/hardware/"
-printf 'run_logged "$ARCH_INSTALL/hardware/%s"\n' bluetooth.sh c.sh >"$bt_fixture/installer/hardware/all.sh"
+printf 'run_logged "$ARCH_PATH/src/python/installer/hardware/bluetooth.py"\nrun_logged "$ARCH_INSTALL/hardware/c.sh"\n' >"$bt_fixture/installer/hardware/all.sh"
 
 bt_bin="$test_tmp/bt-bin"
 mkdir -p "$bt_bin"
