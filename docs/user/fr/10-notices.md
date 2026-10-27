@@ -1,6 +1,14 @@
 # Avis
 
-Vous pouvez accéder rapidement à la date et à l'heure, à l'état de la batterie et à la météo actuelle à l'aide des avis par raccourci clavier.
+## Notifications
+
+Les avis affichent des informations ponctuelles sans ouvrir de panneau. Les codes de vérification peuvent être copiés sans entrer dans l’[historique du presse-papiers](08-unified-clipboard-history.md), puis sont effacés après une minute. Les liens présents dans un avis peuvent être ouverts d’un clic.
+
+L’historique est conservé pendant une journée. Pour modifier cette durée, réglez `historyHours` dans la section `notifications` de `~/.config/arch/shell.json` : `1` pour une heure, `168` pour une semaine ou `0` pour ne rien conserver sur le disque.
+
+## Avis par raccourci clavier
+
+Les raccourcis suivants affichent rapidement la date et l’heure, l’état de la batterie ou la météo actuelle.
 
 ### Date et heure
 

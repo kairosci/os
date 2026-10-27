@@ -92,7 +92,7 @@ Le stesse cose hanno comandi, che è ciò che vuoi per una configurazione [dotfi
 ```bash
 archctl bar position bottom
 archctl bar background glassy  # opaque, glassy, none, or cycle
-archctl bar move arch.clock --section center --index 0
+archctl bar move arch.weather --section centerBegin --index 0
 archctl bar move arch.bluetooth --section tray  # into the tray's drawer
 archctl bar set arch.clock format "HH:mm"
 archctl bar defaults          # back to the shipped layout
@@ -101,7 +101,7 @@ archctl bar defaults          # back to the shipped layout
 Per aggiungere o rimuovere del tutto un widget, usa i comandi plugin. `arch plugin list` stampa ogni widget che la shell conosce con il suo id, e poi:
 
 ```bash
-arch plugin enable arch.media --section center
+arch plugin enable arch.media --section centerEnd
 arch plugin disable arch.weather
 ```
 
@@ -119,10 +119,11 @@ Tutto è memorizzato in `~/.config/arch/shell.json`, sotto la chiave `bar`. Ecco
   "bar": {
     "position": "top",
     "background": "opaque",
-    "centerAnchor": "arch.clock",
     "layout": {
       "left": [{ "id": "arch.menu" }, { "id": "arch.workspaces" }],
+      "centerBegin": [{ "id": "arch.indicators" }],
       "center": [{ "id": "arch.clock", "format": "HH:mm" }],
+      "centerEnd": [{ "id": "arch.weather" }],
       "right": [{ "id": "arch.audio" }, { "id": "arch.power" }]
     }
   }
