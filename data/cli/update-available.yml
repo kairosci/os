@@ -1,0 +1,17 @@
+commands:
+  checkupdates: [checkupdates, --nocolor]
+  i18n: [arch-i18n]
+checkout:
+  system_path: /usr/share/arch
+  git: [git]
+  upstream_args: [rev-parse, --abbrev-ref, --symbolic-full-name, "@{upstream}"]
+  fetch_args: [fetch, --quiet]
+  fetch_timeout_seconds: 10
+  behind_args: [rev-list, --count, "HEAD.."]
+messages:
+  up_to_date: update.available.none
+  checkout: update.available.checkout
+statuses:
+  updates_available: 0
+  no_updates: 1
+  failed: 2
