@@ -41,6 +41,7 @@ sources = [
   "src/cli/arch-hw-touchpad",
   "src/cli/arch-hw-touchscreen",
   "src/cli/arch-hw-vm",
+  "src/python/cli/hardware/virtualization.py",
   "src/cli/arch-hw-vulkan",
   "src/cli/arch-hw-webcam",
   "src/python/cli/webcam.py",
@@ -199,6 +200,10 @@ target = "usr/share/arch/src/cli/arch-hw-touchscreen"
 [[output]]
 source = "src/cli/arch-hw-vm"
 target = "usr/share/arch/src/cli/arch-hw-vm"
+
+[[output]]
+source = "src/python/cli/hardware/virtualization.py"
+target = "usr/share/arch/src/python/cli/hardware/virtualization.py"
 
 [[output]]
 source = "src/cli/arch-hw-vulkan"
