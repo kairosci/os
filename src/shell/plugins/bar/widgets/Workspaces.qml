@@ -204,16 +204,15 @@ BarWidget {
         onWheelMoved: function(delta) { root.scrollWorkspaces(delta) }
 
         Rectangle {
-          // Keep the active marker aligned with its workspace number without
-          // covering the number's baseline.
+          // Place the marker directly under the visible workspace number.
           z: 1
           visible: workspaceButton.shown
           width: Style.space(2)
           height: width
           radius: width / 2
           anchors.horizontalCenter: parent.horizontalCenter
-          anchors.top: parent.top
-          anchors.topMargin: Style.space(1)
+          anchors.bottom: parent.bottom
+          anchors.bottomMargin: Style.space(1)
           color: Commons.Color.accent
         }
       }
