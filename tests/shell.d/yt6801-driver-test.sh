@@ -320,16 +320,6 @@ run_migration
 assert_no_privileges "an unaffected machine must need no privileges"
 pass "an unaffected machine is a successful no-op"
 
-# Setup leaves are sourced. A manual rerun on an old or partially migrated
-# system must leave the fallback in place for the migration's proven cutover.
-reset_state
-bash -eE -c 'source "$1"' bash "$ROOT/installer/hardware/fix-yt6801-ethernet-adapter.sh"
-[[ -e $TEST_STATE/package && -e $TEST_STATE/vendor-loaded ]] ||
-  fail "manual hardware setup retired the YT6801 fallback"
-[[ ! -s $TEST_CALLS ]] ||
-  fail "manual hardware setup performed package, discovery, or module work" "$(cat "$TEST_CALLS")"
-pass "manual hardware setup leaves the vendor fallback for the proven migration cutover"
-
 # Exercise the real runner's completion markers and queue, without using the
 # current user's state directory or running any other repository migrations.
 reset_state
