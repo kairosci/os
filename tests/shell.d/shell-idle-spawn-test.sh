@@ -283,7 +283,7 @@ add_allowances() {
   # Hyprland reports the screencast stopped whenever frames pause, and nothing
   # at all when the server exits.
   if pgrep -x -u "$(id -u)" gliff-server >/dev/null; then
-    allow '/src/shell/plugins/services/remote-session/probe\.sh$' $(( IDLE_WINDOW / 2 + 1 )) \
+    allow '/src/shell/plugins/services/remote-session/probe\.py$' $(( IDLE_WINDOW / 2 + 1 )) \
       "the remote session's 2s check while a session is active"
   fi
 
