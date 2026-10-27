@@ -1,0 +1,16 @@
+install_file: [sudo, install, -Dm644]
+setups:
+  - checks:
+      - [arch-hw-asus-expertbook-b9406]
+      - [arch-hw-asus-zenbook-ux5406aa]
+    target: /etc/limine-entry-tool.d/asus-ptl-display-backlight.conf
+    content: |
+      # ASUS Panther Lake display backlight fix
+      KERNEL_CMDLINE[default]+=" xe.enable_dpcd_backlight=1"
+  - checks:
+      - [arch-hw-asus-expertbook-b9406]
+    target: /etc/limine-entry-tool.d/asus-expertbook-b9406-display.conf
+    content: |
+      # ASUS ExpertBook B9406 (Panther Lake / Xe3) display workaround
+      KERNEL_CMDLINE[default]+=" xe.enable_panel_replay=0"
+statuses: {complete: 0}
