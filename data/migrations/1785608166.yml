@@ -1,0 +1,34 @@
+commands:
+  i18n: [arch-i18n]
+  show_environment: [systemctl, --user, show-environment]
+  daemon_reload: [systemctl, --user, daemon-reload]
+  show_active_state: [systemctl, --user, show, --property=ActiveState, --value]
+  reset_failed: [systemctl, --user, reset-failed]
+  restart_service: [systemctl, --user, restart]
+  stop_service: [systemctl, --user, stop]
+paths:
+  config_home_variable: XDG_CONFIG_HOME
+  default_config_home: .config
+  sleep_lock_unit: systemd/user/arch-sleep-lock.service
+  sleep_lock_dropin: systemd/user/arch-sleep-lock.service.d/90-arch-session-environment.conf
+  runtime_dir_variable: XDG_RUNTIME_DIR
+  fallback_runtime_directory: /run/user
+  user_manager_socket: systemd/private
+  sleep_lock_service: arch-sleep-lock.service
+values:
+  graphical_session_target: graphical-session.target
+  active_state: active
+  dropin_contents: |
+    [Unit]
+    After=dbus.socket wayland-session-waitenv.service
+    Requires=dbus.socket
+    PartOf=graphical-session.target
+    ConditionEnvironment=ARCH_PATH
+    ConditionEnvironment=WAYLAND_DISPLAY
+messages:
+  reason: migration.repairSleepLockSessionEnvironment
+  deferred: migration.sleepLockRepairDeferred
+  service_not_active: migration.sleepLockServiceNotActive
+statuses:
+  success: 0
+  retry: 1
