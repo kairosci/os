@@ -177,6 +177,7 @@
   "migration.speedUpFootScrolling": "Aumenta la velocità di scorrimento in Foot",
   "migration.removeWorkspaceTitlebars": "Rimuovi le titlebar obsolete dei workspace",
   "migration.installCloudflareCli": "Installa lo strumento a riga di comando di Cloudflare",
+  "migration.installKernelHeaders": "Installa gli header per i kernel Linux installati",
   "migration.preserveVoxtypeDefault": "Mantieni Voxtype come backend predefinito per la dettatura",
   "migration.removeRetiredUsageWidget": "Rimuovi il widget d’uso non più supportato dalla configurazione della shell",
   "migration.removeRetiredWorkspaceTool": "Rimuovi lo strumento workspace dismesso e i suoi dati utente",
