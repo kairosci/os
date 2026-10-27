@@ -5,7 +5,7 @@ run_logged "$ARCH_PATH/src/python/installer_user/setup/git.py"
 run_logged "$ARCH_PATH/src/python/installer_user/setup/xcompose.py"
 run_logged "$ARCH_PATH/src/python/installer_user/setup/language.py"
 run_logged "$ARCH_PATH/src/python/installer_user/setup/input_method.py"
-run_logged "$ARCH_INSTALL/user/mise-work.sh"
+run_logged "$ARCH_PATH/src/python/installer_user/setup/work_directories.py"
 
 run_logged "$ARCH_INSTALL/user/hardware/asus/fix-audio-mixer.sh"
 run_logged "$ARCH_INSTALL/user/hardware/asus/fix-mic.sh"

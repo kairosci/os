@@ -48,3 +48,7 @@ chromium_extensions:
     - [arch-install-chromium-ytdlp]
 video_decode:
   command: [arch-install-video-decode]
+work_directories:
+  directories:
+    - Work
+    - Work/tries
