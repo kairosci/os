@@ -181,6 +181,4 @@ To copy a default config to user config with automatic backup:
 arch-refresh-config hypr/hyprland.lua
 ```
 
-This copies `$ARCH_PATH/config/hypr/hyprland.lua` to `~/.config/hypr/hyprland.lua`. The argument
-is interpolated into both paths and only checked with `[[ -e ]]`, so pass a plain relative path: a
-name containing `..` resolves and copies, landing outside `~/.config` rather than being rejected.
+This copies `$ARCH_PATH/config/hypr/hyprland.lua` to `${XDG_CONFIG_HOME:-$HOME/.config}/hypr/hyprland.lua`. Pass a plain relative file path. Traversal components and symlinks escaping either configuration tree are rejected. An existing in-tree user symlink and its file permissions are preserved; the file is replaced atomically after preparation, with a private backup when its contents change.

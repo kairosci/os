@@ -123,6 +123,7 @@ const cliKeys = new Set([
   ...collectKeys(path.join(root, 'src/cli'), [''], cliKeyPattern),
   ...collectKeys(path.join(root, 'installer'), ['.sh', '.py', '.hook'], cliKeyPattern),
 ])
+for (const key of collectKeys(path.join(root, 'src/python/cli'), ['.py'], /_message\(\s*['"]([a-z][a-zA-Z0-9]*(?:\.[a-zA-Z0-9]+)+)['"]/g)) cliKeys.add(key)
 const unreferencedCli = Object.keys(enCli).filter((key) => !cliKeys.has(key))
 assert(unreferencedCli.length === 0, 'every cli catalog key is referenced', JSON.stringify(unreferencedCli))
 const unknownCli = [...cliKeys].filter((key) => !Object.hasOwn(enCli, key))

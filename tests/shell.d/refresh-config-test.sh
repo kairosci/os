@@ -8,7 +8,13 @@ trap 'rm -rf "$tmpdir"' EXIT
 home="$tmpdir/home"
 arch_path="$tmpdir/arch"
 
-mkdir -p "$home/.config/hypr" "$arch_path/config/hypr"
+mkdir -p "$home/.config/hypr" "$home/.config/arch" "$arch_path/config/hypr" \
+  "$arch_path/data/cli" "$arch_path/src/cli" "$arch_path/src/python" "$arch_path/default"
+printf 'en\n' >"$home/.config/arch/language"
+ln -s "$ROOT/data/cli/refresh-config.yml" "$arch_path/data/cli/refresh-config.yml"
+ln -s "$ROOT/src/cli/arch-i18n" "$arch_path/src/cli/arch-i18n"
+ln -s "$ROOT/src/python/cli" "$arch_path/src/python/cli"
+ln -s "$ROOT/default/i18n" "$arch_path/default/i18n"
 
 cat >"$arch_path/config/hypr/bindings.lua" <<'EOF'
 -- refreshed from ARCH_PATH
@@ -28,7 +34,60 @@ backup=$(find "$home/.config/hypr" -name 'bindings.lua.bak.*' -print -quit)
 grep -Fq -- '-- existing user config' "$backup" ||
   fail "refresh-config backup contains previous user config"
 
-pass "refresh-config copies from ARCH_PATH/config and backs up existing files"
+[[ $(stat -c '%a' "$home/.config/hypr/bindings.lua") == "644" ]] ||
+  fail "refresh-config preserves the replaced file's permissions"
+[[ $(stat -c '%a' "$backup") == "600" ]] || fail "refresh-config stores backups privately"
+pass "refresh-config copies from ARCH_PATH/config and backs up existing files privately"
+
+if HOME="$home" ARCH_PATH="$arch_path" "$ROOT/src/cli/arch-refresh-config" ../escape.lua >"$tmpdir/out" 2>"$tmpdir/err"; then
+  fail "refresh-config rejects traversal components"
+fi
+[[ $(<"$tmpdir/err") == "Refusing an invalid or unsafe config path: ../escape.lua" ]] ||
+  fail "refresh-config explains traversal rejection"
+pass "refresh-config rejects traversal components"
+
+printf 'source outside boundary\n' >"$tmpdir/outside-source.lua"
+ln -s "$tmpdir/outside-source.lua" "$arch_path/config/hypr/escape.lua"
+if HOME="$home" ARCH_PATH="$arch_path" "$ROOT/src/cli/arch-refresh-config" hypr/escape.lua >"$tmpdir/out" 2>"$tmpdir/err"; then
+  fail "refresh-config rejects a shipped-config symlink that escapes its tree"
+fi
+[[ $(<"$tmpdir/outside-source.lua") == "source outside boundary" ]] ||
+  fail "source symlink rejection leaves its target unchanged"
+pass "refresh-config rejects source symlinks outside the shipped config tree"
+
+printf 'replacement\n' >"$arch_path/config/hypr/escape-destination.lua"
+printf 'protected\n' >"$tmpdir/outside-destination.lua"
+ln -s "$tmpdir/outside-destination.lua" "$home/.config/hypr/escape-destination.lua"
+if HOME="$home" ARCH_PATH="$arch_path" "$ROOT/src/cli/arch-refresh-config" hypr/escape-destination.lua >"$tmpdir/out" 2>"$tmpdir/err"; then
+  fail "refresh-config rejects a destination symlink that escapes its tree"
+fi
+[[ $(<"$tmpdir/outside-destination.lua") == "protected" ]] ||
+  fail "destination symlink rejection leaves its target unchanged"
+pass "refresh-config rejects destination symlinks outside the user config tree"
+
+mkdir "$tmpdir/outside-config-dir"
+printf 'protected parent target\n' >"$tmpdir/outside-config-dir/payload.lua"
+mkdir "$arch_path/config/hypr/escaped-parent"
+printf 'parent replacement\n' >"$arch_path/config/hypr/escaped-parent/payload.lua"
+ln -s "$tmpdir/outside-config-dir" "$home/.config/hypr/escaped-parent"
+if HOME="$home" ARCH_PATH="$arch_path" "$ROOT/src/cli/arch-refresh-config" hypr/escaped-parent/payload.lua >"$tmpdir/out" 2>"$tmpdir/err"; then
+  fail "refresh-config rejects a destination parent symlink that escapes its tree"
+fi
+[[ $(<"$tmpdir/outside-config-dir/payload.lua") == "protected parent target" ]] ||
+  fail "destination parent symlink rejection leaves its target unchanged"
+pass "refresh-config rejects destination parent symlinks outside the user config tree"
+
+printf 'internal replacement\n' >"$arch_path/config/hypr/pointer.lua"
+printf 'internal target\n' >"$home/.config/hypr/pointer-target.lua"
+chmod 600 "$home/.config/hypr/pointer-target.lua"
+ln -s pointer-target.lua "$home/.config/hypr/pointer.lua"
+HOME="$home" ARCH_PATH="$arch_path" "$ROOT/src/cli/arch-refresh-config" hypr/pointer.lua >/dev/null
+[[ -L $home/.config/hypr/pointer.lua ]] || fail "refresh-config preserves an in-tree destination symlink"
+[[ $(<"$home/.config/hypr/pointer-target.lua") == "internal replacement" ]] ||
+  fail "refresh-config replaces the target of an in-tree symlink"
+[[ $(stat -c '%a' "$home/.config/hypr/pointer-target.lua") == "600" ]] ||
+  fail "refresh-config preserves target permissions through an in-tree symlink"
+pass "refresh-config preserves an in-tree destination symlink and target permissions"
 
 if HOME="$home" ARCH_PATH="$arch_path" "$ROOT/src/cli/arch-refresh-config" hypr/missing.lua >"$tmpdir/out" 2>"$tmpdir/err"; then
   fail "refresh-config rejects configs missing from ARCH_PATH/config"
