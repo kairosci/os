@@ -1,0 +1,10 @@
+messages:
+  reason: migration.configureSharedInputMethodDefaults
+steps:
+  - command:
+      - arch-pkg-add
+      - fcitx5-mozc
+      - fcitx5-hangul
+      - fcitx5-chinese-addons
+      - fcitx5-chewing
+  - command: [arch-input-method, configure, --defaults]
