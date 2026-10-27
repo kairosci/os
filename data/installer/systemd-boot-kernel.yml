@@ -1,0 +1,56 @@
+systemd_boot_kernel:
+  paths:
+    hardware_helper:
+      environment_override: ARCH_HW_X86_HELPER
+      relative_default: src/cli/arch-hw-x86
+    systemd_boot_esp:
+      environment_override: ARCH_SYSTEMD_BOOT_KERNEL_ESP
+      default: /boot
+    systemd_boot_entry: EFI/systemd/systemd-bootx64.efi
+    kernel_cmdline:
+      environment_override: ARCH_KERNEL_CMDLINE_FILE
+      default: /etc/kernel/cmdline
+    kernel_uki:
+      environment_override: ARCH_KERNEL_UKI
+      relative_default: EFI/Linux/os_linux.efi
+    mkinitcpio_config_dir:
+      environment_override: ARCH_MKINITCPIO_CONFIG_DIR
+      default: /etc/mkinitcpio.d
+    preset_template:
+      environment_override: ARCH_KERNEL_PRESET_TEMPLATE
+      relative_default: default/mkinitcpio/linux.preset
+    default_preset:
+      environment_override: ARCH_MKINITCPIO_DEFAULT_PRESET
+      default: /usr/share/mkinitcpio/hook.preset
+  commands:
+    objcopy: [objcopy, -O, binary, --only-section=.cmdline]
+  files:
+    kernel_preset: linux.preset
+    preset_package_base: '%PKGBASE%'
+    preset_package_name: linux
+    installed_mode: '0644'
+    legacy_preset: |-
+      # mkinitcpio preset for Arch Linux on systemd-boot.
+
+      ALL_config="/etc/mkinitcpio.conf"
+      ALL_kver="/boot/vmlinuz-linux"
+      ALL_cmdline="/etc/kernel/cmdline"
+
+      PRESETS=('default' 'fallback')
+
+      default_uki="/boot/EFI/Linux/os_linux.efi"
+      fallback_uki="/boot/EFI/Linux/os_linux-fallback.efi"
+      fallback_options="-S autodetect"
+  messages:
+    en:
+      missing_uki: 'The systemd-boot Arch UKI is missing at {path}.'
+      objcopy_failed: 'Could not read the embedded command line from {path}.'
+      missing_root: 'The command line in {uki} and {cmdline} has no root= parameter.'
+      custom_preset: 'Preserving custom mkinitcpio preset at {path}.'
+      configured: 'Configured the Arch kernel UKI for mkinitcpio and systemd-boot.'
+    it:
+      missing_uki: 'La UKI Arch per systemd-boot non è presente in {path}.'
+      objcopy_failed: 'Impossibile leggere la riga di comando incorporata in {path}.'
+      missing_root: 'La riga di comando in {uki} e {cmdline} non contiene il parametro root=.'
+      custom_preset: 'Il preset mkinitcpio personalizzato in {path} viene mantenuto.'
+      configured: 'UKI del kernel Arch configurata per mkinitcpio e systemd-boot.'

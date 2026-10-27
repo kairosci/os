@@ -26,8 +26,8 @@ uki="${ARCH_ARCH_UKI:-/boot/EFI/Linux/os_linux.efi}"
 os_release=$(mktemp)
 trap 'rm -f -- "$os_release"' EXIT
 
-sudo env ARCH_PATH="$ARCH_PATH" bash -euo pipefail -c \
-  'source "$ARCH_PATH/installer/config/systemd-boot-kernel.sh"'
+sudo env ARCH_PATH="$ARCH_PATH" python3 -I \
+  "$ARCH_PATH/src/python/installer/system_setup/systemd_boot_kernel.py"
 sudo mkinitcpio -P
 
 read_uki_os_release() {
