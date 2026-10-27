@@ -10,5 +10,5 @@ fi
 
 sudo bootctl --esp-path="$systemd_boot_esp" set-default os_linux.efi
 
-sudo env ARCH_PATH="$ARCH_PATH" bash -euo pipefail -c \
-  'source "$ARCH_PATH/installer/config/systemd-boot-snapshots.sh"'
+sudo env ARCH_PATH="$ARCH_PATH" python3 -I \
+  "$ARCH_PATH/src/python/installer/system_setup/systemd_boot_snapshots.py"

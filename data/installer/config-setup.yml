@@ -15,3 +15,30 @@ lockout_limit:
       - 'pam_faillock\.so authsucc'
     insert_after_pattern: 'auth.*pam_permit\.so'
     insert_line: 'auth        required    pam_faillock.so authsucc'
+systemd_boot_snapshots:
+  helper: src/cli/arch-hw-x86
+  boot_entry:
+    environment_override: ARCH_SYSTEMD_BOOT_ESP
+    default_esp: /boot
+    relative_path: EFI/systemd/systemd-bootx64.efi
+  plugin:
+    source: installer/boot/systemd-boot-snapper-plugin.sh
+    target: /usr/lib/snapper/plugins/10-arch-systemd-boot
+    directory_mode: '0755'
+    mode: '0755'
+  legacy_plugin:
+    path: /usr/lib/snapper/plugins/10-limine-snapper-sync
+  disable_units:
+    - systemctl
+    - disable
+    - --now
+    - limine-snapper-sync.service
+    - arch-snapshot-entries.path
+    - arch-snapshot-entries.service
+  remove_files:
+    - /etc/systemd/system/arch-snapshot-entries.path
+    - /etc/systemd/system/arch-snapshot-entries.service
+    - /usr/local/libexec/arch-sync-systemd-boot-snapshots
+  reload_units:
+    - systemctl
+    - daemon-reload
