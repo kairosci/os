@@ -4,7 +4,7 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-leaf="$ROOT/installer/hardware/apple/fix-brcmfmac-supplicant.sh"
+leaf="$ROOT/src/python/installer/hardware/apple/brcmfmac_supplicant.py"
 fix_t2="$ROOT/installer/hardware/apple/fix-t2.sh"
 all="$ROOT/installer/hardware/all.sh"
 migration="$ROOT/migrations/1786391100.sh"
@@ -14,7 +14,7 @@ migration="$ROOT/migrations/1786391100.sh"
 # install marks the migration done only for its first user.
 grep -Fq 'arch-hw-aarch64-apple && exit 0' "$migration" || fail "Broadcom migration excludes Apple Silicon"
 
-grep -q 'apple/fix-brcmfmac-supplicant.sh' "$all" ||
+grep -q 'src/python/installer/hardware/apple/brcmfmac_supplicant.py' "$all" ||
   fail "the brcmfmac quirk runs during hardware setup"
 
 # Two leaves writing one config means the later one silently wins, and which is
@@ -28,7 +28,8 @@ trap 'rm -rf "$test_tmp"' EXIT
 
 stub_bin="$test_tmp/bin"
 calls="$test_tmp/calls.log"
-conf="$test_tmp/etc/modprobe.d/brcmfmac.conf"
+system_root="$test_tmp/root"
+conf="$system_root/etc/modprobe.d/brcmfmac.conf"
 mkdir -p "$stub_bin" "$test_tmp/dmi"
 
 cat >"$stub_bin/lspci" <<'SH'
@@ -74,30 +75,25 @@ SH
 
 chmod +x "$stub_bin"/*
 
-# The leaf reads the vendor from an absolute path, so point it at a fixture by
-# running with a fake root on PATH-independent state. pipefail is on, so a
-# grep -q gate would go silent here the way #6608 did.
+# The setup uses a fake system root, a fixture DMI vendor, and a chatty lspci
+# stub. Capturing complete command output avoids the old grep -q/SIGPIPE failure.
 run_leaf() {
   local vendor="$1" wifi_id="${2:-}" t2="${3:-0}" apple_silicon="${4:-0}"
-  rm -rf "$test_tmp/etc"
-  mkdir -p "$test_tmp/etc"
+  rm -rf "$system_root/etc"
+  mkdir -p "$system_root"
   printf '%s' "$vendor" >"$test_tmp/dmi/sys_vendor"
 
-  # Redirect both absolute paths the leaf touches into the sandbox.
-  local script="$test_tmp/leaf.sh"
-  sed -e "s|/sys/class/dmi/id/sys_vendor|$test_tmp/dmi/sys_vendor|g" \
-      -e "s|/etc/modprobe.d|$test_tmp/etc/modprobe.d|g" \
-      "$leaf" >"$script"
-
-  WIFI_ID="$wifi_id" T2_HARDWARE="$t2" APPLE_SILICON="$apple_silicon" PATH="$stub_bin:$PATH" \
-    bash -eE -o pipefail -c 'source "$1"' bash "$script" </dev/null
+  WIFI_ID="$wifi_id" T2_HARDWARE="$t2" APPLE_SILICON="$apple_silicon" \
+    ARCH_PATH="$ROOT" ARCH_SYSTEM_ROOT="$system_root" \
+    ARCH_BRCMFMAC_DMI_VENDOR="$test_tmp/dmi/sys_vendor" PATH="$stub_bin:$PATH" \
+    python3 -I "$leaf" </dev/null
 }
 
 # The quirk shipped for T2 Macs first, and the move to its own leaf must not
 # drop them.
 run_leaf "Apple Inc." 4488 1 >/dev/null
 grep -q 'feature_disable=0x82000' "$conf" 2>/dev/null ||
-  fail "a T2 Mac still gets the quirk" "$(ls -R "$test_tmp/etc" 2>&1)"
+  fail "a T2 Mac still gets the quirk" "$(ls -R "$system_root/etc" 2>&1)"
 pass "a T2 Mac still gets the quirk"
 
 # Every Broadcom part brcmfmac drives, on a Mac with no T2 to detect: BCM43602
@@ -148,10 +144,10 @@ run_migration() {
 # A T2 install from before the quirk shipped has no config at all, so this is
 # the case that proves the T2 gate itself still fires -- and it is the piped
 # grep, run under pipefail, that #6608 was about.
-rm -rf "$test_tmp/etc"
+rm -rf "$system_root/etc"
 run_migration "Apple Inc." 4488 1
 grep -q '^options brcmfmac feature_disable=0x82000$' "$conf" 2>/dev/null ||
-  fail "the migration fixes a T2 install that never got the quirk" "$(ls -R "$test_tmp/etc" 2>&1)"
+  fail "the migration fixes a T2 install that never got the quirk" "$(ls -R "$system_root/etc" 2>&1)"
 # The option only reaches the driver when brcmfmac next loads.
 grep -Fq $'arch-state\tset\treboot-required' "$calls" ||
   fail "the migration asks for the reboot that applies it" "$(cat "$calls")"
@@ -163,17 +159,17 @@ run_migration "Apple Inc." 4488 1
 [[ ! -s $calls ]] || fail "a repaired install is left untouched" "$(cat "$calls")"
 pass "the migration is idempotent"
 
-rm -rf "$test_tmp/etc"
+rm -rf "$system_root/etc"
 run_migration "Apple Inc." 4433 0 1
 [[ ! -e $conf ]] || fail "the migration leaves Apple Silicon Wi-Fi alone"
 [[ ! -s $calls ]] || fail "the migration escalates nothing on Apple Silicon" "$(cat "$calls")"
 pass "the migration leaves Apple Silicon Wi-Fi alone"
 
 # The machine this was written for, with no T2 to fall back on.
-rm -rf "$test_tmp/etc"
+rm -rf "$system_root/etc"
 run_migration "Apple Inc." 43ba 0
 grep -q '^options brcmfmac feature_disable=0x82000$' "$conf" 2>/dev/null ||
-  fail "the migration fixes an install on a Mac without a T2" "$(ls -R "$test_tmp/etc" 2>&1)"
+  fail "the migration fixes an install on a Mac without a T2" "$(ls -R "$system_root/etc" 2>&1)"
 pass "the migration fixes an install on a Mac without a T2"
 
 # Written without a trailing newline, the way a hand-edited config often is.
@@ -192,7 +188,7 @@ grep -qx 'options brcmfmac feature_disable=0x82000' "$conf" ||
   fail "a commented-out option does not count as applied" "$(cat "$conf")"
 pass "a commented-out option does not count as applied"
 
-rm -rf "$test_tmp/etc"
+rm -rf "$system_root/etc"
 run_migration "Apple Inc." 43a0 0
 [[ ! -e $conf ]] || fail "the migration skips a Mac brcmfmac does not drive" "$(cat "$conf")"
 [[ ! -s $calls ]] || fail "the migration escalates nothing on unaffected Macs" "$(cat "$calls")"

@@ -10,7 +10,7 @@ arch-hw-aarch64-apple && exit 0
 # The install-time quirk only reaches machines set up after it shipped, and it
 # never covered Macs without a T2 at all, so an existing install on one still
 # cannot join a WPA2/WPA3 transition-mode network. See
-# installer/hardware/apple/fix-brcmfmac-supplicant.sh for the failure it fixes and
+# src/python/installer/hardware/apple/brcmfmac_supplicant.py for the failure it fixes and
 # for where this list of brcmfmac PCI IDs comes from.
 dmi_vendor="${ARCH_BRCMFMAC_DMI_VENDOR:-/sys/class/dmi/id/sys_vendor}"
 conf="${ARCH_BRCMFMAC_CONF:-/etc/modprobe.d/brcmfmac.conf}"

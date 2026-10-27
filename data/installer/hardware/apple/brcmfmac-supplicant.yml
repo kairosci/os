@@ -1,0 +1,16 @@
+apple_silicon_check: [arch-hw-aarch64-apple]
+pci_command: [lspci, -nn]
+apple_vendor_environment: ARCH_BRCMFMAC_DMI_VENDOR
+apple_vendor_default: /sys/class/dmi/id/sys_vendor
+apple_vendor_pattern: '^Apple'
+t2_pattern: '106b:180[12]'
+wifi_pattern: '14e4:(43ba|43bb|43bc|43a3|43dc|4464|4488|4425|4433)'
+system_root_environment: ARCH_SYSTEM_ROOT
+target: etc/modprobe.d/brcmfmac.conf
+mode: '0644'
+content: |
+  # Broadcom's firmware supplicant and authenticator fail the WPA four-way
+  # handshake on Apple hardware, which surfaces as a rejected password. Disable
+  # both so wpa_supplicant performs the handshake instead.
+  options brcmfmac feature_disable=0x82000
+statuses: {complete: 0, failed: 1}
