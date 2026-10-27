@@ -4,7 +4,8 @@
     "cli:migration.installKernelHeaders": "81abb1141b78",
     "cli:migration.preserveVoxtypeDefault": "42a285cffa0f",
     "cli:migration.removeOldDiskUsageLauncher": "4e6f9e021ebe",
-    "cli:migration.replaceDiskUsageWithDisktree": "657bb865af9e"
+    "cli:migration.replaceDiskUsageWithDisktree": "657bb865af9e",
+    "cli:migration.replaceScreenshotEditor": "7fb55d67cdcb"
   },
   "it": {
     "cli:animations.disabled": "a55e1e82b8f7",
@@ -184,6 +185,7 @@
     "cli:migration.repairUpdateNotifierLoop": "1865ae15f4d8",
     "cli:migration.replaceDiskUsageWithDisktree": "657bb865af9e",
     "cli:migration.replaceSatty": "7331bfd5f9a1",
+    "cli:migration.replaceScreenshotEditor": "7fb55d67cdcb",
     "cli:migration.replaceTerminalTextEffects": "9a75cc4ccd25",
     "cli:migration.requireT2PackageSignatures": "9082884aca19",
     "cli:migration.restoreOfficialQuickshell": "0c71d25354b4",

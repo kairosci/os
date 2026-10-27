@@ -151,6 +151,7 @@
   "migration.removeFloatingDiskUsageLauncher": "Rimosso il vecchio launcher flottante di Disk Usage",
   "migration.removeOldDiskUsageLauncher": "Rimuovi il vecchio launcher di Disk Usage",
   "migration.replaceDiskUsageWithDisktree": "Sostituisci lo strumento Disk Usage con Disktree",
+  "migration.replaceScreenshotEditor": "Sostituisci Satty e Tensaku con Omasnap",
   "migration.removeManagedSkillLinks": "Rimossi %1 collegamenti a skill gestiti da Arch",
   "migration.removeLegacyPasswordlessSudoGrants": "Rimuovi le vecchie autorizzazioni sudo temporanee senza password",
   "migration.relinkNeovimTheme": "Ricollega il tema di Neovim allo stato corrente di Arch",

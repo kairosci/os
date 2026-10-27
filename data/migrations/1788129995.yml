@@ -1,0 +1,35 @@
+commands:
+  i18n: [arch-i18n]
+  package_add: [arch-pkg-add]
+  package_drop: [arch-pkg-drop]
+packages:
+  add: [omasnap]
+  drop: [satty, tensaku]
+paths:
+  xdg_config_environment: XDG_CONFIG_HOME
+  default_config_directory: .config
+  imv_config: imv/config
+  xdg_data_environment: XDG_DATA_HOME
+  default_data_directory: .local/share
+  applications_directory: applications
+  desktop_file: [omasnap, desktop]
+desktop:
+  generated_entry:
+    Type: Application
+    Name: Omasnap
+    Exec: omasnap
+    NoDisplay: "true"
+imv:
+  replacements:
+    - from: "# Edit the current image in Tensaku and quit the viewer"
+      to: "# Edit the current image in Omasnap and quit the viewer"
+    - from: "# Edit the current image in Satty and quit the viewer"
+      to: "# Edit the current image in Omasnap and quit the viewer"
+    - from: '<Ctrl+e> = exec tensaku-edit "$imv_current_file" & ; quit'
+      to: '<Ctrl+e> = exec omasnap "$imv_current_file" & ; quit'
+    - from: '<Ctrl+e> = exec satty --filename "$imv_current_file" & ; quit'
+      to: '<Ctrl+e> = exec omasnap "$imv_current_file" & ; quit'
+messages:
+  reason: migration.replaceScreenshotEditor
+statuses:
+  success: 0
