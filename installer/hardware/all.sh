@@ -27,7 +27,7 @@ run_logged "$ARCH_PATH/src/python/installer/hardware/elgato_camlink_4k.py"
 run_logged "$ARCH_INSTALL/hardware/dell-xps13-sidecar-amps.sh"
 
 run_logged "$ARCH_PATH/src/python/installer/hardware/asus/panther_lake_display.py"
-run_logged "$ARCH_INSTALL/hardware/asus/fix-asus-ptl-b9406-touchpad.sh"
+run_logged "$ARCH_PATH/src/python/installer/hardware/asus/expertbook_b9406_touchpad.py"
 run_logged "$ARCH_INSTALL/hardware/asus/fix-z13-touchpad.sh"
 run_logged "$ARCH_INSTALL/hardware/asus/fix-asus-proart-p14-touchpad.sh"
 run_logged "$ARCH_INSTALL/hardware/asus/fix-asus-proart-p14-speakers.sh"
