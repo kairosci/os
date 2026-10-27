@@ -2186,7 +2186,6 @@ enable_user_unit() {
     ln -sfn "$link_target" "$HOME/.config/systemd/user/$target.wants/$unit"
   done
 }
-enable_user_unit bt-agent.service
 enable_user_unit arch-sleep-lock.service
 enable_user_unit arch-recover-internal-monitor.service
 mkdir -p "$HOME/.config/systemd/user/default.target.wants"

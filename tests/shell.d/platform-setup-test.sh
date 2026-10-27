@@ -229,7 +229,6 @@ if ! LANG=it_IT.UTF-8 INPUT_METHOD_FAIL=1 ARCH_PATH="$first_root" INPUT_METHOD_L
   fail "input-method defaults may fail without blocking user unit setup" "$(cat "$tmp/user-units.out")"
 fi
 grep -q "Configurazione del metodo di input rimandata" "$tmp/user-units.out" || fail "input-method fallback is localized from YAML" "$(cat "$tmp/user-units.out")"
-grep -q '^--user enable --now bt-agent.service$' "$tmp/user-units-systemctl.log" || fail "user unit setup enables the configured Bluetooth unit" "$(cat "$tmp/user-units-systemctl.log")"
 grep -q '^--user enable --now arch-crash-watch.service$' "$tmp/user-units-systemctl.log" || fail "a failed optional setup does not prevent later units" "$(cat "$tmp/user-units-systemctl.log")"
 if SYSTEMCTL_FAIL_UNIT=arch-sleep-lock.service ARCH_PATH="$first_root" SYSTEMCTL_LOG="$tmp/user-units-failure.log" \
   PATH="$first_bin:$PATH" python3 -I "$first_root/src/python/installer_user/first_run/commands.py" user_units >"$tmp/user-units.out" 2>&1; then

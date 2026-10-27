@@ -4,10 +4,6 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-grep -q '^ConditionPathIsDirectory=/sys/class/bluetooth$' "$ROOT/default/systemd/user/bt-agent.service" || \
-  fail "bt-agent is skipped on machines without Bluetooth hardware"
-pass "bt-agent is skipped on machines without Bluetooth hardware"
-
 run_node_test <<'JS'
 const fs = require('fs')
 const bluetooth = requireFromRoot('src/shell/plugins/panels/bluetooth/Model.js')
@@ -156,6 +152,7 @@ cat >"$mock_bin/bluetoothctl" <<'SH'
 #!/bin/bash
 
 printf '%s\n' "$*" >>"$BLUETOOTHCTL_LOG"
+if [[ $1 == "--agent" && ${PAIR_FAIL:-} == "1" ]]; then exit 1; fi
 [[ $1 == "power" && $2 == "on" ]] && echo yes >"$POWERED_FILE"
 [[ $1 == "list" ]] &&
   for c in ${MOCK_CONTROLLERS:-AA:BB:CC:DD:EE:FF}; do printf 'Controller %s mock\n' "$c"; done
@@ -262,6 +259,23 @@ pass "bluetooth lifts the block before connecting"
 grep -qx "connect AA:BB:CC:DD:EE:FF" "$unpowered_log" ||
   fail "bluetooth connects once the adapter is up" "$(cat "$unpowered_log")"
 pass "bluetooth connects once the adapter is up"
+
+pair_log=$(bluetooth_run yes "$ROOT/src/cli/arch-bluetooth-device" pair AA:BB:CC:DD:EE:FF)
+grep -qx -- "--agent NoInputNoOutput pair AA:BB:CC:DD:EE:FF" "$pair_log" ||
+  fail "bluetooth pairing registers a temporary agent for the user-requested device" "$(cat "$pair_log")"
+! grep -Eq '^(trust|connect) AA:BB:CC:DD:EE:FF$' "$pair_log" ||
+  fail "bluetooth does not trust or connect separately after pairing" "$(cat "$pair_log")"
+pass "bluetooth pairs through a temporary agent and leaves trust/connect to BlueZ"
+
+: >"$device_tmp/log"
+if PATH="$mock_bin:$ROOT/src/cli:$PATH" BLUETOOTHCTL_LOG="$device_tmp/log" POWERED_FILE="$POWERED_FILE" \
+  PAIR_FAIL=1 ARCH_BLUETOOTH_POWER_WAIT_SECONDS=0 \
+  "$ROOT/src/cli/arch-bluetooth-device" pair AA:BB:CC:DD:EE:FF; then
+  fail "bluetooth reports a failed pairing"
+fi
+! grep -Eq '^(trust|connect) AA:BB:CC:DD:EE:FF$' "$device_tmp/log" ||
+  fail "bluetooth never trusts or connects after pairing fails" "$(cat "$device_tmp/log")"
+pass "bluetooth leaves a device untouched when pairing fails"
 
 # Blocking hits every radio at once, so the read has to span them too. A bare
 # bluetoothctl show reports the default controller and misses a powered dongle.

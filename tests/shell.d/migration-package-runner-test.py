@@ -16,6 +16,7 @@ MIGRATION = ROOT / "migrations/1781286586.py"
 VI_MIGRATION = ROOT / "migrations/1788596255.py"
 TITLEBAR_MIGRATION = ROOT / "migrations/1792938567.py"
 REMOVE_DESKTOP_APPS_MIGRATION = ROOT / "migrations/1793125525.py"
+REMOVE_BLUETOOTH_AGENT_MIGRATION = ROOT / "migrations/1793126592.py"
 
 
 class MigrationPackageRunnerTest(unittest.TestCase):
@@ -34,11 +35,13 @@ class MigrationPackageRunnerTest(unittest.TestCase):
       "with open(os.environ['CALL_LOG'], 'a', encoding='utf-8') as output:\n"
       "  output.write(json.dumps([name, *sys.argv[1:]]) + '\\n')\n"
       "if name == 'arch-i18n': print(sys.argv[1])\n"
+      "if name == 'systemctl' and sys.argv[1:3] == ['--user', 'is-active']:\n"
+      "  print(os.environ.get('SYSTEMD_ACTIVE', 'inactive'))\n"
       "if name == 'arch-pkg-add' and os.environ.get('FAIL_ADD') == '1': raise SystemExit(7)\n",
       encoding="utf-8",
     )
     stub.chmod(0o755)
-    for name in ("arch-i18n", "arch-pkg-add", "arch-pkg-drop", "arch-update-pacman"):
+    for name in ("arch-i18n", "arch-pkg-add", "arch-pkg-drop", "arch-update-pacman", "systemctl"):
       (self.bin_dir / name).symlink_to(stub)
     self.environment = test_environment(
       CALL_LOG=self.log,
@@ -141,6 +144,35 @@ class MigrationPackageRunnerTest(unittest.TestCase):
       [
         ["arch-i18n", "migration.removeBundledDesktopApps"],
         ["arch-pkg-drop", "hype", "monologue", "omacalc", "omacut", "omawrite", "signed"],
+      ],
+    )
+
+  def test_retired_bluetooth_agent_is_stopped_and_unlinked_before_package_removal(self) -> None:
+    home = self.scratch / "home"
+    wants = home / ".config/systemd/user/graphical-session.target.wants"
+    wants.mkdir(parents=True)
+    (wants / "bt-agent.service").symlink_to("/usr/lib/systemd/user/bt-agent.service")
+    self.environment["HOME"] = str(home)
+    self.environment["SYSTEMD_ACTIVE"] = "active"
+
+    result = subprocess.run(
+      ["/usr/bin/python3", "-I", str(REMOVE_BLUETOOTH_AGENT_MIGRATION)],
+      check=False,
+      capture_output=True,
+      text=True,
+      env=self.environment,
+    )
+    self.assertEqual(result.returncode, 0, result.stderr)
+    self.assertEqual(result.stdout, "migration.removeBluetoothAutoAcceptAgent\n")
+    self.assertFalse((wants / "bt-agent.service").is_symlink())
+    self.assertEqual(
+      self.calls(),
+      [
+        ["arch-i18n", "migration.removeBluetoothAutoAcceptAgent"],
+        ["systemctl", "--user", "is-active", "bt-agent.service"],
+        ["systemctl", "--user", "stop", "bt-agent.service"],
+        ["systemctl", "--user", "daemon-reload"],
+        ["arch-pkg-drop", "bluez-tools"],
       ],
     )
 

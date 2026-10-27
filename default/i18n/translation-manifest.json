@@ -132,6 +132,7 @@
     "cli:migration.rebuildMiseShims": "7d101026c764",
     "cli:migration.refreshApplications": "ee1063fc0611",
     "cli:migration.registerBraveOriginExtensionHosts": "0ea419647fc5",
+    "cli:migration.removeBluetoothAutoAcceptAgent": "8b7c2673abaf",
     "cli:migration.removeBundledDesktopApps": "59025489a2f2",
     "cli:migration.removeFloatingDiskUsageLauncher": "26ccb20c0c6c",
     "cli:migration.removeManagedSkillLinks": "9f65197b6854",
