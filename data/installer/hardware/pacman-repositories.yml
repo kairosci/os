@@ -1,0 +1,17 @@
+pci_command: [lspci, -nn]
+device_pattern: "106b:180[12]"
+config_environment: ARCH_PACMAN_CONFIG_PATH
+config_default: /etc/pacman.conf
+repository_header: "[arch-mact2]"
+append_prefix: "\n"
+repository_content: |-
+  [arch-mact2]
+  Server = https://github.com/NoaHimesaka1873/arch-mact2-mirror/releases/download/release
+  SigLevel = Never
+file_mode: "0644"
+messages:
+  en:
+    invalid_config: pacman configuration must be a regular file
+  it:
+    invalid_config: il file di configurazione di pacman deve essere regolare
+statuses: {complete: 0}

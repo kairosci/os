@@ -58,6 +58,6 @@ run_logged "$ARCH_PATH/src/python/installer/hardware/broadcom_wifi.py"
 run_logged "$ARCH_PATH/src/python/installer/hardware/surface_keyboard.py"
 run_logged "$ARCH_PATH/src/python/installer/hardware/tuxedo_backlight.py"
 run_logged "$ARCH_PATH/src/python/installer/hardware/speaker_tuning.py"
-run_logged "$ARCH_INSTALL/hardware/pacman.sh"
+run_logged "$ARCH_PATH/src/python/installer/hardware/pacman_repositories.py"
 
 run_logged "$ARCH_PATH/src/python/installer/hardware/platform_setup.py"

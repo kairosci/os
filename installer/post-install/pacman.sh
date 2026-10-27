@@ -42,4 +42,4 @@ if [[ -f $ARCH_PATH/etc-overrides/cups-cups-files.conf && -f /etc/cups/cups-file
   rm -f /etc/cups/cups-files.conf.pacnew
 fi
 
-source "$ARCH_INSTALL/hardware/pacman.sh"
+python3 -I "$ARCH_PATH/src/python/installer/hardware/pacman_repositories.py"
