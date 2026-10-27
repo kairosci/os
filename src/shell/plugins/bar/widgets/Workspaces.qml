@@ -173,6 +173,7 @@ BarWidget {
       model: root.workspaceIds()
 
       WidgetButton {
+        id: workspaceButton
         required property int modelData
 
         readonly property var workspace: root.workspaceById(modelData)
@@ -200,6 +201,18 @@ BarWidget {
           root.focusWorkspace(modelData)
         }
         onWheelMoved: function(delta) { root.scrollWorkspaces(delta) }
+
+        Rectangle {
+          z: 1
+          visible: workspaceButton.shown
+          width: Style.space(2)
+          height: width
+          radius: width / 2
+          anchors.horizontalCenter: parent.horizontalCenter
+          anchors.bottom: parent.bottom
+          anchors.bottomMargin: Style.space(1)
+          color: Commons.Color.accent
+        }
       }
     }
   }
