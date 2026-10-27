@@ -434,8 +434,8 @@ render_setup_dynamic() {
 }
 
 # The first thing a new owner sees, shown once before the keyboard step:
-# the logo (vertically centered like the boot logo) running a looping ColorShift,
-# the os tagline, and a hint. Return skips ahead into setup at any time.
+# the Arch logo (vertically centered like the boot logo) running a looping
+# ColorShift, and a hint. Return skips ahead into setup at any time.
 greeter_screen() {
   local anim="" drawn_sig cur_sig resized=0
 
@@ -447,36 +447,32 @@ greeter_screen() {
   # on a fresh first boot. Redrawing on every resize beats any fixed-length
   # startup wait, which can only ever guess when the console has stopped moving.
   _greeter_draw() {
-    local rows cols top content_h logo_row tagline_row hint_row
-    local tagline hint tpad hpad pad line i
+    local rows cols top content_h logo_row hint_row
+    local hint hpad pad line i
 
     cols=$(term_cols)
     rows=$(stty size 2>/dev/null </dev/tty | awk '{print $1}')
     [[ $rows =~ ^[0-9]+$ ]] || rows=${LINES:-24}
 
-    tagline="Beautiful, Fun & Agentic Linux by DHH"
     hint="Press Return to Start Setup"
 
     printf '%s%s' "$HIDE_CURSOR" "$CLEAR"
 
     # Console still too narrow for the 81-column logo (a transient small mode):
     # skip the logo and animation rather than wrap them into mush — just center
-    # the words. The redraw loop repaints the full splash once the VT widens.
+    # the setup hint. The redraw loop repaints the full splash once the VT widens.
     if (( cols <= LOGO_WIDTH )); then
       local mid=$(( rows / 2 ))
-      tpad=$(( (cols - ${#tagline}) / 2 )); (( tpad < 0 )) && tpad=0
       hpad=$(( (cols - ${#hint}) / 2 )); (( hpad < 0 )) && hpad=0
-      printf '%s%d;%dH%s' "$CSI" "$mid" "$((tpad + 1))" "$tagline"
-      printf '%s%d;%dH%s%s%s' "$CSI" "$((mid + 2))" "$((hpad + 1))" "$DIM" "$hint" "$RESET"
+      printf '%s%d;%dH%s%s%s' "$CSI" "$mid" "$((hpad + 1))" "$DIM" "$hint" "$RESET"
       return 0
     fi
 
-    # logo + blank + tagline + blank + hint
-    content_h=$(( LOGO_HEIGHT + 4 ))
+    # logo + blank + hint
+    content_h=$(( LOGO_HEIGHT + 2 ))
     top=$(( (rows - content_h) / 2 )); (( top < 0 )) && top=0
     logo_row=$(( top + 1 ))
-    tagline_row=$(( top + LOGO_HEIGHT + 2 ))
-    hint_row=$(( top + LOGO_HEIGHT + 4 ))
+    hint_row=$(( top + LOGO_HEIGHT + 2 ))
 
     # Draw each logo row at an explicit column so nothing can wrap it even if a
     # measurement is off by one; left_padding centers it for the current width.
@@ -486,9 +482,6 @@ greeter_screen() {
       printf '%s%d;1H%s%b%s%b' "$CSI" "$((logo_row + i))" "$pad" "$GREEN" "$line" "$RESET"
       i=$((i + 1))
     done <"$LOGO_PATH"
-
-    tpad=$(( (cols - ${#tagline}) / 2 )); (( tpad < 0 )) && tpad=0
-    printf '%s%d;%dH%s' "$CSI" "$tagline_row" "$((tpad + 1))" "$tagline"
 
     hpad=$(( (cols - ${#hint}) / 2 )); (( hpad < 0 )) && hpad=0
     printf '%s%d;%dH%s%s%s' "$CSI" "$hint_row" "$((hpad + 1))" "$DIM" "$hint" "$RESET"

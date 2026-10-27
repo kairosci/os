@@ -12,17 +12,6 @@ Arch include una serie di funzioni della shell per semplificare le attività com
 - `iso2sd [image.iso]`: crea un'unità avviabile su una scheda SD usando il file iso indicato e scegliendo l'unità in modo interattivo.
 - `format-drive [device] [name]`: formatta un intero disco con una singola partizione exFAT (che funziona anche su Windows e macOS). Eseguilo senza argomenti per vedere le unità disponibili. Fai attenzione!
 
-## Layout di sviluppo
-
-Layout di sviluppo a più riquadri istantanei per tmux:
-
-- `tdl [ai]`: crea un Tmux Dev Layout con il tuo editor, un agente AI e un terminale. Usa gli alias degli agenti, come `tdl c` per opencode o `tdl cx` per Claude Code, oppure passa un secondo agente per eseguirli entrambi, come `tdl c cx`.
-- `tds`: crea un Tmux Dev Square con editor, monitoraggio delle differenze (tramite `hunk diff --watch`), terminale e opencode.
-- `tdlm [ai]`: crea una finestra `tdl` per ogni sottodirectory nella directory corrente.
-- `tsl [count] [command]`: crea uno sciame di riquadri affiancati in una griglia, tutti con lo stesso comando in esecuzione (ottimo per gli agenti AI).
-
-Gli stessi layout sono disponibili per Herdr come `hdl`, `hds`, `hdlm` e `hsl`.
-
 ## Git worktree
 
 - `ga [branch]`: crea un nuovo worktree e un nuovo branch accanto al repository corrente e ci salta dentro.

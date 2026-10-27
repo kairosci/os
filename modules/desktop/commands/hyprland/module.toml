@@ -4,6 +4,7 @@ package = "arch"
 sources = [
   "src/cli/arch-hyprland-corners",
   "src/cli/arch-hyprland-focus-app",
+  "src/python/cli/hyprland_focus.py",
   "src/cli/arch-hyprland-monitor-clamshell",
   "src/cli/arch-hyprland-monitor-external-active",
   "src/cli/arch-hyprland-monitor-focused",
@@ -41,6 +42,10 @@ target = "usr/share/arch/src/cli/arch-hyprland-corners"
 [[output]]
 source = "src/cli/arch-hyprland-focus-app"
 target = "usr/share/arch/src/cli/arch-hyprland-focus-app"
+
+[[output]]
+source = "src/python/cli/hyprland_focus.py"
+target = "usr/share/arch/src/python/cli/hyprland_focus.py"
 
 [[output]]
 source = "src/cli/arch-hyprland-monitor-clamshell"

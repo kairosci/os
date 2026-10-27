@@ -1,6 +1,6 @@
 # Hotkeys
 
-You can see all the main keyboard bindings with `Super + K` (Tmux bindings with `Super + Alt + K` and Herdr bindings with `Super + Ctrl + K`).
+You can see all the main keyboard bindings with `Super + K` (Tmux bindings with `Super + Alt + K`).
 
 ## Navigating
 
@@ -75,7 +75,6 @@ You can see all the main keyboard bindings with `Super + K` (Tmux bindings with 
 | `Super + Ctrl + H` | Hardware menu |
 | `Super + Ctrl + E` | Emoji picker |
 | `Super + Ctrl + .` | Transcode media |
-| `Super + Shift + Ctrl + A` | Pick an AI agent |
 
 ## Adjustments
 
@@ -96,7 +95,6 @@ You can see all the main keyboard bindings with `Super + K` (Tmux bindings with 
 | ----------------------- | --------------------- |
 | `Super + Return`           | Terminal    |
 | `Super + Alt + Return` | Tmux terminal |
-| `Super + Ctrl + Return` | Herdr (agent manager) |
 | `Super + Shift + Return`           | Browser    |
 | `Super + Shift + Alt + B`           | Browser (private/incognito)    |
 | `Super + Shift + F`           | File manager    |
@@ -110,8 +108,6 @@ You can see all the main keyboard bindings with `Super + K` (Tmux bindings with 
 | `Super + Shift + C`           | Calendar ([HEY](https://hey.com/))  |
 | `Super + Shift + E`           | Email ([HEY](https://hey.com/))  |
 | `Super + Shift + Alt + E`           | New email ([HEY](https://hey.com/))  |
-| `Super + Shift + A`           | AI (ChatGPT)  |
-| `Super + Shift + Alt + A`           | AI (Grok)  |
 | `Super + Shift + G`           | Messenger (Signal)  |
 | `Super + Shift + P`           | Google Photos  |
 | `Super + Shift + S`           | Google Maps  |
@@ -273,9 +269,6 @@ These functions must be run inside a Tmux session.
 
 | Command | Function |
 | ------- | -------- |
-| `tdl <ai> [<second_ai>]` | Create dev layout with editor, AI, and terminal |
-| `tdlm <ai> [<second_ai>]` | Create dev layout per subdirectory |
-| `tsl <count> <command>` | Create multi-pane swarm layout |
 
 ## Ghostty Terminal
 
