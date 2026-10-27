@@ -25,7 +25,7 @@ cp -a config data default installer "$arch_runtime/"
 mkdir -p "$arch_runtime/src"
 cp -a src/python "$arch_runtime/src/"
 printf 'legacy desktop entry\n' >"$terminal_home/.local/share/applications/org.legacy.terminal.desktop"
-HOME="$terminal_home" ARCH_PATH="$arch_runtime" bash "$ROOT/migrations/1792867070.sh"
+HOME="$terminal_home" ARCH_PATH="$arch_runtime" python3 -I "$ROOT/migrations/1792867070.py"
 cmp -s "$ROOT/assets/applications/org.arch.terminal.desktop" \
   "$terminal_home/.local/share/applications/org.arch.terminal.desktop" ||
   fail "the terminal launcher is migrated to the Arch desktop id"
