@@ -3,7 +3,7 @@ run_logged "$ARCH_INSTALL/user/terminal.sh"
 run_logged "$ARCH_INSTALL/user/chromium.sh"
 run_logged "$ARCH_INSTALL/user/git.sh"
 run_logged "$ARCH_INSTALL/user/xcompose.sh"
-run_logged "$ARCH_INSTALL/user/language.sh"
+run_logged "$ARCH_PATH/src/python/installer_user/setup/language.py"
 run_logged "$ARCH_INSTALL/user/input-method.sh"
 run_logged "$ARCH_INSTALL/user/mise-work.sh"
 
