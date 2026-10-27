@@ -5,6 +5,7 @@ sources = [
   "src/cli/arch-cmd-browser-handoff",
   "src/cli/arch-cmd-default-browser",
   "src/cli/arch-cmd-missing",
+  "src/python/cli/cmd_missing.py",
   "src/cli/arch-cmd-present",
   "src/cli/arch-cmd-terminal-cwd",
 ]
@@ -21,6 +22,10 @@ target = "usr/share/arch/src/cli/arch-cmd-default-browser"
 [[output]]
 source = "src/cli/arch-cmd-missing"
 target = "usr/share/arch/src/cli/arch-cmd-missing"
+
+[[output]]
+source = "src/python/cli/cmd_missing.py"
+target = "usr/share/arch/src/python/cli/cmd_missing.py"
 
 [[output]]
 source = "src/cli/arch-cmd-present"
