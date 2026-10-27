@@ -143,7 +143,8 @@ BarWidget {
       // A workspace that changes number is only learned by asking too. Every
       // bar shares what Hyprland answers, so one asks after a plain switch.
       var switched = name === "workspacev2" && root.monitor !== null && root.monitor.focused
-      if (switched || name === "moveworkspacev2" || name === "changeworkspaceid") {
+      var monitorFocused = name === "focusedmonv2"
+      if (switched || monitorFocused || name === "moveworkspacev2" || name === "changeworkspaceid") {
         Hyprland.refreshMonitors()
         Hyprland.refreshWorkspaces()
       }
@@ -188,7 +189,7 @@ BarWidget {
         Layout.topMargin: firstGuest && root.vertical ? Style.space(6) : 0
 
         bar: root.bar
-        text: slot === root.slots ? "0" : String(slot)
+        text: String(slot)
         active: shown
         activeColor: Commons.Color.accent
         useActiveColor: true
