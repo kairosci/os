@@ -78,7 +78,7 @@ pass "copy-url native host installer covers Brave Origin"
 # Chromium ships in the base packages, so fresh installs do not go through
 # arch-install-browser, and they mark every migration as already applied.
 # The user install still has to register the host itself.
-grep -Fq 'setup/chromium_extensions.py' "$ROOT/installer/user/all.sh" ||
+grep -Fq '  - setup/chromium_extensions.py' "$ROOT/data/installer/user-setup.yml" ||
   fail "user install runs the Chromium native messaging host module"
 
 fresh_home="$TMPDIR/fresh-install"

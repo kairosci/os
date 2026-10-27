@@ -5,7 +5,7 @@ set -euo pipefail
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 helper="$ROOT/src/cli/arch-install-video-decode"
-grep -Fq 'run_logged "$ARCH_PATH/src/python/installer_user/setup/video_decode.py"' "$ROOT/installer/user/all.sh" ||
+grep -Fq '  - setup/video_decode.py' "$ROOT/data/installer/user-setup.yml" ||
   fail "user setup runs the Python video decode module"
 migration=$(grep -l -- 'arch-install-video-decode' "$ROOT"/migrations/*.sh | head -n1)
 test_tmp=$(mktemp -d)

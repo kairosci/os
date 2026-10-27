@@ -1,3 +1,24 @@
+steps:
+  - setup/theme.py
+  - setup/terminal.py
+  - setup/chromium_extensions.py
+  - setup/git.py
+  - setup/xcompose.py
+  - setup/language.py
+  - setup/input_method.py
+  - setup/work_directories.py
+  - setup/asus_mixer.py
+  - setup/asus_mic.py
+  - setup/framework_audio.py
+  - setup/dell_text_scaling.py
+  - setup/video_decode.py
+  - setup/qualcomm_camera.py
+  - setup/nouveau_cursor.py
+  - setup/vm.py
+  - setup/default_keyring.py
+  - setup/mise.py
+  - setup/platform.py
+
 language:
   preset_file: /etc/arch/language
   default_language: en

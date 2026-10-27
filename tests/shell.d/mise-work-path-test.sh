@@ -95,7 +95,7 @@ env \
   PATH="$test_dir/bin:/usr/bin" \
   ARCH_PATH="$ROOT" python3 -I "$ROOT/src/python/installer_user/setup/work_directories.py"
 
-grep -Fq 'run_logged "$ARCH_PATH/src/python/installer_user/setup/work_directories.py"' "$ROOT/installer/user/all.sh" ||
+grep -Fq '  - setup/work_directories.py' "$ROOT/data/installer/user-setup.yml" ||
   fail "user setup runs the Python work directory module"
 [[ -d $install_home/Work/tries ]] || fail "installer creates the work and tries directories"
 [[ ! -e $install_home/Work/.mise.toml ]] || fail "installer does not create a trusted Work Mise config"

@@ -12,7 +12,7 @@ user_leaf="$ROOT/src/python/installer_user/setup/platform.py"
 
 [[ $(grep '^run_logged' "$ROOT/installer/hardware/all.sh" | tail -n 1) == 'run_logged "$ARCH_PATH/src/python/installer/hardware/platform_setup.py"' ]] ||
   fail "the platform's system setup is the last hardware leaf"
-[[ $(grep '^run_logged' "$ROOT/installer/user/all.sh" | tail -n 1) == 'run_logged "$ARCH_PATH/src/python/installer_user/setup/platform.py"' ]] ||
+[[ $(grep '^  - setup/' "$ROOT/data/installer/user-setup.yml" | tail -n 1) == '  - setup/platform.py' ]] ||
   fail "the platform's user setup is the last user leaf"
 pass "the platform's setup is the last leaf of hardware and of user setup"
 
@@ -115,7 +115,7 @@ pass "x86: the user setup leaf is a no-op, even with Mac entrypoints on disk"
 # leaves first run pending for the next login, as a failed finalization does.
 first_bin=$tmp/first-bin
 first_root=$tmp/arch
-mkdir -p "$first_bin" "$first_root/installer/user/first-run" "$tmp/home"
+mkdir -p "$first_bin" "$tmp/home"
 cat >"$first_bin/arch-done" <<'SH'
 #!/bin/bash
 case "$1:$2" in
