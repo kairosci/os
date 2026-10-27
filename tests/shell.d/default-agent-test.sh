@@ -205,10 +205,6 @@ pass "Muse migration preserves existing installs and the preinstall opt-out"
 
 
 : >"$stub_log"
-ARCH_TEST_MISSING_COMMAND=kimi source "$ROOT/migrations/1786967403.sh" >/dev/null
-grep -Fx "$kimi_package kimi" "$stub_log" >/dev/null || fail "Kimi migration creates its lazy stub"
-
-: >"$stub_log"
 source "$ROOT/migrations/1785617047.sh" >/dev/null
 grep -Fx "$legacy_omp_package omp" "$stub_log" >/dev/null || fail "Oh My Pi migration creates a working lazy stub"
 
@@ -311,7 +307,6 @@ source "$ROOT/migrations/1785617047.sh" >/dev/null
 source "$ROOT/migrations/1785846769.sh" >/dev/null
 source "$ROOT/migrations/1787342993.sh" >/dev/null
 ARCH_TEST_MISSING_COMMAND=cursor-agent source "$ROOT/migrations/1788577553.sh" >/dev/null
-ARCH_TEST_MISSING_COMMAND=kimi source "$ROOT/migrations/1786967403.sh" >/dev/null
 [[ ! -s $stub_log ]] || fail "agent migrations respect the preinstall opt-out"
 [[ ! -e $test_home/.local/bin/omp ]] || fail "agent migration removes the obsolete Oh My Pi wrapper after opt-out"
 

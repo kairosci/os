@@ -18,8 +18,6 @@ sources = [
   "src/cli/arch-agent-prompt",
   "src/cli/arch-agent-usage-claude",
   "src/cli/arch-agent-usage-codex",
-  "src/cli/arch-agent-usage-fireworks",
-  "src/cli/arch-agent-usage-kimi",
   "src/cli/arch-agent-usage-update",
 ]
 requires = ["desktop.commands"]
@@ -87,14 +85,6 @@ target = "usr/share/arch/src/cli/arch-agent-usage-claude"
 [[output]]
 source = "src/cli/arch-agent-usage-codex"
 target = "usr/share/arch/src/cli/arch-agent-usage-codex"
-
-[[output]]
-source = "src/cli/arch-agent-usage-fireworks"
-target = "usr/share/arch/src/cli/arch-agent-usage-fireworks"
-
-[[output]]
-source = "src/cli/arch-agent-usage-kimi"
-target = "usr/share/arch/src/cli/arch-agent-usage-kimi"
 
 [[output]]
 source = "src/cli/arch-agent-usage-update"
