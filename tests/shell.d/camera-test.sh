@@ -36,7 +36,7 @@ shipped="$ROOT/config/chromium-flags.conf"
 features=$(grep -- '^--enable-features=' "$shipped")
 
 touch "$ARCH_TEST_QUALCOMM"
-grep -Fq 'run_logged "$ARCH_PATH/src/python/installer/hardware/qualcomm_camera.py"' "$ROOT/installer/hardware/all.sh" ||
+grep -Fq 'src/python/installer/hardware/qualcomm_camera.py' "$ROOT/data/installer/hardware-setup.yml" ||
   fail "hardware setup runs the Qualcomm camera package module"
 pass "hardware setup includes the Python Qualcomm camera package module"
 

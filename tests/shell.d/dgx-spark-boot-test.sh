@@ -5,7 +5,7 @@ set -euo pipefail
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 setup="$ROOT/src/python/installer/hardware/nvidia/dgx_spark_boot.py"
-all="$ROOT/installer/hardware/all.sh"
+hardware_setup="$ROOT/data/installer/hardware-setup.yml"
 direct_boot="$ROOT/src/cli/arch-boot-direct"
 migration=$(grep -l "nvidia/dgx_spark_boot.py" "$ROOT"/migrations/*.sh | head -1 || true)
 config="$ROOT/data/installer/hardware/nvidia/dgx-spark-boot.yml"
@@ -17,7 +17,7 @@ mkdir -p "$scratch/bin"
 
 bash -n "$direct_boot" || fail "Direct Boot check has valid syntax"
 
-grep -q 'run_logged .*hardware/nvidia/dgx_spark_boot.py' "$all" ||
+grep -q 'src/python/installer/hardware/nvidia/dgx_spark_boot.py' "$hardware_setup" ||
   fail "the DGX Spark boot setting runs during hardware setup"
 grep -q 'arch-boot-direct' "$config" ||
   fail "hardware setup asks the Direct Boot helper before writing the UKI setting"

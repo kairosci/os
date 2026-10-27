@@ -38,6 +38,20 @@ def _step_path(step: object, arch_path: Path, arch_install: Path) -> Path:
   return script
 
 
+def _step_reference(step: object) -> str:
+  if isinstance(step, str):
+    return str(_relative_path(step))
+  if isinstance(step, dict):
+    root_name = step.get("root", "arch_path")
+    relative = _relative_path(step.get("path"))
+    if root_name == "arch_path":
+      return str(relative)
+    if root_name == "arch_install":
+      return str(Path("installer") / relative)
+    raise ValueError(f"Invalid installer step root: {root_name!r}")
+  raise ValueError(f"Invalid installer step: {step!r}")
+
+
 def _load_steps(
   arch_path: Path, arch_install: Path, config_relative: Path
 ) -> tuple[list[Path], dict[str, str]]:
@@ -54,6 +68,15 @@ def _load_steps(
   localized = messages.get(language, messages.get("en", {}))
   scripts = [_step_path(step, arch_path, arch_install) for step in steps]
   return scripts, localized
+
+
+def _load_step_references(
+  arch_path: Path, arch_install: Path, config_relative: Path
+) -> list[str]:
+  _load_steps(arch_path, arch_install, config_relative)
+  config_path = arch_path / config_relative
+  config = yaml.safe_load(config_path.read_text(encoding="utf-8"))
+  return [_step_reference(step) for step in config["steps"]]
 
 
 def run_steps(arch_path: Path, arch_install: Path, config_relative: Path) -> int:
@@ -90,7 +113,10 @@ def _log(messages: dict[str, str], key: str, script: Path, status: int | None = 
 def main(arguments: list[str] | None = None) -> int:
   arguments = sys.argv[1:] if arguments is None else arguments
   validate = arguments[:1] == ["--validate"]
+  list_steps = arguments[:1] == ["--list"]
   if validate:
+    arguments = arguments[1:]
+  elif list_steps:
     arguments = arguments[1:]
   if len(arguments) != 1:
     return 2
@@ -99,6 +125,10 @@ def main(arguments: list[str] | None = None) -> int:
   config_relative = Path(arguments[0])
   if validate:
     _load_steps(arch_path, arch_install, config_relative)
+    return 0
+  if list_steps:
+    for step in _load_step_references(arch_path, arch_install, config_relative):
+      print(step)
     return 0
   return run_steps(arch_path, arch_install, config_relative)
 

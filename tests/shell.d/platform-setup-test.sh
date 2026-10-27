@@ -10,7 +10,7 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 hardware_leaf="$ROOT/src/python/installer/hardware/platform_setup.py"
 user_leaf="$ROOT/src/python/installer_user/setup/platform.py"
 
-[[ $(grep '^run_logged' "$ROOT/installer/hardware/all.sh" | tail -n 1) == 'run_logged "$ARCH_PATH/src/python/installer/hardware/platform_setup.py"' ]] ||
+[[ $(python3 -c 'import sys, yaml; print(yaml.safe_load(open(sys.argv[1], encoding="utf-8"))["steps"][-1])' "$ROOT/data/installer/hardware-setup.yml") == 'src/python/installer/hardware/platform_setup.py' ]] ||
   fail "the platform's system setup is the last hardware leaf"
 [[ $(grep '^  - setup/' "$ROOT/data/installer/user-setup.yml" | tail -n 1) == '  - setup/platform.py' ]] ||
   fail "the platform's user setup is the last user leaf"

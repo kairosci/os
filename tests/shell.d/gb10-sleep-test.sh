@@ -5,7 +5,7 @@ set -euo pipefail
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 setup="$ROOT/src/python/installer/hardware/gb10/sleep.py"
-all="$ROOT/installer/hardware/all.sh"
+hardware_setup="$ROOT/data/installer/hardware-setup.yml"
 menu="$ROOT/default/arch/arch-menu.jsonc"
 migration=$(grep -l "hardware/gb10/sleep.py" "$ROOT"/migrations/*.sh | head -1 || true)
 
@@ -17,7 +17,7 @@ scratch=$(mktemp -d)
 trap 'rm -rf "$scratch"' EXIT
 mkdir -p "$scratch/bin"
 
-grep -q 'run_logged .*src/python/installer/hardware/gb10/sleep.py' "$all" ||
+grep -q 'src/python/installer/hardware/gb10/sleep.py' "$hardware_setup" ||
   fail "the GB10 sleep setting runs during hardware setup"
 [[ -n $migration ]] || fail "a migration applies the GB10 sleep setting to existing installs"
 pass "the GB10 sleep setting runs at install and through a migration"

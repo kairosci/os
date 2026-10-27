@@ -85,5 +85,5 @@ if arch_image_manifest_present; then
   arch_image_read_manifest
   arch_image_defer_hardware
 else
-  source "$ARCH_INSTALL/hardware/all.sh"
+  run_logged "$ARCH_PATH/src/python/installer/hardware/all.py"
 fi

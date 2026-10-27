@@ -7,7 +7,7 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 leaf="$ROOT/src/python/installer/hardware/dell_xps13_ptl_speaker_firmware.py"
 migration="$ROOT/migrations/1791265613.sh"
 
-grep -q 'run_logged .*hardware/dell_xps13_ptl_speaker_firmware.py' "$ROOT/installer/hardware/all.sh" ||
+grep -q 'src/python/installer/hardware/dell_xps13_ptl_speaker_firmware.py' "$ROOT/data/installer/hardware-setup.yml" ||
   fail "hardware setup installs the Panther Lake XPS 13 firmware"
 pass "hardware setup installs the Panther Lake XPS 13 firmware"
 

@@ -136,27 +136,24 @@ arch_image_write_queue() {
   chmod 0644 "$tmp" && mv -f "$tmp" "$arch_image_queue"
 }
 
-# Queue every leaf installer/hardware/all.sh would run, in its order, running
-# none of them, then arm the first-boot service. Rerunning rewrites the same queue.
+# Queue every configured hardware leaf in order, running none of them, then
+# arm the first-boot service. Rerunning rewrites the same queue.
 arch_image_defer_hardware() {
   local listing
   local -a steps=()
 
-  listing=$(
-    run_logged() {
-      if [[ $1 == $ARCH_INSTALL/hardware/*.sh && $1 != *..* ]]; then
-        printf 'installer/%s\n' "${1#"$ARCH_INSTALL"/}"
-      elif [[ $1 == $ARCH_PATH/src/python/installer/hardware/*.py && $1 != *..* ]]; then
-        printf 'src/python/%s\n' "${1#"$ARCH_PATH"/src/python/}"
-      else
-        echo "Error: cannot defer a step outside the hardware setup: $1" >&2
-        exit 1
-      fi
-    }
-    source "$ARCH_INSTALL/hardware/all.sh"
-  ) || return 1
+  listing=$(python3 -I "$ARCH_PATH/src/python/installer/step_runner.py" --list data/installer/hardware-setup.yml) || return 1
+  if [[ -n $listing ]]; then
+    while IFS= read -r step; do
+      [[ $step == installer/hardware/*.sh && $step != *..* ]] ||
+        [[ $step == src/python/installer/hardware/*.py && $step != *..* ]] || {
+          echo "Error: cannot defer a step outside the hardware setup: $step" >&2
+          return 1
+        }
+      steps+=("$step")
+    done <<<"$listing"
+  fi
 
-  [[ -z $listing ]] || mapfile -t steps <<<"$listing"
   arch_image_write_queue "${steps[@]}" || return 1
 
   install -d -m 0755 "$arch_image_systemd_dir/multi-user.target.wants" &&

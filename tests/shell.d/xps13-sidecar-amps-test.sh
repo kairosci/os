@@ -6,10 +6,10 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 detector="$ROOT/src/cli/arch-hw-dell-xps13-sidecar-amps"
 leaf="$ROOT/src/python/installer/hardware/dell_xps13_sidecar_amps.py"
-all="$ROOT/installer/hardware/all.sh"
+setup="$ROOT/data/installer/hardware-setup.yml"
 migration=$(grep -l "dell-xps13-sidecar-amps" "$ROOT"/migrations/*.sh | head -1)
 
-grep -q 'run_logged .*hardware/dell_xps13_sidecar_amps.py' "$all" ||
+grep -q 'src/python/installer/hardware/dell_xps13_sidecar_amps.py' "$setup" ||
   fail "the sidecar amplifier workaround runs during hardware setup"
 pass "the sidecar amplifier workaround runs during hardware setup"
 

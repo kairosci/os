@@ -5,9 +5,9 @@ set -euo pipefail
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 leaf="$ROOT/src/python/installer/hardware/synaptic_touchpad.py"
-all="$ROOT/installer/hardware/all.sh"
+setup="$ROOT/data/installer/hardware-setup.yml"
 
-grep -q 'run_logged .*src/python/installer/hardware/synaptic_touchpad.py' "$all" ||
+grep -q 'src/python/installer/hardware/synaptic_touchpad.py' "$setup" ||
   fail "the synaptic touchpad quirk runs during hardware setup"
 pass "the synaptic touchpad quirk runs during hardware setup"
 
