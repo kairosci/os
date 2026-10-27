@@ -24,3 +24,21 @@ git_identity:
       key: user.name
     - environment: ARCH_USER_EMAIL
       key: user.email
+xcompose:
+  path: .XCompose
+  user_name_environment: ARCH_USER_NAME
+  user_email_environment: ARCH_USER_EMAIL
+  template: |-
+    # Run arch-restart-xcompose to apply changes
+
+    # Include fast emoji access
+    include "$arch_path/default/xcompose"
+
+    # Identification
+    <Multi_key> <space> <n> : "$user_name"
+    <Multi_key> <space> <e> : "$user_email"
+  messages:
+    en:
+      invalid_identity: "Git identity values for XCompose must be single-line text."
+    it:
+      invalid_identity: "I valori di identità per XCompose devono essere su una sola riga."
