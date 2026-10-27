@@ -32,3 +32,79 @@ cjk:
   restart_apps_message: font.restartAppsToSeeChange
   notification_command: [arch-notification-send, -g]
   notification_glyph: 
+set:
+  allowed_extra_characters: "_. -"
+  help_arguments: [-h, --help]
+  exit_codes:
+    usage: 1
+    invalid_font: 2
+    not_found: 1
+    unsafe_config: 1
+  messages:
+    default_language: en
+    usage:
+      en: 'Usage: arch-font-set <font-name>'
+      it: 'Uso: arch-font-set <nome-carattere>'
+    invalid_font:
+      en: 'Font names may contain only letters, numbers, spaces, dots, underscores, and hyphens.'
+      it: 'Il nome può contenere solo lettere, numeri, spazi, punti, trattini bassi e trattini.'
+    not_found:
+      en: "Font '%1' not found."
+      it: "Carattere '%1' non trovato."
+    unsafe_config:
+      en: 'A font configuration symlink points outside your home and XDG config directory.'
+      it: 'Un collegamento simbolico della configurazione dei caratteri punta fuori dalla home e dalla directory XDG.'
+  config_home_environment: XDG_CONFIG_HOME
+  config_home_default: .config
+  default_file_mode: 420
+  file_mode_mask: 511
+  temporary_file_prefix: .arch-font-
+  font_list_command: [fc-list]
+  configs:
+    alacritty:
+      path: alacritty/alacritty.toml
+      pattern: '(?m)family = ".*"'
+      replacement: 'family = "{font}"'
+    kitty:
+      path: kitty/kitty.conf
+      presence_command: [arch-cmd-present, kitty]
+      pattern: '(?m)^[ \t]*font_family[ \t]+.*$'
+      replacement: 'font_family {font}'
+      append: '\nfont_family {font}\n'
+      reload_command: [pkill, -USR1, kitty]
+    ghostty:
+      path: ghostty/config
+      pattern: '(?m)font-family = ".*"'
+      replacement: 'font-family = "{font}"'
+      reload_command: [pkill, -SIGUSR2, ghostty]
+    foot:
+      path: foot/foot.ini
+      pattern: '(?m)^font=.*$'
+      replacement: 'font={font}:size={size}'
+      size: 9
+    fontconfig:
+      path: fontconfig/fonts.conf
+      template: |
+        <?xml version="1.0"?>
+        <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+        <fontconfig>
+          <match target="pattern">
+            <test name="family" qual="any">
+              <string>monospace</string>
+            </test>
+            <edit name="family" mode="prepend_first" binding="strong">
+              <string>{font}</string>
+            </edit>
+          </match>
+        </fontconfig>
+  process_command: [pgrep, -x]
+  notification_command: [arch-notification-send, -g, ]
+  i18n_command: [arch-i18n]
+  notifications:
+    - process: ghostty
+      application: Ghostty
+    - process: foot
+      application: Foot
+  notification_message: font.restartToSeeChange
+  restart_command: [arch-restart-shell]
+  hook_command: [arch-hook, font-set]

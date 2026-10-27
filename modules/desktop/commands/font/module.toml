@@ -7,6 +7,7 @@ sources = [
   "src/cli/arch-font-list",
   "src/cli/arch-font-set",
   "src/python/cli/fonts.py",
+  "src/python/cli/font_set.py",
 ]
 requires = ["desktop.commands", "system.runtime-data"]
 
@@ -29,3 +30,7 @@ target = "usr/share/arch/src/cli/arch-font-set"
 [[output]]
 source = "src/python/cli/fonts.py"
 target = "usr/share/arch/src/python/cli/fonts.py"
+
+[[output]]
+source = "src/python/cli/font_set.py"
+target = "usr/share/arch/src/python/cli/font_set.py"
