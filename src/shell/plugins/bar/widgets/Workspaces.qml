@@ -55,8 +55,10 @@ BarWidget {
   }
 
   function activeWorkspaceId() {
-    // Workspace objects refresh on workspace events; monitor objects can keep
-    // their previous activeWorkspace reference across a monitor refresh.
+    // Tie callers to the event refresh as well as the model properties. The
+    // Hyprland wrapper can refresh its workspace objects without changing the
+    // array identity, which otherwise leaves `shown` bound to an old workspace.
+    var revision = root.workspaceRevision
     var values = Hyprland.workspaces.values
     for (var i = 0; i < values.length; i++) {
       var workspace = values[i]
@@ -124,6 +126,7 @@ BarWidget {
   // A wheel notch moves one entry along the row, and a touchpad adds up its
   // smaller deltas until they make a notch's worth.
   property real wheelAccumulator: 0
+  property int workspaceRevision: 0
 
   function scrollWorkspaces(delta) {
     var wheel = Util.wheelSteps(root.wheelAccumulator, delta)
@@ -153,6 +156,7 @@ BarWidget {
       if (switched || monitorFocused || name === "moveworkspacev2" || name === "changeworkspaceid") {
         Hyprland.refreshMonitors()
         Hyprland.refreshWorkspaces()
+        root.workspaceRevision++
       }
     }
   }
@@ -199,6 +203,7 @@ BarWidget {
         // select (1-10) instead of Hyprland's monitor-specific global id.
         // Keep a visiting workspace's global id visible to distinguish it.
         text: String(root.blockOf(modelData) === root.block ? slot : modelData)
+        labelVisible: true
         active: shown
         activeColor: Commons.Color.accent
         useActiveColor: true
