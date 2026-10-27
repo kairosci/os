@@ -8,3 +8,6 @@ language:
       failure: "Could not set the preset language {code}"
     it:
       failure: "Impossibile impostare la lingua predefinita {code}"
+
+input_method:
+  command: [arch-input-method, configure, --seed]
