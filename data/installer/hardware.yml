@@ -107,3 +107,10 @@ vulkan_setup:
   platform_check: [arch-hw-aarch64-qualcomm]
   platform_package: vulkan-freedreno
   package_command: [arch-pkg-add]
+broadcom_wifi_setup:
+  pci_command: [lspci, -nn]
+  device_ids: [14e4:43a0, 14e4:4331]
+  detected_message:
+    en: "BCM4360 / BCM4331 detected"
+    it: "Rilevati BCM4360 / BCM4331"
+  package_command: [arch-pkg-add, broadcom-wl-dkms]

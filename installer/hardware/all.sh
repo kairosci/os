@@ -55,7 +55,7 @@ run_logged "$ARCH_INSTALL/hardware/lenovo/fix-yoga-pro7-bass-speakers.sh"
 run_logged "$ARCH_INSTALL/hardware/lenovo/yoga-slim7x.sh"
 run_logged "$ARCH_INSTALL/hardware/lenovo/thinkpad-t14s-camera.sh"
 
-run_logged "$ARCH_INSTALL/hardware/fix-bcm43xx.sh"
+run_logged "$ARCH_PATH/src/python/installer/hardware/broadcom_wifi.py"
 run_logged "$ARCH_INSTALL/hardware/fix-surface-keyboard.sh"
 run_logged "$ARCH_INSTALL/hardware/fix-yt6801-ethernet-adapter.sh"
 run_logged "$ARCH_INSTALL/hardware/fix-tuxedo-backlight.sh"
