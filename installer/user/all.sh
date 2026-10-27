@@ -1,6 +1,6 @@
 run_logged "$ARCH_INSTALL/user/theme.sh"
 run_logged "$ARCH_PATH/src/python/installer_user/setup/terminal.py"
-run_logged "$ARCH_INSTALL/user/chromium.sh"
+run_logged "$ARCH_PATH/src/python/installer_user/setup/chromium_extensions.py"
 run_logged "$ARCH_PATH/src/python/installer_user/setup/git.py"
 run_logged "$ARCH_PATH/src/python/installer_user/setup/xcompose.py"
 run_logged "$ARCH_PATH/src/python/installer_user/setup/language.py"
