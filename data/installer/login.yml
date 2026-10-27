@@ -1,0 +1,26 @@
+paths:
+  pam_directory: /etc/pam.d
+  pam_file: sddm
+  temporary_prefix: .sddm-
+limits:
+  maximum_bytes: 1048576
+file:
+  create_mode: "0600"
+  maximum_parent_mode: "0022"
+  required_owner: root
+  require_single_link: true
+  patterns:
+    - '-auth.*pam_gnome_keyring\.so'
+    - '-password.*pam_gnome_keyring\.so'
+messages:
+  en:
+    unsafe_directory: Refusing to modify an untrusted SDDM PAM directory.
+    unsafe_file: Refusing to modify an untrusted SDDM PAM configuration.
+    file_too_large: SDDM PAM configuration exceeds the configured size limit.
+    update_failed: Could not safely update the SDDM PAM configuration.
+  it:
+    unsafe_directory: La directory PAM di SDDM non è attendibile; modifica rifiutata.
+    unsafe_file: La configurazione PAM di SDDM non è attendibile; modifica rifiutata.
+    file_too_large: La configurazione PAM di SDDM supera il limite di dimensione.
+    update_failed: Impossibile aggiornare in sicurezza la configurazione PAM di SDDM.
+default_language: en

@@ -1,9 +1,9 @@
 id = "system.installation.login"
 domain = "system"
 package = "arch"
-sources = ["installer/login"]
-requires = ["system.installation"]
+sources = ["src/python/installer/login"]
+requires = ["system.installation", "system.runtime-data"]
 
 [[output]]
-source = "installer/login"
-target = "usr/share/arch/installer/login"
+source = "src/python/installer/login"
+target = "usr/share/arch/src/python/installer/login"
