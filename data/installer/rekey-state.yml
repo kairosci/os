@@ -1,0 +1,22 @@
+rekey_state:
+  filesystem:
+    file_mode: 384
+    directory_flags: [O_RDONLY, O_DIRECTORY, O_CLOEXEC, O_NOFOLLOW]
+    read_flags: [O_RDONLY, O_CLOEXEC, O_NOFOLLOW, O_NONBLOCK]
+    write_flags: [O_WRONLY, O_CREAT, O_EXCL, O_CLOEXEC, O_NOFOLLOW]
+    write_mode: 384
+    maximum_bytes: 65536
+    shared_sticky_mode: 512
+    forbidden_write_mask: 18
+    temporary_prefix: .rekey-state.
+    random_bytes: 12
+  syntax:
+    key_pattern: '^[a-z][a-z0-9_]*$'
+    separator: "="
+    newline: "\n"
+    encoding: utf-8
+  statuses:
+    success: 0
+    missing: 1
+    invalid_arguments: 2
+    unsafe_state: 3

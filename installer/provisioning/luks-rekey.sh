@@ -49,39 +49,11 @@ luks_dump_slots() {
 }
 
 rekey_state_get() {
-  [[ -f $REKEY_STATE ]] || return 1
-  awk -F= -v k="$1" '$1 == k { print $2; exit }' "$REKEY_STATE"
+  ARCH_PATH="$ARCH_PATH" python3 -I "$ARCH_PATH/src/python/installer/rekey_state.py" get "$REKEY_STATE" "$1"
 }
 
-# Set key/value pairs, keeping every other recorded key.
 rekey_state_put() {
-  local line key tmp
-  local -A updates=()
-  local -a lines=()
-
-  while (( $# >= 2 )); do
-    updates[$1]=$2
-    shift 2
-  done
-
-  if [[ -f $REKEY_STATE ]]; then
-    while IFS= read -r line || [[ -n $line ]]; do
-      if [[ -n $line && -z ${updates[${line%%=*}]+set} ]]; then
-        lines+=("$line")
-      fi
-    done <"$REKEY_STATE"
-  fi
-  for key in "${!updates[@]}"; do
-    lines+=("$key=${updates[$key]}")
-  done
-
-  tmp=$(mktemp "$REKEY_STATE.XXXXXX") || return 1
-  if printf '%s\n' "${lines[@]}" >"$tmp" && chmod 600 "$tmp" && sync "$tmp" && mv -f "$tmp" "$REKEY_STATE"; then
-    sync "$(dirname "$REKEY_STATE")"
-    return
-  fi
-  rm -f "$tmp"
-  return 1
+  ARCH_PATH="$ARCH_PATH" python3 -I "$ARCH_PATH/src/python/installer/rekey_state.py" put "$REKEY_STATE" "$@"
 }
 
 staged_key_slot() {
