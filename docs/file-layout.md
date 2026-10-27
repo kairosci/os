@@ -326,7 +326,7 @@ transaction in the already-visible update terminal, then runs
 
 Runs once on first interactive login, after the user manager is live. The Python entry point in `src/cli/arch-provision-first-run` delegates to `src/python/installer_user/first_run/orchestrator.py`; step commands, ordering, log messages, and localized English/Italian strings live in `data/installer/first-run.yml`. It first runs `arch-provision-user` so finalization catches up if it never ran, then handles the setup that needs a running graphical session and/or user systemd instance.
 
-The configured steps install the shipped post-update hooks, enable user systemd units individually, run `arch-lifecycle-dispatch setup-user`, apply GNOME/GTK/audio settings, show the welcome notification, and start the detached Wi-Fi/update notification worker. `arch-notification-wait` runs before the welcome and network notifications so they land on a live notification server. The unit list and commands are in the YAML file; unit `ConditionPath*` guards keep services inert when they do not apply.
+The configured steps install the fingerprint invitation Python hook, enable user systemd units individually, run `arch-lifecycle-dispatch setup-user`, apply GNOME/GTK/audio settings, show the welcome notification, and start the detached Wi-Fi/update notification worker. `arch-notification-wait` runs before the welcome and network notifications so they land on a live notification server. The unit list and commands are in the YAML file; unit `ConditionPath*` guards keep services inert when they do not apply.
 
 The entire sequence has one idempotency marker:
 `~/.local/state/arch/done/first-run-user`, managed by `arch-done`.
