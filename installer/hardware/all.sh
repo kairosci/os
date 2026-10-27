@@ -1,7 +1,7 @@
 run_logged "$ARCH_PATH/src/python/installer/hardware/package_gates.py"
 run_logged "$ARCH_PATH/src/python/installer/hardware/surface_firmware.py"
 run_logged "$ARCH_PATH/src/python/installer/hardware/gb10/sleep.py"
-run_logged "$ARCH_INSTALL/hardware/nvidia/dgx-spark-boot.sh"
+run_logged "$ARCH_PATH/src/python/installer/hardware/nvidia/dgx_spark_boot.py"
 
 run_logged "$ARCH_PATH/src/python/installer/hardware/network.py"
 run_logged "$ARCH_PATH/src/python/installer/hardware/wireless_regdom.py"
