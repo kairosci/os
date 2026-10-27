@@ -135,6 +135,8 @@
     "cli:migration.removeBundledDesktopApps": "59025489a2f2",
     "cli:migration.removeFloatingDiskUsageLauncher": "26ccb20c0c6c",
     "cli:migration.removeManagedSkillLinks": "9f65197b6854",
+    "cli:migration.removeRetiredUsageWidget": "4b7795f55611",
+    "cli:migration.removeRetiredWorkspaceTool": "99b7beb314b2",
     "cli:migration.removeWorkspaceTitlebars": "9df27a876d4a",
     "cli:migration.replaceSatty": "7331bfd5f9a1",
     "cli:migration.replaceTerminalTextEffects": "9a75cc4ccd25",
