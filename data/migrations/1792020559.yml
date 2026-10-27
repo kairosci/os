@@ -1,0 +1,8 @@
+messages:
+  reason: migration.themeFcitxCandidateWindow
+steps:
+- command:
+  - arch-theme-set-fcitx5
+  - --activate
+- command:
+  - arch-theme-refresh

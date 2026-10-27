@@ -1,0 +1,5 @@
+messages:
+  reason: migration.installChromiumCopyUrl
+steps:
+- command:
+  - arch-install-chromium-copy-url
