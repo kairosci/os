@@ -4,7 +4,7 @@ run_logged "$ARCH_INSTALL/hardware/gb10/sleep.sh"
 run_logged "$ARCH_INSTALL/hardware/nvidia/dgx-spark-boot.sh"
 
 run_logged "$ARCH_INSTALL/hardware/network.sh"
-run_logged "$ARCH_INSTALL/hardware/set-wireless-regdom.sh"
+run_logged "$ARCH_PATH/src/python/installer/hardware/wireless_regdom.py"
 run_logged "$ARCH_INSTALL/hardware/fix-fkeys.sh"
 run_logged "$ARCH_PATH/src/python/installer/hardware/synaptic_touchpad.py"
 run_logged "$ARCH_INSTALL/hardware/bluetooth.sh"
