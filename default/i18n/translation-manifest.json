@@ -28921,7 +28921,12 @@
     "shell:wifiqr.showPassword": "6aeaa6a53d09",
     "cli:agent.notInstalled": "94cf0d87c5ad",
     "cli:agent.defaultUsage": "cd22d98f7659",
-    "cli:tui.usage": "d7b799ce5d81"
+    "cli:tui.usage": "d7b799ce5d81",
+    "cli:tui.created": "f0a7fa51cac6",
+    "cli:tui.failed": "7e661101f17d",
+    "cli:tui.iconDownloadFailed": "c128293ebeaa",
+    "cli:tui.invalidName": "c699fac500a4",
+    "cli:tui.requiredValues": "789d214cb252"
   },
   "ja": {
     "cli:agents.addFailed": "dc953177184a",

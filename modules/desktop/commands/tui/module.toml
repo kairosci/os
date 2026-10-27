@@ -3,6 +3,7 @@ domain = "desktop"
 package = "arch"
 sources = [
   "src/cli/arch-tui-install",
+  "src/python/cli/tui_install.py",
   "src/cli/arch-tui-remove",
   "src/cli/arch-tui-remove-all",
 ]
@@ -11,6 +12,10 @@ requires = ["desktop.commands"]
 [[output]]
 source = "src/cli/arch-tui-install"
 target = "usr/share/arch/src/cli/arch-tui-install"
+
+[[output]]
+source = "src/python/cli/tui_install.py"
+target = "usr/share/arch/src/python/cli/tui_install.py"
 
 [[output]]
 source = "src/cli/arch-tui-remove"
