@@ -161,6 +161,7 @@
   "migration.removeRetiredNotificationImageCache": "Rimuovi la vecchia cache delle immagini delle notifiche",
   "migration.removeSavedFloatingWorkspaces": "Rimuovi i layout flottanti salvati delle aree di lavoro",
   "migration.saveWorkspaceLayoutsAsModes": "Salva i layout delle aree di lavoro come modalità",
+  "migration.speedUpFootScrolling": "Aumenta la velocità di scorrimento in Foot",
   "migration.removeWorkspaceTitlebars": "Rimuovi le titlebar obsolete dei workspace",
   "migration.removeRetiredUsageWidget": "Rimuovi il widget d’uso non più supportato dalla configurazione della shell",
   "migration.removeRetiredWorkspaceTool": "Rimuovi lo strumento workspace dismesso e i suoi dati utente",

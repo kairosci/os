@@ -1,0 +1,15 @@
+commands:
+  i18n: [arch-i18n]
+paths:
+  foot_config: .config/foot/foot.ini
+patterns:
+  scroll_multiplier: '^multiplier='
+values:
+  scrollback_section: '[scrollback]'
+  insert_after_section: 1
+  multiplier_setting: multiplier=7.0
+  append_block: "\n[scrollback]\nmultiplier=7.0\n"
+messages:
+  reason: migration.speedUpFootScrolling
+statuses:
+  success: 0
