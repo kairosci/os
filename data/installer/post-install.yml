@@ -1,0 +1,6 @@
+localdb:
+  command: [updatedb, --prune-bind-mounts=no, --add-prunepaths=/.snapshots]
+udev:
+  commands:
+    - [udevadm, control, --reload]
+    - [udevadm, trigger, --subsystem-match=power_supply]
