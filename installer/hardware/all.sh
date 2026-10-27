@@ -31,7 +31,7 @@ run_logged "$ARCH_PATH/src/python/installer/hardware/asus/expertbook_b9406_touch
 run_logged "$ARCH_INSTALL/hardware/asus/fix-z13-touchpad.sh"
 run_logged "$ARCH_INSTALL/hardware/asus/fix-asus-proart-p14-touchpad.sh"
 run_logged "$ARCH_INSTALL/hardware/asus/fix-asus-proart-p14-speakers.sh"
-run_logged "$ARCH_INSTALL/hardware/asus/fix-asus-proart-p14-fkeys.sh"
+run_logged "$ARCH_PATH/src/python/installer/hardware/asus/proart_p14_fkeys.py"
 run_logged "$ARCH_PATH/src/python/installer/hardware/n1x_gpu_memory.py"
 
 run_logged "$ARCH_INSTALL/hardware/framework/qmk-hid.sh"
