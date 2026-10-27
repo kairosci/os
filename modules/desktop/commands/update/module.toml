@@ -8,6 +8,7 @@ sources = [
   "src/cli/arch-update-available",
   "src/cli/arch-update-boot",
   "src/cli/arch-update-confirm",
+  "src/python/cli/update_confirm.py",
   "src/cli/arch-update-dev",
   "src/cli/arch-update-firmware",
   "src/cli/arch-update-keyring",
@@ -51,6 +52,10 @@ target = "usr/share/arch/src/cli/arch-update-boot"
 [[output]]
 source = "src/cli/arch-update-confirm"
 target = "usr/share/arch/src/cli/arch-update-confirm"
+
+[[output]]
+source = "src/python/cli/update_confirm.py"
+target = "usr/share/arch/src/python/cli/update_confirm.py"
 
 [[output]]
 source = "src/cli/arch-update-dev"

@@ -249,6 +249,7 @@
     "cli:tui.requiredValues": "789d214cb252",
     "cli:tui.selectRemove": "df10ce3e2d9f",
     "cli:tui.usage": "d7b799ce5d81",
+    "cli:update.cancelled": "2b16ede50ebe",
     "cli:update.cannotStop": "e1124260d1d5",
     "cli:update.connectPower": "1ebc160f7bad",
     "cli:update.continue": "b9c3d6025149",

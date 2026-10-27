@@ -1,0 +1,24 @@
+commands:
+  i18n: [arch-i18n]
+  style: [gum, style, --border, normal, --padding, "1 2"]
+  confirm: [gum, confirm]
+style:
+  lines:
+    - {message: ready}
+    - {text: ""}
+    - {message: cannot_stop, prefix: "• "}
+    - {message: connect_power, prefix: "• "}
+    - {text: ""}
+    - {message: whats_new, arguments: [https://github.com/kairosci/os]}
+flags: {affirmative: --affirmative, negative: --negative}
+messages:
+  yes: common.yes
+  no: common.no
+  continue: update.continue
+  cancelled: update.cancelled
+strings:
+  ready: update.ready
+  cannot_stop: update.cannotStop
+  connect_power: update.connectPower
+  whats_new: update.whatsNew
+statuses: {confirmed: 0, cancelled: 1, failed: 2}
