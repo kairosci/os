@@ -7,10 +7,10 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 # The two setup leaves and first run call the platform's own setup through the
 # real dispatcher: a Mac fixture with arch-mac's entrypoints, and x86.
 
-hardware_leaf="$ROOT/installer/hardware/platform-setup.sh"
+hardware_leaf="$ROOT/src/python/installer/hardware/platform_setup.py"
 user_leaf="$ROOT/src/python/installer_user/setup/platform.py"
 
-[[ $(grep '^run_logged' "$ROOT/installer/hardware/all.sh" | tail -n 1) == 'run_logged "$ARCH_INSTALL/hardware/platform-setup.sh"' ]] ||
+[[ $(grep '^run_logged' "$ROOT/installer/hardware/all.sh" | tail -n 1) == 'run_logged "$ARCH_PATH/src/python/installer/hardware/platform_setup.py"' ]] ||
   fail "the platform's system setup is the last hardware leaf"
 [[ $(grep '^run_logged' "$ROOT/installer/user/all.sh" | tail -n 1) == 'run_logged "$ARCH_PATH/src/python/installer_user/setup/platform.py"' ]] ||
   fail "the platform's user setup is the last user leaf"

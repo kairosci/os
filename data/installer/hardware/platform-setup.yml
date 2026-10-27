@@ -1,0 +1,11 @@
+dispatch_command: [arch-lifecycle-dispatch]
+deferred_environment: ARCH_IMAGE_DEFERRED_HARDWARE
+deferred_value: "1"
+operations:
+  - name: setup-boot
+    arguments: []
+    deferred_arguments: [image-first-boot]
+  - name: setup-system
+    arguments: []
+    deferred_arguments: [image-first-boot]
+statuses: {complete: 0}
