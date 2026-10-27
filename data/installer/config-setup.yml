@@ -1,0 +1,17 @@
+lockout_limit:
+  system_auth:
+    path: /etc/pam.d/system-auth
+    rules:
+      - name: preauthentication lockout rule
+        pattern: '^(auth\s+required\s+pam_faillock\.so)\s+preauth.*$'
+        replacement: '\1 preauth silent deny=10 unlock_time=120'
+      - name: authentication failure lockout rule
+        pattern: '^(auth\s+\[default=die\]\s+pam_faillock\.so)\s+authfail.*$'
+        replacement: '\1 authfail deny=10 unlock_time=120'
+  sddm_autologin:
+    path: /etc/pam.d/sddm-autologin
+    remove_patterns:
+      - 'pam_faillock\.so preauth'
+      - 'pam_faillock\.so authsucc'
+    insert_after_pattern: 'auth.*pam_permit\.so'
+    insert_line: 'auth        required    pam_faillock.so authsucc'
