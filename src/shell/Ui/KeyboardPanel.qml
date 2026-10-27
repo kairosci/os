@@ -355,6 +355,14 @@ PanelWindow {
     }
   }
 
+  // Match the menu's visual weight: dim the desktop behind the panel while
+  // leaving the panel card and bar controls fully visible.
+  Rectangle {
+    anchors.fill: parent
+    color: Commons.Color.menu.scrim
+    visible: root.open
+  }
+
   // The panel surface only spans the anchor's screen, and the compositor
   // hit-tests pointer input per output, so `dismissArea` above can never see
   // a click on another monitor. Give every other output a transparent twin
