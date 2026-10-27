@@ -1,0 +1,1 @@
+command: [systemd-detect-virt, --vm, --quiet]
