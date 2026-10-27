@@ -1,0 +1,38 @@
+snapper:
+  paths:
+    config:
+      default: /etc/snapper/configs/root
+      environment_override: ARCH_SNAPPER_CONFIG_PATH
+    conf:
+      default: /etc/conf.d/snapper
+      environment_override: ARCH_SNAPPER_CONF_PATH
+    template:
+      default: default/snapper/root
+      environment_override: ARCH_SNAPPER_TEMPLATE
+  directory_mode: '0755'
+  file_mode: '0644'
+  config_file_contents: "SNAPPER_CONFIGS=\"root\"\n"
+  test_mode:
+    environment_variable: ARCH_SNAPPER_CONFIGURE_TEST
+    disabled_value: '0'
+    enabled_value: '1'
+  commands:
+    create_config_primary:
+      - snapper
+      - --no-dbus
+      - -c
+      - root
+      - create-config
+      - /
+    create_config_fallback:
+      - snapper
+      - -c
+      - root
+      - create-config
+      - /
+    disable_timeline:
+      - [systemctl, disable, --now, snapper-timeline.timer]
+    enable_cleanup:
+      - [systemctl, enable, --now, snapper-cleanup.timer]
+    disable_legacy_snapshot_sync:
+      - [systemctl, disable, --now, limine-snapper-sync.service, arch-snapshot-entries.path, arch-snapshot-entries.service]

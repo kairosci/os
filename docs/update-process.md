@@ -132,7 +132,7 @@ arch-update
   │       before the snapshot since the cache lives on the snapshotted subvolume
   ├─ create snapper snapshot (skipped silently without snapper; snapper
   │  installed but unconfigured fails the snapshot loudly, pointing at
-  │  installer/config/snapper.sh, and the update continues without one)
+  │  src/python/installer/system_setup/snapper_setup.py, and the update continues without one)
   ├─ arch-update-stay-awake start
   ├─ run system-package updates
   ├─ run migrations

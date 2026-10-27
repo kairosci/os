@@ -1,9 +1,9 @@
 echo "Normalize Snapper snapshot services"
 
 ARCH_PATH="${ARCH_PATH:-/usr/share/arch}"
-snapper_config_script=/usr/share/arch/installer/config/snapper.sh
-if [[ ! -f $snapper_config_script ]]; then
-  snapper_config_script="$ARCH_PATH/installer/config/snapper.sh"
+snapper_setup_script=/usr/share/arch/src/python/installer/system_setup/snapper_setup.py
+if [[ ! -f $snapper_setup_script ]]; then
+  snapper_setup_script="$ARCH_PATH/src/python/installer/system_setup/snapper_setup.py"
 fi
 
 as_root() {
@@ -36,4 +36,4 @@ fi
 
 (( needs_repair )) || exit 0
 
-as_root env ARCH_PATH="$ARCH_PATH" bash -euo pipefail "$snapper_config_script"
+as_root env ARCH_PATH="$ARCH_PATH" python3 -I "$snapper_setup_script"

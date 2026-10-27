@@ -68,8 +68,8 @@ done
 pass "os 4 upgrade survives a packaged tree missing top-level commands"
 
 grep -F 'configure_snapper_policy' "$upgrade_to_quattro" >/dev/null
-grep -F '/usr/share/arch/installer/config/snapper.sh' "$upgrade_to_quattro" >/dev/null
-grep -F 'bash -euo pipefail "$snapper_config_script"' "$upgrade_to_quattro" >/dev/null
+grep -F 'src/python/installer/system_setup/snapper_setup.py' "$upgrade_to_quattro" >/dev/null
+grep -F 'python3 -I "$snapper_setup_script"' "$upgrade_to_quattro" >/dev/null
 pass "os 4 upgrade normalizes Snapper retention"
 
 grep -F 'configure_lock_authentication' "$upgrade_to_quattro" >/dev/null
