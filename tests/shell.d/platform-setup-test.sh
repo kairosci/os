@@ -8,11 +8,11 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 # real dispatcher: a Mac fixture with arch-mac's entrypoints, and x86.
 
 hardware_leaf="$ROOT/installer/hardware/platform-setup.sh"
-user_leaf="$ROOT/installer/user/platform-setup.sh"
+user_leaf="$ROOT/src/python/installer_user/setup/platform.py"
 
 [[ $(grep '^run_logged' "$ROOT/installer/hardware/all.sh" | tail -n 1) == 'run_logged "$ARCH_INSTALL/hardware/platform-setup.sh"' ]] ||
   fail "the platform's system setup is the last hardware leaf"
-[[ $(grep '^run_logged' "$ROOT/installer/user/all.sh" | tail -n 1) == 'run_logged "$ARCH_INSTALL/user/platform-setup.sh"' ]] ||
+[[ $(grep '^run_logged' "$ROOT/installer/user/all.sh" | tail -n 1) == 'run_logged "$ARCH_PATH/src/python/installer_user/setup/platform.py"' ]] ||
   fail "the platform's user setup is the last user leaf"
 pass "the platform's setup is the last leaf of hardware and of user setup"
 
@@ -42,8 +42,13 @@ leaf() {
   local platform=$1 script=$2
   shift 2
   rm -f "$tmp/ran"
-  env "$@" ARCH_PROC_ROOT="$tmp/$platform/proc" ARCH_LIFECYCLE_ROOT="$lifecycle" \
-    PATH="$tmp/$platform/bin:$ROOT/src/cli:$PATH" bash -eE -c 'source "$1"' bash "$script" >"$tmp/output" 2>&1
+  if [[ $script == *.py ]]; then
+    env "$@" ARCH_PATH="$ROOT" ARCH_PROC_ROOT="$tmp/$platform/proc" ARCH_LIFECYCLE_ROOT="$lifecycle" \
+      PATH="$tmp/$platform/bin:$ROOT/src/cli:$PATH" python3 -I "$script" >"$tmp/output" 2>&1
+  else
+    env "$@" ARCH_PROC_ROOT="$tmp/$platform/proc" ARCH_LIFECYCLE_ROOT="$lifecycle" \
+      PATH="$tmp/$platform/bin:$ROOT/src/cli:$PATH" bash -eE -c 'source "$1"' bash "$script" >"$tmp/output" 2>&1
+  fi
 }
 
 # ── system setup ─────────────────────────────────────────────────────────────
@@ -94,6 +99,8 @@ mkdir -p "$tmp/image/var/lib/arch/image"
 leaf apple "$user_leaf" ARCH_IMAGE_ROOT="$tmp/image" || fail "apple: the user setup leaf succeeds in an image build"
 [[ ! -e $tmp/ran && $(cat "$tmp/output") == *"waits for first run on the machine"* ]] ||
   fail "apple: an image build leaves the platform's user setup to first run" "$(cat "$tmp/output")"
+LANG=it_IT.UTF-8 leaf apple "$user_leaf" ARCH_IMAGE_ROOT="$tmp/image" || fail "apple: the deferred message is localized" "$(cat "$tmp/output")"
+[[ $(cat "$tmp/output") == *"attende il primo avvio"* ]] || fail "apple: the image-build message uses Italian" "$(cat "$tmp/output")"
 pass "apple: the user setup leaf runs arch-mac's setup-user, fails with it, and waits for the machine in an image build"
 
 touch "$tmp/fail"

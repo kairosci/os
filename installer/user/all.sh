@@ -19,4 +19,4 @@ run_logged "$ARCH_INSTALL/user/hardware/vm-no-animations.sh"
 run_logged "$ARCH_PATH/src/python/installer_user/setup/default_keyring.py"
 run_logged "$ARCH_INSTALL/user/mise.sh"
 
-run_logged "$ARCH_INSTALL/user/platform-setup.sh"
+run_logged "$ARCH_PATH/src/python/installer_user/setup/platform.py"
