@@ -8,6 +8,6 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(os.environ["ARCH_PATH"]) / "src/python"))
 
-from cli.cmd_missing import main
+from cli.command_presence import missing_main
 
-raise SystemExit(main())
+raise SystemExit(missing_main())
