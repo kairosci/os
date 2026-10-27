@@ -2,3 +2,10 @@ speaker_tuning:
   match_command: [arch-audio-tuning, match]
   package_command: [arch-pkg-add]
   packages: [lsp-plugins-lv2]
+
+surface_firmware:
+  checks:
+    - [arch-hw-surface]
+    - [arch-hw-x86]
+  package_command: [arch-pkg-add]
+  package: linux-firmware-marvell

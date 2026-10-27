@@ -1,7 +1,7 @@
 run_logged "$ARCH_INSTALL/hardware/asus-rog.sh"
 run_logged "$ARCH_INSTALL/hardware/framework16.sh"
 run_logged "$ARCH_INSTALL/hardware/dell-xps-touchpad-haptics.sh"
-run_logged "$ARCH_INSTALL/hardware/surface.sh"
+run_logged "$ARCH_PATH/src/python/installer/hardware/surface_firmware.py"
 run_logged "$ARCH_INSTALL/hardware/gb10/sleep.sh"
 run_logged "$ARCH_INSTALL/hardware/nvidia/dgx-spark-boot.sh"
 

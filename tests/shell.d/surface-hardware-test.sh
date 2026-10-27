@@ -4,14 +4,12 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-surface_setup="$ROOT/installer/hardware/surface.sh"
+surface_setup="$ROOT/src/python/installer/hardware/surface_firmware.py"
 keyboard_setup="$ROOT/installer/hardware/fix-surface-keyboard.sh"
 scratch=$(mktemp -d)
 trap 'rm -rf "$scratch"' EXIT
 
-for script in "$surface_setup" "$keyboard_setup"; do
-  bash -n "$script" || fail "Surface hardware scripts have valid syntax"
-done
+bash -n "$keyboard_setup" || fail "Surface keyboard script has valid syntax"
 
 mkinitcpio_dir="$scratch/mkinitcpio.conf.d"
 module_list="$mkinitcpio_dir/surface_device_modules.conf"
@@ -22,25 +20,44 @@ run_surface_setup() (
   machine=$1
   script=$2
   loaded_modules=${3:-}
-  arch-hw-surface() { return 0; }
-  arch-hw-x86() { [[ $machine == "x86_64" ]]; }
-  arch-pkg-add() { printf '%s\n' "$*" >>"$scratch/packages"; }
-  lsmod() {
-    printf 'lsmod\n' >>"$scratch/probes"
-    printf '%s\n' "$loaded_modules"
-  }
-  # The keyboard script reads the DMI product name from sysfs, which ARM
-  # machines and containers may not have. Answer that read as an Intel Surface
-  # so the test does not depend on the host's firmware tables.
-  cat() {
-    if [[ $* == "/sys/class/dmi/id/product_name" ]]; then
-      printf 'Surface Laptop 3\n'
-    else
-      command cat "$@"
-    fi
-  }
-  ARCH_SURFACE_MKINITCPIO_DIR="$mkinitcpio_dir" source "$script"
+  if [[ $script == *.py ]]; then
+    PATH="$scratch/bin:$PATH" ARCH_PATH="$ROOT" ARCH_TEST_MACHINE="$machine" \
+      ARCH_TEST_PACKAGES="$scratch/packages" python3 -I "$script"
+  else
+    arch-hw-surface() { return 0; }
+    arch-hw-x86() { [[ $machine == "x86_64" ]]; }
+    arch-pkg-add() { printf '%s\n' "$*" >>"$scratch/packages"; }
+    lsmod() {
+      printf 'lsmod\n' >>"$scratch/probes"
+      printf '%s\n' "$loaded_modules"
+    }
+    # The keyboard script reads the DMI product name from sysfs, which ARM
+    # machines and containers may not have. Answer that read as an Intel Surface
+    # so the test does not depend on the host's firmware tables.
+    cat() {
+      if [[ $* == "/sys/class/dmi/id/product_name" ]]; then
+        printf 'Surface Laptop 3\n'
+      else
+        command cat "$@"
+      fi
+    }
+    ARCH_SURFACE_MKINITCPIO_DIR="$mkinitcpio_dir" source "$script"
+  fi
 )
+mkdir -p "$scratch/bin"
+cat >"$scratch/bin/arch-hw-surface" <<'SH'
+#!/bin/bash
+exit "${ARCH_TEST_SURFACE_STATUS:-0}"
+SH
+cat >"$scratch/bin/arch-hw-x86" <<'SH'
+#!/bin/bash
+[[ ${ARCH_TEST_MACHINE:-} == "x86_64" ]]
+SH
+cat >"$scratch/bin/arch-pkg-add" <<'SH'
+#!/bin/bash
+printf '%s\n' "$*" >>"$ARCH_TEST_PACKAGES"
+SH
+chmod +x "$scratch/bin/arch-hw-surface" "$scratch/bin/arch-hw-x86" "$scratch/bin/arch-pkg-add"
 
 rm -f "$scratch/packages" "$scratch/probes"
 run_surface_setup aarch64 "$surface_setup" >/dev/null
