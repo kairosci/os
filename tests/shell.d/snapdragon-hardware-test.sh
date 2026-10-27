@@ -5,7 +5,7 @@ set -euo pipefail
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 firmware_setup="$ROOT/src/python/installer/hardware/qualcomm/firmware.py"
-dtb_setup="$ROOT/installer/hardware/qualcomm/dtb-uki.sh"
+dtb_setup="$ROOT/src/python/installer/hardware/qualcomm/dtb_uki.py"
 scratch=$(mktemp -d)
 trap 'rm -rf "$scratch"' EXIT
 
@@ -49,10 +49,6 @@ run_firmware_setup() (
     python3 -I "$firmware_setup"
 )
 
-for script in "$dtb_setup"; do
-  bash -n "$script" || fail "Snapdragon hardware scripts have valid syntax"
-done
-
 export ARCH_TEST_ROOT_SOURCE=/dev/mapper/root ARCH_TEST_ROOT_TRANSPORT=usb
 run_firmware_setup
 
@@ -78,12 +74,11 @@ PCRPrivateKey=/secure/pcr.key
 CONF
 
 run_dtb_setup() (
-  arch-hw-aarch64-qualcomm() { return 0; }
-  arch-pkg-add() { :; }
-
-  ARCH_QUALCOMM_DTB_DIR="$scratch/dtbs"
-  ARCH_QUALCOMM_UKI_CONFIG="$scratch/uki.conf"
-  source "$dtb_setup"
+  ARCH_PATH="$ROOT" \
+    ARCH_QUALCOMM_DTB_DIR="$scratch/dtbs" \
+    ARCH_QUALCOMM_UKI_CONFIG="$scratch/uki.conf" \
+    PATH="$mock_bin:$PATH" \
+    python3 -I "$dtb_setup"
 )
 
 run_dtb_setup
@@ -122,12 +117,11 @@ mkdir -p "$scratch/dtbroot/qcom" "$scratch/dtbroot/linux/qcom"
 : >"$scratch/dtbroot/qcom/x1e80100-stock.dtb"
 : >"$scratch/dtbroot/linux/qcom/x1e80100-own.dtb"
 run_dtb_root_setup() (
-  arch-hw-aarch64-qualcomm() { return 0; }
-  arch-pkg-add() { :; }
-
-  ARCH_QUALCOMM_DTB_ROOT="$scratch/dtbroot"
-  ARCH_QUALCOMM_UKI_CONFIG="$scratch/uki-root.conf"
-  source "$dtb_setup"
+  ARCH_PATH="$ROOT" \
+    ARCH_QUALCOMM_DTB_ROOT="$scratch/dtbroot" \
+    ARCH_QUALCOMM_UKI_CONFIG="$scratch/uki-root.conf" \
+    PATH="$mock_bin:$PATH" \
+    python3 -I "$dtb_setup"
 )
 run_dtb_root_setup
 grep -Fq "DeviceTreeAuto=$scratch/dtbroot/linux/qcom/x1e80100-own.dtb" "$scratch/uki-root.conf" ||
@@ -159,7 +153,7 @@ run_leaves_on() (
   mkdir -p "$out"
   fake_platform "$scratch/platforms/$platform" "$platform"
   export ARCH_PROC_ROOT="$scratch/platforms/$platform/proc"
-  export PATH="$scratch/platforms/$platform/bin:$ROOT/src/cli:$PATH"
+  export PATH="$scratch/platforms/$platform/bin:$mock_bin:$ROOT/src/cli:$PATH"
 
   arch-pkg-add() { :; }
   qcom-firmware-extract() { [[ $1 != "--list-missing" ]]; }
@@ -172,9 +166,12 @@ run_leaves_on() (
   ARCH_QUALCOMM_MKINITCPIO_DIR="$out/mkinitcpio.conf.d"
   ARCH_PATH="$ROOT" ARCH_QUALCOMM_MODPROBE_DIR="$out/modprobe.d" \
     ARCH_TEST_ROOT_SOURCE=/dev/mapper/root ARCH_TEST_ROOT_TRANSPORT=nvme \
-    ARCH_TEST_INSPECTION_STATUS=1 PATH="$platform/bin:$mock_bin:$ROOT/src/cli:$PATH" \
+    ARCH_TEST_INSPECTION_STATUS=1 PATH="$scratch/platforms/$platform/bin:$mock_bin:$ROOT/src/cli:$PATH" \
     python3 -I "$firmware_setup"
-  source "$dtb_setup"
+  ARCH_PATH="$ROOT" ARCH_QUALCOMM_DTB_DIR="$scratch/dtbs" \
+    ARCH_QUALCOMM_UKI_CONFIG="$out/uki.conf" \
+    PATH="$scratch/platforms/$platform/bin:$mock_bin:$ROOT/src/cli:$PATH" \
+    python3 -I "$dtb_setup"
   ARCH_PATH="$ROOT" ARCH_QUALCOMM_KERNEL_PARAMS_FILE="$out/limine-entry-tool.d/qualcomm-snapdragon.conf" \
     python3 -I "$kernel_params_setup"
   ARCH_PATH="$ROOT" ARCH_QUALCOMM_MKINITCPIO_DIR="$out/mkinitcpio.conf.d" \

@@ -44,7 +44,7 @@ run_logged "$ARCH_PATH/src/python/installer/hardware/apple/brcmfmac_supplicant.p
 # These write boot settings and build nothing, like n1x.sh: the installer's
 # final limine-update builds the UKIs, and an image's first boot rebuilds once
 # after its last step.
-run_logged "$ARCH_INSTALL/hardware/qualcomm/dtb-uki.sh"
+run_logged "$ARCH_PATH/src/python/installer/hardware/qualcomm/dtb_uki.py"
 run_logged "$ARCH_PATH/src/python/installer/hardware/qualcomm/kernel_params.py"
 run_logged "$ARCH_PATH/src/python/installer/hardware/qualcomm/initramfs.py"
 run_logged "$ARCH_PATH/src/python/installer/hardware/qualcomm/firmware.py"
