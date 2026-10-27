@@ -58,7 +58,9 @@ def main() -> int:
   bar = document.get(settings["bar_key"]) if isinstance(document, dict) else None
   layout = bar.get(settings["layout_key"]) if isinstance(bar, dict) else None
   entries = layout.get(settings["section_key"]) if isinstance(layout, dict) else None
-  changed = move_before(entries, settings["item_id"], settings["before_id"], settings["object_id_key"])
+  item_id = settings["values_join_separator"].join(settings["item_id"])
+  before_id = settings["values_join_separator"].join(settings["before_id"])
+  changed = move_before(entries, item_id, before_id, settings["object_id_key"])
   if not changed:
     return int(config["statuses"]["success"])
 
