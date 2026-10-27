@@ -54,16 +54,16 @@ BarWidget {
     return (id - 1) % root.slots + 1
   }
 
-  readonly property int activeId: root.monitor && root.monitor.activeWorkspace
-    ? root.monitor.activeWorkspace.id
-    : -1
+  function activeWorkspaceId() {
+    return root.monitor && root.monitor.activeWorkspace ? root.monitor.activeWorkspace.id : -1
+  }
 
   // Until Hyprland has written the file, the workspace a monitor shows is in
   // its own block.
   readonly property int block: {
     var block = root.blocks[root.monitorName]
     if (block !== undefined) return block
-    var active = root.activeId
+    var active = root.activeWorkspaceId()
     return active > 0 ? root.blockOf(active) : 0
   }
 
@@ -124,7 +124,7 @@ BarWidget {
     // Holds at either end rather than wrapping, so a touchpad swipe that runs
     // long stops on the last workspace.
     var ids = root.workspaceIds()
-    var index = ids.indexOf(root.activeId)
+    var index = ids.indexOf(root.activeWorkspaceId())
     if (index === -1) return
     var target = ids[Util.clamp(index - wheel.steps, 0, ids.length - 1)]
     if (target !== ids[index]) root.focusWorkspace(target)
@@ -176,7 +176,7 @@ BarWidget {
 
         readonly property var workspace: root.workspaceById(modelData)
         readonly property bool occupied: workspace !== null && workspace.toplevels.values.length > 0
-        readonly property bool shown: root.activeId === modelData
+        readonly property bool shown: root.activeWorkspaceId() === modelData
         readonly property int slot: root.slotOf(modelData)
         readonly property bool firstGuest: root.blockOf(modelData) !== root.block && index > 0 && root.blockOf(root.workspaceIds()[index - 1]) === root.block
         required property int index
