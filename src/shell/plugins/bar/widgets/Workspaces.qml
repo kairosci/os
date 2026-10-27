@@ -136,13 +136,10 @@ BarWidget {
     target: Hyprland
     function onRawEvent(event) {
       var name = event ? String(event.name) : ""
-      // Quickshell credits every workspace switch to the focused monitor, as
-      // the event doesn't say which one switched, and misses the workspace a
-      // monitor falls back to when its own is moved away. Moving workspaces
-      // between monitors switches the others, so ask Hyprland for the truth.
-      // A workspace that changes number is only learned by asking too. Every
-      // bar shares what Hyprland answers, so one asks after a plain switch.
-      var switched = name === "workspacev2" && root.monitor !== null && root.monitor.focused
+      // A workspace switch can target a monitor other than the one with
+      // keyboard focus. Refresh on every switch so each bar's active marker
+      // follows the workspace its own monitor is showing.
+      var switched = name === "workspacev2"
       var monitorFocused = name === "focusedmonv2"
       if (switched || monitorFocused || name === "moveworkspacev2" || name === "changeworkspaceid") {
         Hyprland.refreshMonitors()
