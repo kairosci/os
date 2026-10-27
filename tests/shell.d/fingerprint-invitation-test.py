@@ -8,6 +8,8 @@ import subprocess
 import tempfile
 from pathlib import Path
 
+import yaml
+
 from base_test import ROOT, fail_check, pass_check, test_environment
 
 
@@ -79,7 +81,9 @@ def main() -> int:
       arguments = log_arguments()
       if not done.is_file() or not hook.is_file() or arguments.count("-u") != 1:
         fail_check("invitation records completion and sends one notification")
-      if "Configura il lettore d'impronte" not in arguments:
+      config = yaml.safe_load((ROOT / "data/installer/first-run.yml").read_text(encoding="utf-8"))
+      title = config["fingerprint_invitation"]["notification"]["messages"]["it"]["title"]
+      if title not in arguments:
         fail_check("fingerprint notification uses its Italian YAML translation")
       action = arguments.index("--exec") if "--exec" in arguments else -1
       if action < 0 or arguments[action + 1:action + 3] != ["arch-launch-terminal", "arch-setup-security-fingerprint"]:

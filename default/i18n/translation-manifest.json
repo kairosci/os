@@ -29792,8 +29792,6 @@
     "cli:screensaver.disabled": "69806c0272a5",
     "cli:screensaver.enabled": "97cf2f7a44b1",
     "cli:screensaver.terminalOnly": "9a90efc3f969",
-    "cli:security.fingerprintInvitation.body": "e23313583aab",
-    "cli:security.fingerprintInvitation.title": "2669c6bb6e1e",
     "cli:share.chooserClosed": "2ce7661a972e",
     "cli:share.couldNot": "88295663710d",
     "cli:share.filesTitle": "cb8e65c438a1",
