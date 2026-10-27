@@ -134,6 +134,7 @@
   "migration.removeManagedSkillLinks": "Removed %1 Arch-managed agent skill link(s)",
   "migration.removeWorkspaceTitlebars": "Remove obsolete workspace titlebars",
   "migration.registerBraveOriginExtensionHosts": "Register extension hosts for Brave Origin",
+  "migration.rebuildMiseShims": "Rebuild mise shims after retiring obsolete command wrappers",
   "migration.replaceSatty": "Replace Satty with Tensaku",
   "migration.replaceTerminalTextEffects": "Replace terminaltexteffects with ttfx",
   "migration.requireT2PackageSignatures": "Require trusted package signatures for the T2 repository",
