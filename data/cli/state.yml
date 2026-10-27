@@ -1,0 +1,27 @@
+default_language: en
+directory: .local/state/arch
+mode: "0666"
+argument_counts:
+  minimum: 3
+actions: [set, clear]
+actions_map:
+  set: set
+  clear: clear
+invalid_names: [., ..]
+exit_codes:
+  usage: 1
+  invalid_name: 2
+  operation_failed: 1
+messages:
+  en:
+    usage: 'Usage: arch-state <set|clear> <state-name-or-pattern>'
+    usage_action: 'Usage: arch-state {action} <state-name>'
+    unknown_action: 'Unknown state action: {action}'
+    invalid_name: 'Invalid state name: {name}'
+    operation_failed: 'Could not update state at {path}'
+  it:
+    usage: 'Uso: arch-state <set|clear> <nome-o-modello-stato>'
+    usage_action: 'Uso: arch-state {action} <nome-stato>'
+    unknown_action: 'Azione di stato sconosciuta: {action}'
+    invalid_name: 'Nome di stato non valido: {name}'
+    operation_failed: 'Impossibile aggiornare lo stato in {path}'

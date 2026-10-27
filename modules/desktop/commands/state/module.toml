@@ -3,9 +3,14 @@ domain = "desktop"
 package = "arch"
 sources = [
   "src/cli/arch-state",
+  "src/python/cli/state.py",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
 source = "src/cli/arch-state"
 target = "usr/share/arch/src/cli/arch-state"
+
+[[output]]
+source = "src/python/cli/state.py"
+target = "usr/share/arch/src/python/cli/state.py"
