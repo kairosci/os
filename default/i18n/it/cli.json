@@ -134,6 +134,7 @@
   "migration.installUdiskie": "Installa il supporto per il montaggio automatico delle unità rimovibili",
   "migration.installViCompat": "Installa l’editor compatibile con vi dal repository extra di Arch",
   "migration.configureSharedInputMethodDefaults": "Configura le impostazioni condivise del metodo di input e le scorciatoie desktop",
+  "migration.disableSnapshotWarningNotifier": "Disattiva l’avviso degli snapshot all’avvio",
   "migration.enableKittyCwdLookup": "Abilita la ricerca della directory di lavoro di Kitty dalle scorciatoie globali",
   "migration.installZbar": "Installa il supporto per leggere QR code",
   "migration.keepMiseToolVersions": "Mantieni le versioni degli strumenti mise installati durante gli aggiornamenti",
