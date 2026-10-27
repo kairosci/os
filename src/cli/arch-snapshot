@@ -30,7 +30,7 @@ create)
   # nothing has ever been captured.
   if (( ${#CONFIGS[@]} == 0 )); then
     echo -e "\e[33mNo Snapper configs found, so no snapshot was created.\e[0m" >&2
-    echo "Configure Snapper with: sudo bash -euo pipefail \"$ARCH_PATH/installer/config/snapper.sh\"" >&2
+    echo "Configure Snapper with: sudo python3 -I \"$ARCH_PATH/src/python/installer/system_setup/snapper_setup.py\"" >&2
     exit 1
   fi
 

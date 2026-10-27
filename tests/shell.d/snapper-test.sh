@@ -63,7 +63,7 @@ ARCH_SNAPPER_CONFIGURE_TEST=1 \
 ARCH_PATH="$ROOT" \
 ARCH_SNAPPER_CONFIG_PATH="$test_tmp/etc/snapper/configs/root" \
 ARCH_SNAPPER_CONF_PATH="$test_tmp/etc/conf.d/snapper" \
-  bash -euo pipefail "$ROOT/installer/config/snapper.sh" >/dev/null
+  python3 -I "$ROOT/src/python/installer/system_setup/snapper_setup.py" >/dev/null
 
 cmp -s "$template" "$test_tmp/etc/snapper/configs/root" || fail "snapshot configure installs the os Snapper template"
 grep -Fx 'SNAPPER_CONFIGS="root"' "$test_tmp/etc/conf.d/snapper" >/dev/null || fail "snapshot configure writes /etc/conf.d/snapper"
@@ -75,7 +75,7 @@ pass "snapshot configure normalizes Snapper policy and services"
 setup_system="$ROOT/src/cli/arch-apply-system"
 grep -F 'config/all.sh' "$setup_system" >/dev/null ||
   fail "system setup runs the config phase"
-grep -F 'config/snapper.sh' "$ROOT/installer/config/all.sh" >/dev/null ||
+grep -F 'system_setup/snapper_setup.py' "$ROOT/installer/config/all.sh" >/dev/null ||
   fail "config phase normalizes Snapper"
 pass "system setup normalizes Snapper during fresh installs"
 
@@ -84,7 +84,7 @@ migration=$(grep -rl 'Normalize Snapper snapshot services' "$ROOT/migrations" | 
 grep -F 'unit_active snapper-cleanup.timer' "$migration" >/dev/null
 grep -F 'unit_active limine-snapper-sync.service' "$migration" >/dev/null
 grep -F 'sudo "$@"' "$migration" >/dev/null
-grep -F 'as_root env ARCH_PATH="$ARCH_PATH" bash -euo pipefail "$snapper_config_script"' "$migration" >/dev/null
+grep -F 'as_root env ARCH_PATH="$ARCH_PATH" python3 -I "$snapper_setup_script"' "$migration" >/dev/null
 ! grep -F 'NUMBER_LIMIT="5"' "$migration" >/dev/null || fail "Snapper service migration does not overwrite working custom retention"
 pass "Snapper service migration only repairs broken services idempotently"
 
