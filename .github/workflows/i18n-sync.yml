@@ -158,7 +158,7 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: 24
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           name: extraction
           path: ${{ runner.temp }}/extraction
@@ -191,7 +191,7 @@ jobs:
           token: ${{ secrets.I18N_SYNC_TOKEN || github.token }}
       - name: Download extraction patch
         if: needs.prepare.outputs.extract == 'true'
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: extraction
           path: ${{ runner.temp }}/extraction
@@ -331,7 +331,7 @@ jobs:
           node-version: 24
       - name: Download completed languages
         if: needs.prepare.outputs.locales != '[]'
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           pattern: translations-*
           path: ${{ runner.temp }}/translations
@@ -386,7 +386,7 @@ jobs:
           ref: i18n-sync
           fetch-depth: 0
           token: ${{ secrets.I18N_SYNC_TOKEN || github.token }}
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           name: collected
           path: ${{ runner.temp }}/collected
