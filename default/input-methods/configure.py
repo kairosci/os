@@ -58,12 +58,10 @@ def atomic_write(path, text):
   if read(path) == text:
     return False
   path.parent.mkdir(parents=True, exist_ok=True)
-  mode = path.stat().st_mode & 0o777 if path.exists() else 0o644
   fd, temporary = tempfile.mkstemp(prefix=".arch-input-", dir=path.parent)
   try:
     with os.fdopen(fd, "w") as file:
       file.write(text)
-    os.chmod(temporary, mode)
     os.replace(temporary, path)
   finally:
     if os.path.exists(temporary):

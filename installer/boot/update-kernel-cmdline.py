@@ -2,7 +2,6 @@
 
 import os
 import pathlib
-import stat
 import sys
 import tempfile
 
@@ -50,13 +49,11 @@ tokens = [token for token in tokens if token.partition("=")[0] not in keys]
 if action == "set":
     tokens.extend(values[key] for key in keys if key in values)
 
-mode = stat.S_IMODE(path.stat().st_mode) if path.exists() else 0o644
 path.parent.mkdir(parents=True, exist_ok=True)
 fd, temporary = tempfile.mkstemp(prefix=f".{path.name}.", dir=path.parent, text=True)
 try:
     with os.fdopen(fd, "w", encoding="utf-8") as command_line:
         command_line.write(" ".join(tokens) + "\n")
-    os.chmod(temporary, mode)
     os.replace(temporary, path)
 finally:
     if os.path.exists(temporary):
