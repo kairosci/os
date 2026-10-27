@@ -1,0 +1,20 @@
+commands:
+  i18n: [arch-i18n]
+  present: [arch-pkg-present]
+  query_installed: [pacman, -Q]
+  sync_package: [pacman, -Sp, '--print-format=%r %n %v %l', extra/quickshell]
+  compare_versions: [vercmp]
+  install_official_archive: [sudo, pacman, -U, --noconfirm, --]
+packages:
+  name: quickshell
+repositories:
+  official: extra
+limits:
+  installed_fields: 2
+  same_version: 0
+messages:
+  reason: migration.restoreOfficialQuickshell
+statuses:
+  present: 0
+  success: 0
+  failed: 1
