@@ -123,7 +123,8 @@ assert(
 )
 
 assert(
-  appLibraryQml.includes('command: ["bash", "-c", root.hiddenEntryScanCommand()]') &&
+  appLibraryQml.includes('command: root.hiddenEntryScanCommand()') &&
+    appLibraryQml.includes('return ["python3", script, desktop]') &&
     appLibraryQml.includes('command: ["bash", "-c", root.iconIndexScanCommand()]') &&
     !appLibraryQml.includes('"-lc"'),
   'app library scans avoid login shells whose profile activation retriggers the desktop-entry watcher'

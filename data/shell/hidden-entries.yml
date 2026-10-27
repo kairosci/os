@@ -1,0 +1,22 @@
+paths:
+  user_applications: "{home}/.local/share/applications"
+  nix_applications: "{home}/.nix-profile/share/applications"
+  system_data_dirs_environment: XDG_DATA_DIRS
+  system_data_dirs_default: [/usr/local/share, /usr/share]
+  system_data_dirs_separator: ':'
+  applications_directory: applications
+desktop_entry:
+  extension: .desktop
+  group: Desktop Entry
+  section_pattern: '^\[(.*)\]$'
+  section_name_group: 1
+  hidden_keys: [Hidden, NoDisplay]
+  only_show_key: OnlyShowIn
+  not_show_key: NotShowIn
+  true_value: "true"
+  id_path_separator: /
+  id_name_separator: '-'
+  key_value_separator: '='
+  line_endings: ["\n", "\r"]
+  desktop_names_separator: ':'
+  list_values_separator: ';'
