@@ -21,7 +21,7 @@ run_logged "$ARCH_PATH/src/python/installer/hardware/intel/fred.py"
 run_logged "$ARCH_PATH/src/python/installer/hardware/intel/wifi7_eht.py"
 run_logged "$ARCH_PATH/src/python/installer/hardware/dell_xps13_ptl_speaker_firmware.py"
 
-run_logged "$ARCH_INSTALL/hardware/fix-elgato-camlink-4k.sh"
+run_logged "$ARCH_PATH/src/python/installer/hardware/elgato_camlink_4k.py"
 
 # Rebuilds the boot image, so it follows camera module setup.
 run_logged "$ARCH_INSTALL/hardware/dell-xps13-sidecar-amps.sh"
