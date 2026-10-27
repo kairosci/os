@@ -19,7 +19,7 @@ end
 o.bind("SUPER + I", "Switch input language", "arch-input-method cycle")
 o.bind("SUPER + SHIFT + I", "Switch input language back", "arch-input-method cycle back")
 
--- Pass the tmux/Herdr prefix through and return to direct input, so the next
+-- Pass the tmux prefix through and return to direct input, so the next
 -- key reaches the multiplexer instead of the engine's composition.
 o.bind("CTRL + SPACE", "Direct input for the terminal prefix", function()
   if active_window_is_terminal() then

@@ -25,7 +25,6 @@ sources = [
   "src/cli/arch-theme-set-foot",
   "src/cli/arch-theme-set-glass",
   "src/cli/arch-theme-set-gnome",
-  "src/cli/arch-theme-set-herdr-machines",
   "src/cli/arch-theme-set-hunk",
   "src/cli/arch-theme-set-keyboard",
   "src/cli/arch-theme-set-keyboard-asus-rog",
@@ -130,10 +129,6 @@ target = "usr/share/arch/src/cli/arch-theme-set-glass"
 [[output]]
 source = "src/cli/arch-theme-set-gnome"
 target = "usr/share/arch/src/cli/arch-theme-set-gnome"
-
-[[output]]
-source = "src/cli/arch-theme-set-herdr-machines"
-target = "usr/share/arch/src/cli/arch-theme-set-herdr-machines"
 
 [[output]]
 source = "src/cli/arch-theme-set-hunk"

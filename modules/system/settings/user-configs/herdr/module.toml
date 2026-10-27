@@ -1,9 +1,0 @@
-id = "system.settings.user-configs.herdr"
-domain = "system"
-package = "arch-settings"
-sources = ["config/herdr"]
-requires = ["system.settings"]
-
-[[output]]
-source = "config/herdr"
-target = "usr/share/arch/config/herdr"

@@ -535,6 +535,4 @@ if [[ $THEME_HEADLESS != "1" ]]; then
     apply_other_theme_commands detached </dev/null >/dev/null 2>/dev/null 9>&- &
   fi
 
-  # Mirror the theme to herdr machines. SSH can take a while, so this never holds up the theme change.
-  setsid arch-theme-set-herdr-machines >>"$HOME/.local/state/arch/theme-set-herdr-machines.log" 2>&1 </dev/null &
 fi

@@ -75,7 +75,7 @@ def key_list(entries):
 
 
 def without_ctrl_space(text):
-  # Ctrl+Space belongs to tmux and Herdr, and the terminal binding returns to
+  # Ctrl+Space belongs to tmux, and the terminal binding returns to
   # direct input on it; a Fcitx toggle on the same key would undo that. Without
   # a TriggerKeys list Fcitx falls back to its default, which has Ctrl+Space.
   section = re.search(r"(?ms)^\[Hotkey/TriggerKeys\][ \t]*\n(.*?)(?=^\[|\Z)", text)

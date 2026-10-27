@@ -35,4 +35,4 @@ Diciamo che avvii un server di sviluppo sulla porta `3000` su una macchina acces
 
 ## Riconnessione SSH
 
-`ssh` stesso è avvolto in una funzione che ripulisce il terminale se una connessione muore mentre un tmux, Herdr o editor remoto lo ha occupato, e poi si riconnette automaticamente quando una sessione interattiva cade (Ctrl-C ferma il ciclo di nuovi tentativi).
+`ssh` stesso è avvolto in una funzione che ripulisce il terminale se una connessione muore mentre un tmux o un editor remoto lo ha occupato, e poi si riconnette automaticamente quando una sessione interattiva cade (Ctrl-C ferma il ciclo di nuovi tentativi).

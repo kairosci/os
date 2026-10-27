@@ -15,7 +15,6 @@ sources = [
   "src/cli/arch-toggle-notification-silencing",
   "src/cli/arch-toggle-screensaver",
   "src/cli/arch-toggle-suspend",
-  "src/cli/arch-toggle-theme-sync",
   "src/cli/arch-toggle-touchpad",
   "src/cli/arch-toggle-touchscreen",
 ]
@@ -72,10 +71,6 @@ target = "usr/share/arch/src/cli/arch-toggle-screensaver"
 [[output]]
 source = "src/cli/arch-toggle-suspend"
 target = "usr/share/arch/src/cli/arch-toggle-suspend"
-
-[[output]]
-source = "src/cli/arch-toggle-theme-sync"
-target = "usr/share/arch/src/cli/arch-toggle-theme-sync"
 
 [[output]]
 source = "src/cli/arch-toggle-touchpad"

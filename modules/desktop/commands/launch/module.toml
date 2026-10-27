@@ -21,7 +21,6 @@ sources = [
   "src/cli/arch-launch-signal",
   "src/cli/arch-launch-spotify",
   "src/cli/arch-launch-terminal",
-  "src/cli/arch-launch-terminal-herdr",
   "src/cli/arch-launch-terminal-tmux",
   "src/cli/arch-launch-tui",
   "src/cli/arch-launch-webapp",
@@ -103,10 +102,6 @@ target = "usr/share/arch/src/cli/arch-launch-spotify"
 [[output]]
 source = "src/cli/arch-launch-terminal"
 target = "usr/share/arch/src/cli/arch-launch-terminal"
-
-[[output]]
-source = "src/cli/arch-launch-terminal-herdr"
-target = "usr/share/arch/src/cli/arch-launch-terminal-herdr"
 
 [[output]]
 source = "src/cli/arch-launch-terminal-tmux"

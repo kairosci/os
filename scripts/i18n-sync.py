@@ -203,9 +203,15 @@ def cmd_manifest(args):
                 elif unit in present:
                     raise SyncError(f"completion record for {code} lists {unit} as pruned, but it is still in the tree")
         else:
-            # Full regeneration trusts the tree: every present translation is
-            # recorded against the current English source.
-            units = list(present)
+            # Full regeneration trusts the tree: record every present
+            # translation against English and prune entries absent from the
+            # current catalogs.
+            section = {
+                unit: source_hash(english[unit])
+                for unit in present
+                if unit in english
+            }
+            units = []
         for unit in units:
             if unit in english:
                 section[unit] = source_hash(english[unit])

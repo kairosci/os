@@ -15,7 +15,6 @@ From the terminal, the same switches are `archctl toggle <thing>`. Run `archctl 
 | Stay awake (no idle lock) | `Super + Ctrl + I` | `archctl toggle idle` |
 | Crash capture | — | `archctl toggle crash-capture` |
 | Screensaver | — | `archctl toggle screensaver` |
-| [Herdr](https://herdr.dev) theme sync | — | `archctl toggle theme sync` |
 | Menu bar | `Super + Shift + Space` | `archctl toggle bar` |
 | Touchpad | `XF86TouchpadToggle` | `archctl toggle touchpad` |
 | Touchscreen | — | `archctl toggle touchscreen` |

@@ -6,7 +6,6 @@ sources = [
   "src/cli/arch-refresh-chromium",
   "src/cli/arch-refresh-config",
   "src/python/cli/refresh/config.py",
-  "src/cli/arch-refresh-herdr",
   "src/cli/arch-refresh-hyprland",
   "src/cli/arch-refresh-hyprsunset",
   "src/cli/arch-refresh-limine",
@@ -33,10 +32,6 @@ target = "usr/share/arch/src/cli/arch-refresh-config"
 [[output]]
 source = "src/python/cli/refresh/config.py"
 target = "usr/share/arch/src/python/cli/refresh/config.py"
-
-[[output]]
-source = "src/cli/arch-refresh-herdr"
-target = "usr/share/arch/src/cli/arch-refresh-herdr"
 
 [[output]]
 source = "src/cli/arch-refresh-hyprland"
