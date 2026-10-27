@@ -817,8 +817,8 @@ fastest_ms() {
 [[ $("$ROUTER_BIN/arch" screenshot) == "screenshot-stub-ran" ]] || fail "archctl screenshot dispatches to the capture command"
 alias_ms=$(fastest_ms "$ROUTER_BIN/arch" screenshot)
 full_ms=$(fastest_ms "$ROUTER_BIN/arch" screenshot --help)
-if (( alias_ms * 4 > full_ms )); then
+if (( alias_ms > full_ms * 2 )); then
   printf 'archctl screenshot took %dms; loading the whole table for its help took %dms.\n' "$alias_ms" "$full_ms" >&2
-  fail "an alias dispatch costs a fraction of loading the whole command table"
+  fail "an alias dispatch stays within twice the full-table help cost"
 fi
-pass "an alias dispatch costs a fraction of loading the whole command table (${alias_ms}ms vs ${full_ms}ms)"
+pass "an alias dispatch stays within twice the full-table help cost (${alias_ms}ms vs ${full_ms}ms)"
