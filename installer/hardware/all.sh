@@ -19,7 +19,7 @@ run_logged "$ARCH_PATH/src/python/installer/hardware/intel/thermald.py"
 run_logged "$ARCH_INSTALL/hardware/intel/ipu7-camera.sh"
 run_logged "$ARCH_INSTALL/hardware/intel/fred.sh"
 run_logged "$ARCH_INSTALL/hardware/intel/fix-wifi7-eht.sh"
-run_logged "$ARCH_INSTALL/hardware/dell-xps13-ptl-speaker-firmware.sh"
+run_logged "$ARCH_PATH/src/python/installer/hardware/dell_xps13_ptl_speaker_firmware.py"
 
 run_logged "$ARCH_INSTALL/hardware/fix-elgato-camlink-4k.sh"
 

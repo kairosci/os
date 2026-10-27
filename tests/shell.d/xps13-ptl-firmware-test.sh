@@ -4,10 +4,10 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-leaf="$ROOT/installer/hardware/dell-xps13-ptl-speaker-firmware.sh"
+leaf="$ROOT/src/python/installer/hardware/dell_xps13_ptl_speaker_firmware.py"
 migration="$ROOT/migrations/1791265613.sh"
 
-grep -q 'run_logged .*hardware/dell-xps13-ptl-speaker-firmware.sh' "$ROOT/installer/hardware/all.sh" ||
+grep -q 'run_logged .*hardware/dell_xps13_ptl_speaker_firmware.py' "$ROOT/installer/hardware/all.sh" ||
   fail "hardware setup installs the Panther Lake XPS 13 firmware"
 pass "hardware setup installs the Panther Lake XPS 13 firmware"
 
@@ -67,7 +67,7 @@ reset_fixture() {
 }
 
 run_leaf() {
-  bash -eE -c 'source "$1"' bash "$leaf"
+  python3 -I "$leaf"
 }
 
 run_migration() {
