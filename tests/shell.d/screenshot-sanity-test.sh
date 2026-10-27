@@ -26,13 +26,8 @@ if ! command -v quickshell >/dev/null 2>&1; then
   exit 0
 fi
 
-if pgrep -x omasnap >/dev/null 2>&1; then
-  skip "omasnap is already running; skipping screenshot sanity test"
-  exit 0
-fi
-
 require_command hyprctl
-require_command omasnap
+require_command hyprshot
 require_command jq
 require_command python3
 
@@ -126,7 +121,7 @@ jq -e '
 }
 
 ARCH_PATH="$test_root" \
-OMASNAP_SCREENSHOT_DIR="$screenshot_dir" \
+HYPRSHOT_DIR="$screenshot_dir" \
 HOME="$test_home" \
 PATH="$stub_bin:$ROOT/src/cli:$PATH" \
   "$ROOT/src/cli/arch" capture screenshot fullscreen save >/dev/null 2>"$screenshot_err"

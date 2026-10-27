@@ -54,15 +54,7 @@ Automatic discovery, where printers on the network appear without being added, i
 
 ### How do I change where screenshots or screenrecordings are saved?
 
-Saved screenshots go to `~/Pictures/Screenshots` by default. To use another directory, add this to a file under `~/.config/uwsm/env.d/` (like `~/.config/uwsm/env.d/capture`):
-
-```
-export OMASNAP_SCREENSHOT_DIR="$HOME/Pictures/Captures"
-```
-
-You can do the same for screenrecordings using `ARCH_SCREENRECORD_DIR`.
-
-Omasnap creates its screenshot directory automatically. Create the screenrecording directory yourself, then restart Arch for either environment change to take effect.
+Saved screenshots go to your Pictures directory by default. Set `ARCH_SCREENSHOT_DIR` in a file under `~/.config/uwsm/env.d/` to use another directory. You can set `ARCH_SCREENRECORD_DIR` there to change where screen recordings are saved.
 
 ### How do I get the speakers + webcam working on my Apple Studio Display?
 

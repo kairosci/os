@@ -54,15 +54,7 @@ Il rilevamento automatico, in cui le stampanti in rete compaiono senza essere ag
 
 ### Come cambio dove vengono salvate le schermate o le registrazioni dello schermo?
 
-Le schermate salvate vanno in `~/Pictures/Screenshots` per impostazione predefinita. Per usare un'altra directory, aggiungi questo a un file in `~/.config/uwsm/env.d/` (come `~/.config/uwsm/env.d/capture`):
-
-```
-export OMASNAP_SCREENSHOT_DIR="$HOME/Pictures/Captures"
-```
-
-Puoi fare lo stesso per le registrazioni dello schermo usando `ARCH_SCREENRECORD_DIR`.
-
-Omasnap crea automaticamente la sua directory per le schermate. Crea tu stesso la directory per le registrazioni dello schermo, poi riavvia Arch affinché una delle due modifiche alle variabili d'ambiente abbia effetto.
+Le schermate salvate vanno nella cartella Immagini per impostazione predefinita. Imposta `ARCH_SCREENSHOT_DIR` in un file sotto `~/.config/uwsm/env.d/` per usare un'altra cartella. Puoi impostare `ARCH_SCREENRECORD_DIR` nello stesso file per cambiare la cartella delle registrazioni.
 
 ### Come faccio funzionare altoparlanti e webcam sul mio Apple Studio Display?
 
