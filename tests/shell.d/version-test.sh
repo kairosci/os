@@ -8,7 +8,9 @@ test_tmp=$(mktemp -d)
 trap 'rm -rf "$test_tmp"' EXIT
 
 stub_bin="$test_tmp/bin"
-mkdir -p "$stub_bin"
+mkdir -p "$stub_bin" "$test_tmp/checkout/src/python/cli" "$test_tmp/checkout/data/cli"
+cp "$ROOT/src/python/cli/version.py" "$test_tmp/checkout/src/python/cli/version.py"
+cp "$ROOT/data/cli/version.yml" "$test_tmp/checkout/data/cli/version.yml"
 
 # The edge channel installs arch-dev. Older builds did not declare
 # provides=(arch), so a query for plain arch finds nothing there.
@@ -28,10 +30,22 @@ echo "error: package '$1' was not found" >&2
 exit 1
 STUB
 chmod +x "$stub_bin/pacman"
+cat >"$stub_bin/git" <<'STUB'
+#!/bin/bash
+if [[ $* == *"branch --show-current"* ]]; then
+  [[ -n ${ARCH_TEST_BRANCH:-} ]] || exit 1
+  printf '%s\n' "$ARCH_TEST_BRANCH"
+else
+  [[ -n ${ARCH_TEST_HASH:-} ]] || exit 1
+  printf '%s\n' "$ARCH_TEST_HASH"
+fi
+STUB
+chmod +x "$stub_bin/git"
 
 version() {
   ARCH_TEST_PACKAGES="$1" \
-    ARCH_PATH="${2:-/usr/share/arch}" \
+    ARCH_PATH="${2:-$ROOT}" \
+    ARCH_PACKAGED_ROOT="$ROOT" \
     PATH="$stub_bin:$PATH" \
     "$ROOT/src/cli/arch-version"
 }
@@ -45,6 +59,17 @@ pass "version reports the edge package"
 # A checkout reports its hash instead, so packages are irrelevant there.
 [[ $(version "" "$test_tmp/checkout") == "dev" ]] || fail "version reports a dev checkout"
 pass "version reports a dev checkout"
+
+branch=$(ARCH_PATH="$test_tmp/checkout" ARCH_PACKAGED_ROOT="$ROOT" ARCH_TEST_BRANCH="feature/example" \
+  PATH="$stub_bin:$PATH" "$ROOT/src/cli/arch-version-branch")
+[[ $branch == "feature/example" ]] || fail "dev branch command reports the active branch" "$branch"
+branch=$(ARCH_PATH="$test_tmp/checkout" ARCH_PACKAGED_ROOT="$ROOT" ARCH_TEST_HASH="abc1234" \
+  PATH="$stub_bin:$PATH" "$ROOT/src/cli/arch-version-branch")
+[[ $branch == "detached@abc1234" ]] || fail "dev branch command labels a detached checkout" "$branch"
+if ARCH_PATH="$ROOT" ARCH_PACKAGED_ROOT="$ROOT" "$ROOT/src/cli/arch-version-branch"; then
+  fail "packaged install has no dev branch"
+fi
+pass "dev branch reports a branch or detached commit and is empty for a packaged install"
 
 if version "" >/dev/null 2>&1; then
   fail "version fails when no os package is installed"

@@ -69,29 +69,28 @@ for platform in $platforms; do
     server=$(sed -n '/^\[arch\]/,/^\[/s/^Server = //p' "$templates/pacman-$channel.conf")
     [[ $server == "https://pkgs.github.com/kairosci/os/$channel/\$arch" ]] ||
       fail "$platform $channel: os's $channel repository" "$server"
-    # The Arch mirror is the same channel's: x86's at <channel>-mirror, Arch
-    # Linux ARM's at arm-<channel>-mirror, edge without the channel.
+    # Each platform uses its official generic mirror for every channel; the
+    # selected package repository identifies the channel.
     case $platform in
-      x86) host=mirror.github.com/kairosci/os layout='$repo/os/$arch' ;;
-      *) host=arm-mirror.github.com/kairosci/os layout='$arch/$repo' ;;
+      x86) mirror="https://geo.mirror.pkgbuild.com/\$repo/os/\$arch" ;;
+      *) mirror="http://mirror.archlinuxarm.org/\$arch/\$repo" ;;
     esac
-    [[ $channel == "edge" ]] || host=${host/mirror/$channel-mirror}
+    expected_mirror=$mirror
     mirror=$(sed -n 's/^Server = //p' "$templates/mirrorlist-$channel")
-    [[ $mirror == "https://$host/$layout" ]] || fail "$platform $channel: the $channel Arch mirror" "$mirror"
+    [[ $mirror == "$expected_mirror" ]] || fail "$platform $channel: the official Arch mirror" "$mirror"
   done
 done
 pass "x86 and aarch64 have templates for stable, rc and edge and Apple Silicon for edge alone, each with its repositories in order and its channel's mirrors"
 
 # arch-version-channel names each template pair's channel: the menu's
 # checkmarks and a refresh with no channel go by it.
-sed -e "s|/etc/pacman.d/mirrorlist|$work/mirrorlist|g" -e "s|/etc/pacman.conf|$work/pacman.conf|g" \
-  "$ROOT/src/cli/arch-version-channel" >"$work/version-channel"
 for platform in $platforms; do
   templates=$(arch_pacman_templates "$platform")
   for channel in $(channels_for "$platform"); do
     cp "$templates/pacman-$channel.conf" "$work/pacman.conf"
     cp "$templates/mirrorlist-$channel" "$work/mirrorlist"
-    said=$(bash "$work/version-channel")
+    said=$(ARCH_PACMAN_CONF="$work/pacman.conf" ARCH_PACMAN_MIRRORLIST="$work/mirrorlist" \
+      "$ROOT/src/cli/arch-version-channel")
     [[ $said == "$channel" ]] || fail "$platform $channel: arch-version-channel names it" "$said"
   done
 done
