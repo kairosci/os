@@ -72,7 +72,8 @@
     {
       "type": "os",
       "key": "OS",
-      "keyColor": "blue"
+      "keyColor": "blue",
+      "format": "{id} {arch}"
     },
     {
       "type": "kernel",
