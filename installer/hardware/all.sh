@@ -5,7 +5,7 @@ run_logged "$ARCH_INSTALL/hardware/nvidia/dgx-spark-boot.sh"
 
 run_logged "$ARCH_INSTALL/hardware/network.sh"
 run_logged "$ARCH_PATH/src/python/installer/hardware/wireless_regdom.py"
-run_logged "$ARCH_INSTALL/hardware/fix-fkeys.sh"
+run_logged "$ARCH_PATH/src/python/installer/hardware/apple_keyboard_fkeys.py"
 run_logged "$ARCH_PATH/src/python/installer/hardware/synaptic_touchpad.py"
 run_logged "$ARCH_INSTALL/hardware/bluetooth.sh"
 run_logged "$ARCH_INSTALL/hardware/n1x.sh"
