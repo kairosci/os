@@ -3,9 +3,14 @@ domain = "desktop"
 package = "arch"
 sources = [
   "src/cli/arch-done",
+  "src/python/cli/done.py",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
 source = "src/cli/arch-done"
 target = "usr/share/arch/src/cli/arch-done"
+
+[[output]]
+source = "src/python/cli/done.py"
+target = "usr/share/arch/src/python/cli/done.py"
