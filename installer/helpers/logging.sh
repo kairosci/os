@@ -12,18 +12,7 @@ arch_log_line() {
 
 start_install_log() {
   if ! arch_log_to_stdout; then
-    mkdir -p "$(dirname "$ARCH_INSTALL_LOG_FILE")"
-    if [[ -L $ARCH_INSTALL_LOG_FILE ]]; then
-      return 1
-    fi
-    if [[ -e $ARCH_INSTALL_LOG_FILE ]]; then
-      [[ -f $ARCH_INSTALL_LOG_FILE ]] || return 1
-      chmod 600 -- "$ARCH_INSTALL_LOG_FILE" || return 1
-    fi
-    if ! (umask 077; touch -- "$ARCH_INSTALL_LOG_FILE"); then
-      return 1
-    fi
-    chmod 600 -- "$ARCH_INSTALL_LOG_FILE" || return 1
+    python3 -I "$ARCH_PATH/src/python/installer/log_file.py"
   fi
 
   export ARCH_START_TIME="${ARCH_START_TIME:-$(date '+%Y-%m-%d %H:%M:%S')}"
