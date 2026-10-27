@@ -139,6 +139,7 @@
   "migration.refreshApplications": "Refresh application entries",
   "migration.removeFloatingDiskUsageLauncher": "Removed the obsolete floating Disk Usage launcher",
   "migration.removeManagedSkillLinks": "Removed %1 Arch-managed agent skill link(s)",
+  "migration.removeLegacyPasswordlessSudoGrants": "Remove legacy temporary passwordless sudo grants",
   "migration.archSessionEntryMissing": "The Arch Wayland session entry is missing.",
   "migration.archSessionEntryMissing": "The Arch Wayland session entry is missing.",
   "migration.removeRetiredCliShims": "Remove retired CLI shims from mise",
