@@ -180,7 +180,7 @@ Widgets receive `bar` (the shell root), `moduleName` (string), and `settings` (o
 First-party bar widgets are manifest-backed just like third-party widgets.
 Simple widgets carry sibling manifests such as `widgets/Workspaces.manifest.json`;
 richer popup plugins live in feature directories such as `../panels/audio/`,
-`../panels/network/`, and `../agents/`; and feature plugins such as
+`../panels/network/`; and feature plugins such as
 `arch.menu` and `arch.media` declare their bar-widget entry points in their own
 `manifest.json`. Bar layout ids are namespaced, e.g. `arch.audio`,
 `arch.network`, and `arch.clock`.

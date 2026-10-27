@@ -11,7 +11,6 @@ sources = [
   "src/cli/arch-restart-herdr",
   "src/cli/arch-restart-hyprctl",
   "src/cli/arch-restart-hyprsunset",
-  "src/cli/arch-restart-opencode",
   "src/cli/arch-restart-shell",
   "src/cli/arch-restart-terminal",
   "src/cli/arch-restart-tmux",
@@ -56,10 +55,6 @@ target = "usr/share/arch/src/cli/arch-restart-hyprctl"
 [[output]]
 source = "src/cli/arch-restart-hyprsunset"
 target = "usr/share/arch/src/cli/arch-restart-hyprsunset"
-
-[[output]]
-source = "src/cli/arch-restart-opencode"
-target = "usr/share/arch/src/cli/arch-restart-opencode"
 
 [[output]]
 source = "src/cli/arch-restart-shell"

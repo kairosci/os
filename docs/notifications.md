@@ -194,7 +194,6 @@ Everything goes through the same sender contract, so the pieces are small:
   `battery-low` hook.
 - **Crash capture** — `arch-crash-watch` follows the systemd-coredump
   journal stream and announces each crashed program (deduped per minute) as a
-  critical toast whose click runs `arch-agent-crash` (via `--exec`, so a
   hostile process name stays a discrete argument). It waits for the
   server first: a shell crash takes the notification server down with it, and
   that crash is the one most worth reporting.

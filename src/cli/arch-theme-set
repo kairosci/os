@@ -452,7 +452,6 @@ visible_theme_commands=(
   arch-theme-set-foot
   arch-theme-set-tmux
   arch-restart-btop
-  arch-restart-opencode
   arch-restart-helix
   arch-theme-set-hunk
 )
@@ -462,10 +461,6 @@ visible_theme_commands=(
 # for these.
 other_theme_commands=(
   arch-theme-set-gnome
-  arch-theme-set-pi
-  arch-theme-set-claude
-  arch-theme-set-hermes
-  arch-theme-set-t3code
   arch-theme-set-browser
   arch-theme-set-vscode
   arch-theme-set-obsidian

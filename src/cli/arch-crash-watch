@@ -67,7 +67,7 @@ journalctl -f -n 0 -o json "MESSAGE_ID=$COREDUMP_MESSAGE_ID" 2>/dev/null |
     # A process can set its own comm to anything prctl takes, slashes included,
     # and a crash with no recorded executable falls back to it. The mute below
     # turns this name into a path, so keep it one component: a crash must not
-    # reach a flag outside crash-ignore/, nor have crash handling write one there.
+    # reach a flag outside crash-ignore/.
     name=${name##*/}
 
     # What that leaves is not always a name. "/" leaves nothing, which is no
@@ -80,10 +80,11 @@ journalctl -f -n 0 -o json "MESSAGE_ID=$COREDUMP_MESSAGE_ID" 2>/dev/null |
     [[ -n $ignore_pattern && $name =~ $ignore_pattern ]] && continue
 
     # Never announce our own machinery, or it notifies about itself.
-    [[ $name == arch-crash-* || $name == arch-agent-* ]] && continue
+    [[ $name == arch-crash-* ]] && continue
 
-    # Muted per program, so arch-crash-mute can
-    # lift one without reading, rewriting and re-parsing the rest.
+    # Muted by the user after seeing a notification. A flag per program rather
+    # than one list, so arch-crash-mute can lift one without reading,
+    # rewriting and re-parsing the rest.
     arch-toggle-enabled "crash-ignore/$name" && continue
 
     now=$EPOCHSECONDS

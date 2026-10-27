@@ -2,17 +2,12 @@ id = "desktop.commands.default"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/cli/arch-default-agent",
   "src/cli/arch-default-browser",
   "src/cli/arch-default-dictation",
   "src/cli/arch-default-editor",
   "src/cli/arch-default-terminal",
 ]
 requires = ["desktop.commands"]
-
-[[output]]
-source = "src/cli/arch-default-agent"
-target = "usr/share/arch/src/cli/arch-default-agent"
 
 [[output]]
 source = "src/cli/arch-default-browser"

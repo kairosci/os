@@ -306,7 +306,6 @@ assert(
   }),
   'menu always exposes every supported browser, terminal, editor, and dictation backend under Defaults'
 )
-assert(!defaultById['install.ai'], 'work menu omits AI installers')
 // Software you already have keeps its place in Install, dimmed rather than
 // dropped, so the list reads as a catalog of what os can install.
 // Chromium Account is the sole Install row with anything left to hide for. The
@@ -370,7 +369,6 @@ assertDeepEqual(
     .map(item => item.id),
   [
     'remove.package',
-    'remove.ai',
     'remove.dictation',
     'remove.service',
     'remove.development',

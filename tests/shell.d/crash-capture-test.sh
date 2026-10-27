@@ -71,11 +71,6 @@ cat >"$watch_bin/journalctl" <<'SH'
 cat "$JOURNAL_ENTRIES"
 SH
 
-cat >"$watch_bin/arch-default-agent" <<'SH'
-#!/bin/bash
-echo claude
-SH
-
 cat >"$watch_bin/arch-notification-wait" <<'SH'
 #!/bin/bash
 exit 0
@@ -86,8 +81,7 @@ cat >"$watch_bin/arch-notification-send" <<'SH'
 printf '%s\n' "$*" >>"$NOTIFY_LOG"
 SH
 
-chmod +x "$watch_bin/journalctl" "$watch_bin/arch-default-agent" \
-  "$watch_bin/arch-notification-wait" "$watch_bin/arch-notification-send"
+chmod +x "$watch_bin/journalctl" "$watch_bin/arch-notification-wait" "$watch_bin/arch-notification-send"
 
 reset_entries() {
   : >"$JOURNAL_ENTRIES"
@@ -123,7 +117,7 @@ run_watch() {
 }
 
 # Through the real command rather than writing the flag by hand: these assertions
-# are then the guard that the thing the diagnosis runs and the thing the watcher
+# are then the guard that the user-visible mute and the watcher
 # reads have not drifted apart.
 mute() {
   HOME="$watch_home" PATH="$ROOT/src/cli:$PATH" \
@@ -144,7 +138,7 @@ pass "a crash nobody muted still announces itself"
 mute hyprland on
 run_watch
 ! announced hyprland ||
-  fail "muting a program stops the crash notifications the diagnosis offered to stop"
+  fail "muting a program stops the crash notifications the user chose to mute"
 pass "muting a program stops its crash notifications"
 
 reset_entries
@@ -170,7 +164,7 @@ reset_entries
 crash_entry chromium-browse /usr/lib/chromium/chromium-browser
 run_watch
 announced chromium-browser ||
-  fail "the toast announces a name the mute cannot be keyed on, so following the diagnosis mutes nothing"
+  fail "the toast announces a name the mute cannot be keyed on, so following the notification mutes nothing"
 pass "the toast announces the name the mute is keyed on"
 
 mute chromium-browser on
@@ -193,7 +187,7 @@ pass "a muted crash does not stop the watcher reading the next one"
 # A process can set its own comm to anything prctl takes, slashes included, and
 # a crash with no recorded executable falls back to it. A name that climbed out
 # of crash-ignore/ would let a crashing program silence itself against an
-# unrelated flag -- and have the diagnosis write one there on the user's behalf.
+# unrelated flag -- and write one there on the user's behalf.
 # The fixture carries two slashes so that dropping only the first is not mistaken
 # for dropping all of them.
 reset_entries
@@ -372,11 +366,6 @@ refusal=$(HOME="$mute_home" PATH="$failing_bin:$ROOT/src/cli:$PATH" \
 ! grep -Fq "Muted crash notifications" <<<"$refusal" ||
   fail "a mute that could not be written still reports success, so the user believes a program is silenced when it is not"
 pass "a mute that could not be written is not reported as one"
-
-skill="$ROOT/default/agents/skills/diagnose-crash/SKILL.md"
-grep -Fq 'arch-crash-mute' "$skill" ||
-  fail "the diagnosis no longer names the command that mutes, so the offer it makes cannot be carried out"
-pass "the diagnosis names the command that mutes"
 
 grep -Fq 'GROUP_DESCRIPTIONS[crash]' "$ROOT/src/cli/arch" ||
   fail "the crash group has no description, so the router lists a group it cannot describe"

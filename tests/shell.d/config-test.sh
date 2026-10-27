@@ -68,11 +68,11 @@ jq -e '
 pass "default clock date format has no leading zero"
 
 # The bar drew the tray first in the right section whatever the layout said
-# (migrations/1791968925.sh), so the default keeps it first.
+# (migrations/1791968925.sh), so the default lists it there.
 jq -e '
   def ids: map(.id // .);
   (.bar.layout.right | ids) as $ids |
-  $ids[0] == "arch.tray" and ($ids | index("arch.keyboard-layout")) != null
+  $ids[0] == "arch.tray" and ($ids[1:] - ["arch.keyboard-layout"]) == []
 ' "$ROOT/config/arch/shell.json" >/dev/null || fail "default right layout starts with the tray"
 pass "default right layout starts with the tray"
 
