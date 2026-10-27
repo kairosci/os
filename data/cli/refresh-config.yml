@@ -1,0 +1,14 @@
+paths:
+  source_directory: config
+  user_directory: .config
+  directory_mode: "0755"
+  forbidden_components:
+    - ""
+    - .
+    - ..
+files:
+  temporary_prefix: .
+  temporary_mode: "0600"
+  backup_suffix: .bak.
+  backup_timestamp_format: "%Y%m%d%H%M%S%f"
+  backup_mode: "0600"

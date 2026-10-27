@@ -325,5 +325,12 @@
   "windowsVm.ramHeader": "Quanta RAM vuoi allocare alla VM Windows?",
   "windowsVm.usernameHeader": "Inserisci il nome utente Windows:",
   "windowsVm.usernamePlaceholder": "Nome utente (Premi Enter per usare il valore predefinito: %1)",
-  "xbox.rebootNeeded": "È necessario riavviare per completare la configurazione. Riavviare ora?"
+  "xbox.rebootNeeded": "È necessario riavviare per completare la configurazione. Riavviare ora?",
+  "refreshConfig.backup": "Backup salvato: %1",
+  "refreshConfig.changes": "Modifiche:",
+  "refreshConfig.failed": "Impossibile aggiornare %1: %2",
+  "refreshConfig.notShipped": "Configurazione predefinita non trovata: %1",
+  "refreshConfig.replaced": "Sostituito %1 con la configurazione predefinita.",
+  "refreshConfig.unsafePath": "Percorso di configurazione non valido o non sicuro: %1",
+  "refreshConfig.usage": "Uso: arch-refresh-config <percorso-configurazione>"
 }
