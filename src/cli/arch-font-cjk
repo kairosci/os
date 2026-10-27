@@ -1,31 +1,16 @@
-#!/bin/bash
+#!/usr/bin/python3
 
 # arch:summary=Show or set the glyph forms for Chinese, Japanese, and Korean text
 # arch:args=[jp|kr|sc|tc|hk|default]
 # arch:examples=archctl font cjk | archctl font cjk jp | archctl font cjk default
 
-set -euo pipefail
+import os
+from pathlib import Path
+import sys
 
-# Also seeded by the first CJK input method or language chosen. Tagged text and
-# a CJK session language keep their own forms regardless.
-preference=${XDG_CONFIG_HOME:-$HOME/.config}/fontconfig/conf.d/50-arch-input-method.conf
+sys.path.insert(0, str(Path(os.environ["ARCH_PATH"]) / "src/python"))
+from cli.fonts import cjk_main
 
-case "${1:-}" in
-"")
-  variant=""
-  if [[ -f $preference ]]; then
-    variant=$(sed -n 's|.*<family>Noto Sans CJK \([A-Z]*\)</family>.*|\1|p' "$preference" | head -n 1)
-  fi
-  variant=${variant,,}
-  echo "${variant:-default}"
-  ;;
-jp | kr | sc | tc | hk | default)
-  /usr/bin/python3 "$ARCH_PATH/default/input-methods/configure.py" font "$1"
-  arch-restart-shell
-  arch-notification-send -g  "$(arch-i18n font.cjkChanged)" "$(arch-i18n font.restartAppsToSeeChange)"
-  ;;
-*)
-  echo "Usage: arch-font-cjk [jp|kr|sc|tc|hk|default]" >&2
-  exit 1
-  ;;
-esac
+
+if __name__ == "__main__":
+  raise SystemExit(cjk_main(sys.argv[1:]))
