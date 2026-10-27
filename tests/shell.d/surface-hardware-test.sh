@@ -56,8 +56,40 @@ SH
 cat >"$scratch/bin/arch-pkg-add" <<'SH'
 #!/bin/bash
 printf '%s\n' "$*" >>"$ARCH_TEST_PACKAGES"
+exit "${ARCH_TEST_PKG_STATUS:-0}"
 SH
-chmod +x "$scratch/bin/arch-hw-surface" "$scratch/bin/arch-hw-x86" "$scratch/bin/arch-pkg-add"
+cat >"$scratch/bin/arch-hw-device-match" <<'SH'
+#!/bin/bash
+gate=${0##*/}
+case ",${ARCH_TEST_MATCHED:-}," in
+  *,"$gate",*) exit 0 ;;
+  *) exit 1 ;;
+esac
+SH
+chmod +x "$scratch/bin/arch-hw-surface" "$scratch/bin/arch-hw-x86" "$scratch/bin/arch-pkg-add" "$scratch/bin/arch-hw-device-match"
+for gate in arch-hw-asus-rog arch-hw-framework16 arch-hw-dell-xps-haptic-touchpad; do
+  ln -s arch-hw-device-match "$scratch/bin/$gate"
+done
+
+run_package_gates() (
+  matched=$1
+  status=${2:-0}
+  PATH="$scratch/bin:$PATH" ARCH_PATH="$ROOT" ARCH_TEST_MATCHED="$matched" \
+    ARCH_TEST_PKG_STATUS="$status" ARCH_TEST_PACKAGES="$scratch/packages" \
+    python3 -I "$ROOT/src/python/installer/hardware/package_gates.py"
+)
+
+: >"$scratch/packages"
+run_package_gates "arch-hw-framework16,arch-hw-dell-xps-haptic-touchpad"
+[[ $(cat "$scratch/packages") == $'qmk-hid\ndell-xps-touchpad-haptics' ]] ||
+  fail "hardware package gates install only packages for matching devices"
+: >"$scratch/packages"
+if run_package_gates "arch-hw-framework16,arch-hw-dell-xps-haptic-touchpad" 6; then
+  fail "package gate reports a package installation failure"
+fi
+[[ $(cat "$scratch/packages") == $'qmk-hid\ndell-xps-touchpad-haptics' ]] ||
+  fail "a failed hardware package install does not skip later gates"
+pass "hardware package gates preserve matching, order, and failure behavior"
 
 rm -f "$scratch/packages" "$scratch/probes"
 run_surface_setup aarch64 "$surface_setup" >/dev/null
