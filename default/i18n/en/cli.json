@@ -138,6 +138,7 @@
   "migration.installZbar": "Install QR code scanning support",
   "migration.keepMiseToolVersions": "Keep installed mise tool versions during upgrades",
   "migration.removeLeadingZeroFromBarClockDate": "Remove the leading zero from the bar clock date",
+  "migration.restoreOfficialQuickshell": "Restore the Quickshell package from the official Arch repository",
   "migration.updateHyprlandLuaBootstrap": "Update the Hyprland Lua entrypoint to load the Arch bootstrap",
   "migration.moveKeyboardLayoutWidget": "Move the keyboard layout widget to the right side of the bar",
   "migration.refreshApplications": "Refresh application entries",
