@@ -127,7 +127,6 @@ user_units:
   daemon_reload: [systemctl, --user, daemon-reload]
   enable: [systemctl, --user, enable, --now]
   units:
-    - bt-agent.service
     - arch-recover-internal-monitor.service
     - arch-sleep-lock.service
     - arch-migrate-notify.service

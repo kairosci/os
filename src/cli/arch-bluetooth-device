@@ -32,9 +32,7 @@ trust_device() {
 case "$action" in
   pair)
     power_on
-    timeout 20s bluetoothctl pair "$address" >/dev/null 2>&1 || true
-    trust_device
-    timeout 20s bluetoothctl connect "$address" >/dev/null 2>&1 || true
+    timeout 20s bluetoothctl --agent NoInputNoOutput pair "$address" >/dev/null 2>&1
     ;;
   connect)
     power_on

@@ -153,7 +153,6 @@ package_defaults = [
   ("default/xdg-terminal-exec/hyprland-xdg-terminals.list", "/usr/share/xdg-terminal-exec/hyprland-xdg-terminals.list", "xdg-terminals.list"),
   ("default/applications/mimeapps.list", "/usr/share/applications/mimeapps.list", "mimeapps.list"),
   ("etc/fastfetch/config.jsonc", "/etc/fastfetch/config.jsonc", "fastfetch/config.jsonc"),
-  ("default/systemd/user/bt-agent.service", "/usr/lib/systemd/user/bt-agent.service", "systemd/user/bt-agent.service"),
   ("default/systemd/user/arch-sleep-lock.service", "/usr/lib/systemd/user/arch-sleep-lock.service", "systemd/user/arch-sleep-lock.service"),
   ("default/systemd/user/arch-recover-internal-monitor.service", "/usr/lib/systemd/user/arch-recover-internal-monitor.service", "systemd/user/arch-recover-internal-monitor.service"),
   ("default/systemd/user/arch-migrate-notify.service", "/usr/lib/systemd/user/arch-migrate-notify.service", "systemd/user/arch-migrate-notify.service"),
