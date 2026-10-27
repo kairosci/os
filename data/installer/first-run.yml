@@ -9,3 +9,18 @@ gtk_primary_paste:
 audio_tuning:
   commands:
     - [arch-audio-tuning, "on"]
+welcome:
+  command: [arch-notification-send, -u, critical, -g, ]
+  action: [--exec, arch-menu-keybindings]
+  messages:
+    en:
+      title: Learn Keybindings
+      body: |-
+        Super + K for cheatsheet.
+        Super + Space for os Menu.
+    it:
+      title: Scopri le scorciatoie
+      body: |-
+        Super + K per il promemoria.
+        Super + Space per il menu os.
+  default_language: en
