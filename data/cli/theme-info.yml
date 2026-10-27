@@ -17,6 +17,11 @@ background_cycle:
   no_background_message: theme.noBackground
   notification_timeout_option: -t
   notification_timeout: 2000
+background_set:
+  commands:
+    shell: [arch-shell, -q, background, set]
+  temporary_directory_prefix: .background-
+  temporary_symlink_name: selected
 background_name:
   extension_pattern: '\.[^.]+$'
   numeric_prefix_pattern: '^\d+-'
@@ -40,6 +45,12 @@ messages:
   usage:
     en: "Usage: arch-theme-dir <theme-name>"
     it: "Uso: arch-theme-dir <nome-tema>"
+  background_set_usage:
+    en: "Usage: arch-theme-bg-set <path-to-media>"
+    it: "Uso: arch-theme-bg-set <percorso-media>"
+  background_file_missing:
+    en: "File does not exist: {path}"
+    it: "Il file non esiste: {path}"
   unknown:
     en: Unknown
     it: Sconosciuto

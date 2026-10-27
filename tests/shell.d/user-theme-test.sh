@@ -33,6 +33,12 @@ printf '%s\n' "$*" >>"$ARCH_TEST_BACKGROUND_NOTIFICATIONS"
 SH
 chmod +x "$mock_bin/arch-notification-send"
 
+cat >"$mock_bin/arch-shell" <<'SH'
+#!/bin/bash
+printf '%s\n' "$@" >>"$ARCH_TEST_BACKGROUND_SHELL_CALLS"
+SH
+chmod +x "$mock_bin/arch-shell"
+
 for command in arch-theme-set-fcitx5; do
   cat >"$mock_bin/$command" <<'SH'
 #!/bin/bash
@@ -155,3 +161,27 @@ grep -Fx 'No background -t 2000' "$background_notifications" >/dev/null ||
   fail "empty background list sends the translated notification" "$(cat "$background_notifications")"
 [[ $(wc -l <"$background_calls") == 1 ]] || fail "empty background list does not change the selected background"
 pass "empty background list sends the translated notification"
+
+selected_background="$test_tmp/theme-arch/assets/themes/cosmic-night/selected image.png"
+printf 'image\n' >"$selected_background"
+shell_calls="$test_tmp/background-shell-calls"
+HOME="$test_tmp/home" ARCH_PATH="$test_tmp/theme-arch" PATH="$mock_bin:$PATH" \
+  ARCH_TEST_BACKGROUND_SHELL_CALLS="$shell_calls" \
+  "$ROOT/src/cli/arch-theme-bg-set" "$selected_background"
+[[ $(readlink "$test_tmp/home/.local/state/arch/current/background") == "$selected_background" ]] ||
+  fail "background setter atomically selects the resolved media path"
+[[ $(cat "$shell_calls") == $'-q\nbackground\nset\n'"$selected_background" ]] ||
+  fail "background setter refreshes the live shell with one quoted path argument" "$(cat "$shell_calls")"
+[[ -z $(find "$test_tmp/home/.local/state/arch/current" -mindepth 1 -maxdepth 1 -type d -name '.background-*' -print -quit) ]] ||
+  fail "background setter cleans up its temporary directory"
+pass "background setter atomically selects media and refreshes the shell"
+
+if HOME="$test_tmp/home" ARCH_PATH="$test_tmp/theme-arch" LC_ALL= LC_MESSAGES=it_IT.UTF-8 \
+  "$ROOT/src/cli/arch-theme-bg-set" "$test_tmp/missing.png" >"$test_tmp/background-set.out" 2>"$test_tmp/background-set.err"; then
+  fail "background setter rejects a missing file"
+fi
+grep -F 'Il file non esiste:' "$test_tmp/background-set.err" >/dev/null ||
+  fail "background setter localizes missing-file errors"
+[[ $(readlink "$test_tmp/home/.local/state/arch/current/background") == "$selected_background" ]] ||
+  fail "background setter leaves the current link unchanged when validation fails"
+pass "background setter rejects missing files without changing the selection"

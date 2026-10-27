@@ -5,6 +5,7 @@ from pathlib import Path
 import re
 import subprocess
 import sys
+import tempfile
 from typing import Any
 
 import yaml
@@ -187,4 +188,37 @@ def background_next_main() -> int:
     current_index = -1
   next_index = (current_index + 1) % len(backgrounds) if current_index >= 0 else 0
   result = subprocess.run([*commands["set_background"], background_names[next_index]], check=False)
+  return result.returncode
+
+
+def background_set_main(arguments: list[str]) -> int:
+  settings = _settings()
+  if not arguments:
+    print(_message(settings, "background_set_usage"), file=sys.stderr)
+    return 1
+  background = Path(arguments[0]).resolve()
+  if not background.is_file():
+    message = _message(settings, "background_file_missing").format(path=background)
+    print(message, file=sys.stderr)
+    return 1
+
+  link = _paths(settings)["current_background"]
+  link.parent.mkdir(parents=True, exist_ok=True)
+  temporary_directory = Path(
+    tempfile.mkdtemp(
+      prefix=settings["background_set"]["temporary_directory_prefix"],
+      dir=link.parent,
+    )
+  )
+  try:
+    temporary_link = temporary_directory / settings["background_set"]["temporary_symlink_name"]
+    temporary_link.symlink_to(background)
+    os.replace(temporary_link, link)
+  finally:
+    temporary_directory.rmdir()
+
+  result = subprocess.run(
+    [*settings["background_set"]["commands"]["shell"], str(background)],
+    check=False,
+  )
   return result.returncode
