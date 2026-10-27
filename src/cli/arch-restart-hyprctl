@@ -1,5 +1,12 @@
-#!/bin/bash
+#!/usr/bin/python3 -I
 
 # arch:summary=Reload hyprland configuration (used by the Arch theme switching).
 
-hyprctl reload >/dev/null
+import os
+from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(os.environ["ARCH_PATH"]) / "src/python"))
+from cli.restart.hyprland import main
+
+raise SystemExit(main())

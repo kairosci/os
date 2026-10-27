@@ -9,6 +9,7 @@ sources = [
   "src/cli/arch-restart-gum",
   "src/cli/arch-restart-helix",
   "src/cli/arch-restart-hyprctl",
+  "src/python/cli/restart/hyprland.py",
   "src/cli/arch-restart-hyprsunset",
   "src/cli/arch-restart-shell",
   "src/cli/arch-restart-terminal",
@@ -46,6 +47,10 @@ target = "usr/share/arch/src/cli/arch-restart-helix"
 [[output]]
 source = "src/cli/arch-restart-hyprctl"
 target = "usr/share/arch/src/cli/arch-restart-hyprctl"
+
+[[output]]
+source = "src/python/cli/restart/hyprland.py"
+target = "usr/share/arch/src/python/cli/restart/hyprland.py"
 
 [[output]]
 source = "src/cli/arch-restart-hyprsunset"
