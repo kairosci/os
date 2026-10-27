@@ -60,8 +60,8 @@ cli_files = {
     f"src/commands/{path.name}" for path in cli_directory.iterdir() if path.is_file()
 }
 python_cli_files = {
-    f"src/python/{path.relative_to(cli_directory.parent / 'python').as_posix()}"
-    for path in (cli_directory.parent / "python/cli").rglob("*.py")
+    f"src/cli/{path.relative_to(cli_directory.parent / 'cli').as_posix()}"
+    for path in (cli_directory.parent / "cli").rglob("*.py")
     if path.name != "__init__.py"
 }
 cli_files -= {

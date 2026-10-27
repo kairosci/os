@@ -121,9 +121,11 @@ assert(unknownShell.length === 0, 'every referenced shell key exists in the Engl
 const cliKeyPattern = /arch-i18n (?:--count \S+ )?([a-z][a-zA-Z0-9]*(?:\.[a-zA-Z0-9]+)+)/g
 const cliKeys = new Set([
   ...collectKeys(path.join(root, 'src/commands'), [''], cliKeyPattern),
+  ...collectKeys(path.join(root, 'src/cli'), ['.py'], cliKeyPattern),
   ...collectKeys(path.join(root, 'installer'), ['.sh', '.py', '.hook'], cliKeyPattern),
 ])
 for (const key of collectKeys(path.join(root, 'src/commands'), ['.py'], /_message\(\s*['"]([a-z][a-zA-Z0-9]*(?:\.[a-zA-Z0-9]+)+)['"]/g)) cliKeys.add(key)
+for (const key of collectKeys(path.join(root, 'src/cli'), ['.py'], /_message\(\s*['"]([a-z][a-zA-Z0-9]*(?:\.[a-zA-Z0-9]+)+)['"]/g)) cliKeys.add(key)
 for (const key of collectKeys(path.join(root, 'data/cli'), ['.yml'], /^\s*[A-Za-z0-9_-]+:\s*([a-z][a-zA-Z0-9]*(?:\.[a-zA-Z0-9]+)+)\s*$/gm)) cliKeys.add(key)
 const unreferencedCli = Object.keys(enCli).filter((key) => !cliKeys.has(key))
 assert(unreferencedCli.length === 0, 'every cli catalog key is referenced', JSON.stringify(unreferencedCli))
