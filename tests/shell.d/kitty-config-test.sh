@@ -123,10 +123,18 @@ run_command() {
   env HOME="$test_home" ARCH_PATH="$ROOT" PATH="$test_dir/bin:$ROOT/src/cli:$PATH" "$ROOT/src/cli/$@"
 }
 
+if output=$(LANG=it_IT.UTF-8 run_command arch-font-set 'Bad/Font' 2>&1); then
+  fail "invalid font names are rejected"
+fi
+[[ $output == *"Il nome può contenere solo lettere"* ]] || fail "font validation errors follow the Italian locale" "$output"
+output=$(LANG=it_IT.UTF-8 run_command arch-font-set --help)
+[[ $output == "Uso: arch-font-set <nome-carattere>" ]] || fail "font usage follows the Italian locale" "$output"
+
 cp "$ROOT/config/kitty/kitty.conf" "$kitty_config"
 output=$(run_command arch-display-text-size)
 [[ $output == *"terminal font: 9 pt"* ]] || fail "size report accounts for inherited Kitty default"
 run_command arch-font-set 'Test Font'
+grep -qx '      <string>Test Font</string>' "$test_home/.config/fontconfig/fonts.conf" || fail "font command updates Fontconfig"
 run_command arch-display-text-size 16
 grep -qx 'font_family Test Font' "$kitty_config" || fail "font command creates family override"
 run_command arch-font-set Font
@@ -153,7 +161,40 @@ run_command arch-display-text-size 16
 grep -qx 'font_size 12.0' "$kitty_config" || fail "size command handles absent config"
 pass "font controls create missing Kitty overrides without restoring the theme include"
 
-if "$ROOT/src/cli/arch-cmd-present" kitty; then
+mkdir -p "$test_home/.config/alacritty" "$test_home/.config/ghostty" "$test_home/.config/foot"
+printf 'family = "Old Font"\n' >"$test_home/.config/alacritty/alacritty.toml"
+printf 'font-family = "Old Font"\n' >"$test_home/.config/ghostty/config"
+printf 'font=Old Font:size=9\n' >"$test_home/.config/foot/foot.ini"
+run_command arch-font-set 'Test Font'
+grep -qx 'family = "Test Font"' "$test_home/.config/alacritty/alacritty.toml" || fail "font command updates Alacritty"
+grep -qx 'font-family = "Test Font"' "$test_home/.config/ghostty/config" || fail "font command updates Ghostty"
+grep -qx 'font=Test Font:size=9' "$test_home/.config/foot/foot.ini" || fail "font command updates Foot"
+pass "font updates reach Alacritty, Ghostty, and Foot"
+
+# Font updates may follow a dotfile link within the user's home, but must not
+# overwrite a target outside both the selected config tree and the home.
+mkdir -p "$test_home/dotfiles" "$test_home/.config/fontconfig"
+rm -f "$kitty_config"
+printf 'font_family Original\n' >"$test_home/dotfiles/kitty.conf"
+ln -s "$test_home/dotfiles/kitty.conf" "$kitty_config"
+run_command arch-font-set 'Test Font'
+[[ -L $kitty_config ]] || fail "font update preserves an in-home Kitty config symlink"
+grep -qx 'font_family Test Font' "$test_home/dotfiles/kitty.conf" || fail "font update writes through an in-home Kitty config symlink"
+
+outside_fontconfig="$test_dir/outside-fontconfig.conf"
+printf 'outside sentinel\n' >"$outside_fontconfig"
+rm -f "$test_home/.config/fontconfig/fonts.conf"
+ln -s "$outside_fontconfig" "$test_home/.config/fontconfig/fonts.conf"
+cp "$test_home/dotfiles/kitty.conf" "$test_dir/kitty-before-rejected-update"
+if run_command arch-font-set 'Test Font' 2>/dev/null; then
+  fail "font update rejects a config symlink escaping the home"
+fi
+cmp -s "$outside_fontconfig" <(printf 'outside sentinel\n') || fail "font update leaves an external symlink target unchanged"
+cmp -s "$test_home/dotfiles/kitty.conf" "$test_dir/kitty-before-rejected-update" ||
+  fail "font update validates all config paths before changing any file"
+pass "font updates preserve in-home links and reject escaping config symlinks atomically"
+
+if ARCH_PATH="$ROOT" "$ROOT/src/cli/arch-cmd-present" kitty; then
   kitty +runpy "$(cat "$ROOT/tests/shell.d/fixtures/kitty/check-config.py")"
 else
   skip "Kitty not installed; skipping native config parser checks"
