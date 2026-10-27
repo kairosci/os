@@ -165,7 +165,12 @@ for module_id in runtime_data:
 for module_id in command_modules:
     module = command_modules[module_id]
     assert module["package"] == "arch", module_id
-    assert module["requires"] in (["desktop.commands"], ["desktop.commands", "system.runtime-data"]), (module_id, module["requires"])
+    allowed_requirements = (
+        ["desktop.commands"],
+        ["desktop.commands", "system.runtime-data"],
+        ["desktop.commands", "desktop.commands.version", "system.runtime-data"],
+    )
+    assert module["requires"] in allowed_requirements, (module_id, module["requires"])
     assert len(module["sources"]) == len(module["outputs"]), module_id
     for source, output in zip(module["sources"], module["outputs"]):
         assert output == [source, f"usr/share/arch/{source}"], (module_id, source, output)
