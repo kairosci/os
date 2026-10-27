@@ -4,59 +4,67 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-firmware_setup="$ROOT/installer/hardware/qualcomm/firmware.sh"
+firmware_setup="$ROOT/src/python/installer/hardware/qualcomm/firmware.py"
 dtb_setup="$ROOT/installer/hardware/qualcomm/dtb-uki.sh"
 scratch=$(mktemp -d)
 trap 'rm -rf "$scratch"' EXIT
 
-for script in "$firmware_setup" "$dtb_setup"; do
+mock_bin="$scratch/mock-bin"
+mkdir -p "$mock_bin"
+cat >"$mock_bin/arch-hw-aarch64-qualcomm" <<'COMMAND'
+#!/bin/bash
+if [[ -n ${ARCH_PROC_ROOT:-} ]]; then
+  exec "$ROOT/src/cli/arch-hw-aarch64-qualcomm" "$@"
+fi
+exit 0
+COMMAND
+cat >"$mock_bin/arch-pkg-add" <<'COMMAND'
+#!/bin/bash
+exit 0
+COMMAND
+cat >"$mock_bin/qcom-firmware-extract" <<'COMMAND'
+#!/bin/bash
+if [[ $1 == "--list-missing" ]]; then
+  printf '%s\n' "${ARCH_TEST_MISSING:-}"
+  exit "${ARCH_TEST_INSPECTION_STATUS:-0}"
+fi
+exit "${ARCH_TEST_INSTALL_STATUS:-0}"
+COMMAND
+cat >"$mock_bin/findmnt" <<'COMMAND'
+#!/bin/bash
+[[ $* == "-no SOURCE --nofsroot /" ]] || exit 2
+printf '%s\n' "${ARCH_TEST_ROOT_SOURCE:-}"
+COMMAND
+cat >"$mock_bin/lsblk" <<'COMMAND'
+#!/bin/bash
+[[ ${!#} == /dev/mapper/root ]] || exit 2
+printf '%s\n' "${ARCH_TEST_ROOT_TRANSPORT:-}"
+COMMAND
+chmod +x "$mock_bin"/*
+
+run_firmware_setup() (
+  ARCH_PATH="$ROOT" \
+    ARCH_QUALCOMM_MODPROBE_DIR="$scratch/modprobe.d" \
+    PATH="$mock_bin:$PATH" \
+    python3 -I "$firmware_setup"
+)
+
+for script in "$dtb_setup"; do
   bash -n "$script" || fail "Snapdragon hardware scripts have valid syntax"
 done
 
-(
-  arch-hw-aarch64-qualcomm() { return 0; }
-  arch-pkg-add() { :; }
-  qcom-firmware-extract() {
-    if [[ $1 == "--install" ]]; then
-      return 1
-    else
-      return 0
-    fi
-  }
-  findmnt() {
-    [[ $* == "-no SOURCE --nofsroot /" ]] || fail "Snapdragon firmware setup strips the Btrfs subvolume suffix"
-    printf '/dev/mapper/root\n'
-  }
-  lsblk() {
-    [[ ${!#} == "/dev/mapper/root" ]] || fail "Snapdragon firmware setup passes a resolvable root device to lsblk"
-    printf 'usb\n'
-  }
-
-  ARCH_QUALCOMM_MODPROBE_DIR="$scratch/modprobe.d"
-  source "$firmware_setup"
-)
+export ARCH_TEST_ROOT_SOURCE=/dev/mapper/root ARCH_TEST_ROOT_TRANSPORT=usb
+run_firmware_setup
 
 [[ -f $scratch/modprobe.d/qualcomm-adsp-nofw.conf ]] ||
   fail "Snapdragon firmware setup protects a USB-backed root disk"
 
-run_internal_firmware_setup() (
-  arch-hw-aarch64-qualcomm() { return 0; }
-  arch-pkg-add() { :; }
-  findmnt() { printf '/dev/mapper/root\n'; }
-  lsblk() { printf 'nvme\n'; }
-  inspection_status=$1
-  qcom-firmware-extract() {
-    [[ $1 == "--list-missing" ]] || return 0
-    return "$inspection_status"
-  }
-  ARCH_QUALCOMM_MODPROBE_DIR="$scratch/modprobe.d"
-  source "$firmware_setup"
-)
-
-run_internal_firmware_setup 1
+export ARCH_TEST_ROOT_TRANSPORT=nvme ARCH_TEST_INSPECTION_STATUS=1
+run_firmware_setup
 [[ -f $scratch/modprobe.d/qualcomm-adsp-nofw.conf ]] ||
   fail "Snapdragon setup keeps DSPs disabled when firmware inspection fails"
-run_internal_firmware_setup 0
+export ARCH_TEST_INSPECTION_STATUS=0
+run_firmware_setup
 [[ ! -f $scratch/modprobe.d/qualcomm-adsp-nofw.conf ]] ||
   fail "Snapdragon setup enables DSPs after firmware is verified on an internal root"
 
@@ -162,7 +170,10 @@ run_leaves_on() (
   ARCH_QUALCOMM_DTB_DIR="$scratch/dtbs"
   ARCH_QUALCOMM_UKI_CONFIG="$out/uki.conf"
   ARCH_QUALCOMM_MKINITCPIO_DIR="$out/mkinitcpio.conf.d"
-  source "$firmware_setup"
+  ARCH_PATH="$ROOT" ARCH_QUALCOMM_MODPROBE_DIR="$out/modprobe.d" \
+    ARCH_TEST_ROOT_SOURCE=/dev/mapper/root ARCH_TEST_ROOT_TRANSPORT=nvme \
+    ARCH_TEST_INSPECTION_STATUS=1 PATH="$platform/bin:$mock_bin:$ROOT/src/cli:$PATH" \
+    python3 -I "$firmware_setup"
   source "$dtb_setup"
   ARCH_PATH="$ROOT" ARCH_QUALCOMM_KERNEL_PARAMS_FILE="$out/limine-entry-tool.d/qualcomm-snapdragon.conf" \
     python3 -I "$kernel_params_setup"

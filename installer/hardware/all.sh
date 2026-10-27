@@ -48,7 +48,7 @@ run_logged "$ARCH_INSTALL/hardware/apple/fix-brcmfmac-supplicant.sh"
 run_logged "$ARCH_INSTALL/hardware/qualcomm/dtb-uki.sh"
 run_logged "$ARCH_PATH/src/python/installer/hardware/qualcomm/kernel_params.py"
 run_logged "$ARCH_PATH/src/python/installer/hardware/qualcomm/initramfs.py"
-run_logged "$ARCH_INSTALL/hardware/qualcomm/firmware.sh"
+run_logged "$ARCH_PATH/src/python/installer/hardware/qualcomm/firmware.py"
 run_logged "$ARCH_PATH/src/python/installer/hardware/qualcomm_camera.py"
 
 run_logged "$ARCH_INSTALL/hardware/lenovo/fix-yoga-pro7-bass-speakers.sh"
