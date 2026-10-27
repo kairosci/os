@@ -156,6 +156,7 @@
   "migration.archSessionEntryMissing": "The Arch Wayland session entry is missing.",
   "migration.archSessionEntryMissing": "The Arch Wayland session entry is missing.",
   "migration.removeRetiredCliShims": "Remove retired CLI shims from mise",
+  "migration.removeRetiredNotificationImageCache": "Remove the retired notification image cache",
   "migration.removeSavedFloatingWorkspaces": "Remove saved floating workspace layouts",
   "migration.saveWorkspaceLayoutsAsModes": "Save workspace layouts as modes",
   "migration.removeWorkspaceTitlebars": "Remove obsolete workspace titlebars",
