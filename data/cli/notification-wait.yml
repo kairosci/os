@@ -1,0 +1,20 @@
+default_timeout_seconds: 10
+maximum_timeout_seconds: 300
+probe_interval_seconds: 0.1
+default_language: en
+argument_counts:
+  maximum: 2
+probe_commands:
+  - [arch-shell, notifications, ping]
+  - [busctl, --user, call, org.freedesktop.Notifications, /org/freedesktop/Notifications, org.freedesktop.Notifications, GetServerInformation]
+exit_codes:
+  usage: 1
+  invalid_timeout: 2
+  timeout: 1
+messages:
+  en:
+    usage: 'Usage: arch-notification-wait [timeout-seconds]'
+    invalid_timeout: 'Timeout must be an integer within the configured limit.'
+  it:
+    usage: 'Uso: arch-notification-wait [secondi-timeout]'
+    invalid_timeout: 'Il timeout deve essere un intero entro il limite configurato.'

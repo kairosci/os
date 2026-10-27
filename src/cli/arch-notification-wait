@@ -1,30 +1,15 @@
-#!/bin/bash
+#!/usr/bin/python3 -I
 
 # arch:summary=Wait for the desktop notification server to accept notifications
 # arch:args=[timeout-seconds]
 # arch:hidden=true
 
-set -uo pipefail
+import os
+import sys
+from pathlib import Path
 
-timeout=${1:-10}
+sys.path.insert(0, str(Path(os.environ["ARCH_PATH"]) / "src/python"))
 
-notification_server_ready() {
-  busctl --user call \
-    org.freedesktop.Notifications \
-    /org/freedesktop/Notifications \
-    org.freedesktop.Notifications \
-    GetServerInformation >/dev/null 2>&1
-}
+from cli.notification_wait import main
 
-# The shell has to be up to serve the IPC, and it has to have claimed the
-# notification bus name before notify-send has anywhere to deliver.
-attempts=$((timeout * 10))
-while (( attempts > 0 )); do
-  if arch-shell notifications ping >/dev/null 2>&1 && notification_server_ready; then
-    exit 0
-  fi
-  attempts=$((attempts - 1))
-  sleep 0.1
-done
-
-exit 1
+raise SystemExit(main())
