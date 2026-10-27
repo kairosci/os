@@ -1,6 +1,14 @@
 # Avvisi
 
-Puoi accedere rapidamente a data e ora, stato batteria e meteo corrente usando gli avvisi da scorciatoia.
+## Notifiche
+
+Le notifiche mostrano informazioni rapide senza aprire un pannello. I codici di verifica possono essere copiati senza finire nella [cronologia degli appunti](08-unified-clipboard-history.md) e vengono cancellati dopo un minuto. Puoi aprire i link nel testo di una notifica con un clic.
+
+La cronologia viene conservata per un giorno. Per cambiare durata, imposta `historyHours` nella sezione `notifications` di `~/.config/arch/shell.json`: `1` per un’ora, `168` per una settimana oppure `0` per non salvare la cronologia su disco.
+
+## Avvisi da tastiera
+
+Puoi consultare rapidamente data e ora, stato della batteria e meteo corrente con questi avvisi da scorciatoia.
 
 ### Data e ora
 

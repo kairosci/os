@@ -11,10 +11,10 @@ Cela ressemble à ceci :
 Arch command center
 
 Usage:
-  archctl <command> [args...]
+  arch <command> [args...]
   archctl commands [--all] [--json] [--check]
-  archctl <group> --help
-  archctl <group> <command> --help
+  arch <group> --help
+  arch <group> <command> --help
 
 Common commands:
   archctl update              Update Arch and system packages
