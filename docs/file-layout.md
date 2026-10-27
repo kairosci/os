@@ -342,7 +342,7 @@ the legacy finalization marker from `~/.local/state/arch/` into `done/`.
 ## Root-side install orchestration
 
 `arch-apply-system` (root, in chroot) runs target-side setup at ISO
-finalization. It sources:
+finalization. It dispatches:
 
 - `installer/config/all.sh` — theme links, lockout limits, lockscreen PAM,
   powerprofilesctl shebang fix, SSH command path and keepalive, docker setup,
@@ -351,7 +351,8 @@ finalization. It sources:
   device-specific kernel modules, udev rules, microcode, wireless regdom,
   ASUS / Framework / Intel / Apple / Lenovo quirks.
 - `installer/login/all.sh` — SDDM theme/session config.
-- `installer/post-install/all.sh` — final pacman/udev/localdb passes.
+- `src/python/installer/post_install/all.py` — runs the final pacman, udev,
+  and local database setup steps declared in `data/installer/post-install.yml`.
 
 Logging goes to `/var/log/arch-install.log` via
 `installer/helpers/logging.sh`.
