@@ -4,7 +4,6 @@ package = "arch"
 sources = [
   "src/cli/arch-agent",
   "src/cli/arch-agent-account-add",
-  "src/cli/arch-agent-account-copy",
   "src/cli/arch-agent-account-exec",
   "src/cli/arch-agent-account-home",
   "src/cli/arch-agent-account-list",
@@ -12,7 +11,6 @@ sources = [
   "src/cli/arch-agent-account-remove",
   "src/cli/arch-agent-account-rename",
   "src/cli/arch-agent-account-state",
-  "src/cli/arch-agent-account-transfer",
   "src/cli/arch-agent-account-use",
   "src/cli/arch-agent-crash",
   "src/cli/arch-agent-prompt",
@@ -29,10 +27,6 @@ target = "usr/share/arch/src/cli/arch-agent"
 [[output]]
 source = "src/cli/arch-agent-account-add"
 target = "usr/share/arch/src/cli/arch-agent-account-add"
-
-[[output]]
-source = "src/cli/arch-agent-account-copy"
-target = "usr/share/arch/src/cli/arch-agent-account-copy"
 
 [[output]]
 source = "src/cli/arch-agent-account-exec"
@@ -61,10 +55,6 @@ target = "usr/share/arch/src/cli/arch-agent-account-rename"
 [[output]]
 source = "src/cli/arch-agent-account-state"
 target = "usr/share/arch/src/cli/arch-agent-account-state"
-
-[[output]]
-source = "src/cli/arch-agent-account-transfer"
-target = "usr/share/arch/src/cli/arch-agent-account-transfer"
 
 [[output]]
 source = "src/cli/arch-agent-account-use"
