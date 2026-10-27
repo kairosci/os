@@ -149,6 +149,7 @@
   "migration.removeManagedSkillLinks": "Removed %1 Arch-managed agent skill link(s)",
   "migration.removeLegacyPasswordlessSudoGrants": "Remove legacy temporary passwordless sudo grants",
   "migration.relinkNeovimTheme": "Relink the Neovim theme to the current Arch state",
+  "migration.regenerateLegacyMiseWrappers": "Regenerate legacy mise wrappers",
   "migration.repairUpdateNotifierLoop": "Stop the update notifier from re-triggering itself",
   "migration.pinBrowserPasswordStore": "Keep Chromium-based browsers on the system secret store",
   "migration.removeVoxtypeHyprlandToggle": "Remove the obsolete dictation toggle",
