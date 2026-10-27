@@ -23,4 +23,35 @@ welcome:
       body: |-
         Super + K per il promemoria.
         Super + Space per il menu os.
-  default_language: en
+wifi:
+  worker: wifi_worker
+  network:
+    startup_wait: [nm-online, -q, -s, -t, "30"]
+    connectivity_check: [nm-online, -q, -x, -t, "30"]
+    connection_wait: [nm-online, -q, -t, "3600"]
+  update:
+    check: [checkupdates, --nocolor]
+    no_updates_status: 2
+    installed_path: /usr/share/arch
+    checkout_check: [arch-update-available]
+  wifi_notification:
+    command: [arch-notification-send, -u, critical, -g, 󰖩]
+    action: [--exec, arch-shell, shell, toggle, arch.network]
+    messages:
+      en:
+        title: Setup Wi-Fi
+        body: Click to configure the wireless network.
+      it:
+        title: Configura il Wi-Fi
+        body: Fai clic per configurare la rete wireless.
+  update_notification:
+    command: [arch-notification-send, -u, critical, -g, ]
+    action: [--exec, arch-launch-terminal, arch-update]
+    messages:
+      en:
+        title: Update System
+        body: Click to update the system.
+      it:
+        title: Aggiorna il sistema
+        body: Fai clic per aggiornare il sistema.
+default_language: en

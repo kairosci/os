@@ -179,4 +179,30 @@ grep -q 'Failed: apply speaker tuning' "$tmp/home/.local/state/arch/first-run.lo
   fail "a failed speaker setup is recorded in first-run log" "$(cat "$tmp/home/.local/state/arch/first-run.log")"
 grep -q '^set org.gnome.desktop.interface gtk-enable-primary-paste true$' "$tmp/gsettings.log" ||
   fail "GTK primary paste uses the packaged YAML setting" "$(cat "$tmp/gsettings.log")"
-pass "first run runs the platform's user setup and configured desktop settings, and a failure keeps first run pending"
+
+cat >"$first_bin/nm-online" <<'SH'
+#!/bin/bash
+case " $* " in
+  *' -s '*) exit 0 ;;
+  *' -x '*) [[ ${WIFI_CONNECTED:-0} == 1 ]] ;;
+  *) [[ ${WIFI_WAIT_CONNECTED:-0} == 1 ]] ;;
+esac
+SH
+cat >"$first_bin/checkupdates" <<'SH'
+#!/bin/bash
+exit "${CHECKUPDATES_STATUS:-2}"
+SH
+cat >"$first_bin/arch-update-available" <<'SH'
+#!/bin/bash
+exit "${CHECKOUT_UPDATE_STATUS:-1}"
+SH
+chmod +x "$first_bin/nm-online" "$first_bin/checkupdates" "$first_bin/arch-update-available"
+LANG=it_IT.UTF-8 WIFI_CONNECTED=0 WIFI_WAIT_CONNECTED=0 ARCH_PATH="$first_root" NOTIFICATION_LOG="$tmp/notifications.log" \
+  PATH="$first_bin:$PATH" python3 -I "$first_root/src/python/installer_user/first_run/commands.py" wifi_worker ||
+  fail "offline first run notifies the user to configure Wi-Fi" "$(cat "$tmp/notifications.log")"
+grep -q 'Configura il Wi-Fi' "$tmp/notifications.log" || fail "Wi-Fi notification uses its Italian YAML translation" "$(cat "$tmp/notifications.log")"
+LANG=it_IT.UTF-8 WIFI_CONNECTED=1 CHECKUPDATES_STATUS=0 ARCH_PATH="$first_root" NOTIFICATION_LOG="$tmp/notifications.log" \
+  PATH="$first_bin:$PATH" python3 -I "$first_root/src/python/installer_user/first_run/commands.py" wifi_worker ||
+  fail "available updates produce a notification" "$(cat "$tmp/notifications.log")"
+grep -q 'Aggiorna il sistema' "$tmp/notifications.log" || fail "update notification uses its Italian YAML translation" "$(cat "$tmp/notifications.log")"
+pass "first run runs platform setup, applies configured desktop settings, and localizes welcome, Wi-Fi, and update notifications"
