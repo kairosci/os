@@ -354,6 +354,11 @@
   "tui.selectRemove": "Select TUI to remove",
   "tui.usage": "Usage: arch-tui-install <name> <command> <icon-url-or-name>",
   "update.cancelled": "Update cancelled",
+  "update.available.none": "System is up to date",
+  "update.available.checkout": {
+    "one": "Arch checkout has %1 new commit on %2",
+    "other": "Arch checkout has %1 new commits on %2"
+  },
   "update.cannotStop": "You cannot stop the update once you start!",
   "update.connectPower": "Make sure you're connected to power or have a full battery",
   "update.continue": "Continue with update?",

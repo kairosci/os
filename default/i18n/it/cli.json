@@ -359,6 +359,11 @@
   "tui.selectRemove": "Seleziona TUI da rimuovere",
   "tui.usage": "Uso: arch-tui-install <nome> <comando> <nome-o-url-icona>",
   "update.cancelled": "Aggiornamento annullato",
+  "update.available.none": "Il sistema è aggiornato",
+  "update.available.checkout": {
+    "one": "Il checkout Arch ha %1 nuovo commit su %2",
+    "other": "Il checkout Arch ha %1 nuovi commit su %2"
+  },
   "update.cannotStop": "Non puoi interrompere l'aggiornamento una volta avviato!",
   "update.connectPower": "Assicurati di essere collegato alla corrente o di avere la batteria carica",
   "update.continue": "Continuare con l'aggiornamento?",

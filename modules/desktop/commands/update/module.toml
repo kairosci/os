@@ -6,6 +6,7 @@ sources = [
   "src/cli/arch-update-analyze-logs",
   "src/cli/arch-update-aur-pkgs",
   "src/cli/arch-update-available",
+  "src/python/cli/update_available.py",
   "src/cli/arch-update-boot",
   "src/cli/arch-update-confirm",
   "src/python/cli/update_confirm.py",
@@ -44,6 +45,10 @@ target = "usr/share/arch/src/cli/arch-update-aur-pkgs"
 [[output]]
 source = "src/cli/arch-update-available"
 target = "usr/share/arch/src/cli/arch-update-available"
+
+[[output]]
+source = "src/python/cli/update_available.py"
+target = "usr/share/arch/src/python/cli/update_available.py"
 
 [[output]]
 source = "src/cli/arch-update-boot"
