@@ -1,0 +1,14 @@
+commands:
+  focused:
+    command: [hyprctl, monitors, -j]
+    selected_field: focused
+    selected_value: true
+  laptop:
+    command: [hyprctl, monitors, all, -j]
+    name_pattern: "^(eDP|LVDS|DSI)-"
+    first_match: true
+output_field: name
+exit_codes:
+  invalid_json:
+    focused: 4
+    laptop: 0
