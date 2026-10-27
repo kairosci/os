@@ -139,3 +139,6 @@ vm_setup:
       detected: "Detected a virtual machine. Turning off animations and transparency."
     it:
       detected: "Macchina virtuale rilevata. Disattivo animazioni e trasparenze."
+dell_text_scaling_setup:
+  predicate: [arch-hw-match, DX13260]
+  command: [arch-display-text-size, '11']
