@@ -137,6 +137,8 @@
   "migration.refreshApplications": "Refresh application entries",
   "migration.removeFloatingDiskUsageLauncher": "Removed the obsolete floating Disk Usage launcher",
   "migration.removeManagedSkillLinks": "Removed %1 Arch-managed agent skill link(s)",
+  "migration.archSessionEntryMissing": "The Arch Wayland session entry is missing.",
+  "migration.archSessionEntryMissing": "The Arch Wayland session entry is missing.",
   "migration.removeRetiredCliShims": "Remove retired CLI shims from mise",
   "migration.removeSavedFloatingWorkspaces": "Remove saved floating workspace layouts",
   "migration.saveWorkspaceLayoutsAsModes": "Save workspace layouts as modes",
