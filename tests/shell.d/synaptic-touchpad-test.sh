@@ -4,10 +4,10 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-leaf="$ROOT/installer/hardware/fix-synaptic-touchpad.sh"
+leaf="$ROOT/src/python/installer/hardware/synaptic_touchpad.py"
 all="$ROOT/installer/hardware/all.sh"
 
-grep -q 'run_logged .*hardware/fix-synaptic-touchpad.sh' "$all" ||
+grep -q 'run_logged .*src/python/installer/hardware/synaptic_touchpad.py' "$all" ||
   fail "the synaptic touchpad quirk runs during hardware setup"
 pass "the synaptic touchpad quirk runs during hardware setup"
 
@@ -42,18 +42,17 @@ chmod +x "$test_tmp/bin"/*
 
 printf '%s\n' 'N: Name="SynPS/2 Synaptics TouchPad"' >"$test_tmp/devices"
 
-# Sourced under errexit the way run_logged runs it, so a failing modprobe would
-# fail the run rather than be swallowed here.
+# Invoked as a Python leaf the way run_logged runs it.
 run_fix() {
   : >"$modprobe_log"
 
-  MODPROBE_LOG="$modprobe_log" \
+  ARCH_PATH="$ROOT" MODPROBE_LOG="$modprobe_log" \
     PATH="$test_tmp/bin:$PATH" \
     ARCH_SYNAPTIC_INPUT_DEVICES="$test_tmp/devices" \
     TEST_LOADED_MODULES="${1:-}" \
     TEST_MODPROBE_STATUS="${2:-0}" \
     TEST_MODPROBE_RESOLVES="${3:-0}" \
-    bash -eE -c 'source "$1"' bash "$leaf"
+    python3 -I "$leaf"
 }
 
 run_fix

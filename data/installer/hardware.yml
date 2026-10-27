@@ -31,3 +31,17 @@ qualcomm_camera:
   check_command: [arch-hw-aarch64-qualcomm]
   package_command: [arch-pkg-add]
   package: pipewire-libcamera
+
+synaptic_touchpad:
+  device_file_environment: ARCH_SYNAPTIC_INPUT_DEVICES
+  device_file_default: /proc/bus/input/devices
+  device_pattern: synaptics
+  loaded_modules_command: [lsmod]
+  loaded_module_pattern: '^psmouse'
+  resolve_module_command: [modprobe, -qn, psmouse]
+  load_module_command: [modprobe, psmouse, synaptics_intertouch=1]
+  messages:
+    en:
+      load_failed: "Warning: could not enable Synaptics InterTouch on psmouse"
+    it:
+      load_failed: "Avviso: impossibile attivare Synaptics InterTouch su psmouse"
