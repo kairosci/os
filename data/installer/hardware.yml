@@ -1,0 +1,4 @@
+speaker_tuning:
+  match_command: [arch-audio-tuning, match]
+  package_command: [arch-pkg-add]
+  packages: [lsp-plugins-lv2]
