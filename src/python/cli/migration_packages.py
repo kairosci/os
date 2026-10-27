@@ -35,8 +35,10 @@ def main(migration_path: Path) -> int:
   print(translated.stdout.rstrip("\n"))
 
   packages = migration_config["packages"]
-  if packages["add"]:
+  if packages.get("add"):
     run(command_config, "package_add", *packages["add"])
-  if packages["drop"]:
+  if packages.get("replace"):
+    run(command_config, "package_add_replace", *packages["replace"])
+  if packages.get("drop"):
     run(command_config, "package_drop", *packages["drop"])
   return 0

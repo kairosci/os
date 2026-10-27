@@ -1,4 +1,5 @@
 commands:
   i18n: [arch-i18n]
   package_add: [arch-pkg-add]
+  package_add_replace: [arch-update-pacman, -S, --needed, --noconfirm, --ask, "4"]
   package_drop: [arch-pkg-drop]

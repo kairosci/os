@@ -13,6 +13,8 @@ from base_test import ROOT, test_environment
 
 
 MIGRATION = ROOT / "migrations/1781286586.py"
+VI_MIGRATION = ROOT / "migrations/1788596255.py"
+TITLEBAR_MIGRATION = ROOT / "migrations/1792938567.py"
 
 
 class MigrationPackageRunnerTest(unittest.TestCase):
@@ -35,7 +37,7 @@ class MigrationPackageRunnerTest(unittest.TestCase):
       encoding="utf-8",
     )
     stub.chmod(0o755)
-    for name in ("arch-i18n", "arch-pkg-add", "arch-pkg-drop"):
+    for name in ("arch-i18n", "arch-pkg-add", "arch-pkg-drop", "arch-update-pacman"):
       (self.bin_dir / name).symlink_to(stub)
     self.environment = test_environment(
       CALL_LOG=self.log,
@@ -76,6 +78,50 @@ class MigrationPackageRunnerTest(unittest.TestCase):
       [
         ["arch-i18n", "migration.replaceSatty"],
         ["arch-pkg-add", "tensaku"],
+      ],
+    )
+
+  def test_vi_compat_replacement_accepts_package_replacement_without_prompt(self) -> None:
+    result = subprocess.run(
+      ["/usr/bin/python3", "-I", str(VI_MIGRATION)],
+      check=False,
+      capture_output=True,
+      text=True,
+      env=self.environment,
+    )
+    self.assertEqual(result.returncode, 0, result.stderr)
+    self.assertEqual(result.stdout, "migration.installViCompat\n")
+    self.assertEqual(
+      self.calls(),
+      [
+        ["arch-i18n", "migration.installViCompat"],
+        [
+          "arch-update-pacman",
+          "-S",
+          "--needed",
+          "--noconfirm",
+          "--ask",
+          "4",
+          "ex-vi-compat",
+        ],
+      ],
+    )
+
+  def test_retired_workspace_titlebar_package_is_removed(self) -> None:
+    result = subprocess.run(
+      ["/usr/bin/python3", "-I", str(TITLEBAR_MIGRATION)],
+      check=False,
+      capture_output=True,
+      text=True,
+      env=self.environment,
+    )
+    self.assertEqual(result.returncode, 0, result.stderr)
+    self.assertEqual(result.stdout, "migration.removeWorkspaceTitlebars\n")
+    self.assertEqual(
+      self.calls(),
+      [
+        ["arch-i18n", "migration.removeWorkspaceTitlebars"],
+        ["arch-pkg-drop", "arch-hyprland-titlebars"],
       ],
     )
 
