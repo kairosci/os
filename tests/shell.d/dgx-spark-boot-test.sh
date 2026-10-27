@@ -4,22 +4,22 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-setup="$ROOT/installer/hardware/nvidia/dgx-spark-boot.sh"
+setup="$ROOT/src/python/installer/hardware/nvidia/dgx_spark_boot.py"
 all="$ROOT/installer/hardware/all.sh"
 direct_boot="$ROOT/src/cli/arch-boot-direct"
-migration=$(grep -l "nvidia/dgx-spark-boot.sh" "$ROOT"/migrations/*.sh | head -1 || true)
+migration=$(grep -l "nvidia/dgx_spark_boot.py" "$ROOT"/migrations/*.sh | head -1 || true)
+config="$ROOT/data/installer/hardware/nvidia/dgx-spark-boot.yml"
 config_name=zz-arch-dgx-spark.conf
 
 scratch=$(mktemp -d)
 trap 'rm -rf "$scratch"' EXIT
 mkdir -p "$scratch/bin"
 
-bash -n "$setup" || fail "DGX Spark boot script has valid syntax"
 bash -n "$direct_boot" || fail "Direct Boot check has valid syntax"
 
-grep -q 'run_logged .*hardware/nvidia/dgx-spark-boot.sh' "$all" ||
+grep -q 'run_logged .*hardware/nvidia/dgx_spark_boot.py' "$all" ||
   fail "the DGX Spark boot setting runs during hardware setup"
-grep -q 'arch-boot-direct' "$setup" ||
+grep -q 'arch-boot-direct' "$config" ||
   fail "hardware setup asks the Direct Boot helper before writing the UKI setting"
 [[ -n $migration ]] || fail "a migration applies the DGX Spark boot setting to existing installs"
 grep -q 'arch-boot-direct' "$migration" ||
@@ -86,14 +86,14 @@ run() {
     ARCH_DGX_SPARK_BOOT_MARKER="$state/marker" "$@"
 }
 
-run spark "$scratch/spark" bash "$setup"
+run spark "$scratch/spark" python3 -I "$setup"
 config="$scratch/spark/limine-entry-tool.d/$config_name"
 grep -Fxqs "ENABLE_UKI=no" "$config" || fail "the DGX Spark boots without a UKI"
 before=$(sha256sum "$config")
-run spark "$scratch/spark" bash "$setup"
+run spark "$scratch/spark" python3 -I "$setup"
 [[ $(sha256sum "$config") == "$before" ]] || fail "rerunning the setting leaves it unchanged"
 for machine in gx10 other; do
-  run "$machine" "$scratch/$machine" bash "$setup"
+  run "$machine" "$scratch/$machine" python3 -I "$setup"
   [[ ! -e $scratch/$machine ]] || fail "the $machine machine keeps its UKI"
 done
 pass "the DGX Spark setting turns off the UKI and leaves other GB10s and other machines alone"
@@ -130,7 +130,7 @@ pass "the migration applies the setting and rebuilds once on a Spark"
 mkdir -p "$scratch/preset/limine-entry-tool.d"
 printf 'ENABLE_UKI=no\n' >"$scratch/preset/limine-entry-tool.d/$config_name"
 run spark "$scratch/preset" bash -euo pipefail "$migration" >/dev/null
-! grep -q "nvidia/dgx-spark-boot.sh" "$CALL_LOG" || fail "the migration keeps an existing setting"
+! grep -q "nvidia/dgx_spark_boot.py" "$CALL_LOG" || fail "the migration keeps an existing setting"
 grep -q '^limine-mkinitcpio' "$CALL_LOG" || fail "the migration still rebuilds for an existing setting"
 pass "the migration rebuilds without rewriting an existing setting"
 
@@ -180,17 +180,17 @@ TEST_EFI_FAIL_AFTER=1 TEST_EFI_CALLS_FILE="$efi_calls" TEST_EFI_ENTRIES='Boot000
 [[ ! -e $scratch/direct-boot-flaky/marker ]] || fail "a Direct Boot repair still records no rebuild"
 pass "the migration removes a Direct Boot drop-in without reading EFI again"
 
-# arch apply hardware sources this leaf the way run_logged does: bash -eE,
-# without pipefail. Executing it, as the migration does, has to make the same choice.
+# arch apply hardware runs this leaf through run_logged. Executing it, as the
+# migration does, has to make the same choice.
 apply_hardware() {
-  run spark "$1" bash -eE -c 'source "$1"' bash "$setup"
+  run spark "$1" python3 -I "$setup"
 }
 for entry in "Boot0002* os\t$uki_path" 'Boot0002* os'; do
   TEST_EFI_ENTRIES="$entry" apply_hardware "$scratch/apply-direct" >/dev/null
   [[ ! -e $scratch/apply-direct/limine-entry-tool.d/$config_name ]] ||
     fail "arch apply hardware keeps a Direct Boot Spark on its UKI"
   rm -rf "$scratch/apply-direct"
-  TEST_EFI_ENTRIES="$entry" run spark "$scratch/apply-direct-exec" bash "$setup" >/dev/null
+  TEST_EFI_ENTRIES="$entry" run spark "$scratch/apply-direct-exec" python3 -I "$setup" >/dev/null
   [[ ! -e $scratch/apply-direct-exec/limine-entry-tool.d/$config_name ]] ||
     fail "running the boot setting directly keeps a Direct Boot Spark on its UKI"
   rm -rf "$scratch/apply-direct-exec"
@@ -206,11 +206,11 @@ printf 'ENABLE_UKI=no\n' >"$scratch/apply-repair/limine-entry-tool.d/$config_nam
 TEST_EFI_ENTRIES='Boot0002* os' apply_hardware "$scratch/apply-repair" >/dev/null
 [[ ! -e $scratch/apply-repair/limine-entry-tool.d/$config_name ]] ||
   fail "arch apply hardware removes a drop-in that would delete a Direct Boot UKI"
-TEST_EFI_ENTRIES='Boot0002* os' run other "$scratch/apply-other" bash -eE -c 'source "$1"' bash "$setup" >/dev/null
+TEST_EFI_ENTRIES='Boot0002* os' run other "$scratch/apply-other" python3 -I "$setup" >/dev/null
 [[ ! -e $scratch/apply-other ]] || fail "arch apply hardware leaves other machines on their UKI"
 mkdir -p "$scratch/apply-other-keep/limine-entry-tool.d"
 printf 'ENABLE_UKI=no\n' >"$scratch/apply-other-keep/limine-entry-tool.d/$config_name"
-TEST_EFI_ENTRIES='Boot0002* os' run other "$scratch/apply-other-keep" bash -eE -c 'source "$1"' bash "$setup" >/dev/null
+TEST_EFI_ENTRIES='Boot0002* os' run other "$scratch/apply-other-keep" python3 -I "$setup" >/dev/null
 grep -Fxqs 'ENABLE_UKI=no' "$scratch/apply-other-keep/limine-entry-tool.d/$config_name" ||
   fail "arch apply hardware leaves another machine's UKI setting in place"
 output=$(TEST_EFIBOOTMGR_STATUS=1 apply_hardware "$scratch/apply-unreadable" 2>&1) ||

@@ -1,0 +1,21 @@
+hardware_check: [arch-hw-aarch64-gb10]
+model_check: [arch-hw-match, NVIDIA_DGX_Spark]
+direct_boot_check: [arch-boot-direct]
+config_directory_environment: ARCH_LIMINE_CONFIG_DIR
+config_directory_default: /etc/limine-entry-tool.d
+config_filename: zz-arch-dgx-spark.conf
+file_mode: "0644"
+dropin_content: |-
+  # Generated for the DGX Spark: boot without a UKI to avoid a 20-second firmware delay.
+  # Remove once Limine fixes https://github.com/Limine-Bootloader/Limine/issues/673
+  ENABLE_UKI=no
+messages:
+  en:
+    direct_boot: "Keeping the UKI because os Direct Boot is configured"
+    setting_applied: "Boot the DGX Spark without a UKI to skip a 20-second firmware delay"
+    efi_unreadable: "Couldn't read EFI boot entries; leaving the DGX Spark UKI setting unchanged"
+  it:
+    direct_boot: "Mantengo la UKI perché è configurato Direct Boot"
+    setting_applied: "Avvio di DGX Spark senza UKI per evitare 20 secondi di attesa del firmware"
+    efi_unreadable: "Impossibile leggere le voci EFI; lascio invariata l'impostazione UKI di DGX Spark"
+statuses: {complete: 0, direct_boot: 0, not_direct_boot: 1}
