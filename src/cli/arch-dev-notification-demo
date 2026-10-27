@@ -16,33 +16,30 @@ BUS_PATH = "/org/freedesktop/Notifications"
 GAP = 3.2
 
 # Chrome sends every web app as "Google Chrome"; the leading origin anchor is
-# what tells the sites apart. The Campfire burst arrives faster than the pace
-# so a stack builds. The system apps are ones this desktop has icons for, so a
-# letter tile there means a bug.
+# what tells the sites apart. The GitHub review burst arrives faster than the
+# pace so a stack builds. The system apps are ones this desktop has icons for,
+# so a letter tile there means a bug.
 NOTIFICATIONS = [
-  dict(web="3.basecamp.com", summary="os",
-       body="DHH: notification decks just landed on edge, worth a look before the call"),
+  dict(web="github.com", summary="kairosci/os",
+       body="A pull request is ready for review"),
   dict(app="Signal", icon="signal-desktop", summary="Ryan Hughes",
        body="I have to show you the new notifications, are you around later?"),
-  dict(web="app.hey.com", summary="New Email in Imbox",
-       body="Re: os 4.5 release notes"),
   dict(web="x.com", summary="DHH",
        body="replied to your post: this is the part everyone gets wrong"),
-  dict(web="3.basecamp.com", summary="os", gap=0.7,
-       body="Ryan Hughes: pushed the spacing pass, take a look"),
-  dict(web="3.basecamp.com", summary="os", gap=0.7,
-       body="DHH: the two-line ones finally breathe"),
-  dict(web="3.basecamp.com", summary="os", gap=0.7,
-       body="Ryan Hughes: one more go at the icon size and I think that is it"),
-  dict(web="3.basecamp.com", summary="os",
-       body="DHH: ship it, latest build is up at https://github.com/kairosci/os"),
-  dict(app="Grok Bot", icon="grok-bot", summary="Grok Bot", actions=["default=View"],
-       body="2 things need you since lunch: DHH asked about the 4.5 release notes, "
-            "and the Omapager PR has a new review waiting on you."),
-  dict(web="3.basecamp.com", summary="DHH assigned you a to-do",
-       body="Record the notifications demo for the 4.5 release notes"),
-  dict(web="app.hey.com", summary="New Email in Imbox",
-       body="Your Basecamp verification code is 482913"),
+  dict(web="github.com", summary="kairosci/os", gap=0.7,
+       body="A reviewer left comments on the pull request"),
+  dict(web="github.com", summary="kairosci/os", gap=0.7,
+       body="The required checks passed"),
+  dict(web="github.com", summary="kairosci/os", gap=0.7,
+       body="A new commit is ready to review"),
+  dict(web="github.com", summary="kairosci/os",
+       body="The pull request was merged"),
+  dict(app="GitHub Actions", icon="github", summary="Workflow passed",
+       body="All required checks passed for the pull request"),
+  dict(web="github.com", summary="kairosci/os assigned you an issue",
+       body="Review the issue and leave an update when ready"),
+  dict(app="Codex", icon="utilities-terminal", summary="Task complete",
+       body="The requested repository changes are ready for review"),
   dict(app="foot", icon="foot", summary="Tests passed",
        body="412 passed, 0 failed in <b>2m 14s</b>"),
   dict(app="os", icon="arch", summary="os 4.5 is out",

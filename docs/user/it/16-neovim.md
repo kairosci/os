@@ -29,7 +29,6 @@ Ecco alcuni comandi di base che uso in continuazione:
 
 Mentre sei nell'albero file (`Space E` per mostrarlo, `Ctrl + W W` per saltarci), puoi aggiungere un nuovo file con `a` o una nuova cartella con `A`. Premi `?` mentre sei nell'albero per vedere tutti i comandi.
 
-Se vuoi imparare il linguaggio vim di base, ho scritto della [sintassi in tre parti](https://world.hey.com/dhh/wonderful-vi-a1d034d3) e di come eseguire quelle mosse combo pazzesche!
 
 Puoi vedere tutti i comandi possibili sulla [pagina Keymaps di LazyVim](https://www.lazyvim.org/keymaps).
 

@@ -29,7 +29,6 @@ Here are some basic commands I use all the time:
 
 While you're in the file tree (`Space E` to reveal, `Ctrl + W W` to hop over there), you can add a new file with `a` or a new directory with `A`. Press `?` while in the tree to see all commands.
 
-If you want to pickup the basic vim language, I've written about [the three-part syntax](https://world.hey.com/dhh/wonderful-vi-a1d034d3) and how to pull off those sick combo moves!
 
 You can see all the possible commands on [the LazyVim Keymaps page](https://www.lazyvim.org/keymaps).
 

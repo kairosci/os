@@ -12,19 +12,7 @@ All the keyboard hotkeys for these web apps can be changed in `~/.config/hypr/bi
 
 When you're in a web app, you can copy the current URL to the clipboard using `Shift + Alt + L`.
 
-By default, Arch already ships with an assortment of default apps:
-
-## HEY
-
-[HEY](https://www.hey.com/) is an email and calendar service that serves as a great alternative to people tired of Gmail, Outlook, or Apple Mail. It's made by [37signals](https://37signals.com/) where Arch originated.
-
-You can start HEY Email using `Super + Shift + E`, jump straight to composing a new email using `Super + Shift + Alt + E`, and start HEY Calendar using `Super + Shift + C`.
-
-## Basecamp
-
-[Basecamp](https://basecamp.com/) is a project management service that helps small teams move faster and make more progress. Instead of patching together a mishmash of Trello, Slack, Asana, Notion, or whatever, you can have it all in one place with Basecamp. It's made by [37signals](https://37signals.com/) where Arch originated.
-
-You can start Basecamp using the application launcher (`Super + Space`)
+Arch ships with the web apps listed below. You can add others through _Install > Web App_.
 
 ## WhatsApp
 

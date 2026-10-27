@@ -102,9 +102,6 @@ Puoi vedere tutte le principali combinazioni da tastiera con `Super + K` (combin
 | `Super + Shift + Alt + M`           | Musica (cliamp)    |
 | `Super + Shift + /`           | Gestore password (1Password)    |
 | `Super + Shift + N`           | Editor (Neovim)  |
-| `Super + Shift + C`           | Calendario ([HEY](https://hey.com/))  |
-| `Super + Shift + E`           | Email ([HEY](https://hey.com/))  |
-| `Super + Shift + Alt + E`           | Nuova email ([HEY](https://hey.com/))  |
 | `Super + Shift + G`           | Messenger (Signal)  |
 | `Super + Shift + P`           | Google Photos  |
 | `Super + Shift + S`           | Google Maps  |
