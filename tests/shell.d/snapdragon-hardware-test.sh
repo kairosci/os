@@ -143,10 +143,7 @@ pass "the Snapdragon package set has every package its setup installs"
 require_platform_fixtures "Snapdragon setup under the real detector"
 
 kernel_params_setup="$ROOT/src/python/installer/hardware/qualcomm/kernel_params.py"
-initramfs_setup="$ROOT/installer/hardware/qualcomm/initramfs.sh"
-for script in "$initramfs_setup"; do
-  bash -n "$script" || fail "Snapdragon hardware scripts have valid syntax"
-done
+initramfs_setup="$ROOT/src/python/installer/hardware/qualcomm/initramfs.py"
 
 run_leaves_on() (
   platform=$1
@@ -169,7 +166,8 @@ run_leaves_on() (
   source "$dtb_setup"
   ARCH_PATH="$ROOT" ARCH_QUALCOMM_KERNEL_PARAMS_FILE="$out/limine-entry-tool.d/qualcomm-snapdragon.conf" \
     python3 -I "$kernel_params_setup"
-  source "$initramfs_setup"
+  ARCH_PATH="$ROOT" ARCH_QUALCOMM_MKINITCPIO_DIR="$out/mkinitcpio.conf.d" \
+    python3 -I "$initramfs_setup"
 )
 
 run_leaves_on aarch64-qualcomm
