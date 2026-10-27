@@ -171,11 +171,12 @@ BarWidget {
       model: root.workspaceIds()
 
       WidgetButton {
+        id: workspaceButton
         required property int modelData
 
         readonly property var workspace: root.workspaceById(modelData)
         readonly property bool occupied: workspace !== null && workspace.toplevels.values.length > 0
-        readonly property bool shown: root.monitor !== null && root.monitor.activeWorkspace !== null && root.monitor.activeWorkspace.id === modelData
+        readonly property bool shown: root.activeWorkspaceId() === modelData
         readonly property int slot: root.slotOf(modelData)
         readonly property bool firstGuest: root.blockOf(modelData) !== root.block && index > 0 && root.blockOf(root.workspaceIds()[index - 1]) === root.block
         required property int index
@@ -198,6 +199,18 @@ BarWidget {
           root.focusWorkspace(modelData)
         }
         onWheelMoved: function(delta) { root.scrollWorkspaces(delta) }
+
+        Rectangle {
+          z: 1
+          visible: workspaceButton.shown
+          width: Style.space(2)
+          height: width
+          radius: width / 2
+          anchors.horizontalCenter: parent.horizontalCenter
+          anchors.bottom: parent.bottom
+          anchors.bottomMargin: Style.space(1)
+          color: Commons.Color.accent
+        }
       }
     }
   }
