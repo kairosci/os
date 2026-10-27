@@ -2,7 +2,7 @@ run_logged "$ARCH_PATH/src/python/installer/system_setup/chromium_preferences.py
 run_logged "$ARCH_INSTALL/config/browser-policy.sh"
 run_logged "$ARCH_INSTALL/config/increase-lockout-limit.sh"
 run_logged "$ARCH_PATH/src/python/installer/system_setup/lockscreen.py"
-run_logged "$ARCH_INSTALL/config/fix-powerprofilesctl-shebang.sh"
+run_logged "$ARCH_PATH/src/python/installer/system_setup/powerprofilesctl_shebang.py"
 run_logged "$ARCH_INSTALL/config/ssh-command-path.sh"
 run_logged "$ARCH_INSTALL/config/ssh-keepalive.sh"
 run_logged "$ARCH_INSTALL/config/docker.sh"
