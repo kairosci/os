@@ -115,6 +115,7 @@
     "cli:migrate.usage": "c4410d2e3771",
     "cli:migrate.waiting": "6a75c8cfb331",
     "cli:migration.addKeyboardLayoutWidget": "9e4590a9ff75",
+    "cli:migration.configureSharedInputMethodDefaults": "34e49e6d3772",
     "cli:migration.installChromiumCopyUrl": "9b2876e5ed38",
     "cli:migration.installChromiumExtensionHosts": "cf9aa71473fe",
     "cli:migration.installDdcutil": "b0011a558618",
