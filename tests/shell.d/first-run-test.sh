@@ -21,12 +21,12 @@ chmod +x "$mock_bin/arch-done" "$mock_bin/arch-provision-user"
 finalize_called="$test_tmp/finalize-called"
 HOME="$test_tmp/home" ARCH_PATH="$ROOT" PATH="$mock_bin:$PATH" \
   ARCH_TEST_DONE=1 ARCH_TEST_FINALIZE_CALLED="$finalize_called" \
-  "$ROOT/src/cli/arch-provision-first-run" >"$test_tmp/output"
+  "$ROOT/src/commands/arch-provision-first-run" >"$test_tmp/output"
 
 [[ ! -e $finalize_called ]] || fail "completed first-run exits before setup"
 grep -F 'First-run already complete.' "$test_tmp/output" >/dev/null || fail "completed first-run reports its lifecycle gate"
 
-LANG=it_IT.UTF-8 ARCH_PATH="$ROOT" "$ROOT/src/cli/arch-provision-first-run" --help >"$test_tmp/help"
+LANG=it_IT.UTF-8 ARCH_PATH="$ROOT" "$ROOT/src/commands/arch-provision-first-run" --help >"$test_tmp/help"
 grep -F 'Esegue la configurazione iniziale' "$test_tmp/help" >/dev/null || fail "first-run help uses the Italian YAML strings"
 
 pass "first-run is a Python CLI with a YAML lifecycle gate and localized help"

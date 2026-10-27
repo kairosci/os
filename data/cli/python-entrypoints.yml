@@ -1,0 +1,7 @@
+entrypoints:
+  - binary: arch-update-available
+    module: cli.update_available
+    function: main
+  - binary: arch-update-confirm
+    module: cli.update_confirm
+    function: main

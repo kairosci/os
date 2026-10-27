@@ -11,7 +11,7 @@ set -euo pipefail
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 check() {
-  "$ROOT/src/cli/arch-git-url-check" "$@" 2>&1
+  "$ROOT/src/commands/arch-git-url-check" "$@" 2>&1
 }
 
 # `<helper>::<address>`, the shape that runs a program. `ext::` is the dangerous

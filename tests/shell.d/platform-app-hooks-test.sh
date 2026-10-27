@@ -53,7 +53,7 @@ run() {
   mkdir -p "$tmp/home"
   HOME="$tmp/home" ARCH_PATH="$arch_path" ARCH_OPT_PATH="$tmp/opt" \
     ARCH_PROC_ROOT="$tmp/$platform/proc" ARCH_LIFECYCLE_ROOT="$lifecycle" \
-    PATH="$stub_bin:$tmp/$platform/bin:$ROOT/src/cli:$PATH" bash "$@" >"$tmp/output" 2>&1
+    PATH="$stub_bin:$tmp/$platform/bin:$ROOT/src/commands:$PATH" bash "$@" >"$tmp/output" 2>&1
 }
 
 # ── browsers ─────────────────────────────────────────────────────────────────
@@ -63,7 +63,7 @@ declare -A flags=(
   [brave]=brave-flags.conf [brave-origin]=brave-origin-flags.conf [firefox]="" [zen]=""
 )
 for browser in chromium chrome edge brave brave-origin firefox zen; do
-  run apple "$ROOT/src/cli/arch-install-browser" "$browser" || fail "apple: $browser installs" "$(cat "$tmp/output")"
+  run apple "$ROOT/src/commands/arch-install-browser" "$browser" || fail "apple: $browser installs" "$(cat "$tmp/output")"
   [[ $(grep -c '^post-install ' "$tmp/calls") == 1 ]] && grep -qx "post-install $browser" "$tmp/calls" ||
     fail "apple: a $browser install runs post-install $browser once" "$(cat "$tmp/calls")"
   [[ $(cat "$tmp/flags-at-hook") == "${flags[$browser]}" ]] ||
@@ -75,7 +75,7 @@ pass "apple: every browser install runs post-install <browser> after its package
 
 touch "$tmp/fail"
 for browser in chromium brave; do
-  if run apple "$ROOT/src/cli/arch-install-browser" "$browser"; then
+  if run apple "$ROOT/src/commands/arch-install-browser" "$browser"; then
     fail "apple: a failed $browser hook fails the install"
   fi
   ! grep -q 'browser installed' "$tmp/output" || fail "apple: a failed $browser hook is not announced as installed" "$(cat "$tmp/output")"
@@ -83,7 +83,7 @@ done
 pass "apple: a failed browser hook fails the install"
 
 for browser in chromium brave-origin zen; do
-  run x86 "$ROOT/src/cli/arch-install-browser" "$browser" || fail "x86: $browser installs" "$(cat "$tmp/output")"
+  run x86 "$ROOT/src/commands/arch-install-browser" "$browser" || fail "x86: $browser installs" "$(cat "$tmp/output")"
   ! grep -q '^post-install' "$tmp/calls" || fail "x86: a $browser install runs no hook" "$(cat "$tmp/calls")"
 done
 rm -f "$tmp/fail"
@@ -91,26 +91,26 @@ pass "x86: browser installs run no hook, even with Mac entrypoints on disk"
 
 # ── Steam ────────────────────────────────────────────────────────────────────
 
-run apple "$ROOT/src/cli/arch-install-gaming-steam" || fail "apple: Steam installs" "$(cat "$tmp/output")"
+run apple "$ROOT/src/commands/arch-install-gaming-steam" || fail "apple: Steam installs" "$(cat "$tmp/output")"
 [[ $(cat "$tmp/calls") == $'arch-install-gaming-gpu-lib32 \narch-pkg-add steam\npost-install steam' ]] ||
   fail "apple: Steam's hook runs after the 32-bit drivers and the package" "$(cat "$tmp/calls")"
-run apple "$ROOT/src/cli/arch-remove-gaming-steam" || fail "apple: Steam is removed" "$(cat "$tmp/output")"
+run apple "$ROOT/src/commands/arch-remove-gaming-steam" || fail "apple: Steam is removed" "$(cat "$tmp/output")"
 [[ $(head -n 2 "$tmp/calls") == $'pre-remove steam\narch-pkg-drop steam' ]] ||
   fail "apple: Steam's pre-remove hook runs before the package goes" "$(cat "$tmp/calls")"
 touch "$tmp/fail"
-if run apple "$ROOT/src/cli/arch-install-gaming-steam"; then
+if run apple "$ROOT/src/commands/arch-install-gaming-steam"; then
   fail "apple: a failed Steam hook fails the install"
 fi
-if run apple "$ROOT/src/cli/arch-remove-gaming-steam"; then
+if run apple "$ROOT/src/commands/arch-remove-gaming-steam"; then
   fail "apple: a failed pre-remove hook stops the removal"
 fi
 ! grep -q '^arch-pkg-drop' "$tmp/calls" || fail "apple: a failed pre-remove hook removes nothing" "$(cat "$tmp/calls")"
 pass "apple: Steam's install and removal run their hooks in order, and fail with them"
 
-run x86 "$ROOT/src/cli/arch-install-gaming-steam" || fail "x86: Steam installs" "$(cat "$tmp/output")"
+run x86 "$ROOT/src/commands/arch-install-gaming-steam" || fail "x86: Steam installs" "$(cat "$tmp/output")"
 [[ $(cat "$tmp/calls") == $'arch-install-gaming-gpu-lib32 \narch-pkg-add steam' ]] ||
   fail "x86: Steam installs as before" "$(cat "$tmp/calls")"
-run x86 "$ROOT/src/cli/arch-remove-gaming-steam" || fail "x86: Steam is removed" "$(cat "$tmp/output")"
+run x86 "$ROOT/src/commands/arch-remove-gaming-steam" || fail "x86: Steam is removed" "$(cat "$tmp/output")"
 [[ $(cat "$tmp/calls") == "arch-pkg-drop steam" ]] || fail "x86: Steam is removed as before" "$(cat "$tmp/calls")"
 rm -f "$tmp/fail"
 pass "x86: Steam installs and is removed as before, running no hook"
@@ -128,17 +128,17 @@ printf '#!/bin/bash\nexit 1\n' >"$gpu_bin/arch-hw-nvidia-without-gsp"
 printf '#!/bin/bash\necho "arch-pkg-add $*" >>"%s"\n' "$tmp/calls" >"$gpu_bin/arch-pkg-add"
 chmod +x "$gpu_bin"/*
 rm -f "$tmp/calls"
-PATH="$gpu_bin:$PATH" bash "$ROOT/src/cli/arch-install-gaming-gpu-lib32" >"$tmp/output" 2>&1 ||
+PATH="$gpu_bin:$PATH" bash "$ROOT/src/commands/arch-install-gaming-gpu-lib32" >"$tmp/output" 2>&1 ||
   fail "no supported GPU is not a failure" "$(cat "$tmp/output")"
 [[ ! -e $tmp/calls ]] || fail "no supported GPU installs nothing" "$(cat "$tmp/calls")"
-GPU="Advanced Micro Devices, Inc. [AMD/ATI] Navi 31" PATH="$gpu_bin:$PATH" bash "$ROOT/src/cli/arch-install-gaming-gpu-lib32" >/dev/null 2>&1 ||
+GPU="Advanced Micro Devices, Inc. [AMD/ATI] Navi 31" PATH="$gpu_bin:$PATH" bash "$ROOT/src/commands/arch-install-gaming-gpu-lib32" >/dev/null 2>&1 ||
   fail "an AMD GPU installs its 32-bit driver"
 [[ $(cat "$tmp/calls") == "arch-pkg-add lib32-vulkan-radeon" ]] || fail "an AMD GPU gets lib32-vulkan-radeon" "$(cat "$tmp/calls")"
 pass "32-bit drivers: a machine with no supported GPU adds nothing without failing"
 
 # Multilib only exists on x86_64; an ARM machine runs the native arm64 Steam.
 rm -f "$tmp/calls"
-ARCH_X86=1 GPU="Advanced Micro Devices, Inc. [AMD/ATI] Navi 31" PATH="$gpu_bin:$PATH" bash "$ROOT/src/cli/arch-install-gaming-gpu-lib32" >/dev/null 2>&1 ||
+ARCH_X86=1 GPU="Advanced Micro Devices, Inc. [AMD/ATI] Navi 31" PATH="$gpu_bin:$PATH" bash "$ROOT/src/commands/arch-install-gaming-gpu-lib32" >/dev/null 2>&1 ||
   fail "aarch64 skips the 32-bit drivers without failing"
 [[ ! -e $tmp/calls ]] || fail "aarch64 installs no 32-bit driver" "$(cat "$tmp/calls")"
 pass "32-bit drivers: aarch64 adds none, even with a supported GPU"

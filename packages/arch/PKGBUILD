@@ -65,6 +65,7 @@ depends_aarch64=(
 makedepends=(
   'git'
   'python'
+  'python-yaml'
 )
 
 # Build only from the Arch fork checkout. Pulling upstream here would silently
@@ -91,9 +92,10 @@ package() {
   local module_stage
   module_stage=$(mktemp -d "$srcdir/arch-modules.XXXXXXXX")
   python3 scripts/modules.py assemble --package "$pkgname" --destination "$module_stage"
+  python3 scripts/cli_entrypoints.py generate --destination "$module_stage"
 
   install -d "$pkgdir/usr/bin"
-  for bin in "$module_stage/usr/share/arch/src/cli"/*; do
+  for bin in "$module_stage/usr/share/arch/src/commands"/*; do
     [[ -f $bin ]] || continue
     local base
     base=$(basename "$bin")

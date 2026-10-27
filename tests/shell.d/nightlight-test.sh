@@ -53,7 +53,7 @@ nightlight_cli() {
   PATH="$TMPDIR/bin:$PATH" \
   HYPRSUNSET_STATE="$STATE" \
   ARCH_SHELL_LOG="$SHELL_LOG" \
-    "$ROOT/src/cli/arch-toggle-nightlight" "$@"
+    "$ROOT/src/commands/arch-toggle-nightlight" "$@"
 }
 
 nightlight_status() {
@@ -123,7 +123,7 @@ toggle_from_daylight 100
 [[ $(<"$STATE") == 4000 && ! -e $BOOT_PENDING ]] || fail "a freshly started hyprsunset can't undo the toggle with its default"
 pass "a freshly started hyprsunset can't undo the toggle with its default"
 
-if rg -q 'arch.indicators' "$ROOT/src/cli/arch-toggle-nightlight"; then
+if rg -q 'arch.indicators' "$ROOT/src/commands/arch-toggle-nightlight"; then
   fail "nightlight toggle leaves indicator refresh to the nightlight service"
 fi
 pass "nightlight toggle leaves indicator refresh to the nightlight service"

@@ -6,7 +6,7 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 setup="$ROOT/src/python/installer/hardware/nvidia/dgx_spark_boot.py"
 hardware_setup="$ROOT/data/installer/hardware-setup.yml"
-direct_boot="$ROOT/src/cli/arch-boot-direct"
+direct_boot="$ROOT/src/commands/arch-boot-direct"
 config="$ROOT/data/installer/hardware/nvidia/dgx-spark-boot.yml"
 config_name=zz-arch-dgx-spark.conf
 
@@ -76,7 +76,7 @@ run() {
   local machine=$1 state=$2
   shift 2
   : >"$CALL_LOG"
-  PATH="$scratch/hw/$machine/bin:$scratch/bin:$ROOT/src/cli:$PATH" ARCH_PATH="$ROOT" \
+  PATH="$scratch/hw/$machine/bin:$scratch/bin:$ROOT/src/commands:$PATH" ARCH_PATH="$ROOT" \
     ARCH_PROC_ROOT="$scratch/hw/$machine/proc" ARCH_SYS_ROOT="$scratch/hw/$machine/sys" \
     ARCH_LIMINE_CONFIG_DIR="$state/limine-entry-tool.d" \
     ARCH_DGX_SPARK_BOOT_MARKER="$state/marker" "$@"

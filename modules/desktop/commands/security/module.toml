@@ -2,10 +2,10 @@ id = "desktop.commands.security"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/cli/arch-security-functions",
+  "src/commands/arch-security-functions",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/cli/arch-security-functions"
-target = "usr/share/arch/src/cli/arch-security-functions"
+source = "src/commands/arch-security-functions"
+target = "usr/share/arch/src/commands/arch-security-functions"

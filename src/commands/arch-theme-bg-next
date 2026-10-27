@@ -1,0 +1,14 @@
+#!/usr/bin/python3 -I
+
+# arch:summary=Cycle to the next background for the current theme
+# arch:examples=archctl theme bg next
+
+import os
+from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(os.environ["ARCH_PATH"]) / "src"))
+from cli.theme_info import background_next_main
+
+
+raise SystemExit(background_next_main())

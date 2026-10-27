@@ -1,0 +1,15 @@
+#!/usr/bin/python3 -I
+
+# arch:summary=Set the current background image or video
+# arch:args=<path-to-media>
+# arch:examples=archctl theme bg set ~/Pictures/background.png
+
+import os
+from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(os.environ["ARCH_PATH"]) / "src"))
+from cli.theme_info import background_set_main
+
+
+raise SystemExit(background_set_main(sys.argv[1:]))

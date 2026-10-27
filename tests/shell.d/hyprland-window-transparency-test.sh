@@ -19,7 +19,7 @@ done
 chmod +x "$stub_dir"/*
 
 run() {
-  HOME="$home_dir" XDG_RUNTIME_DIR="$tmpdir" XDG_STATE_HOME="$state_home" XDG_CONFIG_HOME="$home_dir/.config" ARCH_PATH="$ROOT" PATH="$stub_dir:$ROOT/src/cli:$PATH" "$@"
+  HOME="$home_dir" XDG_RUNTIME_DIR="$tmpdir" XDG_STATE_HOME="$state_home" XDG_CONFIG_HOME="$home_dir/.config" ARCH_PATH="$ROOT" PATH="$stub_dir:$ROOT/src/commands:$PATH" "$@"
 }
 
 [[ $(run arch-hyprland-window-transparency) == "transparent" ]] || fail "windows start out transparent"
@@ -150,7 +150,7 @@ if command -v python3 >/dev/null; then
   python3 -c 'import sys, tomllib; c = tomllib.load(open(sys.argv[1], "rb")); assert c["window"]["opacity"] == 0.65 and c["window"]["padding"]["x"] == 4' "$window_dir/alacritty.toml" ||
     fail "glassy alacritty with a window table of its own stays valid TOML"
 fi
-HOME="$home_dir" XDG_STATE_HOME="$tmpdir/no-glass" ARCH_PATH="$ROOT" PATH="$stub_dir:$ROOT/src/cli:$PATH" arch-theme-set-glass "$window_dir"
+HOME="$home_dir" XDG_STATE_HOME="$tmpdir/no-glass" ARCH_PATH="$ROOT" PATH="$stub_dir:$ROOT/src/commands:$PATH" arch-theme-set-glass "$window_dir"
 cmp -s "$tmpdir/window-before.toml" "$window_dir/alacritty.toml" || fail "leaving glassy restores an alacritty window table"
 pass "glassy alacritty joins a window table the theme already has"
 
@@ -163,7 +163,7 @@ cp "$bare_dir/kitty.conf" "$tmpdir/bare-before.conf"
 run arch-theme-set-glass "$bare_dir"
 grep -qx 'background_opacity 0.65' "$bare_dir/kitty.conf" || fail "glassy reaches a file without a final newline"
 grep -qx 'background #000000' "$bare_dir/kitty.conf" || fail "glassy ends the line before its block"
-HOME="$home_dir" XDG_STATE_HOME="$tmpdir/no-glass" ARCH_PATH="$ROOT" PATH="$stub_dir:$ROOT/src/cli:$PATH" arch-theme-set-glass "$bare_dir"
+HOME="$home_dir" XDG_STATE_HOME="$tmpdir/no-glass" ARCH_PATH="$ROOT" PATH="$stub_dir:$ROOT/src/commands:$PATH" arch-theme-set-glass "$bare_dir"
 cmp -s "$tmpdir/bare-before.conf" "$bare_dir/kitty.conf" || fail "leaving glassy restores a file without a final newline"
 pass "leaving glassy restores a file without a final newline byte for byte"
 
@@ -212,7 +212,7 @@ if command -v script >/dev/null; then
 
   set_foot() {
     : >"$tmpdir/pgrep.log"
-    HOME="$foot_home" PATH="$tmpdir/foot-bin:$ROOT/src/cli:$PATH" arch-theme-set-foot
+    HOME="$foot_home" PATH="$tmpdir/foot-bin:$ROOT/src/commands:$PATH" arch-theme-set-foot
     sleep 0.3
     # A kernel without CONFIG_PROC_CHILDREN needs a second scan for the shells.
     scans=1
@@ -237,7 +237,7 @@ if command -v script >/dev/null; then
       "$missing_pid" "$missing_pid" "$shell_pid" >"$tmpdir/no-children-bin/pgrep"
     chmod +x "$tmpdir/no-children-bin/pgrep"
     printf 'background = "#203040"\nforeground = "#ffffff"\n' >"$foot_theme/colors.toml"
-    HOME="$foot_home" PATH="$tmpdir/no-children-bin:$ROOT/src/cli:$PATH" arch-theme-set-foot
+    HOME="$foot_home" PATH="$tmpdir/no-children-bin:$ROOT/src/commands:$PATH" arch-theme-set-foot
     sleep 0.3
     grep -qF '#203040' "$tmpdir/typescript" || fail "foot terminals retint without the kernel's children list"
     pass "foot terminals retint without the kernel's children list"

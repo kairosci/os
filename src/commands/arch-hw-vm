@@ -1,0 +1,12 @@
+#!/usr/bin/python3 -I
+
+# arch:summary=Returns true when running in a virtual machine.
+
+import os
+from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(os.environ["ARCH_PATH"]) / "src"))
+from cli.hardware.virtualization import main
+
+raise SystemExit(main())

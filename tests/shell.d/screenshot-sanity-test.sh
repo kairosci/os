@@ -32,11 +32,11 @@ require_command jq
 require_command python3
 
 shell_ipc() {
-  ARCH_PATH="$test_root" "$ROOT/src/cli/arch-shell" "$@"
+  ARCH_PATH="$test_root" "$ROOT/src/commands/arch-shell" "$@"
 }
 
 shell_ipc_quiet() {
-  ARCH_PATH="$test_root" "$ROOT/src/cli/arch-shell" -q "$@"
+  ARCH_PATH="$test_root" "$ROOT/src/commands/arch-shell" -q "$@"
 }
 
 fail_with_log() {
@@ -62,7 +62,7 @@ mkdir -p "$test_home/.local/state/arch"
 printf '%s\n' "$HYPRLAND_INSTANCE_SIGNATURE" >"$test_home/.local/state/arch/background-intro.session-id"
 cp -a "$ROOT/src/shell" "$test_root/src/shell"
 ln -s "$ROOT/config" "$test_root/config"
-ln -s "$ROOT/src/cli" "$test_root/src/cli"
+ln -s "$ROOT/src/commands" "$test_root/src/commands"
 
 cat >"$stub_bin/arch-update-available" <<'SH'
 #!/bin/bash
@@ -93,7 +93,7 @@ HOME="$test_home" \
 XDG_CONFIG_HOME="$test_home/.config" \
 XDG_CACHE_HOME="$test_home/.cache" \
 XDG_STATE_HOME="$test_home/.local/state" \
-PATH="$stub_bin:$ROOT/src/cli:$PATH" \
+PATH="$stub_bin:$ROOT/src/commands:$PATH" \
   quickshell -p "$test_root/src/shell" --no-color >"$log" 2>&1 &
 QS_PID=$!
 
@@ -123,8 +123,8 @@ jq -e '
 ARCH_PATH="$test_root" \
 HYPRSHOT_DIR="$screenshot_dir" \
 HOME="$test_home" \
-PATH="$stub_bin:$ROOT/src/cli:$PATH" \
-  "$ROOT/src/cli/arch" capture screenshot fullscreen save >/dev/null 2>"$screenshot_err"
+PATH="$stub_bin:$ROOT/src/commands:$PATH" \
+  "$ROOT/src/commands/arch" capture screenshot fullscreen save >/dev/null 2>"$screenshot_err"
 
 screenshot=$(find "$screenshot_dir" -maxdepth 1 -type f -name '*.png' -print -quit)
 

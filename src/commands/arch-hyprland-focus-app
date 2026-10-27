@@ -1,0 +1,15 @@
+#!/usr/bin/python3 -I
+
+# arch:summary=Focus a Hyprland window by application identity
+# arch:args=<app-name>
+# arch:examples=archctl hyprland focus app Slack
+
+import os
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(os.environ["ARCH_PATH"]) / "src"))
+
+from cli.hyprland_focus import main
+
+raise SystemExit(main())

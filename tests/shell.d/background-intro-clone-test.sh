@@ -23,7 +23,7 @@ exit 0
 SH
 chmod +x "$stage/bin/noop"
 for command in arch-shell arch-plugin-enable arch-notification-send; do
-  ln -s noop "$stage/src/cli/$command"
+  ln -s noop "$stage/src/commands/$command"
 done
 cat >"$stage/bin/arch-plugin-list" <<'SH'
 #!/bin/bash
@@ -38,8 +38,8 @@ done
 exit 1
 SH
 chmod +x "$stage/bin/arch-plugin-list" "$stage/bin/arch-background-session-mark"
-HOME="$stage/home" USER=intro-test ARCH_PATH="$ROOT" PATH="$stage/bin:$ROOT/src/cli:$PATH" \
-  "$ROOT/src/cli/arch-plugin-clone" arch.background >/dev/null
+HOME="$stage/home" USER=intro-test ARCH_PATH="$ROOT" PATH="$stage/bin:$ROOT/src/commands:$PATH" \
+  "$ROOT/src/commands/arch-plugin-clone" arch.background >/dev/null
 ln -s "$stage/home/.config/arch/plugins/intro-test.background" "$stage/clone"
 ln -s "$ROOT/src/shell/Commons" "$stage/Commons"
 ln -s "$ROOT/src/shell/Ui" "$stage/Ui"

@@ -34,7 +34,7 @@ tmpdir=$(mktemp -d)
 trap 'rm -rf "$tmpdir"' EXIT
 
 home="$tmpdir/home"
-mkdir -p "$tmpdir/active/src/cli" "$tmpdir/unrelated/bin"
+mkdir -p "$tmpdir/active/src/commands" "$tmpdir/unrelated/bin"
 
 # Test against a copy so the test controls /etc/arch.conf without mutating the host.
 bootstrap="$tmpdir/env-bootstrap"
@@ -59,18 +59,18 @@ linked_path=${linked_result[1]}
 [[ ${linked_result[0]} == "$tmpdir/active" ]] || fail "env-bootstrap resolves linked ARCH_PATH" "actual: ${linked_result[0]}"
 pass "env-bootstrap resolves linked ARCH_PATH"
 [[ $linked_path != *"command-wrappers/bin"* ]] || fail "env-bootstrap keeps agent wrapper paths out of linked mode" "$linked_path"
-assert_path_present "$linked_path" "$tmpdir/active/src/cli" "env-bootstrap includes the active checkout CLI in linked mode"
+assert_path_present "$linked_path" "$tmpdir/active/src/commands" "env-bootstrap includes the active checkout CLI in linked mode"
 assert_path_present "$linked_path" "$tmpdir/unrelated/bin" "env-bootstrap preserves unrelated PATH entries in linked mode"
 
-mapfile -t linked_duplicate_result < <(run_bootstrap bash "$bootstrap" "$home" "$tmpdir/active/src/cli:/usr/bin:$home/.local/share/mise/shims:$home/.local/bin")
+mapfile -t linked_duplicate_result < <(run_bootstrap bash "$bootstrap" "$home" "$tmpdir/active/src/commands:/usr/bin:$home/.local/share/mise/shims:$home/.local/bin")
 linked_duplicate_path=${linked_duplicate_result[1]}
-[[ $linked_duplicate_path == "$tmpdir/active/src/cli:/usr/bin:$home/.local/share/mise/shims:$home/.local/bin" ]] || fail "env-bootstrap does not duplicate PATH entries" "actual PATH: $linked_duplicate_path"
+[[ $linked_duplicate_path == "$tmpdir/active/src/commands:/usr/bin:$home/.local/share/mise/shims:$home/.local/bin" ]] || fail "env-bootstrap does not duplicate PATH entries" "actual PATH: $linked_duplicate_path"
 pass "env-bootstrap does not duplicate PATH entries"
 
 # An empty PATH must not produce empty entries (a bare ":" means the cwd)
 mapfile -t empty_path_result < <(run_bootstrap bash "$bootstrap" "$home" "")
 empty_path=${empty_path_result[1]}
-[[ $empty_path == "$tmpdir/active/src/cli:$home/.local/share/mise/shims:$home/.local/bin" ]] || fail "env-bootstrap builds a clean PATH from an empty one" "actual PATH: $empty_path"
+[[ $empty_path == "$tmpdir/active/src/commands:$home/.local/share/mise/shims:$home/.local/bin" ]] || fail "env-bootstrap builds a clean PATH from an empty one" "actual PATH: $empty_path"
 pass "env-bootstrap builds a clean PATH from an empty one"
 
 if command -v zsh >/dev/null 2>&1; then

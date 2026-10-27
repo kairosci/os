@@ -39,7 +39,7 @@ class T2RepositorySignatureTest(unittest.TestCase):
     )
     self.environment = test_environment(
       ARCH_PACMAN_CONFIG_PATH=self.config,
-      PATH=f"{self.bin_dir}:{ROOT / 'src/cli'}:{os.environ.get('PATH', '')}",
+      PATH=f"{self.bin_dir}:{ROOT / 'src/commands'}:{os.environ.get('PATH', '')}",
     )
 
   def test_new_config_requires_package_signatures(self) -> None:

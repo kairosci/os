@@ -28,10 +28,10 @@ with tempfile.TemporaryDirectory(prefix="update-status-") as temporary:
 
   environment = test_environment(
     CALL_LOG=log,
-    PATH=f"{bin_dir}:{ROOT / 'src/cli'}:/usr/local/bin:/usr/bin",
+    PATH=f"{bin_dir}:{ROOT / 'src/commands'}:/usr/local/bin:/usr/bin",
   )
   result = subprocess.run(
-    [str(ROOT / "src/cli/arch-update-status")],
+    [str(ROOT / "src/commands/arch-update-status")],
     capture_output=True,
     text=True,
     env=environment,

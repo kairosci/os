@@ -49,7 +49,7 @@ for session in one two three; do
 done
 : >"$TMUX_LOG"
 
-PATH="$FAKE_BIN:$ROOT/src/cli:$PATH" HOME="$TEST_HOME" "$ROOT/src/cli/arch-theme-set-tmux"
+PATH="$FAKE_BIN:$ROOT/src/commands:$PATH" HOME="$TEST_HOME" "$ROOT/src/commands/arch-theme-set-tmux"
 
 for target in -g "-t one" "-t two" "-t three"; do
   [[ $(tmux show-environment $target GUM_VAR_40) == "GUM_VAR_40=#000028" ]] || fail "tmux theme sync sets gum variables ($target)"

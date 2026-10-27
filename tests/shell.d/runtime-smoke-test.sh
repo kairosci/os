@@ -74,11 +74,11 @@ fi
 require_command jq
 
 shell_ipc() {
-  ARCH_PATH="$test_root" "$ROOT/src/cli/arch-shell" "$@"
+  ARCH_PATH="$test_root" "$ROOT/src/commands/arch-shell" "$@"
 }
 
 shell_ipc_quiet() {
-  ARCH_PATH="$test_root" "$ROOT/src/cli/arch-shell" -q "$@"
+  ARCH_PATH="$test_root" "$ROOT/src/commands/arch-shell" -q "$@"
 }
 
 fail_with_log() {
@@ -96,7 +96,7 @@ mkdir -p "$test_root" "$test_home" "$stub_bin"
 mkdir -p "$test_root/src"
 cp -a "$ROOT/src/shell" "$test_root/src/shell"
 ln -s "$ROOT/config" "$test_root/config"
-ln -s "$ROOT/src/cli" "$test_root/src/cli"
+ln -s "$ROOT/src/commands" "$test_root/src/commands"
 
 # Every plugin under ~/.config/arch/plugins hot-reloads, whoever wrote it.
 hot_reload_id="acme.hot-reload"
@@ -383,7 +383,7 @@ HOME="$test_home" \
 XDG_CONFIG_HOME="$test_home/.config" \
 XDG_CACHE_HOME="$test_home/.cache" \
 XDG_STATE_HOME="$test_home/.local/state" \
-PATH="$stub_bin:$ROOT/src/cli:$PATH" \
+PATH="$stub_bin:$ROOT/src/commands:$PATH" \
   quickshell -p "$test_root/src/shell" --no-color >"$log" 2>&1 &
 QS_PID=$!
 
@@ -632,7 +632,7 @@ if grep -q 'Binding loop detected for property "hints"\|Binding loop detected fo
 fi
 pass "shell start has no platform FileView binding loops"
 
-HOME="$test_home" ARCH_PATH="$test_root" PATH="$ROOT/src/cli:$PATH" "$ROOT/src/cli/arch-plugin-disable" arch.audio
+HOME="$test_home" ARCH_PATH="$test_root" PATH="$ROOT/src/commands:$PATH" "$ROOT/src/commands/arch-plugin-disable" arch.audio
 
 for _ in {1..80}; do
   shell_config=$(shell_ipc shell listShellConfig 2>/dev/null || true)
@@ -667,7 +667,7 @@ pass "bar remove reloads shell config and updates bar layout"
 # bar where it is, so putting one the defaults already carry (as
 # arch.keyboard-layout is, in right) can never move it into center.
 bar_put() {
-  HOME="$test_home" ARCH_PATH="$test_root" PATH="$ROOT/src/cli:$PATH" "$ROOT/src/cli/arch-bar" put "$@"
+  HOME="$test_home" ARCH_PATH="$test_root" PATH="$ROOT/src/commands:$PATH" "$ROOT/src/commands/arch-bar" put "$@"
 }
 
 center_ids() {

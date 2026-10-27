@@ -2,15 +2,15 @@ id = "desktop.commands.shell"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/cli/arch-shell",
-  "src/cli/arch-shell-config",
+  "src/commands/arch-shell",
+  "src/commands/arch-shell-config",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/cli/arch-shell"
-target = "usr/share/arch/src/cli/arch-shell"
+source = "src/commands/arch-shell"
+target = "usr/share/arch/src/commands/arch-shell"
 
 [[output]]
-source = "src/cli/arch-shell-config"
-target = "usr/share/arch/src/cli/arch-shell-config"
+source = "src/commands/arch-shell-config"
+target = "usr/share/arch/src/commands/arch-shell-config"

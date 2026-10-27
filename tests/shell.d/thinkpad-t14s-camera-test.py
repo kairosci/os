@@ -26,7 +26,7 @@ class ThinkPadT14sCameraTest(unittest.TestCase):
       TEST_SOC="qualcomm",
       TEST_MODEL="21N10000US",
     )
-    self.environment["PATH"] = f"{self.bin}:{ROOT / 'src/cli'}:{self.environment['PATH']}"
+    self.environment["PATH"] = f"{self.bin}:{ROOT / 'src/commands'}:{self.environment['PATH']}"
     self._executable("arch-hw-aarch64-qualcomm", 'raise SystemExit(0 if os.environ["TEST_SOC"] == "qualcomm" else 1)\n')
     self._executable(
       "arch-hw-match",

@@ -22,20 +22,20 @@ chmod +x "$stub_bin/hyprshot"
 
 capture_log="$test_tmp/capture.log"
 HYPRSHOT_TEST_LOG="$capture_log" PATH="$stub_bin:$PATH" \
-  "$ROOT/src/cli/arch-capture-screenshot"
+  "$ROOT/src/commands/arch-capture-screenshot"
 [[ $(sed -n '2p' "$capture_log") == '--mode region' ]] || fail "the screenshot command defaults to region selection"
 
 HYPRSHOT_TEST_LOG="$capture_log" ARCH_SCREENSHOT_DIR="$test_tmp/screenshots" PATH="$stub_bin:$PATH" \
-  "$ROOT/src/cli/arch-capture-screenshot" windows copy
+  "$ROOT/src/commands/arch-capture-screenshot" windows copy
 [[ $(sed -n '1p' "$capture_log") == "$test_tmp/screenshots" ]] || fail "the configured screenshot directory reaches Hyprshot"
 [[ $(sed -n '2p' "$capture_log") == '--mode window --clipboard-only' ]] || fail "window and clipboard modes map to Hyprshot"
 
 HYPRSHOT_TEST_LOG="$capture_log" PATH="$stub_bin:$PATH" \
-  "$ROOT/src/cli/arch-capture-screenshot" fullscreen save
+  "$ROOT/src/commands/arch-capture-screenshot" fullscreen save
 [[ $(sed -n '2p' "$capture_log") == '--mode output' ]] || fail "fullscreen maps to output capture and save keeps the default file output"
 
 HYPRSHOT_TEST_LOG="$capture_log" PATH="$stub_bin:$PATH" \
-  "$ROOT/src/cli/arch-capture-screenshot" region
+  "$ROOT/src/commands/arch-capture-screenshot" region
 [[ $(sed -n '2p' "$capture_log") == '--mode region' ]] || fail "region maps to Hyprshot"
 
 pass "the screenshot command maps its supported modes and output options"

@@ -443,7 +443,7 @@ Item {
   Process {
     id: themeRowsProc
     property bool queued: false
-    command: [root.archPath + "/src/cli/arch-theme-switcher", "--print-rows"]
+    command: [root.archPath + "/src/commands/arch-theme-switcher", "--print-rows"]
     stdout: StdioCollector {
       onStreamFinished: root.updateThemeRows(String(text || "").trim())
     }

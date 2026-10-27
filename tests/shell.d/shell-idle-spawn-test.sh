@@ -126,7 +126,7 @@ cc -shared -fPIC -O2 -o "$TMPDIR/exec-log.so" "$SHELL_TEST_DIR/fixtures/idle-she
 mkdir -p "$test_root/src"
 cp -a "$ROOT/src/shell" "$test_root/src/shell"
 ln -s "$ROOT/config" "$test_root/config"
-ln -s "$ROOT/src/cli" "$test_root/bin"
+ln -s "$ROOT/src/commands" "$test_root/bin"
 ln -s "$ROOT/default" "$test_root/default"
 
 stub() {
@@ -174,7 +174,7 @@ HOME="$test_home" \
 XDG_CONFIG_HOME="$test_home/.config" \
 XDG_CACHE_HOME="$test_home/.cache" \
 XDG_STATE_HOME="$test_home/.local/state" \
-PATH="$stub_bin:$ROOT/src/cli:$PATH" \
+PATH="$stub_bin:$ROOT/src/commands:$PATH" \
 ARCH_EXEC_LOG="$exec_log" \
 LD_PRELOAD="$TMPDIR/exec-log.so" \
 QS_DISABLE_FILE_WATCHER=1 \
@@ -184,7 +184,7 @@ QS_PID=$!
 
 ready=0
 for _ in {1..150}; do
-  if ARCH_PATH="$test_root" "$ROOT/src/cli/arch-shell" shell listPlugins 2>/dev/null | jq -e 'length > 0' >/dev/null 2>&1; then
+  if ARCH_PATH="$test_root" "$ROOT/src/commands/arch-shell" shell listPlugins 2>/dev/null | jq -e 'length > 0' >/dev/null 2>&1; then
     ready=1
     break
   fi

@@ -144,7 +144,7 @@ it with `provider:`.
 
 ## Driving the menu from the CLI
 
-`src/cli/arch-menu` is a thin wrapper over the standard plugin IPC surface:
+`src/commands/arch-menu` is a thin wrapper over the standard plugin IPC surface:
 
 ```bash
 archctl menu                    # toggle the root menu

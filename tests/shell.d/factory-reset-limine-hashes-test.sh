@@ -12,7 +12,7 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 scratch=$(mktemp -d)
 trap 'rm -rf "$scratch"' EXIT
 
-eval "$(sed -n '/^verify_limine_hashes() {$/,/^}$/p' "$ROOT/src/cli/arch-system-factory-reset")"
+eval "$(sed -n '/^verify_limine_hashes() {$/,/^}$/p' "$ROOT/src/commands/arch-system-factory-reset")"
 declare -F verify_limine_hashes >/dev/null || fail "factory reset defines verify_limine_hashes"
 fail_reset() { echo "$*"; exit 1; }
 

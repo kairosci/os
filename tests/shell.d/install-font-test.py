@@ -28,9 +28,9 @@ with tempfile.TemporaryDirectory(prefix="install-font-") as temporary:
 
   environment = test_environment(
     FONT_LOG=log,
-    PATH=f"{bin_dir}:{ROOT / 'src/cli'}:{Path('/usr/local/bin')}:{Path('/usr/bin')}",
+    PATH=f"{bin_dir}:{ROOT / 'src/commands'}:{Path('/usr/local/bin')}:{Path('/usr/bin')}",
   )
-  install = str(ROOT / "src/cli/arch-install-font")
+  install = str(ROOT / "src/commands/arch-install-font")
   result = subprocess.run(
     [install, "--apply", "ttf-example", "Family Example"],
     capture_output=True,

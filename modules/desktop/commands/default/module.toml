@@ -2,25 +2,25 @@ id = "desktop.commands.default"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/cli/arch-default-browser",
-  "src/cli/arch-default-dictation",
-  "src/cli/arch-default-editor",
-  "src/cli/arch-default-terminal",
+  "src/commands/arch-default-browser",
+  "src/commands/arch-default-dictation",
+  "src/commands/arch-default-editor",
+  "src/commands/arch-default-terminal",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/cli/arch-default-browser"
-target = "usr/share/arch/src/cli/arch-default-browser"
+source = "src/commands/arch-default-browser"
+target = "usr/share/arch/src/commands/arch-default-browser"
 
 [[output]]
-source = "src/cli/arch-default-dictation"
-target = "usr/share/arch/src/cli/arch-default-dictation"
+source = "src/commands/arch-default-dictation"
+target = "usr/share/arch/src/commands/arch-default-dictation"
 
 [[output]]
-source = "src/cli/arch-default-editor"
-target = "usr/share/arch/src/cli/arch-default-editor"
+source = "src/commands/arch-default-editor"
+target = "usr/share/arch/src/commands/arch-default-editor"
 
 [[output]]
-source = "src/cli/arch-default-terminal"
-target = "usr/share/arch/src/cli/arch-default-terminal"
+source = "src/commands/arch-default-terminal"
+target = "usr/share/arch/src/commands/arch-default-terminal"

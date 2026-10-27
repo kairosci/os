@@ -2,10 +2,10 @@ id = "desktop.commands.locale"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/cli/arch-locale-generate",
+  "src/commands/arch-locale-generate",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/cli/arch-locale-generate"
-target = "usr/share/arch/src/cli/arch-locale-generate"
+source = "src/commands/arch-locale-generate"
+target = "usr/share/arch/src/commands/arch-locale-generate"

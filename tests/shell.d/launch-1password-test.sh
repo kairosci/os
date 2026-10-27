@@ -30,13 +30,13 @@ chmod +x "$mock_bin"/*
 
 launch_log="$test_tmp/launch-log"
 PATH="$mock_bin:$PATH" ARCH_TEST_INSTALLED=true ARCH_TEST_LOG="$launch_log" \
-  bash "$ROOT/src/cli/arch-launch-1password"
+  bash "$ROOT/src/commands/arch-launch-1password"
 grep -Fxq 'launch:-- 1password --force-device-scale-factor=1' "$launch_log" ||
   fail "1Password launcher starts the installed app at a fixed scale factor"
 pass "1Password launcher starts the installed app at a fixed scale factor"
 
 PATH="$mock_bin:$PATH" ARCH_TEST_INSTALLED=false ARCH_TEST_LOG="$launch_log" \
-  bash "$ROOT/src/cli/arch-launch-1password"
+  bash "$ROOT/src/commands/arch-launch-1password"
 grep -Fxq 'install:arch-install-service-1password' "$launch_log" ||
   fail "1Password launcher starts the installer when missing"
 pass "1Password launcher starts the installer when missing"

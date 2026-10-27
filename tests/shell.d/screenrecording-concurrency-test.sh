@@ -106,9 +106,9 @@ fi
 exit 0
 SH
 chmod +x "$tmp/bin/"*
-export PATH="$tmp/bin:$ROOT/src/cli:$PATH" TEST_STATE="$tmp" XDG_RUNTIME_DIR="$tmp/runtime"
+export PATH="$tmp/bin:$ROOT/src/commands:$PATH" TEST_STATE="$tmp" XDG_RUNTIME_DIR="$tmp/runtime"
 export ARCH_SCREENRECORD_DIR="$tmp/recordings"
-record="$ROOT/src/cli/arch-capture-screenrecording"
+record="$ROOT/src/commands/arch-capture-screenrecording"
 export TEST_RECORD=$record
 
 wait_for() {

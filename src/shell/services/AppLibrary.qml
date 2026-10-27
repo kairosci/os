@@ -111,7 +111,7 @@ Item {
   function remove(desktopId, name) {
     var id = String(desktopId || "")
     if (!id) return
-    Util.execDetached(Util.shellQuote(root.archPath + "/src/cli/arch-remove-launcher-entry") + " " + Util.shellQuote(id) + " " + Util.shellQuote(String(name || id)))
+    Util.execDetached(Util.shellQuote(root.archPath + "/src/commands/arch-remove-launcher-entry") + " " + Util.shellQuote(id) + " " + Util.shellQuote(String(name || id)))
   }
 
   function normalizeDesktopId(id) {

@@ -36,7 +36,7 @@ compose() {
   for conf in "${conf_files[@]}"; do
     cat -- "$tmp/conf.d/$conf" >>"$config"
   done
-  ARCH_PROC_ROOT="$tmp/platform/proc" PATH="$tmp/platform/bin:$ROOT/src/cli:$PATH" "$BASH" -c '
+  ARCH_PROC_ROOT="$tmp/platform/proc" PATH="$tmp/platform/bin:$ROOT/src/commands:$PATH" "$BASH" -c '
     . "$1" || exit 1
     printf "HOOKS=%s\nFILES=%s\n" "${HOOKS[*]}" "${FILES[*]}"
   ' -- "$config"

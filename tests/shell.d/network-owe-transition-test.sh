@@ -10,7 +10,7 @@ require_command quickshell
 stage=$(mktemp -d)
 trap 'rm -rf -- "$stage"' EXIT
 fixture="$SHELL_TEST_DIR/fixtures/network-owe-transition"
-mkdir -p "$stage/network" "$stage/bin" "$stage/home" "$stage/src/cli"
+mkdir -p "$stage/network" "$stage/bin" "$stage/home" "$stage/src/commands"
 ln -s "$ROOT/src/shell/Ui" "$stage/Ui"
 ln -s "$ROOT/src/shell/Commons" "$stage/Commons"
 ln -s "$ROOT/default" "$stage/default"
@@ -30,7 +30,7 @@ JS
 printf '#!/bin/bash\nexit 0\n' > "$stage/bin/noop"
 chmod +x "$stage/bin/noop"
 for command in arch-dns arch-network-band arch-network-status; do
-  ln -s ../../bin/noop "$stage/src/cli/$command"
+  ln -s ../../bin/noop "$stage/src/commands/$command"
 done
 # Answers in call order: 57, then a slow stale 11, then 33. Never touches the
 # host's NetworkManager.

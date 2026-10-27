@@ -131,7 +131,7 @@ chmod +x "$stub_bin/arch-pkg-add"
 # The platform's keyrings list is read at a fixed path; the test runs a copy
 # rewritten to read a fixture there.
 platform_keyrings="$test_tmp/platform-keyrings"
-sed "s|/usr/share/arch-platform/keyrings|$platform_keyrings|" "$ROOT/src/cli/arch-update-keyring" >"$test_tmp/arch-update-keyring"
+sed "s|/usr/share/arch-platform/keyrings|$platform_keyrings|" "$ROOT/src/commands/arch-update-keyring" >"$test_tmp/arch-update-keyring"
 chmod +x "$test_tmp/arch-update-keyring"
 
 run_keyring() {

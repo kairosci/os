@@ -22,7 +22,7 @@ steps:
 language:
   preset_file: /etc/arch/language
   default_language: en
-  command: "{arch_path}/src/cli/arch-language"
+  command: "{arch_path}/src/commands/arch-language"
   arguments: [seed]
   messages:
     en:

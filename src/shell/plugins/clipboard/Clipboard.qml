@@ -224,9 +224,9 @@ Item {
     if (!row) return
     root.opened = false
     if (row.entryType === "image") {
-      Quickshell.execDetached([root.archPath + "/src/cli/arch-clipboard-paste-file", row.mime, row.path])
+      Quickshell.execDetached([root.archPath + "/src/commands/arch-clipboard-paste-file", row.mime, row.path])
     } else if (row.fullText) {
-      Quickshell.execDetached([root.archPath + "/src/cli/arch-clipboard-paste-text", "--shift-insert", "--history-index", String(row.historyIndex)])
+      Quickshell.execDetached([root.archPath + "/src/commands/arch-clipboard-paste-text", "--shift-insert", "--history-index", String(row.historyIndex)])
     }
   }
 
@@ -234,16 +234,16 @@ Item {
     if (!row) return
     root.opened = false
     if (row.entryType === "image") {
-      Quickshell.execDetached([root.archPath + "/src/cli/arch-clipboard-paste-file", "--copy-only", row.mime, row.path])
+      Quickshell.execDetached([root.archPath + "/src/commands/arch-clipboard-paste-file", "--copy-only", row.mime, row.path])
     } else if (row.fullText) {
-      Quickshell.execDetached([root.archPath + "/src/cli/arch-clipboard-paste-text", "--copy-only", "--history-index", String(row.historyIndex)])
+      Quickshell.execDetached([root.archPath + "/src/commands/arch-clipboard-paste-text", "--copy-only", "--history-index", String(row.historyIndex)])
     }
   }
 
   function openSelected(row) {
     if (!row) return
     root.opened = false
-    Quickshell.execDetached([root.archPath + "/src/cli/arch-clipboard-open", "--history-index", String(row.historyIndex)])
+    Quickshell.execDetached([root.archPath + "/src/commands/arch-clipboard-open", "--history-index", String(row.historyIndex)])
   }
 
   Component.onCompleted: initProc.running = true

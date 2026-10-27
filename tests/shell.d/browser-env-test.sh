@@ -30,6 +30,6 @@ desktop_session=$(DESKTOP_SESSION=arch bash -c 'source "$1"; printf "%s" "$DESKT
 pass "uwsm session identity uses Arch"
 
 uwsm_path=$(ARCH_PATH="$ROOT" PATH="/usr/bin" bash -c 'source "$1"; printf "%s" "$PATH"' bash "$uwsm_default")
-[[ ${uwsm_path%%:*} == "$ROOT/src/cli" ]] || fail "uwsm prepends the checkout CLI" "actual PATH: $uwsm_path"
-[[ $(tr ':' '\n' <<<"$uwsm_path" | grep -Fxc "$ROOT/src/cli") == 1 ]] || fail "uwsm includes the checkout CLI once" "actual PATH: $uwsm_path"
+[[ ${uwsm_path%%:*} == "$ROOT/src/commands" ]] || fail "uwsm prepends the checkout CLI" "actual PATH: $uwsm_path"
+[[ $(tr ':' '\n' <<<"$uwsm_path" | grep -Fxc "$ROOT/src/commands") == 1 ]] || fail "uwsm includes the checkout CLI once" "actual PATH: $uwsm_path"
 pass "uwsm session PATH resolves the checkout CLI without duplication"

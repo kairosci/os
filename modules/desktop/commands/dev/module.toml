@@ -2,60 +2,60 @@ id = "desktop.commands.dev"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/cli/arch-dev-benchmark-cli",
-  "src/cli/arch-dev-benchmark-theme-switcher",
-  "src/cli/arch-dev-font",
-  "src/cli/arch-dev-install-ydoo",
-  "src/cli/arch-dev-link",
-  "src/cli/arch-dev-notification-demo",
-  "src/cli/arch-dev-pkg-test",
-  "src/cli/arch-dev-status",
-  "src/cli/arch-dev-theme-preview",
-  "src/cli/arch-dev-ui-preview",
-  "src/cli/arch-dev-unlink",
+  "src/commands/arch-dev-benchmark-cli",
+  "src/commands/arch-dev-benchmark-theme-switcher",
+  "src/commands/arch-dev-font",
+  "src/commands/arch-dev-install-ydoo",
+  "src/commands/arch-dev-link",
+  "src/commands/arch-dev-notification-demo",
+  "src/commands/arch-dev-pkg-test",
+  "src/commands/arch-dev-status",
+  "src/commands/arch-dev-theme-preview",
+  "src/commands/arch-dev-ui-preview",
+  "src/commands/arch-dev-unlink",
 ]
 requires = ["desktop.commands", "system.runtime-data"]
 
 [[output]]
-source = "src/cli/arch-dev-benchmark-cli"
-target = "usr/share/arch/src/cli/arch-dev-benchmark-cli"
+source = "src/commands/arch-dev-benchmark-cli"
+target = "usr/share/arch/src/commands/arch-dev-benchmark-cli"
 
 [[output]]
-source = "src/cli/arch-dev-benchmark-theme-switcher"
-target = "usr/share/arch/src/cli/arch-dev-benchmark-theme-switcher"
+source = "src/commands/arch-dev-benchmark-theme-switcher"
+target = "usr/share/arch/src/commands/arch-dev-benchmark-theme-switcher"
 
 [[output]]
-source = "src/cli/arch-dev-font"
-target = "usr/share/arch/src/cli/arch-dev-font"
+source = "src/commands/arch-dev-font"
+target = "usr/share/arch/src/commands/arch-dev-font"
 
 [[output]]
-source = "src/cli/arch-dev-install-ydoo"
-target = "usr/share/arch/src/cli/arch-dev-install-ydoo"
+source = "src/commands/arch-dev-install-ydoo"
+target = "usr/share/arch/src/commands/arch-dev-install-ydoo"
 
 [[output]]
-source = "src/cli/arch-dev-link"
-target = "usr/share/arch/src/cli/arch-dev-link"
+source = "src/commands/arch-dev-link"
+target = "usr/share/arch/src/commands/arch-dev-link"
 
 [[output]]
-source = "src/cli/arch-dev-notification-demo"
-target = "usr/share/arch/src/cli/arch-dev-notification-demo"
+source = "src/commands/arch-dev-notification-demo"
+target = "usr/share/arch/src/commands/arch-dev-notification-demo"
 
 [[output]]
-source = "src/cli/arch-dev-pkg-test"
-target = "usr/share/arch/src/cli/arch-dev-pkg-test"
+source = "src/commands/arch-dev-pkg-test"
+target = "usr/share/arch/src/commands/arch-dev-pkg-test"
 
 [[output]]
-source = "src/cli/arch-dev-status"
-target = "usr/share/arch/src/cli/arch-dev-status"
+source = "src/commands/arch-dev-status"
+target = "usr/share/arch/src/commands/arch-dev-status"
 
 [[output]]
-source = "src/cli/arch-dev-theme-preview"
-target = "usr/share/arch/src/cli/arch-dev-theme-preview"
+source = "src/commands/arch-dev-theme-preview"
+target = "usr/share/arch/src/commands/arch-dev-theme-preview"
 
 [[output]]
-source = "src/cli/arch-dev-ui-preview"
-target = "usr/share/arch/src/cli/arch-dev-ui-preview"
+source = "src/commands/arch-dev-ui-preview"
+target = "usr/share/arch/src/commands/arch-dev-ui-preview"
 
 [[output]]
-source = "src/cli/arch-dev-unlink"
-target = "usr/share/arch/src/cli/arch-dev-unlink"
+source = "src/commands/arch-dev-unlink"
+target = "usr/share/arch/src/commands/arch-dev-unlink"

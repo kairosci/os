@@ -24,7 +24,7 @@ exit 1
 SH
 chmod +x "$mock_bin"/*
 
-PATH="$mock_bin:$PATH" CALL_LOG="$call_log" "$ROOT/src/cli/arch-system-lock"
+PATH="$mock_bin:$PATH" CALL_LOG="$call_log" "$ROOT/src/commands/arch-system-lock"
 mapfile -t shutdown < <(rg '^(pkill|timeout) ' "$call_log")
 
 [[ ${shutdown[0]} == "pkill -x ttfx" ]] ||

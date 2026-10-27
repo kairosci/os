@@ -41,7 +41,7 @@ run_remove() {
   echo "SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/gcr/ssh" >"$ARCH_TEST_MANAGER/generated"
   echo "$explicit" >"$ARCH_TEST_MANAGER/explicit"
 
-  PATH="$mock_bin:$PATH" "$ROOT/src/cli/arch-remove-service-ssh-agent" >/dev/null
+  PATH="$mock_bin:$PATH" "$ROOT/src/commands/arch-remove-service-ssh-agent" >/dev/null
   PATH="$mock_bin:$PATH" systemctl --user show-environment
 }
 

@@ -2,35 +2,35 @@ id = "desktop.commands.version"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/cli/arch-version",
-  "src/cli/arch-version-branch",
-  "src/cli/arch-version-channel",
-  "src/cli/arch-version-pkgs",
-  "src/python/cli/version_pkgs.py",
-  "src/python/cli/version.py",
+  "src/commands/arch-version",
+  "src/commands/arch-version-branch",
+  "src/commands/arch-version-channel",
+  "src/commands/arch-version-pkgs",
+  "src/cli/version_pkgs.py",
+  "src/cli/version.py",
 ]
 requires = ["desktop.commands", "system.runtime-data"]
 
 [[output]]
-source = "src/cli/arch-version"
-target = "usr/share/arch/src/cli/arch-version"
+source = "src/commands/arch-version"
+target = "usr/share/arch/src/commands/arch-version"
 
 [[output]]
-source = "src/cli/arch-version-branch"
-target = "usr/share/arch/src/cli/arch-version-branch"
+source = "src/commands/arch-version-branch"
+target = "usr/share/arch/src/commands/arch-version-branch"
 
 [[output]]
-source = "src/cli/arch-version-channel"
-target = "usr/share/arch/src/cli/arch-version-channel"
+source = "src/commands/arch-version-channel"
+target = "usr/share/arch/src/commands/arch-version-channel"
 
 [[output]]
-source = "src/cli/arch-version-pkgs"
-target = "usr/share/arch/src/cli/arch-version-pkgs"
+source = "src/commands/arch-version-pkgs"
+target = "usr/share/arch/src/commands/arch-version-pkgs"
 
 [[output]]
-source = "src/python/cli/version_pkgs.py"
-target = "usr/share/arch/src/python/cli/version_pkgs.py"
+source = "src/cli/version_pkgs.py"
+target = "usr/share/arch/src/cli/version_pkgs.py"
 
 [[output]]
-source = "src/python/cli/version.py"
-target = "usr/share/arch/src/python/cli/version.py"
+source = "src/cli/version.py"
+target = "usr/share/arch/src/cli/version.py"

@@ -14,7 +14,7 @@ from base_test import ROOT, fail_check, pass_check, test_environment
 
 
 HOOK_SOURCE = ROOT / "src/python/installer_user/first_run/fingerprint_invitation.py"
-HOOK_RUNNER = ROOT / "src/cli/arch-hook"
+HOOK_RUNNER = ROOT / "src/commands/arch-hook"
 DESCRIPTION = "fingerprint invitation waits for a reader and only runs once"
 
 
@@ -61,7 +61,7 @@ def main() -> int:
       environment = test_environment(
         HOME=home,
         LANG="it_IT.UTF-8",
-        PATH=f"{bin_directory}:{ROOT / 'src/cli'}:{os.environ.get('PATH', '')}",
+        PATH=f"{bin_directory}:{ROOT / 'src/commands'}:{os.environ.get('PATH', '')}",
         TEST_LOG=log,
         TEST_HW_MARKER=marker,
       )

@@ -26,7 +26,7 @@ export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=$XDG_RUNT
 # shell as "not running". Callers testing a different tree pass it explicitly.
 export ARCH_PATH="${ARCH_PATH:-/usr/share/arch}"
 
-export PATH="$ARCH_PATH/src/cli:$PATH"
+export PATH="$ARCH_PATH/src/commands:$PATH"
 
 if [[ -z ${DISPLAY:-} ]]; then
   display=$(systemctl --user show-environment | sed -n 's/^DISPLAY=//p' | head -1)

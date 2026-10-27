@@ -120,10 +120,10 @@ assert(unknownShell.length === 0, 'every referenced shell key exists in the Engl
 
 const cliKeyPattern = /arch-i18n (?:--count \S+ )?([a-z][a-zA-Z0-9]*(?:\.[a-zA-Z0-9]+)+)/g
 const cliKeys = new Set([
-  ...collectKeys(path.join(root, 'src/cli'), [''], cliKeyPattern),
+  ...collectKeys(path.join(root, 'src/commands'), [''], cliKeyPattern),
   ...collectKeys(path.join(root, 'installer'), ['.sh', '.py', '.hook'], cliKeyPattern),
 ])
-for (const key of collectKeys(path.join(root, 'src/python/cli'), ['.py'], /_message\(\s*['"]([a-z][a-zA-Z0-9]*(?:\.[a-zA-Z0-9]+)+)['"]/g)) cliKeys.add(key)
+for (const key of collectKeys(path.join(root, 'src/commands'), ['.py'], /_message\(\s*['"]([a-z][a-zA-Z0-9]*(?:\.[a-zA-Z0-9]+)+)['"]/g)) cliKeys.add(key)
 for (const key of collectKeys(path.join(root, 'data/cli'), ['.yml'], /^\s*[A-Za-z0-9_-]+:\s*([a-z][a-zA-Z0-9]*(?:\.[a-zA-Z0-9]+)+)\s*$/gm)) cliKeys.add(key)
 const unreferencedCli = Object.keys(enCli).filter((key) => !cliKeys.has(key))
 assert(unreferencedCli.length === 0, 'every cli catalog key is referenced', JSON.stringify(unreferencedCli))
@@ -276,7 +276,7 @@ JS
 work=$(mktemp -d)
 trap 'rm -rf "$work"' EXIT
 export ARCH_PATH=$ROOT
-export PATH="$ROOT/src/cli:$PATH"
+export PATH="$ROOT/src/commands:$PATH"
 export ARCH_LANGUAGE_FILE=$work/language
 export ARCH_LOCALE_GEN=$work/locale.gen
 export ARCH_LOCALE_REGISTRY=$ROOT/default/i18n/locales.json
@@ -481,7 +481,7 @@ assert_bash_equal "$extract_candidates" "0" "no embedded English literals await 
 # A miniature tree exercises staleness: one key changed in English, one
 # deleted from the translation, one manual chapter missing.
 fix=$work/fixture
-mkdir -p "$fix/default/i18n/en" "$fix/default/i18n/da" "$fix/default/arch" "$fix/docs/user" "$fix/src/shell" "$fix/src/cli"
+mkdir -p "$fix/default/i18n/en" "$fix/default/i18n/da" "$fix/default/arch" "$fix/docs/user" "$fix/src/shell" "$fix/src/commands"
 cat >"$fix/default/i18n/locales.json" <<'FIXJSON'
 {
   "en": {"name": "English", "englishName": "English", "formatLocale": "en-US", "locale": "en_US.UTF-8"},

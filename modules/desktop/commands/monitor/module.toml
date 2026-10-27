@@ -2,10 +2,10 @@ id = "desktop.commands.monitor"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/cli/arch-monitor-state",
+  "src/commands/arch-monitor-state",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/cli/arch-monitor-state"
-target = "usr/share/arch/src/cli/arch-monitor-state"
+source = "src/commands/arch-monitor-state"
+target = "usr/share/arch/src/commands/arch-monitor-state"

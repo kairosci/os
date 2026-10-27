@@ -2,20 +2,20 @@ id = "desktop.commands.branding"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/cli/arch-branding-about",
-  "src/cli/arch-branding-about-animation",
-  "src/cli/arch-branding-screensaver",
+  "src/commands/arch-branding-about",
+  "src/commands/arch-branding-about-animation",
+  "src/commands/arch-branding-screensaver",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/cli/arch-branding-about"
-target = "usr/share/arch/src/cli/arch-branding-about"
+source = "src/commands/arch-branding-about"
+target = "usr/share/arch/src/commands/arch-branding-about"
 
 [[output]]
-source = "src/cli/arch-branding-about-animation"
-target = "usr/share/arch/src/cli/arch-branding-about-animation"
+source = "src/commands/arch-branding-about-animation"
+target = "usr/share/arch/src/commands/arch-branding-about-animation"
 
 [[output]]
-source = "src/cli/arch-branding-screensaver"
-target = "usr/share/arch/src/cli/arch-branding-screensaver"
+source = "src/commands/arch-branding-screensaver"
+target = "usr/share/arch/src/commands/arch-branding-screensaver"

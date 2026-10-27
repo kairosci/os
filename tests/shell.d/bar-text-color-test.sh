@@ -10,7 +10,7 @@ require_command ffmpeg
 TMPDIR=$(mktemp -d)
 trap 'rm -rf "$TMPDIR"' EXIT
 
-export PATH="$ROOT/src/cli:$PATH"
+export PATH="$ROOT/src/commands:$PATH"
 
 light_top="$TMPDIR/light-top.png"
 dark_top="$TMPDIR/dark-top.png"

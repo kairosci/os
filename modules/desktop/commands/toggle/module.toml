@@ -2,80 +2,80 @@ id = "desktop.commands.toggle"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/cli/arch-toggle",
-  "src/cli/arch-toggle-animations",
-  "src/cli/arch-toggle-bar",
-  "src/cli/arch-toggle-crash-capture",
-  "src/cli/arch-toggle-enabled",
-  "src/cli/arch-toggle-fullscreen-desktop",
-  "src/cli/arch-toggle-hybrid-gpu",
-  "src/cli/arch-toggle-idle",
-  "src/cli/arch-toggle-input-device",
-  "src/cli/arch-toggle-nightlight",
-  "src/cli/arch-toggle-notification-silencing",
-  "src/cli/arch-toggle-screensaver",
-  "src/cli/arch-toggle-suspend",
-  "src/cli/arch-toggle-touchpad",
-  "src/cli/arch-toggle-touchscreen",
+  "src/commands/arch-toggle",
+  "src/commands/arch-toggle-animations",
+  "src/commands/arch-toggle-bar",
+  "src/commands/arch-toggle-crash-capture",
+  "src/commands/arch-toggle-enabled",
+  "src/commands/arch-toggle-fullscreen-desktop",
+  "src/commands/arch-toggle-hybrid-gpu",
+  "src/commands/arch-toggle-idle",
+  "src/commands/arch-toggle-input-device",
+  "src/commands/arch-toggle-nightlight",
+  "src/commands/arch-toggle-notification-silencing",
+  "src/commands/arch-toggle-screensaver",
+  "src/commands/arch-toggle-suspend",
+  "src/commands/arch-toggle-touchpad",
+  "src/commands/arch-toggle-touchscreen",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/cli/arch-toggle"
-target = "usr/share/arch/src/cli/arch-toggle"
+source = "src/commands/arch-toggle"
+target = "usr/share/arch/src/commands/arch-toggle"
 
 [[output]]
-source = "src/cli/arch-toggle-animations"
-target = "usr/share/arch/src/cli/arch-toggle-animations"
+source = "src/commands/arch-toggle-animations"
+target = "usr/share/arch/src/commands/arch-toggle-animations"
 
 [[output]]
-source = "src/cli/arch-toggle-bar"
-target = "usr/share/arch/src/cli/arch-toggle-bar"
+source = "src/commands/arch-toggle-bar"
+target = "usr/share/arch/src/commands/arch-toggle-bar"
 
 [[output]]
-source = "src/cli/arch-toggle-crash-capture"
-target = "usr/share/arch/src/cli/arch-toggle-crash-capture"
+source = "src/commands/arch-toggle-crash-capture"
+target = "usr/share/arch/src/commands/arch-toggle-crash-capture"
 
 [[output]]
-source = "src/cli/arch-toggle-enabled"
-target = "usr/share/arch/src/cli/arch-toggle-enabled"
+source = "src/commands/arch-toggle-enabled"
+target = "usr/share/arch/src/commands/arch-toggle-enabled"
 
 [[output]]
-source = "src/cli/arch-toggle-fullscreen-desktop"
-target = "usr/share/arch/src/cli/arch-toggle-fullscreen-desktop"
+source = "src/commands/arch-toggle-fullscreen-desktop"
+target = "usr/share/arch/src/commands/arch-toggle-fullscreen-desktop"
 
 [[output]]
-source = "src/cli/arch-toggle-hybrid-gpu"
-target = "usr/share/arch/src/cli/arch-toggle-hybrid-gpu"
+source = "src/commands/arch-toggle-hybrid-gpu"
+target = "usr/share/arch/src/commands/arch-toggle-hybrid-gpu"
 
 [[output]]
-source = "src/cli/arch-toggle-idle"
-target = "usr/share/arch/src/cli/arch-toggle-idle"
+source = "src/commands/arch-toggle-idle"
+target = "usr/share/arch/src/commands/arch-toggle-idle"
 
 [[output]]
-source = "src/cli/arch-toggle-input-device"
-target = "usr/share/arch/src/cli/arch-toggle-input-device"
+source = "src/commands/arch-toggle-input-device"
+target = "usr/share/arch/src/commands/arch-toggle-input-device"
 
 [[output]]
-source = "src/cli/arch-toggle-nightlight"
-target = "usr/share/arch/src/cli/arch-toggle-nightlight"
+source = "src/commands/arch-toggle-nightlight"
+target = "usr/share/arch/src/commands/arch-toggle-nightlight"
 
 [[output]]
-source = "src/cli/arch-toggle-notification-silencing"
-target = "usr/share/arch/src/cli/arch-toggle-notification-silencing"
+source = "src/commands/arch-toggle-notification-silencing"
+target = "usr/share/arch/src/commands/arch-toggle-notification-silencing"
 
 [[output]]
-source = "src/cli/arch-toggle-screensaver"
-target = "usr/share/arch/src/cli/arch-toggle-screensaver"
+source = "src/commands/arch-toggle-screensaver"
+target = "usr/share/arch/src/commands/arch-toggle-screensaver"
 
 [[output]]
-source = "src/cli/arch-toggle-suspend"
-target = "usr/share/arch/src/cli/arch-toggle-suspend"
+source = "src/commands/arch-toggle-suspend"
+target = "usr/share/arch/src/commands/arch-toggle-suspend"
 
 [[output]]
-source = "src/cli/arch-toggle-touchpad"
-target = "usr/share/arch/src/cli/arch-toggle-touchpad"
+source = "src/commands/arch-toggle-touchpad"
+target = "usr/share/arch/src/commands/arch-toggle-touchpad"
 
 [[output]]
-source = "src/cli/arch-toggle-touchscreen"
-target = "usr/share/arch/src/cli/arch-toggle-touchscreen"
+source = "src/commands/arch-toggle-touchscreen"
+target = "usr/share/arch/src/commands/arch-toggle-touchscreen"

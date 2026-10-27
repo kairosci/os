@@ -75,7 +75,7 @@ Item {
       }
 
       if (!nextMinutes) {
-        Quickshell.execDetached([root.archPath + "/src/cli/arch-notification-send", I18n.t("reminders.invalidTitle"), I18n.t("reminders.invalidBody")])
+        Quickshell.execDetached([root.archPath + "/src/commands/arch-notification-send", I18n.t("reminders.invalidTitle"), I18n.t("reminders.invalidBody")])
         return
       }
 
@@ -87,7 +87,7 @@ Item {
     }
 
     if (root.step === "message") {
-      var args = [root.archPath + "/src/cli/arch-reminder"].concat(ReminderFlowModel.reminderArgs(root.minutes, selection))
+      var args = [root.archPath + "/src/commands/arch-reminder"].concat(ReminderFlowModel.reminderArgs(root.minutes, selection))
       root.dismiss()
       Quickshell.execDetached(args)
     }

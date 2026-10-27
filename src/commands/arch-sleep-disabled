@@ -1,0 +1,15 @@
+#!/usr/bin/python3 -I
+
+# arch:summary=Check whether Arch has turned off system sleep on this machine.
+# arch:hidden=true
+# arch:module=cli.sleep_disabled
+
+import os
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(os.environ["ARCH_PATH"]) / "src"))
+
+from cli.sleep_disabled import main
+
+raise SystemExit(main())

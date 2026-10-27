@@ -6,7 +6,7 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 TMPDIR=""
 
-export PATH="$ROOT/src/cli:$PATH"
+export PATH="$ROOT/src/commands:$PATH"
 
 cleanup() {
   if [[ -n $TMPDIR && -d $TMPDIR ]]; then
@@ -26,7 +26,7 @@ HOME="$test_home" ARCH_PATH="$ROOT" arch-install-chromium-ytdlp
 [[ -f $manifest_path ]] || fail "yt-dlp native host installer creates fresh Chromium profile root"
 pass "yt-dlp native host installer creates fresh Chromium profile root"
 
-jq -e --arg path "$ROOT/src/cli/arch-chromium-ytdlp-host" '
+jq -e --arg path "$ROOT/src/commands/arch-chromium-ytdlp-host" '
   .name == "com.arch.ytdlp" and
   .path == $path and
   (.allowed_origins | index("chrome-extension://dedjgknigfeelejglamclffonmophnfl/"))
@@ -41,7 +41,7 @@ parse_result=$(bash -c '
   ARCH_PATH="$3"
   source "$1"
   parse_url "$2"
-' bash "$ROOT/src/cli/arch-chromium-ytdlp-host" '{"url":"https://example.tests/watch?v=\"quoted\"&name=a\\b"}' "$ROOT")
+' bash "$ROOT/src/commands/arch-chromium-ytdlp-host" '{"url":"https://example.tests/watch?v=\"quoted\"&name=a\\b"}' "$ROOT")
 
 [[ $parse_result == "https://example.tests/watch?v=\"quoted\"&name=a\\b" ]] ||
   fail "yt-dlp native host parses escaped JSON URLs" "$parse_result"
@@ -51,7 +51,7 @@ bash -c '
   ARCH_PATH="$3"
   source "$1"
   valid_url "$2"
-' bash "$ROOT/src/cli/arch-chromium-ytdlp-host" "javascript:alert(1)" "$ROOT" &&
+' bash "$ROOT/src/commands/arch-chromium-ytdlp-host" "javascript:alert(1)" "$ROOT" &&
   fail "yt-dlp native host rejects non-web URLs"
 pass "yt-dlp native host rejects non-web URLs"
 
@@ -60,7 +60,7 @@ host_fn() {
     source "$1"
     shift
     "$@"
-  ' bash "$ROOT/src/cli/arch-chromium-ytdlp-host" "$@"
+  ' bash "$ROOT/src/commands/arch-chromium-ytdlp-host" "$@"
 }
 
 download_dir="$TMPDIR/videos"
@@ -161,7 +161,7 @@ poisoned=$(
     $'ARCH_FILE\t'"$good_file" \
     $'ARCH_FILE\tPlay me\t--include=not-a-file' \
     $'\t'"$good_file" |
-    ARCH_PATH="$ROOT" ARCH_YTDLP_DIR="$download_dir" bash "$parse_script" "$ROOT/src/cli/arch-chromium-ytdlp-host"
+    ARCH_PATH="$ROOT" ARCH_YTDLP_DIR="$download_dir" bash "$parse_script" "$ROOT/src/commands/arch-chromium-ytdlp-host"
 )
 
 [[ $poisoned == "$expected" ]] ||
@@ -172,7 +172,7 @@ pass "yt-dlp native host keeps a real file after a forged ARCH_FILE record"
 # stubbed tools so the yt-dlp invocation and the toast's click command are covered
 # too: a record template that carried the title again would pass every test above.
 fake_root="$TMPDIR/fake"
-mkdir -p "$fake_root/src/cli" "$fake_root/default"
+mkdir -p "$fake_root/src/commands" "$fake_root/default"
 # A real install root carries the i18n catalogs arch-i18n reads.
 ln -s "$ROOT/default/i18n" "$fake_root/default/i18n"
 fake_dir="$TMPDIR/fake-videos"
@@ -182,7 +182,7 @@ printf 'x' >"$fake_file"
 ytdlp_argv="$TMPDIR/ytdlp-argv"
 notify_argv="$TMPDIR/notify-argv"
 
-cat >"$fake_root/src/cli/yt-dlp" <<'EOF'
+cat >"$fake_root/src/commands/yt-dlp" <<'EOF'
 #!/bin/bash
 printf '%s\n' "$*" >>"$YTDLP_ARGV_LOG"
 for arg in "$@"; do
@@ -195,22 +195,22 @@ done
 exit 0
 EOF
 
-cat >"$fake_root/src/cli/arch-notification-send" <<'EOF'
+cat >"$fake_root/src/commands/arch-notification-send" <<'EOF'
 #!/bin/bash
 printf '%s\n' "$*" >>"$NOTIFY_ARGV_LOG"
 EOF
 
 for stub in arch-osd arch-shell ffmpeg; do
-  printf '#!/bin/bash\nexit 0\n' >"$fake_root/src/cli/$stub"
+  printf '#!/bin/bash\nexit 0\n' >"$fake_root/src/commands/$stub"
 done
-chmod +x "$fake_root/src/cli/"*
+chmod +x "$fake_root/src/commands/"*
 
 YTDLP_ARGV_LOG="$ytdlp_argv" NOTIFY_ARGV_LOG="$notify_argv" YTDLP_FAKE_FILE="$fake_file" \
-  ARCH_PATH="$fake_root" ARCH_YTDLP_DIR="$fake_dir" PATH="$fake_root/src/cli:$PATH" \
+  ARCH_PATH="$fake_root" ARCH_YTDLP_DIR="$fake_dir" PATH="$fake_root/src/commands:$PATH" \
   bash -c '
     source "$1"
     download_url "$2"
-  ' bash "$ROOT/src/cli/arch-chromium-ytdlp-host" "https://example.tests/watch" >/dev/null 2>&1
+  ' bash "$ROOT/src/commands/arch-chromium-ytdlp-host" "https://example.tests/watch" >/dev/null 2>&1
 
 (($(grep -c -- '--no-exec-before-download' "$ytdlp_argv") == 2)) ||
   fail "yt-dlp native host disarms configured exec hooks on both yt-dlp runs" "$(cat "$ytdlp_argv")"
@@ -246,11 +246,11 @@ pass "yt-dlp native host toasts the page title, not the sanitised filename"
 : >"$notify_argv"
 : >"$ytdlp_argv"
 YTDLP_ARGV_LOG="$ytdlp_argv" NOTIFY_ARGV_LOG="$notify_argv" YTDLP_FAKE_FILE="$fake_file" \
-  YTDLP_SKIP_TITLE=1 ARCH_PATH="$fake_root" ARCH_YTDLP_DIR="$fake_dir" PATH="$fake_root/src/cli:$PATH" \
+  YTDLP_SKIP_TITLE=1 ARCH_PATH="$fake_root" ARCH_YTDLP_DIR="$fake_dir" PATH="$fake_root/src/commands:$PATH" \
   bash -c '
     source "$1"
     download_url "$2"
-  ' bash "$ROOT/src/cli/arch-chromium-ytdlp-host" "https://example.tests/watch" >/dev/null 2>&1
+  ' bash "$ROOT/src/commands/arch-chromium-ytdlp-host" "https://example.tests/watch" >/dev/null 2>&1
 
 grep -qF -- "Download complete Real_Clip [id]" "$notify_argv" ||
   fail "yt-dlp native host falls back to the filename when no title record arrives" "$(cat "$notify_argv")"

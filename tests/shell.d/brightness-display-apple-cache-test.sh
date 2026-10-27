@@ -66,10 +66,10 @@ run_wrapper() {
   shift
   : >"$asd_log"
   if [[ -n $xdg ]]; then
-    XDG_RUNTIME_DIR="$xdg" PATH="$stub_dir:$ROOT/src/cli:$PATH" \
+    XDG_RUNTIME_DIR="$xdg" PATH="$stub_dir:$ROOT/src/commands:$PATH" \
       arch-brightness-display-apple "$@" 2>&1 || true
   else
-    env -u XDG_RUNTIME_DIR PATH="$stub_dir:$ROOT/src/cli:$PATH" \
+    env -u XDG_RUNTIME_DIR PATH="$stub_dir:$ROOT/src/commands:$PATH" \
       arch-brightness-display-apple "$@" 2>&1 || true
   fi
 }
@@ -139,7 +139,7 @@ fi
 if mkfifo "$tmp_cache" 2>/dev/null; then
   created_tmp_cache=1
   status=0
-  env -u XDG_RUNTIME_DIR PATH="$stub_dir:$ROOT/src/cli:$PATH" \
+  env -u XDG_RUNTIME_DIR PATH="$stub_dir:$ROOT/src/commands:$PATH" \
     timeout 5 arch-brightness-display-apple "+5%" >/dev/null 2>&1 || status=$?
   rm -f "$tmp_cache"
   created_tmp_cache=0

@@ -86,13 +86,13 @@ trap 'rm -rf "$test_tmp"' EXIT
 test_home="$test_tmp/home"
 mkdir -p "$test_home"
 
-HOME="$test_home" "$ROOT/src/cli/arch-toggle-idle" stay-awake >/dev/null
+HOME="$test_home" "$ROOT/src/commands/arch-toggle-idle" stay-awake >/dev/null
 [[ -f $test_home/.local/state/arch/indicators/stay-awake ]] || fail "Stay Awake toggle persists enabled state"
 
-HOME="$test_home" "$ROOT/src/cli/arch-toggle-idle" allow-idle >/dev/null
+HOME="$test_home" "$ROOT/src/commands/arch-toggle-idle" allow-idle >/dev/null
 [[ ! -f $test_home/.local/state/arch/indicators/stay-awake ]] || fail "Stay Awake toggle persists disabled state"
 
-if rg -q 'arch-shell' "$ROOT/src/cli/arch-toggle-idle"; then
+if rg -q 'arch-shell' "$ROOT/src/commands/arch-toggle-idle"; then
   fail "Stay Awake toggle avoids reentrant shell IPC"
 fi
 

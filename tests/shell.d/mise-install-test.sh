@@ -25,7 +25,7 @@ SH
 chmod +x "$stub_bin/mise"
 
 install_wrapper() {
-  HOME="$home" "$ROOT/src/cli/arch-mise-install" "$@"
+  HOME="$home" "$ROOT/src/commands/arch-mise-install" "$@"
 }
 
 # The ordinary case still works, and the setup data declares package names in

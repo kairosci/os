@@ -2,45 +2,45 @@ id = "desktop.commands.network"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/cli/arch-network-band",
-  "src/cli/arch-network-captive-portal",
-  "src/cli/arch-network-password",
-  "src/cli/arch-network-qr",
-  "src/python/cli/network/qr.py",
-  "src/cli/arch-network-speedtest",
-  "src/cli/arch-network-status",
-  "src/cli/arch-network-wifi-connected",
+  "src/commands/arch-network-band",
+  "src/commands/arch-network-captive-portal",
+  "src/commands/arch-network-password",
+  "src/commands/arch-network-qr",
+  "src/cli/network/qr.py",
+  "src/commands/arch-network-speedtest",
+  "src/commands/arch-network-status",
+  "src/commands/arch-network-wifi-connected",
 ]
 requires = ["desktop.commands", "system.runtime-data"]
 
 [[output]]
-source = "src/cli/arch-network-band"
-target = "usr/share/arch/src/cli/arch-network-band"
+source = "src/commands/arch-network-band"
+target = "usr/share/arch/src/commands/arch-network-band"
 
 [[output]]
-source = "src/cli/arch-network-captive-portal"
-target = "usr/share/arch/src/cli/arch-network-captive-portal"
+source = "src/commands/arch-network-captive-portal"
+target = "usr/share/arch/src/commands/arch-network-captive-portal"
 
 [[output]]
-source = "src/cli/arch-network-password"
-target = "usr/share/arch/src/cli/arch-network-password"
+source = "src/commands/arch-network-password"
+target = "usr/share/arch/src/commands/arch-network-password"
 
 [[output]]
-source = "src/cli/arch-network-qr"
-target = "usr/share/arch/src/cli/arch-network-qr"
+source = "src/commands/arch-network-qr"
+target = "usr/share/arch/src/commands/arch-network-qr"
 
 [[output]]
-source = "src/python/cli/network/qr.py"
-target = "usr/share/arch/src/python/cli/network/qr.py"
+source = "src/cli/network/qr.py"
+target = "usr/share/arch/src/cli/network/qr.py"
 
 [[output]]
-source = "src/cli/arch-network-speedtest"
-target = "usr/share/arch/src/cli/arch-network-speedtest"
+source = "src/commands/arch-network-speedtest"
+target = "usr/share/arch/src/commands/arch-network-speedtest"
 
 [[output]]
-source = "src/cli/arch-network-status"
-target = "usr/share/arch/src/cli/arch-network-status"
+source = "src/commands/arch-network-status"
+target = "usr/share/arch/src/commands/arch-network-status"
 
 [[output]]
-source = "src/cli/arch-network-wifi-connected"
-target = "usr/share/arch/src/cli/arch-network-wifi-connected"
+source = "src/commands/arch-network-wifi-connected"
+target = "usr/share/arch/src/commands/arch-network-wifi-connected"

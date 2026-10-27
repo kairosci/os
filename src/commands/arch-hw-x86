@@ -1,0 +1,14 @@
+#!/usr/bin/python3
+
+# arch:summary=Detect whether the CPU is x86_64.
+
+import os
+from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(os.environ["ARCH_PATH"]) / "src"))
+from cli.architecture import x86_main
+
+
+if __name__ == "__main__":
+  raise SystemExit(x86_main())

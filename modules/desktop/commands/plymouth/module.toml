@@ -2,40 +2,40 @@ id = "desktop.commands.plymouth"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/cli/arch-plymouth-current",
-  "src/cli/arch-plymouth-list",
-  "src/cli/arch-plymouth-preview",
-  "src/cli/arch-plymouth-reset",
-  "src/cli/arch-plymouth-set",
-  "src/cli/arch-plymouth-set-by-theme",
-  "src/cli/arch-plymouth-switcher",
+  "src/commands/arch-plymouth-current",
+  "src/commands/arch-plymouth-list",
+  "src/commands/arch-plymouth-preview",
+  "src/commands/arch-plymouth-reset",
+  "src/commands/arch-plymouth-set",
+  "src/commands/arch-plymouth-set-by-theme",
+  "src/commands/arch-plymouth-switcher",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/cli/arch-plymouth-current"
-target = "usr/share/arch/src/cli/arch-plymouth-current"
+source = "src/commands/arch-plymouth-current"
+target = "usr/share/arch/src/commands/arch-plymouth-current"
 
 [[output]]
-source = "src/cli/arch-plymouth-list"
-target = "usr/share/arch/src/cli/arch-plymouth-list"
+source = "src/commands/arch-plymouth-list"
+target = "usr/share/arch/src/commands/arch-plymouth-list"
 
 [[output]]
-source = "src/cli/arch-plymouth-preview"
-target = "usr/share/arch/src/cli/arch-plymouth-preview"
+source = "src/commands/arch-plymouth-preview"
+target = "usr/share/arch/src/commands/arch-plymouth-preview"
 
 [[output]]
-source = "src/cli/arch-plymouth-reset"
-target = "usr/share/arch/src/cli/arch-plymouth-reset"
+source = "src/commands/arch-plymouth-reset"
+target = "usr/share/arch/src/commands/arch-plymouth-reset"
 
 [[output]]
-source = "src/cli/arch-plymouth-set"
-target = "usr/share/arch/src/cli/arch-plymouth-set"
+source = "src/commands/arch-plymouth-set"
+target = "usr/share/arch/src/commands/arch-plymouth-set"
 
 [[output]]
-source = "src/cli/arch-plymouth-set-by-theme"
-target = "usr/share/arch/src/cli/arch-plymouth-set-by-theme"
+source = "src/commands/arch-plymouth-set-by-theme"
+target = "usr/share/arch/src/commands/arch-plymouth-set-by-theme"
 
 [[output]]
-source = "src/cli/arch-plymouth-switcher"
-target = "usr/share/arch/src/cli/arch-plymouth-switcher"
+source = "src/commands/arch-plymouth-switcher"
+target = "usr/share/arch/src/commands/arch-plymouth-switcher"

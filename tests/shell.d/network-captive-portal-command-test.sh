@@ -46,7 +46,7 @@ run_portal() {
   rm -f "$stage/log" "$stage/webapp" "$stage/count" "$stage/closed" "$stage/looks"
   TEST_LOG="$stage/log" TEST_WEBAPP_LOG="$stage/webapp" TEST_NMCLI_COUNT="$stage/count" TEST_CLOSED="$stage/closed" TEST_LOOKS="$stage/looks" XDG_RUNTIME_DIR="$stage" \
     TEST_TAILSCALE_STATUS="$1" TEST_CURL_STATUS="${2:-0}" LC_ALL=C.UTF-8 \
-    ARCH_PATH="$ROOT" PATH="$stage/bin:$ROOT/src/cli:$PATH" timeout 20 "$ROOT/src/cli/arch-network-captive-portal" "http://ping.omacom.io/nm-check.txt"
+    ARCH_PATH="$ROOT" PATH="$stage/bin:$ROOT/src/commands:$PATH" timeout 20 "$ROOT/src/commands/arch-network-captive-portal" "http://ping.omacom.io/nm-check.txt"
 }
 
 toggle="http://local-tailscaled.sock/localapi/v0/set-use-exit-node-enabled"

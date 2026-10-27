@@ -23,7 +23,7 @@ grep -F 'daemon_reload: [systemctl, --user, daemon-reload]' "$first_run_units" >
 grep -F '    - arch-sleep-lock.service' "$first_run_units" >/dev/null
 pass "first-run reloads and enables the sleep lock service"
 
-upgrade_to_quattro="$ROOT/src/cli/arch-upgrade-to-quattro"
+upgrade_to_quattro="$ROOT/src/commands/arch-upgrade-to-quattro"
 grep -F '6870b232a6c0474b59187882e6d25ae771bba735098bcbedef8a2b73b97e2b6a' "$upgrade_to_quattro" >/dev/null
 grep -F 'bcd1a76cb5c63514922bc5e11af22ae480fc6d06a99863364e02bdf3c7bdceaf' "$upgrade_to_quattro" >/dev/null
 grep -F 'ExecStart=%h/.local/share/arch/bin/arch-system-sleep-monitor' "$upgrade_to_quattro" >/dev/null
@@ -47,7 +47,7 @@ grep -Fx 'ConditionEnvironment=WAYLAND_DISPLAY' "$fcitx_service" >/dev/null ||
 grep -Fx 'ConditionPathExists=/usr/bin/fcitx5' "$fcitx_service" >/dev/null ||
   fail "without fcitx5 installed, Restart=always retries the enabled unit at 203/EXEC for the whole session"
 
-grep -F 'pkill -u "$UID" -x fcitx5' "$ROOT/src/cli/arch-restart-xcompose" >/dev/null ||
+grep -F 'pkill -u "$UID" -x fcitx5' "$ROOT/src/commands/arch-restart-xcompose" >/dev/null ||
   fail "restart-xcompose cannot reload a fcitx5 running outside the unit, so it silently keeps serving the old table"
 
 grep -F 'arch-fcitx5.service' "$first_run_units" >/dev/null ||

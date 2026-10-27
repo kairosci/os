@@ -2,10 +2,10 @@ id = "desktop.commands.osd"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/cli/arch-osd",
+  "src/commands/arch-osd",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/cli/arch-osd"
-target = "usr/share/arch/src/cli/arch-osd"
+source = "src/commands/arch-osd"
+target = "usr/share/arch/src/commands/arch-osd"

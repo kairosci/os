@@ -44,10 +44,10 @@ leaf() {
   rm -f "$tmp/ran"
   if [[ $script == *.py ]]; then
     env "$@" ARCH_PATH="$ROOT" ARCH_PROC_ROOT="$tmp/$platform/proc" ARCH_LIFECYCLE_ROOT="$lifecycle" \
-      PATH="$tmp/$platform/bin:$ROOT/src/cli:$PATH" python3 -I "$script" >"$tmp/output" 2>&1
+      PATH="$tmp/$platform/bin:$ROOT/src/commands:$PATH" python3 -I "$script" >"$tmp/output" 2>&1
   else
     env "$@" ARCH_PROC_ROOT="$tmp/$platform/proc" ARCH_LIFECYCLE_ROOT="$lifecycle" \
-      PATH="$tmp/$platform/bin:$ROOT/src/cli:$PATH" bash -eE -c 'source "$1"' bash "$script" >"$tmp/output" 2>&1
+      PATH="$tmp/$platform/bin:$ROOT/src/commands:$PATH" bash -eE -c 'source "$1"' bash "$script" >"$tmp/output" 2>&1
   fi
 }
 
@@ -167,7 +167,7 @@ first_run() {
   rm -f "$tmp/ran" "$tmp/first-run-marker" "$tmp/home/.local/state/arch/first-run.log"
   HOME="$tmp/home" ARCH_PATH="$first_root" FIRST_RUN_MARKER="$tmp/first-run-marker" GSETTINGS_LOG="$tmp/gsettings.log" AUDIO_TUNING_LOG="$tmp/audio-tuning.log" NOTIFICATION_LOG="$tmp/notifications.log" INPUT_METHOD_LOG="$tmp/input-method.log" SYSTEMCTL_LOG="$tmp/systemctl.log" \
     ARCH_PROC_ROOT="$tmp/$platform/proc" ARCH_LIFECYCLE_ROOT="$lifecycle" \
-    PATH="$first_bin:$tmp/$platform/bin:$ROOT/src/cli:$PATH" "$ROOT/src/cli/arch-provision-first-run" >"$tmp/output" 2>&1
+    PATH="$first_bin:$tmp/$platform/bin:$ROOT/src/commands:$PATH" "$ROOT/src/commands/arch-provision-first-run" >"$tmp/output" 2>&1
 }
 
 LANG=it_IT.UTF-8 first_run apple || fail "apple: first run finishes" "$(cat "$tmp/output")"

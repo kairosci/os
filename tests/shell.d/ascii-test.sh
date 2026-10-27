@@ -4,7 +4,7 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-export PATH="$ROOT/src/cli:$PATH"
+export PATH="$ROOT/src/commands:$PATH"
 
 columns() {
   awk 'NR == 1 { print length($0) }'
