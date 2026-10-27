@@ -749,7 +749,7 @@ Item {
   Process {
     id: posterProc
     property string sourcePath: ""
-    command: ["bash", Quickshell.env("ARCH_PATH") + "/src/shell/plugins/lock/poster.sh", sourcePath]
+    command: [Quickshell.env("ARCH_PATH") + "/src/shell/plugins/lock/poster.py", sourcePath]
     stdout: StdioCollector { id: posterOutput; waitForEnd: true }
     onExited: function(exitCode) {
       if (sourcePath !== root.backgroundPath) {

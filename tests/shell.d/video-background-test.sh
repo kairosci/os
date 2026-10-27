@@ -18,6 +18,8 @@ const quattroUpgrade = fs.readFileSync(path.join(root, 'src/cli/arch-upgrade-to-
 const barTextColor = fs.readFileSync(path.join(root, 'src/cli/arch-bar-text-color'), 'utf8')
 const menuImages = fs.readFileSync(path.join(root, 'src/cli/arch-menu-images'), 'utf8')
 const lockService = fs.readFileSync(path.join(root, 'src/shell/plugins/lock/Service.qml'), 'utf8')
+const lockPoster = fs.readFileSync(path.join(root, 'src/shell/plugins/lock/poster.py'), 'utf8')
+const lockPosterConfig = fs.readFileSync(path.join(root, 'data/shell/lock-poster.yml'), 'utf8')
 const batteryService = fs.readFileSync(path.join(root, 'src/shell/plugins/services/battery/Service.qml'), 'utf8')
 const themeSet = fs.readFileSync(path.join(root, 'src/cli/arch-theme-set'), 'utf8')
 const directImageList = fs.readFileSync(path.join(root, 'src/shell/plugins/image-picker/list.py'), 'utf8')
@@ -48,6 +50,11 @@ assert(
     lockQml.includes('active: root.videoActive') &&
     /videoActive: root\.video && root\.loadBackground && !root\.displaysBlank && !root\.powerSaverActive/.test(lockQml),
   'the lock screen plays video through its first-party player and releases it when hidden'
+)
+assert(
+  lockService.includes('poster.py') && lockPoster.includes('acquire_lock') &&
+    lockPoster.includes('make_poster') && lockPosterConfig.includes('timeout_seconds: 5'),
+  'the lock poster uses a bounded Python converter with a shared cache lock'
 )
 assert(
   /^\s*import QtMultimedia/m.test(videoQml) &&
@@ -174,6 +181,9 @@ printf 'not a real video\n' >"$test_tmp/backgrounds/sample.mp4"
 
 cat >"$test_tmp/bin/ffmpegthumbnailer" <<'SH'
 #!/bin/bash
+if [[ -n ${POSTER_CALLS:-} ]]; then
+  printf '%s\n' "$*" >>"$POSTER_CALLS"
+fi
 while (( $# > 0 )); do
   case "$1" in
     -i) input=$2; shift 2 ;;
@@ -205,6 +215,14 @@ generator_row=$(ARCH_PATH="$ROOT" XDG_CACHE_HOME="$test_tmp/generator-cache" "$R
 IFS=$'\t' read -r generator_row_path generator_row_thumbnail <<<"$generator_row"
 [[ $generator_row_path == "$test_tmp/backgrounds/sample.mp4" && $generator_row_thumbnail == "$generator_thumbnail" ]] || \
   fail "direct picker consumes the menu image generator thumbnail" "$generator_row"
+
+poster_calls="$test_tmp/poster-calls"
+poster_path=$(ARCH_PATH="$ROOT" PATH="$test_tmp/bin:$PATH" XDG_CACHE_HOME="$test_tmp/poster-cache" POSTER_CALLS="$poster_calls" \
+  "$ROOT/src/shell/plugins/lock/poster.py" "$test_tmp/backgrounds/sample.mp4")
+[[ -s $poster_path ]] || fail "lock poster creates a shared cached video frame"
+cached_poster=$(ARCH_PATH="$ROOT" PATH="$test_tmp/bin:$PATH" XDG_CACHE_HOME="$test_tmp/poster-cache" POSTER_CALLS="$poster_calls" \
+  "$ROOT/src/shell/plugins/lock/poster.py" "$test_tmp/backgrounds/sample.mp4")
+[[ $cached_poster == "$poster_path" && $(wc -l <"$poster_calls") == 1 ]] || fail "lock poster reuses the cached frame"
 
 row=$(ARCH_PATH="$ROOT" PATH="$test_tmp/bin:$PATH" XDG_CACHE_HOME="$test_tmp/direct-cache" MD5_FILE_CALLS="$md5_file_calls" \
   "$ROOT/src/shell/plugins/image-picker/list.py" "$test_tmp/backgrounds")
@@ -286,6 +304,7 @@ grep -rqs 'import QtMultimedia' "$ROOT/src/shell/Ui/BackgroundVideo.qml" || fail
 
 pass "menu image generator creates thumbnails consumed by the picker"
 pass "direct picker generates and reuses still thumbnails"
+pass "lock poster creates and reuses a cached frame"
 pass "direct picker omits videos whose thumbnails cannot be generated"
 pass "a rejected video is remembered so it costs nothing on the next open"
 pass "a timed out video is left to retry"
