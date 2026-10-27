@@ -61,3 +61,32 @@ snapshot_desc=$(
 
 [[ $snapshot_desc == "unknown" ]] || fail "snapshot labels an unknown version" "actual: $snapshot_desc"
 pass "snapshot survives an unknown version"
+
+cat >"$stub_bin/arch-language" <<'STUB'
+#!/bin/bash
+printf '%s\n' "${ARCH_TEST_LOCALE:-it_IT.UTF-8}"
+STUB
+cat >"$stub_bin/date" <<'STUB'
+#!/bin/bash
+printf '%s\n' "$LC_TIME" >"$ARCH_TEST_DATE_LOCALE"
+printf '%s\n' "$@" >"$ARCH_TEST_DATE_ARGS"
+printf '%s\n' 'martedì, ottobre 27 2026 alle 19:00'
+STUB
+chmod +x "$stub_bin/arch-language" "$stub_bin/date"
+pacman_log="$test_tmp/pacman.log"
+printf '%s\n' \
+  '[2026-10-27T18:00:00+0000] [ALPM] upgraded base (1 -> 2)' \
+  '[2026-10-27T18:30:00+0000] [ALPM] installed unrelated (1)' \
+  '[2026-10-27T19:00:00+0000] [ALPM] upgraded application (3 -> 4)' \
+  >"$pacman_log"
+ARCH_TEST_DATE_LOCALE="$test_tmp/date-locale" \
+  ARCH_TEST_DATE_ARGS="$test_tmp/date-args" \
+  ARCH_PACMAN_LOG="$pacman_log" \
+  ARCH_PATH="$ROOT" \
+  LANG=it_IT.UTF-8 \
+  PATH="$stub_bin:$PATH" \
+  env -u LC_TIME "$ROOT/src/cli/arch-version-pkgs" >"$test_tmp/date-output"
+[[ $(<"$test_tmp/date-output") == "martedì, ottobre 27 2026 alle 19:00" ]] || fail "package upgrade date is printed by date"
+[[ $(<"$test_tmp/date-locale") == "it_IT.UTF-8" ]] || fail "package upgrade date uses the selected locale"
+[[ $(<"$test_tmp/date-args") == $'-d\n2026-10-27T19:00:00+0000\n+%A %d %B %Y alle %H:%M' ]] || fail "the last upgraded package timestamp and Italian format reach date" "$(cat "$test_tmp/date-args")"
+pass "package upgrade date uses the latest upgrade timestamp and selected display locale"

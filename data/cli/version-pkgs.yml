@@ -1,0 +1,17 @@
+commands:
+  locale: [arch-language, locale]
+  date:
+    - date
+    - -d
+    - "{timestamp}"
+    - "{format}"
+  default_language: en
+  date_formats:
+    en: "+%A, %B %d %Y at %H:%M"
+    it: "+%A %d %B %Y alle %H:%M"
+log:
+  path_environment: ARCH_PACMAN_LOG
+  default_path: /var/log/pacman.log
+  match_text: upgraded
+  timestamp_pattern: '\[([^]]+)\]'
+  timestamp_group: 1
