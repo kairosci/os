@@ -174,8 +174,8 @@ Item {
 
   function hiddenEntryScanCommand() {
     var desktop = [Quickshell.env("XDG_CURRENT_DESKTOP"), Quickshell.env("XDG_SESSION_DESKTOP"), Quickshell.env("DESKTOP_SESSION")].filter(function(v) { return String(v || "").length > 0 }).join(":")
-    var script = root.archPath + "/src/shell/services/hidden-entries.sh"
-    return Util.shellQuote(script) + " " + Util.shellQuote(desktop)
+    var script = root.archPath + "/src/shell/services/hidden-entries.py"
+    return ["python3", script, desktop]
   }
 
   function toplevelCount() {
@@ -212,13 +212,14 @@ Item {
     property string text: ""
   }
 
-  // Both scans must run in non-login shells. A login shell sources the user's
+  // The icon scan uses a non-login shell. A login shell sources the user's
   // profile, and tools like mise touch ~/.local/share on activation — a
   // directory the desktop-entry watcher monitors — so every scan would
-  // trigger the next one, pinning a core at idle.
+  // trigger the next one, pinning a core at idle. Hidden-entry scanning runs
+  // directly as Python without starting a shell.
   Process {
     id: hiddenEntryScan
-    command: ["bash", "-c", root.hiddenEntryScanCommand()]
+    command: root.hiddenEntryScanCommand()
     stdout: SplitParser { onRead: function(line) { hiddenEntryOutput.text += line + "\n" } }
     onStarted: hiddenEntryOutput.text = ""
     onExited: root.loadDesktopHiddenEntries(hiddenEntryOutput.text)
