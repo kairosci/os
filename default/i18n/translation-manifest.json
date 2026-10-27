@@ -127,6 +127,7 @@
     "cli:migration.installViCompat": "29aeb1d1c07b",
     "cli:migration.installZbar": "f12fc14e3840",
     "cli:migration.moveKeyboardLayoutWidget": "8307bac3690a",
+    "cli:migration.rebuildMiseShims": "7d101026c764",
     "cli:migration.refreshApplications": "ee1063fc0611",
     "cli:migration.registerBraveOriginExtensionHosts": "0ea419647fc5",
     "cli:migration.removeFloatingDiskUsageLauncher": "26ccb20c0c6c",
