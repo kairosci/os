@@ -32,3 +32,17 @@ ssh_command_path:
 
     # os: provide user-level tool paths to SSH commands and other non-shell logins.
     PATH DEFAULT=/usr/local/sbin:/usr/local/bin:/usr/bin:@{HOME}/.local/share/mise/shims:@{HOME}/.local/bin
+
+service_commands:
+  # Enable or mask services only. A reboot follows installation, so daemons must not start in the ISO session.
+  commands:
+    - [systemctl, enable, cups.service]
+    - [systemctl, enable, avahi-daemon.service]
+    - [systemctl, enable, linux-modules-cleanup.service]
+    - [systemctl, enable, docker.socket]
+    - [systemctl, enable, systemd-resolved.service]
+    - [systemctl, enable, NetworkManager.service]
+    - [systemctl, mask, NetworkManager-wait-online.service]
+    - [systemctl, enable, power-profiles-daemon.service]
+    - [systemctl, enable, sddm.service]
+    - [systemctl, enable, systemd-oomd.service]
