@@ -70,6 +70,10 @@ source = "src/cli/arch-hw-aarch64-qualcomm"
 target = "usr/share/arch/src/cli/arch-hw-aarch64-qualcomm"
 
 [[output]]
+source = "src/python/cli/architecture.py"
+target = "usr/share/arch/src/python/cli/architecture.py"
+
+[[output]]
 source = "src/cli/arch-hw-apple-silicon"
 target = "usr/share/arch/src/cli/arch-hw-apple-silicon"
 
@@ -216,10 +220,6 @@ target = "usr/share/arch/src/cli/arch-hw-webcam"
 [[output]]
 source = "src/python/cli/webcam.py"
 target = "usr/share/arch/src/python/cli/webcam.py"
-
-[[output]]
-source = "src/python/cli/architecture.py"
-target = "usr/share/arch/src/python/cli/architecture.py"
 
 [[output]]
 source = "src/cli/arch-hw-x86"

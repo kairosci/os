@@ -76,10 +76,6 @@ source = "src/cli/arch-theme-current"
 target = "usr/share/arch/src/cli/arch-theme-current"
 
 [[output]]
-source = "src/python/cli/theme_info.py"
-target = "usr/share/arch/src/python/cli/theme_info.py"
-
-[[output]]
 source = "src/cli/arch-theme-dir"
 target = "usr/share/arch/src/cli/arch-theme-dir"
 
@@ -174,3 +170,7 @@ target = "usr/share/arch/src/cli/arch-theme-switcher"
 [[output]]
 source = "src/cli/arch-theme-update"
 target = "usr/share/arch/src/cli/arch-theme-update"
+
+[[output]]
+source = "src/python/cli/theme_info.py"
+target = "usr/share/arch/src/python/cli/theme_info.py"
