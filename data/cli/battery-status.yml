@@ -1,0 +1,88 @@
+commands:
+  power_supply: [upower]
+  i18n: [arch-i18n]
+flags:
+  power_supply_enumerate: -e
+  power_supply_info: -i
+  number: --number
+  shell: --shell
+environment:
+  power_supply_path: ARCH_POWER_SUPPLY_PATH
+paths:
+  default_power_supply_path: /sys/class/power_supply
+  power_now: power_now
+  current_now: current_now
+  voltage_now: voltage_now
+  invalid_native_path: __invalid_native_path__
+  charge_control_start_threshold: charge_control_start_threshold
+  charge_control_end_threshold: charge_control_end_threshold
+  cycle_count: cycle_count
+  type: type
+  online: online
+  legacy_battery_glob: BAT*
+patterns:
+  battery_identifier: /battery_
+  power_supply: '^\s*power supply:\s+yes'
+  percentage: '^\s*percentage:\s+([0-9.]+)%'
+  capacity: '^\s*energy-full:\s+([0-9.]+)'
+  energy: '^\s*energy:\s+([0-9.]+)'
+  energy_full: '^\s*energy-full:\s+([0-9.]+)'
+  time_remaining: '^\s*time to (?:empty|full):\s+([0-9.]+)\s+([a-z]+)'
+  energy_rate: '^\s*energy-rate:\s+([-+]?[0-9.]+)'
+  native_path: '^\s*native-path:\s+(\S+)'
+  state: '^\s*state:\s+(\S+)'
+  charge_start_threshold: '^\s*charge-start-threshold:\s+([0-9.]+)%'
+  charge_end_threshold: '^\s*charge-end-threshold:\s+([0-9.]+)%'
+formulas:
+  minutes_per_hour: 60
+  minutes_rounding_offset: 0.5
+  micro_units_per_watt: 1000000
+  microamp_microvolt_units_per_watt: 1000000000000
+  idle_rate_threshold_watts: 0.2
+  percentage_scale: 100
+  holding_below_percent: 99
+  fully_charged_percent: 100
+  default_charge_limit_percent: 100
+  missing_percentage: 0
+  missing_rate_watts: 0
+  rate_decimal_places: 1
+  zero_rate_suffix: '.0'
+format:
+  percentage_sign: '%'
+  watt_unit: W
+  watt_hour_unit: Wh
+  ac_type: Mains
+  online_value: '1'
+  holding_state: holding
+  shell_fields:
+    percentage: percentage
+    state: state
+    rate: rate
+    size: size
+    time: time
+    cycles: cycles
+    threshold: threshold
+  hour_unit_prefix: minute
+  separator: '  ·  '
+  no_break_space: "\u00a0"
+  charge_arrow: 
+  discharge_arrow: 
+  power_separator: '/'
+  threshold_range_separator: '-'
+states:
+  charging: charging
+  fully_charged: fully-charged
+  pending_charge: pending-charge
+messages:
+  usage: battery.usage
+  duration_minutes: battery.durationMinutes
+  duration_hours: battery.durationHours
+  duration_hours_minutes: battery.durationHoursMinutes
+  status_label: battery.statusLabel
+  holding_at: battery.holdingAt
+  fully_charged: battery.fullyCharged
+  to_full: battery.toFull
+  time_left: battery.timeLeft
+statuses:
+  usage: 2
+  success: 0

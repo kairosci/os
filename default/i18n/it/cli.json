@@ -14,6 +14,7 @@
   "battery.statusLabel": "Batteria %1%",
   "battery.timeLeft": "%1 rimanenti",
   "battery.toFull": "%1 alla carica completa",
+  "battery.usage": "Uso: arch-battery-status [--shell]",
   "battlenet.removeProton": "Rimuovere anche i runtime GE-Proton scaricati da umu?",
   "battlenet.removeUmu": "Rimuovere anche umu-launcher? È usato solo da questo comando.",
   "battlenet.wipePartial": "Eliminare il prefisso parziale e ricominciare da capo?",

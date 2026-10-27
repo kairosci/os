@@ -4,6 +4,9 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
+export ARCH_PATH="$ROOT"
+export PATH="$ROOT/src/cli:$PATH"
+
 tmp_dir=$(mktemp -d)
 trap 'rm -rf "$tmp_dir"' EXIT
 
@@ -76,6 +79,15 @@ generic_output=$(ARCH_TEST_NATIVE_PATH=CMB0 ARCH_POWER_SUPPLY_PATH="$tmp_dir/pow
 grep -Fx $'rate\t7.3W' <<<"$generic_output" >/dev/null || fail "battery status accepts arbitrary UPower battery paths"
 grep -Fx $'time\t3h 53m' <<<"$generic_output" >/dev/null || fail "battery status time left follows the live draw"
 pass "battery status supports Apple Silicon and arbitrary native battery paths"
+
+# UPower's native path selects an attribute directory and must remain relative
+# to the power-supply root.
+mkdir -p "$tmp_dir/escape"
+printf '8800000\n' >"$tmp_dir/escape/power_now"
+sed -i 's#native-path:          CMB0#native-path:          ../escape#' "$tmp_dir/bin/upower"
+safe_path_output=$(ARCH_TEST_NATIVE_PATH=CMB0 ARCH_POWER_SUPPLY_PATH="$tmp_dir/power" PATH="$tmp_dir/bin:$PATH" "$ROOT/src/cli/arch-battery-status" --shell)
+grep -Fx $'rate\t7.3W' <<<"$safe_path_output" >/dev/null || fail "battery status rejects a native path that escapes the power-supply root" "$safe_path_output"
+pass "battery status confines UPower native paths to the power-supply root"
 
 # An 80% hold threshold doesn't trip while the battery is still below it.
 hold_dir=$(mktemp -d)
@@ -153,11 +165,11 @@ grep -Fx $'time\t1h 30m' <<<"$unlimited_output" >/dev/null || fail "time to full
 pass "battery status times charging to its own battery's limit"
 
 # The status line and its durations follow the os language.
-echo "da" >"$tmp_dir/language"
-danish_output=$(ARCH_LANGUAGE_FILE="$tmp_dir/language" ARCH_POWER_SUPPLY_PATH="$hold_dir/power" PATH="$hold_dir/bin:$PATH" "$ROOT/src/cli/arch-battery-status")
-[[ $danish_output == "Batteri 40%  ·  1 t 30 min til fuld  ·  "* ]] || fail "battery status reads in the os language" "$danish_output"
-danish_time=$(ARCH_LANGUAGE_FILE="$tmp_dir/language" ARCH_POWER_SUPPLY_PATH="$hold_dir/power" PATH="$hold_dir/bin:$PATH" "$ROOT/src/cli/arch-battery-status" --shell)
-grep -Fx $'time\t1 t 30 min' <<<"$danish_time" >/dev/null || fail "battery status durations follow the os language" "$danish_time"
+echo "it" >"$tmp_dir/language"
+italian_output=$(ARCH_LANGUAGE_FILE="$tmp_dir/language" ARCH_POWER_SUPPLY_PATH="$hold_dir/power" PATH="$hold_dir/bin:$PATH" "$ROOT/src/cli/arch-battery-status")
+[[ $italian_output == "Batteria 40%  ·  1 h 30 min alla carica completa  ·  "* ]] || fail "battery status reads in Italian" "$italian_output"
+italian_time=$(ARCH_LANGUAGE_FILE="$tmp_dir/language" ARCH_POWER_SUPPLY_PATH="$hold_dir/power" PATH="$hold_dir/bin:$PATH" "$ROOT/src/cli/arch-battery-status" --shell)
+grep -Fx $'time\t1 h 30 min' <<<"$italian_time" >/dev/null || fail "battery status durations follow the Italian locale" "$italian_time"
 pass "battery status reads in the os language"
 
 # A full battery says so, with no time to count and no 0W draw.
@@ -196,7 +208,7 @@ sparse_output=$(ARCH_POWER_SUPPLY_PATH="$hold_dir/power" PATH="$hold_dir/bin:$PA
 [[ $sparse_output == "Battery 60%  ·  "$' '"9W" ]] || fail "missing readings drop out of the status line" "$sparse_output"
 pass "battery status leaves out readings it doesn't have"
 
-if matches=$(rg -n 'arch-battery-(capacity|remaining|remaining-time)' "$ROOT/src/cli" "$ROOT/test" "$ROOT/src/shell" "$ROOT/docs"); then
+if matches=$(rg -n 'arch-battery-(capacity|remaining|remaining-time)' "$ROOT/src/cli" "$ROOT/tests" "$ROOT/src/shell" "$ROOT/docs"); then
   fail "battery status owns capacity and remaining calculations" "$matches"
 fi
 

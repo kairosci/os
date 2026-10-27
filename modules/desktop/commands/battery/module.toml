@@ -5,8 +5,9 @@ sources = [
   "src/cli/arch-battery-low",
   "src/cli/arch-battery-present",
   "src/cli/arch-battery-status",
+  "src/python/cli/battery/status.py",
 ]
-requires = ["desktop.commands"]
+requires = ["desktop.commands", "desktop.commands.i18n", "system.runtime-data"]
 
 [[output]]
 source = "src/cli/arch-battery-low"
@@ -19,3 +20,7 @@ target = "usr/share/arch/src/cli/arch-battery-present"
 [[output]]
 source = "src/cli/arch-battery-status"
 target = "usr/share/arch/src/cli/arch-battery-status"
+
+[[output]]
+source = "src/python/cli/battery/status.py"
+target = "usr/share/arch/src/python/cli/battery/status.py"
