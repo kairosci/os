@@ -1,0 +1,5 @@
+commands:
+  platform_detector: [src/cli/arch-hw-platform]
+platforms:
+  x86: x86
+  aarch64_prefix: aarch64

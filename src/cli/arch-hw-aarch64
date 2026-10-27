@@ -1,5 +1,14 @@
-#!/bin/bash
+#!/usr/bin/python3
 
 # arch:summary=Detect whether the CPU is aarch64 (every ARM machine, Apple Silicon included).
 
-[[ $(uname -m) == "aarch64" ]]
+import os
+from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(os.environ["ARCH_PATH"]) / "src/python"))
+from cli.architecture import aarch64_main
+
+
+if __name__ == "__main__":
+  raise SystemExit(aarch64_main())
