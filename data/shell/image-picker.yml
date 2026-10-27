@@ -1,0 +1,45 @@
+cache:
+  directory: arch/image-selector
+  index: index.tsv
+  extension: .jpg
+  failure_extension: .failed
+  lock_extension: .lock
+  temporary_suffix: .jpg
+  hash_algorithm: md5
+  signature:
+    size_separator: ":"
+    fields:
+      - size
+      - mtime
+  row_separator: "\t"
+  directory_separator: "\n"
+  legacy_still_thumbnail: true
+discovery:
+  maximum_depth: 1
+  extensions:
+    images:
+      - jpg
+      - jpeg
+      - png
+      - gif
+      - bmp
+      - webp
+    videos:
+      - mp4
+      - m4v
+      - mov
+      - webm
+      - mkv
+      - avi
+thumbnails:
+  generator: ffmpegthumbnailer
+  size: 1536
+  quality: 8
+  timeout_seconds: 10
+  kill_grace_seconds: 5
+  lock_wait_seconds: 30
+  stale_lock_seconds: 120
+  lock_poll_interval_seconds: 0.1
+  concurrency:
+    cpu_divisor: 4
+    minimum: 1
