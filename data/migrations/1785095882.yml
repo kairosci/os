@@ -1,0 +1,20 @@
+commands:
+  i18n: [arch-i18n]
+  systemctl_user: [systemctl, --user]
+actions:
+  reload_before: [daemon-reload]
+  stop_retired_path: [stop, arch-update-user-notify.path]
+  enable_notifier: [enable, arch-migrate-notify.service]
+  reset_retired_path: [reset-failed, arch-update-user-notify.path]
+  reload_after: [daemon-reload]
+paths:
+  wants_directory: .config/systemd/user/graphical-session.target.wants
+  notifier_link: arch-migrate-notify.service
+  notifier_unit: /usr/lib/systemd/user/arch-migrate-notify.service
+  retired_links:
+  - arch-update-user-notify.path
+  - arch-update-user-notify.service
+messages:
+  reason: migration.notifyPendingMigrationsAtLogin
+statuses:
+  success: 0
