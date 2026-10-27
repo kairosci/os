@@ -201,7 +201,9 @@ BarWidget {
         onWheelMoved: function(delta) { root.scrollWorkspaces(delta) }
 
         Rectangle {
-          z: 1
+          // Keep the active marker behind the label: the selected workspace
+          // must retain its number as well as the dot.
+          z: -1
           visible: workspaceButton.shown
           width: Style.space(2)
           height: width
