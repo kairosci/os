@@ -25,6 +25,6 @@ if [[ $WORKSPACE_ID =~ ^[0-9]+$ ]] && (( WORKSPACE_ID >= 1 )); then
 fi
 
 MODE=${MODE:-$TILED_LAYOUT}
-[[ $MODE == floating ]] && MODE=dwindle
-[[ $MODE == scrolling ]] || [[ $MODE == dwindle ]] || MODE=dwindle
-echo "${MODE:-dwindle}"
+[[ $MODE == floating ]] && MODE=scrolling
+[[ $MODE == scrolling ]] || [[ $MODE == dwindle ]] || MODE=scrolling
+echo "${MODE:-scrolling}"

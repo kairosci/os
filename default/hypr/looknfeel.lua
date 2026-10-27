@@ -18,7 +18,7 @@ hl.config({
     extend_border_grab_area = 8,
     hover_icon_on_border = true,
     allow_tearing = false,
-    layout = "dwindle",
+    layout = "scrolling",
   },
 
   decoration = {
