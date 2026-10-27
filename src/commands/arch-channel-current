@@ -7,7 +7,7 @@ from pathlib import Path
 import sys
 
 sys.path.insert(0, str(Path(os.environ["ARCH_PATH"]) / "src"))
-from cli.channel import channel_current_main
+from cli.channel.current import channel_current_main
 
 
 raise SystemExit(channel_current_main())

@@ -5,7 +5,7 @@ sources = [
   "src/commands/arch-cmd-browser-handoff",
   "src/commands/arch-cmd-default-browser",
   "src/commands/arch-cmd-missing",
-  "src/cli/command_presence.py",
+  "src/cli/command/presence.py",
   "src/commands/arch-cmd-present",
   "src/commands/arch-cmd-terminal-cwd",
 ]
@@ -24,8 +24,8 @@ source = "src/commands/arch-cmd-missing"
 target = "usr/share/arch/src/commands/arch-cmd-missing"
 
 [[output]]
-source = "src/cli/command_presence.py"
-target = "usr/share/arch/src/cli/command_presence.py"
+source = "src/cli/command/presence.py"
+target = "usr/share/arch/src/cli/command/presence.py"
 
 [[output]]
 source = "src/commands/arch-cmd-present"

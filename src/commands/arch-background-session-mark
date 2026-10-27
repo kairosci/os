@@ -9,6 +9,6 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(os.environ["ARCH_PATH"]) / "src"))
 
-from cli.background_session_mark import main
+from cli.background.session_mark import main
 
 raise SystemExit(main())

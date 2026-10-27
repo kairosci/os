@@ -4,11 +4,11 @@ package = "arch"
 sources = [
   "src/commands/arch-hyprland-corners",
   "src/commands/arch-hyprland-focus-app",
-  "src/cli/hyprland_focus.py",
+  "src/cli/hyprland/focus.py",
   "src/commands/arch-hyprland-monitor-clamshell",
   "src/commands/arch-hyprland-monitor-external-active",
   "src/commands/arch-hyprland-monitor-focused",
-  "src/cli/hyprland_monitors.py",
+  "src/cli/hyprland/monitors.py",
   "src/commands/arch-hyprland-monitor-focused-apple",
   "src/commands/arch-hyprland-monitor-internal",
   "src/commands/arch-hyprland-monitor-internal-mirror",
@@ -44,8 +44,8 @@ source = "src/commands/arch-hyprland-focus-app"
 target = "usr/share/arch/src/commands/arch-hyprland-focus-app"
 
 [[output]]
-source = "src/cli/hyprland_focus.py"
-target = "usr/share/arch/src/cli/hyprland_focus.py"
+source = "src/cli/hyprland/focus.py"
+target = "usr/share/arch/src/cli/hyprland/focus.py"
 
 [[output]]
 source = "src/commands/arch-hyprland-monitor-clamshell"
@@ -60,8 +60,8 @@ source = "src/commands/arch-hyprland-monitor-focused"
 target = "usr/share/arch/src/commands/arch-hyprland-monitor-focused"
 
 [[output]]
-source = "src/cli/hyprland_monitors.py"
-target = "usr/share/arch/src/cli/hyprland_monitors.py"
+source = "src/cli/hyprland/monitors.py"
+target = "usr/share/arch/src/cli/hyprland/monitors.py"
 
 [[output]]
 source = "src/commands/arch-hyprland-monitor-focused-apple"

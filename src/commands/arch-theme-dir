@@ -9,7 +9,7 @@ from pathlib import Path
 import sys
 
 sys.path.insert(0, str(Path(os.environ["ARCH_PATH"]) / "src"))
-from cli.theme_info import theme_dir_main
+from cli.theme.info import theme_dir_main
 
 
 raise SystemExit(theme_dir_main(sys.argv[1:]))

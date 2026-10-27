@@ -8,6 +8,6 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(os.environ["ARCH_PATH"]) / "src"))
 
-from cli.command_presence import present_main
+from cli.command.presence import present_main
 
 raise SystemExit(present_main())

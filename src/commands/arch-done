@@ -10,6 +10,6 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(os.environ["ARCH_PATH"]) / "src"))
 
-from cli.done import main
+from cli.done.manager import main
 
 raise SystemExit(main())

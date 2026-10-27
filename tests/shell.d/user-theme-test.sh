@@ -64,14 +64,14 @@ pass "user theme setup only seeds the default theme once"
 
 mkdir -p "$test_tmp/home/.local/state/arch/current" \
   "$test_tmp/home/.config/arch/themes/tokyo-night" \
-  "$test_tmp/theme-arch/src/cli" \
+  "$test_tmp/theme-arch/src/cli/theme" \
   "$test_tmp/theme-arch/data/cli" \
   "$test_tmp/theme-arch/assets/themes/cosmic-night" \
   "$test_tmp/theme-arch/assets/themes/blue-sky"
 mkdir -p "$test_tmp/home/.config/arch/themes/cosmic-night"
 ln -s missing-theme "$test_tmp/home/.config/arch/themes/user-linked-theme"
 ln -s cosmic-night "$test_tmp/theme-arch/assets/themes/bundled-link"
-cp "$ROOT/src/cli/theme_info.py" "$test_tmp/theme-arch/src/cli/theme_info.py"
+cp "$ROOT/src/cli/theme/info.py" "$test_tmp/theme-arch/src/cli/theme/info.py"
 cp "$ROOT/data/cli/theme-info.yml" "$test_tmp/theme-arch/data/cli/theme-info.yml"
 printf 'tokyo-night\n' >"$test_tmp/home/.local/state/arch/current/theme.name"
 current=$(HOME="$test_tmp/home" ARCH_PATH="$test_tmp/theme-arch" LC_ALL= LC_MESSAGES=it_IT.UTF-8 \

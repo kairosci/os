@@ -4,7 +4,7 @@ package = "arch"
 sources = [
   "src/commands/arch-channel-current",
   "src/commands/arch-channel-set",
-  "src/cli/channel.py",
+  "src/cli/channel/current.py",
 ]
 requires = ["desktop.commands", "desktop.commands.version", "system.runtime-data"]
 
@@ -17,5 +17,5 @@ source = "src/commands/arch-channel-set"
 target = "usr/share/arch/src/commands/arch-channel-set"
 
 [[output]]
-source = "src/cli/channel.py"
-target = "usr/share/arch/src/cli/channel.py"
+source = "src/cli/channel/current.py"
+target = "usr/share/arch/src/cli/channel/current.py"
