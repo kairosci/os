@@ -177,3 +177,15 @@ nvidia_driver_setup:
     it:
       n1x: "Piattaforma NVIDIA N1x rilevata; il driver GPU è gestito dalla configurazione della piattaforma."
       unsupported: "Nessun driver compatibile per questa GPU NVIDIA. Consulta: {support_url}"
+tuxedo_backlight_setup:
+  vendor_file: /sys/class/dmi/id/sys_vendor
+  vendor_pattern: '(TUXEDO|Slimbook)'
+  package_command: [arch-pkg-add]
+  package: tuxedo-drivers-nocompatcheck-dkms
+  blacklist_file: /etc/modprobe.d/blacklist-clevo-xsm-wmi.conf
+  blacklist_content: "blacklist clevo_xsm_wmi\n"
+  mode: '0644'
+  module_glob: /lib/modules/*/extra/clevo-xsm-wmi.ko
+  ownership_command: [pacman, -Qo]
+  ownership_environment: {LC_ALL: C}
+  unowned_pattern: '^error: No package owns '
