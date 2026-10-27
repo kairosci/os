@@ -67,7 +67,7 @@ case ",${ARCH_TEST_MATCHED:-}," in
 esac
 SH
 chmod +x "$scratch/bin/arch-hw-surface" "$scratch/bin/arch-hw-x86" "$scratch/bin/arch-pkg-add" "$scratch/bin/arch-hw-device-match"
-for gate in arch-hw-asus-rog arch-hw-framework16 arch-hw-dell-xps-haptic-touchpad; do
+for gate in arch-hw-asus-rog arch-hw-framework16 arch-hw-dell-xps-haptic-touchpad arch-hw-intel-sof; do
   ln -s arch-hw-device-match "$scratch/bin/$gate"
 done
 
@@ -80,14 +80,18 @@ run_package_gates() (
 )
 
 : >"$scratch/packages"
-run_package_gates "arch-hw-framework16,arch-hw-dell-xps-haptic-touchpad"
-[[ $(cat "$scratch/packages") == $'qmk-hid\ndell-xps-touchpad-haptics' ]] ||
+run_package_gates "arch-hw-intel-sof"
+[[ $(cat "$scratch/packages") == "sof-firmware" ]] ||
+  fail "Intel SOF hardware receives its firmware package"
+: >"$scratch/packages"
+run_package_gates "arch-hw-framework16,arch-hw-dell-xps-haptic-touchpad,arch-hw-intel-sof"
+[[ $(cat "$scratch/packages") == $'qmk-hid\ndell-xps-touchpad-haptics\nsof-firmware' ]] ||
   fail "hardware package gates install only packages for matching devices"
 : >"$scratch/packages"
-if run_package_gates "arch-hw-framework16,arch-hw-dell-xps-haptic-touchpad" 6; then
+if run_package_gates "arch-hw-framework16,arch-hw-dell-xps-haptic-touchpad,arch-hw-intel-sof" 6; then
   fail "package gate reports a package installation failure"
 fi
-[[ $(cat "$scratch/packages") == $'qmk-hid\ndell-xps-touchpad-haptics' ]] ||
+[[ $(cat "$scratch/packages") == $'qmk-hid\ndell-xps-touchpad-haptics\nsof-firmware' ]] ||
   fail "a failed hardware package install does not skip later gates"
 pass "hardware package gates preserve matching, order, and failure behavior"
 
