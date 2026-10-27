@@ -120,12 +120,12 @@ for helper in arch-provision-user arch-hook-install arch-notification-wait; do
   printf '#!/bin/bash\nexit 0\n' >"$first_bin/$helper"
 done
 chmod +x "$first_bin"/*
-for script in welcome.sh wifi.sh enable-user-units.sh gnome-theme.sh audio-tuning.sh; do
+for script in welcome.sh wifi.sh enable-user-units.sh; do
   printf 'exit 0\n' >"$first_root/installer/user/first-run/$script"
 done
 mkdir -p "$first_root/src/python/installer_user/first_run" "$first_root/data/installer"
-cp "$ROOT/src/python/installer_user/first_run/gtk_primary_paste.py" \
-  "$first_root/src/python/installer_user/first_run/gtk_primary_paste.py"
+cp "$ROOT/src/python/installer_user/first_run/commands.py" \
+  "$first_root/src/python/installer_user/first_run/commands.py"
 cp "$ROOT/data/installer/first-run.yml" "$first_root/data/installer/first-run.yml"
 cat >"$first_bin/gsettings" <<'SH'
 #!/bin/bash
@@ -133,18 +133,24 @@ printf '%s\n' "$*" >>"$GSETTINGS_LOG"
 [[ ${GSETTINGS_FAIL:-0} == 0 ]]
 SH
 chmod +x "$first_bin/gsettings"
+cat >"$first_bin/arch-audio-tuning" <<'SH'
+#!/bin/bash
+printf '%s\n' "$*" >>"$AUDIO_TUNING_LOG"
+[[ ${AUDIO_TUNING_FAIL:-0} == 0 ]]
+SH
+chmod +x "$first_bin/arch-audio-tuning"
 
 first_run() {
   local platform=$1
   rm -f "$tmp/ran" "$tmp/first-run-marker" "$tmp/home/.local/state/arch/first-run.log"
-  HOME="$tmp/home" ARCH_PATH="$first_root" FIRST_RUN_MARKER="$tmp/first-run-marker" GSETTINGS_LOG="$tmp/gsettings.log" \
+  HOME="$tmp/home" ARCH_PATH="$first_root" FIRST_RUN_MARKER="$tmp/first-run-marker" GSETTINGS_LOG="$tmp/gsettings.log" AUDIO_TUNING_LOG="$tmp/audio-tuning.log" \
     ARCH_PROC_ROOT="$tmp/$platform/proc" ARCH_LIFECYCLE_ROOT="$lifecycle" \
     PATH="$first_bin:$tmp/$platform/bin:$ROOT/src/cli:$PATH" bash "$ROOT/src/cli/arch-provision-first-run" >"$tmp/output" 2>&1
 }
 
 first_run apple || fail "apple: first run finishes" "$(cat "$tmp/output")"
 [[ $(cat "$tmp/ran") == "setup-user" && -e $tmp/first-run-marker ]] ||
-  fail "apple: first run runs setup-user and completes" "$(cat "$tmp/ran" 2>/dev/null)"
+  fail "apple: first run runs setup-user and completes" "$(cat "$tmp/home/.local/state/arch/first-run.log" 2>/dev/null)"
 touch "$tmp/fail"
 first_run apple || fail "apple: first run with a failing setup-user still runs its other steps"
 [[ ! -e $tmp/first-run-marker ]] || fail "apple: a failed setup-user keeps first run pending"
@@ -157,6 +163,14 @@ GSETTINGS_FAIL=1 first_run apple || fail "apple: first run continues when settin
 [[ ! -e $tmp/first-run-marker ]] || fail "a failed GTK setup keeps first run pending"
 grep -q 'Failed: set GTK primary paste' "$tmp/home/.local/state/arch/first-run.log" ||
   fail "a failed GTK setup is recorded in first-run log" "$(cat "$tmp/home/.local/state/arch/first-run.log")"
+grep -q 'set org.gnome.desktop.interface gtk-theme Breeze-Dark' "$tmp/gsettings.log" ||
+  fail "GNOME theme reads its setting from the packaged YAML" "$(cat "$tmp/gsettings.log")"
+grep -q '^on$' "$tmp/audio-tuning.log" ||
+  fail "speaker tuning uses its packaged YAML command" "$(cat "$tmp/audio-tuning.log")"
+GSETTINGS_FAIL=0 AUDIO_TUNING_FAIL=1 first_run apple || fail "apple: first run continues when speaker tuning fails"
+[[ ! -e $tmp/first-run-marker ]] || fail "a failed speaker setup keeps first run pending"
+grep -q 'Failed: apply speaker tuning' "$tmp/home/.local/state/arch/first-run.log" ||
+  fail "a failed speaker setup is recorded in first-run log" "$(cat "$tmp/home/.local/state/arch/first-run.log")"
 grep -q '^set org.gnome.desktop.interface gtk-enable-primary-paste true$' "$tmp/gsettings.log" ||
   fail "GTK primary paste uses the packaged YAML setting" "$(cat "$tmp/gsettings.log")"
-pass "first run runs the platform's user setup and GTK setup, and either failure keeps first run pending"
+pass "first run runs the platform's user setup and configured desktop settings, and a failure keeps first run pending"
