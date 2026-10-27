@@ -81,3 +81,7 @@ platform_setup:
       image_deferred: "Image build: the platform's user setup waits for first run on the machine"
     it:
       image_deferred: "Creazione immagine: la configurazione utente della piattaforma attende il primo avvio sulla macchina"
+mise_setup:
+  commands:
+    - [mise, reshim, --system]
+    - [mise, reshim]
