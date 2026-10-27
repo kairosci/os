@@ -60,17 +60,30 @@ run_logged() {
       ;;
   esac
 
-  local runner=(bash -eE)
-  if [[ ${ARCH_INSTALL_DEBUG:-} == "1" ]]; then
-    runner=(bash -x -eE)
+  local -a runner
+  if [[ $script == *.py ]]; then
+    runner=(python3 -I "$script")
+  else
+    runner=(bash -eE)
+    if [[ ${ARCH_INSTALL_DEBUG:-} == "1" ]]; then
+      runner=(bash -x -eE)
+    fi
   fi
 
   if arch_log_to_stdout; then
-    PS4='+ ${BASH_SOURCE[0]##*/}:${LINENO}:${FUNCNAME[0]:-main}: ' \
-      "${runner[@]}" -c 'source "$1"' bash "$script" </dev/null 2>&1
+    if [[ $script == *.py ]]; then
+      "${runner[@]}" </dev/null 2>&1
+    else
+      PS4='+ ${BASH_SOURCE[0]##*/}:${LINENO}:${FUNCNAME[0]:-main}: ' \
+        "${runner[@]}" -c 'source "$1"' bash "$script" </dev/null 2>&1
+    fi
   else
-    PS4='+ ${BASH_SOURCE[0]##*/}:${LINENO}:${FUNCNAME[0]:-main}: ' \
-      "${runner[@]}" -c 'source "$1"' bash "$script" </dev/null >>"$ARCH_INSTALL_LOG_FILE" 2>&1
+    if [[ $script == *.py ]]; then
+      "${runner[@]}" </dev/null >>"$ARCH_INSTALL_LOG_FILE" 2>&1
+    else
+      PS4='+ ${BASH_SOURCE[0]##*/}:${LINENO}:${FUNCNAME[0]:-main}: ' \
+        "${runner[@]}" -c 'source "$1"' bash "$script" </dev/null >>"$ARCH_INSTALL_LOG_FILE" 2>&1
+    fi
   fi
 
   exit_code=$?

@@ -96,7 +96,7 @@ else
   arch-apply-hardware --install-user "$install_user"
 fi
 
-source "$ARCH_INSTALL/login/all.sh"
+run_logged "$ARCH_PATH/src/python/installer/login/sddm.py"
 source "$ARCH_INSTALL/post-install/all.sh"
 
 stop_install_log
