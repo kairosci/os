@@ -1,6 +1,7 @@
 {
   "en": {
-    "cli:migration.installCloudflareCli": "6504ffd248ff"
+    "cli:migration.installCloudflareCli": "6504ffd248ff",
+    "cli:migration.preserveVoxtypeDefault": "42a285cffa0f"
   },
   "it": {
     "cli:animations.disabled": "a55e1e82b8f7",
@@ -153,6 +154,7 @@
     "cli:migration.moveKeyboardLayoutWidget": "8307bac3690a",
     "cli:migration.notifyPendingMigrationsAtLogin": "20c723fb1fc2",
     "cli:migration.pinBrowserPasswordStore": "91502a163c1a",
+    "cli:migration.preserveVoxtypeDefault": "42a285cffa0f",
     "cli:migration.rebuildMiseShims": "7d101026c764",
     "cli:migration.refreshApplications": "ee1063fc0611",
     "cli:migration.regenerateLegacyMiseWrappers": "c56bed8a6c49",

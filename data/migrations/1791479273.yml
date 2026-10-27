@@ -1,0 +1,15 @@
+commands:
+  i18n: [arch-i18n]
+  package_present: [arch-pkg-present]
+packages:
+  voxtype: voxtype-bin
+paths:
+  xdg_config_environment: XDG_CONFIG_HOME
+  default_config_directory: .config
+  backend_config: arch/defaults/dictation
+values:
+  backend: voxtype
+messages:
+  reason: migration.preserveVoxtypeDefault
+statuses:
+  success: 0
