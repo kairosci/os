@@ -92,7 +92,7 @@ arch-notification-wait || log_first_run "Timed out waiting for notification serv
 run_first_run_step "show welcome notification" \
   python3 -I "$ARCH_PATH/src/python/installer_user/first_run/commands.py" welcome
 run_first_run_step "schedule Wi-Fi/update notifications" \
-  bash "$ARCH_PATH/installer/user/first-run/wifi.sh"
+  python3 -I "$ARCH_PATH/src/python/installer_user/first_run/commands.py" wifi
 
 if (( first_run_failed == 0 )); then
   arch-done mark "$FIRST_RUN_DONE"
