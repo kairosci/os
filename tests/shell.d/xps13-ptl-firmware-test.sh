@@ -5,7 +5,7 @@ set -euo pipefail
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 leaf="$ROOT/src/python/installer/hardware/dell_xps13_ptl_speaker_firmware.py"
-migration="$ROOT/migrations/1791265613.sh"
+migration="$ROOT/migrations/1791265613.py"
 
 grep -q 'src/python/installer/hardware/dell_xps13_ptl_speaker_firmware.py' "$ROOT/data/installer/hardware-setup.yml" ||
   fail "hardware setup installs the Panther Lake XPS 13 firmware"
@@ -71,7 +71,7 @@ run_leaf() {
 }
 
 run_migration() {
-  bash -euo pipefail "$migration" >/dev/null
+  python3 -I "$migration" >/dev/null
 }
 
 for model in "XPS 9350" "XPS 13 DX13261"; do
