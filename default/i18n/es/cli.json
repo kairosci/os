@@ -288,7 +288,6 @@
   "tui.namePrompt": "Nombre> ",
   "tui.removed": "TUI eliminada",
   "tui.selectRemove": "Selecciona la TUI a eliminar",
-  "tui.windowStyle": "Estilo de ventana",
   "update.cannotStop": "¡No puedes detener la actualización una vez que inicie!",
   "update.connectPower": "Asegúrate de estar conectado a la corriente o tener la batería llena",
   "update.continue": "¿Continuar con la actualización?",
