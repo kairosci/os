@@ -46,3 +46,29 @@ service_commands:
     - [systemctl, enable, power-profiles-daemon.service]
     - [systemctl, enable, sddm.service]
     - [systemctl, enable, systemd-oomd.service]
+
+locale_setup:
+  locale_conf_environment: ARCH_LOCALE_CONF
+  locale_conf_default: /etc/locale.conf
+  locale_gen_environment: ARCH_LOCALE_GEN
+  locale_gen_default: /etc/locale.gen
+  language_file_environment: ARCH_LANGUAGE_MARKER
+  language_file_default: /etc/arch/language
+  default_language: en
+  target_locale: en_US.UTF-8
+  target_locale_pattern: '^en_US\.UTF-?8'
+  target_locale_gen_line: 'en_US.UTF-8 UTF-8'
+  commented_locale_pattern: '^#en_US\.UTF-8'
+  locale_command: [locale, -a]
+  locale_gen_command: [locale-gen]
+  stock_values: [C, POSIX]
+  mode: '0644'
+  messages:
+    en:
+      leaving: 'Leaving the locale as {locale}'
+      setting: 'Setting up locale ({locale})...'
+      set: 'Locale set to {locale}'
+    it:
+      leaving: 'La locale resta {locale}'
+      setting: 'Configurazione della locale ({locale})...'
+      set: 'Locale impostata su {locale}'

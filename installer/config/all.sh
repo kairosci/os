@@ -6,7 +6,7 @@ run_logged "$ARCH_PATH/src/python/installer/system_setup/powerprofilesctl_sheban
 run_logged "$ARCH_PATH/src/python/installer/system_setup/ssh_command_path.py"
 run_logged "$ARCH_PATH/src/python/installer/system_setup/ssh_keepalive.py"
 run_logged "$ARCH_INSTALL/config/docker.sh"
-run_logged "$ARCH_INSTALL/config/locale.sh"
+run_logged "$ARCH_PATH/src/python/installer/system_setup/locale_setup.py"
 run_logged "$ARCH_INSTALL/config/language.sh"
 run_logged "$ARCH_INSTALL/config/systemd-boot-snapshots.sh"
 run_logged "$ARCH_INSTALL/config/snapper.sh"
