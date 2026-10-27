@@ -41,12 +41,20 @@ pass "the base install keeps CUPS and Polkit administration, without automatic d
 # CUPS still ships /etc/cups/cups-files.conf, so its authorization override is
 # applied after the ISO installs that package. cups-browsed is absent, so the
 # installer must not write any of its package-owned configuration.
-post_install_pacman="$ROOT/installer/post-install/pacman.sh"
+post_install_data="$ROOT/data/installer/post-install.yml"
+if ! python3 - "$post_install_data" <<'PYTHON'
+import sys
+from pathlib import Path
+import yaml
 
-! grep -q 'cups-cups-browsed.conf' "$post_install_pacman" ||
-  fail "a fresh install does not write configuration for absent printer discovery"
-grep -q 'cups-cups-files.conf && -f /etc/cups/cups-files.conf' "$post_install_pacman" ||
-  fail "the CUPS authorization override waits for the file it replaces"
+config = yaml.safe_load(Path(sys.argv[1]).read_text(encoding="utf-8"))["pacman"]
+assert "cups-browsed" not in config
+assert config["cups"]["source"] == "etc-overrides/cups-cups-files.conf"
+assert config["cups"]["target"] == "/etc/cups/cups-files.conf"
+PYTHON
+then
+  fail "the Python finalizer applies only the packaged CUPS authorization override"
+fi
 
 pass "the fresh install applies CUPS hardening without writing discovery configuration"
 

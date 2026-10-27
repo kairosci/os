@@ -1,12 +1,8 @@
 id = "system.installation.post-install"
 domain = "system"
 package = "arch"
-sources = ["installer/post-install", "src/python/installer/post_install"]
+sources = ["src/python/installer/post_install"]
 requires = ["system.installation"]
-
-[[output]]
-source = "installer/post-install"
-target = "usr/share/arch/installer/post-install"
 
 [[output]]
 source = "src/python/installer/post_install"

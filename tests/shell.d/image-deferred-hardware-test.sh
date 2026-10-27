@@ -132,7 +132,20 @@ reset_logs
 root=$(new_root real)
 write_manifest "$root"
 output=$(build "$root" "$ROOT" "$ROOT/installer") || fail "an image build defers the real hardware setup" "$output"
-expected=$(sed -n 's|^run_logged "\$ARCH_INSTALL/\(hardware/[^"]*\)"$|installer/\1|p' "$ROOT/installer/hardware/all.sh")
+expected=$(python3 - "$ROOT/installer/hardware/all.sh" <<'PY'
+import re
+import sys
+from pathlib import Path
+
+for line in Path(sys.argv[1]).read_text(encoding="utf-8").splitlines():
+  shell_step = re.fullmatch(r'run_logged "\$ARCH_INSTALL/(hardware/.+\.sh)"', line)
+  python_step = re.fullmatch(r'run_logged "\$ARCH_PATH/src/python/(installer/hardware/.+\.py)"', line)
+  if shell_step:
+    print("installer/" + shell_step.group(1))
+  elif python_step:
+    print("src/python/" + python_step.group(1))
+PY
+)
 [[ -n $expected && $(queue_of "$root") == "$expected" ]] ||
   fail "an image build queues every hardware leaf in order" "expected:
 $expected
@@ -370,18 +383,16 @@ pass "a step that only changed module options gets the rebuild"
 # An image build asks for it instead, so every machine flashed from the image
 # makes its own master key on its first boot, before any step installs a package.
 keyring_bin="$test_tmp/keyring-bin"
-mkdir -p "$keyring_bin" "$fixture/installer/post-install"
+mkdir -p "$keyring_bin" "$fixture/src/python/installer/post_install" "$fixture/src/python/installer/hardware" \
+  "$fixture/data/installer/hardware" "$fixture/data/installer"
 # Finalization's repositories are pacman-templates-test.sh's; here they land in
 # the root under test, never the host's /etc.
-cp "$ROOT/installer/post-install/pacman.sh" "$fixture/installer/post-install/pacman.sh"
 cp "$ROOT/installer/helpers/pacman.sh" "$fixture/installer/helpers/pacman.sh"
-mkdir -p "$fixture/src/python/installer/hardware" "$fixture/data/installer/hardware"
+cp "$ROOT/src/python/installer/post_install/pacman.py" "$fixture/src/python/installer/post_install/"
+cp "$ROOT/data/installer/post-install.yml" "$fixture/data/installer/"
 cp "$ROOT/src/python/installer/hardware/pacman_repositories.py" "$fixture/src/python/installer/hardware/"
 cp "$ROOT/data/installer/hardware/pacman-repositories.yml" "$fixture/data/installer/hardware/"
-target_etc='etc="${2:-/}/etc"'
-grep -Fqx "  $target_etc" "$ROOT/src/cli/arch-apply-pacman" || fail "arch-apply-pacman still names its target etc"
-sed "s|^  $target_etc\$|  etc=\"\${2:-\$ARCH_IMAGE_ROOT}/etc\"|" "$ROOT/src/cli/arch-apply-pacman" >"$fixture/src/cli/arch-apply-pacman"
-chmod +x "$fixture/src/cli/arch-apply-pacman"
+cp "$ROOT/src/cli/arch-apply-pacman" "$fixture/src/cli/arch-apply-pacman"
 mkdir -p "$fixture/default"
 cp -r "$ROOT/default/pacman" "$ROOT/default/regions" "$fixture/default/"
 for command in pacman-key arch-pkg-add; do
@@ -397,10 +408,58 @@ chmod +x "$keyring_bin"/*
 export KEYRING="$test_tmp/keyring" KEYRING_FAIL="$test_tmp/keyring-fail"
 request=var/lib/arch/image/pacman-keyring
 
+security_test_status=0
+ARCH_PATH="$ROOT" PACMAN_TEST_ROOT="$test_tmp" python3 -I - "$ROOT/src/python/installer/post_install/pacman.py" <<'PY' || security_test_status=$?
+import os
+import runpy
+import sys
+from pathlib import Path
+from unittest.mock import patch
+
+module = runpy.run_path(sys.argv[1])
+config = module["settings"]()[1]
+root = Path(os.environ["PACMAN_TEST_ROOT"]) / "keyring-symlink"
+image = root / config["image"]["directory"]
+image.mkdir(parents=True)
+target = root / "attacker-controlled"
+target.write_text("preserve this", encoding="utf-8")
+request = image / config["image"]["keyring_request"]
+request.symlink_to(target)
+with patch.object(module["os"], "geteuid", return_value=os.getuid()):
+  try:
+    module["request_image_keyring"](root, config)
+  except ValueError:
+    pass
+  else:
+    raise SystemExit("a symlinked keyring request was accepted")
+assert target.read_text(encoding="utf-8") == "preserve this"
+with patch.object(module["os"], "geteuid", return_value=os.getuid()):
+  with patch.dict(module["os"].environ, {"ARCH_IMAGE_ROOT": "", "LANG": "en_US.UTF-8"}):
+    try:
+      module["image_root"](config)
+    except PermissionError as error:
+      assert str(error) == config["messages"]["en"]["image_root_required"]
+    else:
+      raise SystemExit("a non-root image setup without a test root was accepted")
+  with patch.dict(module["os"].environ, {"ARCH_IMAGE_ROOT": "", "LANG": "it_IT.UTF-8"}):
+    try:
+      module["image_root"](config)
+    except PermissionError as error:
+      assert str(error) == config["messages"]["it"]["image_root_required"]
+    else:
+      raise SystemExit("a non-root image setup without a test root was accepted")
+with patch.object(module["os"], "geteuid", return_value=0):
+  with patch.dict(module["os"].environ, {"ARCH_IMAGE_ROOT": str(root)}):
+    assert module["image_root"](config) == Path("/")
+PY
+(( security_test_status == 0 )) ||
+  fail "pacman finalization does not follow a planted keyring-request symlink and ignores fixture paths as root"
+pass "pacman finalization ignores root fixture overrides and refuses a symlinked keyring request"
+
 finalize() {
   mkdir -p "$1/etc/pacman.d"
-  ARCH_IMAGE_ROOT="$1" ARCH_PATH="$fixture" ARCH_INSTALL="$fixture/installer" ARCH_PACMAN_CONFIG_PATH="$1/etc/pacman.conf" PLATFORM=$2 \
-    PATH="$keyring_bin:$base_path" bash -e -c 'source "$1"' bash "$fixture/installer/post-install/pacman.sh"
+  ARCH_IMAGE_ROOT="$1" ARCH_PATH="$fixture" PLATFORM=$2 \
+    PATH="$keyring_bin:$base_path" python3 -I "$fixture/src/python/installer/post_install/pacman.py"
 }
 
 keyring_boot() {
@@ -531,7 +590,8 @@ first_boot "$root" >/dev/null || fail "the next boot finishes the deferred hardw
   fail "the requested rebuild runs once after the last step and is then cleared" "$(cat "$REBUILDS" 2>/dev/null)"
 pass "a step can ask for the one rebuild after the last step"
 
-for entry in /etc/passwd installer/hardware/../../src/cli/x.sh installer/login/sddm.sh; do
+for entry in /etc/passwd installer/hardware/../../src/cli/x.sh installer/login/sddm.sh \
+  src/python/installer/hardware/../../cli/x.py src/python/installer/../../cli/x.py; do
   reset_logs
   root=$(new_root unsafe)
   write_manifest "$root"

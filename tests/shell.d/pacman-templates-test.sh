@@ -109,16 +109,14 @@ chmod +x "$finalize_bin"/*
 # Finalization restores the templates through arch-apply-pacman, whose copy
 # here writes into the test's etc rather than the host's.
 finalize_root=$work/finalize-root
-mkdir -p "$finalize_root/src/cli" "$finalize_root/src/python/installer/hardware" "$finalize_root/data/installer/hardware" "$finalize_root/installer/post-install" "$finalize_root/default"
+mkdir -p "$finalize_root/installer" "$finalize_root/src/cli" "$finalize_root/src/python/installer/hardware" "$finalize_root/src/python/installer/post_install" "$finalize_root/data/installer/hardware" "$finalize_root/data/installer" "$finalize_root/default"
 cp -r "$ROOT/installer/helpers" "$finalize_root/installer/"
 cp "$ROOT/src/python/installer/hardware/pacman_repositories.py" "$finalize_root/src/python/installer/hardware/"
 cp "$ROOT/data/installer/hardware/pacman-repositories.yml" "$finalize_root/data/installer/hardware/"
+cp "$ROOT/src/python/installer/post_install/pacman.py" "$finalize_root/src/python/installer/post_install/"
+cp "$ROOT/data/installer/post-install.yml" "$finalize_root/data/installer/"
 cp -r "$ROOT/default/pacman" "$ROOT/default/regions" "$finalize_root/default/"
-cp "$ROOT/installer/post-install/pacman.sh" "$work/finalize.sh"
-target_etc='etc="${2:-/}/etc"'
-grep -Fqx "  $target_etc" "$ROOT/src/cli/arch-apply-pacman" || fail "arch-apply-pacman still names its target etc"
-sed "s|^  $target_etc\$|  etc=\"\${2:-$work}/etc\"|" "$ROOT/src/cli/arch-apply-pacman" >"$finalize_root/src/cli/arch-apply-pacman"
-chmod +x "$finalize_root/src/cli/arch-apply-pacman"
+cp "$ROOT/src/cli/arch-apply-pacman" "$finalize_root/src/cli/arch-apply-pacman"
 mkdir -p "$work/installer/hardware"
 
 # Finalization asks the image helper whether this is an image build, which root
@@ -136,8 +134,8 @@ for platform in $platforms; do
     rm -rf "$work/etc"
     mkdir -p "$work/etc/pacman.d"
     printf 'offline\n' | tee "$work/etc/pacman.conf" >"$work/etc/pacman.d/mirrorlist"
-    ARCH_PATH=$finalize_root ARCH_IMAGE_ROOT=$work ARCH_MIRROR=$channel PLATFORM=$platform ARCH_INSTALL="$work/installer" ARCH_PACMAN_CONFIG_PATH="$work/etc/pacman.conf" PATH="$finalize_bin:$PATH" \
-      bash -e -c 'source "$1"' bash "$work/finalize.sh" >/dev/null || fail "$platform finalization on '$channel'"
+    ARCH_PATH=$finalize_root ARCH_IMAGE_ROOT=$work ARCH_MIRROR=$channel PLATFORM=$platform PATH="$finalize_bin:$PATH" \
+      python3 -I "$finalize_root/src/python/installer/post_install/pacman.py" >/dev/null || fail "$platform finalization on '$channel'"
     cmp -s "$work/etc/pacman.conf" "$templates/pacman-$expected.conf" || fail "$platform '$channel': finalization copies the $expected template"
     cmp -s "$work/etc/pacman.d/mirrorlist" "$templates/mirrorlist-$expected" || fail "$platform '$channel': finalization copies the $expected mirrorlist"
   done
