@@ -14,6 +14,25 @@ printf '%s\n' "$*" >>"$ARCH_TEST_THEME_CALLS"
 SH
 chmod +x "$mock_bin/arch-theme-set"
 
+cat >"$mock_bin/arch-theme-bg-set" <<'SH'
+#!/bin/bash
+printf '%s\n' "$1" >>"$ARCH_TEST_BACKGROUND_CALLS"
+SH
+chmod +x "$mock_bin/arch-theme-bg-set"
+
+cat >"$mock_bin/arch-i18n" <<'SH'
+#!/bin/bash
+[[ $1 == "theme.noBackground" ]] || exit 1
+printf 'No background\n'
+SH
+chmod +x "$mock_bin/arch-i18n"
+
+cat >"$mock_bin/arch-notification-send" <<'SH'
+#!/bin/bash
+printf '%s\n' "$*" >>"$ARCH_TEST_BACKGROUND_NOTIFICATIONS"
+SH
+chmod +x "$mock_bin/arch-notification-send"
+
 for command in arch-theme-set-fcitx5; do
   cat >"$mock_bin/$command" <<'SH'
 #!/bin/bash
@@ -93,3 +112,46 @@ background=$(HOME="$test_tmp/home" ARCH_PATH="$test_tmp/theme-arch" LC_ALL= LC_M
   "$ROOT/src/cli/arch-theme-bg-current")
 [[ $background == "Sconosciuto" ]] || fail "missing current background is localized" "$background"
 pass "missing current background uses the selected locale"
+
+user_backgrounds="$test_tmp/home/.config/arch/backgrounds/tokyo-night"
+theme_backgrounds="$test_tmp/home/.local/state/arch/current/theme/backgrounds"
+mkdir -p "$user_backgrounds" "$theme_backgrounds"
+printf 'first\n' >"$user_backgrounds/000-first.jpg"
+printf 'second\n' >"$user_backgrounds/002-second.MP4"
+printf 'theme\n' >"$theme_backgrounds/001-theme.webp"
+ln -s "$user_backgrounds/000-first.jpg" "$test_tmp/home/.local/state/arch/current/background"
+background_calls="$test_tmp/background-calls"
+background_notifications="$test_tmp/background-notifications"
+HOME="$test_tmp/home" ARCH_PATH="$test_tmp/theme-arch" PATH="$mock_bin:$PATH" \
+  ARCH_TEST_BACKGROUND_CALLS="$background_calls" \
+  ARCH_TEST_BACKGROUND_NOTIFICATIONS="$background_notifications" \
+  "$ROOT/src/cli/arch-theme-bg-next"
+grep -Fx "$user_backgrounds/002-second.MP4" "$background_calls" >/dev/null ||
+  fail "background cycling advances in sorted order across supported media" "$(cat "$background_calls")"
+pass "background cycling advances to the next sorted supported media"
+
+mkdir -p "$test_tmp/home/.config/outside"
+printf 'untrusted\n' >"$test_tmp/home/.config/outside/000-untrusted.jpg"
+printf 'safe\n' >"$theme_backgrounds/010-safe.jpg"
+printf '../../outside\n' >"$test_tmp/home/.local/state/arch/current/theme.name"
+rm "$test_tmp/home/.local/state/arch/current/background"
+: >"$background_calls"
+HOME="$test_tmp/home" ARCH_PATH="$test_tmp/theme-arch" PATH="$mock_bin:$PATH" \
+  ARCH_TEST_BACKGROUND_CALLS="$background_calls" \
+  ARCH_TEST_BACKGROUND_NOTIFICATIONS="$background_notifications" \
+  "$ROOT/src/cli/arch-theme-bg-next"
+grep -Fx "$theme_backgrounds/001-theme.webp" "$background_calls" >/dev/null ||
+  fail "invalid theme ids cannot redirect background discovery outside the theme directory" "$(cat "$background_calls")"
+pass "invalid theme ids cannot redirect background discovery"
+
+rm -f "$user_backgrounds/000-first.jpg" "$user_backgrounds/002-second.MP4" "$theme_backgrounds/001-theme.webp"
+rm -f "$theme_backgrounds/010-safe.jpg"
+: >"$background_notifications"
+HOME="$test_tmp/home" ARCH_PATH="$test_tmp/theme-arch" PATH="$mock_bin:$PATH" \
+  ARCH_TEST_BACKGROUND_CALLS="$background_calls" \
+  ARCH_TEST_BACKGROUND_NOTIFICATIONS="$background_notifications" \
+  "$ROOT/src/cli/arch-theme-bg-next"
+grep -Fx 'No background -t 2000' "$background_notifications" >/dev/null ||
+  fail "empty background list sends the translated notification" "$(cat "$background_notifications")"
+[[ $(wc -l <"$background_calls") == 1 ]] || fail "empty background list does not change the selected background"
+pass "empty background list sends the translated notification"

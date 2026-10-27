@@ -3,6 +3,7 @@ from __future__ import annotations
 import os
 from pathlib import Path
 import re
+import subprocess
 import sys
 from typing import Any
 
@@ -31,7 +32,7 @@ def _paths(settings: dict[str, Any]) -> dict[str, Path]:
   return {
     name: _path(value, **values)
     for name, value in settings["paths"].items()
-    if name not in ("state_home_environment", "state_home_default")
+    if name not in ("state_home_environment", "state_home_default", "user_backgrounds")
   }
 
 
@@ -125,3 +126,65 @@ def background_current_main() -> int:
   name = re.sub(display["word_initial_pattern"], lambda match: match.group(1).upper(), name)
   print(name)
   return 0
+
+
+def background_next_main() -> int:
+  settings = _settings()
+  paths = _paths(settings)
+  theme_name_file = paths["background_root"]
+  try:
+    theme_name = theme_name_file.read_text(encoding="utf-8").strip()
+  except OSError:
+    theme_name = ""
+  values = {
+    "home": str(Path.home()),
+    "state_home": str(paths["current_background"].parents[2]),
+    "theme": theme_name,
+  }
+  directories = []
+  if re.fullmatch(settings["theme_id_pattern"], theme_name):
+    directories.append(Path(settings["paths"]["user_backgrounds"].format(**values)))
+  directories.append(Path(settings["paths"]["theme_backgrounds"].format(**values)))
+  extensions = {extension.casefold() for extension in settings["background_cycle"]["extensions"]}
+  backgrounds: list[Path] = []
+  for directory in directories:
+    try:
+      backgrounds.extend(
+        entry for entry in directory.iterdir()
+        if entry.is_file() and entry.suffix.casefold() in extensions
+      )
+    except OSError:
+      continue
+  backgrounds.sort(key=str)
+
+  commands = settings["background_cycle"]["commands"]
+  if not backgrounds:
+    translated = subprocess.run(
+      [*commands["translate"], settings["background_cycle"]["no_background_message"]],
+      check=False,
+      capture_output=True,
+      text=True,
+    )
+    notification = subprocess.run(
+      [
+        *commands["notify"],
+        translated.stdout.strip(),
+        settings["background_cycle"]["notification_timeout_option"],
+        str(settings["background_cycle"]["notification_timeout"]),
+      ],
+      check=False,
+    )
+    return notification.returncode
+
+  try:
+    current = os.readlink(paths["current_background"])
+  except OSError:
+    current = ""
+  background_names = [str(background) for background in backgrounds]
+  try:
+    current_index = background_names.index(current)
+  except ValueError:
+    current_index = -1
+  next_index = (current_index + 1) % len(backgrounds) if current_index >= 0 else 0
+  result = subprocess.run([*commands["set_background"], background_names[next_index]], check=False)
+  return result.returncode
