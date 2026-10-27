@@ -1,6 +1,6 @@
 run_logged "$ARCH_PATH/src/python/installer/system_setup/chromium_preferences.py"
 run_logged "$ARCH_INSTALL/config/browser-policy.sh"
-run_logged "$ARCH_INSTALL/config/increase-lockout-limit.sh"
+run_logged "$ARCH_PATH/src/python/installer/system_setup/lockout_limit.py"
 run_logged "$ARCH_PATH/src/python/installer/system_setup/lockscreen.py"
 run_logged "$ARCH_PATH/src/python/installer/system_setup/powerprofilesctl_shebang.py"
 run_logged "$ARCH_PATH/src/python/installer/system_setup/ssh_command_path.py"
