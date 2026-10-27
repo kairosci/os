@@ -6,3 +6,8 @@ chromium_preferences:
   mode: 420
   content: |-
     {"distribution":{"require_eula":false},"browser":{"theme":{"color_scheme":0,"color_scheme2":0}}}
+
+powerprofilesctl_shebang:
+  file: /usr/bin/powerprofilesctl
+  match_pattern: '^[^\n]*env python3[^\n]*$'
+  replacement: '#!/bin/python3'
