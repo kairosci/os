@@ -112,6 +112,7 @@ power-profiles-daemon
 python-gobject
 python-yaml
 python-poetry-core
+python-yaml
 qt6-base
 qt6-declarative
 qt6-multimedia

@@ -54,10 +54,15 @@ command_sources = {
     source for module_id, module in modules.items()
     if module_id.startswith("desktop.commands")
     for source in module["sources"]
-    if source.startswith("src/cli/")
+    if source.startswith(("src/cli/", "src/python/cli/"))
 }
 cli_files = {
     f"src/cli/{path.name}" for path in cli_directory.iterdir() if path.is_file()
+}
+python_cli_files = {
+    f"src/python/{path.relative_to(cli_directory.parent / 'python').as_posix()}"
+    for path in (cli_directory.parent / "python/cli").rglob("*.py")
+    if path.name != "__init__.py"
 }
 cli_files -= {
     "src/cli/arch-debug",
@@ -104,7 +109,8 @@ assert stages <= modules.keys(), stages - modules.keys()
 assert settings <= modules.keys(), settings - modules.keys()
 assert runtime_data <= modules.keys(), runtime_data - modules.keys()
 assert set(command_modules) == expected_groups, (set(command_modules) ^ expected_groups)
-assert command_sources == cli_files, (cli_files - command_sources, command_sources - cli_files)
+expected_command_sources = cli_files | python_cli_files
+assert command_sources == expected_command_sources, (expected_command_sources - command_sources, command_sources - expected_command_sources)
 assert declared_default_sources == expected_default_sources, (
     expected_default_sources - declared_default_sources,
     declared_default_sources - expected_default_sources,
@@ -159,7 +165,7 @@ for module_id in runtime_data:
 for module_id in command_modules:
     module = command_modules[module_id]
     assert module["package"] == "arch", module_id
-    assert module["requires"] == ["desktop.commands"], (module_id, module["requires"])
+    assert module["requires"] in (["desktop.commands"], ["desktop.commands", "system.runtime-data"]), (module_id, module["requires"])
     assert len(module["sources"]) == len(module["outputs"]), module_id
     for source, output in zip(module["sources"], module["outputs"]):
         assert output == [source, f"usr/share/arch/{source}"], (module_id, source, output)
