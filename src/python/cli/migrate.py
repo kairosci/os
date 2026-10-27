@@ -63,17 +63,23 @@ def migration_files(config: dict[str, Any], directory: Path) -> list[Path]:
 
 
 def marker_for(config: dict[str, Any], name: str, state_dir: Path, home: Path) -> Path:
-  marker = state_dir / name
-  if marker.is_file():
-    return marker
+  migration = Path(name)
+  suffixes = config["migrations"]["suffixes"]
+  marker_names = [
+    name,
+    *(migration.with_suffix(suffix).name for suffix in suffixes if suffix != migration.suffix),
+  ]
+  directories = [state_dir]
   for entry in config["state"]["legacy_directories"]:
-    legacy_directory = Path(
+    directories.append(Path(
       os.environ.get(entry["environment"]) or str(home / entry["directory"])
-    )
-    legacy = legacy_directory / name
-    if legacy.is_file():
-      return legacy
-  return marker
+    ))
+  for directory in directories:
+    for marker_name in marker_names:
+      marker = directory / marker_name
+      if marker.is_file():
+        return marker
+  return state_dir / name
 
 
 def pending_migrations(

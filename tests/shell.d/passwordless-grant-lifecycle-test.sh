@@ -46,14 +46,14 @@ pass "legacy cleanup removes generated rules for any account and quarantines eve
 # the mapped helper and can be refused without requesting host authorization.
 # The migration reaches the helper through $ARCH_PATH, as the package's bin
 # links and a dev checkout provide it, so the mapped copy stands in there.
-mkdir -p "$test_tmp/source/migrations" "$test_tmp/source/bin"
+mkdir -p "$test_tmp/source/migrations" "$test_tmp/source/bin" "$test_tmp/home"
 migration_test_runtime "$test_tmp/source"
 cp "$ROOT/migrations/1788163635.sh" "$test_tmp/source/migrations/"
-ln -s "$test_tmp/arch-sudo-passwordless" "$test_tmp/source/bin/arch-sudo-passwordless"
+ln -s "$test_tmp/arch-sudo-passwordless" "$test_tmp/source/src/cli/arch-sudo-passwordless"
 printf 'echo "later migration ran"\n' >"$test_tmp/source/migrations/1788163636.sh"
 run_migrations() {
-  TEST_MIGRATION=1 ARCH_PATH="$test_tmp/source" ARCH_MIGRATION_STATE="$test_tmp/$1" \
-    PATH="$test_tmp/bin:$PATH" /usr/bin/bash "$ROOT/src/cli/arch-migrate" >"$test_tmp/migrations.log" 2>&1
+  HOME="$test_tmp/home" TEST_MIGRATION=1 ARCH_PATH="$test_tmp/source" ARCH_MIGRATION_STATE="$test_tmp/$1" \
+    PATH="$test_tmp/bin:$PATH" "$ROOT/src/cli/arch-migrate" >"$test_tmp/migrations.log" 2>&1
 }
 marker="$test_tmp/var/lib/arch/migrations/1788163635"
 (
