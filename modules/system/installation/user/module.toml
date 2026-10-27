@@ -1,9 +1,13 @@
 id = "system.installation.user"
 domain = "system"
 package = "arch"
-sources = ["installer/user"]
+sources = ["installer/user", "src/python/installer_user"]
 requires = ["system.installation"]
 
 [[output]]
 source = "installer/user"
 target = "usr/share/arch/installer/user"
+
+[[output]]
+source = "src/python/installer_user"
+target = "usr/share/arch/src/python/installer_user"

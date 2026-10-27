@@ -82,7 +82,7 @@ run_first_run_step "run the platform's user setup" \
 run_first_run_step "set GNOME theme" \
   bash "$ARCH_PATH/installer/user/first-run/gnome-theme.sh"
 run_first_run_step "set GTK primary paste" \
-  bash "$ARCH_PATH/installer/user/first-run/gtk-primary-paste.sh"
+  python3 -I "$ARCH_PATH/src/python/installer_user/first_run/gtk_primary_paste.py"
 run_first_run_step "apply speaker tuning" \
   bash "$ARCH_PATH/installer/user/first-run/audio-tuning.sh"
 
