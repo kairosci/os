@@ -46,7 +46,7 @@ grep -q 'preset_file: /etc/arch/language' "$ROOT/data/installer/user-setup.yml" 
   fail "the user step reads the preset path from data"
 grep -q 'marker_default: /etc/arch/language' "$ROOT/data/installer/system-setup.yml" ||
   fail "the system step reads the Arch language marker"
-grep -qx 'run_logged "$ARCH_PATH/src/python/installer/system_setup/language_setup.py"' "$ROOT/installer/config/all.sh" || fail "system finalization runs the language step"
+grep -Fq 'src/python/installer/system_setup/language_setup.py' "$ROOT/data/installer/system-setup.yml" || fail "system finalization declares the language step"
 grep -Fq '  - setup/language.py' "$ROOT/data/installer/user-setup.yml" || fail "user finalization declares the language step"
 pass "both finalization steps run, and read the preset as data"
 

@@ -344,9 +344,8 @@ the legacy finalization marker from `~/.local/state/arch/` into `done/`.
 `arch-apply-system` (root, in chroot) runs target-side setup at ISO
 finalization. It dispatches:
 
-- `installer/config/all.sh` — theme links, lockout limits, lockscreen PAM,
-  powerprofilesctl shebang fix, SSH command path and keepalive, docker setup,
-  Snapper retention, locate index tuning, service enablement, firewall.
+- `src/python/installer/system_setup/all.py` — runs the root-side configuration
+  steps declared in `data/installer/system-setup.yml`.
 - `installer/hardware/all.sh` via `arch-apply-hardware` — vendor- and
   device-specific kernel modules, udev rules, microcode, wireless regdom,
   ASUS / Framework / Intel / Apple / Lenovo quirks.
@@ -406,7 +405,7 @@ return to the packaged default.
 | Package-owned system file (e.g. systemd user service in `/usr/lib`) | `default/`, then add the `install -Dm644` line in `arch-settings` PKGBUILD |
 | Per-user file that's static but lives outside `~/.config` | `default/`, then add `install -Dm644 ... $pkgdir/etc/skel/...` in `arch-settings` PKGBUILD |
 | Runtime tweak that needs `$HOME` or live system state | add a per-user Python leaf under `src/python/installer_user/setup/` and declare its order in `data/installer/user-setup.yml` |
-| One-time root-side setup step | `installer/config/*.sh` or `installer/hardware/*.sh`, wire into `installer/config/all.sh` or `installer/hardware/all.sh` |
+| One-time root-side setup step | add a Python leaf under `src/python/installer/system_setup/` and declare it in `data/installer/system-setup.yml` |
 | One-time fix for existing installs | `migrations/<unix-timestamp>.sh` |
 | Package-owned path something else may already write | Prefer a path nothing else writes, such as a vendor drop-in under `/usr/lib`. Otherwise the `--overwrite` entry in `src/cli/arch-update-system-pkgs` has to ship a release before the file |
 | User-facing `arch-*` command | `src/cli/arch-<group>-<verb>` — see `GROUP_DESCRIPTIONS` in `src/cli/archctl` |

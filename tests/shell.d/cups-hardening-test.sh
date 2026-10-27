@@ -71,7 +71,7 @@ grep -qxF 'PeerCred on' "$cups_files_conf" ||
   fail "the packaged CUPS policy has one PeerCred directive"
 [[ ! -e $ROOT/installer/config/printing.sh ]] ||
   fail "printing policy is not rewritten by an install script"
-! grep -q 'config/printing.sh' "$ROOT/installer/config/all.sh" "$ROOT/migrations/1787815267.sh" ||
+! grep -q 'config/printing.sh' "$ROOT/data/installer/system-setup.yml" "$ROOT/migrations/1787815267.sh" ||
   fail "neither install nor update invokes a printing rewrite script"
 
 pass "CUPS authorization ships as a canonical package override"
