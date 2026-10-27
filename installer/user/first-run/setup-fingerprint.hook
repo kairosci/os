@@ -6,7 +6,8 @@ set -e
 # PAM file is the last thing the setup writes on success).
 if arch-hw-fingerprint && [[ ! -f /etc/pam.d/arch-lock-fingerprint ]] &&
   arch-done ensure fingerprint-setup-invitation; then
-  arch-notification-send -u critical -g 󰈷 "Setup Fingerprint Reader" \
-    "Enable sudo and unlocking with your fingerprint." \
-    --exec arch-launch-floating-terminal-with-presentation arch-setup-security-fingerprint
+  title=$(arch-i18n security.fingerprintInvitation.title)
+  message=$(arch-i18n security.fingerprintInvitation.body)
+  arch-notification-send -u critical -g 󰈷 "$title" "$message" \
+    --exec arch-launch-terminal arch-setup-security-fingerprint
 fi
