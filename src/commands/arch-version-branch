@@ -8,7 +8,7 @@ from pathlib import Path
 import sys
 
 sys.path.insert(0, str(Path(os.environ["ARCH_PATH"]) / "src"))
-from cli.version import version_branch_main
+from cli.version.info import version_branch_main
 
 
 raise SystemExit(version_branch_main())

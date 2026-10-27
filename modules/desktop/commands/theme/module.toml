@@ -35,7 +35,7 @@ sources = [
   "src/commands/arch-theme-set-vscode",
   "src/commands/arch-theme-switcher",
   "src/commands/arch-theme-update",
-  "src/cli/theme_info.py",
+  "src/cli/theme/info.py",
 ]
 requires = ["desktop.commands", "system.runtime-data"]
 
@@ -172,5 +172,5 @@ source = "src/commands/arch-theme-update"
 target = "usr/share/arch/src/commands/arch-theme-update"
 
 [[output]]
-source = "src/cli/theme_info.py"
-target = "usr/share/arch/src/cli/theme_info.py"
+source = "src/cli/theme/info.py"
+target = "usr/share/arch/src/cli/theme/info.py"

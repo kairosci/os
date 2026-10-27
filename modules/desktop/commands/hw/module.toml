@@ -7,7 +7,7 @@ sources = [
   "src/commands/arch-hw-aarch64-gb10",
   "src/commands/arch-hw-aarch64-n1x",
   "src/commands/arch-hw-aarch64-qualcomm",
-  "src/cli/architecture.py",
+  "src/cli/hardware/architecture.py",
   "src/commands/arch-hw-apple-silicon",
   "src/commands/arch-hw-asus-expertbook-b9406",
   "src/commands/arch-hw-asus-rog",
@@ -44,7 +44,7 @@ sources = [
   "src/cli/hardware/virtualization.py",
   "src/commands/arch-hw-vulkan",
   "src/commands/arch-hw-webcam",
-  "src/cli/webcam.py",
+  "src/cli/hardware/webcam.py",
   "src/commands/arch-hw-x86",
 ]
 requires = ["desktop.commands", "system.runtime-data"]
@@ -70,8 +70,8 @@ source = "src/commands/arch-hw-aarch64-qualcomm"
 target = "usr/share/arch/src/commands/arch-hw-aarch64-qualcomm"
 
 [[output]]
-source = "src/cli/architecture.py"
-target = "usr/share/arch/src/cli/architecture.py"
+source = "src/cli/hardware/architecture.py"
+target = "usr/share/arch/src/cli/hardware/architecture.py"
 
 [[output]]
 source = "src/commands/arch-hw-apple-silicon"
@@ -218,8 +218,8 @@ source = "src/commands/arch-hw-webcam"
 target = "usr/share/arch/src/commands/arch-hw-webcam"
 
 [[output]]
-source = "src/cli/webcam.py"
-target = "usr/share/arch/src/cli/webcam.py"
+source = "src/cli/hardware/webcam.py"
+target = "usr/share/arch/src/cli/hardware/webcam.py"
 
 [[output]]
 source = "src/commands/arch-hw-x86"

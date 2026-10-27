@@ -9,6 +9,6 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(os.environ["ARCH_PATH"]) / "src"))
 
-from cli.tui_install import main
+from cli.tui.install import main
 
 raise SystemExit(main())

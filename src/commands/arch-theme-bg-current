@@ -8,7 +8,7 @@ from pathlib import Path
 import sys
 
 sys.path.insert(0, str(Path(os.environ["ARCH_PATH"]) / "src"))
-from cli.theme_info import background_current_main
+from cli.theme.info import background_current_main
 
 
 raise SystemExit(background_current_main())

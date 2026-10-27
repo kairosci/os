@@ -251,8 +251,8 @@ pass "an unreadable CPU architecture fails instead of guessing generic"
 # The architecture predicates use the image-aware platform detector rather
 # than uname, and aarch64 covers every ARM hardware family.
 test_arch="$test_tmp/architecture-root"
-mkdir -p "$test_arch/src/commands" "$test_arch/src/cli" "$test_arch/data/cli"
-cp "$ROOT/src/cli/architecture.py" "$test_arch/src/cli/architecture.py"
+mkdir -p "$test_arch/src/commands" "$test_arch/src/cli/hardware" "$test_arch/data/cli"
+cp "$ROOT/src/cli/hardware/architecture.py" "$test_arch/src/cli/hardware/architecture.py"
 cp "$ROOT/data/cli/architecture.yml" "$test_arch/data/cli/architecture.yml"
 cp "$ROOT/src/commands/arch-hw-x86" "$test_arch/src/commands/arch-hw-x86"
 cp "$ROOT/src/commands/arch-hw-aarch64" "$test_arch/src/commands/arch-hw-aarch64"

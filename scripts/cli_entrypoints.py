@@ -14,7 +14,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 NAME = re.compile(r"[a-z][a-z0-9-]*\Z")
-MODULE = re.compile(r"[a-z_][a-z0-9_]*(?:\.[a-z_][a-z0-9_]*)*\Z")
+MODULE = re.compile(r"[a-z_][a-z0-9_]*(?:/[a-z_][a-z0-9_]*)*\Z")
 FUNCTION = re.compile(r"[a-z_][a-z0-9_]*\Z")
 
 
@@ -44,7 +44,7 @@ def load_entrypoints() -> list[dict[str, str]]:
 
 def generate(destination: Path) -> None:
   for entry in load_entrypoints():
-    module_path = ROOT / "src" / Path(*entry["module"].split("."))
+    module_path = ROOT / "src/cli" / entry["module"]
     module_path = module_path.with_suffix(".py")
     if not module_path.is_file():
       raise ValueError(f"entrypoint module does not exist: {module_path.relative_to(ROOT)}")
@@ -62,7 +62,7 @@ def generate(destination: Path) -> None:
       "from pathlib import Path\n"
       "\n"
       "sys.path.insert(0, str(Path(os.environ[\"ARCH_PATH\"]) / \"src\"))\n"
-      f"from {entry['module']} import {entry['function']}\n"
+      f"from cli.{entry['module'].replace('/', '.')} import {entry['function']}\n"
       "\n"
       f"raise SystemExit({entry['function']}())\n",
       encoding="utf-8",

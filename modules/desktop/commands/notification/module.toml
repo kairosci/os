@@ -7,7 +7,7 @@ sources = [
   "src/commands/arch-notification-send",
   "src/commands/arch-notification-time",
   "src/commands/arch-notification-wait",
-  "src/cli/notification_wait.py",
+  "src/cli/notification/wait.py",
   "src/commands/arch-notification-weather",
 ]
 requires = ["desktop.commands"]
@@ -33,8 +33,8 @@ source = "src/commands/arch-notification-wait"
 target = "usr/share/arch/src/commands/arch-notification-wait"
 
 [[output]]
-source = "src/cli/notification_wait.py"
-target = "usr/share/arch/src/cli/notification_wait.py"
+source = "src/cli/notification/wait.py"
+target = "usr/share/arch/src/cli/notification/wait.py"
 
 [[output]]
 source = "src/commands/arch-notification-weather"

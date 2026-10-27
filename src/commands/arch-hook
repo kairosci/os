@@ -9,6 +9,6 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(os.environ["ARCH_PATH"]) / "src"))
 
-from cli.hooks import run_main
+from cli.hook.runner import run_main
 
 raise SystemExit(run_main())

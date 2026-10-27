@@ -6,8 +6,8 @@ sources = [
   "src/commands/arch-version-branch",
   "src/commands/arch-version-channel",
   "src/commands/arch-version-pkgs",
-  "src/cli/version_pkgs.py",
-  "src/cli/version.py",
+  "src/cli/version/packages.py",
+  "src/cli/version/info.py",
 ]
 requires = ["desktop.commands", "system.runtime-data"]
 
@@ -28,9 +28,9 @@ source = "src/commands/arch-version-pkgs"
 target = "usr/share/arch/src/commands/arch-version-pkgs"
 
 [[output]]
-source = "src/cli/version_pkgs.py"
-target = "usr/share/arch/src/cli/version_pkgs.py"
+source = "src/cli/version/packages.py"
+target = "usr/share/arch/src/cli/version/packages.py"
 
 [[output]]
-source = "src/cli/version.py"
-target = "usr/share/arch/src/cli/version.py"
+source = "src/cli/version/info.py"
+target = "usr/share/arch/src/cli/version/info.py"

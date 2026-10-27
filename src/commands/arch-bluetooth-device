@@ -10,7 +10,7 @@ from pathlib import Path
 import sys
 
 sys.path.insert(0, str(Path(os.environ["ARCH_PATH"]) / "src"))
-from cli.bluetooth import device_main
+from cli.bluetooth.control import device_main
 
 
 if __name__ == "__main__":

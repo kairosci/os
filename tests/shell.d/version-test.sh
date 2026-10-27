@@ -8,8 +8,8 @@ test_tmp=$(mktemp -d)
 trap 'rm -rf "$test_tmp"' EXIT
 
 stub_bin="$test_tmp/bin"
-mkdir -p "$stub_bin" "$test_tmp/checkout/src/cli" "$test_tmp/checkout/data/cli"
-cp "$ROOT/src/cli/version.py" "$test_tmp/checkout/src/cli/version.py"
+mkdir -p "$stub_bin" "$test_tmp/checkout/src/cli/version" "$test_tmp/checkout/data/cli"
+cp "$ROOT/src/cli/version/info.py" "$test_tmp/checkout/src/cli/version/info.py"
 cp "$ROOT/data/cli/version.yml" "$test_tmp/checkout/data/cli/version.yml"
 
 # The edge channel installs arch-dev. Older builds did not declare
