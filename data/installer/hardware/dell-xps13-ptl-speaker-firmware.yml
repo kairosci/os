@@ -1,0 +1,4 @@
+commands:
+  hardware_match: [arch-hw-dell-xps13-dx13260-ptl]
+  install_firmware: [arch-pkg-add, linux-firmware-cirrus-dx13260]
+statuses: {matched: 0, complete: 0}
