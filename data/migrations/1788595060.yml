@@ -1,0 +1,7 @@
+messages:
+  reason: migration.registerBraveOriginExtensionHosts
+steps:
+- command:
+  - arch-install-chromium-copy-url
+- command:
+  - arch-install-chromium-ytdlp

@@ -14,6 +14,7 @@ from base_test import ROOT, test_environment
 
 IGNORED_FAILURE_MIGRATION = ROOT / "migrations/1791640449.py"
 ORDERED_MIGRATION = ROOT / "migrations/1792020559.py"
+BRAVE_MIGRATION = ROOT / "migrations/1788595060.py"
 
 
 class MigrationCommandRunnerTest(unittest.TestCase):
@@ -41,6 +42,8 @@ class MigrationCommandRunnerTest(unittest.TestCase):
       "arch-bar",
       "arch-theme-set-fcitx5",
       "arch-theme-refresh",
+      "arch-install-chromium-copy-url",
+      "arch-install-chromium-ytdlp",
     )
     for name in names:
       (self.bin_dir / name).symlink_to(stub)
@@ -84,6 +87,19 @@ class MigrationCommandRunnerTest(unittest.TestCase):
         ["arch-i18n", "migration.themeFcitxCandidateWindow"],
         ["arch-theme-set-fcitx5", "--activate"],
         ["arch-theme-refresh"],
+      ],
+    )
+
+  def test_brave_origin_extension_hosts_are_registered_in_order(self) -> None:
+    result = self.run_migration(BRAVE_MIGRATION)
+    self.assertEqual(result.returncode, 0, result.stderr)
+    self.assertEqual(result.stdout, "migration.registerBraveOriginExtensionHosts\n")
+    self.assertEqual(
+      self.calls(),
+      [
+        ["arch-i18n", "migration.registerBraveOriginExtensionHosts"],
+        ["arch-install-chromium-copy-url"],
+        ["arch-install-chromium-ytdlp"],
       ],
     )
 

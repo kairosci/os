@@ -87,8 +87,8 @@ Item {
     if (!id) return
     root.beginLaunchFeedback(name)
     // A terminal app goes through os's TUI launcher, which names its
-    // terminal window after the command (org.arch.nvim), so the dock can
-    // tell Neovim from the terminal it runs in.
+    // terminal window after the command (org.arch.nvim). Launch feedback can
+    // then attribute the TUI to Neovim rather than its terminal.
     var command = root.terminalCommand(DesktopEntries.byId(id))
     if (command.length > 0) {
       Util.execDetached("arch-launch-tui " + command.map(function(word) { return Util.shellQuote(word) }).join(" "))

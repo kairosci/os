@@ -134,6 +134,7 @@
   "migration.removeFloatingDiskUsageLauncher": "Rimosso il vecchio launcher flottante di Disk Usage",
   "migration.removeManagedSkillLinks": "Rimossi %1 collegamenti a skill gestiti da Arch",
   "migration.removeWorkspaceTitlebars": "Rimuovi le titlebar obsolete dei workspace",
+  "migration.registerBraveOriginExtensionHosts": "Registra gli host delle estensioni per Brave Origin",
   "migration.replaceSatty": "Sostituisci Satty con Tensaku",
   "migration.replaceTerminalTextEffects": "Sostituisci terminaltexteffects con ttfx",
   "migration.requireT2PackageSignatures": "Richiedi firme attendibili per i pacchetti del repository T2",
