@@ -1,14 +1,15 @@
-#!/usr/bin/python3
+#!/usr/bin/python3 -I
 
-# arch:summary=Copy a shipped user config from $ARCH_PATH/config into ~/.config (backs up your version).
+# arch:summary=Restore a shipped user config with an automatic backup
 # arch:args=<config-path>
+# arch:module=refresh.config
+# arch:module-args=sys-argv
 
 import os
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(os.environ["ARCH_PATH"]) / "src/python"))
-
-from cli.refresh_config import main
+sys.path.insert(0, str(Path(os.environ["ARCH_PATH"]) / "src/python/cli"))
+from refresh.config import main
 
 raise SystemExit(main())
