@@ -54,7 +54,7 @@ command_sources = {
     source for module_id, module in modules.items()
     if module_id.startswith("desktop.commands")
     for source in module["sources"]
-    if source.startswith("src/cli/")
+    if source.startswith(("src/cli/", "src/python/cli/"))
 }
 cli_files = {
     f"src/cli/{path.name}" for path in cli_directory.iterdir() if path.is_file()
