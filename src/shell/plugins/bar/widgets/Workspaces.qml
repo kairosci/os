@@ -204,15 +204,16 @@ BarWidget {
         onWheelMoved: function(delta) { root.scrollWorkspaces(delta) }
 
         Rectangle {
-          // Place the marker directly under the visible workspace number.
+          // Keep the marker above the number so it tracks the active slot
+          // without covering the number users need to read.
           z: 1
           visible: workspaceButton.shown
           width: Style.space(2)
           height: width
           radius: width / 2
           anchors.horizontalCenter: parent.horizontalCenter
-          anchors.bottom: parent.bottom
-          anchors.bottomMargin: Style.space(1)
+          anchors.top: parent.top
+          anchors.topMargin: Style.space(1)
           color: Commons.Color.accent
         }
       }
