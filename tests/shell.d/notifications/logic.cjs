@@ -154,7 +154,7 @@ for (const body of ['Your verification code is 938271', 'Your code is 938 271', 
 }
 
 { // The --exec click argv: structural, fails closed, stays discrete arguments.
-  const shot = JSON.stringify(['omasnap', '--edit', '/tmp/shot.png'])
+  const shot = JSON.stringify(['arch-capture-screenshot', 'region'])
   const literal = ['printf', '%s|', '$(touch /tmp/x)', '`id`', 'a; rm -rf /', "q'uote", 'new\nline', '-dash']
   for (const good of [shot, ['mpv', '--', '/tmp/a b.mp4'], JSON.stringify(['bash', '-c', 'id']), JSON.stringify(literal)]) {
     const text = typeof good === 'string' ? good : JSON.stringify(good)

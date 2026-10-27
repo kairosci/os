@@ -2,7 +2,7 @@
 # former Arch runtime package ID.
 pkgname='arch'
 pkgver=4.0.6
-pkgrel=37
+pkgrel=38
 pkgdesc='Arch desktop runtime and configuration'
 # The payload is architecture-independent, but the dependency set is not: the
 # boot stack differs per architecture (see depends_x86_64 / depends_aarch64),
@@ -10,6 +10,7 @@ pkgdesc='Arch desktop runtime and configuration'
 arch=('x86_64' 'aarch64')
 url='https://github.com/kairosci/os'
 license=('MIT')
+replaces=('omasnap')
 install=arch-branding.install
 # Hard depends: only packages whose removal would brick the desktop. The ISO
 # pacstraps the full default install set from installer/arch-base.packages.

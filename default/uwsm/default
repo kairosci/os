@@ -26,7 +26,7 @@ if [[ -n ${ARCH_PATH:-} && -d ${ARCH_PATH%/}/src/cli ]]; then
 fi
 
 # Use a custom directory for screenshots
-# export OMASNAP_SCREENSHOT_DIR="$HOME/Pictures/Screenshots"
+# export ARCH_SCREENSHOT_DIR="$HOME/Pictures/Screenshots"
 
 # Use a custom directory for screenrecordings (remember to make the directory!)
 # export ARCH_SCREENRECORD_DIR="$HOME/Videos/Screencasts"

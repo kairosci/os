@@ -13,30 +13,9 @@ Tutto ciò che puoi afferrare dallo schermo dipende dal tasto Print Screen. Un t
 
 ## Schermate
 
-Premi `Print Screen` e Omasnap cattura il monitor focalizzato prima che appaia il suo overlay, così nulla si sposta sotto di te mentre miri. Trascina una regione a forma libera, clicca una finestra per catturarla o clicca spazio aperto per catturare l'intero monitor. Premi `S` prima di disegnare per catturare una regione a scorrimento. Hai cambiato idea? Premi di nuovo `Print Screen` per chiudere Omasnap.
+Premi `Print Screen` (o `Super + Ctrl + Alt + C`) per selezionare una regione con Hyprshot. La schermata viene salvata nella cartella Immagini e copiata negli appunti. Per catturare una finestra usa `archctl capture screenshot window`; per un monitor usa `archctl capture screenshot output`.
 
-Dopo aver selezionato un'area, Omasnap salva la cattura, la copia negli appunti e mostra un'anteprima per 10 secondi. Usa il pulsante segnaposto dell'anteprima o `Ctrl + P` per mantenerla sullo schermo, oppure scegli Modifica per annotarla.
-
-L'editor di annotazioni può disegnare frecce, linee, forme, evidenziazioni, marcatori numerati, testo e oscuramenti sicuri; ritagliare o tagliare parte dell'immagine; fare OCR del suo testo; e aggiungere uno sfondo. Nell'editor, premi `Enter` per copiare e salvare il PNG finito, `Ctrl + C` per copiarlo senza salvare o `Ctrl + S` per salvarlo senza copiare.
-
-Le schermate salvate finiscono in `~/Pictures/Screenshots` per impostazione predefinita, con un nome come `screenshot-2026-08-13_14-22-05-firefox.png`. Imposta `OMASNAP_SCREENSHOT_DIR` per usare un'altra cartella — vedi [le FAQ](46-faq.md) per dove mettere le variabili d'ambiente di sessione. Omasnap crea la cartella quando salva il primo scatto. Imposta `[output] autosave = false` in `~/.config/omasnap/omasnap.conf` per disabilitare il salvataggio automatico.
-
-Da terminale, `archctl screenshot` apre lo stesso overlay, e puoi scegliere la sua modalità iniziale: `archctl capture screenshot region`, `windows`, `fullscreen` o `scroll`. Un secondo argomento `copy` o `save` salta l'anteprima e manda lo scatto dritto a quella destinazione. Per modificare prima dell'output, usa `archctl screenshot --editor=overlay` per un editor a schermo intero o `archctl screenshot --editor=window` per una finestra separata.
-
-### Guidare il selettore da tastiera
-
-Mentre la selezione è aperta, non devi affatto usare il mouse:
-
-| Tasto | Funzione |
-| --- | -------- |
-| `S` | Attiva/disattiva modalità regione a scorrimento |
-| `Super + Arrow keys` | Spostati tra le finestre in modalità Finestra |
-| `Return` | Cattura la finestra evidenziata |
-| `Ctrl + A` | Cattura l'intero monitor focalizzato |
-| `R` | Ripristina l'ultima regione disegnata in questa sessione |
-| `Esc` | Chiudi Omasnap |
-
-Queste combinazioni esistono solo mentre Omasnap è aperto, quindi non possono collide con nulla nella tua configurazione.
+Da terminale, `archctl screenshot` seleziona una regione. Aggiungi `copy` per copiare senza salvare oppure `save` per salvare il file e copiarlo. Imposta `ARCH_SCREENSHOT_DIR` in `~/.config/uwsm/env.d/` per scegliere un'altra cartella.
 
 ## Registrazione schermo
 

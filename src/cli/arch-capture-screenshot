@@ -2,22 +2,28 @@
 
 # arch:summary=Take a screenshot
 # arch:group=capture
-# arch:args=[smart|region|windows|fullscreen|scroll] [copy|save]
+# arch:args=[region|window|output] [copy|save]
 # arch:examples=archctl screenshot | archctl capture screenshot region
 # arch:aliases=archctl screenshot
 
-if [[ -n ${ARCH_SCREENSHOT_DIR:-} && -z ${OMASNAP_SCREENSHOT_DIR:-} ]]; then
-  export OMASNAP_SCREENSHOT_DIR="$ARCH_SCREENSHOT_DIR"
-fi
-
-omasnap_args=()
+hyprshot_args=()
 for arg in "$@"; do
   case "$arg" in
-    copy) omasnap_args+=(--copy) ;;
-    save) omasnap_args+=(--save) ;;
-    slurp) ;;
-    *) omasnap_args+=("$arg") ;;
+    smart|region) hyprshot_args+=(--mode region) ;;
+    windows|window) hyprshot_args+=(--mode window) ;;
+    fullscreen|output) hyprshot_args+=(--mode output) ;;
+    copy) hyprshot_args+=(--clipboard-only) ;;
+    save) ;;
+    *) hyprshot_args+=("$arg") ;;
   esac
 done
 
-exec omasnap "${omasnap_args[@]}"
+if [[ -n ${ARCH_SCREENSHOT_DIR:-} && -z ${HYPRSHOT_DIR:-} ]]; then
+  export HYPRSHOT_DIR="$ARCH_SCREENSHOT_DIR"
+fi
+
+if (( ${#hyprshot_args[@]} == 0 )); then
+  hyprshot_args=(--mode region)
+fi
+
+exec hyprshot "${hyprshot_args[@]}"
