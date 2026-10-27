@@ -2,7 +2,7 @@ id = "system.installation"
 domain = "system"
 package = "arch"
 sources = ["installer/helpers"]
-requires = ["system.settings", "desktop.commands"]
+requires = ["system.settings", "desktop.commands", "system.runtime-data"]
 
 [[output]]
 source = "installer/helpers"

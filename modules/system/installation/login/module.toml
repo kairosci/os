@@ -2,7 +2,7 @@ id = "system.installation.login"
 domain = "system"
 package = "arch"
 sources = ["src/python/installer/login"]
-requires = ["system.installation", "system.runtime-data"]
+requires = ["system.installation"]
 
 [[output]]
 source = "src/python/installer/login"
