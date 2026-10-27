@@ -8,8 +8,7 @@ steps:
   - src/python/installer/hardware/apple_keyboard_fkeys.py
   - src/python/installer/hardware/synaptic_touchpad.py
   - src/python/installer/hardware/bluetooth.py
-  - root: arch_install
-    path: hardware/n1x.sh
+  - src/python/installer/hardware/n1x.py
   - src/python/installer/hardware/nvidia.py
   - src/python/installer/hardware/nvidia_apps.py
   - src/python/installer/hardware/vulkan.py
