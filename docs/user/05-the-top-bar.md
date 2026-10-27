@@ -6,9 +6,9 @@ It's also the one piece of the desktop that's always on screen, so it's worth kn
 
 ## What's on it by default
 
-The bar has three sections. On the left sits the Arch logo (the menu launcher) and the workspace indicators. In the center you get the status indicators, the clock, Elsewhen (a world clock), the weather, and an Arch update badge. On the right: the system tray, the keyboard layout (when more than one is configured), agents, bluetooth, network, audio, display, and power.
+The bar has three sections. On the left sits the Arch logo (the menu launcher) and the workspace indicators. In the center you get the status indicators, the clock, Elsewhen (a world clock), the weather, and an Arch update badge. On the right: the system tray, the keyboard layout (when more than one is configured), bluetooth, network, audio, display, and power.
 
-A few of those only show up when they have something to say. The keyboard layout appears only if you've configured more than one layout. The update badge appears only when there's an Arch update waiting. And the agents icon appears the first time Arch finds AI coding usage on the machine (see [AI](17-ai.md)).
+A few of those only show up when they have something to say. The keyboard layout appears only if you've configured more than one layout. The update badge appears only when there's an Arch update waiting.
 
 ## Clicking around
 
@@ -27,7 +27,6 @@ Nearly every widget does something on left, right, and middle click, and several
 | Display | Display panel | — | Scroll: brightness |
 | Power | Power panel | Toggle the battery percentage | — |
 | Media | Play/pause | Cover-art popup | Middle: next · scroll: prev/next |
-| Agents | Agents panel | Launch your agent | Middle: next subscription |
 | Tray | Hover to reveal the drawer | Right on the chevron to manage | — |
 | Arch update | Run the update | — | — |
 

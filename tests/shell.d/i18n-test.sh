@@ -15,7 +15,7 @@ const readJson = (rel) => JSON.parse(fs.readFileSync(path.join(i18nDir, rel), 'u
 
 const registry = readJson('locales.json')
 const codes = Object.keys(registry)
-assertDeepEqual(codes, ['en', 'fr', 'es', 'it'], 'i18n registry exposes the four supported languages')
+assertDeepEqual(codes, ['en', 'it'], 'i18n registry exposes English and Italian')
 assert(codes[0] === 'en', 'i18n registry lists English first (the default)')
 const badRegistry = codes.filter((code) => !/^[a-z]{2,3}(-[A-Za-z]{2})?$/.test(code)
   || ['name', 'englishName', 'formatLocale', 'locale'].some((f) => typeof registry[code][f] !== 'string' || registry[code][f].length === 0)
@@ -37,7 +37,7 @@ assert(orphanMenu.length === 0, 'English menu catalog has no orphan ids', JSON.s
 // English side, so missing translations are pending work for the sync
 // workflow rather than failures. So are translations the manifest marks
 // stale (their English changed since) and orphans awaiting pruning —
-// an English-only edit must never wedge on 49 other languages. Structure
+// English edits must not block on languages the project no longer supports. Structure
 // of what IS current must still hold either way. I18N_STRICT=1 also wants
 // every catalog complete, as it is right after a sync.
 const structural = process.env.I18N_STRICT !== '1'
@@ -153,22 +153,22 @@ assertDeepEqual(MenuModel.applyTranslations(defaults, null), defaults, 'a missin
 // Routing must not depend on the display language: English labels live in
 // searchTerms, which resolveRoute never reads, so a word that is inert in
 // English cannot become a command in another language.
-const frMenu = readJson('fr/menu.json')
+const itMenu = readJson('it/menu.json')
 const enMerged = MenuModel.mergeMenuSources(menuItems, [])
-const frMerged = MenuModel.mergeMenuSources(MenuModel.applyTranslations(menuItems, frMenu), [])
+const itMerged = MenuModel.mergeMenuSources(MenuModel.applyTranslations(menuItems, itMenu), [])
 for (const route of ['reboot', 'shutdown', 'logout', 'hibernate', 'lock', 'clock', 'danish', 'setup', 'settings', 'power-menu', 'language'])
-  assertEqual(MenuModel.resolveRoute(frMerged.items, frMerged.itemOrder, route), MenuModel.resolveRoute(enMerged.items, enMerged.itemOrder, route), `route "${route}" resolves the same in French as in English`)
-assert(MenuModel.nameSearchText(frMerged.items.setup).includes('setup'), 'English labels remain searchable in French')
+  assertEqual(MenuModel.resolveRoute(itMerged.items, itMerged.itemOrder, route), MenuModel.resolveRoute(enMerged.items, enMerged.itemOrder, route), `route "${route}" resolves the same in Italian as in English`)
+assert(MenuModel.nameSearchText(itMerged.items.setup).includes('setup'), 'English labels remain searchable in Italian')
 
 // JS models translate through the optional tr argument and stay English
 // without one (the audio/monitor/clipboard tests assert the same English).
-const frShell = readJson('fr/shell.json')
-const tr = (key, english) => frShell[key] || english
+const itShell = readJson('it/shell.json')
+const tr = (key, english) => itShell[key] || english
 const audio = requireFromRoot('src/shell/plugins/panels/audio/Model.js')
-assertEqual(audio.outputVolumeName(0.5, true, tr), frShell['audio.level.muted'], 'audio levels translate through tr')
+assertEqual(audio.outputVolumeName(0.5, true, tr), itShell['audio.level.muted'], 'audio levels translate through tr')
 const clipboard = requireFromRoot('src/shell/plugins/clipboard/ClipboardHistory.js')
-const frRow = clipboard.displayRows([{ type: 'image', path: '/tmp/a.png', mime: 'image/png', capturedAt: 'Friday 14:42' }], '', 50, tr)[0]
-assertEqual(frRow.previewText, frShell['clipboard.screenshotFrom'].replace('%1', 'Friday 14:42'), 'clipboard previews translate through tr')
+const itRow = clipboard.displayRows([{ type: 'image', path: '/tmp/a.png', mime: 'image/png', capturedAt: 'Friday 14:42' }], '', 50, tr)[0]
+assertEqual(itRow.previewText, itShell['clipboard.screenshotFrom'].replace('%1', 'Friday 14:42'), 'clipboard previews translate through tr')
 
 // The manual ships whole per language: same files as English, none empty,
 // and the machine-significant parts of every chapter preserved — code block
@@ -256,7 +256,7 @@ assert(disagree.length === 0, 'shell and CLI plural rules agree for every langua
 
 assertEqual(['one', 'few', 'many'].map((_, i) => Plural.category('ru', [21, 22, 25][i])).join(), 'one,few,many', 'Russian counts take one, few, and many')
 assertEqual([0, 1, 2, 3, 11, 100].map((n) => Plural.category('ar', n)).join(), 'zero,one,two,few,many,other', 'Arabic counts take all six forms')
-assertEqual(Plural.category('fr', 1000000), 'many', 'French millions take their own form')
+assertEqual(Plural.category('it', 1000000), 'many', 'Italian millions take the many form')
 assertEqual(Plural.categories('ja').join(), 'other', 'Japanese has one form')
 assertEqual(Plural.categories('pl').join(), 'one,few,many,other', 'Polish needs one, few, many, and other')
 assertEqual(Plural.pick({ one: '%1 file', other: '%1 files' }, 'en', 1), '%1 file', 'pick chooses the form for the count')
@@ -348,20 +348,20 @@ assert_bash_equal "$(arch-language)" "en" "arch-language falls back to English f
 rm -f "$ARCH_LANGUAGE_FILE"
 
 list=$(arch-language list)
-assert_bash_equal "$(printf '%s\n' "$list" | wc -l)" "4" "arch-language list prints 4 rows"
+assert_bash_equal "$(printf '%s\n' "$list" | wc -l)" "2" "arch-language list prints 2 rows"
 assert_bash_equal "$(printf '%s\n' "$list" | head -n 1 | cut -f2)" "en" "arch-language list puts English first"
-assert_bash_equal "$(arch-language locale fr)" "fr_FR.UTF-8" "arch-language locale maps fr to its glibc locale"
+assert_bash_equal "$(arch-language locale it)" "it_IT.UTF-8" "arch-language locale maps it to its glibc locale"
 
 # stdin is not a tty here, as when picked from the menu, and this machine has
 # no passwordless grant, so generating the locale asks through polkit.
-arch-language fr </dev/null
-assert_bash_equal "$(cat "$ELEVATE_LOG")" "pkexec arch-locale-generate fr" "without the grant, the menu generates the locale through pkexec"
-assert_bash_equal "$(cat "$ARCH_LANGUAGE_FILE")" "fr" "arch-language persists the choice"
-assert_bash_equal "$(arch-language)" "fr" "arch-language reads the persisted choice"
-assert_bash_equal "$(grep '^export LANG=' "$session_env")" "export LANG=fr_FR.UTF-8" "arch-language sets the session LANG through uwsm for the next login"
-assert_bash_equal "$(cat "$SESSION_ENV_LOG")" $'eval hl.env("LANG", "fr_FR.UTF-8", true)\nrestart' "arch-language hands the new LANG to Hyprland and services, then respawns the shell from it"
-assert_bash_equal "$(grep '^fr_FR.UTF-8' "$ARCH_LOCALE_GEN")" "fr_FR.UTF-8 UTF-8" "arch-language enables the locale in locale.gen"
-assert_bash_equal "$(cat "$LOCALE_GEN_LOG")" "fr_FR.UTF-8" "arch-language generates the locale"
+arch-language it </dev/null
+assert_bash_equal "$(cat "$ELEVATE_LOG")" "pkexec arch-locale-generate it" "without the grant, the menu generates the locale through pkexec"
+assert_bash_equal "$(cat "$ARCH_LANGUAGE_FILE")" "it" "arch-language persists the choice"
+assert_bash_equal "$(arch-language)" "it" "arch-language reads the persisted choice"
+assert_bash_equal "$(grep '^export LANG=' "$session_env")" "export LANG=it_IT.UTF-8" "arch-language sets the session LANG through uwsm for the next login"
+assert_bash_equal "$(cat "$SESSION_ENV_LOG")" $'eval hl.env("LANG", "it_IT.UTF-8", true)\nrestart' "arch-language hands the new LANG to Hyprland and services, then respawns the shell from it"
+assert_bash_equal "$(grep '^it_IT.UTF-8' "$ARCH_LOCALE_GEN")" "it_IT.UTF-8 UTF-8" "arch-language enables the locale in locale.gen"
+assert_bash_equal "$(cat "$LOCALE_GEN_LOG")" "it_IT.UTF-8" "arch-language generates the locale"
 
 if arch-language xx </dev/null 2>/dev/null; then
   fail "arch-language rejects unknown codes"
@@ -369,32 +369,32 @@ else
   pass "arch-language rejects unknown codes"
 fi
 
-fr_changed=$(jq -r '."language.changed"' "$ROOT/default/i18n/fr/cli.json" | sed 's/%1/Français/')
-assert_bash_equal "$(arch-i18n language.changed Français)" "$fr_changed" "arch-i18n prints the current language with substitution"
+it_changed=$(jq -r '."language.changed"' "$ROOT/default/i18n/it/cli.json" | sed 's/%1/Italiano/')
+assert_bash_equal "$(arch-i18n language.changed Italiano)" "$it_changed" "arch-i18n prints the current language with substitution"
 assert_bash_equal "$(arch-i18n missing.key)" "missing.key" "arch-i18n passes unknown keys through"
 
-grep -q "$fr_changed" "$NOTIFY_LOG" && pass "the language-change notification arrives in the new language" || fail "the language-change notification arrives in the new language" "notify log: $(cat "$NOTIFY_LOG")"
+grep -q "$it_changed" "$NOTIFY_LOG" && pass "the language-change notification arrives in the new language" || fail "the language-change notification arrives in the new language" "notify log: $(cat "$NOTIFY_LOG")"
 
-fr_battery=$(jq -r '."battery.lowBody"' "$ROOT/default/i18n/fr/cli.json" | sed 's/%1/12/')
-assert_bash_equal "$(arch-i18n battery.lowBody 12)" "$fr_battery" "arch-i18n substitutes %1 and keeps a literal percent sign"
+it_battery=$(jq -r '."battery.lowBody"' "$ROOT/default/i18n/it/cli.json" | sed 's/%1/12/')
+assert_bash_equal "$(arch-i18n battery.lowBody 12)" "$it_battery" "arch-i18n substitutes %1 and keeps a literal percent sign"
 
 # Plural entries pick their form by count, and plain-number arguments take
 # the language's decimal separator and digits.
 plural_root=$work/plural-root
-mkdir -p "$plural_root/default/i18n/en" "$plural_root/default/i18n/fr" "$plural_root/default/i18n/es"
+mkdir -p "$plural_root/default/i18n/en" "$plural_root/default/i18n/it"
 cp "$ROOT/default/i18n/plural.jq" "$ROOT/default/i18n/locales.json" "$plural_root/default/i18n/"
 printf '{"files.count": {"one": "%%1 file", "other": "%%1 files"}, "power.rate": "%%1 W"}\n' >"$plural_root/default/i18n/en/cli.json"
-printf '{"files.count": {"one": "%%1 fichier", "many": "%%1 fichiers", "other": "%%1 fichiers"}, "power.rate": "%%1 W"}\n' >"$plural_root/default/i18n/fr/cli.json"
-printf '{}\n' >"$plural_root/default/i18n/es/cli.json"
+printf '{"files.count": {"one": "%%1 documento", "other": "%%1 documenti"}, "power.rate": "%%1 W"}\n' >"$plural_root/default/i18n/it/cli.json"
 plural() { echo "$1" >"$work/plural-language"; ARCH_PATH=$plural_root ARCH_LANGUAGE_FILE=$work/plural-language arch-i18n "${@:2}"; }
 assert_bash_equal "$(plural en --count 1 files.count 1)" "1 file" "arch-i18n --count picks the English singular"
 assert_bash_equal "$(plural en --count 3 files.count 3)" "3 files" "arch-i18n --count picks the English plural"
-assert_bash_equal "$(plural fr --count 1 files.count 1) / $(plural fr --count 3 files.count 3)" "1 fichier / 3 fichiers" "arch-i18n --count follows French plural rules"
-assert_bash_equal "$(plural fr files.count 5)" "5 fichiers" "a plural entry without --count reads its other form"
-assert_bash_equal "$(plural fr power.rate 13.1)" "13,1 W" "a number argument takes the language's decimal separator"
-assert_bash_equal "$(plural es --count 2 files.count 13.5)" "13,5 files" "a missing translation falls back to English and localizes its number"
-assert_bash_equal "$(plural fr power.rate 10.0.0.1)" "10.0.0.1 W" "an argument that is not a plain number passes through"
-assert_bash_equal "$(plural fr --number 13.1) $(plural es --number 13.5)" "13,1 13,5" "arch-i18n --number writes one number in the language"
+assert_bash_equal "$(plural it --count 1 files.count 1) / $(plural it --count 3 files.count 3)" "1 documento / 3 documenti" "arch-i18n --count follows Italian plural rules"
+assert_bash_equal "$(plural it files.count 5)" "5 documenti" "a plural entry without --count reads its other form"
+assert_bash_equal "$(plural it power.rate 13.1)" "13,1 W" "a number argument takes the language's decimal separator"
+printf '{"power.rate": "%%1 W"}\n' >"$plural_root/default/i18n/it/cli.json"
+assert_bash_equal "$(plural it --count 2 files.count 13.5)" "13,5 files" "a missing translation falls back to English and localizes its number"
+assert_bash_equal "$(plural it power.rate 10.0.0.1)" "10.0.0.1 W" "an argument that is not a plain number passes through"
+assert_bash_equal "$(plural it --number 13.1) $(plural it --number 13.5)" "13,1 13,5" "arch-i18n --number writes one number in the language"
 assert_bash_equal "$(plural en power.rate --foo) | $(plural en power.rate -n)" "--foo W | -n W" "an argument that starts with a dash is text, not a jq option"
 if plural en --count many files.count 2>/dev/null; then
   fail "arch-i18n rejects a non-numeric count"
@@ -402,23 +402,23 @@ else
   pass "arch-i18n rejects a non-numeric count"
 fi
 
-fr_changed_raw=$(jq -r '."language.changed"' "$ROOT/default/i18n/fr/cli.json")
-assert_bash_equal "$(arch-i18n language.changed 'Research & Development')" "${fr_changed_raw//%1/"Research & Development"}" "arch-i18n keeps ampersands in arguments literal"
+it_changed_raw=$(jq -r '."language.changed"' "$ROOT/default/i18n/it/cli.json")
+assert_bash_equal "$(arch-i18n language.changed 'Research & Development')" "${it_changed_raw//%1/"Research & Development"}" "arch-i18n keeps ampersands in arguments literal"
 
 # With the locale already generated, picking the language needs no
 # privilege at all: no password prompt, no locale-gen.
 cat >"$work/stubs/locale" <<'STUB'
 #!/bin/bash
-if [[ $1 == "-a" ]]; then printf 'en_US.utf8\nfr_FR.utf8\n'; else echo "LANG=fr_FR.UTF-8"; fi
+if [[ $1 == "-a" ]]; then printf 'en_US.utf8\nit_IT.utf8\n'; else echo "LANG=it_IT.UTF-8"; fi
 STUB
 chmod +x "$work/stubs/locale"
 : >"$LOCALE_GEN_LOG"; : >"$ELEVATE_LOG"; : >"$SESSION_ENV_LOG"
 rm -f "$ARCH_LANGUAGE_FILE"
-arch-language fr </dev/null
-assert_bash_equal "$(cat "$ARCH_LANGUAGE_FILE")" "fr" "already-applied locale switches without elevating"
+arch-language it </dev/null
+assert_bash_equal "$(cat "$ARCH_LANGUAGE_FILE")" "it" "already-applied locale switches without elevating"
 assert_bash_equal "$(cat "$LOCALE_GEN_LOG")" "" "already-generated locale is not regenerated"
 assert_bash_equal "$(cat "$ELEVATE_LOG")" "" "no password prompt when nothing privileged is needed"
-assert_bash_equal "$(head -n 1 "$SESSION_ENV_LOG")" 'eval hl.env("LANG", "fr_FR.UTF-8", true)' "an already-generated locale still reaches the session"
+assert_bash_equal "$(head -n 1 "$SESSION_ENV_LOG")" 'eval hl.env("LANG", "it_IT.UTF-8", true)' "an already-generated locale still reaches the session"
 
 # Switching back writes the new LANG over the old one rather than adding to it.
 arch-language en </dev/null
@@ -437,7 +437,7 @@ assert_bash_equal "$(cat "$ELEVATE_LOG")" "sudo -n arch-locale-generate it" "wit
 assert_bash_equal "$(cat "$LOCALE_GEN_LOG")" "it_IT.UTF-8" "the passwordless helper generates the language's locale"
 assert_bash_equal "$(cat "$ARCH_LANGUAGE_FILE")" "it" "the passwordless switch persists the choice"
 
-# Languages outside English, French, Spanish, and Italian are not selectable.
+# Languages outside English and Italian are not selectable.
 if arch-language ja </dev/null 2>/dev/null; then
   fail "arch-language rejects unsupported CJK locales"
 else
@@ -455,7 +455,7 @@ cat >"$work/stubs/locale" <<'STUB'
 if [[ $1 == "-a" ]]; then echo "en_US.utf8"; else echo "LANG=en_US.UTF-8"; fi
 STUB
 rm -f "$ARCH_LANGUAGE_FILE" "$session_env"
-if arch-language fr </dev/null 2>/dev/null; then
+if arch-language it </dev/null 2>/dev/null; then
   fail "a cancelled password prompt fails the switch"
 else
   pass "a cancelled password prompt fails the switch"
@@ -560,7 +560,7 @@ git -C "$fix" config user.name Test
 git -C "$fix" add -A && git -C "$fix" commit -qm fixture
 mkdir -p "$work/artifacts"
 : >"$work/artifacts/da.patch"
-printf '{"fr": ["shell:a.two"]}\n' >"$work/artifacts/da.done.json"
+printf '{"it": ["shell:a.two"]}\n' >"$work/artifacts/da.done.json"
 if python3 "$ROOT/scripts/i18n-sync.py" --root "$fix" collect "$work/artifacts" --expected da >/dev/null 2>&1; then
   fail "collect rejects a sidecar naming another locale"
 else

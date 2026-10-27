@@ -18,6 +18,22 @@ La maggior parte di questi ambienti è gestita da [Mise](https://mise.jdx.dev/).
 
 Per installare, ad esempio, Ruby, esegui `mise use -g ruby`: installerà Ruby e lo imposterà come predefinito globale. Oppure, se il tuo progetto ha un file .ruby-version, puoi semplicemente eseguire `mise i` nella radice del progetto.
 
+## Strumenti CLI preinstallati
+
+Arch rende disponibili strumenti come `gh` e `uv` tramite [l'installazione differita di mise](https://mise.jdx.dev/dev-tools/shims.html#lazy-tools). Al primo avvio, mise installa lo strumento. Gli avvii successivi riutilizzano la versione installata, senza controllare gli aggiornamenti a ogni esecuzione.
+
+Puoi consultare le impostazioni predefinite o installare gli strumenti in anticipo:
+
+```bash
+mise ls --current              # List the tools configured for this directory
+mise install gh               # Install one tool now
+mise install --include-lazy    # Install all configured tools, including lazy tools
+```
+
+Esegui `archctl update` per aggiornare gli strumenti installati insieme al resto di Arch. L'alias `mup` aggiorna soltanto gli strumenti gestiti da mise. Per aggiungere un altro strumento alla tua configurazione, usa `mise use -g <tool>`.
+
+La configurazione Python installa anche `uv` tramite mise. Rimuovendo l'ambiente di sviluppo Python, `uv` resta disponibile come strumento indipendente.
+
 ## Docker
 
 [Docker](https://www.docker.com/) non ha certo bisogno di presentazioni. Ti permette di eseguire container isolati e Arch installa tutto il necessario per farlo funzionare bene, incluso Docker stesso e [Docker Compose](https://docs.docker.com/compose/).

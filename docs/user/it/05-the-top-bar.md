@@ -6,9 +6,9 @@ La striscia lungo la parte superiore dello schermo è la barra di Arch. Non è u
 
 ## Cosa c'è per impostazione predefinita
 
-La barra ha tre sezioni. A sinistra sta il logo Arch (l'avviatore del menu) e gli indicatori dei workspace. Al centro hai gli indicatori di stato, l'orologio, Elsewhen (un orologio mondiale), il meteo e un distintivo di aggiornamento Arch. A destra: il layout tastiera (quando ne è configurato più di uno), l'area di notifica, gli agenti, il bluetooth, la rete, l'audio, il display e l'alimentazione.
+La barra ha tre sezioni. A sinistra sta il logo Arch (l'avviatore del menu) e gli indicatori dei workspace. Al centro hai gli indicatori di stato, l'orologio, Elsewhen (un orologio mondiale), il meteo e un distintivo di aggiornamento Arch. A destra: il layout tastiera (quando ne è configurato più di uno), l'area di notifica, il bluetooth, la rete, l'audio, il display e l'alimentazione.
 
-Alcuni di questi compaiono solo quando hanno qualcosa da dire. Il layout tastiera appare solo se ne hai configurato più di uno. Il distintivo di aggiornamento appare solo quando c'è un aggiornamento Arch in attesa. E l'icona degli agenti appare la prima volta che Arch trova un utilizzo di codifica AI sulla macchina (vedi [AI](17-ai.md)).
+Alcuni di questi compaiono solo quando hanno qualcosa da dire. Il layout tastiera appare solo se ne hai configurato più di uno. Il distintivo di aggiornamento appare solo quando c'è un aggiornamento Arch in attesa.
 
 ## Cliccare in giro
 
@@ -27,7 +27,6 @@ Quasi ogni widget fa qualcosa con clic sinistro, destro e centrale, e diversi ri
 | Display | Pannello display | — | Scorrimento: luminosità |
 | Alimentazione | Pannello alimentazione | Attiva/disattiva percentuale batteria | — |
 | Media | Riproduci/pausa | Popup copertina | Centrale: successivo · scorrimento: prec./succ. |
-| Agenti | Pannello agenti | Avvia il tuo agente | Centrale: abbonamento successivo |
 | Area di notifica | Passa sopra per mostrare il cassetto | Destro sulla freccia per gestirla | — |
 | Aggiornamento Arch | Esegui l'aggiornamento | — | — |
 

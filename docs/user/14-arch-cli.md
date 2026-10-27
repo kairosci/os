@@ -1,6 +1,6 @@
 # Arch CLI
 
-Arch is usually controlled through the hotkeys and the Arch menu (`Super + Space`). But you can also control it through the `arch` CLI. This is particularly helpful when you're having an AI agent work with you on customization or configuration.
+Arch is usually controlled through the hotkeys and the Arch menu (`Super + Space`). But you can also control it through the `arch` CLI. This is particularly helpful for customization and configuration.
 
 The CLI has access to all the internal tooling that is used both via the menu and otherwise. You can see everything that's available by running `arch` in the terminal.
 
@@ -25,7 +25,6 @@ Common commands:
   archctl debug               Print debugging information
 
 Groups:
-  agent          AI coding agents, their usage, and subscription accounts
   audio          Audio input and output controls
   bar            Arch shell bar layout and settings
   battery        Battery status helpers

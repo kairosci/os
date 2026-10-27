@@ -2,6 +2,8 @@
 
 Arch attiva sospensione e ibernazione per impostazione predefinita, ma se hai problemi con una delle due sulla tua macchina, puoi disattivarle.
 
+Sui dispositivi NVIDIA GB10, come DGX Spark e ASUS Ascent GX10, sospensione e ibernazione sono disattivate, come nel sistema DGX di NVIDIA, perché non è ancora stato dimostrato che la sospensione funzioni su questo hardware. L'interruttore della sospensione e la configurazione dell'ibernazione non si applicano. Per riattivare la sospensione, rimuovi `/etc/systemd/sleep.conf.d/arch-sleep-disabled.conf` con `sudo rm`; la sospensione riapparirà nel menu e potrai configurare l'ibernazione come sugli altri dispositivi. Esegui `sudo arch apply hardware --install-user "$USER"` per ripristinare il file.
+
 ### Profili energetici
 
 Su un portatile, Arch ricorda il tuo profilo energetico separatamente per quando è collegato alla corrente e quando va a batteria, e passa dall'uno all'altro quando colleghi e scolleghi l'alimentazione. Di serie significa prestazioni con la corrente e bilanciato a batteria.

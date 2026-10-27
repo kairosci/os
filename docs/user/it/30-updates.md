@@ -20,6 +20,10 @@ Infine, c'è il canale dev, che collega Arch direttamente a un checkout git del 
 
 Puoi passare da un canale all'altro usando _Aggiorna > Canale_ dal menu Arch (oppure `arch-channel-set` nel terminale).
 
+### Cambiare kernel
+
+Il sistema usa per impostazione predefinita il kernel `linux` di Arch Linux. Sui dispositivi che richiedono un kernel specializzato, come i Mac Apple T2 e i portatili Snapdragon X, resta disponibile il kernel adatto alla piattaforma. Quando sono installati più kernel, _Aggiorna > Kernel_ li elenca e indica quello usato all'avvio. Scegline un altro, inserisci la password una volta e verrà avviato al riavvio successivo. Gli altri kernel installati restano disponibili nel menu di avvio. Nel terminale, usa `arch-kernel` per vedere il kernel predefinito, `arch-kernel list` per i kernel installati e `arch-kernel set <kernel>` per cambiarlo.
+
 ### Aggiornamenti del firmware
 
 I tuoi pacchetti non sono l'unica cosa che diventa obsoleta. Molti portatili e periferiche distribuiscono firmware BIOS, SSD e dock tramite il Linux Vendor Firmware Service, e _Aggiorna > Firmware_ nel menu Arch recupererà e installerà tutto ciò che il tuo hardware ha in attesa. Installa `fwupd` la prima volta che lo esegui. Molto firmware può essere scritto solo durante un riavvio, quindi non sorprenderti se te ne verrà chiesto uno.

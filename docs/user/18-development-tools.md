@@ -20,9 +20,9 @@ To install, say, Ruby, you'd run `mise use -g ruby`, which will both install Rub
 
 ## Preinstalled CLI tools
 
-Arch makes tools such as `gh`, `uv`, and most [coding agents](17-ai.md) available through [mise's lazy installation](https://mise.jdx.dev/dev-tools/shims.html#lazy-tools). The first time you run one, mise installs it. Later runs reuse the installed version; they do not check for an update on every launch.
+Arch makes tools such as `gh` and `uv` available through [mise's lazy installation](https://mise.jdx.dev/dev-tools/shims.html#lazy-tools). The first time you run one, mise installs it. Later runs reuse the installed version; they do not check for an update on every launch.
 
-You can also inspect the defaults or install them ahead of time:
+You can inspect the defaults or install them ahead of time:
 
 ```bash
 mise ls --current              # List the tools configured for this directory
@@ -33,21 +33,6 @@ mise install --include-lazy    # Install all configured tools, including lazy to
 Run `archctl update` to update installed tools with the rest of Arch. The `mup` alias updates mise-managed tools only. To add another tool to your own configuration, use `mise use -g <tool>`.
 
 Python setup also installs `uv` through mise. Removing the Python development environment leaves `uv` available as an independent tool.
-
-### Using your own installation
-
-mise's commands come before `~/.local/bin` on `PATH`, so a tool you installed yourself, for example with Claude Code's or Cursor's own installer, still runs mise's copy. Apps launched from the desktop also find mise's commands before system packages, so an app that runs `gh` gets mise's copy even if you installed `github-cli` with pacman, and mise installs that copy the first time. To use yours instead, disable mise's copy in `~/.config/mise/config.toml`. For example, if you installed Cursor CLI yourself:
-
-```toml
-[settings]
-disable_tools = ["cursor-agent"]
-```
-
-If you already have a `[settings]` table, add the entry there; extend an existing `disable_tools` list rather than replacing it. Make sure your installation is on `PATH`. Use the mise tool name, which can differ from its command: `oh-my-pi` provides `omp`, for example. The default-agent launcher also prefers a user-installed Cursor or Muse in `~/.local/bin`.
-
-### Removing and restoring defaults
-
-_Remove Preinstalls_ has mise skip Arch's tool declarations for your user, by adding them to `ignored_config_paths` in `~/.config/mise/miserc.toml`. _Restore Preinstalls_ removes that line again. Tools you declare yourself, in your own config or in a project's `mise.toml`, keep working either way. If you choose a default agent or set up Python after removing the preinstalls, that tool is added to your own config. Both apply only to your user; other users on the machine keep their own choice.
 
 ## Docker
 
