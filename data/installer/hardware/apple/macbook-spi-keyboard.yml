@@ -1,0 +1,25 @@
+match_command: [arch-hw-match]
+install_packages: [arch-pkg-add, macbook12-spi-driver-dkms]
+install_file: [sudo, install, -Dm644]
+target: /etc/mkinitcpio.conf.d/macbook_spi_modules.conf
+models:
+  - pattern: 'MacBook8,1'
+    modules: [applespi, spi_pxa2xx_platform, spi_pxa2xx_pci]
+  - pattern: 'MacBook9,1'
+    modules: [applespi, intel_lpss_pci, spi_pxa2xx_platform]
+  - pattern: 'MacBook10,1'
+    modules: [applespi, intel_lpss_pci, spi_pxa2xx_platform]
+  - pattern: 'MacBookPro13,1'
+    modules: [applespi, intel_lpss_pci, spi_pxa2xx_platform]
+  - pattern: 'MacBookPro13,2'
+    modules: [applespi, intel_lpss_pci, spi_pxa2xx_platform]
+  - pattern: 'MacBookPro13,3'
+    modules: [applespi, intel_lpss_pci, spi_pxa2xx_platform]
+  - pattern: 'MacBookPro14,1'
+    modules: [applespi, intel_lpss_pci, spi_pxa2xx_platform]
+  - pattern: 'MacBookPro14,2'
+    modules: [applespi, intel_lpss_pci, spi_pxa2xx_platform]
+  - pattern: 'MacBookPro14,3'
+    modules: [applespi, intel_lpss_pci, spi_pxa2xx_platform]
+content_template: "MODULES=({modules})\n"
+statuses: {complete: 0}
