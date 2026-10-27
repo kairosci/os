@@ -1,0 +1,4 @@
+commands:
+  hardware_match: [arch-hw-aarch64-n1x]
+  apply: [arch-apply-n1x-gpu-memory]
+statuses: {matched: 0, complete: 0}
