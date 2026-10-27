@@ -47,6 +47,7 @@ pass "legacy cleanup removes generated rules for any account and quarantines eve
 # The migration reaches the helper through $ARCH_PATH, as the package's bin
 # links and a dev checkout provide it, so the mapped copy stands in there.
 mkdir -p "$test_tmp/source/migrations" "$test_tmp/source/bin"
+migration_test_runtime "$test_tmp/source"
 cp "$ROOT/migrations/1788163635.sh" "$test_tmp/source/migrations/"
 ln -s "$test_tmp/arch-sudo-passwordless" "$test_tmp/source/bin/arch-sudo-passwordless"
 printf 'echo "later migration ran"\n' >"$test_tmp/source/migrations/1788163636.sh"

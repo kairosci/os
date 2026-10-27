@@ -10,6 +10,7 @@ trap 'rm -rf "$test_tmp"' EXIT
 test_root="$test_tmp/arch"
 test_home="$test_tmp/home"
 mkdir -p "$test_root/migrations" "$test_home"
+migration_test_runtime "$test_root"
 
 cat >"$test_root/migrations/100-first.sh" <<'SH'
 [[ $ARCH_PATH == "$TEST_EXPECTED_ARCH_PATH" ]]
@@ -56,6 +57,7 @@ pass "migration runner detects no pending migrations"
 deferred_root="$test_tmp/deferred-root"
 deferred_home="$test_tmp/deferred-home"
 mkdir -p "$deferred_root/migrations" "$deferred_home"
+migration_test_runtime "$deferred_root"
 cat >"$deferred_root/migrations/100-deferred.sh" <<'SH'
 echo deferred >>"$TEST_CALLS"
 [[ ${TEST_DEFERRED:-0} != 1 ]] || exit 75
@@ -176,6 +178,7 @@ pass "home config and state migrate from OS names to Arch idempotently"
 failure_root="$test_tmp/failure-arch"
 failure_home="$test_tmp/failure-home"
 mkdir -p "$failure_root/migrations" "$failure_home"
+migration_test_runtime "$failure_root"
 
 cat >"$failure_root/migrations/500-fail.sh" <<'SH'
 echo before-fail >>"$TEST_CALLS"
@@ -200,6 +203,7 @@ stdin_root="$test_tmp/stdin-arch"
 stdin_home="$test_tmp/stdin-home"
 stdin_calls="$test_tmp/stdin-calls"
 mkdir -p "$stdin_root/migrations" "$stdin_home"
+migration_test_runtime "$stdin_root"
 
 cat >"$stdin_root/migrations/100-reader.sh" <<'SH'
 IFS= read -r value

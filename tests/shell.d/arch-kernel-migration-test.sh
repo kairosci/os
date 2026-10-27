@@ -136,6 +136,7 @@ pass "ARM systems cannot receive an x86_64 kernel"
 reset_fixture
 printf '%s\n' linux-ptl-novrr-mm > "$INSTALLED_PACKAGES"
 mkdir -p "$scratch/state" "$scratch/user-markers" "$scratch/arch/migrations"
+migration_test_runtime "$scratch/arch"
 export ARCH_PTL_REBUILD_MARKER="$scratch/state/1789095456"
 export ARCH_MIGRATION_STATE="$scratch/user-markers"
 touch "$ARCH_PTL_REBUILD_MARKER" "$ARCH_MIGRATION_STATE/1789095456.sh"

@@ -11,6 +11,7 @@ test_root="$test_tmp/arch"
 test_home="$test_tmp/home"
 stub_bin="$test_tmp/bin"
 mkdir -p "$test_root/migrations" "$test_home" "$stub_bin"
+migration_test_runtime "$test_root"
 
 cat >"$stub_bin/arch-notification-dismiss" <<'SH'
 #!/bin/bash

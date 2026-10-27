@@ -324,6 +324,7 @@ pass "an unaffected machine is a successful no-op"
 # current user's state directory or running any other repository migrations.
 reset_state
 mkdir -p "$test_tmp/arch/migrations"
+migration_test_runtime "$test_tmp/arch"
 ln -s "$ROOT/migrations/1788279117.sh" "$test_tmp/arch/migrations/1788279117.sh"
 printf '%s\n' 'touch "$TEST_STATE/later-migration"' >"$test_tmp/arch/migrations/1788279118.sh"
 export ARCH_PATH="$test_tmp/arch"

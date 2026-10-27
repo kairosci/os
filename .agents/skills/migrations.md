@@ -8,16 +8,19 @@ itself.
 
 ## Migration model
 
-Migrations live in:
+New migrations live in:
 
 ```text
-migrations/*.sh
+migrations/*.py
 ```
 
-They run as the current Arch user through `arch-migrate`, normally during
-`archctl update`. A migration may touch user/session state (`~/.config`,
-`~/.local`, user systemd, browser/editor prefs, DBus/session state), and may also
-perform machine-wide repairs when needed.
+Existing `migrations/*.sh` files remain supported for late updaters and are
+being converted incrementally. Python migrations run with `python3 -I`; legacy
+shell migrations run with `bash -euo pipefail`. Both run as the current Arch
+user through `arch-migrate`, normally during `archctl update`. A migration may
+touch user/session state (`~/.config`, `~/.local`, user systemd,
+browser/editor prefs, DBus/session state), and may also perform machine-wide
+repairs when needed.
 
 Completion state is per-user:
 
@@ -112,21 +115,26 @@ Use the helper:
 arch-dev-add-migration --no-edit
 ```
 
-This creates:
+This creates a Python migration:
 
 ```text
-migrations/<unix timestamp>.sh
+migrations/<unix timestamp>.py
 ```
+
+It also creates the companion values file at
+`data/migrations/<unix timestamp>.yml`. Put migration-specific paths, package
+names, commands, and other variable values there; keep Python code focused on
+the steps that apply those values.
 
 New migration format:
 
-- File permissions must be `0644` (`-rw-r--r--`). Migration runners execute them
-  with `bash -euo pipefail`, not through executable bits.
+- File permissions must be `0644` (`-rw-r--r--`). The runner invokes Python
+  directly, not through executable bits.
 - No shebang line.
-- Start with an `echo` describing what the migration does.
-- Use `$ARCH_PATH` to reference the Arch directory.
+- Use `arch-i18n` for user-facing output.
+- Use `ARCH_PATH` via `os.environ["ARCH_PATH"]` to reference the Arch directory.
 - Be idempotent. Check existing state before changing it.
-- Migrations are strictly ordered and synchronous. A migration that cannot finish must exit non-zero, remain pending, and stop the queue; never mark later migrations complete against state an earlier migration has not established.
+- Migrations are strictly ordered and synchronous. A migration that cannot finish must remain pending. Return the deferred status from `data/cli/migrate.yml` only when later migrations are independent; the runner then continues with them. Any other non-zero exit stops the queue, so later migrations are never marked complete against state an earlier migration has not established.
 - Use helper commands such as `arch-cmd-present`, `arch-cmd-missing`,
   `arch-pkg-add`, `arch-pkg-drop`, `arch-pkg-present`, and
   `arch-pkg-missing` when appropriate.
@@ -138,28 +146,46 @@ New migration format:
 
 Example:
 
-```bash
-echo "Relink Neovim theme to Arch current state"
+```python
+from __future__ import annotations
 
-theme_link="$HOME/.config/nvim/lua/plugins/theme.lua"
-current_relative_target="../../../../.local/state/arch/current/theme/neovim.lua"
+import os
+from pathlib import Path
+import yaml
 
-[[ -L $theme_link ]] || exit 0
-ln -sfn "$current_relative_target" "$theme_link"
+
+def main() -> int:
+  config_path = Path(os.environ["ARCH_PATH"]) / "data/migrations" / f"{Path(__file__).stem}.yml"
+  config = yaml.safe_load(config_path.read_text(encoding="utf-8"))
+  theme_link = Path.home() / config["paths"]["theme_link"]
+  if not theme_link.is_symlink():
+    return int(config["statuses"]["success"])
+
+  current_target = config["paths"]["current_theme"]
+  theme_link.unlink()
+  theme_link.symlink_to(current_target)
+  return int(config["statuses"]["success"])
+
+
+if __name__ == "__main__":
+  raise SystemExit(main())
 ```
 
 ## Testing migrations
 
-Run a migration against a temporary home when possible:
+Run a Python migration against a temporary home when possible:
 
 ```bash
-HOME=$(mktemp -d) bash -euo pipefail migrations/<timestamp>.sh
+HOME=$(mktemp -d) ARCH_PATH="$PWD" python3 -I migrations/<timestamp>.py
 ```
+
+Legacy `.sh` migrations can still be run with `HOME=$(mktemp -d) bash -euo
+pipefail migrations/<timestamp>.sh`.
 
 To rerun a migration locally, remove its marker and run the migrator:
 
 ```bash
-rm ~/.local/state/arch/migrations/<migration>.sh
+rm ~/.local/state/arch/migrations/<migration>.py
 arch-migrate
 ```
 
