@@ -104,9 +104,6 @@ You can see all the main keyboard bindings with `Super + K` (Tmux bindings with 
 | `Super + Shift + /`           | Password manager (1password)    |
 | `Super + Shift + T`           | Activity (btop)    |
 | `Super + Shift + N`           | Editor (Neovim)  |
-| `Super + Shift + C`           | Calendar ([HEY](https://hey.com/))  |
-| `Super + Shift + E`           | Email ([HEY](https://hey.com/))  |
-| `Super + Shift + Alt + E`           | New email ([HEY](https://hey.com/))  |
 | `Super + Shift + G`           | Messenger (Signal)  |
 | `Super + Shift + P`           | Google Photos  |
 | `Super + Shift + S`           | Google Maps  |

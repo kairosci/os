@@ -12,19 +12,7 @@ Tutte le scorciatoie da tastiera per queste app web possono essere cambiate in `
 
 Quando sei in un'app web, puoi copiare l'URL corrente negli appunti usando `Shift + Alt + L`.
 
-Per impostazione predefinita, Arch include già un assortimento di app predefinite:
-
-## HEY
-
-[HEY](https://www.hey.com/) è un servizio di email e calendario che rappresenta un'ottima alternativa per chi è stanco di Gmail, Outlook o Apple Mail. È realizzato da [37signals](https://37signals.com/), dove è nato Arch.
-
-Puoi avviare HEY Email usando `Super + Shift + E`, saltare direttamente alla composizione di una nuova email usando `Super + Shift + Alt + E` e avviare HEY Calendar usando `Super + Shift + C`.
-
-## Basecamp
-
-[Basecamp](https://basecamp.com/) è un servizio di gestione dei progetti che aiuta i piccoli team a muoversi più velocemente e a fare più progressi. Invece di mettere insieme un miscuglio di Trello, Slack, Asana, Notion o altro, con Basecamp puoi avere tutto in un unico posto. È realizzato da [37signals](https://37signals.com/), dove è nato Arch.
-
-Puoi avviare Basecamp usando il launcher delle app (`Super + Space`)
+Arch include le app web elencate qui sotto. Puoi aggiungerne altre con _Installa > App web_.
 
 ## WhatsApp
 

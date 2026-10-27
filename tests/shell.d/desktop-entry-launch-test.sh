@@ -22,7 +22,7 @@ cat >"$mock_bin/arch-font-set" <<'SH'
 printf 'font:%s\n' "$*" >>"$ARCH_TEST_LOG"
 SH
 
-for command in arch-pkg-aur-add arch-install-emacs omazed arch-theme-set-vscode arch-install-gaming-gpu-lib32 arch-lifecycle-dispatch; do
+for command in arch-pkg-aur-add arch-install-emacs arch-theme-set-vscode arch-install-gaming-gpu-lib32 arch-lifecycle-dispatch; do
   cat >"$mock_bin/$command" <<'SH'
 #!/bin/bash
 exit 0
@@ -74,6 +74,9 @@ assert_detached_installer_launch() {
 assert_detached_installer_launch arch-install-editor-emacs emacsclient
 assert_detached_installer_launch arch-install-editor-vscode code
 assert_detached_installer_launch arch-install-editor-zed dev.zed.Zed
+grep -Fxq 'pkg:zed' "$ARCH_TEST_LOG" || fail "the Zed installer uses the official Arch package"
+! grep -Fq 'omazed' "$ARCH_TEST_LOG" || fail "the Zed installer does not install the retired integration package"
+pass "the Zed installer uses only the official Arch package"
 assert_detached_installer_launch arch-install-gaming-heroic heroic
 assert_detached_installer_launch arch-install-gaming-steam steam
 

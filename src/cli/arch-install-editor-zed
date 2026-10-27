@@ -1,11 +1,8 @@
 #!/bin/bash
 
-# arch:summary=Install Zed Editor and configure it with the current Arch theme
+# arch:summary=Install and launch Zed Editor
 
 echo "Installing Zed Editor..."
-arch-pkg-add zed omazed
-
-# Apply os theme to Zed
-omazed setup
+arch-pkg-add zed
 
 setsid uwsm-app -- gtk-launch dev.zed.Zed >/dev/null 2>&1 &
