@@ -128,6 +128,7 @@
     "cli:migration.installZbar": "f12fc14e3840",
     "cli:migration.moveKeyboardLayoutWidget": "8307bac3690a",
     "cli:migration.refreshApplications": "ee1063fc0611",
+    "cli:migration.registerBraveOriginExtensionHosts": "0ea419647fc5",
     "cli:migration.removeFloatingDiskUsageLauncher": "26ccb20c0c6c",
     "cli:migration.removeManagedSkillLinks": "9f65197b6854",
     "cli:migration.removeWorkspaceTitlebars": "9df27a876d4a",
