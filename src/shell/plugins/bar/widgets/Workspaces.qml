@@ -186,7 +186,10 @@ BarWidget {
         Layout.topMargin: firstGuest && root.vertical ? Style.space(6) : 0
 
         bar: root.bar
-        text: String(modelData)
+        // Workspace keys are local to a monitor, so show the number users
+        // select (1-10) instead of Hyprland's monitor-specific global id.
+        // Keep a visiting workspace's global id visible to distinguish it.
+        text: String(root.blockOf(modelData) === root.block ? slot : modelData)
         active: shown
         activeColor: Commons.Color.accent
         useActiveColor: true
@@ -201,16 +204,16 @@ BarWidget {
         onWheelMoved: function(delta) { root.scrollWorkspaces(delta) }
 
         Rectangle {
-          // Keep the marker in front of the button background, below the
-          // centered number. The active number is also colored by the button.
+          // Keep the active marker aligned with its workspace number without
+          // covering the number's baseline.
           z: 1
           visible: workspaceButton.shown
           width: Style.space(2)
           height: width
           radius: width / 2
           anchors.horizontalCenter: parent.horizontalCenter
-          anchors.bottom: parent.bottom
-          anchors.bottomMargin: Style.space(1)
+          anchors.top: parent.top
+          anchors.topMargin: Style.space(1)
           color: Commons.Color.accent
         }
       }
