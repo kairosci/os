@@ -1,0 +1,7 @@
+hardware_check: [arch-hw-match, H7407BA]
+target: /etc/modprobe.d/hid_asus.conf
+mode: '0644'
+content: |
+  # ASUS ProArt P14: the top row sends media keys by default; Fn+Esc switches to F1-F12.
+  options hid_asus fnlock_default=0
+statuses: {complete: 0}
