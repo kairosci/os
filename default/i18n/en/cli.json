@@ -261,6 +261,7 @@
   "tui.removed": "TUI removed",
   "tui.selectRemove": "Select TUI to remove",
   "update.cannotStop": "You cannot stop the update once you start!",
+  "update.cancelled": "Update cancelled",
   "update.connectPower": "Make sure you're connected to power or have a full battery",
   "update.continue": "Continue with update?",
   "update.hyprlandReboot": "Hyprland has been updated. Reboot?",
