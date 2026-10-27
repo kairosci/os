@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# arch:summary=Launch a floating terminal with the Arch presentation wrapper
+# arch:summary=Launch a tiled terminal with the Arch presentation wrapper
 # arch:args=<command>
 
 # Export the current theme's gum styling so gum widgets match the active theme

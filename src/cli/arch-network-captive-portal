@@ -34,7 +34,7 @@ restore_exit_node() {
   fi
 }
 
-# The portal signs in inside a floating web app window (see
+# The portal signs in inside a tiled web app window (see
 # default/hypr/apps/captive-portal.lua), named by Chromium after the URL's
 # host, which closes once the internet is reachable. Launched in the
 # background: with no browser running to take the handoff, the launcher stays

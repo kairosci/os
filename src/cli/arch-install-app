@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# arch:summary=Install a packaged app, surfacing the install in a floating terminal
+# arch:summary=Install a packaged app, surfacing the install in a tiled terminal
 # arch:args=<display-name> <packages>
 # arch:examples=archctl install app 'LM Studio' lmstudio-bin
 
