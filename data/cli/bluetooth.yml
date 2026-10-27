@@ -1,0 +1,76 @@
+commands:
+  bluetoothctl: [bluetoothctl]
+  rfkill: [rfkill]
+  timeout: [timeout]
+  sleep: [sleep]
+  power: [arch-bluetooth-power]
+  i18n: [arch-i18n]
+  device:
+    show: [show]
+    pair: [--agent, NoInputNoOutput, pair]
+    trust: [trust]
+    connect: [connect]
+    disconnect: [disconnect]
+    remove: [remove]
+  rfkill_actions:
+    block: [block, bluetooth]
+    unblock: [unblock, bluetooth]
+  timeout_unit: s
+device:
+  actions: [pair, connect, disconnect, forget]
+  address_pattern: '^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$'
+  usage_key: bluetooth.deviceUsage
+  ensure_power:
+    command: power
+    arguments: ["on"]
+    ignore_failure: true
+  powered_query:
+    command: bluetoothctl
+    arguments: [show]
+    timeout: 2
+    success_text: "Powered: yes"
+  action_commands:
+    pair:
+      - command: pair
+        timeout: 20
+        required: true
+    connect:
+      - command: trust
+        required: false
+      - command: connect
+        timeout: 20
+        required: false
+    disconnect:
+      - command: disconnect
+        timeout: 10
+        required: false
+    forget:
+      - command: disconnect
+        timeout: 10
+        required: false
+      - command: remove
+        timeout: 10
+        required: false
+power:
+  actions: ["on", "off", toggle, is-on]
+  action_names:
+    "on": "on"
+    "off": "off"
+    toggle: toggle
+    is_on: is-on
+  usage_key: bluetooth.powerUsage
+  failed_key: bluetooth.adapterPowerFailed
+  timing:
+    wait_environment: ARCH_BLUETOOTH_POWER_WAIT_SECONDS
+    wait_default: 2
+    controller_query_timeout: 2
+    show_timeout: 2
+    power_timeout: 5
+    poll_interval: 0.2
+  fields:
+    controller_address: 1
+    powered_text: "Powered: yes"
+  commands:
+    controller_list: [list]
+    controller_show: [show]
+    power_on: [power, "on"]
