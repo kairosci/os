@@ -30,6 +30,8 @@ Nearly every widget does something on left, right, and middle click, and several
 | Tray | Hover to reveal the drawer | Right on the chevron to manage | — |
 | Arch update | Run the update | — | — |
 
+The current workspace keeps its number visible and has a small dot beneath it, so the active workspace is clear without replacing its number.
+
 Not everything in that table is on your bar out of the box. The media widget (MPRIS now-playing, with a scrolling track and artist) and the microphone widget are both built in but off by default — add them if you want them, as described below.
 
 ## The panels
