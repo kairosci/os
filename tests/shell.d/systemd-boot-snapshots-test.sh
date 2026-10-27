@@ -92,10 +92,13 @@ printf '%s\n' 'cryptdevice=PARTUUID=1234:root root=/dev/mapper/custom rootflags=
 printf '%s\n' 'cryptdevice=PARTUUID=1234:root root=/dev/mapper/root rootflags=subvol=@ rw resume=/dev/mapper/root quiet splash' \
   >"$kernel_test/embedded-cmdline"
 
-objcopy() {
-  [[ $1 == "-O" && $2 == "binary" && $3 == "--only-section=.cmdline" ]] || return 1
-  cp "$kernel_test/embedded-cmdline" "${@: -1}"
-}
+mkdir -p "$kernel_test/bin"
+cat >"$kernel_test/bin/objcopy" <<'OBJCOPY'
+#!/bin/bash
+[[ $1 == "-O" && $2 == "binary" && $3 == "--only-section=.cmdline" ]] || exit 1
+cp "$ARCH_TEST_EMBEDDED_CMDLINE" "${@: -1}"
+OBJCOPY
+chmod +x "$kernel_test/bin/objcopy"
 
 export ARCH_PATH="$ROOT"
 export ARCH_SYSTEMD_BOOT_KERNEL_ESP="$kernel_test/esp"
@@ -105,7 +108,8 @@ export ARCH_KERNEL_UKI="$kernel_test/esp/EFI/Linux/os_linux.efi"
 export ARCH_KERNEL_PRESET_TEMPLATE="$ROOT/default/mkinitcpio/linux.preset"
 export ARCH_MKINITCPIO_DEFAULT_PRESET=/usr/share/mkinitcpio/hook.preset
 export ARCH_HW_X86_HELPER="$kernel_test/arch-hw-x86"
-source "$ROOT/installer/config/systemd-boot-kernel.sh"
+export ARCH_TEST_EMBEDDED_CMDLINE="$kernel_test/embedded-cmdline"
+PATH="$kernel_test/bin:$PATH" python3 -I "$ROOT/src/python/installer/system_setup/systemd_boot_kernel.py"
 cmdline=$(<"$kernel_test/etc/kernel/cmdline")
 [[ $cmdline == *'root=/dev/mapper/custom'* ]] || fail "a custom systemd root parameter is preserved" "$cmdline"
 [[ $cmdline == *'resume=/dev/mapper/root quiet splash'* ]] || fail "the UKI's additional boot parameters are carried into mkinitcpio" "$cmdline"
@@ -135,13 +139,13 @@ default_uki="/boot/EFI/Linux/os_linux.efi"
 fallback_uki="/boot/EFI/Linux/os_linux-fallback.efi"
 fallback_options="-S autodetect"
 PRESET
-source "$ROOT/installer/config/systemd-boot-kernel.sh"
+PATH="$kernel_test/bin:$PATH" python3 -I "$ROOT/src/python/installer/system_setup/systemd_boot_kernel.py"
 cmp -s "$ROOT/default/mkinitcpio/linux.preset" "$kernel_test/etc/mkinitcpio.d/linux.preset" ||
   fail "the previous shipped preset is updated to the current Arch kernel path"
 pass "the previous shipped Arch preset is upgraded without overwriting custom presets"
 
 printf '%s\n' 'user preset' >"$kernel_test/etc/mkinitcpio.d/linux.preset"
-if source "$ROOT/installer/config/systemd-boot-kernel.sh"; then
+if PATH="$kernel_test/bin:$PATH" python3 -I "$ROOT/src/python/installer/system_setup/systemd_boot_kernel.py"; then
   fail "a custom mkinitcpio preset is not overwritten"
 fi
 grep -Fxq 'user preset' "$kernel_test/etc/mkinitcpio.d/linux.preset" ||
