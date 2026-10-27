@@ -5,6 +5,18 @@ paths:
   user_themes: "{home}/.config/arch/themes"
   bundled_themes: "{arch_path}/assets/themes"
   current_background: "{state_home}/arch/current/background"
+  user_backgrounds: "{home}/.config/arch/backgrounds/{theme}"
+  theme_backgrounds: "{state_home}/arch/current/theme/backgrounds"
+  background_root: "{state_home}/arch/current/theme.name"
+background_cycle:
+  extensions: [.jpg, .jpeg, .png, .gif, .bmp, .webp, .mp4, .m4v, .mov, .webm, .mkv, .avi]
+  commands:
+    set_background: [arch-theme-bg-set]
+    translate: [arch-i18n]
+    notify: [arch-notification-send]
+  no_background_message: theme.noBackground
+  notification_timeout_option: -t
+  notification_timeout: 2000
 background_name:
   extension_pattern: '\.[^.]+$'
   numeric_prefix_pattern: '^\d+-'
