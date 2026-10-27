@@ -106,3 +106,26 @@ theme_setup:
   btop_directory: .config/btop/themes
   btop_target: .local/state/arch/current/theme/btop.theme
   btop_link: current.theme
+nouveau_cursor_setup:
+  nvidia_config_environment: ARCH_NVIDIA_MODPROBE_CONFIG
+  nvidia_config_default: /etc/modprobe.d/nvidia.conf
+  command_check: [arch-cmd-present, lspci]
+  driver_command: [lspci, -k]
+  driver_environment: {LC_ALL: C}
+  driver_pattern: 'Kernel driver in use: nouveau'
+  config_file: .config/hypr/looknfeel.lua
+  existing_setting: no_hardware_cursors
+  setting: |-
+
+    -- nouveau does not display the hardware cursor plane on many older NVIDIA GPUs,
+    -- leaving the pointer invisible on the physical display. Render it in software.
+    hl.config({
+      cursor = {
+        no_hardware_cursors = true,
+      },
+    })
+  messages:
+    en:
+      enabled: "Detected nouveau driver. Forcing software cursors so the mouse pointer stays visible."
+    it:
+      enabled: "Driver nouveau rilevato. Attivo il cursore software per mantenere visibile il puntatore."

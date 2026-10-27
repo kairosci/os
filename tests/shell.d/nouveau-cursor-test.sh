@@ -18,11 +18,11 @@ looknfeel="$test_tmp/home/.config/hypr/looknfeel.lua"
 printf '%s\n' '-- User look and feel' >"$looknfeel"
 
 run_fix() {
-  HOME="$test_tmp/home" \
+  HOME="$test_tmp/home" ARCH_PATH="$ROOT" \
     PATH="$test_tmp/bin:$ROOT/src/cli:$PATH" \
     ARCH_NVIDIA_MODPROBE_CONFIG="$test_tmp/nvidia.conf" \
     TEST_VIDEO_DRIVER="${1:-nouveau}" \
-    bash -euo pipefail -c 'source "$ROOT/installer/user/hardware/fix-nouveau-cursor.sh"'
+    python3 -I "$ROOT/src/python/installer_user/setup/nouveau_cursor.py"
 }
 
 run_fix >/dev/null
