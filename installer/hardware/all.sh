@@ -50,7 +50,7 @@ run_logged "$ARCH_PATH/src/python/installer/hardware/qualcomm/initramfs.py"
 run_logged "$ARCH_PATH/src/python/installer/hardware/qualcomm/firmware.py"
 run_logged "$ARCH_PATH/src/python/installer/hardware/qualcomm_camera.py"
 
-run_logged "$ARCH_INSTALL/hardware/lenovo/fix-yoga-pro7-bass-speakers.sh"
+run_logged "$ARCH_PATH/src/python/installer/hardware/lenovo/yoga_pro7_bass_speakers.py"
 run_logged "$ARCH_INSTALL/hardware/lenovo/yoga-slim7x.sh"
 run_logged "$ARCH_PATH/src/python/installer/hardware/lenovo/thinkpad_t14s_camera.py"
 
