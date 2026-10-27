@@ -790,6 +790,8 @@ fi
 # run keeps the check independent of how fast the machine is.
 make_tmpdir ROUTER_BIN
 cp -a "$ROOT/src/cli/." "$ROUTER_BIN/"
+# The alias entrypoint is installed by the package, not stored in src/cli.
+cp "$ROOT/src/cli/archctl" "$ROUTER_BIN/arch"
 # The real header, so the alias resolves as shipped, over a body that takes no
 # screenshot.
 {
