@@ -1,0 +1,2 @@
+lockscreen:
+  command: ["{arch_path}/src/cli/arch-apply-lock"]

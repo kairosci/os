@@ -1,7 +1,7 @@
 run_logged "$ARCH_INSTALL/config/theme-system.sh"
 run_logged "$ARCH_INSTALL/config/browser-policy.sh"
 run_logged "$ARCH_INSTALL/config/increase-lockout-limit.sh"
-run_logged "$ARCH_INSTALL/config/lockscreen-pam.sh"
+run_logged "$ARCH_PATH/src/python/installer/system_setup/lockscreen.py"
 run_logged "$ARCH_INSTALL/config/fix-powerprofilesctl-shebang.sh"
 run_logged "$ARCH_INSTALL/config/ssh-command-path.sh"
 run_logged "$ARCH_INSTALL/config/ssh-keepalive.sh"

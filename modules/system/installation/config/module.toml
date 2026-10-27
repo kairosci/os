@@ -1,9 +1,13 @@
 id = "system.installation.config"
 domain = "system"
 package = "arch"
-sources = ["installer/config"]
+sources = ["installer/config", "src/python/installer/system_setup"]
 requires = ["system.installation"]
 
 [[output]]
 source = "installer/config"
 target = "usr/share/arch/installer/config"
+
+[[output]]
+source = "src/python/installer/system_setup"
+target = "usr/share/arch/src/python/installer/system_setup"
