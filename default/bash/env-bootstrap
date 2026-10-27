@@ -22,27 +22,6 @@ if [ "$ARCH_PATH" != /usr/share/arch ]; then
   esac
 fi
 
-# mise's command wrappers must precede real tool directories inherited from a
-# parent shell, so scripts follow account switches without Bash functions.
-# mise activate also keeps this directory ahead of its managed tool binaries.
-arch_wrapper_dir="${MISE_DATA_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/mise}/command-wrappers/bin"
-arch_wrapper_path=$arch_wrapper_dir
-if [ -n "${PATH:-}" ]; then
-  arch_remaining_path=$PATH
-  while :; do
-    arch_path_entry=${arch_remaining_path%%:*}
-    if [ "$arch_path_entry" != "$arch_wrapper_dir" ]; then
-      arch_wrapper_path="$arch_wrapper_path:$arch_path_entry"
-    fi
-    case "$arch_remaining_path" in
-      *:*) arch_remaining_path=${arch_remaining_path#*:} ;;
-      *) break ;;
-    esac
-  done
-fi
-PATH=$arch_wrapper_path
-unset arch_wrapper_dir arch_wrapper_path arch_remaining_path arch_path_entry
-
 # User-level tool paths, appended so system binaries keep precedence. This is
 # what lets login shells (ssh, bash -lc) and the uwsm session find mise-managed
 # tools without an interactive rc. Keep these directories in sync with the PAM

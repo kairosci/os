@@ -105,7 +105,7 @@ assets/applications/icons/*           ──►  arch-settings    /usr/share/ico
 etc/**                         ──►  arch-settings    /etc/**           (drop-ins we own outright)
   ├─ mkinitcpio.conf.d/{00-arch-hooks,arch_hooks,thunderbolt_module}.conf
   ├─ limine-entry-tool.d/{arch-defaults,arch-uki}.conf
-  ├─ mise/conf.d/{arch,arch-tools,arch-agent-accounts}.toml
+  ├─ mise/conf.d/{arch,arch-tools}.toml
   ├─ NetworkManager/, sudoers.d/, sysctl.d/, tmpfiles.d/,
   │  profile.d/arch.sh, …                            (a summary — `ls etc/` for the full ~17-entry tree)
   └─ security/faillock.conf, nsswitch.conf,
@@ -232,7 +232,7 @@ Single source of truth for `ARCH_PATH` and dev-link-aware `PATH`. It:
 - Prepends `$ARCH_PATH/src/cli` to `PATH` **only when** `ARCH_PATH` is
   not `/usr/share/arch`. On a production install the binaries are
   already on `PATH` as `/usr/bin/arch-*` via the `arch` package.
-- Prepends mise's `command-wrappers/bin` so subscription account dispatch runs before inherited tool binaries, then appends `~/.local/share/mise/shims` and `~/.local/bin` so login shells and the uwsm session find mise-managed tools. The existing mise tool shims also dispatch these wrappers for SSH commands that run no shell setup; the PAM path needs no additional entry. `etc/mise/conf.d/arch-agent-accounts.toml` declares the Claude, Codex, and Grok wrappers; `mise reshim` builds them during user setup and migration. Each invocation resolves the selected account through `arch-agent-account-exec`, while an explicit provider home takes precedence. Credentials and running sessions remain in their original account homes.
+- Appends `~/.local/share/mise/shims` and `~/.local/bin` so login shells and the uwsm session find mise-managed tools without overriding system commands.
 
 Sourced by every entry point that needs the env set:
 
