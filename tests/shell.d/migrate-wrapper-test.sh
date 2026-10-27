@@ -37,7 +37,7 @@ run_migrate >"$test_tmp/migrate.out"
 [[ $(sed -n '1p' "$test_tmp/calls") == "migration" ]] || fail "arch-migrate runs pending migrations"
 pass "arch-migrate runs migrations without force"
 
-grep -Fx 'os Migrations' "$test_tmp/dismissals" >/dev/null || fail "arch-migrate dismisses migration notifications"
+grep -Fx 'Migrations' "$test_tmp/dismissals" >/dev/null || fail "arch-migrate dismisses migration notifications"
 pass "arch-migrate clears completed migration notifications"
 
 rm -rf "$test_home/.local/state/arch/migrations"

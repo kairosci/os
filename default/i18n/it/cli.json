@@ -117,6 +117,7 @@
   "migrate.unknownOption": "Opzione sconosciuta: %1",
   "migrate.usage": "Uso: arch-migrate [--pending|--check]",
   "migrate.waiting": "Attendo che la transazione pacman termini prima di eseguire le migrazioni...",
+  "migration.installMpvMpris": "Installa il supporto MPRIS per mpv",
   "monitor.extendedRestored": "Modalità estesa ripristinata",
   "monitor.laptopDisabled": "Schermo portatile disattivato",
   "monitor.laptopEnabled": "Schermo portatile attivato",

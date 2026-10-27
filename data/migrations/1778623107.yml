@@ -1,0 +1,6 @@
+commands:
+  i18n: [arch-i18n]
+  package_add: [arch-pkg-add]
+messages:
+  reason: migration.installMpvMpris
+package: mpv-mpris
