@@ -22,3 +22,7 @@ package_gates:
     - checks:
         - [arch-hw-dell-xps-haptic-touchpad]
       packages: [dell-xps-touchpad-haptics]
+
+    - checks:
+        - [arch-hw-intel-sof]
+      packages: [sof-firmware]
