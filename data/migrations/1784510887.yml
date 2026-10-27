@@ -1,0 +1,26 @@
+commands:
+  i18n: [arch-i18n]
+  package_present: [arch-pkg-present]
+  default_browser_query: [xdg-settings, get]
+  aur_add: [arch-pkg-aur-add]
+  package_drop: [arch-pkg-drop]
+  copy: [cp]
+  set_default_browser: [arch-default-browser]
+arguments:
+  default_browser_query: [default-web-browser]
+packages:
+  beta: brave-origin-beta-bin
+  stable: brave-origin-bin
+paths:
+  config_dir: .config
+  default_flags: config/chromium-flags.conf
+  stable_flags_name: brave-origin-flags.conf
+  beta_flags_name: brave-origin-beta-flags.conf
+desktop:
+  beta: brave-origin-beta.desktop
+  stable_name: brave-origin
+messages:
+  reason: migration.switchBraveOriginToStable
+statuses:
+  present: 0
+  success: 0
