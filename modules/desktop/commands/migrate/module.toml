@@ -5,6 +5,7 @@ sources = [
   "src/cli/arch-migrate",
   "src/python/cli/migrate.py",
   "src/python/cli/migration_commands.py",
+  "src/python/cli/migration_retire_floating_tui.py",
   "src/python/cli/migration_packages.py",
   "src/cli/arch-migrate-notify",
 ]
@@ -21,6 +22,10 @@ target = "usr/share/arch/src/python/cli/migrate.py"
 [[output]]
 source = "src/python/cli/migration_commands.py"
 target = "usr/share/arch/src/python/cli/migration_commands.py"
+
+[[output]]
+source = "src/python/cli/migration_retire_floating_tui.py"
+target = "usr/share/arch/src/python/cli/migration_retire_floating_tui.py"
 
 [[output]]
 source = "src/python/cli/migration_packages.py"
