@@ -1,0 +1,10 @@
+language:
+  preset_file: /etc/arch/language
+  default_language: en
+  command: "{arch_path}/src/cli/arch-language"
+  arguments: [seed]
+  messages:
+    en:
+      failure: "Could not set the preset language {code}"
+    it:
+      failure: "Impossibile impostare la lingua predefinita {code}"
