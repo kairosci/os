@@ -493,9 +493,12 @@ mapfile -d '' -t menu_args <"$menu_log"
 pass "--pick opens the agent defaults menu when none is set"
 
 source "$ROOT/default/bash/aliases"
-[[ $(alias a) == "alias a='arch-agent --inline'" ]] ||
-  fail "terminal alias launches the default agent inline"
-pass "terminal alias launches the default agent inline"
+for agent_alias in a c cx cy; do
+  if alias "$agent_alias" >/dev/null 2>&1; then
+    fail "agent permission-bypass alias $agent_alias is absent"
+  fi
+done
+pass "agent permission-bypass aliases are absent"
 
 grep -Fq 'o.bind("SUPER + SHIFT + CTRL + A", "Agent", "arch-agent --pick")' \
   "$ROOT/default/hypr/bindings/utilities.lua" ||
@@ -818,70 +821,69 @@ assert_launch() {
   assert_launched "$agent" "forwards the interactive prompt" "$@"
 }
 
-assert_bypass() {
+assert_default_permissions() {
   local agent=$1
   shift
 
   printf '%s\n' "$agent" >"$agent_file"
   arch-agent
-  assert_launched "$agent" "skips permission prompts" "$@"
+  assert_launched "$agent" "uses default permission handling" "$@"
 }
 
 assert_launch pi pi "Review this project"
-assert_launch omp omp --auto-approve -- "Review this project"
-assert_launch opencode opencode --auto --prompt "Review this project"
+assert_launch omp omp -- "Review this project"
+assert_launch opencode opencode --prompt "Review this project"
 assert_launch ori ori code --interactive --prompt "Review this project"
-assert_launch claude env -u CLAUDE_CONFIG_DIR ARCH_AGENT_CLAUDE_HOME= claude --permission-mode auto -- "Review this project"
-assert_launch codex env -u CODEX_HOME ARCH_AGENT_CODEX_HOME= codex --approve-for-me -- "Review this project"
-assert_launch muse muse --approval-mode never -- "Review this project"
-assert_launch crush crush run "Review this project"
-assert_launch grok env -u GROK_HOME ARCH_AGENT_GROK_HOME= grok --permission-mode bypassPermissions -- "Review this project"
-assert_launch cursor-agent cursor-agent --yolo --trust agent -- "Review this project"
-assert_launch hermes env -u HERMES_SESSION_SOURCE hermes chat --yolo --tui "--query=Review this project"
-assert_launch agy agy --dangerously-skip-permissions --prompt-interactive "Review this project"
-assert_launch copilot copilot --allow-all --interactive "Review this project"
+assert_launch claude env -u CLAUDE_CONFIG_DIR ARCH_AGENT_CLAUDE_HOME= claude -- "Review this project"
+assert_launch codex env -u CODEX_HOME ARCH_AGENT_CODEX_HOME= codex -- "Review this project"
+assert_launch muse muse -- "Review this project"
+assert_launch grok env -u GROK_HOME ARCH_AGENT_GROK_HOME= grok -- "Review this project"
+assert_launch cursor-agent cursor-agent agent -- "Review this project"
+assert_launch hermes env -u HERMES_SESSION_SOURCE hermes chat --tui "--query=Review this project"
+assert_launch agy agy --prompt-interactive "Review this project"
+assert_launch copilot copilot --interactive "Review this project"
 assert_launch kimi kimi --prompt "Review this project"
 pass "agent launcher adapts initial prompts for every supported agent"
 
 literal_muse_prompt=$'--disable-sandbox !Crash {$(touch must-not-run)}\ntrailing\\ '
 printf '%s\n' "muse" >"$agent_file"
 arch-agent-prompt "$literal_muse_prompt"
-assert_launched muse "separates prompt text from options" muse --approval-mode never -- "$literal_muse_prompt"
+assert_launched muse "separates prompt text from options" muse -- "$literal_muse_prompt"
 pass "Muse receives option-like prompts as one literal argument"
 
 literal_hermes_prompt=$' --help !Crash /quit {$(touch must-not-run)}\ntrailing\\ '
 printf '%s\n' "hermes" >"$agent_file"
 arch-agent-prompt "$literal_hermes_prompt"
 assert_launched hermes "binds its literal initial prompt" env -u HERMES_SESSION_SOURCE \
-  hermes chat --yolo --tui "--query=$literal_hermes_prompt"
+  hermes chat --tui "--query=$literal_hermes_prompt"
 pass "Hermes receives prompted launches as one literal query argument"
 
-assert_bypass pi pi
-assert_bypass omp omp --auto-approve
-assert_bypass opencode opencode --auto
-assert_bypass ori ori code
-assert_bypass claude env -u CLAUDE_CONFIG_DIR ARCH_AGENT_CLAUDE_HOME= claude --permission-mode auto
-assert_bypass codex env -u CODEX_HOME ARCH_AGENT_CODEX_HOME= codex --approve-for-me
-assert_bypass muse muse --approval-mode never
-assert_bypass crush crush --yolo
-assert_bypass grok env -u GROK_HOME ARCH_AGENT_GROK_HOME= grok --permission-mode bypassPermissions
-assert_bypass cursor-agent cursor-agent --yolo --trust
-assert_bypass hermes hermes --yolo
-assert_bypass agy agy --dangerously-skip-permissions
-assert_bypass copilot copilot --allow-all
-assert_bypass kimi kimi --yolo
-pass "agent launcher skips permission prompts for every supported agent"
+assert_default_permissions pi pi
+assert_default_permissions omp omp
+assert_default_permissions opencode opencode
+assert_default_permissions ori ori code
+assert_default_permissions claude env -u CLAUDE_CONFIG_DIR ARCH_AGENT_CLAUDE_HOME= claude
+assert_default_permissions codex env -u CODEX_HOME ARCH_AGENT_CODEX_HOME= codex
+assert_default_permissions muse muse
+assert_default_permissions crush crush
+assert_default_permissions grok env -u GROK_HOME ARCH_AGENT_GROK_HOME= grok
+assert_default_permissions cursor-agent cursor-agent agent
+assert_default_permissions hermes hermes
+assert_default_permissions agy agy
+assert_default_permissions copilot copilot
+assert_default_permissions kimi kimi
+pass "agent launcher uses default permission handling for every supported agent"
 
 printf '%s\n' "opencode" >"$agent_file"
 arch-agent
 mapfile -d '' -t launch_args <"$launch_log"
-[[ ${launch_args[*]} == "--app-id=org.arch.agent opencode --auto" ]] ||
+[[ ${launch_args[*]} == "--app-id=org.arch.agent opencode" ]] ||
   fail "agent launcher starts the selected agent without an initial prompt"
 pass "agent launcher starts the selected agent without an initial prompt"
 
 arch-agent-prompt --inline "Review this project"
 mapfile -d '' -t inline_args <"$inline_log"
-[[ ${inline_args[*]} == "opencode --auto --prompt Review this project" ]] ||
+[[ ${inline_args[*]} == "opencode --prompt Review this project" ]] ||
   fail "inline agent launcher runs in the current terminal"
 pass "inline agent launcher runs in the current terminal"
 
@@ -890,7 +892,7 @@ pass "inline agent launcher runs in the current terminal"
 : >"$launch_log"
 archctl agent
 mapfile -d '' -t launch_args <"$launch_log"
-[[ ${launch_args[*]} == "--app-id=org.arch.agent opencode --auto" ]] ||
+[[ ${launch_args[*]} == "--app-id=org.arch.agent opencode" ]] ||
   fail "archctl agent routes to the launcher"
 
 # With an agent chosen there is nothing to pick, so the keybinding launches.
@@ -898,7 +900,7 @@ mapfile -d '' -t launch_args <"$launch_log"
 : >"$menu_log"
 arch-agent --pick
 mapfile -d '' -t launch_args <"$launch_log"
-[[ ${launch_args[*]} == "--app-id=org.arch.agent opencode --auto" ]] ||
+[[ ${launch_args[*]} == "--app-id=org.arch.agent opencode" ]] ||
   fail "--pick launches once an agent is chosen"
 [[ ! -s $menu_log ]] || fail "--pick opens no menu once an agent is chosen"
 pass "--pick launches once an agent is chosen"
@@ -906,7 +908,7 @@ pass "--pick launches once an agent is chosen"
 : >"$launch_log"
 archctl agent prompt "Review this project"
 mapfile -d '' -t launch_args <"$launch_log"
-[[ ${launch_args[*]} == "--app-id=org.arch.agent opencode --auto --prompt Review this project" ]] ||
+[[ ${launch_args[*]} == "--app-id=org.arch.agent opencode --prompt Review this project" ]] ||
   fail "archctl agent prompt routes the prompt to the launcher"
 
 : >"$launch_log"
