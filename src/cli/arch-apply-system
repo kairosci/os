@@ -97,6 +97,6 @@ else
 fi
 
 run_logged "$ARCH_PATH/src/python/installer/login/sddm.py"
-source "$ARCH_INSTALL/post-install/all.sh"
+run_logged "$ARCH_PATH/src/python/installer/post_install/all.py"
 
 stop_install_log

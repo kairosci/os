@@ -1,3 +1,16 @@
+steps:
+  - installer/post-install/pacman.sh
+  - src/python/installer/post_install/udev.py
+  - src/python/installer/post_install/localdb.py
+messages:
+  en:
+    starting: "Starting: {step}"
+    completed: "Completed: {step}"
+    failed: "Failed: {step} (exit code: {status})"
+  it:
+    starting: "Avvio: {step}"
+    completed: "Completato: {step}"
+    failed: "Non riuscito: {step} (codice di uscita: {status})"
 localdb:
   command: [updatedb, --prune-bind-mounts=no, --add-prunepaths=/.snapshots]
 udev:

@@ -145,6 +145,73 @@ done
 pass "install finalization copies the platform's channel template and mirrorlist, or its default channel's when it has none for that channel"
 fi
 
+# The Python finalization runner reads the ordered steps from packaged data,
+# sources shell leaves in isolated Bash and stops with the leaf's exit status.
+post_install_root="$work/post-install-root"
+mkdir -p "$post_install_root/data/installer" \
+  "$post_install_root/installer/post-install" \
+  "$post_install_root/src/python/installer/post_install"
+cat >"$post_install_root/data/installer/post-install.yml" <<'YAML'
+steps:
+  - installer/post-install/first.sh
+  - src/python/installer/post_install/second.py
+  - installer/post-install/third.sh
+messages:
+  en:
+    starting: "Starting: {step}"
+    completed: "Completed: {step}"
+    failed: "Failed: {step} (exit code: {status})"
+  it:
+    starting: "Avvio: {step}"
+    completed: "Completato: {step}"
+    failed: "Non riuscito: {step} (codice di uscita: {status})"
+YAML
+cat >"$post_install_root/installer/post-install/first.sh" <<'SH'
+printf 'first\n' >>"$POST_INSTALL_ORDER"
+SH
+cat >"$post_install_root/src/python/installer/post_install/second.py" <<'PY'
+import os
+from pathlib import Path
+
+with Path(os.environ["POST_INSTALL_ORDER"]).open("a", encoding="utf-8") as stream:
+  stream.write("second\n")
+if os.environ.get("POST_INSTALL_FAIL"):
+  raise SystemExit(23)
+PY
+cat >"$post_install_root/installer/post-install/third.sh" <<'SH'
+printf 'third\n' >>"$POST_INSTALL_ORDER"
+SH
+
+post_install_order="$work/post-install-order"
+post_install_output="$work/post-install-output"
+ARCH_PATH="$post_install_root" POST_INSTALL_ORDER="$post_install_order" LANG=it_IT.UTF-8 \
+  python3 -I "$ROOT/src/python/installer/post_install/all.py" >"$post_install_output" 2>&1 ||
+  fail "post-install runner completes every configured step"
+[[ $(<"$post_install_order") == $'first\nsecond\nthird' ]] ||
+  fail "post-install runner preserves YAML order across Python and shell leaves"
+grep -Fq "Avvio: $post_install_root/installer/post-install/first.sh" "$post_install_output" ||
+  fail "post-install runner localizes its progress log"
+pass "post-install runner executes ordered YAML steps and localizes progress"
+
+: >"$post_install_order"
+ARCH_PATH="$post_install_root" POST_INSTALL_ORDER="$post_install_order" LANG=en_US.UTF-8 \
+  ARCH_INSTALL_DEBUG=1 python3 -I "$ROOT/src/python/installer/post_install/all.py" \
+  >"$post_install_output" 2>&1 || fail "post-install runner supports installer debug mode"
+grep -Fq '+ first.sh:' "$post_install_output" || fail "post-install runner traces sourced leaves in debug mode"
+pass "post-install runner preserves shell tracing in debug mode"
+
+: >"$post_install_order"
+if ARCH_PATH="$post_install_root" POST_INSTALL_ORDER="$post_install_order" POST_INSTALL_FAIL=1 LANG=it_IT.UTF-8 \
+  python3 -I "$ROOT/src/python/installer/post_install/all.py" >"$post_install_output" 2>&1; then
+  fail "post-install runner stops when a step fails"
+else
+  [[ $? == 23 ]] || fail "post-install runner preserves the failing step's status" "$(<"$post_install_output")"
+fi
+[[ $(<"$post_install_order") == $'first\nsecond' ]] ||
+  fail "post-install runner does not continue after a failure"
+grep -Fq 'Non riuscito:' "$post_install_output" || fail "post-install runner localizes failure logs"
+pass "post-install runner stops at and reports the failing step"
+
 # ── refresh through the command, with every privileged step a stand-in ───────
 
 rm -rf "$work"
