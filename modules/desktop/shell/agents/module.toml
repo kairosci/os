@@ -1,9 +1,0 @@
-id = "desktop.shell.agents"
-domain = "desktop"
-package = "arch"
-sources = ["src/shell/plugins/agents"]
-requires = ["desktop.runtime"]
-
-[[output]]
-source = "src/shell/plugins/agents"
-target = "usr/share/arch/src/shell/plugins/agents"
