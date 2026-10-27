@@ -1,0 +1,8 @@
+commands:
+  current: [fc-match, monospace, -f, '%{family}\n']
+  list: [fc-list, ":spacing=100", -f, '%{family[0]}\n']
+current:
+  family_separator: ","
+  family_index: 0
+list:
+  exclude_pattern: (emoji|signwriting|arch)
