@@ -9,7 +9,7 @@ run_logged "$ARCH_PATH/src/python/installer_user/setup/work_directories.py"
 
 run_logged "$ARCH_PATH/src/python/installer_user/setup/asus_mixer.py"
 run_logged "$ARCH_INSTALL/user/hardware/asus/fix-mic.sh"
-run_logged "$ARCH_INSTALL/user/hardware/framework/fix-f13-amd-audio-input.sh"
+run_logged "$ARCH_PATH/src/python/installer_user/setup/framework_audio.py"
 run_logged "$ARCH_PATH/src/python/installer_user/setup/dell_text_scaling.py"
 run_logged "$ARCH_PATH/src/python/installer_user/setup/video_decode.py"
 run_logged "$ARCH_PATH/src/python/installer_user/setup/qualcomm_camera.py"

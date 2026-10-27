@@ -152,3 +152,9 @@ asus_mixer_setup:
   card_command: [aplay, -l]
   card_pattern: 'card (\d+).*ALC285'
   mixer_command: [amixer, -c, '{card}', set, Master, '80%', unmute]
+framework_audio_setup:
+  list_command: [pactl, list, cards]
+  family_pattern: Family 17h/19h
+  context_lines: 20
+  name_pattern: '^Name: (\S+)'
+  profile_command: [pactl, set-card-profile, '{card}', 'HiFi (Mic1, Mic2, Speaker)']
