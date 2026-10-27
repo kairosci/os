@@ -332,5 +332,7 @@
   "refreshConfig.notShipped": "Configurazione predefinita non trovata: %1",
   "refreshConfig.replaced": "Sostituito %1 con la configurazione predefinita.",
   "refreshConfig.unsafePath": "Percorso di configurazione non valido o non sicuro: %1",
-  "refreshConfig.usage": "Uso: arch-refresh-config <percorso-configurazione>"
+  "refreshConfig.usage": "Uso: arch-refresh-config <percorso-configurazione>",
+  "agent.notInstalled": "%1 non è installato. Scegli un agente installato.",
+  "agent.defaultUsage": "Uso: arch-default-agent <claude|codex>"
 }

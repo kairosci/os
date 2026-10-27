@@ -325,5 +325,7 @@
   "refreshConfig.notShipped": "Not a shipped user config: %1",
   "refreshConfig.replaced": "Replaced %1 with the shipped default.",
   "refreshConfig.unsafePath": "Refusing an invalid or unsafe config path: %1",
-  "refreshConfig.usage": "Usage: arch-refresh-config <config-path>"
+  "refreshConfig.usage": "Usage: arch-refresh-config <config-path>",
+  "agent.notInstalled": "%1 is not installed. Choose an installed agent.",
+  "agent.defaultUsage": "Usage: arch-default-agent <claude|codex>"
 }
