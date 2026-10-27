@@ -28,8 +28,8 @@ install_wrapper() {
   HOME="$home" "$ROOT/src/cli/arch-mise-install" "$@"
 }
 
-# The ordinary case still works, and every call site in installer/user/mise.sh
-# passes names of this shape.
+# The ordinary case still works, and the setup data declares package names in
+# the same format.
 install_wrapper npm:playwright playwright >/dev/null
 [[ -x $home/.local/bin/playwright ]] ||
   fail "a normal install writes an executable wrapper"

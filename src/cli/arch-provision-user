@@ -10,8 +10,8 @@ usage() {
 Usage: arch finalize user [--force] [--first-install]
 
 Runs the per-user setup steps that /etc/skel can't seed:
-dev-aware skill symlinks, xdg-user-dirs + gtk bookmarks (need \$HOME),
-default browser/mailto, and installer/user/all.sh.
+xdg-user-dirs + gtk bookmarks (need \$HOME), default browser/mailto, and the
+Python setup steps declared in data/installer/user-setup.yml.
 
 For shipped configs see /etc/skel (new users) and arch-reinstall-configs
 (existing users explicitly resyncing).
@@ -77,7 +77,11 @@ if [[ -n ${ARCH_INSTALL_LOG_FILE:-} && -f $ARCH_INSTALL/helpers/logging.sh ]]; t
 else
   run_logged() {
     local script="$1"
-    bash -eE -c 'source "$1"' bash "$script"
+    if [[ $script == *.py ]]; then
+      python3 -I "$script"
+    else
+      bash -eE -c 'source "$1"' bash "$script"
+    fi
   }
 fi
 
@@ -100,7 +104,7 @@ for dir in Downloads Projects Pictures Videos; do
   grep -qxF "$bookmark" ~/.config/gtk-3.0/bookmarks || echo "$bookmark" >>~/.config/gtk-3.0/bookmarks
 done
 
-source "$ARCH_INSTALL/user/all.sh"
+run_logged "$ARCH_PATH/src/python/installer_user/all.py"
 
 arch-refresh-applications
 env -u BROWSER XDG_CURRENT_DESKTOP= xdg-settings set default-web-browser chromium.desktop

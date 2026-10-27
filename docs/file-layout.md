@@ -273,8 +273,8 @@ It only does the things `/etc/skel` can't:
 - `xdg-settings set default-web-browser chromium.desktop` and
   `xdg-mime default HEY.desktop x-scheme-handler/mailto` (XDG-aware paths).
 - `arch-refresh-applications` (composes generated `.desktop` launchers).
-- Sources `installer/user/all.sh` — theme, chromium, git, xcompose, mise,
-  keyring, per-user hardware quirks (asus mic/mixer, framework f13 audio, …).
+- Runs `src/python/installer_user/all.py`; its ordered setup steps are declared
+  in `data/installer/user-setup.yml`.
 - On `--first-install`, marks every shipped user migration as already applied
   for the freshly-created user.
 
@@ -404,7 +404,7 @@ return to the packaged default.
 | `/etc/` file owned by an upstream package | `etc/` (see `etc/security/faillock.conf`), then add to `etc-overrides` in `arch-settings` PKGBUILD + scriptlet |
 | Package-owned system file (e.g. systemd user service in `/usr/lib`) | `default/`, then add the `install -Dm644` line in `arch-settings` PKGBUILD |
 | Per-user file that's static but lives outside `~/.config` | `default/`, then add `install -Dm644 ... $pkgdir/etc/skel/...` in `arch-settings` PKGBUILD |
-| Runtime tweak that needs `$HOME` or live system state | extend `arch-provision-user`, or add a per-user leaf under `installer/user/` and wire into `installer/user/all.sh` |
+| Runtime tweak that needs `$HOME` or live system state | add a per-user Python leaf under `src/python/installer_user/setup/` and declare its order in `data/installer/user-setup.yml` |
 | One-time root-side setup step | `installer/config/*.sh` or `installer/hardware/*.sh`, wire into `installer/config/all.sh` or `installer/hardware/all.sh` |
 | One-time fix for existing installs | `migrations/<unix-timestamp>.sh` |
 | Package-owned path something else may already write | Prefer a path nothing else writes, such as a vendor drop-in under `/usr/lib`. Otherwise the `--overwrite` entry in `src/cli/arch-update-system-pkgs` has to ship a release before the file |
