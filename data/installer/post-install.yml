@@ -1,5 +1,5 @@
 steps:
-  - installer/post-install/pacman.sh
+  - src/python/installer/post_install/pacman.py
   - src/python/installer/post_install/udev.py
   - src/python/installer/post_install/localdb.py
 messages:
@@ -17,3 +17,59 @@ udev:
   commands:
     - [udevadm, control, --reload]
     - [udevadm, trigger, --subsystem-match=power_supply]
+pacman:
+  platform_command: [arch-hw-platform]
+  template_directories:
+    x86: default/pacman
+    aarch64: default/pacman/aarch64
+    aarch64-apple: default/pacman/aarch64-apple
+    aarch64-qualcomm: default/pacman/aarch64
+    aarch64-n1x: default/pacman/aarch64
+    aarch64-gb10: default/pacman/aarch64
+  default_channels:
+    x86: stable
+    aarch64: stable
+    aarch64-apple: edge
+    aarch64-qualcomm: stable
+    aarch64-n1x: stable
+    aarch64-gb10: stable
+  channels: [stable, rc, edge]
+  alarm_keyring_platforms: [aarch64, aarch64-qualcomm, aarch64-n1x, aarch64-gb10]
+  alarm_keyring_package: archlinuxarm-keyring
+  package_command: [arch-pkg-add]
+  keyring_command: [pacman-key]
+  apply_command: '{arch_path}/src/cli/arch-apply-pacman'
+  repositories_script: src/python/installer/hardware/pacman_repositories.py
+  image:
+    root_environment: ARCH_IMAGE_ROOT
+    directory: var/lib/arch/image
+    manifest: target
+    keyring_request: pacman-keyring
+    required_format: '1'
+    mode: '0644'
+  cups:
+    source: etc-overrides/cups-cups-files.conf
+    target: /etc/cups/cups-files.conf
+    pacnew: /etc/cups/cups-files.conf.pacnew
+    mode: '0640'
+    owner: root
+    group: cups
+  python_command: [/usr/bin/python3, -I]
+  trusted_path: /usr/bin:/usr/sbin
+  messages:
+    en:
+      invalid_platform: 'Unsupported platform for pacman setup: {platform}'
+      untrusted_image_directory: 'Image state directory is not trusted: {path}'
+      untrusted_image_manifest: 'Image manifest is not trusted: {path}'
+      invalid_image_manifest: 'Image manifest has an unsupported format: {path}'
+      unsafe_keyring_request: 'Image keyring request is not a regular file: {path}'
+      unsafe_cups_file: 'CUPS policy path is not a regular file: {path}'
+      image_root_required: 'Image state is available only to root or an isolated test root'
+    it:
+      invalid_platform: 'Piattaforma non supportata per la configurazione pacman: {platform}'
+      untrusted_image_directory: 'Directory dello stato immagine non attendibile: {path}'
+      untrusted_image_manifest: 'Manifest immagine non attendibile: {path}'
+      invalid_image_manifest: 'Formato del manifest immagine non supportato: {path}'
+      unsafe_keyring_request: 'La richiesta del keyring immagine non è un file regolare: {path}'
+      unsafe_cups_file: 'Il percorso dei file CUPS non è un file regolare: {path}'
+      image_root_required: 'Lo stato immagine è accessibile solo a root o a una root di test isolata'

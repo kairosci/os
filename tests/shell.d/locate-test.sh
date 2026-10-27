@@ -50,8 +50,9 @@ with tempfile.TemporaryDirectory(prefix="arch-locate-") as scratch:
     path.chmod(0o755)
   calls = scratch / "updatedb-arguments"
   env = dict(os.environ, PATH=str(fake_bin) + ":" + os.environ["PATH"], TEST_CALLS=str(calls))
-  for relative in ("installer/post-install/localdb.sh",):
-    subprocess.run(["bash", "-euo", "pipefail", str(root / relative)], env=env, check=True)
+  for relative in ("src/python/installer/post_install/localdb.py",):
+    env["ARCH_PATH"] = str(root)
+    subprocess.run(["python3", "-I", str(root / relative)], env=env, check=True)
     check(calls.read_text().splitlines() == options,
           relative + " passes the scheduled service options directly")
     calls.unlink()
