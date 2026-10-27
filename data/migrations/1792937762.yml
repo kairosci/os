@@ -1,0 +1,15 @@
+commands:
+  i18n: [arch-i18n]
+paths:
+  default_state_home: .local/state
+  state_home_environment: XDG_STATE_HOME
+  layout_directory: arch/workspace-layouts
+  file_pattern: '*.lua'
+replacements:
+  - old: 'mode = "floating"'
+    new: 'mode = "dwindle"'
+  - old: 'default = "floating"'
+    new: 'default = "dwindle"'
+statuses:
+  success: 0
+message: migration.removeSavedFloatingWorkspaces

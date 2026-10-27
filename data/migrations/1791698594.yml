@@ -1,0 +1,13 @@
+commands:
+  i18n: [arch-i18n]
+paths:
+  default_state_home: .local/state
+  state_home_environment: XDG_STATE_HOME
+  layout_directory: arch/workspace-layouts
+  file_pattern: '*.lua'
+rewrite:
+  pattern: '^hl\.workspace_rule\({ workspace = "([0-9]+)", layout = "([a-z]+)" }\)$'
+  replacement: 'o.workspace_mode({ workspace = "\1", mode = "\2" })'
+statuses:
+  success: 0
+message: migration.saveWorkspaceLayoutsAsModes
