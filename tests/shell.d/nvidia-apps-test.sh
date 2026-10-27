@@ -35,7 +35,7 @@ run_setup() (
   PATH="$mock_bin:$PATH" python3 -I "$ROOT/src/python/installer/hardware/nvidia_apps.py"
 )
 
-grep -Fq 'run_logged "$ARCH_PATH/src/python/installer/hardware/nvidia_apps.py"' "$ROOT/installer/hardware/all.sh" ||
+grep -Fq 'src/python/installer/hardware/nvidia_apps.py' "$ROOT/data/installer/hardware-setup.yml" ||
   fail "hardware setup runs the NVIDIA apps module"
 
 for deferred in "" 0 1; do

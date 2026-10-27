@@ -59,7 +59,7 @@ ARCH_INSTALL_USER=existing bash -eE "$ROOT/installer/config/browser-policy.sh"
 [[ ! -f $TMPDIR/usermod.calls ]] || fail "default install must not grant privileged groups"
 pass "existing install user gets neither docker nor input access"
 
-! grep -q 'hardware/input-group.sh' "$ROOT/installer/hardware/all.sh" ||
+! grep -q 'hardware/input-group.sh' "$ROOT/data/installer/hardware-setup.yml" ||
   fail "hardware setup must not call the removed input-group grant"
 [[ ! -e $ROOT/installer/hardware/input-group.sh ]] || fail "blanket input-group grant is removed"
 pass "hardware setup has no blanket input-group grant"

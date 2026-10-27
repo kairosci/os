@@ -64,14 +64,30 @@ base_path="$test_tmp/hw/bin:$stub_bin:$ROOT/src/cli:/usr/local/bin:/usr/bin:/bin
 # An os tree whose hardware setup is three leaves that log their runs.
 # Leaves a and b write initramfs drop-ins; b then fails while $FAIL_B exists.
 fixture="$test_tmp/arch"
-mkdir -p "$fixture/installer/helpers" "$fixture/installer/provisioning" "$fixture/installer/hardware/apple" "$fixture/src/cli"
+mkdir -p "$fixture/installer/helpers" "$fixture/installer/provisioning" "$fixture/installer/hardware/apple" \
+  "$fixture/src/cli" "$fixture/src/python/installer" "$fixture/src/python/installer/hardware" "$fixture/data/installer"
 cp "$ROOT/installer/helpers/logging.sh" "$ROOT/installer/helpers/image-target.sh" "$fixture/installer/helpers/"
 cp "$unit_source" "$fixture/installer/provisioning/"
-cat >"$fixture/installer/hardware/all.sh" <<'SH'
-run_logged "$ARCH_INSTALL/hardware/a.sh"
-run_logged "$ARCH_INSTALL/hardware/apple/b.sh"
-run_logged "$ARCH_INSTALL/hardware/c.sh"
-SH
+cp "$ROOT/src/python/installer/step_runner.py" "$fixture/src/python/installer/"
+cp "$ROOT/src/python/installer/hardware/all.py" "$fixture/src/python/installer/hardware/"
+cat >"$fixture/data/installer/hardware-setup.yml" <<'YAML'
+steps:
+  - root: arch_install
+    path: hardware/a.sh
+  - root: arch_install
+    path: hardware/apple/b.sh
+  - root: arch_install
+    path: hardware/c.sh
+messages:
+  en:
+    starting: 'Starting: {step}'
+    completed: 'Completed: {step}'
+    failed: 'Failed: {step} (exit code: {status})'
+  it:
+    starting: 'Avvio: {step}'
+    completed: 'Completato: {step}'
+    failed: 'Errore: {step} (codice di uscita: {status})'
+YAML
 cat >"$fixture/installer/hardware/a.sh" <<'SH'
 printf 'a user=%s path=%s\n' "${ARCH_INSTALL_USER-unset}" "$ARCH_PATH" >>"$RUNS"
 mkdir -p "$ARCH_IMAGE_ROOT/etc/mkinitcpio.conf.d"
@@ -132,18 +148,16 @@ reset_logs
 root=$(new_root real)
 write_manifest "$root"
 output=$(build "$root" "$ROOT" "$ROOT/installer") || fail "an image build defers the real hardware setup" "$output"
-expected=$(python3 - "$ROOT/installer/hardware/all.sh" <<'PY'
-import re
+expected=$(python3 - "$ROOT/data/installer/hardware-setup.yml" <<'PY'
 import sys
 from pathlib import Path
+import yaml
 
-for line in Path(sys.argv[1]).read_text(encoding="utf-8").splitlines():
-  shell_step = re.fullmatch(r'run_logged "\$ARCH_INSTALL/(hardware/.+\.sh)"', line)
-  python_step = re.fullmatch(r'run_logged "\$ARCH_PATH/src/python/(installer/hardware/.+\.py)"', line)
-  if shell_step:
-    print("installer/" + shell_step.group(1))
-  elif python_step:
-    print("src/python/" + python_step.group(1))
+for step in yaml.safe_load(Path(sys.argv[1]).read_text(encoding="utf-8"))["steps"]:
+  if isinstance(step, str):
+    print(step)
+  else:
+    print("installer/" + step["path"])
 PY
 )
 [[ -n $expected && $(queue_of "$root") == "$expected" ]] ||
@@ -633,13 +647,29 @@ pass "the first-boot hardware service runs on the queue before owner setup and t
 # does: an install or a rerun of hardware setup leaves the service as it finds it.
 bt_fixture="$test_tmp/arch-bluetooth"
 mkdir -p "$bt_fixture/installer/helpers" "$bt_fixture/installer/provisioning" "$bt_fixture/installer/hardware" \
-  "$bt_fixture/src/python/installer/hardware" "$bt_fixture/data/installer"
+  "$bt_fixture/src/python/installer/hardware" "$bt_fixture/src/python/installer" "$bt_fixture/data/installer"
 cp "$ROOT/installer/helpers/logging.sh" "$ROOT/installer/helpers/image-target.sh" "$bt_fixture/installer/helpers/"
 cp "$unit_source" "$bt_fixture/installer/provisioning/"
 cp "$ROOT/src/python/installer/hardware/bluetooth.py" "$bt_fixture/src/python/installer/hardware/"
+cp "$ROOT/src/python/installer/hardware/all.py" "$bt_fixture/src/python/installer/hardware/"
+cp "$ROOT/src/python/installer/step_runner.py" "$bt_fixture/src/python/installer/"
 cp "$ROOT/data/installer/hardware.yml" "$bt_fixture/data/installer/hardware.yml"
 cp "$fixture/installer/hardware/c.sh" "$bt_fixture/installer/hardware/"
-printf 'run_logged "$ARCH_PATH/src/python/installer/hardware/bluetooth.py"\nrun_logged "$ARCH_INSTALL/hardware/c.sh"\n' >"$bt_fixture/installer/hardware/all.sh"
+cat >"$bt_fixture/data/installer/hardware-setup.yml" <<'YAML'
+steps:
+  - src/python/installer/hardware/bluetooth.py
+  - root: arch_install
+    path: hardware/c.sh
+messages:
+  en:
+    starting: 'Starting: {step}'
+    completed: 'Completed: {step}'
+    failed: 'Failed: {step} (exit code: {status})'
+  it:
+    starting: 'Avvio: {step}'
+    completed: 'Completato: {step}'
+    failed: 'Errore: {step} (codice di uscita: {status})'
+YAML
 
 bt_bin="$test_tmp/bt-bin"
 mkdir -p "$bt_bin"

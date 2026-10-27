@@ -102,9 +102,9 @@ assert_succeeds grep -Fq 'modinfo -k "$n1x_kernel_version" nvidia nvidia_modeset
 assert_fails grep -Eq 'authorized_keys|recovery key|n1x-recovery' "$ROOT/src/cli/arch-n1x-probe" "the probe reports sshd state instead of claiming a key"
 assert_fails grep -Eq 'authorized_keys|sshd' "$n1x" "remote access is left to the development ISO"
 assert_succeeds grep -Fq 'Server = https://pkgs.github.com/kairosci/os/edge/$arch' "$ROOT/default/pacman/aarch64/pacman-edge.conf" "installed aarch64 systems track os edge"
-all="$ROOT/installer/hardware/all.sh"
-n1x_line=$(grep -n 'hardware/n1x.sh' "$all" | cut -d: -f1)
-nvidia_line=$(grep -n 'src/python/installer/hardware/nvidia.py' "$all" | cut -d: -f1)
+setup="$ROOT/data/installer/hardware-setup.yml"
+n1x_line=$(grep -n 'path: hardware/n1x.sh' "$setup" | cut -d: -f1)
+nvidia_line=$(grep -n 'src/python/installer/hardware/nvidia.py' "$setup" | cut -d: -f1)
 [[ -n $n1x_line && -n $nvidia_line && $n1x_line -lt $nvidia_line ]] || fail "N1x setup runs before generic NVIDIA setup"
 assert_succeeds grep -Fq 'n1x_check: [arch-hw-aarch64-n1x]' "$ROOT/data/installer/hardware.yml" "NVIDIA driver setup defers to the N1x policy"
 hooks_conf="$ROOT/etc/mkinitcpio.conf.d/arch_hooks.conf"

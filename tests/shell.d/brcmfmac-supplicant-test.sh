@@ -6,7 +6,7 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 leaf="$ROOT/src/python/installer/hardware/apple/brcmfmac_supplicant.py"
 fix_t2="$ROOT/installer/hardware/apple/fix-t2.sh"
-all="$ROOT/installer/hardware/all.sh"
+setup="$ROOT/data/installer/hardware-setup.yml"
 migration="$ROOT/migrations/1786391100.sh"
 
 # Apple Silicon's BCM4387 is in the ID list, but there the firmware supplicant
@@ -14,11 +14,11 @@ migration="$ROOT/migrations/1786391100.sh"
 # install marks the migration done only for its first user.
 grep -Fq 'arch-hw-aarch64-apple && exit 0' "$migration" || fail "Broadcom migration excludes Apple Silicon"
 
-grep -q 'src/python/installer/hardware/apple/brcmfmac_supplicant.py' "$all" ||
+grep -q 'src/python/installer/hardware/apple/brcmfmac_supplicant.py' "$setup" ||
   fail "the brcmfmac quirk runs during hardware setup"
 
 # Two leaves writing one config means the later one silently wins, and which is
-# later is a detail of all.sh nobody would think to check.
+# later is a detail of the hardware setup list nobody would think to check.
 ! grep -q 'brcmfmac' "$fix_t2" ||
   fail "only one leaf owns /etc/modprobe.d/brcmfmac.conf"
 pass "the brcmfmac quirk has a single owner and runs during setup"
