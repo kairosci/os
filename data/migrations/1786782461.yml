@@ -1,0 +1,10 @@
+commands:
+  i18n: [arch-i18n]
+paths:
+  foot_config: .config/foot/foot.ini
+values:
+  malformed_header: '\n[text-bindings]'
+messages:
+  reason: migration.removeMalformedFootHeader
+statuses:
+  success: 0

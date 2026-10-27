@@ -159,6 +159,7 @@
   "migration.archSessionEntryMissing": "The Arch Wayland session entry is missing.",
   "migration.removeRetiredCliShims": "Remove retired CLI shims from mise",
   "migration.removeRetiredNotificationImageCache": "Remove the retired notification image cache",
+  "migration.removeMalformedFootHeader": "Remove the malformed text bindings header from Foot configuration",
   "migration.notifyPendingMigrationsAtLogin": "Check for pending migrations at login",
   "migration.switchBraveOriginToStable": "Switch Brave Origin from beta to stable",
   "migration.removeSavedFloatingWorkspaces": "Remove saved floating workspace layouts",
