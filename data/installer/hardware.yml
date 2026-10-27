@@ -62,3 +62,22 @@ apple_keyboard_fkeys:
   apple_predicate: [arch-hw-aarch64-apple]
   content: "options hid_apple fnmode=2\n"
   mode: '0644'
+network_setup:
+  systemctl_command: [systemctl]
+  disable_units:
+    - iwd.service
+    - systemd-networkd.service
+    - systemd-networkd.socket
+    - systemd-networkd-varlink.socket
+    - systemd-networkd-varlink-metrics.socket
+    - systemd-networkd-resolve-hook.socket
+    - systemd-networkd-wait-online.service
+  mask_units: [systemd-networkd-wait-online.service]
+  network_directory: /etc/systemd/network
+  backup_directory_template: arch-networkd-retired-{timestamp}
+  timestamp_format: '%Y%m%d%H%M%S'
+  network_files: [20-ethernet.network, 20-wlan.network, 20-wwan.network]
+  dhcp_pattern: '^\s*DHCP=yes\s*$'
+  interface_pattern: '^\s*Name=(en\*|eth\*|wl\*|ww\*)\s*$'
+  manager_active_command: [systemctl, is-active, --quiet, NetworkManager.service]
+  stop_command: [systemctl, stop, systemd-networkd.service]

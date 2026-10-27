@@ -5,7 +5,7 @@ set -euo pipefail
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 dns="$ROOT/src/cli/arch-dns"
-hardware_network="$ROOT/installer/hardware/network.sh"
+hardware_network="$ROOT/data/installer/hardware.yml"
 
 ! grep -F 'systemd-networkd' "$dns" >/dev/null || fail "arch-dns no longer restarts systemd-networkd"
 grep -F 'NetworkManager/conf.d/20-arch-dns.conf' "$dns" >/dev/null
