@@ -5,6 +5,7 @@ sources = [
   "src/cli/arch-refresh-applications",
   "src/cli/arch-refresh-chromium",
   "src/cli/arch-refresh-config",
+  "src/python/cli/refresh_config.py",
   "src/cli/arch-refresh-herdr",
   "src/cli/arch-refresh-hyprland",
   "src/cli/arch-refresh-hyprsunset",
@@ -15,7 +16,7 @@ sources = [
   "src/cli/arch-refresh-shell",
   "src/cli/arch-refresh-tmux",
 ]
-requires = ["desktop.commands"]
+requires = ["desktop.commands", "system.runtime-data"]
 
 [[output]]
 source = "src/cli/arch-refresh-applications"
@@ -28,6 +29,10 @@ target = "usr/share/arch/src/cli/arch-refresh-chromium"
 [[output]]
 source = "src/cli/arch-refresh-config"
 target = "usr/share/arch/src/cli/arch-refresh-config"
+
+[[output]]
+source = "src/python/cli/refresh_config.py"
+target = "usr/share/arch/src/python/cli/refresh_config.py"
 
 [[output]]
 source = "src/cli/arch-refresh-herdr"
