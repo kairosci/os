@@ -225,9 +225,10 @@ BarWidget {
           width: Style.space(2)
           height: width
           radius: width / 2
-          anchors.horizontalCenter: parent.horizontalCenter
+          anchors.right: parent.right
           anchors.top: parent.top
           anchors.topMargin: Style.space(1)
+          anchors.rightMargin: Style.space(1)
           color: Commons.Color.accent
         }
       }
