@@ -51,6 +51,8 @@ assert(/Object\.assign\([^\n]+showPercentage: !root\.showPercentage[^\n]+\)[\s\S
 // BarIconButton lays its label out before the icon; bar-icon-geometry-test.sh checks the order.
 assert(/text: root\.batteryIcon\(\)\n\s*labelText: root\.showPercentage && !vertical \? Commons\.I18n\.formatNumber\(Math\.round\(root\.batteryFraction \* 100\)\) \+ "%" : ""/.test(panelSource), 'power shows the percentage as the bar button label beside the battery icon')
 assert(/openPanelIndicatorWidth:.*showPercentage.*button\.glyphPaintedWidth : 0/.test(panelSource), 'power spans the open-panel mark across the painted percentage block')
+assert(!/chargingPhrase|dischargingPhrase|phraseTimer|phraseSwap|phraseIndex/.test(panelSource), 'power status stays stable instead of rotating agent-style phrases')
+assert(/readonly property string heroStatusText[\s\S]*?return modeLabel\(\)/.test(panelSource), 'power status uses the localized operating mode')
 assert(/IpcHandler[\s\S]*?function togglePercentage\(\) \{ root\.togglePercentage\(\) \}/.test(panelSource), 'power exposes togglePercentage over IPC')
 assert(/manageIpc: false/.test(panelSource), 'power owns its IPC handler so it can extend the target methods')
 JS
