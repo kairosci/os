@@ -122,6 +122,7 @@
     "cli:migration.installQtMultimedia": "6baa5efc6a3a",
     "cli:migration.installUdiskie": "1163334d847f",
     "cli:migration.installZbar": "f12fc14e3840",
+    "cli:migration.removeManagedSkillLinks": "9f65197b6854",
     "cli:migration.replaceSatty": "7331bfd5f9a1",
     "cli:migration.replaceTerminalTextEffects": "9a75cc4ccd25",
     "cli:migration.requireT2PackageSignatures": "9082884aca19",
