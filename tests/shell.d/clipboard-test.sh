@@ -4,6 +4,8 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
+export ARCH_PATH=$ROOT
+
 run_node_test <<'JS'
 const fs = require('fs')
 const clipboard = requireFromRoot('src/shell/plugins/clipboard/ClipboardHistory.js')
@@ -171,7 +173,7 @@ assert(
   'clipboard image watcher dies with the shell via pdeathsig'
 )
 assert(
-  clipboardQml.includes('command: ["pkill", "-f", "wl-paste .*--watch .*/shell/plugins/clipboard/capture\\\\.sh"]'),
+  clipboardQml.includes('command: ["pkill", "-f", "wl-paste .*--watch .*/shell/plugins/clipboard/capture\\\\.py"]'),
   'clipboard init reaps stale watchers before starting new ones'
 )
 assertEqual(
@@ -247,7 +249,7 @@ process_alive() {
 
 mkdir -p "$TMPDIR/bin" "$TMPDIR/home/.local/state/arch"
 
-# capture.sh bounds its reads at 2s; the stall scenarios shorten that bound
+# capture.py bounds its reads at 2s; the stall scenarios shorten that bound
 # here instead of waiting it out. Other durations pass through untouched.
 cat >"$TMPDIR/bin/timeout" <<'SH'
 #!/bin/bash
@@ -303,17 +305,17 @@ SH
 
 chmod +x "$TMPDIR/bin/wl-copy" "$TMPDIR/bin/wl-paste" "$TMPDIR/bin/wtype" "$TMPDIR/bin/arch-launch-browser" "$TMPDIR/bin/arch-launch-editor" "$TMPDIR/bin/omasnap"
 
-capture_output=$(XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.sh")
+capture_output=$(XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.py")
 [[ $capture_output == '{"type":"text","text":"terminal copy"}' ]] || fail "clipboard capture records normal text events"
 pass "clipboard capture records normal text events"
 
-capture_output=$(printf 'closing app copy' | WL_PASTE_TEXT="stale read" XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.sh" text)
+capture_output=$(printf 'closing app copy' | WL_PASTE_TEXT="stale read" XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.py" text)
 [[ $capture_output == '{"type":"text","text":"closing app copy"}' ]] || fail "clipboard capture records watched text from stdin"
 pass "clipboard capture records watched text from stdin"
 
-# The stall scenarios below rely on the timeout stub shortening capture.sh's
+# The stall scenarios below rely on the timeout stub shortening capture.py's
 # 2s read bounds; the outer 4s timeout only guards against them not firing.
-if capture_output=$(printf 'watched copy after stalled types' | WL_PASTE_STALL="list-types" XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" timeout --preserve-status 4s "$ROOT/src/shell/plugins/clipboard/capture.sh" text); then
+if capture_output=$(printf 'watched copy after stalled types' | WL_PASTE_STALL="list-types" XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" timeout --preserve-status 4s "$ROOT/src/shell/plugins/clipboard/capture.py" text); then
   capture_status=0
 else
   capture_status=$?
@@ -323,7 +325,7 @@ fi
 pass "clipboard watched text survives a stalled type query"
 pass "clipboard watched text remains intact after a stalled type query"
 
-if capture_output=$(WL_PASTE_STALL="text" XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" timeout --preserve-status 4s "$ROOT/src/shell/plugins/clipboard/capture.sh"); then
+if capture_output=$(WL_PASTE_STALL="text" XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" timeout --preserve-status 4s "$ROOT/src/shell/plugins/clipboard/capture.py"); then
   capture_status=0
 else
   capture_status=$?
@@ -333,7 +335,7 @@ fi
 pass "clipboard snapshot text read uses its internal timeout"
 pass "clipboard snapshot timeout emits no partial entry"
 
-if capture_output=$(WL_PASTE_STALL="text-midway" XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" timeout --preserve-status 4s "$ROOT/src/shell/plugins/clipboard/capture.sh"); then
+if capture_output=$(WL_PASTE_STALL="text-midway" XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" timeout --preserve-status 4s "$ROOT/src/shell/plugins/clipboard/capture.py"); then
   capture_status=0
 else
   capture_status=$?
@@ -344,7 +346,7 @@ pass "clipboard snapshot text read stalled midway uses its internal timeout"
 pass "clipboard snapshot stalled midway emits no partial entry"
 
 for watched_mime in text image/png; do
-  if capture_output=$({ printf 'copy whose owner never closes'; sleep 1; } | XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" timeout --preserve-status 4s "$ROOT/src/shell/plugins/clipboard/capture.sh" "$watched_mime"); then
+  if capture_output=$({ printf 'copy whose owner never closes'; sleep 1; } | XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" timeout --preserve-status 4s "$ROOT/src/shell/plugins/clipboard/capture.py" "$watched_mime"); then
     capture_status=0
   else
     capture_status=$?
@@ -359,53 +361,53 @@ leftover=$(find "$TMPDIR/state/arch" -name 'clipboard.*' -print)
 [[ -z $leftover ]] || fail "clipboard capture removes copies it dropped" "left: $leftover"
 pass "clipboard capture removes copies it dropped"
 
-capture_output=$(printf '%s' 'UTF-16 clipboard - fixed' | iconv -f UTF-8 -t UTF-16LE | XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.sh" text)
+capture_output=$(printf '%s' 'UTF-16 clipboard - fixed' | iconv -f UTF-8 -t UTF-16LE | XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.py" text)
 [[ $capture_output == '{"type":"text","text":"UTF-16 clipboard - fixed"}' ]] || fail "clipboard capture decodes UTF-16LE text"
 pass "clipboard capture decodes UTF-16LE text"
 
-capture_output=$(printf '%s' 'https://example.com/image — preview …' | iconv -f UTF-8 -t UTF-16LE | XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.sh" text)
+capture_output=$(printf '%s' 'https://example.com/image — preview …' | iconv -f UTF-8 -t UTF-16LE | XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.py" text)
 [[ $capture_output == '{"type":"text","text":"https://example.com/image — preview …"}' ]] || fail "clipboard capture decodes mostly ASCII UTF-16LE text with Unicode punctuation"
 pass "clipboard capture decodes mostly ASCII UTF-16LE text with Unicode punctuation"
 
-capture_output=$(printf '%s' 'Text with 日本 and 😀' | iconv -f UTF-8 -t UTF-16BE | XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.sh" text)
+capture_output=$(printf '%s' 'Text with 日本 and 😀' | iconv -f UTF-8 -t UTF-16BE | XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.py" text)
 [[ $capture_output == '{"type":"text","text":"Text with 日本 and 😀"}' ]] || fail "clipboard capture decodes mostly ASCII UTF-16BE text with Unicode characters"
 pass "clipboard capture decodes mostly ASCII UTF-16BE text with Unicode characters"
 
-capture_output=$(printf '%s' 'ABC—' | iconv -f UTF-8 -t UTF-16LE | XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.sh" text)
+capture_output=$(printf '%s' 'ABC—' | iconv -f UTF-8 -t UTF-16LE | XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.py" text)
 [[ $capture_output == '{"type":"text","text":"ABC—"}' ]] || fail "clipboard capture decodes UTF-16LE text at the padding threshold"
 pass "clipboard capture decodes UTF-16LE text at the padding threshold"
 
 printf '%s' 'ABCDEFGH————' | iconv -f UTF-8 -t UTF-16LE >"$TMPDIR/below-utf16-threshold"
 expected=$(jq -cRs '{type:"text", text:.}' <"$TMPDIR/below-utf16-threshold")
-capture_output=$(XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.sh" text <"$TMPDIR/below-utf16-threshold")
+capture_output=$(XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.py" text <"$TMPDIR/below-utf16-threshold")
 [[ $capture_output == "$expected" ]] || fail "clipboard capture leaves UTF-16LE text below the padding threshold undecoded" "expected: $expected\nactual: $capture_output"
 pass "clipboard capture leaves UTF-16LE text below the padding threshold undecoded"
 
 printf '%s' 'ABCĀ' | iconv -f UTF-8 -t UTF-16LE >"$TMPDIR/opposite-nul-threshold"
 expected=$(jq -cRs '{type:"text", text:.}' <"$TMPDIR/opposite-nul-threshold")
-capture_output=$(XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.sh" text <"$TMPDIR/opposite-nul-threshold")
+capture_output=$(XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.py" text <"$TMPDIR/opposite-nul-threshold")
 [[ $capture_output == "$expected" ]] || fail "clipboard capture leaves UTF-16LE text at the opposite-byte NUL threshold undecoded" "expected: $expected\nactual: $capture_output"
 pass "clipboard capture leaves UTF-16LE text at the opposite-byte NUL threshold undecoded"
 
-capture_output=$(printf 'a\fb' | iconv -f UTF-8 -t UTF-16LE | XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.sh" text)
+capture_output=$(printf 'a\fb' | iconv -f UTF-8 -t UTF-16LE | XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.py" text)
 [[ $capture_output == '{"type":"text","text":"a\fb"}' ]] || fail "clipboard capture preserves UTF-16LE form feeds"
 pass "clipboard capture preserves UTF-16LE form feeds"
 
 # BOM-less UTF-16LE "A" is byte-identical to UTF-8 "A\0". The padding
 # heuristic intentionally resolves that ambiguity as UTF-16.
-capture_output=$(printf 'A' | iconv -f UTF-8 -t UTF-16LE | XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.sh" text)
+capture_output=$(printf 'A' | iconv -f UTF-8 -t UTF-16LE | XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.py" text)
 [[ $capture_output == '{"type":"text","text":"A"}' ]] || fail "clipboard capture decodes exact NUL-padded UTF-16LE text"
 pass "clipboard capture decodes exact NUL-padded UTF-16LE text"
 
-capture_output=$(printf 'BE text' | iconv -f UTF-8 -t UTF-16BE | XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.sh" text)
+capture_output=$(printf 'BE text' | iconv -f UTF-8 -t UTF-16BE | XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.py" text)
 [[ $capture_output == '{"type":"text","text":"BE text"}' ]] || fail "clipboard capture decodes exact NUL-padded UTF-16BE text"
 pass "clipboard capture decodes exact NUL-padded UTF-16BE text"
 
-capture_output=$({ printf '\377\376'; printf '%s' 'Little endian 日本 😀' | iconv -f UTF-8 -t UTF-16LE; } | XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.sh" text)
+capture_output=$({ printf '\377\376'; printf '%s' 'Little endian 日本 😀' | iconv -f UTF-8 -t UTF-16LE; } | XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.py" text)
 [[ $capture_output == '{"type":"text","text":"Little endian 日本 😀"}' ]] || fail "clipboard capture decodes BOM-tagged UTF-16LE text"
 pass "clipboard capture decodes BOM-tagged UTF-16LE text"
 
-capture_output=$({ printf '\376\377'; printf '%s' 'Big endian 日本 😀' | iconv -f UTF-8 -t UTF-16BE; } | XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.sh" text)
+capture_output=$({ printf '\376\377'; printf '%s' 'Big endian 日本 😀' | iconv -f UTF-8 -t UTF-16BE; } | XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.py" text)
 [[ $capture_output == '{"type":"text","text":"Big endian 日本 😀"}' ]] || fail "clipboard capture decodes BOM-tagged UTF-16BE text"
 pass "clipboard capture decodes BOM-tagged UTF-16BE text"
 
@@ -413,7 +415,7 @@ assert_ambiguous_utf16_falls_back() {
   local description="$1" value="$2" expected capture_output
   printf '%s' "$value" | iconv -f UTF-8 -t UTF-16LE >"$TMPDIR/ambiguous-utf16"
   expected=$(jq -cRs '{type:"text", text:.}' <"$TMPDIR/ambiguous-utf16")
-  capture_output=$(XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.sh" text <"$TMPDIR/ambiguous-utf16")
+  capture_output=$(XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.py" text <"$TMPDIR/ambiguous-utf16")
   [[ $capture_output == "$expected" ]] || fail "$description" "expected: $expected\nactual: $capture_output"
   pass "$description"
 }
@@ -424,48 +426,48 @@ assert_ambiguous_utf16_falls_back "clipboard capture leaves BOM-less UTF-16 surr
 
 printf 'foo\0bar\0' >"$TMPDIR/nul-separated-utf8"
 expected=$(jq -cRs '{type:"text", text:.}' <"$TMPDIR/nul-separated-utf8")
-capture_output=$(XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.sh" text <"$TMPDIR/nul-separated-utf8")
+capture_output=$(XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.py" text <"$TMPDIR/nul-separated-utf8")
 [[ $capture_output == "$expected" ]] || fail "clipboard capture leaves sparse NUL-separated UTF-8 undecoded" "expected: $expected\nactual: $capture_output"
 pass "clipboard capture leaves sparse NUL-separated UTF-8 undecoded"
 
 printf 'Hello\0\0\0\0\0\0\0\0\0\0\0' >"$TMPDIR/nul-padded-utf8"
 expected=$(jq -cRs '{type:"text", text:.}' <"$TMPDIR/nul-padded-utf8")
-capture_output=$(XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.sh" text <"$TMPDIR/nul-padded-utf8")
+capture_output=$(XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.py" text <"$TMPDIR/nul-padded-utf8")
 [[ $capture_output == "$expected" ]] || fail "clipboard capture leaves NUL-padded UTF-8 undecoded" "expected: $expected\nactual: $capture_output"
 pass "clipboard capture leaves NUL-padded UTF-8 undecoded"
 
 printf '\001\000\001\000\001\000\001\000' >"$TMPDIR/ambiguous-control-text"
 expected=$(jq -cRs '{type:"text", text:.}' <"$TMPDIR/ambiguous-control-text")
-capture_output=$(XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.sh" text <"$TMPDIR/ambiguous-control-text")
+capture_output=$(XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.py" text <"$TMPDIR/ambiguous-control-text")
 [[ $capture_output == "$expected" ]] || fail "clipboard capture leaves endian-ambiguous control text undecoded" "expected: $expected\nactual: $capture_output"
 pass "clipboard capture leaves endian-ambiguous control text undecoded"
 
 printf '\377\376\075\330' >"$TMPDIR/malformed-utf16"
 expected=$(jq -cRs '{type:"text", text:.}' <"$TMPDIR/malformed-utf16")
-capture_output=$(XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.sh" text <"$TMPDIR/malformed-utf16")
+capture_output=$(XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.py" text <"$TMPDIR/malformed-utf16")
 [[ $capture_output == "$expected" ]] || fail "clipboard capture falls back from malformed UTF-16" "expected: $expected\nactual: $capture_output"
 pass "clipboard capture falls back from malformed UTF-16"
 
-capture_output=$(printf 'png-data' | XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.sh" image/png)
+capture_output=$(printf 'png-data' | XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.py" image/png)
 image_path=$(jq -r '.path' <<<"$capture_output")
 jq -e '.type == "image" and .mime == "image/png" and (.capturedAt | type == "string")' <<<"$capture_output" >/dev/null || fail "clipboard capture records watched png images"
 [[ -s $image_path && $(<"$image_path") == "png-data" ]] || fail "clipboard capture stores watched png image data"
 pass "clipboard capture records watched png images"
 
-capture_output=$(printf 'jpg-data' | XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.sh" image/jpeg)
+capture_output=$(printf 'jpg-data' | XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.py" image/jpeg)
 image_path=$(jq -r '.path' <<<"$capture_output")
 jq -e '.mime == "image/jpeg"' <<<"$capture_output" >/dev/null && [[ $image_path == *.jpg ]] || fail "clipboard capture stores watched jpeg images with jpg extension"
 pass "clipboard capture stores watched jpeg images with jpg extension"
 
-capture_output=$(printf 'secret' | CLIPBOARD_STATE=sensitive XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.sh" text)
+capture_output=$(printf 'secret' | CLIPBOARD_STATE=sensitive XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.py" text)
 [[ -z $capture_output ]] || fail "clipboard capture ignores sensitive watched text"
 pass "clipboard capture ignores sensitive watched text"
 
-capture_output=$(CLIPBOARD_STATE=sensitive XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.sh")
+capture_output=$(CLIPBOARD_STATE=sensitive XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.py")
 [[ -z $capture_output ]] || fail "clipboard capture ignores sensitive clipboard events"
 pass "clipboard capture ignores sensitive clipboard events"
 
-capture_output=$(WL_PASTE_TYPES="text/plain\nx-kde-passwordManagerHint\n" XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.sh")
+capture_output=$(WL_PASTE_TYPES="text/plain\nx-kde-passwordManagerHint\n" XDG_RUNTIME_DIR="$TMPDIR" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" "$ROOT/src/shell/plugins/clipboard/capture.py")
 [[ -z $capture_output ]] || fail "clipboard capture ignores password manager hint"
 pass "clipboard capture ignores password manager hint"
 
@@ -489,16 +491,16 @@ SH
 chmod +x "$TMPDIR/bin/wl-paste"
 
 clipboard_lifecycle_dir="$TMPDIR/clipboard-lifecycle"
-current_script="$clipboard_lifecycle_dir/current/src/shell/plugins/clipboard/capture.sh"
+current_script="$clipboard_lifecycle_dir/current/src/shell/plugins/clipboard/capture.py"
 mkdir -p "$(dirname "$current_script")"
-cp "$ROOT/src/shell/plugins/clipboard/capture.sh" "$current_script"
+cp "$ROOT/src/shell/plugins/clipboard/capture.py" "$current_script"
 chmod +x "$current_script"
 
 PATH="$TMPDIR/bin:$PATH" wl-paste --type text --watch "$current_script" text &
 stale_pid=$!
 PIDS_TO_KILL+=("$stale_pid")
 sleep 0.2
-pgrep -f 'wl-paste .*--watch .*/src/shell/plugins/clipboard/capture\.sh' | grep -x "$stale_pid" >/dev/null || fail "clipboard reaper pattern matches running watchers"
+pgrep -f 'wl-paste .*--watch .*/src/shell/plugins/clipboard/capture\.py' | grep -x "$stale_pid" >/dev/null || fail "clipboard reaper pattern matches running watchers"
 kill "$stale_pid" 2>/dev/null || true
 wait "$stale_pid" 2>/dev/null || true
 pass "clipboard reaper pattern matches running watchers"
