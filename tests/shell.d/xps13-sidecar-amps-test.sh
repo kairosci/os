@@ -5,11 +5,11 @@ set -euo pipefail
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 detector="$ROOT/src/cli/arch-hw-dell-xps13-sidecar-amps"
-leaf="$ROOT/installer/hardware/dell-xps13-sidecar-amps.sh"
+leaf="$ROOT/src/python/installer/hardware/dell_xps13_sidecar_amps.py"
 all="$ROOT/installer/hardware/all.sh"
 migration=$(grep -l "dell-xps13-sidecar-amps" "$ROOT"/migrations/*.sh | head -1)
 
-grep -q 'run_logged .*hardware/dell-xps13-sidecar-amps.sh' "$all" ||
+grep -q 'run_logged .*hardware/dell_xps13_sidecar_amps.py' "$all" ||
   fail "the sidecar amplifier workaround runs during hardware setup"
 pass "the sidecar amplifier workaround runs during hardware setup"
 
@@ -77,7 +77,7 @@ run_detector "XPS 13 DX13260" "0E53" "$test_tmp/absent" &&
   fail "the detector fails closed when the SKU attribute is missing"
 pass "the detector fails closed when the SKU attribute is missing"
 
-# Sourced the way run_logged runs it.
+# Run the Python setup leaf the way run_logged runs it.
 run_leaf() {
   : >"$call_log"
   printf '0E53\n' >"$sku_file"
@@ -87,7 +87,8 @@ run_leaf() {
     TEST_PKG_ADD_STATUS="${2:-0}" \
     TEST_APPLY_STATUS="${3:-0}" \
     ARCH_DMI_PRODUCT_SKU="$sku_file" \
-    bash -c 'source "$1"' bash "$leaf"
+    ARCH_PATH="$ROOT" \
+    python3 "$leaf"
 }
 
 run_leaf || fail "the leaf installs and applies on the target machine"

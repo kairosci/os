@@ -24,7 +24,7 @@ run_logged "$ARCH_PATH/src/python/installer/hardware/dell_xps13_ptl_speaker_firm
 run_logged "$ARCH_PATH/src/python/installer/hardware/elgato_camlink_4k.py"
 
 # Rebuilds the boot image, so it follows camera module setup.
-run_logged "$ARCH_INSTALL/hardware/dell-xps13-sidecar-amps.sh"
+run_logged "$ARCH_PATH/src/python/installer/hardware/dell_xps13_sidecar_amps.py"
 
 run_logged "$ARCH_PATH/src/python/installer/hardware/asus/panther_lake_display.py"
 run_logged "$ARCH_PATH/src/python/installer/hardware/asus/expertbook_b9406_touchpad.py"
