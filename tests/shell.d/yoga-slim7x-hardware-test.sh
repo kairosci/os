@@ -4,28 +4,45 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-setup="$ROOT/installer/hardware/lenovo/yoga-slim7x.sh"
-starter="$ROOT/installer/hardware/lenovo/start-yoga-slim7x-remoteprocs.sh"
+setup="$ROOT/src/python/installer/hardware/lenovo/yoga_slim7x.py"
+starter="$ROOT/src/python/installer/hardware/lenovo/start_yoga_slim7x_remoteprocs.py"
 scratch=$(mktemp -d)
 trap 'rm -rf "$scratch"' EXIT
 
-for script in "$setup" "$starter"; do
-  bash -n "$script" || fail "Yoga Slim 7x hardware scripts have valid syntax"
-done
+mock_bin="$scratch/mock-bin"
+systemd_bin="$scratch/systemd-bin"
+board_bin="$scratch/board-bin"
+mkdir -p "$mock_bin" "$systemd_bin" "$board_bin"
+cat >"$mock_bin/arch-hw-aarch64-qualcomm" <<'SH'
+#!/bin/bash
+[[ ${TEST_QUALCOMM:-1} == 1 ]]
+SH
+cat >"$mock_bin/arch-hw-match" <<'SH'
+#!/bin/bash
+[[ ${1:-} == 83ED && ${TEST_BOARD_MATCH:-1} == 1 ]]
+SH
+cat >"$mock_bin/systemctl" <<'SH'
+#!/bin/bash
+printf '%s\n' "$*" >>"$SYSTEMCTL_LOG"
+SH
+cat >"$systemd_bin/systemctl" <<'SH'
+#!/bin/bash
+printf '%s\n' "$*" >>"$SYSTEMCTL_LOG"
+SH
+cat >"$board_bin/arch-hw-match" <<'SH'
+#!/bin/bash
+[[ ${1:-} == 83ED && ${TEST_BOARD_MATCH:-1} == 1 ]]
+SH
+chmod +x "$mock_bin"/* "$systemd_bin"/* "$board_bin"/*
 
 matching="$scratch/matching"
 mkdir -p "$matching"
-(
-  arch-hw-aarch64-qualcomm() { return 0; }
-  arch-hw-match() { [[ $1 == "83ED" ]]; }
-  systemctl() { printf '%s\n' "$*" >>"$matching/systemctl.log"; }
-
+ARCH_PATH="$ROOT" PATH="$mock_bin:$PATH" SYSTEMCTL_LOG="$matching/systemctl.log" \
   ARCH_YOGA_MODULES_LOAD_DIR="$matching/modules-load.d" \
-    ARCH_YOGA_MKINITCPIO_DIR="$matching/mkinitcpio.conf.d" \
-    ARCH_YOGA_LIMINE_CONFIG_DIR="$matching/limine-entry-tool.d" \
-    ARCH_YOGA_SYSTEMD_DIR="$matching/systemd" \
-    source "$setup"
-)
+  ARCH_YOGA_MKINITCPIO_DIR="$matching/mkinitcpio.conf.d" \
+  ARCH_YOGA_LIMINE_CONFIG_DIR="$matching/limine-entry-tool.d" \
+  ARCH_YOGA_SYSTEMD_DIR="$matching/systemd" \
+  python3 -I "$setup"
 
 grep -Fxq 'scmi-cpufreq' "$matching/modules-load.d/yoga-slim7x.conf" ||
   fail "Yoga Slim 7x setup loads its SCMI CPU-frequency driver"
@@ -64,6 +81,9 @@ grep -Fxq 'scmi-cpufreq' "$matching/modules-load.d/yoga-slim7x.conf" ||
 grep -Fq 'ConditionPathExists=!/etc/modprobe.d/qualcomm-adsp-nofw.conf' \
   "$matching/systemd/yoga-slim7x-remoteprocs.service" ||
   fail "Yoga Slim 7x skips DSP startup when the generic firmware leaf blacklists it"
+grep -Fq 'ExecStart=/usr/bin/python3 -I /usr/share/arch/src/python/installer/hardware/lenovo/start_yoga_slim7x_remoteprocs.py' \
+  "$matching/systemd/yoga-slim7x-remoteprocs.service" ||
+  fail "the Yoga DSP service starts the Python helper"
 if grep -Fq 'systemd-udev-settle.service' "$matching/systemd/yoga-slim7x-remoteprocs.service"; then
   fail "Yoga Slim 7x DSP startup does not wait for all udev devices"
 fi
@@ -72,17 +92,13 @@ grep -Fxq 'enable yoga-slim7x-remoteprocs.service' "$matching/systemctl.log" ||
 
 nonmatching="$scratch/nonmatching"
 mkdir -p "$nonmatching"
-(
-  arch-hw-aarch64-qualcomm() { return 0; }
-  arch-hw-match() { return 1; }
-  systemctl() { fail "nonmatching Qualcomm hardware does not enable Yoga services"; }
-
+ARCH_PATH="$ROOT" PATH="$mock_bin:$PATH" SYSTEMCTL_LOG="$nonmatching/systemctl.log" \
+  TEST_BOARD_MATCH=0 \
   ARCH_YOGA_MODULES_LOAD_DIR="$nonmatching/modules-load.d" \
-    ARCH_YOGA_MKINITCPIO_DIR="$nonmatching/mkinitcpio.conf.d" \
-    ARCH_YOGA_LIMINE_CONFIG_DIR="$nonmatching/limine-entry-tool.d" \
-    ARCH_YOGA_SYSTEMD_DIR="$nonmatching/systemd" \
-    source "$setup"
-)
+  ARCH_YOGA_MKINITCPIO_DIR="$nonmatching/mkinitcpio.conf.d" \
+  ARCH_YOGA_LIMINE_CONFIG_DIR="$nonmatching/limine-entry-tool.d" \
+  ARCH_YOGA_SYSTEMD_DIR="$nonmatching/systemd" \
+  python3 -I "$setup"
 
 [[ ! -e $nonmatching/modules-load.d/yoga-slim7x.conf ]] ||
   fail "nonmatching Qualcomm hardware does not get Yoga CPU setup"
@@ -105,7 +121,7 @@ printf 'offline\n' >"$remoteprocs/remoteproc2/state"
 ARCH_YOGA_REMOTEPROC_ROOT="$remoteprocs" \
   ARCH_YOGA_REMOTEPROC_ATTEMPTS=1 \
   ARCH_YOGA_REMOTEPROC_SLEEP=0 \
-  bash "$starter"
+  ARCH_PATH="$ROOT" python3 -I "$starter"
 
 [[ $(<"$remoteprocs/remoteproc0/state") == start ]] ||
   fail "Yoga Slim 7x helper starts the audio DSP by firmware identity"
@@ -115,10 +131,11 @@ ARCH_YOGA_REMOTEPROC_ROOT="$remoteprocs" \
   fail "Yoga Slim 7x helper leaves unrelated remote processors alone"
 
 run_starter() {
+  ARCH_PATH="$ROOT" \
   ARCH_YOGA_REMOTEPROC_ROOT="$remoteprocs" \
     ARCH_YOGA_REMOTEPROC_ATTEMPTS=1 \
     ARCH_YOGA_REMOTEPROC_SLEEP=0 \
-    bash "$starter"
+    python3 -I "$starter"
 }
 printf 'running\n' >"$remoteprocs/remoteproc0/state"
 printf 'running\n' >"$remoteprocs/remoteproc1/state"
@@ -129,16 +146,9 @@ run_starter
 printf 'unrelated.mbn\n' >"$remoteprocs/remoteproc0/firmware"
 if run_starter; then fail "missing ADSP must time out, even when CDSP is running"; fi
 printf 'qcadsp8380.mbn\n' >"$remoteprocs/remoteproc0/firmware"
-printf 'offline\n' >"$remoteprocs/remoteproc0/state"
-(
-  printf() {
-    [[ $1 != "start\n" ]] || return 1
-    # shellcheck disable=SC2059 # Forward the caller's format unchanged.
-    builtin printf "$@"
-  }
-  export -f printf
-  if run_starter; then fail "a failed ADSP start must be reported"; fi
-)
+rm -f "$remoteprocs/remoteproc0/state"
+mkdir "$remoteprocs/remoteproc0/state"
+if run_starter; then fail "a failed ADSP start must be reported"; fi
 
 # The compute DSP can appear once the audio DSP is already up.
 late="$scratch/late"
@@ -146,38 +156,31 @@ mkdir -p "$late/remoteproc0"
 printf 'qcadsp8380.mbn\n' >"$late/remoteproc0/firmware"
 printf 'offline\n' >"$late/remoteproc0/state"
 run_late_starter() {
+  ARCH_PATH="$ROOT" \
   ARCH_YOGA_REMOTEPROC_ROOT="$late" \
     ARCH_YOGA_REMOTEPROC_ATTEMPTS=2 \
-    ARCH_YOGA_REMOTEPROC_SLEEP=0 \
-    bash "$starter"
+    ARCH_YOGA_REMOTEPROC_SLEEP=0.05 \
+    python3 -I "$starter"
 }
 (
-  sleep() {
-    mkdir -p "$late/remoteproc1"
-    printf 'qccdsp8380.mbn\n' >"$late/remoteproc1/firmware"
-    printf 'offline\n' >"$late/remoteproc1/state"
-  }
-  export late
-  export -f sleep
-  run_late_starter
-)
+  sleep 0.01
+  mkdir -p "$late/remoteproc1"
+  printf 'qccdsp8380.mbn\n' >"$late/remoteproc1/firmware"
+) &
+late_creator=$!
+run_late_starter
+wait "$late_creator"
 [[ $(<"$late/remoteproc1/state") == start ]] ||
   fail "a compute DSP that appears after the audio DSP is still started"
 
 # A compute DSP that never starts is tried to the end, and the audio DSP still
 # decides the result.
 printf 'offline\n' >"$late/remoteproc0/state"
-printf 'offline\n' >"$late/remoteproc1/state"
-(
-  printf() {
-    [[ $1 != "start\n" || ${kind:-} != CDSP ]] || return 1
-    # shellcheck disable=SC2059 # Forward the caller's format unchanged.
-    builtin printf "$@"
-  }
-  export -f printf
-  run_late_starter 2>"$scratch/late.err" ||
-    fail "a compute DSP that cannot start does not fail a started audio DSP"
-)
+rm -f "$late/remoteproc1/state"
+mkdir "$late/remoteproc1/state"
+if run_late_starter 2>"$scratch/late.err"; then
+  fail "a compute DSP that cannot start does not fail a started audio DSP"
+fi
 [[ $(<"$late/remoteproc0/state") == start ]] || fail "the audio DSP is started beside a failing compute DSP"
 (( $(grep -c 'could not start CDSP' "$scratch/late.err") == 2 )) ||
   fail "a compute DSP that cannot start is tried on every attempt"
@@ -194,16 +197,14 @@ run_setup_on() (
   mkdir -p "$out"
   fake_platform "$scratch/platforms/$platform" "$platform"
   export ARCH_PROC_ROOT="$scratch/platforms/$platform/proc"
-  export PATH="$scratch/platforms/$platform/bin:$ROOT/src/cli:$PATH"
+  export PATH="$systemd_bin:$board_bin:$scratch/platforms/$platform/bin:$ROOT/src/cli:$PATH"
 
-  arch-hw-match() { [[ $1 == "83ED" ]]; }
-  systemctl() { printf '%s\n' "$*" >>"$out/systemctl.log"; }
-
-  ARCH_YOGA_MODULES_LOAD_DIR="$out/modules-load.d" \
+  ARCH_PATH="$ROOT" SYSTEMCTL_LOG="$out/systemctl.log" \
+    ARCH_YOGA_MODULES_LOAD_DIR="$out/modules-load.d" \
     ARCH_YOGA_MKINITCPIO_DIR="$out/mkinitcpio.conf.d" \
     ARCH_YOGA_LIMINE_CONFIG_DIR="$out/limine-entry-tool.d" \
     ARCH_YOGA_SYSTEMD_DIR="$out/systemd" \
-    source "$setup"
+    python3 -I "$setup"
 )
 
 run_setup_on aarch64-qualcomm
