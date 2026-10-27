@@ -34,7 +34,7 @@ run_logged "$ARCH_PATH/src/python/installer/hardware/asus/proart_p14_speakers.py
 run_logged "$ARCH_PATH/src/python/installer/hardware/asus/proart_p14_fkeys.py"
 run_logged "$ARCH_PATH/src/python/installer/hardware/n1x_gpu_memory.py"
 
-run_logged "$ARCH_INSTALL/hardware/framework/qmk-hid.sh"
+run_logged "$ARCH_PATH/src/python/installer/hardware/framework16_qmk_hid.py"
 
 run_logged "$ARCH_PATH/src/python/installer/hardware/apple/macbook_spi_keyboard.py"
 run_logged "$ARCH_PATH/src/python/installer/hardware/apple/macbook_nvme_suspend.py"
