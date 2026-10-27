@@ -118,6 +118,8 @@
   "migrate.usage": "Usage: arch-migrate [--pending|--check]",
   "migrate.waiting": "Waiting for the pacman transaction to finish before running migrations...",
   "migration.addKeyboardLayoutWidget": "Add the keyboard layout widget to the bar",
+  "migration.applyArchIdentity": "Apply Arch Linux identity to the installed system",
+  "migration.finishArchBranding": "Finish Arch Linux branding for the login and splash screens",
   "migration.installChromiumCopyUrl": "Install the Chromium Copy URL extension host",
   "migration.installChromiumExtensionHosts": "Register the bundled Chromium extension hosts",
   "migration.installDdcutil": "Install external-monitor brightness control support",

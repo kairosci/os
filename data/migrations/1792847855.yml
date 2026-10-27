@@ -1,0 +1,19 @@
+commands:
+  i18n: [arch-i18n]
+  elevate: [sudo, env]
+  python: [python3, -I]
+paths:
+  os_release: /etc/os-release
+  terminal_desktop: .local/share/applications/org.arch.terminal.desktop
+  branding_setup: src/python/installer/system_setup/branding.py
+identity_lines:
+  - 'PRETTY_NAME="Arch Linux"'
+  - LOGO=archlinux-logo
+statuses:
+  success: 0
+terminal_replacements:
+  - old: Name=os Terminal
+    new: Name=Terminal
+  - old: Comment=Open the default terminal for os
+    new: Comment=Open the default terminal for Arch Linux
+message: migration.applyArchIdentity

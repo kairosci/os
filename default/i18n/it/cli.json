@@ -119,6 +119,8 @@
   "migrate.usage": "Uso: arch-migrate [--pending|--check]",
   "migrate.waiting": "Attendo che la transazione pacman termini prima di eseguire le migrazioni...",
   "migration.addKeyboardLayoutWidget": "Aggiungi il widget del layout tastiera alla barra",
+  "migration.applyArchIdentity": "Applica l’identità Arch Linux al sistema installato",
+  "migration.finishArchBranding": "Completa il branding Arch Linux per la schermata di accesso e di avvio",
   "migration.installChromiumCopyUrl": "Installa il programma host dell’estensione Chromium Copia URL",
   "migration.installChromiumExtensionHosts": "Registra i programmi host delle estensioni Chromium incluse",
   "migration.installDdcutil": "Installa il supporto per regolare la luminosità dei monitor esterni",
