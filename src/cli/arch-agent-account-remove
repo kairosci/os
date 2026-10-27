@@ -1,20 +1,20 @@
 #!/bin/bash
 
-# arch:summary=Forget an added Claude, Codex, or Grok account
-# arch:args=[claude|codex|grok] <account>
+# arch:summary=Forget an added Claude or Codex account
+# arch:args=[claude|codex] <account>
 # arch:examples=archctl agent account remove work | archctl agent account remove codex side
 
 set -uo pipefail
 
 # The provider can be left out when it's your default agent:
 # `archctl agent account use work`.
-if [[ ${1:-} != "claude" && ${1:-} != "codex" && ${1:-} != "grok" ]]; then
+if [[ ${1:-} != "claude" && ${1:-} != "codex" ]]; then
   default=$(arch-default-agent)
-  [[ $default == "claude" || $default == "codex" || $default == "grok" ]] && set -- "$default" "$@"
+  [[ $default == "claude" || $default == "codex" ]] && set -- "$default" "$@"
 fi
 
-if [[ ${1:-} != "claude" && ${1:-} != "codex" && ${1:-} != "grok" ]] || [[ -z ${2:-} ]]; then
-  echo "Usage: arch-agent-account-remove [claude|codex|grok] <account>" >&2
+if [[ ${1:-} != "claude" && ${1:-} != "codex" ]] || [[ -z ${2:-} ]]; then
+  echo "Usage: arch-agent-account-remove [claude|codex] <account>" >&2
   exit 1
 fi
 

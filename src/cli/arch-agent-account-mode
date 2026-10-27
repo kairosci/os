@@ -1,20 +1,20 @@
 #!/bin/bash
 
-# arch:summary=Switch Claude, Codex, or Grok accounts automatically near a limit, or only notify
-# arch:args=[claude|codex|grok] [manual|auto] [threshold]
+# arch:summary=Switch Claude or Codex accounts automatically near a limit, or only notify
+# arch:args=[claude|codex] [manual|auto] [threshold]
 # arch:examples=archctl agent account mode auto | archctl agent account mode auto 90 | archctl agent account mode codex manual
 
 set -uo pipefail
 
 # The provider can be left out when it's your default agent:
 # `archctl agent account use work`.
-if [[ ${1:-} != "claude" && ${1:-} != "codex" && ${1:-} != "grok" ]]; then
+if [[ ${1:-} != "claude" && ${1:-} != "codex" ]]; then
   default=$(arch-default-agent)
-  [[ $default == "claude" || $default == "codex" || $default == "grok" ]] && set -- "$default" "$@"
+  [[ $default == "claude" || $default == "codex" ]] && set -- "$default" "$@"
 fi
 
-if [[ ${1:-} != "claude" && ${1:-} != "codex" && ${1:-} != "grok" ]]; then
-  echo "Usage: arch-agent-account-mode [claude|codex|grok] [manual|auto] [threshold]" >&2
+if [[ ${1:-} != "claude" && ${1:-} != "codex" ]]; then
+  echo "Usage: arch-agent-account-mode [claude|codex] [manual|auto] [threshold]" >&2
   exit 1
 fi
 

@@ -52,22 +52,6 @@ fi
 echo "codex home=${CODEX_HOME:-default} args=$*"
 SH
 
-# Grok keys its login by issuer and keeps the plan in the settings it caches,
-# as a JSON string inside that file.
-cat >"$mock_bin/grok" <<'SH'
-#!/bin/bash
-if [[ ${1:-} == "login" ]]; then
-  "${BROWSER:-arch-test-default-browser}" "https://auth.x.ai/oauth/authorize"
-  home=${GROK_HOME:-$HOME/.grok}
-  mkdir -p "$home"
-  printf '{"https://auth.x.ai::client":{"key":"t","user_id":"%s","email":"%s"}}\n' \
-    "${ARCH_TEST_LOGIN_UUID:-u-grok}" "${ARCH_TEST_LOGIN_EMAIL:-me@example.com}" >"$home/auth.json"
-  printf '{"payload":"{\\"settings\\":{\\"subscription_tier_display\\":\\"SuperGrok\\"}}"}\n' >"$home/settings_cache.json"
-  exit 0
-fi
-echo "grok home=${GROK_HOME:-default} args=$*"
-SH
-
 cat >"$mock_bin/arch-test-default-browser" <<'SH'
 #!/bin/bash
 printf 'default %s\n' "$*" >>"$ARCH_TEST_BROWSER_LOG"
@@ -97,8 +81,8 @@ export ARCH_TEST_NOTIFICATIONS="$notifications"
 export ARCH_TEST_BROWSER_LOG="$test_tmp/browser"
 # A session started by an account launch pins its home through these, and
 # a run from inside one (an agent working on os) must not inherit it.
-unset CLAUDE_CONFIG_DIR CODEX_HOME GROK_HOME BROWSER
-unset ARCH_AGENT_CLAUDE_HOME ARCH_AGENT_CODEX_HOME ARCH_AGENT_GROK_HOME
+unset CLAUDE_CONFIG_DIR CODEX_HOME BROWSER
+unset ARCH_AGENT_CLAUDE_HOME ARCH_AGENT_CODEX_HOME
 
 accounts="$XDG_STATE_HOME/arch/agents/accounts"
 
@@ -111,6 +95,11 @@ echo '{"theme":"custom:arch"}' >"$HOME/.claude/settings.json"
 [[ -z $(arch-agent-account-home claude) ]] || fail "a machine with one account routes nowhere"
 [[ ! -e $accounts/claude.json ]] || fail "reading the active home never creates a registry"
 pass "a machine with one account launches exactly as before"
+
+if ARCH_TEST_DEFAULT_AGENT=grok arch-agent-account-add grok </dev/null >/dev/null 2>&1; then
+  fail "a provider outside Claude and Codex cannot be added"
+fi
+pass "only Claude and Codex are supported account providers"
 
 list=$(arch-agent-account-list claude --json)
 [[ $(jq -c '.[0].accounts | map({id, label, plan, email, active, primary})' <<<"$list") == '[{"id":"main","label":"Main","plan":"Max 20x","email":"me@example.com","active":true,"primary":true}]' ]] ||
@@ -187,26 +176,6 @@ ARCH_TEST_LOGIN_UUID=acct-2 ARCH_TEST_LOGIN_EMAIL=side@example.com \
 grep -qx -- "--private https://auth.openai.com/oauth/authorize" "$ARCH_TEST_BROWSER_LOG" ||
   fail "a Codex login opens in a private window" "$(cat "$ARCH_TEST_BROWSER_LOG")"
 pass "Codex accounts are added the same way"
-
-ARCH_TEST_DEFAULT_AGENT="" arch-agent-account-add grok </dev/null >/dev/null
-[[ $(cat "$HOME/.config/arch/defaults/agent") == "grok" ]] ||
-  fail "the first agent signed in on a machine with no default becomes the default"
-[[ -s $HOME/.grok/auth.json ]] && grep -qx "default https://auth.x.ai/oauth/authorize" "$ARCH_TEST_BROWSER_LOG" ||
-  fail "a first Grok sign-in lands in ~/.grok through the normal browser"
-pass "Grok signs in its first account"
-
-ARCH_TEST_LOGIN_UUID=u-grok-2 ARCH_TEST_LOGIN_EMAIL=side@example.com \
-  arch-agent-account-add grok Side </dev/null >/dev/null
-[[ $(arch-agent-account-list grok --json | jq -c '.[0].accounts[1] | {id, email, plan}') == '{"id":"side","email":"side@example.com","plan":"SuperGrok"}' ]] ||
-  fail "a Grok account reads its identity and plan from its own home" "$(arch-agent-account-list grok --json)"
-[[ $(readlink "$accounts/grok/side/sessions") == "$HOME/.grok/sessions" ]] ||
-  fail "a Grok account shares sessions with the primary"
-grep -qx -- "--private https://auth.x.ai/oauth/authorize" "$ARCH_TEST_BROWSER_LOG" ||
-  fail "a second Grok login opens in a private window" "$(cat "$ARCH_TEST_BROWSER_LOG")"
-arch-agent-account-use grok side >/dev/null
-[[ $(arch-agent-account-exec grok --version) == "grok home=$accounts/grok/side args=--version" ]] || fail "grok starts as the active Grok account" "$(arch-agent-account-exec grok --version)"
-arch-agent-account-use grok main >/dev/null
-pass "Grok accounts are added and used like the others"
 
 # ---------------------------------------------------------------------- routing
 
@@ -326,7 +295,7 @@ pass "a failed registration rolls the new home back to pending"
 
 # ------------------------------------------------------------ panel add flow
 
-[[ $(arch-agent-account-add --check) == $'claude additional\ncodex additional\ngrok additional' ]] ||
+[[ $(arch-agent-account-add --check) == $'claude additional\ncodex additional' ]] ||
   fail "--check says what adding would mean for each provider" "$(arch-agent-account-add --check)"
 pass "--check says what adding would mean for each provider"
 

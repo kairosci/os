@@ -1,24 +1,23 @@
 #!/bin/bash
 
-# arch:summary=Choose which Claude, Codex, or Grok account new sessions use
-# arch:args=[claude|codex|grok] [account|next]
+# arch:summary=Choose which Claude or Codex account new sessions use
+# arch:args=[claude|codex] [account|next]
 # arch:examples=archctl agent account use work | archctl agent account use main | archctl agent account use codex next
 
 set -uo pipefail
 
 # The provider can be left out when it's your default agent:
 # `archctl agent account use work`.
-if [[ ${1:-} != "claude" && ${1:-} != "codex" && ${1:-} != "grok" ]]; then
+if [[ ${1:-} != "claude" && ${1:-} != "codex" ]]; then
   default=$(arch-default-agent)
-  [[ $default == "claude" || $default == "codex" || $default == "grok" ]] && set -- "$default" "$@"
+  [[ $default == "claude" || $default == "codex" ]] && set -- "$default" "$@"
 fi
 
 case "${1:-}" in
 claude) name="Claude" ;;
 codex) name="Codex" ;;
-grok) name="Grok" ;;
 *)
-  echo "Usage: arch-agent-account-use [claude|codex|grok] [account|next]" >&2
+  echo "Usage: arch-agent-account-use [claude|codex] [account|next]" >&2
   exit 1
   ;;
 esac
