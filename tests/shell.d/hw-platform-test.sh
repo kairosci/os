@@ -248,17 +248,31 @@ fi
 grep -Fq "cannot read the CPU architecture" "$test_tmp/error" || fail "an unreadable CPU architecture explains itself" "$(cat "$test_tmp/error")"
 pass "an unreadable CPU architecture fails instead of guessing generic"
 
-# The architecture predicates answer from the CPU alone: aarch64 covers every
-# ARM family, Apple Silicon included, and x86 none of them.
-for platform in x86 aarch64 aarch64-apple; do
-  fake_platform "$test_tmp/arch-$platform" "$platform"
-  arch_path="$test_tmp/arch-$platform/bin:$ROOT/src/cli:$PATH"
+# The architecture predicates use the image-aware platform detector rather
+# than uname, and aarch64 covers every ARM hardware family.
+test_arch="$test_tmp/architecture-root"
+mkdir -p "$test_arch/src/cli" "$test_arch/src/python/cli" "$test_arch/data/cli"
+cp "$ROOT/src/python/cli/architecture.py" "$test_arch/src/python/cli/architecture.py"
+cp "$ROOT/data/cli/architecture.yml" "$test_arch/data/cli/architecture.yml"
+cp "$ROOT/src/cli/arch-hw-x86" "$test_arch/src/cli/arch-hw-x86"
+cp "$ROOT/src/cli/arch-hw-aarch64" "$test_arch/src/cli/arch-hw-aarch64"
+cat >"$test_arch/src/cli/arch-hw-platform" <<'SH'
+#!/bin/bash
+printf '%s\n' "$TEST_PLATFORM"
+SH
+chmod +x "$test_arch/src/cli/arch-hw-platform"
+
+for platform in x86 aarch64 aarch64-apple aarch64-qualcomm aarch64-n1x aarch64-gb10; do
   if [[ $platform == "x86" ]]; then
-    PATH=$arch_path arch-hw-x86 || fail "x86: arch-hw-x86 accepts it"
-    ! PATH=$arch_path arch-hw-aarch64 || fail "x86: arch-hw-aarch64 rejects it"
+    ARCH_PATH="$test_arch" TEST_PLATFORM="$platform" "$test_arch/src/cli/arch-hw-x86" || fail "x86: arch-hw-x86 accepts it"
+    if ARCH_PATH="$test_arch" TEST_PLATFORM="$platform" "$test_arch/src/cli/arch-hw-aarch64"; then
+      fail "x86: arch-hw-aarch64 rejects it"
+    fi
   else
-    PATH=$arch_path arch-hw-aarch64 || fail "$platform: arch-hw-aarch64 accepts it"
-    ! PATH=$arch_path arch-hw-x86 || fail "$platform: arch-hw-x86 rejects it"
+    ARCH_PATH="$test_arch" TEST_PLATFORM="$platform" "$test_arch/src/cli/arch-hw-aarch64" || fail "$platform: arch-hw-aarch64 accepts it"
+    if ARCH_PATH="$test_arch" TEST_PLATFORM="$platform" "$test_arch/src/cli/arch-hw-x86"; then
+      fail "$platform: arch-hw-x86 rejects it"
+    fi
   fi
 done
-pass "arch-hw-x86 and arch-hw-aarch64 split every platform by its CPU"
+pass "arch-hw-x86 and arch-hw-aarch64 follow the platform detector for every CPU family"
