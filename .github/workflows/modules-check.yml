@@ -15,4 +15,4 @@ jobs:
       - name: Validate module declarations
         run: python3 scripts/modules.py validate
       - name: Assemble and verify package trees
-        run: bash tests/shell.d/modules-test.sh
+        run: python3 tests/shell.d/modules-test.py
