@@ -11,7 +11,7 @@ run_logged "$ARCH_PATH/src/python/installer/hardware/bluetooth.py"
 run_logged "$ARCH_INSTALL/hardware/n1x.sh"
 run_logged "$ARCH_INSTALL/hardware/nvidia.sh"
 run_logged "$ARCH_PATH/src/python/installer/hardware/nvidia_apps.py"
-run_logged "$ARCH_INSTALL/hardware/vulkan.sh"
+run_logged "$ARCH_PATH/src/python/installer/hardware/vulkan.py"
 
 run_logged "$ARCH_INSTALL/hardware/intel/video-acceleration.sh"
 run_logged "$ARCH_INSTALL/hardware/intel/lpmd.sh"

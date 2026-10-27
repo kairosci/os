@@ -95,3 +95,15 @@ nvidia_apps_setup:
   deferred_environment: ARCH_IMAGE_DEFERRED_HARDWARE
   deferred_value: '1'
   start_command: [systemctl, start, --no-block, dgx-dashboard.service]
+vulkan_setup:
+  pci_command: [lspci]
+  driver_rules:
+    - pattern: '(VGA|Display).*Intel'
+      package: vulkan-intel
+    - pattern: '(VGA|Display).*AMD'
+      package: vulkan-radeon
+    - pattern: '(VGA|Display).*Apple'
+      package: vulkan-asahi
+  platform_check: [arch-hw-aarch64-qualcomm]
+  platform_package: vulkan-freedreno
+  package_command: [arch-pkg-add]
