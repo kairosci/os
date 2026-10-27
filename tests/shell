@@ -7,14 +7,14 @@ TEST_DIR="$ROOT/tests/shell.d"
 
 shopt -s nullglob
 tests=()
-for test in "$TEST_DIR"/*-test.sh; do
+for test in "$TEST_DIR"/*-test.sh "$TEST_DIR"/*-test.py; do
   [[ $(basename "$test") == "base-test.sh" ]] && continue
   tests+=("$test")
 done
 shopt -u nullglob
 
 if (( ${#tests[@]} == 0 )); then
-  echo "No shell tests found in $TEST_DIR" >&2
+  echo "No tests found in $TEST_DIR" >&2
   exit 1
 fi
 
@@ -62,7 +62,11 @@ run_one() {
   local name
   name=$(basename "$test")
   local status=0
-  bash "$test" >"$workdir/$name.out" 2>&1 || status=$?
+  if [[ $test == *.py ]]; then
+    python3 "$test" >"$workdir/$name.out" 2>&1 || status=$?
+  else
+    bash "$test" >"$workdir/$name.out" 2>&1 || status=$?
+  fi
   echo "$status" >"$workdir/$name.code"
 }
 export -f run_one
