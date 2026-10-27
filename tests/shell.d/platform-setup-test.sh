@@ -123,6 +123,8 @@ chmod +x "$first_bin"/*
 mkdir -p "$first_root/src/python/installer_user/first_run" "$first_root/data/installer"
 cp "$ROOT/src/python/installer_user/first_run/commands.py" \
   "$first_root/src/python/installer_user/first_run/commands.py"
+cp "$ROOT/src/python/installer_user/first_run/orchestrator.py" \
+  "$first_root/src/python/installer_user/first_run/orchestrator.py"
 cp "$ROOT/data/installer/first-run.yml" "$first_root/data/installer/first-run.yml"
 cat >"$first_bin/gsettings" <<'SH'
 #!/bin/bash
@@ -158,12 +160,14 @@ first_run() {
   rm -f "$tmp/ran" "$tmp/first-run-marker" "$tmp/home/.local/state/arch/first-run.log"
   HOME="$tmp/home" ARCH_PATH="$first_root" FIRST_RUN_MARKER="$tmp/first-run-marker" GSETTINGS_LOG="$tmp/gsettings.log" AUDIO_TUNING_LOG="$tmp/audio-tuning.log" NOTIFICATION_LOG="$tmp/notifications.log" INPUT_METHOD_LOG="$tmp/input-method.log" SYSTEMCTL_LOG="$tmp/systemctl.log" \
     ARCH_PROC_ROOT="$tmp/$platform/proc" ARCH_LIFECYCLE_ROOT="$lifecycle" \
-    PATH="$first_bin:$tmp/$platform/bin:$ROOT/src/cli:$PATH" bash "$ROOT/src/cli/arch-provision-first-run" >"$tmp/output" 2>&1
+    PATH="$first_bin:$tmp/$platform/bin:$ROOT/src/cli:$PATH" "$ROOT/src/cli/arch-provision-first-run" >"$tmp/output" 2>&1
 }
 
 LANG=it_IT.UTF-8 first_run apple || fail "apple: first run finishes" "$(cat "$tmp/output")"
 [[ $(cat "$tmp/ran") == "setup-user" && -e $tmp/first-run-marker ]] ||
   fail "apple: first run runs setup-user and completes" "$(cat "$tmp/home/.local/state/arch/first-run.log" 2>/dev/null)"
+[[ $(stat -c '%a' "$tmp/home/.local/state/arch/first-run.log") == 600 ]] ||
+  fail "first-run log is private to its owner" "$(stat -c '%a' "$tmp/home/.local/state/arch/first-run.log")"
 grep -q 'Scopri le scorciatoie' "$tmp/notifications.log" || fail "first-run welcome notification uses the Italian YAML translation" "$(cat "$tmp/notifications.log")"
 touch "$tmp/fail"
 first_run apple || fail "apple: first run with a failing setup-user still runs its other steps"

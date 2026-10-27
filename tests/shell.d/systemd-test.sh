@@ -26,9 +26,9 @@ grep -Fx 'ConditionEnvironment=WAYLAND_DISPLAY' "$sleep_service" >/dev/null ||
   fail "sleep lock monitor can start without a Wayland display"
 pass "sleep lock service follows the initialized graphical session"
 
-first_run_units="$ROOT/installer/user/first-run/enable-user-units.sh"
-grep -Fx 'systemctl --user daemon-reload' "$first_run_units" >/dev/null
-grep -F 'arch-sleep-lock.service' "$first_run_units" >/dev/null
+first_run_units="$ROOT/data/installer/first-run.yml"
+grep -F 'daemon_reload: [systemctl, --user, daemon-reload]' "$first_run_units" >/dev/null
+grep -F '    - arch-sleep-lock.service' "$first_run_units" >/dev/null
 pass "first-run reloads and enables the sleep lock service"
 
 upgrade_to_quattro="$ROOT/src/cli/arch-upgrade-to-quattro"
