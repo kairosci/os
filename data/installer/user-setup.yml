@@ -52,3 +52,23 @@ work_directories:
   directories:
     - Work
     - Work/tries
+default_keyring:
+  directory: .local/share/keyrings
+  directory_mode: '0700'
+  keyring_file: Default_keyring.keyring
+  keyring_mode: '0600'
+  keyring_content: |-
+    [keyring]
+    display-name=Default keyring
+    ctime={ctime}
+    mtime=0
+    lock-on-idle=false
+    lock-after=false
+  default_file: default
+  default_mode: '0644'
+  default_content: Default_keyring
+  messages:
+    en:
+      setup_failed: "Could not safely set up the default keyring."
+    it:
+      setup_failed: "Impossibile configurare in sicurezza il portachiavi predefinito."
