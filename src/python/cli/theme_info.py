@@ -109,3 +109,19 @@ def theme_list_main() -> int:
     )
     print(name.replace(display["hyphen"], display["separator"]))
   return 0
+
+
+def background_current_main() -> int:
+  settings = _settings()
+  background_link = _paths(settings)["current_background"]
+  if not background_link.is_symlink():
+    print(_message(settings, "unknown"))
+    return 0
+  name = Path(os.path.realpath(background_link)).name
+  display = settings["background_name"]
+  name = re.sub(display["extension_pattern"], "", name)
+  name = re.sub(display["numeric_prefix_pattern"], "", name, count=1)
+  name = name.replace(display["hyphen"], display["separator"])
+  name = re.sub(display["word_initial_pattern"], lambda match: match.group(1).upper(), name)
+  print(name)
+  return 0

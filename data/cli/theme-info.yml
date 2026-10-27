@@ -4,6 +4,13 @@ paths:
   theme_name_file: "{state_home}/arch/current/theme.name"
   user_themes: "{home}/.config/arch/themes"
   bundled_themes: "{arch_path}/assets/themes"
+  current_background: "{state_home}/arch/current/background"
+background_name:
+  extension_pattern: '\.[^.]+$'
+  numeric_prefix_pattern: '^\d+-'
+  word_initial_pattern: '\b(\w)'
+  hyphen: '-'
+  separator: ' '
 theme_name:
   pattern: '(^|-)([a-z])'
   prefix_group: 1
