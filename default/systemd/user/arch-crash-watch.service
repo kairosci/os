@@ -1,7 +1,6 @@
 [Unit]
 Description=Announce process crashes
-# Needs the session bus to notify, and uwsm-app to open the diagnosis terminal.
-# Both are up only after graphical-session.target.
+# Needs the graphical session bus to send notifications.
 After=graphical-session.target
 PartOf=graphical-session.target
 ConditionEnvironment=WAYLAND_DISPLAY
