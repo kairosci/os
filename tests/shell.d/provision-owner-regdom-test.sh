@@ -18,11 +18,11 @@ arch=$tmp/arch
 stub_bin=$tmp/bin
 conf=$root/etc/conf.d/wireless-regdom
 calls=$tmp/calls
-mkdir -p "$stub_bin" "$arch/bin" "$arch/installer/hardware"
+mkdir -p "$stub_bin" "$arch/bin" "$arch/src/python/installer/hardware" "$arch/data/installer"
 
 ln -s "$ROOT/src/cli/arch-cmd-present" "$arch/bin/arch-cmd-present"
-sed -e "s|/etc/|$root/etc/|g" -e "s|/usr/share/zoneinfo|$root/usr/share/zoneinfo|g" \
-  "$ROOT/installer/hardware/set-wireless-regdom.sh" >"$arch/installer/hardware/set-wireless-regdom.sh"
+cp "$ROOT/src/python/installer/hardware/wireless_regdom.py" "$arch/src/python/installer/hardware/wireless_regdom.py"
+cp "$ROOT/data/installer/hardware.yml" "$arch/data/installer/hardware.yml"
 
 cat >"$stub_bin/timedatectl" <<SH
 #!/bin/bash
@@ -60,6 +60,7 @@ fresh_root() {
 
 export PATH="$stub_bin:$arch/bin:$PATH"
 export ARCH_PATH=$arch
+export ARCH_SYSTEM_ROOT=$root
 
 # The setup functions as arch-provision-owner defines them, with its fixed
 # paths moved into the fixture root.
@@ -77,13 +78,13 @@ regdom_lines() {
 # the radios untouched until the reboot that follows an install.
 fresh_root
 ln -sfn ../usr/share/zoneinfo/America/New_York "$root/etc/localtime"
-bash "$arch/installer/hardware/set-wireless-regdom.sh"
+python3 -I "$arch/src/python/installer/hardware/wireless_regdom.py"
 [[ $(regdom_lines) == 'WIRELESS_REGDOM="US"' ]] || fail "an up-front install persists its timezone's country" "$(cat "$conf")"
 [[ ! -s $calls ]] || fail "an up-front install leaves the radios alone" "$(cat "$calls")"
 pass "an up-front install persists its timezone's country and leaves the radios to the reboot"
 
 fresh_root
-bash "$arch/installer/hardware/set-wireless-regdom.sh"
+python3 -I "$arch/src/python/installer/hardware/wireless_regdom.py"
 [[ -z $(regdom_lines) ]] || fail "the UTC placeholder names no country" "$(cat "$conf")"
 pass "a deferred install's hardware step sets nothing from the UTC placeholder"
 

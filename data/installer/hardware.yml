@@ -45,3 +45,14 @@ synaptic_touchpad:
       load_failed: "Warning: could not enable Synaptics InterTouch on psmouse"
     it:
       load_failed: "Avviso: impossibile attivare Synaptics InterTouch su psmouse"
+wireless_regdom:
+  root_environment: ARCH_SYSTEM_ROOT
+  regdom_file: etc/conf.d/wireless-regdom
+  localtime_file: etc/localtime
+  zoneinfo_directory: usr/share/zoneinfo
+  zone_table: usr/share/zoneinfo/zone.tab
+  existing_setting_pattern: '^WIRELESS_REGDOM='
+  country_pattern: '^[A-Z]{2}$'
+  zone_table_country_column: 0
+  zone_table_timezone_column: 2
+  line_template: 'WIRELESS_REGDOM="{country}"'

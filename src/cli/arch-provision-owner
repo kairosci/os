@@ -943,7 +943,7 @@ configure_region() {
 # here. No reboot follows setup, so the radios get it now the way udev applies
 # it at every boot.
 configure_wireless_regdom() {
-  bash "$ARCH_PATH/installer/hardware/set-wireless-regdom.sh" 2>&1 || return 0
+  python3 -I "$ARCH_PATH/src/python/installer/hardware/wireless_regdom.py" 2>&1 || return 0
   if arch-cmd-present set-wireless-regdom; then
     set-wireless-regdom 2>&1 || true
   fi
