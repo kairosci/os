@@ -109,7 +109,7 @@ orchestrator:
         network: pianifica le notifiche Wi-Fi e aggiornamenti
   steps:
     - id: fingerprint_hook
-      command: [arch-hook-install, post-update, '{arch_path}/installer/user/first-run/setup-fingerprint.hook']
+      command: [arch-hook-install, post-update, '{arch_path}/src/python/installer_user/first_run/fingerprint_invitation.py']
     - id: agent_hook
       command: [arch-hook-install, post-update, '{arch_path}/installer/user/first-run/setup-agent.hook']
     - id: user_units
@@ -140,3 +140,17 @@ user_units:
   messages:
     en: Input method defaults deferred; run archctl setup input after login.
     it: Configurazione del metodo di input rimandata; esegui archctl setup input dopo l'accesso.
+fingerprint_invitation:
+  hardware_check: [arch-hw-fingerprint]
+  pam_file: /etc/pam.d/arch-lock-fingerprint
+  marker: [arch-done, ensure, fingerprint-setup-invitation]
+  notification:
+    command: [arch-notification-send, -u, critical, -g, 󰈷]
+    action: [--exec, arch-launch-terminal, arch-setup-security-fingerprint]
+    messages:
+      en:
+        title: Setup Fingerprint Reader
+        body: Enable sudo and unlocking with your fingerprint.
+      it:
+        title: Configura il lettore d'impronte
+        body: Abilita sudo e lo sblocco con l'impronta digitale.

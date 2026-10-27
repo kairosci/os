@@ -34,6 +34,15 @@ HOME="$fake_home" "$ROOT/src/cli/arch-hook" a..b
   fail "archctl hook accepts a hook name with dots in the middle"
 pass "archctl hook accepts a hook name with dots in the middle"
 
+cat >"$fake_home/.config/arch/hooks/python-hook.py" <<'PY'
+from pathlib import Path
+
+Path.home().joinpath("python-hook-ran").touch()
+PY
+HOME="$fake_home" "$ROOT/src/cli/arch-hook" python-hook.py
+[[ -f $fake_home/python-hook-ran ]] || fail "archctl hook runs a Python hook in isolated mode"
+pass "archctl hook runs a Python hook in isolated mode"
+
 for name in . ..; do
   status=0
   HOME="$fake_home" "$ROOT/src/cli/arch-hook" "$name" >/dev/null 2>&1 || status=$?

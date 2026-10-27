@@ -217,8 +217,6 @@
   "screensaver.disabled": "Salvaschermo disattivato",
   "screensaver.enabled": "Salvaschermo attivato",
   "screensaver.terminalOnly": "Il salvaschermo funziona solo in Alacritty, Foot, Ghostty o Kitty",
-  "security.fingerprintInvitation.body": "Attiva l'uso dell'impronta per sudo e per sbloccare il sistema.",
-  "security.fingerprintInvitation.title": "Configura il lettore di impronte",
   "share.chooserClosed": "Il selettore file non si è aperto",
   "share.couldNot": "Condivisione non riuscita",
   "share.filesTitle": "Condividi file",
