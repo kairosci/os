@@ -1,0 +1,9 @@
+paths:
+  acpi_devices: /sys/bus/acpi/devices
+  hid_pattern: "*/hid"
+hardware:
+  acpi_hid: OVTI08F4
+commands:
+  install: [arch-pkg-add, intel-ipu7-camera]
+encoding: utf-8
+statuses: {matched: 0, complete: 0}
