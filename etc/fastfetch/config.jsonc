@@ -78,7 +78,8 @@
     {
       "type": "kernel",
       "key": "│ ├",
-      "keyColor": "blue"
+      "keyColor": "blue",
+      "format": "{release}"
     },
     {
       "type": "wm",
