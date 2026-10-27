@@ -375,13 +375,15 @@ mkdir -p "$keyring_bin" "$fixture/installer/post-install"
 # the root under test, never the host's /etc.
 cp "$ROOT/installer/post-install/pacman.sh" "$fixture/installer/post-install/pacman.sh"
 cp "$ROOT/installer/helpers/pacman.sh" "$fixture/installer/helpers/pacman.sh"
+mkdir -p "$fixture/src/python/installer/hardware" "$fixture/data/installer/hardware"
+cp "$ROOT/src/python/installer/hardware/pacman_repositories.py" "$fixture/src/python/installer/hardware/"
+cp "$ROOT/data/installer/hardware/pacman-repositories.yml" "$fixture/data/installer/hardware/"
 target_etc='etc="${2:-/}/etc"'
 grep -Fqx "  $target_etc" "$ROOT/src/cli/arch-apply-pacman" || fail "arch-apply-pacman still names its target etc"
 sed "s|^  $target_etc\$|  etc=\"\${2:-\$ARCH_IMAGE_ROOT}/etc\"|" "$ROOT/src/cli/arch-apply-pacman" >"$fixture/src/cli/arch-apply-pacman"
 chmod +x "$fixture/src/cli/arch-apply-pacman"
 mkdir -p "$fixture/default"
 cp -r "$ROOT/default/pacman" "$ROOT/default/regions" "$fixture/default/"
-: >"$fixture/installer/hardware/pacman.sh"
 for command in pacman-key arch-pkg-add; do
   cat >"$keyring_bin/$command" <<'SH'
 #!/bin/bash
@@ -390,13 +392,14 @@ printf '%s %s\n' "${0##*/}" "$*" >>"$KEYRING"
 SH
 done
 printf '#!/bin/bash\necho "$PLATFORM"\n' >"$keyring_bin/arch-hw-platform"
+printf '#!/bin/bash\nexit 0\n' >"$keyring_bin/lspci"
 chmod +x "$keyring_bin"/*
 export KEYRING="$test_tmp/keyring" KEYRING_FAIL="$test_tmp/keyring-fail"
 request=var/lib/arch/image/pacman-keyring
 
 finalize() {
   mkdir -p "$1/etc/pacman.d"
-  ARCH_IMAGE_ROOT="$1" ARCH_PATH="$fixture" ARCH_INSTALL="$fixture/installer" PLATFORM=$2 \
+  ARCH_IMAGE_ROOT="$1" ARCH_PATH="$fixture" ARCH_INSTALL="$fixture/installer" ARCH_PACMAN_CONFIG_PATH="$1/etc/pacman.conf" PLATFORM=$2 \
     PATH="$keyring_bin:$base_path" bash -e -c 'source "$1"' bash "$fixture/installer/post-install/pacman.sh"
 }
 
