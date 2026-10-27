@@ -79,3 +79,17 @@ pass "theme directory prefers user themes, falls back to bundled themes and reje
 theme_list=$(HOME="$test_tmp/home" ARCH_PATH="$test_tmp/theme-arch" "$ROOT/src/cli/arch-theme-list")
 [[ $theme_list == $'Blue Sky\nCosmic Night\nTokyo Night\nUser Linked Theme' ]] || fail "theme list merges theme directories and user symlinks in sorted order" "$theme_list"
 pass "theme list merges bundled and user themes in sorted order"
+
+printf 'wallpaper\n' >"$test_tmp/theme-arch/assets/themes/cosmic-night/004-sunset-glow.jpg"
+ln -s "$test_tmp/theme-arch/assets/themes/cosmic-night/004-sunset-glow.jpg" \
+  "$test_tmp/home/.local/state/arch/current/background"
+background=$(HOME="$test_tmp/home" ARCH_PATH="$test_tmp/theme-arch" \
+  "$ROOT/src/cli/arch-theme-bg-current")
+[[ $background == "Sunset Glow" ]] || fail "current background resolves and formats the selected filename" "$background"
+pass "current background name is formatted"
+
+rm "$test_tmp/home/.local/state/arch/current/background"
+background=$(HOME="$test_tmp/home" ARCH_PATH="$test_tmp/theme-arch" LC_ALL= LC_MESSAGES=it_IT.UTF-8 \
+  "$ROOT/src/cli/arch-theme-bg-current")
+[[ $background == "Sconosciuto" ]] || fail "missing current background is localized" "$background"
+pass "missing current background uses the selected locale"
