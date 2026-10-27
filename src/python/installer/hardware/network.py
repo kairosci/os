@@ -3,6 +3,7 @@ from __future__ import annotations
 import os
 import re
 import shutil
+import stat
 import subprocess
 from datetime import datetime
 from pathlib import Path
@@ -47,8 +48,8 @@ def main() -> int:
   for filename in settings["network_files"]:
     source = network_directory / filename
     if _is_stock_networkd_file(source, settings):
-      backup_directory.mkdir(mode=0o755, parents=True, exist_ok=True)
-      os.chmod(backup_directory, 0o755)
+      backup_directory.mkdir(mode=stat.S_IRWXU, parents=True, exist_ok=True)
+      backup_directory.chmod(stat.S_IRWXU)
       shutil.move(str(source), str(backup_directory))
 
   manager_active = _run(settings["manager_active_command"])
