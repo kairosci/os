@@ -1,0 +1,7 @@
+messages:
+  reason: migration.replaceTerminalTextEffects
+packages:
+  add:
+  - ttfx
+  drop:
+  - python-terminaltexteffects

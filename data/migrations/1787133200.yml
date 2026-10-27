@@ -1,0 +1,6 @@
+messages:
+  reason: migration.installQtImageformats
+packages:
+  add:
+  - qt6-imageformats
+  drop: []

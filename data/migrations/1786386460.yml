@@ -1,0 +1,6 @@
+messages:
+  reason: migration.installLibvips
+packages:
+  add:
+  - libvips
+  drop: []
