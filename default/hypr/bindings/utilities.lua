@@ -96,7 +96,6 @@ o.bind("SUPER + CTRL + ALT + T", "Show time", "arch-notification-time")
 o.bind("SUPER + CTRL + ALT + B", "Show battery remaining", "arch-notification-battery")
 o.bind("SUPER + CTRL + ALT + W", "Toggle weather", "arch-notification-weather")
 
-o.bind("SUPER + SHIFT + CTRL + A", "Agent", "arch-agent --pick")
 o.bind("SUPER + CTRL + A", "Audio", { panel = "arch.audio" })
 o.bind("SUPER + CTRL + B", "Bluetooth", { panel = "arch.bluetooth" })
 o.bind("SUPER + CTRL + D", "Display", { panel = "arch.monitor" })

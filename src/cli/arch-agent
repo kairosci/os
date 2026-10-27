@@ -5,7 +5,6 @@
 # arch:examples=archctl agent | archctl agent --inline
 
 inline=false
-pick=false
 
 # Flags only. A bare prompt would shadow the subcommands under this group, so
 # prompts go through arch-agent-prompt, which passes one here as --prompt.
@@ -13,10 +12,6 @@ while (($#)); do
   case "$1" in
     --inline)
       inline=true
-      shift
-      ;;
-    --pick)
-      pick=true
       shift
       ;;
     --prompt)
@@ -37,11 +32,8 @@ done
 
 agent=$(arch-default-agent)
 
-# os ships without a default, so there is nothing to launch until one is
-# picked. --pick offers the choice instead of the error, which is what the
-# keybinding wants: a keypress that opens nothing explains nothing.
+# The user chooses a default explicitly before the launcher can run.
 if [[ -z $agent ]]; then
-  [[ $pick == "true" ]] && exec arch-menu summon setup.default.agent
   echo "Choose default agent with: archctl default agent <name>" >&2
   exit 1
 fi

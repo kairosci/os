@@ -444,16 +444,6 @@
   "setup.default": {
     "label": "Defaults"
   },
-  "setup.default.agent": {
-    "label": "Agent",
-    "title": "Default Agent"
-  },
-  "setup.default.agent.claude": {
-    "label": "Claude"
-  },
-  "setup.default.agent.codex": {
-    "label": "Codex"
-  },
   "setup.default.browser": {
     "label": "Browser",
     "title": "Default Browser"

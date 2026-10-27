@@ -476,17 +476,6 @@ grep -Fq "Choose default agent with" "$test_tmp/no-agent-output" ||
 [[ ! -s $launch_log ]] || fail "agent launcher starts nothing without a default"
 pass "agent launcher refuses to launch without a default"
 
-# The keybinding uses --pick, where an error on stderr nobody sees would make
-# the keypress look broken. It offers the choice instead.
-: >"$launch_log"
-: >"$menu_log"
-arch-agent --pick
-mapfile -d '' -t menu_args <"$menu_log"
-[[ ${menu_args[*]} == "summon setup.default.agent" ]] ||
-  fail "--pick opens the agent defaults menu when none is set"
-[[ ! -s $launch_log ]] || fail "--pick starts nothing when no agent is set"
-pass "--pick opens the agent defaults menu when none is set"
-
 source "$ROOT/default/bash/aliases"
 for agent_alias in a c cx cy; do
   if alias "$agent_alias" >/dev/null 2>&1; then
@@ -494,11 +483,6 @@ for agent_alias in a c cx cy; do
   fi
 done
 pass "agent permission-bypass aliases are absent"
-
-grep -Fq 'o.bind("SUPER + SHIFT + CTRL + A", "Agent", "arch-agent --pick")' \
-  "$ROOT/default/hypr/bindings/utilities.lua" ||
-  fail "agent launcher has a keyboard shortcut"
-pass "agent launcher has a keyboard shortcut"
 
 cat >"$mock_bin/arch-agent" <<'SH'
 #!/bin/bash
@@ -889,16 +873,6 @@ archctl agent
 mapfile -d '' -t launch_args <"$launch_log"
 [[ ${launch_args[*]} == "--app-id=org.arch.agent opencode" ]] ||
   fail "archctl agent routes to the launcher"
-
-# With an agent chosen there is nothing to pick, so the keybinding launches.
-: >"$launch_log"
-: >"$menu_log"
-arch-agent --pick
-mapfile -d '' -t launch_args <"$launch_log"
-[[ ${launch_args[*]} == "--app-id=org.arch.agent opencode" ]] ||
-  fail "--pick launches once an agent is chosen"
-[[ ! -s $menu_log ]] || fail "--pick opens no menu once an agent is chosen"
-pass "--pick launches once an agent is chosen"
 
 : >"$launch_log"
 archctl agent prompt "Review this project"

@@ -292,44 +292,6 @@ assertEqual(
   'setup.reset',
   'menu lists Reset Computer last under Setup'
 )
-const expectedAgents = {
-  agy: { icon: '󰫢', label: 'Antigravity' },
-  pi: { icon: '\ue901', iconFont: 'Arch', label: 'Pi' },
-  omp: { icon: '\ue903', iconFont: 'Arch', label: 'omp' },
-  opencode: { icon: '\ue902', iconFont: 'Arch', label: 'OpenCode' },
-  ori: { icon: '\ue909', iconFont: 'Arch', label: 'Ori' },
-  claude: { icon: '󰛄', label: 'Claude' },
-  codex: { icon: '\ue905', iconFont: 'Arch', label: 'Codex' },
-  grok: { icon: '\ue904', iconFont: 'Arch', label: 'Grok' },
-  kimi: { icon: '\u{f06a9}', label: 'Kimi' },
-  hermes: { icon: '\ue90a', iconFont: 'Arch', label: 'Hermes' },
-  openclaw: { icon: '\ue90c', iconFont: 'Arch', label: 'OpenClaw' },
-  copilot: { icon: '', label: 'Copilot' },
-  crush: { icon: '󰋑', label: 'Crush' },
-  muse: { icon: '󰛤', label: 'Muse Code' },
-  'cursor-agent': { icon: '\ue90d', iconFont: 'Arch', label: 'Cursor CLI' },
-
-}
-assert(
-  Object.entries(expectedAgents).every(([agent, expected]) => {
-    const entry = defaultById[`setup.default.agent.${agent}`]
-    return entry
-      && entry.icon === expected.icon
-      && entry.iconFont === (expected.iconFont || '')
-      && entry.label === expected.label
-      && entry.action === `arch-default-agent ${agent}`
-      && !entry.when
-      && entry.checked.includes(`== \"${agent}\"`)
-  }),
-  'menu exposes every supported coding agent with its own glyph under Defaults > Agent'
-)
-assertDeepEqual(
-  defaultItems
-    .filter(item => item.parent === 'setup.default.agent')
-    .map(item => item.label),
-  ['Antigravity', 'Claude', 'Codex', 'Copilot', 'Crush', 'Cursor CLI', 'Grok', 'Hermes', 'Kimi', 'Muse Code', 'omp', 'OpenClaw', 'OpenCode', 'Ori', 'Pi'],
-  'menu sorts coding agents alphabetically'
-)
 const expectedDefaults = {
   browser: ['Chromium', 'Chrome', 'Brave', 'Brave Origin', 'Edge', 'Firefox', 'Zen'],
   terminal: ['Alacritty', 'Foot', 'Ghostty', 'Kitty'],

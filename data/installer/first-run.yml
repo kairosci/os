@@ -89,7 +89,6 @@ orchestrator:
     steps:
       en:
         fingerprint_hook: install fingerprint setup post-update hook
-        agent_hook: install agent setup post-update hook
         user_units: enable user systemd units
         platform_setup: run the platform's user setup
         gnome_theme: set GNOME theme
@@ -99,7 +98,6 @@ orchestrator:
         network: schedule Wi-Fi/update notifications
       it:
         fingerprint_hook: installa l'hook post-aggiornamento per le impronte
-        agent_hook: installa l'hook post-aggiornamento per gli agenti
         user_units: abilita le unità systemd utente
         platform_setup: esegui la configurazione utente della piattaforma
         gnome_theme: imposta il tema GNOME
@@ -110,8 +108,6 @@ orchestrator:
   steps:
     - id: fingerprint_hook
       command: [arch-hook-install, post-update, '{arch_path}/src/python/installer_user/first_run/fingerprint_invitation.py']
-    - id: agent_hook
-      command: [arch-hook-install, post-update, '{arch_path}/installer/user/first-run/setup-agent.hook']
     - id: user_units
       command: [python3, -I, '{arch_path}/src/python/installer_user/first_run/commands.py', user_units]
     - id: platform_setup
