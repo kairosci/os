@@ -3,9 +3,14 @@ domain = "desktop"
 package = "arch"
 sources = [
   "src/cli/arch-sleep-disabled",
+  "src/python/cli/sleep_disabled.py",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
 source = "src/cli/arch-sleep-disabled"
 target = "usr/share/arch/src/cli/arch-sleep-disabled"
+
+[[output]]
+source = "src/python/cli/sleep_disabled.py"
+target = "usr/share/arch/src/python/cli/sleep_disabled.py"

@@ -5,4 +5,4 @@ echo "Disable system sleep on GB10 machines, as DGX OS does"
 arch-hw-aarch64-gb10 || exit 0
 arch-sleep-disabled && exit 0
 
-sudo bash "$ARCH_PATH/installer/hardware/gb10/sleep.sh"
+python3 -I "$ARCH_PATH/src/python/installer/hardware/gb10/sleep.py"

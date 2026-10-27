@@ -1,0 +1,12 @@
+directory_environment: ARCH_SLEEP_CONFIG_DIR
+directory_default: /etc/systemd/sleep.conf.d
+disabled_filename: arch-sleep-disabled.conf
+disabled_content: |
+  [Sleep]
+  AllowSuspend=no
+  AllowHibernation=no
+  AllowSuspendThenHibernate=no
+  AllowHybridSleep=no
+hardware_check: [arch-hw-aarch64-gb10]
+install_file: [sudo, install, -Dm644]
+statuses: {complete: 0, enabled: 1}

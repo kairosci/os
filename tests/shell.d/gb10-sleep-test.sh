@@ -4,10 +4,10 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-setup="$ROOT/installer/hardware/gb10/sleep.sh"
+setup="$ROOT/src/python/installer/hardware/gb10/sleep.py"
 all="$ROOT/installer/hardware/all.sh"
 menu="$ROOT/default/arch/arch-menu.jsonc"
-migration=$(grep -l "hardware/gb10/sleep.sh" "$ROOT"/migrations/*.sh | head -1 || true)
+migration=$(grep -l "hardware/gb10/sleep.py" "$ROOT"/migrations/*.sh | head -1 || true)
 
 # The setting follows the real GB10 predicate on fixture machines, and root
 # reads only the live hardware.
@@ -17,9 +17,7 @@ scratch=$(mktemp -d)
 trap 'rm -rf "$scratch"' EXIT
 mkdir -p "$scratch/bin"
 
-bash -n "$setup" || fail "GB10 sleep script has valid syntax"
-
-grep -q 'run_logged .*hardware/gb10/sleep.sh' "$all" ||
+grep -q 'run_logged .*src/python/installer/hardware/gb10/sleep.py' "$all" ||
   fail "the GB10 sleep setting runs during hardware setup"
 [[ -n $migration ]] || fail "a migration applies the GB10 sleep setting to existing installs"
 pass "the GB10 sleep setting runs at install and through a migration"
@@ -69,17 +67,17 @@ run() {
     ARCH_SLEEP_CONFIG_DIR="$config_dir" "$@"
 }
 
-run spark "$scratch/spark" bash "$setup"
-config="$scratch/spark/os-sleep-disabled.conf"
+run spark "$scratch/spark" python3 -I "$setup"
+config="$scratch/spark/arch-sleep-disabled.conf"
 [[ $(head -n 1 "$config") == "[Sleep]" ]] || fail "GB10 sleep settings are in the [Sleep] section"
 for setting in AllowSuspend AllowHibernation AllowSuspendThenHibernate AllowHybridSleep; do
   grep -Fxq "$setting=no" "$config" || fail "a GB10 disallows $setting"
 done
 before=$(sha256sum "$config")
-run spark "$scratch/spark" bash "$setup"
+run spark "$scratch/spark" python3 -I "$setup"
 [[ $(sha256sum "$config") == "$before" ]] || fail "rerunning the setting leaves it unchanged"
 for machine in n1x other; do
-  run "$machine" "$scratch/$machine" bash "$setup"
+  run "$machine" "$scratch/$machine" python3 -I "$setup"
   [[ ! -e $scratch/$machine ]] || fail "the $machine machine keeps system sleep"
 done
 pass "the GB10 setting disallows every sleep operation and leaves the N1x and other machines alone"
@@ -89,7 +87,7 @@ run spark "$scratch/none" arch-sleep-disabled && fail "sleep reads as enabled wi
 pass "arch-sleep-disabled follows the sleep setting"
 
 run spark "$scratch/migrated" bash "$migration" >/dev/null
-[[ -f $scratch/migrated/os-sleep-disabled.conf ]] || fail "the migration applies the setting on a GB10"
+[[ -f $scratch/migrated/arch-sleep-disabled.conf ]] || fail "the migration applies the setting on a GB10"
 run spark "$scratch/migrated" bash "$migration" >/dev/null
 ! grep -q '^sudo ' "$CALL_LOG" || fail "the migration skips a GB10 that already has the setting"
 run other "$scratch/migrated-other" bash "$migration" >/dev/null
