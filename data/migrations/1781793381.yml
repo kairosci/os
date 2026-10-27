@@ -1,0 +1,6 @@
+messages:
+  reason: migration.installUdiskie
+packages:
+  add:
+  - udiskie
+  drop: []

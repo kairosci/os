@@ -1,0 +1,4 @@
+commands:
+  i18n: [arch-i18n]
+  package_add: [arch-pkg-add]
+  package_drop: [arch-pkg-drop]

@@ -1,0 +1,6 @@
+messages:
+  reason: migration.installZbar
+packages:
+  add:
+  - zbar
+  drop: []

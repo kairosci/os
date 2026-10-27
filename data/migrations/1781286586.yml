@@ -1,0 +1,7 @@
+messages:
+  reason: migration.replaceSatty
+packages:
+  add:
+  - tensaku
+  drop:
+  - satty
