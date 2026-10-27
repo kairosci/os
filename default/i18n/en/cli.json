@@ -136,6 +136,7 @@
   "migration.disableSnapshotWarningNotifier": "Disable the snapshot warning notifier at startup",
   "migration.enableSecureRemoteNeovimClipboard": "Enable secure remote Neovim clipboard support",
   "migration.enableKittyCwdLookup": "Enable Kitty working-directory lookup from global keybindings",
+  "migration.enableCrashNotifications": "Enable process crash notifications",
   "migration.installZbar": "Install QR code scanning support",
   "migration.keepMiseToolVersions": "Keep installed mise tool versions during upgrades",
   "migration.removeLeadingZeroFromBarClockDate": "Remove the leading zero from the bar clock date",

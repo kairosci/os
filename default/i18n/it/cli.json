@@ -137,6 +137,7 @@
   "migration.disableSnapshotWarningNotifier": "Disattiva l’avviso degli snapshot all’avvio",
   "migration.enableSecureRemoteNeovimClipboard": "Abilita il supporto sicuro agli appunti remoti di Neovim",
   "migration.enableKittyCwdLookup": "Abilita la ricerca della directory di lavoro di Kitty dalle scorciatoie globali",
+  "migration.enableCrashNotifications": "Abilita le notifiche in caso di arresto anomalo dei processi",
   "migration.installZbar": "Installa il supporto per leggere QR code",
   "migration.keepMiseToolVersions": "Mantieni le versioni degli strumenti mise installati durante gli aggiornamenti",
   "migration.removeLeadingZeroFromBarClockDate": "Rimuovi lo zero iniziale dalla data dell’orologio nella barra",

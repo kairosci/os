@@ -1,0 +1,15 @@
+commands:
+  i18n: [arch-i18n]
+  systemctl_user: [systemctl, --user]
+actions:
+  daemon_reload: [daemon-reload]
+  enable: [enable, arch-crash-watch.service]
+  graphical_session_active: [is-active, --quiet, graphical-session.target]
+  start: [start, arch-crash-watch.service]
+paths:
+  fallback_link: .config/systemd/user/graphical-session.target.wants/arch-crash-watch.service
+  unit_file: /usr/lib/systemd/user/arch-crash-watch.service
+messages:
+  reason: migration.enableCrashNotifications
+statuses:
+  success: 0
