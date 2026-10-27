@@ -1,0 +1,13 @@
+commands:
+  i18n: [arch-i18n]
+  install: [sudo, install, -Dm644]
+  rebuild: [sudo, mkinitcpio, -P]
+paths:
+  config_dir_environment: ARCH_MKINITCPIO_CONFIG_DIR
+  config_dir_default: /etc/mkinitcpio.conf.d
+  files:
+    - source: etc/mkinitcpio.conf.d/00-arch-hooks.conf
+      destination: 00-arch-hooks.conf
+    - source: etc/mkinitcpio.conf.d/arch_hooks.conf
+      destination: arch_hooks.conf
+message: migration.useArchInitramfsHooks
