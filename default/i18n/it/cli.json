@@ -159,6 +159,7 @@
   "migration.archSessionEntryMissing": "La voce di sessione Wayland di Arch non è presente.",
   "migration.removeRetiredCliShims": "Rimuovi gli shim CLI non più usati da mise",
   "migration.removeRetiredNotificationImageCache": "Rimuovi la vecchia cache delle immagini delle notifiche",
+  "migration.removeMalformedFootHeader": "Rimuovi l’intestazione non valida dei collegamenti di testo dalla configurazione di Foot",
   "migration.notifyPendingMigrationsAtLogin": "Controlla le migrazioni in sospeso all’accesso",
   "migration.switchBraveOriginToStable": "Passa Brave Origin dalla versione beta a quella stabile",
   "migration.removeSavedFloatingWorkspaces": "Rimuovi i layout flottanti salvati delle aree di lavoro",
