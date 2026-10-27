@@ -65,7 +65,6 @@
   "corners.sharp": "所有主题使用直角",
   "crash.captureDisabled": "崩溃捕获已禁用",
   "crash.captureEnabled": "崩溃捕获已启用",
-  "crash.diagnose": "点击用 AI 诊断",
   "crash.processCrashed": "进程已崩溃：%1",
   "default.browserSet": "%1 现在是默认浏览器",
   "default.editorSet": "%1 现在是默认编辑器",

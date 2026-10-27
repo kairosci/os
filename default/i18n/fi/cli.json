@@ -65,7 +65,6 @@
   "corners.sharp": "Terävät kulmat kaikille teemoille",
   "crash.captureDisabled": "Kaatumisten tallennus pois käytöstä",
   "crash.captureEnabled": "Kaatumisten tallennus käytössä",
-  "crash.diagnose": "Napsauta diagnosoidaksesi tekoälyllä",
   "crash.processCrashed": "Prosessi kaatui: %1",
   "default.browserSet": "%1 on nyt oletusselain",
   "default.editorSet": "%1 on nyt oletuseditori",

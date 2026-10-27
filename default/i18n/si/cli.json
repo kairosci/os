@@ -65,7 +65,6 @@
   "corners.sharp": "සියලු තේමා සඳහා තියුණු කොන්",
   "crash.captureDisabled": "බිඳවැටීම් ග්‍රහණය අක්‍රිය කළා",
   "crash.captureEnabled": "බිඳවැටීම් ග්‍රහණය සක්‍රිය කළා",
-  "crash.diagnose": "AI සමඟ රෝග විනිශ්චය කිරීමට ක්ලික් කරන්න",
   "crash.processCrashed": "ක්‍රියාවලිය බිඳවැටුණි: %1",
   "default.browserSet": "%1 දැන් පෙරනිමි බ්‍රවුසරයයි",
   "default.editorSet": "%1 දැන් පෙරනිමි සංස්කාරකයයි",

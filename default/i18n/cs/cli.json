@@ -65,7 +65,6 @@
   "corners.sharp": "Ostré rohy pro všechny motivy",
   "crash.captureDisabled": "Záznam pádů vypnut",
   "crash.captureEnabled": "Záznam pádů zapnut",
-  "crash.diagnose": "Klikněte pro diagnostiku pomocí AI",
   "crash.processCrashed": "Proces spadl: %1",
   "default.browserSet": "%1 je nyní výchozí prohlížeč",
   "default.editorSet": "%1 je nyní výchozí editor",

@@ -65,7 +65,6 @@
   "corners.sharp": "Góc vuông cho mọi chủ đề",
   "crash.captureDisabled": "Đã tắt ghi lại sự cố",
   "crash.captureEnabled": "Đã bật ghi lại sự cố",
-  "crash.diagnose": "Nhấp để chẩn đoán bằng AI",
   "crash.processCrashed": "Tiến trình bị treo: %1",
   "default.browserSet": "%1 giờ là trình duyệt mặc định",
   "default.editorSet": "%1 giờ là trình soạn thảo mặc định",

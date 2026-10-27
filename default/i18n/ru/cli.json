@@ -65,7 +65,6 @@
   "corners.sharp": "Острые углы для всех тем",
   "crash.captureDisabled": "Отлов сбоев выключен",
   "crash.captureEnabled": "Отлов сбоев включён",
-  "crash.diagnose": "Нажмите для диагностики с ИИ",
   "crash.processCrashed": "Процесс аварийно завершился: %1",
   "default.browserSet": "Браузер по умолчанию: %1",
   "default.editorSet": "Редактор по умолчанию: %1",

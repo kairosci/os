@@ -65,7 +65,6 @@
   "corners.sharp": "Остри ъгли за всички теми",
   "crash.captureDisabled": "Записът на сривове е изключен",
   "crash.captureEnabled": "Записът на сривове е включен",
-  "crash.diagnose": "Кликни за диагностика с AI",
   "crash.processCrashed": "Процесът се срина: %1",
   "default.browserSet": "%1 е браузърът по подразбиране",
   "default.editorSet": "%1 е редакторът по подразбиране",

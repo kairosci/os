@@ -65,7 +65,6 @@
   "corners.sharp": "Cantonades rectes per a tots els temes",
   "crash.captureDisabled": "Captura de fallades desactivada",
   "crash.captureEnabled": "Captura de fallades activada",
-  "crash.diagnose": "Fes clic per diagnosticar amb IA",
   "crash.processCrashed": "El procés ha fallat: %1",
   "default.browserSet": "%1 ara és el navegador per defecte",
   "default.editorSet": "%1 ara és l'editor per defecte",

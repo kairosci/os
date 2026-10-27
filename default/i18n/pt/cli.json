@@ -65,7 +65,6 @@
   "corners.sharp": "Cantos retos em todos os temas",
   "crash.captureDisabled": "Captura de falhas desativada",
   "crash.captureEnabled": "Captura de falhas ativada",
-  "crash.diagnose": "Clica para diagnosticar com IA",
   "crash.processCrashed": "O processo falhou: %1",
   "default.browserSet": "%1 é agora o navegador predefinido",
   "default.editorSet": "%1 é agora o editor predefinido",

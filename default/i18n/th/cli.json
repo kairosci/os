@@ -65,7 +65,6 @@
   "corners.sharp": "มุมเหลี่ยมทุกธีม",
   "crash.captureDisabled": "ปิดการบันทึกการขัดข้องแล้ว",
   "crash.captureEnabled": "เปิดการบันทึกการขัดข้องแล้ว",
-  "crash.diagnose": "คลิกเพื่อวินิจฉัยด้วย AI",
   "crash.processCrashed": "โปรเซสขัดข้อง: %1",
   "default.browserSet": "%1 เป็นเบราว์เซอร์เริ่มต้นแล้ว",
   "default.editorSet": "%1 เป็นตัวแก้ไขเริ่มต้นแล้ว",

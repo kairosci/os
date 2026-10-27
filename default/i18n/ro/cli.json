@@ -65,7 +65,6 @@
   "corners.sharp": "Colțuri drepte pentru toate temele",
   "crash.captureDisabled": "Captură erori dezactivată",
   "crash.captureEnabled": "Captură erori activată",
-  "crash.diagnose": "Dă clic pentru diagnosticare cu AI",
   "crash.processCrashed": "Procesul s-a încheiat eronat: %1",
   "default.browserSet": "%1 este acum browserul implicit",
   "default.editorSet": "%1 este acum editorul implicit",

@@ -65,7 +65,6 @@
   "corners.sharp": "פינות חדות לכל ערכות הנושא",
   "crash.captureDisabled": "לכידת קריסות מושבתת",
   "crash.captureEnabled": "לכידת קריסות פעילה",
-  "crash.diagnose": "לחצו לאבחון עם AI",
   "crash.processCrashed": "התהליך קרס: %1",
   "default.browserSet": "%1 הוא כעת דפדפן ברירת המחדל",
   "default.editorSet": "%1 הוא כעת עורך ברירת המחדל",

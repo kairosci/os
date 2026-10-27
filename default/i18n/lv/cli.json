@@ -65,7 +65,6 @@
   "corners.sharp": "Asi stūri visām tēmām",
   "crash.captureDisabled": "Avāriju fiksēšana izslēgta",
   "crash.captureEnabled": "Avāriju fiksēšana ieslēgta",
-  "crash.diagnose": "Noklikšķini, lai diagnosticētu ar AI",
   "crash.processCrashed": "Process avarēja: %1",
   "default.browserSet": "%1 tagad ir noklusējuma pārlūks",
   "default.editorSet": "%1 tagad ir noklusējuma redaktors",

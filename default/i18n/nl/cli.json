@@ -65,7 +65,6 @@
   "corners.sharp": "Scherpe hoeken voor alle thema's",
   "crash.captureDisabled": "Crashregistratie uitgeschakeld",
   "crash.captureEnabled": "Crashregistratie ingeschakeld",
-  "crash.diagnose": "Klik om te diagnosticeren met AI",
   "crash.processCrashed": "Proces gecrasht: %1",
   "default.browserSet": "%1 is nu de standaardbrowser",
   "default.editorSet": "%1 is nu de standaardeditor",

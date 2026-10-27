@@ -65,7 +65,6 @@
   "corners.sharp": "모든 테마에 각진 모서리",
   "crash.captureDisabled": "충돌 캡처 비활성화됨",
   "crash.captureEnabled": "충돌 캡처 활성화됨",
-  "crash.diagnose": "클릭하여 AI로 진단하기",
   "crash.processCrashed": "프로세스가 충돌했습니다: %1",
   "default.browserSet": "%1이(가) 이제 기본 브라우저입니다",
   "default.editorSet": "%1이(가) 이제 기본 편집기입니다",

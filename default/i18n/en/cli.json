@@ -65,7 +65,6 @@
   "corners.sharp": "Sharp corners for all themes",
   "crash.captureDisabled": "Crash capture disabled",
   "crash.captureEnabled": "Crash capture enabled",
-  "crash.diagnose": "Click to diagnose with AI",
   "crash.processCrashed": "Process crashed: %1",
   "default.browserSet": "%1 is now the default browser",
   "default.editorSet": "%1 is now the default editor",

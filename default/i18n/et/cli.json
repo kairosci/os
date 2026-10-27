@@ -65,7 +65,6 @@
   "corners.sharp": "Teravad nurgad kõigis teemades",
   "crash.captureDisabled": "Kokkjujooksu salvestamine keelatud",
   "crash.captureEnabled": "Kokkjujooksu salvestamine lubatud",
-  "crash.diagnose": "Klõpsa AI-ga diagnoosimiseks",
   "crash.processCrashed": "Protsess jooksis kokku: %1",
   "default.browserSet": "%1 on nüüd vaikebrauser",
   "default.editorSet": "%1 on nüüd vaikeredaktor",

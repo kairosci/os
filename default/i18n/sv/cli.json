@@ -65,7 +65,6 @@
   "corners.sharp": "Skarpa hörn för alla teman",
   "crash.captureDisabled": "Kraschregistrering inaktiverad",
   "crash.captureEnabled": "Kraschregistrering aktiverad",
-  "crash.diagnose": "Klicka för att diagnostisera med AI",
   "crash.processCrashed": "Process kraschade: %1",
   "default.browserSet": "%1 är nu standardwebbläsare",
   "default.editorSet": "%1 är nu standardredigerare",
