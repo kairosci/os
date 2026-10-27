@@ -1,12 +1,8 @@
 id = "system.installation.hardware"
 domain = "system"
 package = "arch"
-sources = ["installer/hardware", "src/python/installer/hardware"]
+sources = ["src/python/installer/hardware"]
 requires = ["system.installation"]
-
-[[output]]
-source = "installer/hardware"
-target = "usr/share/arch/installer/hardware"
 
 [[output]]
 source = "src/python/installer/hardware"

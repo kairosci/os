@@ -62,10 +62,18 @@ echo '# administrator copy' > "$rules"
 run_migration
 grep -Fxq '# administrator copy' "$rules" && pass "an existing rule file is kept" || fail "an existing rule file is kept"
 
-# n1x.sh writes the same rule for new installs, so the two cannot drift apart.
-n1x="$ROOT/installer/hardware/n1x.sh"
+# New installs and the migration share the CPPC rule, so they cannot drift apart.
+hardware_config="$ROOT/data/installer/hardware/n1x.yml"
 rule_from() { sed -n "/$2/,/^ *$3\$/p" "$1" | sed '1d;$d;s/^ *//'; }
-n1x_rule=$(rule_from "$n1x" '71-arch-n1x-cppc.rules <<' RULES)
+n1x_rule=$(python3 - "$hardware_config" <<'PY'
+import sys
+from pathlib import Path
+import yaml
+
+config = yaml.safe_load(Path(sys.argv[1]).read_text(encoding="utf-8"))
+print(config["files"]["cppc_rule"]["content"])
+PY
+)
 if [[ -n $n1x_rule && $n1x_rule == "$(rule_from "$migration" '"$rules" <<' EOF)" ]]; then
   pass "new installs and the migration write the same rule"
 else

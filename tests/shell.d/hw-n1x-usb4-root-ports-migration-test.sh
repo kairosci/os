@@ -72,18 +72,36 @@ write_ports auto
 run_migration
 grep -Fxq '# administrator copy' "$rules" && pass "an existing rule file is kept" || fail "an existing rule file is kept"
 
-# n1x.sh writes the same rule for new installs, inside the ProArt-only USB4
-# block, so the two cannot drift apart.
-n1x="$ROOT/installer/hardware/n1x.sh"
+# New installs and the migration share the ProArt-only USB4 rule.
+hardware_config="$ROOT/data/installer/hardware/n1x.yml"
 rule_from() { sed -n "/$2/,/^ *$3\$/p" "$1" | sed '1d;$d;s/^ *//'; }
-n1x_rule=$(rule_from "$n1x" '71-arch-n1x-usb4-root-ports.rules <<' RULES)
+n1x_rule=$(python3 - "$hardware_config" <<'PY'
+import sys
+from pathlib import Path
+import yaml
+
+config = yaml.safe_load(Path(sys.argv[1]).read_text(encoding="utf-8"))
+content = config["files"]["usb4_proart_root_ports"]["content"]
+for key in ("proart_pci_vendor", "proart_pci_device"):
+  content = content.replace(f"@{key.upper()}@", config["hardware"][key])
+print(content)
+PY
+)
 if [[ -n $n1x_rule && $n1x_rule == "$(rule_from "$migration" '"$rules" <<' EOF)" ]]; then
   pass "new installs and the migration write the same rule"
 else
   fail "new installs and the migration write the same rule"
 fi
-usb4_block=$(sed -n '/^if arch-hw-match "H7407BA"; then$/,/^fi$/p' "$n1x")
-[[ $usb4_block == *71-arch-n1x-usb4-root-ports.rules* ]] && pass "new installs only get the rule where USB4 is set up" || fail "new installs only get the rule where USB4 is set up"
+python3 - "$hardware_config" <<'PY' || fail "new installs only get the root-port rule on validated ProArt hardware"
+import sys
+from pathlib import Path
+import yaml
+
+config = yaml.safe_load(Path(sys.argv[1]).read_text(encoding="utf-8"))
+assert config["hardware"]["proart_match"]
+assert config["files"]["usb4_proart_root_ports"]["path"]
+PY
+pass "new installs only get the root-port rule on validated ProArt hardware"
 
 if [[ -n $real_udevadm ]] && "$real_udevadm" verify --help >/dev/null 2>&1; then
   printf '%s\n' "$n1x_rule" > "$tmp_dir/71-arch-n1x-usb4-root-ports.rules"

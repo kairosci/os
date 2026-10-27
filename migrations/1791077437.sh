@@ -1,6 +1,6 @@
 echo "Move NVIDIA N1x laptops to linux-n1x and drop the bring-up scaffolding"
 
-# See installer/hardware/n1x.sh, which sets up new installs the same way.
+# See src/python/installer/hardware/n1x.py, which sets up new installs the same way.
 limine_conf_dir="${ARCH_LIMINE_ENTRY_TOOL_DIR:-/etc/limine-entry-tool.d}"
 mkinitcpio_conf_dir="${ARCH_MKINITCPIO_CONF_DIR:-/etc/mkinitcpio.conf.d}"
 modules_dir="${ARCH_MODULES_DIR:-/usr/lib/modules}"
@@ -40,7 +40,7 @@ fi
 
 sudo install -Dm644 /dev/stdin "$mkinitcpio_conf_dir/arch-n1x-input.conf" <<'EOF'
 # N1x: the internal keyboard is I2C-HID behind the MediaTek I2C controllers;
-# see installer/hardware/n1x.sh.
+# see src/python/installer/hardware/n1x.py.
 MODULES+=(i2c_mt65xx i2c_hid_acpi)
 EOF
 
@@ -52,14 +52,14 @@ EOF
 if arch-hw-match "H7407BA"; then
   sudo install -Dm644 /dev/stdin "$limine_conf_dir/00-arch-n1x-usb4.conf" <<'EOF'
 # N1x: keep the USB4 host routers powered and leave room for docks behind them;
-# see installer/hardware/n1x.sh.
+# see src/python/installer/hardware/n1x.py.
 KERNEL_CMDLINE[default]+=" power_wrap_drv.usb4_release=0 pci=hpbussize=0x80,hpmmiosize=32M,hpmmioprefsize=32G"
 EOF
 fi
 
 rescue_cmdline="$root_cmdline initramfs_async=0 console=tty0 acpi=nospcr plymouth.enable=0 nomodeset module_blacklist=nvidia,nvidia_drm,nvidia_modeset,nvidia_uvm,nvidia_peermem,nouveau modprobe.blacklist=nvidia,nvidia_drm,nvidia_modeset,nvidia_uvm,nvidia_peermem,nouveau nvidia_drm.modeset=0 systemd.unit=multi-user.target fbcon=map:0 loglevel=7 ignore_loglevel systemd.show_status=1 systemd.log_target=console vt.global_cursor_default=1"
 printf '%s\n' \
-  '# N1x: a text-console rescue entry sits right below the normal one; see installer/hardware/n1x.sh.' \
+  '# N1x: a text-console rescue entry sits right below the normal one; see src/python/installer/hardware/n1x.py.' \
   'MKINITCPIO_FALLBACK=linux-n1x' \
   "KERNEL_CMDLINE[fallback]=\"$rescue_cmdline\"" \
   'EXCLUDE_SNAPSHOT_ENTRIES="Windows*, windows*, *fallback"' \

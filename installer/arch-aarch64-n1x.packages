@@ -1,6 +1,6 @@
 # NVIDIA N1x additions, composed after arch-base.packages and
 # arch-aarch64.packages (arch-pkg-defaults aarch64-n1x): what every N1x
-# laptop runs, which installer/hardware/n1x.sh also installs. Board-specific
+# laptop runs, which src/python/installer/hardware/n1x.py also installs. Board-specific
 # packages (the ASUS ProArt P14's amplifier firmware) stay with their model's
 # hardware setup.
 linux

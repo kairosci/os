@@ -1,0 +1,167 @@
+commands:
+  platform_check: [arch-hw-aarch64-n1x]
+  match: [arch-hw-match]
+  package_drop: [arch-pkg-drop]
+  package_add: [arch-pkg-add]
+  module_info: [modinfo, -k]
+paths:
+  system_root_environment: ARCH_SYSTEM_ROOT
+  kernel_cmdline: etc/kernel/cmdline
+  bios_version: sys/class/dmi/id/bios_version
+  modules: usr/lib/modules
+  module_package_base: pkgbase
+files:
+  input:
+    path: etc/mkinitcpio.conf.d/arch-n1x-input.conf
+    content: |-
+      # N1x: the internal keyboard is I2C-HID behind the MediaTek I2C controllers.
+      MODULES+=(i2c_mt65xx i2c_hid_acpi)
+  sleep:
+    path: etc/limine-entry-tool.d/00-arch-n1x-sleep.conf
+    content: |-
+      # N1x: the firmware's deep sleep returns at once; suspend to idle instead.
+      KERNEL_CMDLINE[default]+=" mem_sleep_default=s2idle"
+  cppc_rule:
+    path: etc/udev/rules.d/71-arch-n1x-cppc.rules
+    content: |-
+      # N1x: the firmware hands over each core with its CPPC floor raised to its
+      # ceiling, so restore the full range and turn on autonomous selection, which
+      # programs the floor and ceiling from it; see src/python/installer/hardware/n1x.py.
+      ACTION=="add", SUBSYSTEM=="module", KERNEL=="cppc_cpufreq", RUN+="/usr/bin/sh -c 'for p in /sys/devices/system/cpu/cpufreq/policy*; do echo 0 >$$p/auto_select; cat $$p/cpuinfo_max_freq >$$p/scaling_max_freq; cat $$p/cpuinfo_min_freq >$$p/scaling_min_freq; echo 1 >$$p/auto_select; done'"
+      ACTION=="online", SUBSYSTEM=="cpu", TEST=="cpufreq/auto_select", ATTR{cpufreq/auto_select}="0", ATTR{cpufreq/scaling_max_freq}="$attr{cpufreq/cpuinfo_max_freq}", ATTR{cpufreq/scaling_min_freq}="$attr{cpufreq/cpuinfo_min_freq}", ATTR{cpufreq/auto_select}="1"
+  usb4_proart:
+    path: etc/limine-entry-tool.d/00-arch-n1x-usb4.conf
+    content: |-
+      # N1x ProArt: keep USB4 routers powered and reserve dock resources.
+      KERNEL_CMDLINE[default]+=" power_wrap_drv.usb4_release=0 pci=hpbussize=0x80,hpmmiosize=32M,hpmmioprefsize=32G"
+  usb4_proart_root_ports:
+    path: etc/udev/rules.d/71-arch-n1x-usb4-root-ports.rules
+    content: |-
+      # N1x: the USB4 tunnel root ports cannot wake for a hotplug, so keep them out of
+      # runtime suspend; see src/python/installer/hardware/n1x.py.
+      ACTION=="add|bind", SUBSYSTEM=="pci", ATTR{vendor}=="@PROART_PCI_VENDOR@", ATTR{device}=="@PROART_PCI_DEVICE@", ATTR{power/control}="on"
+  usb4:
+    path: etc/limine-entry-tool.d/00-arch-n1x-usb4.conf
+    content: |-
+      # N1x: keep USB4 powered and reserve bus numbers for docks.
+      KERNEL_CMDLINE[default]+=" power_wrap_drv.usb4_release=0 pci=hpbussize=0x20"
+  rescue_boot:
+    path: etc/limine-entry-tool.d/zz-arch-n1x-boot-order.conf
+    template: |-
+      # N1x: a text-console rescue entry sits right below the normal one.
+      MKINITCPIO_FALLBACK=linux
+      KERNEL_CMDLINE[fallback]="{root_cmdline} {cmdline_suffix}"
+      EXCLUDE_SNAPSHOT_ENTRIES="Windows*, windows*, *fallback"
+      BOOT_ORDER="linux, linux-fallback, *, Snapshots"
+    cmdline_suffix: initramfs_async=0 console=tty0 acpi=nospcr plymouth.enable=0 nomodeset module_blacklist=nvidia,nvidia_drm,nvidia_modeset,nvidia_uvm,nvidia_peermem,nouveau modprobe.blacklist=nvidia,nvidia_drm,nvidia_modeset,nvidia_uvm,nvidia_peermem,nouveau nvidia_drm.modeset=0 systemd.unit=multi-user.target fbcon=map:0 loglevel=7 ignore_loglevel systemd.show_status=1 systemd.log_target=console vt.global_cursor_default=1
+  nvidiafb:
+    path: etc/modprobe.d/arch-n1x-nvidiafb.conf
+    content: |-
+      # The legacy nvidiafb driver also claims this GPU and must never load.
+      blacklist nvidiafb
+      install nvidiafb /bin/false
+  nvidia_driver_options:
+    path: etc/modprobe.d/nvidia.conf
+    content: |-
+      options nvidia_drm modeset=1 fbdev=1
+  nvidia_initramfs:
+    path: etc/mkinitcpio.conf.d/nvidia.conf
+    content: |-
+      MODULES+=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)
+  nvidia_cmdline:
+    path: etc/limine-entry-tool.d/00-arch-n1x-gpu.conf
+    content: |-
+      # N1x: the GPU owns the panel; drop the firmware framebuffer.
+      KERNEL_CMDLINE[default]+=" initcall_blacklist=simpledrm_platform_driver_init"
+  brightness_install_hook:
+    path: etc/initcpio/install/arch-n1x-boot-brightness
+    content: |-
+      #!/bin/bash
+
+      build() {
+          add_runscript
+      }
+
+      help() {
+          cat <<'HELP'
+      Light the NVIDIA N1x panel for Plymouth's LUKS prompt.
+      HELP
+      }
+  brightness_runtime_hook:
+    path: etc/initcpio/hooks/arch-n1x-boot-brightness
+    content: |-
+      #!/usr/bin/ash
+
+      run_hook() {
+          if [ -w /sys/class/backlight/nvidia_0/brightness ]; then
+              echo 60 > /sys/class/backlight/nvidia_0/brightness
+          fi
+      }
+  brightness_mkinitcpio:
+    path: etc/mkinitcpio.conf.d/zz-arch-n1x-boot-brightness.conf
+    content: |-
+      # N1x: light the panel after Plymouth for the LUKS prompt.
+      _arch_n1x_hooks=()
+      for _arch_n1x_hook in "${HOOKS[@]}"; do
+        _arch_n1x_hooks+=("$_arch_n1x_hook")
+        [[ $_arch_n1x_hook == plymouth ]] && _arch_n1x_hooks+=(arch-n1x-boot-brightness)
+      done
+      HOOKS=("${_arch_n1x_hooks[@]}")
+      unset _arch_n1x_hooks _arch_n1x_hook
+  nvidia_disable:
+    path: etc/modprobe.d/arch-n1x-nvidia-disable.conf
+    content: |-
+      # N1x: the NVIDIA stack cannot drive this panel on this firmware.
+      blacklist nvidia
+      blacklist nvidia_drm
+      blacklist nvidia_modeset
+      blacklist nvidia_uvm
+      install nvidia /bin/false
+      install nvidia_drm /bin/false
+      install nvidia_modeset /bin/false
+      install nvidia_uvm /bin/false
+paths_to_remove:
+  - etc/modprobe.d/nvidia.conf
+  - etc/mkinitcpio.conf.d/nvidia.conf
+  - etc/modprobe.d/arch-n1x-nvidia-disable.conf
+  - etc/limine-entry-tool.d/00-arch-n1x-gpu.conf
+  - etc/mkinitcpio.conf.d/zz-arch-n1x-boot-brightness.conf
+gpu_enabled_files:
+  - etc/limine-entry-tool.d/00-arch-n1x-gpu.conf
+  - etc/mkinitcpio.conf.d/zz-arch-n1x-boot-brightness.conf
+gpu_disabled_files:
+  - etc/modprobe.d/arch-n1x-nvidia-disable.conf
+packages:
+  default_kernels: [linux, linux-headers, linux-aarch64, linux-aarch64-headers]
+  nvidia: [nvidia-open-dkms, nvidia-utils, libva-nvidia-driver]
+  auxiliary: pciutils
+  modules: [nvidia, nvidia_modeset, nvidia_uvm, nvidia_drm]
+  base_package: linux
+hardware:
+  proart_match: H7407BA
+  proart_pci_vendor: '0x10de'
+  proart_pci_device: '0x22cf'
+  prerelease_bios_pattern: '^0\.'
+  root_cmdline_pattern: 'root='
+statuses:
+  matched: 0
+  complete: 0
+  failure: 1
+messages:
+  en:
+    not_root: 'N1x setup requires root or an isolated test root'
+    detected: 'Detected NVIDIA N1x platform, applying platform configuration...'
+    missing_root: 'Error: the kernel command line has no root= (Limine defaults are not written yet)'
+    kernel_count: 'Error: expected one installed linux module tree, found {count}'
+    dkms_missing: 'WARNING: no NVIDIA DKMS modules for {kernel}; keeping the NVIDIA stack unloaded'
+    prerelease: 'N1x firmware {bios}: GPU firmware cannot boot on this BIOS; keeping the NVIDIA stack unloaded'
+    release: 'N1x firmware {bios}: GPU drives the panel'
+  it:
+    not_root: 'La configurazione N1x richiede root o una root di test isolata'
+    detected: 'NVIDIA N1x rilevato: applicazione della configurazione hardware...'
+    missing_root: 'Errore: la riga di comando del kernel non contiene root= (i valori predefiniti Limine non sono ancora stati scritti)'
+    kernel_count: 'Errore: atteso un solo albero moduli linux installato, trovati {count}'
+    dkms_missing: 'ATTENZIONE: nessun modulo NVIDIA DKMS per {kernel}; stack NVIDIA mantenuto non caricato'
+    prerelease: 'Firmware N1x {bios}: il firmware GPU non può avviarsi su questo BIOS; stack NVIDIA mantenuto non caricato'
+    release: 'Firmware N1x {bios}: la GPU gestisce il pannello'
+file_mode: '0644'
