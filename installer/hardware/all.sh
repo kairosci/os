@@ -39,7 +39,7 @@ run_logged "$ARCH_INSTALL/hardware/framework/qmk-hid.sh"
 
 run_logged "$ARCH_PATH/src/python/installer/hardware/apple/macbook_spi_keyboard.py"
 run_logged "$ARCH_PATH/src/python/installer/hardware/apple/macbook_nvme_suspend.py"
-run_logged "$ARCH_INSTALL/hardware/apple/fix-t2.sh"
+run_logged "$ARCH_PATH/src/python/installer/hardware/apple/t2.py"
 run_logged "$ARCH_INSTALL/hardware/apple/fix-brcmfmac-supplicant.sh"
 
 # These write boot settings and build nothing, like n1x.sh: the installer's
