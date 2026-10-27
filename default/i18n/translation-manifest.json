@@ -2,7 +2,9 @@
   "en": {
     "cli:migration.installCloudflareCli": "6504ffd248ff",
     "cli:migration.installKernelHeaders": "81abb1141b78",
-    "cli:migration.preserveVoxtypeDefault": "42a285cffa0f"
+    "cli:migration.preserveVoxtypeDefault": "42a285cffa0f",
+    "cli:migration.removeOldDiskUsageLauncher": "4e6f9e021ebe",
+    "cli:migration.replaceDiskUsageWithDisktree": "657bb865af9e"
   },
   "it": {
     "cli:animations.disabled": "a55e1e82b8f7",
@@ -169,6 +171,7 @@
     "cli:migration.removeLegacyPasswordlessSudoGrants": "948433695078",
     "cli:migration.removeMalformedFootHeader": "eb6e6bc08136",
     "cli:migration.removeManagedSkillLinks": "9f65197b6854",
+    "cli:migration.removeOldDiskUsageLauncher": "4e6f9e021ebe",
     "cli:migration.removeRetiredCliShims": "388e96493084",
     "cli:migration.removeRetiredNotificationImageCache": "f9a66e880f72",
     "cli:migration.removeRetiredUsageWidget": "4b7795f55611",
@@ -179,6 +182,7 @@
     "cli:migration.repairNeovimThemeSymlink": "f746c9ca056e",
     "cli:migration.repairSleepLockSessionEnvironment": "92eb36ba2ea6",
     "cli:migration.repairUpdateNotifierLoop": "1865ae15f4d8",
+    "cli:migration.replaceDiskUsageWithDisktree": "657bb865af9e",
     "cli:migration.replaceSatty": "7331bfd5f9a1",
     "cli:migration.replaceTerminalTextEffects": "9a75cc4ccd25",
     "cli:migration.requireT2PackageSignatures": "9082884aca19",
