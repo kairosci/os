@@ -135,6 +135,8 @@
   "migration.configureSharedInputMethodDefaults": "Configure shared input method defaults and desktop shortcuts",
   "migration.disableSnapshotWarningNotifier": "Disable the snapshot warning notifier at startup",
   "migration.enableSecureRemoteNeovimClipboard": "Enable secure remote Neovim clipboard support",
+  "migration.enableTaildropReceiverFailed": "Could not enable the incoming file service: %1",
+  "migration.saveTaildropDownloads": "Save incoming files to Downloads",
   "migration.enableKittyCwdLookup": "Enable Kitty working-directory lookup from global keybindings",
   "migration.enableCrashNotifications": "Enable process crash notifications",
   "migration.installZbar": "Install QR code scanning support",
