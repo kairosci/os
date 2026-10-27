@@ -139,6 +139,7 @@
   "migration.installZbar": "Installa il supporto per leggere QR code",
   "migration.keepMiseToolVersions": "Mantieni le versioni degli strumenti mise installati durante gli aggiornamenti",
   "migration.removeLeadingZeroFromBarClockDate": "Rimuovi lo zero iniziale dalla data dell’orologio nella barra",
+  "migration.updateHyprlandLuaBootstrap": "Aggiorna l’entrypoint Lua di Hyprland per caricare il bootstrap di Arch",
   "migration.moveKeyboardLayoutWidget": "Sposta il widget del layout tastiera sul lato destro della barra",
   "migration.refreshApplications": "Aggiorna le voci delle applicazioni",
   "migration.removeFloatingDiskUsageLauncher": "Rimosso il vecchio launcher flottante di Disk Usage",

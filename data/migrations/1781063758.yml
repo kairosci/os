@@ -1,0 +1,17 @@
+commands:
+  i18n: [arch-i18n]
+paths:
+  hyprland_config: .config/hypr/hyprland.lua
+source:
+  comment: '-- Load user modules from ~/.config and Arch defaults from $ARCH_PATH.'
+  package_path: 'package.path = os.getenv("HOME")'
+  path_terminator_pattern: '^[ \t]*\.\. package\.path$'
+replacement:
+  comment: '-- Arch''s bootstrap keeps path setup out of this user config.'
+  bootstrap: 'dofile(os.getenv("ARCH_PATH") .. "/default/hypr/bootstrap.lua")'
+values:
+  bootstrap_marker: /default/hypr/bootstrap.lua
+messages:
+  reason: migration.updateHyprlandLuaBootstrap
+statuses:
+  success: 0
