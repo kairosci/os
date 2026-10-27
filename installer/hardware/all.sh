@@ -39,7 +39,7 @@ run_logged "$ARCH_PATH/src/python/installer/hardware/framework16_qmk_hid.py"
 run_logged "$ARCH_PATH/src/python/installer/hardware/apple/macbook_spi_keyboard.py"
 run_logged "$ARCH_PATH/src/python/installer/hardware/apple/macbook_nvme_suspend.py"
 run_logged "$ARCH_PATH/src/python/installer/hardware/apple/t2.py"
-run_logged "$ARCH_INSTALL/hardware/apple/fix-brcmfmac-supplicant.sh"
+run_logged "$ARCH_PATH/src/python/installer/hardware/apple/brcmfmac_supplicant.py"
 
 # These write boot settings and build nothing, like n1x.sh: the installer's
 # final limine-update builds the UKIs, and an image's first boot rebuilds once
