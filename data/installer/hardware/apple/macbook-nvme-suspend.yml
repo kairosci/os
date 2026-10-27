@@ -1,0 +1,25 @@
+match_command: [arch-hw-match]
+models:
+  - MacBook8,1
+  - MacBook9,1
+  - MacBook10,1
+  - MacBookPro13,1
+  - MacBookPro13,2
+  - MacBookPro13,3
+  - MacBookPro14,1
+  - MacBookPro14,2
+  - MacBookPro14,3
+nvme_device: /sys/bus/pci/devices/0000:01:00.0/d3cold_allowed
+service_target: /etc/systemd/system/arch-nvme-suspend-fix.service
+install_file: [sudo, install, -Dm644]
+enable_service: [sudo, systemctl, enable]
+service_content: |
+  [Unit]
+  Description=os NVMe Suspend Fix for MacBook
+
+  [Service]
+  ExecStart=/bin/bash -c 'echo 0 > /sys/bus/pci/devices/0000\:01\:00.0/d3cold_allowed'
+
+  [Install]
+  WantedBy=multi-user.target
+statuses: {complete: 0}
