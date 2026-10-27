@@ -55,6 +55,15 @@ BarWidget {
   }
 
   function activeWorkspaceId() {
+    // Workspace objects refresh on workspace events; monitor objects can keep
+    // their previous activeWorkspace reference across a monitor refresh.
+    var values = Hyprland.workspaces.values
+    for (var i = 0; i < values.length; i++) {
+      var workspace = values[i]
+      if (workspace.active && workspace.monitor && workspace.monitor.name === root.monitorName)
+        return workspace.id
+    }
+
     return root.monitor && root.monitor.activeWorkspace ? root.monitor.activeWorkspace.id : -1
   }
 
