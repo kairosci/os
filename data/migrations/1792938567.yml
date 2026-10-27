@@ -1,4 +1,0 @@
-messages:
-  reason: migration.removeWorkspaceTitlebars
-packages:
-  drop: [arch-hyprland-titlebars]

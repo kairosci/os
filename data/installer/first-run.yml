@@ -129,7 +129,6 @@ user_units:
   units:
     - arch-recover-internal-monitor.service
     - arch-sleep-lock.service
-    - arch-migrate-notify.service
     - arch-fcitx5.service
     - arch-crash-watch.service
   messages:

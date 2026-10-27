@@ -1,9 +1,0 @@
-id = "system.migrations"
-domain = "system"
-package = "arch"
-sources = ["migrations"]
-requires = ["system.installation", "system.settings"]
-
-[[output]]
-source = "migrations"
-target = "usr/share/arch/migrations"

@@ -1,6 +1,0 @@
-messages:
-  reason: migration.installDdcutil
-packages:
-  add:
-  - ddcutil
-  drop: []

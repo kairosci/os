@@ -1258,23 +1258,6 @@ ensure_sleep_lock_service() {
   fi
 }
 
-run_post_upgrade_migrations() {
-  local pending_status
-
-  log "Running os migrations"
-  if ! run_as_user_arch ARCH_UPGRADE_TO_QUATTRO_LIVE=1 arch-migrate; then
-    fail "os migrations did not complete. Fix the error above and rerun the upgrade before rebooting."
-  fi
-  if run_as_user_arch arch-migrate --pending >/dev/null; then
-    fail "os migrations are still pending. Rerun the upgrade before rebooting."
-  else
-    pending_status=$?
-    if (( pending_status != 1 )); then
-      fail "Could not verify that os migrations completed. Rerun the upgrade before rebooting."
-    fi
-  fi
-}
-
 run_final_system_package_upgrade() {
   log "Checking for remaining system package updates"
   as_root env ARCH_UPDATE_PACMAN=1 pacman -Syu --noconfirm --ask 4 \
@@ -2441,8 +2424,7 @@ ensure_sleep_lock_service
 remove_retired_default_packages
 run_final_system_package_upgrade
 # This also retires the stock ~/.local/share/fonts/arch.ttf missed by the
-# former ~/.config retirement entry, through migration 1788848726.
-run_post_upgrade_migrations
+# former ~/.config retirement entry.
 run_post_upgrade_update_steps
 refresh_current_theme_after_upgrade
 # Do not force-reload Hyprland in the live upgraded session. The legacy

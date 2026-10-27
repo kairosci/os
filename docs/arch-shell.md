@@ -99,7 +99,7 @@ The lower-level IPC methods remain available through `arch-shell shell ...`.
 
 ## Elsewhen
 
-Elsewhen (`arch.elsewhen`), the world clock, is a first-party plugin in `src/shell/plugins/panels/elsewhen/`; [`elsewhen.md`](elsewhen.md) covers how it works. It shipped as the separate `elsewhen` package under the id `omacom.elsewhen` until it moved in. New installs place it immediately after the clock, before Weather; the placement migration uses `archctl bar put arch.elsewhen --after arch.clock`, which preserves an existing placement and uses Elsewhen's normal right-side placement if the clock is absent. With no shell to ask, as in an update from a TTY, it skips the placement rather than failing the update. A later migration renames existing `omacom.elsewhen` entries in `shell.json`, keeping their settings, and removes the retired package and any dev-checkout link to its `/usr/share/arch` path, leaving links and checkouts the user made alone.
+Elsewhen (`arch.elsewhen`), the world clock, is a first-party plugin in `src/shell/plugins/panels/elsewhen/`; [`elsewhen.md`](elsewhen.md) covers how it works. The shipped shell layout places it immediately after the clock and before Weather. Users can change plugin placement with `archctl bar put`.
 
 ## IPC
 

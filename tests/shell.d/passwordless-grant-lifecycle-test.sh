@@ -42,56 +42,42 @@ long_suffix=$(printf 'l%.0s' {1..223})
 )
 pass "legacy cleanup removes generated rules for any account and quarantines everything else in the prefix"
 
-# Run the actual migration queue for separate temporary homes. Sudo only calls
-# the mapped helper and can be refused without requesting host authorization.
-# The migration reaches the helper through $ARCH_PATH, as the package's bin
-# links and a dev checkout provide it, so the mapped copy stands in there.
-mkdir -p "$test_tmp/source/migrations" "$test_tmp/source/data/migrations" "$test_tmp/source/bin" "$test_tmp/home"
-migration_test_runtime "$test_tmp/source"
-cp "$ROOT/migrations/1788163635.py" "$test_tmp/source/migrations/"
-cp "$ROOT/data/migrations/1788163635.yml" "$test_tmp/source/data/migrations/"
-ln -s "$test_tmp/arch-sudo-passwordless" "$test_tmp/source/src/cli/arch-sudo-passwordless"
-printf 'echo "later migration ran"\n' >"$test_tmp/source/migrations/1788163636.sh"
-run_migrations() {
-  HOME="$test_tmp/home" TEST_MIGRATION=1 ARCH_PATH="$test_tmp/source" ARCH_MIGRATION_STATE="$test_tmp/$1" \
-    PATH="$test_tmp/bin:$PATH" "$ROOT/src/cli/arch-migrate" >"$test_tmp/migrations.log" 2>&1
-}
-marker="$test_tmp/var/lib/arch/migrations/1788163635"
+# Package initialization revokes pre-existing generated grants once. It publishes
+# the marker only after cleanup succeeds, and later upgrades leave new grants
+# alone. The old marker is recognized so existing installs are not revoked a
+# second time.
+marker="$test_tmp/var/lib/arch/passwordless-sudo-initialized"
 (
   source "$library"
-  # A quarantine that cannot be trusted keeps the migration pending.
-  printf 'alice ALL=(ALL) NOPASSWD: ALL\n' >"$test_tmp/etc/sudoers.d/99-arch-nopasswd-mismatch"
-  TEST_BAD_PATH="$test_tmp/var/lib/arch" assert_status 1 run_migrations first
-  [[ ! -e $marker && -e $test_tmp/etc/sudoers.d/99-arch-nopasswd-mismatch ]]
   printf 'audituser ALL=(ALL) NOPASSWD: ALL\n' >"$(rule_file 1000)"
-  printf 'Alice ALL=(ALL) NOPASSWD: ALL\n' >"$test_tmp/etc/sudoers.d/99-arch-nopasswd-Alice"
-  TEST_DELETE_FAIL=1 assert_status 1 run_migrations first
-  [[ ! -e $marker && ! -e $test_tmp/first/1788163636.sh ]]
-  run_migrations first
-  [[ -f $marker && -f $test_tmp/first/1788163636.sh ]]
-  ! compgen -G "$test_tmp/etc/sudoers.d/99-arch-nopasswd-*"
-  [[ $(quarantined_policy 99-arch-nopasswd-mismatch) == 'alice ALL=(ALL) NOPASSWD: ALL' ]]
+  TEST_DELETE_FAIL=1 assert_status 1 initialize_locked
+  [[ ! -e $marker && -e $(rule_file 1000) ]]
+  initialize_locked
+  [[ -f $marker && ! -e $(rule_file 1000) ]]
   enable_locked 1000 15
   cp "$(rule_file 1000)" "$test_tmp/renewed"
-  : >"$test_tmp/commands"
-  TEST_NO_SUDO=1 run_migrations second
-  [[ -f $test_tmp/second/1788163636.sh ]]
-  ! grep -q '^sudo ' "$test_tmp/commands"
+  initialize_locked
   cmp "$(rule_file 1000)" "$test_tmp/renewed"
 )
-pass "migration completion is machine-wide, retryable, and needs no sudo for later users"
+pass "package initialization retries failed cleanup and runs only once"
 
+reset_grant
 (
   source "$library"
-  TEST_BAD_PATH="$marker" assert_status 1 migration_complete
-  rm "$marker"
-  ln -s "$test_tmp/renewed" "$marker"
-  assert_status 1 migration_complete
-  assert_status 1 migrate_locked
-  [[ -L $marker ]]
-  rm "$marker"
+  rm -f "$INITIALIZATION_MARKER"
+  mkdir -p "$test_tmp/var/lib/arch/migrations"
+  : >"$LEGACY_INITIALIZATION_MARKER"
+  printf 'audituser ALL=(ALL) NOPASSWD: ALL\n' >"$(rule_file 1000)"
+  initialize_locked
+  [[ -f $INITIALIZATION_MARKER && -e $(rule_file 1000) ]]
+  TEST_BAD_PATH="$INITIALIZATION_MARKER" assert_status 1 initialization_complete
+  rm "$INITIALIZATION_MARKER"
+  ln -s "$test_tmp/renewed" "$INITIALIZATION_MARKER"
+  assert_status 1 initialization_complete
+  assert_status 1 initialize_locked
+  [[ -L $INITIALIZATION_MARKER ]]
 )
-pass "migration checks marker ownership and rejects symlinks"
+pass "package initialization recognizes existing installs and rejects unsafe markers"
 
 # systemd-tmpfiles operates on an explicit disposable root, never the host.
 reset_grant

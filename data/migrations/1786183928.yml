@@ -1,5 +1,0 @@
-messages:
-  reason: migration.refreshApplications
-steps:
-- command:
-  - arch-refresh-applications

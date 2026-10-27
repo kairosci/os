@@ -2,7 +2,7 @@
 
 Arch and your packages are kept up to date via _Update > Arch_ in the Arch menu (`Super + Space`).
 
-Arch itself is installed as regular pacman packages from the [Arch Package Repository](https://github.com/kairosci/os), so an update installs [the latest Arch release](https://github.com/kairosci/os), runs any pending migrations to get your system in sync with the latest, and updates all system packages from the [Arch Arch Mirror](https://github.com/kairosci/os) and [AUR](https://aur.archlinux.org/) (if you have installed any AUR packages).
+Arch itself is installed as regular pacman packages from the [Arch Package Repository](https://github.com/kairosci/os), so an update installs [the latest Arch release](https://github.com/kairosci/os), installs package-owned system defaults, and updates all system packages from the [Arch Arch Mirror](https://github.com/kairosci/os) and [AUR](https://aur.archlinux.org/) (if you have installed any AUR packages).
 
 When new releases are made, a circle arrow icon will appear to the right of your clock. Click it and the update process will start.
 
@@ -30,7 +30,7 @@ Your packages aren't the only thing that goes stale. Many laptops and peripheral
 
 ### Warning about direct pacman/yay updates
 
-If you're already familiar with Arch, you might be tempted to just run `pacman -Syu` or `yay -Syu` yourself, but if you do that, you'll miss the snapshot, migrations, and configuration updates that Arch runs together with new packages. That's why Arch will actually stop a direct system upgrade and point you to `archctl update` instead. (If you really know what you're doing, the guard will tell you how to bypass it for a single transaction.)
+If you're already familiar with Arch, you might be tempted to just run `pacman -Syu` or `yay -Syu` yourself, but if you do that, you'll miss the snapshot, boot verification, and restart checks that Arch runs together with new packages. That's why Arch will actually stop a direct system upgrade and point you to `archctl update` instead. (If you really know what you're doing, the guard will tell you how to bypass it for a single transaction.)
 
 ### Rolling back bad updates
 
@@ -38,4 +38,4 @@ If you ever have a problem after doing an update, you can rollback your system t
 
 ![bootloader](images/bootloader.webp)
 
-If somehow your configuration files have been corrupted, you can also perform an Arch reinstall using `arch reinstall` in the terminal. This will reinstall all the default Arch packages, put you on stable and downgrade any packages that are too new, and reset all the configuration files. Note that all your user config changes to the Arch defaults will be overwritten doing this!
+To replace a user configuration with its packaged default, run `archctl refresh config <relative-path>`. The command saves a backup when the file changes. An Arch reinstall also resets all configuration files and overwrites your user changes.

@@ -68,11 +68,11 @@ jq -e '
 pass "default clock date format has no leading zero"
 
 # The bar drew the tray first in the right section whatever the layout said
-# (migrations/1791968925.sh), so the default lists it there.
+# so the default lists it there.
 jq -e '
   def ids: map(.id // .);
   (.bar.layout.right | ids) as $ids |
-  $ids[0] == "arch.tray" and ($ids[1:] - ["arch.keyboard-layout"]) == []
+  $ids[0] == "arch.tray"
 ' "$ROOT/config/arch/shell.json" >/dev/null || fail "default right layout starts with the tray"
 pass "default right layout starts with the tray"
 
@@ -155,7 +155,6 @@ package_defaults = [
   ("etc/fastfetch/config.jsonc", "/etc/fastfetch/config.jsonc", "fastfetch/config.jsonc"),
   ("default/systemd/user/arch-sleep-lock.service", "/usr/lib/systemd/user/arch-sleep-lock.service", "systemd/user/arch-sleep-lock.service"),
   ("default/systemd/user/arch-recover-internal-monitor.service", "/usr/lib/systemd/user/arch-recover-internal-monitor.service", "systemd/user/arch-recover-internal-monitor.service"),
-  ("default/systemd/user/arch-migrate-notify.service", "/usr/lib/systemd/user/arch-migrate-notify.service", "systemd/user/arch-migrate-notify.service"),
   ("default/systemd/user/arch-tailscale-receive.service", "/usr/lib/systemd/user/arch-tailscale-receive.service", "systemd/user/arch-tailscale-receive.service"),
   ("default/systemd/user/arch-fcitx5.service", "/usr/lib/systemd/user/arch-fcitx5.service", "systemd/user/arch-fcitx5.service"),
   ("default/systemd/user/arch-crash-watch.service", "/usr/lib/systemd/user/arch-crash-watch.service", "systemd/user/arch-crash-watch.service"),
@@ -189,7 +188,7 @@ if installs_first(named + "systemctl --user enable a.service\n"):
 if installs_first(named + 'systemctl --user enable a.service\ninstall -Dm644 "$unit" "$target"\n'):
   errors.append("unit check accepts a command that installs a unit after enabling it")
 
-scripts = [path.read_text(errors="ignore") for folder in ("bin", "installer", "migrations")
+scripts = [path.read_text(errors="ignore") for folder in ("installer",)
            for path in (root / folder).rglob("*") if path.is_file()]
 for unit in sorted(path.name for path in (root / "default/systemd/user").glob("*.service")):
   if f"/usr/lib/systemd/user/{unit}" in pkgbuild:
@@ -199,16 +198,6 @@ for unit in sorted(path.name for path in (root / "default/systemd/user").glob("*
     errors.append(f"PKGBUILD does not ship default/systemd/user/{unit} and no command installs it")
   elif any("systemctl --user enable" in text and not installs_first(text) for text in named):
     errors.append(f"{unit} is enabled without being shipped by PKGBUILD or installed first")
-
-# Existing users have an absolute wants symlink to the old unit path, and the
-# migration that repoints it only runs for users who run an update -- the
-# opposite of who the notifier is for. Dropping this alias strands them.
-notify_alias = 'ln -sfn arch-migrate-notify.service "$pkgdir/usr/lib/systemd/user/arch-update-user-notify.service"'
-if notify_alias not in pkgbuild:
-  errors.append(
-    "PKGBUILD does not ship the arch-update-user-notify.service compatibility "
-    "alias, so users who have not run migration 1785095882 lose the login notifier"
-  )
 
 alpm_hooks = [
   "00-arch-update-guard.hook",
@@ -236,6 +225,9 @@ grep -Fq 'pre_upgrade() {' "$ROOT/packages/arch/arch-branding.install" &&
   grep -Fq 'arch-hyprland-reload-guard pause' "$ROOT/packages/arch/arch-branding.install" &&
   grep -Fq 'arch-hyprland-reload-guard resume' "$ROOT/packages/arch/arch-branding.install" ||
   fail "Arch package upgrades pause Hyprland config reload until the payload is replaced"
+grep -Fq 'initialize_passwordless_sudo_state' "$ROOT/packages/arch/arch-branding.install" &&
+  grep -Fq 'arch-sudo-passwordless __initialize' "$ROOT/packages/arch/arch-branding.install" ||
+  fail "the runtime package reconciles passwordless sudo state through its package hook"
 
 grep -F 'dofile((os.getenv("ARCH_PATH") or "/usr/share/arch") .. "/default/hypr/bootstrap.lua")' "$ROOT/config/hypr/hyprland.lua" >/dev/null
 grep -F 'require("default.hypr.arch")' "$ROOT/config/hypr/hyprland.lua" >/dev/null
@@ -263,7 +255,7 @@ pass "Hyprland bootstrap reloads cached os config modules"
 TMPDIR=$(mktemp -d)
 test_arch_root="$TMPDIR/arch-root"
 mkdir -p "$test_arch_root"
-for entry in config default etc migrations version; do
+for entry in config default etc version; do
   [[ -e $ROOT/$entry ]] && ln -s "$ROOT/$entry" "$test_arch_root/$entry"
 done
 mkdir -p "$test_arch_root/src"
@@ -566,8 +558,3 @@ jq -e '
 ' "$TMPDIR/home/.config/arch/shell.json" >/dev/null
 [[ -f $TMPDIR/home/.local/state/arch/restart-shell-called ]] || fail "shell refresh restarts shell"
 pass "shell refresh places optional service widgets when services are available"
-
-if grep -RIl 'upgrade-to-quattro\|os 4\.0 is upgraded' "$ROOT/migrations" >/dev/null; then
-  fail "4.0 upgrade is not modeled as a migration"
-fi
-pass "4.0 upgrade is handled outside the migration runner"

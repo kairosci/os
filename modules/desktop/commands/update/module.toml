@@ -26,7 +26,6 @@ sources = [
   "src/cli/arch-update-system-pkgs",
   "src/cli/arch-update-system-pkgs-when-conflicted",
   "src/cli/arch-update-time",
-  "src/cli/arch-update-user-notify",
 ]
 requires = ["desktop.commands"]
 
@@ -125,7 +124,3 @@ target = "usr/share/arch/src/cli/arch-update-system-pkgs-when-conflicted"
 [[output]]
 source = "src/cli/arch-update-time"
 target = "usr/share/arch/src/cli/arch-update-time"
-
-[[output]]
-source = "src/cli/arch-update-user-notify"
-target = "usr/share/arch/src/cli/arch-update-user-notify"

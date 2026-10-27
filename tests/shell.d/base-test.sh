@@ -16,18 +16,6 @@ export ROOT
 # this at a file of their own.
 export ARCH_LANGUAGE_FILE=$ROOT/tests/.no-language
 
-migration_test_runtime() {
-  local arch_root="$1"
-
-  mkdir -p "$arch_root/src/python/cli" "$arch_root/src/cli" "$arch_root/data/cli" "$arch_root/default/i18n/en"
-  cp "$ROOT/src/python/cli/migrate.py" "$arch_root/src/python/cli/migrate.py"
-  cp "$ROOT/src/cli/arch-i18n" "$arch_root/src/cli/arch-i18n"
-  cp "$ROOT/data/cli/migrate.yml" "$arch_root/data/cli/migrate.yml"
-  cp "$ROOT/default/i18n/en/cli.json" "$arch_root/default/i18n/en/cli.json"
-  cp "$ROOT/default/i18n/locales.json" "$arch_root/default/i18n/locales.json"
-  cp "$ROOT/default/i18n/plural.jq" "$arch_root/default/i18n/plural.jq"
-}
-
 # Tests point HOME at a scratch directory, but a desktop session also exports
 # the XDG base directories, which would keep pointing at the real home: a
 # migration under test would then edit or delete the user's own files. Unset,

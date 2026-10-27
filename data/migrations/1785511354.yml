@@ -1,6 +1,0 @@
-messages:
-  reason: migration.installQrencode
-packages:
-  add:
-  - qrencode
-  drop: []

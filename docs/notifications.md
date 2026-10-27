@@ -48,7 +48,7 @@ The shell keeps its state in `~/.local/state/arch/notifications/` (0700), three 
 
 Writes go through one short timer, started (not restarted) by a change, so a burst of arrivals writes each file once and a flood writes at most four times a second; no file is written before it has been read. `FileView` writes atomically, which keeps the mode of the file it replaces, so the files are created at 0600 before anything writes them.
 
-At startup one process makes the directory and those files; a symlink in place of a state file is replaced. Persistence starts no other process. Older layouts' leftovers, which hold old message content, are removed once by migration `1792648436`: 4.0's `<ms>-<id>.json` popups and its `history/` and `images/` directories. It carries 4.0's Do Not Disturb from `~/.local/state/arch/notifications.json` into `quiet.json` and removes that file.
+At startup one process makes the directory and those files; a symlink in place of a state file is replaced. Persistence starts no other process.
 
 ## Icons
 
@@ -197,10 +197,6 @@ Everything goes through the same sender contract, so the pieces are small:
   hostile process name stays a discrete argument). It waits for the
   server first: a shell crash takes the notification server down with it, and
   that crash is the one most worth reporting.
-- **Pending migrations** — `arch-migrate-notify` (from its user service
-  after `graphical-session.target`) waits for the server, then sends a
-  critical toast whose click opens a terminal running `arch-migrate`,
-  falling back to printing in the terminal if the hand-off fails.
 
 ## Reminders
 

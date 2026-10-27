@@ -30,7 +30,7 @@ Three documentation trees, split by genre and audience:
 - Prefer a full `if`/`else` conditional for simple two-path control flow; don't rely on `exec` or `exit` in one branch to make following statements unreachable
 - For strings/paths with spaces, quote them instead of escaping spaces with `\ ` (e.g., `"$APP_DIR/Disk Usage.desktop"`, not `$APP_DIR/Disk\ Usage.desktop`)
 - Shebangs must use `#!/bin/bash` consistently (never `#!/usr/bin/env bash`). A security-sensitive entrypoint may use the exact `#!/bin/bash -p` form only when it must suppress `BASH_ENV` and exported-function startup injection before its first command; that exception must be explained at the boundary and covered by a regression that rejects an ordinary Bash launch with a decoy `-p` argument.
-- Scripts under `installer/` and `migrations/` may be sourced and intentionally omit shebangs
+- Scripts under `installer/` may be sourced and intentionally omit shebangs
 
 # Command Naming
 
@@ -115,7 +115,7 @@ Use these instead of raw shell commands:
 
 Commands installed by Arch's default package set are runtime invariants. Invoke them directly; do not add defensive `arch-cmd-present` / `arch-cmd-missing` checks around them. Use command-presence helpers only for genuinely optional dependencies or code that can run before the default package set is installed.
 
-Exceptions are allowed for migration and package-helper scripts where the helper may not be available yet, where the helper itself is being implemented, or where direct package-manager behavior is required.
+Exceptions are allowed for package-helper scripts where the helper may not be available yet, where the helper itself is being implemented, or where direct package-manager behavior is required.
 
 # Background Work
 
@@ -163,7 +163,7 @@ When to add a test. A test earns its place only by catching a regression nothing
 - No change-detectors: snapshots of large output, file lists, or exact counts that break whenever someone adds an unrelated entry.
 - Extend the area's existing test file (`git grep` the command or function under `tests/`) rather than adding a new `*-test.sh`, and follow its style.
 - Keep tests in proportion to the change. A few lines of change rarely justify more than a few lines of test, and usually none.
-- Do test real logic: parsing, routing, a migration's idempotence and no-op paths, a guard on hardware without the feature, the edge case a fix handles. A bug fix with logic in it gets the one test that fails on the base branch and passes with the fix.
+- Do test real logic: parsing, routing, a helper’s idempotence and no-op paths, a guard on hardware without the feature, the edge case a fix handles. A bug fix with logic in it gets the one test that fails on the base branch and passes with the fix.
 
 New Arch shell tests should live in `tests/shell.d/*-test.sh` so `./tests/shell` picks them up automatically. Source `tests/shell.d/base-test.sh` for shared root-path discovery, assertions, and Node test helpers.
 

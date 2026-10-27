@@ -39,8 +39,6 @@ if gum confirm --affirmative "$(arch-i18n common.yes)" --negative "$(arch-i18n c
   echo "Sudoless Docker ENABLED. It takes effect after a reboot."
   echo "To disable it again: Setup > Security > Sudoless Docker."
   echo ""
-  # The migration reuses this command during 'archctl update' and defers the
-  # reboot to arch-update-restart, so it doesn't cut the update short.
   if [[ -z ${ARCH_DEFER_REBOOT:-} ]] && gum confirm --affirmative "$(arch-i18n common.yes)" --negative "$(arch-i18n common.no)" "$(arch-i18n docker.rebootToApply)"; then
     arch-system reboot
   fi

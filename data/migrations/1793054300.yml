@@ -1,8 +1,0 @@
-commands:
-  i18n: [arch-i18n]
-  runtime_check: [arch-cmd-present, mise]
-  system_reshim: [mise, reshim, --system]
-  user_reshim: [mise, reshim]
-statuses:
-  success: 0
-message: migration.removeRetiredCliShims

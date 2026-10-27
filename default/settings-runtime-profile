@@ -15,7 +15,7 @@
 #   Read only where Limine and its entry tool are installed.
 # etc/systemd/oomd.conf.d/, default/systemd/user/app.slice.d/10-oomd.conf
 #   Inert unless systemd-oomd runs (installer/config/enable-services.sh,
-#   migration 1785424256).
+#   the package-owned runtime profile).
 # default/systemd/zram-generator.conf.d/90-arch.conf,
 # etc/sysctl.d/99-arch-sysctl.conf, etc/tmpfiles.d/arch-zswap.conf
 #   Swap on zram everywhere: the installer provides zram-generator on x86_64,
