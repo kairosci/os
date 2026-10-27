@@ -1,0 +1,44 @@
+commands:
+  i18n: ["{arch_path}/src/cli/arch-i18n"]
+  python: [python3, -I]
+  shell: [bash, -euo, pipefail]
+  dismiss: [arch-notification-dismiss]
+arguments:
+  pending: [--pending, --check]
+  help: [-h, --help]
+modes:
+  run: run
+  pending: pending
+migrations:
+  directory: migrations
+  suffixes: [.py, .sh]
+  python_suffix: .py
+  include_hidden: false
+state:
+  environment: ARCH_MIGRATION_STATE
+  directory: .local/state/arch/migrations
+  legacy_directories:
+    - environment: ARCH_OS_LEGACY_MIGRATION_STATE
+      directory: .local/state/os/migrations
+    - environment: ARCH_LEGACY_MIGRATION_STATE
+      directory: .local/state/arch/migrations
+pacman:
+  lock_file: /var/lib/pacman/db.lck
+  wait_attempts: 900
+  wait_interval_seconds: 1
+notifications:
+  migration_title: Migrations
+statuses:
+  success: 0
+  failure: 1
+  no_pending: 1
+  deferred: 75
+  lock_timeout: 0
+messages:
+  usage: migrate.usage
+  unknown_option: migrate.unknownOption
+  running: migrate.running
+  waiting: migrate.waiting
+  lock_timeout: migrate.lockTimeout
+  deferred: migrate.deferred
+  failed: migrate.failed

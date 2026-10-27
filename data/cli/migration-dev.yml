@@ -1,0 +1,49 @@
+commands:
+  i18n: ["{arch_path}/src/cli/arch-i18n"]
+  timestamp: [git, log, -1, --format=%cd, --date=unix]
+  editor: [nvim]
+arguments:
+  no_edit: --no-edit
+  help: [-h, --help]
+  deprecated_scopes: [system, user]
+creation:
+  directory: migrations
+  companion_directory: data/migrations
+  filename_format: "{timestamp}.py"
+  companion_filename_format: "{timestamp}.yml"
+  python_suffix: .py
+  companion_suffix: .yml
+  collision_increment: 1
+  mode: "0644"
+  companion_mode: "0644"
+  companion_template:
+    paths: {}
+    statuses:
+      success: 0
+  template: |
+    from __future__ import annotations
+
+    import os
+    from pathlib import Path
+
+    import yaml
+
+
+    def main() -> int:
+      arch_path = Path(os.environ["ARCH_PATH"])
+      runner = yaml.safe_load((arch_path / "data/cli/migrate.yml").read_text(encoding="utf-8"))
+      return int(runner["statuses"]["deferred"])
+
+
+    if __name__ == "__main__":
+      raise SystemExit(main())
+messages:
+  usage: migrate.devUsage
+  unknown_option: migrate.devUnknownOption
+  deprecated_scope: migrate.devDeprecatedScope
+  timestamp_failed: migrate.devTimestampFailed
+  creation_failed: migrate.devCreationFailed
+  created: migrate.devCreated
+statuses:
+  success: 0
+  failure: 1
