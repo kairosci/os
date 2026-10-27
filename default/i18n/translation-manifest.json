@@ -1,4 +1,7 @@
 {
+  "en": {
+    "cli:migration.installCloudflareCli": "6504ffd248ff"
+  },
   "it": {
     "cli:animations.disabled": "a55e1e82b8f7",
     "cli:animations.enabled": "90feaaeff093",
@@ -134,6 +137,7 @@
     "cli:migration.finishArchBranding": "4bbd53b0856a",
     "cli:migration.installChromiumCopyUrl": "9b2876e5ed38",
     "cli:migration.installChromiumExtensionHosts": "cf9aa71473fe",
+    "cli:migration.installCloudflareCli": "6504ffd248ff",
     "cli:migration.installDdcutil": "b0011a558618",
     "cli:migration.installLibvips": "7245365b813a",
     "cli:migration.installMpvMpris": "1b27a5e20947",
