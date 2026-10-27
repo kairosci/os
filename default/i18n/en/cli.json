@@ -161,6 +161,7 @@
   "migration.removeRetiredNotificationImageCache": "Remove the retired notification image cache",
   "migration.repairNeovimThemeSymlink": "Repair the Neovim theme link missed by an earlier migration",
   "migration.superviseFcitx5": "Supervise the Fcitx input method with a user service",
+  "migration.moveBarIndicatorsBeforeClock": "Move bar indicators to the left of the clock",
   "migration.fcitxServiceStartFailed": "Could not start %1: %2",
   "migration.fcitxComposeUnavailable": "Compose sequences will not work until the next login.",
   "migration.removeMalformedFootHeader": "Remove the malformed text bindings header from Foot configuration",

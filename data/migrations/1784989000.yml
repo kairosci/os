@@ -1,0 +1,16 @@
+commands:
+  i18n: [arch-i18n]
+paths:
+  shell_config: .config/arch/shell.json
+values:
+  bar_key: bar
+  layout_key: layout
+  section_key: center
+  item_id: [arch, indicators]
+  before_id: [arch, clock]
+  values_join_separator: "."
+  object_id_key: id
+messages:
+  reason: migration.moveBarIndicatorsBeforeClock
+statuses:
+  success: 0
