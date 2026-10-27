@@ -354,16 +354,6 @@
   "setup.default": {
     "label": "Par défaut"
   },
-  "setup.default.agent": {
-    "label": "Agent",
-    "title": "Agent par défaut"
-  },
-  "setup.default.agent.claude": {
-    "label": "Claude"
-  },
-  "setup.default.agent.codex": {
-    "label": "Codex"
-  },
   "setup.default.browser": {
     "label": "Navigateur",
     "title": "Navigateur par défaut"
