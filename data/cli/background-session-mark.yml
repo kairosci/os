@@ -1,0 +1,8 @@
+default_state_home: .local/state
+state_directory: arch
+marker_filename: background-intro.session-id
+lock_filename: background-intro.lock
+session_environment:
+  - ARCH_SESSION_ID
+  - HYPRLAND_INSTANCE_SIGNATURE
+file_mode: "0600"
