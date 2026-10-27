@@ -24,7 +24,7 @@ assertEqual(manifest.id, 'arch.remote-session', 'service manifest id matches the
 assert(manifest.kinds.includes('service') && manifest.entryPoints.service === 'Service.qml', 'service manifest declares a service entry point')
 assert(service.includes('target: Hyprland') && service.includes('isCaptureEvent(event ? event.name : "")'), 'service re-probes on Hyprland screencast events')
 assert(service.includes('eventDebounce.restart()'), 'service debounces event bursts into one probe')
-assert(service.includes('/src/shell/plugins/services/remote-session/probe.sh"'), 'service runs the shared probe script')
+assert(service.includes('/src/shell/plugins/services/remote-session/probe.py"'), 'service runs the shared Python probe')
 assert(service.includes('running: root.active') && service.includes('interval: 2000'), 'service polls only while a session is active, since the stop event is not reliable')
 assert(!service.includes('arch-notification-send'), 'a session is shown by the indicator alone, with no notification')
 
@@ -55,12 +55,9 @@ JS
 
 TMPDIR=$(mktemp -d)
 trap 'rm -rf "$TMPDIR"' EXIT
-mkdir -p "$TMPDIR/bin" "$TMPDIR/proc/100" "$TMPDIR/proc/200"
+mkdir -p "$TMPDIR/bin" "$TMPDIR/proc/100" "$TMPDIR/proc/200" "$TMPDIR/proc/300"
 
-probe_script="$ROOT/src/shell/plugins/services/remote-session/probe.sh"
-bash -n "$probe_script" || fail "remote session probe is valid bash"
-pass "remote session probe is valid bash"
-
+probe_script="$ROOT/src/shell/plugins/services/remote-session/probe.py"
 cat >"$TMPDIR/bin/pgrep" <<'SH'
 #!/bin/bash
 [[ $1 == "-x" && $2 == "-u" && $3 == "$(id -u)" && $4 == "gliff-server" ]] || exit 2
@@ -69,26 +66,23 @@ printf '%s\n' $GLIFF_PIDS
 SH
 chmod +x "$TMPDIR/bin/pgrep"
 
-# The probe reads /proc/<pid>/environ; point a copy at fixtures instead.
-sed "s|/proc/\$pid/environ|$TMPDIR/proc/\$pid/environ|" "$probe_script" >"$TMPDIR/probe.sh"
-grep -q "$TMPDIR/proc" "$TMPDIR/probe.sh" || fail "probe reads the server environment from /proc"
-pass "probe reads the server environment from /proc"
-
 probe() {
-  PATH="$TMPDIR/bin:$PATH" GLIFF_PIDS="${1:-}" bash "$TMPDIR/probe.sh"
+  PATH="$TMPDIR/bin:$PATH" GLIFF_PIDS="${1:-}" ARCH_PATH="$ROOT" \
+    ARCH_PROC_ROOT="$TMPDIR/proc" "$probe_script"
 }
 
 [[ -z $(probe) ]] || fail "probe prints nothing without a gliff server"
 pass "probe prints nothing without a gliff server"
 
+printf 'gliff-server\n' >"$TMPDIR/proc/100/comm"
+printf 'gliff-server\n' >"$TMPDIR/proc/200/comm"
+printf 'other-process\n' >"$TMPDIR/proc/300/comm"
 printf 'HOME=/home/x\0SSH_CONNECTION=10.0.0.5 51234 10.0.0.1 22\0TERM=foot\0' >"$TMPDIR/proc/100/environ"
 printf 'HOME=/home/x\0TERM=foot\0' >"$TMPDIR/proc/200/environ"
+printf 'SSH_CONNECTION=192.0.2.1 51234 10.0.0.1 22\0' >"$TMPDIR/proc/300/environ"
 
-[[ $(probe "100") == "100 10.0.0.5" ]] || fail "probe reports the ssh client address of a spawned server"
+[[ $(probe "100 200 300") == $'100 10.0.0.5\n200 ' ]] || fail "probe reports owned server processes and ssh client addresses" "$(probe "100 200 300")"
 pass "probe reports the ssh client address of a spawned server"
 
-[[ $(probe "200") == "200 " ]] || fail "probe reports a local server with an empty peer"
-pass "probe reports a local server with an empty peer"
-
-(( $(probe "100 200" | wc -l) == 2 )) || fail "probe lists every server"
-pass "probe lists every server"
+[[ $(probe "100 200 300" | wc -l) == 2 ]] || fail "probe lists only matching server processes"
+pass "probe lists only matching server processes"

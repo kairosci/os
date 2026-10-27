@@ -1,0 +1,12 @@
+proc_root_environment: ARCH_PROC_ROOT
+proc_root_default: /proc
+process_name: gliff-server
+pid_pattern: '^[0-9]+$'
+process_name_file: comm
+process_environment_file: environ
+commands:
+  process_search: [pgrep, -x, -u]
+ssh_connection_prefix: SSH_CONNECTION=
+environment_record_separator: "\0"
+peer_address_separator: ' '
+output_separator: ' '
