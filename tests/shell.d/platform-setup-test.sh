@@ -120,14 +120,24 @@ for helper in arch-provision-user arch-hook-install arch-notification-wait; do
   printf '#!/bin/bash\nexit 0\n' >"$first_bin/$helper"
 done
 chmod +x "$first_bin"/*
-for script in welcome.sh wifi.sh enable-user-units.sh gnome-theme.sh gtk-primary-paste.sh audio-tuning.sh; do
+for script in welcome.sh wifi.sh enable-user-units.sh gnome-theme.sh audio-tuning.sh; do
   printf 'exit 0\n' >"$first_root/installer/user/first-run/$script"
 done
+mkdir -p "$first_root/src/python/installer_user/first_run" "$first_root/data/installer"
+cp "$ROOT/src/python/installer_user/first_run/gtk_primary_paste.py" \
+  "$first_root/src/python/installer_user/first_run/gtk_primary_paste.py"
+cp "$ROOT/data/installer/first-run.yml" "$first_root/data/installer/first-run.yml"
+cat >"$first_bin/gsettings" <<'SH'
+#!/bin/bash
+printf '%s\n' "$*" >>"$GSETTINGS_LOG"
+[[ ${GSETTINGS_FAIL:-0} == 0 ]]
+SH
+chmod +x "$first_bin/gsettings"
 
 first_run() {
   local platform=$1
   rm -f "$tmp/ran" "$tmp/first-run-marker" "$tmp/home/.local/state/arch/first-run.log"
-  HOME="$tmp/home" ARCH_PATH="$first_root" FIRST_RUN_MARKER="$tmp/first-run-marker" \
+  HOME="$tmp/home" ARCH_PATH="$first_root" FIRST_RUN_MARKER="$tmp/first-run-marker" GSETTINGS_LOG="$tmp/gsettings.log" \
     ARCH_PROC_ROOT="$tmp/$platform/proc" ARCH_LIFECYCLE_ROOT="$lifecycle" \
     PATH="$first_bin:$tmp/$platform/bin:$ROOT/src/cli:$PATH" bash "$ROOT/src/cli/arch-provision-first-run" >"$tmp/output" 2>&1
 }
@@ -143,4 +153,10 @@ grep -q "Failed: run the platform's user setup" "$tmp/home/.local/state/arch/fir
 first_run x86 || fail "x86: first run finishes"
 [[ ! -e $tmp/ran && -e $tmp/first-run-marker ]] || fail "x86: first run runs no platform setup and completes"
 rm -f "$tmp/fail"
-pass "first run runs the platform's user setup, and a failure keeps first run pending"
+GSETTINGS_FAIL=1 first_run apple || fail "apple: first run continues when setting GTK primary paste fails"
+[[ ! -e $tmp/first-run-marker ]] || fail "a failed GTK setup keeps first run pending"
+grep -q 'Failed: set GTK primary paste' "$tmp/home/.local/state/arch/first-run.log" ||
+  fail "a failed GTK setup is recorded in first-run log" "$(cat "$tmp/home/.local/state/arch/first-run.log")"
+grep -q '^set org.gnome.desktop.interface gtk-enable-primary-paste true$' "$tmp/gsettings.log" ||
+  fail "GTK primary paste uses the packaged YAML setting" "$(cat "$tmp/gsettings.log")"
+pass "first run runs the platform's user setup and GTK setup, and either failure keeps first run pending"
