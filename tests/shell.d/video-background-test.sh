@@ -20,7 +20,8 @@ const menuImages = fs.readFileSync(path.join(root, 'src/cli/arch-menu-images'), 
 const lockService = fs.readFileSync(path.join(root, 'src/shell/plugins/lock/Service.qml'), 'utf8')
 const batteryService = fs.readFileSync(path.join(root, 'src/shell/plugins/services/battery/Service.qml'), 'utf8')
 const themeSet = fs.readFileSync(path.join(root, 'src/cli/arch-theme-set'), 'utf8')
-const directImageList = fs.readFileSync(path.join(root, 'src/shell/plugins/image-picker/list.sh'), 'utf8')
+const directImageList = fs.readFileSync(path.join(root, 'src/shell/plugins/image-picker/list.py'), 'utf8')
+const imagePickerConfig = fs.readFileSync(path.join(root, 'data/shell/image-picker.yml'), 'utf8')
 
 assert(
   /function isVideoPath\(path\)[\s\S]*\.test\(String\(path \|\| ""\)\)/.test(utilQml) &&
@@ -106,9 +107,10 @@ assert(
   'a stalled video cannot hold the picker shut, because its generator is time bounded'
 )
 assert(
-  directImageList.includes('generate_video_thumbnail') &&
-    /timeout -k \d+ \d+ ffmpegthumbnailer/.test(directImageList) &&
-    /if \[\[ ! -f \$thumbnail \]\] && ! is_video_path/.test(directImageList),
+  directImageList.includes('make_video_thumbnail') &&
+    directImageList.includes('subprocess.Popen(command') &&
+    directImageList.includes('if not thumbnail.is_file() and not is_video(image, config)') &&
+    imagePickerConfig.includes('timeout_seconds: 10') && imagePickerConfig.includes('generator: ffmpegthumbnailer'),
   'a direct picker scan generates bounded video thumbnails without content-hashing the media'
 )
 assert(
@@ -199,13 +201,13 @@ PATH="$test_tmp/bin:$PATH" XDG_CACHE_HOME="$test_tmp/generator-cache" MD5_FILE_C
 generator_thumbnail=$(find "$test_tmp/generator-cache/arch/image-selector" -maxdepth 1 -type f -name '*.jpg' -print -quit)
 [[ -s $generator_thumbnail ]] || fail "menu image generator creates a video thumbnail"
 
-generator_row=$(XDG_CACHE_HOME="$test_tmp/generator-cache" "$ROOT/src/shell/plugins/image-picker/list.sh" "$test_tmp/backgrounds")
+generator_row=$(ARCH_PATH="$ROOT" XDG_CACHE_HOME="$test_tmp/generator-cache" "$ROOT/src/shell/plugins/image-picker/list.py" "$test_tmp/backgrounds")
 IFS=$'\t' read -r generator_row_path generator_row_thumbnail <<<"$generator_row"
 [[ $generator_row_path == "$test_tmp/backgrounds/sample.mp4" && $generator_row_thumbnail == "$generator_thumbnail" ]] || \
   fail "direct picker consumes the menu image generator thumbnail" "$generator_row"
 
-row=$(PATH="$test_tmp/bin:$PATH" XDG_CACHE_HOME="$test_tmp/direct-cache" MD5_FILE_CALLS="$md5_file_calls" \
-  "$ROOT/src/shell/plugins/image-picker/list.sh" "$test_tmp/backgrounds")
+row=$(ARCH_PATH="$ROOT" PATH="$test_tmp/bin:$PATH" XDG_CACHE_HOME="$test_tmp/direct-cache" MD5_FILE_CALLS="$md5_file_calls" \
+  "$ROOT/src/shell/plugins/image-picker/list.py" "$test_tmp/backgrounds")
 
 IFS=$'\t' read -r row_path row_thumbnail <<<"$row"
 [[ $row_path == "$test_tmp/backgrounds/sample.mp4" && $row_thumbnail == *.jpg && -s $row_thumbnail ]] || \
@@ -221,12 +223,12 @@ cat >"$test_tmp/bin/ffmpegthumbnailer" <<'SH'
 exit 1
 SH
 
-cached_row=$(PATH="$test_tmp/bin:$PATH" XDG_CACHE_HOME="$test_tmp/direct-cache" MD5_FILE_CALLS="$md5_file_calls" \
-  "$ROOT/src/shell/plugins/image-picker/list.sh" "$test_tmp/backgrounds")
+cached_row=$(ARCH_PATH="$ROOT" PATH="$test_tmp/bin:$PATH" XDG_CACHE_HOME="$test_tmp/direct-cache" MD5_FILE_CALLS="$md5_file_calls" \
+  "$ROOT/src/shell/plugins/image-picker/list.py" "$test_tmp/backgrounds")
 [[ $cached_row == "$row" ]] || fail "direct picker reuses its cached video thumbnail" "$cached_row"
 
-failed_rows=$(PATH="$test_tmp/bin:$PATH" XDG_CACHE_HOME="$failed_cache" MD5_FILE_CALLS="$md5_file_calls" \
-  "$ROOT/src/shell/plugins/image-picker/list.sh" "$failed_backgrounds")
+failed_rows=$(ARCH_PATH="$ROOT" PATH="$test_tmp/bin:$PATH" XDG_CACHE_HOME="$failed_cache" MD5_FILE_CALLS="$md5_file_calls" \
+  "$ROOT/src/shell/plugins/image-picker/list.py" "$failed_backgrounds")
 [[ -z $failed_rows ]] || fail "direct picker omits a video whose thumbnail fails" "$failed_rows"
 
 failed_marker=$(find "$failed_cache/arch/image-selector" -maxdepth 1 -type f -name '*.failed' -print -quit)
@@ -239,8 +241,8 @@ printf '%s\n' "$*" >>"$THUMBNAILER_CALLS"
 exit 1
 SH
 
-failed_rows=$(PATH="$test_tmp/bin:$PATH" XDG_CACHE_HOME="$failed_cache" THUMBNAILER_CALLS="$thumbnailer_calls" \
-  "$ROOT/src/shell/plugins/image-picker/list.sh" "$failed_backgrounds")
+failed_rows=$(ARCH_PATH="$ROOT" PATH="$test_tmp/bin:$PATH" XDG_CACHE_HOME="$failed_cache" THUMBNAILER_CALLS="$thumbnailer_calls" \
+  "$ROOT/src/shell/plugins/image-picker/list.py" "$failed_backgrounds")
 [[ -z $failed_rows && ! -e $thumbnailer_calls ]] || fail "direct picker skips a rejected video on the next scan" "$(cat "$thumbnailer_calls" 2>/dev/null)"
 
 generator_failed_cache="$test_tmp/generator-failed-cache"
@@ -270,8 +272,8 @@ cat >"$test_tmp/bin/ffmpegthumbnailer" <<'SH'
 #!/bin/bash
 exit 124
 SH
-timeout_rows=$(PATH="$test_tmp/bin:$PATH" XDG_CACHE_HOME="$timeout_cache" \
-  "$ROOT/src/shell/plugins/image-picker/list.sh" "$timeout_backgrounds")
+timeout_rows=$(ARCH_PATH="$ROOT" PATH="$test_tmp/bin:$PATH" XDG_CACHE_HOME="$timeout_cache" \
+  "$ROOT/src/shell/plugins/image-picker/list.py" "$timeout_backgrounds")
 [[ -z $timeout_rows ]] || fail "direct picker omits a video whose thumbnail timed out" "$timeout_rows"
 timeout_marker=$(find "$timeout_cache/arch/image-selector" -maxdepth 1 -type f -name '*.failed' -print -quit)
 [[ -z $timeout_marker ]] || fail "a timed out video is left to retry rather than remembered as failed"

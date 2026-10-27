@@ -509,7 +509,7 @@ Item {
     loadImagesProc.activeSerial = serial
     loadImagesProc.queuedSerial = 0
     loadImagesProc.queuedDirs = ""
-    loadImagesProc.command = [root.scriptPath("list.sh"), dirs]
+    loadImagesProc.command = [root.scriptPath("list.py"), dirs]
     loadImagesProc.running = true
   }
 
