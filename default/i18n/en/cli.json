@@ -137,6 +137,7 @@
   "migration.enableKittyCwdLookup": "Enable Kitty working-directory lookup from global keybindings",
   "migration.installZbar": "Install QR code scanning support",
   "migration.keepMiseToolVersions": "Keep installed mise tool versions during upgrades",
+  "migration.removeLeadingZeroFromBarClockDate": "Remove the leading zero from the bar clock date",
   "migration.moveKeyboardLayoutWidget": "Move the keyboard layout widget to the right side of the bar",
   "migration.refreshApplications": "Refresh application entries",
   "migration.removeFloatingDiskUsageLauncher": "Removed the obsolete floating Disk Usage launcher",
