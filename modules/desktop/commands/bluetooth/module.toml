@@ -4,8 +4,9 @@ package = "arch"
 sources = [
   "src/cli/arch-bluetooth-device",
   "src/cli/arch-bluetooth-power",
+  "src/python/cli/bluetooth.py",
 ]
-requires = ["desktop.commands"]
+requires = ["desktop.commands", "system.runtime-data"]
 
 [[output]]
 source = "src/cli/arch-bluetooth-device"
@@ -14,3 +15,7 @@ target = "usr/share/arch/src/cli/arch-bluetooth-device"
 [[output]]
 source = "src/cli/arch-bluetooth-power"
 target = "usr/share/arch/src/cli/arch-bluetooth-power"
+
+[[output]]
+source = "src/python/cli/bluetooth.py"
+target = "usr/share/arch/src/python/cli/bluetooth.py"
