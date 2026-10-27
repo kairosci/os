@@ -1,0 +1,37 @@
+commands:
+  package_query: [pacman, -Q]
+  git_branch: [git, -C, "{path}", branch, --show-current]
+  git_hash: [git, -C, "{path}", rev-parse, --short, HEAD]
+  packaged_root_environment: ARCH_PACKAGED_ROOT
+  packaged_root_default: /usr/share/arch
+version:
+  development_label: dev
+  development_hash_template: "dev ({hash})"
+  branch_empty_status: 1
+  detached_branch_template: "detached@{hash}"
+  package_names: [arch-dev, arch]
+  missing_package_status: 1
+channel:
+  mirrorlist_environment: ARCH_PACMAN_MIRRORLIST
+  mirrorlist_default: /etc/pacman.d/mirrorlist
+  config_environment: ARCH_PACMAN_CONF
+  config_default: /etc/pacman.conf
+  unknown: unknown
+  mismatch_separator: " / "
+  mirror_patterns:
+    - channel: stable
+      pattern: 'https://(arm-)?stable-mirror\.github\.com/kairosci/os/'
+    - channel: rc
+      pattern: 'https://(arm-)?rc-mirror\.github\.com/kairosci/os/'
+    - channel: edge
+      pattern: 'https://(arm-)?mirror\.github\.com/kairosci/os/'
+  generic_mirror_patterns:
+    - 'https://geo\.mirror\.pkgbuild\.com/\$repo/os/\$arch'
+    - 'http://mirror\.archlinuxarm\.org/\$arch/\$repo'
+  package_patterns:
+    - channel: stable
+      text: 'https://pkgs.github.com/kairosci/os/stable/'
+    - channel: rc
+      text: 'https://pkgs.github.com/kairosci/os/rc/'
+    - channel: edge
+      text: 'https://pkgs.github.com/kairosci/os/edge/'
