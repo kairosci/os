@@ -14,6 +14,8 @@ def main() -> int:
   action = sys.argv[1]
   if action == "wifi_worker":
     return announce_network(config)
+  if action == "user_units":
+    return enable_user_units(config)
 
   step = config[action]
   if action == "wifi":
@@ -62,6 +64,27 @@ def announce_network(config: dict) -> int:
     if check.returncode != 0:
       return 0
   return notify(config, wifi["update_notification"])
+
+
+def enable_user_units(config: dict) -> int:
+  settings = config["user_units"]
+  input_method = subprocess.run(settings["input_method"], check=False)
+  if input_method.returncode != 0:
+    language = os.environ.get("LANG", config["default_language"]).split(".", 1)[0].split("_", 1)[0]
+    messages = settings["messages"]
+    language = language if language in messages else config["default_language"]
+    print(messages[language], file=sys.stderr)
+
+  reload_status = subprocess.run(settings["daemon_reload"], check=False).returncode
+  if reload_status != 0:
+    return reload_status
+
+  failed = False
+  for unit in settings["units"]:
+    command = [*settings["enable"], unit]
+    if subprocess.run(command, check=False).returncode != 0:
+      failed = True
+  return int(failed)
 
 
 if __name__ == "__main__":
