@@ -17,3 +17,10 @@ terminal:
   target: org.arch.terminal.desktop
   obsolete_pattern: '*.terminal.desktop'
   mode: '0644'
+git_identity:
+  command: [git, config, --global]
+  values:
+    - environment: ARCH_USER_NAME
+      key: user.name
+    - environment: ARCH_USER_EMAIL
+      key: user.email
