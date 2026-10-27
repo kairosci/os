@@ -142,3 +142,5 @@ vm_setup:
 dell_text_scaling_setup:
   predicate: [arch-hw-match, DX13260]
   command: [arch-display-text-size, '11']
+qualcomm_camera_setup:
+  command: [arch-install-camera]
