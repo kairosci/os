@@ -81,11 +81,15 @@ def read_state(directory: int, name: str, settings: dict[str, Any]) -> str | Non
             or metadata.st_nlink != 1
             or metadata.st_uid != os.geteuid()
             or metadata.st_mode & filesystem["forbidden_write_mask"]
+            or metadata.st_size > filesystem["maximum_bytes"]
         ):
             raise PermissionError("journal file is not trusted")
-        with os.fdopen(descriptor, "r", encoding=settings["syntax"]["encoding"]) as source:
+        with os.fdopen(descriptor, "rb") as source:
             descriptor = -1
-            return source.read()
+            content = source.read(filesystem["maximum_bytes"] + 1)
+        if len(content) > filesystem["maximum_bytes"]:
+            raise ValueError("journal file exceeds its configured size limit")
+        return content.decode(settings["syntax"]["encoding"])
     finally:
         if descriptor >= 0:
             os.close(descriptor)
