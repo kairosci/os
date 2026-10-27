@@ -1,0 +1,45 @@
+branding:
+  backup_directory:
+    parent: /var/backups
+    name: arch-branding
+    timestamp_format: '%Y%m%d-%H%M%S'
+  files:
+    - source: etc/os-release
+      target: /etc/os-release
+    - source: etc/fastfetch/config.jsonc
+      target: /etc/fastfetch/config.jsonc
+    - source: assets/branding/arch-mark.svg
+      target: /usr/share/pixmaps/arch-mark.svg
+    - source: etc/sddm.conf.d/10-theme.conf
+      target: /etc/sddm.conf.d/10-theme.conf
+    - source: etc/plymouth/plymouthd.conf
+      target: /etc/plymouth/plymouthd.conf
+    - source: default/wayland-sessions/arch.desktop
+      target_environment: ARCH_WAYLAND_SESSIONS_DIR
+      target_default: /usr/local/share/wayland-sessions
+      target_name: arch.desktop
+  trees:
+    - source: default/sddm/arch
+      target: /usr/share/sddm/themes/arch
+    - source: default/plymouth
+      target: /usr/share/plymouth/themes/arch
+  tree_files:
+    - source: assets/branding/logo.svg
+      target: /usr/share/sddm/themes/arch/os.svg
+    - source: default/plymouth/logo.png
+      target: /usr/share/plymouth/themes/arch/logo.png
+  skeleton_files:
+    - source: default/bashrc
+      target: /etc/skel/.bashrc
+  plymouth:
+    config: /etc/plymouth/plymouthd.conf
+    expected_line: Theme=arch
+    command: [plymouth-set-default-theme, arch, --rebuild-initrd]
+  boot_configs:
+    - /boot/limine.conf
+    - /boot/limine/limine.conf
+    - /etc/default/limine
+  boot_name:
+    match: Arch
+    replacement: Arch Linux
+  installed_file_mode: '0644'
