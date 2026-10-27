@@ -1,0 +1,22 @@
+commands:
+  i18n: [arch-i18n]
+paths:
+  config_directory: .config
+  extension: default/chromium/extensions/whatsapp-slim
+values:
+  extension_marker: extensions/whatsapp-slim
+  load_extension_option: --load-extension=
+  flags_suffix: -flags.conf
+  browsers:
+    - chromium
+    - chrome
+    - google-chrome
+    - brave
+    - brave-beta
+    - brave-nightly
+    - brave-origin
+    - microsoft-edge-stable
+messages:
+  reason: migration.addWhatsAppSlimExtensionToChromium
+statuses:
+  success: 0
