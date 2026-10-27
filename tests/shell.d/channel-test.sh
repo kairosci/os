@@ -262,18 +262,26 @@ current_channel() {
   ARCH_TEST_VERSION_CHANNEL="$1" \
     ARCH_TEST_PACKAGES="$2" \
     ARCH_PATH="$3" \
+    ARCH_PACKAGED_ROOT="$ROOT" \
     PATH="$stub_bin:$ROOT/src/cli:$PATH" \
     "$ROOT/src/cli/arch-channel-current"
 }
 
-[[ $(current_channel stable stable /usr/share/arch) == "stable" ]] || fail "current channel detects stable"
+[[ $(current_channel stable stable "$ROOT") == "stable" ]] || fail "current channel detects stable"
 pass "current channel detects stable"
 
-[[ $(current_channel rc stable /usr/share/arch) == "rc" ]] || fail "current channel detects rc"
+[[ $(current_channel rc stable "$ROOT") == "rc" ]] || fail "current channel detects rc"
 pass "current channel detects rc"
 
-[[ $(current_channel edge dev /usr/share/arch) == "edge" ]] || fail "current channel detects package-backed edge"
+[[ $(current_channel edge dev "$ROOT") == "edge" ]] || fail "current channel detects package-backed edge"
 pass "current channel detects package-backed edge"
 
+[[ $(current_channel unknown none "$ROOT") == "unknown" ]] || fail "current channel is unknown without os packages"
+[[ $(current_channel unknown stable "$ROOT") == "unknown" ]] || fail "current channel rejects an unrecognized package channel"
+pass "current channel reports unknown when package or channel detection fails"
+
+mkdir -p "$test_tmp/dev-checkout/src/python/cli" "$test_tmp/dev-checkout/data/cli"
+cp "$ROOT/src/python/cli/channel.py" "$test_tmp/dev-checkout/src/python/cli/channel.py"
+cp "$ROOT/data/cli/channel.yml" "$test_tmp/dev-checkout/data/cli/channel.yml"
 [[ $(current_channel edge dev "$test_tmp/dev-checkout") == "dev" ]] || fail "current channel detects dev from ARCH_PATH"
 pass "current channel honors a dev link outside ~/arch"
