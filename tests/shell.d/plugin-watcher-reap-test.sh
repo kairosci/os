@@ -60,7 +60,7 @@ orphan=$(start_watcher "$TMPDIR/plugins")
 [[ -n $orphan ]] || fail "could not start an orphaned plugin watcher"
 
 # Old config paths may still have orphaned watchers after the user directory
-# migration. The current registry must reap those exact paths too.
+#. The current registry must reap those exact paths too.
 legacy_orphan=$(start_watcher "$TMPDIR/home/.config/arch/plugins")
 [[ -n $legacy_orphan ]] || fail "could not start a legacy-path plugin watcher"
 

@@ -22,7 +22,6 @@ steps=(
   arch-update-boot
   arch-update-keyring
   arch-update-system-pkgs
-  arch-migrate
   arch-hook
   arch-update-aur-pkgs
   arch-update-mise
@@ -77,8 +76,7 @@ expected_steps() {
     arch-update-dev \
     arch-update-keyring \
     arch-update-system-pkgs \
-    arch-migrate \
-    arch-update-orphan-pkgs \
+      arch-update-orphan-pkgs \
     arch-update-analyze-logs \
     arch-shell \
     arch-update-restart \
@@ -117,7 +115,7 @@ pass "a confirmed update approves orphan removal"
 if FAILING_STEP=arch-update-system-pkgs run_update -y; then
   fail "an update whose packages did not upgrade passes for a whole one"
 fi
-for step in arch-migrate arch-hook arch-update-aur-pkgs arch-update-restart; do
+for step in arch-hook arch-update-aur-pkgs arch-update-restart; do
   if grep -q "^$step " "$test_tmp/steps"; then
     fail "a blocked package upgrade still runs $step"
   fi

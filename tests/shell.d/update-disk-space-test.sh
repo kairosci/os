@@ -79,7 +79,6 @@ for command in \
   arch-update-pkg-prune \
   arch-update-keyring \
   arch-update-system-pkgs \
-  arch-migrate \
   arch-update-aur-pkgs \
   arch-update-mise \
   arch-update-orphan-pkgs \

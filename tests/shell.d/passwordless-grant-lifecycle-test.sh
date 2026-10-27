@@ -65,7 +65,7 @@ reset_grant
 (
   source "$library"
   rm -f "$INITIALIZATION_MARKER"
-  mkdir -p "$test_tmp/var/lib/arch/migrations"
+  mkdir -p "${LEGACY_INITIALIZATION_MARKER%/*}"
   : >"$LEGACY_INITIALIZATION_MARKER"
   printf 'audituser ALL=(ALL) NOPASSWD: ALL\n' >"$(rule_file 1000)"
   initialize_locked

@@ -248,33 +248,6 @@ number_claims=$(cut -f1 <<<"$panels_output" | grep -cE '^SUPER \+ CTRL \+ code:1
   fail "only the bar panel hotkeys bind SUPER + CTRL + a number" "$number_claims"
 pass "bar panel hotkeys bind SUPER + CTRL + a number without a collision"
 
-migration=$(grep -rl 'Move stock Hyprland user overrides into package defaults' "$ROOT/migrations" | head -n 1 || true)
-[[ -n $migration ]] || fail "Hyprland default config migration exists"
-
-migration_home="$tmpdir/migration-home"
-mkdir -p "$migration_home/.config/hypr"
-cat >"$migration_home/.config/hypr/bindings.lua" <<'LUA'
-require("default.hypr.bindings.media")
-require("default.hypr.bindings.clipboard")
-require("default.hypr.bindings.tiling")
-require("default.hypr.bindings.utilities")
-
--- Application bindings without Arch's preinstalled web apps, TUIs, or desktop apps.
-o.bind("SUPER + RETURN", "Terminal", { arch = "terminal" })
-o.bind("SUPER + SHIFT + RETURN", "Browser", { arch = "browser" })
-o.bind("SUPER + SHIFT + F", "File manager", { arch = "nautilus" })
-o.bind("SUPER + ALT + SHIFT + F", "File manager (cwd)", { arch = "nautilus-cwd" })
-o.bind("SUPER + SHIFT + B", "Browser", { arch = "browser" })
-o.bind("SUPER + SHIFT + ALT + B", "Browser (private)", { arch = "browser --private" })
-o.bind("SUPER + SHIFT + N", "Editor", { arch = "editor" })
-LUA
-HOME="$migration_home" ARCH_PATH="$ROOT" ARCH_PATH="$ROOT" bash -euo pipefail "$migration" >/dev/null
-cmp -s "$ROOT/config/hypr/bindings.lua" "$migration_home/.config/hypr/bindings.lua" ||
-  fail "plain legacy bindings migrate to the user override stub"
-[[ -f $migration_home/.local/state/arch/preinstalls-removed ]] ||
-  fail "plain legacy bindings preserve preinstall removal state"
-pass "migration converts plain legacy bindings to package-owned defaults"
-
 upgrade_script="$ROOT/src/cli/arch-upgrade-to-quattro"
 grep -Fq 'touch "$state_dir/preinstalls-removed"' "$upgrade_script" ||
   fail "upgrade-to-quattro preserves preinstall removal state"

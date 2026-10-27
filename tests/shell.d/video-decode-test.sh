@@ -7,7 +7,6 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 helper="$ROOT/src/cli/arch-install-video-decode"
 grep -Fq '  - setup/video_decode.py' "$ROOT/data/installer/user-setup.yml" ||
   fail "user setup runs the Python video decode module"
-migration=$(grep -l -- 'arch-install-video-decode' "$ROOT"/migrations/*.sh | head -n1)
 test_tmp=$(mktemp -d)
 trap 'rm -rf "$test_tmp"' EXIT
 
@@ -169,14 +168,3 @@ run_helper "$home"
 grep -Fxq -- "$features,AcceleratedVideoDecoder" "$test_tmp/flags-target.conf" || fail "the target of a symlinked Chromium file gets the feature"
 grep -Fxq -- "$hwdec" "$test_tmp/mpv-target.conf" || fail "the target of a symlinked mpv config gets the fallback"
 pass "symlinked config files stay symlinks and their targets get the settings"
-
-[[ -n $migration ]] || fail "a migration applies the settings on existing installs"
-home=$(new_home migration)
-cp "$shipped" "$home/.config/chromium-flags.conf"
-HOME="$home" bash -euo pipefail "$migration" >/dev/null
-if ! grep -Fxq -- '--use-angle=gles-egl' "$home/.config/chromium-flags.conf" ||
-  ! grep -Fxq -- "$features,AcceleratedVideoDecoder" "$home/.config/chromium-flags.conf" ||
-  ! grep -Fxq -- "$hwdec" "$home/.config/mpv/mpv.conf"; then
-  fail "the migration applies the settings on an existing Snapdragon install" "$(cat "$home/.config/chromium-flags.conf")"
-fi
-pass "the migration applies the settings on an existing Snapdragon install"

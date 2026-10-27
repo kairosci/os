@@ -64,7 +64,6 @@ for command in \
   arch-update-dev \
   arch-update-keyring \
   arch-update-system-pkgs \
-  arch-migrate \
   arch-update-aur-pkgs \
   arch-update-mise \
   arch-update-orphan-pkgs \
@@ -112,7 +111,7 @@ pass "arch-update prevents overlapping top-level updates"
 # The sleep inhibitor deliberately outlives the step that starts it, so it must
 # not inherit the update lock. An update killed before restore_update_inhibitors
 # would otherwise leave the inhibitor holding the flock forever, blocking every
-# later update and silencing arch-migrate-notify, which reads the same lock.
+# later update and blocking the next update.
 inhibit_pid_file="$test_tmp/inhibit-pid"
 keyring_marker="$test_tmp/keyring-started"
 write_stub arch-snapshot 'exit 0'

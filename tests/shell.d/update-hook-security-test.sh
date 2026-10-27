@@ -33,7 +33,7 @@ auth=s.index('sudo /usr/bin/true')
 assert auth < prune, s
 assert [l for l in s[:prune] if l.startswith('sudo ') and l not in ('sudo -k','sudo -h')]==['sudo /usr/bin/true'], s
 assert 'sudo -v' not in s, s
-positions=[next(i for i,line in enumerate(s) if line.startswith(prefix)) for prefix in ['step:arch-update-system-pkgs','step:arch-migrate','step:arch-update-restart --services-only','step:arch-hook post-update','step:arch-update-mise','step:yay','step:arch-update-stay-awake stop','step:arch-update-restart --reboot-only']]
+positions=[next(i for i,line in enumerate(s) if line.startswith(prefix)) for prefix in ['step:arch-update-system-pkgs','step:arch-update-restart --services-only','step:arch-hook post-update','step:arch-update-mise','step:yay','step:arch-update-stay-awake stop','step:arch-update-restart --reboot-only']]
 assert positions==sorted(positions), s
 yay=positions[5]
 # Everything before AUR shares the one authorization: plain sudo, no revokes.

@@ -25,15 +25,9 @@ cp -a config data default installer "$arch_runtime/"
 mkdir -p "$arch_runtime/src"
 cp -a src/python "$arch_runtime/src/"
 printf 'legacy desktop entry\n' >"$terminal_home/.local/share/applications/org.legacy.terminal.desktop"
-HOME="$terminal_home" ARCH_PATH="$arch_runtime" python3 -I "$ROOT/migrations/1792867070.py"
-cmp -s "$ROOT/assets/applications/org.arch.terminal.desktop" \
-  "$terminal_home/.local/share/applications/org.arch.terminal.desktop" ||
-  fail "the terminal launcher is migrated to the Arch desktop id"
-[[ ! -e $terminal_home/.local/share/applications/org.legacy.terminal.desktop ]] ||
-  fail "the old terminal desktop id is removed during migration"
 grep -Fxq 'kitty.desktop' "$ROOT/default/xdg-terminal-exec/hyprland-xdg-terminals.list" ||
   fail "Kitty remains the default terminal emulator"
-pass "the terminal launcher migrates to Arch and preserves Kitty as default"
+pass "Kitty remains the default terminal emulator"
 
 printf 'obsolete launcher\n' >"$terminal_home/.local/share/applications/org.old.terminal.desktop"
 HOME="$terminal_home" ARCH_PATH="$ROOT" python3 -I "$ROOT/src/python/installer_user/setup/terminal.py"

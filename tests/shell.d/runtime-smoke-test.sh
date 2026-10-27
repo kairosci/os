@@ -660,7 +660,7 @@ jq -e 'all(.[]; .id != "arch.audio")' <<<"$geometry" >/dev/null || {
 
 pass "bar remove reloads shell config and updates bar layout"
 
-# 'bar put' is what migrations use to place a newly shipped widget, so it has
+# 'bar put' is what setup uses to place a newly shipped widget, so it has
 # to place one that is missing and leave one that is already there alone,
 # however often it runs. The widget it puts must be missing from the default
 # bar (arch.microphone is): 'put' leaves a widget that is already on the

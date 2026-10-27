@@ -31,7 +31,6 @@ shipped='\x07\x00\x00\x00\x00\xfa\x00\x00\x00\x00\x00\x20\x00\x00\x00\x00\x00\x0
 four_gib='\x07\x00\x00\x00\x00\x10\x00\x00\x00\x00\x00\x20\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x01'
 
 apply() { : > "$CALL_LOG"; arch-apply-n1x-gpu-memory >/dev/null 2>&1; }
-migrate() { : > "$CALL_LOG"; bash -euo pipefail "$ROOT/migrations/1791784278.sh" >/dev/null 2>&1; }
 holds() { cmp -s <(printf "$1") "$var"; }
 
 printf "$shipped" > "$var"
@@ -59,17 +58,3 @@ pass "an unknown layout is left alone"
 rm "$var"
 ! apply || fail "a firmware without the variable is an error"
 pass "a firmware without the variable is an error"
-
-printf "$shipped" > "$var"
-cat > "$ARCH_N1X_GPU_MEMORY_CONF" <<'CONF'
-KERNEL_CMDLINE[default]+=" efi_reclaim_reserved=58G@8G"
-CONF
-migrate
-holds "$four_gib" || fail "the migration sets the reservation"
-[[ ! -e $ARCH_N1X_GPU_MEMORY_CONF ]] || fail "the kernel reclaim option is removed"
-grep -Fxq limine-mkinitcpio "$CALL_LOG" || fail "the boot entries are rebuilt"
-pass "the migration replaces the kernel reclaim with the firmware setting"
-
-migrate
-[[ ! -s $CALL_LOG ]] || fail "the migration does nothing a second time" "$(<"$CALL_LOG")"
-pass "the migration is idempotent"
