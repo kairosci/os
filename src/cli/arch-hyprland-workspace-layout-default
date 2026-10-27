@@ -23,9 +23,9 @@ DEFAULT_FILE="$MODES_DIR/default.lua"
 if (( $# == 0 )); then
   MODE=$(sed -n 's/.*default = "\([a-z]*\)".*/\1/p' "$DEFAULT_FILE" 2>/dev/null)
   [[ -n $MODE ]] || MODE=$(hyprctl getoption general.layout -j 2>/dev/null | jq -r '.str // empty')
-  [[ $MODE == floating ]] && MODE=dwindle
-  [[ $MODE == scrolling ]] || [[ $MODE == dwindle ]] || MODE=dwindle
-  echo "${MODE:-dwindle}"
+  [[ $MODE == floating ]] && MODE=scrolling
+  [[ $MODE == scrolling ]] || [[ $MODE == dwindle ]] || MODE=scrolling
+  echo "${MODE:-scrolling}"
   exit 0
 fi
 

@@ -1,11 +1,11 @@
 -- Restore tiled workspace layouts saved by arch-hyprland-workspace-layout-toggle.
 local M = {}
 local modes = {}
-local default_mode = "dwindle"
+local default_mode = "scrolling"
 
 function o.workspace_mode(spec)
   local mode = spec.default or spec.mode
-  if mode == "floating" then mode = "dwindle" end
+  if mode == "floating" then mode = "scrolling" end
   if mode ~= "dwindle" and mode ~= "scrolling" then return end
 
   if spec.default then
@@ -20,7 +20,7 @@ end
 
 function M.apply()
   if default_mode ~= "dwindle" and default_mode ~= "scrolling" then
-    default_mode = "dwindle"
+    default_mode = "scrolling"
   end
   hl.config({ general = { layout = default_mode } })
   for workspace, mode in pairs(modes) do

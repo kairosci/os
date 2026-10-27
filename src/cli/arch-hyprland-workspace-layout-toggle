@@ -33,13 +33,14 @@ CURRENT_MODE=$(arch-hyprland-workspace-layout-current)
 if [[ $DIRECTION == "back" ]]; then
   case "$CURRENT_MODE" in
     dwindle) NEW_MODE=scrolling ;;
-    *) NEW_MODE=dwindle ;;
+    scrolling) NEW_MODE=dwindle ;;
+    *) NEW_MODE=scrolling ;;
   esac
 else
   case "$CURRENT_MODE" in
     dwindle) NEW_MODE=scrolling ;;
     scrolling) NEW_MODE=dwindle ;;
-    *) NEW_MODE=dwindle ;;
+    *) NEW_MODE=scrolling ;;
   esac
 fi
 
