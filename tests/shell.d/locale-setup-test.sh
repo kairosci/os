@@ -4,11 +4,11 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-leaf="$ROOT/installer/config/locale.sh"
+leaf="$ROOT/src/python/installer/system_setup/locale_setup.py"
 
 [[ -f $leaf ]] || fail "the locale step ships"
 
-grep -Fq 'config/locale.sh' "$ROOT/installer/config/all.sh" ||
+grep -Fq 'system_setup/locale_setup.py' "$ROOT/installer/config/all.sh" ||
   fail "config phase sets a UTF-8 locale"
 pass "config phase sets a UTF-8 locale"
 
@@ -48,7 +48,8 @@ run_leaf() {
   : >"$calls"
   GENERATED_LOCALES="${1:-C}" TEST_LOG="$calls" PATH="$stub_bin:$PATH" \
     ARCH_LOCALE_CONF="$locale_conf" ARCH_LOCALE_GEN="$locale_gen" \
-    bash -euo pipefail -c 'source "$1"' bash "$leaf" >/dev/null
+    ARCH_LANGUAGE_MARKER="$test_tmp/no-language" \
+    python3 -I "$leaf" >/dev/null
 }
 
 # A root from a distribution tarball: LANG=C, nothing enabled in locale.gen.
@@ -114,8 +115,13 @@ printf '#en_US.UTF-8 UTF-8\n' >"$locale_gen"
 : >"$calls"
 output=$(GENERATED_LOCALES="C en_US.utf8" TEST_LOG="$calls" PATH="$stub_bin:$PATH" \
   ARCH_LOCALE_CONF="$locale_conf" ARCH_LOCALE_GEN="$locale_gen" \
-  bash -euo pipefail -c 'source "$1"' bash "$leaf")
+  ARCH_LANGUAGE_MARKER="$test_tmp/no-language" python3 -I "$leaf")
 [[ $output == "Leaving the locale as en_US.UTF-8" && $(cat "$locale_conf") == "LANG=en_US.UTF-8" ]] ||
   fail "an ISO install's locale is left as the ISO wrote it" "$output"
 [[ $(cat "$locale_gen") == "#en_US.UTF-8 UTF-8" && ! -s $calls ]] || fail "an ISO install's locale.gen is not touched"
 pass "an ISO install's locale is left as the ISO wrote it"
+
+printf 'it\n' >"$test_tmp/language"
+output=$(ARCH_LANGUAGE_MARKER="$test_tmp/language" python3 -I "$leaf")
+[[ $output == "La locale resta en_US.UTF-8" ]] || fail "locale setup messages follow the Italian language marker" "$output"
+pass "locale setup messages follow the selected language"
