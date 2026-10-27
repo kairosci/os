@@ -11,3 +11,15 @@ powerprofilesctl_shebang:
   file: /usr/bin/powerprofilesctl
   match_pattern: '^[^\n]*env python3[^\n]*$'
   replacement: '#!/bin/python3'
+
+ssh_keepalive:
+  path: /etc/ssh/ssh_config.d/20-arch-keepalive.conf
+  directory_mode: '0755'
+  file_mode: '0644'
+  content: |-
+    # os: notice dropped connections quickly instead of hanging until TCP
+    # times out. Settings in ~/.ssh/config take precedence over these defaults.
+    Host *
+      ServerAliveInterval 15
+      ServerAliveCountMax 3
+      ConnectTimeout 10
