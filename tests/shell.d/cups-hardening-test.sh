@@ -22,8 +22,17 @@ grep -qxF cups-pk-helper "$packages" || fail "Polkit printer administration is i
 # reworked. The hardened configuration below stays as the baseline discovery
 # comes back onto.
 ! grep -qxF cups-browsed "$packages" || fail "automatic printer discovery is out of the base package set"
-! grep -q 'cups-browsed' "$ROOT/installer/config/enable-services.sh" ||
+if ! python3 - "$ROOT/data/installer/system-setup.yml" <<'PYTHON'
+import sys
+from pathlib import Path
+import yaml
+
+settings = yaml.safe_load(Path(sys.argv[1]).read_text(encoding="utf-8"))["service_commands"]
+assert all("cups-browsed" not in command for command in settings["commands"])
+PYTHON
+then
   fail "a fresh install does not enable a discovery service it no longer installs"
+fi
 ! grep -q 'enable_system_service cups-browsed' "$ROOT/src/cli/arch-upgrade-to-quattro" ||
   fail "the Quattro upgrade does not enable a discovery service it no longer installs"
 

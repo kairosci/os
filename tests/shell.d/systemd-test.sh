@@ -104,6 +104,15 @@ grep -Fx 'DefaultMemoryPressureDurationSec=20s' "$oomd_conf" >/dev/null ||
   fail "no pressure duration set for the tightened limit"
 pass "systemd-oomd acts on sustained memory stall"
 
-grep -Fx 'systemctl enable systemd-oomd.service' "$ROOT/installer/config/enable-services.sh" >/dev/null ||
+if ! python3 - "$ROOT/data/installer/system-setup.yml" <<'PYTHON'
+import sys
+from pathlib import Path
+import yaml
+
+settings = yaml.safe_load(Path(sys.argv[1]).read_text(encoding="utf-8"))["service_commands"]
+assert ["systemctl", "enable", "systemd-oomd.service"] in settings["commands"]
+PYTHON
+then
   fail "new installs ship the oomd drop-ins with the daemon that reads them disabled"
+fi
 pass "new installs enable systemd-oomd"
