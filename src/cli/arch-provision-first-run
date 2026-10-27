@@ -74,7 +74,7 @@ run_first_run_step "install agent setup post-update hook" \
   arch-hook-install post-update "$ARCH_PATH/installer/user/first-run/setup-agent.hook"
 
 run_first_run_step "enable user systemd units" \
-  bash "$ARCH_PATH/installer/user/first-run/enable-user-units.sh"
+  python3 -I "$ARCH_PATH/src/python/installer_user/first_run/commands.py" user_units
 # Finalization ran it too, maybe without a session; the platform finishes what
 # needs one here.
 run_first_run_step "run the platform's user setup" \

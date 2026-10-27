@@ -55,3 +55,17 @@ wifi:
         title: Aggiorna il sistema
         body: Fai clic per aggiornare il sistema.
 default_language: en
+user_units:
+  input_method: [arch-input-method, configure, --defaults]
+  daemon_reload: [systemctl, --user, daemon-reload]
+  enable: [systemctl, --user, enable, --now]
+  units:
+    - bt-agent.service
+    - arch-recover-internal-monitor.service
+    - arch-sleep-lock.service
+    - arch-migrate-notify.service
+    - arch-fcitx5.service
+    - arch-crash-watch.service
+  messages:
+    en: Input method defaults deferred; run archctl setup input after login.
+    it: Configurazione del metodo di input rimandata; esegui archctl setup input dopo l'accesso.

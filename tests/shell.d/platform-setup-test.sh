@@ -120,9 +120,6 @@ for helper in arch-provision-user arch-hook-install arch-notification-wait; do
   printf '#!/bin/bash\nexit 0\n' >"$first_bin/$helper"
 done
 chmod +x "$first_bin"/*
-for script in wifi.sh enable-user-units.sh; do
-  printf 'exit 0\n' >"$first_root/installer/user/first-run/$script"
-done
 mkdir -p "$first_root/src/python/installer_user/first_run" "$first_root/data/installer"
 cp "$ROOT/src/python/installer_user/first_run/commands.py" \
   "$first_root/src/python/installer_user/first_run/commands.py"
@@ -144,11 +141,22 @@ printf '%s\n' "$*" >>"$NOTIFICATION_LOG"
 [[ ${NOTIFICATION_FAIL:-0} == 0 ]]
 SH
 chmod +x "$first_bin/arch-audio-tuning" "$first_bin/arch-notification-send"
+cat >"$first_bin/arch-input-method" <<'SH'
+#!/bin/bash
+printf '%s\n' "$*" >>"$INPUT_METHOD_LOG"
+[[ ${INPUT_METHOD_FAIL:-0} == 0 ]]
+SH
+cat >"$first_bin/systemctl" <<'SH'
+#!/bin/bash
+printf '%s\n' "$*" >>"$SYSTEMCTL_LOG"
+[[ ${SYSTEMCTL_FAIL_UNIT:-} != "${@: -1}" ]]
+SH
+chmod +x "$first_bin/arch-input-method" "$first_bin/systemctl"
 
 first_run() {
   local platform=$1
   rm -f "$tmp/ran" "$tmp/first-run-marker" "$tmp/home/.local/state/arch/first-run.log"
-  HOME="$tmp/home" ARCH_PATH="$first_root" FIRST_RUN_MARKER="$tmp/first-run-marker" GSETTINGS_LOG="$tmp/gsettings.log" AUDIO_TUNING_LOG="$tmp/audio-tuning.log" NOTIFICATION_LOG="$tmp/notifications.log" \
+  HOME="$tmp/home" ARCH_PATH="$first_root" FIRST_RUN_MARKER="$tmp/first-run-marker" GSETTINGS_LOG="$tmp/gsettings.log" AUDIO_TUNING_LOG="$tmp/audio-tuning.log" NOTIFICATION_LOG="$tmp/notifications.log" INPUT_METHOD_LOG="$tmp/input-method.log" SYSTEMCTL_LOG="$tmp/systemctl.log" \
     ARCH_PROC_ROOT="$tmp/$platform/proc" ARCH_LIFECYCLE_ROOT="$lifecycle" \
     PATH="$first_bin:$tmp/$platform/bin:$ROOT/src/cli:$PATH" bash "$ROOT/src/cli/arch-provision-first-run" >"$tmp/output" 2>&1
 }
@@ -205,4 +213,16 @@ LANG=it_IT.UTF-8 WIFI_CONNECTED=1 CHECKUPDATES_STATUS=0 ARCH_PATH="$first_root" 
   PATH="$first_bin:$PATH" python3 -I "$first_root/src/python/installer_user/first_run/commands.py" wifi_worker ||
   fail "available updates produce a notification" "$(cat "$tmp/notifications.log")"
 grep -q 'Aggiorna il sistema' "$tmp/notifications.log" || fail "update notification uses its Italian YAML translation" "$(cat "$tmp/notifications.log")"
+if ! LANG=it_IT.UTF-8 INPUT_METHOD_FAIL=1 ARCH_PATH="$first_root" INPUT_METHOD_LOG="$tmp/user-units-input.log" SYSTEMCTL_LOG="$tmp/user-units-systemctl.log" \
+  PATH="$first_bin:$PATH" python3 -I "$first_root/src/python/installer_user/first_run/commands.py" user_units >"$tmp/user-units.out" 2>&1; then
+  fail "input-method defaults may fail without blocking user unit setup" "$(cat "$tmp/user-units.out")"
+fi
+grep -q "Configurazione del metodo di input rimandata" "$tmp/user-units.out" || fail "input-method fallback is localized from YAML" "$(cat "$tmp/user-units.out")"
+grep -q '^--user enable --now bt-agent.service$' "$tmp/user-units-systemctl.log" || fail "user unit setup enables the configured Bluetooth unit" "$(cat "$tmp/user-units-systemctl.log")"
+grep -q '^--user enable --now arch-crash-watch.service$' "$tmp/user-units-systemctl.log" || fail "a failed optional setup does not prevent later units" "$(cat "$tmp/user-units-systemctl.log")"
+if SYSTEMCTL_FAIL_UNIT=arch-sleep-lock.service ARCH_PATH="$first_root" SYSTEMCTL_LOG="$tmp/user-units-failure.log" \
+  PATH="$first_bin:$PATH" python3 -I "$first_root/src/python/installer_user/first_run/commands.py" user_units >"$tmp/user-units.out" 2>&1; then
+  fail "a failed systemd unit keeps first run pending"
+fi
+grep -q '^--user enable --now arch-crash-watch.service$' "$tmp/user-units-failure.log" || fail "unit failures do not skip the remaining service setup" "$(cat "$tmp/user-units-failure.log")"
 pass "first run runs platform setup, applies configured desktop settings, and localizes welcome, Wi-Fi, and update notifications"
