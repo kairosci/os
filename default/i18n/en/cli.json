@@ -176,6 +176,7 @@
   "migration.saveWorkspaceLayoutsAsModes": "Save workspace layouts as modes",
   "migration.speedUpFootScrolling": "Speed up scrolling in Foot",
   "migration.removeWorkspaceTitlebars": "Remove obsolete workspace titlebars",
+  "migration.installCloudflareCli": "Install the Cloudflare command-line tool",
   "migration.removeRetiredUsageWidget": "Remove the retired usage widget from shell configuration",
   "migration.removeRetiredWorkspaceTool": "Remove the retired workspace tool and its user data",
   "migration.removeBundledDesktopApps": "Remove optional desktop apps no longer included by default",
