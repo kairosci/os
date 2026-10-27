@@ -27,6 +27,15 @@ package_gates:
         - [arch-hw-intel-sof]
       packages: [sof-firmware]
 
+intel_video_acceleration:
+  pci_command: [lspci]
+  package_command: [arch-pkg-add]
+  gpu_line_pattern: '(vga|3d|display).*intel'
+  modern_gpu_pattern: '(hd graphics|uhd graphics|xe|iris|arc|panther lake)'
+  legacy_gpu_pattern: 'gma'
+  modern_packages: [intel-media-driver, libvpl, vpl-gpu-rt]
+  legacy_packages: [libva-intel-driver]
+
 qualcomm_camera:
   check_command: [arch-hw-aarch64-qualcomm]
   package_command: [arch-pkg-add]

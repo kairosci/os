@@ -13,7 +13,7 @@ run_logged "$ARCH_PATH/src/python/installer/hardware/nvidia.py"
 run_logged "$ARCH_PATH/src/python/installer/hardware/nvidia_apps.py"
 run_logged "$ARCH_PATH/src/python/installer/hardware/vulkan.py"
 
-run_logged "$ARCH_INSTALL/hardware/intel/video-acceleration.sh"
+run_logged "$ARCH_PATH/src/python/installer/hardware/intel/video_acceleration.py"
 run_logged "$ARCH_PATH/src/python/installer/hardware/intel/lpmd.py"
 run_logged "$ARCH_PATH/src/python/installer/hardware/intel/thermald.py"
 run_logged "$ARCH_PATH/src/python/installer/hardware/intel/ipu7_camera.py"
