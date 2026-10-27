@@ -54,6 +54,7 @@ command_sources = {
     source for module_id, module in modules.items()
     if module_id.startswith("desktop.commands")
     for source in module["sources"]
+    if source.startswith("src/cli/")
 }
 cli_files = {
     f"src/cli/{path.name}" for path in cli_directory.iterdir() if path.is_file()
@@ -161,7 +162,7 @@ for module_id in command_modules:
     assert module["requires"] == ["desktop.commands"], (module_id, module["requires"])
     assert len(module["sources"]) == len(module["outputs"]), module_id
     for source, output in zip(module["sources"], module["outputs"]):
-        assert output == [source, f"usr/share/arch/src/cli/{Path(source).name}"], (module_id, source, output)
+        assert output == [source, f"usr/share/arch/{source}"], (module_id, source, output)
 assert modules["desktop.commands"]["sources"] == ["src/cli/archctl"]
 PY
 pass "installation stages are declared as submodules of the shared installer contract"

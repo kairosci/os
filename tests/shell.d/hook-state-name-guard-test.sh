@@ -9,6 +9,7 @@ trap 'rm -rf "$work_dir"' EXIT
 
 fake_home="$work_dir/home"
 mkdir -p "$fake_home/.config/arch/hooks" "$fake_home/.local/state/arch"
+export ARCH_PATH="$ROOT"
 
 # --- arch-hook --------------------------------------------------------------
 
@@ -36,12 +37,21 @@ pass "archctl hook accepts a hook name with dots in the middle"
 
 cat >"$fake_home/.config/arch/hooks/python-hook.py" <<'PY'
 from pathlib import Path
+import sys
 
-Path.home().joinpath("python-hook-ran").touch()
+Path.home().joinpath("python-hook-ran").write_text(" ".join(sys.argv[1:]))
 PY
-HOME="$fake_home" "$ROOT/src/cli/arch-hook" python-hook.py
-[[ -f $fake_home/python-hook-ran ]] || fail "archctl hook runs a Python hook in isolated mode"
-pass "archctl hook runs a Python hook in isolated mode"
+HOME="$fake_home" "$ROOT/src/cli/arch-hook" python-hook.py first second
+[[ $(<"$fake_home/python-hook-ran") == "first second" ]] || fail "archctl hook runs a Python hook in isolated mode and forwards arguments"
+pass "archctl hook runs a Python hook in isolated mode and forwards arguments"
+
+mkdir -p "$fake_home/.config/arch/hooks/hidden-hook.d"
+cat >"$fake_home/.config/arch/hooks/hidden-hook.d/.hidden" <<'SH'
+touch "$HOME/hidden-hook-ran"
+SH
+HOME="$fake_home" "$ROOT/src/cli/arch-hook" hidden-hook
+[[ ! -e $fake_home/hidden-hook-ran ]] || fail "archctl hook ignores hidden files in hook directories"
+pass "archctl hook ignores hidden files in hook directories"
 
 for name in . ..; do
   status=0

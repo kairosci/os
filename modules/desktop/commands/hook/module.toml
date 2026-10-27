@@ -4,6 +4,7 @@ package = "arch"
 sources = [
   "src/cli/arch-hook",
   "src/cli/arch-hook-install",
+  "src/python/cli/hooks.py",
 ]
 requires = ["desktop.commands"]
 
@@ -14,3 +15,7 @@ target = "usr/share/arch/src/cli/arch-hook"
 [[output]]
 source = "src/cli/arch-hook-install"
 target = "usr/share/arch/src/cli/arch-hook-install"
+
+[[output]]
+source = "src/python/cli/hooks.py"
+target = "usr/share/arch/src/python/cli/hooks.py"

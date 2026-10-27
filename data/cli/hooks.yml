@@ -1,0 +1,24 @@
+default_language: en
+hooks_directory: .config/arch/hooks
+collection_suffix: .d
+sample_suffix: .sample
+hidden_prefix: .
+python_suffix: .py
+invalid_names: [., ..]
+interpreters:
+  python: python3
+  shell: bash
+python_options: [-I]
+exit_codes:
+  usage: 1
+  invalid_name: 2
+  hook_failed: 127
+messages:
+  en:
+    usage: 'Usage: arch-hook [name] [args...]'
+    invalid_hook_name: 'Invalid hook name: {name}'
+    hook_failed: 'Hook failed: {hook}'
+  it:
+    usage: 'Uso: arch-hook [nome] [argomenti...]'
+    invalid_hook_name: 'Nome hook non valido: {name}'
+    hook_failed: 'Hook non riuscito: {hook}'
