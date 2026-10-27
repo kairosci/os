@@ -19,15 +19,6 @@ run_bootstrap() {
   ' sh "$bootstrap"
 }
 
-assert_path_first() {
-  local path_value="$1"
-  local entry="$2"
-  local description="$3"
-
-  [[ ${path_value%%:*} == "$entry" ]] || fail "$description" "expected first PATH entry: $entry\nactual PATH: $path_value"
-  pass "$description"
-}
-
 assert_path_present() {
   local path_value="$1"
   local entry="$2"
@@ -58,7 +49,8 @@ pass "env-bootstrap resolves default ARCH_PATH"
 assert_path_present "$default_path" "$tmpdir/unrelated/bin" "env-bootstrap preserves PATH entries in default mode"
 assert_path_present "$default_path" "$home/.local/share/mise/shims" "env-bootstrap appends mise shims"
 assert_path_present "$default_path" "$home/.local/bin" "env-bootstrap appends ~/.local/bin"
-assert_path_first "$default_path" "$home/.local/share/mise/command-wrappers/bin" "env-bootstrap puts command wrappers ahead of inherited tool binaries"
+[[ $default_path != *"command-wrappers/bin"* ]] || fail "env-bootstrap does not add agent wrapper paths" "$default_path"
+pass "env-bootstrap does not add agent wrapper paths"
 
 printf 'export ARCH_PATH="%s"\n' "$tmpdir/active" >"$tmpdir/arch.conf"
 mapfile -t linked_result < <(run_bootstrap bash "$bootstrap" "$home" "$tmpdir/unrelated/bin:/usr/bin")
@@ -66,39 +58,31 @@ linked_path=${linked_result[1]}
 
 [[ ${linked_result[0]} == "$tmpdir/active" ]] || fail "env-bootstrap resolves linked ARCH_PATH" "actual: ${linked_result[0]}"
 pass "env-bootstrap resolves linked ARCH_PATH"
-assert_path_first "$linked_path" "$home/.local/share/mise/command-wrappers/bin" "env-bootstrap keeps command wrappers first in linked mode"
+[[ $linked_path != *"command-wrappers/bin"* ]] || fail "env-bootstrap keeps agent wrapper paths out of linked mode" "$linked_path"
 assert_path_present "$linked_path" "$tmpdir/active/src/cli" "env-bootstrap includes the active checkout CLI in linked mode"
 assert_path_present "$linked_path" "$tmpdir/unrelated/bin" "env-bootstrap preserves unrelated PATH entries in linked mode"
 
 mapfile -t linked_duplicate_result < <(run_bootstrap bash "$bootstrap" "$home" "$tmpdir/active/src/cli:/usr/bin:$home/.local/share/mise/shims:$home/.local/bin")
 linked_duplicate_path=${linked_duplicate_result[1]}
-[[ $linked_duplicate_path == "$home/.local/share/mise/command-wrappers/bin:$tmpdir/active/src/cli:/usr/bin:$home/.local/share/mise/shims:$home/.local/bin" ]] || fail "env-bootstrap does not duplicate PATH entries" "actual PATH: $linked_duplicate_path"
+[[ $linked_duplicate_path == "$tmpdir/active/src/cli:/usr/bin:$home/.local/share/mise/shims:$home/.local/bin" ]] || fail "env-bootstrap does not duplicate PATH entries" "actual PATH: $linked_duplicate_path"
 pass "env-bootstrap does not duplicate PATH entries"
 
 # An empty PATH must not produce empty entries (a bare ":" means the cwd)
 mapfile -t empty_path_result < <(run_bootstrap bash "$bootstrap" "$home" "")
 empty_path=${empty_path_result[1]}
-[[ $empty_path == "$home/.local/share/mise/command-wrappers/bin:$tmpdir/active/src/cli:$home/.local/share/mise/shims:$home/.local/bin" ]] || fail "env-bootstrap builds a clean PATH from an empty one" "actual PATH: $empty_path"
+[[ $empty_path == "$tmpdir/active/src/cli:$home/.local/share/mise/shims:$home/.local/bin" ]] || fail "env-bootstrap builds a clean PATH from an empty one" "actual PATH: $empty_path"
 pass "env-bootstrap builds a clean PATH from an empty one"
 
 if command -v zsh >/dev/null 2>&1; then
   mapfile -t zsh_result < <(run_bootstrap zsh "$bootstrap" "$home" "$tmpdir/unrelated/bin:/usr/bin")
   zsh_path=${zsh_result[1]}
-  assert_path_first "$zsh_path" "$home/.local/share/mise/command-wrappers/bin" "env-bootstrap works when sourced by zsh"
+  [[ $zsh_path != *"command-wrappers/bin"* ]] || fail "env-bootstrap works when sourced by zsh" "$zsh_path"
   assert_path_present "$zsh_path" "$tmpdir/unrelated/bin" "env-bootstrap zsh mode preserves unrelated PATH entries"
 fi
 
 mapfile -t repeated_result < <(run_bootstrap bash "$bootstrap" "$home" "$linked_duplicate_path")
-[[ ${repeated_result[1]} == "$linked_duplicate_path" ]] || fail "repeated bootstrap leaves the command wrapper path unchanged"
-pass "repeated bootstrap leaves the command wrapper path unchanged"
+[[ ${repeated_result[1]} == "$linked_duplicate_path" ]] || fail "repeated bootstrap leaves PATH unchanged"
+pass "repeated bootstrap leaves PATH unchanged"
 
 mapfile -t custom_data_result < <(MISE_DATA_DIR="$tmpdir/custom-mise" run_bootstrap bash "$bootstrap" "$home" "/usr/bin")
-assert_path_first "${custom_data_result[1]}" "$tmpdir/custom-mise/command-wrappers/bin" "env-bootstrap honors a custom mise data directory"
-
-# A parent agent or mise activation may have put real tool bins before a wrapper
-# directory that was already present. Move the existing entry rather than skip it.
-inherited_path="$tmpdir/managed/bin:$home/.local/share/mise/command-wrappers/bin:/usr/bin"
-mapfile -t reordered_result < <(run_bootstrap bash "$bootstrap" "$home" "$inherited_path")
-[[ ${reordered_result[1]} == "$home/.local/share/mise/command-wrappers/bin:$tmpdir/active/src/cli:$tmpdir/managed/bin:/usr/bin:$home/.local/share/mise/shims:$home/.local/bin" ]] ||
-  fail "bootstrap moves existing wrappers ahead of inherited managed tool paths without duplication" "${reordered_result[1]}"
-pass "bootstrap moves existing wrappers ahead of inherited managed tool paths without duplication"
+[[ ${custom_data_result[1]} != *"command-wrappers/bin"* ]] || fail "env-bootstrap does not add agent wrapper paths for a custom mise data directory"
