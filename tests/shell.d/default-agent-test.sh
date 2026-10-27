@@ -171,26 +171,20 @@ lazy_config="$ROOT/etc/mise/conf.d/arch-tools.toml"
 [[ -f $lazy_config ]] || fail "os ships the system mise config"
 grep -Fx 'locked_scopes = ["project", "global"]' "$lazy_config" >/dev/null ||
   fail "system tools remain installable when the user enables locked mode"
-for tool in "$agy_package" "$grok_package" "$omp_package" "$crush_package" "$cursor_agent_package" "$muse_package"; do
-  grep -Eq "^$tool = \\{ version = \"latest\", lazy = true, auto_update = \"4h\", minimum_release_age = \"0s\" \\}$" "$lazy_config" ||
-    fail "user setup declares $tool as a self-updating native lazy tool"
+for tool in antigravity-cli basecamp claude codex copilot crush cursor-agent grok hey-cli hunk muse \
+  'npm:@moonshot-ai/kimi-code' oh-my-pi opencode ori pi; do
+  grep -Eq "^\"?$tool\"?[[:space:]]*=" "$lazy_config" &&
+    fail "coding-agent tools are not installed by default ($tool)"
 done
-for tool in "$ori_package" basecamp; do
+for tool in gh ghui node playwright uv; do
   grep -Eq "^$tool = \\{ version = \"latest\", lazy = true, minimum_release_age = \"0s\" \\}$" "$lazy_config" ||
-    fail "user setup declares $tool as a native lazy tool"
+    fail "user setup retains the non-agent CLI tool $tool"
 done
-for tool in codex claude copilot opencode pi "\"$kimi_package\""; do
-  grep -Eq "^$tool = \\{ version = \"latest\", lazy = true, auto_update = \"4h\", " "$lazy_config" ||
-    fail "user setup declares $tool as a self-updating native lazy tool"
-done
-[[ $(grep -c 'auto_update = "4h"' "$lazy_config") == 12 ]] || fail "only the agent CLIs update themselves"
-for tool in node uv; do
-  grep -Eq "^$tool = \\{ version = \"latest\", lazy = true, minimum_release_age = \"0s\" \\}$" "$lazy_config" ||
-    fail "user setup declares $tool as a native lazy tool"
-done
-[[ $(grep -c 'lazy = true' "$lazy_config") == 22 ]] || fail "user setup declares every default mise tool as lazy"
+grep -F '"npm:cf" = { version = "latest", lazy = true,' "$lazy_config" >/dev/null ||
+  fail "user setup retains the Cloudflare CLI"
+[[ $(grep -c 'lazy = true' "$lazy_config") == 6 ]] || fail "user setup declares every default mise tool as lazy"
 grep -Fx "reshim --system" "$mise_history" >/dev/null || fail "user setup builds the system lazy bootstrap shims"
-pass "user setup configures system lazy tools from registry shorthands"
+pass "user setup configures only general-purpose lazy tools"
 : >"$stub_log"
 source "$ROOT/installer/user/mise.sh"
 [[ ! -s $stub_log ]] || fail "user setup must not create handwritten mise wrappers"

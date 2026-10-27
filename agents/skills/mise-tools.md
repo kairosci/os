@@ -12,17 +12,12 @@ Use a registry shorthand and set `lazy = true` so the first command invocation i
 
 ```toml
 [tools]
-codex = { version = "latest", lazy = true, minimum_release_age = "0s" }
+gh = { version = "latest", lazy = true, minimum_release_age = "0s" }
 ```
 
 Lazy defaults need mise 2026.10.11 or newer. Older releases install every lazy tool nobody has run yet. Before 2026.10.11, a bare `mise upgrade`, which `archctl update` and `mup` run, does it. In 2026.10.7 and 2026.10.8, the `auto_update` check a shell prompt starts did it too.
 
-Agent CLIs also set `auto_update = "4h"`, so mise upgrades them before they run (at most once every four hours) instead of leaving them on whatever version was installed first. Leave it off for tools that mise itself calls, such as `gh`, which is mise's GitHub credential helper.
-
-```toml
-[tools]
-codex = { version = "latest", lazy = true, auto_update = "4h", minimum_release_age = "0s" }
-```
+Use `auto_update` only for tools that must refresh themselves before each run. Leave it off for tools that mise itself calls, such as `gh`, which is mise's GitHub credential helper.
 
 Do not add handwritten wrappers for ordinary tools. Hermes keeps its custom installer because it needs Python 3.13 and must defer to Hermes Desktop when that app owns the command.
 
