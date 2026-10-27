@@ -78,11 +78,13 @@ def main() -> int:
   print(messages["setting"].format(locale=target_locale))
   try:
     available = subprocess.run(
-      settings["locale_command"], check=False, capture_output=True, text=True, stderr=subprocess.DEVNULL
+      settings["locale_command"], check=False, stdout=subprocess.PIPE, text=True, stderr=subprocess.DEVNULL
     )
   except OSError:
     available = subprocess.CompletedProcess(settings["locale_command"], 127, "", "")
-  if available.returncode or re.search(settings["target_locale_pattern"], available.stdout, flags=re.IGNORECASE) is None:
+  if available.returncode or re.search(
+    settings["target_locale_pattern"], available.stdout, flags=re.IGNORECASE | re.MULTILINE
+  ) is None:
     locale_gen_content = _read(locale_gen)
     commented = re.search(settings["commented_locale_pattern"], locale_gen_content, flags=re.MULTILINE)
     if commented:

@@ -88,7 +88,7 @@ export PATH="$ARCH_PATH/src/cli:$PATH"
 source "$ARCH_INSTALL/helpers/logging.sh"
 start_install_log
 
-source "$ARCH_INSTALL/config/all.sh"
+run_logged "$ARCH_PATH/src/python/installer/system_setup/all.py"
 
 if (( defer_provisioning )); then
   arch-apply-hardware --defer-provisioning

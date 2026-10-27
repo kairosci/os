@@ -73,9 +73,9 @@ grep -Fx 'systemctl disable --now limine-snapper-sync.service arch-snapshot-entr
 pass "snapshot configure normalizes Snapper policy and services"
 
 setup_system="$ROOT/src/cli/arch-apply-system"
-grep -F 'config/all.sh' "$setup_system" >/dev/null ||
+grep -F 'system_setup/all.py' "$setup_system" >/dev/null ||
   fail "system setup runs the config phase"
-grep -F 'system_setup/snapper_setup.py' "$ROOT/installer/config/all.sh" >/dev/null ||
+grep -F 'src/python/installer/system_setup/snapper_setup.py' "$ROOT/data/installer/system-setup.yml" >/dev/null ||
   fail "config phase normalizes Snapper"
 pass "system setup normalizes Snapper during fresh installs"
 

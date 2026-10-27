@@ -147,13 +147,19 @@ fi
 
 # The Python finalization runner reads the ordered steps from packaged data,
 # sources shell leaves in isolated Bash and stops with the leaf's exit status.
+ARCH_PATH="$ROOT" ARCH_INSTALL="$ROOT/installer" python3 -I \
+  "$ROOT/src/python/installer/step_runner.py" --validate data/installer/post-install.yml ||
+  fail "the post-install setup data resolves every configured leaf"
+pass "post-install setup data resolves every configured leaf"
+
 post_install_root="$work/post-install-root"
 mkdir -p "$post_install_root/data/installer" \
   "$post_install_root/installer/post-install" \
   "$post_install_root/src/python/installer/post_install"
 cat >"$post_install_root/data/installer/post-install.yml" <<'YAML'
 steps:
-  - installer/post-install/first.sh
+  - root: arch_install
+    path: post-install/first.sh
   - src/python/installer/post_install/second.py
   - installer/post-install/third.sh
 messages:
@@ -184,8 +190,9 @@ SH
 
 post_install_order="$work/post-install-order"
 post_install_output="$work/post-install-output"
-ARCH_PATH="$post_install_root" POST_INSTALL_ORDER="$post_install_order" LANG=it_IT.UTF-8 \
-  python3 -I "$ROOT/src/python/installer/post_install/all.py" >"$post_install_output" 2>&1 ||
+ARCH_PATH="$post_install_root" ARCH_INSTALL="$post_install_root/installer" \
+  POST_INSTALL_ORDER="$post_install_order" LANG=it_IT.UTF-8 \
+  python3 -I "$ROOT/src/python/installer/step_runner.py" data/installer/post-install.yml >"$post_install_output" 2>&1 ||
   fail "post-install runner completes every configured step"
 [[ $(<"$post_install_order") == $'first\nsecond\nthird' ]] ||
   fail "post-install runner preserves YAML order across Python and shell leaves"
@@ -194,15 +201,17 @@ grep -Fq "Avvio: $post_install_root/installer/post-install/first.sh" "$post_inst
 pass "post-install runner executes ordered YAML steps and localizes progress"
 
 : >"$post_install_order"
-ARCH_PATH="$post_install_root" POST_INSTALL_ORDER="$post_install_order" LANG=en_US.UTF-8 \
-  ARCH_INSTALL_DEBUG=1 python3 -I "$ROOT/src/python/installer/post_install/all.py" \
+ARCH_PATH="$post_install_root" ARCH_INSTALL="$post_install_root/installer" \
+  POST_INSTALL_ORDER="$post_install_order" LANG=en_US.UTF-8 \
+  ARCH_INSTALL_DEBUG=1 python3 -I "$ROOT/src/python/installer/step_runner.py" data/installer/post-install.yml \
   >"$post_install_output" 2>&1 || fail "post-install runner supports installer debug mode"
 grep -Fq '+ first.sh:' "$post_install_output" || fail "post-install runner traces sourced leaves in debug mode"
 pass "post-install runner preserves shell tracing in debug mode"
 
 : >"$post_install_order"
-if ARCH_PATH="$post_install_root" POST_INSTALL_ORDER="$post_install_order" POST_INSTALL_FAIL=1 LANG=it_IT.UTF-8 \
-  python3 -I "$ROOT/src/python/installer/post_install/all.py" >"$post_install_output" 2>&1; then
+if ARCH_PATH="$post_install_root" ARCH_INSTALL="$post_install_root/installer" \
+  POST_INSTALL_ORDER="$post_install_order" POST_INSTALL_FAIL=1 LANG=it_IT.UTF-8 \
+  python3 -I "$ROOT/src/python/installer/step_runner.py" data/installer/post-install.yml >"$post_install_output" 2>&1; then
   fail "post-install runner stops when a step fails"
 else
   [[ $? == 23 ]] || fail "post-install runner preserves the failing step's status" "$(<"$post_install_output")"
@@ -211,6 +220,20 @@ fi
   fail "post-install runner does not continue after a failure"
 grep -Fq 'Non riuscito:' "$post_install_output" || fail "post-install runner localizes failure logs"
 pass "post-install runner stops at and reports the failing step"
+
+printf 'steps:\n  - ../outside.sh\nmessages:\n  en: {starting: "Starting {step}", completed: "Done {step}", failed: "Failed {step} {status}"}\n' \
+  >"$post_install_root/data/installer/unsafe.yml"
+cat >"$post_install_root/outside.sh" <<'SH'
+touch "$POST_INSTALL_ESCAPE_MARKER"
+SH
+if ARCH_PATH="$post_install_root" ARCH_INSTALL="$post_install_root/installer" \
+  POST_INSTALL_ESCAPE_MARKER="$work/escaped" python3 -I \
+  "$ROOT/src/python/installer/step_runner.py" data/installer/unsafe.yml \
+  >"$post_install_output" 2>&1; then
+  fail "post-install runner rejects a step outside its root"
+fi
+[[ ! -e $work/escaped ]] || fail "post-install runner never executes a path outside its root"
+pass "post-install runner rejects path traversal in step data"
 
 # ── refresh through the command, with every privileged step a stand-in ───────
 

@@ -5,12 +5,18 @@ set -euo pipefail
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 leaf="$ROOT/src/python/installer/system_setup/locale_setup.py"
+export ARCH_PATH="$ROOT"
 
 [[ -f $leaf ]] || fail "the locale step ships"
 
-grep -Fq 'system_setup/locale_setup.py' "$ROOT/installer/config/all.sh" ||
+grep -Fq 'src/python/installer/system_setup/locale_setup.py' "$ROOT/data/installer/system-setup.yml" ||
   fail "config phase sets a UTF-8 locale"
 pass "config phase sets a UTF-8 locale"
+
+ARCH_PATH="$ROOT" ARCH_INSTALL="$ROOT/installer" python3 -I \
+  "$ROOT/src/python/installer/step_runner.py" --validate data/installer/system-setup.yml ||
+  fail "the system setup data resolves every configured leaf"
+pass "system setup data resolves every configured leaf"
 
 # Root always writes the real locale files: the overrides below are for
 # unprivileged runs, so as root the step would change this machine's locale.
