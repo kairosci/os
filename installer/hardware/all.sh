@@ -10,7 +10,7 @@ run_logged "$ARCH_PATH/src/python/installer/hardware/synaptic_touchpad.py"
 run_logged "$ARCH_PATH/src/python/installer/hardware/bluetooth.py"
 run_logged "$ARCH_INSTALL/hardware/n1x.sh"
 run_logged "$ARCH_INSTALL/hardware/nvidia.sh"
-run_logged "$ARCH_INSTALL/hardware/nvidia-apps.sh"
+run_logged "$ARCH_PATH/src/python/installer/hardware/nvidia_apps.py"
 run_logged "$ARCH_INSTALL/hardware/vulkan.sh"
 
 run_logged "$ARCH_INSTALL/hardware/intel/video-acceleration.sh"

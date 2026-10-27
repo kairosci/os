@@ -4,29 +4,39 @@ source "$(dirname "$0")/base-test.sh"
 scratch=$(mktemp -d)
 trap 'rm -rf "$scratch"' EXIT
 calls="$scratch/calls"
+mock_bin="$scratch/bin"
+mkdir -p "$mock_bin"
+export mock_bin
+
+cat >"$mock_bin/arch-pkg-present" <<'SH'
+#!/bin/bash
+[[ " ${INSTALLED_PACKAGES:-} " == *" $1 "* ]]
+SH
+cat >"$mock_bin/nvidia-ctk" <<'SH'
+#!/bin/bash
+printf 'nvidia-ctk %s\n' "$*" >>"$CALLS"
+[[ ${SETUP_FAILURE:-} != nvidia-ctk ]]
+SH
+cat >"$mock_bin/systemctl" <<'SH'
+#!/bin/bash
+printf 'systemctl %s\n' "$*" >>"$CALLS"
+[[ ${SETUP_FAILURE:-} != "$1" ]]
+SH
+chmod +x "$mock_bin"/*
 
 run_setup() (
   installed=$1
   failure=${2:-}
+  export ARCH_PATH="$ROOT"
+  export CALLS="$calls"
+  export INSTALLED_PACKAGES="$installed"
+  export SETUP_FAILURE="$failure"
   export ARCH_IMAGE_DEFERRED_HARDWARE=${3:-}
-  export ARCH_INSTALL="$ROOT/installer"
-  arch-pkg-present() { [[ " $installed " == *" $1 "* ]]; }
-  nvidia-ctk() {
-    echo "nvidia-ctk $*" >> "$calls"
-    [[ $failure != "nvidia-ctk" ]]
-  }
-  systemctl() {
-    echo "systemctl $*" >> "$calls"
-    [[ $failure != "$1" ]]
-  }
-  # Exercise installer wiring without running unrelated hardware setup.
-  run_logged() {
-    if [[ $1 == "$ARCH_INSTALL/hardware/nvidia-apps.sh" ]]; then
-      source "$1"
-    fi
-  }
-  source "$ARCH_INSTALL/hardware/all.sh"
+  PATH="$mock_bin:$PATH" python3 -I "$ROOT/src/python/installer/hardware/nvidia_apps.py"
 )
+
+grep -Fq 'run_logged "$ARCH_PATH/src/python/installer/hardware/nvidia_apps.py"' "$ROOT/installer/hardware/all.sh" ||
+  fail "hardware setup runs the NVIDIA apps module"
 
 for deferred in "" 0 1; do
   for mask in {0..7}; do

@@ -86,3 +86,12 @@ bluetooth_setup:
   deferred_environment: ARCH_IMAGE_DEFERRED_HARDWARE
   deferred_value: '1'
   start_command: [systemctl, start, --no-block, bluetooth.service]
+nvidia_apps_setup:
+  package_check_command: [arch-pkg-present]
+  workbench_package: nvidia-ai-workbench
+  workbench_command: [nvidia-ctk, runtime, configure, --runtime=docker]
+  dashboard_package: dgx-dashboard
+  enable_command: [systemctl, enable, dgx-dashboard.service]
+  deferred_environment: ARCH_IMAGE_DEFERRED_HARDWARE
+  deferred_value: '1'
+  start_command: [systemctl, start, --no-block, dgx-dashboard.service]
