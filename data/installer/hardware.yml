@@ -9,3 +9,16 @@ surface_firmware:
     - [arch-hw-x86]
   package_command: [arch-pkg-add]
   package: linux-firmware-marvell
+
+package_gates:
+  package_command: [arch-pkg-add]
+  rules:
+    - checks:
+        - [arch-hw-asus-rog]
+      packages: [asusctl]
+    - checks:
+        - [arch-hw-framework16]
+      packages: [qmk-hid]
+    - checks:
+        - [arch-hw-dell-xps-haptic-touchpad]
+      packages: [dell-xps-touchpad-haptics]
