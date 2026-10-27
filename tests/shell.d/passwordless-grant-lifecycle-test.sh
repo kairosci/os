@@ -46,9 +46,10 @@ pass "legacy cleanup removes generated rules for any account and quarantines eve
 # the mapped helper and can be refused without requesting host authorization.
 # The migration reaches the helper through $ARCH_PATH, as the package's bin
 # links and a dev checkout provide it, so the mapped copy stands in there.
-mkdir -p "$test_tmp/source/migrations" "$test_tmp/source/bin" "$test_tmp/home"
+mkdir -p "$test_tmp/source/migrations" "$test_tmp/source/data/migrations" "$test_tmp/source/bin" "$test_tmp/home"
 migration_test_runtime "$test_tmp/source"
-cp "$ROOT/migrations/1788163635.sh" "$test_tmp/source/migrations/"
+cp "$ROOT/migrations/1788163635.py" "$test_tmp/source/migrations/"
+cp "$ROOT/data/migrations/1788163635.yml" "$test_tmp/source/data/migrations/"
 ln -s "$test_tmp/arch-sudo-passwordless" "$test_tmp/source/src/cli/arch-sudo-passwordless"
 printf 'echo "later migration ran"\n' >"$test_tmp/source/migrations/1788163636.sh"
 run_migrations() {

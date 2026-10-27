@@ -140,6 +140,7 @@
   "migration.refreshApplications": "Aggiorna le voci delle applicazioni",
   "migration.removeFloatingDiskUsageLauncher": "Rimosso il vecchio launcher flottante di Disk Usage",
   "migration.removeManagedSkillLinks": "Rimossi %1 collegamenti a skill gestiti da Arch",
+  "migration.removeLegacyPasswordlessSudoGrants": "Rimuovi le vecchie autorizzazioni sudo temporanee senza password",
   "migration.archSessionEntryMissing": "La voce di sessione Wayland di Arch non è presente.",
   "migration.removeRetiredCliShims": "Rimuovi gli shim CLI non più usati da mise",
   "migration.removeSavedFloatingWorkspaces": "Rimuovi i layout flottanti salvati delle aree di lavoro",
