@@ -144,3 +144,11 @@ dell_text_scaling_setup:
   command: [arch-display-text-size, '11']
 qualcomm_camera_setup:
   command: [arch-install-camera]
+asus_mixer_setup:
+  predicate: [arch-hw-asus-rog]
+  wireplumber_source: default/wireplumber/wireplumber.conf.d/alsa-soft-mixer.conf
+  wireplumber_destination: .config/wireplumber/wireplumber.conf.d/alsa-soft-mixer.conf
+  default_routes: .local/state/wireplumber/default-routes
+  card_command: [aplay, -l]
+  card_pattern: 'card (\d+).*ALC285'
+  mixer_command: [amixer, -c, '{card}', set, Master, '80%', unmute]
