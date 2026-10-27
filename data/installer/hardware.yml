@@ -81,3 +81,8 @@ network_setup:
   interface_pattern: '^\s*Name=(en\*|eth\*|wl\*|ww\*)\s*$'
   manager_active_command: [systemctl, is-active, --quiet, NetworkManager.service]
   stop_command: [systemctl, stop, systemd-networkd.service]
+bluetooth_setup:
+  enable_command: [systemctl, enable, bluetooth.service]
+  deferred_environment: ARCH_IMAGE_DEFERRED_HARDWARE
+  deferred_value: '1'
+  start_command: [systemctl, start, --no-block, bluetooth.service]
