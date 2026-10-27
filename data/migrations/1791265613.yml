@@ -1,0 +1,9 @@
+commands:
+  hardware_check: [arch-hw-dell-xps13-dx13260-ptl]
+  python: [/usr/bin/python3, -I]
+  reboot_required: [arch-state, set, reboot-required]
+paths:
+  firmware_setup: src/python/installer/hardware/dell_xps13_ptl_speaker_firmware.py
+statuses:
+  success: 0
+  failure: 1
