@@ -85,3 +85,24 @@ mise_setup:
   commands:
     - [mise, reshim, --system]
     - [mise, reshim]
+theme_setup:
+  directory: .config/arch/themes
+  selected_theme_file: .local/state/arch/current/theme.name
+  context_environment: ARCH_SETUP_CONTEXT
+  runtime_context: runtime
+  default_theme: Cosmic
+  set_command: [arch-theme-set]
+  headless_environment: {ARCH_THEME_HEADLESS: '1'}
+  chromium_lock: .config/chromium/SingletonLock
+  activation_commands:
+    - [arch-theme-set-pi, --activate]
+    - [arch-theme-set-fcitx5, --activate]
+  icon_source: /usr/share/icons/Cosmic/index.theme
+  icon_directory: .local/share/icons/Cosmic
+  icon_filename: index.theme
+  icon_pattern: '^Inherits=.*'
+  icon_replacement: Inherits=breeze-dark
+  icon_mode: '0644'
+  btop_directory: .config/btop/themes
+  btop_target: .local/state/arch/current/theme/btop.theme
+  btop_link: current.theme
