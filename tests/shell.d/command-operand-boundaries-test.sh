@@ -216,44 +216,18 @@ setsid_argv=$(<"$setsid_calls")
   fail "launch-editor separates a graphical editor path from editor options" "$setsid_argv"
 pass "launch-editor separates a graphical editor path from editor options"
 
-hook_calls="$test_tmp/hook-calls"
 hook_home="$test_tmp/hook-home"
 printf '#!/bin/bash\n' >"$test_tmp/--help"
-cat >"$mock_bin/basename" <<'STUB'
-#!/bin/bash
-
-: "${ARCH_TEST_HOOK_CALLS:?}"
-{
-  printf 'basename'
-  printf ' <%s>' "$@"
-  printf '\n'
-} >>"$ARCH_TEST_HOOK_CALLS"
-printf 'literal-hook\n'
-STUB
-cat >"$mock_bin/cp" <<'STUB'
-#!/bin/bash
-
-: "${ARCH_TEST_HOOK_CALLS:?}"
-{
-  printf 'cp'
-  printf ' <%s>' "$@"
-  printf '\n'
-} >>"$ARCH_TEST_HOOK_CALLS"
-STUB
-for command in mkdir chmod; do
-  printf '#!/bin/bash\nexit 0\n' >"$mock_bin/$command"
-done
-chmod +x "$mock_bin/basename" "$mock_bin/cp" "$mock_bin/mkdir" "$mock_bin/chmod"
-
-: >"$hook_calls"
+hook_directory="$hook_home/.config/arch/hooks/post-update.d"
+protected_file="$test_tmp/protected"
+mkdir -p "$hook_directory"
+printf 'protected\n' >"$protected_file"
+ln -s "$protected_file" "$hook_directory/--help"
 (
   cd -- "$test_tmp"
-  HOME="$hook_home" PATH="$mock_bin:$PATH" ARCH_TEST_HOOK_CALLS="$hook_calls" \
-    "$ROOT/src/cli/arch-hook-install" post-update --help >/dev/null
+  HOME="$hook_home" ARCH_PATH="$ROOT" "$ROOT/src/cli/arch-hook-install" post-update --help >"$test_tmp/hook-install-output"
 )
-
-hook_argv=$(<"$hook_calls")
-expected_hook_argv=$'basename <--> <--help>\ncp <--> <--help> <'"$hook_home"'/.config/arch/hooks/post-update.d/literal-hook>'
-[[ $hook_argv == $expected_hook_argv ]] ||
-  fail "hook-install treats its source file as an operand" "$hook_argv"
-pass "hook-install treats its source file as an operand"
+[[ -f $hook_directory/--help && ! -L $hook_directory/--help ]] || fail "hook-install replaces a destination symlink itself"
+[[ $(<"$protected_file") == protected ]] || fail "hook-install does not overwrite the symlink target"
+[[ $(stat -c '%a' "$hook_directory/--help") == 755 ]] || fail "hook-install marks the installed hook executable"
+pass "hook-install treats a dash-prefixed source as an operand and atomically replaces symlinks"

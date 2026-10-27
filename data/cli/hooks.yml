@@ -9,16 +9,31 @@ interpreters:
   python: python3
   shell: bash
 python_options: [-I]
+argument_counts:
+  install: 3
+install:
+  temporary_prefix: .hook-install-
+  mode: "0755"
 exit_codes:
   usage: 1
   invalid_name: 2
   hook_failed: 127
+  file_missing: 1
+  install_failed: 1
 messages:
   en:
     usage: 'Usage: arch-hook [name] [args...]'
     invalid_hook_name: 'Invalid hook name: {name}'
     hook_failed: 'Hook failed: {hook}'
+    install_usage: 'Usage: arch-hook-install <type> <file>'
+    hook_file_missing: 'Hook file not found: {file}'
+    hook_install_failed: 'Could not install hook at {path}'
+    hook_installed: 'Installed {hook_type} hook: {path}'
   it:
     usage: 'Uso: arch-hook [nome] [argomenti...]'
     invalid_hook_name: 'Nome hook non valido: {name}'
     hook_failed: 'Hook non riuscito: {hook}'
+    install_usage: 'Uso: arch-hook-install <tipo> <file>'
+    hook_file_missing: 'File hook non trovato: {file}'
+    hook_install_failed: "Impossibile installare l'hook in {path}"
+    hook_installed: 'Hook {hook_type} installato: {path}'
