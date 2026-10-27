@@ -133,6 +133,7 @@
   "migration.installUdiskie": "Install removable-drive automount support",
   "migration.installViCompat": "Install the vi-compatible editor from Arch extra",
   "migration.configureSharedInputMethodDefaults": "Configure shared input method defaults and desktop shortcuts",
+  "migration.disableSnapshotWarningNotifier": "Disable the snapshot warning notifier at startup",
   "migration.enableKittyCwdLookup": "Enable Kitty working-directory lookup from global keybindings",
   "migration.installZbar": "Install QR code scanning support",
   "migration.keepMiseToolVersions": "Keep installed mise tool versions during upgrades",
