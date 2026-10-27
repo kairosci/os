@@ -135,6 +135,8 @@
   "migration.removeFloatingDiskUsageLauncher": "Removed the obsolete floating Disk Usage launcher",
   "migration.removeManagedSkillLinks": "Removed %1 Arch-managed agent skill link(s)",
   "migration.removeWorkspaceTitlebars": "Remove obsolete workspace titlebars",
+  "migration.removeRetiredUsageWidget": "Remove the retired usage widget from shell configuration",
+  "migration.removeRetiredWorkspaceTool": "Remove the retired workspace tool and its user data",
   "migration.removeBundledDesktopApps": "Remove optional desktop apps no longer included by default",
   "migration.registerBraveOriginExtensionHosts": "Register extension hosts for Brave Origin",
   "migration.rebuildMiseShims": "Rebuild mise shims after retiring obsolete command wrappers",
