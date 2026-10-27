@@ -1,2 +1,8 @@
 lockscreen:
   command: ["{arch_path}/src/cli/arch-apply-lock"]
+
+chromium_preferences:
+  destination: /usr/lib/chromium/initial_preferences
+  mode: 420
+  content: |-
+    {"distribution":{"require_eula":false},"browser":{"theme":{"color_scheme":0,"color_scheme2":0}}}

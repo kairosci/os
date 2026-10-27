@@ -10,6 +10,38 @@ trap 'rm -rf "$test_tmp"' EXIT
 export ARCH_PATH="$ROOT"
 export ARCH_PROVISIONING_DIR="$test_tmp/provisioning"
 
+# The setup atomically replaces its preferences file and never follows
+# a pre-existing destination symlink into another file.
+preferences_root="$test_tmp/preferences-runtime"
+preferences_dir="$test_tmp/preferences"
+preferences_file="$preferences_dir/initial_preferences"
+mkdir -p "$preferences_root/data/installer" "$preferences_dir"
+python3 - "$ROOT/data/installer/system-setup.yml" "$preferences_root/data/installer/system-setup.yml" "$preferences_file" <<'PYTHON'
+import sys
+from pathlib import Path
+import yaml
+source, destination, target = map(Path, sys.argv[1:])
+config = yaml.safe_load(source.read_text(encoding="utf-8"))
+config["chromium_preferences"]["destination"] = str(target)
+Path(destination).write_text(yaml.safe_dump(config), encoding="utf-8")
+PYTHON
+ARCH_PATH="$preferences_root" python3 -I "$ROOT/src/python/installer/system_setup/chromium_preferences.py"
+[[ $(stat -c '%a' "$preferences_file") == "644" ]] || fail "initial preferences have mode 0644"
+[[ $(cat "$preferences_file") == '{"distribution":{"require_eula":false},"browser":{"theme":{"color_scheme":0,"color_scheme2":0}}}' ]] ||
+  fail "initial preferences contain the configured Chromium defaults"
+outside_file="$test_tmp/outside-preferences"
+printf 'keep this file\n' >"$outside_file"
+python3 - "$preferences_file" <<'PYTHON_UNLINK'
+from pathlib import Path
+import sys
+Path(sys.argv[1]).unlink()
+PYTHON_UNLINK
+ln -s "$outside_file" "$preferences_file"
+ARCH_PATH="$preferences_root" python3 -I "$ROOT/src/python/installer/system_setup/chromium_preferences.py"
+[[ ! -L $preferences_file && $(cat "$outside_file") == "keep this file" ]] ||
+  fail "initial preferences replace a symlink without following it"
+pass "Chromium preferences are installed atomically with safe mode and symlink handling"
+
 source "$ROOT/installer/helpers/browser-policy.sh"
 
 # Temp dirs are user-owned; drop -o/-g so install(1) can run unprivileged.
@@ -306,7 +338,7 @@ policy_files=(
   "$ROOT/src/cli/arch-theme-set-browser"
   "$ROOT/src/cli/arch-theme-set-browser-policy"
   "$ROOT/src/cli/arch-upgrade-to-quattro"
-  "$ROOT/installer/config/theme-system.sh"
+  "$ROOT/src/python/installer/system_setup/chromium_preferences.py"
   "$ROOT/installer/config/browser-policy.sh"
   "$ROOT/installer/helpers/browser-policy.sh"
   "$ROOT/migrations/1787515927.sh"
