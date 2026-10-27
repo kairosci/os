@@ -15,6 +15,7 @@ from base_test import ROOT, test_environment
 MIGRATION = ROOT / "migrations/1781286586.py"
 VI_MIGRATION = ROOT / "migrations/1788596255.py"
 TITLEBAR_MIGRATION = ROOT / "migrations/1792938567.py"
+REMOVE_DESKTOP_APPS_MIGRATION = ROOT / "migrations/1793125525.py"
 
 
 class MigrationPackageRunnerTest(unittest.TestCase):
@@ -122,6 +123,24 @@ class MigrationPackageRunnerTest(unittest.TestCase):
       [
         ["arch-i18n", "migration.removeWorkspaceTitlebars"],
         ["arch-pkg-drop", "arch-hyprland-titlebars"],
+      ],
+    )
+
+  def test_retired_optional_desktop_apps_are_removed(self) -> None:
+    result = subprocess.run(
+      ["/usr/bin/python3", "-I", str(REMOVE_DESKTOP_APPS_MIGRATION)],
+      check=False,
+      capture_output=True,
+      text=True,
+      env=self.environment,
+    )
+    self.assertEqual(result.returncode, 0, result.stderr)
+    self.assertEqual(result.stdout, "migration.removeBundledDesktopApps\n")
+    self.assertEqual(
+      self.calls(),
+      [
+        ["arch-i18n", "migration.removeBundledDesktopApps"],
+        ["arch-pkg-drop", "hype", "monologue", "omacalc", "omacut", "omawrite", "signed"],
       ],
     )
 

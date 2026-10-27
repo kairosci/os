@@ -21,11 +21,5 @@ if gum confirm --affirmative "$(arch-i18n common.yes)" --negative "$(arch-i18n c
     libreoffice-fresh \
     pinta \
     obsidian \
-    moonlight-qt \
-    omacut \
-    monologue \
-    omacalc \
-    omawrite \
-    hype \
-    signed
+    moonlight-qt
 fi

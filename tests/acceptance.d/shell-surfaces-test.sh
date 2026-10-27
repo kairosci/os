@@ -101,25 +101,3 @@ arch-shell notifications openPanel >/dev/null
 wait_until "notification panel opens" 15 screen_contains "Notifications"
 screenshot "success-notification-panel"
 arch-shell notifications closePanel >/dev/null
-
-# The menu's Apps submenu does the full launcher loop: open, search by
-# typing, launch the top hit.
-if window_present "(?i)omawrite" >/dev/null 2>&1; then
-  fail "app launch test starts with no Omawrite window" "an Omawrite window is already open"
-fi
-
-arch-menu summon apps >/dev/null
-wait_until "apps menu opens" 15 layer_on_overlay "arch-menu"
-sleep 1
-screenshot "success-apps-menu-open"
-
-wtype "omawrite"
-sleep 1
-screenshot "success-apps-menu-search"
-wtype -k Return
-
-wait_until "apps menu launches the top search hit" 60 window_present "(?i)omawrite"
-wait_until "apps menu closes after launching" 15 layer_absent "arch-menu"
-
-close_windows "(?i)omawrite"
-wait_until "Omawrite window closes" 30 window_absent "(?i)omawrite"

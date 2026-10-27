@@ -1,0 +1,4 @@
+messages:
+  reason: migration.removeBundledDesktopApps
+packages:
+  drop: [hype, monologue, omacalc, omacut, omawrite, signed]

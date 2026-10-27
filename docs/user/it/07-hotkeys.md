@@ -72,7 +72,6 @@ Puoi vedere tutte le principali combinazioni da tastiera con `Super + K` (combin
 | `Super + Ctrl + C` | Controlli cattura (schermata/registrazione/selettore) |
 | `Super + Ctrl + O` | Menu Attiva/Disattiva |
 | `Super + Ctrl + H` | Menu Hardware |
-| `Super + Ctrl + Q` | Calcolatrice |
 | `Super + Ctrl + E` | Selettore emoji |
 | `Super + Ctrl + .` | Converti media |
 
@@ -112,7 +111,6 @@ Puoi vedere tutte le principali combinazioni da tastiera con `Super + K` (combin
 | `Super + Shift + Alt + G`           | Messenger (WhatsApp)  |
 | `Super + Shift + Ctrl + G`           | Messenger (Google)  |
 | `Super + Shift + O`           | Obsidian  |
-| `Super + Shift + W`           | Scrittura (Omawrite)  |
 | `Super + Shift + X`           | X |
 | `Super + Shift + Alt + X`           | X Compose |
 | `Super + Shift + Y`           | YouTube |
