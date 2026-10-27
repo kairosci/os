@@ -14,7 +14,7 @@ def _run(command: list[str], *, capture: bool = False) -> subprocess.CompletedPr
     return subprocess.run(
       command,
       check=False,
-      capture_output=capture,
+      stdout=subprocess.PIPE if capture else None,
       text=True,
       stderr=subprocess.DEVNULL,
     )
