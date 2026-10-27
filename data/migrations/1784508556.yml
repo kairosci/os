@@ -1,0 +1,14 @@
+commands:
+  i18n: [arch-i18n]
+paths:
+  config_dir: .config
+browsers: [chromium, brave, chrome, microsoft-edge-stable]
+values:
+  file_suffix: -flags.conf
+  setting_key: --password-store=
+  setting: --password-store=gnome-libsecret
+  line_break: "\n"
+messages:
+  reason: migration.pinBrowserPasswordStore
+statuses:
+  success: 0
