@@ -46,7 +46,7 @@ run_logged "$ARCH_INSTALL/hardware/apple/fix-brcmfmac-supplicant.sh"
 # final limine-update builds the UKIs, and an image's first boot rebuilds once
 # after its last step.
 run_logged "$ARCH_INSTALL/hardware/qualcomm/dtb-uki.sh"
-run_logged "$ARCH_INSTALL/hardware/qualcomm/kernel-params.sh"
+run_logged "$ARCH_PATH/src/python/installer/hardware/qualcomm/kernel_params.py"
 run_logged "$ARCH_INSTALL/hardware/qualcomm/initramfs.sh"
 run_logged "$ARCH_INSTALL/hardware/qualcomm/firmware.sh"
 run_logged "$ARCH_PATH/src/python/installer/hardware/qualcomm_camera.py"

@@ -142,9 +142,9 @@ pass "the Snapdragon package set has every package its setup installs"
 # detector: a Snapdragon device tree gets the setup and no other platform does.
 require_platform_fixtures "Snapdragon setup under the real detector"
 
-kernel_params_setup="$ROOT/installer/hardware/qualcomm/kernel-params.sh"
+kernel_params_setup="$ROOT/src/python/installer/hardware/qualcomm/kernel_params.py"
 initramfs_setup="$ROOT/installer/hardware/qualcomm/initramfs.sh"
-for script in "$kernel_params_setup" "$initramfs_setup"; do
+for script in "$initramfs_setup"; do
   bash -n "$script" || fail "Snapdragon hardware scripts have valid syntax"
 done
 
@@ -161,16 +161,14 @@ run_leaves_on() (
   findmnt() { printf '/dev/mapper/root\n'; }
   lsblk() { printf 'nvme\n'; }
 
-  # kernel-params.sh writes a fixed path, so run a copy that writes the fixture.
-  sed "s|/etc/limine-entry-tool.d|$out/limine-entry-tool.d|g" "$kernel_params_setup" >"$out/kernel-params.sh"
-
   ARCH_QUALCOMM_MODPROBE_DIR="$out/modprobe.d"
   ARCH_QUALCOMM_DTB_DIR="$scratch/dtbs"
   ARCH_QUALCOMM_UKI_CONFIG="$out/uki.conf"
   ARCH_QUALCOMM_MKINITCPIO_DIR="$out/mkinitcpio.conf.d"
   source "$firmware_setup"
   source "$dtb_setup"
-  source "$out/kernel-params.sh"
+  ARCH_PATH="$ROOT" ARCH_QUALCOMM_KERNEL_PARAMS_FILE="$out/limine-entry-tool.d/qualcomm-snapdragon.conf" \
+    python3 -I "$kernel_params_setup"
   source "$initramfs_setup"
 )
 
