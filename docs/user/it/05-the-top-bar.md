@@ -30,7 +30,7 @@ Quasi ogni widget fa qualcosa con clic sinistro, destro e centrale, e diversi ri
 | Area di notifica | Passa sopra per mostrare il cassetto | Destro sulla freccia per gestirla | — |
 | Aggiornamento Arch | Esegui l'aggiornamento | — | — |
 
-Il workspace attivo mantiene visibile il proprio numero e mostra un piccolo pallino sotto, così si distingue senza nasconderne il numero.
+Il workspace attivo è indicato dal numero evidenziato, che rimane visibile.
 
 Non tutto ciò che è in quella tabella è sulla barra di serie. Il widget media (MPRIS in riproduzione, con brano e artista a scorrimento) e il widget microfono sono entrambi integrati ma disattivati per impostazione predefinita — aggiungili se li vuoi, come descritto sotto.
 
