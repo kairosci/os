@@ -17,7 +17,7 @@ run_logged "$ARCH_PATH/src/python/installer/hardware/intel/video_acceleration.py
 run_logged "$ARCH_PATH/src/python/installer/hardware/intel/lpmd.py"
 run_logged "$ARCH_PATH/src/python/installer/hardware/intel/thermald.py"
 run_logged "$ARCH_PATH/src/python/installer/hardware/intel/ipu7_camera.py"
-run_logged "$ARCH_INSTALL/hardware/intel/fred.sh"
+run_logged "$ARCH_PATH/src/python/installer/hardware/intel/fred.py"
 run_logged "$ARCH_INSTALL/hardware/intel/fix-wifi7-eht.sh"
 run_logged "$ARCH_PATH/src/python/installer/hardware/dell_xps13_ptl_speaker_firmware.py"
 
