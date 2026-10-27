@@ -36,11 +36,14 @@ def _settings() -> dict[str, Any]:
   return value
 
 
-def _message(settings: dict[str, Any], key: str, *arguments: str) -> str:
-  arch_path = Path(os.environ["ARCH_PATH"])
-  command = [str(arch_path / settings["commands"]["i18n"]), key, *arguments]
-  result = subprocess.run(command, check=False, capture_output=True, text=True)
-  return result.stdout if result.returncode == 0 else key
+def _translator(settings: dict[str, Any]):
+  def translate(key: str, *arguments: str) -> str:
+    arch_path = Path(os.environ["ARCH_PATH"])
+    command = [str(arch_path / settings["commands"]["i18n"]), key, *arguments]
+    result = subprocess.run(command, check=False, capture_output=True, text=True)
+    return result.stdout if result.returncode == 0 else key
+
+  return translate
 
 
 def _gum_environment(settings: dict[str, Any]) -> dict[str, str]:
@@ -247,25 +250,26 @@ def _create(name: str, command: str, icon_reference: str, settings: dict[str, An
 
 def main() -> int:
   settings = _settings()
+  _message = _translator(settings)
   arguments = sys.argv[1:]
   if arguments:
     if len(arguments) != int(settings["arguments"]["count"]):
-      print(_message(settings, "tui.usage"), file=sys.stderr)
+      print(_message("tui.usage"), file=sys.stderr)
       return 2
     name, command, icon_reference = arguments
   else:
-    print(_message(settings, "tui.intro"))
+    print(_message("tui.intro"))
     try:
-      name = _input(settings, _message(settings, "tui.namePrompt"), _message(settings, "tui.namePlaceholder"))
+      name = _input(settings, _message("tui.namePrompt"), _message("tui.namePlaceholder"))
       command = _input(
         settings,
-        _message(settings, "tui.commandPrompt"),
-        _message(settings, "tui.commandPlaceholder", *settings["examples"]["command_placeholder_arguments"]),
+        _message("tui.commandPrompt"),
+        _message("tui.commandPlaceholder", *settings["examples"]["command_placeholder_arguments"]),
       )
       icon_reference = _input(
         settings,
-        _message(settings, "tui.iconPrompt"),
-        _message(settings, "tui.iconPlaceholder", settings["examples"]["icon_url"]),
+        _message("tui.iconPrompt"),
+        _message("tui.iconPlaceholder", settings["examples"]["icon_url"]),
       )
     except KeyboardInterrupt:
       return settings["exit_codes"]["cancelled"]
@@ -273,18 +277,18 @@ def main() -> int:
   try:
     _create(name, command, icon_reference, settings)
   except IconDownloadFailed:
-    print(_message(settings, "tui.iconDownloadFailed"), file=sys.stderr)
+    print(_message("tui.iconDownloadFailed"), file=sys.stderr)
     return 1
   except EmptyLauncherValues:
-    print(_message(settings, "tui.requiredValues"), file=sys.stderr)
+    print(_message("tui.requiredValues"), file=sys.stderr)
     return 1
   except InvalidLauncherName:
-    print(_message(settings, "tui.invalidName"), file=sys.stderr)
+    print(_message("tui.invalidName"), file=sys.stderr)
     return 1
   except (OSError, ValueError, RuntimeError):
-    print(_message(settings, "tui.failed"), file=sys.stderr)
+    print(_message("tui.failed"), file=sys.stderr)
     return 1
 
   if not arguments:
-    print(_message(settings, "tui.created", name))
+    print(_message("tui.created", name))
   return 0
