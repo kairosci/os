@@ -72,12 +72,14 @@
     {
       "type": "os",
       "key": "OS",
-      "keyColor": "blue"
+      "keyColor": "blue",
+      "format": "{id} {arch}"
     },
     {
       "type": "kernel",
       "key": "│ ├",
-      "keyColor": "blue"
+      "keyColor": "blue",
+      "format": "{release}"
     },
     {
       "type": "wm",
