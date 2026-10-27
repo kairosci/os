@@ -6,3 +6,29 @@ current:
   family_index: 0
 list:
   exclude_pattern: (emoji|signwriting|arch)
+cjk:
+  config_home_environment: XDG_CONFIG_HOME
+  config_home_default: .config
+  preference_path: fontconfig/conf.d/50-arch-input-method.conf
+  preference_pattern: '<family>Noto Sans CJK ([A-Z]*)</family>'
+  preference_group: 1
+  default_variant: default
+  variants: [jp, kr, sc, tc, hk, default]
+  help_arguments: [-h, --help]
+  exit_codes:
+    usage: 1
+  messages:
+    default_language: en
+    usage:
+      en: 'Usage: arch-font-cjk [jp|kr|sc|tc|hk|default]'
+      it: 'Uso: arch-font-cjk [jp|kr|sc|tc|hk|default]'
+  configure:
+    python: /usr/bin/python3
+    script: default/input-methods/configure.py
+    arguments: [font]
+  restart_command: [arch-restart-shell]
+  i18n_command: [arch-i18n]
+  changed_message: font.cjkChanged
+  restart_apps_message: font.restartAppsToSeeChange
+  notification_command: [arch-notification-send, -g]
+  notification_glyph: 
