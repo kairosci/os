@@ -1,0 +1,2 @@
+install_log:
+  file_mode: '0600'
