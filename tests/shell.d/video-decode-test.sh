@@ -5,6 +5,8 @@ set -euo pipefail
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 helper="$ROOT/src/cli/arch-install-video-decode"
+grep -Fq 'run_logged "$ARCH_PATH/src/python/installer_user/setup/video_decode.py"' "$ROOT/installer/user/all.sh" ||
+  fail "user setup runs the Python video decode module"
 migration=$(grep -l -- 'arch-install-video-decode' "$ROOT"/migrations/*.sh | head -n1)
 test_tmp=$(mktemp -d)
 trap 'rm -rf "$test_tmp"' EXIT
@@ -26,7 +28,7 @@ new_home() {
 }
 
 run_helper() {
-  HOME="$1" bash "$helper"
+  HOME="$1" ARCH_PATH="$ROOT" python3 -I "$ROOT/src/python/installer_user/setup/video_decode.py"
 }
 
 shipped="$ROOT/config/chromium-flags.conf"
