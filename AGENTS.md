@@ -10,7 +10,7 @@ matching guide before starting:
 - [`.agents/skills/icon-font.md`](.agents/skills/icon-font.md) - adding branded glyphs to `default/fonts/arch/arch.ttf`
 - [`.agents/skills/acceptance-tests.md`](.agents/skills/acceptance-tests.md) - writing or running graphical acceptance tests under `tests/acceptance.d/`
 - [`.agents/skills/visual-verification.md`](.agents/skills/visual-verification.md) - verifying any change with a visual effect in the running UI
-- [`.agents/skills/migrations.md`](.agents/skills/migrations.md) - creating or changing migrations under `migrations/`
+- [`.agents/skills/package-owned-state.md`](.agents/skills/package-owned-state.md) - changing installed system or user configuration
 
 # Documentation Layout
 
