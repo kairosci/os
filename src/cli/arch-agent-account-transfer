@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 # arch:summary=Export or import subscription account credentials for SSH transfer
-# arch:args=<capabilities|export|bundle|receiver-command|import> [--replace] [claude|codex|grok...]
+# arch:args=<capabilities|export|bundle|receiver-command|import> [--replace] [claude|codex...]
 # arch:hidden=true
 """The private, versioned stream behind account copy. Never log its payload."""
 
@@ -32,7 +32,6 @@ else:
 FILES = {
   "claude": {".credentials.json", ".claude.json"},
   "codex": {"auth.json"},
-  "grok": {"auth.json", "settings_cache.json"},
 }
 MAX_STREAM = 8 * 1024 * 1024
 MAX_BUNDLE = MAX_STREAM + 1024 * 1024
@@ -393,7 +392,7 @@ def main(args: list[str]) -> int:
           except OSError as error:
             print(f"Accounts copied, but usage refresh could not start: {error}", file=sys.stderr)
     else:
-      raise accounts.AccountError("Usage: arch-agent-account-transfer <capabilities|export|bundle|receiver-command|import> [--replace] [claude|codex|grok...]")
+      raise accounts.AccountError("Usage: arch-agent-account-transfer <capabilities|export|bundle|receiver-command|import> [--replace] [claude|codex...]")
   except (accounts.AccountError, OSError, ValueError, TypeError) as error:
     print(f"Account copy failed: {error}", file=sys.stderr)
     return 1

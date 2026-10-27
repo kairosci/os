@@ -18,13 +18,12 @@ mkdir -p "$account_test_home" "$real_bin" "$registry_dir"
 
 # Use real mise dispatch and real account resolution, with fake agent binaries.
 # No shell functions, login startup files, credentials, or network are involved.
-for provider in claude codex grok; do
+for provider in claude codex; do
   cat >"$real_bin/$provider" <<'SH'
 #!/bin/bash
 case "${0##*/}" in
   claude) printf '%s\n' "${CLAUDE_CONFIG_DIR:-default}" ;;
   codex) printf '%s\n' "${CODEX_HOME:-default}" ;;
-  grok) printf '%s\n' "${GROK_HOME:-default}" ;;
 esac
 if (($#)); then
   printf '%s\n' "$@"
@@ -71,7 +70,7 @@ done
 cd "$test_tmp"
 run_isolated mise reshim
 
-for provider in claude codex grok; do
+for provider in claude codex; do
   select_account "$provider" side
   account_dir="$test_tmp/accounts/$provider side"
   output=$(run_isolated "$provider" 'a spaced prompt' '' '--flag=$literal')
@@ -82,7 +81,6 @@ for provider in claude codex grok; do
   case "$provider" in
     claude) account_env=CLAUDE_CONFIG_DIR ;;
     codex) account_env=CODEX_HOME ;;
-    grok) account_env=GROK_HOME ;;
   esac
   output=$(run_isolated env "$account_env=/explicit/account" "$provider")
   [[ $output == /explicit/account ]] || fail "$provider preserves an explicit account home" "$output"
@@ -164,49 +162,11 @@ run_isolated env ARCH_TEST_AGENT_EXIT=42 claude >/dev/null || status=$?
 (( status == 42 )) || fail "account dispatch preserves the agent exit status" "$status"
 pass "account dispatch preserves the agent exit status"
 
-# A dispatcher alone must not prevent the CLI from being installed on first use.
-# os declares the agent, so installing it must leave the user's config
-# alone; without that declaration, the user's config selects it.
-mv "$real_bin/grok" "$test_tmp/grok-fixture"
-cat >"$real_bin/mise" <<'SH'
-#!/bin/bash
-case "$1" in
-  install | use)
-    [[ ${ARCH_TEST_INSTALL_FAIL:-} != "yes" ]] || exit 42
-    [[ $* == "$ARCH_TEST_EXPECTED_INSTALL" ]] || exit 99
-    cp "$HOME/../grok-fixture" "$HOME/../real/bin/grok"
-    ;;
-  which)
-    [[ ${MISE_MINIMUM_RELEASE_AGE:-} == "0" ]] || exit 99
-    printf '%s\n' "$HOME/../real/bin/grok"
-    ;;
-  *) exit 99 ;;
-esac
-SH
-chmod +x "$real_bin/mise"
-select_account grok side
-declarations="$ROOT/etc/mise/conf.d/arch-tools.toml"
-output=$(run_isolated env ARCH_MISE_CONFIG_PATH="$declarations" ARCH_TEST_EXPECTED_INSTALL="install --quiet grok" grok)
-[[ $output == "$test_tmp/accounts/grok side" ]] || fail "a dispatcher without a CLI installs os's declared agent and uses the selected account" "$output"
-pass "a dispatcher without a CLI installs os's declared agent and uses the selected account"
-
-rm "$real_bin/grok"
-output=$(run_isolated env ARCH_MISE_CONFIG_PATH="$test_tmp/no-declarations.toml" ARCH_TEST_EXPECTED_INSTALL="use -g --quiet grok" grok)
-[[ $output == "$test_tmp/accounts/grok side" ]] || fail "a dispatcher without os's declaration selects the agent in the user config" "$output"
-pass "a dispatcher without os's declaration selects the agent in the user config"
-
-rm "$real_bin/grok"
-status=0
-run_isolated env ARCH_MISE_CONFIG_PATH="$declarations" ARCH_TEST_EXPECTED_INSTALL="install --quiet grok" ARCH_TEST_INSTALL_FAIL=yes grok >/dev/null || status=$?
-(( status == 42 )) || fail "a failed first-run install stops dispatch" "$status"
-pass "a failed first-run install stops dispatch"
-rm "$real_bin/mise"
-
 # Migration only rebuilds native mise dispatch; account files stay untouched.
 registry_before=$(sha256sum "$registry_dir"/*.json)
 for attempt in 1 2; do
   run_isolated bash -euo pipefail "$ROOT/migrations/1791112479.sh" >/dev/null
-  for provider in claude codex grok; do
+  for provider in claude codex; do
     [[ -L $mise_data/command-wrappers/bin/$provider ]] || fail "migration builds every account dispatcher"
   done
 done

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # arch:summary=Copy subscription account logins to another Arch machine over SSH
-# arch:args=[--replace] <ssh-host> [claude|codex|grok...]
+# arch:args=[--replace] <ssh-host> [claude|codex...]
 # arch:examples=archctl agent account copy laptop | archctl agent account copy user@desktop claude
 
 set -euo pipefail
@@ -28,7 +28,7 @@ while (( $# > 0 )); do
 done
 
 if [[ -z $host || $host == -* ]]; then
-  echo "Usage: arch-agent-account-copy [--replace] <ssh-host> [claude|codex|grok...]" >&2
+  echo "Usage: arch-agent-account-copy [--replace] <ssh-host> [claude|codex...]" >&2
   exit 1
 fi
 

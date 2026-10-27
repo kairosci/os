@@ -21,7 +21,7 @@ export ARCH_PATH="$runtime_root"
 export ARCH_TEST_ROOT="$test_tmp"
 export ARCH_TEST_REFRESH="$test_tmp/refresh"
 export PATH="$test_tmp/bin:$ROOT/src/cli:$PATH"
-unset CLAUDE_CONFIG_DIR CODEX_HOME GROK_HOME
+unset CLAUDE_CONFIG_DIR CODEX_HOME
 
 python3 - <<'PY'
 import base64, contextlib, copy, ctypes, importlib.machinery, importlib.util, io, json, os, subprocess, sys
@@ -77,15 +77,12 @@ state.save("claude", registry)
 codex = state.primary_home("codex")
 claims = base64.urlsafe_b64encode(json.dumps({"email": "codex@example.com"}).encode()).decode().rstrip("=")
 transfer.write_json(codex / "auth.json", {"tokens": {"account_id": "codex-main", "access_token": "fake-codex", "id_token": "h." + claims + ".s"}})
-grok = state.primary_home("grok")
-transfer.write_json(grok / "auth.json", {"issuer": {"user_id": "grok-main", "email": "grok@example.com", "access_token": "fake-grok"}})
-transfer.write_json(grok / "settings_cache.json", {"payload": json.dumps({"settings": {"subscription_tier_display": "SuperGrok"}})})
-payload = transfer.export_accounts(["claude", "codex", "grok"])
+payload = transfer.export_accounts(["claude", "codex"])
 transfer.validate(payload)
 encoded = json.dumps(payload)
 assert str(Path.home()) not in encoded, "source paths must not be exported"
 assert "SOURCE_SETTINGS_SENTINEL" not in encoded, "only account metadata is exported"
-assert set(payload["providers"]) == {"claude", "codex", "grok"}
+assert set(payload["providers"]) == {"claude", "codex"}
 (root / "payload.json").write_text(encoded)
 
 machine("destination")
@@ -105,7 +102,6 @@ for account in registry["accounts"]:
     assert (home / "projects").resolve() == (Path.home() / ".claude/projects").resolve()
     assert state.read_json(home / ".claude.json")["mcpServers"] == {"local": "destination-settings"}
 assert state.identity("codex", state.primary_home("codex"))["accountId"] == "codex-main"
-assert state.identity("grok", state.primary_home("grok"))["plan"] == "SuperGrok"
 
 # Default copy is idempotent and never replaces an existing token.
 claude(state.primary_home("claude"), "personal", "destination-token")
