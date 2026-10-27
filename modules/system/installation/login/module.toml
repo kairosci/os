@@ -5,5 +5,5 @@ sources = ["src/python/installer/login"]
 requires = ["system.installation"]
 
 [[output]]
-source = "installer/login"
-target = "usr/share/arch/installer/login"
+source = "src/python/installer/login"
+target = "usr/share/arch/src/python/installer/login"
