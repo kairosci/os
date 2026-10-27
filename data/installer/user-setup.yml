@@ -11,3 +11,9 @@ language:
 
 input_method:
   command: [arch-input-method, configure, --seed]
+terminal:
+  source: assets/applications/org.arch.terminal.desktop
+  applications_directory: .local/share/applications
+  target: org.arch.terminal.desktop
+  obsolete_pattern: '*.terminal.desktop'
+  mode: '0644'

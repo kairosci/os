@@ -21,7 +21,9 @@ terminal_home="$test_tmp/terminal-home"
 arch_runtime="$test_tmp/arch-runtime"
 mkdir -p "$terminal_home/.local/share/applications" "$arch_runtime/assets"
 cp -a assets/applications "$arch_runtime/assets/"
-cp -a config default installer "$arch_runtime/"
+cp -a config data default installer "$arch_runtime/"
+mkdir -p "$arch_runtime/src"
+cp -a src/python "$arch_runtime/src/"
 printf 'legacy desktop entry\n' >"$terminal_home/.local/share/applications/org.legacy.terminal.desktop"
 HOME="$terminal_home" ARCH_PATH="$arch_runtime" bash "$ROOT/migrations/1792867070.sh"
 cmp -s "$ROOT/assets/applications/org.arch.terminal.desktop" \
@@ -32,6 +34,15 @@ cmp -s "$ROOT/assets/applications/org.arch.terminal.desktop" \
 grep -Fxq 'kitty.desktop' "$ROOT/default/xdg-terminal-exec/hyprland-xdg-terminals.list" ||
   fail "Kitty remains the default terminal emulator"
 pass "the terminal launcher migrates to Arch and preserves Kitty as default"
+
+printf 'obsolete launcher\n' >"$terminal_home/.local/share/applications/org.old.terminal.desktop"
+HOME="$terminal_home" ARCH_PATH="$ROOT" python3 -I "$ROOT/src/python/installer_user/setup/terminal.py"
+cmp -s "$ROOT/assets/applications/org.arch.terminal.desktop" \
+  "$terminal_home/.local/share/applications/org.arch.terminal.desktop" ||
+  fail "user setup installs the shipped Arch terminal launcher"
+[[ ! -e $terminal_home/.local/share/applications/org.old.terminal.desktop ]] ||
+  fail "user setup removes obsolete terminal launchers"
+pass "user setup installs the Arch terminal launcher and removes obsolete entries"
 
 cat >"$mock_bin/arch-cmd-missing" <<'SH'
 #!/bin/bash
