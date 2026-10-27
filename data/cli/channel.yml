@@ -1,0 +1,12 @@
+commands:
+  package_query: [pacman, -Q]
+  version_channel: arch-version-channel
+packaged_root_environment: ARCH_PACKAGED_ROOT
+packaged_root_default: /usr/share/arch
+development: dev
+edge: edge
+stable: stable
+release_candidate: rc
+unknown: unknown
+development_packages: [arch-dev, arch-settings-dev]
+stable_packages: [arch, arch-settings]
