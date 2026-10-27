@@ -60,7 +60,7 @@ pass "Apple Silicon keeps its own keyboard mode"
 # The Windows guest is x86_64, so every other CPU refuses it before it touches
 # anything, Apple Silicon or not.
 for machine in aarch64 armv7l; do
-  output=$(UNAME_M=$machine APPLE_SILICON=0 PATH="$stub_bin:$ROOT/src/cli:$PATH" bash "$ROOT/src/cli/arch-windows-vm" install 2>&1) &&
+  output=$(UNAME_M=$machine APPLE_SILICON=0 PATH="$stub_bin:$ROOT/src/commands:$PATH" bash "$ROOT/src/commands/arch-windows-vm" install 2>&1) &&
     fail "Windows VM install fails on $machine"
   [[ $output == *"needs an x86_64 machine"* ]] || fail "Windows VM says why it refuses on $machine" "$output"
 done
@@ -68,17 +68,17 @@ pass "Windows VM refuses every CPU but x86_64"
 
 # The firmware boot entry and hibernation are refused or skipped on Apple
 # Silicon before they touch anything.
-output=$(APPLE_SILICON=1 PATH="$stub_bin:$PATH" bash "$ROOT/src/cli/arch-setup-direct-boot" 2>&1) &&
+output=$(APPLE_SILICON=1 PATH="$stub_bin:$PATH" bash "$ROOT/src/commands/arch-setup-direct-boot" 2>&1) &&
   fail "direct boot fails on Apple Silicon"
 [[ $output == *"not supported on Apple Silicon"* ]] || fail "direct boot says why it refuses" "$output"
-output=$(APPLE_SILICON=1 PATH="$stub_bin:$PATH" bash "$ROOT/src/cli/arch-hibernation-setup" --force 2>&1) ||
+output=$(APPLE_SILICON=1 PATH="$stub_bin:$PATH" bash "$ROOT/src/commands/arch-hibernation-setup" --force 2>&1) ||
   fail "hibernation setup skips Apple Silicon without failing" "$output"
 [[ $output == "Skipping hibernation setup (not supported on Apple Silicon)" ]] ||
   fail "hibernation setup stops before its own checks on Apple Silicon" "$output"
 pass "direct boot and hibernation step aside on Apple Silicon"
 
 # On x86_64 the Windows VM goes on to its own commands, as before.
-output=$(UNAME_M=x86_64 PATH="$stub_bin:$ROOT/src/cli:$PATH" bash "$ROOT/src/cli/arch-windows-vm" help 2>&1) || true
+output=$(UNAME_M=x86_64 PATH="$stub_bin:$ROOT/src/commands:$PATH" bash "$ROOT/src/commands/arch-windows-vm" help 2>&1) || true
 [[ $output != *"x86_64 machine"* && $output == *"install"* ]] || fail "Windows VM runs as before on x86_64" "$output"
 pass "Windows VM runs as before on x86_64"
 

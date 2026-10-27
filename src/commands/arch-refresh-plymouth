@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# arch:summary=Overwrite the user config for the Plymouth drive decryption and boot sequence with the Arch default and rebuild it.
+# arch:requires-sudo=true
+
+# Reuse the fixed-file publisher so root never resolves the source checkout or
+# follows a destination symlink while restoring the packaged assets.
+exec "$ARCH_PATH/src/commands/arch-plymouth-set" --refresh-default

@@ -535,7 +535,7 @@ pass "clipboard watcher dies with its owner via pdeathsig"
 jq -n --arg text "$(printf 'large block line 1\nlarge block line 2\n')" '[{type:"text", text:"ignored"}, {type:"text", text:$text}]' >"$TMPDIR/home/.local/state/arch/clipboard-history.json"
 
 WL_COPY_OUT="$TMPDIR/copied" WTYPE_OUT="$TMPDIR/wtype" HOME="$TMPDIR/home" PATH="$TMPDIR/bin:$PATH" \
-  "$ROOT/src/cli/arch-clipboard-paste-text" --shift-insert --history-index 1
+  "$ROOT/src/commands/arch-clipboard-paste-text" --shift-insert --history-index 1
 
 [[ $(<"$TMPDIR/copied") == "$(printf 'large block line 1\nlarge block line 2')" ]] || fail "clipboard paste helper copies history entry text"
 pass "clipboard paste helper copies history entry text"
@@ -545,7 +545,7 @@ pass "clipboard paste helper pastes history entries with shift insert"
 
 rm -f "$TMPDIR/wtype"
 WL_COPY_OUT="$TMPDIR/copied" WTYPE_OUT="$TMPDIR/wtype" HOME="$TMPDIR/home" PATH="$TMPDIR/bin:$PATH" \
-  "$ROOT/src/cli/arch-clipboard-paste-text" --copy-only --history-index 1
+  "$ROOT/src/commands/arch-clipboard-paste-text" --copy-only --history-index 1
 
 [[ $(<"$TMPDIR/copied") == "$(printf 'large block line 1\nlarge block line 2')" ]] || fail "clipboard paste helper copy-only copies history entry text"
 pass "clipboard paste helper copy-only copies history entry text"
@@ -556,7 +556,7 @@ pass "clipboard paste helper copy-only skips typing"
 printf 'image-data' >"$TMPDIR/image.png"
 rm -f "$TMPDIR/wtype"
 WL_COPY_OUT="$TMPDIR/copied" WTYPE_OUT="$TMPDIR/wtype" PATH="$TMPDIR/bin:$PATH" \
-  "$ROOT/src/cli/arch-clipboard-paste-file" --copy-only image/png "$TMPDIR/image.png"
+  "$ROOT/src/commands/arch-clipboard-paste-file" --copy-only image/png "$TMPDIR/image.png"
 
 [[ $(<"$TMPDIR/copied") == "image-data" ]] || fail "clipboard file paste helper copy-only copies file content"
 pass "clipboard file paste helper copy-only copies file content"
@@ -568,13 +568,13 @@ jq -n --arg url 'https://example.com/docs' --arg text "$(printf 'plain text\nsec
   '[{type:"text", text:$url}, {type:"text", text:$text}, {type:"image", mime:"image/png", path:$image}]' >"$TMPDIR/home/.local/state/arch/clipboard-history.json"
 
 BROWSER_OUT="$TMPDIR/browser" HOME="$TMPDIR/home" PATH="$TMPDIR/bin:$PATH" \
-  "$ROOT/src/cli/arch-clipboard-open" --history-index 0
+  "$ROOT/src/commands/arch-clipboard-open" --history-index 0
 
 [[ $(<"$TMPDIR/browser") == "https://example.com/docs" ]] || fail "clipboard open helper opens URL entries in browser"
 pass "clipboard open helper opens URL entries in browser"
 
 EDITOR_PATH_OUT="$TMPDIR/editor-path" EDITOR_TEXT_OUT="$TMPDIR/editor-text" HOME="$TMPDIR/home" XDG_STATE_HOME="$TMPDIR/state" PATH="$TMPDIR/bin:$PATH" \
-  "$ROOT/src/cli/arch-clipboard-open" --history-index 1
+  "$ROOT/src/commands/arch-clipboard-open" --history-index 1
 
 [[ $(<"$TMPDIR/editor-text") == "$(printf 'plain text\nsecond line')" ]] || fail "clipboard open helper opens text entries in editor"
 pass "clipboard open helper opens text entries in editor"
@@ -583,7 +583,7 @@ pass "clipboard open helper opens text entries in editor"
 pass "clipboard open helper writes text entries to a temporary file"
 
 IMV_OUT="$TMPDIR/imv" HOME="$TMPDIR/home" PATH="$TMPDIR/bin:$PATH" \
-  "$ROOT/src/cli/arch-clipboard-open" --history-index 2
+  "$ROOT/src/commands/arch-clipboard-open" --history-index 2
 
 [[ $(<"$TMPDIR/imv") == "$TMPDIR/image.png" ]] || fail "clipboard open helper opens image entries in imv"
 pass "clipboard open helper opens image entries in imv"

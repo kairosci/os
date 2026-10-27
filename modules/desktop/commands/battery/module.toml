@@ -2,25 +2,25 @@ id = "desktop.commands.battery"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/cli/arch-battery-low",
-  "src/cli/arch-battery-present",
-  "src/cli/arch-battery-status",
-  "src/python/cli/battery/status.py",
+  "src/commands/arch-battery-low",
+  "src/commands/arch-battery-present",
+  "src/commands/arch-battery-status",
+  "src/cli/battery/status.py",
 ]
 requires = ["desktop.commands", "desktop.commands.i18n", "system.runtime-data"]
 
 [[output]]
-source = "src/cli/arch-battery-low"
-target = "usr/share/arch/src/cli/arch-battery-low"
+source = "src/commands/arch-battery-low"
+target = "usr/share/arch/src/commands/arch-battery-low"
 
 [[output]]
-source = "src/cli/arch-battery-present"
-target = "usr/share/arch/src/cli/arch-battery-present"
+source = "src/commands/arch-battery-present"
+target = "usr/share/arch/src/commands/arch-battery-present"
 
 [[output]]
-source = "src/cli/arch-battery-status"
-target = "usr/share/arch/src/cli/arch-battery-status"
+source = "src/commands/arch-battery-status"
+target = "usr/share/arch/src/commands/arch-battery-status"
 
 [[output]]
-source = "src/python/cli/battery/status.py"
-target = "usr/share/arch/src/python/cli/battery/status.py"
+source = "src/cli/battery/status.py"
+target = "usr/share/arch/src/cli/battery/status.py"

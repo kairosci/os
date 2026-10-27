@@ -2,80 +2,80 @@ id = "desktop.commands.restart"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/cli/arch-restart-app",
-  "src/cli/arch-restart-audio",
-  "src/cli/arch-restart-bluetooth",
-  "src/cli/arch-restart-btop",
-  "src/cli/arch-restart-gum",
-  "src/cli/arch-restart-helix",
-  "src/cli/arch-restart-hyprctl",
-  "src/python/cli/restart/hyprland.py",
-  "src/cli/arch-restart-hyprsunset",
-  "src/cli/arch-restart-shell",
-  "src/cli/arch-restart-terminal",
-  "src/cli/arch-restart-tmux",
-  "src/cli/arch-restart-trackpad",
-  "src/cli/arch-restart-wifi",
-  "src/cli/arch-restart-xcompose",
+  "src/commands/arch-restart-app",
+  "src/commands/arch-restart-audio",
+  "src/commands/arch-restart-bluetooth",
+  "src/commands/arch-restart-btop",
+  "src/commands/arch-restart-gum",
+  "src/commands/arch-restart-helix",
+  "src/commands/arch-restart-hyprctl",
+  "src/cli/restart/hyprland.py",
+  "src/commands/arch-restart-hyprsunset",
+  "src/commands/arch-restart-shell",
+  "src/commands/arch-restart-terminal",
+  "src/commands/arch-restart-tmux",
+  "src/commands/arch-restart-trackpad",
+  "src/commands/arch-restart-wifi",
+  "src/commands/arch-restart-xcompose",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/cli/arch-restart-app"
-target = "usr/share/arch/src/cli/arch-restart-app"
+source = "src/commands/arch-restart-app"
+target = "usr/share/arch/src/commands/arch-restart-app"
 
 [[output]]
-source = "src/cli/arch-restart-audio"
-target = "usr/share/arch/src/cli/arch-restart-audio"
+source = "src/commands/arch-restart-audio"
+target = "usr/share/arch/src/commands/arch-restart-audio"
 
 [[output]]
-source = "src/cli/arch-restart-bluetooth"
-target = "usr/share/arch/src/cli/arch-restart-bluetooth"
+source = "src/commands/arch-restart-bluetooth"
+target = "usr/share/arch/src/commands/arch-restart-bluetooth"
 
 [[output]]
-source = "src/cli/arch-restart-btop"
-target = "usr/share/arch/src/cli/arch-restart-btop"
+source = "src/commands/arch-restart-btop"
+target = "usr/share/arch/src/commands/arch-restart-btop"
 
 [[output]]
-source = "src/cli/arch-restart-gum"
-target = "usr/share/arch/src/cli/arch-restart-gum"
+source = "src/commands/arch-restart-gum"
+target = "usr/share/arch/src/commands/arch-restart-gum"
 
 [[output]]
-source = "src/cli/arch-restart-helix"
-target = "usr/share/arch/src/cli/arch-restart-helix"
+source = "src/commands/arch-restart-helix"
+target = "usr/share/arch/src/commands/arch-restart-helix"
 
 [[output]]
-source = "src/cli/arch-restart-hyprctl"
-target = "usr/share/arch/src/cli/arch-restart-hyprctl"
+source = "src/commands/arch-restart-hyprctl"
+target = "usr/share/arch/src/commands/arch-restart-hyprctl"
 
 [[output]]
-source = "src/python/cli/restart/hyprland.py"
-target = "usr/share/arch/src/python/cli/restart/hyprland.py"
+source = "src/cli/restart/hyprland.py"
+target = "usr/share/arch/src/cli/restart/hyprland.py"
 
 [[output]]
-source = "src/cli/arch-restart-hyprsunset"
-target = "usr/share/arch/src/cli/arch-restart-hyprsunset"
+source = "src/commands/arch-restart-hyprsunset"
+target = "usr/share/arch/src/commands/arch-restart-hyprsunset"
 
 [[output]]
-source = "src/cli/arch-restart-shell"
-target = "usr/share/arch/src/cli/arch-restart-shell"
+source = "src/commands/arch-restart-shell"
+target = "usr/share/arch/src/commands/arch-restart-shell"
 
 [[output]]
-source = "src/cli/arch-restart-terminal"
-target = "usr/share/arch/src/cli/arch-restart-terminal"
+source = "src/commands/arch-restart-terminal"
+target = "usr/share/arch/src/commands/arch-restart-terminal"
 
 [[output]]
-source = "src/cli/arch-restart-tmux"
-target = "usr/share/arch/src/cli/arch-restart-tmux"
+source = "src/commands/arch-restart-tmux"
+target = "usr/share/arch/src/commands/arch-restart-tmux"
 
 [[output]]
-source = "src/cli/arch-restart-trackpad"
-target = "usr/share/arch/src/cli/arch-restart-trackpad"
+source = "src/commands/arch-restart-trackpad"
+target = "usr/share/arch/src/commands/arch-restart-trackpad"
 
 [[output]]
-source = "src/cli/arch-restart-wifi"
-target = "usr/share/arch/src/cli/arch-restart-wifi"
+source = "src/commands/arch-restart-wifi"
+target = "usr/share/arch/src/commands/arch-restart-wifi"
 
 [[output]]
-source = "src/cli/arch-restart-xcompose"
-target = "usr/share/arch/src/cli/arch-restart-xcompose"
+source = "src/commands/arch-restart-xcompose"
+target = "usr/share/arch/src/commands/arch-restart-xcompose"

@@ -20,7 +20,7 @@ awk '
   /^[a-z_]+\(\) \{/ { copying = 1 }
   copying { print }
   /^}/ { copying = 0 }
-' "$ROOT/src/cli/arch-system-factory-reset" >"$test_tmp/functions"
+' "$ROOT/src/commands/arch-system-factory-reset" >"$test_tmp/functions"
 
 cat >"$test_tmp/reset" <<'SH'
 #!/bin/bash

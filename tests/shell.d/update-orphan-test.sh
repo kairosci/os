@@ -23,7 +23,7 @@ SH
 }
 
 run_orphan_checker() {
-  HOME="$test_home" PATH="$stub_bin:$ROOT/src/cli:$PATH" "$ROOT/src/cli/arch-update-orphan-pkgs" "$@"
+  HOME="$test_home" PATH="$stub_bin:$ROOT/src/commands:$PATH" "$ROOT/src/commands/arch-update-orphan-pkgs" "$@"
 }
 
 write_stub pacman 'if [[ $1 == "-Qtdq" ]]; then printf "old-lib\nunused-tool\n"; exit 0; fi; exit 1'

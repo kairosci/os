@@ -101,7 +101,7 @@ touch "$test_home/.local/state/arch/indicators/stay-awake"
 mkdir -p "$test_root/src"
 cp -a "$ROOT/src/shell" "$test_root/src/shell"
 ln -s "$ROOT/config" "$test_root/config"
-ln -s "$ROOT/src/cli" "$test_root/src/cli"
+ln -s "$ROOT/src/commands" "$test_root/src/commands"
 ln -s "$ROOT/default" "$test_root/default"
 
 # The scratch shell must not reach the real session: the clipboard plugin
@@ -157,8 +157,8 @@ cold_login_ms() {
   XDG_CONFIG_HOME="$test_home/.config" \
   XDG_CACHE_HOME="$test_home/.cache" \
   XDG_STATE_HOME="$test_home/.local/state" \
-  PATH="$stub_bin:$ROOT/src/cli:$PATH" \
-    setsid "$ROOT/src/cli/arch-launch-shell" >"$log" 2>&1 &
+  PATH="$stub_bin:$ROOT/src/commands:$PATH" \
+    setsid "$ROOT/src/commands/arch-launch-shell" >"$log" 2>&1 &
   LAUNCHER_PID=$!
 
   elapsed=""

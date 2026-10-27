@@ -42,7 +42,7 @@ run_scaling() {
     PATH="$stub_bin:$PATH" \
     ARCH_TEST_HYPRCTL_EVAL_OUT="$eval_out" \
     ARCH_TEST_MONITOR_SCALE="${ARCH_TEST_MONITOR_SCALE:-2}" \
-    "$ROOT/src/cli/arch-hyprland-monitor-scaling" "$@"
+    "$ROOT/src/commands/arch-hyprland-monitor-scaling" "$@"
 }
 
 write_monitor_config

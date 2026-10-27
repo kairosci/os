@@ -19,7 +19,7 @@ printf '%s\n' '-- User look and feel' >"$looknfeel"
 
 run_fix() {
   HOME="$test_tmp/home" ARCH_PATH="$ROOT" \
-    PATH="$test_tmp/bin:$ROOT/src/cli:$PATH" \
+    PATH="$test_tmp/bin:$ROOT/src/commands:$PATH" \
     ARCH_NVIDIA_MODPROBE_CONFIG="$test_tmp/nvidia.conf" \
     TEST_VIDEO_DRIVER="${1:-nouveau}" \
     python3 -I "$ROOT/src/python/installer_user/setup/nouveau_cursor.py"

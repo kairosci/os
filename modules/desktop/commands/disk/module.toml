@@ -2,10 +2,10 @@ id = "desktop.commands.disk"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/cli/arch-disk-speedtest",
+  "src/commands/arch-disk-speedtest",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/cli/arch-disk-speedtest"
-target = "usr/share/arch/src/cli/arch-disk-speedtest"
+source = "src/commands/arch-disk-speedtest"
+target = "usr/share/arch/src/commands/arch-disk-speedtest"

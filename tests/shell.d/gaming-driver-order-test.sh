@@ -41,7 +41,7 @@ run_installer() {
   : >"$test_tmp/calls"
   HOME="$test_home" ARCH_PATH="$ROOT" PATH="$stub_bin:$PATH" \
     ARCH_TEST_CALLS="$test_tmp/calls" ARCH_TEST_DRIVER_STATUS="$driver_status" \
-    bash "$ROOT/src/cli/$installer" >"$test_tmp/output" 2>&1
+    bash "$ROOT/src/commands/$installer" >"$test_tmp/output" 2>&1
 }
 
 for installer in arch-install-gaming-lutris arch-install-gaming-battlenet; do

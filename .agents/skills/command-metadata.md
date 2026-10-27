@@ -1,10 +1,16 @@
 # Command Metadata
 
-Read this before adding or changing commands in `src/cli/`.
+Read this before adding or changing CLI functionality.
 
-Commands in `src/cli/` can declare CLI metadata in comments near the top of the
-file. `src/cli/archctl` scans the first 80 lines, and tests expect command metadata
-to remain valid.
+New CLI functionality belongs in the Python package under `src/cli/`; user-visible
+values and entrypoint mappings belong in `data/cli/`. Do not add executable files to
+`src/cli/`. Python entrypoints listed in `data/cli/python-entrypoints.yml` are emitted
+by `scripts/cli_entrypoints.py` during package construction. Existing commands are
+being migrated from `src/commands/`; their metadata comments are consumed by the
+router and must remain valid while those commands are still there.
+
+The compatibility router in `src/commands/archctl` scans the first 80 lines of
+legacy command files, and tests expect their metadata to remain valid.
 
 Supported metadata keys:
 

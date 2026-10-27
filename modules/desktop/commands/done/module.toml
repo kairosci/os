@@ -2,15 +2,15 @@ id = "desktop.commands.done"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/cli/arch-done",
-  "src/python/cli/done.py",
+  "src/commands/arch-done",
+  "src/cli/done.py",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/cli/arch-done"
-target = "usr/share/arch/src/cli/arch-done"
+source = "src/commands/arch-done"
+target = "usr/share/arch/src/commands/arch-done"
 
 [[output]]
-source = "src/python/cli/done.py"
-target = "usr/share/arch/src/python/cli/done.py"
+source = "src/cli/done.py"
+target = "usr/share/arch/src/cli/done.py"

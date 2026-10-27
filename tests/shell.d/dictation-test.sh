@@ -8,7 +8,7 @@ trap 'rm -rf "$test_tmp"' EXIT
 export HOME="$test_tmp/home" XDG_CONFIG_HOME="$test_tmp/config" ARCH_PATH="$ROOT"
 export DICTATION_LOG="$test_tmp/calls" DICTATION_INSTALLED="voxtype superwhisper"
 mkdir -p "$test_tmp/bin" "$XDG_CONFIG_HOME/arch/defaults"
-export PATH="$test_tmp/bin:$ROOT/src/cli:$PATH"
+export PATH="$test_tmp/bin:$ROOT/src/commands:$PATH"
 config="$XDG_CONFIG_HOME/arch/defaults/dictation"
 
 cat > "$test_tmp/bin/arch-cmd-present" <<'SH'

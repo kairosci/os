@@ -1,0 +1,15 @@
+#!/usr/bin/python3 -I
+
+# arch:summary=Manage persistent state files for Arch toggles and settings.
+# arch:args=<set|clear> <state-name-or-pattern>
+# arch:hidden=true
+
+import os
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(os.environ["ARCH_PATH"]) / "src"))
+
+from cli.state import main
+
+raise SystemExit(main())

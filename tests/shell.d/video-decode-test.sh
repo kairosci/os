@@ -4,7 +4,7 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-helper="$ROOT/src/cli/arch-install-video-decode"
+helper="$ROOT/src/commands/arch-install-video-decode"
 grep -Fq '  - setup/video_decode.py' "$ROOT/data/installer/user-setup.yml" ||
   fail "user setup runs the Python video decode module"
 test_tmp=$(mktemp -d)
@@ -18,7 +18,7 @@ cat >"$test_tmp/bin/arch-hw-aarch64-qualcomm" <<'STUB'
 STUB
 chmod +x "$test_tmp/bin/arch-hw-aarch64-qualcomm"
 export ARCH_TEST_QUALCOMM="$test_tmp/qualcomm"
-export PATH="$test_tmp/bin:$ROOT/src/cli:$PATH"
+export PATH="$test_tmp/bin:$ROOT/src/commands:$PATH"
 
 new_home() {
   local home="$test_tmp/home-$1"

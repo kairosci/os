@@ -90,7 +90,7 @@ for platform in $platforms; do
     cp "$templates/pacman-$channel.conf" "$work/pacman.conf"
     cp "$templates/mirrorlist-$channel" "$work/mirrorlist"
     said=$(ARCH_PACMAN_CONF="$work/pacman.conf" ARCH_PACMAN_MIRRORLIST="$work/mirrorlist" \
-      "$ROOT/src/cli/arch-version-channel")
+      "$ROOT/src/commands/arch-version-channel")
     [[ $said == "$channel" ]] || fail "$platform $channel: arch-version-channel names it" "$said"
   done
 done
@@ -109,14 +109,14 @@ chmod +x "$finalize_bin"/*
 # Finalization restores the templates through arch-apply-pacman, whose copy
 # here writes into the test's etc rather than the host's.
 finalize_root=$work/finalize-root
-mkdir -p "$finalize_root/installer" "$finalize_root/src/cli" "$finalize_root/src/python/installer/hardware" "$finalize_root/src/python/installer/post_install" "$finalize_root/data/installer/hardware" "$finalize_root/data/installer" "$finalize_root/default"
+mkdir -p "$finalize_root/installer" "$finalize_root/src/commands" "$finalize_root/src/python/installer/hardware" "$finalize_root/src/python/installer/post_install" "$finalize_root/data/installer/hardware" "$finalize_root/data/installer" "$finalize_root/default"
 cp -r "$ROOT/installer/helpers" "$finalize_root/installer/"
 cp "$ROOT/src/python/installer/hardware/pacman_repositories.py" "$finalize_root/src/python/installer/hardware/"
 cp "$ROOT/data/installer/hardware/pacman-repositories.yml" "$finalize_root/data/installer/hardware/"
 cp "$ROOT/src/python/installer/post_install/pacman.py" "$finalize_root/src/python/installer/post_install/"
 cp "$ROOT/data/installer/post-install.yml" "$finalize_root/data/installer/"
 cp -r "$ROOT/default/pacman" "$ROOT/default/regions" "$finalize_root/default/"
-cp "$ROOT/src/cli/arch-apply-pacman" "$finalize_root/src/cli/arch-apply-pacman"
+cp "$ROOT/src/commands/arch-apply-pacman" "$finalize_root/src/commands/arch-apply-pacman"
 mkdir -p "$work/installer/hardware"
 
 # Finalization asks the image helper whether this is an image build, which root
@@ -239,15 +239,15 @@ rm -rf "$work"
 source "$SHELL_TEST_DIR/fixtures/sudo-boundary-test.sh"
 copy_boundary_file bin/arch-refresh-pacman
 copy_boundary_file bin/arch-apply-pacman
-cat >"$SUDO_TEST_ROOT/src/cli/arch-channel-current" <<'STUB'
+cat >"$SUDO_TEST_ROOT/src/commands/arch-channel-current" <<'STUB'
 #!/bin/bash
 [[ ${SUDO_TEST_CHANNEL_FAIL:-0} != "1" ]] || exit 1
 echo "${SUDO_TEST_CHANNEL:-unknown}"
 STUB
-chmod +x "$SUDO_TEST_ROOT/src/cli/arch-channel-current"
+chmod +x "$SUDO_TEST_ROOT/src/commands/arch-channel-current"
 
 refresh() {
-  "$SUDO_TEST_ROOT/src/cli/arch-refresh-pacman" "$@" >"$boundary_tmp/output" 2>&1
+  "$SUDO_TEST_ROOT/src/commands/arch-refresh-pacman" "$@" >"$boundary_tmp/output" 2>&1
 }
 events() {
   grep -vE '^sudo (-h|-k)$' "$SUDO_TEST_LOG" || true
@@ -351,7 +351,7 @@ for platform in aarch64-apple; do
     assert_boundary_cold "$platform $channel"
   done
 done
-cat >"$SUDO_TEST_ROOT/src/cli/arch-hw-platform" <<'STUB'
+cat >"$SUDO_TEST_ROOT/src/commands/arch-hw-platform" <<'STUB'
 #!/bin/bash
 exit 1
 STUB

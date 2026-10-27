@@ -51,7 +51,7 @@ chmod +x "$mock_bin"/*
 
 # $ROOT/src/cli after the mocks, so the real helpers answer wherever a mock does not
 # shadow them.
-export PATH="$mock_bin:$ROOT/src/cli:$PATH"
+export PATH="$mock_bin:$ROOT/src/commands:$PATH"
 export HOME="$test_home"
 export ARCH_PATH="$ROOT"
 export ARCH_MISE_CONFIG_PATH="$mise_config"
@@ -71,53 +71,53 @@ export ARCH_TEST_PKG_LOG="$pkg_log"
 # chose from the menu and Install Preinstalls puts back one we retired.
 mapfile -t shipped < <(sed -e 's/[[:space:]]*#.*$//' -e '/^[[:space:]]*$/d' "$ROOT/installer/arch-base.packages")
 
-"$ROOT/src/cli/arch-install-preinstalls" >/dev/null
+"$ROOT/src/commands/arch-install-preinstalls" >/dev/null
 mapfile -t restored <"$pkg_log"
 grep -Fx 'reshim --system' "$ARCH_TEST_MISE_LOG" >/dev/null || fail "Install Preinstalls rebuilds the mise shims"
 pass "Install Preinstalls rebuilds the mise shims"
 
 : >"$ARCH_TEST_MISE_LOG"
-"$ROOT/src/cli/arch-remove-preinstalls" >/dev/null
+"$ROOT/src/commands/arch-remove-preinstalls" >/dev/null
 mapfile -t dropped <"$pkg_log"
 [[ $(<"$miserc") == "env = [\"work\"]"$'\n'"$ignore_line" ]] ||
   fail "Remove Preinstalls has mise skip os's declarations for this user" "$(<"$miserc")"
 grep -Fx 'reshim' "$ARCH_TEST_MISE_LOG" >/dev/null || fail "Remove Preinstalls retires the lazy shims"
 pass "Remove Preinstalls has mise skip os's declarations for this user"
 
-"$ROOT/src/cli/arch-install-preinstalls" >/dev/null
+"$ROOT/src/commands/arch-install-preinstalls" >/dev/null
 [[ $(<"$miserc") == 'env = ["work"]' ]] || fail "Install Preinstalls removes only its own miserc line" "$(<"$miserc")"
 pass "Install Preinstalls removes only its own miserc line"
 
 rm "$miserc"
-"$ROOT/src/cli/arch-mise-default-tools" disable >/dev/null
-"$ROOT/src/cli/arch-mise-default-tools" disable >/dev/null
+"$ROOT/src/commands/arch-mise-default-tools" disable >/dev/null
+"$ROOT/src/commands/arch-mise-default-tools" disable >/dev/null
 [[ $(<"$miserc") == "$ignore_line" ]] || fail "opting out twice adds the line once" "$(<"$miserc")"
-"$ROOT/src/cli/arch-mise-default-tools" enable >/dev/null
+"$ROOT/src/commands/arch-mise-default-tools" enable >/dev/null
 [[ ! -e $miserc ]] || fail "opting back in removes a miserc that held only the opt-out"
 pass "opting out is idempotent and reversible"
 
 # A list the user wrote is theirs to edit. Once it names the file, both
 # directions agree that the user has opted out.
 printf 'ignored_config_paths = ["~/old"]\n' >"$miserc"
-"$ROOT/src/cli/arch-mise-default-tools" disable >/dev/null 2>&1 && status=0 || status=$?
+"$ROOT/src/commands/arch-mise-default-tools" disable >/dev/null 2>&1 && status=0 || status=$?
 ((status == 1)) || fail "opting out refuses to add a second ignored_config_paths" "exit status was $status"
 [[ $(<"$miserc") == 'ignored_config_paths = ["~/old"]' ]] || fail "opting out leaves the user's list alone"
 printf 'ignored_config_paths = ["~/old", "%s"]\n' "$mise_config" >"$miserc"
-"$ROOT/src/cli/arch-mise-default-tools" disable >/dev/null || fail "opting out accepts the file in the user's own list"
-"$ROOT/src/cli/arch-mise-default-tools" declares gh && fail "a user's own list keeps os's tools undeclared"
-"$ROOT/src/cli/arch-mise-default-tools" enable >/dev/null 2>&1 && status=0 || status=$?
+"$ROOT/src/commands/arch-mise-default-tools" disable >/dev/null || fail "opting out accepts the file in the user's own list"
+"$ROOT/src/commands/arch-mise-default-tools" declares gh && fail "a user's own list keeps os's tools undeclared"
+"$ROOT/src/commands/arch-mise-default-tools" enable >/dev/null 2>&1 && status=0 || status=$?
 ((status == 1)) || fail "opting back in reports a list it cannot edit" "exit status was $status"
 rm "$miserc"
 pass "an existing ignored_config_paths is left to the user"
 
 printf '# %s\n' "$ignore_line" >"$miserc"
-"$ROOT/src/cli/arch-mise-default-tools" declares gh || fail "a commented-out opt-out keeps os's tools declared"
-"$ROOT/src/cli/arch-mise-default-tools" disable >/dev/null
+"$ROOT/src/commands/arch-mise-default-tools" declares gh || fail "a commented-out opt-out keeps os's tools declared"
+"$ROOT/src/commands/arch-mise-default-tools" disable >/dev/null
 grep -qxF "$ignore_line" "$miserc" || fail "opting out is not skipped by a commented-out opt-out"
-"$ROOT/src/cli/arch-mise-default-tools" enable >/dev/null || fail "opting back in succeeds past a commented-out opt-out"
+"$ROOT/src/commands/arch-mise-default-tools" enable >/dev/null || fail "opting back in succeeds past a commented-out opt-out"
 rm "$miserc"
 pass "a commented-out opt-out does not count"
-"$ROOT/src/cli/arch-remove-preinstalls" >/dev/null
+"$ROOT/src/commands/arch-remove-preinstalls" >/dev/null
 
 [[ ${restored[*]} == "${dropped[*]}" ]] ||
   fail "Install and Remove Preinstalls cover the same packages" \
@@ -142,7 +142,7 @@ pass "retired optional apps stay out of preinstalls"
 # The bindings key off the marker, so clearing it before the packages land would
 # point them at apps that never came back.
 touch "$marker"
-ARCH_TEST_PKG_ADD_STATUS=1 "$ROOT/src/cli/arch-install-preinstalls" >/dev/null && status=0 || status=$?
+ARCH_TEST_PKG_ADD_STATUS=1 "$ROOT/src/commands/arch-install-preinstalls" >/dev/null && status=0 || status=$?
 (( status == 1 )) || fail "restore reports a failed package transaction" "exit status was $status"
 [[ -f $marker ]] || fail "restore keeps the opt-out marker when packages fail to install"
 pass "restore keeps the opt-out marker when packages fail to install"
@@ -150,7 +150,7 @@ pass "restore keeps the opt-out marker when packages fail to install"
 for failure in ARCH_TEST_RESHIM_STATUS; do
   touch "$marker"
   : >"$pkg_log"
-  env "$failure=1" "$ROOT/src/cli/arch-install-preinstalls" >/dev/null && status=0 || status=$?
+  env "$failure=1" "$ROOT/src/commands/arch-install-preinstalls" >/dev/null && status=0 || status=$?
   (( status == 1 )) || fail "restore reports a failed tool setup" "$failure returned $status"
   [[ -f $marker ]] || fail "restore keeps the opt-out marker after failed tool setup" "$failure"
   [[ ! -s $pkg_log ]] || fail "restore stops before installing packages when tool setup fails" "$failure"
@@ -158,21 +158,21 @@ done
 pass "restore stops and preserves opt-out when shim setup fails"
 
 
-"$ROOT/src/cli/arch-install-preinstalls" >/dev/null
+"$ROOT/src/commands/arch-install-preinstalls" >/dev/null
 [[ ! -e $marker ]] || fail "restore clears the opt-out marker once the packages are back"
 pass "restore clears the opt-out marker once the packages are back"
 
 rm -f "$marker"
-ARCH_TEST_CONFIRM=1 "$ROOT/src/cli/arch-remove-preinstalls" >/dev/null
+ARCH_TEST_CONFIRM=1 "$ROOT/src/commands/arch-remove-preinstalls" >/dev/null
 [[ ! -e $marker ]] || fail "declining Remove Preinstalls changes nothing"
 pass "declining Remove Preinstalls changes nothing"
 
-"$ROOT/src/cli/arch-remove-preinstalls" >/dev/null
+"$ROOT/src/commands/arch-remove-preinstalls" >/dev/null
 [[ -f $marker ]] || fail "Remove Preinstalls records the opt-out"
 pass "Remove Preinstalls records the opt-out"
 
 mkdir -p "$(dirname "$mise_config")"
 touch "$mise_config"
-"$ROOT/src/cli/arch-remove-preinstalls" >/dev/null
+"$ROOT/src/commands/arch-remove-preinstalls" >/dev/null
 [[ -f $mise_config ]] || fail "Remove Preinstalls leaves the package-owned mise declarations in place"
 pass "Remove Preinstalls leaves the package-owned mise declarations in place"

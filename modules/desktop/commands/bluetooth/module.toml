@@ -2,20 +2,20 @@ id = "desktop.commands.bluetooth"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/cli/arch-bluetooth-device",
-  "src/cli/arch-bluetooth-power",
-  "src/python/cli/bluetooth.py",
+  "src/commands/arch-bluetooth-device",
+  "src/commands/arch-bluetooth-power",
+  "src/cli/bluetooth.py",
 ]
 requires = ["desktop.commands", "system.runtime-data"]
 
 [[output]]
-source = "src/cli/arch-bluetooth-device"
-target = "usr/share/arch/src/cli/arch-bluetooth-device"
+source = "src/commands/arch-bluetooth-device"
+target = "usr/share/arch/src/commands/arch-bluetooth-device"
 
 [[output]]
-source = "src/cli/arch-bluetooth-power"
-target = "usr/share/arch/src/cli/arch-bluetooth-power"
+source = "src/commands/arch-bluetooth-power"
+target = "usr/share/arch/src/commands/arch-bluetooth-power"
 
 [[output]]
-source = "src/python/cli/bluetooth.py"
-target = "usr/share/arch/src/python/cli/bluetooth.py"
+source = "src/cli/bluetooth.py"
+target = "usr/share/arch/src/cli/bluetooth.py"

@@ -2,50 +2,50 @@ id = "desktop.commands.capture"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/cli/arch-capture-qr",
-  "src/cli/arch-capture-region",
-  "src/cli/arch-capture-screenrecording",
-  "src/cli/arch-capture-screenrecording-process",
-  "src/cli/arch-capture-screenrecording-with-webcam",
-  "src/cli/arch-capture-screenshot",
-  "src/cli/arch-capture-text",
-  "src/cli/arch-capture-webcam-list",
-  "src/cli/arch-capture-webcam-resize",
+  "src/commands/arch-capture-qr",
+  "src/commands/arch-capture-region",
+  "src/commands/arch-capture-screenrecording",
+  "src/commands/arch-capture-screenrecording-process",
+  "src/commands/arch-capture-screenrecording-with-webcam",
+  "src/commands/arch-capture-screenshot",
+  "src/commands/arch-capture-text",
+  "src/commands/arch-capture-webcam-list",
+  "src/commands/arch-capture-webcam-resize",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/cli/arch-capture-qr"
-target = "usr/share/arch/src/cli/arch-capture-qr"
+source = "src/commands/arch-capture-qr"
+target = "usr/share/arch/src/commands/arch-capture-qr"
 
 [[output]]
-source = "src/cli/arch-capture-region"
-target = "usr/share/arch/src/cli/arch-capture-region"
+source = "src/commands/arch-capture-region"
+target = "usr/share/arch/src/commands/arch-capture-region"
 
 [[output]]
-source = "src/cli/arch-capture-screenrecording"
-target = "usr/share/arch/src/cli/arch-capture-screenrecording"
+source = "src/commands/arch-capture-screenrecording"
+target = "usr/share/arch/src/commands/arch-capture-screenrecording"
 
 [[output]]
-source = "src/cli/arch-capture-screenrecording-process"
-target = "usr/share/arch/src/cli/arch-capture-screenrecording-process"
+source = "src/commands/arch-capture-screenrecording-process"
+target = "usr/share/arch/src/commands/arch-capture-screenrecording-process"
 
 [[output]]
-source = "src/cli/arch-capture-screenrecording-with-webcam"
-target = "usr/share/arch/src/cli/arch-capture-screenrecording-with-webcam"
+source = "src/commands/arch-capture-screenrecording-with-webcam"
+target = "usr/share/arch/src/commands/arch-capture-screenrecording-with-webcam"
 
 [[output]]
-source = "src/cli/arch-capture-screenshot"
-target = "usr/share/arch/src/cli/arch-capture-screenshot"
+source = "src/commands/arch-capture-screenshot"
+target = "usr/share/arch/src/commands/arch-capture-screenshot"
 
 [[output]]
-source = "src/cli/arch-capture-text"
-target = "usr/share/arch/src/cli/arch-capture-text"
+source = "src/commands/arch-capture-text"
+target = "usr/share/arch/src/commands/arch-capture-text"
 
 [[output]]
-source = "src/cli/arch-capture-webcam-list"
-target = "usr/share/arch/src/cli/arch-capture-webcam-list"
+source = "src/commands/arch-capture-webcam-list"
+target = "usr/share/arch/src/commands/arch-capture-webcam-list"
 
 [[output]]
-source = "src/cli/arch-capture-webcam-resize"
-target = "usr/share/arch/src/cli/arch-capture-webcam-resize"
+source = "src/commands/arch-capture-webcam-resize"
+target = "usr/share/arch/src/commands/arch-capture-webcam-resize"

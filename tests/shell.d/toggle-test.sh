@@ -6,7 +6,7 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 TMPDIR=""
 
-export PATH="$ROOT/src/cli:$PATH"
+export PATH="$ROOT/src/commands:$PATH"
 
 cleanup() {
   if [[ -n $TMPDIR && -d $TMPDIR ]]; then

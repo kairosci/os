@@ -118,7 +118,7 @@ assert(/onLoadFailed: \{\s*missing = true\s*root\.hints = Model\.parsePlatformAu
 assert(/property var hints: Model\.parsePlatformAudio\(hintsFile\.text\(\)\)/.test(audioNodes), 'audio reads the platform hints synchronously at startup')
 const sources = ['src/shell/plugins/panels/audio/Panel.qml', 'src/shell/plugins/panels/audio/Model.js', 'src/shell/Commons/AudioNodes.qml',
   'src/shell/Commons/AudioNodesModel.js', 'src/shell/Commons/UntypedInput.qml', 'src/shell/plugins/bar/widgets/Microphone.qml',
-  'src/cli/arch-audio-input-set-default', 'src/cli/arch-audio-sink-availability']
+  'src/commands/arch-audio-input-set-default', 'src/commands/arch-audio-sink-availability']
 for (const file of sources)
   assert(!/apple|asahi|macbook|j[0-9]{3}|arch-hw-|platform-sound/i.test(read(file)), file + ' names no platform')
 

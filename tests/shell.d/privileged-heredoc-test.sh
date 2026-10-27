@@ -784,7 +784,7 @@ scan_file() {
   done
 }
 
-# src/cli/ and installer/ are where privileged writes live: src/cli/ holds
+# src/commands/ and installer/ are where privileged writes live: src/commands/ holds
 # commands and installer/ runs during install. default/ is scanned too even though the pattern is not
 # reachable there today -- it ships bash functions and completions whose only
 # "<<" uses are herestrings, with no privileged writes at all -- because the
@@ -809,7 +809,7 @@ shell_sources() {
     if [[ $first =~ ^#!.*[[:space:]/](bash|sh)$ ]]; then
       printf '%s\0' "$file"
     fi
-  done < <(find "$ROOT/src/cli" "$ROOT/installer" "$ROOT/default" \
+  done < <(find "$ROOT/src/commands" "$ROOT/installer" "$ROOT/default" \
     -type f -print0 2>/dev/null | sort -z)
 }
 
@@ -822,7 +822,7 @@ while IFS= read -r -d '' file; do
 done < <(shell_sources)
 
 ((${#sources[@]} > 50)) || fail "the scan reaches the privileged-write scripts" \
-  "only ${#sources[@]} shell sources found under src/cli/, installer/ and default/"
+  "only ${#sources[@]} shell sources found under src/commands/, installer/ and default/"
 pass "the scan reaches the privileged-write scripts (${#sources[@]} files)"
 
 for file in "${sources[@]}"; do

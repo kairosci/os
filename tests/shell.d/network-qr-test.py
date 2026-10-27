@@ -10,7 +10,7 @@ import unittest
 
 
 ROOT = Path(__file__).resolve().parents[2]
-COMMAND = ROOT / "src/cli/arch-network-qr"
+COMMAND = ROOT / "src/commands/arch-network-qr"
 EXPECTED_MATRIX = "100\n010\n001"
 
 
@@ -57,7 +57,7 @@ class NetworkQrTest(unittest.TestCase):
             ARCH_PATH=str(ROOT),
             LANG="en_US.UTF-8",
             LC_ALL="en_US.UTF-8",
-            PATH=f"{self.bin_dir}:{ROOT / 'src/cli'}:{self.environment.get('PATH', '')}",
+            PATH=f"{self.bin_dir}:{ROOT / 'src/commands'}:{self.environment.get('PATH', '')}",
         )
 
     def tearDown(self) -> None:

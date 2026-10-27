@@ -2,10 +2,10 @@ id = "desktop.commands.n1x"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/cli/arch-n1x-probe",
+  "src/commands/arch-n1x-probe",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/cli/arch-n1x-probe"
-target = "usr/share/arch/src/cli/arch-n1x-probe"
+source = "src/commands/arch-n1x-probe"
+target = "usr/share/arch/src/commands/arch-n1x-probe"

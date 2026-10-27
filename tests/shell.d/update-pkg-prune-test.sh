@@ -22,7 +22,7 @@ SH
 }
 
 run_pkg_prune() {
-  PATH="$stub_bin:$PATH" "$ROOT/src/cli/arch-update-pkg-prune"
+  PATH="$stub_bin:$PATH" "$ROOT/src/commands/arch-update-pkg-prune"
 }
 
 # Pin the keep count above one.
@@ -45,7 +45,7 @@ pass "cache prune warns but does not abort the update"
 # Ordering is the whole guarantee: rollback before the packages update, space
 # before the snapshot.
 line_of() {
-  grep -n "^[[:space:]]*$1\b" "$ROOT/src/cli/arch-update" | head -1 | cut -d: -f1
+  grep -n "^[[:space:]]*$1\b" "$ROOT/src/commands/arch-update" | head -1 | cut -d: -f1
 }
 
 prune_line=$(line_of arch-update-pkg-prune)

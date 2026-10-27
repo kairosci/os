@@ -2,15 +2,15 @@ id = "desktop.commands.windows"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/cli/arch-windows-key",
-  "src/cli/arch-windows-vm",
+  "src/commands/arch-windows-key",
+  "src/commands/arch-windows-vm",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/cli/arch-windows-key"
-target = "usr/share/arch/src/cli/arch-windows-key"
+source = "src/commands/arch-windows-key"
+target = "usr/share/arch/src/commands/arch-windows-key"
 
 [[output]]
-source = "src/cli/arch-windows-vm"
-target = "usr/share/arch/src/cli/arch-windows-vm"
+source = "src/commands/arch-windows-vm"
+target = "usr/share/arch/src/commands/arch-windows-vm"

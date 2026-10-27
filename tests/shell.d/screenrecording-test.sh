@@ -76,7 +76,7 @@ SH
 
 chmod +x "$stub_bin"/*
 
-export PATH="$stub_bin:$ROOT/src/cli:$PATH"
+export PATH="$stub_bin:$ROOT/src/commands:$PATH"
 # The resize helper anchors to a region file here, so keep it out of the real one
 export XDG_RUNTIME_DIR="$tmp_dir"
 export ARCH_TEST_MENU_ARGS="$tmp_dir/menu-args"
@@ -106,32 +106,32 @@ expected_dual_node="/dev/video42  Built-in Webcam: Integrated Camera
   fail "webcam detection falls through to a later capture-capable node in a group" "$dual_node"
 pass "webcam detection falls through to a later capture-capable node in a group"
 
-if ARCH_PATH="$ROOT" "$ROOT/src/cli/arch-hw-webcam"; then
+if ARCH_PATH="$ROOT" "$ROOT/src/commands/arch-hw-webcam"; then
   pass "webcam hardware detection succeeds when a capture device is available"
 else
   fail "webcam hardware detection succeeds when a capture device is available"
 fi
 
-if ARCH_PATH="$ROOT" ARCH_TEST_RAW_WEBCAM=true "$ROOT/src/cli/arch-hw-webcam"; then
+if ARCH_PATH="$ROOT" ARCH_TEST_RAW_WEBCAM=true "$ROOT/src/commands/arch-hw-webcam"; then
   fail "webcam hardware detection rejects output-only video devices"
 else
   pass "webcam hardware detection rejects output-only video devices"
 fi
 
-if ARCH_PATH="$ROOT" ARCH_TEST_NO_WEBCAM=true "$ROOT/src/cli/arch-hw-webcam"; then
+if ARCH_PATH="$ROOT" ARCH_TEST_NO_WEBCAM=true "$ROOT/src/commands/arch-hw-webcam"; then
   fail "webcam hardware detection fails when no video device is available"
 else
   pass "webcam hardware detection fails when no video device is available"
 fi
 
-if ARCH_TEST_RAW_WEBCAM=true "$ROOT/src/cli/arch-capture-screenrecording-with-webcam"; then
+if ARCH_TEST_RAW_WEBCAM=true "$ROOT/src/commands/arch-capture-screenrecording-with-webcam"; then
   fail "screenrecording webcam picker rejects output-only video devices"
 fi
 grep -Fx 'No webcam devices found' "$ARCH_TEST_NOTIFICATION_ARGS" >/dev/null || \
   fail "screenrecording webcam picker reports no capture-capable device"
 pass "screenrecording webcam picker rejects output-only video devices"
 
-"$ROOT/src/cli/arch-capture-screenrecording-with-webcam"
+"$ROOT/src/commands/arch-capture-screenrecording-with-webcam"
 
 expected_menu_args="$tmp_dir/expected-menu-args"
 printf '%s\n' \
@@ -163,7 +163,7 @@ pass "screenrecording webcam picker starts recording with selected device"
 
 first_webcam=$(arch-capture-webcam-list | sed -n '1s/[[:space:]].*//p')
 [[ $first_webcam == "/dev/video42" ]] || fail "screenrecording auto-detection selects the first capture device"
-grep -F 'WEBCAM_DEVICE=$(arch-capture-webcam-list' "$ROOT/src/cli/arch-capture-screenrecording" >/dev/null || \
+grep -F 'WEBCAM_DEVICE=$(arch-capture-webcam-list' "$ROOT/src/commands/arch-capture-screenrecording" >/dev/null || \
   fail "screenrecording auto-detection uses capture-capable webcams"
 pass "screenrecording auto-detection uses the first capture-capable webcam"
 
@@ -192,7 +192,7 @@ chmod +x "$stub_bin/hyprctl"
 
 export ARCH_TEST_HYPRCTL_ARGS="$tmp_dir/hyprctl-args"
 
-"$ROOT/src/cli/arch-capture-webcam-resize" smaller
+"$ROOT/src/commands/arch-capture-webcam-resize" smaller
 
 expected_hyprctl_args="$tmp_dir/expected-hyprctl-args"
 printf '%s\n' \
@@ -210,7 +210,7 @@ ARCH_TEST_MONITOR_WIDTH=1920 \
   ARCH_TEST_MONITOR_SCALE=1 \
   ARCH_TEST_CLIENT_WIDTH=128 \
   ARCH_TEST_CLIENT_HEIGHT=144 \
-  "$ROOT/src/cli/arch-capture-webcam-resize" reset
+  "$ROOT/src/commands/arch-capture-webcam-resize" reset
 
 printf '%s\n' \
   'dispatch hl.dsp.window.resize({ window = "address:0xabc", x = 240, y = 270 })' \
@@ -222,7 +222,7 @@ fi
 pass "webcam default size adapts to monitor resolution"
 
 : >"$ARCH_TEST_HYPRCTL_ARGS"
-ARCH_TEST_CLIENT_TITLE="Other Window" "$ROOT/src/cli/arch-capture-webcam-resize" larger
+ARCH_TEST_CLIENT_TITLE="Other Window" "$ROOT/src/commands/arch-capture-webcam-resize" larger
 
 if [[ -s $ARCH_TEST_HYPRCTL_ARGS ]]; then
   fail "webcam resize ignores other windows" "$(cat "$ARCH_TEST_HYPRCTL_ARGS")"
@@ -233,7 +233,7 @@ region_file="$XDG_RUNTIME_DIR/os-screenrecord-region"
 
 : >"$ARCH_TEST_HYPRCTL_ARGS"
 echo "800x600+100+100" >"$region_file"
-"$ROOT/src/cli/arch-capture-webcam-resize" reset
+"$ROOT/src/commands/arch-capture-webcam-resize" reset
 
 printf '%s\n' \
   'dispatch hl.dsp.window.resize({ window = "address:0xabc", x = 133, y = 150 })' \
@@ -251,7 +251,7 @@ printf '%s\n' \
 for region in "not-a-region" ""; do
   : >"$ARCH_TEST_HYPRCTL_ARGS"
   printf '%s' "$region" >"$region_file"
-  "$ROOT/src/cli/arch-capture-webcam-resize" reset
+  "$ROOT/src/commands/arch-capture-webcam-resize" reset
 
   if ! cmp -s "$ARCH_TEST_HYPRCTL_ARGS" "$expected_hyprctl_args"; then
     fail "webcam falls back to the monitor for an unusable region" "$(diff -u "$expected_hyprctl_args" "$ARCH_TEST_HYPRCTL_ARGS")"
@@ -264,7 +264,7 @@ pass "webcam falls back to the monitor for an unusable region"
 : >"$ARCH_TEST_HYPRCTL_ARGS"
 echo "200x1200+0+0" >"$region_file"
 for size in small medium large; do
-  "$ROOT/src/cli/arch-capture-webcam-resize" "$size"
+  "$ROOT/src/commands/arch-capture-webcam-resize" "$size"
 done
 
 printf '%s\n' \
@@ -289,7 +289,7 @@ grep -F 'o.bind("SUPER + ALT + code:35", "Make webcam overlay larger", "arch-cap
 pass "webcam resize hotkeys are configured"
 
 grep -F -- '--wayland-app-id="WebcamOverlay-$WEBCAM_SIZE"' \
-  "$ROOT/src/cli/arch-capture-screenrecording" >/dev/null || fail "webcam uses a dedicated size-specific app id"
+  "$ROOT/src/commands/arch-capture-screenrecording" >/dev/null || fail "webcam uses a dedicated size-specific app id"
 
 webcam_rules="$ROOT/default/hypr/apps/webcam-overlay.lua"
 grep -F 'move = { "(monitor_w-monitor_h*4/25-40)", "(monitor_h-monitor_h*9/50-40)" }' "$webcam_rules" >/dev/null || \
@@ -342,7 +342,7 @@ tmp_state="/tmp/arch-screenrecord-filename"
 tmp_state_before=$(stat -c '%y %s' "$tmp_state" 2>/dev/null || true)
 
 ARCH_SCREENRECORD_DIR="$recording_dir" \
-  "$ROOT/src/cli/arch-capture-screenrecording" --fullscreen >/dev/null 2>&1
+  "$ROOT/src/commands/arch-capture-screenrecording" --fullscreen >/dev/null 2>&1
 
 pkill -f "$stub_bin/gpu-screen-recorder" 2>/dev/null || true
 
@@ -371,7 +371,7 @@ env -u XDG_RUNTIME_DIR \
   HOME="$tmp_dir/home-fallback" \
   XDG_STATE_HOME="$state_home" \
   ARCH_SCREENRECORD_DIR="$recording_dir" \
-  "$ROOT/src/cli/arch-capture-screenrecording" --fullscreen >/dev/null 2>&1
+  "$ROOT/src/commands/arch-capture-screenrecording" --fullscreen >/dev/null 2>&1
 
 pkill -f "$stub_bin/gpu-screen-recorder" 2>/dev/null || true
 
@@ -397,7 +397,7 @@ echo "800x600+100+100" >"$state_home/arch/os-screenrecord-region"
 env -u XDG_RUNTIME_DIR \
   HOME="$tmp_dir/home-fallback" \
   XDG_STATE_HOME="$state_home" \
-  "$ROOT/src/cli/arch-capture-webcam-resize" reset
+  "$ROOT/src/commands/arch-capture-webcam-resize" reset
 
 printf '%s\n' \
   'dispatch hl.dsp.window.resize({ window = "address:0xabc", x = 133, y = 150 })' \
@@ -441,7 +441,7 @@ wf_args="$tmp_dir/wf-args"
 wf_pid="$tmp_dir/wf-pid"
 XDG_RUNTIME_DIR="$wf_runtime" ARCH_TEST_WF_ARGS="$wf_args" ARCH_TEST_WF_PID="$wf_pid" \
   ARCH_SCREENRECORD_DIR="$wf_recordings" \
-  "$ROOT/src/cli/arch-capture-screenrecording" --fullscreen >/dev/null 2>&1
+  "$ROOT/src/commands/arch-capture-screenrecording" --fullscreen >/dev/null 2>&1
 
 pkill -f "$stub_bin/wf-recorder" 2>/dev/null || true
 
@@ -461,7 +461,7 @@ none_recordings="$tmp_dir/none-recordings"
 mkdir -p "$none_runtime" "$none_recordings"
 echo 424242 >"$none_runtime/arch-screenrecord-pid"
 XDG_RUNTIME_DIR="$none_runtime" ARCH_SCREENRECORD_DIR="$none_recordings" \
-  "$ROOT/src/cli/arch-capture-screenrecording" --fullscreen >/dev/null 2>&1 || true
+  "$ROOT/src/commands/arch-capture-screenrecording" --fullscreen >/dev/null 2>&1 || true
 [[ ! -e $none_runtime/arch-screenrecord-pid && ! -e $none_runtime/arch-screenrecord-filename ]] ||
   fail "a recorder that cannot start records no state, and clears a stale pid" "$(ls -a "$none_runtime")"
 pass "a recorder that cannot start records no state, and clears a stale pid"
@@ -495,7 +495,7 @@ touch "$recording_flag"
 : >"$helper_calls"
 if XDG_RUNTIME_DIR="$stale_runtime" ARCH_TEST_HELPER_CALLS="$helper_calls" ARCH_TEST_RECORDING="$recording_flag" \
   ARCH_SCREENRECORD_DIR="$recording_dir" \
-  "$ROOT/src/cli/arch-capture-screenrecording" --stop-recording >/dev/null 2>&1; then
+  "$ROOT/src/commands/arch-capture-screenrecording" --stop-recording >/dev/null 2>&1; then
   fail "stop finds no recording of ours behind a stale pid" "$(<"$helper_calls")"
 fi
 ! grep -q -- '--signal' "$helper_calls" ||
@@ -511,7 +511,7 @@ touch "$recording_flag"
 : >"$helper_calls"
 XDG_RUNTIME_DIR="$legacy_runtime" ARCH_TEST_HELPER_CALLS="$helper_calls" ARCH_TEST_RECORDING="$recording_flag" \
   ARCH_SCREENRECORD_DIR="$recording_dir" \
-  "$ROOT/src/cli/arch-capture-screenrecording" --stop-recording >/dev/null 2>&1 ||
+  "$ROOT/src/commands/arch-capture-screenrecording" --stop-recording >/dev/null 2>&1 ||
   fail "stop finds a recording started before the pid was saved" "$(<"$helper_calls")"
 grep -Fxq -- '--signal INT' "$helper_calls" ||
   fail "stop signals the user's recorders when no pid was saved" "$(<"$helper_calls")"
@@ -525,7 +525,7 @@ pass "without a saved pid, status and stop select the user's recorders"
 status() {
   XDG_RUNTIME_DIR="$1" ARCH_TEST_HELPER_CALLS="$helper_calls" ARCH_TEST_RECORDING="$recording_flag" \
     ARCH_TEST_LIVE_PID="${2:-}" ARCH_SCREENRECORD_DIR="$tmp_dir/no-such-recordings" \
-    "$ROOT/src/cli/arch-capture-screenrecording" --status >/dev/null 2>&1
+    "$ROOT/src/commands/arch-capture-screenrecording" --status >/dev/null 2>&1
 }
 touch "$recording_flag"
 : >"$helper_calls"

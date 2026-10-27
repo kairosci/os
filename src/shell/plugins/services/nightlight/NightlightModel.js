@@ -1,5 +1,5 @@
 // Temperatures below the identity point count as night light. Keep in sync
-// with src/cli/arch-toggle-nightlight, which applies the same threshold.
+// with src/commands/arch-toggle-nightlight, which applies the same threshold.
 var IDENTITY_TEMPERATURE = 6000
 
 function temperatureFromOutput(output) {

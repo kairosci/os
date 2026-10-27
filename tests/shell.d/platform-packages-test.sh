@@ -12,7 +12,7 @@ runtime_arch="$work/arch"
 mkdir -p "$runtime_arch"
 ln -s "$ROOT/installer" "$runtime_arch/installer"
 export ARCH_PATH="$runtime_arch"
-export PATH="$ROOT/src/cli:$PATH"
+export PATH="$ROOT/src/commands:$PATH"
 
 names() {
   sed -e 's/[[:space:]]*#.*$//' -e '/^[[:space:]]*$/d' "$@"
@@ -23,7 +23,7 @@ aarch64=$(names "$ROOT/installer/arch-aarch64.packages")
 
 for platform in aarch64-apple aarch64 x86; do
   fake_platform "$work/$platform" "$platform"
-  defaults=$(ARCH_PROC_ROOT="$work/$platform/proc" PATH="$work/$platform/bin:$ROOT/src/cli:$PATH" arch-pkg-defaults)
+  defaults=$(ARCH_PROC_ROOT="$work/$platform/proc" PATH="$work/$platform/bin:$ROOT/src/commands:$PATH" arch-pkg-defaults)
   [[ $defaults == "$(arch-pkg-defaults "$platform")" ]] ||
     fail "$platform: the detected platform selects its own list"
   printf '%s\n' "$defaults" >"$work/$platform.packages"
@@ -126,7 +126,7 @@ failing_bin="$work/failing-bin"
 mkdir -p "$failing_bin"
 printf '#!/bin/bash\nexit 1\n' >"$failing_bin/arch-hw-platform"
 chmod +x "$failing_bin/arch-hw-platform"
-! PATH="$failing_bin:$ROOT/src/cli:$PATH" arch-pkg-defaults >/dev/null 2>&1 || fail "a platform the detector cannot tell is refused"
+! PATH="$failing_bin:$ROOT/src/commands:$PATH" arch-pkg-defaults >/dev/null 2>&1 || fail "a platform the detector cannot tell is refused"
 pass "an unknown or undetectable platform is refused"
 
 # arch-reinstall-pkgs installs the detected platform's set.
@@ -145,7 +145,7 @@ chmod +x "$work/stubs/"*
 for platform in aarch64 x86; do
   export STUB_LOG="$work/$platform.log"
   : >"$STUB_LOG"
-  ARCH_PROC_ROOT="$work/$platform/proc" PATH="$work/stubs:$work/$platform/bin:$ROOT/src/cli:$PATH" \
+  ARCH_PROC_ROOT="$work/$platform/proc" PATH="$work/stubs:$work/$platform/bin:$ROOT/src/commands:$PATH" \
     arch-reinstall-pkgs
   expected="-Syu --noconfirm --needed $(tr '\n' ' ' <"$work/$platform.packages")"
   [[ $(tail -n 1 "$STUB_LOG") == "${expected% }" ]] ||
@@ -159,7 +159,7 @@ reinstall_on() {
   local platform=$1
   export STUB_LOG="$work/channel.log"
   : >"$STUB_LOG"
-  ARCH_PROC_ROOT="$work/$platform/proc" PATH="$work/stubs:$work/$platform/bin:$ROOT/src/cli:$PATH" \
+  ARCH_PROC_ROOT="$work/$platform/proc" PATH="$work/stubs:$work/$platform/bin:$ROOT/src/commands:$PATH" \
     arch-reinstall-pkgs >"$work/channel.out" 2>&1
 }
 for platform in x86 aarch64 aarch64-apple; do
@@ -179,7 +179,7 @@ pass "arch-reinstall-pkgs stops when the refresh fails"
 
 export STUB_LOG="$work/undetected.log"
 : >"$STUB_LOG"
-if PATH="$failing_bin:$work/stubs:$ROOT/src/cli:$PATH" arch-reinstall-pkgs >/dev/null 2>&1; then
+if PATH="$failing_bin:$work/stubs:$ROOT/src/commands:$PATH" arch-reinstall-pkgs >/dev/null 2>&1; then
   fail "reinstall stops when the platform cannot be told"
 fi
 ! grep -q -- '--needed' "$STUB_LOG" || fail "reinstall installs nothing when the platform cannot be told" "$(cat "$STUB_LOG")"

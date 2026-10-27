@@ -2,20 +2,20 @@ id = "desktop.commands.hook"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/cli/arch-hook",
-  "src/cli/arch-hook-install",
-  "src/python/cli/hooks.py",
+  "src/commands/arch-hook",
+  "src/commands/arch-hook-install",
+  "src/cli/hooks.py",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/cli/arch-hook"
-target = "usr/share/arch/src/cli/arch-hook"
+source = "src/commands/arch-hook"
+target = "usr/share/arch/src/commands/arch-hook"
 
 [[output]]
-source = "src/cli/arch-hook-install"
-target = "usr/share/arch/src/cli/arch-hook-install"
+source = "src/commands/arch-hook-install"
+target = "usr/share/arch/src/commands/arch-hook-install"
 
 [[output]]
-source = "src/python/cli/hooks.py"
-target = "usr/share/arch/src/python/cli/hooks.py"
+source = "src/cli/hooks.py"
+target = "usr/share/arch/src/cli/hooks.py"

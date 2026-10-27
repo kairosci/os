@@ -10,34 +10,34 @@ export ARCH_PATH="$ROOT"
 
 done_marker="$test_home/.local/state/arch/done/example"
 
-if HOME="$test_home" "$ROOT/src/cli/arch-done" check example; then
+if HOME="$test_home" "$ROOT/src/commands/arch-done" check example; then
   fail "done reports an unmarked task as complete"
 fi
 
-HOME="$test_home" "$ROOT/src/cli/arch-done" mark example
+HOME="$test_home" "$ROOT/src/commands/arch-done" mark example
 [[ -f $done_marker ]] || fail "done marks a task complete"
-HOME="$test_home" "$ROOT/src/cli/arch-done" check example || fail "done reports a marked task as complete"
+HOME="$test_home" "$ROOT/src/commands/arch-done" check example || fail "done reports a marked task as complete"
 
-HOME="$test_home" "$ROOT/src/cli/arch-done" ensure once || fail "done ensures an unmarked task"
+HOME="$test_home" "$ROOT/src/commands/arch-done" ensure once || fail "done ensures an unmarked task"
 [[ -f $test_home/.local/state/arch/done/once ]] || fail "done ensure marks a task complete"
-if HOME="$test_home" "$ROOT/src/cli/arch-done" ensure once; then
+if HOME="$test_home" "$ROOT/src/commands/arch-done" ensure once; then
   fail "done ensures a completed task again"
 fi
 
-if HOME="$test_home" "$ROOT/src/cli/arch-done" check ../invalid >/dev/null 2>&1; then
+if HOME="$test_home" "$ROOT/src/commands/arch-done" check ../invalid >/dev/null 2>&1; then
   fail "done accepts marker path traversal"
 fi
 
 protected="$test_home/protected"
 printf 'protected\n' >"$protected"
 ln -s "$protected" "$test_home/.local/state/arch/done/symlink"
-if HOME="$test_home" "$ROOT/src/cli/arch-done" mark symlink >/dev/null 2>&1; then
+if HOME="$test_home" "$ROOT/src/commands/arch-done" mark symlink >/dev/null 2>&1; then
   fail "done mark refuses a symlink marker"
 fi
-if HOME="$test_home" "$ROOT/src/cli/arch-done" ensure symlink >/dev/null 2>&1; then
+if HOME="$test_home" "$ROOT/src/commands/arch-done" ensure symlink >/dev/null 2>&1; then
   fail "done ensure refuses an existing symlink marker"
 fi
-if HOME="$test_home" "$ROOT/src/cli/arch-done" check symlink; then
+if HOME="$test_home" "$ROOT/src/commands/arch-done" check symlink; then
   fail "done check refuses a symlink marker"
 fi
 [[ -L $test_home/.local/state/arch/done/symlink && $(<"$protected") == protected ]] ||
@@ -46,7 +46,7 @@ fi
 mv "$test_home/.local/state/arch/done" "$test_home/.local/state/arch/done.saved"
 mkdir "$test_home/outside-done"
 ln -s "$test_home/outside-done" "$test_home/.local/state/arch/done"
-if HOME="$test_home" "$ROOT/src/cli/arch-done" mark escaped >/dev/null 2>&1; then
+if HOME="$test_home" "$ROOT/src/commands/arch-done" mark escaped >/dev/null 2>&1; then
   fail "done refuses a symlinked marker directory"
 fi
 [[ ! -e $test_home/outside-done/escaped ]] || fail "done does not write outside its marker directory"

@@ -29,7 +29,7 @@ XDG_STATE_HOME="$stage/home/.local/state" \
 ARCH_PATH="$ROOT" \
 QML2_IMPORT_PATH="$ROOT/src/shell${QML2_IMPORT_PATH:+:$QML2_IMPORT_PATH}" \
 QML_IMPORT_PATH="$ROOT/src/shell${QML_IMPORT_PATH:+:$QML_IMPORT_PATH}" \
-PATH="$ROOT/src/cli:$PATH" \
+PATH="$ROOT/src/commands:$PATH" \
   timeout 30 quickshell -p "$stage" --no-color 2>&1) || fail "power panel without a battery fixture exits cleanly" "$output"
 [[ $output == *"RESULT pass"* ]] || fail "power panel without a battery settles closed after open" "$output"
 if rg -q 'Binding loop' <<< "$output"; then

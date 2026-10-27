@@ -2,190 +2,190 @@ id = "desktop.commands.install"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/cli/arch-install-and-launch",
-  "src/cli/arch-install-app",
-  "src/cli/arch-install-browser",
-  "src/cli/arch-install-camera",
-  "src/cli/arch-install-chromium-copy-url",
-  "src/cli/arch-install-chromium-google-account",
-  "src/cli/arch-install-chromium-ytdlp",
-  "src/cli/arch-install-dev-env",
-  "src/cli/arch-install-dictation-superwhisper",
-  "src/cli/arch-install-dictation-voxtype",
-  "src/cli/arch-install-docker-dbs",
-  "src/cli/arch-install-editor-emacs",
-  "src/cli/arch-install-editor-helix",
-  "src/cli/arch-install-editor-vscode",
-  "src/cli/arch-install-editor-zed",
-  "src/cli/arch-install-font",
-  "src/cli/arch-install-gaming-battlenet",
-  "src/cli/arch-install-gaming-geforce-now",
-  "src/cli/arch-install-gaming-gpu-lib32",
-  "src/cli/arch-install-gaming-heroic",
-  "src/cli/arch-install-gaming-lutris",
-  "src/cli/arch-install-gaming-retroarch",
-  "src/cli/arch-install-gaming-steam",
-  "src/cli/arch-install-gaming-xbox-cloud",
-  "src/cli/arch-install-gaming-xbox-controllers",
-  "src/cli/arch-install-preinstalls",
-  "src/cli/arch-install-service-1password",
-  "src/cli/arch-install-service-dropbox",
-  "src/cli/arch-install-service-microsoft",
-  "src/cli/arch-install-service-nordvpn",
-  "src/cli/arch-install-service-once",
-  "src/cli/arch-install-service-signal",
-  "src/cli/arch-install-service-spotify",
-  "src/cli/arch-install-service-sunshine",
-  "src/cli/arch-install-service-tailscale",
-  "src/cli/arch-install-terminal",
-  "src/cli/arch-install-video-decode",
+  "src/commands/arch-install-and-launch",
+  "src/commands/arch-install-app",
+  "src/commands/arch-install-browser",
+  "src/commands/arch-install-camera",
+  "src/commands/arch-install-chromium-copy-url",
+  "src/commands/arch-install-chromium-google-account",
+  "src/commands/arch-install-chromium-ytdlp",
+  "src/commands/arch-install-dev-env",
+  "src/commands/arch-install-dictation-superwhisper",
+  "src/commands/arch-install-dictation-voxtype",
+  "src/commands/arch-install-docker-dbs",
+  "src/commands/arch-install-editor-emacs",
+  "src/commands/arch-install-editor-helix",
+  "src/commands/arch-install-editor-vscode",
+  "src/commands/arch-install-editor-zed",
+  "src/commands/arch-install-font",
+  "src/commands/arch-install-gaming-battlenet",
+  "src/commands/arch-install-gaming-geforce-now",
+  "src/commands/arch-install-gaming-gpu-lib32",
+  "src/commands/arch-install-gaming-heroic",
+  "src/commands/arch-install-gaming-lutris",
+  "src/commands/arch-install-gaming-retroarch",
+  "src/commands/arch-install-gaming-steam",
+  "src/commands/arch-install-gaming-xbox-cloud",
+  "src/commands/arch-install-gaming-xbox-controllers",
+  "src/commands/arch-install-preinstalls",
+  "src/commands/arch-install-service-1password",
+  "src/commands/arch-install-service-dropbox",
+  "src/commands/arch-install-service-microsoft",
+  "src/commands/arch-install-service-nordvpn",
+  "src/commands/arch-install-service-once",
+  "src/commands/arch-install-service-signal",
+  "src/commands/arch-install-service-spotify",
+  "src/commands/arch-install-service-sunshine",
+  "src/commands/arch-install-service-tailscale",
+  "src/commands/arch-install-terminal",
+  "src/commands/arch-install-video-decode",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/cli/arch-install-and-launch"
-target = "usr/share/arch/src/cli/arch-install-and-launch"
+source = "src/commands/arch-install-and-launch"
+target = "usr/share/arch/src/commands/arch-install-and-launch"
 
 [[output]]
-source = "src/cli/arch-install-app"
-target = "usr/share/arch/src/cli/arch-install-app"
+source = "src/commands/arch-install-app"
+target = "usr/share/arch/src/commands/arch-install-app"
 
 [[output]]
-source = "src/cli/arch-install-browser"
-target = "usr/share/arch/src/cli/arch-install-browser"
+source = "src/commands/arch-install-browser"
+target = "usr/share/arch/src/commands/arch-install-browser"
 
 [[output]]
-source = "src/cli/arch-install-camera"
-target = "usr/share/arch/src/cli/arch-install-camera"
+source = "src/commands/arch-install-camera"
+target = "usr/share/arch/src/commands/arch-install-camera"
 
 [[output]]
-source = "src/cli/arch-install-chromium-copy-url"
-target = "usr/share/arch/src/cli/arch-install-chromium-copy-url"
+source = "src/commands/arch-install-chromium-copy-url"
+target = "usr/share/arch/src/commands/arch-install-chromium-copy-url"
 
 [[output]]
-source = "src/cli/arch-install-chromium-google-account"
-target = "usr/share/arch/src/cli/arch-install-chromium-google-account"
+source = "src/commands/arch-install-chromium-google-account"
+target = "usr/share/arch/src/commands/arch-install-chromium-google-account"
 
 [[output]]
-source = "src/cli/arch-install-chromium-ytdlp"
-target = "usr/share/arch/src/cli/arch-install-chromium-ytdlp"
+source = "src/commands/arch-install-chromium-ytdlp"
+target = "usr/share/arch/src/commands/arch-install-chromium-ytdlp"
 
 [[output]]
-source = "src/cli/arch-install-dev-env"
-target = "usr/share/arch/src/cli/arch-install-dev-env"
+source = "src/commands/arch-install-dev-env"
+target = "usr/share/arch/src/commands/arch-install-dev-env"
 
 [[output]]
-source = "src/cli/arch-install-dictation-superwhisper"
-target = "usr/share/arch/src/cli/arch-install-dictation-superwhisper"
+source = "src/commands/arch-install-dictation-superwhisper"
+target = "usr/share/arch/src/commands/arch-install-dictation-superwhisper"
 
 [[output]]
-source = "src/cli/arch-install-dictation-voxtype"
-target = "usr/share/arch/src/cli/arch-install-dictation-voxtype"
+source = "src/commands/arch-install-dictation-voxtype"
+target = "usr/share/arch/src/commands/arch-install-dictation-voxtype"
 
 [[output]]
-source = "src/cli/arch-install-docker-dbs"
-target = "usr/share/arch/src/cli/arch-install-docker-dbs"
+source = "src/commands/arch-install-docker-dbs"
+target = "usr/share/arch/src/commands/arch-install-docker-dbs"
 
 [[output]]
-source = "src/cli/arch-install-editor-emacs"
-target = "usr/share/arch/src/cli/arch-install-editor-emacs"
+source = "src/commands/arch-install-editor-emacs"
+target = "usr/share/arch/src/commands/arch-install-editor-emacs"
 
 [[output]]
-source = "src/cli/arch-install-editor-helix"
-target = "usr/share/arch/src/cli/arch-install-editor-helix"
+source = "src/commands/arch-install-editor-helix"
+target = "usr/share/arch/src/commands/arch-install-editor-helix"
 
 [[output]]
-source = "src/cli/arch-install-editor-vscode"
-target = "usr/share/arch/src/cli/arch-install-editor-vscode"
+source = "src/commands/arch-install-editor-vscode"
+target = "usr/share/arch/src/commands/arch-install-editor-vscode"
 
 [[output]]
-source = "src/cli/arch-install-editor-zed"
-target = "usr/share/arch/src/cli/arch-install-editor-zed"
+source = "src/commands/arch-install-editor-zed"
+target = "usr/share/arch/src/commands/arch-install-editor-zed"
 
 [[output]]
-source = "src/cli/arch-install-font"
-target = "usr/share/arch/src/cli/arch-install-font"
+source = "src/commands/arch-install-font"
+target = "usr/share/arch/src/commands/arch-install-font"
 
 [[output]]
-source = "src/cli/arch-install-gaming-battlenet"
-target = "usr/share/arch/src/cli/arch-install-gaming-battlenet"
+source = "src/commands/arch-install-gaming-battlenet"
+target = "usr/share/arch/src/commands/arch-install-gaming-battlenet"
 
 [[output]]
-source = "src/cli/arch-install-gaming-geforce-now"
-target = "usr/share/arch/src/cli/arch-install-gaming-geforce-now"
+source = "src/commands/arch-install-gaming-geforce-now"
+target = "usr/share/arch/src/commands/arch-install-gaming-geforce-now"
 
 [[output]]
-source = "src/cli/arch-install-gaming-gpu-lib32"
-target = "usr/share/arch/src/cli/arch-install-gaming-gpu-lib32"
+source = "src/commands/arch-install-gaming-gpu-lib32"
+target = "usr/share/arch/src/commands/arch-install-gaming-gpu-lib32"
 
 [[output]]
-source = "src/cli/arch-install-gaming-heroic"
-target = "usr/share/arch/src/cli/arch-install-gaming-heroic"
+source = "src/commands/arch-install-gaming-heroic"
+target = "usr/share/arch/src/commands/arch-install-gaming-heroic"
 
 [[output]]
-source = "src/cli/arch-install-gaming-lutris"
-target = "usr/share/arch/src/cli/arch-install-gaming-lutris"
+source = "src/commands/arch-install-gaming-lutris"
+target = "usr/share/arch/src/commands/arch-install-gaming-lutris"
 
 [[output]]
-source = "src/cli/arch-install-gaming-retroarch"
-target = "usr/share/arch/src/cli/arch-install-gaming-retroarch"
+source = "src/commands/arch-install-gaming-retroarch"
+target = "usr/share/arch/src/commands/arch-install-gaming-retroarch"
 
 [[output]]
-source = "src/cli/arch-install-gaming-steam"
-target = "usr/share/arch/src/cli/arch-install-gaming-steam"
+source = "src/commands/arch-install-gaming-steam"
+target = "usr/share/arch/src/commands/arch-install-gaming-steam"
 
 [[output]]
-source = "src/cli/arch-install-gaming-xbox-cloud"
-target = "usr/share/arch/src/cli/arch-install-gaming-xbox-cloud"
+source = "src/commands/arch-install-gaming-xbox-cloud"
+target = "usr/share/arch/src/commands/arch-install-gaming-xbox-cloud"
 
 [[output]]
-source = "src/cli/arch-install-gaming-xbox-controllers"
-target = "usr/share/arch/src/cli/arch-install-gaming-xbox-controllers"
+source = "src/commands/arch-install-gaming-xbox-controllers"
+target = "usr/share/arch/src/commands/arch-install-gaming-xbox-controllers"
 
 [[output]]
-source = "src/cli/arch-install-preinstalls"
-target = "usr/share/arch/src/cli/arch-install-preinstalls"
+source = "src/commands/arch-install-preinstalls"
+target = "usr/share/arch/src/commands/arch-install-preinstalls"
 
 [[output]]
-source = "src/cli/arch-install-service-1password"
-target = "usr/share/arch/src/cli/arch-install-service-1password"
+source = "src/commands/arch-install-service-1password"
+target = "usr/share/arch/src/commands/arch-install-service-1password"
 
 [[output]]
-source = "src/cli/arch-install-service-dropbox"
-target = "usr/share/arch/src/cli/arch-install-service-dropbox"
+source = "src/commands/arch-install-service-dropbox"
+target = "usr/share/arch/src/commands/arch-install-service-dropbox"
 
 [[output]]
-source = "src/cli/arch-install-service-microsoft"
-target = "usr/share/arch/src/cli/arch-install-service-microsoft"
+source = "src/commands/arch-install-service-microsoft"
+target = "usr/share/arch/src/commands/arch-install-service-microsoft"
 
 [[output]]
-source = "src/cli/arch-install-service-nordvpn"
-target = "usr/share/arch/src/cli/arch-install-service-nordvpn"
+source = "src/commands/arch-install-service-nordvpn"
+target = "usr/share/arch/src/commands/arch-install-service-nordvpn"
 
 [[output]]
-source = "src/cli/arch-install-service-once"
-target = "usr/share/arch/src/cli/arch-install-service-once"
+source = "src/commands/arch-install-service-once"
+target = "usr/share/arch/src/commands/arch-install-service-once"
 
 [[output]]
-source = "src/cli/arch-install-service-signal"
-target = "usr/share/arch/src/cli/arch-install-service-signal"
+source = "src/commands/arch-install-service-signal"
+target = "usr/share/arch/src/commands/arch-install-service-signal"
 
 [[output]]
-source = "src/cli/arch-install-service-spotify"
-target = "usr/share/arch/src/cli/arch-install-service-spotify"
+source = "src/commands/arch-install-service-spotify"
+target = "usr/share/arch/src/commands/arch-install-service-spotify"
 
 [[output]]
-source = "src/cli/arch-install-service-sunshine"
-target = "usr/share/arch/src/cli/arch-install-service-sunshine"
+source = "src/commands/arch-install-service-sunshine"
+target = "usr/share/arch/src/commands/arch-install-service-sunshine"
 
 [[output]]
-source = "src/cli/arch-install-service-tailscale"
-target = "usr/share/arch/src/cli/arch-install-service-tailscale"
+source = "src/commands/arch-install-service-tailscale"
+target = "usr/share/arch/src/commands/arch-install-service-tailscale"
 
 [[output]]
-source = "src/cli/arch-install-terminal"
-target = "usr/share/arch/src/cli/arch-install-terminal"
+source = "src/commands/arch-install-terminal"
+target = "usr/share/arch/src/commands/arch-install-terminal"
 
 [[output]]
-source = "src/cli/arch-install-video-decode"
-target = "usr/share/arch/src/cli/arch-install-video-decode"
+source = "src/commands/arch-install-video-decode"
+target = "usr/share/arch/src/commands/arch-install-video-decode"

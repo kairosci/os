@@ -32,44 +32,44 @@ fi
 EOF
 chmod +x "$tmp_dir/bin/busctl"
 
-export PATH="$tmp_dir/bin:$ROOT/src/cli:$PATH"
+export PATH="$tmp_dir/bin:$ROOT/src/commands:$PATH"
 export POWERPROFILES_LOG="$tmp_dir/calls"
 export ARCH_POWERPROFILES_STATE_DIR="$tmp_dir/state"
 
-"$ROOT/src/cli/arch-powerprofiles-set" ac balanced
+"$ROOT/src/commands/arch-powerprofiles-set" ac balanced
 [[ $(<"$tmp_dir/state/ac") == "balanced" ]] || fail "power profile stores AC preference"
 [[ $(tail -n 1 "$tmp_dir/calls") == "balanced" ]] || fail "power profile applies selected AC preference"
 pass "power profile stores and applies AC preference"
 
-"$ROOT/src/cli/arch-powerprofiles-set" ac
+"$ROOT/src/commands/arch-powerprofiles-set" ac
 [[ $(tail -n 1 "$tmp_dir/calls") == "balanced" ]] || fail "power profile restores AC preference"
 pass "power profile restores AC preference"
 
-if POWERPROFILES_SET_FAIL=1 "$ROOT/src/cli/arch-powerprofiles-set" ac performance; then
+if POWERPROFILES_SET_FAIL=1 "$ROOT/src/commands/arch-powerprofiles-set" ac performance; then
   fail "power profile reports a failed selection"
 fi
 [[ $(<"$tmp_dir/state/ac") == "balanced" ]] || fail "power profile preserves preference after failed selection"
 pass "power profile persists only successful selections"
 
-"$ROOT/src/cli/arch-powerprofiles-set" battery performance
+"$ROOT/src/commands/arch-powerprofiles-set" battery performance
 [[ $(<"$tmp_dir/state/battery") == "performance" ]] || fail "power profile stores battery preference"
 pass "power profile stores battery preference separately"
 
-"$ROOT/src/cli/arch-powerprofiles-set" ac
+"$ROOT/src/commands/arch-powerprofiles-set" ac
 [[ $(tail -n 1 "$tmp_dir/calls") == "balanced" ]] || fail "battery preference does not replace AC preference"
 pass "power profile keeps AC and battery preferences separate"
 
-ON_BATTERY=1 "$ROOT/src/cli/arch-powerprofiles-set"
+ON_BATTERY=1 "$ROOT/src/commands/arch-powerprofiles-set"
 [[ $(tail -n 1 "$tmp_dir/calls") == "performance" ]] || fail "autodetect restores battery preference"
 pass "power profile autodetect restores battery preference"
 
 rm "$tmp_dir/state/ac"
-ON_BATTERY=0 "$ROOT/src/cli/arch-powerprofiles-set"
+ON_BATTERY=0 "$ROOT/src/commands/arch-powerprofiles-set"
 [[ $(tail -n 1 "$tmp_dir/calls") == "performance" ]] || fail "power profile uses performance as AC default"
 pass "power profile retains performance as AC default"
 
-"$ROOT/src/cli/arch-powerprofiles-set" ac power-saver
-"$ROOT/src/cli/arch-powerprofiles-init"
+"$ROOT/src/commands/arch-powerprofiles-set" ac power-saver
+"$ROOT/src/commands/arch-powerprofiles-init"
 [[ $(tail -n 1 "$tmp_dir/calls") == "power-saver" ]] || fail "init restores the autodetected preference"
 pass "power profile init restores the autodetected preference"
 

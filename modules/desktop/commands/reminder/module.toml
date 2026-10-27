@@ -2,10 +2,10 @@ id = "desktop.commands.reminder"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/cli/arch-reminder",
+  "src/commands/arch-reminder",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/cli/arch-reminder"
-target = "usr/share/arch/src/cli/arch-reminder"
+source = "src/commands/arch-reminder"
+target = "usr/share/arch/src/commands/arch-reminder"

@@ -29,7 +29,7 @@
 #   Semantic aliases are also available: {{ background }}, {{ foreground }}, {{ red }}, {{ green }},
 #   {{ yellow }}, {{ blue }}, {{ magenta }}, {{ cyan }}, {{ muted }} and the
 #   {{ bright_* }} variants. The two forms are kept in sync by
-#   src/cli/arch-theme-set-templates.
+#   src/commands/arch-theme-set-templates.
 #
 # VARIABLE MODIFIERS:
 #   {{ variable_strip }} - Hex color without the # prefix (e.g., "1a1b26")

@@ -265,11 +265,11 @@ for theme in "$ROOT"/assets/themes/*/chromium.theme; do
 done
 pass "shipped chromium.theme files parse as RGB triples"
 
-grep -F 'browser_policy_theme_hex' "$ROOT/src/cli/arch-theme-set-browser" >/dev/null ||
+grep -F 'browser_policy_theme_hex' "$ROOT/src/commands/arch-theme-set-browser" >/dev/null ||
   fail "arch-theme-set-browser parses chromium.theme through browser_policy_theme_hex"
-grep -F 'arch-theme-set-browser-policy' "$ROOT/src/cli/arch-theme-set-browser" >/dev/null ||
+grep -F 'arch-theme-set-browser-policy' "$ROOT/src/commands/arch-theme-set-browser" >/dev/null ||
   fail "arch-theme-set-browser writes colour through arch-theme-set-browser-policy"
-if grep -E 'printf.*THEME_RGB_COLOR' "$ROOT/src/cli/arch-theme-set-browser" >/dev/null; then
+if grep -E 'printf.*THEME_RGB_COLOR' "$ROOT/src/commands/arch-theme-set-browser" >/dev/null; then
   fail "arch-theme-set-browser does not hand unvetted theme words to printf"
 fi
 pass "arch-theme-set-browser validates the theme colour"
@@ -309,14 +309,14 @@ fi
 [[ -d $dir_dist/policies.json ]] || fail "Firefox policy install leaves a planted policies.json directory in place"
 pass "Firefox policy install does not write into a planted policies.json directory"
 
-grep -F 'exit "$failed"' "$ROOT/src/cli/arch-theme-set-browser" >/dev/null ||
+grep -F 'exit "$failed"' "$ROOT/src/commands/arch-theme-set-browser" >/dev/null ||
   fail "arch-theme-set-browser exits non-zero when a policy write fails"
 pass "arch-theme-set-browser exits non-zero when a policy write fails"
 
 # Bash 5.3 adopts the EXIT trap's last status as the script's exit status, so a
 # handler ending on a false test turns a clean run into a failure and aborts the
 # call that runs through arch-theme-set-browser.
-policy_cleanup=$(sed -n '/^cleanup() {/,/^}/p' "$ROOT/src/cli/arch-theme-set-browser-policy")
+policy_cleanup=$(sed -n '/^cleanup() {/,/^}/p' "$ROOT/src/commands/arch-theme-set-browser-policy")
 [[ -n $policy_cleanup ]] || fail "arch-theme-set-browser-policy defines an EXIT cleanup handler"
 eval "$policy_cleanup"
 staged=""

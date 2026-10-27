@@ -7,7 +7,7 @@ require_command lua
 
 tmp_dir=$(mktemp -d)
 trap 'rm -rf "$tmp_dir"' EXIT
-export ARCH_PCI_DEVICES_PATH="$tmp_dir/devices" ARCH_PATH="$ROOT" PATH="$ROOT/src/cli:$PATH"
+export ARCH_PCI_DEVICES_PATH="$tmp_dir/devices" ARCH_PATH="$ROOT" PATH="$ROOT/src/commands:$PATH"
 
 # Exit statuses, expected NVD_BACKEND/LIBVA/GLX values, then vendor:device:class[:boot_vga].
 while IFS='|' read -r description nvidia gsp without_gsp display expected_env devices; do

@@ -33,7 +33,7 @@ PYTHON
 then
   fail "a fresh install does not enable a discovery service it no longer installs"
 fi
-! grep -q 'enable_system_service cups-browsed' "$ROOT/src/cli/arch-upgrade-to-quattro" ||
+! grep -q 'enable_system_service cups-browsed' "$ROOT/src/commands/arch-upgrade-to-quattro" ||
   fail "the Quattro upgrade does not enable a discovery service it no longer installs"
 
 pass "the base install keeps CUPS and Polkit administration, without automatic discovery"

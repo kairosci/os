@@ -2,45 +2,45 @@ id = "desktop.commands.setup"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/cli/arch-setup-direct-boot",
-  "src/cli/arch-setup-input",
-  "src/cli/arch-setup-keyboard",
-  "src/cli/arch-setup-security-fido2",
-  "src/cli/arch-setup-security-fingerprint",
-  "src/cli/arch-setup-security-ssh-agent",
-  "src/cli/arch-setup-security-sshd",
-  "src/cli/arch-setup-security-sudoless-docker",
+  "src/commands/arch-setup-direct-boot",
+  "src/commands/arch-setup-input",
+  "src/commands/arch-setup-keyboard",
+  "src/commands/arch-setup-security-fido2",
+  "src/commands/arch-setup-security-fingerprint",
+  "src/commands/arch-setup-security-ssh-agent",
+  "src/commands/arch-setup-security-sshd",
+  "src/commands/arch-setup-security-sudoless-docker",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/cli/arch-setup-direct-boot"
-target = "usr/share/arch/src/cli/arch-setup-direct-boot"
+source = "src/commands/arch-setup-direct-boot"
+target = "usr/share/arch/src/commands/arch-setup-direct-boot"
 
 [[output]]
-source = "src/cli/arch-setup-input"
-target = "usr/share/arch/src/cli/arch-setup-input"
+source = "src/commands/arch-setup-input"
+target = "usr/share/arch/src/commands/arch-setup-input"
 
 [[output]]
-source = "src/cli/arch-setup-keyboard"
-target = "usr/share/arch/src/cli/arch-setup-keyboard"
+source = "src/commands/arch-setup-keyboard"
+target = "usr/share/arch/src/commands/arch-setup-keyboard"
 
 [[output]]
-source = "src/cli/arch-setup-security-fido2"
-target = "usr/share/arch/src/cli/arch-setup-security-fido2"
+source = "src/commands/arch-setup-security-fido2"
+target = "usr/share/arch/src/commands/arch-setup-security-fido2"
 
 [[output]]
-source = "src/cli/arch-setup-security-fingerprint"
-target = "usr/share/arch/src/cli/arch-setup-security-fingerprint"
+source = "src/commands/arch-setup-security-fingerprint"
+target = "usr/share/arch/src/commands/arch-setup-security-fingerprint"
 
 [[output]]
-source = "src/cli/arch-setup-security-ssh-agent"
-target = "usr/share/arch/src/cli/arch-setup-security-ssh-agent"
+source = "src/commands/arch-setup-security-ssh-agent"
+target = "usr/share/arch/src/commands/arch-setup-security-ssh-agent"
 
 [[output]]
-source = "src/cli/arch-setup-security-sshd"
-target = "usr/share/arch/src/cli/arch-setup-security-sshd"
+source = "src/commands/arch-setup-security-sshd"
+target = "usr/share/arch/src/commands/arch-setup-security-sshd"
 
 [[output]]
-source = "src/cli/arch-setup-security-sudoless-docker"
-target = "usr/share/arch/src/cli/arch-setup-security-sudoless-docker"
+source = "src/commands/arch-setup-security-sudoless-docker"
+target = "usr/share/arch/src/commands/arch-setup-security-sudoless-docker"

@@ -20,19 +20,19 @@ write_supply() {
 write_supply AC Mains 0
 write_supply USBC USB 1
 
-ARCH_POWER_SUPPLY_PATH="$tmp_dir" "$ROOT/src/cli/arch-power-present" ||
+ARCH_POWER_SUPPLY_PATH="$tmp_dir" "$ROOT/src/commands/arch-power-present" ||
   fail "power present detects online USB-C supply"
 pass "power present detects online USB-C supply"
 
 printf '0\n' >"$tmp_dir/USBC/online"
 
-if ARCH_POWER_SUPPLY_PATH="$tmp_dir" "$ROOT/src/cli/arch-power-present"; then
+if ARCH_POWER_SUPPLY_PATH="$tmp_dir" "$ROOT/src/commands/arch-power-present"; then
   fail "power present rejects offline supplies"
 fi
 pass "power present rejects offline supplies"
 
 write_supply AC Mains 1
 
-ARCH_POWER_SUPPLY_PATH="$tmp_dir" "$ROOT/src/cli/arch-power-present" ||
+ARCH_POWER_SUPPLY_PATH="$tmp_dir" "$ROOT/src/commands/arch-power-present" ||
   fail "power present detects online mains supply"
 pass "power present detects online mains supply"

@@ -46,7 +46,7 @@ run() {
 }
 
 install_browser() {
-  run bash "$ROOT/src/cli/arch-install-browser" "$1"
+  run bash "$ROOT/src/commands/arch-install-browser" "$1"
 }
 
 links_made() {

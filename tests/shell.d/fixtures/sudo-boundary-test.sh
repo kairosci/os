@@ -22,7 +22,7 @@ copy_boundary_file() {
 import sys
 from pathlib import Path
 source, target, name = map(Path,sys.argv[1:])
-source_name = Path("src/cli") / name.name if name.parts[0] == "bin" else name
+source_name = Path("src/commands") / name.name if name.parts[0] == "bin" else name
 source_path = source / source_name
 p=target/source_name
 p.parent.mkdir(parents=True,exist_ok=True)
@@ -53,11 +53,11 @@ cp -r "$ROOT/default/pacman" "$SUDO_TEST_ROOT/default/"
 
 # Channel changes ask for the platform. x86 unless a test says otherwise, so no
 # test reads the host's hardware.
-cat >"$SUDO_TEST_ROOT/src/cli/arch-hw-platform" <<'STUB'
+cat >"$SUDO_TEST_ROOT/src/commands/arch-hw-platform" <<'STUB'
 #!/bin/bash
 echo "${SUDO_TEST_PLATFORM:-x86}"
 STUB
-chmod +x "$SUDO_TEST_ROOT/src/cli/arch-hw-platform"
+chmod +x "$SUDO_TEST_ROOT/src/commands/arch-hw-platform"
 
 cat >"$SUDO_TEST_ROOT/mock/sudo" <<'STUB'
 #!/bin/bash
@@ -109,9 +109,9 @@ STUB
 chmod +x "$SUDO_TEST_ROOT/mock/sudo"
 # The updater's own phases call a bare sudo from its fixed PATH. Resolve it to
 # the stand-in so no test can ever reach the host's sudo.
-ln -s ../../mock/sudo "$SUDO_TEST_ROOT/src/cli/sudo"
+ln -s ../../mock/sudo "$SUDO_TEST_ROOT/src/commands/sudo"
 
-cat >"$SUDO_TEST_ROOT/src/cli/test-step" <<'STUB'
+cat >"$SUDO_TEST_ROOT/src/commands/test-step" <<'STUB'
 #!/bin/bash
 set -euo pipefail
 step=${0##*/}
@@ -162,9 +162,9 @@ case "$step" in
     ;;
 esac
 STUB
-chmod +x "$SUDO_TEST_ROOT/src/cli/test-step"
+chmod +x "$SUDO_TEST_ROOT/src/commands/test-step"
 for step in arch-update-lock arch-update-requires-free-space arch-update-confirm arch-update-pkg-prune arch-snapshot arch-update-stay-awake arch-update-dev arch-update-boot arch-update-keyring arch-update-system-pkgs arch-hook arch-update-aur-pkgs arch-update-mise arch-update-orphan-pkgs arch-update-analyze-logs arch-shell arch-update-restart arch-pkg-aur-accessible arch-notification-dismiss pacman systemd-run cp yay; do
-  ln -s test-step "$SUDO_TEST_ROOT/src/cli/$step"
+  ln -s test-step "$SUDO_TEST_ROOT/src/commands/$step"
 done
 ln -s ../bin/test-step "$SUDO_TEST_ROOT/mock/pacman"
 

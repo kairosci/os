@@ -16,7 +16,7 @@ cp -r "$ROOT/config/hypr" "$home/.config/hypr"
 
 # No platform package: neither its key names nor its binds.
 menu="$tmpdir/arch-menu-keybindings"
-platform_root_copy "$ROOT/src/cli/arch-menu-keybindings" "$menu" "$tmpdir/no-platform"
+platform_root_copy "$ROOT/src/commands/arch-menu-keybindings" "$menu" "$tmpdir/no-platform"
 
 # The menu reads binds from Hyprland, which is not running here, so stand in for
 # it. A Lua bind reports dispatcher __lua and no arg, and the menu recovers both
@@ -46,7 +46,7 @@ stub_hyprctl() {
 }
 
 keybindings() {
-  env -i PATH="$stub_bin:$ROOT/src/cli:$PATH" HOME="$home" \
+  env -i PATH="$stub_bin:$ROOT/src/commands:$PATH" HOME="$home" \
     XDG_CACHE_HOME="$tmpdir/cache" ARCH_PATH="$ROOT" \
     bash "$menu" --print
 }
@@ -79,9 +79,9 @@ pass "the input switch shortcut appears in the cheatsheet"
 printf "io.open('%s', 'w'):close()\n" "$tmpdir/init-ran" >"$tmpdir/init.lua"
 LUA_INIT="@$tmpdir/init.lua" lua -e '' && [[ -e $tmpdir/init-ran ]] || fail "the LUA_INIT probe runs in a plain lua"
 rm -f "$tmpdir/init-ran"
-env -i PATH="$stub_bin:$ROOT/src/cli:$PATH" HOME="$home" XDG_CACHE_HOME="$tmpdir/cache-init" ARCH_PATH="$ROOT" \
+env -i PATH="$stub_bin:$ROOT/src/commands:$PATH" HOME="$home" XDG_CACHE_HOME="$tmpdir/cache-init" ARCH_PATH="$ROOT" \
   LUA_INIT="@$tmpdir/init.lua" LUA_INIT_5_5="@$tmpdir/init.lua" LUA_INIT_5_4="@$tmpdir/init.lua" LUA_PATH="$tmpdir/?.lua" \
-  bash "$ROOT/src/cli/arch-menu-keybindings" --print >/dev/null
+  bash "$ROOT/src/commands/arch-menu-keybindings" --print >/dev/null
 [[ ! -e $tmpdir/init-ran ]] || fail "the menu's config scan ignores LUA_INIT from the environment"
 pass "the menu's config scan ignores LUA_INIT and LUA_PATH from the environment"
 
@@ -240,7 +240,7 @@ expected_alternatives=(
   "Move window to scratchpad"
 )
 
-eval "$(sed -n '/^alternative_chord_actions()/,/^}/p' "$ROOT/src/cli/arch-menu-keybindings")"
+eval "$(sed -n '/^alternative_chord_actions()/,/^}/p' "$ROOT/src/commands/arch-menu-keybindings")"
 
 [[ $(alternative_chord_actions) == "$(printf '%s\n' "${expected_alternatives[@]}")" ]] ||
   fail "the menu pairs up the actions os means it to" "$(alternative_chord_actions)"
@@ -279,7 +279,7 @@ mv "$tmpdir/hyprland.lua" "$home/.config/hypr/hyprland.lua"
 rm -rf "$tmpdir/cache"
 # A wedged scan is stopped by the menu's own timeout before the Terminal bind,
 # which the check below catches; the outer timeout only turns a hang into a fail.
-timeout --kill-after=1s 60s env -i PATH="$stub_bin:$ROOT/src/cli:$PATH" HOME="$home" \
+timeout --kill-after=1s 60s env -i PATH="$stub_bin:$ROOT/src/commands:$PATH" HOME="$home" \
   XDG_CACHE_HOME="$tmpdir/cache" ARCH_PATH="$ROOT" \
   bash "$menu" --print >/dev/null 2>&1 ||
   fail "a plugin iterating windows at load time does not wedge the keybindings scan"
@@ -295,7 +295,7 @@ mkdir -p "$translate_root/default/i18n/fr"
 cp "$ROOT/default/i18n/locales.json" "$translate_root/default/i18n/"
 printf '{"Terminal": "Terminal (fr)", "Switch to workspace %%1": "Changer vers espace %%1"}\n' >"$translate_root/default/i18n/fr/keybindings.json"
 echo fr >"$tmpdir/translate-language"
-eval "$(sed -n '/^translate_binding_records()/,/^}/p' "$ROOT/src/cli/arch-menu-keybindings")"
+eval "$(sed -n '/^translate_binding_records()/,/^}/p' "$ROOT/src/commands/arch-menu-keybindings")"
 translated=$(printf '%s\n' \
   $'SUPER + RETURN                      → Terminal\texec\tarch-launch-terminal' \
   $'SUPER + 3                           → Switch to workspace 3\tworkspace\t3' \

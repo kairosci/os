@@ -197,7 +197,7 @@ run_setup_on() (
   mkdir -p "$out"
   fake_platform "$scratch/platforms/$platform" "$platform"
   export ARCH_PROC_ROOT="$scratch/platforms/$platform/proc"
-  export PATH="$systemd_bin:$board_bin:$scratch/platforms/$platform/bin:$ROOT/src/cli:$PATH"
+  export PATH="$systemd_bin:$board_bin:$scratch/platforms/$platform/bin:$ROOT/src/commands:$PATH"
 
   ARCH_PATH="$ROOT" SYSTEMCTL_LOG="$out/systemctl.log" \
     ARCH_YOGA_MODULES_LOAD_DIR="$out/modules-load.d" \

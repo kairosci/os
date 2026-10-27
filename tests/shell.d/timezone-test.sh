@@ -4,7 +4,7 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-timezone_menu="$ROOT/src/cli/arch-menu-timezone"
+timezone_menu="$ROOT/src/commands/arch-menu-timezone"
 sudoers_file="$ROOT/etc/sudoers.d/arch-tzupdate"
 
 grep -F '%wheel ALL=(root) NOPASSWD: /usr/bin/timedatectl ^set-timezone [A-Za-z0-9_+][A-Za-z0-9_+.-]*(/[A-Za-z0-9_+][A-Za-z0-9_+.-]*)*$' "$sudoers_file" >/dev/null ||

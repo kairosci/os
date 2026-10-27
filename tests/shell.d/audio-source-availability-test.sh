@@ -53,13 +53,13 @@ OUT
 
 : >"$CALLS"
 expected=$'alsa_input.pci-0000_00_1f.3.analog-stereo\t0\neasyeffects_source\t1\neffect_output.mic-filter\t1'
-actual=$(PATH="$work/bin:$PATH" "$ROOT/src/cli/arch-audio-sink-availability" sources)
+actual=$(PATH="$work/bin:$PATH" "$ROOT/src/commands/arch-audio-sink-availability" sources)
 [[ $actual == "$expected" ]] || fail 'source availability reports an empty jack input unavailable' "$actual"
 grep -qx 'C list sources' "$CALLS" || fail 'source availability reads pactl in the C locale' "$(cat "$CALLS")"
 pass 'source availability reports an empty jack input unavailable'
 
 : >"$CALLS"
-actual=$(LC_ALL=de_DE.UTF-8 PATH="$work/bin:$PATH" "$ROOT/src/cli/arch-audio-sink-availability")
+actual=$(LC_ALL=de_DE.UTF-8 PATH="$work/bin:$PATH" "$ROOT/src/commands/arch-audio-sink-availability")
 [[ $actual == $'alsa_output.pci-0000_00_1f.3.analog-stereo\t0' ]] || fail 'sink availability reports an empty headphone jack unavailable' "$actual"
 grep -qx 'C list sinks' "$CALLS" || fail 'sink availability reads pactl in the C locale whatever the caller'"'"'s' "$(cat "$CALLS")"
 pass 'sink availability reports an empty headphone jack unavailable, in the C locale'

@@ -51,7 +51,7 @@ run_unlink() {
     ARCH_DEV_UNLINK_TEST_LOG="$log_file" \
     ARCH_DEV_UNLINK_TEST_CONF="$conf_file" \
     PATH="$stub_bin:$PATH" \
-    "$ROOT/src/cli/arch-dev-unlink" "$@"
+    "$ROOT/src/commands/arch-dev-unlink" "$@"
 }
 
 : >"$log_file"

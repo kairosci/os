@@ -14,11 +14,11 @@ export ARCH_PATH
 
 # Only prepend in dev-link mode. On a production install, the binaries are
 # already on PATH as /usr/bin/arch-* via the archctl package — prepending
-# /usr/share/arch/src/cli would just be noise.
+# /usr/share/arch/src/commands would just be noise.
 if [ "$ARCH_PATH" != /usr/share/arch ]; then
   case ":$PATH:" in
-    *":${ARCH_PATH%/}/src/cli:"*) ;;
-    *) PATH="${ARCH_PATH%/}/src/cli${PATH:+:$PATH}" ;;
+    *":${ARCH_PATH%/}/src/commands:"*) ;;
+    *) PATH="${ARCH_PATH%/}/src/commands${PATH:+:$PATH}" ;;
   esac
 fi
 

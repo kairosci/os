@@ -13,7 +13,7 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 # count toward the shared tally. Assert the created stack defers to system-auth.
 
 for setup in arch-setup-security-fingerprint arch-setup-security-fido2; do
-  script="$ROOT/src/cli/$setup"
+  script="$ROOT/src/commands/$setup"
 
   # Pull the here-doc body the setup writes to /etc/pam.d/polkit-1.
   body=$(sed -n "/tee \/etc\/pam.d\/polkit-1/,/^EOF\$/p" "$script")

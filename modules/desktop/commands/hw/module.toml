@@ -2,225 +2,225 @@ id = "desktop.commands.hw"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/cli/arch-hw-aarch64",
-  "src/cli/arch-hw-aarch64-apple",
-  "src/cli/arch-hw-aarch64-gb10",
-  "src/cli/arch-hw-aarch64-n1x",
-  "src/cli/arch-hw-aarch64-qualcomm",
-  "src/python/cli/architecture.py",
-  "src/cli/arch-hw-apple-silicon",
-  "src/cli/arch-hw-asus-expertbook-b9406",
-  "src/cli/arch-hw-asus-rog",
-  "src/cli/arch-hw-asus-zenbook-ux5406aa",
-  "src/cli/arch-hw-clamshell",
-  "src/cli/arch-hw-dell-xps-haptic-touchpad",
-  "src/cli/arch-hw-dell-xps-oled",
-  "src/cli/arch-hw-dell-xps13-dx13260-ptl",
-  "src/cli/arch-hw-dell-xps13-sidecar-amps",
-  "src/cli/arch-hw-display",
-  "src/cli/arch-hw-elgato-camlink-4k",
-  "src/cli/arch-hw-external-monitors",
-  "src/cli/arch-hw-fingerprint",
-  "src/cli/arch-hw-framework16",
-  "src/cli/arch-hw-hybrid-gpu",
-  "src/cli/arch-hw-intel",
-  "src/cli/arch-hw-intel-ptl",
-  "src/cli/arch-hw-intel-sof",
-  "src/cli/arch-hw-laptop",
-  "src/cli/arch-hw-laptop-closed",
-  "src/cli/arch-hw-match",
-  "src/cli/arch-hw-match-device-tree",
-  "src/cli/arch-hw-n1x",
-  "src/cli/arch-hw-nvidia",
-  "src/cli/arch-hw-nvidia-display",
-  "src/cli/arch-hw-nvidia-gsp",
-  "src/cli/arch-hw-nvidia-without-gsp",
-  "src/cli/arch-hw-platform",
-  "src/cli/arch-hw-recover-internal-monitor",
-  "src/cli/arch-hw-surface",
-  "src/cli/arch-hw-touchpad",
-  "src/cli/arch-hw-touchscreen",
-  "src/cli/arch-hw-vm",
-  "src/python/cli/hardware/virtualization.py",
-  "src/cli/arch-hw-vulkan",
-  "src/cli/arch-hw-webcam",
-  "src/python/cli/webcam.py",
-  "src/cli/arch-hw-x86",
+  "src/commands/arch-hw-aarch64",
+  "src/commands/arch-hw-aarch64-apple",
+  "src/commands/arch-hw-aarch64-gb10",
+  "src/commands/arch-hw-aarch64-n1x",
+  "src/commands/arch-hw-aarch64-qualcomm",
+  "src/cli/architecture.py",
+  "src/commands/arch-hw-apple-silicon",
+  "src/commands/arch-hw-asus-expertbook-b9406",
+  "src/commands/arch-hw-asus-rog",
+  "src/commands/arch-hw-asus-zenbook-ux5406aa",
+  "src/commands/arch-hw-clamshell",
+  "src/commands/arch-hw-dell-xps-haptic-touchpad",
+  "src/commands/arch-hw-dell-xps-oled",
+  "src/commands/arch-hw-dell-xps13-dx13260-ptl",
+  "src/commands/arch-hw-dell-xps13-sidecar-amps",
+  "src/commands/arch-hw-display",
+  "src/commands/arch-hw-elgato-camlink-4k",
+  "src/commands/arch-hw-external-monitors",
+  "src/commands/arch-hw-fingerprint",
+  "src/commands/arch-hw-framework16",
+  "src/commands/arch-hw-hybrid-gpu",
+  "src/commands/arch-hw-intel",
+  "src/commands/arch-hw-intel-ptl",
+  "src/commands/arch-hw-intel-sof",
+  "src/commands/arch-hw-laptop",
+  "src/commands/arch-hw-laptop-closed",
+  "src/commands/arch-hw-match",
+  "src/commands/arch-hw-match-device-tree",
+  "src/commands/arch-hw-n1x",
+  "src/commands/arch-hw-nvidia",
+  "src/commands/arch-hw-nvidia-display",
+  "src/commands/arch-hw-nvidia-gsp",
+  "src/commands/arch-hw-nvidia-without-gsp",
+  "src/commands/arch-hw-platform",
+  "src/commands/arch-hw-recover-internal-monitor",
+  "src/commands/arch-hw-surface",
+  "src/commands/arch-hw-touchpad",
+  "src/commands/arch-hw-touchscreen",
+  "src/commands/arch-hw-vm",
+  "src/cli/hardware/virtualization.py",
+  "src/commands/arch-hw-vulkan",
+  "src/commands/arch-hw-webcam",
+  "src/cli/webcam.py",
+  "src/commands/arch-hw-x86",
 ]
 requires = ["desktop.commands", "system.runtime-data"]
 
 [[output]]
-source = "src/cli/arch-hw-aarch64"
-target = "usr/share/arch/src/cli/arch-hw-aarch64"
+source = "src/commands/arch-hw-aarch64"
+target = "usr/share/arch/src/commands/arch-hw-aarch64"
 
 [[output]]
-source = "src/cli/arch-hw-aarch64-apple"
-target = "usr/share/arch/src/cli/arch-hw-aarch64-apple"
+source = "src/commands/arch-hw-aarch64-apple"
+target = "usr/share/arch/src/commands/arch-hw-aarch64-apple"
 
 [[output]]
-source = "src/cli/arch-hw-aarch64-gb10"
-target = "usr/share/arch/src/cli/arch-hw-aarch64-gb10"
+source = "src/commands/arch-hw-aarch64-gb10"
+target = "usr/share/arch/src/commands/arch-hw-aarch64-gb10"
 
 [[output]]
-source = "src/cli/arch-hw-aarch64-n1x"
-target = "usr/share/arch/src/cli/arch-hw-aarch64-n1x"
+source = "src/commands/arch-hw-aarch64-n1x"
+target = "usr/share/arch/src/commands/arch-hw-aarch64-n1x"
 
 [[output]]
-source = "src/cli/arch-hw-aarch64-qualcomm"
-target = "usr/share/arch/src/cli/arch-hw-aarch64-qualcomm"
+source = "src/commands/arch-hw-aarch64-qualcomm"
+target = "usr/share/arch/src/commands/arch-hw-aarch64-qualcomm"
 
 [[output]]
-source = "src/python/cli/architecture.py"
-target = "usr/share/arch/src/python/cli/architecture.py"
+source = "src/cli/architecture.py"
+target = "usr/share/arch/src/cli/architecture.py"
 
 [[output]]
-source = "src/cli/arch-hw-apple-silicon"
-target = "usr/share/arch/src/cli/arch-hw-apple-silicon"
+source = "src/commands/arch-hw-apple-silicon"
+target = "usr/share/arch/src/commands/arch-hw-apple-silicon"
 
 [[output]]
-source = "src/cli/arch-hw-asus-expertbook-b9406"
-target = "usr/share/arch/src/cli/arch-hw-asus-expertbook-b9406"
+source = "src/commands/arch-hw-asus-expertbook-b9406"
+target = "usr/share/arch/src/commands/arch-hw-asus-expertbook-b9406"
 
 [[output]]
-source = "src/cli/arch-hw-asus-rog"
-target = "usr/share/arch/src/cli/arch-hw-asus-rog"
+source = "src/commands/arch-hw-asus-rog"
+target = "usr/share/arch/src/commands/arch-hw-asus-rog"
 
 [[output]]
-source = "src/cli/arch-hw-asus-zenbook-ux5406aa"
-target = "usr/share/arch/src/cli/arch-hw-asus-zenbook-ux5406aa"
+source = "src/commands/arch-hw-asus-zenbook-ux5406aa"
+target = "usr/share/arch/src/commands/arch-hw-asus-zenbook-ux5406aa"
 
 [[output]]
-source = "src/cli/arch-hw-clamshell"
-target = "usr/share/arch/src/cli/arch-hw-clamshell"
+source = "src/commands/arch-hw-clamshell"
+target = "usr/share/arch/src/commands/arch-hw-clamshell"
 
 [[output]]
-source = "src/cli/arch-hw-dell-xps-haptic-touchpad"
-target = "usr/share/arch/src/cli/arch-hw-dell-xps-haptic-touchpad"
+source = "src/commands/arch-hw-dell-xps-haptic-touchpad"
+target = "usr/share/arch/src/commands/arch-hw-dell-xps-haptic-touchpad"
 
 [[output]]
-source = "src/cli/arch-hw-dell-xps-oled"
-target = "usr/share/arch/src/cli/arch-hw-dell-xps-oled"
+source = "src/commands/arch-hw-dell-xps-oled"
+target = "usr/share/arch/src/commands/arch-hw-dell-xps-oled"
 
 [[output]]
-source = "src/cli/arch-hw-dell-xps13-dx13260-ptl"
-target = "usr/share/arch/src/cli/arch-hw-dell-xps13-dx13260-ptl"
+source = "src/commands/arch-hw-dell-xps13-dx13260-ptl"
+target = "usr/share/arch/src/commands/arch-hw-dell-xps13-dx13260-ptl"
 
 [[output]]
-source = "src/cli/arch-hw-dell-xps13-sidecar-amps"
-target = "usr/share/arch/src/cli/arch-hw-dell-xps13-sidecar-amps"
+source = "src/commands/arch-hw-dell-xps13-sidecar-amps"
+target = "usr/share/arch/src/commands/arch-hw-dell-xps13-sidecar-amps"
 
 [[output]]
-source = "src/cli/arch-hw-display"
-target = "usr/share/arch/src/cli/arch-hw-display"
+source = "src/commands/arch-hw-display"
+target = "usr/share/arch/src/commands/arch-hw-display"
 
 [[output]]
-source = "src/cli/arch-hw-elgato-camlink-4k"
-target = "usr/share/arch/src/cli/arch-hw-elgato-camlink-4k"
+source = "src/commands/arch-hw-elgato-camlink-4k"
+target = "usr/share/arch/src/commands/arch-hw-elgato-camlink-4k"
 
 [[output]]
-source = "src/cli/arch-hw-external-monitors"
-target = "usr/share/arch/src/cli/arch-hw-external-monitors"
+source = "src/commands/arch-hw-external-monitors"
+target = "usr/share/arch/src/commands/arch-hw-external-monitors"
 
 [[output]]
-source = "src/cli/arch-hw-fingerprint"
-target = "usr/share/arch/src/cli/arch-hw-fingerprint"
+source = "src/commands/arch-hw-fingerprint"
+target = "usr/share/arch/src/commands/arch-hw-fingerprint"
 
 [[output]]
-source = "src/cli/arch-hw-framework16"
-target = "usr/share/arch/src/cli/arch-hw-framework16"
+source = "src/commands/arch-hw-framework16"
+target = "usr/share/arch/src/commands/arch-hw-framework16"
 
 [[output]]
-source = "src/cli/arch-hw-hybrid-gpu"
-target = "usr/share/arch/src/cli/arch-hw-hybrid-gpu"
+source = "src/commands/arch-hw-hybrid-gpu"
+target = "usr/share/arch/src/commands/arch-hw-hybrid-gpu"
 
 [[output]]
-source = "src/cli/arch-hw-intel"
-target = "usr/share/arch/src/cli/arch-hw-intel"
+source = "src/commands/arch-hw-intel"
+target = "usr/share/arch/src/commands/arch-hw-intel"
 
 [[output]]
-source = "src/cli/arch-hw-intel-ptl"
-target = "usr/share/arch/src/cli/arch-hw-intel-ptl"
+source = "src/commands/arch-hw-intel-ptl"
+target = "usr/share/arch/src/commands/arch-hw-intel-ptl"
 
 [[output]]
-source = "src/cli/arch-hw-intel-sof"
-target = "usr/share/arch/src/cli/arch-hw-intel-sof"
+source = "src/commands/arch-hw-intel-sof"
+target = "usr/share/arch/src/commands/arch-hw-intel-sof"
 
 [[output]]
-source = "src/cli/arch-hw-laptop"
-target = "usr/share/arch/src/cli/arch-hw-laptop"
+source = "src/commands/arch-hw-laptop"
+target = "usr/share/arch/src/commands/arch-hw-laptop"
 
 [[output]]
-source = "src/cli/arch-hw-laptop-closed"
-target = "usr/share/arch/src/cli/arch-hw-laptop-closed"
+source = "src/commands/arch-hw-laptop-closed"
+target = "usr/share/arch/src/commands/arch-hw-laptop-closed"
 
 [[output]]
-source = "src/cli/arch-hw-match"
-target = "usr/share/arch/src/cli/arch-hw-match"
+source = "src/commands/arch-hw-match"
+target = "usr/share/arch/src/commands/arch-hw-match"
 
 [[output]]
-source = "src/cli/arch-hw-match-device-tree"
-target = "usr/share/arch/src/cli/arch-hw-match-device-tree"
+source = "src/commands/arch-hw-match-device-tree"
+target = "usr/share/arch/src/commands/arch-hw-match-device-tree"
 
 [[output]]
-source = "src/cli/arch-hw-n1x"
-target = "usr/share/arch/src/cli/arch-hw-n1x"
+source = "src/commands/arch-hw-n1x"
+target = "usr/share/arch/src/commands/arch-hw-n1x"
 
 [[output]]
-source = "src/cli/arch-hw-nvidia"
-target = "usr/share/arch/src/cli/arch-hw-nvidia"
+source = "src/commands/arch-hw-nvidia"
+target = "usr/share/arch/src/commands/arch-hw-nvidia"
 
 [[output]]
-source = "src/cli/arch-hw-nvidia-display"
-target = "usr/share/arch/src/cli/arch-hw-nvidia-display"
+source = "src/commands/arch-hw-nvidia-display"
+target = "usr/share/arch/src/commands/arch-hw-nvidia-display"
 
 [[output]]
-source = "src/cli/arch-hw-nvidia-gsp"
-target = "usr/share/arch/src/cli/arch-hw-nvidia-gsp"
+source = "src/commands/arch-hw-nvidia-gsp"
+target = "usr/share/arch/src/commands/arch-hw-nvidia-gsp"
 
 [[output]]
-source = "src/cli/arch-hw-nvidia-without-gsp"
-target = "usr/share/arch/src/cli/arch-hw-nvidia-without-gsp"
+source = "src/commands/arch-hw-nvidia-without-gsp"
+target = "usr/share/arch/src/commands/arch-hw-nvidia-without-gsp"
 
 [[output]]
-source = "src/cli/arch-hw-platform"
-target = "usr/share/arch/src/cli/arch-hw-platform"
+source = "src/commands/arch-hw-platform"
+target = "usr/share/arch/src/commands/arch-hw-platform"
 
 [[output]]
-source = "src/cli/arch-hw-recover-internal-monitor"
-target = "usr/share/arch/src/cli/arch-hw-recover-internal-monitor"
+source = "src/commands/arch-hw-recover-internal-monitor"
+target = "usr/share/arch/src/commands/arch-hw-recover-internal-monitor"
 
 [[output]]
-source = "src/cli/arch-hw-surface"
-target = "usr/share/arch/src/cli/arch-hw-surface"
+source = "src/commands/arch-hw-surface"
+target = "usr/share/arch/src/commands/arch-hw-surface"
 
 [[output]]
-source = "src/cli/arch-hw-touchpad"
-target = "usr/share/arch/src/cli/arch-hw-touchpad"
+source = "src/commands/arch-hw-touchpad"
+target = "usr/share/arch/src/commands/arch-hw-touchpad"
 
 [[output]]
-source = "src/cli/arch-hw-touchscreen"
-target = "usr/share/arch/src/cli/arch-hw-touchscreen"
+source = "src/commands/arch-hw-touchscreen"
+target = "usr/share/arch/src/commands/arch-hw-touchscreen"
 
 [[output]]
-source = "src/cli/arch-hw-vm"
-target = "usr/share/arch/src/cli/arch-hw-vm"
+source = "src/commands/arch-hw-vm"
+target = "usr/share/arch/src/commands/arch-hw-vm"
 
 [[output]]
-source = "src/python/cli/hardware/virtualization.py"
-target = "usr/share/arch/src/python/cli/hardware/virtualization.py"
+source = "src/cli/hardware/virtualization.py"
+target = "usr/share/arch/src/cli/hardware/virtualization.py"
 
 [[output]]
-source = "src/cli/arch-hw-vulkan"
-target = "usr/share/arch/src/cli/arch-hw-vulkan"
+source = "src/commands/arch-hw-vulkan"
+target = "usr/share/arch/src/commands/arch-hw-vulkan"
 
 [[output]]
-source = "src/cli/arch-hw-webcam"
-target = "usr/share/arch/src/cli/arch-hw-webcam"
+source = "src/commands/arch-hw-webcam"
+target = "usr/share/arch/src/commands/arch-hw-webcam"
 
 [[output]]
-source = "src/python/cli/webcam.py"
-target = "usr/share/arch/src/python/cli/webcam.py"
+source = "src/cli/webcam.py"
+target = "usr/share/arch/src/cli/webcam.py"
 
 [[output]]
-source = "src/cli/arch-hw-x86"
-target = "usr/share/arch/src/cli/arch-hw-x86"
+source = "src/commands/arch-hw-x86"
+target = "usr/share/arch/src/commands/arch-hw-x86"

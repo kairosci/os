@@ -4,7 +4,7 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-detector="$ROOT/src/cli/arch-hw-dell-xps13-sidecar-amps"
+detector="$ROOT/src/commands/arch-hw-dell-xps13-sidecar-amps"
 leaf="$ROOT/src/python/installer/hardware/dell_xps13_sidecar_amps.py"
 setup="$ROOT/data/installer/hardware-setup.yml"
 
@@ -77,7 +77,7 @@ pass "the detector fails closed when the SKU attribute is missing"
 run_leaf() {
   : >"$call_log"
   printf '0E53\n' >"$sku_file"
-  PATH="$test_tmp/bin:$ROOT/src/cli:$PATH" \
+  PATH="$test_tmp/bin:$ROOT/src/commands:$PATH" \
     CALL_LOG="$call_log" \
     TEST_PRODUCT_NAME="${1-XPS 13 DX13260}" \
     TEST_PKG_ADD_STATUS="${2:-0}" \

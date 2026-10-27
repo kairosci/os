@@ -4,7 +4,7 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-remove="$ROOT/src/cli/arch-remove-security-fido2"
+remove="$ROOT/src/commands/arch-remove-security-fido2"
 
 test_tmp=$(mktemp -d)
 stub_bin="$test_tmp/bin"
@@ -80,7 +80,7 @@ chmod +x "$stub_bin/sudo" "$stub_bin/arch-pkg-drop"
 invoke_remove() {
   : >"$calls"
   TEST_AUTHDIR="$authdir" TEST_LOG="$calls" \
-    PATH="$stub_bin:$ROOT/src/cli:$PATH" \
+    PATH="$stub_bin:$ROOT/src/commands:$PATH" \
     bash "$remove_copy" </dev/null >/dev/null
 }
 

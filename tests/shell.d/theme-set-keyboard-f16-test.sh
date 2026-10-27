@@ -30,7 +30,7 @@ chmod +x "$FAKE_BIN"/*
 
 apply_keyboard_color() {
   rm -f "$QMK_LOG"
-  QMK_LOG="$QMK_LOG" PATH="$FAKE_BIN:$ROOT/src/cli:$PATH" HOME="$TEST_HOME" "$ROOT/src/cli/arch-theme-set-keyboard-f16"
+  QMK_LOG="$QMK_LOG" PATH="$FAKE_BIN:$ROOT/src/commands:$PATH" HOME="$TEST_HOME" "$ROOT/src/commands/arch-theme-set-keyboard-f16"
 }
 
 qmk_calls() {

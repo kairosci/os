@@ -222,7 +222,7 @@ run_clamshell() {
     ARCH_TEST_INTERNAL_DISABLED="${ARCH_TEST_INTERNAL_DISABLED:-false}" \
     ARCH_TEST_EXTERNAL_ACTIVE="${ARCH_TEST_EXTERNAL_ACTIVE:-false}" \
     ARCH_TEST_CLAMSHELL="${ARCH_TEST_CLAMSHELL:-false}" \
-    "$ROOT/src/cli/arch-hyprland-monitor-clamshell"
+    "$ROOT/src/commands/arch-hyprland-monitor-clamshell"
 }
 
 # Regression (#7265, #7301): with scale = "auto" the compositor's resolution of

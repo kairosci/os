@@ -18,7 +18,7 @@ Panel {
   manageIpc: false
 
   // Address -> "connecting" | "disconnecting" | "forgetting".
-  // The actual Bluetooth sequencing lives in src/cli/arch-bluetooth-device;
+  // The actual Bluetooth sequencing lives in src/commands/arch-bluetooth-device;
   // this map only keeps the panel responsive while BlueZ catches up.
   property var pendingActions: ({})
 

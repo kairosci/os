@@ -24,7 +24,7 @@ cat >"$mock_bin/xdg-settings" <<'SH'
 printf '%s\n' "${BROWSER:-unset}" >"$ARCH_TEST_XDG_SETTINGS_LOG"
 echo fallback.desktop
 SH
-export PATH="$mock_bin:$ROOT/src/cli:$PATH"
+export PATH="$mock_bin:$ROOT/src/commands:$PATH"
 
 for browser in chromium firefox brave; do
   printf '#!/bin/bash\n' >"$mock_bin/$browser"

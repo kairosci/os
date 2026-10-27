@@ -54,7 +54,7 @@ class EpochRealtimeLocaleTest(unittest.TestCase):
       for name in COMMANDS:
         with self.subTest(command=name):
           result = subprocess.run(
-            ["bash", "-c", extraction, "_", str(ROOT / "src/cli" / name)],
+            ["bash", "-c", extraction, "_", str(ROOT / "src/commands" / name)],
             check=False,
             capture_output=True,
             text=True,

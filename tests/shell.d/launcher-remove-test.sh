@@ -73,10 +73,10 @@ export PATH="$tmp_dir/bin:$PATH"
 export XDG_DATA_HOME="$tmp_dir/data"
 export XDG_DATA_DIRS="$tmp_dir/system"
 
-"$ROOT/src/cli/arch-remove-launcher-entry" Basecamp.desktop Basecamp
-"$ROOT/src/cli/arch-remove-launcher-entry" Docker.desktop Docker
-"$ROOT/src/cli/arch-remove-launcher-entry" native.desktop Native
-"$ROOT/src/cli/arch-remove-launcher-entry" aliens.desktop Aliens
+"$ROOT/src/commands/arch-remove-launcher-entry" Basecamp.desktop Basecamp
+"$ROOT/src/commands/arch-remove-launcher-entry" Docker.desktop Docker
+"$ROOT/src/commands/arch-remove-launcher-entry" native.desktop Native
+"$ROOT/src/commands/arch-remove-launcher-entry" aliens.desktop Aliens
 
 mapfile -t lines <"$TEST_LOG"
 

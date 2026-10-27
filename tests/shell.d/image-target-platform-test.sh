@@ -9,7 +9,7 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 # detector run sees: image/ is the root, proc/ its /proc (the host's device tree
 # and PID 1), bin/ a uname for the CPU it runs on.
 
-detector="$ROOT/src/cli/arch-hw-platform"
+detector="$ROOT/src/commands/arch-hw-platform"
 umask 022
 test_tmp=$(mktemp -d)
 trap 'rm -rf "$test_tmp"' EXIT
@@ -66,7 +66,7 @@ manifest() {
 in_world() {
   local dir="$test_tmp/worlds/$1"
   shift
-  ARCH_PROC_ROOT="$dir/proc" ARCH_IMAGE_ROOT="$dir/image" PATH="$dir/bin:$ROOT/src/cli:$PATH" "$@"
+  ARCH_PROC_ROOT="$dir/proc" ARCH_IMAGE_ROOT="$dir/image" PATH="$dir/bin:$ROOT/src/commands:$PATH" "$@"
 }
 
 detect() {
@@ -99,7 +99,7 @@ fi
 if (( EUID == 0 )) || unshare --user --map-root-user true 2>/dev/null; then
   live=$("${root_runner[@]}" "$detector") || fail "root detects the live platform"
   apple_live=0
-  "${root_runner[@]}" "$ROOT/src/cli/arch-hw-aarch64-apple" || apple_live=$?
+  "${root_runner[@]}" "$ROOT/src/commands/arch-hw-aarch64-apple" || apple_live=$?
 
   # A world that would make any environment-led detector answer with another
   # platform than the live one.
@@ -121,7 +121,7 @@ if (( EUID == 0 )) || unshare --user --map-root-user true 2>/dev/null; then
   # detector passes itself once it has restarted.
   hostile_env=(
     ARCH_PROC_ROOT="$hostile_dir/proc" ARCH_SYS_ROOT="$hostile_dir/sys" ARCH_IMAGE_ROOT="$hostile_dir/image"
-    PATH="$hostile_dir/bin:$ROOT/src/cli:$PATH" BASH_ENV="$test_tmp/bash-env"
+    PATH="$hostile_dir/bin:$ROOT/src/commands:$PATH" BASH_ENV="$test_tmp/bash-env"
     'BASH_FUNC_uname%%=() { echo aarch64; }'
     'BASH_FUNC_mapfile%%=() { tokens=('"${hostile_tokens[0]}"'); }'
     'BASH_FUNC_stat%%=() { echo 0 644; }'
@@ -139,7 +139,7 @@ if (( EUID == 0 )) || unshare --user --map-root-user true 2>/dev/null; then
 hostile: $overridden"
   done
   apple_hostile=0
-  env "${hostile_env[@]}" "${root_runner[@]}" "$ROOT/src/cli/arch-hw-aarch64-apple" || apple_hostile=$?
+  env "${hostile_env[@]}" "${root_runner[@]}" "$ROOT/src/commands/arch-hw-aarch64-apple" || apple_hostile=$?
   (( apple_hostile == apple_live )) || fail "the Apple predicate ignores a hostile root environment"
   pass "root ignores fixture roots, PATH, BASH_ENV and exported functions"
 else
@@ -418,27 +418,27 @@ expect_refused other-owner "$untrusted" "a manifest another user owns is refused
 
 # The Apple predicate of an Apple image built on an x86 host, and of a generic
 # image built on a Mac.
-in_world x86-host "$ROOT/src/cli/arch-hw-aarch64-apple" || fail "the Apple predicate accepts an Apple image build"
-if in_world on-a-mac "$ROOT/src/cli/arch-hw-aarch64-apple"; then
+in_world x86-host "$ROOT/src/commands/arch-hw-aarch64-apple" || fail "the Apple predicate accepts an Apple image build"
+if in_world on-a-mac "$ROOT/src/commands/arch-hw-aarch64-apple"; then
   fail "the Apple predicate rejects a plain aarch64 image built on a Mac"
 fi
 pass "the Apple predicate follows the image target"
 
 # arch-mac's packages and units still call the predicate by its old name.
-in_world x86-host "$ROOT/src/cli/arch-hw-apple-silicon" || fail "the old Apple predicate name accepts an Apple image build"
-if in_world on-a-mac "$ROOT/src/cli/arch-hw-apple-silicon"; then
+in_world x86-host "$ROOT/src/commands/arch-hw-apple-silicon" || fail "the old Apple predicate name accepts an Apple image build"
+if in_world on-a-mac "$ROOT/src/commands/arch-hw-apple-silicon"; then
   fail "the old Apple predicate name rejects a plain aarch64 image built on a Mac"
 fi
 pass "the old Apple predicate name answers as arch-hw-aarch64-apple"
 
-packages=$(in_world x86-host env ARCH_PATH="$ROOT" "$ROOT/src/cli/arch-pkg-defaults") || fail "an Apple image build composes its packages"
-[[ $packages == "$(ARCH_PATH="$ROOT" "$ROOT/src/cli/arch-pkg-defaults" aarch64-apple)" ]] ||
+packages=$(in_world x86-host env ARCH_PATH="$ROOT" "$ROOT/src/commands/arch-pkg-defaults") || fail "an Apple image build composes its packages"
+[[ $packages == "$(ARCH_PATH="$ROOT" "$ROOT/src/commands/arch-pkg-defaults" aarch64-apple)" ]] ||
   fail "an Apple image build installs the Apple Silicon package set"
-packages=$(in_world on-a-mac env ARCH_PATH="$ROOT" "$ROOT/src/cli/arch-pkg-defaults") || fail "a plain aarch64 image build composes its packages"
-[[ $packages == "$(ARCH_PATH="$ROOT" "$ROOT/src/cli/arch-pkg-defaults" aarch64)" ]] ||
+packages=$(in_world on-a-mac env ARCH_PATH="$ROOT" "$ROOT/src/commands/arch-pkg-defaults") || fail "a plain aarch64 image build composes its packages"
+[[ $packages == "$(ARCH_PATH="$ROOT" "$ROOT/src/commands/arch-pkg-defaults" aarch64)" ]] ||
   fail "a plain aarch64 image built on a Mac installs the plain aarch64 package set"
-packages=$(in_world odd-host env ARCH_PATH="$ROOT" "$ROOT/src/cli/arch-pkg-defaults") || fail "an image built on a contradictory host composes its packages"
-[[ $packages == "$(ARCH_PATH="$ROOT" "$ROOT/src/cli/arch-pkg-defaults" aarch64)" ]] ||
+packages=$(in_world odd-host env ARCH_PATH="$ROOT" "$ROOT/src/commands/arch-pkg-defaults") || fail "an image built on a contradictory host composes its packages"
+[[ $packages == "$(ARCH_PATH="$ROOT" "$ROOT/src/commands/arch-pkg-defaults" aarch64)" ]] ||
   fail "an image built on a contradictory host installs its target's package set"
 pass "the default package set follows the image target"
 

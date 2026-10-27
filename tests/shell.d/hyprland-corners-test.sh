@@ -18,7 +18,7 @@ done
 chmod +x "$stub_dir"/*
 
 run() {
-  HOME="$home_dir" XDG_STATE_HOME="$home_dir/.local/state" ARCH_PATH="$ROOT" PATH="$stub_dir:$ROOT/src/cli:$PATH" "$@"
+  HOME="$home_dir" XDG_STATE_HOME="$home_dir/.local/state" ARCH_PATH="$ROOT" PATH="$stub_dir:$ROOT/src/commands:$PATH" "$@"
 }
 
 [[ $(run arch-hyprland-corners) == "theme" ]] || fail "corners start out following the theme"
@@ -47,9 +47,9 @@ pass "unknown corners are refused"
 
 # Hyprland loads toggles from XDG_STATE_HOME, so the corners have to land there.
 state_home="$tmpdir/state"
-HOME="$home_dir" XDG_STATE_HOME="$state_home" ARCH_PATH="$ROOT" PATH="$stub_dir:$ROOT/src/cli:$PATH" arch-hyprland-corners sharp
+HOME="$home_dir" XDG_STATE_HOME="$state_home" ARCH_PATH="$ROOT" PATH="$stub_dir:$ROOT/src/commands:$PATH" arch-hyprland-corners sharp
 [[ -f $state_home/arch/toggles/hypr/corners-sharp.lua ]] || fail "corners follow XDG_STATE_HOME"
-[[ $(HOME="$home_dir" XDG_STATE_HOME="$state_home" PATH="$ROOT/src/cli:$PATH" arch-hyprland-corners) == "sharp" ]] || fail "corners are read from XDG_STATE_HOME"
+[[ $(HOME="$home_dir" XDG_STATE_HOME="$state_home" PATH="$ROOT/src/commands:$PATH" arch-hyprland-corners) == "sharp" ]] || fail "corners are read from XDG_STATE_HOME"
 pass "corners follow XDG_STATE_HOME"
 
 # A failed save keeps the corners already chosen.

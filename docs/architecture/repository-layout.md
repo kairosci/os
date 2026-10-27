@@ -70,7 +70,7 @@ Git submodules are reserved for separately released components with their own ma
 
 | Legacy source | Current owner |
 | --- | --- |
-| `bin/` | `src/cli/`, with command capability ownership declared under `modules/desktop/commands/` |
+| `bin/` | `src/commands/`, with command capability ownership declared under `modules/desktop/commands/` |
 | `src/shell/plugins/<plugin>/` | `src/shell/plugins/<plugin>/` |
 | `src/shell/Commons/`, `Ui/`, `services/`, `shell.qml` | `src/shell/` shared runtime |
 | `default/` | `default/` and `modules/system/settings/defaults/` |
@@ -85,7 +85,7 @@ Git submodules are reserved for separately released components with their own ma
 | `manual/` | `docs/user/` |
 | `packaging/` | `packages/` |
 
-CLI entry points stay together in `src/cli/` because their executable names and sibling helper paths are part of the runtime interface. The module graph groups their ownership by capability without moving those files into nested PATH directories. The installed tree is assembled from source owners. Renames update the assembler, package manifests, documentation, and tests in the same pull request; no source-tree symlink layer is part of the layout.
+CLI entry points stay together in `src/commands/` because their executable names and sibling helper paths are part of the runtime interface. The module graph groups their ownership by capability without moving those files into nested PATH directories. The installed tree is assembled from source owners. Renames update the assembler, package manifests, documentation, and tests in the same pull request; no source-tree symlink layer is part of the layout.
 
 ## Pull request units
 

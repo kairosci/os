@@ -2,15 +2,15 @@ id = "desktop.commands.games"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/cli/arch-games-retro-cores",
-  "src/cli/arch-games-retro-install",
+  "src/commands/arch-games-retro-cores",
+  "src/commands/arch-games-retro-install",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/cli/arch-games-retro-cores"
-target = "usr/share/arch/src/cli/arch-games-retro-cores"
+source = "src/commands/arch-games-retro-cores"
+target = "usr/share/arch/src/commands/arch-games-retro-cores"
 
 [[output]]
-source = "src/cli/arch-games-retro-install"
-target = "usr/share/arch/src/cli/arch-games-retro-install"
+source = "src/commands/arch-games-retro-install"
+target = "usr/share/arch/src/commands/arch-games-retro-install"

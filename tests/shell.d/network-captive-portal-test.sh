@@ -56,7 +56,7 @@ require_command quickshell
 stage=$(mktemp -d)
 trap 'rm -rf -- "$stage"' EXIT
 fixture="$SHELL_TEST_DIR/fixtures/network-captive-portal"
-mkdir -p "$stage/network" "$stage/bin" "$stage/home" "$stage/src/cli"
+mkdir -p "$stage/network" "$stage/bin" "$stage/home" "$stage/src/commands"
 ln -s "$ROOT/src/shell/Ui" "$stage/Ui"
 ln -s "$ROOT/src/shell/Commons" "$stage/Commons"
 ln -s "$ROOT/default" "$stage/default"
@@ -91,7 +91,7 @@ JS
 printf '#!/bin/bash\nexit 0\n' > "$stage/bin/noop"
 chmod +x "$stage/bin/noop"
 for command in arch-dns arch-network-band; do
-  ln -s ../../bin/noop "$stage/src/cli/$command"
+  ln -s ../../bin/noop "$stage/src/commands/$command"
 done
 # Preview uses only synthetic details, never the host's SSID or addresses.
 # Normal assertions keep the details empty to exercise missing-route handling.

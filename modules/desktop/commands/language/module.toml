@@ -2,10 +2,10 @@ id = "desktop.commands.language"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/cli/arch-language",
+  "src/commands/arch-language",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/cli/arch-language"
-target = "usr/share/arch/src/cli/arch-language"
+source = "src/commands/arch-language"
+target = "usr/share/arch/src/commands/arch-language"

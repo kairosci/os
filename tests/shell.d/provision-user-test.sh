@@ -11,8 +11,8 @@ mock_bin="$test_tmp/bin"
 mkdir -p "$mock_bin" "$test_tmp/home" "$test_tmp/home/.hermes/profiles/james"
 test_arch_path="$test_tmp/arch"
 mkdir -p "$test_arch_path/src/python/installer_user"
+ln -s "$ROOT/src/commands" "$test_arch_path/src/commands"
 ln -s "$ROOT/src/cli" "$test_arch_path/src/cli"
-ln -s "$ROOT/src/python/cli" "$test_arch_path/src/python/cli"
 ln -s "$ROOT/data" "$test_arch_path/data"
 mkdir -p "$test_arch_path/applications"
 printf '[Desktop Entry]\nName=Provisioning test\nType=Application\n' >"$test_arch_path/applications/provisioning-test.desktop"
@@ -86,8 +86,8 @@ pass "Python setup orchestrator stops after a failed setup step"
 # Provisioning prepends $ARCH_PATH/src/cli, which shadows a mock for anything
 # os ships, so its Python setup orchestrator is stubbed under the test root.
 
-HOME="$test_tmp/home" PATH="$mock_bin:$ROOT/src/cli:$PATH" ARCH_PATH="$test_arch_path" \
-  ARCH_INSTALL="$test_tmp/installer" bash "$ROOT/src/cli/arch-provision-user" >/dev/null ||
+HOME="$test_tmp/home" PATH="$mock_bin:$ROOT/src/commands:$PATH" ARCH_PATH="$test_arch_path" \
+  ARCH_INSTALL="$test_tmp/installer" bash "$ROOT/src/commands/arch-provision-user" >/dev/null ||
   fail "arch-provision-user finishes"
 
 [[ -f $TEST_SETUP_CALLED ]] || fail "arch-provision-user runs the Python user setup orchestrator"
@@ -111,8 +111,8 @@ pass "provisioning names the user folders in English before a first login in ano
 : >"$TEST_COMMAND_LOG"
 mkdir -p "$test_tmp/home/.config"
 printf 'XDG_DOWNLOAD_DIR="$HOME/下载"\n' >"$test_tmp/home/.config/user-dirs.dirs"
-HOME="$test_tmp/home" PATH="$mock_bin:$ROOT/src/cli:$PATH" ARCH_PATH="$test_arch_path" \
-  ARCH_INSTALL="$test_tmp/installer" bash "$ROOT/src/cli/arch-provision-user" --force >/dev/null ||
+HOME="$test_tmp/home" PATH="$mock_bin:$ROOT/src/commands:$PATH" ARCH_PATH="$test_arch_path" \
+  ARCH_INSTALL="$test_tmp/installer" bash "$ROOT/src/commands/arch-provision-user" --force >/dev/null ||
   fail "arch-provision-user finishes again"
 ! grep -q -- '--set DOWNLOAD ' "$TEST_COMMAND_LOG" || fail "provisioning keeps a folder the user already named"
 grep -q -- '--set PICTURES ' "$TEST_COMMAND_LOG" || fail "provisioning still names the folders the user has not"

@@ -4,7 +4,7 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-setup="$ROOT/src/cli/arch-setup-security-fido2"
+setup="$ROOT/src/commands/arch-setup-security-fido2"
 
 test_tmp=$(mktemp -d)
 stub_bin="$test_tmp/bin"
@@ -263,7 +263,7 @@ invoke_setup() {
     TEST_CREDENTIAL="$credential" TEST_FAIL_CHMOD="$fail_chmod" TEST_FAIL_MV="$fail_mv" \
     TEST_LOG="$calls" TEST_MKTEMP_MODE="$mktemp_mode" TEST_PAMU_MODE="$pamu_mode" \
     TEST_PAMU_TARGETS="$pamu_targets" TEST_STAGES="$stages" TEST_TMP="$test_tmp" \
-    PATH="$stub_bin:$ROOT/src/cli:$PATH" \
+    PATH="$stub_bin:$ROOT/src/commands:$PATH" \
     bash "$setup_copy" </dev/null >/dev/null
 }
 

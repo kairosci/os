@@ -90,7 +90,7 @@ touch "$test_home/.local/state/arch/indicators/stay-awake"
 mkdir -p "$test_root/src"
 cp -a "$ROOT/src/shell" "$test_root/src/shell"
 ln -s "$ROOT/config" "$test_root/config"
-ln -s "$ROOT/src/cli" "$test_root/src/cli"
+ln -s "$ROOT/src/commands" "$test_root/src/commands"
 ln -s "$ROOT/default" "$test_root/default"
 
 # The scratch shell must not reach the real session: the clipboard plugin
@@ -115,11 +115,11 @@ chmod +x "$stub_bin/bash"
 
 
 shell_ipc() {
-  ARCH_PATH="$test_root" "$ROOT/src/cli/arch-shell" "$@"
+  ARCH_PATH="$test_root" "$ROOT/src/commands/arch-shell" "$@"
 }
 
 shell_ipc_quiet() {
-  ARCH_PATH="$test_root" "$ROOT/src/cli/arch-shell" -q "$@"
+  ARCH_PATH="$test_root" "$ROOT/src/commands/arch-shell" -q "$@"
 }
 
 # mapped|absent|unknown: a failed compositor query proves nothing.
@@ -151,7 +151,7 @@ HOME="$test_home" \
 XDG_CONFIG_HOME="$test_home/.config" \
 XDG_CACHE_HOME="$test_home/.cache" \
 XDG_STATE_HOME="$test_home/.local/state" \
-PATH="$stub_bin:$ROOT/src/cli:$PATH" \
+PATH="$stub_bin:$ROOT/src/commands:$PATH" \
   quickshell -p "$test_root/src/shell" --no-color >"$log" 2>&1 &
 QS_PID=$!
 

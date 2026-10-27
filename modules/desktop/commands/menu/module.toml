@@ -2,70 +2,70 @@ id = "desktop.commands.menu"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/cli/arch-menu",
-  "src/cli/arch-menu-clipboard",
-  "src/cli/arch-menu-emoji",
-  "src/cli/arch-menu-emoji-insert",
-  "src/cli/arch-menu-file",
-  "src/cli/arch-menu-images",
-  "src/cli/arch-menu-input",
-  "src/cli/arch-menu-keybindings",
-  "src/cli/arch-menu-plugin",
-  "src/cli/arch-menu-select",
-  "src/cli/arch-menu-share",
-  "src/cli/arch-menu-timezone",
-  "src/cli/arch-menu-tmux-keybindings",
+  "src/commands/arch-menu",
+  "src/commands/arch-menu-clipboard",
+  "src/commands/arch-menu-emoji",
+  "src/commands/arch-menu-emoji-insert",
+  "src/commands/arch-menu-file",
+  "src/commands/arch-menu-images",
+  "src/commands/arch-menu-input",
+  "src/commands/arch-menu-keybindings",
+  "src/commands/arch-menu-plugin",
+  "src/commands/arch-menu-select",
+  "src/commands/arch-menu-share",
+  "src/commands/arch-menu-timezone",
+  "src/commands/arch-menu-tmux-keybindings",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/cli/arch-menu"
-target = "usr/share/arch/src/cli/arch-menu"
+source = "src/commands/arch-menu"
+target = "usr/share/arch/src/commands/arch-menu"
 
 [[output]]
-source = "src/cli/arch-menu-clipboard"
-target = "usr/share/arch/src/cli/arch-menu-clipboard"
+source = "src/commands/arch-menu-clipboard"
+target = "usr/share/arch/src/commands/arch-menu-clipboard"
 
 [[output]]
-source = "src/cli/arch-menu-emoji"
-target = "usr/share/arch/src/cli/arch-menu-emoji"
+source = "src/commands/arch-menu-emoji"
+target = "usr/share/arch/src/commands/arch-menu-emoji"
 
 [[output]]
-source = "src/cli/arch-menu-emoji-insert"
-target = "usr/share/arch/src/cli/arch-menu-emoji-insert"
+source = "src/commands/arch-menu-emoji-insert"
+target = "usr/share/arch/src/commands/arch-menu-emoji-insert"
 
 [[output]]
-source = "src/cli/arch-menu-file"
-target = "usr/share/arch/src/cli/arch-menu-file"
+source = "src/commands/arch-menu-file"
+target = "usr/share/arch/src/commands/arch-menu-file"
 
 [[output]]
-source = "src/cli/arch-menu-images"
-target = "usr/share/arch/src/cli/arch-menu-images"
+source = "src/commands/arch-menu-images"
+target = "usr/share/arch/src/commands/arch-menu-images"
 
 [[output]]
-source = "src/cli/arch-menu-input"
-target = "usr/share/arch/src/cli/arch-menu-input"
+source = "src/commands/arch-menu-input"
+target = "usr/share/arch/src/commands/arch-menu-input"
 
 [[output]]
-source = "src/cli/arch-menu-keybindings"
-target = "usr/share/arch/src/cli/arch-menu-keybindings"
+source = "src/commands/arch-menu-keybindings"
+target = "usr/share/arch/src/commands/arch-menu-keybindings"
 
 [[output]]
-source = "src/cli/arch-menu-plugin"
-target = "usr/share/arch/src/cli/arch-menu-plugin"
+source = "src/commands/arch-menu-plugin"
+target = "usr/share/arch/src/commands/arch-menu-plugin"
 
 [[output]]
-source = "src/cli/arch-menu-select"
-target = "usr/share/arch/src/cli/arch-menu-select"
+source = "src/commands/arch-menu-select"
+target = "usr/share/arch/src/commands/arch-menu-select"
 
 [[output]]
-source = "src/cli/arch-menu-share"
-target = "usr/share/arch/src/cli/arch-menu-share"
+source = "src/commands/arch-menu-share"
+target = "usr/share/arch/src/commands/arch-menu-share"
 
 [[output]]
-source = "src/cli/arch-menu-timezone"
-target = "usr/share/arch/src/cli/arch-menu-timezone"
+source = "src/commands/arch-menu-timezone"
+target = "usr/share/arch/src/commands/arch-menu-timezone"
 
 [[output]]
-source = "src/cli/arch-menu-tmux-keybindings"
-target = "usr/share/arch/src/cli/arch-menu-tmux-keybindings"
+source = "src/commands/arch-menu-tmux-keybindings"
+target = "usr/share/arch/src/commands/arch-menu-tmux-keybindings"

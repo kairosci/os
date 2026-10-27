@@ -20,7 +20,7 @@ run_enable() {
   HOME="$TMPDIR/home" \
     ARCH_PATH="$ROOT" \
     ARCH_TEST_CALLS="$calls" \
-    PATH="$TMPDIR/bin:$ROOT/src/cli:$PATH" \
+    PATH="$TMPDIR/bin:$ROOT/src/commands:$PATH" \
     arch-plugin-enable "$@"
 }
 

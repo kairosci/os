@@ -1,6 +1,6 @@
 # Lifecycle dispatch
 
-Arch owns the boot lifecycle flows: the owner wizard, account creation, LUKS discovery, retry journals, snapshots, and the update flow. Some platforms boot through a chain those flows can't drive generically. Apple Silicon Macs boot m1n1 → U-Boot → Limine, keep the install key on an ext4 boot partition and name it on the kernel command line. For those platforms, the flows call a small fixed set of operations through `src/cli/arch-lifecycle-dispatch`, and a platform boot package implements them as root-owned entrypoints. System and user setup, and the installers of apps a platform needs to adjust, call a few more, which a platform's runtime package implements, so its own setup runs from Arch's without an inline platform branch. Every other platform keeps the generic path, and each dispatch call is a no-op there.
+Arch owns the boot lifecycle flows: the owner wizard, account creation, LUKS discovery, retry journals, snapshots, and the update flow. Some platforms boot through a chain those flows can't drive generically. Apple Silicon Macs boot m1n1 → U-Boot → Limine, keep the install key on an ext4 boot partition and name it on the kernel command line. For those platforms, the flows call a small fixed set of operations through `src/commands/arch-lifecycle-dispatch`, and a platform boot package implements them as root-owned entrypoints. System and user setup, and the installers of apps a platform needs to adjust, call a few more, which a platform's runtime package implements, so its own setup runs from Arch's without an inline platform branch. Every other platform keeps the generic path, and each dispatch call is a no-op there.
 
 ## The command
 
@@ -49,7 +49,7 @@ Snapshot restore is not an operation: a Limine machine restores through `limine-
 
 ## Platform registration
 
-Registration is code in `src/cli/arch-lifecycle-dispatch`, not configuration. No file, environment variable or `PATH` entry decides what runs as root.
+Registration is code in `src/commands/arch-lifecycle-dispatch`, not configuration. No file, environment variable or `PATH` entry decides what runs as root.
 
 | Platform | Implementation directory | Package | Required operations |
 | --- | --- | --- | --- |
@@ -78,7 +78,7 @@ A dispatch point takes one of two shapes:
 
 Failing closed holds on every platform: where `arch-hw-platform` can't settle the platform (contradicting device-tree evidence, for one), first-boot setup and factory reset stop instead of guessing a boot path, and an update fails its verification without the reboot prompt. There is no check before an update's packages change: on a machine whose platform can't be told, the update installs its packages first, and it only then fails verification. A platform that needs an earlier refusal adds that operation with its first entrypoint.
 
-### Owner provisioning (`src/cli/arch-provision-owner`)
+### Owner provisioning (`src/commands/arch-provision-owner`)
 
 - `platform_ready` runs `provision-prepare` and resolves `luks-slots` at the start of each setup attempt, before the keyboard and account forms. If either fails, the owner sees its error, the log records it, and the attempt ends in the retry or root-shell screen.
 - The shared re-key (`installer/provisioning/luks-rekey.sh`) asks the caller for two callbacks: `luks_auto_unlock_present` and `luks_auto_unlock_drop`. `unlock_owner` resolves `provision-commit` and `provision-verify` once per process. If both resolve, the platform owns the unlock: drop is `provision-commit`, and present is `provision-verify` failing. If neither resolves, the Limine UKI callbacks run unchanged (x86, Snapdragon, other aarch64). If only one resolves, or resolution fails, the unlock counts as present and can't be dropped, so setup never finishes.
@@ -86,14 +86,14 @@ Failing closed holds on every platform: where `arch-hw-platform` can't settle th
 - The shared re-key calls the caller's `luks_record_slots` once it has verified that only the owner's slot remains and before it destroys the staged key; `arch-provision-owner` runs `luks-slots owner=<slot> recovery=` there, a no-op where nothing records them.
 - Everything else stays as it is: the wizard, account and login, the journal, slot retirement, the proof that the staged key opens nothing, and cleanup.
 
-### Factory reset (`src/cli/arch-system-factory-reset`)
+### Factory reset (`src/commands/arch-system-factory-reset`)
 
 - `reset_boot_owner` resolves the four reset operations before the reset is confirmed. If all resolve, the platform owns the factory root's boot chain; if none do, the generic path runs unchanged (x86, Snapdragon, the N1x, the GB10, other aarch64: throwaway slot, keyfile in the Limine UKI, `limine-update`, `verify_limine_hashes`). If only some resolve, or resolution fails (a Mac without `arch-mac-boot`'s entrypoints), the reset stops before anything changes.
 - Where the platform owns it, the order is: authorise with the current passphrase and stage the throwaway in the factory root's `/var/lib/arch/provisioning/luks-key`; `reset-prepare`; `reset-verify`; add the throwaway slot; switch the subvolumes; `reset-commit` with the throwaway on standard input. The slot comes after verification, so a failed rebuild adds no credential, and the platform writes its boot-time key only after the switch, so a power loss before it leaves the previous root asking for its password, never unlocked unattended.
 - Any failure before the switch runs `reset-rollback` (once `reset-prepare` started), then revokes the slot this attempt added (found by the throwaway key when the add was not confirmed) and deletes the clone: the previous root stays the one that boots, with its boot files and encryption state. Operation output goes to the reset log; a failure shows the operation's last line.
 - Everything else stays as it is: the @factory clone, identity and account scrub, provisioning markers and units, LUKS discovery, the passphrase check, the throwaway slot, and the subvolume switch.
 
-### Update (`src/cli/arch-update`)
+### Update (`src/commands/arch-update`)
 
 - `arch-update-boot` runs `update-verify` after AUR packages, which the update runs last, so it is the last sudo-capable step; like AUR it follows third-party build code, so it authenticates through the no-update wrapper without a reusable timestamp. When it fails, the update still releases Stay Awake, then says the update is not finished and exits 1 without the reboot prompt.
 - It resolves the operation as the user first and runs it with `sudo` only when it resolves to an entrypoint, so an update with nothing to run never asks for root. A failed resolution fails the step with the dispatcher's message, except one: `update-verify` on a machine without its platform's boot package at all (exit 3) warns that the boot files were not verified and lets the update finish. Such a machine predates the package and boots a chain it does not manage; once the package is installed, a failed verification blocks. A package too old to ship `update-verify` blocks, since the fix is one package update away.
@@ -104,17 +104,17 @@ Failing closed holds on every platform: where `arch-hw-platform` can't settle th
 
 - The last leaf of `installer/hardware/all.sh` runs `setup-boot`, then `setup-system`, so both build on every generic leaf. As a `run_logged` leaf it is queued in an image build like any other, and `arch-provision-hardware` runs it on the first boot with `ARCH_IMAGE_DEFERRED_HARDWARE=1`, which the leaf passes on as `image-first-boot` to both. The environment variable itself never reaches the entrypoints.
 
-### User setup (`src/python/installer_user/setup/platform.py`, `src/cli/arch-provision-first-run`)
+### User setup (`src/python/installer_user/setup/platform.py`, `src/commands/arch-provision-first-run`)
 
 - The final step declared by `data/installer/user-setup.yml` runs `setup-user` at the end of finalization. While `/var/lib/arch/image/target` exists the root is still being built, where a normal user's detector would read the build host, so the leaf says so and skips it.
 - First run runs `setup-user` again as its own step, after the user units are enabled, now that the session is up. Its failure, like finalization's, leaves first run pending for the next login.
 
-### App installs (`src/cli/arch-install-browser`, `src/cli/arch-install-gaming-steam`, `src/cli/arch-remove-gaming-steam`)
+### App installs (`src/commands/arch-install-browser`, `src/commands/arch-install-gaming-steam`, `src/commands/arch-remove-gaming-steam`)
 
 - A browser install runs `post-install <browser>` once the browser's package, policy directory, flags file and theme are in place, and before it says the browser is installed. Steam's install runs `post-install steam` after the 32-bit drivers and the package, and before the first launch, and Steam's removal runs `pre-remove steam` before its packages go, so a package the hook added that depends on Steam doesn't stop the removal.
 - On a platform that registers none, each call is a no-op and the installer runs as before.
 
-### Disk password change (`src/cli/arch-drive-password`)
+### Disk password change (`src/commands/arch-drive-password`)
 
 - After the system disk's key changed and the new key is confirmed, `record_owner_slot` resolves `luks-slots` as the user and, when it resolves, runs `sudo arch-lifecycle-dispatch luks-slots owner=<slot>`, so no other platform sees an extra `sudo`. Until that succeeds the journal stays, and the next run finishes the change and records the slot. The new key can land in another slot (cryptsetup 2.8's `luksChangeKey` moves a LUKS1 key to the first free slot, and keeps a LUKS2 one in place), and the boot check would then find a slot the platform did not record.
 - Before anything changes, where `luks-slots` resolves, `owner_slot_matches` runs `sudo arch-lifecycle-dispatch luks-slots --owner` and refuses a current password whose slot is not the owner's, so another key on the system disk, such as a recovery key an earlier Mac setup added, stays as it is and can't take the owner's place. Exit 4 (no owner slot recorded) is taken as a machine nobody recorded: the change goes on only when the current password opens the disk's one key slot, checked again before the key changes, and records the new slot as the owner's once it is confirmed; with other keys on the disk it stops, naming the slots and saying how to record them (`luks-slots owner=<slot> recovery=<slot>`) or remove the extra key. Any other failure stops the change with the boot package's reason.

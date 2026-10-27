@@ -534,7 +534,7 @@ assert(
   'menu adds a plugin through the CLI, where the trust warning and clone output are visible'
 )
 
-const pluginPicker = fs.readFileSync(path.join(root, 'src/cli/arch-menu-plugin'), 'utf8')
+const pluginPicker = fs.readFileSync(path.join(root, 'src/commands/arch-menu-plugin'), 'utf8')
 assert(
   /enable\).*\(\.enabled \| not\)/.test(pluginPicker) && /disable\).*\.canDisable and \.enabled/.test(pluginPicker),
   'plugin picker offers what each verb can act on'
@@ -546,8 +546,8 @@ assert(
   'plugin picker leaves plugin-kind decisions to its data and the plugin command'
 )
 
-const pluginAdd = fs.readFileSync(path.join(root, 'src/cli/arch-plugin-add'), 'utf8')
-const pluginEnable = fs.readFileSync(path.join(root, 'src/cli/arch-plugin-enable'), 'utf8')
+const pluginAdd = fs.readFileSync(path.join(root, 'src/commands/arch-plugin-add'), 'utf8')
+const pluginEnable = fs.readFileSync(path.join(root, 'src/commands/arch-plugin-enable'), 'utf8')
 assert(
   /Now using \$id as the bar/.test(pluginEnable)
     && /arch-plugin-enable "\$id" "\$\{ENABLE_PLACEMENT\[@\]\}"/.test(pluginAdd),

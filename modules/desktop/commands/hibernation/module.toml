@@ -2,20 +2,20 @@ id = "desktop.commands.hibernation"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/cli/arch-hibernation-available",
-  "src/cli/arch-hibernation-remove",
-  "src/cli/arch-hibernation-setup",
+  "src/commands/arch-hibernation-available",
+  "src/commands/arch-hibernation-remove",
+  "src/commands/arch-hibernation-setup",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/cli/arch-hibernation-available"
-target = "usr/share/arch/src/cli/arch-hibernation-available"
+source = "src/commands/arch-hibernation-available"
+target = "usr/share/arch/src/commands/arch-hibernation-available"
 
 [[output]]
-source = "src/cli/arch-hibernation-remove"
-target = "usr/share/arch/src/cli/arch-hibernation-remove"
+source = "src/commands/arch-hibernation-remove"
+target = "usr/share/arch/src/commands/arch-hibernation-remove"
 
 [[output]]
-source = "src/cli/arch-hibernation-setup"
-target = "usr/share/arch/src/cli/arch-hibernation-setup"
+source = "src/commands/arch-hibernation-setup"
+target = "usr/share/arch/src/commands/arch-hibernation-setup"

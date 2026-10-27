@@ -11,7 +11,7 @@ import unittest
 from base_test import ROOT, test_environment
 
 
-COMMAND = ROOT / "src/cli/arch-update-available"
+COMMAND = ROOT / "src/commands/arch-update-available"
 
 
 class UpdateAvailableTest(unittest.TestCase):
