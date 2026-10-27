@@ -3,7 +3,7 @@ run_logged "$ARCH_PATH/src/python/installer/hardware/surface_firmware.py"
 run_logged "$ARCH_INSTALL/hardware/gb10/sleep.sh"
 run_logged "$ARCH_INSTALL/hardware/nvidia/dgx-spark-boot.sh"
 
-run_logged "$ARCH_INSTALL/hardware/network.sh"
+run_logged "$ARCH_PATH/src/python/installer/hardware/network.py"
 run_logged "$ARCH_PATH/src/python/installer/hardware/wireless_regdom.py"
 run_logged "$ARCH_PATH/src/python/installer/hardware/apple_keyboard_fkeys.py"
 run_logged "$ARCH_PATH/src/python/installer/hardware/synaptic_touchpad.py"
