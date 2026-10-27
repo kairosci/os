@@ -90,7 +90,7 @@ hl.config({
 })
 
 -- Scroll nicely in the terminal. TUIs launched under their own app-id
--- (org.arch.agent in the console, org.arch.btop, TUI.float, ...) no longer
+-- (org.arch.agent in the console, org.arch.btop, TUI.tile, ...) no longer
 -- carry the terminal's class, but their initial title is still the terminal's
 -- name, so they are matched by that to scroll at the same rate.
 local function terminal_scroll(class, title, factor)

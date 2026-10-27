@@ -288,7 +288,6 @@
   "tui.namePrompt": "Nome> ",
   "tui.removed": "TUI rimossa",
   "tui.selectRemove": "Seleziona TUI da rimuovere",
-  "tui.windowStyle": "Stile finestra",
   "update.cannotStop": "Non puoi interrompere l'aggiornamento una volta avviato!",
   "update.connectPower": "Assicurati di essere collegato alla corrente o di avere la batteria carica",
   "update.continue": "Continuare con l'aggiornamento?",
@@ -334,5 +333,6 @@
   "refreshConfig.unsafePath": "Percorso di configurazione non valido o non sicuro: %1",
   "refreshConfig.usage": "Uso: arch-refresh-config <percorso-configurazione>",
   "agent.notInstalled": "%1 non è installato. Scegli un agente installato.",
-  "agent.defaultUsage": "Uso: arch-default-agent <claude|codex>"
+  "agent.defaultUsage": "Uso: arch-default-agent <claude|codex>",
+  "tui.usage": "Uso: arch-tui-install <nome> <comando> <nome-o-url-icona>"
 }

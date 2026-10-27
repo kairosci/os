@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # arch:summary=Create a desktop launcher for a terminal UI app
-# arch:args=[name command window-style icon-url-or-name]
+# arch:args=<name> <command> <icon-url-or-name>
 
 set -e
 
@@ -37,17 +37,19 @@ install_user_icon() {
   printf '%s\n' "$name"
 }
 
-if (( $# != 4 )); then
+if (( $# == 0 )); then
   echo -e "\e[32m$(arch-i18n tui.intro)\n\e[0m"
   APP_NAME=$(gum input --prompt "$(arch-i18n tui.namePrompt)" --placeholder "$(arch-i18n tui.namePlaceholder)")
   APP_EXEC=$(gum input --prompt "$(arch-i18n tui.commandPrompt)" --placeholder "$(arch-i18n tui.commandPlaceholder "lazydocker" "bash -c 'dust; read -n 1 -s'")")
-  WINDOW_STYLE=$(gum choose --header "$(arch-i18n tui.windowStyle)" float tile)
   ICON_REF=$(gum input --prompt "$(arch-i18n tui.iconPrompt)" --placeholder "$(arch-i18n tui.iconPlaceholder "https://dashboardicons.com")")
 else
+  if (( $# != 3 )); then
+    arch-i18n tui.usage >&2
+    exit 2
+  fi
   APP_NAME="$1"
   APP_EXEC="$2"
-  WINDOW_STYLE="$3"
-  ICON_REF="$4"
+  ICON_REF="$3"
 fi
 
 if [[ -z $APP_NAME || -z $APP_EXEC || -z $ICON_REF ]]; then
@@ -73,11 +75,7 @@ else
   ICON_VALUE=$(icon_name_from_ref "$ICON_REF")
 fi
 
-if [[ $WINDOW_STYLE == "float" ]]; then
-  APP_CLASS="TUI.float"
-else
-  APP_CLASS="TUI.tile"
-fi
+APP_CLASS="TUI.tile"
 
 cat >"$DESKTOP_FILE" <<EOF
 [Desktop Entry]
