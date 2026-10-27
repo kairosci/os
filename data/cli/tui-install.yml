@@ -1,0 +1,84 @@
+arguments:
+  count: 3
+commands:
+  i18n: src/cli/arch-i18n
+  gum: gum
+  terminal_launcher: xdg-terminal-exec
+  curl: curl
+  icon_cache: gtk-update-icon-cache
+gum:
+  input_arguments:
+    - input
+    - --prompt
+  placeholder_argument: --placeholder
+theme:
+  environment_file: .local/state/arch/current/theme/gum_env.lua
+  environment_pattern: 'hl\.env\("([A-Z0-9_]+)", "([^"]+)"\)'
+names:
+  invalid_pattern: '[^a-z0-9]+'
+  separator: '-'
+  maximum_length: 80
+paths:
+  default_data_directory: .local/share
+  applications_directory: applications
+  icons_directory: icons/hicolor/256x256/apps
+  icon_theme_directory: icons/hicolor
+  desktop_extension: .desktop
+files:
+  mode: '0755'
+icons:
+  download_extension: png
+  name_pattern: '[A-Za-z0-9_.-]+'
+  allowed_extensions:
+    - png
+    - svg
+    - jpg
+    - jpeg
+    - webp
+  schemes:
+    - https
+    - http
+  mode: '0644'
+  cache_arguments: []
+  download_arguments:
+    - --fail
+    - --location
+    - --silent
+    - --show-error
+    - --max-time
+    - '{timeout_seconds}'
+    - --max-filesize
+    - '{maximum_bytes}'
+    - --proto
+    - '=http,https'
+    - --proto-redir
+    - '=http,https'
+    - --output
+  maximum_bytes: 10000000
+  timeout_seconds: 30
+desktop:
+  app_id: TUI.tile
+  app_id_argument: --app-id={app_id}
+  execute_arguments:
+    - -e
+  version: '1.5'
+  type: Application
+  terminal: false
+  startup_notify: true
+  template: |
+    [Desktop Entry]
+    Version=${version}
+    Name=${name}
+    Comment=${comment}
+    Exec=${exec}
+    Terminal=${terminal}
+    Type=${type}
+    Icon=${icon}
+    StartupNotify=${startup_notify}
+examples:
+  icon_url: https://dashboardicons.com
+  command_placeholder_arguments:
+    - lazydocker
+    - "bash -c 'dust; read -n 1 -s'"
+exit_codes:
+  cancelled: 130

@@ -334,5 +334,10 @@
   "refreshConfig.usage": "Uso: arch-refresh-config <percorso-configurazione>",
   "agent.notInstalled": "%1 non è installato. Scegli un agente installato.",
   "agent.defaultUsage": "Uso: arch-default-agent <claude|codex>",
-  "tui.usage": "Uso: arch-tui-install <nome> <comando> <nome-o-url-icona>"
+  "tui.usage": "Uso: arch-tui-install <nome> <comando> <nome-o-url-icona>",
+  "tui.created": "Scorciatoia %1 creata.",
+  "tui.failed": "Impossibile creare la scorciatoia TUI.",
+  "tui.iconDownloadFailed": "Impossibile scaricare l’icona.",
+  "tui.invalidName": "Il nome della scorciatoia deve contenere lettere o numeri.",
+  "tui.requiredValues": "Imposta nome, comando e icona della scorciatoia."
 }

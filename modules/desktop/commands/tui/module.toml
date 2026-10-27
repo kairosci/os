@@ -2,15 +2,25 @@ id = "desktop.commands.tui"
 domain = "desktop"
 package = "arch"
 sources = [
+  "data/cli/tui-install.yml",
   "src/cli/arch-tui-install",
+  "src/python/cli/tui_install.py",
   "src/cli/arch-tui-remove",
   "src/cli/arch-tui-remove-all",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
+source = "data/cli/tui-install.yml"
+target = "usr/share/arch/data/cli/tui-install.yml"
+
+[[output]]
 source = "src/cli/arch-tui-install"
 target = "usr/share/arch/src/cli/arch-tui-install"
+
+[[output]]
+source = "src/python/cli/tui_install.py"
+target = "usr/share/arch/src/python/cli/tui_install.py"
 
 [[output]]
 source = "src/cli/arch-tui-remove"
