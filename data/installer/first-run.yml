@@ -1,7 +1,11 @@
+gnome_theme:
+  commands:
+    - [gsettings, set, org.gnome.desktop.interface, gtk-theme, Breeze-Dark]
+    - [gsettings, set, org.gnome.desktop.interface, color-scheme, prefer-dark]
+    - [gsettings, set, org.gnome.desktop.interface, icon-theme, Cosmic]
 gtk_primary_paste:
-  command:
-    - gsettings
-    - set
-    - org.gnome.desktop.interface
-    - gtk-enable-primary-paste
-    - "true"
+  commands:
+    - [gsettings, set, org.gnome.desktop.interface, gtk-enable-primary-paste, "true"]
+audio_tuning:
+  commands:
+    - [arch-audio-tuning, "on"]
