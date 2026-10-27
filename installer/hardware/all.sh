@@ -9,7 +9,7 @@ run_logged "$ARCH_PATH/src/python/installer/hardware/apple_keyboard_fkeys.py"
 run_logged "$ARCH_PATH/src/python/installer/hardware/synaptic_touchpad.py"
 run_logged "$ARCH_PATH/src/python/installer/hardware/bluetooth.py"
 run_logged "$ARCH_INSTALL/hardware/n1x.sh"
-run_logged "$ARCH_INSTALL/hardware/nvidia.sh"
+run_logged "$ARCH_PATH/src/python/installer/hardware/nvidia.py"
 run_logged "$ARCH_PATH/src/python/installer/hardware/nvidia_apps.py"
 run_logged "$ARCH_PATH/src/python/installer/hardware/vulkan.py"
 

@@ -69,7 +69,7 @@ fi
 # hardware/n1x.sh contract: guarded by the detector, on linux,
 # console pinned, the normal entry left quiet, a maintained rescue entry with
 # its own cmdline, NVIDIA kept unloaded only on pre-release firmware, and wired
-# before nvidia.sh.
+# before the NVIDIA driver module.
 n1x="$ROOT/installer/hardware/n1x.sh"
 assert_succeeds bash -n "$n1x" "n1x.sh parses"
 assert_succeeds grep -Fq 'arch-hw-aarch64-n1x || return 0' "$n1x" "n1x.sh is gated on the detector"
@@ -104,9 +104,9 @@ assert_fails grep -Eq 'authorized_keys|sshd' "$n1x" "remote access is left to th
 assert_succeeds grep -Fq 'Server = https://pkgs.github.com/kairosci/os/edge/$arch' "$ROOT/default/pacman/aarch64/pacman-edge.conf" "installed aarch64 systems track os edge"
 all="$ROOT/installer/hardware/all.sh"
 n1x_line=$(grep -n 'hardware/n1x.sh' "$all" | cut -d: -f1)
-nvidia_line=$(grep -n 'hardware/nvidia.sh' "$all" | cut -d: -f1)
-[[ -n $n1x_line && -n $nvidia_line && $n1x_line -lt $nvidia_line ]] || fail "n1x.sh must run before nvidia.sh"
-assert_succeeds grep -Fq 'if arch-hw-aarch64-n1x; then' "$ROOT/installer/hardware/nvidia.sh" "nvidia.sh defers to the N1x policy"
+nvidia_line=$(grep -n 'src/python/installer/hardware/nvidia.py' "$all" | cut -d: -f1)
+[[ -n $n1x_line && -n $nvidia_line && $n1x_line -lt $nvidia_line ]] || fail "N1x setup runs before generic NVIDIA setup"
+assert_succeeds grep -Fq 'n1x_check: [arch-hw-aarch64-n1x]' "$ROOT/data/installer/hardware.yml" "NVIDIA driver setup defers to the N1x policy"
 hooks_conf="$ROOT/etc/mkinitcpio.conf.d/arch_hooks.conf"
 assert_fails grep -Fq 'uname -m' "$hooks_conf" "initramfs hooks are the same on every architecture"
 assert_fails grep -Fq 'i2c_mt65xx' "$hooks_conf" "N1x input modules stay out of the shared hooks"

@@ -348,7 +348,7 @@ rm -f "$fixture/installer/hardware/cmdline.sh"
 pass "a step that only changed Limine's kernel command line gets the rebuild"
 
 # Module options reach the initramfs through mkinitcpio's modconf hook, so a
-# step that only writes /etc/modprobe.d (as nvidia.sh does) gets the rebuild too.
+# step that only writes /etc/modprobe.d (as nvidia.py does) gets the rebuild too.
 reset_logs
 root=$(new_root modprobe)
 write_manifest "$root"
