@@ -125,6 +125,7 @@
   "migration.installQtMultimedia": "Installa il supporto Qt Multimedia",
   "migration.installUdiskie": "Installa il supporto per il montaggio automatico delle unità rimovibili",
   "migration.installZbar": "Installa il supporto per leggere QR code",
+  "migration.removeManagedSkillLinks": "Rimossi %1 collegamenti a skill gestiti da Arch",
   "migration.replaceSatty": "Sostituisci Satty con Tensaku",
   "migration.replaceTerminalTextEffects": "Sostituisci terminaltexteffects con ttfx",
   "migration.requireT2PackageSignatures": "Richiedi firme attendibili per i pacchetti del repository T2",
