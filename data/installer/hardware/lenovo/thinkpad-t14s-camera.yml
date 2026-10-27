@@ -1,0 +1,14 @@
+commands:
+  soc_match: [arch-hw-aarch64-qualcomm]
+  model_match: [arch-hw-match]
+  install_package: [arch-pkg-add, pipewire-libcamera]
+  install_rule: [sudo, install, -Dm644]
+  reload_udev: [sudo, udevadm, control, --reload]
+  trigger_udev: [sudo, udevadm, trigger, --action=add, --subsystem-match=dma_heap, --sysname-match=system]
+  settle_udev: [sudo, udevadm, settle]
+hardware:
+  model_pattern: '^21N[12]'
+paths:
+  rule_source: default/udev/thinkpad-t14s-camera.rules
+  rule_target: /etc/udev/rules.d/70-thinkpad-t14s-camera.rules
+statuses: {matched: 0, complete: 0, failed: 2}
