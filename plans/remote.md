@@ -107,7 +107,7 @@ Sunshine's config is the user's, like everything in `~/.config`. Arch owns a del
 
 Per `docs/menu.md` conventions, no `aliases` on any new entry:
 
-- `install.service.sunshine` — `{"icon": ..., "label": "Sunshine", "disabled": "arch-pkg-present sunshine", "action": "arch-launch-floating-terminal-with-presentation arch-install-service-sunshine"}` — the catalog row that should always have existed, dimmed-with-✓ once installed like every Install row.
+- `install.service.sunshine` — `{"icon": ..., "label": "Sunshine", "disabled": "arch-pkg-present sunshine", "action": "arch-launch-terminal-with-presentation arch-install-service-sunshine"}` — the catalog row that should always have existed, dimmed-with-✓ once installed like every Install row.
 - `remove.service.sunshine` — the mirror image, `when: arch-pkg-present sunshine`, hiding what isn't there to remove.
 - `setup.sunshine` — a submenu that only exists when installed (`when: arch-pkg-present sunshine`): **Pair Client** (floating terminal → `arch-sunshine-pair`), **Clients** (→ `arch-sunshine-clients`), **Dedicated Display** / **This Screen** rows with `checked` guards reading `arch-sunshine-mode --status` (registered in `GUARD_READERS` since two rows read it, as `menu-guards-test.sh` enforces), and **Admin** (the webapp, demoted from installer-auto-open to a menu row).
 

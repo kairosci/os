@@ -34,7 +34,7 @@ cat >"$mock_bin/setsid" <<'SH'
 printf 'launch:%s\n' "$*" >>"$ARCH_TEST_LOG"
 SH
 
-cat >"$mock_bin/arch-launch-floating-terminal-with-presentation" <<'SH'
+cat >"$mock_bin/arch-launch-terminal-with-presentation" <<'SH'
 #!/bin/bash
 printf '%s\n' "$1" >"$ARCH_TEST_PRESENTATION"
 SH

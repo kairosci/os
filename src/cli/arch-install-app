@@ -20,5 +20,5 @@ read -r -d '' -a package_list <<<"$packages" || true
 printf -v packages_arg '%q ' "${package_list[@]}"
 packages_arg="${packages_arg% }"
 
-exec arch-launch-floating-terminal-with-presentation \
+exec arch-launch-terminal-with-presentation \
   "echo ${install_message}; arch-pkg-add ${packages_arg}"

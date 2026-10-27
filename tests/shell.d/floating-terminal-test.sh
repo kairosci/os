@@ -16,7 +16,7 @@ chmod +x "$tmp_dir/setsid"
 export TEST_LOG="$tmp_dir/log"
 export PATH="$tmp_dir:$ROOT/src/cli:$PATH"
 
-"$ROOT/src/cli/arch-launch-floating-terminal-with-presentation" "echo hello"
+"$ROOT/src/cli/arch-launch-terminal-with-presentation" "echo hello"
 
 launch=$(<"$TEST_LOG")
 [[ $launch == *"xdg-terminal-exec --app-id=org.arch.terminal"* ]] || fail "floating terminal launches the Arch terminal" "$launch"

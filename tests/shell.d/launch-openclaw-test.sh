@@ -12,7 +12,7 @@ export TEST_LOG="$tmp_dir/log"
 export PATH="$tmp_dir/bin:$PATH"
 export HOME="$tmp_dir/home"
 
-for stub in arch-launch-webapp arch-launch-floating-terminal-with-presentation arch-openclaw-onboard; do
+for stub in arch-launch-webapp arch-launch-terminal-with-presentation arch-openclaw-onboard; do
   cat >"$tmp_dir/bin/$stub" <<SCRIPT
 #!/bin/bash
 printf '$stub:%s\n' "\$*" >>"\$TEST_LOG"
@@ -38,7 +38,7 @@ chmod +x "$tmp_dir/bin/systemctl"
 
 # Through arch-openclaw-onboard, never bare `openclaw onboard`, which as of
 # 2026.9.1 ends in a browser tab with a foreground gateway and never returns.
-grep -q '^arch-launch-floating-terminal-with-presentation:arch-openclaw-onboard && \[\[ -f \$HOME/.openclaw/openclaw.json \]\] && arch-launch-openclaw$' "$TEST_LOG" ||
+grep -q '^arch-launch-terminal-with-presentation:arch-openclaw-onboard && \[\[ -f \$HOME/.openclaw/openclaw.json \]\] && arch-launch-openclaw$' "$TEST_LOG" ||
   fail "OpenClaw launch hands a never-onboarded machine to the wizard" "$(grep floating "$TEST_LOG")"
 ! grep -q '^arch-launch-webapp:' "$TEST_LOG" ||
   fail "OpenClaw launch hands a never-onboarded machine to the wizard" "webapp opened anyway"
@@ -159,12 +159,12 @@ printf 'openclaw:%s\n' "$*" >>"$TEST_LOG"
 exit 0
 SCRIPT
 chmod +x "$tmp_dir/bin/openclaw"
-floating_calls_before=$(grep -c '^arch-launch-floating-terminal-with-presentation:' "$TEST_LOG" || true)
+floating_calls_before=$(grep -c '^arch-launch-terminal-with-presentation:' "$TEST_LOG" || true)
 "$ROOT/src/cli/arch-launch-openclaw" --tui
 
 grep -q '^arch-openclaw-onboard:$' "$TEST_LOG" ||
   fail "--tui onboards in the current terminal" "$(grep 'onboard' "$TEST_LOG")"
-floating_calls_after=$(grep -c '^arch-launch-floating-terminal-with-presentation:' "$TEST_LOG" || true)
+floating_calls_after=$(grep -c '^arch-launch-terminal-with-presentation:' "$TEST_LOG" || true)
 [[ $floating_calls_before == "$floating_calls_after" ]] ||
   fail "--tui onboards in the current terminal" "spawned a floating terminal"
 grep -q '^openclaw:tui$' "$TEST_LOG" || fail "--tui attaches to the gateway"
@@ -200,7 +200,7 @@ SCRIPT
 done
 : >"$TEST_LOG"
 "$ROOT/src/cli/arch-launch-openclaw"
-grep -Fxq 'arch-launch-floating-terminal-with-presentation:arch-install-openclaw-cli --now && arch-launch-openclaw' "$TEST_LOG" ||
+grep -Fxq 'arch-launch-terminal-with-presentation:arch-install-openclaw-cli --now && arch-launch-openclaw' "$TEST_LOG" ||
   fail "OpenClaw launch sets up OpenClaw where the package has no command yet" "$(cat "$TEST_LOG")"
 pass "OpenClaw launch sets up OpenClaw where the package has no command yet"
 

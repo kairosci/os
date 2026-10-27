@@ -46,7 +46,7 @@ cat >"$mock_bin/arch-launch-tui" <<'SH'
 printf '%s\0' "$@" >"$ARCH_TEST_AGENT_LAUNCH_LOG"
 SH
 
-cat >"$mock_bin/arch-launch-floating-terminal-with-presentation" <<'SH'
+cat >"$mock_bin/arch-launch-terminal-with-presentation" <<'SH'
 #!/bin/bash
 printf '%s\0' "$@" >"$ARCH_TEST_AGENT_TERMINAL_LOG"
 SH

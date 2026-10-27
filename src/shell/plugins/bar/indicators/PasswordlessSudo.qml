@@ -63,6 +63,6 @@ BarIndicator {
   onPressed: function() {
     if (!root.bar || disableProc.running) return
     if (root.granted) disableProc.running = true
-    else root.bar.run("arch-launch-floating-terminal-with-presentation arch-sudo-passwordless")
+    else root.bar.run("arch-launch-terminal-with-presentation arch-sudo-passwordless")
   }
 }

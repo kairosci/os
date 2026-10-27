@@ -24,7 +24,7 @@ if (( $# == 3 )); then
   printf -v install_message '%q' "Installing ${name}..."
   printf -v package_arg '%q' "$package"
   printf -v family_arg '%q' "$family"
-  exec arch-launch-floating-terminal-with-presentation \
+  exec arch-launch-terminal-with-presentation \
     "echo ${install_message}; arch-pkg-add ${package_arg} && sleep 2 && arch-font-set ${family_arg}"
 fi
 
@@ -33,5 +33,5 @@ if (( $# != 0 )); then
   exit 2
 fi
 
-exec arch-launch-floating-terminal-with-presentation \
+exec arch-launch-terminal-with-presentation \
   'read -r -p "Arch package name: " package; read -r -p "Font family name (as shown by fc-list): " family; if [[ $package =~ ^[A-Za-z0-9._+-]+$ && -n $family ]]; then arch-install-font --apply "$package" "$family"; else echo "Invalid package or font family"; fi; read -r -p "Press Enter to close" _'

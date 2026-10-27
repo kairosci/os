@@ -10,7 +10,7 @@ sources = [
   "src/cli/arch-launch-discord-community",
   "src/cli/arch-launch-docker-tui",
   "src/cli/arch-launch-editor",
-  "src/cli/arch-launch-floating-terminal-with-presentation",
+  "src/cli/arch-launch-terminal-with-presentation",
   "src/cli/arch-launch-nautilus",
   "src/cli/arch-launch-nautilus-cwd",
   "src/cli/arch-launch-openclaw",
@@ -62,8 +62,8 @@ source = "src/cli/arch-launch-editor"
 target = "usr/share/arch/src/cli/arch-launch-editor"
 
 [[output]]
-source = "src/cli/arch-launch-floating-terminal-with-presentation"
-target = "usr/share/arch/src/cli/arch-launch-floating-terminal-with-presentation"
+source = "src/cli/arch-launch-terminal-with-presentation"
+target = "usr/share/arch/src/cli/arch-launch-terminal-with-presentation"
 
 [[output]]
 source = "src/cli/arch-launch-nautilus"

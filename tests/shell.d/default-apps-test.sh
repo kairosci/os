@@ -49,7 +49,7 @@ cat >"$mock_bin/arch-cmd-missing" <<'SH'
 [[ ! -e $ARCH_TEST_INSTALLED_DIR/$1 ]]
 SH
 
-cat >"$mock_bin/arch-launch-floating-terminal-with-presentation" <<'SH'
+cat >"$mock_bin/arch-launch-terminal-with-presentation" <<'SH'
 #!/bin/bash
 printf '%s\0' "$@" >"$ARCH_TEST_TERMINAL_LOG"
 SH

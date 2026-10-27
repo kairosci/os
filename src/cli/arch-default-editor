@@ -41,7 +41,7 @@ esac
 
 if arch-cmd-missing "$editor"; then
   if [[ $installing == "false" ]]; then
-    exec arch-launch-floating-terminal-with-presentation arch-default-editor --install "$selection"
+    exec arch-launch-terminal-with-presentation arch-default-editor --install "$selection"
   else
     case "$selection" in
     code) arch-install-editor-vscode ;;

@@ -88,13 +88,13 @@ if package_name="$(pacman -Qqo "$desktop_file" 2>/dev/null | head -1)" && [[ -n 
   display_name="${entry_name:-$desktop_name}"
   quoted_package="$(printf '%q' "$package_name")"
   quoted_display="$(printf '%q' "$display_name")"
-  exec arch-launch-floating-terminal-with-presentation "echo Uninstalling $quoted_display...; sudo pacman -Rns $quoted_package"
+  exec arch-launch-terminal-with-presentation "echo Uninstalling $quoted_display...; sudo pacman -Rns $quoted_package"
 fi
 
 if arch-cmd-present flatpak && flatpak info "${desktop_file_name%.desktop}" >/dev/null 2>&1; then
   flatpak_id="${desktop_file_name%.desktop}"
   quoted_flatpak="$(printf '%q' "$flatpak_id")"
-  exec arch-launch-floating-terminal-with-presentation "flatpak uninstall $quoted_flatpak"
+  exec arch-launch-terminal-with-presentation "flatpak uninstall $quoted_flatpak"
 fi
 
 echo "Don't know how to uninstall $desktop_file_name" >&2

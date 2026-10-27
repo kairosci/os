@@ -22,7 +22,7 @@ SCRIPT
 
 write_fake_command arch-webapp-remove web
 write_fake_command arch-tui-remove tui
-write_fake_command arch-launch-floating-terminal-with-presentation terminal
+write_fake_command arch-launch-terminal-with-presentation terminal
 
 cat >"$tmp_dir/bin/arch-notification-send" <<'SCRIPT'
 #!/bin/bash

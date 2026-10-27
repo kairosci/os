@@ -771,7 +771,7 @@ Panel {
     if (!root.bar || !provider || actionProc.running) return
 
     if (provider === "Custom") {
-      var launcher = "arch-launch-floating-terminal-with-presentation"
+      var launcher = "arch-launch-terminal-with-presentation"
       root.bar.run(launcher + " " + Util.shellQuote(root.dnsCommand(provider)))
       root.close()
       return

@@ -39,7 +39,7 @@ cat >"$STUB_DIR/arch-notification-send" <<'STUB'
 printf 'notification: %s\n' "$*" >>"$FAKE_CALLS"
 STUB
 
-cat >"$STUB_DIR/arch-launch-floating-terminal-with-presentation" <<'STUB'
+cat >"$STUB_DIR/arch-launch-terminal-with-presentation" <<'STUB'
 #!/bin/bash
 printf 'terminal: %s\n' "$*" >>"$FAKE_CALLS"
 STUB

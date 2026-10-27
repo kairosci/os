@@ -682,7 +682,7 @@ assert(
   'menu select mode reads a leading icon and a trailing subtext off an option'
 )
 assert(
-  /arch-launch-floating-terminal-with-presentation "arch-plugin-remove/.test(pluginPicker),
+  /arch-launch-terminal-with-presentation "arch-plugin-remove/.test(pluginPicker),
   'plugin picker removes where the confirmation and backup path are visible'
 )
 

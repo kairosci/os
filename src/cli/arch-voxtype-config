@@ -4,5 +4,5 @@
 
 set -e
 
-arch-launch-floating-terminal-with-presentation "voxtype configure"
+arch-launch-terminal-with-presentation "voxtype configure"
 arch-restart-shell
