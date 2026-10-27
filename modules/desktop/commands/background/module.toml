@@ -3,9 +3,15 @@ domain = "desktop"
 package = "arch"
 sources = [
   "src/cli/arch-background-session-mark",
+  "src/python/cli/background_session_mark.py",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
 source = "src/cli/arch-background-session-mark"
 target = "usr/share/arch/src/cli/arch-background-session-mark"
+
+[[output]]
+source = "src/python/cli/background_session_mark.py"
+target = "usr/share/arch/src/python/cli/background_session_mark.py"
+
