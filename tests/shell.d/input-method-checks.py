@@ -1,4 +1,6 @@
 import argparse
+import contextlib
+import io
 import importlib.util
 import json
 import os
@@ -14,9 +16,42 @@ ROOT = Path(os.environ["ARCH_PATH"])
 spec = importlib.util.spec_from_file_location("input_setup", ROOT / "default/input-methods/configure.py")
 setup = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(setup)
+xcompose_spec = importlib.util.spec_from_file_location(
+    "xcompose_setup", ROOT / "src/python/installer_user/setup/xcompose.py"
+)
+xcompose_setup = importlib.util.module_from_spec(xcompose_spec)
+xcompose_spec.loader.exec_module(xcompose_setup)
 
 
 class InputMethodTest(unittest.TestCase):
+  def test_xcompose_escapes_identity_and_rejects_control_characters(self):
+    home = self.home / "xcompose-home"
+    home.mkdir()
+    environment = {
+        "HOME": str(home),
+        "ARCH_PATH": str(ROOT),
+        "ARCH_USER_NAME": 'Kai "One"\\Desk',
+        "ARCH_USER_EMAIL": "kai@example.test",
+        "LANG": "en_US.UTF-8",
+    }
+    with patch.dict(os.environ, environment):
+      self.assertEqual(xcompose_setup.main(), 0)
+    destination = home / ".XCompose"
+    content = destination.read_text(encoding="utf-8")
+    self.assertIn(r'<Multi_key> <space> <n> : "Kai \"One\"\\Desk"', content)
+    self.assertIn(f'include "{ROOT}/default/xcompose"', content)
+
+    environment["ARCH_USER_NAME"] = "Kai\n<include>"
+    with patch.dict(os.environ, environment), contextlib.redirect_stderr(io.StringIO()) as error:
+      self.assertEqual(xcompose_setup.main(), 2)
+    self.assertEqual(error.getvalue(), "Git identity values for XCompose must be single-line text.\n")
+    self.assertEqual(destination.read_text(encoding="utf-8"), content)
+
+    environment["LANG"] = "it_IT.UTF-8"
+    with patch.dict(os.environ, environment), contextlib.redirect_stderr(io.StringIO()) as error:
+      self.assertEqual(xcompose_setup.main(), 2)
+    self.assertEqual(error.getvalue(), "I valori di identità per XCompose devono essere su una sola riga.\n")
+
   def test_pinyin_defaults_suppress_cloud_prompt(self):
     setup.defaults(self.config, fresh=True)
     pinyin = setup.values((self.config / "fcitx5/conf/pinyin.conf").read_text())
