@@ -1,0 +1,23 @@
+cache:
+  directory: arch/lock-poster
+  key_prefix: poster-
+  extension: .jpg
+  lock_file: .lock
+  temporary_prefix: .poster-
+  signature_fields:
+    - size
+    - mtime_ns
+    - ctime_ns
+  signature_separator: ":"
+  key_separator: "\n"
+  hash_algorithm: sha256
+  obsolete_pattern: poster-*.jpg
+lock:
+  wait_seconds: 10
+  poll_interval_seconds: 0.1
+thumbnail:
+  generator: ffmpegthumbnailer
+  size: 1920
+  quality: 8
+  timeout_seconds: 5
+  kill_grace_seconds: 1
