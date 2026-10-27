@@ -26,8 +26,7 @@ run_logged "$ARCH_PATH/src/python/installer/hardware/elgato_camlink_4k.py"
 # Rebuilds the boot image, so it follows camera module setup.
 run_logged "$ARCH_INSTALL/hardware/dell-xps13-sidecar-amps.sh"
 
-run_logged "$ARCH_INSTALL/hardware/asus/fix-asus-ptl-display-backlight.sh"
-run_logged "$ARCH_INSTALL/hardware/asus/fix-asus-ptl-b9406-display.sh"
+run_logged "$ARCH_PATH/src/python/installer/hardware/asus/panther_lake_display.py"
 run_logged "$ARCH_INSTALL/hardware/asus/fix-asus-ptl-b9406-touchpad.sh"
 run_logged "$ARCH_INSTALL/hardware/asus/fix-z13-touchpad.sh"
 run_logged "$ARCH_INSTALL/hardware/asus/fix-asus-proart-p14-touchpad.sh"
