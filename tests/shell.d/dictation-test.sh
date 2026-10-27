@@ -22,7 +22,7 @@ cat > "$test_tmp/bin/arch-cmd-missing" <<'SH'
 #!/bin/bash
 ! arch-cmd-present "$1"
 SH
-cat > "$test_tmp/bin/arch-launch-floating-terminal-with-presentation" <<'SH'
+cat > "$test_tmp/bin/arch-launch-terminal-with-presentation" <<'SH'
 #!/bin/bash
 printf '%s\n' "$*" > "$DICTATION_INSTALL_LOG"
 SH

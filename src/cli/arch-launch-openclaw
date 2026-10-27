@@ -27,7 +27,7 @@ if ! arch-cmd-present openclaw && arch-pkg-present openclaw; then
       exit 1
     fi
   else
-    exec arch-launch-floating-terminal-with-presentation 'arch-install-openclaw-cli --now && arch-launch-openclaw'
+    exec arch-launch-terminal-with-presentation 'arch-install-openclaw-cli --now && arch-launch-openclaw'
   fi
 fi
 
@@ -48,7 +48,7 @@ if [[ ! -f $HOME/.openclaw/openclaw.json ]]; then
     # finishing it lands the user in the app. Single quotes so $HOME expands
     # in the spawned terminal.
     # shellcheck disable=SC2016
-    exec arch-launch-floating-terminal-with-presentation \
+    exec arch-launch-terminal-with-presentation \
       'arch-openclaw-onboard && [[ -f $HOME/.openclaw/openclaw.json ]] && arch-launch-openclaw'
   fi
 fi

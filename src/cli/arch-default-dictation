@@ -33,5 +33,5 @@ else
     echo "No installer available for dictation backend: $backend" >&2
     exit 1
   fi
-  arch-launch-floating-terminal-with-presentation "$installer"
+  arch-launch-terminal-with-presentation "$installer"
 fi

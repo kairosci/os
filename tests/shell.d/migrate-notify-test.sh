@@ -160,7 +160,7 @@ run_notify 1 >/dev/null 2>&1
 notify_args_written || fail "migration notifier sends the notification before exiting"
 grep -Fx -- '--exec' "$test_tmp/notify-args" >/dev/null ||
   fail "migration notifier attaches the click command to the toast"
-grep -Fx 'arch-launch-floating-terminal-with-presentation' "$test_tmp/notify-args" >/dev/null &&
+grep -Fx 'arch-launch-terminal-with-presentation' "$test_tmp/notify-args" >/dev/null &&
   grep -Fx 'arch-migrate' "$test_tmp/notify-args" >/dev/null ||
   fail "migration notifier points the click command at arch-migrate"
 pass "migration notifier lets the shell own the click instead of waiting for it"

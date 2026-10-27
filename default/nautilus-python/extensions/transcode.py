@@ -30,7 +30,7 @@ SUPPORTED_MIME_PREFIXES, SUPPORTED_EXTENSIONS = load_supported_types()
 
 class TranscodeAction(GObject.GObject, Nautilus.MenuProvider):
     def _launch_transcode(self, paths):
-        wrapper = shutil.which("arch-launch-floating-terminal-with-presentation")
+        wrapper = shutil.which("arch-launch-terminal-with-presentation")
         binary = shutil.which("arch-transcode")
         if not wrapper or not binary:
             return
@@ -91,7 +91,7 @@ class TranscodeAction(GObject.GObject, Nautilus.MenuProvider):
 
     def _tools_available(self):
         return bool(
-            shutil.which("arch-launch-floating-terminal-with-presentation")
+            shutil.which("arch-launch-terminal-with-presentation")
             and shutil.which("arch-transcode")
         )
 

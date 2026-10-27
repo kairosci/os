@@ -37,7 +37,7 @@ fi
 # The shell keeps the click command with the toast, so this oneshot can hand the
 # invitation over and exit instead of staying activated until it is answered.
 arch-notification-send -u critical -g  "$(arch-i18n migrate.pending)" "$message" \
-  --exec arch-launch-floating-terminal-with-presentation arch-migrate && exit 0
+  --exec arch-launch-terminal-with-presentation arch-migrate && exit 0
 
 # Reached when the notification could not be handed off, so fall back to telling
 # the user in the terminal.

@@ -184,7 +184,7 @@ if ESCALATION_FAIL=1 "$command" set linux < /dev/null; then
   fail "a cancelled prompt fails the switch"
 fi
 ! grep -q '^arch-state ' "$CALL_LOG" || fail "a cancelled switch does not ask for a reboot"
-grep -Fxq "arch-notification-send -g  -u critical -t 30000 Couldn't switch to linux Retry in a terminal --exec arch-launch-floating-terminal-with-presentation arch-kernel set linux" "$CALL_LOG" ||
+grep -Fxq "arch-notification-send -g  -u critical -t 30000 Couldn't switch to linux Retry in a terminal --exec arch-launch-terminal-with-presentation arch-kernel set linux" "$CALL_LOG" ||
   fail "a failed switch says so like a success does, and retries in a terminal when clicked" "$(<"$CALL_LOG")"
 pass "a cancelled or failed pkexec leaves no reboot request"
 

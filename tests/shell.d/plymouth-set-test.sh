@@ -74,7 +74,7 @@ fi
 pass "the logo descriptor can only be opened by an unprivileged caller"
 
 # Appearance > Unlock picks a theme by name and hands the answer to
-# arch-launch-floating-terminal-with-presentation, which joins its arguments
+# arch-launch-terminal-with-presentation, which joins its arguments
 # into a script and runs that with `bash -c`. So the name is shell source
 # unless the action quotes it -- and the name is a directory name under
 # ~/.config/arch/themes, which a theme installed from a git repo gets from
@@ -113,7 +113,7 @@ STUB
 # Run the real presentation wrapper while replacing only its terminal launcher.
 # The launcher stub executes the final `bash -c` locally instead of opening a
 # terminal window.
-ln -s "$ROOT/src/cli/arch-launch-floating-terminal-with-presentation" "$stub_dir/arch-launch-floating-terminal-with-presentation"
+ln -s "$ROOT/src/cli/arch-launch-terminal-with-presentation" "$stub_dir/arch-launch-terminal-with-presentation"
 
 cat >"$stub_dir/arch-restart-gum" <<'STUB'
 #!/bin/bash

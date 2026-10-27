@@ -36,7 +36,7 @@ esac
 
 if arch-cmd-missing "$terminal"; then
   if [[ $installing == "false" ]]; then
-    exec arch-launch-floating-terminal-with-presentation arch-default-terminal --install "$terminal"
+    exec arch-launch-terminal-with-presentation arch-default-terminal --install "$terminal"
   else
     arch-install-terminal "$terminal" || exit 1
   fi

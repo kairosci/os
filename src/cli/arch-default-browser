@@ -41,7 +41,7 @@ esac
 
 if arch-cmd-missing "$command"; then
   if [[ $installing == "false" ]]; then
-    exec arch-launch-floating-terminal-with-presentation arch-default-browser --install "$browser"
+    exec arch-launch-terminal-with-presentation arch-default-browser --install "$browser"
   else
     arch-install-browser "$browser" || exit 1
   fi

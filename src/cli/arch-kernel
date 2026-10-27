@@ -215,7 +215,7 @@ set_kernel() {
       arch-state set reboot-required
       arch-notification-send -g  -t 30000 "$(arch-i18n kernel.nowUsing "$kernel")" "$(arch-i18n kernel.rebootToUse)" --exec arch-system reboot
     else
-      arch-notification-send -g  -u critical -t 30000 "$(arch-i18n kernel.switchFailed "$kernel")" "$(arch-i18n kernel.retryInTerminal)" --exec arch-launch-floating-terminal-with-presentation "arch-kernel set $kernel"
+      arch-notification-send -g  -u critical -t 30000 "$(arch-i18n kernel.switchFailed "$kernel")" "$(arch-i18n kernel.retryInTerminal)" --exec arch-launch-terminal-with-presentation "arch-kernel set $kernel"
       exit 1
     fi
   fi

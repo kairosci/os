@@ -33,7 +33,7 @@ press(button, revoke)
 assert(launched.length === 0, 'repeat clicks during revocation cannot open the enable flow')
 revoke.running = false
 press(button, revoke)
-assertDeepEqual(launched, ['arch-launch-floating-terminal-with-presentation arch-sudo-passwordless'], 'inactive click still opens interactive setup')
+assertDeepEqual(launched, ['arch-launch-terminal-with-presentation arch-sudo-passwordless'], 'inactive click still opens interactive setup')
 JS
 
 # Run the public grant flows against the fixture's stand-ins and check the

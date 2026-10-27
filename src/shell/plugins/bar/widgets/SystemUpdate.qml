@@ -17,7 +17,7 @@ BarWidget {
   function clear() { updateAvailable = false }
 
   function runUpdate() {
-    if (root.bar) root.bar.run("arch-launch-floating-terminal-with-presentation arch-update")
+    if (root.bar) root.bar.run("arch-launch-terminal-with-presentation arch-update")
   }
 
   visible: updateAvailable
