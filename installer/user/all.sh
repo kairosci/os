@@ -12,7 +12,7 @@ run_logged "$ARCH_INSTALL/user/hardware/asus/fix-mic.sh"
 run_logged "$ARCH_INSTALL/user/hardware/framework/fix-f13-amd-audio-input.sh"
 run_logged "$ARCH_PATH/src/python/installer_user/setup/dell_text_scaling.py"
 run_logged "$ARCH_PATH/src/python/installer_user/setup/video_decode.py"
-run_logged "$ARCH_INSTALL/user/hardware/qualcomm/camera.sh"
+run_logged "$ARCH_PATH/src/python/installer_user/setup/qualcomm_camera.py"
 run_logged "$ARCH_PATH/src/python/installer_user/setup/nouveau_cursor.py"
 run_logged "$ARCH_PATH/src/python/installer_user/setup/vm.py"
 
