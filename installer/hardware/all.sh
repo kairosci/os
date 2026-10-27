@@ -37,7 +37,7 @@ run_logged "$ARCH_PATH/src/python/installer/hardware/n1x_gpu_memory.py"
 
 run_logged "$ARCH_INSTALL/hardware/framework/qmk-hid.sh"
 
-run_logged "$ARCH_INSTALL/hardware/apple/fix-spi-keyboard.sh"
+run_logged "$ARCH_PATH/src/python/installer/hardware/apple/macbook_spi_keyboard.py"
 run_logged "$ARCH_INSTALL/hardware/apple/fix-suspend-nvme.sh"
 run_logged "$ARCH_INSTALL/hardware/apple/fix-t2.sh"
 run_logged "$ARCH_INSTALL/hardware/apple/fix-brcmfmac-supplicant.sh"
