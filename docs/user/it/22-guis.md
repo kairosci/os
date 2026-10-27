@@ -22,12 +22,6 @@ Obsidian offre anche un [componente aggiuntivo commerciale per la sincronizzazio
 
 Avvii Obsidian con `Super + Shift + O`. Per usare la sincronizzazione del tema, devi selezionare il tema `Arch` nelle impostazioni.
 
-## Omawrite
-
-[Omawrite](https://github.com/omacom-io/omawrite) è l'app di scrittura Markdown semplicissima di Arch. Niente vault, niente plugin, solo tu e le parole.
-
-Avvii Omawrite con `Super + Shift + W`.
-
 ## Pinta
 
 [Pinta](https://www.pinta-project.com/) è uno strumento di modifica delle immagini di base, ottimo per ritagliare, ridimensionare e altre manipolazioni di base. Non aspettarti però un'alternativa a Photoshop. Ma ha comunque la Bacchetta magica e i livelli!
@@ -63,22 +57,6 @@ Il firewall di Arch è chiuso per impostazione predefinita tranne che per la por
 
 Avvii LibreOffice dal launcher delle app (`Super + Space`).
 
-## Hype
-
-[Hype](https://github.com/omacom/hype) è l'app di presentazioni semplicissima di Arch. La tua presentazione è un singolo file Markdown con le sue immagini e i suoi video accanto: scrivi ogni diapositiva sotto un'anteprima dal vivo, trascina le diapositive nell'ordine giusto, poi presenta a schermo intero o esporta in PDF e PowerPoint. Riprende persino il tuo tema Arch.
-
-Avvii Hype dal launcher delle app (`Super + Space`). Premi `?` al suo interno per vedere ogni scorciatoia.
-
-## Signed
-
-[Signed](https://github.com/omacom/signed) è il modo semplicissimo di Arch per firmare i PDF e compilarli. Posiziona la firma salvata, del testo e la data di oggi ovunque su una pagina, poi salva una copia firmata accanto all'originale. Vedi [Compilare i PDF](27-filling-out-pdfs.md) per sapere come.
-
-Avvii Signed dal launcher delle app (`Super + Space`), oppure apri un PDF con esso dal file manager.
-
-## Omacalc
-
-Avvii Omacalc con `Super + Ctrl + Q` (o con il tasto calcolatrice, se la tua tastiera ne ha uno).
-
 ## Signal
 
 [Signal](https://signal.org/) è il pioniere della messaggistica con crittografia end-to-end, e un'ottima opzione di comunicazione per chi preferisce non passare da uno dei grandi conglomerati tecnologici.
@@ -90,17 +68,3 @@ Avvii Signal con `Super + Shift + G`. Non fa parte dell'installazione di base, q
 [mpv](https://mpv.io/) è un lettore multimediale semplice e veloce che riproduce quasi tutto da qualsiasi sorgente. Ottimo per guardare video.
 
 Avvii mpv dal launcher delle app (`Super + Space`) oppure fai semplicemente doppio clic su un video nel file manager.
-
-## Omacut
-
-[Omacut](https://github.com/omacom-io/omacut) è il taglia-video semplicissimo di Arch. Quando ti serve solo tagliare l'inizio e la fine di una clip, batte l'avvio di un editor video completo.
-
-Avvii Omacut dal launcher delle app (`Super + Space`).
-
-## Monologue
-
-[Monologue](https://github.com/omacom/monologue) è il registratore webcam semplicissimo di Arch. Scegli una volta fotocamera e microfono, poi premi `Space` per registrare, e di nuovo per mettere in pausa e riprendere la stessa ripresa. Registra sempre alla risoluzione più alta della tua fotocamera, con un indicatore del microfono dal vivo così puoi controllare i livelli prima di iniziare.
-
-Ferma la ripresa e si apre subito in un editor integrato. Fai doppio clic su una clip per dividerla, trascina le maniglie per tagliare ogni pezzo e rimuovi le parti che non vuoi. Poi salvala come MP4. La registrazione originale viene conservata finché non la scarti, così puoi sempre tornare indietro e tagliarla diversamente.
-
-Avvii Monologue dal launcher delle app (`Super + Space`).

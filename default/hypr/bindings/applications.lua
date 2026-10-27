@@ -10,8 +10,6 @@ o.bind("SUPER + SHIFT + N", "Editor", { arch = "editor" })
 if o.preinstalled_bindings_enabled() then
   -- Bindings for preinstalled os applications, TUIs, and web apps.
   o.bind("SUPER + ALT + RETURN", "Tmux", { arch = "terminal-tmux" })
-  o.bind("SUPER + SHIFT + Q", "Calculator", "omacalc")
-  o.bind("XF86Calculator", "Calculator", "omacalc")
   o.bind("SUPER + SHIFT + M", "Music", { arch = "spotify" })
   o.bind("SUPER + SHIFT + ALT + M", "Music TUI", { tui = "cliamp", focus = true })
   if o.cmd_present("lazydocker") then
@@ -19,7 +17,6 @@ if o.preinstalled_bindings_enabled() then
   end
   o.bind("SUPER + SHIFT + G", "Signal", { arch = "signal" })
   o.bind("SUPER + SHIFT + O", "Obsidian", { launch = "obsidian", focus = "^obsidian$" })
-  o.bind("SUPER + SHIFT + W", "Omawrite", { launch = "omawrite" })
   o.bind("SUPER + SHIFT + SLASH", "Passwords", { arch = "1password" })
 
   o.bind("SUPER + SHIFT + C", "Calendar", { webapp = "https://app.hey.com/calendar/weeks/" })

@@ -132,10 +132,12 @@ done
 pass "every preinstall is shipped in arch-base.packages"
 
 for package in omacut monologue omacalc omawrite hype signed; do
-  printf '%s\n' "${restored[@]}" | grep -qxF "$package" ||
-    fail "preinstalls cover the Omacom apps" "$package is missing"
+  if printf '%s\n' "${restored[@]}" | grep -qxF "$package" ||
+     printf '%s\n' "${shipped[@]}" | grep -qxF "$package"; then
+    fail "retired optional apps stay out of preinstalls" "$package is still included"
+  fi
 done
-pass "preinstalls cover the Omacom apps"
+pass "retired optional apps stay out of preinstalls"
 
 # The bindings key off the marker, so clearing it before the packages land would
 # point them at apps that never came back.

@@ -102,7 +102,6 @@ You can see all the main keyboard bindings with `Super + K` (Tmux bindings with 
 | `Super + Shift + M`           | Music (Spotify)    |
 | `Super + Shift + Alt + M`           | Music (cliamp)    |
 | `Super + Shift + /`           | Password manager (1password)    |
-| `Super + Shift + Q`           | Calculator (Omacalc)    |
 | `Super + Shift + T`           | Activity (btop)    |
 | `Super + Shift + N`           | Editor (Neovim)  |
 | `Super + Shift + C`           | Calendar ([HEY](https://hey.com/))  |
@@ -114,7 +113,6 @@ You can see all the main keyboard bindings with `Super + K` (Tmux bindings with 
 | `Super + Shift + Alt + G`           | Messenger (WhatsApp)  |
 | `Super + Shift + Ctrl + G`           | Messenger (Google)  |
 | `Super + Shift + O`           | Obsidian  |
-| `Super + Shift + W`           | Writing (Omawrite)  |
 | `Super + Shift + X`           | X |
 | `Super + Shift + Alt + X`           | X Compose |
 | `Super + Shift + Y`           | YouTube |

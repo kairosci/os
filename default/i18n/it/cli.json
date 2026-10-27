@@ -136,6 +136,7 @@
   "migration.removeFloatingDiskUsageLauncher": "Rimosso il vecchio launcher flottante di Disk Usage",
   "migration.removeManagedSkillLinks": "Rimossi %1 collegamenti a skill gestiti da Arch",
   "migration.removeWorkspaceTitlebars": "Rimuovi le titlebar obsolete dei workspace",
+  "migration.removeBundledDesktopApps": "Rimuovi le app desktop opzionali non più incluse di serie",
   "migration.registerBraveOriginExtensionHosts": "Registra gli host delle estensioni per Brave Origin",
   "migration.rebuildMiseShims": "Rigenera gli shim di mise dopo la rimozione dei vecchi wrapper dei comandi",
   "migration.replaceSatty": "Sostituisci Satty con Tensaku",

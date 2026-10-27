@@ -22,12 +22,6 @@ Obsidian also offers a [commercial add-on for syncing](https://obsidian.md/sync)
 
 You start Obsidian with `Super + Shift + O`. To use theme syncing, you must select the `Arch` theme under settings.
 
-## Omawrite
-
-[Omawrite](https://github.com/omacom-io/omawrite) is Arch's own dead-simple Markdown writing app. No vaults, no plugins, just you and the words.
-
-You start Omawrite with `Super + Shift + W`.
-
 ## Pinta
 
 [Pinta](https://www.pinta-project.com/) is a basic image editing tool that's great for cropping, resizing, and other basic manipulations. Just don't expect a Photoshop alternative. But it's still got a Magic Wand and layers!
@@ -63,22 +57,6 @@ Arch's firewall is closed by default except for LocalSend's port, so this works 
 
 You start LibreOffice via the application launcher (`Super + Space`).
 
-## Hype
-
-[Hype](https://github.com/omacom/hype) is Arch's own dead-simple presentation app. Your deck is a single Markdown file with its images and videos beside it: write each slide below a live preview, drag slides into order, then present fullscreen or export to PDF and PowerPoint. It even picks up your Arch theme.
-
-You start Hype via the application launcher (`Super + Space`). Press `?` inside it to see every shortcut.
-
-## Signed
-
-[Signed](https://github.com/omacom/signed) is Arch's own dead-simple way to sign PDFs and fill them in. Put your saved signature, text, and today's date anywhere on a page, then save a signed copy beside the original. See [Filling out PDFs](27-filling-out-pdfs.md) for how.
-
-You start Signed via the application launcher (`Super + Space`), or open a PDF with it from the file manager.
-
-## Omacalc
-
-You start Omacalc with `Super + Shift + Q` (or the calculator key, if your keyboard has one).
-
 ## Signal
 
 [Signal](https://signal.org/) is the pioneer of E2E encrypted messaging, and a great communication option for anyone who'd prefer not to go through one of the big tech conglomerates.
@@ -90,17 +68,3 @@ You start Signal with `Super + Shift + G`. It's not part of the base install, so
 [mpv](https://mpv.io/) is a simple, fast media player that'll play almost anything from any source. Great for watching videos.
 
 You start mpv via the application launcher (`Super + Space`) or just double-click on a video in the file manager.
-
-## Omacut
-
-[Omacut](https://github.com/omacom-io/omacut) is Arch's own dead-simple video trimmer. When all you need is to cut the start and end off a clip, it beats firing up a full video editor.
-
-You start Omacut via the application launcher (`Super + Space`).
-
-## Monologue
-
-[Monologue](https://github.com/omacom/monologue) is Arch's own dead-simple webcam recorder. Choose your camera and microphone once, then press `Space` to record, and again to pause and resume the same take. It always records at your camera's highest resolution, with a live microphone meter so you can check your levels before you start.
-
-Stop the take and it opens right away in a built-in editor. Double-click a clip to split it, drag the handles to trim each piece, and remove the parts you don't want. Then save it as an MP4. Your original recording is kept until you discard it, so you can always come back and cut it differently.
-
-You start Monologue via the application launcher (`Super + Space`).
