@@ -23,3 +23,12 @@ ssh_keepalive:
       ServerAliveInterval 15
       ServerAliveCountMax 3
       ConnectTimeout 10
+
+ssh_command_path:
+  file: /etc/security/pam_env.conf
+  path_pattern: '^PATH\s'
+  file_mode: '0644'
+  append_content: |-
+
+    # os: provide user-level tool paths to SSH commands and other non-shell logins.
+    PATH DEFAULT=/usr/local/sbin:/usr/local/bin:/usr/bin:@{HOME}/.local/share/mise/shims:@{HOME}/.local/bin
