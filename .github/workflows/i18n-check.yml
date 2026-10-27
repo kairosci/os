@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
       - name: Check whether anything i18n-relevant changed
@@ -32,7 +32,7 @@ jobs:
             echo "relevant=false" >> "$GITHUB_OUTPUT"
             echo "No i18n-relevant files changed; passing."
           fi
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         if: steps.relevant.outputs.relevant == 'true'
         with:
           node-version: 24
