@@ -14,7 +14,7 @@ run_logged "$ARCH_INSTALL/user/hardware/dell/xps13-text-scaling.sh"
 run_logged "$ARCH_PATH/src/python/installer_user/setup/video_decode.py"
 run_logged "$ARCH_INSTALL/user/hardware/qualcomm/camera.sh"
 run_logged "$ARCH_PATH/src/python/installer_user/setup/nouveau_cursor.py"
-run_logged "$ARCH_INSTALL/user/hardware/vm-no-animations.sh"
+run_logged "$ARCH_PATH/src/python/installer_user/setup/vm.py"
 
 run_logged "$ARCH_PATH/src/python/installer_user/setup/default_keyring.py"
 run_logged "$ARCH_PATH/src/python/installer_user/setup/mise.py"
