@@ -158,3 +158,13 @@ framework_audio_setup:
   context_lines: 20
   name_pattern: '^Name: (\S+)'
   profile_command: [pactl, set-card-profile, '{card}', 'HiFi (Mic1, Mic2, Speaker)']
+asus_mic_setup:
+  predicate: [arch-hw-asus-rog]
+  codec_root: /proc/asound
+  codec_glob: card*/codec*
+  codec_pattern: ALC285
+  card_pattern: 'card(\d+)'
+  mixer_commands:
+    - [amixer, -c, '{card}', set, 'Internal Mic Boost', '0']
+    - [amixer, -c, '{card}', set, Capture, '70%', unmute]
+  privilege_command: [sudo, alsactl, store, '{card}']
