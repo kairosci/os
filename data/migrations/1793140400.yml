@@ -1,0 +1,15 @@
+commands:
+  unuse_global: [mise, unuse, --global, --yes]
+  reshim: [mise, reshim]
+wrappers:
+  directory: .local/bin
+  template: |
+    #!/bin/bash
+    export MISE_MINIMUM_RELEASE_AGE=0
+    mise use -g --quiet "{tool}" || exit 1
+    exec mise x "{tool}" -- "{binary}" "$@"
+tools:
+  - {tool: "github:basecamp/hey-cli", command: hey, binary: hey}
+  - {tool: "github:basecamp/basecamp-cli", command: basecamp, binary: basecamp}
+statuses:
+  success: 0

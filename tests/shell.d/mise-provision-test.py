@@ -49,8 +49,11 @@ with tempfile.TemporaryDirectory(prefix="mise-setup-") as temporary:
 
   tools = tomllib.loads((ROOT / "etc/mise/conf.d/arch-tools.toml").read_text(encoding="utf-8"))["tools"]
   agent_tools = {"codex", "claude", "kimi", "cursor-agent", "muse"}
+  unwanted_tools = {"basecamp", "hey-cli"}
   if agent_tools.intersection(tools):
     fail_check(f"mise does not declare agent tools or their shims: {sorted(agent_tools.intersection(tools))}")
+  if unwanted_tools.intersection(tools):
+    fail_check(f"mise does not declare the unused Hey and Basecamp tools: {sorted(unwanted_tools.intersection(tools))}")
   pass_check("user mise setup only refreshes declared shims and declares no agent tools")
 
 user_config = (ROOT / "etc/mise/conf.d/arch.toml").read_text(encoding="utf-8").splitlines()
