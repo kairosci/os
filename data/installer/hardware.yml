@@ -146,3 +146,34 @@ intel_power_setup:
     supported_cpu_models: [151, 154, 170, 172, 183, 186, 189, 191, 204]
     package_command: [arch-pkg-add, intel-lpmd]
     enable_command: [sudo, systemctl, enable, intel_lpmd.service]
+nvidia_driver_setup:
+  n1x_check: [arch-hw-aarch64-n1x]
+  pci_command: [lspci]
+  pci_pattern: nvidia
+  gsp_check: [arch-hw-nvidia-gsp]
+  gsp_packages: [nvidia-open-dkms, nvidia-utils]
+  gsp_x86_packages: [lib32-nvidia-utils]
+  gsp_common_packages: [libva-nvidia-driver]
+  legacy_check: [arch-hw-nvidia-without-gsp]
+  legacy_packages: [nvidia-580xx-dkms, nvidia-580xx-utils]
+  legacy_x86_packages: [lib32-nvidia-580xx-utils]
+  x86_check: [arch-hw-x86]
+  package_command: [arch-pkg-add]
+  system_root_environment: ARCH_SYSTEM_ROOT
+  config_files:
+    - path: etc/modprobe.d/nvidia.conf
+      mode: '0644'
+      content: |-
+        options nvidia_drm modeset=1
+    - path: etc/mkinitcpio.conf.d/nvidia.conf
+      mode: '0644'
+      content: |-
+        MODULES+=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)
+  support_url: https://wiki.archlinux.org/title/NVIDIA
+  messages:
+    en:
+      n1x: "NVIDIA N1x platform detected; GPU driver policy is handled by the platform setup."
+      unsupported: "No compatible driver for this NVIDIA GPU. See: {support_url}"
+    it:
+      n1x: "Piattaforma NVIDIA N1x rilevata; il driver GPU è gestito dalla configurazione della piattaforma."
+      unsupported: "Nessun driver compatibile per questa GPU NVIDIA. Consulta: {support_url}"
