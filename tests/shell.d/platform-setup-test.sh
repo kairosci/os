@@ -120,7 +120,7 @@ for helper in arch-provision-user arch-hook-install arch-notification-wait; do
   printf '#!/bin/bash\nexit 0\n' >"$first_bin/$helper"
 done
 chmod +x "$first_bin"/*
-for script in welcome.sh wifi.sh enable-user-units.sh; do
+for script in wifi.sh enable-user-units.sh; do
   printf 'exit 0\n' >"$first_root/installer/user/first-run/$script"
 done
 mkdir -p "$first_root/src/python/installer_user/first_run" "$first_root/data/installer"
@@ -138,19 +138,25 @@ cat >"$first_bin/arch-audio-tuning" <<'SH'
 printf '%s\n' "$*" >>"$AUDIO_TUNING_LOG"
 [[ ${AUDIO_TUNING_FAIL:-0} == 0 ]]
 SH
-chmod +x "$first_bin/arch-audio-tuning"
+cat >"$first_bin/arch-notification-send" <<'SH'
+#!/bin/bash
+printf '%s\n' "$*" >>"$NOTIFICATION_LOG"
+[[ ${NOTIFICATION_FAIL:-0} == 0 ]]
+SH
+chmod +x "$first_bin/arch-audio-tuning" "$first_bin/arch-notification-send"
 
 first_run() {
   local platform=$1
   rm -f "$tmp/ran" "$tmp/first-run-marker" "$tmp/home/.local/state/arch/first-run.log"
-  HOME="$tmp/home" ARCH_PATH="$first_root" FIRST_RUN_MARKER="$tmp/first-run-marker" GSETTINGS_LOG="$tmp/gsettings.log" AUDIO_TUNING_LOG="$tmp/audio-tuning.log" \
+  HOME="$tmp/home" ARCH_PATH="$first_root" FIRST_RUN_MARKER="$tmp/first-run-marker" GSETTINGS_LOG="$tmp/gsettings.log" AUDIO_TUNING_LOG="$tmp/audio-tuning.log" NOTIFICATION_LOG="$tmp/notifications.log" \
     ARCH_PROC_ROOT="$tmp/$platform/proc" ARCH_LIFECYCLE_ROOT="$lifecycle" \
     PATH="$first_bin:$tmp/$platform/bin:$ROOT/src/cli:$PATH" bash "$ROOT/src/cli/arch-provision-first-run" >"$tmp/output" 2>&1
 }
 
-first_run apple || fail "apple: first run finishes" "$(cat "$tmp/output")"
+LANG=it_IT.UTF-8 first_run apple || fail "apple: first run finishes" "$(cat "$tmp/output")"
 [[ $(cat "$tmp/ran") == "setup-user" && -e $tmp/first-run-marker ]] ||
   fail "apple: first run runs setup-user and completes" "$(cat "$tmp/home/.local/state/arch/first-run.log" 2>/dev/null)"
+grep -q 'Scopri le scorciatoie' "$tmp/notifications.log" || fail "first-run welcome notification uses the Italian YAML translation" "$(cat "$tmp/notifications.log")"
 touch "$tmp/fail"
 first_run apple || fail "apple: first run with a failing setup-user still runs its other steps"
 [[ ! -e $tmp/first-run-marker ]] || fail "apple: a failed setup-user keeps first run pending"
