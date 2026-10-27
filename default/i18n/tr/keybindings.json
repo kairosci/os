@@ -1,6 +1,5 @@
 {
   "Activity": "Etkinlik",
-  "Apps": "Uygulamalar",
   "Audio": "Ses",
   "Background switcher": "Arka plan değiştirici",
   "Bar panel %1": "Çubuk paneli %1",
@@ -70,7 +69,6 @@
   "Lock system": "Sistemi kilitle",
   "Make webcam overlay larger": "Web kamerası görüntüsünü büyüt",
   "Make webcam overlay smaller": "Web kamerası görüntüsünü küçült",
-  "Minimize window to the dock": "Pencereyi dock'a simge durumuna küçült",
   "Monitor scaling down": "Monitör ölçeğini azalt",
   "Monitor scaling up": "Monitör ölçeğini artır",
   "Move active window out of group": "Etkin pencereyi gruptan çıkar",

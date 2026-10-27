@@ -1,6 +1,5 @@
 {
   "Activity": "Veikla",
-  "Apps": "Programos",
   "Audio": "Garsas",
   "Background switcher": "Fono perjungiklis",
   "Bar panel %1": "Juostos skydelis %1",
@@ -70,7 +69,6 @@
   "Lock system": "Užrakinti sistemą",
   "Make webcam overlay larger": "Padidinti kameros perdangą",
   "Make webcam overlay smaller": "Sumažinti kameros perdangą",
-  "Minimize window to the dock": "Suskleisti langą į doką",
   "Monitor scaling down": "Sumažinti monitoriaus mastelį",
   "Monitor scaling up": "Padidinti monitoriaus mastelį",
   "Move active window out of group": "Perkelti aktyvų langą iš grupės",

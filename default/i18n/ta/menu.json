@@ -176,30 +176,6 @@
   "appearance.branding.screensaver.default": {
     "label": "இயல்புநிலையை மீட்டமை"
   },
-  "appearance.dock": {
-    "label": "டாக்"
-  },
-  "appearance.dock.autohide": {
-    "label": "தானாக மறையும் Dock"
-  },
-  "appearance.dock.always-on": {
-    "label": "எப்போதும் தெரியும் Dock"
-  },
-  "appearance.dock.position": {
-    "label": "Dock நிலை"
-  },
-  "appearance.dock.position.top": {
-    "label": "மேல் Dock"
-  },
-  "appearance.dock.position.bottom": {
-    "label": "கீழ் Dock"
-  },
-  "appearance.dock.position.left": {
-    "label": "இடது Dock"
-  },
-  "appearance.dock.position.right": {
-    "label": "வலது Dock"
-  },
   "appearance.workspace-layout": {
     "label": "பணியிட அமைப்பு",
     "title": "இயல்புநிலை பணியிட அமைப்பு"

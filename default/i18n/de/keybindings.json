@@ -1,6 +1,5 @@
 {
   "Activity": "Aktivität",
-  "Apps": "Apps",
   "Audio": "Audio",
   "Background switcher": "Hintergrund wechseln",
   "Bar panel %1": "Leistenpanel %1",
@@ -70,7 +69,6 @@
   "Lock system": "System sperren",
   "Make webcam overlay larger": "Webcam-Overlay vergrößern",
   "Make webcam overlay smaller": "Webcam-Overlay verkleinern",
-  "Minimize window to the dock": "Fenster ins Dock minimieren",
   "Monitor scaling down": "Bildschirmskalierung verringern",
   "Monitor scaling up": "Bildschirmskalierung erhöhen",
   "Move active window out of group": "Aktives Fenster aus Gruppe lösen",

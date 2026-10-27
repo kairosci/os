@@ -1,6 +1,5 @@
 {
   "Activity": "செயல்பாடு",
-  "Apps": "பயன்பாடுகள்",
   "Audio": "ஒலி",
   "Background switcher": "பின்னணி மாற்றி",
   "Bar panel %1": "பட்டைப் பேனல் %1",
@@ -70,7 +69,6 @@
   "Lock system": "கணினியைப் பூட்டு",
   "Make webcam overlay larger": "வெப்கேம் மேலடுக்கைப் பெரிதாக்கு",
   "Make webcam overlay smaller": "வெப்கேம் மேலடுக்கைச் சிறிதாக்கு",
-  "Minimize window to the dock": "சாளரத்தை டாக்கிற்குச் சிறிதாக்கு",
   "Monitor scaling down": "காட்சி அளவிடுதலைக் குறை",
   "Monitor scaling up": "காட்சி அளவிடுதலைக் கூட்டு",
   "Move active window out of group": "செயலிலுள்ள சாளரத்தைக் குழுவிலிருந்து நகர்த்து",

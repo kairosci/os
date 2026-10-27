@@ -176,30 +176,6 @@
   "appearance.branding.screensaver.default": {
     "label": "שחזור ברירת מחדל"
   },
-  "appearance.dock": {
-    "label": "Dock"
-  },
-  "appearance.dock.autohide": {
-    "label": "הסתרת Dock אוטומטית"
-  },
-  "appearance.dock.always-on": {
-    "label": "Dock תמיד מוצג"
-  },
-  "appearance.dock.position": {
-    "label": "מיקום Dock"
-  },
-  "appearance.dock.position.top": {
-    "label": "Dock עליון"
-  },
-  "appearance.dock.position.bottom": {
-    "label": "Dock תחתון"
-  },
-  "appearance.dock.position.left": {
-    "label": "Dock שמאלי"
-  },
-  "appearance.dock.position.right": {
-    "label": "Dock ימני"
-  },
   "appearance.workspace-layout": {
     "label": "פריסת סביבת עבודה",
     "title": "פריסת סביבת עבודה כברירת מחדל"

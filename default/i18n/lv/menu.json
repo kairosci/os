@@ -176,30 +176,6 @@
   "appearance.branding.screensaver.default": {
     "label": "Atjaunot noklusējumu"
   },
-  "appearance.dock": {
-    "label": "Doks"
-  },
-  "appearance.dock.autohide": {
-    "label": "Paslēpt doku automātiski"
-  },
-  "appearance.dock.always-on": {
-    "label": "Vienmēr redzams doks"
-  },
-  "appearance.dock.position": {
-    "label": "Doka vieta"
-  },
-  "appearance.dock.position.top": {
-    "label": "Augšējais doks"
-  },
-  "appearance.dock.position.bottom": {
-    "label": "Apakšējais doks"
-  },
-  "appearance.dock.position.left": {
-    "label": "Kreisais doks"
-  },
-  "appearance.dock.position.right": {
-    "label": "Labais doks"
-  },
   "appearance.workspace-layout": {
     "label": "Darbvietas izkārtojums",
     "title": "Noklusējuma darbvietas izkārtojums"

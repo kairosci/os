@@ -1,6 +1,5 @@
 {
   "Activity": "Activitat",
-  "Apps": "Aplicacions",
   "Audio": "Àudio",
   "Background switcher": "Selector de fons",
   "Bar panel %1": "Panell de la barra %1",
@@ -70,7 +69,6 @@
   "Lock system": "Bloqueja el sistema",
   "Make webcam overlay larger": "Fes més gran la càmera superposada",
   "Make webcam overlay smaller": "Fes més petita la càmera superposada",
-  "Minimize window to the dock": "Minimitza la finestra al dock",
   "Monitor scaling down": "Baixa l'escala del monitor",
   "Monitor scaling up": "Puja l'escala del monitor",
   "Move active window out of group": "Treu la finestra activa del grup",

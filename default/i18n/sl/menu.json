@@ -176,30 +176,6 @@
   "appearance.branding.screensaver.default": {
     "label": "Obnovi privzeto"
   },
-  "appearance.dock": {
-    "label": "Dok"
-  },
-  "appearance.dock.autohide": {
-    "label": "Samodejno skrij dok"
-  },
-  "appearance.dock.always-on": {
-    "label": "Vedno viden dok"
-  },
-  "appearance.dock.position": {
-    "label": "Položaj doka"
-  },
-  "appearance.dock.position.top": {
-    "label": "Zgornji dok"
-  },
-  "appearance.dock.position.bottom": {
-    "label": "Spodnji dok"
-  },
-  "appearance.dock.position.left": {
-    "label": "Levi dok"
-  },
-  "appearance.dock.position.right": {
-    "label": "Desni dok"
-  },
   "appearance.workspace-layout": {
     "label": "Postavitev delovnega prostora",
     "title": "Privzeta postavitev delovnega prostora"

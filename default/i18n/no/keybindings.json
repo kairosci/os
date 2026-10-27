@@ -1,6 +1,5 @@
 {
   "Activity": "Aktivitet",
-  "Apps": "Apper",
   "Audio": "Lyd",
   "Background switcher": "Bakgrunnsbytter",
   "Bar panel %1": "Linjepanel %1",
@@ -70,7 +69,6 @@
   "Lock system": "Lås system",
   "Make webcam overlay larger": "Forstørr webkameraoverlegg",
   "Make webcam overlay smaller": "Forminsk webkameraoverlegg",
-  "Minimize window to the dock": "Minimer vindu til dokken",
   "Monitor scaling down": "Reduser skjermskalering",
   "Monitor scaling up": "Øk skjermskalering",
   "Move active window out of group": "Flytt aktivt vindu ut av gruppe",

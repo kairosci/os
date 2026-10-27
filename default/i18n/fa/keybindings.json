@@ -1,6 +1,5 @@
 {
   "Activity": "فعالیت",
-  "Apps": "برنامه‌ها",
   "Audio": "صدا",
   "Background switcher": "تعویض پس‌زمینه",
   "Bar panel %1": "پنل نوار %1",
@@ -70,7 +69,6 @@
   "Lock system": "قفل کردن سیستم",
   "Make webcam overlay larger": "بزرگ‌تر کردن تصویر شناور وب‌کم",
   "Make webcam overlay smaller": "کوچک‌تر کردن تصویر شناور وب‌کم",
-  "Minimize window to the dock": "کوچک کردن پنجره به داک",
   "Monitor scaling down": "کاهش مقیاس نمایشگر",
   "Monitor scaling up": "افزایش مقیاس نمایشگر",
   "Move active window out of group": "خارج کردن پنجره فعال از گروه",

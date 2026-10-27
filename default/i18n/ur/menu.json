@@ -176,30 +176,6 @@
   "appearance.branding.screensaver.default": {
     "label": "طے شدہ بحال کریں"
   },
-  "appearance.dock": {
-    "label": "ڈاک"
-  },
-  "appearance.dock.autohide": {
-    "label": "خودکار چھپتا Dock"
-  },
-  "appearance.dock.always-on": {
-    "label": "ہمیشہ ظاہر Dock"
-  },
-  "appearance.dock.position": {
-    "label": "Dock کی جگہ"
-  },
-  "appearance.dock.position.top": {
-    "label": "بالائی Dock"
-  },
-  "appearance.dock.position.bottom": {
-    "label": "نچلا Dock"
-  },
-  "appearance.dock.position.left": {
-    "label": "بایاں Dock"
-  },
-  "appearance.dock.position.right": {
-    "label": "دایاں Dock"
-  },
   "appearance.workspace-layout": {
     "label": "ورک اسپیس لے آؤٹ",
     "title": "طے شدہ ورک اسپیس لے آؤٹ"

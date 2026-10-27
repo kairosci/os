@@ -1,6 +1,5 @@
 {
   "Activity": "Activitate",
-  "Apps": "Aplicații",
   "Audio": "Audio",
   "Background switcher": "Comutator fundal",
   "Bar panel %1": "Panou bară %1",
@@ -70,7 +69,6 @@
   "Lock system": "Blochează sistemul",
   "Make webcam overlay larger": "Mărește suprapunerea webcam",
   "Make webcam overlay smaller": "Micșorează suprapunerea webcam",
-  "Minimize window to the dock": "Minimizează fereastra în dock",
   "Monitor scaling down": "Reduce scalarea monitorului",
   "Monitor scaling up": "Crește scalarea monitorului",
   "Move active window out of group": "Mută fereastra activă din grup",

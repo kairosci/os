@@ -1,6 +1,5 @@
 {
   "Activity": "Shughuli",
-  "Apps": "Programu",
   "Audio": "Sauti",
   "Background switcher": "Kibadili mandharinyuma",
   "Bar panel %1": "Paneli ya upau %1",
@@ -70,7 +69,6 @@
   "Lock system": "Funga mfumo",
   "Make webcam overlay larger": "Ongeza ukubwa wa kiwekeleo cha webcam",
   "Make webcam overlay smaller": "Punguza ukubwa wa kiwekeleo cha webcam",
-  "Minimize window to the dock": "Punguza dirisha kwenye dock",
   "Monitor scaling down": "Punguza kipimo cha monitori",
   "Monitor scaling up": "Ongeza kipimo cha monitori",
   "Move active window out of group": "Hamisha dirisha amilifu nje ya kikundi",

@@ -1,6 +1,5 @@
 {
   "Activity": "Actividad",
-  "Apps": "Aplicaciones",
   "Audio": "Audio",
   "Background switcher": "Cambiar fondo",
   "Bar panel %1": "Panel de barra %1",
@@ -70,7 +69,6 @@
   "Lock system": "Bloquear sistema",
   "Make webcam overlay larger": "Agrandar webcam flotante",
   "Make webcam overlay smaller": "Reducir webcam flotante",
-  "Minimize window to the dock": "Minimizar ventana al dock",
   "Monitor scaling down": "Disminuir escala del monitor",
   "Monitor scaling up": "Aumentar escala del monitor",
   "Move active window out of group": "Sacar ventana activa del grupo",

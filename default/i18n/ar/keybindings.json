@@ -1,6 +1,5 @@
 {
   "Activity": "النشاط",
-  "Apps": "التطبيقات",
   "Audio": "الصوت",
   "Background switcher": "مبدّل الخلفية",
   "Bar panel %1": "لوحة الشريط %1",
@@ -70,7 +69,6 @@
   "Lock system": "قفل النظام",
   "Make webcam overlay larger": "تكبير تراكب كاميرا الويب",
   "Make webcam overlay smaller": "تصغير تراكب كاميرا الويب",
-  "Minimize window to the dock": "تصغير النافذة إلى المرسى",
   "Monitor scaling down": "تقليل تحجيم الشاشة",
   "Monitor scaling up": "زيادة تحجيم الشاشة",
   "Move active window out of group": "إخراج النافذة النشطة من المجموعة",

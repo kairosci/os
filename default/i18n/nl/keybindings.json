@@ -1,6 +1,5 @@
 {
   "Activity": "Activiteit",
-  "Apps": "Apps",
   "Audio": "Audio",
   "Background switcher": "Achtergrondkiezer",
   "Bar panel %1": "Balkpaneel %1",
@@ -70,7 +69,6 @@
   "Lock system": "Systeem vergrendelen",
   "Make webcam overlay larger": "Webcam-overlay vergroten",
   "Make webcam overlay smaller": "Webcam-overlay verkleinen",
-  "Minimize window to the dock": "Venster naar dock minimaliseren",
   "Monitor scaling down": "Monitorschaling verlagen",
   "Monitor scaling up": "Monitorschaling verhogen",
   "Move active window out of group": "Actief venster uit groep verplaatsen",

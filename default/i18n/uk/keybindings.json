@@ -1,6 +1,5 @@
 {
   "Activity": "Активність",
-  "Apps": "Застосунки",
   "Audio": "Аудіо",
   "Background switcher": "Перемикач фону",
   "Bar panel %1": "Панель бару %1",
@@ -70,7 +69,6 @@
   "Lock system": "Заблокувати систему",
   "Make webcam overlay larger": "Збільшити накладку вебкамери",
   "Make webcam overlay smaller": "Зменшити накладку вебкамери",
-  "Minimize window to the dock": "Згорнути вікно в док",
   "Monitor scaling down": "Зменшити масштаб монітора",
   "Monitor scaling up": "Збільшити масштаб монітора",
   "Move active window out of group": "Вивести активне вікно з групи",

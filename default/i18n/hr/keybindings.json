@@ -1,6 +1,5 @@
 {
   "Activity": "Aktivnost",
-  "Apps": "Aplikacije",
   "Audio": "Zvuk",
   "Background switcher": "Promjena pozadine",
   "Bar panel %1": "Panel trake %1",
@@ -70,7 +69,6 @@
   "Lock system": "Zaključaj sustav",
   "Make webcam overlay larger": "Povećaj sloj web-kamere",
   "Make webcam overlay smaller": "Smanji sloj web-kamere",
-  "Minimize window to the dock": "Minimiziraj prozor na dock",
   "Monitor scaling down": "Smanji skaliranje monitora",
   "Monitor scaling up": "Povećaj skaliranje monitora",
   "Move active window out of group": "Izbaci aktivni prozor iz grupe",

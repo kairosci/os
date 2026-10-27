@@ -176,30 +176,6 @@
   "appearance.branding.screensaver.default": {
     "label": "Endurheimta sjálfgildi"
   },
-  "appearance.dock": {
-    "label": "Dock"
-  },
-  "appearance.dock.autohide": {
-    "label": "Fela dock sjálfkrafa"
-  },
-  "appearance.dock.always-on": {
-    "label": "Alltaf sýnilegt dock"
-  },
-  "appearance.dock.position": {
-    "label": "Staðsetning docks"
-  },
-  "appearance.dock.position.top": {
-    "label": "Efsta dock"
-  },
-  "appearance.dock.position.bottom": {
-    "label": "Neðsta dock"
-  },
-  "appearance.dock.position.left": {
-    "label": "Vinstri dock"
-  },
-  "appearance.dock.position.right": {
-    "label": "Hægri dock"
-  },
   "appearance.workspace-layout": {
     "label": "Vinnusvæðaskipun",
     "title": "Sjálfgefin vinnusvæðaskipun"

@@ -176,30 +176,6 @@
   "appearance.branding.screensaver.default": {
     "label": "Khôi phục mặc định"
   },
-  "appearance.dock": {
-    "label": "Dock"
-  },
-  "appearance.dock.autohide": {
-    "label": "Tự ẩn Dock"
-  },
-  "appearance.dock.always-on": {
-    "label": "Dock luôn hiện"
-  },
-  "appearance.dock.position": {
-    "label": "Vị trí Dock"
-  },
-  "appearance.dock.position.top": {
-    "label": "Dock trên"
-  },
-  "appearance.dock.position.bottom": {
-    "label": "Dock dưới"
-  },
-  "appearance.dock.position.left": {
-    "label": "Dock trái"
-  },
-  "appearance.dock.position.right": {
-    "label": "Dock phải"
-  },
   "appearance.workspace-layout": {
     "label": "Bố cục không gian làm việc",
     "title": "Bố cục không gian làm việc mặc định"

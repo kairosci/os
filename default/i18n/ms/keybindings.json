@@ -1,6 +1,5 @@
 {
   "Activity": "Aktiviti",
-  "Apps": "Aplikasi",
   "Audio": "Audio",
   "Background switcher": "Penukar latar belakang",
   "Bar panel %1": "Panel bar %1",
@@ -70,7 +69,6 @@
   "Lock system": "Kunci sistem",
   "Make webcam overlay larger": "Besarkan tindanan kamera web",
   "Make webcam overlay smaller": "Kecilkan tindanan kamera web",
-  "Minimize window to the dock": "Minimumkan tetingkap ke dok",
   "Monitor scaling down": "Turunkan skala monitor",
   "Monitor scaling up": "Naikkan skala monitor",
   "Move active window out of group": "Alihkan tetingkap aktif keluar kumpulan",

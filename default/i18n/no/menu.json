@@ -176,30 +176,6 @@
   "appearance.branding.screensaver.default": {
     "label": "Gjenopprett standard"
   },
-  "appearance.dock": {
-    "label": "Dock"
-  },
-  "appearance.dock.autohide": {
-    "label": "Skjul dock automatisk"
-  },
-  "appearance.dock.always-on": {
-    "label": "Alltid synlig dock"
-  },
-  "appearance.dock.position": {
-    "label": "Dockplassering"
-  },
-  "appearance.dock.position.top": {
-    "label": "Øverste dock"
-  },
-  "appearance.dock.position.bottom": {
-    "label": "Nederste dock"
-  },
-  "appearance.dock.position.left": {
-    "label": "Venstre dock"
-  },
-  "appearance.dock.position.right": {
-    "label": "Høyre dock"
-  },
   "appearance.workspace-layout": {
     "label": "Arbeidsområdeoppsett",
     "title": "Standard arbeidsområdeoppsett"

@@ -176,30 +176,6 @@
   "appearance.branding.screensaver.default": {
     "label": "คืนค่าเริ่มต้น"
   },
-  "appearance.dock": {
-    "label": "Dock"
-  },
-  "appearance.dock.autohide": {
-    "label": "ซ่อน Dock อัตโนมัติ"
-  },
-  "appearance.dock.always-on": {
-    "label": "แสดง Dock เสมอ"
-  },
-  "appearance.dock.position": {
-    "label": "ตำแหน่ง Dock"
-  },
-  "appearance.dock.position.top": {
-    "label": "Dock บน"
-  },
-  "appearance.dock.position.bottom": {
-    "label": "Dock ล่าง"
-  },
-  "appearance.dock.position.left": {
-    "label": "Dock ซ้าย"
-  },
-  "appearance.dock.position.right": {
-    "label": "Dock ขวา"
-  },
   "appearance.workspace-layout": {
     "label": "เค้าโครงพื้นที่งาน",
     "title": "เค้าโครงพื้นที่งานเริ่มต้น"

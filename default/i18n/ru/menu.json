@@ -176,30 +176,6 @@
   "appearance.branding.screensaver.default": {
     "label": "Восстановить по умолчанию"
   },
-  "appearance.dock": {
-    "label": "Док"
-  },
-  "appearance.dock.autohide": {
-    "label": "Автоскрытие дока"
-  },
-  "appearance.dock.always-on": {
-    "label": "Док всегда виден"
-  },
-  "appearance.dock.position": {
-    "label": "Положение дока"
-  },
-  "appearance.dock.position.top": {
-    "label": "Док сверху"
-  },
-  "appearance.dock.position.bottom": {
-    "label": "Док снизу"
-  },
-  "appearance.dock.position.left": {
-    "label": "Док слева"
-  },
-  "appearance.dock.position.right": {
-    "label": "Док справа"
-  },
   "appearance.workspace-layout": {
     "label": "Раскладка рабочих пространств",
     "title": "Раскладка рабочих пространств по умолчанию"

@@ -1,6 +1,5 @@
 {
   "Activity": "กิจกรรม",
-  "Apps": "แอป",
   "Audio": "เสียง",
   "Background switcher": "ตัวสลับพื้นหลัง",
   "Bar panel %1": "แผงแถบ %1",
@@ -70,7 +69,6 @@
   "Lock system": "ล็อกระบบ",
   "Make webcam overlay larger": "ขยายภาพซ้อนเว็บแคม",
   "Make webcam overlay smaller": "ย่อภาพซ้อนเว็บแคม",
-  "Minimize window to the dock": "ย่อหน้าต่างลงด็อก",
   "Monitor scaling down": "ลดสเกลจอแสดงผล",
   "Monitor scaling up": "เพิ่มสเกลจอแสดงผล",
   "Move active window out of group": "ย้ายหน้าต่างที่ใช้งานออกจากกลุ่ม",
