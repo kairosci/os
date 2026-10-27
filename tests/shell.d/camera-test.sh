@@ -5,7 +5,7 @@ set -euo pipefail
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 helper="$ROOT/src/cli/arch-install-camera"
-leaf="$ROOT/installer/hardware/qualcomm/camera.sh"
+leaf="$ROOT/src/python/installer/hardware/qualcomm_camera.py"
 migration=$(grep -l -- 'arch-install-camera' "$ROOT"/migrations/*.sh | head -n1)
 test_tmp=$(mktemp -d)
 trap 'rm -rf "$test_tmp"' EXIT
@@ -36,6 +36,10 @@ shipped="$ROOT/config/chromium-flags.conf"
 features=$(grep -- '^--enable-features=' "$shipped")
 
 touch "$ARCH_TEST_QUALCOMM"
+grep -Fq 'run_logged "$ARCH_PATH/src/python/installer/hardware/qualcomm_camera.py"' "$ROOT/installer/hardware/all.sh" ||
+  fail "hardware setup runs the Qualcomm camera package module"
+pass "hardware setup includes the Python Qualcomm camera package module"
+
 home=$(new_home shipped)
 cp "$shipped" "$home/.config/chromium-flags.conf"
 HOME=$home bash "$helper"
@@ -73,14 +77,17 @@ home=$(new_home other)
 cp "$shipped" "$home/.config/chromium-flags.conf"
 HOME=$home bash "$helper"
 cmp -s "$shipped" "$home/.config/chromium-flags.conf" || fail "other machines keep Chromium's flags" "$(cat "$home/.config/chromium-flags.conf")"
+run_leaf() {
+  ARCH_PATH="$ROOT" python3 -I "$leaf"
+}
 rm -f "$ARCH_TEST_PACKAGES"
-bash -c "source '$leaf'"
+run_leaf
 [[ ! -e $ARCH_TEST_PACKAGES ]] || fail "other machines get no camera backend" "$(cat "$ARCH_TEST_PACKAGES")"
 pass "other machines keep Chromium's flags and get no camera backend"
 
 touch "$ARCH_TEST_QUALCOMM"
 rm -f "$ARCH_TEST_PACKAGES"
-bash -c "source '$leaf'"
+run_leaf
 [[ $(cat "$ARCH_TEST_PACKAGES") == "pipewire-libcamera" ]] || fail "a Snapdragon laptop gets the PipeWire camera backend" "$(cat "$ARCH_TEST_PACKAGES" 2>/dev/null)"
 grep -Fxq 'pipewire-libcamera' "$ROOT/installer/arch-aarch64-qualcomm.packages" || fail "new Snapdragon installs get the camera backend"
 grep -Fxq 'pipewire-libcamera' "$ROOT/installer/arch-other.packages" || fail "the ISO can supply the camera backend offline"

@@ -26,3 +26,8 @@ package_gates:
     - checks:
         - [arch-hw-intel-sof]
       packages: [sof-firmware]
+
+qualcomm_camera:
+  check_command: [arch-hw-aarch64-qualcomm]
+  package_command: [arch-pkg-add]
+  package: pipewire-libcamera
