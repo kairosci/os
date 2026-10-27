@@ -62,7 +62,7 @@ run_logged "$ARCH_INSTALL/hardware/fix-bcm43xx.sh"
 run_logged "$ARCH_INSTALL/hardware/fix-surface-keyboard.sh"
 run_logged "$ARCH_INSTALL/hardware/fix-yt6801-ethernet-adapter.sh"
 run_logged "$ARCH_INSTALL/hardware/fix-tuxedo-backlight.sh"
-run_logged "$ARCH_INSTALL/hardware/speaker-tuning.sh"
+run_logged "$ARCH_PATH/src/python/installer/hardware/speaker_tuning.py"
 run_logged "$ARCH_INSTALL/hardware/pacman.sh"
 
 run_logged "$ARCH_INSTALL/hardware/platform-setup.sh"
