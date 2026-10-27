@@ -80,11 +80,11 @@ run_first_run_step "enable user systemd units" \
 run_first_run_step "run the platform's user setup" \
   arch-lifecycle-dispatch setup-user
 run_first_run_step "set GNOME theme" \
-  bash "$ARCH_PATH/installer/user/first-run/gnome-theme.sh"
+  python3 -I "$ARCH_PATH/src/python/installer_user/first_run/commands.py" gnome_theme
 run_first_run_step "set GTK primary paste" \
-  python3 -I "$ARCH_PATH/src/python/installer_user/first_run/gtk_primary_paste.py"
+  python3 -I "$ARCH_PATH/src/python/installer_user/first_run/commands.py" gtk_primary_paste
 run_first_run_step "apply speaker tuning" \
-  bash "$ARCH_PATH/installer/user/first-run/audio-tuning.sh"
+  python3 -I "$ARCH_PATH/src/python/installer_user/first_run/commands.py" audio_tuning
 
 arch-notification-wait || log_first_run "Timed out waiting for notification service; continuing"
 # Each send returns only once the server has taken the toast, so sending in
