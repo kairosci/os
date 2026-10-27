@@ -1,0 +1,4 @@
+commands:
+  python: [python3, -I]
+script: src/python/installer/hardware/lenovo/thinkpad_t14s_camera.py
+arguments: [--migration]

@@ -57,7 +57,8 @@ class ThinkPadT14sCameraTest(unittest.TestCase):
   def _sudo_stub(self) -> str:
     return '''arguments = sys.argv[1:]
 if arguments[0] == "udevadm":
-  Path(os.environ["UDEV_LOG"]).write_text(" ".join(arguments) + "\\n", encoding="utf-8")
+  with Path(os.environ["UDEV_LOG"]).open("a", encoding="utf-8") as log:
+    log.write(" ".join(arguments) + "\\n")
 elif arguments[0] == "install":
   destination = Path(os.environ["SCRATCH"]) / arguments[-1].lstrip("/")
   subprocess.run(["install", *arguments[1:-1], str(destination)], check=True)
@@ -69,7 +70,7 @@ else:
     if name == "setup":
       command = ["/usr/bin/python3", "-I", str(ROOT / "src/python/installer/hardware/lenovo/thinkpad_t14s_camera.py")]
     else:
-      command = ["/bin/bash", "-euo", "pipefail", str(ROOT / "migrations/1791080527.sh")]
+      command = ["/usr/bin/python3", "-I", str(ROOT / "migrations/1791080527.py")]
     return subprocess.run(command, check=False, capture_output=True, text=True, env=self.environment)
 
   def _reset(self) -> None:
