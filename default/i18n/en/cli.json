@@ -128,6 +128,7 @@
   "migration.installUdiskie": "Install removable-drive automount support",
   "migration.installViCompat": "Install the vi-compatible editor from Arch extra",
   "migration.installZbar": "Install QR code scanning support",
+  "migration.keepMiseToolVersions": "Keep installed mise tool versions during upgrades",
   "migration.moveKeyboardLayoutWidget": "Move the keyboard layout widget to the right side of the bar",
   "migration.refreshApplications": "Refresh application entries",
   "migration.removeFloatingDiskUsageLauncher": "Removed the obsolete floating Disk Usage launcher",
