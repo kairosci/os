@@ -1,0 +1,8 @@
+commands:
+  i18n: [arch-i18n]
+paths:
+  notification_images: .cache/arch/notification-images
+messages:
+  reason: migration.removeRetiredNotificationImageCache
+statuses:
+  success: 0

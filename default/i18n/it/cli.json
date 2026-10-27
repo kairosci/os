@@ -156,6 +156,7 @@
   "migration.removeVoxtypeHyprlandToggle": "Rimuovi la vecchia scorciatoia di dettatura",
   "migration.archSessionEntryMissing": "La voce di sessione Wayland di Arch non è presente.",
   "migration.removeRetiredCliShims": "Rimuovi gli shim CLI non più usati da mise",
+  "migration.removeRetiredNotificationImageCache": "Rimuovi la vecchia cache delle immagini delle notifiche",
   "migration.removeSavedFloatingWorkspaces": "Rimuovi i layout flottanti salvati delle aree di lavoro",
   "migration.saveWorkspaceLayoutsAsModes": "Salva i layout delle aree di lavoro come modalità",
   "migration.removeWorkspaceTitlebars": "Rimuovi le titlebar obsolete dei workspace",
