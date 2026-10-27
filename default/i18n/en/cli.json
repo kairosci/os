@@ -148,6 +148,8 @@
   "migration.moveKeyboardLayoutWidget": "Move the keyboard layout widget to the right side of the bar",
   "migration.refreshApplications": "Refresh application entries",
   "migration.removeFloatingDiskUsageLauncher": "Removed the obsolete floating Disk Usage launcher",
+  "migration.removeOldDiskUsageLauncher": "Remove the old Disk Usage launcher",
+  "migration.replaceDiskUsageWithDisktree": "Replace the Disk Usage tool with Disktree",
   "migration.removeManagedSkillLinks": "Removed %1 Arch-managed agent skill link(s)",
   "migration.removeLegacyPasswordlessSudoGrants": "Remove legacy temporary passwordless sudo grants",
   "migration.relinkNeovimTheme": "Relink the Neovim theme to the current Arch state",

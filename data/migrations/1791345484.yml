@@ -1,0 +1,36 @@
+commands:
+  i18n: [arch-i18n]
+  package_add: [arch-pkg-add]
+  package_drop: [arch-pkg-drop]
+  update_database: [update-desktop-database]
+packages:
+  add: [disktree-bin]
+  drop: [dua-cli]
+paths:
+  xdg_data_environment: XDG_DATA_HOME
+  default_data_directory: .local/share
+  applications_directory: applications
+  desktop_file: Disk Usage.desktop
+desktop:
+  generated_entries:
+    - Version: "1.0"
+      Name: Disk Usage
+      Comment: Disk Usage
+      Exec: xdg-terminal-exec --app-id=TUI.float -e dua i
+      Terminal: "false"
+      Type: Application
+      Icon: Disk Usage
+      StartupNotify: "true"
+    - Version: "1.0"
+      Name: Disk Usage
+      Comment: Disk Usage
+      Exec: xdg-terminal-exec --app-id=TUI.float -e dua i
+      Terminal: "false"
+      Type: Application
+      Icon: disk-usage
+      StartupNotify: "true"
+messages:
+  reason: migration.replaceDiskUsageWithDisktree
+  removed: migration.removeOldDiskUsageLauncher
+statuses:
+  success: 0
