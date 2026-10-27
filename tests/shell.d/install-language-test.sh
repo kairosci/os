@@ -8,13 +8,15 @@ trap 'rm -rf "$scratch"' EXIT
 export ARCH_PATH="$scratch/arch" ARCH_INSTALL="$ROOT/installer" COMMAND_LOG="$scratch/commands"
 mkdir -p "$ARCH_PATH/src/cli" "$ARCH_PATH/default/i18n"
 printf '{"en":{},"fr":{},"es":{},"it":{}}\n' >"$ARCH_PATH/default/i18n/locales.json"
+mkdir -p "$ARCH_PATH/data/installer"
+cp "$ROOT/data/installer/system-setup.yml" "$ARCH_PATH/data/installer/system-setup.yml"
 for command in arch-locale-generate arch-language; do
   printf '#!/bin/bash\nprintf "%%s %%s\\n" "${0##*/}" "$*" >>"$COMMAND_LOG"\n' >"$ARCH_PATH/src/cli/$command"
   chmod +x "$ARCH_PATH/src/cli/$command"
 done
 export ARCH_LANGUAGE_MARKER="$scratch/language"
 
-system_step() { : >"$COMMAND_LOG"; bash -e -c 'source "$1"' bash "$ROOT/installer/config/language.sh" 2>"$scratch/err"; }
+system_step() { : >"$COMMAND_LOG"; python3 -I "$ROOT/src/python/installer/system_setup/language_setup.py" 2>"$scratch/err"; }
 
 system_step
 [[ ! -s $COMMAND_LOG ]] || fail "no preset language generates no locale"
@@ -30,13 +32,13 @@ pass "the system step generates only a well-formed preset language's locale"
 
 grep -qxF 'language_file=/etc/arch/language' "$ROOT/installer/user/language.sh" ||
   fail "the user step reads the preset as data"
-grep -qxF 'marker=${ARCH_LANGUAGE_MARKER:-/etc/arch/language}' "$ROOT/installer/config/language.sh" ||
+grep -q 'marker_default: /etc/arch/language' "$ROOT/data/installer/system-setup.yml" ||
   fail "the system step reads the Arch language marker"
 grep -qF 'language_file=/etc/arch/language' "$ROOT/installer/user/language.sh" ||
   fail "the user step can still read a legacy language preset"
-! grep -qE '(^|[^a-z])(source|\.) .*/etc/(arch|arch)/language' "$ROOT/installer/user/language.sh" "$ROOT/installer/config/language.sh" ||
+! grep -qE '(^|[^a-z])(source|\.) .*/etc/(arch|arch)/language' "$ROOT/installer/user/language.sh" ||
   fail "neither step sources the preset"
-grep -qx 'run_logged "$ARCH_INSTALL/config/language.sh"' "$ROOT/installer/config/all.sh" || fail "system finalization runs the language step"
+grep -qx 'run_logged "$ARCH_PATH/src/python/installer/system_setup/language_setup.py"' "$ROOT/installer/config/all.sh" || fail "system finalization runs the language step"
 grep -qx 'run_logged "$ARCH_INSTALL/user/language.sh"' "$ROOT/installer/user/all.sh" || fail "user finalization runs the language step"
 pass "both finalization steps run, and read the preset as data"
 
