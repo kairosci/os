@@ -124,6 +124,7 @@
   "migration.installChromiumExtensionHosts": "Register the bundled Chromium extension hosts",
   "migration.installDdcutil": "Install external-monitor brightness control support",
   "migration.installLibvips": "Install image thumbnail generation support",
+  "migration.useArchInitramfsHooks": "Use the Arch-supported initramfs hooks for the stock kernel",
   "migration.loosenOfflineNodePin": "Loosen the offline install's exact Node pin so mise tracks new releases",
   "migration.installMpvMpris": "Install MPRIS support for mpv",
   "migration.installQrencode": "Install Wi-Fi QR code generation support",

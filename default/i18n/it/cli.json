@@ -125,6 +125,7 @@
   "migration.installChromiumExtensionHosts": "Registra i programmi host delle estensioni Chromium incluse",
   "migration.installDdcutil": "Installa il supporto per regolare la luminosità dei monitor esterni",
   "migration.installLibvips": "Installa il supporto per generare miniature delle immagini",
+  "migration.useArchInitramfsHooks": "Usa gli hook initramfs supportati da Arch per il kernel standard",
   "migration.loosenOfflineNodePin": "Rimuovi il vincolo esatto di Node dell’installazione offline per seguire le nuove versioni con mise",
   "migration.installMpvMpris": "Installa il supporto MPRIS per mpv",
   "migration.installQrencode": "Installa il supporto per generare QR code Wi-Fi",
