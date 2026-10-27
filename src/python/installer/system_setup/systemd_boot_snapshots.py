@@ -64,10 +64,20 @@ def main() -> None:
     return
 
   plugin = settings["plugin"]
+  target = plugin["target"]
+  if os.geteuid() != 0:
+    target = os.environ.get(plugin["target_environment"], target)
   _copy_plugin(
     arch_path / plugin["source"],
-    Path(plugin["target"]),
+    Path(target),
     plugin["mode"],
+    plugin["directory_mode"],
+  )
+  settings_target = Path(target).with_name(Path(target).name + plugin["settings_suffix"])
+  _copy_plugin(
+    arch_path / plugin["settings_source"],
+    settings_target,
+    plugin["settings_mode"],
     plugin["directory_mode"],
   )
   _run_optional(settings["disable_units"])

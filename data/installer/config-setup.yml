@@ -22,7 +22,11 @@ systemd_boot_snapshots:
     default_esp: /boot
     relative_path: EFI/systemd/systemd-bootx64.efi
   plugin:
-    source: installer/boot/systemd-boot-snapper-plugin.sh
+    source: src/python/installer/boot/systemd_boot_snapper_plugin.py
+    settings_source: data/installer/systemd-boot-snapper-plugin.yml
+    settings_suffix: .yml
+    settings_mode: '0644'
+    target_environment: ARCH_SYSTEMD_BOOT_PLUGIN_TARGET
     target: /usr/lib/snapper/plugins/10-arch-systemd-boot
     directory_mode: '0755'
     mode: '0755'

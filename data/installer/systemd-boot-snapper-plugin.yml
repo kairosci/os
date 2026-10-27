@@ -1,0 +1,78 @@
+paths:
+  machine_id_pattern: '^[0-9a-f]{32}$'
+  boot_root:
+    environment: ARCH_SNAPSHOTS_BOOT_ROOT
+    default: /boot
+  snapshots_root:
+    environment: ARCH_SNAPSHOTS_ROOT
+    default: /.snapshots
+  machine_id:
+    environment: ARCH_MACHINE_ID
+    source: /etc/machine-id
+  uki:
+    environment: ARCH_ARCH_UKI
+    default: '{boot_root}/EFI/Linux/os_linux.efi'
+  systemd_unit_dir:
+    environment: ARCH_SYSTEMD_UNIT_DIR
+    default: /etc/systemd/system
+  systemd_libexec_dir:
+    environment: ARCH_SYSTEMD_LIBEXEC_DIR
+    default: /usr/local/libexec
+  limine_snapper_plugin:
+    environment: ARCH_LIMINE_SNAPPER_PLUGIN
+    default: /usr/lib/snapper/plugins/10-limine-snapper-sync
+  image_directory: '{boot_root}/{machine_id}/arch-snapshots'
+  entries_directory: '{boot_root}/loader/entries'
+  converter_files:
+    - '{systemd_unit_dir}/arch-snapshot-entries.path'
+    - '{systemd_unit_dir}/arch-snapshot-entries.service'
+    - '{systemd_libexec_dir}/arch-sync-systemd-boot-snapshots'
+snapshot:
+  root_subvolume: /
+  id_pattern: '^[0-9]+$'
+  actions:
+    create: create-snapshot-post
+    delete: delete-snapshot-post
+  argument_positions:
+    action: 0
+    subvolume: 1
+    snapshot_id: 3
+  directory: '{snapshots_root}/{snapshot_id}/snapshot'
+  info_file: '{snapshots_root}/{snapshot_id}/info.xml'
+  archive_file: '{image_directory}/snapshot-{snapshot_id}-linux.efi'
+  entry_file: '{entries_directory}/arch-snapshot-{snapshot_id}.conf'
+boot:
+  product_pattern: '^\s*Product: systemd-boot(\s|$)'
+  legacy_disable_command: [systemctl, disable, --now, limine-snapper-sync.service]
+  converter_disable_command: [systemctl, disable, --now, arch-snapshot-entries.path, arch-snapshot-entries.service]
+  reload_command: [systemctl, daemon-reload]
+  trusted_path: /usr/bin:/usr/sbin
+  objcopy_command: [objcopy]
+  status_command: [bootctl, status, --no-pager]
+  cmdline_section: .cmdline
+  snapshot_rootflag: 'subvol=@/.snapshots/{snapshot_id}/snapshot'
+  entry_title: 'Snapshot #{snapshot_id}{date_suffix} - Arch Linux'
+  entry_sort_key: snapshots
+  entry_uki_path: '/{machine_id}/arch-snapshots/snapshot-{snapshot_id}-linux.efi'
+  legacy_entry_files:
+    - '{entries_directory}/arch-snapshot-{snapshot_id}-arch.conf'
+    - '{entries_directory}/arch-snapshot-{snapshot_id}-recovery.conf'
+  entry_template: |-
+    title   {title}
+    sort-key {sort_key}
+    uki     {uki_path}
+limits:
+  snapshot_info_bytes: 65536
+modes:
+  installed_file: '0644'
+messages:
+  en:
+    invalid_configuration: "Invalid systemd-boot Snapper plugin settings"
+    invalid_machine_id: "Machine ID has an invalid format"
+    missing_rootflags: "The Arch UKI command line has no rootflags= option; refusing to build a snapshot UKI."
+    invalid_uki: "The Arch UKI is not a regular file"
+  it:
+    invalid_configuration: "Configurazione non valida del plugin Snapper per systemd-boot"
+    invalid_machine_id: "Il machine ID non ha un formato valido"
+    missing_rootflags: "La riga di comando dell'UKI Arch non contiene rootflags=; creazione dell'UKI snapshot annullata."
+    invalid_uki: "L'UKI Arch non è un file regolare"

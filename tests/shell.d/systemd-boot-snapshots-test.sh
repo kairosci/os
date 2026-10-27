@@ -4,7 +4,7 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-snapper_plugin="$ROOT/installer/boot/systemd-boot-snapper-plugin.sh"
+snapper_plugin="$ROOT/src/python/installer/boot/systemd_boot_snapper_plugin.py"
 scratch=$(mktemp -d)
 trap 'rm -rf "$scratch"' EXIT
 
@@ -125,11 +125,11 @@ touch "$plugin_test/systemd/units/arch-snapshot-entries.path" \
   "$plugin_test/systemd/libexec/arch-sync-systemd-boot-snapshots"
 ARCH_SNAPSHOTS_BOOT_ROOT="$plugin_test/boot" \
   ARCH_SNAPSHOTS_ROOT="$plugin_test/snapshots" \
-  ARCH_MACHINE_ID=test-machine \
+ARCH_MACHINE_ID=00112233445566778899aabbccddeeff \
   ARCH_ARCH_UKI="$plugin_test/boot/EFI/Linux/os_linux.efi" \
   ARCH_TEST_BOOT_PRODUCT="$plugin_test/boot-product" \
   PATH="$plugin_test/bin:$PATH" \
-  bash "$snapper_plugin" create-snapshot-post / 0 14
+  python3 -I "$snapper_plugin" create-snapshot-post / 0 14
 [[ ! -e $plugin_test/boot/loader/entries/arch-snapshot-14.conf ]] ||
   fail "a Limine boot does not activate systemd-boot snapshot entries"
 [[ -e $plugin_test/systemd/units/arch-snapshot-entries.path ]] ||
@@ -137,7 +137,7 @@ ARCH_SNAPSHOTS_BOOT_ROOT="$plugin_test/boot" \
 printf '%s\n' systemd-boot >"$plugin_test/boot-product"
 ARCH_SNAPSHOTS_BOOT_ROOT="$plugin_test/boot" \
   ARCH_SNAPSHOTS_ROOT="$plugin_test/snapshots" \
-  ARCH_MACHINE_ID=test-machine \
+ARCH_MACHINE_ID=00112233445566778899aabbccddeeff \
   ARCH_ARCH_UKI="$plugin_test/boot/EFI/Linux/os_linux.efi" \
   ARCH_TEST_BOOT_PRODUCT="$plugin_test/boot-product" \
   ARCH_SYSTEMD_UNIT_DIR="$plugin_test/systemd/units" \
@@ -147,8 +147,8 @@ ARCH_SNAPSHOTS_BOOT_ROOT="$plugin_test/boot" \
   ARCH_TEST_CMDLINE_OUTPUT="$plugin_test/updated-cmdline" \
   ARCH_TEST_SYSTEMCTL_LOG="$plugin_test/systemctl.log" \
   PATH="$plugin_test/bin:$PATH" \
-  bash "$snapper_plugin" create-snapshot-post / 0 14
-plugin_uki="$plugin_test/boot/test-machine/arch-snapshots/snapshot-14-linux.efi"
+  python3 -I "$snapper_plugin" create-snapshot-post / 0 14
+plugin_uki="$plugin_test/boot/00112233445566778899aabbccddeeff/arch-snapshots/snapshot-14-linux.efi"
 plugin_entry="$plugin_test/boot/loader/entries/arch-snapshot-14.conf"
 [[ -s $plugin_uki && -s $plugin_entry ]] || fail "Snapper creates an archived UKI and systemd-boot entry"
 [[ ! -e $plugin_test/systemd/units/arch-snapshot-entries.path &&
@@ -167,16 +167,38 @@ grep -Fxq 'title   Snapshot #14 (2026-10-24 12:34:56) - Arch Linux' "$plugin_ent
   fail "the systemd-boot snapshot entry shows its date"
 ARCH_SNAPSHOTS_BOOT_ROOT="$plugin_test/boot" \
   ARCH_SNAPSHOTS_ROOT="$plugin_test/snapshots" \
-  ARCH_MACHINE_ID=test-machine \
+  ARCH_MACHINE_ID=00112233445566778899aabbccddeeff \
   ARCH_TEST_BOOT_PRODUCT="$plugin_test/boot-product" \
   ARCH_SYSTEMD_UNIT_DIR="$plugin_test/systemd/units" \
   ARCH_SYSTEMD_LIBEXEC_DIR="$plugin_test/systemd/libexec" \
   ARCH_TEST_SYSTEMCTL_LOG="$plugin_test/systemctl.log" \
   PATH="$plugin_test/bin:$PATH" \
-  bash "$snapper_plugin" delete-snapshot-post / 0 14
+  python3 -I "$snapper_plugin" delete-snapshot-post / 0 14
 [[ ! -e $plugin_uki && ! -e $plugin_entry ]] ||
   fail "deleting a Snapper snapshot removes its UKI and systemd-boot entry"
 pass "Snapper creates and removes self-contained systemd-boot snapshot entries"
+
+ARCH_PATH="$ROOT" \
+  ARCH_SNAPSHOTS_BOOT_ROOT=/tmp/attacker-boot \
+  ARCH_SNAPSHOTS_ROOT=/tmp/attacker-snapshots \
+  ARCH_MACHINE_ID=../../etc/shadow \
+  python3 -I - "$snapper_plugin" <<'PY' || fail "the privileged Snapper plugin ignores environment-controlled paths"
+import runpy
+import sys
+from pathlib import Path
+from unittest.mock import patch
+
+module = runpy.run_path(sys.argv[1])
+settings = module["load_settings"]()
+with patch.object(module["os"], "geteuid", return_value=0):
+  paths = module["runtime_paths"](settings)
+assert paths["boot_root"] == settings["paths"]["boot_root"]["default"]
+assert paths["snapshots_root"] == settings["paths"]["snapshots_root"]["default"]
+assert paths["machine_id"] == Path(settings["paths"]["machine_id"]["source"]).read_text(encoding="utf-8").strip()
+with patch.dict(module["os"].environ, {"LANG": "it_IT.UTF-8"}):
+  assert module["message"](settings, "invalid_machine_id") == settings["messages"]["it"]["invalid_machine_id"]
+PY
+pass "the privileged Snapper plugin ignores environment-controlled paths"
 
 migration_test="$scratch/migration"
 mkdir -p "$migration_test/bin" "$migration_test/esp/EFI/systemd"
@@ -193,10 +215,15 @@ if [[ $* == *" list" ]]; then
   printf 'id: %s\n' "$ARCH_TEST_BOOT_ID"
 fi
 BOOTCTL
+cat >"$migration_test/bin/systemctl" <<'SYSTEMCTL'
+#!/bin/bash
+printf 'systemctl %s\n' "$*" >>"$ARCH_TEST_COMMAND_LOG"
+SYSTEMCTL
 printf '#!/bin/bash\nexit 1\n' >"$migration_test/bin/arch-hw-x86"
 chmod +x "$migration_test/bin/"*
 if ARCH_PATH="$ROOT" \
   ARCH_SYSTEMD_BOOT_ESP="$migration_test/esp" \
+  ARCH_SYSTEMD_BOOT_PLUGIN_TARGET="$migration_test/plugins/10-arch-systemd-boot" \
   ARCH_TEST_COMMAND_LOG="$migration_test/commands.log" \
   ARCH_TEST_BOOT_ID=unrelated.efi \
   PATH="$migration_test/bin:$PATH" \
@@ -207,12 +234,19 @@ fi
   fail "the systemd-boot migration does not set a default before verifying the Arch entry"
 ARCH_PATH="$ROOT" \
   ARCH_SYSTEMD_BOOT_ESP="$migration_test/esp" \
+  ARCH_SYSTEMD_BOOT_PLUGIN_TARGET="$migration_test/plugins/10-arch-systemd-boot" \
   ARCH_TEST_COMMAND_LOG="$migration_test/commands.log" \
   ARCH_TEST_BOOT_ID=os_linux.efi \
   PATH="$migration_test/bin:$PATH" \
   bash "$ROOT/migrations/1792846494.sh" >/dev/null
 grep -Fq 'bootctl --esp-path='"$migration_test/esp"' set-default os_linux.efi' \
   "$migration_test/commands.log" || fail "the systemd-boot migration selects the Arch UKI as default"
+[[ -x $migration_test/plugins/10-arch-systemd-boot ]] ||
+  fail "systemd-boot installs its Snapper plugin after verifying the Arch UKI"
+[[ -f $migration_test/plugins/10-arch-systemd-boot.yml ]] ||
+  fail "systemd-boot installs trusted runtime settings beside its Snapper plugin"
+grep -Fxq 'systemctl daemon-reload' "$migration_test/commands.log" ||
+  fail "systemd-boot reloads systemd after installing the Snapper plugin"
 pass "the systemd-boot migration verifies and selects the Arch UKI"
 
 default_migration_test="$scratch/default-migration"
