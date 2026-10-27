@@ -1,0 +1,102 @@
+hardware_checks:
+  - [arch-hw-aarch64-qualcomm]
+  - [arch-hw-match, "83ED"]
+directories:
+  modules_load:
+    environment: ARCH_YOGA_MODULES_LOAD_DIR
+    default: /etc/modules-load.d
+  mkinitcpio:
+    environment: ARCH_YOGA_MKINITCPIO_DIR
+    default: /etc/mkinitcpio.conf.d
+  limine:
+    environment: ARCH_YOGA_LIMINE_CONFIG_DIR
+    default: /etc/limine-entry-tool.d
+  systemd:
+    environment: ARCH_YOGA_SYSTEMD_DIR
+    default: /etc/systemd/system
+files:
+  - directory: modules_load
+    name: yoga-slim7x.conf
+    mode: "0644"
+    content: |
+      scmi-cpufreq
+  - directory: mkinitcpio
+    name: yoga-slim7x-initramfs.conf
+    mode: "0644"
+    content: |
+      MODULES+=(i2c-hid-of qrtr ps883x pmic_glink_altmode)
+
+      # The board-signed zap shader is included by qcom-firmware-extract.
+      # Search like the kernel does: each suffix in every directory, then the next.
+      for firmware in \
+        qcom/gen70500_sqe.fw \
+        qcom/gen70500_gmu.bin; do
+        for suffix in '' .zst .xz; do
+          for directory in "${ARCH_YOGA_FIRMWARE_ROOT:-/usr/lib/firmware}/updates" \
+            "${ARCH_YOGA_FIRMWARE_ROOT:-/usr/lib/firmware}"; do
+            if [[ -f $directory/$firmware$suffix ]]; then
+              FILES+=("$directory/$firmware$suffix")
+              break 2
+            fi
+          done
+        done
+      done
+      unset firmware directory suffix
+  - directory: limine
+    name: yoga-slim7x.conf
+    mode: "0644"
+    content: |
+      KERNEL_CMDLINE[default]+=" initcall_blacklist=simpledrm_platform_driver_init"
+      # Keep Plymouth and the keyboard hooks on the laptop console, not the serial port.
+      KERNEL_CMDLINE[default]+=" console=tty0"
+  - directory: systemd
+    name: yoga-slim7x-remoteprocs.service
+    mode: "0644"
+    content: |
+      [Unit]
+      Description=Start the Lenovo Yoga Slim 7x DSPs
+      ConditionPathExists=!/etc/modprobe.d/qualcomm-adsp-nofw.conf
+
+      [Service]
+      Type=oneshot
+      Environment=ARCH_PATH=/usr/share/arch
+      ExecStart=/usr/bin/python3 -I /usr/share/arch/src/python/installer/hardware/lenovo/start_yoga_slim7x_remoteprocs.py
+      RemainAfterExit=yes
+
+      [Install]
+      WantedBy=multi-user.target
+enable_service: [systemctl, enable, yoga-slim7x-remoteprocs.service]
+remoteproc:
+  root_environment: ARCH_YOGA_REMOTEPROC_ROOT
+  root_default: /sys/class/remoteproc
+  attempts_environment: ARCH_YOGA_REMOTEPROC_ATTEMPTS
+  attempts_default: 30
+  sleep_environment: ARCH_YOGA_REMOTEPROC_SLEEP
+  sleep_default: 1
+  state_glob: remoteproc*/state
+  firmware_filename: firmware
+  firmware_patterns: {adsp: qcadsp, cdsp: qccdsp}
+  running_state: running
+  start_state: start
+messages:
+  en:
+    detected: "Detected Lenovo Yoga Slim 7x, applying board-specific support..."
+    adsp_already_running: "Yoga Slim 7x: ADSP is already running"
+    adsp_started: "Yoga Slim 7x: started ADSP"
+    adsp_failed: "Yoga Slim 7x: could not start ADSP ({firmware})"
+    cdsp_already_running: "Yoga Slim 7x: CDSP is already running"
+    cdsp_started: "Yoga Slim 7x: started CDSP"
+    cdsp_failed: "Yoga Slim 7x: could not start CDSP ({firmware})"
+    adsp_missing: "Yoga Slim 7x: audio DSP did not appear or could not be started"
+    cdsp_missing: "Yoga Slim 7x: compute DSP did not appear or could not be started"
+  it:
+    detected: "Lenovo Yoga Slim 7x rilevato: applico il supporto specifico..."
+    adsp_already_running: "Yoga Slim 7x: ADSP già in esecuzione"
+    adsp_started: "Yoga Slim 7x: ADSP avviato"
+    adsp_failed: "Yoga Slim 7x: impossibile avviare ADSP ({firmware})"
+    cdsp_already_running: "Yoga Slim 7x: CDSP già in esecuzione"
+    cdsp_started: "Yoga Slim 7x: CDSP avviato"
+    cdsp_failed: "Yoga Slim 7x: impossibile avviare CDSP ({firmware})"
+    adsp_missing: "Yoga Slim 7x: DSP audio non rilevato o impossibile da avviare"
+    cdsp_missing: "Yoga Slim 7x: DSP di calcolo non rilevato o impossibile da avviare"
+statuses: {complete: 0, failed: 1}
