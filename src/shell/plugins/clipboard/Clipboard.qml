@@ -19,7 +19,7 @@ Item {
   property var history: []
 
   property string historyPath: Quickshell.env("HOME") + "/.local/state/arch/clipboard-history.json"
-  property string captureScript: root.archPath + "/src/shell/plugins/clipboard/capture.sh"
+  property string captureScript: root.archPath + "/src/shell/plugins/clipboard/capture.py"
   // Shares the [menu] surface tokens — themes that style the menu also
   // style the clipboard. Selected-row colors composed in the
   // singleton so consumers drop them straight into Rectangle bindings.
@@ -271,7 +271,7 @@ Item {
   // the shell exits, however it exits, so no further lifecycle management.
   Process {
     id: initProc
-    command: ["pkill", "-f", "wl-paste .*--watch .*/shell/plugins/clipboard/capture\\.sh"]
+    command: ["pkill", "-f", "wl-paste .*--watch .*/shell/plugins/clipboard/capture\\.py"]
     onExited: {
       currentProc.running = true
       textWatchProc.running = true

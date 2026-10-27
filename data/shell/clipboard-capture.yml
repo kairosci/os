@@ -1,0 +1,49 @@
+paths:
+  state_directory: arch
+  image_directory: clipboard-images
+  temporary_prefix: clipboard.
+  user_cache_environment: XDG_STATE_HOME
+  default_state_directory: .local/state
+capture:
+  timeout_command: timeout
+  timeout_argument: 2s
+  sensitive_environment: CLIPBOARD_STATE
+  sensitive_value: sensitive
+  sensitive_mime: x-kde-passwordManagerHint
+  list_types_arguments: [--list-types]
+  text_arguments: [--type, text, --no-newline]
+  mime_arguments: [--type]
+  text_type_prefix: text/
+  generic_text_types: [UTF8_STRING, STRING]
+  image_types:
+    - image/png
+    - image/jpeg
+    - image/webp
+    - image/gif
+    - image/bmp
+    - image/tiff
+  image_mime_prefix: image/
+  jpeg_extension: jpeg
+  jpeg_replacement: jpg
+  image_entry_type: image
+  text_entry_type: text
+  json_mime_key: mime
+  json_type_key: type
+  json_path_key: path
+  json_capture_time_key: capturedAt
+  json_text_key: text
+  captured_at_format: "%A %H:%M"
+  timestamp_locale_command: arch-language
+  timestamp_locale_argument: locale
+  date_command: date
+utf16:
+  byte_order_mark_little_endian: "\xFF\xFE"
+  byte_order_mark_big_endian: "\xFE\xFF"
+  minimum_padding_numerator: 3
+  padding_denominator: 4
+  maximum_opposite_padding_numerator: 1
+  control_ranges:
+    - [0, 8]
+    - [14, 26]
+    - [28, 31]
+  fallback_encoding: utf-8
