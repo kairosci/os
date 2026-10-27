@@ -324,34 +324,9 @@ transaction in the already-visible update terminal, then runs
 
 ## First-run (`arch-provision-first-run`)
 
-Runs once on first interactive login, after the user manager is live. It
-first runs `arch-provision-user || true` so finalize catches up if it
-never ran, then handles the steps that need a running graphical session
-and/or a working user systemd instance:
+Runs once on first interactive login, after the user manager is live. The Python entry point in `src/cli/arch-provision-first-run` delegates to `src/python/installer_user/first_run/orchestrator.py`; step commands, ordering, log messages, and localized English/Italian strings live in `data/installer/first-run.yml`. It first runs `arch-provision-user` so finalization catches up if it never ran, then handles the setup that needs a running graphical session and/or user systemd instance.
 
-- `arch-hook-install post-update` for the two shipped hooks
-  (`setup-fingerprint.hook`, `setup-agent.hook`).
-- `installer/user/first-run/enable-user-units.sh` — daemon-reload, then
-  `systemctl --user enable --now` the shipped user units (`bt-agent`,
-  `arch-sleep-lock`, `arch-recover-internal-monitor`,
-  `arch-migrate-notify.service`, `arch-fcitx5.service`,
-  `arch-crash-watch.service`) so they run in the first session too.
-  Done here, not at finalize, because
-  the user manager isn't reachable from the ISO chroot; `ConditionPath*`
-  in the unit files keeps services inert when they don't apply.
-- `arch-lifecycle-dispatch setup-user` — the platform's own user setup,
-  now with the session up (a no-op where the platform registers none; see
-  [lifecycle-dispatch.md](lifecycle-dispatch.md)).
-- `installer/user/first-run/gnome-theme.sh`,
-  `installer/user/first-run/gtk-primary-paste.sh` — GNOME/GTK settings that
-  need the dconf daemon.
-- `installer/user/first-run/audio-tuning.sh` — apply speaker tuning.
-- `installer/user/first-run/welcome.sh` — keybindings toast that greets the
-  first login and opens the cheatsheet when clicked. The caller runs
-  `arch-notification-wait` once before this and the Wi-Fi step, so both
-  toasts land on a live notification server.
-- `installer/user/first-run/wifi.sh` — Wi-Fi/update toasts (waits detached on
-  `nm-online` so the update prompt only lands once there is a connection).
+The configured steps install the shipped post-update hooks, enable user systemd units individually, run `arch-lifecycle-dispatch setup-user`, apply GNOME/GTK/audio settings, show the welcome notification, and start the detached Wi-Fi/update notification worker. `arch-notification-wait` runs before the welcome and network notifications so they land on a live notification server. The unit list and commands are in the YAML file; unit `ConditionPath*` guards keep services inert when they do not apply.
 
 The entire sequence has one idempotency marker:
 `~/.local/state/arch/done/first-run-user`, managed by `arch-done`.

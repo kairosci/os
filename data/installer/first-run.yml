@@ -55,6 +55,77 @@ wifi:
         title: Aggiorna il sistema
         body: Fai clic per aggiornare il sistema.
 default_language: en
+orchestrator:
+  command_name: arch-provision-first-run
+  force_option: --force
+  state_directory: .local/state/arch
+  log_file: first-run.log
+  completion_marker: first-run-user
+  timestamp_format: '%Y-%m-%d %H:%M:%S'
+  notification_wait_before: welcome
+  done_check: [arch-done, check, '{completion_marker}']
+  done_mark: [arch-done, mark, '{completion_marker}']
+  provision_user: [arch-provision-user]
+  notification_wait: [arch-notification-wait]
+  messages:
+    en:
+      description: Run first-login user setup and notification hooks. By default this runs once per user.
+      force_help: Run setup again even if it was already completed.
+      already_complete: First-run already complete.
+      starting: 'Starting: {step}'
+      completed: 'Completed: {step}'
+      failed: 'Failed: {step} (exit code: {status})'
+      notification_timeout: Timed out waiting for notification service; continuing
+      retry: One or more first-run steps failed; first-run will retry next login
+    it:
+      description: Esegue la configurazione iniziale e le notifiche. Per impostazione predefinita viene eseguita una sola volta per utente.
+      force_help: Ripete la configurazione anche se è già stata completata.
+      already_complete: Configurazione iniziale già completata.
+      starting: 'Avvio: {step}'
+      completed: 'Completato: {step}'
+      failed: 'Non riuscito: {step} (codice di uscita: {status})'
+      notification_timeout: Attesa del servizio notifiche scaduta; continuo
+      retry: Uno o più passaggi non sono riusciti; la configurazione verrà ripetuta al prossimo accesso
+    steps:
+      en:
+        fingerprint_hook: install fingerprint setup post-update hook
+        agent_hook: install agent setup post-update hook
+        user_units: enable user systemd units
+        platform_setup: run the platform's user setup
+        gnome_theme: set GNOME theme
+        gtk_primary_paste: set GTK primary paste
+        audio_tuning: apply speaker tuning
+        welcome: show welcome notification
+        network: schedule Wi-Fi/update notifications
+      it:
+        fingerprint_hook: installa l'hook post-aggiornamento per le impronte
+        agent_hook: installa l'hook post-aggiornamento per gli agenti
+        user_units: abilita le unità systemd utente
+        platform_setup: esegui la configurazione utente della piattaforma
+        gnome_theme: imposta il tema GNOME
+        gtk_primary_paste: imposta l'incolla primario GTK
+        audio_tuning: applica la regolazione audio
+        welcome: mostra la notifica iniziale
+        network: pianifica le notifiche Wi-Fi e aggiornamenti
+  steps:
+    - id: fingerprint_hook
+      command: [arch-hook-install, post-update, '{arch_path}/installer/user/first-run/setup-fingerprint.hook']
+    - id: agent_hook
+      command: [arch-hook-install, post-update, '{arch_path}/installer/user/first-run/setup-agent.hook']
+    - id: user_units
+      command: [python3, -I, '{arch_path}/src/python/installer_user/first_run/commands.py', user_units]
+    - id: platform_setup
+      command: [arch-lifecycle-dispatch, setup-user]
+    - id: gnome_theme
+      command: [python3, -I, '{arch_path}/src/python/installer_user/first_run/commands.py', gnome_theme]
+    - id: gtk_primary_paste
+      command: [python3, -I, '{arch_path}/src/python/installer_user/first_run/commands.py', gtk_primary_paste]
+    - id: audio_tuning
+      command: [python3, -I, '{arch_path}/src/python/installer_user/first_run/commands.py', audio_tuning]
+    - id: welcome
+      command: [python3, -I, '{arch_path}/src/python/installer_user/first_run/commands.py', welcome]
+    - id: network
+      command: [python3, -I, '{arch_path}/src/python/installer_user/first_run/commands.py', wifi]
 user_units:
   input_method: [arch-input-method, configure, --defaults]
   daemon_reload: [systemctl, --user, daemon-reload]

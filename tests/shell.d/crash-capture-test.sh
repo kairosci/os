@@ -50,7 +50,7 @@ grep -Fx 'ConditionPathExists=!%h/.local/state/arch/toggles/crash-capture-off' "
   fail "the watcher is pulled back in at every login, so disabling it never survives a logout"
 pass "crash watcher stays disabled across logins"
 
-grep -F 'arch-crash-watch.service' "$ROOT/installer/user/first-run/enable-user-units.sh" >/dev/null ||
+grep -F 'arch-crash-watch.service' "$ROOT/data/installer/first-run.yml" >/dev/null ||
   fail "crash capture is no longer on by default for new installs"
 pass "crash capture is on by default"
 

@@ -23,8 +23,8 @@ a start/stop of one small process, and contains failure: a malformed tuning brea
 only that service instead of stopping PipeWire from starting at all.
 
 Tunings apply automatically: `installer/hardware/speaker-tuning.sh` installs the
-LV2 dependency and `installer/user/first-run/audio-tuning.sh` applies the tuning,
-both gated on the match. Machines without a matching tuning are untouched.
+LV2 dependency and the `audio_tuning` step in `data/installer/first-run.yml`
+applies it at first run. Machines without a matching tuning are untouched.
 
 Switching it on happens at first-run, not at finalize-user time, because finalize-user
 also runs in the ISO chroot where there is no audio server: the sink a tuning has
