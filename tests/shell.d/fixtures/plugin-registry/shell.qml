@@ -359,7 +359,7 @@ ShellRoot {
       "put leaves a clone of the widget it was asked to place alone"
     )
 
-    // Refusing an id the scan has not reached would fail the migration.
+    // Refusing an id the scan has not reached would reject the registry.
     root.config = { version: 1, bar: { layout: { left: [], center: [], centerEnd: [], right: [] } }, plugins: [] }
     registry.scanning = true
     root.assertEqual(registry.putBarWidget("third.absent", {}), "not ready", "put waits for a scan that has not reached its widget")

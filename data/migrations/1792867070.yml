@@ -1,4 +1,0 @@
-commands:
-  python: [python3, -I]
-paths:
-  setup: src/python/installer_user/setup/terminal.py

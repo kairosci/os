@@ -1,4 +1,0 @@
-messages:
-  reason: migration.rebuildMiseShims
-steps:
-  - command: [mise, reshim]

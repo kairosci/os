@@ -23,7 +23,7 @@ the end and exits non-zero.
   `$HOME`.
 - **`./tests/shell`** — runs every `tests/shell.d/*-test.sh` (except
   `base-test.sh` itself). Each file is an independent suite covering one area:
-  a shell plugin, a `src/cli/` command, a config invariant, or a still-live migration. This is where new tests go.
+  a shell plugin, a `src/cli/` command, or a config invariant. This is where new tests go.
 - **Acceptance** — everything that needs a real desktop doing real things.
   Deliberately excluded from `./tests/all`; it runs in a VM, not the
   development session.
@@ -145,11 +145,6 @@ only a live session can prove.
   with `HOME` pointed at a `mktemp -d` directory (cleaned up via
   `trap ... EXIT`) and `ARCH_PATH="$ROOT"`, so tests exercise the checkout
   without touching the developer's machine.
-- **Migrations run directly.** A migration test builds the legacy state in a
-  fake `$HOME`, runs `bash -euo pipefail "$ROOT/migrations/<ts>.sh"`, and
-  asserts the resulting state — including running it twice to prove
-  idempotence, and once against non-legacy state to prove it leaves user
-  customization alone. Keep that test while the migration is still being written or bugfixed, if it calls an Arch helper whose interface can still change, or if it is a security-sensitive privileged repair. Once a one-shot rewrite has shipped in a tagged release and is frozen, drop the test even when that rewrite used sudo, pacman, or limine-mkinitcpio. Keep the migration itself for late-updaters. Tests of `arch-migrate`, the login notifier, and `arch-upgrade-to-quattro` stay.
 - **Assert the invariant, not the snapshot.** Config tests pin the property a
   test is named for (this widget stays adjacent to that one) rather than whole
   structures, so unrelated churn does not fail them.

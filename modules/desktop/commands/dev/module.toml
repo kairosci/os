@@ -2,8 +2,6 @@ id = "desktop.commands.dev"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/cli/arch-dev-add-migration",
-  "src/python/cli/migration_dev.py",
   "src/cli/arch-dev-benchmark-cli",
   "src/cli/arch-dev-benchmark-theme-switcher",
   "src/cli/arch-dev-font",
@@ -17,14 +15,6 @@ sources = [
   "src/cli/arch-dev-unlink",
 ]
 requires = ["desktop.commands", "system.runtime-data"]
-
-[[output]]
-source = "src/cli/arch-dev-add-migration"
-target = "usr/share/arch/src/cli/arch-dev-add-migration"
-
-[[output]]
-source = "src/python/cli/migration_dev.py"
-target = "usr/share/arch/src/python/cli/migration_dev.py"
 
 [[output]]
 source = "src/cli/arch-dev-benchmark-cli"

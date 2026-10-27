@@ -1358,7 +1358,7 @@ Item {
   }
 
   // Once at startup: the private directory and its files. Older layouts'
-  // leftovers are removed by a migration.
+  // leftovers are removed during normal state initialization.
   Process {
     id: storePrepare
     command: ["bash", "-c",

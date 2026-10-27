@@ -1,4 +1,0 @@
-messages:
-  reason: migration.keepMiseToolVersions
-steps:
-  - command: [mise, settings, set, upgrade.auto_prune, "false"]

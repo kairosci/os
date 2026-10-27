@@ -5,7 +5,6 @@ set -euo pipefail
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 leaf="$ROOT/src/python/installer/hardware/dell_xps13_ptl_speaker_firmware.py"
-migration="$ROOT/migrations/1791265613.py"
 
 grep -q 'src/python/installer/hardware/dell_xps13_ptl_speaker_firmware.py' "$ROOT/data/installer/hardware-setup.yml" ||
   fail "hardware setup installs the Panther Lake XPS 13 firmware"
@@ -70,19 +69,13 @@ run_leaf() {
   python3 -I "$leaf"
 }
 
-run_migration() {
-  python3 -I "$migration" >/dev/null
-}
-
 for model in "XPS 9350" "XPS 13 DX13261"; do
   reset_fixture "20260810-2"
   TEST_PRODUCT_NAME="$model" run_leaf
-  TEST_PRODUCT_NAME="$model" run_migration
   [[ ! -s $TEST_LOG ]] || fail "other models receive no firmware repair"
 done
 reset_fixture "20260810-2"
 TEST_INTEL_PTL=0 run_leaf
-TEST_INTEL_PTL=0 run_migration
 [[ ! -s $TEST_LOG ]] || fail "the Wildcat Lake variant receives no firmware repair"
 pass "other models and the Wildcat Lake variant receive no firmware repair"
 
@@ -93,35 +86,9 @@ for version in "" "20260810-2" "20260810-3" "20260810-4" "20260910-2" "20260916-
     fail "hardware setup installs the separate aliases without replacing stock firmware"
 done
 pass "hardware setup installs the package identity without replacing any stock firmware"
-pass "hardware setup leaves reboot bookkeeping to the migration"
 
 reset_fixture "20260810-2"
 touch "$TEST_ALIAS_FILE"
 run_leaf
 [[ ! -s $TEST_LOG ]] || fail "installed aliases are idempotent on stock firmware"
 pass "installed aliases are idempotent on stock firmware"
-
-run_migration
-[[ $(<"$TEST_LOG") == "state set reboot-required" ]] ||
-  fail "the migration requests a reboot even if hardware setup already installed the aliases"
-pass "the migration requests a reboot even if hardware setup already installed the aliases"
-
-reset_fixture "20260810-2"
-if TEST_INSTALL_FAILURE=1 run_migration; then
-  fail "a failed firmware installation fails the migration"
-fi
-[[ $(<"$TEST_LOG") == "$install_call" && $(<"$TEST_VERSION_FILE") == "20260810-2" ]] ||
-  fail "a failed installation leaves the migration retryable without claiming success"
-pass "a failed firmware installation fails the migration and remains retryable"
-
-: >"$TEST_LOG"
-run_migration
-[[ $(<"$TEST_LOG") == "$install_call"$'\nstate set reboot-required' ]] ||
-  fail "retrying the migration installs the firmware and requests a reboot"
-pass "retrying the migration installs the firmware and requests a reboot"
-
-: >"$TEST_LOG"
-run_migration
-[[ $(<"$TEST_LOG") == "state set reboot-required" ]] ||
-  fail "a second user before reboot is prompted without reinstalling"
-pass "a second user before reboot is prompted without reinstalling"

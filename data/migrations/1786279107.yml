@@ -1,9 +1,0 @@
-messages:
-  reason: migration.addKeyboardLayoutWidget
-steps:
-- command:
-  - arch-bar
-  - put
-  - arch.keyboard-layout
-  - --after
-  - arch.clock

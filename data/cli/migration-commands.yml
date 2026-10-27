@@ -1,5 +1,0 @@
-commands:
-  i18n: [arch-i18n]
-statuses:
-  success: 0
-  failure: 1

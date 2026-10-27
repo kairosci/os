@@ -38,7 +38,7 @@ update_stay_awake_stopped=0
 sudo_keepalive_pid=""
 
 # Ask for the password once, then keep sudo's timestamp fresh so long package
-# downloads, migrations, hooks, and mise never outlast it and prompt again.
+# downloads, hooks, and mise never outlast it and prompt again.
 # Authorize by running a command rather than sudo -v: under the default
 # verifypw=all, -v prompts even when passwordless sudo is enabled.
 authorize_update() {
@@ -121,12 +121,9 @@ if [[ ${1:-} == "-y" ]] || arch-update-confirm; then
   arch-update-dev
   arch-update-keyring
 
-  # Migrations ship with the packages installed here and are written against
-  # them, so everything below waits on this finishing. An upgrade that stopped
-  # takes the update with it rather than migrating against what is still on disk.
+  # Package-owned state is updated by pacman in this transaction. An upgrade
+  # that stops takes the update with it before hooks or later work can run.
   arch-update-system-pkgs
-
-  arch-migrate
   arch-update-orphan-pkgs -y
 
   arch-update-analyze-logs

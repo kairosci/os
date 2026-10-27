@@ -27,8 +27,6 @@ echo "Sudoless Docker DISABLED. Docker access goes through a polkit/sudo prompt"
 echo "again: the Docker TUI (Super + Shift + D) and the Windows VM ask when they"
 echo "need it, and the plain 'docker' CLI runs under sudo. It takes effect after a reboot."
 echo ""
-# The migration reuses this command during 'archctl update' and defers the
-# reboot to arch-update-restart, so it doesn't cut the update short.
 if [[ -z ${ARCH_DEFER_REBOOT:-} ]] && gum confirm --affirmative "$(arch-i18n common.yes)" --negative "$(arch-i18n common.no)" "$(arch-i18n docker.rebootToApply)"; then
   arch-system reboot
 fi

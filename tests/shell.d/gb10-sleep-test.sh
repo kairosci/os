@@ -7,7 +7,6 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 setup="$ROOT/src/python/installer/hardware/gb10/sleep.py"
 hardware_setup="$ROOT/data/installer/hardware-setup.yml"
 menu="$ROOT/default/arch/arch-menu.jsonc"
-migration=$(grep -l "hardware/gb10/sleep.py" "$ROOT"/migrations/*.sh | head -1 || true)
 
 # The setting follows the real GB10 predicate on fixture machines, and root
 # reads only the live hardware.
@@ -19,8 +18,7 @@ mkdir -p "$scratch/bin"
 
 grep -q 'src/python/installer/hardware/gb10/sleep.py' "$hardware_setup" ||
   fail "the GB10 sleep setting runs during hardware setup"
-[[ -n $migration ]] || fail "a migration applies the GB10 sleep setting to existing installs"
-pass "the GB10 sleep setting runs at install and through a migration"
+pass "the GB10 sleep setting runs during hardware setup"
 
 # An aarch64 machine, with an NVIDIA GPU of the given PCI device ID or none.
 machine() {
@@ -85,16 +83,6 @@ pass "the GB10 setting disallows every sleep operation and leaves the N1x and ot
 run spark "$scratch/spark" arch-sleep-disabled || fail "sleep reads as disabled with the setting in place"
 run spark "$scratch/none" arch-sleep-disabled && fail "sleep reads as enabled without the setting"
 pass "arch-sleep-disabled follows the sleep setting"
-
-run spark "$scratch/migrated" bash "$migration" >/dev/null
-[[ -f $scratch/migrated/arch-sleep-disabled.conf ]] || fail "the migration applies the setting on a GB10"
-run spark "$scratch/migrated" bash "$migration" >/dev/null
-! grep -q '^sudo ' "$CALL_LOG" || fail "the migration skips a GB10 that already has the setting"
-run other "$scratch/migrated-other" bash "$migration" >/dev/null
-! grep -q '^sudo ' "$CALL_LOG" || fail "the migration leaves other machines alone"
-TEST_SUDO_STATUS=1 run spark "$scratch/failed" bash "$migration" >/dev/null &&
-  fail "a failed migration stays pending"
-pass "the migration applies the setting once, only on a GB10"
 
 run spark "$scratch/spark" bash "$ROOT/src/cli/arch-toggle-suspend"
 ! grep -q '^toggle ' "$CALL_LOG" || fail "the suspend toggle does nothing while sleep is disabled"

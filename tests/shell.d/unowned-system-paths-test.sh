@@ -72,7 +72,7 @@ for code, writes in (
     sys.exit(1)
 
 problems = []
-for base in ("src/cli", "installer", "migrations"):
+for base in ("src/cli", "installer"):
   for path in sorted((root / base).rglob("*")):
     if not path.is_file():
       continue

@@ -2,7 +2,7 @@
 # former Arch runtime package ID.
 pkgname='arch'
 pkgver=4.0.6
-pkgrel=38
+pkgrel=39
 pkgdesc='Arch desktop runtime and configuration'
 # The payload is architecture-independent, but the dependency set is not: the
 # boot stack differs per architecture (see depends_x86_64 / depends_aarch64),
@@ -68,7 +68,7 @@ makedepends=(
 )
 
 # Build only from the Arch fork checkout. Pulling upstream here would silently
-# discard the Arch branding, migrations, and systemd-boot fixes in this repo.
+# discard the Arch branding and systemd-boot fixes in this repo.
 source=()
 sha256sums=()
 
@@ -116,13 +116,4 @@ package() {
   cp -a "$module_stage/." "$pkgdir/"
   rm -rf "$module_stage"
 
-  # Fresh users created after install are already on the package layout in this
-  # build, so seed migration markers through /etc/skel. Existing users keep
-  # their own state and still run pending migrations on update.
-  if compgen -G "$pkgdir/usr/share/arch/migrations/*.sh" >/dev/null; then
-    install -d "$pkgdir/etc/skel/.local/state/arch/migrations"
-    for migration in "$pkgdir/usr/share/arch/migrations"/*.sh; do
-      touch "$pkgdir/etc/skel/.local/state/arch/migrations/$(basename "$migration")"
-    done
-  fi
 }

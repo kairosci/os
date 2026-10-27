@@ -11,7 +11,6 @@ import unittest
 from base_test import ROOT, test_environment
 
 
-MIGRATION = ROOT / "migrations/1793121678.py"
 REPOSITORY_SETUP = ROOT / "src/python/installer/hardware/pacman_repositories.py"
 
 
@@ -43,7 +42,7 @@ class T2RepositorySignatureTest(unittest.TestCase):
       PATH=f"{self.bin_dir}:{ROOT / 'src/cli'}:{os.environ.get('PATH', '')}",
     )
 
-  def test_new_config_requires_signatures_and_existing_never_is_migrated(self) -> None:
+  def test_new_config_requires_package_signatures(self) -> None:
     self.config.write_text("[options]\nSigLevel = Required DatabaseOptional\n", encoding="utf-8")
     setup = subprocess.run(
       ["/usr/bin/python3", "-I", str(REPOSITORY_SETUP)],
@@ -54,59 +53,6 @@ class T2RepositorySignatureTest(unittest.TestCase):
     )
     self.assertEqual(setup.returncode, 0, setup.stderr)
     self.assertIn("SigLevel = PackageRequired", self.config.read_text(encoding="utf-8"))
-
-    original = (
-      "[options]\nSigLevel = Required DatabaseOptional\n\n"
-      "[arch-mact2]\nServer = https://invalid.example/\nSigLevel = Never\n\n"
-      "[local-test]\nSigLevel = Never\n"
-    )
-    self.config.write_text(original, encoding="utf-8")
-    migration = self._run_migration()
-    self.assertEqual(migration.returncode, 0, migration.stderr)
-    self.assertEqual(migration.stdout, "migration.requireT2PackageSignatures\n")
-    updated = self.config.read_text(encoding="utf-8")
-    self.assertIn("[arch-mact2]\nServer = https://invalid.example/\nSigLevel = PackageRequired", updated)
-    self.assertIn("[local-test]\nSigLevel = Never", updated)
-
-    optional = updated.replace(
-      "SigLevel = PackageRequired",
-      "SigLevel = PackageOptional DatabaseRequired",
-      1,
-    )
-    self.config.write_text(optional, encoding="utf-8")
-    hardened = self._run_migration()
-    self.assertEqual(hardened.returncode, 0, hardened.stderr)
-    self.assertEqual(hardened.stdout, "migration.requireT2PackageSignatures\n")
-    updated_again = self.config.read_text(encoding="utf-8")
-    self.assertIn("SigLevel = PackageRequired", updated_again)
-    self.assertNotIn("PackageOptional", updated_again)
-
-    repeated = self._run_migration()
-    self.assertEqual(repeated.returncode, 0, repeated.stderr)
-    self.assertEqual(repeated.stdout, "")
-    self.assertEqual(self.config.read_text(encoding="utf-8"), updated_again)
-
-  def test_migration_refuses_a_symlinked_pacman_config(self) -> None:
-    target = self.scratch / "target.conf"
-    target.write_text("[arch-mact2]\nSigLevel = Never\n", encoding="utf-8")
-    self.config.symlink_to(target)
-    result = self._run_migration()
-    self.assertEqual(result.returncode, 1)
-    self.assertEqual(target.read_text(encoding="utf-8"), "[arch-mact2]\nSigLevel = Never\n")
-
-    self.config.unlink()
-    self.config.symlink_to(self.scratch / "missing.conf")
-    broken = self._run_migration()
-    self.assertEqual(broken.returncode, 1)
-
-  def _run_migration(self) -> subprocess.CompletedProcess[str]:
-    return subprocess.run(
-      ["/usr/bin/python3", "-I", str(MIGRATION)],
-      check=False,
-      capture_output=True,
-      text=True,
-      env=self.environment,
-    )
 
   def _write_stub(self, name: str, source: str) -> None:
     path = self.bin_dir / name

@@ -7,12 +7,6 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 leaf="$ROOT/src/python/installer/hardware/apple/brcmfmac_supplicant.py"
 fix_t2="$ROOT/installer/hardware/apple/fix-t2.sh"
 setup="$ROOT/data/installer/hardware-setup.yml"
-migration="$ROOT/migrations/1786391100.sh"
-
-# Apple Silicon's BCM4387 is in the ID list, but there the firmware supplicant
-# is the one that works, so the leaf and the migration step aside: a fresh
-# install marks the migration done only for its first user.
-grep -Fq 'arch-hw-aarch64-apple && exit 0' "$migration" || fail "Broadcom migration excludes Apple Silicon"
 
 grep -q 'src/python/installer/hardware/apple/brcmfmac_supplicant.py' "$setup" ||
   fail "the brcmfmac quirk runs during hardware setup"
@@ -127,69 +121,3 @@ pass "non-Apple hardware is left alone"
 run_leaf "Apple Inc." "" 0 >/dev/null
 [[ ! -f $conf ]] || fail "a Mac with no wireless device is left alone"
 pass "a Mac with no wireless device is left alone"
-
-# Installs that predate the quirk never ran the leaf, so the migration has to
-# reach them. It runs as the user under pipefail, the context #6608 was about.
-run_migration() {
-  local vendor="$1" wifi_id="${2:-}" t2="${3:-0}" apple_silicon="${4:-0}"
-  printf '%s' "$vendor" >"$test_tmp/dmi/sys_vendor"
-  : >"$calls"
-
-  WIFI_ID="$wifi_id" T2_HARDWARE="$t2" APPLE_SILICON="$apple_silicon" PATH="$stub_bin:$PATH" TEST_LOG="$calls" \
-    ARCH_BRCMFMAC_DMI_VENDOR="$test_tmp/dmi/sys_vendor" \
-    ARCH_BRCMFMAC_CONF="$conf" \
-    bash -euo pipefail "$migration" >/dev/null
-}
-
-# A T2 install from before the quirk shipped has no config at all, so this is
-# the case that proves the T2 gate itself still fires -- and it is the piped
-# grep, run under pipefail, that #6608 was about.
-rm -rf "$system_root/etc"
-run_migration "Apple Inc." 4488 1
-grep -q '^options brcmfmac feature_disable=0x82000$' "$conf" 2>/dev/null ||
-  fail "the migration fixes a T2 install that never got the quirk" "$(ls -R "$system_root/etc" 2>&1)"
-# The option only reaches the driver when brcmfmac next loads.
-grep -Fq $'arch-state\tset\treboot-required' "$calls" ||
-  fail "the migration asks for the reboot that applies it" "$(cat "$calls")"
-pass "the migration fixes a T2 install that never got the quirk"
-
-run_migration "Apple Inc." 4488 1
-(( $(grep -c '^options brcmfmac feature_disable=0x82000$' "$conf") == 1 )) ||
-  fail "the migration is idempotent" "$(cat "$conf")"
-[[ ! -s $calls ]] || fail "a repaired install is left untouched" "$(cat "$calls")"
-pass "the migration is idempotent"
-
-rm -rf "$system_root/etc"
-run_migration "Apple Inc." 4433 0 1
-[[ ! -e $conf ]] || fail "the migration leaves Apple Silicon Wi-Fi alone"
-[[ ! -s $calls ]] || fail "the migration escalates nothing on Apple Silicon" "$(cat "$calls")"
-pass "the migration leaves Apple Silicon Wi-Fi alone"
-
-# The machine this was written for, with no T2 to fall back on.
-rm -rf "$system_root/etc"
-run_migration "Apple Inc." 43ba 0
-grep -q '^options brcmfmac feature_disable=0x82000$' "$conf" 2>/dev/null ||
-  fail "the migration fixes an install on a Mac without a T2" "$(ls -R "$system_root/etc" 2>&1)"
-pass "the migration fixes an install on a Mac without a T2"
-
-# Written without a trailing newline, the way a hand-edited config often is.
-printf '%s' 'options brcmfmac roamoff=1' >"$conf"
-run_migration "Apple Inc." 43ba 0
-grep -qx 'options brcmfmac roamoff=1' "$conf" ||
-  fail "the migration keeps other options in the config" "$(cat "$conf")"
-grep -qx 'options brcmfmac feature_disable=0x82000' "$conf" ||
-  fail "the migration appends the quirk to an existing config" "$(cat "$conf")"
-pass "the migration appends to a config that holds other options"
-
-# Someone who commented their line out is still on the broken default.
-printf '#options brcmfmac feature_disable=0x82000\n' >"$conf"
-run_migration "Apple Inc." 43ba 0
-grep -qx 'options brcmfmac feature_disable=0x82000' "$conf" ||
-  fail "a commented-out option does not count as applied" "$(cat "$conf")"
-pass "a commented-out option does not count as applied"
-
-rm -rf "$system_root/etc"
-run_migration "Apple Inc." 43a0 0
-[[ ! -e $conf ]] || fail "the migration skips a Mac brcmfmac does not drive" "$(cat "$conf")"
-[[ ! -s $calls ]] || fail "the migration escalates nothing on unaffected Macs" "$(cat "$calls")"
-pass "the migration skips hardware brcmfmac does not drive"

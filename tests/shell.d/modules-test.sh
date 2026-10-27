@@ -246,7 +246,7 @@ PY
 pass "module validation rejects source symlinks that escape the repository or have no target"
 
 python3 "$ROOT/scripts/modules.py" assemble --package arch --destination "$stage/arch"
-for path in installer migrations; do
+for path in installer; do
   diff -r --no-dereference "$ROOT/$path" "$stage/arch/usr/share/arch/$path"
 done
 python3 - "$ROOT/src/cli" "$stage/arch/usr/share/arch/src/cli" <<'PY'
@@ -264,7 +264,7 @@ for name in expected:
     assert original.read_bytes() == packaged.read_bytes(), name
     assert stat.S_IMODE(original.stat().st_mode) == stat.S_IMODE(packaged.stat().st_mode), name
 PY
-pass "the runtime package assembles every installer, migration, and CLI source without changing its path"
+pass "the runtime package assembles every installer and CLI source without changing its path"
 
 python3 "$ROOT/scripts/modules.py" assemble --package arch-settings --destination "$stage/settings"
 for path in config default; do

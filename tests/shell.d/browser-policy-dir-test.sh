@@ -315,7 +315,7 @@ pass "arch-theme-set-browser exits non-zero when a policy write fails"
 
 # Bash 5.3 adopts the EXIT trap's last status as the script's exit status, so a
 # handler ending on a false test turns a clean run into a failure and aborts the
-# migration that calls this through arch-theme-set-browser.
+# call that runs through arch-theme-set-browser.
 policy_cleanup=$(sed -n '/^cleanup() {/,/^}/p' "$ROOT/src/cli/arch-theme-set-browser-policy")
 [[ -n $policy_cleanup ]] || fail "arch-theme-set-browser-policy defines an EXIT cleanup handler"
 eval "$policy_cleanup"
@@ -327,41 +327,6 @@ cleanup || fail "arch-theme-set-browser-policy's EXIT trap succeeds with a stage
 [[ ! -e $staged ]] || fail "arch-theme-set-browser-policy's EXIT trap removes the staged file"
 unset -f cleanup
 pass "arch-theme-set-browser-policy's EXIT trap never leaks a failure status"
-
-grep -F 'arch-theme-set-browser || true' "$ROOT/migrations/1787515927.sh" >/dev/null ||
-  fail "the policy-directory migration hardens Firefox even when the theme refresh fails"
-pass "the policy-directory migration does not abort on a failed theme refresh"
-
-policy_files=(
-  "$ROOT/src/cli/arch-install-browser"
-  "$ROOT/src/cli/arch-provision-owner"
-  "$ROOT/src/cli/arch-theme-set-browser"
-  "$ROOT/src/cli/arch-theme-set-browser-policy"
-  "$ROOT/src/cli/arch-upgrade-to-quattro"
-  "$ROOT/src/python/installer/system_setup/chromium_preferences.py"
-  "$ROOT/installer/config/browser-policy.sh"
-  "$ROOT/installer/helpers/browser-policy.sh"
-  "$ROOT/migrations/1787515927.sh"
-)
-if grep -nE 'chmod a\+rwx\b|chmod a\+rw\b|chmod a\+w\b|chmod o\+w|chmod ugo\+w|chmod 2775\b|chmod 2777\b|chmod 0777\b|chmod 777\b|install -d -m 0?[27]?777|arch-browser-policy' "${policy_files[@]}" >/dev/null; then
-  fail "browser policy setup is not world-writable and does not use arch-browser-policy"
-fi
-pass "browser policy setup is not world-writable"
-
-mapfile -t migrations < <(rg -l 'Stop world-writable Chromium and Firefox policy directories' "$ROOT/migrations")
-(( ${#migrations[@]} == 1 )) || fail "exactly one migration locks existing policy directories" "${migrations[*]}"
-grep -F 'browser_policy_setup_dir' "${migrations[0]}" >/dev/null ||
-  fail "the policy-directory migration repairs managed directories"
-if grep -F 'browser_policy_grant_user' "${migrations[0]}" >/dev/null; then
-  fail "the policy-directory migration does not grant a browser-policy group"
-fi
-grep -F 'BROWSER_POLICY_FIREFOX_DIRS' "${migrations[0]}" >/dev/null ||
-  fail "the policy-directory migration covers Firefox and Zen"
-grep -F 'browser_policy_firefox_policy_file_ok' "${migrations[0]}" >/dev/null ||
-  fail "the policy-directory migration keeps a trusted Firefox policies.json"
-grep -F '/opt/zen-browser/distribution' "$ROOT/installer/helpers/browser-policy.sh" >/dev/null ||
-  fail "the shared helper names the Zen distribution directory"
-pass "a migration locks existing policy directories"
 
 fx_merge=$test_tmp/fx-merge
 mkdir -p "$fx_merge"

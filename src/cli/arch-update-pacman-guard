@@ -53,7 +53,7 @@ run through:
   archctl update
 
 That path handles the update transcript, snapshot, keyrings, package upgrade,
-migrations, post-update hooks, shell update state, and restart checks together.
+post-update hooks, shell update state, and restart checks together.
 
 If you really meant to bypass os for this transaction, rerun pacman with:
 

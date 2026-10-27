@@ -10,8 +10,8 @@ Two Arch packages are built from this repository. Their PKGBUILDs live in
 package owns and where they are installed:
 
 - **`arch`** — the desktop runtime, command entry points in `/usr/bin`,
-  installer components, migrations, themes, and the Quickshell desktop.
-  Source files live under `src/`, `installer/`, `migrations/`, and `assets/`.
+  installer components, themes, and the Quickshell desktop.
+  Source files live under `src/`, `installer/`, and `assets/`.
   Its package tree is assembled from the `arch` modules and it depends on
   `arch-settings`.
 - **`arch-settings`** — system defaults, `/etc` configuration, assets, and
@@ -78,14 +78,12 @@ default/libalpm/hooks/*.hook
                                 ──►  arch             /usr/share/libalpm/hooks/*.hook
 
 installer/**                     ──►  arch             /usr/share/arch/installer/
-migrations/**                  ──►  arch             /usr/share/arch/migrations/
 assets/themes/**                      ──►  arch             /usr/share/arch/assets/themes/
 src/shell/**                       ──►  arch             /usr/share/arch/src/shell/
 assets/branding/**                 ──►  arch             /usr/share/arch/assets/branding/
 assets/branding/{logo.txt,icon.txt} ──►  arch-settings    /etc/skel/.config/arch/branding/
 assets/branding/arch-symbol.png    ──►  arch-settings    /usr/share/icons/hicolor/256x256/apps/arch.png
 version                        ──►  arch             /usr/share/arch/version
-                                                        + /etc/skel/.local/state/arch/migrations/*
 
 config/**                      ──►  arch-settings    /etc/skel/.config/**         (seeds new users)
                                                         /usr/share/arch/config/** (resync source)
@@ -219,7 +217,7 @@ upgrade. This is documented in the PKGBUILD.
 
 `/etc/updatedb.conf` remains owned by plocate and is never rewritten by Arch. The command-line options override bind-mount pruning and add to the administrator's existing path exclusions. Installer and AUR package refreshes pass the same options directly because installation may run without systemd and an explicitly requested refresh should work on battery.
 
-Arch's systemd package hook reloads units when the vendor drop-in is installed or upgraded. The settings package containing the drop-in must ship alongside the runtime package that removes the old configuration helper and migration. Pacman removes those retired files; no new state migration is needed. A running indexer finishes with its original options, and subsequent service starts use the drop-in. For an immediate local test after installing the packages, restart `plocate-updatedb.service` while connected to AC power.
+Arch's systemd package hook reloads units when the vendor drop-in is installed or upgraded. The settings package containing the drop-in ships alongside the runtime package. Pacman removes retired package-owned files. A running indexer finishes with its original options, and subsequent service starts use the drop-in. For an immediate local test after installing the packages, restart `plocate-updatedb.service` while connected to AC power.
 
 ## Env bootstrap (`default/bash/env-bootstrap`)
 
@@ -274,8 +272,6 @@ It only does the things `/etc/skel` can't:
 - `arch-refresh-applications` (composes generated `.desktop` launchers).
 - Runs `src/python/installer_user/all.py`; its ordered setup steps are declared
   in `data/installer/user-setup.yml`.
-- On `--first-install`, marks every shipped user migration as already applied
-  for the freshly-created user.
 
 Idempotency marker: `~/.local/state/arch/done/finalize-user`, managed
 by `arch-done`.
@@ -286,39 +282,9 @@ the root-side work. `arch-provision-owner` makes the same call (with
 `ARCH_SETUP_CONTEXT=provision-owner`) when it creates the user during
 deferred first-boot provisioning.
 
-## Migrations (`arch-migrate`)
+## User configuration refresh
 
-See [`migrations.md`](../.agents/skills/migrations.md) for the full migration model, authoring
-guidelines, and troubleshooting notes.
-
-Arch migrations live in `migrations/*.sh` and run per-user through
-`arch-migrate`. Completion state lives in
-`~/.local/state/arch/migrations/`, so every user gets a chance to run every
-migration. Migrations run as the user; privileged work should invoke the
-appropriate helper or privilege prompt. Migrations must be idempotent;
-machine-wide repairs should no-op when another user already applied them.
-
-Each graphical user has `arch-migrate-notify.service`, started once per login
-through `WantedBy=graphical-session.target` and ordered after that target so
-notification actions can safely launch through UWSM. The `arch-pkgs`
-PKGBUILD has shipped `arch-update-user-notify.service` as a symlink onto
-it, so users enabled under the old unit name keep working before they reach
-migration `1785095882`.
-It runs `arch-migrate-notify` as
-that user, which checks `arch-migrate --pending`. If this user has missing
-migration state, it shows a notification that opens a terminal for
-`arch-migrate`. The notifier never runs migrations in the background.
-
-Login is the only trigger. Nothing watches the packaged migration directory: a
-watcher cannot tell a bypassed `pacman -Syu` from the package transaction inside
-a normal `archctl update`, so it notified about migrations that `arch-migrate`
-was already applying in the visible update terminal.
-
-`arch-migrate` waits for any active pacman transaction to finish, then runs
-pending migrations. It does not need `--force`; migrations happen when state
-files are missing. `archctl update` runs `arch-migrate` after the package
-transaction in the already-visible update terminal, then runs
-`arch-hook post-update`.
+System defaults are owned by pacman packages. Existing home configuration stays user-owned and is never rewritten by a system update. A user can explicitly replace a file with its packaged default through `archctl refresh config <relative-path>`; the refresh command validates paths, creates a private backup when contents differ, and replaces the file atomically.
 
 ## First-run (`arch-provision-first-run`)
 
@@ -386,7 +352,7 @@ When an existing user wants to reset to shipped defaults:
 Replaying `/etc/skel` over `$HOME` is exactly what `useradd -m` does for a
 brand-new user, so this one copy resyncs `.bashrc`, `.config/**`,
 `.local/share/applications/`, the nautilus-python extensions, hypr toggles,
-branding files, and the shipped migration markers in a single pass.
+branding files in a single pass.
 
 Then it runs `arch-refresh-limine`, `arch-refresh-plymouth`, and the
 nvim refresh. Destructive: existing user files copied from `/etc/skel` are
@@ -405,7 +371,7 @@ return to the packaged default.
 | Per-user file that's static but lives outside `~/.config` | `default/`, then add `install -Dm644 ... $pkgdir/etc/skel/...` in `arch-settings` PKGBUILD |
 | Runtime tweak that needs `$HOME` or live system state | add a per-user Python leaf under `src/python/installer_user/setup/` and declare its order in `data/installer/user-setup.yml` |
 | One-time root-side setup step | add a Python leaf under `src/python/installer/system_setup/` and declare it in `data/installer/system-setup.yml` |
-| One-time fix for existing installs | `migrations/<unix-timestamp>.sh` |
+| Update a package-owned system default | Change the packaged source and install rule; pacman applies it on upgrade |
 | Package-owned path something else may already write | Prefer a path nothing else writes, such as a vendor drop-in under `/usr/lib`. Otherwise the `--overwrite` entry in `src/cli/arch-update-system-pkgs` has to ship a release before the file |
 | User-facing `arch-*` command | `src/cli/arch-<group>-<verb>` — see `GROUP_DESCRIPTIONS` in `src/cli/archctl` |
 | New stock theme | `themes/<name>/` (+ matching templates under `default/themed/` if they need theme colors) |
@@ -416,4 +382,4 @@ return to the packaged default.
 
 Kitty loads `/etc/xdg/kitty/kitty.conf` before `~/.config/kitty/kitty.conf`. The `arch-settings` package owns the system file; the user template contains only the active theme include and commented examples for personal overrides. Keeping the theme include in the user file lets users remove it without changing the packaged defaults. Individual inherited keybindings can be unmapped with an empty `map <shortcut>` directive, or all inherited bindings can be cleared with `clear_all_shortcuts yes`.
 
-The system default uses `allow_remote_control socket-only` so Arch can query the active terminal directory over its Unix socket while Kitty rejects remote-control requests arriving through terminal output. Changing this setting requires restarting Kitty. The migration refreshes the exact previous stock config with a backup; customized configs retain their settings and ordering, with only explicit unrestricted `yes`, `y`, or `true` remote-control settings commented out.
+The system default uses `allow_remote_control socket-only` so Arch can query the active terminal directory over its Unix socket while Kitty rejects remote-control requests arriving through terminal output. Changing this setting requires restarting Kitty. The explicit config refresh backs up and replaces the exact previous stock config; customized configs retain their settings and ordering, with only explicit unrestricted `yes`, `y`, or `true` remote-control settings commented out.

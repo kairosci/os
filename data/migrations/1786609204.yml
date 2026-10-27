@@ -1,6 +1,0 @@
-messages:
-  reason: migration.installQtMultimedia
-packages:
-  add:
-  - qt6-multimedia
-  drop: []

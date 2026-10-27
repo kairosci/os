@@ -1,4 +1,0 @@
-messages:
-  reason: migration.installViCompat
-packages:
-  replace: [ex-vi-compat]

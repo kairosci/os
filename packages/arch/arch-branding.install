@@ -2,6 +2,10 @@ apply_arch_branding() {
   ARCH_PATH=/usr/share/arch python3 -I /usr/share/arch/src/python/installer/system_setup/branding.py
 }
 
+initialize_passwordless_sudo_state() {
+  [[ ! -x /usr/bin/arch-sudo-passwordless ]] || /usr/bin/arch-sudo-passwordless __initialize
+}
+
 pause_hyprland_reload() {
   if [[ -x /usr/bin/arch-hyprland-reload-guard ]]; then
     /usr/bin/arch-hyprland-reload-guard pause || true
@@ -23,11 +27,13 @@ pre_upgrade() {
 }
 
 post_install() {
-  apply_arch_branding
+  apply_arch_branding || return 1
+  initialize_passwordless_sudo_state || return 1
   resume_hyprland_reload
 }
 
 post_upgrade() {
-  apply_arch_branding
+  apply_arch_branding || return 1
+  initialize_passwordless_sudo_state || return 1
   resume_hyprland_reload
 }

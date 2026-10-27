@@ -37,7 +37,7 @@ Arch fires hooks at a handful of moments, and you can hang your own scripts off 
 | Event | When it runs |
 | ----- | ------------ |
 | `post-boot` | Right after the desktop has started |
-| `post-update` | Near the end of `archctl update`, after packages, migrations, and service restarts, before mise tools are updated |
+| `post-update` | Near the end of `archctl update`, after packages and service restarts, before mise tools are updated |
 | `pre-refresh-pacman` | After `archctl refresh pacman` re-syncs the package config, before it updates packages; a channel switch runs it during that same refresh step |
 | `theme-set` | After a theme change (theme name in `$1`) |
 | `font-set` | After a font change (font name in `$1`) |
