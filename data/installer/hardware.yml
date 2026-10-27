@@ -51,6 +51,26 @@ intel_wifi7_eht_workaround:
   content: "# Temporary fix Dell XPS 14/16 on Panther lake\n# Disable WiFi 7 (EHT) on Intel BE200/BE211 — broken RX rate adaptation\n# Remove this file when fixes land in the iwlwifi EHT data path\noptions iwlwifi disable_11be=Y\n"
   statuses: {complete: 0, failed: 1}
 
+surface_keyboard_setup:
+  hardware_checks:
+    - [arch-hw-surface]
+    - [arch-hw-x86]
+  loaded_modules_command: [lsmod]
+  pinctrl_module_pattern: '^pinctrl_'
+  initramfs_directory: /etc/mkinitcpio.conf.d
+  config_filename: surface_device_modules.conf
+  mode: '0644'
+  modules:
+    - surface_aggregator
+    - surface_aggregator_registry
+    - surface_aggregator_hub
+    - surface_hid_core
+    - surface_hid
+    - surface_kbd
+    - intel_lpss_pci
+    - 8250_dw
+  statuses: {complete: 0}
+
 qualcomm_camera:
   check_command: [arch-hw-aarch64-qualcomm]
   package_command: [arch-pkg-add]
