@@ -1,0 +1,21 @@
+commands:
+  i18n: [arch-i18n]
+  daemon_reload: [systemctl, --user, daemon-reload]
+  enable_service: [systemctl, --user, enable]
+  check_graphical_session: [systemctl, --user, is-active, --quiet]
+  start_service: [systemctl, --user, start]
+  stop_process: [pkill, -x]
+paths:
+  service: arch-fcitx5.service
+  service_file: /usr/lib/systemd/user/arch-fcitx5.service
+  user_config: .config
+  wants_dir: systemd/user/graphical-session.target.wants
+values:
+  graphical_session_target: graphical-session.target
+  process_name: fcitx5
+messages:
+  reason: migration.superviseFcitx5
+  start_failed: migration.fcitxServiceStartFailed
+  compose_unavailable: migration.fcitxComposeUnavailable
+statuses:
+  success: 0
