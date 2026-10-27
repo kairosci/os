@@ -1,0 +1,14 @@
+messages:
+  reason: migration.moveKeyboardLayoutWidget
+steps:
+- command:
+  - arch-bar
+  - move
+  - arch.keyboard-layout
+  - --from-section
+  - center
+  - --section
+  - right
+  - --index
+  - '0'
+  ignore_failure: true

@@ -4,6 +4,7 @@ package = "arch"
 sources = [
   "src/cli/arch-migrate",
   "src/python/cli/migrate.py",
+  "src/python/cli/migration_commands.py",
   "src/python/cli/migration_packages.py",
   "src/cli/arch-migrate-notify",
 ]
@@ -16,6 +17,10 @@ target = "usr/share/arch/src/cli/arch-migrate"
 [[output]]
 source = "src/python/cli/migrate.py"
 target = "usr/share/arch/src/python/cli/migrate.py"
+
+[[output]]
+source = "src/python/cli/migration_commands.py"
+target = "usr/share/arch/src/python/cli/migration_commands.py"
 
 [[output]]
 source = "src/python/cli/migration_packages.py"
