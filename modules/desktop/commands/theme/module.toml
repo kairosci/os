@@ -2,37 +2,37 @@ id = "desktop.commands.theme"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-theme-bg-cache",
-  "src/commands/arch-theme-bg-current",
-  "src/commands/arch-theme-bg-install",
-  "src/commands/arch-theme-bg-next",
-  "src/commands/arch-theme-bg-set",
-  "src/commands/arch-theme-bg-switcher",
-  "src/commands/arch-theme-color",
-  "src/commands/arch-theme-colors-from-alacritty",
-  "src/commands/arch-theme-current",
-  "src/commands/arch-theme-dir",
-  "src/commands/arch-theme-extras",
-  "src/commands/arch-theme-install",
-  "src/commands/arch-theme-list",
-  "src/commands/arch-theme-osc",
-  "src/commands/arch-theme-refresh",
-  "src/commands/arch-theme-remove",
-  "src/commands/arch-theme-set",
-  "src/commands/arch-theme-set-browser",
-  "src/commands/arch-theme-set-browser-policy",
-  "src/commands/arch-theme-set-fcitx5",
-  "src/commands/arch-theme-set-foot",
-  "src/commands/arch-theme-set-glass",
-  "src/commands/arch-theme-set-gnome",
-  "src/commands/arch-theme-set-hunk",
-  "src/commands/arch-theme-set-obsidian",
-  "src/commands/arch-theme-set-templates",
-  "src/commands/arch-theme-set-tmux",
-  "src/commands/arch-theme-set-vscode",
-  "src/commands/arch-theme-switcher",
-  "src/commands/arch-theme-update",
-  "src/cli/theme/info.py",
+  "src/arch/commands/arch-theme-bg-cache",
+  "src/arch/commands/arch-theme-bg-current",
+  "src/arch/commands/arch-theme-bg-install",
+  "src/arch/commands/arch-theme-bg-next",
+  "src/arch/commands/arch-theme-bg-set",
+  "src/arch/commands/arch-theme-bg-switcher",
+  "src/arch/commands/arch-theme-color",
+  "src/arch/commands/arch-theme-colors-from-alacritty",
+  "src/arch/commands/arch-theme-current",
+  "src/arch/commands/arch-theme-dir",
+  "src/arch/commands/arch-theme-extras",
+  "src/arch/commands/arch-theme-install",
+  "src/arch/commands/arch-theme-list",
+  "src/arch/commands/arch-theme-osc",
+  "src/arch/commands/arch-theme-refresh",
+  "src/arch/commands/arch-theme-remove",
+  "src/arch/commands/arch-theme-set",
+  "src/arch/commands/arch-theme-set-browser",
+  "src/arch/commands/arch-theme-set-browser-policy",
+  "src/arch/commands/arch-theme-set-fcitx5",
+  "src/arch/commands/arch-theme-set-foot",
+  "src/arch/commands/arch-theme-set-glass",
+  "src/arch/commands/arch-theme-set-gnome",
+  "src/arch/commands/arch-theme-set-hunk",
+  "src/arch/commands/arch-theme-set-obsidian",
+  "src/arch/commands/arch-theme-set-templates",
+  "src/arch/commands/arch-theme-set-tmux",
+  "src/arch/commands/arch-theme-set-vscode",
+  "src/arch/commands/arch-theme-switcher",
+  "src/arch/commands/arch-theme-update",
+  "src/arch/cli/theme/info.py",
 ]
 requires = ["desktop.commands", "system.runtime-data"]
 
@@ -133,8 +133,8 @@ source = "src/arch/commands/arch-theme-set-hunk"
 target = "usr/share/arch/src/arch/commands/arch-theme-set-hunk"
 
 [[output]]
-source = "src/commands/arch-theme-set-obsidian"
-target = "usr/share/arch/src/commands/arch-theme-set-obsidian"
+source = "src/arch/commands/arch-theme-set-obsidian"
+target = "usr/share/arch/src/arch/commands/arch-theme-set-obsidian"
 
 [[output]]
 source = "src/arch/commands/arch-theme-set-templates"

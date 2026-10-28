@@ -2,41 +2,41 @@ id = "desktop.commands.install"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-install-and-launch",
-  "src/commands/arch-install-app",
-  "src/commands/arch-install-browser",
-  "src/commands/arch-install-camera",
-  "src/commands/arch-install-chromium-copy-url",
-  "src/commands/arch-install-chromium-google-account",
-  "src/commands/arch-install-chromium-ytdlp",
-  "src/commands/arch-install-dev-env",
-  "src/commands/arch-install-dictation-superwhisper",
-  "src/commands/arch-install-dictation-voxtype",
-  "src/commands/arch-install-docker-dbs",
-  "src/commands/arch-install-editor-emacs",
-  "src/commands/arch-install-editor-helix",
-  "src/commands/arch-install-editor-vscode",
-  "src/commands/arch-install-editor-zed",
-  "src/commands/arch-install-font",
-  "src/commands/arch-install-gaming-battlenet",
-  "src/commands/arch-install-gaming-geforce-now",
-  "src/commands/arch-install-gaming-gpu-lib32",
-  "src/commands/arch-install-gaming-heroic",
-  "src/commands/arch-install-gaming-lutris",
-  "src/commands/arch-install-gaming-steam",
-  "src/commands/arch-install-gaming-xbox-cloud",
-  "src/commands/arch-install-gaming-xbox-controllers",
-  "src/commands/arch-install-service-1password",
-  "src/commands/arch-install-service-dropbox",
-  "src/commands/arch-install-service-microsoft",
-  "src/commands/arch-install-service-nordvpn",
-  "src/commands/arch-install-service-once",
-  "src/commands/arch-install-service-signal",
-  "src/commands/arch-install-service-spotify",
-  "src/commands/arch-install-service-sunshine",
-  "src/commands/arch-install-service-tailscale",
-  "src/commands/arch-install-terminal",
-  "src/commands/arch-install-video-decode",
+  "src/arch/commands/arch-install-and-launch",
+  "src/arch/commands/arch-install-app",
+  "src/arch/commands/arch-install-browser",
+  "src/arch/commands/arch-install-camera",
+  "src/arch/commands/arch-install-chromium-copy-url",
+  "src/arch/commands/arch-install-chromium-google-account",
+  "src/arch/commands/arch-install-chromium-ytdlp",
+  "src/arch/commands/arch-install-dev-env",
+  "src/arch/commands/arch-install-dictation-superwhisper",
+  "src/arch/commands/arch-install-dictation-voxtype",
+  "src/arch/commands/arch-install-docker-dbs",
+  "src/arch/commands/arch-install-editor-emacs",
+  "src/arch/commands/arch-install-editor-helix",
+  "src/arch/commands/arch-install-editor-vscode",
+  "src/arch/commands/arch-install-editor-zed",
+  "src/arch/commands/arch-install-font",
+  "src/arch/commands/arch-install-gaming-battlenet",
+  "src/arch/commands/arch-install-gaming-geforce-now",
+  "src/arch/commands/arch-install-gaming-gpu-lib32",
+  "src/arch/commands/arch-install-gaming-heroic",
+  "src/arch/commands/arch-install-gaming-lutris",
+  "src/arch/commands/arch-install-gaming-steam",
+  "src/arch/commands/arch-install-gaming-xbox-cloud",
+  "src/arch/commands/arch-install-gaming-xbox-controllers",
+  "src/arch/commands/arch-install-service-1password",
+  "src/arch/commands/arch-install-service-dropbox",
+  "src/arch/commands/arch-install-service-microsoft",
+  "src/arch/commands/arch-install-service-nordvpn",
+  "src/arch/commands/arch-install-service-once",
+  "src/arch/commands/arch-install-service-signal",
+  "src/arch/commands/arch-install-service-spotify",
+  "src/arch/commands/arch-install-service-sunshine",
+  "src/arch/commands/arch-install-service-tailscale",
+  "src/arch/commands/arch-install-terminal",
+  "src/arch/commands/arch-install-video-decode",
 ]
 requires = ["desktop.commands"]
 
@@ -125,8 +125,8 @@ source = "src/arch/commands/arch-install-gaming-lutris"
 target = "usr/share/arch/src/arch/commands/arch-install-gaming-lutris"
 
 [[output]]
-source = "src/commands/arch-install-gaming-steam"
-target = "usr/share/arch/src/commands/arch-install-gaming-steam"
+source = "src/arch/commands/arch-install-gaming-steam"
+target = "usr/share/arch/src/arch/commands/arch-install-gaming-steam"
 
 [[output]]
 source = "src/arch/commands/arch-install-gaming-xbox-cloud"

@@ -2,40 +2,40 @@ id = "desktop.commands.hw"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-hw-aarch64",
-  "src/commands/arch-hw-aarch64-apple",
-  "src/commands/arch-hw-aarch64-gb10",
-  "src/commands/arch-hw-aarch64-n1x",
-  "src/commands/arch-hw-aarch64-qualcomm",
-  "src/cli/hardware/architecture.py",
-  "src/commands/arch-hw-apple-silicon",
-  "src/commands/arch-hw-clamshell",
-  "src/commands/arch-hw-display",
-  "src/commands/arch-hw-external-monitors",
-  "src/commands/arch-hw-fingerprint",
-  "src/commands/arch-hw-hybrid-gpu",
-  "src/commands/arch-hw-intel",
-  "src/commands/arch-hw-intel-ptl",
-  "src/commands/arch-hw-intel-sof",
-  "src/commands/arch-hw-laptop",
-  "src/commands/arch-hw-laptop-closed",
-  "src/commands/arch-hw-match",
-  "src/commands/arch-hw-match-device-tree",
-  "src/commands/arch-hw-n1x",
-  "src/commands/arch-hw-nvidia",
-  "src/commands/arch-hw-nvidia-display",
-  "src/commands/arch-hw-nvidia-gsp",
-  "src/commands/arch-hw-nvidia-without-gsp",
-  "src/commands/arch-hw-platform",
-  "src/commands/arch-hw-recover-internal-monitor",
-  "src/commands/arch-hw-touchpad",
-  "src/commands/arch-hw-touchscreen",
-  "src/commands/arch-hw-vm",
-  "src/cli/hardware/virtualization.py",
-  "src/commands/arch-hw-vulkan",
-  "src/commands/arch-hw-webcam",
-  "src/cli/hardware/webcam.py",
-  "src/commands/arch-hw-x86",
+  "src/arch/commands/arch-hw-aarch64",
+  "src/arch/commands/arch-hw-aarch64-apple",
+  "src/arch/commands/arch-hw-aarch64-gb10",
+  "src/arch/commands/arch-hw-aarch64-n1x",
+  "src/arch/commands/arch-hw-aarch64-qualcomm",
+  "src/arch/cli/hardware/architecture.py",
+  "src/arch/commands/arch-hw-apple-silicon",
+  "src/arch/commands/arch-hw-clamshell",
+  "src/arch/commands/arch-hw-display",
+  "src/arch/commands/arch-hw-external-monitors",
+  "src/arch/commands/arch-hw-fingerprint",
+  "src/arch/commands/arch-hw-hybrid-gpu",
+  "src/arch/commands/arch-hw-intel",
+  "src/arch/commands/arch-hw-intel-ptl",
+  "src/arch/commands/arch-hw-intel-sof",
+  "src/arch/commands/arch-hw-laptop",
+  "src/arch/commands/arch-hw-laptop-closed",
+  "src/arch/commands/arch-hw-match",
+  "src/arch/commands/arch-hw-match-device-tree",
+  "src/arch/commands/arch-hw-n1x",
+  "src/arch/commands/arch-hw-nvidia",
+  "src/arch/commands/arch-hw-nvidia-display",
+  "src/arch/commands/arch-hw-nvidia-gsp",
+  "src/arch/commands/arch-hw-nvidia-without-gsp",
+  "src/arch/commands/arch-hw-platform",
+  "src/arch/commands/arch-hw-recover-internal-monitor",
+  "src/arch/commands/arch-hw-touchpad",
+  "src/arch/commands/arch-hw-touchscreen",
+  "src/arch/commands/arch-hw-vm",
+  "src/arch/cli/hardware/virtualization.py",
+  "src/arch/commands/arch-hw-vulkan",
+  "src/arch/commands/arch-hw-webcam",
+  "src/arch/cli/hardware/webcam.py",
+  "src/arch/commands/arch-hw-x86",
 ]
 requires = ["desktop.commands", "system.runtime-data"]
 
@@ -68,24 +68,24 @@ source = "src/arch/commands/arch-hw-apple-silicon"
 target = "usr/share/arch/src/arch/commands/arch-hw-apple-silicon"
 
 [[output]]
-source = "src/commands/arch-hw-clamshell"
-target = "usr/share/arch/src/commands/arch-hw-clamshell"
+source = "src/arch/commands/arch-hw-clamshell"
+target = "usr/share/arch/src/arch/commands/arch-hw-clamshell"
 
 [[output]]
-source = "src/commands/arch-hw-display"
-target = "usr/share/arch/src/commands/arch-hw-display"
+source = "src/arch/commands/arch-hw-display"
+target = "usr/share/arch/src/arch/commands/arch-hw-display"
 
 [[output]]
-source = "src/commands/arch-hw-external-monitors"
-target = "usr/share/arch/src/commands/arch-hw-external-monitors"
+source = "src/arch/commands/arch-hw-external-monitors"
+target = "usr/share/arch/src/arch/commands/arch-hw-external-monitors"
 
 [[output]]
 source = "src/arch/commands/arch-hw-fingerprint"
 target = "usr/share/arch/src/arch/commands/arch-hw-fingerprint"
 
 [[output]]
-source = "src/commands/arch-hw-hybrid-gpu"
-target = "usr/share/arch/src/commands/arch-hw-hybrid-gpu"
+source = "src/arch/commands/arch-hw-hybrid-gpu"
+target = "usr/share/arch/src/arch/commands/arch-hw-hybrid-gpu"
 
 [[output]]
 source = "src/arch/commands/arch-hw-intel"
@@ -144,8 +144,8 @@ source = "src/arch/commands/arch-hw-recover-internal-monitor"
 target = "usr/share/arch/src/arch/commands/arch-hw-recover-internal-monitor"
 
 [[output]]
-source = "src/commands/arch-hw-touchpad"
-target = "usr/share/arch/src/commands/arch-hw-touchpad"
+source = "src/arch/commands/arch-hw-touchpad"
+target = "usr/share/arch/src/arch/commands/arch-hw-touchpad"
 
 [[output]]
 source = "src/arch/commands/arch-hw-touchscreen"

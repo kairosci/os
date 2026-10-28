@@ -2,29 +2,29 @@ id = "desktop.commands.remove"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-remove-browser",
-  "src/commands/arch-remove-dev-env",
-  "src/commands/arch-remove-dictation-superwhisper",
-  "src/commands/arch-remove-dictation-voxtype",
-  "src/commands/arch-remove-gaming-battlenet",
-  "src/commands/arch-remove-gaming-geforce-now",
-  "src/commands/arch-remove-gaming-heroic",
-  "src/commands/arch-remove-gaming-lutris",
-  "src/commands/arch-remove-gaming-minecraft",
-  "src/commands/arch-remove-gaming-steam",
-  "src/commands/arch-remove-gaming-xbox-cloud",
-  "src/commands/arch-remove-gaming-xbox-controllers",
-  "src/commands/arch-remove-launcher-entry",
-  "src/commands/arch-remove-security-fido2",
-  "src/commands/arch-remove-security-fingerprint",
-  "src/commands/arch-remove-security-sshd",
-  "src/commands/arch-remove-security-sudoless-docker",
-  "src/commands/arch-remove-service-1password",
-  "src/commands/arch-remove-service-dropbox",
-  "src/commands/arch-remove-service-microsoft",
-  "src/commands/arch-remove-service-ssh-agent",
-  "src/commands/arch-remove-service-sunshine",
-  "src/commands/arch-remove-service-tailscale",
+  "src/arch/commands/arch-remove-browser",
+  "src/arch/commands/arch-remove-dev-env",
+  "src/arch/commands/arch-remove-dictation-superwhisper",
+  "src/arch/commands/arch-remove-dictation-voxtype",
+  "src/arch/commands/arch-remove-gaming-battlenet",
+  "src/arch/commands/arch-remove-gaming-geforce-now",
+  "src/arch/commands/arch-remove-gaming-heroic",
+  "src/arch/commands/arch-remove-gaming-lutris",
+  "src/arch/commands/arch-remove-gaming-minecraft",
+  "src/arch/commands/arch-remove-gaming-steam",
+  "src/arch/commands/arch-remove-gaming-xbox-cloud",
+  "src/arch/commands/arch-remove-gaming-xbox-controllers",
+  "src/arch/commands/arch-remove-launcher-entry",
+  "src/arch/commands/arch-remove-security-fido2",
+  "src/arch/commands/arch-remove-security-fingerprint",
+  "src/arch/commands/arch-remove-security-sshd",
+  "src/arch/commands/arch-remove-security-sudoless-docker",
+  "src/arch/commands/arch-remove-service-1password",
+  "src/arch/commands/arch-remove-service-dropbox",
+  "src/arch/commands/arch-remove-service-microsoft",
+  "src/arch/commands/arch-remove-service-ssh-agent",
+  "src/arch/commands/arch-remove-service-sunshine",
+  "src/arch/commands/arch-remove-service-tailscale",
 ]
 requires = ["desktop.commands"]
 
@@ -65,8 +65,8 @@ source = "src/arch/commands/arch-remove-gaming-minecraft"
 target = "usr/share/arch/src/arch/commands/arch-remove-gaming-minecraft"
 
 [[output]]
-source = "src/commands/arch-remove-gaming-steam"
-target = "usr/share/arch/src/commands/arch-remove-gaming-steam"
+source = "src/arch/commands/arch-remove-gaming-steam"
+target = "usr/share/arch/src/arch/commands/arch-remove-gaming-steam"
 
 [[output]]
 source = "src/arch/commands/arch-remove-gaming-xbox-cloud"

@@ -40,7 +40,7 @@ mkdir -p "$(dirname "$miserc")"
 printf 'ignored_config_paths = ["%s"]\n' "$mise_config" >"$miserc"
 cp "$miserc" "$test_tmp/expected-miserc"
 : >"$mise_log"
-bash "$ROOT/src/commands/arch-install-dev-env" python >/dev/null
+bash "$ROOT/src/arch/commands/arch-install-dev-env" python >/dev/null
 grep -Fx 'use --global uv' "$mise_log" >/dev/null || fail "Python setup selects uv when os's declaration is skipped"
 grep -Fx 'install uv' "$mise_log" >/dev/null && fail "Python setup does not count on os's uv when its declaration is skipped"
 cmp -s "$miserc" "$test_tmp/expected-miserc" || fail "Python setup keeps the mise opt-out"

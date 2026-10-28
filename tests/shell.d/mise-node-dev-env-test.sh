@@ -37,7 +37,7 @@ miserc="$test_home/.config/mise/miserc.toml"
 mkdir -p "$(dirname "$miserc")"
 printf 'ignored_config_paths = ["%s"]\n' "$mise_config" >"$miserc"
 : >"$mise_log"
-bash "$ROOT/src/commands/arch-install-dev-env" node >/dev/null
+bash "$ROOT/src/arch/commands/arch-install-dev-env" node >/dev/null
 [[ $(<"$mise_log") == "use --global node" ]] || fail "Node setup selects Node when os's declaration is skipped"
 rm "$miserc"
 pass "Node setup selects Node when os's declaration is skipped"
