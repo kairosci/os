@@ -105,6 +105,7 @@ jobs:
             hyprland \
             hyprshot \
             imagemagick \
+            inetutils \
             inotify-tools \
             jq \
             libxkbcommon \
@@ -117,11 +118,16 @@ jobs:
             python-yaml \
             quickshell \
             ripgrep \
+            shadow \
             socat \
             systemd \
             tmux \
             util-linux
+      - name: Prepare an unprivileged test account
+        run: |
+          useradd --create-home --uid 1000 --shell /bin/bash arch-ci
+          chown -R arch-ci:arch-ci "$GITHUB_WORKSPACE"
       - name: Add checkout commands to PATH
         run: echo "$GITHUB_WORKSPACE/src/commands" >> "$GITHUB_PATH"
       - name: Run shell tests (compositor checks self-skip in headless CI)
-        run: make test-shell
+        run: setpriv --reuid=1000 --regid=1000 --init-groups env HOME=/home/arch-ci make test-shell
