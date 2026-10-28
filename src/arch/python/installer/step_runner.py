@@ -37,8 +37,8 @@ def _step_path(step: object, ap: Path, arch_install: Path) -> Path:
     root = ap
     relative = _relative_path(step)
   elif _is_string_keyed_mapping(step):
-    roots = {"arch_path": ap, "arch_install": arch_install}
-    root_name = step.get("root", "arch_path")
+    roots = {"ap": ap, "arch_install": arch_install}
+    root_name = step.get("root", "ap")
     if not isinstance(root_name, str) or root_name not in roots:
       raise ValueError(f"Invalid installer step root: {root_name!r}")
     root = roots[root_name]
@@ -56,11 +56,11 @@ def _step_reference(step: object) -> str:
   if isinstance(step, str):
     return str(_relative_path(step))
   if _is_string_keyed_mapping(step):
-    root_name = step.get("root", "arch_path")
+    root_name = step.get("root", "ap")
     if not isinstance(root_name, str):
       raise ValueError(f"Invalid installer step root: {root_name!r}")
     relative = _relative_path(step.get("path"))
-    if root_name == "arch_path":
+    if root_name == "ap":
       return str(relative)
     if root_name == "arch_install":
       return str(Path("installer") / relative)

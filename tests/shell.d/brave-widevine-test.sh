@@ -8,17 +8,17 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 test_tmp=$(mktemp -d)
 trap 'rm -rf "$test_tmp"' EXIT
 stub_bin="$test_tmp/bin"
-arch_path="$test_tmp/arch"
+ap="$test_tmp/arch"
 opt_path="$test_tmp/opt"
 cdm="$opt_path/WidevineCdm/chromium"
 calls="$test_tmp/calls.log"
-mkdir -p "$stub_bin" "$test_tmp/home" "$arch_path/installer/helpers" "$arch_path/config"
+mkdir -p "$stub_bin" "$test_tmp/home" "$ap/installer/helpers" "$ap/config"
 
 # The real policy helper writes under /etc without sudo when run as root, so
 # stand it in; this test covers only the CDM link. Its as_root goes through the
 # sudo stub, which logs every link, whatever the test's EUID.
-printf 'browser_policy_setup_dir() { :; }\nas_root() { sudo "$@"; }\n' >"$arch_path/installer/helpers/browser-policy.sh"
-cp "$ROOT/config/chromium-flags.conf" "$arch_path/config/"
+printf 'browser_policy_setup_dir() { :; }\nas_root() { sudo "$@"; }\n' >"$ap/installer/helpers/browser-policy.sh"
+cp "$ROOT/config/chromium-flags.conf" "$ap/config/"
 
 for command in arch-pkg-add arch-pkg-aur-add arch-install-chromium-copy-url arch-install-chromium-ytdlp arch-theme-set-browser arch-lifecycle-dispatch; do
   printf '#!/bin/bash\nexit 0\n' >"$stub_bin/$command"
@@ -41,7 +41,7 @@ reset_opt() {
 
 run() {
   : >"$calls"
-  HOME="$test_tmp/home" ARCH_PATH="$arch_path" ARCH_OPT_PATH="$opt_path" \
+  HOME="$test_tmp/home" ARCH_PATH="$ap" ARCH_OPT_PATH="$opt_path" \
     TEST_LOG="$calls" PATH="$stub_bin:$PATH" "$@" >/dev/null
 }
 

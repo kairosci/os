@@ -25,7 +25,7 @@ messages:
     completed: "Completato: {step}"
     failed: "Non riuscito: {step} (codice di uscita: {status})"
 lockscreen:
-  command: ["{arch_path}/src/arch/commands/arch-apply-lock"]
+  command: ["{ap}/src/arch/commands/arch-apply-lock"]
 
 chromium_preferences:
   destination: /usr/lib/chromium/initial_preferences
@@ -108,7 +108,7 @@ language_setup:
   code_pattern: '^[a-z]{2,3}(-[A-Z]{2})?$'
   language_environment: LANG
   default_language: en
-  generator_command: ['{arch_path}/src/arch/commands/arch-locale-generate']
+  generator_command: ['{ap}/src/arch/commands/arch-locale-generate']
   messages:
     en:
       invalid: 'Ignoring an invalid language in {marker}: {code}'

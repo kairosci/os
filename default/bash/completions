@@ -2,9 +2,9 @@ _arch_complete() {
   COMPREPLY=()
   local cur="${COMP_WORDS[COMP_CWORD]}"
 
-  local arch_path bin_dir
-  arch_path=$(command -v arch 2>/dev/null) || return 0
-  bin_dir=$(dirname -- "$(readlink -f -- "$arch_path" 2>/dev/null || printf '%s' "$arch_path")")
+  local arch_binary bin_dir
+  arch_binary=$(command -v arch 2>/dev/null) || return 0
+  bin_dir=$(dirname -- "$(readlink -f -- "$arch_binary" 2>/dev/null || printf '%s' "$arch_binary")")
   [[ -d $bin_dir ]] || return 0
 
   local prefix="arch"

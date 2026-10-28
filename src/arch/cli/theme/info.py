@@ -227,7 +227,7 @@ def _paths(settings: Settings) -> ResolvedPaths:
   state_home = os.environ.get(paths["state_home_environment"])
   if state_home is None or state_home == "":
     state_home = paths["state_home_default"].format(home=home)
-  values = {"home": home, "arch_path": ap, "state_home": state_home}
+  values = {"home": home, "ap": ap, "state_home": state_home}
   return {
     "theme_name_file": _path(paths["theme_name_file"], **values),
     "user_themes": _path(paths["user_themes"], **values),

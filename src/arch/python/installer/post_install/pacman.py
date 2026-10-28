@@ -309,7 +309,7 @@ def _main() -> int:
   root = image_root(config)
   manifest = image_manifest(root, config) if needs_alarm_keyring else None
   target_root = str(root) if os.geteuid() != 0 else "/"
-  run([config["apply_command"].format(arch_path=str(ap)), channel, target_root])
+  run([config["apply_command"].format(ap=str(ap)), channel, target_root])
 
   if needs_alarm_keyring:
     if manifest is not None:

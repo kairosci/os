@@ -3,7 +3,7 @@ paths:
   state_home_default: "{home}/.local/state"
   theme_name_file: "{state_home}/arch/current/theme.name"
   user_themes: "{home}/.config/arch/themes"
-  bundled_themes: "{arch_path}/assets/themes"
+  bundled_themes: "{ap}/assets/themes"
   current_background: "{state_home}/arch/current/background"
   user_backgrounds: "{home}/.config/arch/backgrounds/{theme}"
   theme_backgrounds: "{state_home}/arch/current/theme/backgrounds"

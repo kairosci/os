@@ -95,7 +95,7 @@ def main() -> int:
     print(message, file=sys.stderr)
     return 0
 
-  command = [part.format(arch_path=root) for part in settings["generator_command"]]
+  command = [part.format(ap=root) for part in settings["generator_command"]]
   return subprocess.run([*command, code], check=False).returncode
 
 
