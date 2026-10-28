@@ -1,4 +1,7 @@
 entrypoints:
+  - binary: arch-power-present
+    module: power/present
+    function: main
   - binary: arch-update-available
     module: update/available
     function: main

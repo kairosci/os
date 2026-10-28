@@ -1,14 +1,15 @@
-#!/bin/bash
+#!/usr/bin/python3 -I
 
 # arch:summary=Returns true if external power is connected.
+# arch:group=power
+# arch:name=present
 
-power_supply_path="${ARCH_POWER_SUPPLY_PATH:-/sys/class/power_supply}"
+import os
+import sys
+from pathlib import Path
 
-for supply in "$power_supply_path"/*; do
-  [[ -r $supply/online && -r $supply/type ]] || continue
-  type=$(<"$supply/type")
-  [[ $type == "Mains" || $type == "USB" ]] || continue
-  [[ $(<"$supply/online") == "1" ]] && exit 0
-done
+sys.path.insert(0, str(Path(os.environ["ARCH_PATH"]) / "src"))
 
-exit 1
+from cli.power.present import main
+
+raise SystemExit(main())

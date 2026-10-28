@@ -1,0 +1,13 @@
+paths:
+  power_supply: /sys/class/power_supply
+  override_environment: ARCH_POWER_SUPPLY_PATH
+  type_file: type
+  online_file: online
+values:
+  external_types:
+    - Mains
+    - USB
+  online: '1'
+statuses:
+  connected: 0
+  disconnected: 1
