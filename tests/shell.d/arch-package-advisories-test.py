@@ -59,18 +59,53 @@ tracker = [
   },
 ]
 advisories = scanner.parse_tracker(tracker)
-matches = scanner.matching_advisories({"linux", "lua51", "linux-arm"}, advisories)
+current_versions = {"AVG-1": "2.0-1", "AVG-2": "2.0-1", "AVG-3": None}
+matches = scanner.matching_advisories(
+  {"linux", "lua51", "linux-arm"}, advisories, current_versions
+)
 if [(package, advisory["name"]) for package, advisory in matches] != [
-  ("linux", "AVG-1"),
   ("linux-arm", "AVG-3"),
 ]:
-  fail_check("only unresolved records matching declared packages are reported")
-pass_check("only unresolved records matching declared packages are reported")
+  fail_check("current-version mismatches are excluded and unknown versions stay visible")
+pass_check("current-version mismatches are excluded and unknown versions stay visible")
 
-report = scanner._report({"linux"}, advisories, matches[:1])
-if "do not prove" not in report or "CVE-2026-0001" not in report:
-  fail_check("the advisory report states its version limitation and includes CVEs")
-pass_check("the advisory report states its version limitation and includes CVEs")
+historical = scanner.historical_advisories(
+  {"linux", "lua51", "linux-arm"}, advisories, current_versions
+)
+if [(package, advisory["name"], version) for package, advisory, version in historical] != [
+  ("linux", "AVG-1", "2.0-1"),
+]:
+  fail_check("old affected versions are reported as historical records")
+pass_check("old affected versions are reported as historical records")
+
+page = b"<tr><td>Current</td><td>2.0-1 [core]</td></tr>"
+if scanner.parse_current_version(page) != "2.0-1":
+  fail_check("the tracker current package version is parsed")
+pass_check("the tracker current package version is parsed")
+
+report = scanner._report({"linux"}, advisories, matches, historical, current_versions)
+if "current version unavailable" not in report or "CVE-2026-0001" not in report:
+  fail_check("unknown current versions remain visible in the advisory report")
+if "excluded from current-package findings" not in report:
+  fail_check("historical advisory versions are reported as excluded")
+pass_check("the advisory report distinguishes current and historical package versions")
+
+exact_current_versions = dict(current_versions, **{"AVG-1": "1.0-1"})
+exact_matches = scanner.matching_advisories(
+  {"linux", "lua51", "linux-arm"}, advisories, exact_current_versions
+)
+exact_report = scanner._report(
+  {"linux"},
+  advisories,
+  exact_matches,
+  scanner.historical_advisories(
+    {"linux", "lua51", "linux-arm"}, advisories, exact_current_versions
+  ),
+  exact_current_versions,
+)
+if "current 1.0-1" not in exact_report:
+  fail_check("matching current vulnerable versions are reported with their version")
+pass_check("matching current vulnerable versions are reported with their version")
 
 try:
   scanner.parse_tracker([{"name": "invalid"}])
@@ -86,6 +121,14 @@ except ValueError:
   pass_check("tracker control characters cannot forge workflow commands")
 else:
   fail_check("tracker control characters cannot forge workflow commands")
+
+malicious = [dict(tracker[0], name="../../external")]
+try:
+  scanner.parse_tracker(malicious)
+except ValueError:
+  pass_check("tracker advisory names cannot escape the Arch security host")
+else:
+  fail_check("tracker advisory names cannot escape the Arch security host")
 
 if scanner._escape_workflow_command("percent%\r\n") != "percent%25%0D%0A":
   fail_check("workflow annotations escape command control characters")
