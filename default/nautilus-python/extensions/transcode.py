@@ -13,8 +13,8 @@ from gi.repository import GObject, Gio, Nautilus
 
 def load_supported_types():
     roots = []
-    if os.environ.get("ARCH_PATH") is not None:
-        roots.append(Path(os.environ["ARCH_PATH"]))
+    if os.environ.get("AP") is not None:
+        roots.append(Path(os.environ["AP"]))
     roots.append(Path("/usr/share/arch"))
     roots.extend(Path(__file__).resolve().parents)
     for root in roots:

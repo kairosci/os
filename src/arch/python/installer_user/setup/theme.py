@@ -51,7 +51,7 @@ def _link_btop_theme(settings: dict[str, object], home: Path) -> None:
 
 
 def main() -> int:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   config = yaml.safe_load((root / "data/installer/user-setup.yml").read_text(encoding="utf-8"))
   settings = config["theme_setup"]
   home = Path.home()

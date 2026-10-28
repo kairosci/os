@@ -25,10 +25,10 @@ hl.env("XDG_SESSION_DESKTOP", "Hyprland")
 hl.env("XCOMPOSEFILE", paths.home .. "/.XCompose")
 
 -- hyprctl setenv doesn't reach keybind dispatcher env; use hl.env.
-hl.env("ARCH_PATH", paths.ap)
+hl.env("AP", paths.ap)
 
 local cli_dir = paths.ap .. "/src/arch/commands"
-local inherited_arch_cli = (os.getenv("ARCH_PATH") or "") .. "/src/arch/commands"
+local inherited_arch_cli = (os.getenv("AP") or "") .. "/src/arch/commands"
 local kept = {}
 for entry in (os.getenv("PATH") or "/usr/local/bin:/usr/bin"):gmatch("[^:]+") do
   if entry ~= cli_dir and entry ~= inherited_arch_cli then table.insert(kept, entry) end

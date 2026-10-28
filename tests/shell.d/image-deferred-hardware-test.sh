@@ -89,7 +89,7 @@ messages:
     failed: 'Errore: {step} (codice di uscita: {status})'
 YAML
 cat >"$fixture/installer/hardware/a.sh" <<'SH'
-printf 'a user=%s path=%s\n' "${ARCH_INSTALL_USER-unset}" "$ARCH_PATH" >>"$RUNS"
+printf 'a user=%s path=%s\n' "${ARCH_INSTALL_USER-unset}" "$AP" >>"$RUNS"
 mkdir -p "$ARCH_IMAGE_ROOT/etc/mkinitcpio.conf.d"
 echo 'MODULES+=(a)' >"$ARCH_IMAGE_ROOT/etc/mkinitcpio.conf.d/a.conf"
 SH
@@ -123,13 +123,13 @@ write_manifest() {
 build() {
   local root=$1 arch=${2:-$fixture}
   local install_dir=${3:-$arch/installer}
-  ARCH_IMAGE_ROOT="$root" ARCH_PATH="$arch" ARCH_INSTALL="$install_dir" ARCH_INSTALL_LOG_FILE="$root/var/log/arch-install.log" \
+  ARCH_IMAGE_ROOT="$root" AP="$arch" ARCH_INSTALL="$install_dir" ARCH_INSTALL_LOG_FILE="$root/var/log/arch-install.log" \
     PATH="$base_path" "$apply_hardware" --defer-provisioning
 }
 
 first_boot() {
   local root=$1
-  ARCH_IMAGE_ROOT="$root" ARCH_PATH="$fixture" ARCH_PROC_ROOT="$test_tmp/hw/proc" \
+  ARCH_IMAGE_ROOT="$root" AP="$fixture" ARCH_PROC_ROOT="$test_tmp/hw/proc" \
     PATH="$base_path" "$ROOT/src/arch/commands/arch-provision-hardware"
 }
 
@@ -299,7 +299,7 @@ reset_logs
 root=$(new_root vm)
 write_manifest "$root"
 build "$root" >/dev/null || fail "the fixture image builds for a VM boot"
-output=$(ARCH_IMAGE_ROOT="$root" ARCH_PATH="$fixture" ARCH_PROC_ROOT="$test_tmp/vm/proc" \
+output=$(ARCH_IMAGE_ROOT="$root" AP="$fixture" ARCH_PROC_ROOT="$test_tmp/vm/proc" \
   PATH="$test_tmp/vm/bin:$stub_bin:$ROOT/src/arch/commands:/usr/local/bin:/usr/bin:/bin" "$ROOT/src/arch/commands/arch-provision-hardware") ||
   fail "the first boot on other hardware finishes" "$output"
 [[ $output == *"First boot of an image built for aarch64-apple, on aarch64 hardware"* ]] ||
@@ -423,7 +423,7 @@ export KEYRING="$test_tmp/keyring" KEYRING_FAIL="$test_tmp/keyring-fail"
 request=var/lib/arch/image/pacman-keyring
 
 security_test_status=0
-ARCH_PATH="$ROOT" PACMAN_TEST_ROOT="$test_tmp" python3 -I - "$ROOT/src/arch/python/installer/post_install/pacman.py" <<'PY' || security_test_status=$?
+AP="$ROOT" PACMAN_TEST_ROOT="$test_tmp" python3 -I - "$ROOT/src/arch/python/installer/post_install/pacman.py" <<'PY' || security_test_status=$?
 import os
 import runpy
 import sys
@@ -472,12 +472,12 @@ pass "pacman finalization ignores root fixture overrides and refuses a symlinked
 
 finalize() {
   mkdir -p "$1/etc/pacman.d"
-  ARCH_IMAGE_ROOT="$1" ARCH_PATH="$fixture" PLATFORM=$2 \
+  ARCH_IMAGE_ROOT="$1" AP="$fixture" PLATFORM=$2 \
     PATH="$keyring_bin:$base_path" python3 -I "$fixture/src/arch/python/installer/post_install/pacman.py"
 }
 
 keyring_boot() {
-  ARCH_IMAGE_ROOT="$1" ARCH_PATH="$fixture" ARCH_PROC_ROOT="$test_tmp/hw/proc" \
+  ARCH_IMAGE_ROOT="$1" AP="$fixture" ARCH_PROC_ROOT="$test_tmp/hw/proc" \
     PATH="$keyring_bin:$base_path" "$ROOT/src/arch/commands/arch-provision-hardware"
 }
 
@@ -625,7 +625,7 @@ output=$(first_boot "$root") || fail "the first-boot hardware setup succeeds wit
 [[ -z $output && ! -e $root/var/lib/arch ]] || fail "the first-boot hardware setup does nothing with nothing deferred" "$output"
 pass "with nothing deferred the first-boot hardware setup does nothing"
 
-if env -u ARCH_IMAGE_ROOT ARCH_PATH="$fixture" PATH="$base_path" "$ROOT/src/arch/commands/arch-provision-hardware" >/dev/null 2>&1; then
+if env -u ARCH_IMAGE_ROOT AP="$fixture" PATH="$base_path" "$ROOT/src/arch/commands/arch-provision-hardware" >/dev/null 2>&1; then
   fail "the first-boot hardware setup refuses a normal user"
 fi
 pass "the first-boot hardware setup refuses a normal user"
@@ -689,14 +689,14 @@ bt_image() {
   local root
   root=$(new_root "bt-$1")
   write_manifest "$root"
-  ARCH_IMAGE_ROOT="$root" ARCH_PATH="$bt_fixture" ARCH_INSTALL_LOG_FILE="$root/var/log/arch-install.log" \
+  ARCH_IMAGE_ROOT="$root" AP="$bt_fixture" ARCH_INSTALL_LOG_FILE="$root/var/log/arch-install.log" \
     PATH="$bt_path" "$apply_hardware" --defer-provisioning >/dev/null || fail "the Bluetooth fixture image builds"
   printf '%s\n' "$root"
 }
 
 bt_first_boot() {
   rm -f "$SYSTEMCTL_CALLS" "$RUNS"
-  ARCH_IMAGE_ROOT="$1" ARCH_PATH="$bt_fixture" ARCH_PROC_ROOT="$test_tmp/hw/proc" \
+  ARCH_IMAGE_ROOT="$1" AP="$bt_fixture" ARCH_PROC_ROOT="$test_tmp/hw/proc" \
     PATH="$bt_path" "$ROOT/src/arch/commands/arch-provision-hardware" >/dev/null 2>&1
 }
 
@@ -732,7 +732,7 @@ pass "a retried queue starts Bluetooth like the first run"
 # Hardware setup outside the first boot, even with the marker inherited.
 rm -f "$SYSTEMCTL_CALLS" "$RUNS"
 root=$(new_root bt-live)
-ARCH_IMAGE_DEFERRED_HARDWARE=1 ARCH_IMAGE_ROOT="$root" ARCH_PATH="$bt_fixture" \
+ARCH_IMAGE_DEFERRED_HARDWARE=1 ARCH_IMAGE_ROOT="$root" AP="$bt_fixture" \
   ARCH_INSTALL_LOG_FILE="$root/var/log/arch-install.log" PATH="$bt_path" "$apply_hardware" --defer-provisioning >/dev/null ||
   fail "hardware setup without a manifest runs the Bluetooth leaf"
 [[ $(<"$SYSTEMCTL_CALLS") == "enable bluetooth.service" && $(cat "$RUNS") == c ]] ||
@@ -751,7 +751,7 @@ elif unshare --user --map-root-user true 2>/dev/null; then
   reset_logs
   root=$(new_root root-build)
   write_manifest "$root"
-  ARCH_IMAGE_ROOT="$root" ARCH_PATH="$fixture" ARCH_INSTALL_LOG_FILE="$root/var/log/arch-install.log" \
+  ARCH_IMAGE_ROOT="$root" AP="$fixture" ARCH_INSTALL_LOG_FILE="$root/var/log/arch-install.log" \
     PATH="$base_path" "${root_runner[@]}" "$ROOT/src/arch/commands/arch-apply-hardware" --defer-provisioning >/dev/null ||
     fail "root runs hardware setup with a fixture root in its environment"
   [[ $(cat "$RUNS") == $'a user= path='"$fixture"$'\nb\nc' && ! -e $root/var/lib/arch/image/deferred-steps ]] ||

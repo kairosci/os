@@ -1,4 +1,4 @@
-package.path = os.getenv("ARCH_PATH") .. "/?.lua;" .. package.path
+package.path = os.getenv("AP") .. "/?.lua;" .. package.path
 o = {
   shell_quote = function(value) return "'" .. value:gsub("'", "'\\''") .. "'" end,
   launch = function(value) return value end,

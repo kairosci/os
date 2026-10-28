@@ -4,7 +4,7 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-export ARCH_PATH=$ROOT
+export AP=$ROOT
 
 run_node_test <<'JS'
 const fs = require('fs')

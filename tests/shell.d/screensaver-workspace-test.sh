@@ -94,8 +94,8 @@ pass "focus returns without waiting for a close that has already happened"
 
 # The launcher's workspace only holds for the first map. A terminal mapped again as it closes falls back to
 # the class rule, which must keep it off the regular workspaces where its fullscreen rule would take over.
-fallback=$(ARCH_PATH="$ROOT" lua <<'LUA'
-package.path = os.getenv("ARCH_PATH") .. "/?.lua;" .. package.path
+fallback=$(AP="$ROOT" lua <<'LUA'
+package.path = os.getenv("AP") .. "/?.lua;" .. package.path
 hl = setmetatable({
   window_rule = function(rule)
     if rule.match.class == "org.arch.screensaver" and rule.workspace then print(rule.workspace) end

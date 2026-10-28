@@ -76,7 +76,7 @@ def _is_notification_wait_config(value: object) -> TypeGuard[NotificationWaitCon
 
 
 def _config() -> NotificationWaitConfig:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   config: object = yaml.safe_load((root / "data/cli/notification-wait.yml").read_text(encoding="utf-8"))
   if not _is_notification_wait_config(config):
     raise ValueError("invalid notification wait configuration")

@@ -37,7 +37,7 @@ exec "\$@"
 STUB
 chmod +x "$TMPDIR/bin"/{usermod,groupadd,install,find,sudo}
 export PATH="$TMPDIR/bin:$PATH"
-export ARCH_PATH="$ROOT"
+export AP="$ROOT"
 
 # A deferred-provisioning install records neither privileged group.
 ARCH_INSTALL_USER="" bash -eE "$ROOT/installer/config/docker.sh"

@@ -37,7 +37,7 @@ chmod +x "$mock_bin"/* "$systemd_bin"/* "$board_bin"/*
 
 matching="$scratch/matching"
 mkdir -p "$matching"
-ARCH_PATH="$ROOT" PATH="$mock_bin:$PATH" SYSTEMCTL_LOG="$matching/systemctl.log" \
+AP="$ROOT" PATH="$mock_bin:$PATH" SYSTEMCTL_LOG="$matching/systemctl.log" \
   ARCH_YOGA_MODULES_LOAD_DIR="$matching/modules-load.d" \
   ARCH_YOGA_MKINITCPIO_DIR="$matching/mkinitcpio.conf.d" \
   ARCH_YOGA_LIMINE_CONFIG_DIR="$matching/limine-entry-tool.d" \
@@ -92,7 +92,7 @@ grep -Fxq 'enable yoga-slim7x-remoteprocs.service' "$matching/systemctl.log" ||
 
 nonmatching="$scratch/nonmatching"
 mkdir -p "$nonmatching"
-ARCH_PATH="$ROOT" PATH="$mock_bin:$PATH" SYSTEMCTL_LOG="$nonmatching/systemctl.log" \
+AP="$ROOT" PATH="$mock_bin:$PATH" SYSTEMCTL_LOG="$nonmatching/systemctl.log" \
   TEST_BOARD_MATCH=0 \
   ARCH_YOGA_MODULES_LOAD_DIR="$nonmatching/modules-load.d" \
   ARCH_YOGA_MKINITCPIO_DIR="$nonmatching/mkinitcpio.conf.d" \
@@ -121,7 +121,7 @@ printf 'offline\n' >"$remoteprocs/remoteproc2/state"
 ARCH_YOGA_REMOTEPROC_ROOT="$remoteprocs" \
   ARCH_YOGA_REMOTEPROC_ATTEMPTS=1 \
   ARCH_YOGA_REMOTEPROC_SLEEP=0 \
-  ARCH_PATH="$ROOT" python3 -I "$starter"
+  AP="$ROOT" python3 -I "$starter"
 
 [[ $(<"$remoteprocs/remoteproc0/state") == start ]] ||
   fail "Yoga Slim 7x helper starts the audio DSP by firmware identity"
@@ -131,7 +131,7 @@ ARCH_YOGA_REMOTEPROC_ROOT="$remoteprocs" \
   fail "Yoga Slim 7x helper leaves unrelated remote processors alone"
 
 run_starter() {
-  ARCH_PATH="$ROOT" \
+  AP="$ROOT" \
   ARCH_YOGA_REMOTEPROC_ROOT="$remoteprocs" \
     ARCH_YOGA_REMOTEPROC_ATTEMPTS=1 \
     ARCH_YOGA_REMOTEPROC_SLEEP=0 \
@@ -156,7 +156,7 @@ mkdir -p "$late/remoteproc0"
 printf 'qcadsp8380.mbn\n' >"$late/remoteproc0/firmware"
 printf 'offline\n' >"$late/remoteproc0/state"
 run_late_starter() {
-  ARCH_PATH="$ROOT" \
+  AP="$ROOT" \
   ARCH_YOGA_REMOTEPROC_ROOT="$late" \
     ARCH_YOGA_REMOTEPROC_ATTEMPTS=2 \
     ARCH_YOGA_REMOTEPROC_SLEEP=0.05 \
@@ -199,7 +199,7 @@ run_setup_on() (
   export ARCH_PROC_ROOT="$scratch/platforms/$platform/proc"
   export PATH="$systemd_bin:$board_bin:$scratch/platforms/$platform/bin:$ROOT/src/arch/commands:$PATH"
 
-  ARCH_PATH="$ROOT" SYSTEMCTL_LOG="$out/systemctl.log" \
+  AP="$ROOT" SYSTEMCTL_LOG="$out/systemctl.log" \
     ARCH_YOGA_MODULES_LOAD_DIR="$out/modules-load.d" \
     ARCH_YOGA_MKINITCPIO_DIR="$out/mkinitcpio.conf.d" \
     ARCH_YOGA_LIMINE_CONFIG_DIR="$out/limine-entry-tool.d" \

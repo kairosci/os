@@ -32,9 +32,9 @@ set -euo pipefail
 
 PROVISIONING_DIR=/var/lib/arch/provisioning
 PACKAGED_PATH=/usr/bin/arch-system-factory-reset
-# sudo drops ARCH_PATH from the environment, and arch-i18n, which
+# sudo drops AP from the environment, and arch-i18n, which
 # supplies every line of the prompts below, needs it there.
-export ARCH_PATH="${ARCH_PATH:-/usr/share/arch}"
+export AP="${AP:-/usr/share/arch}"
 TOP_MNT=/run/arch-system-factory-reset/top
 ESP_MNT=/run/arch-system-factory-reset/esp
 NEXT_NAME=@arch-reset-next
@@ -55,7 +55,7 @@ if (( EUID != 0 )); then
   exec sudo env "${gum_env[@]}" "$PACKAGED_PATH" "$@"
 fi
 
-export PATH="$ARCH_PATH/src/arch/commands:$PATH"
+export PATH="$AP/src/arch/commands:$PATH"
 
 # The questions read in the language of the person who asked for the reset.
 # Elevation left their HOME behind, so their language file is found from the
@@ -83,7 +83,7 @@ root_is_btrfs_at() {
   [[ $(findmnt -no FSTYPE /) == btrfs ]] && findmnt -no OPTIONS / | grep -q "subvol=/@\(,\|$\)"
 }
 
-DISPATCH="$ARCH_PATH/src/arch/commands/arch-lifecycle-dispatch"
+DISPATCH="$AP/src/arch/commands/arch-lifecycle-dispatch"
 
 # A platform whose boot package implements the reset operations rebuilds,
 # verifies and unlocks the factory root's boot chain itself; everywhere else
@@ -531,7 +531,7 @@ rebuild_next_boot() {
       rm -f "$next/etc/mkinitcpio.conf.d/arch_resume.conf" \
         "$next/etc/limine-entry-tool.d/resume.conf"
     fi
-    if ! chroot "$next" env ARCH_PATH=/usr/share/arch \
+    if ! chroot "$next" env AP=/usr/share/arch \
       /usr/bin/arch-hibernation-setup --force --no-rebuild >>"$LOG_FILE" 2>&1; then
       fail "hibernation setup failed in the factory root (see $LOG_FILE)"
     fi

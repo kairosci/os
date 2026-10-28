@@ -276,7 +276,7 @@ Item {
       anchors.bottomMargin: Style.space(28)
       width: Style.space(60)
       height: width
-      source: Quickshell.env("ARCH_PATH") + "/assets/branding/arch-mark.svg"
+      source: Quickshell.env("AP") + "/assets/branding/arch-mark.svg"
       fillMode: Image.PreserveAspectFit
       smooth: true
       sourceSize.width: width * Screen.devicePixelRatio

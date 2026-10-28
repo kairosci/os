@@ -62,7 +62,7 @@ cp "$SHELL_TEST_DIR/fixtures/bar-widget-contract/shell.qml" "$config_dir/shell.q
 ln -s "$ROOT/src/arch/shell/Ui" "$config_dir/Ui"
 ln -s "$ROOT/src/arch/shell/Commons" "$config_dir/Commons"
 
-ARCH_PATH="$ROOT" \
+AP="$ROOT" \
 ARCH_QML_TEST_RESULT="$result" \
 ARCH_QML_BAR_WIDGETS="$bar_widgets" \
 HOME="$TMPDIR/home" \

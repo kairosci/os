@@ -1,5 +1,5 @@
 apply_arch_branding() {
-  ARCH_PATH=/usr/share/arch python3 -I /usr/share/arch/src/arch/python/installer/system_setup/branding.py
+  AP=/usr/share/arch python3 -I /usr/share/arch/src/arch/python/installer/system_setup/branding.py
 }
 
 initialize_passwordless_sudo_state() {

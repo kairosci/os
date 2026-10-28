@@ -30,7 +30,7 @@ cp "$ARCH_TEST_EMBEDDED_CMDLINE" "${@: -1}"
 OBJCOPY
 chmod +x "$kernel_test/bin/objcopy"
 
-export ARCH_PATH="$ROOT"
+export AP="$ROOT"
 export ARCH_SYSTEMD_BOOT_KERNEL_ESP="$kernel_test/esp"
 export ARCH_MKINITCPIO_CONFIG_DIR="$kernel_test/etc/mkinitcpio.d"
 export ARCH_KERNEL_CMDLINE_FILE="$kernel_test/etc/kernel/cmdline"
@@ -85,7 +85,7 @@ pass "a custom mkinitcpio preset is preserved"
 mkdir -p "$scratch/invalid/data/installer"
 printf '%s\n' 'systemd_boot_kernel: [' >"$scratch/invalid/data/installer/systemd-boot-kernel.yml"
 set +e
-ARCH_PATH="$scratch/invalid" python3 -I "$ROOT/src/arch/python/installer/system_setup/systemd_boot_kernel.py" \
+AP="$scratch/invalid" python3 -I "$ROOT/src/arch/python/installer/system_setup/systemd_boot_kernel.py" \
   >"$scratch/kernel-invalid-output" 2>"$scratch/kernel-invalid-error"
 kernel_config_status=$?
 set -e
@@ -191,7 +191,7 @@ ARCH_SNAPSHOTS_BOOT_ROOT="$plugin_test/boot" \
   fail "deleting a Snapper snapshot removes its UKI and systemd-boot entry"
 pass "Snapper creates and removes self-contained systemd-boot snapshot entries"
 
-ARCH_PATH="$ROOT" \
+AP="$ROOT" \
   ARCH_SNAPSHOTS_BOOT_ROOT=/tmp/attacker-boot \
   ARCH_SNAPSHOTS_ROOT=/tmp/attacker-snapshots \
   ARCH_MACHINE_ID=../../etc/shadow \

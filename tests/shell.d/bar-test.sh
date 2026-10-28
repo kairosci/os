@@ -5,9 +5,9 @@ set -euo pipefail
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 # The command fixture follows the runtime invariant and reads defaults through
-# ARCH_PATH. Point it at this checkout rather than whichever install launched
+# AP. Point it at this checkout rather than whichever install launched
 # the test (or nothing at all on a non-os development machine).
-export ARCH_PATH="$ROOT"
+export AP="$ROOT"
 
 if perl -0ne 'exit(/drag\s*\.\s*target\s*:\s*[^;]*\bslot\b/s ? 0 : 1)' "$ROOT/src/arch/shell/plugins/bar/Bar.qml"; then
   fail "bar module dragging must not mutate ModuleSlot positions"

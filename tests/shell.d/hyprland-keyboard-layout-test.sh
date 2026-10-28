@@ -7,8 +7,8 @@ require_command xkbcli
 
 resolved_input_for() {
   local module="$1"
-  ARCH_PATH="$ROOT" ARCH_MODULE="$module" ARCH_VCONSOLE="${2-}" lua <<'LUA'
-package.path = os.getenv("ARCH_PATH") .. "/?.lua;" .. package.path
+  AP="$ROOT" ARCH_MODULE="$module" ARCH_VCONSOLE="${2-}" lua <<'LUA'
+package.path = os.getenv("AP") .. "/?.lua;" .. package.path
 
 local vconsole = os.getenv("ARCH_VCONSOLE")
 local real_open = io.open

@@ -431,14 +431,14 @@ if in_world on-a-mac "$ROOT/src/arch/commands/arch-hw-apple-silicon"; then
 fi
 pass "the old Apple predicate name answers as arch-hw-aarch64-apple"
 
-packages=$(in_world x86-host env ARCH_PATH="$ROOT" "$ROOT/src/arch/commands/arch-pkg-defaults") || fail "an Apple image build composes its packages"
-[[ $packages == "$(ARCH_PATH="$ROOT" "$ROOT/src/arch/commands/arch-pkg-defaults" aarch64-apple)" ]] ||
+packages=$(in_world x86-host env AP="$ROOT" "$ROOT/src/arch/commands/arch-pkg-defaults") || fail "an Apple image build composes its packages"
+[[ $packages == "$(AP="$ROOT" "$ROOT/src/arch/commands/arch-pkg-defaults" aarch64-apple)" ]] ||
   fail "an Apple image build installs the Apple Silicon package set"
-packages=$(in_world on-a-mac env ARCH_PATH="$ROOT" "$ROOT/src/arch/commands/arch-pkg-defaults") || fail "a plain aarch64 image build composes its packages"
-[[ $packages == "$(ARCH_PATH="$ROOT" "$ROOT/src/arch/commands/arch-pkg-defaults" aarch64)" ]] ||
+packages=$(in_world on-a-mac env AP="$ROOT" "$ROOT/src/arch/commands/arch-pkg-defaults") || fail "a plain aarch64 image build composes its packages"
+[[ $packages == "$(AP="$ROOT" "$ROOT/src/arch/commands/arch-pkg-defaults" aarch64)" ]] ||
   fail "a plain aarch64 image built on a Mac installs the plain aarch64 package set"
-packages=$(in_world odd-host env ARCH_PATH="$ROOT" "$ROOT/src/arch/commands/arch-pkg-defaults") || fail "an image built on a contradictory host composes its packages"
-[[ $packages == "$(ARCH_PATH="$ROOT" "$ROOT/src/arch/commands/arch-pkg-defaults" aarch64)" ]] ||
+packages=$(in_world odd-host env AP="$ROOT" "$ROOT/src/arch/commands/arch-pkg-defaults") || fail "an image built on a contradictory host composes its packages"
+[[ $packages == "$(AP="$ROOT" "$ROOT/src/arch/commands/arch-pkg-defaults" aarch64)" ]] ||
   fail "an image built on a contradictory host installs its target's package set"
 pass "the default package set follows the image target"
 

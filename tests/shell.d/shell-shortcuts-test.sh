@@ -12,8 +12,8 @@ shortcuts="$ROOT/default/arch/shortcuts"
 # line per binding: "global <name>" for a global shortcut, "exec <command>" for
 # a command, then its description.
 list_bindings() {
-  HOME="$(mktemp -d)" ARCH_PATH="$ROOT" lua <<'LUA'
-package.path = os.getenv("ARCH_PATH") .. "/?.lua;" .. package.path
+  HOME="$(mktemp -d)" AP="$ROOT" lua <<'LUA'
+package.path = os.getenv("AP") .. "/?.lua;" .. package.path
 
 local function proxy()
   return setmetatable({}, {
@@ -62,7 +62,7 @@ o.bind("G", "listed ipc", { ipc = "media.next" })
 o.bind("H", "unlisted ipc", { ipc = "media.sourceNext" })
 
 for _, file in ipairs({ "utilities", "clipboard", "media" }) do
-  dofile(os.getenv("ARCH_PATH") .. "/default/hypr/bindings/" .. file .. ".lua")
+  dofile(os.getenv("AP") .. "/default/hypr/bindings/" .. file .. ".lua")
 end
 LUA
 }

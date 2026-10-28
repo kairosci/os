@@ -67,7 +67,7 @@ def _text_list(value: object, label: str) -> list[str]:
 
 
 def _config() -> HookConfig:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   raw: object = yaml.safe_load((root / "data/cli/hooks.yml").read_text(encoding="utf-8"))
   config = _mapping(raw, "root")
   interpreters = _mapping(config.get("interpreters"), "interpreters")

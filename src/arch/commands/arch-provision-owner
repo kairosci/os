@@ -16,7 +16,7 @@
 set -euo pipefail
 
 PROVISIONING_DIR=/var/lib/arch/provisioning
-ARCH_PATH="${ARCH_PATH:-/usr/share/arch}"
+AP="${AP:-/usr/share/arch}"
 LOG_FILE=/var/log/arch-provision-owner.log
 
 if (( EUID != 0 )); then
@@ -33,22 +33,22 @@ if [[ -f $PROVISIONING_DIR/wipe-pending ]]; then
   exit 1
 fi
 
-export PATH="$ARCH_PATH/src/arch/commands:$PATH"
+export PATH="$AP/src/arch/commands:$PATH"
 
 REKEY_STATE=$PROVISIONING_DIR/luks-rekey.state
-source "$ARCH_PATH/installer/provisioning/luks-rekey.sh"
+source "$AP/installer/provisioning/luks-rekey.sh"
 
 # The shared setup form — the same questions, prompts, and validation the ISO
 # configurator's user step asks. The ISO vendors this very file out of the
 # runtime package it bundles, so an install and the first boot that finishes it
 # can never offer different layouts or accept different usernames.
-source "$ARCH_PATH/installer/provisioning/setup-form.sh"
+source "$AP/installer/provisioning/setup-form.sh"
 
 # Unlike a fresh install target, this machine already has accounts; a pinned
 # resume (below) bypasses the prompt entirely.
 arch_username_taken() { getent passwd "$1" >/dev/null; }
 
-LOGO_PATH="$ARCH_PATH/assets/branding/logo.txt"
+LOGO_PATH="$AP/assets/branding/logo.txt"
 LOGO_WIDTH=$(awk '{ if (length > max) max = length } END { print max+0 }' "$LOGO_PATH" 2>/dev/null || echo 0)
 LOGO_HEIGHT=$(wc -l <"$LOGO_PATH" 2>/dev/null || echo 0)
 (( LOGO_WIDTH > 0 )) || LOGO_WIDTH=81
@@ -322,7 +322,7 @@ SETUP_PHASE_T0=0
 SETUP_T0=0
 NOW=0
 FINALIZE_BASE=-1
-FINALIZE_TOTAL=$(python3 -I "$ARCH_PATH/src/arch/python/installer_user/all.py" --count)
+FINALIZE_TOTAL=$(python3 -I "$AP/src/arch/python/installer_user/all.py" --count)
 
 # Whether this boot will re-key LUKS (encrypted installs stage a throwaway key).
 # The re-key rebuilds the UKI and is the slowest single step, so it needs a wide
@@ -808,7 +808,7 @@ create_user() {
   echo "%wheel ALL=(ALL:ALL) ALL" >/etc/sudoers.d/00-arch-wheel
   chmod 440 /etc/sudoers.d/00-arch-wheel
 
-  source "$ARCH_PATH/installer/helpers/browser-policy.sh"
+  source "$AP/installer/helpers/browser-policy.sh"
   for dir in "${BROWSER_POLICY_MANAGED_DIRS[@]}"; do
     [[ -d $dir || -L $dir ]] || continue
     browser_policy_setup_dir "$dir"
@@ -910,7 +910,7 @@ configure_region() {
     Asia/Hong_Kong | Hongkong | Asia/Macau | Asia/Macao | Asia/Taipei | ROC) region=global ;;
     *)
       region=$fallback
-      for profile in "$ARCH_PATH"/default/regions/*/; do
+      for profile in "$AP"/default/regions/*/; do
         [[ -r $profile/timezones ]] && grep -qxF -- "$timezone" "$profile/timezones" && region=$(basename "$profile")
       done
       ;;
@@ -924,8 +924,8 @@ configure_region() {
   fi
   # Re-render pacman for the region with the channel this machine installed.
   channel=$(sed -n 's|^Server = https://pkgs\.arch\.[a-z]*/\([a-z]*\)/.*|\1|p' "$pacman_conf" | head -1)
-  if [[ -n $channel && -x $ARCH_PATH/src/arch/commands/arch-apply-pacman ]]; then
-    "$ARCH_PATH/src/arch/commands/arch-apply-pacman" "$channel" "${ARCH_REGION_TARGET:-/}" 2>&1 || true
+  if [[ -n $channel && -x $AP/src/arch/commands/arch-apply-pacman ]]; then
+    "$AP/src/arch/commands/arch-apply-pacman" "$channel" "${ARCH_REGION_TARGET:-/}" 2>&1 || true
   fi
 }
 
@@ -934,7 +934,7 @@ configure_region() {
 # here. No reboot follows setup, so the radios get it now the way udev applies
 # it at every boot.
 configure_wireless_regdom() {
-  python3 -I "$ARCH_PATH/src/arch/python/installer/hardware/wireless_regdom.py" 2>&1 || return 0
+  python3 -I "$AP/src/arch/python/installer/hardware/wireless_regdom.py" 2>&1 || return 0
   if arch-cmd-present set-wireless-regdom; then
     set-wireless-regdom 2>&1 || true
   fi
@@ -950,14 +950,14 @@ finalize_user() {
     USER="$username" \
     LOGNAME="$username" \
     SHELL="${shell:-/bin/bash}" \
-    ARCH_PATH="$ARCH_PATH" \
-    ARCH_INSTALL="$ARCH_PATH/installer" \
+    AP="$AP" \
+    ARCH_INSTALL="$AP/installer" \
     ARCH_SETUP_CONTEXT=provision-owner \
     ARCH_USER_NAME="$full_name" \
     ARCH_USER_EMAIL="$email_address" \
     ARCH_INSTALL_LOG_FILE="$LOG_FILE" \
     ARCH_LOG_TO_STDOUT=1 \
-    "$ARCH_PATH/src/arch/commands/arch-provision-user" --force --first-install
+    "$AP/src/arch/commands/arch-provision-user" --force --first-install
 }
 
 # During the provisioning window the staged key rides in the UKI's initramfs,
@@ -1011,8 +1011,8 @@ unlock_owner() {
   [[ -z ${UNLOCK_OWNER:-} ]] || return 0
 
   local commit verify
-  commit=$("$ARCH_PATH/src/arch/commands/arch-lifecycle-dispatch" --resolve provision-commit) || return 1
-  verify=$("$ARCH_PATH/src/arch/commands/arch-lifecycle-dispatch" --resolve provision-verify) || return 1
+  commit=$("$AP/src/arch/commands/arch-lifecycle-dispatch" --resolve provision-commit) || return 1
+  verify=$("$AP/src/arch/commands/arch-lifecycle-dispatch" --resolve provision-verify) || return 1
   if [[ -n $commit && -n $verify ]]; then
     UNLOCK_OWNER=platform
   elif [[ -z $commit && -z $verify ]]; then
@@ -1026,7 +1026,7 @@ unlock_owner() {
 luks_auto_unlock_present() {
   unlock_owner || return 0
   if [[ $UNLOCK_OWNER == "platform" ]]; then
-    ! "$ARCH_PATH/src/arch/commands/arch-lifecycle-dispatch" provision-verify >>"$LOG_FILE" 2>&1
+    ! "$AP/src/arch/commands/arch-lifecycle-dispatch" provision-verify >>"$LOG_FILE" 2>&1
   else
     limine_auto_unlock_present
   fi
@@ -1035,7 +1035,7 @@ luks_auto_unlock_present() {
 luks_auto_unlock_drop() {
   unlock_owner || return 1
   if [[ $UNLOCK_OWNER == "platform" ]]; then
-    "$ARCH_PATH/src/arch/commands/arch-lifecycle-dispatch" provision-commit >>"$LOG_FILE" 2>&1
+    "$AP/src/arch/commands/arch-lifecycle-dispatch" provision-commit >>"$LOG_FILE" 2>&1
   else
     limine_auto_unlock_drop
   fi
@@ -1044,7 +1044,7 @@ luks_auto_unlock_drop() {
 # The platform records the slot the re-key keeps, and no recovery slot; a no-op
 # where nothing does.
 luks_record_slots() {
-  "$ARCH_PATH/src/arch/commands/arch-lifecycle-dispatch" luks-slots "owner=$1" "recovery=" >>"$LOG_FILE" 2>&1
+  "$AP/src/arch/commands/arch-lifecycle-dispatch" luks-slots "owner=$1" "recovery=" >>"$LOG_FILE" 2>&1
 }
 
 # Move the LUKS volume from the throwaway install passphrase to the user's
@@ -1127,8 +1127,8 @@ reset_limine_config() {
   local esp template="" candidate machine_id entries=""
   esp=$(esp_path)
 
-  for candidate in "$ARCH_PATH/installer/assets/limine/limine.conf" \
-                   "$ARCH_PATH/default/limine/limine.conf"; do
+  for candidate in "$AP/installer/assets/limine/limine.conf" \
+                   "$AP/default/limine/limine.conf"; do
     if [[ -f $candidate ]]; then
       template=$candidate
       break
@@ -1226,8 +1226,8 @@ run_provisioning() {
 # anything.
 platform_ready() {
   local error
-  if error=$("$ARCH_PATH/src/arch/commands/arch-lifecycle-dispatch" provision-prepare 2>&1 >>"$LOG_FILE") &&
-    error=$("$ARCH_PATH/src/arch/commands/arch-lifecycle-dispatch" --resolve luks-slots 2>&1 >/dev/null); then
+  if error=$("$AP/src/arch/commands/arch-lifecycle-dispatch" provision-prepare 2>&1 >>"$LOG_FILE") &&
+    error=$("$AP/src/arch/commands/arch-lifecycle-dispatch" --resolve luks-slots 2>&1 >/dev/null); then
     return 0
   fi
   error=${error:-"The boot package could not prepare this machine for setup."}

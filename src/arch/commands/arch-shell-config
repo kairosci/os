@@ -4,7 +4,7 @@
 # arch:hidden=true
 
 CONFIG_FILE="$HOME/.config/arch/shell.json"
-DEFAULTS_FILE="$ARCH_PATH/config/arch/shell.json"
+DEFAULTS_FILE="$AP/config/arch/shell.json"
 
 fail() {
   echo "${0##*/}: $*" >&2

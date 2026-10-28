@@ -20,7 +20,7 @@ THEME_SET_LOG="$HOME/.local/state/arch/theme-set.log"
 THEME_RETINT_LOCK="${XDG_RUNTIME_DIR:-/tmp}/arch-theme-set-retint.lock"
 THEME_GENERATION_PATH="$HOME/.local/state/arch/current/theme.generation"
 USER_THEMES_PATH="$HOME/.config/arch/themes"
-ARCH_THEMES_PATH="$ARCH_PATH/assets/themes"
+ARCH_THEMES_PATH="$AP/assets/themes"
 
 # What a theme installed from a git repo may not ship, because these run code.
 # Hyprland requires a theme's hyprland.lua and gum_env.lua at login and Neovim

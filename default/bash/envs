@@ -14,7 +14,7 @@ export MANROFFOPT="-c"
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 # Idempotent — already sourced by /etc/skel/.bashrc; re-source here so SSH and
-# other non-interactive non-login bash sessions still get ARCH_PATH.
+# other non-interactive non-login bash sessions still get AP.
 [ -r /usr/share/arch/default/bash/env-bootstrap ] && . /usr/share/arch/default/bash/env-bootstrap
 
 # /etc/profile.d/locale.sh is what puts /etc/locale.conf into the environment,

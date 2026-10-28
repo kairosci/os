@@ -58,7 +58,7 @@ write_resume_parameters() {
   fi
 
   if $SYSTEMD_BOOT_ACTIVE; then
-    sudo python3 "$ARCH_PATH/installer/boot/update-kernel-cmdline.py" \
+    sudo python3 "$AP/installer/boot/update-kernel-cmdline.py" \
       "$KERNEL_CMDLINE_FILE" set "resume=$resume_device" "resume_offset=$resume_offset"
   else
     sudo mkdir -p /etc/limine-entry-tool.d
@@ -152,7 +152,7 @@ fi
 # Ensure keyboard backlight doesn't prevent sleep
 # Install this before writing the resume marker so a failed install remains
 # retryable through the normal setup command.
-if ! install_root_file "$ARCH_PATH/default/systemd/system-sleep/keyboard-backlight" \
+if ! install_root_file "$AP/default/systemd/system-sleep/keyboard-backlight" \
   /usr/lib/systemd/system-sleep/keyboard-backlight 0755; then
   echo "Could not install the keyboard-backlight system-sleep hook" >&2
   exit 1
@@ -179,7 +179,7 @@ fi
 if grep -q "\[s2idle\]" /sys/power/mem_sleep 2>/dev/null; then
   if $SYSTEMD_BOOT_ACTIVE; then
     if ! grep -Fqw rtc_cmos.use_acpi_alarm=1 "$KERNEL_CMDLINE_FILE"; then
-      sudo python3 "$ARCH_PATH/installer/boot/update-kernel-cmdline.py" \
+      sudo python3 "$AP/installer/boot/update-kernel-cmdline.py" \
         "$KERNEL_CMDLINE_FILE" set rtc_cmos.use_acpi_alarm=1
     fi
   else

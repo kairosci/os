@@ -24,12 +24,12 @@ fail() {
 }
 
 if (( EUID == 0 )); then
-  export ARCH_PATH=/usr/share/arch
+  export AP=/usr/share/arch
   export PATH=/usr/share/arch/src/arch/commands:/usr/local/sbin:/usr/local/bin:/usr/bin
-elif [[ -z ${ARCH_IMAGE_ROOT:-} || -z ${ARCH_PATH:-} ]]; then
+elif [[ -z ${ARCH_IMAGE_ROOT:-} || -z ${AP:-} ]]; then
   fail "arch-provision-hardware must run as root"
 fi
-export ARCH_INSTALL=$ARCH_PATH/installer
+export ARCH_INSTALL=$AP/installer
 export ARCH_INSTALL_USER=""
 
 source "$ARCH_INSTALL/helpers/logging.sh"
@@ -124,7 +124,7 @@ while (( ${#remaining[@]} )); do
     [[ $step == src/arch/python/installer/hardware/*.py && $step != *..* ]] ||
       fail "Deferred step is not a hardware setup step: $step"
   fi
-  script=$ARCH_PATH/$step
+  script=$AP/$step
 
   if [[ -L $script ]]; then
     fail "Deferred step is a symlink: $step"

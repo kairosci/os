@@ -17,7 +17,7 @@ STUB
 chmod +x "$test_dir/bin/qs"
 
 export PATH="$test_dir/bin:$PATH"
-export ARCH_PATH="$ROOT"
+export AP="$ROOT"
 export XDG_RUNTIME_DIR="$test_dir/run"
 
 # Callers from a stripped environment have no WAYLAND_DISPLAY, and qs matches

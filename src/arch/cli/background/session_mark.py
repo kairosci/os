@@ -25,7 +25,7 @@ def _text(value: object, name: str) -> str:
 
 
 def _settings() -> Settings:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   raw: object = yaml.safe_load(
     (root / "data/cli/background-session-mark.yml").read_text(encoding="utf-8")
   )

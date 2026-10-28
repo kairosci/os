@@ -104,7 +104,7 @@ def _messages_by_language(value: object) -> dict[str, Messages]:
 
 
 def _settings() -> tuple[Path, Settings]:
-  ap = Path(os.environ["ARCH_PATH"])
+  ap = Path(os.environ["AP"])
   with (ap / "data/installer/systemd-boot-kernel.yml").open(encoding="utf-8") as stream:
     raw: object = yaml.safe_load(stream)
   document = _mapping(raw, "root")

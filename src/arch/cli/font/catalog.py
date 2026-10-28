@@ -107,7 +107,7 @@ def _language_map(value: object, label: str) -> dict[str, str]:
 
 
 def _settings() -> Settings:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   raw: object = yaml.safe_load((root / "data/cli/fonts.yml").read_text(encoding="utf-8"))
   settings = _mapping(raw, "root")
   commands = _mapping(settings.get("commands"), "commands")
@@ -215,7 +215,7 @@ def _cjk_main(arguments: list[str]) -> int:
     print(usage.get(language, usage[options["messages"]["default_language"]]), file=sys.stderr)
     return options["exit_codes"]["usage"]
 
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   configure = options["configure"]
   result = subprocess.run(
     [configure["python"], str(root / configure["script"]), *configure["arguments"], variant],

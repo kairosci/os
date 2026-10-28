@@ -8,7 +8,7 @@ import yaml
 
 
 def main() -> int:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   config = yaml.safe_load((root / "data/installer/first-run.yml").read_text(encoding="utf-8"))
   invitation = config["fingerprint_invitation"]
   if subprocess.run(invitation["hardware_check"], check=False).returncode != 0:

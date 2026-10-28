@@ -39,7 +39,7 @@ fail() {
   exit 1
 }
 
-# The IPC socket a shell running an ARCH_PATH's config on this display
+# The IPC socket a shell running an AP's config on this display
 # serves, derived as arch-shell derives it. A test that starts the real
 # shell removes it afterwards: killing the shell leaves the file behind.
 shell_ipc_socket() {

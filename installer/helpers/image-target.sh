@@ -142,7 +142,7 @@ arch_image_defer_hardware() {
   local listing
   local -a steps=()
 
-  listing=$(python3 -I "$ARCH_PATH/src/arch/python/installer/step_runner.py" --list data/installer/hardware-setup.yml) || return 1
+  listing=$(python3 -I "$AP/src/arch/python/installer/step_runner.py" --list data/installer/hardware-setup.yml) || return 1
   if [[ -n $listing ]]; then
     while IFS= read -r step; do
       [[ $step == installer/hardware/*.sh && $step != *..* ]] ||

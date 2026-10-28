@@ -8,9 +8,9 @@ trap 'rm -rf "$test_tmp"' EXIT
 mock_bin="$test_tmp/bin"
 call_log="$test_tmp/calls.log"
 mkdir -p "$mock_bin"
-export PATH="$mock_bin:$PATH" CALL_LOG="$call_log" ARCH_PATH="$ROOT"
+export PATH="$mock_bin:$PATH" CALL_LOG="$call_log" AP="$ROOT"
 export HYPRLAND_INSTANCE_SIGNATURE="test-session"
-export EXPECTED_PATH="$PATH" EXPECTED_ARCH_PATH="$ARCH_PATH"
+export EXPECTED_PATH="$PATH" EXPECTED_AP="$AP"
 
 cat >"$mock_bin/systemd-run" <<'SH'
 #!/bin/bash
@@ -48,7 +48,7 @@ command=${0##*/}
 printf '%s %s\n' "$command" "$*" >>"$CALL_LOG"
 case $command in
   arch-osd)
-    [[ $PATH == "$EXPECTED_PATH" && $ARCH_PATH == "$EXPECTED_ARCH_PATH" && $HYPRLAND_INSTANCE_SIGNATURE == "test-session" ]] || exit 38
+    [[ $PATH == "$EXPECTED_PATH" && $AP == "$EXPECTED_AP" && $HYPRLAND_INSTANCE_SIGNATURE == "test-session" ]] || exit 38
     touch "$CALL_LOG.environment"
     ;;
   arch-hyprland-window-close-all)
@@ -93,7 +93,7 @@ for action in reboot logout; do
   (( $(wc -l <"$call_log") == 1 )) || fail "$action preparation runs outside the launching terminal"
   [[ -s $CALL_LOG.worker ]] || fail "$action schedules its worker"
   grep -q -- '--property=RuntimeMaxSec=30s' "$CALL_LOG" || fail "$action bounds the worker lifetime"
-  PATH=/stale/bin ARCH_PATH=/stale/checkout HYPRLAND_INSTANCE_SIGNATURE=stale /bin/bash "$CALL_LOG.worker" || fail "$action worker succeeds"
+  PATH=/stale/bin AP=/stale/checkout HYPRLAND_INSTANCE_SIGNATURE=stale /bin/bash "$CALL_LOG.worker" || fail "$action worker succeeds"
   [[ -f $CALL_LOG.environment ]] || fail "$action forwards the caller environment over stale manager values"
   grep -q '^timeout 2s arch-hyprland-window-close-all --wait$' "$CALL_LOG" || fail "$action waits for application exit with a deadline"
   ! grep -q '^sleep ' "$CALL_LOG" || fail "$action has no fixed sleep"
@@ -110,7 +110,7 @@ done
 
 run_power_command shutdown || fail "shutdown service is scheduled"
 grep -q '^systemd-run --user --collect --quiet --property=Type=exec --property=RuntimeMaxSec=30s .* shutdown --execute$' "$CALL_LOG" || fail "shutdown uses a bounded service outside the launching terminal"
-PATH=/stale/bin ARCH_PATH=/stale/checkout HYPRLAND_INSTANCE_SIGNATURE=stale /bin/bash "$CALL_LOG.worker" || fail "protected shutdown succeeds"
+PATH=/stale/bin AP=/stale/checkout HYPRLAND_INSTANCE_SIGNATURE=stale /bin/bash "$CALL_LOG.worker" || fail "protected shutdown succeeds"
 [[ -f $CALL_LOG.environment ]] || fail "shutdown forwards the caller environment over stale manager values"
 grep -q '^systemd-inhibit --what=sleep:idle:handle-lid-switch .* --mode=block .* --inhibited$' "$CALL_LOG" || fail "shutdown blocks sleep and lid handling"
 inhibit_line=$(grep -n '^systemd-inhibit ' "$CALL_LOG" | cut -d: -f1)
@@ -127,7 +127,7 @@ pass "shutdown stays inhibited through preparation and the poweroff request"
 : >"$call_log"
 rm -f "$CALL_LOG.grace" "$CALL_LOG.poweroff"
 # Dev link/unlink can leave the user manager pointing at a removed checkout.
-ARCH_PATH="$test_tmp/removed-checkout" bash "$CALL_LOG.worker" || fail "shutdown uses its own script when the service environment is stale"
+AP="$test_tmp/removed-checkout" bash "$CALL_LOG.worker" || fail "shutdown uses its own script when the service environment is stale"
 [[ -f $CALL_LOG.poweroff ]] || fail "shutdown reaches poweroff with a stale service environment"
 [[ ! -f $CALL_LOG.inhibited ]] || fail "shutdown releases inhibition with a stale service environment"
 ! grep -q '^arch-notification-send ' "$CALL_LOG" || fail "stale service environment sends no failure notification"

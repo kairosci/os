@@ -113,7 +113,7 @@ def _is_clipboard_settings(value: object) -> TypeGuard[ClipboardSettings]:
 
 
 def settings() -> ClipboardSettings:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   with (root / "data/shell/clipboard-capture.yml").open(encoding="utf-8") as stream:
     config: object = yaml.safe_load(stream)
   if not _is_clipboard_settings(config):

@@ -264,13 +264,13 @@ chmod +x "$test_arch/src/arch/commands/arch-hw-platform"
 
 for platform in x86 aarch64 aarch64-apple aarch64-qualcomm aarch64-n1x aarch64-gb10; do
   if [[ $platform == "x86" ]]; then
-    ARCH_PATH="$test_arch" TEST_PLATFORM="$platform" "$test_arch/src/arch/commands/arch-hw-x86" || fail "x86: arch-hw-x86 accepts it"
-    if ARCH_PATH="$test_arch" TEST_PLATFORM="$platform" "$test_arch/src/arch/commands/arch-hw-aarch64"; then
+    AP="$test_arch" TEST_PLATFORM="$platform" "$test_arch/src/arch/commands/arch-hw-x86" || fail "x86: arch-hw-x86 accepts it"
+    if AP="$test_arch" TEST_PLATFORM="$platform" "$test_arch/src/arch/commands/arch-hw-aarch64"; then
       fail "x86: arch-hw-aarch64 rejects it"
     fi
   else
-    ARCH_PATH="$test_arch" TEST_PLATFORM="$platform" "$test_arch/src/arch/commands/arch-hw-aarch64" || fail "$platform: arch-hw-aarch64 accepts it"
-    if ARCH_PATH="$test_arch" TEST_PLATFORM="$platform" "$test_arch/src/arch/commands/arch-hw-x86"; then
+    AP="$test_arch" TEST_PLATFORM="$platform" "$test_arch/src/arch/commands/arch-hw-aarch64" || fail "$platform: arch-hw-aarch64 accepts it"
+    if AP="$test_arch" TEST_PLATFORM="$platform" "$test_arch/src/arch/commands/arch-hw-x86"; then
       fail "$platform: arch-hw-x86 rejects it"
     fi
   fi

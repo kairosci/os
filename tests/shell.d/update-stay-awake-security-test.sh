@@ -131,7 +131,7 @@ run_helper() {
   INHIBITOR_LOG="$inhibitor_log" \
   TEST_STATE_DIR="$state_dir" \
   ARCH_TEST_RUN_ID="$test_run_id" \
-  ARCH_PATH="$mapped_root" \
+  AP="$mapped_root" \
   PATH="$stub_bin:$ROOT/src/arch/commands:/usr/bin:/bin" \
     "$mapped_helper" "$@"
 }
@@ -463,7 +463,7 @@ for old, new in edits:
 p.write_text(s)
 PY
   (
-    export HOME="$test_home" XDG_RUNTIME_DIR="$runtime_dir" ARCH_PATH="$mapped_root"
+    export HOME="$test_home" XDG_RUNTIME_DIR="$runtime_dir" AP="$mapped_root"
     export INHIBITOR_LOG="$inhibitor_log" ARCH_TEST_RUN_ID="$test_run_id"
     export TEST_CANCEL_READY="$test_tmp/cancel-ready" TEST_RELEASE_CHILD="$test_tmp/release-child"
     export PATH="$stub_bin:$ROOT/src/arch/commands:/usr/bin:/bin"
@@ -556,7 +556,7 @@ run_fallback() {
   local uid=$1 home=$2
   shift 2
   setpriv --reuid="$uid" --regid="$uid" --clear-groups /usr/bin/env -i \
-    HOME="$home" ARCH_PATH="$fixture/arch" ARCH_TEST_RUN_ID="$run_id" \
+    HOME="$home" AP="$fixture/arch" ARCH_TEST_RUN_ID="$run_id" \
     INHIBITOR_LOG="$home/inhibitors" PATH="$fixture/bin:/usr/bin:/bin" \
     "$fixture/arch/src/arch/commands/arch-update-stay-awake" "$@"
 }

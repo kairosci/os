@@ -45,7 +45,7 @@ chmod +x \
 ln -s "$sleep_monitor" "$mock_arch/src/arch/commands/arch-system-sleep-monitor"
 
 start_us=${EPOCHREALTIME//[!0-9]/}
-ARCH_PATH="$mock_arch" \
+AP="$mock_arch" \
   PATH="$mock_bin:$PATH" \
   PRODUCER_PID_FILE="$producer_pid_file" \
   LOCK_LOG="$lock_log" \
@@ -78,7 +78,7 @@ SH
 chmod +x "$mock_bin/dbus-monitor"
 rm -f "$producer_pid_file"
 
-ARCH_PATH="$mock_arch" \
+AP="$mock_arch" \
   PATH="$mock_bin:$PATH" \
   PRODUCER_PID_FILE="$producer_pid_file" \
   LOCK_LOG="$lock_log" \

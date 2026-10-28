@@ -5,7 +5,7 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 work=$(mktemp -d)
 trap 'rm -rf "$work"' EXIT
-export ARCH_PATH=$ROOT XDG_CONFIG_HOME=$work/config NOTIFY_LOG=$work/notify.log
+export AP=$ROOT XDG_CONFIG_HOME=$work/config NOTIFY_LOG=$work/notify.log
 mkdir -p "$work/stubs"
 printf '#!/bin/bash\n' >"$work/stubs/arch-restart-shell"
 printf '#!/bin/bash\necho "$@" >>"$NOTIFY_LOG"\n' >"$work/stubs/arch-notification-send"
@@ -45,7 +45,7 @@ pass "an unknown variant is refused"
 mkdir -p "$work/invalid/data/cli"
 printf '%s\n' 'commands: [' >"$work/invalid/data/cli/fonts.yml"
 set +e
-ARCH_PATH="$work/invalid" PYTHONPATH="$ROOT/src" python3 -c \
+AP="$work/invalid" PYTHONPATH="$ROOT/src" python3 -c \
   'from arch.cli.font.catalog import cjk_main; raise SystemExit(cjk_main(["--help"]))' \
   >"$work/font-config.out" 2>"$work/font-config.err"
 font_config_status=$?

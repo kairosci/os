@@ -11,7 +11,7 @@ mkdir -p "$scratch/bin" "$scratch/root-bin" "$scratch/drop-ins" "$scratch/module
 
 export PATH="$scratch/bin:$PATH"
 export CALL_LOG="$scratch/calls"
-export ARCH_PATH="$ROOT"
+export AP="$ROOT"
 export ARCH_KERNEL_LIMINE_CONF="$scratch/limine"
 export ARCH_KERNEL_LIMINE_DROP_INS="$scratch/drop-ins"
 export ARCH_KERNEL_MODULES_DIR="$scratch/modules"

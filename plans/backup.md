@@ -45,7 +45,7 @@ Stated up front so the feature never overpromises:
 `$HOME`, minus excludes, with `--one-file-system` so mounted NAS shares, removable disks, and FUSE mounts are never traversed by a static pattern list's grace.
 
 - **Built-in excludes, not user-editable**: the backup's own secrets directory (`~/.local/share/arch/backup/` — the repository must never contain the credentials that unlock it), restic's cache (`~/.cache/restic`), `~/.cache`, `~/.local/share/Trash`.
-- **Shipped default excludes** (`$ARCH_PATH/default/backup/excludes` as `$HOME`-relative patterns, expanded to absolute paths when the setup wizard writes the effective exclude file — restic does not expand `~` in patterns): browser caches, package-manager caches, `node_modules`, thumbnail caches. Regenerable bytes only — when in doubt, include.
+- **Shipped default excludes** (`$AP/default/backup/excludes` as `$HOME`-relative patterns, expanded to absolute paths when the setup wizard writes the effective exclude file — restic does not expand `~` in patterns): browser caches, package-manager caches, `node_modules`, thumbnail caches. Regenerable bytes only — when in doubt, include.
 - The dots repo (`~/.local/share/arch/dots.git`) is deliberately *included*: backup is what finally puts the config history off-site.
 - Users extend via `~/.config/arch/backup/excludes` (one pattern per line, restic syntax, expanded the same way). No include-list to curate — that's the hassle we're avoiding.
 - The first-run summary shows the measured *source* size before uploading — labeled as such, cancellable, and explicitly not an upload estimate (dedup and compression usually shrink it dramatically).

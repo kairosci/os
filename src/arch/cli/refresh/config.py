@@ -81,7 +81,7 @@ def _text_list(value: object, label: str) -> list[str]:
 
 
 def settings() -> RefreshConfig:
-  path = Path(os.environ["ARCH_PATH"]) / "data/cli/refresh-config.yml"
+  path = Path(os.environ["AP"]) / "data/cli/refresh-config.yml"
   raw: object = yaml.safe_load(path.read_text(encoding="utf-8"))
   config = _mapping(raw, "root")
   paths = _mapping(config.get("paths"), "paths")
@@ -203,7 +203,7 @@ def main(arguments: list[str] | None = None) -> int:
     return status["failure"]
 
   try:
-    arch_root = Path(os.environ["ARCH_PATH"]).resolve(strict=True)
+    arch_root = Path(os.environ["AP"]).resolve(strict=True)
     source_root = (arch_root / config["paths"]["source_directory"]).resolve(strict=True)
     source_candidate = source_root.joinpath(*segments)
     cursor = source_root

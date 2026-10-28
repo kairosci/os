@@ -106,7 +106,7 @@ def _tree_entries(value: object, label: str) -> list[TreeEntry]:
 
 
 def _settings() -> tuple[Path, Settings]:
-  ap = Path(os.environ["ARCH_PATH"])
+  ap = Path(os.environ["AP"])
   with (ap / "data/installer/branding-setup.yml").open(encoding="utf-8") as stream:
     raw: object = yaml.safe_load(stream)
   root = _mapping(raw, "configuration")

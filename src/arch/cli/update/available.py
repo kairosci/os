@@ -66,7 +66,7 @@ def _text_list(value: object, label: str) -> list[str]:
 
 
 def load_config() -> UpdateConfig:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   raw: object = yaml.safe_load((root / "data/cli/update-available.yml").read_text(encoding="utf-8"))
   config = _mapping(raw, "root")
   commands = _mapping(config.get("commands"), "commands")
@@ -147,7 +147,7 @@ def main() -> int:
     return 2
 
   try:
-    updates = checkout_updates(config, os.environ["ARCH_PATH"])
+    updates = checkout_updates(config, os.environ["AP"])
     result = run(config["commands"]["checkupdates"])
     if result.returncode == config["statuses"]["updates_available"]:
       updates.extend(line for line in result.stdout.splitlines() if line.strip())

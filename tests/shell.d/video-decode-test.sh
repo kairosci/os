@@ -27,7 +27,7 @@ new_home() {
 }
 
 run_helper() {
-  HOME="$1" ARCH_PATH="$ROOT" python3 -I "$ROOT/src/arch/python/installer_user/setup/video_decode.py"
+  HOME="$1" AP="$ROOT" python3 -I "$ROOT/src/arch/python/installer_user/setup/video_decode.py"
 }
 
 shipped="$ROOT/config/chromium-flags.conf"

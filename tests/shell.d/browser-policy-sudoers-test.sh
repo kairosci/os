@@ -97,9 +97,9 @@ else
     fail "arch-theme-set-browser-policy takes the passwordless sudo grant without a terminal" \
       "got: $elevation"
 
-  dev_linked=$(ARCH_PATH="$test_tmp/checkout" elevation_for 1c2027)
+  dev_linked=$(AP="$test_tmp/checkout" elevation_for 1c2027)
   [[ $dev_linked == "sudo /usr/bin/arch-theme-set-browser-policy 1c2027" ]] ||
-    fail "arch-theme-set-browser-policy elevates the system install wherever ARCH_PATH points" \
+    fail "arch-theme-set-browser-policy elevates the system install wherever AP points" \
       "got: $dev_linked"
 
   pass "browser policy helper elevates a valid color through the sudo grant"
@@ -166,7 +166,7 @@ color_for_theme() {
 
   HOME="$setter_home" COLOR_LOG="$test_tmp/color" PATH="$setter_bin:$stub_bin:$PATH" \
     ARCH_BROWSER_POLICY_DIRS="$policy_tmp/a" \
-    ARCH_PATH="$ROOT" bash "$setter" </dev/null >/dev/null 2>&1 || true
+    AP="$ROOT" bash "$setter" </dev/null >/dev/null 2>&1 || true
   cat "$test_tmp/color"
 }
 

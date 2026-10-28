@@ -71,7 +71,7 @@ class Config(TypedDict):
 
 
 def settings() -> tuple[Path, Config]:
-  ap = Path(os.environ["ARCH_PATH"])
+  ap = Path(os.environ["AP"])
   config_path = ap / "data/installer/hardware/n1x.yml"
   raw_config: object = yaml.safe_load(config_path.read_text(encoding="utf-8"))
   if not isinstance(raw_config, dict):

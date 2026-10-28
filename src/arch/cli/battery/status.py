@@ -155,7 +155,7 @@ def _text_mapping(value: object, label: str) -> dict[str, str]:
 
 
 def settings() -> BatteryConfig:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   raw: object = yaml.safe_load((root / "data/cli/battery-status.yml").read_text(encoding="utf-8"))
   config = _mapping(raw, "root")
   commands = _mapping(config.get("commands"), "commands")

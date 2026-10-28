@@ -186,7 +186,7 @@ bluetooth_run() {
 
   echo "$powered" >"$POWERED_FILE"
   : >"$device_tmp/log"
-  ARCH_PATH="$ROOT" PATH="$mock_bin:$ROOT/src/arch/commands:$PATH" BLUETOOTHCTL_LOG="$device_tmp/log" \
+  AP="$ROOT" PATH="$mock_bin:$ROOT/src/arch/commands:$PATH" BLUETOOTHCTL_LOG="$device_tmp/log" \
     ARCH_BLUETOOTH_POWER_WAIT_SECONDS=0 "$@" ||
     fail "$* exits cleanly with Powered: $powered"
   printf '%s' "$device_tmp/log"
@@ -268,7 +268,7 @@ grep -qx -- "--agent NoInputNoOutput pair AA:BB:CC:DD:EE:FF" "$pair_log" ||
 pass "bluetooth pairs through a temporary agent and leaves trust/connect to BlueZ"
 
 : >"$device_tmp/log"
-if ARCH_PATH="$ROOT" PATH="$mock_bin:$ROOT/src/arch/commands:$PATH" BLUETOOTHCTL_LOG="$device_tmp/log" POWERED_FILE="$POWERED_FILE" \
+if AP="$ROOT" PATH="$mock_bin:$ROOT/src/arch/commands:$PATH" BLUETOOTHCTL_LOG="$device_tmp/log" POWERED_FILE="$POWERED_FILE" \
   PAIR_FAIL=1 ARCH_BLUETOOTH_POWER_WAIT_SECONDS=0 \
   "$ROOT/src/arch/commands/arch-bluetooth-device" pair AA:BB:CC:DD:EE:FF; then
   fail "bluetooth reports a failed pairing"

@@ -27,7 +27,7 @@ chmod +x "$mock_bin"/*
 run_setup() (
   installed=$1
   failure=${2:-}
-  export ARCH_PATH="$ROOT"
+  export AP="$ROOT"
   export CALLS="$calls"
   export INSTALLED_PACKAGES="$installed"
   export SETUP_FAILURE="$failure"

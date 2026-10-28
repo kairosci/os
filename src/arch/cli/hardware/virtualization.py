@@ -14,7 +14,7 @@ class Settings(TypedDict):
 
 
 def _settings() -> Settings:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   raw: object = yaml.safe_load((root / "data/cli/hardware-vm.yml").read_text(encoding="utf-8"))
   if not isinstance(raw, dict):
     raise TypeError("hardware virtualization configuration must be a mapping")

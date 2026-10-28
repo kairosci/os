@@ -8,7 +8,7 @@ import yaml
 
 
 def main() -> int:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   config = yaml.safe_load((root / "data/installer/post-install.yml").read_text(encoding="utf-8"))
   for command in config["udev"]["commands"]:
     subprocess.run(command, check=False, stderr=subprocess.DEVNULL)

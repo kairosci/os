@@ -8,7 +8,7 @@ set -o pipefail
 
 CURRENT_THEME_PATH="$HOME/.local/state/arch/current/theme"
 USER_THEMES_PATH="$HOME/.config/arch/themes"
-ARCH_THEMES_PATH="$ARCH_PATH/assets/themes"
+ARCH_THEMES_PATH="$AP/assets/themes"
 
 COLOR_OUTPUT=1
 APPLY_OSC="auto"
@@ -88,8 +88,8 @@ arch_tool() {
   local tool="$1"
   shift
 
-  if [[ -x $ARCH_PATH/src/arch/commands/$tool ]]; then
-    "$ARCH_PATH/src/arch/commands/$tool" "$@"
+  if [[ -x $AP/src/arch/commands/$tool ]]; then
+    "$AP/src/arch/commands/$tool" "$@"
   else
     "$tool" "$@"
   fi

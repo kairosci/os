@@ -57,10 +57,10 @@ if arch-done check finalize-user && (( force == 0 )); then
   exit 0
 fi
 
-export ARCH_PATH="${ARCH_PATH:-/usr/share/arch}"
-export ARCH_INSTALL="${ARCH_INSTALL:-$ARCH_PATH/installer}"
+export AP="${AP:-/usr/share/arch}"
+export ARCH_INSTALL="${ARCH_INSTALL:-$AP/installer}"
 export ARCH_SETUP_CONTEXT="${ARCH_SETUP_CONTEXT:-runtime}"
-export PATH="$ARCH_PATH/src/arch/commands:$PATH"
+export PATH="$AP/src/arch/commands:$PATH"
 
 if (( first_install )) && [[ $ARCH_SETUP_CONTEXT == "runtime" ]]; then
   # The ISO chroot doesn't set a context; arch-provision-owner runs first-install
@@ -100,7 +100,7 @@ for dir in Downloads Projects Pictures Videos; do
   grep -qxF "$bookmark" ~/.config/gtk-3.0/bookmarks || echo "$bookmark" >>~/.config/gtk-3.0/bookmarks
 done
 
-run_logged "$ARCH_PATH/src/arch/python/installer_user/all.py"
+run_logged "$AP/src/arch/python/installer_user/all.py"
 
 arch-refresh-applications
 env -u BROWSER XDG_CURRENT_DESKTOP= xdg-settings set default-web-browser chromium.desktop

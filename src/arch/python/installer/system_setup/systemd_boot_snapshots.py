@@ -73,7 +73,7 @@ def _mode(value: object, label: str) -> str:
 
 
 def _settings() -> Settings:
-  ap = Path(os.environ["ARCH_PATH"])
+  ap = Path(os.environ["AP"])
   with (ap / "data/installer/config-setup.yml").open(encoding="utf-8") as stream:
     raw: object = yaml.safe_load(stream)
   root = _mapping(raw, "configuration")
@@ -146,7 +146,7 @@ def main() -> int:
     print(f"Could not load systemd-boot snapshot settings: {error}", file=sys.stderr)
     return os.EX_CONFIG
   try:
-    ap = Path(os.environ["ARCH_PATH"])
+    ap = Path(os.environ["AP"])
     helper = subprocess.run([str(ap / settings["helper"])], check=False)
     boot_entry = settings["boot_entry"]
     esp = os.environ.get(boot_entry["environment_override"], boot_entry["default_esp"])

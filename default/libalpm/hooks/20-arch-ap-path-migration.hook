@@ -1,0 +1,11 @@
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Type = Package
+Target = arch
+Target = arch-settings
+
+[Action]
+Description = Migrating the Arch session root variable to AP...
+When = PostTransaction
+Exec = /usr/bin/python3 /usr/share/arch/data/runtime/migrate-ap-path.py

@@ -23,7 +23,7 @@ def _copy_atomically(source: Path, destination: Path) -> None:
 
 
 def main() -> int:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   config = yaml.safe_load((root / "data/installer/user-setup.yml").read_text(encoding="utf-8"))
   settings = config["vm_setup"]
   if subprocess.run(settings["predicate"], check=False).returncode:

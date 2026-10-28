@@ -103,7 +103,7 @@ chmod +x "$tmp_dir/bin/gtk-update-icon-cache"
 cat >"$tmp_dir/icon.svg" <<'SVG'
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"><path d="M0 0h1v1H0z"/></svg>
 SVG
-ARCH_PATH="$ROOT" XDG_DATA_HOME="$tmp_dir/tui-data" \
+AP="$ROOT" XDG_DATA_HOME="$tmp_dir/tui-data" \
   "$ROOT/src/arch/commands/arch-tui-install" "Example App" "printf 'hello world'" "$tmp_dir/icon.svg"
 desktop="$tmp_dir/tui-data/applications/example-app.desktop"
 icon="$tmp_dir/tui-data/icons/hicolor/256x256/apps/example-app.svg"
@@ -120,7 +120,7 @@ ln -s "$ROOT/src" "$invalid_root/src"
 printf 'commands: []\n' >"$invalid_root/data/cli/tui-install.yml"
 invalid_output=""
 invalid_status=0
-invalid_output=$(ARCH_PATH="$invalid_root" "$ROOT/src/arch/commands/arch-tui-install" --help 2>&1) || invalid_status=$?
+invalid_output=$(AP="$invalid_root" "$ROOT/src/arch/commands/arch-tui-install" --help 2>&1) || invalid_status=$?
 (( invalid_status == 78 )) || fail "invalid TUI installer settings have a configuration-error status" "$invalid_status: $invalid_output"
 [[ $invalid_output == *"Could not load TUI installer settings:"* ]] ||
   fail "invalid TUI installer settings are reported at the command boundary" "$invalid_output"

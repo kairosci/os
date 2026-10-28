@@ -5,12 +5,12 @@ source "$(dirname "${BASH_SOURCE[0]}")/base-test.sh"
 require_command lua
 
 env_defaults="$ROOT/default/hypr/envs.lua"
-grep -Fqx 'hl.env("ARCH_PATH", paths.ap)' "$env_defaults" || fail "Hyprland exports the Arch runtime path to spawned apps"
-[[ $(grep -Fc 'hl.env("ARCH_PATH"' "$env_defaults") == 1 ]] || fail "Hyprland does not clear the runtime path after setting it"
-pass "Hyprland keeps ARCH_PATH available to the shell and localized catalogs"
+grep -Fqx 'hl.env("AP", paths.ap)' "$env_defaults" || fail "Hyprland exports the Arch runtime path to spawned apps"
+[[ $(grep -Fc 'hl.env("AP"' "$env_defaults") == 1 ]] || fail "Hyprland does not clear the runtime path after setting it"
+pass "Hyprland keeps AP available to the shell and localized catalogs"
 
-hypr_path=$(ARCH_PATH="$ROOT" PATH="$ROOT/src/arch/commands:/usr/bin" lua <<'LUA'
-package.path = os.getenv("ARCH_PATH") .. "/?.lua;" .. package.path
+hypr_path=$(AP="$ROOT" PATH="$ROOT/src/arch/commands:/usr/bin" lua <<'LUA'
+package.path = os.getenv("AP") .. "/?.lua;" .. package.path
 require("default.hypr.helpers")
 o.shell_succeeds = function() return false end
 hl = {
@@ -30,8 +30,8 @@ run_application_bindings() {
   local home="$1"
   local prelude="${2:-}"
 
-  HOME="$home" XDG_CONFIG_HOME="$home/.config" XDG_STATE_HOME="$home/.local/state" ARCH_PATH="$ROOT" ARCH_BINDING_PRELUDE="$prelude" lua <<'LUA'
-package.path = os.getenv("HOME") .. "/.config/?.lua;" .. os.getenv("ARCH_PATH") .. "/?.lua;" .. package.path
+  HOME="$home" XDG_CONFIG_HOME="$home/.config" XDG_STATE_HOME="$home/.local/state" AP="$ROOT" ARCH_BINDING_PRELUDE="$prelude" lua <<'LUA'
+package.path = os.getenv("HOME") .. "/.config/?.lua;" .. os.getenv("AP") .. "/?.lua;" .. package.path
 
 local prelude = os.getenv("ARCH_BINDING_PRELUDE") or ""
 if prelude ~= "" then
@@ -61,8 +61,8 @@ run_arch_bindings() {
   local home="$1"
   local prelude="${2:-}"
 
-  HOME="$home" XDG_CONFIG_HOME="$home/.config" XDG_STATE_HOME="$home/.local/state" ARCH_PATH="$ROOT" ARCH_BINDING_PRELUDE="$prelude" lua <<'LUA'
-package.path = os.getenv("HOME") .. "/.config/?.lua;" .. os.getenv("ARCH_PATH") .. "/?.lua;" .. package.path
+  HOME="$home" XDG_CONFIG_HOME="$home/.config" XDG_STATE_HOME="$home/.local/state" AP="$ROOT" ARCH_BINDING_PRELUDE="$prelude" lua <<'LUA'
+package.path = os.getenv("HOME") .. "/.config/?.lua;" .. os.getenv("AP") .. "/?.lua;" .. package.path
 
 local function proxy()
   return setmetatable({}, {

@@ -9,7 +9,7 @@ import "ReminderFlowModel.js" as ReminderFlowModel
 Item {
   id: root
 
-  property string archPath: Quickshell.env("ARCH_PATH")
+  property string archPath: Quickshell.env("AP")
   property var shell: null
   property var manifest: null
 

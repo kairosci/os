@@ -23,7 +23,7 @@ current_mode() {
 # Save the new choice before dropping the old one, so a failed save keeps it.
 save_mode() {
   if [[ $1 != "transparent" ]]; then
-    mkdir -p "$TOGGLES_DIR" && cp "$ARCH_PATH/default/hypr/toggles/window-$1.lua" "$TOGGLES_DIR/window-$1.lua" || return 1
+    mkdir -p "$TOGGLES_DIR" && cp "$AP/default/hypr/toggles/window-$1.lua" "$TOGGLES_DIR/window-$1.lua" || return 1
   fi
   local mode
   for mode in opaque glassy; do

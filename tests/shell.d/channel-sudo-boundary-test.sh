@@ -61,7 +61,7 @@ PY
 }
 
 run_channel() {
-  PATH="$SUDO_TEST_ROOT/src/arch/commands:$PATH" "$ARCH_PATH/src/arch/commands/arch-channel-set" "$@" >"$boundary_tmp/output" 2>&1
+  PATH="$SUDO_TEST_ROOT/src/arch/commands:$PATH" "$AP/src/arch/commands/arch-channel-set" "$@" >"$boundary_tmp/output" 2>&1
 }
 for channel in stable rc edge dev; do
   reset_boundary
@@ -162,7 +162,7 @@ assert_boundary_cold "checkout without templates"
 pass "a dev checkout without its templates for the platform is rejected before linking"
 
 reset_boundary
-ARCH_PATH="$SUDO_TEST_HOME/arch" run_channel stable || fail "leaving dev failed" "$(<"$boundary_tmp/output")"
+AP="$SUDO_TEST_HOME/arch" run_channel stable || fail "leaving dev failed" "$(<"$boundary_tmp/output")"
 assert_scoped_channel "dev to stable"
 pass "leaving dev preserves no-update sudo through unlink and hands off to the packaged update"
 
@@ -174,7 +174,7 @@ export SUDO_TEST_INSTALLED=$'arch 4.0.5-1\narch-settings 4.0.5-1'
 mv "$SUDO_TEST_ROOT/default/arch/sudo-no-update/sudo" "$boundary_tmp/saved-package-wrapper"
 mv "$SUDO_TEST_ROOT/src/arch/commands/arch-update" "$boundary_tmp/saved-package-update"
 ln -s test-step "$SUDO_TEST_ROOT/src/arch/commands/arch-update"
-if ARCH_PATH="$SUDO_TEST_HOME/arch" run_channel stable; then fail "an older packaged destination was updated with ordinary sudo" "$(<"$SUDO_TEST_LOG")"; fi
+if AP="$SUDO_TEST_HOME/arch" run_channel stable; then fail "an older packaged destination was updated with ordinary sudo" "$(<"$SUDO_TEST_LOG")"; fi
 grep -q "predates command-scoped sudo" "$boundary_tmp/output" || fail "an older packaged destination was not reported" "$(<"$boundary_tmp/output")"
 grep -Fq "Packages are switched to arch 4.0.5-1, arch-settings 4.0.5-1." "$boundary_tmp/output" || fail "an older packaged destination does not name what is installed" "$(<"$boundary_tmp/output")"
 grep -q "Run 'archctl update' from a new terminal to finish" "$boundary_tmp/output" || fail "an older packaged destination lacks recovery guidance" "$(<"$boundary_tmp/output")"
@@ -251,10 +251,10 @@ for command in arch-hook arch-update-mise; do
 #!/bin/bash
 if [[ ${1:-} == "pre-refresh-pacman" ]]; then
   [[ ! -e $SUDO_TEST_CACHE ]] || exit 91
-  [[ $(command -v sudo) == "$ARCH_PATH/default/arch/sudo-no-update/sudo" ]] || exit 92
+  [[ $(command -v sudo) == "$AP/default/arch/sudo-no-update/sudo" ]] || exit 92
 else
   [[ -e $SUDO_TEST_CACHE ]] || exit 94
-  [[ $(command -v sudo) != "$ARCH_PATH/default/arch/sudo-no-update/sudo" ]] || exit 95
+  [[ $(command -v sudo) != "$AP/default/arch/sudo-no-update/sudo" ]] || exit 95
 fi
 channel-user-tool "${0##*/}" "$@"
 STUB

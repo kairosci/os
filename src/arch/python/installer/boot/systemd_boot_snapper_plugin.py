@@ -190,7 +190,7 @@ def load_settings() -> SnapperSettings:
         raise PermissionError("systemd-boot Snapper settings must be a root-owned, non-writable regular file")
       settings: object = yaml.safe_load(stream)
   else:
-    ap = Path(os.environ["ARCH_PATH"])
+    ap = Path(os.environ["AP"])
     path = ap / "data/installer/systemd-boot-snapper-plugin.yml"
     settings = yaml.safe_load(path.read_text(encoding="utf-8"))
   if not _is_snapper_settings(settings):

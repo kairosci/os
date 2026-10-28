@@ -56,7 +56,7 @@ BarWidget {
 
         Image {
           anchors.fill: parent
-          source: Quickshell.env("ARCH_PATH") + "/assets/branding/arch-mark.svg"
+          source: Quickshell.env("AP") + "/assets/branding/arch-mark.svg"
           fillMode: Image.PreserveAspectFit
           smooth: true
         }

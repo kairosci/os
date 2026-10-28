@@ -34,7 +34,7 @@ def _write_atomically(destination: Path, content: str, default_mode: int) -> Non
 
 
 def main() -> int:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   config = yaml.safe_load((root / "data/installer/hardware.yml").read_text(encoding="utf-8"))
   settings = config["qualcomm_initramfs"]
   if subprocess.run(settings["platform_check"], check=False).returncode:

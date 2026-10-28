@@ -25,7 +25,7 @@ ln -s arch-hw-device-match "$scratch/bin/arch-hw-intel-sof"
 run_package_gates() (
   matched=$1
   status=${2:-0}
-  PATH="$scratch/bin:$PATH" ARCH_PATH="$ROOT" ARCH_TEST_MATCHED="$matched" \
+  PATH="$scratch/bin:$PATH" AP="$ROOT" ARCH_TEST_MATCHED="$matched" \
     ARCH_TEST_PKG_STATUS="$status" ARCH_TEST_PACKAGES="$scratch/packages" \
     python3 -I "$ROOT/src/arch/python/installer/hardware/package_gates.py"
 )

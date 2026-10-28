@@ -1,4 +1,4 @@
-# Single source of truth for ARCH_PATH + PATH adjustments. Sourced by:
+# Single source of truth for AP + PATH adjustments. Sourced by:
 #   /etc/profile.d/arch.sh                 (system login shells)
 #   /etc/skel/.bashrc                         (interactive shells)
 #   /usr/share/uwsm/env.d/10-arch          (Hyprland session via uwsm)
@@ -9,16 +9,16 @@
 if [ -f /etc/arch.conf ]; then
   . /etc/arch.conf
 fi
-ARCH_PATH=${ARCH_PATH:-/usr/share/arch}
-export ARCH_PATH
+AP=${AP:-/usr/share/arch}
+export AP
 
 # Only prepend in dev-link mode. On a production install, the binaries are
 # already on PATH as /usr/bin/arch-* via the archctl package — prepending
 # /usr/share/arch/src/arch/commands would just be noise.
-if [ "$ARCH_PATH" != /usr/share/arch ]; then
+if [ "$AP" != /usr/share/arch ]; then
   case ":$PATH:" in
-    *":${ARCH_PATH%/}/src/arch/commands:"*) ;;
-    *) PATH="${ARCH_PATH%/}/src/arch/commands${PATH:+:$PATH}" ;;
+    *":${AP%/}/src/arch/commands:"*) ;;
+    *) PATH="${AP%/}/src/arch/commands${PATH:+:$PATH}" ;;
   esac
 fi
 

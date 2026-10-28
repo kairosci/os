@@ -28,9 +28,9 @@ fire() {
     printf '[Groups/0/Items/0]\nName=keyboard-us\n[Groups/0/Items/1]\nName=mozc\n' > "$home/.config/fcitx5/profile"
   fi
 
-  HOME="$home" XDG_CONFIG_HOME="$home/.config" ARCH_PATH="$ROOT" \
+  HOME="$home" XDG_CONFIG_HOME="$home/.config" AP="$ROOT" \
     TEST_KEYS="$keys" TEST_CLASS="$class" TEST_TAGS="$tags" TEST_LAYOUT="${TEST_LAYOUT:-jp}" lua <<'LUA'
-package.path = os.getenv("ARCH_PATH") .. "/?.lua;" .. package.path
+package.path = os.getenv("AP") .. "/?.lua;" .. package.path
 
 local real_open = io.open
 io.open = function(path, mode)

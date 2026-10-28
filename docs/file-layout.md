@@ -37,7 +37,7 @@ Three layers populate `$HOME`:
    for these files.
 2. **Finalize** — `arch-provision-user` (routed as `arch finalize
    user`) runs once per user and handles the things `/etc/skel` can't do
-   because they need `$HOME` expansion, the live `$ARCH_PATH`, or runtime
+   because they need `$HOME` expansion, the live `$AP`, or runtime
    detection of system state.
 3. **Resync** — `arch-reinstall-configs` is the explicit, destructive
    command for an existing user to clobber their configs back to shipped
@@ -223,13 +223,13 @@ Arch's systemd package hook reloads units when the vendor drop-in is installed o
 
 ## Env bootstrap (`default/bash/env-bootstrap`)
 
-Single source of truth for `ARCH_PATH` and dev-link-aware `PATH`. It:
+Single source of truth for `AP` and dev-link-aware `PATH`. It:
 
 - Sources `/etc/arch.conf` (written by `arch-dev-link`, reset to the
   package path by `arch-dev-unlink`) if present; otherwise forces
-  `ARCH_PATH=/usr/share/arch` so a stale inherited value can't survive
+  `AP=/usr/share/arch` so a stale inherited value can't survive
   an `arch-dev-unlink`.
-- Prepends `$ARCH_PATH/src/arch/commands` to `PATH` **only when** `ARCH_PATH` is
+- Prepends `$AP/src/arch/commands` to `PATH` **only when** `AP` is
   not `/usr/share/arch`. On a production install the binaries are
   already on `PATH` as `/usr/bin/arch-*` via the `arch` package.
 - Appends `~/.local/share/mise/shims` and `~/.local/bin` so login shells and the uwsm session find mise-managed tools without overriding system commands.

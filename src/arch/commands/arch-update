@@ -29,7 +29,7 @@ arch_security_revoke_sudo_timestamp || exit 1
 # Validate the no-update wrapper up front: the AUR phase depends on it. Every
 # other phase shares the one authorization, so it stays off PATH until then.
 arch_security_enable_no_update_sudo
-PATH="$ARCH_PATH/src/arch/commands:/usr/bin:/usr/sbin:/bin:/sbin"
+PATH="$AP/src/arch/commands:/usr/bin:/usr/sbin:/bin:/sbin"
 unset ARCH_SUDO_NO_UPDATE
 # Helpers that manage their own sudo boundary leave this authorization to us.
 export PATH ARCH_UPDATE_SUDO_SESSION=1
@@ -138,15 +138,15 @@ if [[ ${1:-} == "-y" ]] || arch-update-confirm; then
   arch-update-restart --services-only
 
   # Hooks and mise run with the caller's PATH so user-installed tools resolve.
-  PATH="$user_path" "$ARCH_PATH/src/arch/commands/arch-hook" post-update
-  PATH="$user_path" "$ARCH_PATH/src/arch/commands/arch-update-mise"
+  PATH="$user_path" "$AP/src/arch/commands/arch-hook" post-update
+  PATH="$user_path" "$AP/src/arch/commands/arch-update-mise"
 
   # AUR builds run third-party PKGBUILD code, so they go last and never see the
   # update's authorization: revoke it, then authenticate each sudo call with
   # the no-update wrapper, for yay and any bare sudo a PKGBUILD runs, so an AUR
   # install prompts without caching anything.
   end_update_authorization
-  PATH="$ARCH_PATH/default/arch/sudo-no-update:$PATH" ARCH_SUDO_NO_UPDATE=1 arch-update-aur-pkgs
+  PATH="$AP/default/arch/sudo-no-update:$PATH" ARCH_SUDO_NO_UPDATE=1 arch-update-aur-pkgs
   arch_security_revoke_sudo_timestamp
 
   # The last sudo-capable step: the boot files every package step left, AUR
@@ -155,7 +155,7 @@ if [[ ${1:-} == "-y" ]] || arch-update-confirm; then
   # authorizes one command through the no-update wrapper without a reusable
   # timestamp. Until it passes, the update neither finishes nor offers a reboot.
   boot_verified=1
-  PATH="$ARCH_PATH/default/arch/sudo-no-update:$PATH" ARCH_SUDO_NO_UPDATE=1 arch-update-boot || boot_verified=0
+  PATH="$AP/default/arch/sudo-no-update:$PATH" ARCH_SUDO_NO_UPDATE=1 arch-update-boot || boot_verified=0
   arch_security_revoke_sudo_timestamp
 
   # The sleep inhibitor covers AUR builds, hooks and mise as well; releasing it
@@ -167,7 +167,7 @@ if [[ ${1:-} == "-y" ]] || arch-update-confirm; then
   update_stay_awake_stopped=1
 
   if (( boot_verified )); then
-    "$ARCH_PATH/src/arch/commands/arch-update-restart" --reboot-only
+    "$AP/src/arch/commands/arch-update-restart" --reboot-only
   else
     echo -e "\e[31m\nThe update is not finished: its boot files did not pass verification (see above). Do not reboot until archctl update completes.\e[0m" >&2
     exit 1

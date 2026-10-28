@@ -22,7 +22,7 @@ class SleepConfig(TypedDict):
 
 
 def load_config() -> SleepConfig:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   config = yaml.safe_load((root / "data/system/sleep.yml").read_text(encoding="utf-8"))
   return cast(SleepConfig, config)
 

@@ -6,7 +6,7 @@ ShellRoot {
   id: root
 
   readonly property string resultPath: Quickshell.env("ARCH_QML_TEST_RESULT")
-  readonly property string rootPath: Quickshell.env("ARCH_PATH")
+  readonly property string rootPath: Quickshell.env("AP")
   property var failures: []
   property var createdIds: []
   property var createdObjects: []

@@ -63,7 +63,7 @@ fastest_ms() {
   for _ in 1 2 3; do
     start=$EPOCHREALTIME
     status=0
-    ARCH_PATH="$ROOT" PATH="$ROOT/src/arch/commands:$PATH" timeout --kill-after=1s 10s bash -c "$1" >"$output" 2>/dev/null || status=$?
+    AP="$ROOT" PATH="$ROOT/src/arch/commands:$PATH" timeout --kill-after=1s 10s bash -c "$1" >"$output" 2>/dev/null || status=$?
     end=$EPOCHREALTIME
     elapsed=$(( (${end/[.,]/} - ${start/[.,]/}) / 1000 ))
     if (( status == 124 || status == 137 )); then

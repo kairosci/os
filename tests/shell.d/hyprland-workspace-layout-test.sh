@@ -59,12 +59,12 @@ hl = {
   workspace_rule = function(value) table.insert(rules, value) end,
 }
 o = {}
-local modes = dofile(os.getenv("ARCH_PATH") .. "/default/hypr/workspace-modes.lua")
+local modes = dofile(os.getenv("AP") .. "/default/hypr/workspace-modes.lua")
 o.workspace_mode({ default = "floating" })
 o.workspace_mode({ workspace = "3", mode = "floating" })
 modes.apply()
 assert(config.layout == "scrolling", "legacy floating default was not normalized")
 assert(#rules >= 1 and rules[#rules].workspace == "3" and rules[#rules].layout == "scrolling", "legacy floating workspace was not normalized")
 LUA
-ARCH_PATH="$ROOT" lua "$tmpdir/modes.lua" || fail "Lua workspace-mode compatibility normalizes legacy modes to scrolling"
+AP="$ROOT" lua "$tmpdir/modes.lua" || fail "Lua workspace-mode compatibility normalizes legacy modes to scrolling"
 pass "workspace layout restoration keeps legacy state tiled"

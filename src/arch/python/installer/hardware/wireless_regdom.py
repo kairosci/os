@@ -96,7 +96,7 @@ def _append_unset(path: Path, setting_pattern: str, line: str) -> None:
 
 
 def main() -> int:
-  root_path = os.environ["ARCH_PATH"]
+  root_path = os.environ["AP"]
   config: object = yaml.safe_load((Path(root_path) / "data/installer/hardware.yml").read_text(encoding="utf-8"))
   if not isinstance(config, dict):
     raise ValueError("invalid hardware setup configuration")

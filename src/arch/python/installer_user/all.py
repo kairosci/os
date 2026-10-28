@@ -28,7 +28,7 @@ def setup_steps(ap: Path) -> list[Path]:
 
 
 def main(arguments: list[str] | None = None) -> int:
-  ap = Path(os.environ["ARCH_PATH"])
+  ap = Path(os.environ["AP"])
   scripts = setup_steps(ap)
   arguments = sys.argv[1:] if arguments is None else arguments
   if arguments == ["--count"]:

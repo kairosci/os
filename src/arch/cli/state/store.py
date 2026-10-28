@@ -54,7 +54,7 @@ def _text_list(value: object, label: str) -> list[str]:
 
 
 def _config() -> StateConfig:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   raw: object = yaml.safe_load((root / "data/cli/state.yml").read_text(encoding="utf-8"))
   config = _mapping(raw, "root")
   action_map = _mapping(config.get("actions_map"), "actions_map")

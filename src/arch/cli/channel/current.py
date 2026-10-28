@@ -46,7 +46,7 @@ def _text_list(value: object, label: str) -> list[str]:
 
 
 def _settings() -> ChannelConfig:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   raw: object = yaml.safe_load((root / "data/cli/channel.yml").read_text(encoding="utf-8"))
   settings = _mapping(raw, "root")
   commands = _mapping(settings.get("commands"), "commands")
@@ -81,7 +81,7 @@ def channel_current_main() -> int:
     print(f"Could not load channel configuration: {error}", file=sys.stderr)
     return 2
 
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   packaged_root = os.environ.get(
     settings["packaged_root_environment"],
     settings["packaged_root_default"],

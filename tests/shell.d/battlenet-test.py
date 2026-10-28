@@ -13,7 +13,7 @@ if default_launcher.exists():
   fail_check("Battle.net launcher is not part of default application refresh")
 if not installer_launcher.is_file():
   fail_check("Battle.net launcher template is available to the installer")
-if "$ARCH_PATH/default/applications/battlenet.desktop" not in installer:
+if "$AP/default/applications/battlenet.desktop" not in installer:
   fail_check("Battle.net installer installs the launcher from the installer-only template")
 
 pass_check("Battle.net launcher is only installed by the Battle.net installer")

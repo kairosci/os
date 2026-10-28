@@ -142,9 +142,9 @@ pass "arch-dns elevates the stock providers through sudo, not polkit"
 
 # A dev-linked checkout elevates the packaged path like everyone else, rather
 # than handing sudo a path no rule can name and losing the grant.
-dev_linked=$(ARCH_PATH="$test_tmp/checkout" elevation_for Cloudflare)
+dev_linked=$(AP="$test_tmp/checkout" elevation_for Cloudflare)
 [[ $dev_linked == "sudo /usr/bin/arch-dns Cloudflare" ]] ||
-  fail "arch-dns elevates the system install wherever ARCH_PATH points" "got: $dev_linked"
+  fail "arch-dns elevates the system install wherever AP points" "got: $dev_linked"
 
 custom=$(elevation_for Custom)
 [[ $custom == "pkexec /usr/bin/arch-dns Custom" ]] ||

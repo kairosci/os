@@ -11,14 +11,14 @@
 # interrupts wait. systemd-cat execs, so the job is Quickshell itself.
 #
 # Quickshell's own reloading is off; os restarts the shell deliberately.
-# A package upgrade rewriting $ARCH_PATH/src/arch/shell would otherwise reload it
+# A package upgrade rewriting $AP/src/arch/shell would otherwise reload it
 # against a half-written tree, and that failed reload leaves a second engine
 # generation behind that turns the next restart's IPC kill into a crash.
 run_shell() {
   local startup_background
   startup_background=$(readlink -f "$HOME/.local/state/arch/current/background" 2>/dev/null)
   ARCH_STARTUP_BACKGROUND="$startup_background" QS_DISABLE_FILE_WATCHER=1 QS_NO_RELOAD_POPUP=1 \
-    systemd-cat -t arch-shell -- quickshell -n -p "$ARCH_PATH/src/arch/shell" &
+    systemd-cat -t arch-shell -- quickshell -n -p "$AP/src/arch/shell" &
   shell_pid=$!
 
   local status

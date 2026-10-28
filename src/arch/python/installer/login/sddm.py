@@ -65,7 +65,7 @@ def _is_sddm_config(value: object) -> TypeGuard[SddmConfig]:
 
 
 def load_config() -> SddmConfig:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   config: object = yaml.safe_load((root / "data/installer/login.yml").read_text(encoding="utf-8"))
   if not _is_sddm_config(config):
     raise ValueError("invalid configuration")

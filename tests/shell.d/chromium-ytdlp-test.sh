@@ -21,7 +21,7 @@ TMPDIR=$(mktemp -d)
 test_home="$TMPDIR/home"
 manifest_path="$test_home/.config/chromium/NativeMessagingHosts/com.arch.ytdlp.json"
 
-HOME="$test_home" ARCH_PATH="$ROOT" arch-install-chromium-ytdlp
+HOME="$test_home" AP="$ROOT" arch-install-chromium-ytdlp
 
 [[ -f $manifest_path ]] || fail "yt-dlp native host installer creates fresh Chromium profile root"
 pass "yt-dlp native host installer creates fresh Chromium profile root"
@@ -38,7 +38,7 @@ pass "yt-dlp native host manifest uses os host path and extension id"
 pass "yt-dlp native host installer covers Brave Origin"
 
 parse_result=$(bash -c '
-  ARCH_PATH="$3"
+  AP="$3"
   source "$1"
   parse_url "$2"
 ' bash "$ROOT/src/arch/commands/arch-chromium-ytdlp-host" '{"url":"https://example.tests/watch?v=\"quoted\"&name=a\\b"}' "$ROOT")
@@ -48,7 +48,7 @@ parse_result=$(bash -c '
 pass "yt-dlp native host parses escaped JSON URLs"
 
 bash -c '
-  ARCH_PATH="$3"
+  AP="$3"
   source "$1"
   valid_url "$2"
 ' bash "$ROOT/src/arch/commands/arch-chromium-ytdlp-host" "javascript:alert(1)" "$ROOT" &&
@@ -56,7 +56,7 @@ bash -c '
 pass "yt-dlp native host rejects non-web URLs"
 
 host_fn() {
-  ARCH_PATH="$ROOT" ARCH_YTDLP_DIR="${download_dir:-$TMPDIR}" bash -c '
+  AP="$ROOT" ARCH_YTDLP_DIR="${download_dir:-$TMPDIR}" bash -c '
     source "$1"
     shift
     "$@"
@@ -161,7 +161,7 @@ poisoned=$(
     $'ARCH_FILE\t'"$good_file" \
     $'ARCH_FILE\tPlay me\t--include=not-a-file' \
     $'\t'"$good_file" |
-    ARCH_PATH="$ROOT" ARCH_YTDLP_DIR="$download_dir" bash "$parse_script" "$ROOT/src/arch/commands/arch-chromium-ytdlp-host"
+    AP="$ROOT" ARCH_YTDLP_DIR="$download_dir" bash "$parse_script" "$ROOT/src/arch/commands/arch-chromium-ytdlp-host"
 )
 
 [[ $poisoned == "$expected" ]] ||
@@ -206,7 +206,7 @@ done
 chmod +x "$fake_root/src/arch/commands/"*
 
 YTDLP_ARGV_LOG="$ytdlp_argv" NOTIFY_ARGV_LOG="$notify_argv" YTDLP_FAKE_FILE="$fake_file" \
-  ARCH_PATH="$fake_root" ARCH_YTDLP_DIR="$fake_dir" PATH="$fake_root/src/arch/commands:$PATH" \
+  AP="$fake_root" ARCH_YTDLP_DIR="$fake_dir" PATH="$fake_root/src/arch/commands:$PATH" \
   bash -c '
     source "$1"
     download_url "$2"
@@ -246,7 +246,7 @@ pass "yt-dlp native host toasts the page title, not the sanitised filename"
 : >"$notify_argv"
 : >"$ytdlp_argv"
 YTDLP_ARGV_LOG="$ytdlp_argv" NOTIFY_ARGV_LOG="$notify_argv" YTDLP_FAKE_FILE="$fake_file" \
-  YTDLP_SKIP_TITLE=1 ARCH_PATH="$fake_root" ARCH_YTDLP_DIR="$fake_dir" PATH="$fake_root/src/arch/commands:$PATH" \
+  YTDLP_SKIP_TITLE=1 AP="$fake_root" ARCH_YTDLP_DIR="$fake_dir" PATH="$fake_root/src/arch/commands:$PATH" \
   bash -c '
     source "$1"
     download_url "$2"

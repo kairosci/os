@@ -8,12 +8,12 @@ set -euo pipefail
 SCRIPT_PATH="${BASH_SOURCE[0]}"
 
 # The browser launches us without os's environment, so locate the repo from
-# our own path when ARCH_PATH isn't already set. Export it — arch-shell (used
+# our own path when AP isn't already set. Export it — arch-shell (used
 # by arch-osd) needs it to find the running shell, and silently no-ops without it.
-export ARCH_PATH="${ARCH_PATH:-$(cd -- "$(dirname -- "$SCRIPT_PATH")/.." && pwd)}"
+export AP="${AP:-$(cd -- "$(dirname -- "$SCRIPT_PATH")/.." && pwd)}"
 
 # Make sure the os bin and yt-dlp are reachable when launched by the browser.
-export PATH="$ARCH_PATH/src/arch/commands:/usr/local/bin:/usr/bin:$PATH"
+export PATH="$AP/src/arch/commands:/usr/local/bin:/usr/bin:$PATH"
 
 DOWNLOAD_DIR="${ARCH_YTDLP_DIR:-$HOME/Videos}"
 

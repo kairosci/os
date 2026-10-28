@@ -77,7 +77,7 @@ def _is_poster_settings(value: object) -> TypeGuard[PosterSettings]:
 
 
 def settings() -> PosterSettings:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   with (root / "data/shell/lock-poster.yml").open(encoding="utf-8") as stream:
     config: object = yaml.safe_load(stream)
   if not _is_poster_settings(config):

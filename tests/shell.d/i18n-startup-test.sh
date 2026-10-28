@@ -93,7 +93,7 @@ class Probe:
         for key in ('WAYLAND_DISPLAY', 'HYPRLAND_INSTANCE_SIGNATURE', 'DISPLAY'):
             env.pop(key, None)
         env.update({
-            'ARCH_PATH': str(self.path / 'install'), 'ARCH_LANGUAGE_FILE': str(self.language),
+            'AP': str(self.path / 'install'), 'ARCH_LANGUAGE_FILE': str(self.language),
             'ARCH_TEST_PLUGIN_DIRECTORY': str(self.directory), 'ARCH_TEST_RESULT': str(self.result),
             'XDG_RUNTIME_DIR': str(self.path / 'runtime'), 'HOME': str(self.path / 'home'),
             'XDG_CONFIG_HOME': str(self.path / 'home/.config'), 'XDG_CACHE_HOME': str(self.path / 'cache'),

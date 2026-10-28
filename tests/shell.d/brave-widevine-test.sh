@@ -41,7 +41,7 @@ reset_opt() {
 
 run() {
   : >"$calls"
-  HOME="$test_tmp/home" ARCH_PATH="$ap" ARCH_OPT_PATH="$opt_path" \
+  HOME="$test_tmp/home" AP="$ap" ARCH_OPT_PATH="$opt_path" \
     TEST_LOG="$calls" PATH="$stub_bin:$PATH" "$@" >/dev/null
 }
 

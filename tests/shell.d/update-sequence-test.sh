@@ -137,7 +137,7 @@ printf '%s\n' "$*" >>"$ARCH_TEST_CONFIRM_LOG"
 [[ $1 == "style" || $1 == "confirm" ]]
 STUB
 chmod +x "$confirm_bin/arch-i18n" "$confirm_bin/gum"
-ARCH_PATH="$ROOT" \
+AP="$ROOT" \
   ARCH_TEST_CONFIRM_LOG="$confirm_log" \
   PATH="$confirm_bin:$PATH" \
   "$ROOT/src/arch/commands/arch-update-confirm" >"$test_tmp/confirm.out" 2>"$test_tmp/confirm.err" ||

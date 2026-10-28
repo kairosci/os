@@ -78,7 +78,7 @@ run_leaf() {
   printf '%s' "$vendor" >"$test_tmp/dmi/sys_vendor"
 
   WIFI_ID="$wifi_id" T2_HARDWARE="$t2" APPLE_SILICON="$apple_silicon" \
-    ARCH_PATH="$ROOT" ARCH_SYSTEM_ROOT="$system_root" \
+    AP="$ROOT" ARCH_SYSTEM_ROOT="$system_root" \
     ARCH_BRCMFMAC_DMI_VENDOR="$test_tmp/dmi/sys_vendor" PATH="$stub_bin:$PATH" \
     python3 -I "$leaf" </dev/null
 }

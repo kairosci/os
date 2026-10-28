@@ -1,4 +1,4 @@
-# os environment (ARCH_PATH + PATH), needed even for non-interactive shells
+# os environment (AP + PATH), needed even for non-interactive shells
 [[ -r /usr/share/arch/default/bash/env-bootstrap ]] && source /usr/share/arch/default/bash/env-bootstrap
 
 # If not running interactively, don't do anything else (leave this above the rc source)
@@ -6,7 +6,7 @@
 
 # All the default os aliases and functions
 # (don't mess with these directly, just overwrite them here!)
-source "${ARCH_PATH:-/usr/share/arch}/default/bash/rc"
+source "${AP:-/usr/share/arch}/default/bash/rc"
 
 # Add your own exports, aliases, and functions here.
 #

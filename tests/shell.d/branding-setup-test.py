@@ -20,7 +20,7 @@ def main() -> int:
     result = subprocess.run(
       ["python3", "-I", str(SETUP)],
       check=False,
-      env=test_environment(ARCH_PATH=str(invalid_root)),
+      env=test_environment(AP=str(invalid_root)),
       capture_output=True,
       text=True,
     )

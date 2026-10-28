@@ -52,7 +52,7 @@ SH
 
 chmod +x "$TMPDIR/bin/gliff-server"
 
-ARCH_PATH="$ROOT" \
+AP="$ROOT" \
 ARCH_QML_TEST_RESULT="$result" \
 ARCH_QML_TEST_STUB_PID="$TMPDIR/stub.pid" \
 ARCH_QML_TEST_FRAME="$TMPDIR/frame.png" \

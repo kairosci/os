@@ -10,7 +10,7 @@ import "ClipboardHistory.js" as ClipboardHistory
 Item {
   id: root
 
-  property string archPath: Quickshell.env("ARCH_PATH")
+  property string archPath: Quickshell.env("AP")
   property bool opened: false
   property string filterText: ""
   property int selectedIndex: 0

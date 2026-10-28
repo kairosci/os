@@ -91,7 +91,7 @@ def main() -> int:
     config_directory = invalid_root / "data/installer"
     config_directory.mkdir(parents=True)
     (config_directory / "firewall-setup.yml").write_text("firewall: [\n", encoding="utf-8")
-    invalid_environment = test_environment(ARCH_PATH=str(invalid_root))
+    invalid_environment = test_environment(AP=str(invalid_root))
     invalid = subprocess.run(
       ["python3", "-I", str(SETUP)],
       check=False,

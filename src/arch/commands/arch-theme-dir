@@ -8,7 +8,7 @@ import os
 from pathlib import Path
 import sys
 
-sys.path.insert(0, str(Path(os.environ["ARCH_PATH"]) / "src"))
+sys.path.insert(0, str(Path(os.environ["AP"]) / "src"))
 from arch.cli.theme.info import theme_dir_main
 
 

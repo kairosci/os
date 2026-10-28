@@ -53,7 +53,7 @@ SH
 chmod +x "$setup_bin/python3"
 export TEST_SETUP_LOG="$test_tmp/setup-steps.log"
 
-ARCH_PATH="$setup_ap" PATH="$setup_bin:$PATH" /usr/bin/python3 -I \
+AP="$setup_ap" PATH="$setup_bin:$PATH" /usr/bin/python3 -I \
   "$ROOT/src/arch/python/installer_user/all.py" || fail "Python setup orchestrator succeeds"
 [[ $(<"$TEST_SETUP_LOG") == "$setup_ap/src/arch/python/installer_user/setup/first.py
 $setup_ap/src/arch/python/installer_user/setup/second.py
@@ -61,18 +61,18 @@ $setup_ap/src/arch/python/installer_user/setup/third.py" ]] ||
   fail "Python setup orchestrator preserves YAML step order"
 pass "Python setup orchestrator preserves YAML step order"
 
-setup_count=$(ARCH_PATH="$setup_ap" /usr/bin/python3 -I \
+setup_count=$(AP="$setup_ap" /usr/bin/python3 -I \
   "$ROOT/src/arch/python/installer_user/all.py" --count)
 [[ $setup_count == 3 ]] || fail "Python setup orchestrator reports its configured step count"
 pass "Python setup orchestrator reports its configured step count"
 
-production_setup_count=$(ARCH_PATH="$ROOT" /usr/bin/python3 -I \
+production_setup_count=$(AP="$ROOT" /usr/bin/python3 -I \
   "$ROOT/src/arch/python/installer_user/all.py" --count)
 (( production_setup_count > 0 )) || fail "packaged setup data references existing Python setup steps"
 pass "packaged setup data references existing Python setup steps"
 
 : >"$TEST_SETUP_LOG"
-if ARCH_PATH="$setup_ap" PATH="$setup_bin:$PATH" TEST_FAIL_STEP=second.py \
+if AP="$setup_ap" PATH="$setup_bin:$PATH" TEST_FAIL_STEP=second.py \
   /usr/bin/python3 -I "$ROOT/src/arch/python/installer_user/all.py"; then
   fail "Python setup orchestrator stops after a failed setup step"
 else
@@ -83,10 +83,10 @@ $setup_ap/src/arch/python/installer_user/setup/second.py" ]] ||
   fail "Python setup orchestrator does not run steps after a failure"
 pass "Python setup orchestrator stops after a failed setup step"
 
-# Provisioning prepends $ARCH_PATH/src/arch/cli, which shadows a mock for anything
+# Provisioning prepends $AP/src/arch/cli, which shadows a mock for anything
 # os ships, so its Python setup orchestrator is stubbed under the test root.
 
-HOME="$test_tmp/home" PATH="$mock_bin:$ROOT/src/arch/commands:$PATH" ARCH_PATH="$test_ap" \
+HOME="$test_tmp/home" PATH="$mock_bin:$ROOT/src/arch/commands:$PATH" AP="$test_ap" \
   ARCH_INSTALL="$test_tmp/installer" bash "$ROOT/src/arch/commands/arch-provision-user" >/dev/null ||
   fail "arch-provision-user finishes"
 
@@ -111,7 +111,7 @@ pass "provisioning names the user folders in English before a first login in ano
 : >"$TEST_COMMAND_LOG"
 mkdir -p "$test_tmp/home/.config"
 printf 'XDG_DOWNLOAD_DIR="$HOME/下载"\n' >"$test_tmp/home/.config/user-dirs.dirs"
-HOME="$test_tmp/home" PATH="$mock_bin:$ROOT/src/arch/commands:$PATH" ARCH_PATH="$test_ap" \
+HOME="$test_tmp/home" PATH="$mock_bin:$ROOT/src/arch/commands:$PATH" AP="$test_ap" \
   ARCH_INSTALL="$test_tmp/installer" bash "$ROOT/src/arch/commands/arch-provision-user" --force >/dev/null ||
   fail "arch-provision-user finishes again"
 ! grep -q -- '--set DOWNLOAD ' "$TEST_COMMAND_LOG" || fail "provisioning keeps a folder the user already named"

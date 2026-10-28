@@ -10,7 +10,7 @@ QS_PID=""
 # Quickshell leaves some of its children running when it is stopped, among them
 # the inotifywait watching the plugin directory, which then holds whatever it
 # inherited open (a flock around the run, say) indefinitely. Once the shell is
-# stopped, stop whatever still runs with this test's scratch ARCH_PATH: every
+# stopped, stop whatever still runs with this test's scratch AP: every
 # child inherits it, and it finds the ones a shell that already died left
 # reparented. The environment is read afresh before every signal, so a pid
 # that has since been reused by something else is never sent one.
@@ -21,7 +21,7 @@ leftover_pids() {
   while IFS= read -r environ; do
     pid=${environ#/proc/}
     echo "${pid%/environ}"
-  done < <(grep -lzxF -- "ARCH_PATH=$test_root" /proc/[0-9]*/environ 2>/dev/null || true)
+  done < <(grep -lzxF -- "AP=$test_root" /proc/[0-9]*/environ 2>/dev/null || true)
 }
 
 signal_leftovers() {
@@ -74,11 +74,11 @@ fi
 require_command jq
 
 shell_ipc() {
-  ARCH_PATH="$test_root" "$ROOT/src/arch/commands/arch-shell" "$@"
+  AP="$test_root" "$ROOT/src/arch/commands/arch-shell" "$@"
 }
 
 shell_ipc_quiet() {
-  ARCH_PATH="$test_root" "$ROOT/src/arch/commands/arch-shell" -q "$@"
+  AP="$test_root" "$ROOT/src/arch/commands/arch-shell" -q "$@"
 }
 
 fail_with_log() {
@@ -378,7 +378,7 @@ esac
 SH
 chmod +x "$stub_bin/curl"
 
-ARCH_PATH="$test_root" \
+AP="$test_root" \
 HOME="$test_home" \
 XDG_CONFIG_HOME="$test_home/.config" \
 XDG_CACHE_HOME="$test_home/.cache" \
@@ -632,7 +632,7 @@ if grep -q 'Binding loop detected for property "hints"\|Binding loop detected fo
 fi
 pass "shell start has no platform FileView binding loops"
 
-HOME="$test_home" ARCH_PATH="$test_root" PATH="$ROOT/src/arch/commands:$PATH" "$ROOT/src/arch/commands/arch-plugin-disable" arch.audio
+HOME="$test_home" AP="$test_root" PATH="$ROOT/src/arch/commands:$PATH" "$ROOT/src/arch/commands/arch-plugin-disable" arch.audio
 
 for _ in {1..80}; do
   shell_config=$(shell_ipc shell listShellConfig 2>/dev/null || true)
@@ -667,7 +667,7 @@ pass "bar remove reloads shell config and updates bar layout"
 # bar where it is, so putting one the defaults already carry (as
 # arch.keyboard-layout is, in right) can never move it into center.
 bar_put() {
-  HOME="$test_home" ARCH_PATH="$test_root" PATH="$ROOT/src/arch/commands:$PATH" "$ROOT/src/arch/commands/arch-bar" put "$@"
+  HOME="$test_home" AP="$test_root" PATH="$ROOT/src/arch/commands:$PATH" "$ROOT/src/arch/commands/arch-bar" put "$@"
 }
 
 center_ids() {

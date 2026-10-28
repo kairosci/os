@@ -20,13 +20,13 @@ mkdir -p "$ARCH_ACCEPTANCE_DIR"
 export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
 export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=$XDG_RUNTIME_DIR/bus}"
 # The suite verifies the installed product the session is running, so default
-# ARCH_PATH to the installed tree — never this checkout, which may hold
+# AP to the installed tree — never this checkout, which may hold
 # only tests/ (arch-iso-test's --sync-arch). qs matches shell instances
 # by config path, so a suite pointed at any other tree reads the session
 # shell as "not running". Callers testing a different tree pass it explicitly.
-export ARCH_PATH="${ARCH_PATH:-/usr/share/arch}"
+export AP="${AP:-/usr/share/arch}"
 
-export PATH="$ARCH_PATH/src/arch/commands:$PATH"
+export PATH="$AP/src/arch/commands:$PATH"
 
 if [[ -z ${DISPLAY:-} ]]; then
   display=$(systemctl --user show-environment | sed -n 's/^DISPLAY=//p' | head -1)

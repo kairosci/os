@@ -13,7 +13,7 @@ def _quote(value: str) -> str:
 
 
 def main() -> int:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   config = yaml.safe_load((root / "data/installer/user-setup.yml").read_text(encoding="utf-8"))
   settings = config["xcompose"]
   values = {

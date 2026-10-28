@@ -19,7 +19,7 @@ prompt_reboot=1
 # package does not ship yet fails outright, and one it does ship silently runs
 # the packaged copy while every unprivileged call runs the checkout. Prepending
 # the checkout's bin keeps root on the code being edited — the same trust the
-# link already extends to every system script os runs out of $ARCH_PATH.
+# link already extends to every system script os runs out of $AP.
 sudoers_file="/etc/sudoers.d/arch-dev-path"
 system_secure_path="/usr/local/sbin:/usr/local/bin:/usr/bin"
 
@@ -27,11 +27,11 @@ if (( $# < 1 || $# > 2 )) || [[ $1 == "-h" || $1 == "--help" ]]; then
   cat <<USAGE
 Usage: arch dev link <path-to-checkout> [--no-reboot]
 
-Writes /etc/arch.conf so ARCH_PATH resolves to <path-to-checkout>
+Writes /etc/arch.conf so AP resolves to <path-to-checkout>
 after reboot. This intentionally does not rewrite the running Hyprland,
 systemd, shell, or app-launcher environment; reboot to make every layer agree.
 
-Affects only \$ARCH_PATH-resolved trees: src/arch/commands/, default/, src/arch/shell/,
+Affects only \$AP-resolved trees: src/arch/commands/, default/, src/arch/shell/,
 assets/themes/, assets/applications/, config/. Files installed at fixed system paths
 (/etc/, /usr/lib/systemd/, udev rule bodies, /etc/skel after user
 creation) are NOT covered — for those, use arch-dev-pkg-test to build
@@ -107,7 +107,7 @@ if ! visudo -cf "$staged_sudoers" >/dev/null; then
 fi
 
 {
-  printf 'export ARCH_PATH='
+  printf 'export AP='
   arch_conf_quote "$target"
   printf '\n'
 } | sudo tee /etc/arch.conf >/dev/null

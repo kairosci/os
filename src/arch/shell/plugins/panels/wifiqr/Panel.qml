@@ -18,7 +18,7 @@ import "Model.js" as Model
 Item {
   id: root
 
-  property string archPath: Quickshell.env("ARCH_PATH")
+  property string archPath: Quickshell.env("AP")
   property var shell: null
   property var manifest: null
 

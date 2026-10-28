@@ -172,7 +172,7 @@ def _device_steps(value: object) -> dict[str, list[DeviceStep]]:
 
 
 def load_config() -> BluetoothConfig:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   raw: object = yaml.safe_load((root / "data/cli/bluetooth.yml").read_text(encoding="utf-8"))
   config = _mapping(raw, "root")
   commands = _mapping(config.get("commands"), "commands")

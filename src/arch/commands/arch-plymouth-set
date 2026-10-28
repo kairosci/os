@@ -179,7 +179,7 @@ run_root_transaction() {
       quoted_source_root=${quoted_source_root//\"/\\\"}
       quoted_source_root=${quoted_source_root//\$/\\\$}
       quoted_source_root=${quoted_source_root//\`/\\\`}
-      expected_config_line="export ARCH_PATH=\"$quoted_source_root\""
+      expected_config_line="export AP=\"$quoted_source_root\""
       mapfile -t arch_config_lines <"$arch_conf"
       (( ${#arch_config_lines[@]} == 1 ))
       [[ ${arch_config_lines[0]} == "$expected_config_line" ]]
@@ -362,7 +362,7 @@ run_root_transaction() {
       validate_trusted_directory "$sddm_dir"
       rm -f -- "$sddm_dir/logo.svg"
     fi
-  ' bash "$mode" "$ARCH_PATH" "$bg_hex" "$text_hex" "$((64 * 1024 * 1024))"
+  ' bash "$mode" "$AP" "$bg_hex" "$text_hex" "$((64 * 1024 * 1024))"
 }
 
 if [[ $mode == "set" ]]; then

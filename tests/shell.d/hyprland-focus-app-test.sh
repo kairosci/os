@@ -22,7 +22,7 @@ chmod +x "$mock_bin/hyprctl"
 
 dispatch_log="$test_tmp/dispatch"
 clients_json='[{"address":"0xabc","class":"chromium"}]'
-PATH="$mock_bin:$PATH" ARCH_PATH="$ROOT" ARCH_TEST_CLIENTS_JSON="$clients_json" \
+PATH="$mock_bin:$PATH" AP="$ROOT" ARCH_TEST_CLIENTS_JSON="$clients_json" \
   ARCH_TEST_FOCUS_DISPATCH="$dispatch_log" \
   "$ROOT/src/arch/commands/arch-hyprland-focus-app" '^chromium$'
 
@@ -35,7 +35,7 @@ clients_json='[
   {"address":"0xviber","class":"com.viber.Viber","initialClass":"com.viber.Viber","initialTitle":"Viber"},
   {"address":"0xkitty","class":"kitty","initialClass":"kitty","initialTitle":"kitty"}
 ]'
-PATH="$mock_bin:$PATH" ARCH_PATH="$ROOT" ARCH_TEST_CLIENTS_JSON="$clients_json" \
+PATH="$mock_bin:$PATH" AP="$ROOT" ARCH_TEST_CLIENTS_JSON="$clients_json" \
   ARCH_TEST_FOCUS_DISPATCH="$dispatch_log" \
   "$ROOT/src/arch/commands/arch-hyprland-focus-app" kitty
 
@@ -48,7 +48,7 @@ clients_json='[
   {"address":"0xbrowser","class":"chromium","initialClass":"chromium","initialTitle":"Mail settings"}
 ]'
 rm -f "$dispatch_log"
-if PATH="$mock_bin:$PATH" ARCH_PATH="$ROOT" ARCH_TEST_CLIENTS_JSON="$clients_json" \
+if PATH="$mock_bin:$PATH" AP="$ROOT" ARCH_TEST_CLIENTS_JSON="$clients_json" \
   ARCH_TEST_FOCUS_DISPATCH="$dispatch_log" \
   "$ROOT/src/arch/commands/arch-hyprland-focus-app" Mail; then
   fail "app focus rejects title matches"
@@ -62,7 +62,7 @@ clients_json='[
   {"address":"0xolder","class":"chromium","focusHistoryID":4},
   {"address":"0xrecent","class":"chromium","focusHistoryID":1}
 ]'
-PATH="$mock_bin:$PATH" ARCH_PATH="$ROOT" ARCH_TEST_CLIENTS_JSON="$clients_json" \
+PATH="$mock_bin:$PATH" AP="$ROOT" ARCH_TEST_CLIENTS_JSON="$clients_json" \
   ARCH_TEST_FOCUS_DISPATCH="$dispatch_log" \
   "$ROOT/src/arch/commands/arch-hyprland-focus-app" '^chromium$'
 

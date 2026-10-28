@@ -12,7 +12,7 @@ import unittest
 from unittest.mock import patch
 
 
-ROOT = Path(os.environ["ARCH_PATH"])
+ROOT = Path(os.environ["AP"])
 spec = importlib.util.spec_from_file_location("input_setup", ROOT / "default/input-methods/configure.py")
 setup = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(setup)
@@ -29,7 +29,7 @@ class InputMethodTest(unittest.TestCase):
     home.mkdir()
     environment = {
         "HOME": str(home),
-        "ARCH_PATH": str(ROOT),
+        "AP": str(ROOT),
         "ARCH_USER_NAME": 'Kai "One"\\Desk',
         "ARCH_USER_EMAIL": "kai@example.test",
         "LANG": "en_US.UTF-8",

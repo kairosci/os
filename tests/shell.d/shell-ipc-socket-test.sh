@@ -58,7 +58,7 @@ for _ in $(seq 50); do [[ -S $socket ]] && break; sleep 0.05; done
 
 shell_call() {
   : >"$calls"
-  PATH="$stub_bin:$PATH" ARCH_PATH="$root_dir" XDG_RUNTIME_DIR="$run_dir" WAYLAND_DISPLAY="$display" QS_CALLS="$calls" \
+  PATH="$stub_bin:$PATH" AP="$root_dir" XDG_RUNTIME_DIR="$run_dir" WAYLAND_DISPLAY="$display" QS_CALLS="$calls" \
     ARCH_SHELL_IPC_TIMEOUT="${IPC_TIMEOUT:-2s}" "$ROOT/src/arch/commands/arch-shell" "$@"
 }
 

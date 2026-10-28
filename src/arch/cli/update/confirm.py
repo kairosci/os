@@ -112,7 +112,7 @@ def _style_lines(value: object) -> list[StyleLine]:
 
 
 def load_config() -> ConfirmConfig:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   raw: object = yaml.safe_load((root / "data/cli/update-confirm.yml").read_text(encoding="utf-8"))
   config = _mapping(raw, "root")
   commands = _mapping(config.get("commands"), "commands")

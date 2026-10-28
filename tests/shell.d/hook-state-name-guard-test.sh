@@ -9,7 +9,7 @@ trap 'rm -rf "$work_dir"' EXIT
 
 fake_home="$work_dir/home"
 mkdir -p "$fake_home/.config/arch/hooks" "$fake_home/.local/state/arch"
-export ARCH_PATH="$ROOT"
+export AP="$ROOT"
 
 # --- arch-hook --------------------------------------------------------------
 
@@ -138,7 +138,7 @@ ln -s "$ROOT/src" "$invalid_ap/src"
 printf '[]\n' >"$invalid_ap/data/cli/hooks.yml"
 for command in arch-hook arch-hook-install; do
   status=0
-  output=$(ARCH_PATH="$invalid_ap" HOME="$fake_home" "$ROOT/src/arch/commands/$command" 2>&1) || status=$?
+  output=$(AP="$invalid_ap" HOME="$fake_home" "$ROOT/src/arch/commands/$command" 2>&1) || status=$?
   (( status == 1 )) && [[ $output == *"Could not load hook configuration"* ]] ||
     fail "$command reports malformed configuration without a traceback" "exit: $status" "$output"
   pass "$command reports malformed configuration without a traceback"
@@ -154,7 +154,7 @@ mkdir -p "$invalid_ap/src"
 ln -s "$ROOT/src/arch" "$invalid_ap/src/arch"
 printf '[]\n' >"$invalid_ap/data/cli/state.yml"
 status=0
-output=$(ARCH_PATH="$invalid_ap" HOME="$fake_home" "$ROOT/src/arch/commands/arch-state" set broken 2>&1) || status=$?
+output=$(AP="$invalid_ap" HOME="$fake_home" "$ROOT/src/arch/commands/arch-state" set broken 2>&1) || status=$?
 (( status == 1 )) && [[ $output == *"Could not load state configuration"* ]] ||
   fail "arch state reports malformed configuration without a traceback" "exit: $status" "$output"
 pass "arch state reports malformed configuration without a traceback"

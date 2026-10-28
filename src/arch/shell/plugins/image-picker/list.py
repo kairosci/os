@@ -115,7 +115,7 @@ def _is_image_picker_config(value: object) -> TypeGuard[ImagePickerConfig]:
 
 
 def load_config() -> ImagePickerConfig:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   config_path = root / "data/shell/image-picker.yml"
   with config_path.open(encoding="utf-8") as stream:
     config: object = yaml.safe_load(stream)

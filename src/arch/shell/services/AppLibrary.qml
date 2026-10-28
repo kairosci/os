@@ -11,7 +11,7 @@ import "AppSearch.js" as AppSearch
 Item {
   id: root
 
-  property string archPath: Quickshell.env("ARCH_PATH")
+  property string archPath: Quickshell.env("AP")
 
   property var configuredHiddenEntryIds: ({})
   property var desktopHiddenEntryIds: ({})

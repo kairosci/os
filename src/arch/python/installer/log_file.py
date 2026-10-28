@@ -9,7 +9,7 @@ import yaml
 
 
 def initialize() -> None:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   settings = yaml.safe_load((root / "data/installer/logging.yml").read_text(encoding="utf-8"))
   mode = int(settings["install_log"]["file_mode"], 8)
   path = Path(os.environ["ARCH_INSTALL_LOG_FILE"])

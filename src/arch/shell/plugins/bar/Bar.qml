@@ -13,8 +13,8 @@ import "BarModel.js" as BarModel
 Item {
   id: root
 
-  // The arch-shell host injects archPath from ARCH_PATH.
-  property string archPath: Quickshell.env("ARCH_PATH")
+  // The arch-shell host injects archPath from AP.
+  property string archPath: Quickshell.env("AP")
   // Injected by the host shell so bar slots can resolve enabled widgets.
   property var barWidgetRegistry: fallbackBarWidgetRegistry
   // Read-only registry view for third-party full bars; the built-in bar does

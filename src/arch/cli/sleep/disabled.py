@@ -9,7 +9,7 @@ import yaml
 
 
 def main() -> int:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   config = yaml.safe_load((root / "data/system/sleep.yml").read_text(encoding="utf-8"))
   directory = os.environ.get(config["directory_environment"]) or config["directory_default"]
   disabled = (Path(directory) / config["disabled_filename"]).is_file()

@@ -31,7 +31,7 @@ def _integer(value: object, label: str) -> int:
 
 
 def _settings() -> PresenceConfig:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   raw: object = yaml.safe_load((root / "data/cli/cmd-presence.yml").read_text(encoding="utf-8"))
   settings = _mapping(raw, "root")
   commands = _mapping(settings.get("commands"), "commands")

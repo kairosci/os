@@ -52,7 +52,7 @@ def _integer(value: object, label: str) -> int:
 
 
 def settings() -> BatteryConfig:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   raw: object = yaml.safe_load((root / "data/cli/battery-present.yml").read_text(encoding="utf-8"))
   config = _mapping(raw, "root")
   paths = _mapping(config.get("paths"), "paths")

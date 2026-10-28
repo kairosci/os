@@ -4,10 +4,10 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-# The reset asks its question as root, after sudo has dropped ARCH_PATH from
+# The reset asks its question as root, after sudo has dropped AP from
 # the environment. Every line of the question comes from arch-i18n, a child
 # process, so the path the reset falls back to has to reach it. The real top
-# level of the reset runs as root without ARCH_PATH, its fallback pointed at
+# level of the reset runs as root without AP, its fallback pointed at
 # this checkout rather than the packaged tree, and stops once it has asked.
 require_command jq
 
@@ -24,12 +24,12 @@ reset=$ROOT/src/arch/commands/arch-system-factory-reset
 [[ $(tail -n 1 "$reset") == 'main "$@"' ]] || fail "factory reset ends by calling main"
 sed \
   -e "s|^PACKAGED_PATH=.*|PACKAGED_PATH=\"$tmp/reset\"|" \
-  -e "/^\(export \)\?ARCH_PATH=/s|:-/usr/share/arch}|:-$ROOT}|" \
+  -e "/^\(export \)\?AP=/s|:-/usr/share/arch}|:-$ROOT}|" \
   -e "s|^TOP_MNT=.*|TOP_MNT=\"$tmp/top\"|" \
   -e 's|^main "\$@"$|confirm_reset|' \
   "$reset" >"$tmp/reset"
 chmod +x "$tmp/reset"
-grep -Fq "ARCH_PATH:-$ROOT}" "$tmp/reset" || fail "factory reset defaults ARCH_PATH to the packaged tree"
+grep -Fq "AP:-$ROOT}" "$tmp/reset" || fail "factory reset defaults AP to the packaged tree"
 
 # gum records each line it would draw, then types the confirmation.
 cat >"$tmp/bin/gum" <<'SH'
@@ -68,4 +68,4 @@ done
   fail "factory reset asks its question in English" "$(cat "$tmp/screen")"
 [[ ${screen[-1]} == "Type 'reset' to continue" ]] ||
   fail "factory reset says what to type" "$(cat "$tmp/screen")"
-pass "factory reset asks its question as root without ARCH_PATH in the environment"
+pass "factory reset asks its question as root without AP in the environment"

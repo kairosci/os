@@ -15,7 +15,7 @@ run_bootstrap() {
   shell_bin=$(command -v "$shell_bin")
   HOME="$home" PATH="$path_value" "$shell_bin" -c '
     . "$1"
-    printf "%s\n%s\n" "$ARCH_PATH" "$PATH"
+    printf "%s\n%s\n" "$AP" "$PATH"
   ' sh "$bootstrap"
 }
 
@@ -40,24 +40,24 @@ mkdir -p "$tmpdir/active/src/arch/commands" "$tmpdir/unrelated/bin"
 bootstrap="$tmpdir/env-bootstrap"
 sed "s#/etc/arch.conf#$tmpdir/arch.conf#g" "$ROOT/default/bash/env-bootstrap" >"$bootstrap"
 
-printf 'export ARCH_PATH="/usr/share/arch"\n' >"$tmpdir/arch.conf"
+printf 'export AP="/usr/share/arch"\n' >"$tmpdir/arch.conf"
 mapfile -t default_result < <(run_bootstrap bash "$bootstrap" "$home" "$tmpdir/unrelated/bin:/usr/bin")
 default_path=${default_result[1]}
 
-[[ ${default_result[0]} == /usr/share/arch ]] || fail "env-bootstrap resolves default ARCH_PATH" "actual: ${default_result[0]}"
-pass "env-bootstrap resolves default ARCH_PATH"
+[[ ${default_result[0]} == /usr/share/arch ]] || fail "env-bootstrap resolves default AP" "actual: ${default_result[0]}"
+pass "env-bootstrap resolves default AP"
 assert_path_present "$default_path" "$tmpdir/unrelated/bin" "env-bootstrap preserves PATH entries in default mode"
 assert_path_present "$default_path" "$home/.local/share/mise/shims" "env-bootstrap appends mise shims"
 assert_path_present "$default_path" "$home/.local/bin" "env-bootstrap appends ~/.local/bin"
 [[ $default_path != *"command-wrappers/bin"* ]] || fail "env-bootstrap does not add agent wrapper paths" "$default_path"
 pass "env-bootstrap does not add agent wrapper paths"
 
-printf 'export ARCH_PATH="%s"\n' "$tmpdir/active" >"$tmpdir/arch.conf"
+printf 'export AP="%s"\n' "$tmpdir/active" >"$tmpdir/arch.conf"
 mapfile -t linked_result < <(run_bootstrap bash "$bootstrap" "$home" "$tmpdir/unrelated/bin:/usr/bin")
 linked_path=${linked_result[1]}
 
-[[ ${linked_result[0]} == "$tmpdir/active" ]] || fail "env-bootstrap resolves linked ARCH_PATH" "actual: ${linked_result[0]}"
-pass "env-bootstrap resolves linked ARCH_PATH"
+[[ ${linked_result[0]} == "$tmpdir/active" ]] || fail "env-bootstrap resolves linked AP" "actual: ${linked_result[0]}"
+pass "env-bootstrap resolves linked AP"
 [[ $linked_path != *"command-wrappers/bin"* ]] || fail "env-bootstrap keeps agent wrapper paths out of linked mode" "$linked_path"
 assert_path_present "$linked_path" "$tmpdir/active/src/arch/commands" "env-bootstrap includes the active checkout CLI in linked mode"
 assert_path_present "$linked_path" "$tmpdir/unrelated/bin" "env-bootstrap preserves unrelated PATH entries in linked mode"

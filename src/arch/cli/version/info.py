@@ -110,7 +110,7 @@ def _package_patterns(value: object) -> list[PackagePattern]:
 
 
 def _settings() -> Settings:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   raw: object = yaml.safe_load((root / "data/cli/version.yml").read_text(encoding="utf-8"))
   config = _mapping(raw, "root")
   commands = _mapping(config.get("commands"), "commands")
@@ -153,7 +153,7 @@ def _output(command: list[str]) -> tuple[int, str]:
 
 def _version_main() -> int:
   settings = _settings()
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   version = settings["version"]
   commands = settings["commands"]
   packaged_root = os.environ.get(commands["packaged_root_environment"], commands["packaged_root_default"])
@@ -176,7 +176,7 @@ def _version_main() -> int:
 
 def _version_branch_main() -> int:
   settings = _settings()
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   commands = settings["commands"]
   packaged_root = os.environ.get(commands["packaged_root_environment"], commands["packaged_root_default"])
   if str(root).rstrip("/") == str(packaged_root).rstrip("/"):

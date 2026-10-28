@@ -61,7 +61,7 @@ fresh_root() {
 }
 
 export PATH="$stub_bin:$arch/bin:$PATH"
-export ARCH_PATH=$arch
+export AP=$arch
 export ARCH_SYSTEM_ROOT=$root
 
 # The setup functions as arch-provision-owner defines them, with its fixed

@@ -11,4 +11,4 @@ arch-refresh-config hypr/hyprland.lua
 arch-refresh-config hypr/monitors.lua
 
 mkdir -p ~/.local/state/arch/toggles/hypr
-cp "$ARCH_PATH/default/hypr/toggles/flags.lua" ~/.local/state/arch/toggles/hypr/
+cp "$AP/default/hypr/toggles/flags.lua" ~/.local/state/arch/toggles/hypr/

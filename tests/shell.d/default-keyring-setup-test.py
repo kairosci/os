@@ -21,7 +21,7 @@ class DefaultKeyringSetupTest(unittest.TestCase):
   def test_creation_is_private_atomic_and_idempotent(self) -> None:
     with tempfile.TemporaryDirectory() as temporary:
       home = Path(temporary)
-      with patch.dict(os.environ, {"ARCH_PATH": str(ROOT), "HOME": str(home), "LANG": "en_US.UTF-8"}):
+      with patch.dict(os.environ, {"AP": str(ROOT), "HOME": str(home), "LANG": "en_US.UTF-8"}):
         self.assertEqual(setup.main(), 0)
         keyrings = home / ".local/share/keyrings"
         keyring = keyrings / "Default_keyring.keyring"
@@ -53,7 +53,7 @@ class DefaultKeyringSetupTest(unittest.TestCase):
       target = home / "outside"
       target.write_text("keep secret\n", encoding="utf-8")
       (keyrings / "Default_keyring.keyring").symlink_to(target)
-      with patch.dict(os.environ, {"ARCH_PATH": str(ROOT), "HOME": str(home), "LANG": "it_IT.UTF-8"}), contextlib.redirect_stderr(io.StringIO()) as error:
+      with patch.dict(os.environ, {"AP": str(ROOT), "HOME": str(home), "LANG": "it_IT.UTF-8"}), contextlib.redirect_stderr(io.StringIO()) as error:
         self.assertEqual(setup.main(), 1)
       self.assertEqual(
         error.getvalue(),

@@ -98,7 +98,7 @@ def _laptop_command(value: object) -> LaptopCommand:
 
 
 def _settings() -> Settings:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   raw: object = yaml.safe_load(
     (root / "data/cli/hyprland-monitors.yml").read_text(encoding="utf-8")
   )

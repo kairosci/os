@@ -10,7 +10,7 @@ require_command lua
 # on a scaled display, so it is worth pinning down.
 # base-test.sh does not set -e, so the assertions have to fail the file
 # themselves rather than leaving the pass below to run regardless.
-ARCH_PATH="$ROOT" lua - <<'LUA' || fail "the console is a centered panel until a second app joins it"
+AP="$ROOT" lua - <<'LUA' || fail "the console is a centered panel until a second app joins it"
 local rules, handlers = {}, {}
 local monitor = nil
 local workspace = nil
@@ -33,7 +33,7 @@ hl = {
   exec_scheduled_prop_refresh_immediately = function() end,
 }
 
-dofile(os.getenv("ARCH_PATH") .. "/default/hypr/bootstrap.lua")
+dofile(os.getenv("AP") .. "/default/hypr/bootstrap.lua")
 require("default.hypr.qconsole")
 
 local function current()

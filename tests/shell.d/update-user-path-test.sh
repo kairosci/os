@@ -39,7 +39,7 @@ for step in arch-hook arch-update-mise; do
   cat >"$SUDO_TEST_ROOT/src/arch/commands/$step" <<'STUB'
 #!/bin/bash
 [[ -e $SUDO_TEST_CACHE ]] || exit 91
-[[ $(command -v sudo) != "$ARCH_PATH/default/arch/sudo-no-update/sudo" ]] || exit 92
+[[ $(command -v sudo) != "$AP/default/arch/sudo-no-update/sudo" ]] || exit 92
 update-user-tool "${0##*/}"
 STUB
   chmod +x "$SUDO_TEST_ROOT/src/arch/commands/$step"

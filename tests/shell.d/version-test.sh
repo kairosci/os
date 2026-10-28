@@ -44,7 +44,7 @@ chmod +x "$stub_bin/git"
 
 version() {
   ARCH_TEST_PACKAGES="$1" \
-    ARCH_PATH="${2:-$ROOT}" \
+    AP="${2:-$ROOT}" \
     ARCH_PACKAGED_ROOT="$ROOT" \
     PATH="$stub_bin:$PATH" \
     "$ROOT/src/arch/commands/arch-version"
@@ -60,13 +60,13 @@ pass "version reports the edge package"
 [[ $(version "" "$test_tmp/checkout") == "dev" ]] || fail "version reports a dev checkout"
 pass "version reports a dev checkout"
 
-branch=$(ARCH_PATH="$test_tmp/checkout" ARCH_PACKAGED_ROOT="$ROOT" ARCH_TEST_BRANCH="feature/example" \
+branch=$(AP="$test_tmp/checkout" ARCH_PACKAGED_ROOT="$ROOT" ARCH_TEST_BRANCH="feature/example" \
   PATH="$stub_bin:$PATH" "$ROOT/src/arch/commands/arch-version-branch")
 [[ $branch == "feature/example" ]] || fail "dev branch command reports the active branch" "$branch"
-branch=$(ARCH_PATH="$test_tmp/checkout" ARCH_PACKAGED_ROOT="$ROOT" ARCH_TEST_HASH="abc1234" \
+branch=$(AP="$test_tmp/checkout" ARCH_PACKAGED_ROOT="$ROOT" ARCH_TEST_HASH="abc1234" \
   PATH="$stub_bin:$PATH" "$ROOT/src/arch/commands/arch-version-branch")
 [[ $branch == "detached@abc1234" ]] || fail "dev branch command labels a detached checkout" "$branch"
-if ARCH_PATH="$ROOT" ARCH_PACKAGED_ROOT="$ROOT" "$ROOT/src/arch/commands/arch-version-branch"; then
+if AP="$ROOT" ARCH_PACKAGED_ROOT="$ROOT" "$ROOT/src/arch/commands/arch-version-branch"; then
   fail "packaged install has no dev branch"
 fi
 pass "dev branch reports a branch or detached commit and is empty for a packaged install"
@@ -80,7 +80,7 @@ pass "version fails when no os package is installed"
 # the update under set -e.
 snapshot_desc=$(
   set -e
-  PATH="$stub_bin:$PATH" ARCH_TEST_PACKAGES="" ARCH_PATH=/usr/share/arch \
+  PATH="$stub_bin:$PATH" ARCH_TEST_PACKAGES="" AP=/usr/share/arch \
     bash -c 'DESC="$(arch-version 2>/dev/null || echo unknown)"; echo "$DESC"' 2>/dev/null
 ) || fail "snapshot survives an unknown version"
 
@@ -107,7 +107,7 @@ printf '%s\n' \
 ARCH_TEST_DATE_LOCALE="$test_tmp/date-locale" \
   ARCH_TEST_DATE_ARGS="$test_tmp/date-args" \
   ARCH_PACMAN_LOG="$pacman_log" \
-  ARCH_PATH="$ROOT" \
+  AP="$ROOT" \
   LANG=it_IT.UTF-8 \
   PATH="$stub_bin:$PATH" \
   env -u LC_TIME "$ROOT/src/arch/commands/arch-version-pkgs" >"$test_tmp/date-output"

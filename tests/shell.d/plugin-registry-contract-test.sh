@@ -36,7 +36,7 @@ cp "$SHELL_TEST_DIR/fixtures/plugin-registry/shell.qml" "$config_dir/shell.qml"
 ln -s "$ROOT/src/arch/shell/services" "$config_dir/services"
 ln -s "$ROOT/src/arch/shell/Commons" "$config_dir/Commons"
 
-ARCH_PATH="$ROOT" \
+AP="$ROOT" \
 ARCH_QML_TEST_RESULT="$result" \
 HOME="$TMPDIR/home" \
 XDG_CONFIG_HOME="$TMPDIR/home/.config" \

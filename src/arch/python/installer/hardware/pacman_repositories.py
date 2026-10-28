@@ -13,7 +13,7 @@ import yaml
 
 
 def main() -> int:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   config = yaml.safe_load(
     (root / "data/installer/hardware/pacman-repositories.yml").read_text(encoding="utf-8"),
   )

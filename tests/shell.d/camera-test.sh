@@ -77,7 +77,7 @@ cp "$shipped" "$home/.config/chromium-flags.conf"
 HOME=$home bash "$helper"
 cmp -s "$shipped" "$home/.config/chromium-flags.conf" || fail "other machines keep Chromium's flags" "$(cat "$home/.config/chromium-flags.conf")"
 run_leaf() {
-  ARCH_PATH="$ROOT" python3 -I "$leaf"
+  AP="$ROOT" python3 -I "$leaf"
 }
 rm -f "$ARCH_TEST_PACKAGES"
 run_leaf

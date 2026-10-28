@@ -104,7 +104,7 @@ launch_shell() {
 
   PATH="$fake_bin:$PATH" \
   HOME="$launch_home" \
-  ARCH_PATH="$shell_root" \
+  AP="$shell_root" \
   ARCH_TEST_QS_LOG="$qs_log" \
   ARCH_TEST_QS_ENV_LOG="$qs_env_log" \
   ARCH_TEST_QS_STATUSES="$1" \
@@ -122,7 +122,7 @@ launches() {
 
 launch_shell '0' || fail "a clean launch succeeds"
 [[ $(launches) == 1 ]] || fail "a shell that exits cleanly is not relaunched" "$(<"$qs_log")"
-grep -F -- "-n -p $shell_root/src/arch/shell" "$qs_log" >/dev/null || fail "the shell launches from ARCH_PATH"
+grep -F -- "-n -p $shell_root/src/arch/shell" "$qs_log" >/dev/null || fail "the shell launches from AP"
 pass "a shell that exits cleanly is left alone"
 
 # A misspelled variable would leave Quickshell hot-reloading the tree pacman
@@ -161,7 +161,7 @@ pass "a compositor too busy to answer is not mistaken for one that is gone"
 : >"$logger_log"
 
 PATH="$fake_bin:$PATH" \
-ARCH_PATH="$shell_root" \
+AP="$shell_root" \
 ARCH_TEST_QS_LOG="$qs_log" \
 ARCH_TEST_QS_ENV_LOG="$qs_env_log" \
 ARCH_TEST_QS_STATUSES=$'255\n0' \
@@ -190,7 +190,7 @@ pass "a signal during backoff stops the supervisor before it relaunches"
 rm -f "$qs_terminated"
 
 PATH="$fake_bin:$PATH" \
-ARCH_PATH="$shell_root" \
+AP="$shell_root" \
 ARCH_TEST_QS_LOG="$qs_log" \
 ARCH_TEST_QS_ENV_LOG="$qs_env_log" \
 ARCH_TEST_QS_STATUSES='run' \

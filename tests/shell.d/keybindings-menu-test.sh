@@ -47,7 +47,7 @@ stub_hyprctl() {
 
 keybindings() {
   env -i PATH="$stub_bin:$ROOT/src/arch/commands:$PATH" HOME="$home" \
-    XDG_CACHE_HOME="$tmpdir/cache" ARCH_PATH="$ROOT" \
+    XDG_CACHE_HOME="$tmpdir/cache" AP="$ROOT" \
     bash "$menu" --print
 }
 
@@ -79,7 +79,7 @@ pass "the input switch shortcut appears in the cheatsheet"
 printf "io.open('%s', 'w'):close()\n" "$tmpdir/init-ran" >"$tmpdir/init.lua"
 LUA_INIT="@$tmpdir/init.lua" lua -e '' && [[ -e $tmpdir/init-ran ]] || fail "the LUA_INIT probe runs in a plain lua"
 rm -f "$tmpdir/init-ran"
-env -i PATH="$stub_bin:$ROOT/src/arch/commands:$PATH" HOME="$home" XDG_CACHE_HOME="$tmpdir/cache-init" ARCH_PATH="$ROOT" \
+env -i PATH="$stub_bin:$ROOT/src/arch/commands:$PATH" HOME="$home" XDG_CACHE_HOME="$tmpdir/cache-init" AP="$ROOT" \
   LUA_INIT="@$tmpdir/init.lua" LUA_INIT_5_5="@$tmpdir/init.lua" LUA_INIT_5_4="@$tmpdir/init.lua" LUA_PATH="$tmpdir/?.lua" \
   bash "$ROOT/src/arch/commands/arch-menu-keybindings" --print >/dev/null
 [[ ! -e $tmpdir/init-ran ]] || fail "the menu's config scan ignores LUA_INIT from the environment"
@@ -280,7 +280,7 @@ rm -rf "$tmpdir/cache"
 # A wedged scan is stopped by the menu's own timeout before the Terminal bind,
 # which the check below catches; the outer timeout only turns a hang into a fail.
 timeout --kill-after=1s 60s env -i PATH="$stub_bin:$ROOT/src/arch/commands:$PATH" HOME="$home" \
-  XDG_CACHE_HOME="$tmpdir/cache" ARCH_PATH="$ROOT" \
+  XDG_CACHE_HOME="$tmpdir/cache" AP="$ROOT" \
   bash "$menu" --print >/dev/null 2>&1 ||
   fail "a plugin iterating windows at load time does not wedge the keybindings scan"
 grep -qP '→ Terminal\texec\tarch-launch-terminal$' "$tmpdir"/cache/arch/keybindings-*.records ||
@@ -300,7 +300,7 @@ translated=$(printf '%s\n' \
   $'SUPER + RETURN                      → Terminal\texec\tarch-launch-terminal' \
   $'SUPER + 3                           → Switch to workspace 3\tworkspace\t3' \
   $'SUPER + X                           → My own thing\texec\tmy-thing' |
-  ARCH_PATH=$translate_root ARCH_LANGUAGE_FILE=$tmpdir/translate-language translate_binding_records)
+  AP=$translate_root ARCH_LANGUAGE_FILE=$tmpdir/translate-language translate_binding_records)
 expected=$(printf '%s\n' \
   $'SUPER + RETURN                      → Terminal (fr)\texec\tarch-launch-terminal' \
   $'SUPER + 3                           → Changer vers espace 3\tworkspace\t3' \

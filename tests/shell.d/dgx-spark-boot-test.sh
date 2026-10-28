@@ -76,7 +76,7 @@ run() {
   local machine=$1 state=$2
   shift 2
   : >"$CALL_LOG"
-  PATH="$scratch/hw/$machine/bin:$scratch/bin:$ROOT/src/arch/commands:$PATH" ARCH_PATH="$ROOT" \
+  PATH="$scratch/hw/$machine/bin:$scratch/bin:$ROOT/src/arch/commands:$PATH" AP="$ROOT" \
     ARCH_PROC_ROOT="$scratch/hw/$machine/proc" ARCH_SYS_ROOT="$scratch/hw/$machine/sys" \
     ARCH_LIMINE_CONFIG_DIR="$state/limine-entry-tool.d" \
     ARCH_DGX_SPARK_BOOT_MARKER="$state/marker" "$@"

@@ -10,7 +10,7 @@ import yaml
 
 
 def main() -> int:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   config = cast(dict[str, object], yaml.safe_load((root / "data/installer/first-run.yml").read_text(encoding="utf-8")))
   action = sys.argv[1]
   if action == "wifi_worker":
@@ -60,7 +60,7 @@ def announce_network(config: dict[str, object]) -> int:
 
   check = subprocess.run(cast(list[str], update["check"]), check=False)
   if check.returncode == cast(int, update["no_updates_status"]):
-    if os.environ["ARCH_PATH"] == cast(str, update["installed_path"]):
+    if os.environ["AP"] == cast(str, update["installed_path"]):
       return 0
     check = subprocess.run(cast(list[str], update["checkout_check"]), check=False)
     if check.returncode != 0:

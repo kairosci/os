@@ -19,7 +19,7 @@ text)
   arch-launch-editor ~/.config/arch/branding/screensaver.txt >/dev/null 2>&1 && arch-launch-screensaver force >/dev/null 2>&1
   ;;
 reset)
-  cp "$ARCH_PATH/assets/branding/logo.txt" ~/.config/arch/branding/screensaver.txt && arch-launch-screensaver force >/dev/null 2>&1
+  cp "$AP/assets/branding/logo.txt" ~/.config/arch/branding/screensaver.txt && arch-launch-screensaver force >/dev/null 2>&1
   ;;
 *)
   echo "Usage: arch-branding-screensaver <image|text|reset>" >&2

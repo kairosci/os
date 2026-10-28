@@ -277,7 +277,7 @@ JS
 
 work=$(mktemp -d)
 trap 'rm -rf "$work"' EXIT
-export ARCH_PATH=$ROOT
+export AP=$ROOT
 export PATH="$ROOT/src/arch/commands:$PATH"
 export ARCH_LANGUAGE_FILE=$work/language
 export ARCH_LOCALE_GEN=$work/locale.gen
@@ -387,7 +387,7 @@ mkdir -p "$plural_root/default/i18n/en" "$plural_root/default/i18n/it"
 cp "$ROOT/default/i18n/plural.jq" "$ROOT/default/i18n/locales.json" "$plural_root/default/i18n/"
 printf '{"files.count": {"one": "%%1 file", "other": "%%1 files"}, "power.rate": "%%1 W"}\n' >"$plural_root/default/i18n/en/cli.json"
 printf '{"files.count": {"one": "%%1 documento", "other": "%%1 documenti"}, "power.rate": "%%1 W"}\n' >"$plural_root/default/i18n/it/cli.json"
-plural() { echo "$1" >"$work/plural-language"; ARCH_PATH=$plural_root ARCH_LANGUAGE_FILE=$work/plural-language arch-i18n "${@:2}"; }
+plural() { echo "$1" >"$work/plural-language"; AP=$plural_root ARCH_LANGUAGE_FILE=$work/plural-language arch-i18n "${@:2}"; }
 assert_bash_equal "$(plural en --count 1 files.count 1)" "1 file" "arch-i18n --count picks the English singular"
 assert_bash_equal "$(plural en --count 3 files.count 3)" "3 files" "arch-i18n --count picks the English plural"
 assert_bash_equal "$(plural it --count 1 files.count 1) / $(plural it --count 3 files.count 3)" "1 documento / 3 documenti" "arch-i18n --count follows Italian plural rules"
