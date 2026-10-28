@@ -7,7 +7,7 @@ trap 'rm -rf "$boundary_tmp"' EXIT
 export SUDO_TEST_ROOT="$boundary_tmp/arch"
 export SUDO_TEST_LOG="$boundary_tmp/events"
 export SUDO_TEST_CACHE="$boundary_tmp/cache"
-export ARCH_PATH="$SUDO_TEST_ROOT"
+export AP="$SUDO_TEST_ROOT"
 export SUDO_TEST_HOME="$boundary_tmp/home"
 # The machine the render reads its region marker from. It starts global; a test
 # writes etc/arch/region here to model a regional install, never the host's.
@@ -132,7 +132,7 @@ fi
 if [[ -n ${SUDO_TEST_REMOVE_WRAPPER_STEP:-} && "$step $*" == $SUDO_TEST_REMOVE_WRAPPER_STEP ]]; then
   # Model a package transaction replacing the running tree with a release
   # that predates the wrapper.
-  /usr/bin/rm -f "$ARCH_PATH/default/arch/sudo-no-update/sudo"
+  /usr/bin/rm -f "$AP/default/arch/sudo-no-update/sudo"
 fi
 if [[ ${SUDO_TEST_FAIL_STEP:-} == "$step" ]]; then
   # Model a misbehaving child leaving state behind, then failing. Cleanup must
@@ -156,9 +156,9 @@ case "$step" in
     fi
     ;;
   yay)
-    [[ $* == *"--sudo $ARCH_PATH/default/arch/sudo-no-update/sudo"* ]] || exit 92
+    [[ $* == *"--sudo $AP/default/arch/sudo-no-update/sudo"* ]] || exit 92
     [[ $* == *"--sudoloop=false"* ]] || exit 93
-    [[ $(command -v sudo) == "$ARCH_PATH/default/arch/sudo-no-update/sudo" ]] || exit 95
+    [[ $(command -v sudo) == "$AP/default/arch/sudo-no-update/sudo" ]] || exit 95
     ;;
 esac
 STUB

@@ -239,7 +239,7 @@ chromium_fallback() {
 # Han, then the ideographic comma and corner bracket, which Noto Sans
 # Mongolian also carries and wins for an English page without a preference.
 for variant in jp kr sc tc hk; do
-  ARCH_PATH=$ROOT python3 "$ROOT/default/input-methods/configure.py" font "$variant"
+  AP=$ROOT python3 "$ROOT/default/input-methods/configure.py" font "$variant"
   chromium_fallback "en 9aa8" "en 3001" "en 300c" "- 9aa8" "- 3001"
   for found in "${actual[@]}"; do
     [[ $found == "Noto Sans CJK ${variant^^}" ]] || fail "Chromium fallback with the $variant preference uses Noto Sans CJK ${variant^^}" "${actual[*]}"
@@ -253,7 +253,7 @@ for variant in jp kr sc tc hk; do
 done
 pass "a CJK preference sets untagged Han and CJK punctuation everywhere, Chromium included, and keeps the Latin families"
 
-ARCH_PATH=$ROOT python3 "$ROOT/default/input-methods/configure.py" font default
+AP=$ROOT python3 "$ROOT/default/input-methods/configure.py" font default
 ! grep -q 'CJK' "$XDG_CONFIG_HOME/fontconfig/conf.d/50-arch-input-method.conf" || fail "the default preference names no CJK forms"
 pass "the default CJK preference leaves the system's choice"
 

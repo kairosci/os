@@ -8,7 +8,7 @@ lua - <<'LUA'
 package.path = os.getenv("ROOT") .. "/?.lua;" .. package.path
 local events, recovery, command, imported = {}, nil, nil, false
 local config = { invisible = false, enable_hyprcursor = true, sync_gsettings_theme = true }
-local env = { XCURSOR_THEME = "my-xcursor", HYPRCURSOR_THEME = "my-hyprcursor", XCURSOR_PATH = "/my/icons", HYPRLAND_INSTANCE_SIGNATURE = "test-session", ARCH_PATH = os.getenv("ROOT") }
+local env = { XCURSOR_THEME = "my-xcursor", HYPRCURSOR_THEME = "my-hyprcursor", XCURSOR_PATH = "/my/icons", HYPRLAND_INSTANCE_SIGNATURE = "test-session", AP = os.getenv("ROOT") }
 local getenv = os.getenv
 -- The fake environment owns every cursor variable, unset ones included, so
 -- the session running the test cannot leak its own cursor into it.

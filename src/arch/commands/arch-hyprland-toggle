@@ -15,7 +15,7 @@ fi
 FLAG_NAME="$1"
 ACTION="${2:-toggle}"
 FLAG_FILE="$HOME/.local/state/arch/toggles/hypr/$FLAG_NAME.lua"
-FLAG_SOURCE="$ARCH_PATH/default/hypr/toggles/$FLAG_NAME.lua"
+FLAG_SOURCE="$AP/default/hypr/toggles/$FLAG_NAME.lua"
 
 on() {
   if [[ -f $FLAG_SOURCE ]]; then

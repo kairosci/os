@@ -17,7 +17,7 @@ background_state="$test_home/.local/state/arch/theme-backgrounds"
 mkdir -p "$test_home" "$runtime_dir"
 
 set_theme() {
-  HOME="$test_home" XDG_RUNTIME_DIR="$runtime_dir" ARCH_PATH="$ROOT" PATH="$ROOT/src/arch/commands:$PATH" \
+  HOME="$test_home" XDG_RUNTIME_DIR="$runtime_dir" AP="$ROOT" PATH="$ROOT/src/arch/commands:$PATH" \
     ARCH_THEME_HEADLESS=1 "$ROOT/src/arch/commands/arch-theme-set" "$1" >/dev/null
 }
 

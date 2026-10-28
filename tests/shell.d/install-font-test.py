@@ -74,7 +74,7 @@ with tempfile.TemporaryDirectory(prefix="install-font-") as temporary:
   config_path.parent.mkdir(parents=True)
   (invalid_root / "src").symlink_to(ROOT / "src", target_is_directory=True)
   config_path.write_text("set:\n  help_arguments: []\n", encoding="utf-8")
-  invalid_environment = test_environment(ARCH_PATH=invalid_root)
+  invalid_environment = test_environment(AP=invalid_root)
   result = subprocess.run(
     [str(ROOT / "src/arch/commands/arch-font-set"), "--help"],
     capture_output=True,

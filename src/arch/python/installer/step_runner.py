@@ -142,7 +142,7 @@ def main(arguments: list[str] | None = None) -> int:
     arguments = arguments[1:]
   if len(arguments) != 1:
     return 2
-  ap = Path(os.environ["ARCH_PATH"])
+  ap = Path(os.environ["AP"])
   arch_install = Path(os.environ.get("ARCH_INSTALL", str(ap / "installer")))
   config_relative = Path(arguments[0])
   if validate:

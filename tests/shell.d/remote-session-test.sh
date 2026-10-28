@@ -67,7 +67,7 @@ SH
 chmod +x "$TMPDIR/bin/pgrep"
 
 probe() {
-  PATH="$TMPDIR/bin:$PATH" GLIFF_PIDS="${1:-}" ARCH_PATH="$ROOT" \
+  PATH="$TMPDIR/bin:$PATH" GLIFF_PIDS="${1:-}" AP="$ROOT" \
     ARCH_PROC_ROOT="$TMPDIR/proc" "$probe_script"
 }
 
@@ -90,7 +90,7 @@ pass "probe lists only matching server processes"
 mkdir -p "$TMPDIR/invalid/data/shell"
 printf '%s\n' 'commands: [' >"$TMPDIR/invalid/data/shell/remote-session.yml"
 set +e
-ARCH_PATH="$TMPDIR/invalid" "$probe_script" >"$TMPDIR/invalid-output" 2>"$TMPDIR/invalid-error"
+AP="$TMPDIR/invalid" "$probe_script" >"$TMPDIR/invalid-output" 2>"$TMPDIR/invalid-error"
 config_status=$?
 set -e
 (( config_status == 78 )) || fail "remote-session probe reports malformed settings at its command boundary"

@@ -7,7 +7,7 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 test_tmp=$(mktemp -d)
 trap 'rm -rf "$test_tmp"' EXIT
 
-export ARCH_PATH="$ROOT"
+export AP="$ROOT"
 export ARCH_PROVISIONING_DIR="$test_tmp/provisioning"
 
 # The setup atomically replaces its preferences file and never follows
@@ -25,7 +25,7 @@ config = yaml.safe_load(source.read_text(encoding="utf-8"))
 config["chromium_preferences"]["destination"] = str(target)
 Path(destination).write_text(yaml.safe_dump(config), encoding="utf-8")
 PYTHON
-ARCH_PATH="$preferences_root" python3 -I "$ROOT/src/arch/python/installer/system_setup/chromium_preferences.py"
+AP="$preferences_root" python3 -I "$ROOT/src/arch/python/installer/system_setup/chromium_preferences.py"
 [[ $(stat -c '%a' "$preferences_file") == "644" ]] || fail "initial preferences have mode 0644"
 [[ $(cat "$preferences_file") == '{"distribution":{"require_eula":false},"browser":{"theme":{"color_scheme":0,"color_scheme2":0}}}' ]] ||
   fail "initial preferences contain the configured Chromium defaults"
@@ -37,7 +37,7 @@ import sys
 Path(sys.argv[1]).unlink()
 PYTHON_UNLINK
 ln -s "$outside_file" "$preferences_file"
-ARCH_PATH="$preferences_root" python3 -I "$ROOT/src/arch/python/installer/system_setup/chromium_preferences.py"
+AP="$preferences_root" python3 -I "$ROOT/src/arch/python/installer/system_setup/chromium_preferences.py"
 [[ ! -L $preferences_file && $(cat "$outside_file") == "keep this file" ]] ||
   fail "initial preferences replace a symlink without following it"
 pass "Chromium preferences are installed atomically with safe mode and symlink handling"

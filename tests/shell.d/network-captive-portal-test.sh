@@ -102,7 +102,7 @@ chmod +x "$stage/bin/arch-network-captive-portal"
 
 # All networking and external actions are mocked; the real connection and
 # browser are never touched, and the fixture writes only to its scratch HOME.
-output=$(HOME="$stage/home" ARCH_PATH="$stage" PATH="$stage/bin:$PATH" \
+output=$(HOME="$stage/home" AP="$stage" PATH="$stage/bin:$PATH" \
   NETWORK_TEST_BROWSER_LOG="$stage/browser.log" \
   timeout 30 quickshell -p "$stage" --no-color 2>&1) || fail "network portal fixture exits cleanly" "$output"
 [[ $output == *"RESULT pass"* ]] || fail "network portal runtime assertions pass" "$output"

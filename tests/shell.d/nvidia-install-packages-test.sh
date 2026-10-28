@@ -42,7 +42,7 @@ assert_packages() {
   rm -rf "$scratch/root"
   mkdir -p "$scratch/root"
   : >"$package_log"
-  TEST_ARCH="$architecture" TEST_DRIVER="$driver" ARCH_PATH="$ROOT" ARCH_SYSTEM_ROOT="$scratch/root" \
+  TEST_ARCH="$architecture" TEST_DRIVER="$driver" AP="$ROOT" ARCH_SYSTEM_ROOT="$scratch/root" \
     PATH="$mock_bin:$PATH" python3 -I "$ROOT/src/arch/python/installer/hardware/nvidia.py" >/dev/null ||
     fail "$description" "NVIDIA setup failed"
   local actual

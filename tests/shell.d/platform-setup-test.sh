@@ -43,7 +43,7 @@ leaf() {
   shift 2
   rm -f "$tmp/ran"
   if [[ $script == *.py ]]; then
-    env "$@" ARCH_PATH="$ROOT" ARCH_PROC_ROOT="$tmp/$platform/proc" ARCH_LIFECYCLE_ROOT="$lifecycle" \
+    env "$@" AP="$ROOT" ARCH_PROC_ROOT="$tmp/$platform/proc" ARCH_LIFECYCLE_ROOT="$lifecycle" \
       PATH="$tmp/$platform/bin:$ROOT/src/arch/commands:$PATH" python3 -I "$script" >"$tmp/output" 2>&1
   else
     env "$@" ARCH_PROC_ROOT="$tmp/$platform/proc" ARCH_LIFECYCLE_ROOT="$lifecycle" \
@@ -165,7 +165,7 @@ chmod +x "$first_bin/arch-input-method" "$first_bin/systemctl"
 first_run() {
   local platform=$1
   rm -f "$tmp/ran" "$tmp/first-run-marker" "$tmp/home/.local/state/arch/first-run.log"
-  HOME="$tmp/home" ARCH_PATH="$first_root" FIRST_RUN_MARKER="$tmp/first-run-marker" GSETTINGS_LOG="$tmp/gsettings.log" AUDIO_TUNING_LOG="$tmp/audio-tuning.log" NOTIFICATION_LOG="$tmp/notifications.log" INPUT_METHOD_LOG="$tmp/input-method.log" SYSTEMCTL_LOG="$tmp/systemctl.log" \
+  HOME="$tmp/home" AP="$first_root" FIRST_RUN_MARKER="$tmp/first-run-marker" GSETTINGS_LOG="$tmp/gsettings.log" AUDIO_TUNING_LOG="$tmp/audio-tuning.log" NOTIFICATION_LOG="$tmp/notifications.log" INPUT_METHOD_LOG="$tmp/input-method.log" SYSTEMCTL_LOG="$tmp/systemctl.log" \
     ARCH_PROC_ROOT="$tmp/$platform/proc" ARCH_LIFECYCLE_ROOT="$lifecycle" \
     PATH="$first_bin:$tmp/$platform/bin:$ROOT/src/arch/commands:$PATH" "$ROOT/src/arch/commands/arch-provision-first-run" >"$tmp/output" 2>&1
 }
@@ -216,21 +216,21 @@ cat >"$first_bin/arch-update-available" <<'SH'
 exit "${CHECKOUT_UPDATE_STATUS:-1}"
 SH
 chmod +x "$first_bin/nm-online" "$first_bin/checkupdates" "$first_bin/arch-update-available"
-LANG=it_IT.UTF-8 WIFI_CONNECTED=0 WIFI_WAIT_CONNECTED=0 ARCH_PATH="$first_root" NOTIFICATION_LOG="$tmp/notifications.log" \
+LANG=it_IT.UTF-8 WIFI_CONNECTED=0 WIFI_WAIT_CONNECTED=0 AP="$first_root" NOTIFICATION_LOG="$tmp/notifications.log" \
   PATH="$first_bin:$PATH" python3 -I "$first_root/src/arch/python/installer_user/first_run/commands.py" wifi_worker ||
   fail "offline first run notifies the user to configure Wi-Fi" "$(cat "$tmp/notifications.log")"
 grep -q 'Configura il Wi-Fi' "$tmp/notifications.log" || fail "Wi-Fi notification uses its Italian YAML translation" "$(cat "$tmp/notifications.log")"
-LANG=it_IT.UTF-8 WIFI_CONNECTED=1 CHECKUPDATES_STATUS=0 ARCH_PATH="$first_root" NOTIFICATION_LOG="$tmp/notifications.log" \
+LANG=it_IT.UTF-8 WIFI_CONNECTED=1 CHECKUPDATES_STATUS=0 AP="$first_root" NOTIFICATION_LOG="$tmp/notifications.log" \
   PATH="$first_bin:$PATH" python3 -I "$first_root/src/arch/python/installer_user/first_run/commands.py" wifi_worker ||
   fail "available updates produce a notification" "$(cat "$tmp/notifications.log")"
 grep -q 'Aggiorna il sistema' "$tmp/notifications.log" || fail "update notification uses its Italian YAML translation" "$(cat "$tmp/notifications.log")"
-if ! LANG=it_IT.UTF-8 INPUT_METHOD_FAIL=1 ARCH_PATH="$first_root" INPUT_METHOD_LOG="$tmp/user-units-input.log" SYSTEMCTL_LOG="$tmp/user-units-systemctl.log" \
+if ! LANG=it_IT.UTF-8 INPUT_METHOD_FAIL=1 AP="$first_root" INPUT_METHOD_LOG="$tmp/user-units-input.log" SYSTEMCTL_LOG="$tmp/user-units-systemctl.log" \
   PATH="$first_bin:$PATH" python3 -I "$first_root/src/arch/python/installer_user/first_run/commands.py" user_units >"$tmp/user-units.out" 2>&1; then
   fail "input-method defaults may fail without blocking user unit setup" "$(cat "$tmp/user-units.out")"
 fi
 grep -q "Configurazione del metodo di input rimandata" "$tmp/user-units.out" || fail "input-method fallback is localized from YAML" "$(cat "$tmp/user-units.out")"
 grep -q '^--user enable --now arch-crash-watch.service$' "$tmp/user-units-systemctl.log" || fail "a failed optional setup does not prevent later units" "$(cat "$tmp/user-units-systemctl.log")"
-if SYSTEMCTL_FAIL_UNIT=arch-sleep-lock.service ARCH_PATH="$first_root" SYSTEMCTL_LOG="$tmp/user-units-failure.log" \
+if SYSTEMCTL_FAIL_UNIT=arch-sleep-lock.service AP="$first_root" SYSTEMCTL_LOG="$tmp/user-units-failure.log" \
   PATH="$first_bin:$PATH" python3 -I "$first_root/src/arch/python/installer_user/first_run/commands.py" user_units >"$tmp/user-units.out" 2>&1; then
   fail "a failed systemd unit keeps first run pending"
 fi

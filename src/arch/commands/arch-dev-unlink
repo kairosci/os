@@ -30,7 +30,7 @@ case "${1:-}" in
     cat <<USAGE
 Usage: arch dev unlink [--no-reboot]
 
-Writes /etc/arch.conf so ARCH_PATH resolves to /usr/share/arch
+Writes /etc/arch.conf so AP resolves to /usr/share/arch
 after reboot. This intentionally does not rewrite the running Hyprland,
 systemd, shell, or app-launcher environment; reboot to make every layer agree.
 
@@ -49,7 +49,7 @@ esac
 
 default_target="/usr/share/arch"
 
-printf 'export ARCH_PATH="%s"\n' "$default_target" | sudo tee /etc/arch.conf >/dev/null
+printf 'export AP="%s"\n' "$default_target" | sudo tee /etc/arch.conf >/dev/null
 sudo rm -f /etc/arch.conf /etc/sudoers.d/arch-dev-path
 
 # arch-dev-link prepended the checkout to sudo's secure_path. Drop it in the

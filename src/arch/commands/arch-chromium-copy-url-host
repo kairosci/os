@@ -6,8 +6,8 @@
 set -euo pipefail
 
 SCRIPT_PATH="${BASH_SOURCE[0]}"
-export ARCH_PATH="${ARCH_PATH:-$(cd -- "$(dirname -- "$SCRIPT_PATH")/.." && pwd)}"
-export PATH="$ARCH_PATH/src/arch/commands:/usr/local/bin:/usr/bin:$PATH"
+export AP="${AP:-$(cd -- "$(dirname -- "$SCRIPT_PATH")/.." && pwd)}"
+export PATH="$AP/src/arch/commands:/usr/local/bin:/usr/bin:$PATH"
 
 parse_url() {
   jq -r '.url // empty' 2>/dev/null <<<"$1" || true

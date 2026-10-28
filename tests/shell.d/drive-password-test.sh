@@ -259,7 +259,7 @@ SH
 chmod 755 "$tmp/lifecycle/usr/lib/arch/mac-boot/luks-slots"
 chmod -R go-w "$tmp/lifecycle"
 
-export TEST_TMP=$tmp ARCH_PATH=$ROOT XDG_STATE_HOME=$tmp/state SUDO_USER=owner ARCH_LIFECYCLE_ROOT=$tmp/lifecycle
+export TEST_TMP=$tmp AP=$ROOT XDG_STATE_HOME=$tmp/state SUDO_USER=owner ARCH_LIFECYCLE_ROOT=$tmp/lifecycle
 base_path=$PATH
 platform=x86
 

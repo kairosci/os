@@ -6,7 +6,7 @@
 
 set -e
 
-source "$ARCH_PATH/installer/helpers/browser-policy.sh"
+source "$AP/installer/helpers/browser-policy.sh"
 
 opt_path="${ARCH_OPT_PATH:-/opt}"
 
@@ -32,7 +32,7 @@ link_widevine_cdm() {
 
 copy_chromium_flags() {
   mkdir -p ~/.config
-  cp -f "$ARCH_PATH/config/chromium-flags.conf" "$1"
+  cp -f "$AP/config/chromium-flags.conf" "$1"
   arch-install-chromium-copy-url
   arch-install-chromium-ytdlp
   arch-install-video-decode

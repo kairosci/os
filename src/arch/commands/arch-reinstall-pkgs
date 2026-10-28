@@ -9,7 +9,7 @@ set -e
 # (stable, or edge on Apple Silicon) and downgrade any packages that are too new.
 
 # Set the package repository to the platform's default channel
-source "$ARCH_PATH/installer/helpers/pacman.sh"
+source "$AP/installer/helpers/pacman.sh"
 platform=$(arch-hw-platform)
 channel=$(arch_pacman_default_channel "$platform")
 arch-refresh-pacman "$channel"

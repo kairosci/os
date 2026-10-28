@@ -38,7 +38,7 @@ done
 exit 1
 SH
 chmod +x "$stage/bin/arch-plugin-list" "$stage/bin/arch-background-session-mark"
-HOME="$stage/home" USER=intro-test ARCH_PATH="$ROOT" PATH="$stage/bin:$ROOT/src/arch/commands:$PATH" \
+HOME="$stage/home" USER=intro-test AP="$ROOT" PATH="$stage/bin:$ROOT/src/arch/commands:$PATH" \
   "$ROOT/src/arch/commands/arch-plugin-clone" arch.background >/dev/null
 ln -s "$stage/home/.config/arch/plugins/intro-test.background" "$stage/clone"
 ln -s "$ROOT/src/arch/shell/Commons" "$stage/Commons"
@@ -68,7 +68,7 @@ for consumed in false true; do
   fi
   rm -f "$stage/result.json"
   : >"$stage/release"
-  HOME="$stage/home" ARCH_PATH="$ROOT" PATH="$stage/bin:$PATH" INTRO_TEST_RESULT="$stage/result.json" INTRO_TEST_RELEASE="$stage/release" \
+  HOME="$stage/home" AP="$ROOT" PATH="$stage/bin:$PATH" INTRO_TEST_RESULT="$stage/result.json" INTRO_TEST_RELEASE="$stage/release" \
     quickshell -p "$stage" --no-color >"$stage/quickshell.log" 2>&1 &
   qs_pid=$!
   wait_phase cover

@@ -75,9 +75,9 @@ checkout=$(make_checkout checkout)
 : >"$sudoers_file"
 run_link "$checkout" --no-reboot >"$test_tmp/link.out"
 
-[[ $(<"$conf_file") == "export ARCH_PATH=\"$checkout\"" ]] ||
-  fail "dev link points ARCH_PATH at the checkout" "$(<"$conf_file")"
-pass "dev link points ARCH_PATH at the checkout"
+[[ $(<"$conf_file") == "export AP=\"$checkout\"" ]] ||
+  fail "dev link points AP at the checkout" "$(<"$conf_file")"
+pass "dev link points AP at the checkout"
 
 # sudo reads secure_path, not the caller's PATH, so the checkout has to come
 # first there too or `sudo arch-*` runs the packaged copy.

@@ -46,7 +46,7 @@ printf '%s\n' 'N: Name="SynPS/2 Synaptics TouchPad"' >"$test_tmp/devices"
 run_fix() {
   : >"$modprobe_log"
 
-  ARCH_PATH="$ROOT" MODPROBE_LOG="$modprobe_log" \
+  AP="$ROOT" MODPROBE_LOG="$modprobe_log" \
     PATH="$test_tmp/bin:$PATH" \
     ARCH_SYNAPTIC_INPUT_DEVICES="$test_tmp/devices" \
     TEST_LOADED_MODULES="${1:-}" \

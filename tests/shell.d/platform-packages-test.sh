@@ -11,7 +11,7 @@ trap 'rm -rf "$work"' EXIT
 runtime_arch="$work/arch"
 mkdir -p "$runtime_arch"
 ln -s "$ROOT/installer" "$runtime_arch/installer"
-export ARCH_PATH="$runtime_arch"
+export AP="$runtime_arch"
 export PATH="$ROOT/src/arch/commands:$PATH"
 
 names() {
@@ -69,7 +69,7 @@ mkdir -p "$tree/installer"
 cp "$ROOT"/installer/arch-*.packages "$tree/installer/"
 printf '# test addition\nexample-board-support\nzram-generator\n' >"$tree/installer/arch-aarch64-apple.packages"
 for platform in aarch64-apple aarch64 x86; do
-  defaults=$(ARCH_PATH="$tree" arch-pkg-defaults "$platform")
+  defaults=$(AP="$tree" arch-pkg-defaults "$platform")
   if [[ $platform == "aarch64-apple" ]]; then
     [[ $(tail -n 1 <<<"$defaults") == "example-board-support" ]] || fail "a platform list is added after the others" "$defaults"
     (( $(grep -cx zram-generator <<<"$defaults") == 1 )) || fail "a name in two lists is installed once" "$defaults"
@@ -83,7 +83,7 @@ pass "a platform list joins only its own platform's set"
 # additions; no other platform gets them.
 names_of() { sed -e 's/[[:space:]]*#.*$//' -e '/^[[:space:]]*$/d' "$ROOT/installer/arch-$1.packages"; }
 for family in aarch64-qualcomm aarch64-n1x aarch64-gb10; do
-  defaults=$(ARCH_PATH="$runtime_arch" arch-pkg-defaults "$family")
+  defaults=$(AP="$runtime_arch" arch-pkg-defaults "$family")
   [[ $(tail -n "$(names_of "$family" | wc -l)" <<<"$defaults") == "$(names_of "$family")" ]] ||
     fail "$family's own list comes last" "$defaults"
   while IFS= read -r package; do
@@ -91,7 +91,7 @@ for family in aarch64-qualcomm aarch64-n1x aarch64-gb10; do
   done < <(names_of aarch64)
   for other in aarch64 aarch64-apple x86; do
     while IFS= read -r package; do
-      ! grep -Fxq "$package" <<<"$(ARCH_PATH="$runtime_arch" arch-pkg-defaults "$other")" ||
+      ! grep -Fxq "$package" <<<"$(AP="$runtime_arch" arch-pkg-defaults "$other")" ||
         fail "$other leaves out $family's $package"
     done < <(names_of "$family")
   done
@@ -109,7 +109,7 @@ pass "the old platform names compose the same sets"
 
 # Base packages that only x86_64 builds stay out of every aarch64 set.
 for platform in aarch64-apple aarch64 x86; do
-  defaults=$(ARCH_PATH="$runtime_arch" arch-pkg-defaults "$platform")
+  defaults=$(AP="$runtime_arch" arch-pkg-defaults "$platform")
   while read -r name; do
     [[ -n $name && $name != \#* ]] || continue
     if [[ $platform == "x86" ]]; then

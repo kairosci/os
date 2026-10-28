@@ -109,7 +109,7 @@ def managed_content(existing: str, trees: list[Path], config: DtbUkiConfig) -> s
 
 
 def main() -> int:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   config: object = yaml.safe_load(
     (root / "data/installer/hardware/qualcomm/dtb-uki.yml").read_text(encoding="utf-8"),
   )

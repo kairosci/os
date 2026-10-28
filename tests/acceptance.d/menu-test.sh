@@ -5,7 +5,7 @@ set -euo pipefail
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 CONFIG_FILE="$HOME/.config/arch/shell.json"
-DEFAULTS_FILE="$ARCH_PATH/config/arch/shell.json"
+DEFAULTS_FILE="$AP/config/arch/shell.json"
 config_backup=$(mktemp)
 config_existed=0
 

@@ -94,7 +94,7 @@ class HiddenEntriesTest(unittest.TestCase):
       check=False,
       capture_output=True,
       text=True,
-      env=test_environment(ARCH_PATH=invalid_root),
+      env=test_environment(AP=invalid_root),
     )
     self.assertEqual(result.returncode, 78)
     self.assertIn("Could not load hidden-entries configuration", result.stderr)

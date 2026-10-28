@@ -41,7 +41,7 @@ PRIVILEGED_PREFIXES=(/etc /usr /opt /srv /boot /var/lib)
 # Path roots the installing user can replace outright -- by editing the
 # directory, or by swapping a symlink like ~/.local/share/arch. An expansion
 # anchored in one of these is the shape this check exists to catch.
-USER_WRITABLE_VARS=(HOME PWD OLDPWD TMPDIR ARCH_PATH ARCH_INSTALL
+USER_WRITABLE_VARS=(HOME PWD OLDPWD TMPDIR AP ARCH_INSTALL
   XDG_CONFIG_HOME XDG_DATA_HOME XDG_CACHE_HOME XDG_STATE_HOME XDG_RUNTIME_DIR)
 
 # Commands that carry a heredoc's output to its destination, and the ones that

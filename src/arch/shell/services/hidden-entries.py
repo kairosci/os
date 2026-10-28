@@ -67,7 +67,7 @@ def _text_list(value: object, label: str) -> list[str]:
 
 
 def settings() -> Settings:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   raw: object = yaml.safe_load((root / "data/shell/hidden-entries.yml").read_text(encoding="utf-8"))
   config = _mapping(raw, "root")
   paths = _mapping(config.get("paths"), "paths")

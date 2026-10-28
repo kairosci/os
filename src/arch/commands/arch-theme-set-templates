@@ -3,7 +3,7 @@
 # arch:summary=Generate themed config files from Arch templates
 # arch:hidden=true
 
-TEMPLATES_DIR="$ARCH_PATH/default/themed"
+TEMPLATES_DIR="$AP/default/themed"
 USER_TEMPLATES_DIR="$HOME/.config/arch/themed"
 NEXT_THEME_DIR="$HOME/.local/state/arch/current/next-theme"
 COLORS_FILE="$NEXT_THEME_DIR/colors.toml"

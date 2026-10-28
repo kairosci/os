@@ -4,7 +4,7 @@ Il desktop Arch gira come un singolo processo Quickshell a lunga durata chiamato
 
 Non è solo un dettaglio di implementazione. Significa che puoi disattivare pezzi del desktop, sostituirli o scriverne di tuoi senza toccare una riga del sorgente di Arch.
 
-I plugin di prima parte sono inclusi con Arch e vivono in `$ARCH_PATH/src/arch/shell/plugins/`. Tutto ciò che aggiungi tu — i tuoi esperimenti o qualcosa che hai trovato su GitHub — vive in `~/.config/arch/plugins/`. Entrambi vengono scoperti allo stesso modo all'avvio, ma quelli integrati ricevono interfacce shell fidate mentre i plugin di terze parti ricevono un'interfaccia limitata circoscritta al proprio servizio e ciclo di vita. I cloni di quelli integrati conservano solo la configurazione specifica della sorgente e le chiamate UI necessarie per il comportamento originale.
+I plugin di prima parte sono inclusi con Arch e vivono in `$AP/src/arch/shell/plugins/`. Tutto ciò che aggiungi tu — i tuoi esperimenti o qualcosa che hai trovato su GitHub — vive in `~/.config/arch/plugins/`. Entrambi vengono scoperti allo stesso modo all'avvio, ma quelli integrati ricevono interfacce shell fidate mentre i plugin di terze parti ricevono un'interfaccia limitata circoscritta al proprio servizio e ciclo di vita. I cloni di quelli integrati conservano solo la configurazione specifica della sorgente e le chiamate UI necessarie per il comportamento originale.
 
 ## Vedere cosa hai
 
@@ -60,7 +60,7 @@ La rimozione disabilita prima il plugin, poi lo elimina se è un checkout git (i
 
 ## Clonare un integrato per modificarlo
 
-Questa è la mia parte preferita. Se vuoi cambiare il comportamento di un widget integrato, non modificare i file sotto `$ARCH_PATH` — appartengono al pacchetto e il prossimo aggiornamento li sovrascriverà. Clonalo invece:
+Questa è la mia parte preferita. Se vuoi cambiare il comportamento di un widget integrato, non modificare i file sotto `$AP` — appartengono al pacchetto e il prossimo aggiornamento li sovrascriverà. Clonalo invece:
 
 ```
 arch plugin clone arch.clock

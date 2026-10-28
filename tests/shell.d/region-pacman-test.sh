@@ -18,9 +18,9 @@ fixture_root() {
   mkdir -p "$1/installer/helpers"
   cp "$ROOT/installer/helpers/pacman.sh" "$1/installer/helpers/"
 }
-export ARCH_PATH="$scratch/root"
-fixture_root "$ARCH_PATH"
-cp -a "$ROOT/default" "$ARCH_PATH/"
+export AP="$scratch/root"
+fixture_root "$AP"
+cp -a "$ROOT/default" "$AP/"
 
 apply() { "$ROOT/src/arch/commands/arch-apply-pacman" "$1" "$TARGET_ROOT"; }
 
@@ -76,7 +76,7 @@ fixture_root "$scratch/incomplete"
 mkdir -p "$scratch/incomplete/default/regions/cn/pacman"
 cp -a "$ROOT/default/pacman" "$scratch/incomplete/default/"
 cp "$ROOT/default/regions/cn/pacman/arch-stable.prepend" "$scratch/incomplete/default/regions/cn/pacman/"
-if ARCH_PATH="$scratch/incomplete" apply stable > "$scratch/error" 2>&1; then
+if AP="$scratch/incomplete" apply stable > "$scratch/error" 2>&1; then
   fail "incomplete region profile accepted"
 fi
 rg -q 'mirrorlist-stable.prepend' "$scratch/error" || fail "incomplete profile fails on the missing fragment" "$(<"$scratch/error")"

@@ -80,15 +80,15 @@ fi
 export ARCH_INSTALL_USER="$install_user"
 export ARCH_FIRST_INSTALL="$first_install"
 export ARCH_UPGRADE="$upgrade"
-export ARCH_PATH="${ARCH_PATH:-/usr/share/arch}"
-export ARCH_INSTALL="${ARCH_INSTALL:-$ARCH_PATH/installer}"
+export AP="${AP:-/usr/share/arch}"
+export ARCH_INSTALL="${ARCH_INSTALL:-$AP/installer}"
 export ARCH_INSTALL_LOG_FILE="${ARCH_INSTALL_LOG_FILE:-/var/log/arch-install.log}"
-export PATH="$ARCH_PATH/src/arch/commands:$PATH"
+export PATH="$AP/src/arch/commands:$PATH"
 
 source "$ARCH_INSTALL/helpers/logging.sh"
 start_install_log
 
-run_logged "$ARCH_PATH/src/arch/python/installer/system_setup/all.py"
+run_logged "$AP/src/arch/python/installer/system_setup/all.py"
 
 if (( defer_provisioning )); then
   arch-apply-hardware --defer-provisioning
@@ -96,7 +96,7 @@ else
   arch-apply-hardware --install-user "$install_user"
 fi
 
-run_logged "$ARCH_PATH/src/arch/python/installer/login/sddm.py"
-run_logged "$ARCH_PATH/src/arch/python/installer/post_install/all.py"
+run_logged "$AP/src/arch/python/installer/login/sddm.py"
+run_logged "$AP/src/arch/python/installer/post_install/all.py"
 
 stop_install_log

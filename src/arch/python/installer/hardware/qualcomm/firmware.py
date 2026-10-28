@@ -42,7 +42,7 @@ def _run(command: list[str], *, capture_output: bool = False) -> subprocess.Comp
 
 
 def main() -> int:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   config = yaml.safe_load((root / "data/installer/hardware.yml").read_text(encoding="utf-8"))
   settings = config["qualcomm_firmware_setup"]
   if _run(settings["platform_check"]).returncode:

@@ -69,7 +69,7 @@ def _is_stock_networkd_file(path: Path, settings: NetworkSettings) -> bool:
 
 
 def main() -> int:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   config: object = yaml.safe_load((root / "data/installer/hardware.yml").read_text(encoding="utf-8"))
   if not isinstance(config, dict):
     raise ValueError("invalid hardware setup configuration")

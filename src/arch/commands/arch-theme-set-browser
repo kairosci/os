@@ -3,7 +3,7 @@
 # arch:summary=Apply the current theme color to Chromium, Chrome, Edge, and Brave
 # arch:hidden=true
 
-source "$ARCH_PATH/installer/helpers/browser-policy.sh"
+source "$AP/installer/helpers/browser-policy.sh"
 
 CHROMIUM_THEME=$HOME/.local/state/arch/current/theme/chromium.theme
 THEME_HEX_COLOR=$BROWSER_POLICY_DEFAULT_COLOR

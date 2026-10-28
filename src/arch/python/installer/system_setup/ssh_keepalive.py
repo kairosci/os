@@ -33,7 +33,7 @@ def _create_atomically(path: Path, content: str, mode: int, directory_mode: int)
 
 
 def main() -> int:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   config = yaml.safe_load((root / "data/installer/system-setup.yml").read_text(encoding="utf-8"))
   settings = config["ssh_keepalive"]
   _create_atomically(

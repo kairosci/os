@@ -16,10 +16,10 @@ conf_file=/etc/arch.conf
 if [[ -f $conf_file ]]; then
   conf_present=1
   configured=$(
-    ARCH_PATH=
+    AP=
     # shellcheck disable=SC1091
     . "$conf_file"
-    printf '%s' "${ARCH_PATH:-<empty>}"
+    printf '%s' "${AP:-<empty>}"
   )
   if [[ $configured != "$default_target" ]]; then
     linked=1
@@ -48,19 +48,19 @@ sudo_bin_dir() {
 
 if (( linked )); then
   echo "dev-link: configured"
-  echo "  $conf_file -> ARCH_PATH=$configured"
+  echo "  $conf_file -> AP=$configured"
   echo "  sudo resolves arch-* from: $(sudo_bin_dir)"
   echo "  status: reboot required before all session layers use this checkout"
 else
   echo "dev-link: inactive"
   if (( conf_present )); then
-    echo "  $conf_file -> ARCH_PATH=$configured (default guard)"
+    echo "  $conf_file -> AP=$configured (default guard)"
   fi
 fi
 
-echo "  current shell:       ARCH_PATH=${ARCH_PATH:-<unset>}"
+echo "  current shell:       AP=${AP:-<unset>}"
 
-if [[ ${ARCH_PATH:-$default_target} != "$configured" ]]; then
+if [[ ${AP:-$default_target} != "$configured" ]]; then
   echo
   echo "Note: the running session does not match $conf_file. Reboot to settle it."
 fi

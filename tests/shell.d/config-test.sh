@@ -52,7 +52,7 @@ pass "default center layout puts elsewhen immediately after the clock and before
 
 # Every CLI write goes through the normalizer, which keeps every bar section a
 # list, the ones beside the center box included.
-normalized=$(ARCH_PATH="$ROOT" bash -c 'source "$ARCH_PATH/src/arch/commands/arch-shell-config" && jq -c "$NORMALIZE | .bar.layout" <<<"{\"bar\":{\"layout\":{\"centerBegin\":null}}}"')
+normalized=$(AP="$ROOT" bash -c 'source "$AP/src/arch/commands/arch-shell-config" && jq -c "$NORMALIZE | .bar.layout" <<<"{\"bar\":{\"layout\":{\"centerBegin\":null}}}"')
 [[ $normalized == '{"centerBegin":[],"left":[],"center":[],"centerEnd":[],"right":[]}' ]] ||
   fail "shell config normalizer keeps every bar section a list" "$normalized"
 pass "shell config normalizer keeps every bar section a list"
@@ -182,7 +182,7 @@ def installs_first(text):
   enable = text.find("systemctl --user enable")
   return bool(copy) and (enable < 0 or copy.start() < enable)
 
-named = 'unit="$ARCH_PATH/default/systemd/user/a.service"\n'
+named = 'unit="$AP/default/systemd/user/a.service"\n'
 if installs_first(named + "systemctl --user enable a.service\n"):
   errors.append("unit check accepts a command that names a unit's source but never installs it")
 if installs_first(named + 'systemctl --user enable a.service\ninstall -Dm644 "$unit" "$target"\n'):
@@ -229,20 +229,20 @@ grep -Fq 'initialize_passwordless_sudo_state' "$ROOT/packages/arch/arch-branding
   grep -Fq 'arch-sudo-passwordless __initialize' "$ROOT/packages/arch/arch-branding.install" ||
   fail "the runtime package reconciles passwordless sudo state through its package hook"
 
-grep -F 'dofile((os.getenv("ARCH_PATH") or "/usr/share/arch") .. "/default/hypr/bootstrap.lua")' "$ROOT/config/hypr/hyprland.lua" >/dev/null
+grep -F 'dofile((os.getenv("AP") or "/usr/share/arch") .. "/default/hypr/bootstrap.lua")' "$ROOT/config/hypr/hyprland.lua" >/dev/null
 grep -F 'require("default.hypr.arch")' "$ROOT/config/hypr/hyprland.lua" >/dev/null
 grep -F 'package.path = home' "$ROOT/default/hypr/bootstrap.lua" >/dev/null
 grep -F '/.local/state/?.lua;' "$ROOT/default/hypr/bootstrap.lua" >/dev/null
 pass "Hyprland user entrypoint keeps package and state path bootstrap in defaults"
 
-ARCH_PATH="$ROOT" lua <<'LUA'
+AP="$ROOT" lua <<'LUA'
 package.loaded["default.hypr.arch"] = true
 package.loaded["default.hypr.require_optional"] = true
 package.loaded["hypr.looknfeel"] = true
 package.loaded["arch.current.theme.hyprland"] = true
 package.loaded["unrelated.module"] = true
 
-dofile(os.getenv("ARCH_PATH") .. "/default/hypr/bootstrap.lua")
+dofile(os.getenv("AP") .. "/default/hypr/bootstrap.lua")
 
 assert(package.loaded["default.hypr.arch"] == nil)
 assert(package.loaded["default.hypr.require_optional"] == nil)
@@ -316,42 +316,42 @@ cat >"$TMPDIR/home/.config/arch/plugins/local.demo-bar/manifest.json" <<'JSON'
 JSON
 touch "$TMPDIR/home/.config/arch/plugins/local.demo-bar/Bar.qml"
 
-if HOME="$TMPDIR/home" ARCH_PATH="$test_arch_root" arch-bar use local.nonexistent-bar 2>/dev/null; then
+if HOME="$TMPDIR/home" AP="$test_arch_root" arch-bar use local.nonexistent-bar 2>/dev/null; then
   fail "bar use accepted an unknown bar option"
 fi
 pass "bar use rejects an unknown bar option"
 
-HOME="$TMPDIR/home" ARCH_PATH="$test_arch_root" arch-bar use local.demo-bar
+HOME="$TMPDIR/home" AP="$test_arch_root" arch-bar use local.demo-bar
 jq -e '.bar.id == "local.demo-bar"' "$TMPDIR/home/.config/arch/shell.json" >/dev/null
 pass "shell config selects a bar option"
 
-HOME="$TMPDIR/home" ARCH_PATH="$test_arch_root" arch-bar reset
+HOME="$TMPDIR/home" AP="$test_arch_root" arch-bar reset
 jq -e '.bar.id == null' "$TMPDIR/home/.config/arch/shell.json" >/dev/null
 pass "shell config resets to built-in bar option"
 
-HOME="$TMPDIR/home" ARCH_PATH="$test_arch_root" arch-bar move arch.active-window right
+HOME="$TMPDIR/home" AP="$test_arch_root" arch-bar move arch.active-window right
 grep -Fqx 'shell moveBarWidget arch.active-window {"section":"right"}' \
   "$TMPDIR/home/.local/state/arch/shell-ipc-calls"
 pass "bar move accepts a positional target section"
 
-HOME="$TMPDIR/home" ARCH_PATH="$test_arch_root" arch-bar move arch.active-window left
+HOME="$TMPDIR/home" AP="$test_arch_root" arch-bar move arch.active-window left
 grep -Fqx 'shell moveBarWidget arch.active-window {"section":"left"}' \
   "$TMPDIR/home/.local/state/arch/shell-ipc-calls"
 pass "bar move can restore a widget with positional syntax"
 
-if HOME="$TMPDIR/home" ARCH_PATH="$test_arch_root" arch-bar move arch.active-window left --section right 2>/dev/null; then
+if HOME="$TMPDIR/home" AP="$test_arch_root" arch-bar move arch.active-window left --section right 2>/dev/null; then
   fail "bar move accepted positional and flagged target sections"
 fi
 pass "bar move rejects conflicting target section syntax"
 
-HOME="$TMPDIR/home" ARCH_PATH="$test_arch_root" arch-bar position bottom
+HOME="$TMPDIR/home" AP="$test_arch_root" arch-bar position bottom
 jq -e '
   .bar.position == "bottom" and
   .plugins == []
 ' "$TMPDIR/home/.config/arch/shell.json" >/dev/null
 pass "shell config sets bar position"
 
-HOME="$TMPDIR/home" ARCH_PATH="$test_arch_root" arch-bar transparent true
+HOME="$TMPDIR/home" AP="$test_arch_root" arch-bar transparent true
 jq -e '
   .bar.background == "none" and
   .bar.position == "bottom" and
@@ -359,7 +359,7 @@ jq -e '
 ' "$TMPDIR/home/.config/arch/shell.json" >/dev/null
 pass "shell config sets bar transparency"
 
-HOME="$TMPDIR/home" ARCH_PATH="$test_arch_root" arch-bar transparent toggle
+HOME="$TMPDIR/home" AP="$test_arch_root" arch-bar transparent toggle
 jq -e '.bar.background == "opaque"' "$TMPDIR/home/.config/arch/shell.json" >/dev/null
 pass "shell config toggles bar transparency"
 
@@ -368,7 +368,7 @@ pass "shell config toggles bar transparency"
 printf '#!/bin/bash\nprintf "%%s\\n" "$*" >>"%s/hyprctl.log"\n' "$TMPDIR" >"$ipc_mock_bin/hyprctl"
 chmod +x "$ipc_mock_bin/hyprctl"
 glass_toggle="$TMPDIR/home/.local/state/arch/toggles/hypr/bar-glassy.lua"
-bar_background() { HOME="$TMPDIR/home" ARCH_PATH="$test_arch_root" arch-bar background "$@"; }
+bar_background() { HOME="$TMPDIR/home" AP="$test_arch_root" arch-bar background "$@"; }
 
 bar_background opaque >/dev/null
 [[ $(bar_background) == "opaque" ]] || fail "an opaque bar background is reported"
@@ -400,9 +400,9 @@ pass "the bar background cycles through its looks and refuses unknown ones"
 
 # transparent stays for scripts written against it: true is none, false opaque.
 bar_background glassy >/dev/null
-HOME="$TMPDIR/home" ARCH_PATH="$test_arch_root" arch-bar transparent true >/dev/null
+HOME="$TMPDIR/home" AP="$test_arch_root" arch-bar transparent true >/dev/null
 [[ $(bar_background) == "none" ]] || fail "transparent true leaves the bar without a background"
-HOME="$TMPDIR/home" ARCH_PATH="$test_arch_root" arch-bar transparent toggle >/dev/null
+HOME="$TMPDIR/home" AP="$test_arch_root" arch-bar transparent toggle >/dev/null
 [[ $(bar_background) == "opaque" ]] || fail "toggling transparency off makes the bar opaque"
 # A shell.json from before background says transparent, which reads as none
 # and is dropped once a background is set.
@@ -417,18 +417,18 @@ pass "the older transparent form still sets and reads as the bar background"
 # Restoring the default bar also restores its glassy background and its blur.
 bar_background glassy >/dev/null
 [[ -f $glass_toggle ]] || fail "a glassy bar has its blur on before defaults"
-HOME="$TMPDIR/home" ARCH_PATH="$test_arch_root" arch-bar defaults >/dev/null
+HOME="$TMPDIR/home" AP="$test_arch_root" arch-bar defaults >/dev/null
 [[ $(bar_background) == "glassy" && -f $glass_toggle ]] || fail "archctl bar defaults restores the glassy background"
 pass "restoring the default bar restores its glassy background"
 
 # A background set by editing shell.json gets its blur when the shell syncs it.
 jq '.bar.background = "glassy"' "$TMPDIR/home/.config/arch/shell.json" >"$TMPDIR/edited.json" &&
   mv "$TMPDIR/edited.json" "$TMPDIR/home/.config/arch/shell.json"
-HOME="$TMPDIR/home" ARCH_PATH="$test_arch_root" arch-bar sync-glass
+HOME="$TMPDIR/home" AP="$test_arch_root" arch-bar sync-glass
 [[ -f $glass_toggle ]] || fail "syncing a hand-edited glassy bar turns its blur on"
 jq '.bar.background = "opaque"' "$TMPDIR/home/.config/arch/shell.json" >"$TMPDIR/edited.json" &&
   mv "$TMPDIR/edited.json" "$TMPDIR/home/.config/arch/shell.json"
-HOME="$TMPDIR/home" ARCH_PATH="$test_arch_root" arch-bar sync-glass
+HOME="$TMPDIR/home" AP="$test_arch_root" arch-bar sync-glass
 [[ ! -f $glass_toggle ]] || fail "syncing a hand-edited opaque bar turns its blur off"
 pass "a bar background edited into shell.json gets its blur synced"
 
@@ -443,22 +443,22 @@ chmod u+w "$toggles_dir"
 [[ $(bar_background) == "opaque" && ! -f $glass_toggle ]] || fail "a bar whose blur can't be turned on keeps its old background" "$(bar_background)"
 pass "a bar whose blur can't change keeps its old background"
 
-HOME="$TMPDIR/home" ARCH_PATH="$test_arch_root" arch-bar set arch.bluetooth enabled false --json
+HOME="$TMPDIR/home" AP="$test_arch_root" arch-bar set arch.bluetooth enabled false --json
 grep -Fqx 'shell setBarWidget arch.bluetooth enabled false {}' \
   "$TMPDIR/home/.local/state/arch/shell-ipc-calls"
 pass "bar set accepts false JSON values"
 
-HOME="$TMPDIR/home" ARCH_PATH="$test_arch_root" arch-bar set arch.bluetooth optional null --json
+HOME="$TMPDIR/home" AP="$test_arch_root" arch-bar set arch.bluetooth optional null --json
 grep -Fqx 'shell setBarWidget arch.bluetooth optional null {}' \
   "$TMPDIR/home/.local/state/arch/shell-ipc-calls"
 pass "bar set accepts null JSON values"
 
-if HOME="$TMPDIR/home" ARCH_PATH="$test_arch_root" arch-bar set arch.bluetooth broken '{' --json 2>/dev/null; then
+if HOME="$TMPDIR/home" AP="$test_arch_root" arch-bar set arch.bluetooth broken '{' --json 2>/dev/null; then
   fail "bar set accepted malformed JSON"
 fi
 pass "bar set rejects malformed JSON"
 
-if HOME="$TMPDIR/home" ARCH_PATH="$test_arch_root" arch-bar set arch.bluetooth broken 'false null' --json 2>/dev/null; then
+if HOME="$TMPDIR/home" AP="$test_arch_root" arch-bar set arch.bluetooth broken 'false null' --json 2>/dev/null; then
   fail "bar set accepted multiple JSON values"
 fi
 pass "bar set rejects multiple JSON values"
@@ -473,7 +473,7 @@ set -euo pipefail
 relative_path="${1:-}"
 [[ -n $relative_path ]] || exit 1
 mkdir -p "$HOME/.config/$(dirname "$relative_path")"
-cp "$ARCH_PATH/config/$relative_path" "$HOME/.config/$relative_path"
+cp "$AP/config/$relative_path" "$HOME/.config/$relative_path"
 SH
 
 cat >"$mock_bin/arch-restart-shell" <<'SH'
@@ -507,14 +507,14 @@ SH
 chmod +x "$mock_bin"/*
 mock_path="$mock_bin:$ROOT/src/arch/commands:$PATH"
 
-HOME="$TMPDIR/home" ARCH_PATH="$test_arch_root" PATH="$mock_path" ARCH_TEST_DROPBOX=0 ARCH_TEST_TAILSCALE=0 arch-bar defaults
+HOME="$TMPDIR/home" AP="$test_arch_root" PATH="$mock_path" ARCH_TEST_DROPBOX=0 ARCH_TEST_TAILSCALE=0 arch-bar defaults
 jq -e --slurpfile defaults "$ROOT/config/arch/shell.json" '
   .bar == $defaults[0].bar and
   .plugins == []
 ' "$TMPDIR/home/.config/arch/shell.json" >/dev/null
 pass "bar defaults restores the stock bar"
 
-HOME="$TMPDIR/home" ARCH_PATH="$test_arch_root" PATH="$mock_path" ARCH_TEST_DROPBOX=1 ARCH_TEST_TAILSCALE=1 arch-bar defaults
+HOME="$TMPDIR/home" AP="$test_arch_root" PATH="$mock_path" ARCH_TEST_DROPBOX=1 ARCH_TEST_TAILSCALE=1 arch-bar defaults
 jq -e '
   def ids: map(.id // .);
   (.bar.layout.right | ids) as $right |
@@ -525,7 +525,7 @@ jq -e '
 ' "$TMPDIR/home/.config/arch/shell.json" >/dev/null
 pass "bar defaults places plugins for running optional services"
 
-HOME="$TMPDIR/home" ARCH_PATH="$test_arch_root" PATH="$mock_path" \
+HOME="$TMPDIR/home" AP="$test_arch_root" PATH="$mock_path" \
   ARCH_TEST_SHELL_DOWN=1 ARCH_TEST_DROPBOX=1 ARCH_TEST_TAILSCALE=1 \
   arch-bar defaults
 jq -e '
@@ -538,7 +538,7 @@ jq -e '
 ' "$TMPDIR/home/.config/arch/shell.json" >/dev/null
 pass "bar defaults places service widgets without a running shell"
 
-HOME="$TMPDIR/home" ARCH_PATH="$test_arch_root" PATH="$mock_path" ARCH_TEST_DROPBOX=0 ARCH_TEST_TAILSCALE=0 arch-refresh-shell
+HOME="$TMPDIR/home" AP="$test_arch_root" PATH="$mock_path" ARCH_TEST_DROPBOX=0 ARCH_TEST_TAILSCALE=0 arch-refresh-shell
 jq -e '
   def ids: map(.id // .);
   ([.bar.layout[]] | map(ids) | add) as $all |
@@ -547,7 +547,7 @@ jq -e '
 ' "$TMPDIR/home/.config/arch/shell.json" >/dev/null
 pass "shell refresh keeps optional service widgets absent when services are unavailable"
 
-HOME="$TMPDIR/home" ARCH_PATH="$test_arch_root" PATH="$mock_path" ARCH_TEST_DROPBOX=1 ARCH_TEST_TAILSCALE=1 arch-refresh-shell
+HOME="$TMPDIR/home" AP="$test_arch_root" PATH="$mock_path" ARCH_TEST_DROPBOX=1 ARCH_TEST_TAILSCALE=1 arch-refresh-shell
 jq -e '
   def ids: map(.id // .);
   (.bar.layout.right | ids) as $right |

@@ -36,7 +36,7 @@ SH
 chmod +x "$wrapper_bin/qs"
 
 wrapper_error=$(PATH="$wrapper_bin:$PATH" \
-  ARCH_PATH="$wrapper_root" \
+  AP="$wrapper_root" \
   ARCH_SHELL_IPC_TIMEOUT=0.1s \
   ARCH_TEST_QS_HANG=1 \
   "$ROOT/src/arch/commands/arch-shell" shell ping 2>&1) && fail "hung shell IPC returns a failure"
@@ -45,14 +45,14 @@ pass "shell IPC calls time out when Quickshell is unresponsive"
 
 # A starting shell answers on stdout and exits 0, so a ping reads it as up.
 wrapper_error=$(PATH="$wrapper_bin:$PATH" \
-  ARCH_PATH="$wrapper_root" \
+  AP="$wrapper_root" \
   ARCH_TEST_QS_STARTING=1 \
   "$ROOT/src/arch/commands/arch-shell" shell ping 2>&1) && fail "a starting shell answers IPC calls with a failure"
 [[ $wrapper_error == "arch-shell is not ready" ]] || fail "a starting shell reports that it is not ready" "$wrapper_error"
 pass "shell IPC calls fail while Quickshell is still starting"
 
 PATH="$wrapper_bin:$PATH" \
-ARCH_PATH="$wrapper_root" \
+AP="$wrapper_root" \
 ARCH_TEST_QS_STARTING=1 \
   "$ROOT/src/arch/commands/arch-shell" -q shell ping >/dev/null 2>&1 ||
   fail "quiet best-effort IPC calls tolerate a starting shell"
@@ -60,7 +60,7 @@ pass "quiet best-effort IPC calls tolerate a starting shell"
 
 wrapper_args="$test_tmp/wrapper-args"
 PATH="$wrapper_bin:$PATH" \
-ARCH_PATH="$wrapper_root" \
+AP="$wrapper_root" \
 ARCH_TEST_QS_ARGS="$wrapper_args" \
   "$ROOT/src/arch/commands/arch-shell" shell ping >/dev/null
 
@@ -141,7 +141,7 @@ if [[ ${1:-} == "-j" && ${2:-} == "monitors" ]]; then
   fi
 elif [[ ${1:-} == "dispatch" && ${2:-} == hl.dsp.exec_cmd* ]]; then
   printf '%s\n' "${2:-}" >>"$ARCH_TEST_DISPATCH_LOG"
-  ARCH_PATH="$ARCH_TEST_SESSION_PATH" \
+  AP="$ARCH_TEST_SESSION_PATH" \
     env -u ARCH_TEST_TRANSIENT_ENV arch-launch-shell
   printf 'ok\n'
 elif [[ ${1:-} == "dispatch" ]]; then
@@ -164,7 +164,7 @@ cat >"$restart_bin/systemctl" <<'SH'
 #!/bin/bash
 
 if [[ ${1:-} == "--user" && ${2:-} == "show-environment" ]]; then
-  printf 'ARCH_PATH=%s\n' "$ARCH_TEST_SESSION_PATH"
+  printf 'AP=%s\n' "$ARCH_TEST_SESSION_PATH"
 elif [[ ${1:-} == "--user" && ${2:-} == "try-restart" ]]; then
   exit 0
 else
@@ -208,7 +208,7 @@ mkdir -p "$caller_root/src/arch/shell"
 touch "$caller_root/src/arch/shell/shell.qml"
 
 PATH="$restart_bin:$PATH" \
-ARCH_PATH="$caller_root" \
+AP="$caller_root" \
 XDG_RUNTIME_DIR="$runtime_dir" \
 ARCH_TEST_QS_STATE="$restart_state" \
 ARCH_TEST_QS_LOG="$restart_log" \
@@ -245,7 +245,7 @@ printf '303\n' >"$restart_state"
 touch "$restart_state.locked"
 
 locked_error=$(PATH="$restart_bin:$PATH" \
-  ARCH_PATH="$restart_root" \
+  AP="$restart_root" \
   XDG_RUNTIME_DIR="$runtime_dir" \
   ARCH_TEST_SESSION_LOCKED=1 \
   ARCH_TEST_QS_STATE="$restart_state" \
@@ -271,7 +271,7 @@ rm -f "$restart_state.locked"
 : >"$ipc_log"
 
 PATH="$restart_bin:$PATH" \
-ARCH_PATH="$restart_root" \
+AP="$restart_root" \
 XDG_RUNTIME_DIR="$runtime_dir" \
 ARCH_TEST_SESSION_LOCKED=1 \
 ARCH_TEST_QS_STATE="$restart_state" \
@@ -303,7 +303,7 @@ rm -f "$restart_state.locked" "$test_tmp/notification-checks"
 : >"$ipc_log"
 
 if PATH="$restart_bin:$PATH" \
-  ARCH_PATH="$restart_root" \
+  AP="$restart_root" \
   XDG_RUNTIME_DIR="$runtime_dir" \
   ARCH_TEST_SESSION_LOCKED=1 \
   ARCH_TEST_QS_STATE="$restart_state" \

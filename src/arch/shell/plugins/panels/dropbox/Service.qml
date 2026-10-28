@@ -8,7 +8,7 @@ Item {
   id: root
 
   property var settings: ({})
-  property string archPath: Quickshell.env("ARCH_PATH")
+  property string archPath: Quickshell.env("AP")
 
   property bool installed: false
   property bool running: false

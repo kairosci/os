@@ -147,7 +147,7 @@ prepare_helper() {
         }
         next
       }
-      if (line == "resume_hook_src=\"$ARCH_PATH/default/systemd/system-sleep/fprintd-resume\"") {
+      if (line == "resume_hook_src=\"$AP/default/systemd/system-sleep/fprintd-resume\"") {
         print "resume_hook_src=\"" hook_src "\""
         next
       }
@@ -155,7 +155,7 @@ prepare_helper() {
         print "resume_hook_dst=\"" hook_dst "\""
         next
       }
-      if (line == "stop_timeout_src=\"$ARCH_PATH/default/systemd/system/fprintd.service.d/10-stop-timeout.conf\"") {
+      if (line == "stop_timeout_src=\"$AP/default/systemd/system/fprintd.service.d/10-stop-timeout.conf\"") {
         print "stop_timeout_src=\"" timeout_src "\""
         next
       }

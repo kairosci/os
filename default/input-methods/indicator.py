@@ -13,9 +13,9 @@ from pathlib import Path
 from gi.repository import Gio, GLib
 
 
-ARCH_PATH = Path(os.environ.get("ARCH_PATH", "/usr/share/arch"))
-FCITX_DBUS = json.loads((ARCH_PATH / "data/input-methods/fcitx-dbus.json").read_text())
-SETTINGS = json.loads((ARCH_PATH / "data/input-methods/settings.json").read_text())
+AP = Path(os.environ.get("AP", "/usr/share/arch"))
+FCITX_DBUS = json.loads((AP / "data/input-methods/fcitx-dbus.json").read_text())
+SETTINGS = json.loads((AP / "data/input-methods/settings.json").read_text())
 BUS = FCITX_DBUS["service"]
 INTERFACE = FCITX_DBUS["interface"]
 OBJECT_PATH = FCITX_DBUS["path"]

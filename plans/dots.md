@@ -60,7 +60,7 @@ access goes through one internal helper that runs git **hermetically**:
 
 Tracking is `git add -f --pathspec-from-file=<manifest>` only. The manifest is
 a hand-audited file shipped with Arch — explicitly **not** derived from
-`$ARCH_PATH/config` (which ships Chromium Preferences, fcitx5,
+`$AP/config` (which ships Chromium Preferences, fcitx5,
 `opencode/opencode.json` where users put API keys, etc.):
 
 - Include: `.config/hypr/*.{lua,conf}`, `.config/arch/shell.json`,

@@ -151,7 +151,7 @@ stub killall 'exit 1'
 stub arch-powerprofiles-set 'exit 0'
 stub powerprofilesctl 'exit 0'
 # The shell runs some commands under `bash -lc`, and a login shell resets PATH
-# and ARCH_PATH from /etc/arch.conf, which would put the session's
+# and AP from /etc/arch.conf, which would put the session's
 # checkout and its real commands back ahead of these stubs.
 stub bash '[[ ${1:-} == "-lc" ]] && shift && set -- -c "$@"
 exec /bin/bash "$@"'
@@ -169,7 +169,7 @@ exec_count() {
   fi
 }
 
-ARCH_PATH="$test_root" \
+AP="$test_root" \
 HOME="$test_home" \
 XDG_CONFIG_HOME="$test_home/.config" \
 XDG_CACHE_HOME="$test_home/.cache" \
@@ -184,7 +184,7 @@ QS_PID=$!
 
 ready=0
 for _ in {1..150}; do
-  if ARCH_PATH="$test_root" "$ROOT/src/arch/commands/arch-shell" shell listPlugins 2>/dev/null | jq -e 'length > 0' >/dev/null 2>&1; then
+  if AP="$test_root" "$ROOT/src/arch/commands/arch-shell" shell listPlugins 2>/dev/null | jq -e 'length > 0' >/dev/null 2>&1; then
     ready=1
     break
   fi

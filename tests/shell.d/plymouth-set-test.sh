@@ -48,7 +48,7 @@ pass "SDDM refresh allowlist covers every packaged asset"
 printf 'not yours\n' >"$secret"
 ln -s "$secret" "$test_tmp/logo-link.png"
 
-output=$(ARCH_PATH="$ROOT" /bin/bash "$ROOT/src/arch/commands/arch-plymouth-set" '#1d2021' '#ebdbb2' "$test_tmp/logo-link.png" 2>&1)
+output=$(AP="$ROOT" /bin/bash "$ROOT/src/arch/commands/arch-plymouth-set" '#1d2021' '#ebdbb2' "$test_tmp/logo-link.png" 2>&1)
 status=$?
 
 (( status != 0 )) || fail "arch-plymouth-set refuses a symlinked logo"
@@ -62,7 +62,7 @@ pass "a themed logo cannot republish a file it merely points at"
 # without real privilege; retain a structural assertion on hosts that disable
 # them so the invariant never becomes an untested skip.
 if unshare --user --map-root-user true 2>/dev/null; then
-  output=$(unshare --user --map-root-user env ARCH_PATH="$ROOT" /bin/bash "$ROOT/src/arch/commands/arch-plymouth-set" '#1d2021' '#ebdbb2' "$secret" 2>&1)
+  output=$(unshare --user --map-root-user env AP="$ROOT" /bin/bash "$ROOT/src/arch/commands/arch-plymouth-set" '#1d2021' '#ebdbb2' "$secret" 2>&1)
   status=$?
   (( status != 0 )) || fail "arch-plymouth-set refuses to run as root"
   [[ $output == *"as your user"* && $output == *"not under sudo"* ]] ||
@@ -378,7 +378,7 @@ run_in_fake_root() {
     umask "$requested_umask"
     PATH="$fake_bin:$ROOT/src/arch/commands:$PATH" \
       TMPDIR="$stages" \
-      ARCH_PATH="$ROOT" \
+      AP="$ROOT" \
       TEST_FAKE_ROOT="$fake_root" \
       TEST_STAGES="$stages" \
       TEST_ROOT_TOOLS="$root_tools" \
@@ -624,9 +624,9 @@ mkdir -p "$symlink_source_root/default"
 cp -a "$ROOT/default/plymouth" "$ROOT/default/sddm" "$symlink_source_root/default/"
 rm -f "$symlink_source_root/default/plymouth/bullet.png"
 ln -s "$secret" "$symlink_source_root/default/plymouth/bullet.png"
-printf 'export ARCH_PATH="%s"\n' "$symlink_source_root" >"$arch_conf"
+printf 'export AP="%s"\n' "$symlink_source_root" >"$arch_conf"
 chmod 0644 "$arch_conf"
-output=$(run_set 022 env ARCH_PATH="$symlink_source_root" TEST_UNTRUSTED_SOURCE="$symlink_source_root" 2>&1)
+output=$(run_set 022 env AP="$symlink_source_root" TEST_UNTRUSTED_SOURCE="$symlink_source_root" 2>&1)
 status=$?
 
 (( status != 0 )) || fail "a symlinked packaged asset is rejected" "$output"
@@ -636,21 +636,21 @@ assert_no_temporary_files "$fake_root"
 
 pass "root never follows a packaged asset symlink"
 
-# A random user-owned ARCH_PATH remains untrusted. Only the exact canonical
+# A random user-owned AP remains untrusted. Only the exact canonical
 # checkout recorded by root in /etc/arch.conf is the supported dev-link
 # exception; an unrelated or stale authorization must not weaken the check.
 setup_run
 output=$(run_set 022 env TEST_UNTRUSTED_SOURCE="$ROOT" 2>&1)
 status=$?
 
-(( status != 0 )) || fail "a user-owned ARCH_PATH is rejected"
+(( status != 0 )) || fail "a user-owned AP is rejected"
 [[ $output == *"user-owned"* ]] || fail "the refusal names the untrusted source tree" "$output"
 [[ $output == *"arch dev link"* ]] || fail "the refusal names how to authorize a development checkout" "$output"
-[[ $(cat "$theme/bullet.png") == 'old plymouth bullet.png' ]] || fail "a user-owned ARCH_PATH leaves the live theme unchanged"
+[[ $(cat "$theme/bullet.png") == 'old plymouth bullet.png' ]] || fail "a user-owned AP leaves the live theme unchanged"
 assert_no_temporary_files "$fake_root"
 
 setup_run
-printf 'export ARCH_PATH="/some/other/checkout"\n' >"$arch_conf"
+printf 'export AP="/some/other/checkout"\n' >"$arch_conf"
 chmod 0644 "$arch_conf"
 output=$(run_set 022 env TEST_UNTRUSTED_SOURCE="$ROOT" 2>&1)
 status=$?
@@ -667,7 +667,7 @@ status=$?
 assert_no_temporary_files "$fake_root"
 
 setup_run
-printf 'export ARCH_PATH="%s"\n' "$ROOT" >"$arch_conf"
+printf 'export AP="%s"\n' "$ROOT" >"$arch_conf"
 chmod 0666 "$arch_conf"
 output=$(run_set 022 env TEST_UNTRUSTED_SOURCE="$ROOT" 2>&1)
 status=$?
@@ -678,7 +678,7 @@ assert_no_temporary_files "$fake_root"
 
 setup_run
 authorization_target="$run_dir/authorization-target"
-printf 'export ARCH_PATH="%s"\n' "$ROOT" >"$authorization_target"
+printf 'export AP="%s"\n' "$ROOT" >"$authorization_target"
 chmod 0644 "$authorization_target"
 ln -s "$authorization_target" "$arch_conf"
 output=$(run_set 022 env TEST_UNTRUSTED_SOURCE="$ROOT" 2>&1)
@@ -689,7 +689,7 @@ status=$?
 assert_no_temporary_files "$fake_root"
 
 setup_run
-printf 'export ARCH_PATH="%s"\n' "$ROOT" >"$arch_conf"
+printf 'export AP="%s"\n' "$ROOT" >"$arch_conf"
 chmod 0644 "$arch_conf"
 output=$(run_set 022 env TEST_UNTRUSTED_SOURCE="$ROOT" TEST_UNTRUSTED_CONFIGURATION="$arch_conf" 2>&1)
 status=$?
@@ -699,7 +699,7 @@ status=$?
 assert_no_temporary_files "$fake_root"
 
 setup_run
-printf 'export ARCH_PATH="%s"\n' "$ROOT" >"$arch_conf"
+printf 'export AP="%s"\n' "$ROOT" >"$arch_conf"
 chmod 0644 "$arch_conf"
 output=$(run_set 022 env TEST_UNTRUSTED_SOURCE="$ROOT" 2>&1)
 status=$?
@@ -787,7 +787,7 @@ writable_directory_root=$(realpath -e -- "$writable_directory_root")
 mkdir -p "$writable_directory_root/default"
 cp -a "$ROOT/default/plymouth" "$ROOT/default/sddm" "$writable_directory_root/default/"
 chmod 0777 "$writable_directory_root/default/plymouth"
-output=$(run_set 022 env ARCH_PATH="$writable_directory_root" 2>&1)
+output=$(run_set 022 env AP="$writable_directory_root" 2>&1)
 status=$?
 
 (( status != 0 )) || fail "a writable packaged source directory is rejected" "$output"
@@ -806,7 +806,7 @@ writable_root=$(realpath -e -- "$writable_root")
 mkdir -p "$writable_root/default"
 cp -a "$ROOT/default/plymouth" "$ROOT/default/sddm" "$writable_root/default/"
 chmod 0666 "$writable_root/default/plymouth/bullet.png"
-output=$(run_set 022 env ARCH_PATH="$writable_root" 2>&1)
+output=$(run_set 022 env AP="$writable_root" 2>&1)
 status=$?
 
 (( status != 0 )) || fail "a world-writable packaged asset is rejected" "$output"

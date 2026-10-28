@@ -18,7 +18,7 @@ fi
 config_home="${XDG_CONFIG_HOME:-$HOME/.config}"
 mkdir -p "$config_home/voxtype"
 if [[ ! -e $config_home/voxtype/config.toml ]]; then
-  cp "$ARCH_PATH/default/voxtype/config.toml" "$config_home/voxtype/"
+  cp "$AP/default/voxtype/config.toml" "$config_home/voxtype/"
   # A Vulkan runtime is not enough: aarch64 voxtype-bin ships no Vulkan backend.
   if arch-hw-vulkan && [[ -x $voxtype_lib_path/voxtype-vulkan ]]; then
     voxtype setup gpu --enable || true

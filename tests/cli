@@ -337,7 +337,7 @@ placeholder = "#ffffff"
 border = "#ffffff"
 EOF
 
-ARCH_PATH="$ROOT" HOME="$PI_TMPDIR" "$ROOT/src/arch/commands/arch-theme-set-templates"
+AP="$ROOT" HOME="$PI_TMPDIR" "$ROOT/src/arch/commands/arch-theme-set-templates"
 grep -qx 'mix=#808080' "$NEXT_THEME/mix-test.txt" || fail "theme template mix helper works"
 grep -qx 'strip=808080' "$NEXT_THEME/mix-test.txt" || fail "theme template mix_strip helper works"
 grep -qx 'rgb=128,128,128' "$NEXT_THEME/mix-test.txt" || fail "theme template mix_rgb helper works"
@@ -413,7 +413,7 @@ LEGACY_THEME_HOME="$PI_TMPDIR/legacy-theme-home"
 LEGACY_NEXT_THEME="$LEGACY_THEME_HOME/.local/state/arch/current/next-theme"
 mkdir -p "$LEGACY_NEXT_THEME"
 cp "$LEGACY_COLORS_FILE" "$LEGACY_NEXT_THEME/colors.toml"
-ARCH_PATH="$ROOT" HOME="$LEGACY_THEME_HOME" "$ROOT/src/arch/commands/arch-theme-set-templates"
+AP="$ROOT" HOME="$LEGACY_THEME_HOME" "$ROOT/src/arch/commands/arch-theme-set-templates"
 grep -qx 'background = #101010' "$LEGACY_NEXT_THEME/ghostty.conf" || fail "legacy theme generates terminal background"
 grep -qx 'foreground = #f0f0f0' "$LEGACY_NEXT_THEME/ghostty.conf" || fail "legacy theme generates terminal foreground"
 grep -Fq '"LazyVim/LazyVim"' "$LEGACY_NEXT_THEME/neovim.lua" || fail "Neovim keeps its upstream configuration"
@@ -427,7 +427,7 @@ osc_summary=$("$ROOT/src/arch/commands/arch-theme-osc" "$NEXT_THEME/colors.toml"
 [[ $osc_summary == "16 True True True True True True" ]] || fail "theme OSC aliases semantic colors to ANSI palette"
 pass "theme OSC aliases semantic colors to ANSI palette"
 
-preview_output=$(ARCH_PATH="$ROOT" HOME="$PI_TMPDIR" "$ROOT/src/arch/commands/arch-dev-theme-preview" "$NEXT_THEME/colors.toml" --no-color)
+preview_output=$(AP="$ROOT" HOME="$PI_TMPDIR" "$ROOT/src/arch/commands/arch-dev-theme-preview" "$NEXT_THEME/colors.toml" --no-color)
 assert_output_contains "theme preview shows background to bright_foreground gradient" "$preview_output" "background -> bright_foreground gradient"
 assert_output_contains "theme preview orders light mode ramp light to dark" "$preview_output" "Neutral ramp (lightest -> darkest)"
 assert_output_contains "theme preview includes dark background slots" "$preview_output" "darker_background"
@@ -465,7 +465,7 @@ awk '
 pass "theme shell section override is merged"
 
 make_tmpdir THEME_TMPDIR
-ARCH_PATH="$ROOT" HOME="$THEME_TMPDIR" ARCH_THEME_HEADLESS=1 "$ROOT/src/arch/commands/arch-theme-set" "Cosmic"
+AP="$ROOT" HOME="$THEME_TMPDIR" ARCH_THEME_HEADLESS=1 "$ROOT/src/arch/commands/arch-theme-set" "Cosmic"
 background_path=$(readlink -f "$THEME_TMPDIR/.local/state/arch/current/background" 2>/dev/null || true)
 expected_background=$(find "$THEME_TMPDIR/.local/state/arch/current/theme/backgrounds" -maxdepth 1 -type f | sort | head -n 1)
 [[ $background_path == "$expected_background" ]] || fail "headless theme set creates current background symlink"

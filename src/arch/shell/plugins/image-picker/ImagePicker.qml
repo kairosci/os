@@ -12,8 +12,8 @@ import "ImagePickerModel.js" as ImagePickerModel
 Item {
   id: root
 
-  // Injected by arch-shell; defaults to the session ARCH_PATH.
-  property string archPath: Quickshell.env("ARCH_PATH")
+  // Injected by arch-shell; defaults to the session AP.
+  property string archPath: Quickshell.env("AP")
   property string stateHome: Quickshell.env("HOME") + "/.local/state"
   property string userThemesPath: Quickshell.env("HOME") + "/.config/arch/themes"
   property string imageDirs: Quickshell.env("ARCH_IMAGE_SELECTOR_DIRS") || Quickshell.env("ARCH_IMAGE_SELECTOR_DIR") || Quickshell.env("ARCH_STOCK_BACKGROUNDS_DIR") || (stateHome + "/arch/current/theme/backgrounds")

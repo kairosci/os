@@ -55,7 +55,7 @@ pass "bar off disables bar-off toggle"
 # The gaps half of full screen copies a flag file in and reloads Hyprland, so
 # give it this checkout to copy from and a hyprctl that answers without a
 # compositor.
-export ARCH_PATH="$ROOT"
+export AP="$ROOT"
 stub_bin="$TMPDIR/bin"
 mkdir -p "$stub_bin"
 printf '#!/bin/bash\nexit 0\n' >"$stub_bin/hyprctl"
@@ -103,7 +103,7 @@ for virt in vm none; do
   rm -rf "$test_home/.local/state/arch/toggles/hypr"
   printf '#!/bin/bash\n[[ %s == vm ]]\n' "$virt" >"$stub_bin/arch-hw-vm"
   chmod +x "$stub_bin/arch-hw-vm"
-  HOME="$test_home" ARCH_PATH="$ROOT" PATH="$stub_bin:$PATH" \
+  HOME="$test_home" AP="$ROOT" PATH="$stub_bin:$PATH" \
     python3 -I "$ROOT/src/arch/python/installer_user/setup/vm.py" >/dev/null
   if [[ $virt == "vm" ]]; then
     [[ -f $animations_flag ]] || fail "a VM install turns animations off"

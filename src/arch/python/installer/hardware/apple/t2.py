@@ -24,7 +24,7 @@ def install_file(target: Path, content: str, mode: str) -> None:
 
 
 def main() -> int:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   config = yaml.safe_load((root / "data/installer/hardware/apple/t2.yml").read_text(encoding="utf-8"))
   pci = subprocess.run(config["pci_command"], check=False, capture_output=True, text=True)
   if pci.returncode != 0:

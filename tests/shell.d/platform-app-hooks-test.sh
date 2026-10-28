@@ -51,7 +51,7 @@ run() {
   rm -f "$tmp/calls" "$tmp/flags-at-hook"
   rm -rf "$tmp/home"
   mkdir -p "$tmp/home"
-  HOME="$tmp/home" ARCH_PATH="$ap" ARCH_OPT_PATH="$tmp/opt" \
+  HOME="$tmp/home" AP="$ap" ARCH_OPT_PATH="$tmp/opt" \
     ARCH_PROC_ROOT="$tmp/$platform/proc" ARCH_LIFECYCLE_ROOT="$lifecycle" \
     PATH="$stub_bin:$tmp/$platform/bin:$ROOT/src/arch/commands:$PATH" bash "$@" >"$tmp/output" 2>&1
 }

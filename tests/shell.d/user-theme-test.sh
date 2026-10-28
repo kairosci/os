@@ -49,14 +49,14 @@ done
 
 calls="$test_tmp/theme-calls"
 touch "$test_tmp/home/.config/chromium/SingletonLock"
-HOME="$test_tmp/home" ARCH_PATH="$ROOT" PATH="$mock_bin:$PATH" ARCH_TEST_THEME_CALLS="$calls" \
+HOME="$test_tmp/home" AP="$ROOT" PATH="$mock_bin:$PATH" ARCH_TEST_THEME_CALLS="$calls" \
   python3 -I "$ROOT/src/arch/python/installer_user/setup/theme.py"
 grep -Fx 'Cosmic' "$calls" >/dev/null || fail "user theme setup seeds Cosmic when no theme exists"
 [[ -f $test_tmp/home/.config/chromium/SingletonLock ]] || fail "runtime user theme setup preserves Chromium's singleton lock"
 
 : >"$calls"
 printf 'Solitude\n' >"$test_tmp/home/.local/state/arch/current/theme.name"
-HOME="$test_tmp/home" ARCH_PATH="$ROOT" PATH="$mock_bin:$PATH" ARCH_TEST_THEME_CALLS="$calls" \
+HOME="$test_tmp/home" AP="$ROOT" PATH="$mock_bin:$PATH" ARCH_TEST_THEME_CALLS="$calls" \
   python3 -I "$ROOT/src/arch/python/installer_user/setup/theme.py"
 [[ ! -s $calls ]] || fail "user theme setup preserves an existing theme"
 
@@ -76,7 +76,7 @@ cp "$ROOT/data/cli/theme-info.yml" "$test_tmp/theme-arch/data/cli/theme-info.yml
 cp "$test_tmp/theme-arch/data/cli/theme-info.yml" "$test_tmp/theme-info-valid.yml"
 printf '%s\n' 'paths: [' >"$test_tmp/theme-arch/data/cli/theme-info.yml"
 set +e
-HOME="$test_tmp/home" ARCH_PATH="$test_tmp/theme-arch" \
+HOME="$test_tmp/home" AP="$test_tmp/theme-arch" \
   "$ROOT/src/arch/commands/arch-theme-current" >"$test_tmp/theme-config.out" 2>"$test_tmp/theme-config.err"
 theme_config_status=$?
 set -e
@@ -87,25 +87,25 @@ grep -Fq 'Could not load or apply theme settings' "$test_tmp/theme-config.err" |
 mv "$test_tmp/theme-info-valid.yml" "$test_tmp/theme-arch/data/cli/theme-info.yml"
 pass "theme commands handle malformed YAML at their command boundary"
 printf 'tokyo-night\n' >"$test_tmp/home/.local/state/arch/current/theme.name"
-current=$(HOME="$test_tmp/home" ARCH_PATH="$test_tmp/theme-arch" LC_ALL= LC_MESSAGES=it_IT.UTF-8 \
+current=$(HOME="$test_tmp/home" AP="$test_tmp/theme-arch" LC_ALL= LC_MESSAGES=it_IT.UTF-8 \
   "$ROOT/src/arch/commands/arch-theme-current")
 [[ $current == "Tokyo Night" ]] || fail "current theme output keeps the theme's display name" "$current"
 pass "current theme name is rendered"
 
 rm "$test_tmp/home/.local/state/arch/current/theme.name"
-current=$(HOME="$test_tmp/home" ARCH_PATH="$test_tmp/theme-arch" LC_ALL= LC_MESSAGES=it_IT.UTF-8 \
+current=$(HOME="$test_tmp/home" AP="$test_tmp/theme-arch" LC_ALL= LC_MESSAGES=it_IT.UTF-8 \
   "$ROOT/src/arch/commands/arch-theme-current")
 [[ $current == "Sconosciuto" ]] || fail "missing current theme is localized" "$current"
 pass "missing current theme uses the selected locale"
 printf 'tokyo-night\n' >"$test_tmp/home/.local/state/arch/current/theme.name"
 
-user_dir=$(HOME="$test_tmp/home" ARCH_PATH="$test_tmp/theme-arch" LC_ALL= LC_MESSAGES=it_IT.UTF-8 \
+user_dir=$(HOME="$test_tmp/home" AP="$test_tmp/theme-arch" LC_ALL= LC_MESSAGES=it_IT.UTF-8 \
   "$ROOT/src/arch/commands/arch-theme-dir" tokyo-night)
 [[ $user_dir == "$test_tmp/home/.config/arch/themes/tokyo-night" ]] || fail "theme directory prefers the user-installed copy" "$user_dir"
-bundled_dir=$(HOME="$test_tmp/home" ARCH_PATH="$test_tmp/theme-arch" \
+bundled_dir=$(HOME="$test_tmp/home" AP="$test_tmp/theme-arch" \
   "$ROOT/src/arch/commands/arch-theme-dir" blue-sky)
 [[ $bundled_dir == "$test_tmp/theme-arch/assets/themes/blue-sky" ]] || fail "theme directory falls back to the bundled copy" "$bundled_dir"
-if HOME="$test_tmp/home" ARCH_PATH="$test_tmp/theme-arch" LC_ALL= LC_MESSAGES=it_IT.UTF-8 \
+if HOME="$test_tmp/home" AP="$test_tmp/theme-arch" LC_ALL= LC_MESSAGES=it_IT.UTF-8 \
   "$ROOT/src/arch/commands/arch-theme-dir" ../../etc >"$test_tmp/theme-dir.out" 2>"$test_tmp/theme-dir.err"; then
   fail "theme directory rejects path traversal"
 fi
@@ -114,20 +114,20 @@ grep -Fx 'Uso: arch-theme-dir <nome-tema>' "$test_tmp/theme-dir.err" >/dev/null 
 [[ ! -s $test_tmp/theme-dir.out ]] || fail "theme directory prints no path for invalid input"
 pass "theme directory prefers user themes, falls back to bundled themes and rejects traversal"
 
-theme_list=$(HOME="$test_tmp/home" ARCH_PATH="$test_tmp/theme-arch" "$ROOT/src/arch/commands/arch-theme-list")
+theme_list=$(HOME="$test_tmp/home" AP="$test_tmp/theme-arch" "$ROOT/src/arch/commands/arch-theme-list")
 [[ $theme_list == $'Blue Sky\nCosmic Night\nTokyo Night\nUser Linked Theme' ]] || fail "theme list merges theme directories and user symlinks in sorted order" "$theme_list"
 pass "theme list merges bundled and user themes in sorted order"
 
 printf 'wallpaper\n' >"$test_tmp/theme-arch/assets/themes/cosmic-night/004-sunset-glow.jpg"
 ln -s "$test_tmp/theme-arch/assets/themes/cosmic-night/004-sunset-glow.jpg" \
   "$test_tmp/home/.local/state/arch/current/background"
-background=$(HOME="$test_tmp/home" ARCH_PATH="$test_tmp/theme-arch" \
+background=$(HOME="$test_tmp/home" AP="$test_tmp/theme-arch" \
   "$ROOT/src/arch/commands/arch-theme-bg-current")
 [[ $background == "Sunset Glow" ]] || fail "current background resolves and formats the selected filename" "$background"
 pass "current background name is formatted"
 
 rm "$test_tmp/home/.local/state/arch/current/background"
-background=$(HOME="$test_tmp/home" ARCH_PATH="$test_tmp/theme-arch" LC_ALL= LC_MESSAGES=it_IT.UTF-8 \
+background=$(HOME="$test_tmp/home" AP="$test_tmp/theme-arch" LC_ALL= LC_MESSAGES=it_IT.UTF-8 \
   "$ROOT/src/arch/commands/arch-theme-bg-current")
 [[ $background == "Sconosciuto" ]] || fail "missing current background is localized" "$background"
 pass "missing current background uses the selected locale"
@@ -141,7 +141,7 @@ printf 'theme\n' >"$theme_backgrounds/001-theme.webp"
 ln -s "$user_backgrounds/000-first.jpg" "$test_tmp/home/.local/state/arch/current/background"
 background_calls="$test_tmp/background-calls"
 background_notifications="$test_tmp/background-notifications"
-HOME="$test_tmp/home" ARCH_PATH="$test_tmp/theme-arch" PATH="$mock_bin:$PATH" \
+HOME="$test_tmp/home" AP="$test_tmp/theme-arch" PATH="$mock_bin:$PATH" \
   ARCH_TEST_BACKGROUND_CALLS="$background_calls" \
   ARCH_TEST_BACKGROUND_NOTIFICATIONS="$background_notifications" \
   "$ROOT/src/arch/commands/arch-theme-bg-next"
@@ -155,7 +155,7 @@ printf 'safe\n' >"$theme_backgrounds/010-safe.jpg"
 printf '../../outside\n' >"$test_tmp/home/.local/state/arch/current/theme.name"
 rm "$test_tmp/home/.local/state/arch/current/background"
 : >"$background_calls"
-HOME="$test_tmp/home" ARCH_PATH="$test_tmp/theme-arch" PATH="$mock_bin:$PATH" \
+HOME="$test_tmp/home" AP="$test_tmp/theme-arch" PATH="$mock_bin:$PATH" \
   ARCH_TEST_BACKGROUND_CALLS="$background_calls" \
   ARCH_TEST_BACKGROUND_NOTIFICATIONS="$background_notifications" \
   "$ROOT/src/arch/commands/arch-theme-bg-next"
@@ -166,7 +166,7 @@ pass "invalid theme ids cannot redirect background discovery"
 rm -f "$user_backgrounds/000-first.jpg" "$user_backgrounds/002-second.MP4" "$theme_backgrounds/001-theme.webp"
 rm -f "$theme_backgrounds/010-safe.jpg"
 : >"$background_notifications"
-HOME="$test_tmp/home" ARCH_PATH="$test_tmp/theme-arch" PATH="$mock_bin:$PATH" \
+HOME="$test_tmp/home" AP="$test_tmp/theme-arch" PATH="$mock_bin:$PATH" \
   ARCH_TEST_BACKGROUND_CALLS="$background_calls" \
   ARCH_TEST_BACKGROUND_NOTIFICATIONS="$background_notifications" \
   "$ROOT/src/arch/commands/arch-theme-bg-next"
@@ -178,7 +178,7 @@ pass "empty background list sends the translated notification"
 selected_background="$test_tmp/theme-arch/assets/themes/cosmic-night/selected image.png"
 printf 'image\n' >"$selected_background"
 shell_calls="$test_tmp/background-shell-calls"
-HOME="$test_tmp/home" ARCH_PATH="$test_tmp/theme-arch" PATH="$mock_bin:$PATH" \
+HOME="$test_tmp/home" AP="$test_tmp/theme-arch" PATH="$mock_bin:$PATH" \
   ARCH_TEST_BACKGROUND_SHELL_CALLS="$shell_calls" \
   "$ROOT/src/arch/commands/arch-theme-bg-set" "$selected_background"
 [[ $(readlink "$test_tmp/home/.local/state/arch/current/background") == "$selected_background" ]] ||
@@ -189,7 +189,7 @@ HOME="$test_tmp/home" ARCH_PATH="$test_tmp/theme-arch" PATH="$mock_bin:$PATH" \
   fail "background setter cleans up its temporary directory"
 pass "background setter atomically selects media and refreshes the shell"
 
-if HOME="$test_tmp/home" ARCH_PATH="$test_tmp/theme-arch" LC_ALL= LC_MESSAGES=it_IT.UTF-8 \
+if HOME="$test_tmp/home" AP="$test_tmp/theme-arch" LC_ALL= LC_MESSAGES=it_IT.UTF-8 \
   "$ROOT/src/arch/commands/arch-theme-bg-set" "$test_tmp/missing.png" >"$test_tmp/background-set.out" 2>"$test_tmp/background-set.err"; then
   fail "background setter rejects a missing file"
 fi

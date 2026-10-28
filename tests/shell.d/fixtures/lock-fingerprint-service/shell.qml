@@ -6,7 +6,7 @@ import qs.Commons
 ShellRoot {
   id: root
 
-  readonly property string rootPath: Quickshell.env("ARCH_PATH")
+  readonly property string rootPath: Quickshell.env("AP")
   readonly property string resultPath: Quickshell.env("ARCH_QML_TEST_RESULT")
   property var failures: []
   property int checks: 0

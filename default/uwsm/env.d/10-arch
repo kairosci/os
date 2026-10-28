@@ -5,8 +5,8 @@
 
 # os session defaults. Users can override these in ~/.config/uwsm/default
 # or, preferably, ~/.config/uwsm/env.d/*.
-if [ -f "${ARCH_PATH%/}/default/uwsm/default" ]; then
-  . "${ARCH_PATH%/}/default/uwsm/default"
+if [ -f "${AP%/}/default/uwsm/default" ]; then
+  . "${AP%/}/default/uwsm/default"
 else
   export TERMINAL=xdg-terminal-exec
   export EDITOR="${EDITOR:-nvim}"

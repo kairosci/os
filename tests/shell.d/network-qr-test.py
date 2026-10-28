@@ -54,7 +54,7 @@ class NetworkQrTest(unittest.TestCase):
         )
         self.environment = os.environ.copy()
         self.environment.update(
-            ARCH_PATH=str(ROOT),
+            AP=str(ROOT),
             ARCH_LANGUAGE_FILE=str(ROOT / "tests/.no-language"),
             LANG="en_US.UTF-8",
             LC_ALL="en_US.UTF-8",

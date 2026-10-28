@@ -39,7 +39,7 @@ ln -s "$ROOT/src/arch/shell/Commons" "$config_dir/Commons"
 printf '#!/bin/bash\nexit 0\n' >"$TMPDIR/bin/arch-bar"
 chmod +x "$TMPDIR/bin/arch-bar"
 
-ARCH_PATH="$ROOT" \
+AP="$ROOT" \
 ARCH_QML_TEST_RESULT="$result" \
 HOME="$TMPDIR/home" \
 XDG_CONFIG_HOME="$TMPDIR/home/.config" \

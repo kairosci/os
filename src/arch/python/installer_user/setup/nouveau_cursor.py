@@ -35,7 +35,7 @@ def _append_atomically(path: Path, addition: str, marker: str) -> bool:
 
 
 def main() -> int:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   config = yaml.safe_load((root / "data/installer/user-setup.yml").read_text(encoding="utf-8"))
   settings = config["nouveau_cursor_setup"]
   nvidia_config = Path(

@@ -5,7 +5,7 @@ from pathlib import Path
 import sys
 import types
 
-ROOT = Path(os.environ["ARCH_PATH"])
+ROOT = Path(os.environ["AP"])
 
 # Nautilus imports its extension against GNOME's system Python. Provide the
 # lightweight module surface at import time so this test needs no desktop.

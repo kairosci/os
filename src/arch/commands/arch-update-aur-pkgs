@@ -4,7 +4,7 @@
 
 sudo_options=()
 if [[ ${ARCH_SUDO_NO_UPDATE:-0} == "1" ]]; then
-  sudo_wrapper="$ARCH_PATH/default/arch/sudo-no-update/sudo"
+  sudo_wrapper="$AP/default/arch/sudo-no-update/sudo"
   [[ -x $sudo_wrapper ]] || exit 1
   sudo_options=(--sudo "$sudo_wrapper" --sudoloop=false)
 fi

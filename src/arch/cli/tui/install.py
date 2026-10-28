@@ -152,7 +152,7 @@ def _text_mapping(value: object, label: str) -> dict[str, str]:
 
 
 def _settings() -> TuiInstallConfig:
-  ap = Path(os.environ["ARCH_PATH"])
+  ap = Path(os.environ["AP"])
   with (ap / "data/cli/tui-install.yml").open(encoding="utf-8") as stream:
     raw: object = yaml.safe_load(stream)
   config = _mapping(raw, "root")
@@ -230,7 +230,7 @@ def _settings() -> TuiInstallConfig:
 
 def _translator(settings: TuiInstallConfig) -> Translator:
   def translate(key: str, *arguments: str) -> str:
-    ap = Path(os.environ["ARCH_PATH"])
+    ap = Path(os.environ["AP"])
     command = [str(ap / settings["commands"]["i18n"]), key, *arguments]
     try:
       result = subprocess.run(command, check=False, capture_output=True, text=True)

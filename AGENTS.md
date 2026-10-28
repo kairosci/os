@@ -61,8 +61,8 @@ guidance does not drift from the router.
 
 # Runtime Environment
 
-- `$ARCH_PATH` is set at the top level by the uwsm session environment and is always available to Arch runtime code.
-- Commands in `src/arch/commands/` and Quickshell QML should rely on `$ARCH_PATH` / `Quickshell.env("ARCH_PATH")`; do not derive fallback paths from `HOME`, `Quickshell.shellDir`, or re-export/default `ARCH_PATH` manually.
+- `$AP` is set at the top level by the uwsm session environment and is always available to Arch runtime code.
+- Commands in `src/arch/commands/` and Quickshell QML should rely on `$AP` / `Quickshell.env("AP")`; do not derive fallback paths from `HOME`, `Quickshell.shellDir`, or re-export/default `AP` manually.
 
 # Platforms
 
@@ -181,4 +181,4 @@ To copy a default config to user config with automatic backup:
 arch-refresh-config hypr/hyprland.lua
 ```
 
-This copies `$ARCH_PATH/config/hypr/hyprland.lua` to `${XDG_CONFIG_HOME:-$HOME/.config}/hypr/hyprland.lua`. Pass a plain relative file path. Traversal components and symlinks escaping either configuration tree are rejected. An existing in-tree user symlink and its file permissions are preserved; the file is replaced atomically after preparation, with a private backup when its contents change.
+This copies `$AP/config/hypr/hyprland.lua` to `${XDG_CONFIG_HOME:-$HOME/.config}/hypr/hyprland.lua`. Pass a plain relative file path. Traversal components and symlinks escaping either configuration tree are rejected. An existing in-tree user symlink and its file permissions are preserved; the file is replaced atomically after preparation, with a private backup when its contents change.

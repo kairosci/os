@@ -61,7 +61,7 @@ TMPDIR=$(mktemp -d)
 test_home="$TMPDIR/home"
 native_manifest="$test_home/.config/chromium/NativeMessagingHosts/com.arch.copy_url.json"
 
-HOME="$test_home" ARCH_PATH="$ROOT" arch-install-chromium-copy-url
+HOME="$test_home" AP="$ROOT" arch-install-chromium-copy-url
 
 [[ -f $native_manifest ]] || fail "copy-url native host installer creates fresh Chromium profile root"
 jq -e --arg path "$ROOT/src/arch/commands/arch-chromium-copy-url-host" '
@@ -82,7 +82,7 @@ grep -Fq '  - setup/chromium_extensions.py' "$ROOT/data/installer/user-setup.yml
   fail "user install runs the Chromium native messaging host module"
 
 fresh_home="$TMPDIR/fresh-install"
-HOME="$fresh_home" ARCH_PATH="$ROOT" PATH="$ROOT/src/arch/commands:$PATH" \
+HOME="$fresh_home" AP="$ROOT" PATH="$ROOT/src/arch/commands:$PATH" \
   python3 -I "$ROOT/src/arch/python/installer_user/setup/chromium_extensions.py"
 
 [[ -f $fresh_home/.config/chromium/NativeMessagingHosts/com.arch.copy_url.json ]] ||

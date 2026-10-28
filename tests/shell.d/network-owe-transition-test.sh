@@ -46,7 +46,7 @@ esac
 SH
 chmod +x "$stage/bin/nmcli"
 
-output=$(HOME="$stage/home" ARCH_PATH="$stage" PATH="$stage/bin:$PATH" \
+output=$(HOME="$stage/home" AP="$stage" PATH="$stage/bin:$PATH" \
   NETWORK_TEST_NMCLI_LOG="$stage/nmcli.log" \
   timeout 30 quickshell -p "$stage" --no-color 2>&1) || fail "network OWE fixture exits cleanly" "$output"
 [[ $output == *"RESULT pass"* ]] || fail "network OWE runtime assertions pass" "$output"$'\n'"nmcli calls: $(cat "$stage/nmcli.log" 2>/dev/null || true)"

@@ -30,7 +30,7 @@ def _replace_atomically(path: Path, content: str, mode: int) -> None:
 
 
 def main() -> int:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   config = yaml.safe_load((root / "data/installer/system-setup.yml").read_text(encoding="utf-8"))
   settings = config["powerprofilesctl_shebang"]
   path = Path(settings["file"])

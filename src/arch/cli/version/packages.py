@@ -63,7 +63,7 @@ def _text_mapping(value: object, label: str) -> dict[str, str]:
 
 
 def _settings() -> PackageVersionConfig:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   raw: object = yaml.safe_load((root / "data/cli/version-pkgs.yml").read_text(encoding="utf-8"))
   settings = _mapping(raw, "root")
   commands = _mapping(settings.get("commands"), "commands")

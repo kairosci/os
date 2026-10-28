@@ -85,8 +85,8 @@ link_dev_checkout() {
   done
 
   # The checkout's own channel refresh runs next, from its own templates.
-  if [[ ! -f $checkout/${templates#"$ARCH_PATH"/}/pacman-$pacman_channel.conf ||
-    ! -f $checkout/${templates#"$ARCH_PATH"/}/mirrorlist-$pacman_channel ]]; then
+  if [[ ! -f $checkout/${templates#"$AP"/}/pacman-$pacman_channel.conf ||
+    ! -f $checkout/${templates#"$AP"/}/mirrorlist-$pacman_channel ]]; then
     fail "Update the checkout before switching to dev; it has no $pacman_channel templates for $platform."
   fi
 
@@ -138,7 +138,7 @@ EOF
 }
 
 wrapper_present() {
-  [[ -f $ARCH_PATH/default/arch/sudo-no-update/sudo && -x $ARCH_PATH/default/arch/sudo-no-update/sudo ]]
+  [[ -f $AP/default/arch/sudo-no-update/sudo && -x $AP/default/arch/sudo-no-update/sudo ]]
 }
 
 (( $# > 0 )) || { usage; exit 1; }
@@ -173,7 +173,7 @@ esac
 
 # A channel this machine's platform has no templates for is refused before
 # anything changes (installer/helpers/pacman.sh).
-source "$ARCH_PATH/installer/helpers/pacman.sh"
+source "$AP/installer/helpers/pacman.sh"
 platform=$(arch-hw-platform) || fail "Cannot tell this machine's platform; nothing changed."
 templates=$(arch_pacman_templates "$platform") || exit 1
 [[ -f $templates/pacman-$pacman_channel.conf && -f $templates/mirrorlist-$pacman_channel ]] ||
@@ -189,13 +189,13 @@ fi
 # to pick it back up rather than dying silently under set -e.
 trap 'echo -e "\nThe channel switch did not complete. Review the error above, then rerun: arch-channel-set '"$channel"'" >&2' ERR
 
-if [[ -z $dev_checkout && $ARCH_PATH != "/usr/share/arch" ]]; then
+if [[ -z $dev_checkout && $AP != "/usr/share/arch" ]]; then
   leaving_dev=1
 fi
 
 if [[ -n $dev_checkout ]]; then
   link_dev_checkout "$dev_checkout"
-  export ARCH_PATH="$dev_checkout"
+  export AP="$dev_checkout"
   arch_security_enable_no_update_sudo
   arch-state set reboot-required
 fi
@@ -209,7 +209,7 @@ wrapper_present || stop_for_older_destination
 
 if [[ -z $dev_checkout ]]; then
   arch-dev-unlink --no-reboot
-  export ARCH_PATH=/usr/share/arch
+  export AP=/usr/share/arch
 
   if (( leaving_dev )); then
     arch-state set reboot-required
@@ -217,4 +217,4 @@ if [[ -z $dev_checkout ]]; then
   arch_security_enable_no_update_sudo 2>/dev/null || stop_for_older_destination
 fi
 
-ARCH_UPDATE_USER_PATH="$user_path" "$ARCH_PATH/src/arch/commands/arch-update" -y
+ARCH_UPDATE_USER_PATH="$user_path" "$AP/src/arch/commands/arch-update" -y

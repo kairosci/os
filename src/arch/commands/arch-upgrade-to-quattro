@@ -221,7 +221,7 @@ run_as_user_arch() {
     HOME="$target_home" \
     USER="$target_user" \
     LOGNAME="$target_user" \
-    ARCH_PATH=/usr/share/arch \
+    AP=/usr/share/arch \
     PATH="$package_path" \
     "$@"
 }
@@ -687,7 +687,7 @@ verify_kernel_cmdline_root() {
 }
 
 configure_snapper_policy() {
-  local snapper_setup_script="$ARCH_PATH/src/arch/python/installer/system_setup/snapper_setup.py"
+  local snapper_setup_script="$AP/src/arch/python/installer/system_setup/snapper_setup.py"
 
   if ! as_root test -f "$snapper_setup_script"; then
     warn "$snapper_setup_script is unavailable; Snapper snapshot retention was not normalized."
@@ -695,7 +695,7 @@ configure_snapper_policy() {
   fi
 
   log "Configuring os snapshot retention"
-  as_root env ARCH_PATH="$ARCH_PATH" python3 -I "$snapper_setup_script"
+  as_root env AP="$AP" python3 -I "$snapper_setup_script"
 }
 
 configure_lock_authentication() {
@@ -714,7 +714,7 @@ configure_lock_authentication() {
   log "Configuring lock screen authentication"
   as_root env \
     ARCH_INSTALL_USER="$target_user" \
-    ARCH_PATH=/usr/share/arch \
+    AP=/usr/share/arch \
     PATH="$root_path" \
     "$apply_lock"
 }
@@ -795,7 +795,7 @@ install_arch_quattro_packages() {
     pacman-contrib
   )
   local base_packages=()
-  local package_manifest_dir="${ARCH_UPGRADE_PACKAGE_DIR:-${ARCH_PATH:-/usr/share/arch}/install}"
+  local package_manifest_dir="${ARCH_UPGRADE_PACKAGE_DIR:-${AP:-/usr/share/arch}/install}"
 
   log "Upgrading system packages and installing Arch packages"
   (( use_dev_packages )) && log "Using dev packages [arch-dev / arch-settings-dev]"
@@ -1086,8 +1086,8 @@ CLEANUP_HOOK
   printf '%s\n' "$compat_root"
 }
 
-# Existing terminals still have ARCH_PATH=$HOME/.local/share/arch and
-# often have $ARCH_PATH/src/arch/commands early in PATH. Make that stale path resolve to
+# Existing terminals still have AP=$HOME/.local/share/arch and
+# often have $AP/src/arch/commands early in PATH. Make that stale path resolve to
 # the package-backed tree for the rest of the live session, while backing up
 # the old git checkout for inspection/rollback. If the live Hyprland session is
 # still using legacy ~/.config/hypr/*.conf files, keep those user files in place
@@ -1186,7 +1186,7 @@ run_as_user_wayland_session() {
     WAYLAND_DISPLAY="$wayland_display" \
     HYPRLAND_INSTANCE_SIGNATURE="$hyprland_signature" \
     XDG_SESSION_TYPE=wayland \
-    ARCH_PATH=/usr/share/arch \
+    AP=/usr/share/arch \
     PATH="$package_path" \
     "$@"
 }
@@ -1339,7 +1339,7 @@ apply_firewall_defaults() {
   fi
 
   log "Applying os firewall defaults"
-  as_root env ARCH_PATH=/usr/share/arch PATH="$root_path" \
+  as_root env AP=/usr/share/arch PATH="$root_path" \
     python3 -I "$firewall_module" ||
     warn "Could not apply firewall defaults; rerun the firewall setup after reboot."
 }
@@ -1379,9 +1379,9 @@ apply_system_transition() {
   if ! as_root test -f "$browser_policy_helper"; then
     warn "$browser_policy_helper is unavailable; Chromium policy directories were not hardened."
   else
-    as_root env ARCH_PATH=/usr/share/arch \
+    as_root env AP=/usr/share/arch \
       bash -euo pipefail -c '
-        source "$ARCH_PATH/installer/helpers/browser-policy.sh"
+        source "$AP/installer/helpers/browser-policy.sh"
         browser_policy_setup_dir /etc/chromium/policies/managed
         for dir in "${BROWSER_POLICY_MANAGED_DIRS[@]}"; do
           [[ $dir == "/etc/chromium/policies/managed" ]] && continue
@@ -1729,11 +1729,11 @@ migrate_uwsm_env_customizations() {
   awk '
     function omitted(reason) { print ": # arch-upgrade omitted legacy os " reason; next }
 
-    /^[[:space:]]*export[[:space:]]+ARCH_PATH=\$HOME\/\.local\/share\/arch[[:space:]]*$/ { omitted("ARCH_PATH") }
-    /^[[:space:]]*export[[:space:]]+ARCH_PATH="\$\{ARCH_PATH:-\/usr\/share\/arch\}"[[:space:]]*$/ { omitted("ARCH_PATH") }
+    /^[[:space:]]*export[[:space:]]+AP=\$HOME\/\.local\/share\/arch[[:space:]]*$/ { omitted("AP") }
+    /^[[:space:]]*export[[:space:]]+AP="\$\{AP:-\/usr\/share\/arch\}"[[:space:]]*$/ { omitted("AP") }
     /^[[:space:]]*\[ -f \/etc\/arch\.conf \] && \. \/etc\/arch\.conf[[:space:]]*$/ { omitted("/etc/arch.conf source") }
-    /^[[:space:]]*export[[:space:]]+PATH=\$ARCH_PATH\/bin:\$PATH:\$HOME\/\.local\/bin[[:space:]]*$/ { omitted("PATH setup") }
-    /^[[:space:]]*export[[:space:]]+PATH="\$ARCH_PATH\/bin:\$PATH:\$HOME\/\.local\/bin"[[:space:]]*$/ { omitted("PATH setup") }
+    /^[[:space:]]*export[[:space:]]+PATH=\$AP\/bin:\$PATH:\$HOME\/\.local\/bin[[:space:]]*$/ { omitted("PATH setup") }
+    /^[[:space:]]*export[[:space:]]+PATH="\$AP\/bin:\$PATH:\$HOME\/\.local\/bin"[[:space:]]*$/ { omitted("PATH setup") }
     /^[[:space:]]*source[[:space:]]+~\/\.config\/uwsm\/default[[:space:]]*$/ { omitted("uwsm/default source") }
     /^[[:space:]]*\[ -f "\$HOME\/\.config\/uwsm\/default" \] && \. "\$HOME\/\.config\/uwsm\/default"[[:space:]]*$/ { omitted("uwsm/default source") }
     /^[[:space:]]*arch-cmd-present[[:space:]]+mise && eval "\$\(mise activate bash --shims\)"[[:space:]]*$/ { omitted("mise activation") }
@@ -1907,7 +1907,7 @@ install_bash_startup() {
 
   if [[ ! -e $bashrc && ! -L $bashrc ]] || is_known_bashrc_default "$bashrc"; then
     cp "$root/default/bashrc" "$bashrc"
-  elif grep -qxF 'source ~/.local/share/arch/default/bash/rc' "$bashrc" || grep -qxF 'source "$ARCH_PATH/default/bash/rc"' "$bashrc"; then
+  elif grep -qxF 'source ~/.local/share/arch/default/bash/rc' "$bashrc" || grep -qxF 'source "$AP/default/bash/rc"' "$bashrc"; then
     python3 - "$bashrc" <<'BASHRC_PATCH_PY'
 import sys
 from pathlib import Path
@@ -1919,14 +1919,14 @@ new_block = '''# /etc/arch.conf is written by arch-dev-link. When absent, force 
 # we decide which rc file to source.
 if [[ -f /etc/arch.conf ]]; then
   source /etc/arch.conf
-  export ARCH_PATH="${ARCH_PATH:-/usr/share/arch}"
+  export AP="${AP:-/usr/share/arch}"
 else
-  export ARCH_PATH=/usr/share/arch
+  export AP=/usr/share/arch
 fi
-source "$ARCH_PATH/default/bash/rc"
+source "$AP/default/bash/rc"
 '''
 text = text.replace('source ~/.local/share/arch/default/bash/rc\n', new_block)
-text = text.replace(': "${ARCH_PATH:=/usr/share/arch}"\nsource "$ARCH_PATH/default/bash/rc"\n', new_block)
+text = text.replace(': "${AP:=/usr/share/arch}"\nsource "$AP/default/bash/rc"\n', new_block)
 path.write_text(text)
 BASHRC_PATCH_PY
   fi

@@ -140,10 +140,10 @@ only a live session can prove.
   executables (`sudo`, `tmux`, `gsettings`, helper commands) that log their
   arguments to a file, prepend it to `PATH`, and then run the real script
   under test. Assertions grep the call log and the files the script wrote.
-- **Login shells drop the stubs.** A `bash -l` rereads `/etc/profile`, which resets `ARCH_PATH` from `/etc/arch.conf` and puts that checkout's `src/arch/commands/` ahead of the stub directory, so a command run through one reaches the real commands again. Commands that start `bash -lc` (`arch-theme-set` runs its app retints that way) need a `bash` stub that drops the `-l`.
-- **Fake `$HOME`, real `$ARCH_PATH`.** Anything touching user state runs
+- **Login shells drop the stubs.** A `bash -l` rereads `/etc/profile`, which resets `AP` from `/etc/arch.conf` and puts that checkout's `src/arch/commands/` ahead of the stub directory, so a command run through one reaches the real commands again. Commands that start `bash -lc` (`arch-theme-set` runs its app retints that way) need a `bash` stub that drops the `-l`.
+- **Fake `$HOME`, real `$AP`.** Anything touching user state runs
   with `HOME` pointed at a `mktemp -d` directory (cleaned up via
-  `trap ... EXIT`) and `ARCH_PATH="$ROOT"`, so tests exercise the checkout
+  `trap ... EXIT`) and `AP="$ROOT"`, so tests exercise the checkout
   without touching the developer's machine.
 - **Assert the invariant, not the snapshot.** Config tests pin the property a
   test is named for (this widget stays adjacent to that one) rather than whole

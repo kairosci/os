@@ -8,7 +8,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-ROOT = Path(os.environ["ARCH_PATH"])
+ROOT = Path(os.environ["AP"])
 sys.path.insert(0, str(ROOT / "default/input-methods"))
 spec = importlib.util.spec_from_file_location("typing_setup", ROOT / "default/input-methods/typing_setup.py")
 typing = importlib.util.module_from_spec(spec)

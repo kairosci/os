@@ -75,7 +75,7 @@ cp "$SHELL_TEST_DIR/fixtures/manifest-entrypoints/shell.qml" "$config_dir/shell.
 ln -s "$ROOT/src/arch/shell/Ui" "$config_dir/Ui"
 ln -s "$ROOT/src/arch/shell/Commons" "$config_dir/Commons"
 
-ARCH_PATH="$ROOT" \
+AP="$ROOT" \
 ARCH_QML_TEST_RESULT="$result" \
 ARCH_QML_MANIFESTS="$manifest_entries" \
 HOME="$TMPDIR/home" \

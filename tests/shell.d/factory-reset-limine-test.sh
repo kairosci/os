@@ -322,7 +322,7 @@ run_provision_function() {
     source "$test_tmp/provision-functions"
     esp_path() { echo "$root/boot"; }
     log_step() { :; }
-    ARCH_PATH="$root/usr/share/arch"
+    AP="$root/usr/share/arch"
     "$@"
   ' _ "$test_tmp" "$root" "$@"
 }

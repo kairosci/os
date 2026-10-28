@@ -42,7 +42,7 @@ def _text_list(value: object, label: str) -> list[str]:
 
 
 def _settings() -> ArchitectureConfig:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   raw: object = yaml.safe_load((root / "data/cli/architecture.yml").read_text(encoding="utf-8"))
   settings = _mapping(raw, "root")
   commands = _mapping(settings.get("commands"), "commands")
@@ -59,7 +59,7 @@ def _settings() -> ArchitectureConfig:
 
 
 def _platform(settings: ArchitectureConfig) -> str | None:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   command = settings["commands"]["platform_detector"]
   detector = [str(root / command[0]), *command[1:]]
   try:

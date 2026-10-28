@@ -163,7 +163,7 @@ def _configs(value: object) -> Configs:
 
 
 def _settings() -> FontSetConfig:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   raw: object = yaml.safe_load((root / "data/cli/fonts.yml").read_text(encoding="utf-8"))
   settings = _mapping(raw, "root")
   config = _mapping(settings.get("set"), "set")

@@ -23,7 +23,7 @@ def _run(command: list[str], *, capture: bool = False) -> subprocess.CompletedPr
 
 
 def main() -> int:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   config = yaml.safe_load((root / "data/installer/hardware.yml").read_text(encoding="utf-8"))
   settings = config["synaptic_touchpad"]
   devices = Path(os.environ.get(settings["device_file_environment"], settings["device_file_default"]))

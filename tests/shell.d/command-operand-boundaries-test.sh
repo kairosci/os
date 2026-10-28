@@ -4,7 +4,7 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-export ARCH_PATH="$ROOT"
+export AP="$ROOT"
 
 if "$ROOT/src/arch/commands/arch-cmd-present" -p; then
   fail "cmd-present treats an option-shaped command name literally"
@@ -225,7 +225,7 @@ printf 'protected\n' >"$protected_file"
 ln -s "$protected_file" "$hook_directory/--help"
 (
   cd -- "$test_tmp"
-  HOME="$hook_home" ARCH_PATH="$ROOT" "$ROOT/src/arch/commands/arch-hook-install" post-update --help >"$test_tmp/hook-install-output"
+  HOME="$hook_home" AP="$ROOT" "$ROOT/src/arch/commands/arch-hook-install" post-update --help >"$test_tmp/hook-install-output"
 )
 [[ -f $hook_directory/--help && ! -L $hook_directory/--help ]] || fail "hook-install replaces a destination symlink itself"
 [[ $(<"$protected_file") == protected ]] || fail "hook-install does not overwrite the symlink target"

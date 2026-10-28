@@ -11,7 +11,7 @@ Item {
   id: root
 
   // Injected by arch-shell when this plugin is summoned.
-  property string archPath: Quickshell.env("ARCH_PATH")
+  property string archPath: Quickshell.env("AP")
   property var shell: null
   property var manifest: null
 

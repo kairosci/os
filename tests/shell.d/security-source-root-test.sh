@@ -14,7 +14,7 @@ pass "a canonical checkout matches its own entrypoint"
 mkdir "$boundary_tmp/other-root"
 ln -s "$SUDO_TEST_ROOT" "$boundary_tmp/root-link"
 for root in "$boundary_tmp/other-root" "$boundary_tmp/root-link" .; do
-  if ARCH_PATH="$root" arch_security_require_source_root "$SUDO_TEST_ROOT/src/arch/commands/arch-update" >"$boundary_tmp/output" 2>&1; then
+  if AP="$root" arch_security_require_source_root "$SUDO_TEST_ROOT/src/arch/commands/arch-update" >"$boundary_tmp/output" 2>&1; then
     fail "a different or noncanonical source root was accepted"
   fi
 done
@@ -38,12 +38,12 @@ text = text.replace('"/usr/bin/$command_name"', f'"{binaries}/$command_name"')
 Path(output).write_text(text)
 PY
 source "$boundary_tmp/package-library"
-ARCH_PATH="$package_root" arch_security_require_source_root "$package_bin/arch-update" || fail "package binary was rejected"
-ARCH_PATH="$package_root" arch_security_require_source_root "$package_root/src/arch/commands/arch-update" || fail "package link was rejected"
+AP="$package_root" arch_security_require_source_root "$package_bin/arch-update" || fail "package binary was rejected"
+AP="$package_root" arch_security_require_source_root "$package_root/src/arch/commands/arch-update" || fail "package link was rejected"
 pass "the package binary and its matching source-tree link are accepted"
 
 ln -sfn "$package_bin/different-command" "$package_root/src/arch/commands/arch-update"
-if ARCH_PATH="$package_root" arch_security_require_source_root "$package_root/src/arch/commands/arch-update" >"$boundary_tmp/output" 2>&1; then
+if AP="$package_root" arch_security_require_source_root "$package_root/src/arch/commands/arch-update" >"$boundary_tmp/output" 2>&1; then
   fail "a package link to a different command was accepted"
 fi
 pass "a package link must resolve to its named command"
@@ -56,7 +56,7 @@ for command in arch-update arch-refresh-pacman arch-update-stay-awake arch-chann
   copy_boundary_file "src/arch/commands/$command"
   for root in "$boundary_tmp/other-root" .; do
     reset_boundary
-    if ARCH_PATH="$root" "$SUDO_TEST_ROOT/src/arch/commands/$command" >"$boundary_tmp/output" 2>&1; then
+    if AP="$root" "$SUDO_TEST_ROOT/src/arch/commands/$command" >"$boundary_tmp/output" 2>&1; then
       fail "$command accepted a mismatched root"
     fi
     [[ ! -s $SUDO_TEST_LOG ]] || fail "$command ran work before rejecting its root"

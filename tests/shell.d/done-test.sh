@@ -6,7 +6,7 @@ source "$(dirname "$0")/base-test.sh"
 
 test_home=$(mktemp -d)
 trap 'rm -rf "$test_home"' EXIT
-export ARCH_PATH="$ROOT"
+export AP="$ROOT"
 
 done_marker="$test_home/.local/state/arch/done/example"
 
@@ -15,7 +15,7 @@ mkdir -p "$invalid_ap/data/cli" "$invalid_ap/src"
 ln -s "$ROOT/src/arch" "$invalid_ap/src/arch"
 printf '[]\n' >"$invalid_ap/data/cli/done.yml"
 status=0
-output=$(ARCH_PATH="$invalid_ap" HOME="$test_home" "$ROOT/src/arch/commands/arch-done" check example 2>&1) || status=$?
+output=$(AP="$invalid_ap" HOME="$test_home" "$ROOT/src/arch/commands/arch-done" check example 2>&1) || status=$?
 (( status == 1 )) && [[ $output == *"Could not load done configuration"* ]] ||
   fail "done reports malformed configuration without a traceback" "exit: $status" "$output"
 pass "done reports malformed configuration without a traceback"

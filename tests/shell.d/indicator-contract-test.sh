@@ -36,7 +36,7 @@ cp "$SHELL_TEST_DIR/fixtures/indicator-contract/shell.qml" "$config_dir/shell.qm
 ln -s "$ROOT/src/arch/shell/Ui" "$config_dir/Ui"
 ln -s "$ROOT/src/arch/shell/Commons" "$config_dir/Commons"
 
-ARCH_PATH="$ROOT" \
+AP="$ROOT" \
 ARCH_QML_TEST_RESULT="$result" \
 HOME="$TMPDIR/home" \
 XDG_CONFIG_HOME="$TMPDIR/home/.config" \

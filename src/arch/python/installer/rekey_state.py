@@ -78,7 +78,7 @@ def _os_flag(name: str) -> int:
 
 
 def load_settings() -> Settings:
-    ap = Path(os.environ["ARCH_PATH"])
+    ap = Path(os.environ["AP"])
     path = ap / "data/installer/rekey-state.yml"
     with path.open(encoding="utf-8") as source:
         raw: object = yaml.safe_load(source)

@@ -18,7 +18,7 @@ looknfeel="$test_tmp/home/.config/hypr/looknfeel.lua"
 printf '%s\n' '-- User look and feel' >"$looknfeel"
 
 run_fix() {
-  HOME="$test_tmp/home" ARCH_PATH="$ROOT" \
+  HOME="$test_tmp/home" AP="$ROOT" \
     PATH="$test_tmp/bin:$ROOT/src/arch/commands:$PATH" \
     ARCH_NVIDIA_MODPROBE_CONFIG="$test_tmp/nvidia.conf" \
     TEST_VIDEO_DRIVER="${1:-nouveau}" \

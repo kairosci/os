@@ -98,7 +98,7 @@ SH
 chmod +x "$stub_bin/sleep"
 
 # The app retints run under `bash -lc`, and a login shell resets PATH and
-# ARCH_PATH from /etc/arch.conf, which would put the real commands back
+# AP from /etc/arch.conf, which would put the real commands back
 # ahead of these stubs. Keep the login shell from rereading the profile.
 cat >"$stub_bin/bash" <<'SH'
 #!/bin/bash
@@ -122,7 +122,7 @@ run_theme_set() {
     HOME="$test_home" \
     USER="${USER:-arch}" \
     LANG=C.UTF-8 \
-    ARCH_PATH="$ROOT" \
+    AP="$ROOT" \
     PATH="$stub_bin:$ROOT/src/arch/commands:$tools_bin" \
     XDG_RUNTIME_DIR="$sandbox/run" \
     TMUX_TMPDIR="$sandbox/tmux" \

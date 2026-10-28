@@ -57,13 +57,13 @@ while read -r m special; do
 
   case $terminal in
   *Alacritty*)
-    hypr_exec alacritty --class=org.arch.screensaver --config-file "$ARCH_PATH/default/alacritty/screensaver.toml" -e arch-screensaver
+    hypr_exec alacritty --class=org.arch.screensaver --config-file "$AP/default/alacritty/screensaver.toml" -e arch-screensaver
     ;;
   *ghostty*)
-    hypr_exec ghostty --class=org.arch.screensaver --config-file="$ARCH_PATH/default/ghostty/screensaver" --font-size=18 -e arch-screensaver
+    hypr_exec ghostty --class=org.arch.screensaver --config-file="$AP/default/ghostty/screensaver" --font-size=18 -e arch-screensaver
     ;;
   *foot*)
-    hypr_exec foot --app-id=org.arch.screensaver --config="$ARCH_PATH/default/foot/screensaver.ini" -e arch-screensaver
+    hypr_exec foot --app-id=org.arch.screensaver --config="$AP/default/foot/screensaver.ini" -e arch-screensaver
     ;;
   *kitty*)
     hypr_exec kitty --class=org.arch.screensaver --override font_size=18 --override window_padding_width=80 -e arch-screensaver

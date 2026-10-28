@@ -34,7 +34,7 @@ receive() {
   shift
 
   rm -f "$WORKDIR/notifications/"*
-  ARCH_PATH="$ROOT" PATH="$WORKDIR/bin:$ROOT/src/arch/commands:$PATH" "$@" "$ROOT/src/arch/commands/arch-tailscale-receive" --once "$downloads"
+  AP="$ROOT" PATH="$WORKDIR/bin:$ROOT/src/arch/commands:$PATH" "$@" "$ROOT/src/arch/commands/arch-tailscale-receive" --once "$downloads"
 
   for _ in {1..50}; do
     (($(find "$WORKDIR/notifications" -type f | wc -l) >= expected)) && break

@@ -9,7 +9,7 @@ Item {
   id: root
 
   property var shell: null
-  property string archPath: Quickshell.env("ARCH_PATH")
+  property string archPath: Quickshell.env("AP")
 
   readonly property int batteryThreshold: 10
   property string pendingPowerSource: ""

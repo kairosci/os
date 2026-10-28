@@ -20,7 +20,7 @@ Panel {
   readonly property Item hero: panel.loadedContent ? panel.loadedContent.hero : null
   readonly property Item fileColumn: panel.loadedContent ? panel.loadedContent.fileColumn : null
 
-  property string archPath: Quickshell.env("ARCH_PATH")
+  property string archPath: Quickshell.env("AP")
   property string focusSection: "login"
   property int fileIndex: 0
   property bool cursorActive: false

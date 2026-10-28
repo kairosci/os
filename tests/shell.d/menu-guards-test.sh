@@ -51,12 +51,12 @@ assert(
 // function shadowing the name would also catch these, and answer them wrong.
 const untouched = menu.guardScript({
   a: { id: 'a', when: 'command -v arch-dns' },
-  b: { id: 'b', when: '[[ "$(ARCH_PATH=/usr/share/arch arch-channel-current)" == "stable" ]]' },
+  b: { id: 'b', when: '[[ "$(AP=/usr/share/arch arch-channel-current)" == "stable" ]]' },
   c: { id: 'c', when: '(( $(arch-default-browser | wc -l) == 1 ))' }
 })
 assert(
   untouched.includes('command -v arch-dns')
-    && untouched.includes('$(ARCH_PATH=/usr/share/arch arch-channel-current)')
+    && untouched.includes('$(AP=/usr/share/arch arch-channel-current)')
     && untouched.includes('$(arch-default-browser | wc -l)'),
   'guard script leaves every form but the plain substitution to run the real command'
 )

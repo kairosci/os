@@ -42,7 +42,7 @@ chmod +x "$fake_bin/systemctl"
 TEST_LOG="$test_tmp/calls.log" \
 PATH="$fake_bin:$PATH" \
 ARCH_SNAPPER_CONFIGURE_TEST=1 \
-ARCH_PATH="$ROOT" \
+AP="$ROOT" \
 ARCH_SNAPPER_CONFIG_PATH="$test_tmp/etc/snapper/configs/root" \
 ARCH_SNAPPER_CONF_PATH="$test_tmp/etc/conf.d/snapper" \
   python3 -I "$ROOT/src/arch/python/installer/system_setup/snapper_setup.py" >/dev/null
@@ -57,7 +57,7 @@ pass "snapshot configure normalizes Snapper policy and services"
 mkdir -p "$test_tmp/invalid/data/installer"
 printf '%s\n' 'snapper: [' >"$test_tmp/invalid/data/installer/snapper-setup.yml"
 set +e
-ARCH_PATH="$test_tmp/invalid" python3 -I "$ROOT/src/arch/python/installer/system_setup/snapper_setup.py" \
+AP="$test_tmp/invalid" python3 -I "$ROOT/src/arch/python/installer/system_setup/snapper_setup.py" \
   >"$test_tmp/invalid-output" 2>"$test_tmp/invalid-error"
 config_status=$?
 set -e
@@ -70,7 +70,7 @@ pass "snapshot configure handles malformed YAML at its command boundary"
 mkdir -p "$test_tmp/invalid/data/installer"
 printf '%s\n' 'systemd_boot_snapshots: [' >"$test_tmp/invalid/data/installer/config-setup.yml"
 set +e
-ARCH_PATH="$test_tmp/invalid" python3 -I "$ROOT/src/arch/python/installer/system_setup/systemd_boot_snapshots.py" \
+AP="$test_tmp/invalid" python3 -I "$ROOT/src/arch/python/installer/system_setup/systemd_boot_snapshots.py" \
   >"$test_tmp/snapshots-invalid-output" 2>"$test_tmp/snapshots-invalid-error"
 snapshots_config_status=$?
 set -e

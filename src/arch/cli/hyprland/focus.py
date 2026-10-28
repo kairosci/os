@@ -56,7 +56,7 @@ def _text_list(value: object, label: str) -> list[str]:
 
 
 def _settings() -> FocusSettings:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   raw: object = yaml.safe_load((root / "data/cli/hyprland-focus.yml").read_text(encoding="utf-8"))
   settings = _mapping(raw, "root")
   fields = _mapping(settings.get("fields"), "fields")

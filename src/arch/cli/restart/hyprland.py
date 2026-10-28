@@ -9,7 +9,7 @@ import yaml
 
 
 def _command() -> list[str]:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   raw: object = yaml.safe_load((root / "data/cli/restart-hyprland.yml").read_text(encoding="utf-8"))
   if not isinstance(raw, dict):
     raise ValueError("restart configuration must be a mapping")

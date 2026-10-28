@@ -630,7 +630,7 @@ prioritize_entries() {
 translate_binding_records() {
   local language catalog
   language=$(arch-language 2>/dev/null) || language=en
-  catalog=$ARCH_PATH/default/i18n/$language/keybindings.json
+  catalog=$AP/default/i18n/$language/keybindings.json
   if [[ $language == "en" || ! -f $catalog ]]; then
     cat
     return
@@ -683,7 +683,7 @@ keybindings_cache_key() {
     printf 'v19\n'
     leading_keyboard
     arch-language 2>/dev/null
-    cat "$ARCH_PATH/default/i18n/$(arch-language 2>/dev/null)/keybindings.json" 2>/dev/null
+    cat "$AP/default/i18n/$(arch-language 2>/dev/null)/keybindings.json" 2>/dev/null
     hyprctl devices 2>/dev/null | grep -F 'active keymap:'
     cat "$key_names_file" 2>/dev/null
     hyprctl binds 2>/dev/null

@@ -17,7 +17,7 @@ import "Numbers.js" as Numbers
 QtObject {
   id: root
 
-  readonly property string archPath: Quickshell.env("ARCH_PATH")
+  readonly property string archPath: Quickshell.env("AP")
   readonly property string configHome: Quickshell.env("XDG_CONFIG_HOME") || (Quickshell.env("HOME") + "/.config")
 
   readonly property string language: languageCode(languageFile.text())

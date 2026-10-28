@@ -84,7 +84,7 @@ browser_policy_setup_parents_for() {
 # would rewrite mimeapps.list behind os's back.
 browser_policy_install_defaults() {
   local policy_dir=$1
-  local policies=${2:-$ARCH_PATH/default/chromium/policies/arch.json}
+  local policies=${2:-$AP/default/chromium/policies/arch.json}
 
   as_root install -m 644 -o root -g root -T "$policies" "$policy_dir/arch.json"
 }
@@ -164,7 +164,7 @@ browser_policy_firefox_hardened() {
 
 browser_policy_install_firefox_policies() {
   local distribution_dir=$1
-  local policies=${2:-$ARCH_PATH/default/firefox/policies.json}
+  local policies=${2:-$AP/default/firefox/policies.json}
 
   as_root install -m 644 -o root -g root -T "$policies" "$distribution_dir/policies.json"
 }
@@ -187,7 +187,7 @@ browser_policy_firefox_skip_default_check() {
 
 browser_policy_setup_firefox_distribution() {
   local distribution_dir=$1
-  local policies=${2:-$ARCH_PATH/default/firefox/policies.json}
+  local policies=${2:-$AP/default/firefox/policies.json}
 
   browser_policy_setup_parent "$distribution_dir"
   browser_policy_purge_dir "$distribution_dir"

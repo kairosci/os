@@ -38,7 +38,7 @@ def _log(path: Path, timestamp_format: str, message: str) -> None:
 
 
 def main() -> int:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   config = cast(dict[str, object], yaml.safe_load((root / "data/installer/first-run.yml").read_text(encoding="utf-8")))
   settings = cast(dict[str, object], config["orchestrator"])
   language = _language(config)

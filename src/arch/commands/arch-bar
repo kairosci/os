@@ -281,7 +281,7 @@ sync_glass() {
 
   if [[ $(current_background) == "glassy" ]]; then
     [[ ! -f $flag ]] || return 0
-    mkdir -p "$dir" && cp "$ARCH_PATH/default/hypr/toggles/bar-glassy.lua" "$flag" || return 1
+    mkdir -p "$dir" && cp "$AP/default/hypr/toggles/bar-glassy.lua" "$flag" || return 1
   else
     [[ -f $flag ]] || return 0
     rm -f "$flag" || return 1

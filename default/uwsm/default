@@ -17,10 +17,10 @@ export VISUAL="${VISUAL:-$EDITOR}"
 
 # A dev-linked checkout owns the commands the session invokes. Keep it ahead
 # of the packaged copies so CLI lookups and sudo commands agree on one tree.
-if [[ -n ${ARCH_PATH:-} && -d ${ARCH_PATH%/}/src/arch/commands ]]; then
+if [[ -n ${AP:-} && -d ${AP%/}/src/arch/commands ]]; then
   case ":$PATH:" in
-    *":${ARCH_PATH%/}/src/arch/commands:"*) ;;
-    *) PATH="${ARCH_PATH%/}/src/arch/commands${PATH:+:$PATH}" ;;
+    *":${AP%/}/src/arch/commands:"*) ;;
+    *) PATH="${AP%/}/src/arch/commands${PATH:+:$PATH}" ;;
   esac
   export PATH
 fi

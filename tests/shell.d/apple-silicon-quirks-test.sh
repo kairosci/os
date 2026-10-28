@@ -38,7 +38,7 @@ SH
 chmod +x "$stub_bin"/*
 
 run_fkeys() {
-  APPLE_SILICON="$1" ARCH_PATH="$ROOT" ARCH_HID_APPLE_CONF="$conf" PATH="$stub_bin:$PATH" TEST_LOG="$calls" \
+  APPLE_SILICON="$1" AP="$ROOT" ARCH_HID_APPLE_CONF="$conf" PATH="$stub_bin:$PATH" TEST_LOG="$calls" \
     python3 -I "$ROOT/src/arch/python/installer/hardware/apple_keyboard_fkeys.py"
 }
 

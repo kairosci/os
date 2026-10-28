@@ -152,7 +152,7 @@ def _locale_environment(value: object) -> dict[str, dict[str, str]]:
 
 
 def load_config() -> WifiQrConfig:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   raw: object = yaml.safe_load((root / "data/cli/network-qr.yml").read_text(encoding="utf-8"))
   config = _mapping(raw, "root")
   commands = _mapping(config.get("commands"), "commands")

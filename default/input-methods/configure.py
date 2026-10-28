@@ -12,7 +12,7 @@ import sys
 import time
 
 
-ROOT = Path(os.environ["ARCH_PATH"])
+ROOT = Path(os.environ["AP"])
 DATA_ROOT = ROOT / "data/input-methods"
 PRESETS = json.loads((DATA_ROOT / "presets.json").read_text())
 NON_LATIN = set(json.loads((DATA_ROOT / "non-latin-layouts.json").read_text()))

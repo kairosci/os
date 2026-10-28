@@ -93,7 +93,7 @@ firewall_body=$(function_body apply_firewall_defaults)
 firewall_path_assignment_count=$(awk '{ count += gsub(/(^|[[:space:]])PATH=/, "") } END { print count + 0 }' <<<"$firewall_body")
 (( firewall_path_assignment_count == 1 )) ||
   fail "os 4 upgrade gives the privileged firewall helper exactly one command path"
-grep -Fx '  as_root env ARCH_PATH=/usr/share/arch PATH="$root_path" \' <<<"$firewall_body" >/dev/null ||
+grep -Fx '  as_root env AP=/usr/share/arch PATH="$root_path" \' <<<"$firewall_body" >/dev/null ||
   fail "os 4 upgrade gives the privileged firewall helper the trusted root path"
 if grep -E '(package_path|target_home|\.local/bin)' <<<"$firewall_body" >/dev/null; then
   fail "os 4 upgrade does not give the privileged firewall helper the target user's path"

@@ -6,7 +6,7 @@ import os
 from pathlib import Path
 import sys
 
-sys.path.insert(0, str(Path(os.environ["ARCH_PATH"]) / "src"))
+sys.path.insert(0, str(Path(os.environ["AP"]) / "src"))
 from arch.cli.channel.current import channel_current_main
 
 

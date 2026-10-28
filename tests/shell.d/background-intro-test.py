@@ -22,7 +22,7 @@ class BackgroundSessionMarkerTest(unittest.TestCase):
       (arch / "data/cli").mkdir(parents=True)
       (arch / "src").symlink_to(ROOT / "src", target_is_directory=True)
       (arch / "data/cli/background-session-mark.yml").write_text("[]\n", encoding="utf-8")
-      environment = test_environment(ARCH_PATH=arch, HOME=scratch / "home")
+      environment = test_environment(AP=arch, HOME=scratch / "home")
 
       result = subprocess.run(
         [str(MARKER_COMMAND)], env=environment, check=False, capture_output=True, text=True

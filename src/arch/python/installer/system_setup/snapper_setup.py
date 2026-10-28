@@ -91,7 +91,7 @@ def _path_settings(value: object, label: str) -> PathSetting:
 
 
 def _settings() -> Settings:
-  ap = Path(os.environ["ARCH_PATH"])
+  ap = Path(os.environ["AP"])
   with (ap / "data/installer/snapper-setup.yml").open(encoding="utf-8") as stream:
     raw: object = yaml.safe_load(stream)
   root = _mapping(raw, "configuration")
@@ -132,7 +132,7 @@ def _path(settings: Settings, key: Literal["config", "conf", "template"]) -> Pat
   if override is not None and override != "":
     return Path(override)
   if key == "template":
-    return Path(os.environ["ARCH_PATH"]) / value["default"]
+    return Path(os.environ["AP"]) / value["default"]
   return Path(value["default"])
 
 

@@ -28,9 +28,9 @@ ShellRoot {
   property string home: Quickshell.env("HOME")
 
   // The arch-shell host is the long-running entry point. Plugins live in
-  // sibling directories under plugins/. ARCH_PATH is provided by the uwsm
+  // sibling directories under plugins/. AP is provided by the uwsm
   // session environment and is the single source of truth for this checkout.
-  property string archPath: Quickshell.env("ARCH_PATH")
+  property string archPath: Quickshell.env("AP")
   readonly property string shellPath: archPath + "/src/arch/shell"
   readonly property string firstPartyPluginsDir: shellPath + "/plugins"
   readonly property string defaultsPath: archPath + "/config/arch/shell.json"

@@ -45,7 +45,7 @@ case "$region" in
 esac
 
 # Each platform has its own channel templates (installer/helpers/pacman.sh).
-source "$ARCH_PATH/installer/helpers/pacman.sh"
+source "$AP/installer/helpers/pacman.sh"
 platform=$(arch-hw-platform)
 templates=$(arch_pacman_templates "$platform")
 if [[ ! -f $templates/pacman-$channel.conf || ! -f $templates/mirrorlist-$channel ]]; then
@@ -67,7 +67,7 @@ if [[ $region == "global" || $platform != "x86" ]]; then
   cp "$templates/pacman-$channel.conf" "$staging/pacman.conf"
   cp "$templates/mirrorlist-$channel" "$staging/mirrorlist"
 else
-  profile="$ARCH_PATH/default/regions/$region/pacman"
+  profile="$AP/default/regions/$region/pacman"
   for fragment in "arch-$channel.prepend" "mirrorlist-$channel.prepend"; do
     [[ -r $profile/$fragment ]] || { echo "Region $region lacks $profile/$fragment" >&2; exit 1; }
   done

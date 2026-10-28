@@ -12,7 +12,7 @@ require_command pacman-conf
 
 work=$(mktemp -d)
 trap 'rm -rf "$work"' EXIT
-export ARCH_PATH="$ROOT"
+export AP="$ROOT"
 source "$ROOT/installer/helpers/pacman.sh"
 
 platforms="x86 aarch64 aarch64-apple"
@@ -134,7 +134,7 @@ for platform in $platforms; do
     rm -rf "$work/etc"
     mkdir -p "$work/etc/pacman.d"
     printf 'offline\n' | tee "$work/etc/pacman.conf" >"$work/etc/pacman.d/mirrorlist"
-    ARCH_PATH=$finalize_root ARCH_IMAGE_ROOT=$work ARCH_MIRROR=$channel PLATFORM=$platform PATH="$finalize_bin:$PATH" \
+    AP=$finalize_root ARCH_IMAGE_ROOT=$work ARCH_MIRROR=$channel PLATFORM=$platform PATH="$finalize_bin:$PATH" \
       python3 -I "$finalize_root/src/arch/python/installer/post_install/pacman.py" >/dev/null || fail "$platform finalization on '$channel'"
     cmp -s "$work/etc/pacman.conf" "$templates/pacman-$expected.conf" || fail "$platform '$channel': finalization copies the $expected template"
     cmp -s "$work/etc/pacman.d/mirrorlist" "$templates/mirrorlist-$expected" || fail "$platform '$channel': finalization copies the $expected mirrorlist"
@@ -145,7 +145,7 @@ fi
 
 # The Python finalization runner reads the ordered steps from packaged data,
 # sources shell leaves in isolated Bash and stops with the leaf's exit status.
-ARCH_PATH="$ROOT" ARCH_INSTALL="$ROOT/installer" python3 -I \
+AP="$ROOT" ARCH_INSTALL="$ROOT/installer" python3 -I \
   "$ROOT/src/arch/python/installer/step_runner.py" --validate data/installer/post-install.yml ||
   fail "the post-install setup data resolves every configured leaf"
 pass "post-install setup data resolves every configured leaf"
@@ -188,7 +188,7 @@ SH
 
 post_install_order="$work/post-install-order"
 post_install_output="$work/post-install-output"
-ARCH_PATH="$post_install_root" ARCH_INSTALL="$post_install_root/installer" \
+AP="$post_install_root" ARCH_INSTALL="$post_install_root/installer" \
   POST_INSTALL_ORDER="$post_install_order" LANG=it_IT.UTF-8 \
   python3 -I "$ROOT/src/arch/python/installer/step_runner.py" data/installer/post-install.yml >"$post_install_output" 2>&1 ||
   fail "post-install runner completes every configured step"
@@ -199,7 +199,7 @@ grep -Fq "Avvio: $post_install_root/installer/post-install/first.sh" "$post_inst
 pass "post-install runner executes ordered YAML steps and localizes progress"
 
 : >"$post_install_order"
-ARCH_PATH="$post_install_root" ARCH_INSTALL="$post_install_root/installer" \
+AP="$post_install_root" ARCH_INSTALL="$post_install_root/installer" \
   POST_INSTALL_ORDER="$post_install_order" LANG=en_US.UTF-8 \
   ARCH_INSTALL_DEBUG=1 python3 -I "$ROOT/src/arch/python/installer/step_runner.py" data/installer/post-install.yml \
   >"$post_install_output" 2>&1 || fail "post-install runner supports installer debug mode"
@@ -207,7 +207,7 @@ grep -Fq '+ first.sh:' "$post_install_output" || fail "post-install runner trace
 pass "post-install runner preserves shell tracing in debug mode"
 
 : >"$post_install_order"
-if ARCH_PATH="$post_install_root" ARCH_INSTALL="$post_install_root/installer" \
+if AP="$post_install_root" ARCH_INSTALL="$post_install_root/installer" \
   POST_INSTALL_ORDER="$post_install_order" POST_INSTALL_FAIL=1 LANG=it_IT.UTF-8 \
   python3 -I "$ROOT/src/arch/python/installer/step_runner.py" data/installer/post-install.yml >"$post_install_output" 2>&1; then
   fail "post-install runner stops when a step fails"
@@ -224,7 +224,7 @@ printf 'steps:\n  - ../outside.sh\nmessages:\n  en: {starting: "Starting {step}"
 cat >"$post_install_root/outside.sh" <<'SH'
 touch "$POST_INSTALL_ESCAPE_MARKER"
 SH
-if ARCH_PATH="$post_install_root" ARCH_INSTALL="$post_install_root/installer" \
+if AP="$post_install_root" ARCH_INSTALL="$post_install_root/installer" \
   POST_INSTALL_ESCAPE_MARKER="$work/escaped" python3 -I \
   "$ROOT/src/arch/python/installer/step_runner.py" data/installer/unsafe.yml \
   >"$post_install_output" 2>&1; then

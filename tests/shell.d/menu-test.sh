@@ -430,7 +430,7 @@ assertDeepEqual(
     fs.writeFileSync(path.join(home, '.config/arch/shell.json'), JSON.stringify({ bar }))
     return ['opaque', 'glassy', 'clear'].filter(look => {
       try {
-        execFileSync('bash', ['-c', defaultById[`appearance.top-bar.background.${look}`].checked], { env: { ...process.env, HOME: home, ARCH_PATH: root, PATH: `${root}/bin:${process.env.PATH}` } })
+        execFileSync('bash', ['-c', defaultById[`appearance.top-bar.background.${look}`].checked], { env: { ...process.env, HOME: home, AP: root, PATH: `${root}/bin:${process.env.PATH}` } })
         return true
       } catch (e) {
         return false

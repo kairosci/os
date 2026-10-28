@@ -51,11 +51,11 @@ luks_dump_slots() {
 }
 
 rekey_state_get() {
-  ARCH_PATH="$ARCH_PATH" python3 -I "$ARCH_PATH/src/arch/python/installer/rekey_state.py" get "$REKEY_STATE" "$1"
+  AP="$AP" python3 -I "$AP/src/arch/python/installer/rekey_state.py" get "$REKEY_STATE" "$1"
 }
 
 rekey_state_put() {
-  ARCH_PATH="$ARCH_PATH" python3 -I "$ARCH_PATH/src/arch/python/installer/rekey_state.py" put "$REKEY_STATE" "$@"
+  AP="$AP" python3 -I "$AP/src/arch/python/installer/rekey_state.py" put "$REKEY_STATE" "$@"
 }
 
 staged_key_slot() {

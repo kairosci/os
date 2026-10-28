@@ -36,7 +36,7 @@ cp "$SHELL_TEST_DIR/fixtures/lock-fingerprint-indicator/shell.qml" "$config_dir/
 ln -s "$ROOT/src/arch/shell/Ui" "$config_dir/Ui"
 ln -s "$ROOT/src/arch/shell/Commons" "$config_dir/Commons"
 
-ARCH_PATH="$ROOT" \
+AP="$ROOT" \
 ARCH_QML_TEST_RESULT="$result" \
 HOME="$TMPDIR/home" \
 XDG_CONFIG_HOME="$TMPDIR/home/.config" \

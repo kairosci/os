@@ -5,7 +5,7 @@ set -euo pipefail
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 leaf="$ROOT/src/arch/python/installer/system_setup/locale_setup.py"
-export ARCH_PATH="$ROOT"
+export AP="$ROOT"
 
 [[ -f $leaf ]] || fail "the locale step ships"
 
@@ -13,7 +13,7 @@ grep -Fq 'src/arch/python/installer/system_setup/locale_setup.py' "$ROOT/data/in
   fail "config phase sets a UTF-8 locale"
 pass "config phase sets a UTF-8 locale"
 
-ARCH_PATH="$ROOT" ARCH_INSTALL="$ROOT/installer" python3 -I \
+AP="$ROOT" ARCH_INSTALL="$ROOT/installer" python3 -I \
   "$ROOT/src/arch/python/installer/step_runner.py" --validate data/installer/system-setup.yml ||
   fail "the system setup data resolves every configured leaf"
 pass "system setup data resolves every configured leaf"

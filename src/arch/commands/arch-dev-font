@@ -574,9 +574,9 @@ def svg_contours(svg, location):
 
 
 def default_font():
-    root = os.environ.get('ARCH_PATH')
+    root = os.environ.get('AP')
     if not root:
-        sys.exit('ARCH_PATH is not set')
+        sys.exit('AP is not set')
     return os.path.join(root, 'default/fonts/arch/arch.ttf')
 
 
@@ -602,7 +602,7 @@ def record_source(font_path, codepoint, label, location):
 def main():
     common = argparse.ArgumentParser(add_help=False)
     common.add_argument('--font', help='font to edit '
-                        '(default: $ARCH_PATH/default/fonts/arch/arch.ttf)')
+                        '(default: $AP/default/fonts/arch/arch.ttf)')
 
     p = argparse.ArgumentParser(prog='arch dev font', parents=[common],
                                 description=__doc__.split('\n')[0])

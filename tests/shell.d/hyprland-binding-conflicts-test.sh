@@ -12,8 +12,8 @@ list_bindings() {
   local home="$1"
   local epilogue="${2:-}"
 
-  HOME="$home" XDG_CONFIG_HOME="$home/.config" XDG_STATE_HOME="$home/.local/state" ARCH_PATH="$ROOT" ARCH_BINDING_EPILOGUE="$epilogue" lua <<'LUA'
-package.path = os.getenv("HOME") .. "/.config/?.lua;" .. os.getenv("ARCH_PATH") .. "/?.lua;" .. package.path
+  HOME="$home" XDG_CONFIG_HOME="$home/.config" XDG_STATE_HOME="$home/.local/state" AP="$ROOT" ARCH_BINDING_EPILOGUE="$epilogue" lua <<'LUA'
+package.path = os.getenv("HOME") .. "/.config/?.lua;" .. os.getenv("AP") .. "/?.lua;" .. package.path
 
 local function proxy()
   return setmetatable({}, {

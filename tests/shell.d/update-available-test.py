@@ -59,9 +59,9 @@ esac
     path.chmod(0o755)
 
   def run_command(self, **updates: str) -> subprocess.CompletedProcess[str]:
-    ap = updates.pop("ARCH_PATH", str(ROOT))
+    ap = updates.pop("AP", str(ROOT))
     environment = test_environment(
-      ARCH_PATH=ap,
+      AP=ap,
       PATH=f"{self.bin_dir}:{os.environ.get('PATH', '')}",
       **updates,
     )
@@ -85,7 +85,7 @@ esac
     checkout.mkdir()
     (checkout / "src").symlink_to(ROOT / "src", target_is_directory=True)
     (checkout / "data").symlink_to(ROOT / "data", target_is_directory=True)
-    result = self.run_command(ARCH_PATH=str(checkout), TEST_CHECKUPDATES="none", TEST_GIT_BEHIND="2")
+    result = self.run_command(AP=str(checkout), TEST_CHECKUPDATES="none", TEST_GIT_BEHIND="2")
     self.assertEqual(result.returncode, 0, result.stderr)
     self.assertIn("arch-dev-checkout 2 new commits on origin/quattro", result.stdout)
 
@@ -96,7 +96,7 @@ esac
     (invalid_root / "src").symlink_to(ROOT / "src", target_is_directory=True)
     config_path.write_text("commands: []\n", encoding="utf-8")
 
-    result = self.run_command(ARCH_PATH=str(invalid_root))
+    result = self.run_command(AP=str(invalid_root))
 
     self.assertEqual(result.returncode, 2)
     self.assertIn("Could not load update availability configuration:", result.stderr)

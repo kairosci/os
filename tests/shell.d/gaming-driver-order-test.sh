@@ -39,7 +39,7 @@ run_installer() {
   local installer="$1" driver_status="$2"
 
   : >"$test_tmp/calls"
-  HOME="$test_home" ARCH_PATH="$ROOT" PATH="$stub_bin:$PATH" \
+  HOME="$test_home" AP="$ROOT" PATH="$stub_bin:$PATH" \
     ARCH_TEST_CALLS="$test_tmp/calls" ARCH_TEST_DRIVER_STATUS="$driver_status" \
     bash "$ROOT/src/arch/commands/$installer" >"$test_tmp/output" 2>&1
 }

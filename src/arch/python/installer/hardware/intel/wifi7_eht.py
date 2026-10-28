@@ -12,7 +12,7 @@ import yaml
 
 
 def main() -> int:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   config = yaml.safe_load((root / "data/installer/hardware.yml").read_text(encoding="utf-8"))
   settings = config["intel_wifi7_eht_workaround"]
   statuses = settings["statuses"]

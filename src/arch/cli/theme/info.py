@@ -138,7 +138,7 @@ def _pattern(value: object, label: str) -> str:
 
 
 def _settings() -> Settings:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   raw: object = yaml.safe_load((root / "data/cli/theme-info.yml").read_text(encoding="utf-8"))
   settings = _mapping(raw, "root")
   paths = _mapping(settings.get("paths"), "paths")
@@ -222,7 +222,7 @@ def _path(value: str, **values: str) -> Path:
 
 def _paths(settings: Settings) -> ResolvedPaths:
   home = str(Path.home())
-  ap = os.environ["ARCH_PATH"]
+  ap = os.environ["AP"]
   paths = settings["paths"]
   state_home = os.environ.get(paths["state_home_environment"])
   if state_home is None or state_home == "":

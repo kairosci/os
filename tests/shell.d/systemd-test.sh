@@ -12,7 +12,7 @@ grep -Fx 'After=dbus.socket wayland-session-waitenv.service' "$sleep_service" >/
   fail "sleep lock monitor starts before UWSM imports the graphical session environment"
 grep -Fx 'PartOf=graphical-session.target' "$sleep_service" >/dev/null ||
   fail "sleep lock monitor survives logout with a stale Wayland environment"
-grep -Fx 'ConditionEnvironment=ARCH_PATH' "$sleep_service" >/dev/null ||
+grep -Fx 'ConditionEnvironment=AP' "$sleep_service" >/dev/null ||
   fail "sleep lock monitor can start without the os shell path"
 grep -Fx 'ConditionEnvironment=WAYLAND_DISPLAY' "$sleep_service" >/dev/null ||
   fail "sleep lock monitor can start without a Wayland display"

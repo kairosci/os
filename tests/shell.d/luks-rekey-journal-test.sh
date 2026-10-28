@@ -22,7 +22,7 @@ invalid_rekey_arch="$tmp/invalid-rekey-arch"
 mkdir -p "$invalid_rekey_arch/data/installer"
 printf '[]\n' >"$invalid_rekey_arch/data/installer/rekey-state.yml"
 status=0
-output=$(ARCH_PATH="$invalid_rekey_arch" PYTHONPATH="$ROOT/src/arch/python" python3 - <<'PY' 2>&1
+output=$(AP="$invalid_rekey_arch" PYTHONPATH="$ROOT/src/arch/python" python3 - <<'PY' 2>&1
 from installer.rekey_state import main
 
 raise SystemExit(main(["get", "/tmp/rekey-state", "phase"]))
@@ -318,7 +318,7 @@ run() {
   echo "$crash_at" >"$tmp/crash-at"
   {
     ROOT=$ROOT TMP=$tmp BACKEND=$backend DEVICE=$device MODE=$mode PASSWORD=$password CRASH_AT=$crash_at \
-      ARCH_PATH=$runtime ARCH_PROC_ROOT=$tmp/$platform/proc ARCH_LIFECYCLE_ROOT=$tmp/lifecycle \
+      AP=$runtime ARCH_PROC_ROOT=$tmp/$platform/proc ARCH_LIFECYCLE_ROOT=$tmp/lifecycle \
       PATH="$tmp/$platform/bin:$PATH" bash "$tmp/attempt.sh"
   } >>"$tmp/output" 2>&1
 }

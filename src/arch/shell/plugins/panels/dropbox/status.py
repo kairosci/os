@@ -27,7 +27,7 @@ def _is_quota_mapping(value: object) -> TypeGuard[dict[str, int]]:
 
 
 def load_plan_quotas() -> dict[str, int]:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   path = root / "data/python/dropbox-plan-quotas.json"
   with path.open("r", encoding="utf-8") as handle:
     quotas: object = json.load(handle)

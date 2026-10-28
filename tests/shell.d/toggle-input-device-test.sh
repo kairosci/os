@@ -112,7 +112,7 @@ grep -F 'hl.device({ name = "touchpad\"' "$log_file" >/dev/null ||
   fail "hyprctl eval Lua-quotes quotes in the device name" "$(<"$log_file")"
 pass "touchpad disable treats USB device names as data"
 
-HOME="$home_dir" XDG_STATE_HOME="$xdg_decoy" ARCH_PATH="$ROOT" MARKER="$marker" lua - <<'LUA'
+HOME="$home_dir" XDG_STATE_HOME="$xdg_decoy" AP="$ROOT" MARKER="$marker" lua - <<'LUA'
 local seen = {}
 hl = {
   device = function(opts)
@@ -123,7 +123,7 @@ hl = {
   get_windows = function() return {} end,
 }
 
-dofile(os.getenv("ARCH_PATH") .. "/default/hypr/bootstrap.lua")
+dofile(os.getenv("AP") .. "/default/hypr/bootstrap.lua")
 require("default.hypr.toggles")
 assert(#seen == 1, "reload disables one device")
 assert(seen[1].enabled == false)
@@ -142,7 +142,7 @@ run_toggle touchpad off
 [[ $(<"$name_file") == "$poc_name" ]] || fail "PoC device name is stored only as data"
 [[ ! -e $state_lua ]] || fail "PoC device name is not written as Lua"
 
-HOME="$home_dir" XDG_STATE_HOME="$xdg_decoy" ARCH_PATH="$ROOT" \
+HOME="$home_dir" XDG_STATE_HOME="$xdg_decoy" AP="$ROOT" \
   POC_NAME="$poc_name" EVAL_SNIPPET="$(<"$log_file")" lua - <<'LUA'
 local poc = os.getenv("POC_NAME")
 local snippet = os.getenv("EVAL_SNIPPET")
@@ -169,7 +169,7 @@ assert(load('hl.device({ name = "' .. poc .. '", enabled = false })', "unquoted"
 assert(executed == true, "unquoted interpolation is the Lua injection")
 
 seen, executed = {}, false
-dofile(os.getenv("ARCH_PATH") .. "/default/hypr/bootstrap.lua")
+dofile(os.getenv("AP") .. "/default/hypr/bootstrap.lua")
 require("default.hypr.toggles")
 assert(executed == false, "reload must not run os.execute")
 assert(#seen == 1)

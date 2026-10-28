@@ -377,7 +377,7 @@ ShellRoot {
     return "'" + String(value).replace(/'/g, "'\\''") + "'"
   }
 
-  readonly property string rootPath: Quickshell.env("ARCH_PATH")
+  readonly property string rootPath: Quickshell.env("AP")
 
   // Indicator text comes from the catalogs, which load just after the
   // shell starts; check once they have.

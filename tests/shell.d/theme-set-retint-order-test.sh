@@ -87,7 +87,7 @@ set_theme() {
 }
 
 switch_theme() {
-  HOME="$home" ARCH_PATH="$ROOT" PATH="$commands:$ROOT/src/arch/commands:$PATH" XDG_RUNTIME_DIR="$test_tmp" \
+  HOME="$home" AP="$ROOT" PATH="$commands:$ROOT/src/arch/commands:$PATH" XDG_RUNTIME_DIR="$test_tmp" \
     TEST_LOG="$log" TEST_TMP="$test_tmp" TEST_STATE="$state" TEST_ROOT="$ROOT" \
     /bin/bash "$ROOT/src/arch/commands/arch-theme-set" "$1" </dev/null >"$test_tmp/stdout" 2>"$test_tmp/stderr" ||
     fail "theme selection completes" "$(cat "$test_tmp/stderr")"
@@ -217,7 +217,7 @@ rm -f "$test_tmp/held"
 touch "$test_tmp/release"
 : >"$log"
 printf 'typed-password\n' |
-  HOME="$home" ARCH_PATH="$ROOT" PATH="$commands:$ROOT/src/arch/commands:$PATH" XDG_RUNTIME_DIR="$test_tmp" \
+  HOME="$home" AP="$ROOT" PATH="$commands:$ROOT/src/arch/commands:$PATH" XDG_RUNTIME_DIR="$test_tmp" \
     TEST_LOG="$log" TEST_TMP="$test_tmp" TEST_STATE="$state" TEST_ROOT="$ROOT" TEST_READ_STDIN=1 \
     ARCH_THEME_WAIT=1 ARCH_THEME_SKIP_BACKGROUND=1 /bin/bash "$ROOT/src/arch/commands/arch-theme-set" alpha >/dev/null 2>&1
 grep -qx 'browser-stdin typed-password' "$log" || fail "a waited-for retint reads the switch's stdin" "$(cat "$log")"

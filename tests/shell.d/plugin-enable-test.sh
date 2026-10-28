@@ -18,7 +18,7 @@ chmod +x "$TMPDIR/bin/arch-shell"
 
 run_enable() {
   HOME="$TMPDIR/home" \
-    ARCH_PATH="$ROOT" \
+    AP="$ROOT" \
     ARCH_TEST_CALLS="$calls" \
     PATH="$TMPDIR/bin:$ROOT/src/arch/commands:$PATH" \
     arch-plugin-enable "$@"

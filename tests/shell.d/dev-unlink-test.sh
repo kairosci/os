@@ -59,7 +59,7 @@ run_unlink --no-reboot
 
 grep -Fx $'sudo\ttee\t/etc/arch.conf' "$log_file" >/dev/null ||
   fail "dev unlink writes the package path without rebooting" "$(cat "$log_file")"
-[[ $(<"$conf_file") == 'export ARCH_PATH="/usr/share/arch"' ]] ||
+[[ $(<"$conf_file") == 'export AP="/usr/share/arch"' ]] ||
   fail "dev unlink writes the package path guard" "$(<"$conf_file")"
 
 # Left behind, it keeps sudo running a checkout nothing else points at.

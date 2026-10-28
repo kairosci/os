@@ -36,7 +36,7 @@ for invocation in "$tmp/checkout with spaces/reset" './checkout with spaces/rese
   for status in 0 1 127; do
     actual_status=0
     (cd "$tmp" && env -i HOME="$tmp" PATH="$tmp/bin:$tmp/checkout with spaces:/usr/bin:/bin" \
-      ARCH_PATH="$tmp/checkout with spaces" PACKAGED_PATH="$tmp/wrong-target" \
+      AP="$tmp/checkout with spaces" PACKAGED_PATH="$tmp/wrong-target" \
       GUM_INPUT_PROMPT='Reset this computer? ' CALL_LOG="$tmp/call" SUDO_STATUS="$status" \
       "$invocation" "${args[@]}") || actual_status=$?
     (( actual_status == status )) || fail "elevation status is preserved for $invocation"

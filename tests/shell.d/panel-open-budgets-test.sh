@@ -15,7 +15,7 @@ QS_PID=""
 
 # Same leftover discipline as the runtime smoke test: Quickshell leaves
 # children behind when it stops, so stop whatever still runs with this
-# test's scratch ARCH_PATH once the shell is down.
+# test's scratch AP once the shell is down.
 leftover_pids() {
   local environ pid
 
@@ -23,7 +23,7 @@ leftover_pids() {
   while IFS= read -r environ; do
     pid=${environ#/proc/}
     echo "${pid%/environ}"
-  done < <(grep -lzxF -- "ARCH_PATH=$test_root" /proc/[0-9]*/environ 2>/dev/null || true)
+  done < <(grep -lzxF -- "AP=$test_root" /proc/[0-9]*/environ 2>/dev/null || true)
 }
 
 signal_leftovers() {
@@ -108,18 +108,18 @@ for name in arch-powerprofiles-set powerprofilesctl; do
   chmod +x "$stub_bin/$name"
 done
 # The shell runs some commands under `bash -lc`, and a login shell resets
-# PATH and ARCH_PATH from /etc/arch.conf, which would put the
+# PATH and AP from /etc/arch.conf, which would put the
 # session's checkout and its real commands back ahead of these stubs.
 printf '#!/bin/bash\n[[ ${1:-} == "-lc" ]] && shift && set -- -c "$@"\nexec /bin/bash "$@"\n' >"$stub_bin/bash"
 chmod +x "$stub_bin/bash"
 
 
 shell_ipc() {
-  ARCH_PATH="$test_root" "$ROOT/src/arch/commands/arch-shell" "$@"
+  AP="$test_root" "$ROOT/src/arch/commands/arch-shell" "$@"
 }
 
 shell_ipc_quiet() {
-  ARCH_PATH="$test_root" "$ROOT/src/arch/commands/arch-shell" -q "$@"
+  AP="$test_root" "$ROOT/src/arch/commands/arch-shell" -q "$@"
 }
 
 # mapped|absent|unknown: a failed compositor query proves nothing, so
@@ -147,7 +147,7 @@ wait_panel() { # mapped|absent
   return 1
 }
 
-ARCH_PATH="$test_root" \
+AP="$test_root" \
 HOME="$test_home" \
 XDG_CONFIG_HOME="$test_home/.config" \
 XDG_CACHE_HOME="$test_home/.cache" \

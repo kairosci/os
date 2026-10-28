@@ -2,7 +2,7 @@
 
 The menu is the `arch.menu` plugin of the Quickshell desktop, with its
 content defined as data in `default/arch/arch-menu.jsonc` (read at
-runtime from `$ARCH_PATH`) and overlaid by the user's
+runtime from `$AP`) and overlaid by the user's
 `~/.config/arch/extensions/arch-menu.jsonc`. The shell parses both files
 at startup and watches them for changes, so the keybind → IPC → visible path
 never shells out to parse anything, and edits to either file take effect

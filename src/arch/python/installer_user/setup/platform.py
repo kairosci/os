@@ -9,7 +9,7 @@ import yaml
 
 
 def main() -> int:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   config = yaml.safe_load((root / "data/installer/user-setup.yml").read_text(encoding="utf-8"))
   settings = config["platform_setup"]
   language = os.environ.get("LANG", "en").split(".", 1)[0].split("_", 1)[0].lower()

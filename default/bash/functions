@@ -1,1 +1,1 @@
-for f in $ARCH_PATH/default/bash/fns/*; do source "$f"; done
+for f in $AP/default/bash/fns/*; do source "$f"; done

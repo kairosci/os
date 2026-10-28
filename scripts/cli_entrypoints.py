@@ -61,7 +61,7 @@ def generate(destination: Path) -> None:
       "import sys\n"
       "from pathlib import Path\n"
       "\n"
-      "sys.path.insert(0, str(Path(os.environ[\"ARCH_PATH\"]) / \"src\"))\n"
+      "sys.path.insert(0, str(Path(os.environ[\"AP\"]) / \"src\"))\n"
       f"from arch.cli.{entry['module'].replace('/', '.')} import {entry['function']}\n"
       "\n"
       f"raise SystemExit({entry['function']}())\n",

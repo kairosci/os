@@ -41,7 +41,7 @@ def _message(settings: dict[str, object], key: str) -> str:
 
 
 def main() -> int:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   config = yaml.safe_load((root / "data/installer/hardware.yml").read_text(encoding="utf-8"))
   settings = config["nvidia_driver_setup"]
   if subprocess.run(settings["n1x_check"], check=False).returncode == 0:

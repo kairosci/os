@@ -32,11 +32,11 @@ require_command jq
 require_command python3
 
 shell_ipc() {
-  ARCH_PATH="$test_root" "$ROOT/src/arch/commands/arch-shell" "$@"
+  AP="$test_root" "$ROOT/src/arch/commands/arch-shell" "$@"
 }
 
 shell_ipc_quiet() {
-  ARCH_PATH="$test_root" "$ROOT/src/arch/commands/arch-shell" -q "$@"
+  AP="$test_root" "$ROOT/src/arch/commands/arch-shell" -q "$@"
 }
 
 fail_with_log() {
@@ -88,7 +88,7 @@ esac
 SH
 chmod +x "$stub_bin/curl"
 
-ARCH_PATH="$test_root" \
+AP="$test_root" \
 HOME="$test_home" \
 XDG_CONFIG_HOME="$test_home/.config" \
 XDG_CACHE_HOME="$test_home/.cache" \
@@ -120,7 +120,7 @@ jq -e '
   fail_with_log "screenshot test shell rendered visible bar widgets"
 }
 
-ARCH_PATH="$test_root" \
+AP="$test_root" \
 HYPRSHOT_DIR="$screenshot_dir" \
 HOME="$test_home" \
 PATH="$stub_bin:$ROOT/src/arch/commands:$PATH" \

@@ -51,7 +51,7 @@ with tempfile.TemporaryDirectory(prefix="arch-locate-") as scratch:
   calls = scratch / "updatedb-arguments"
   env = dict(os.environ, PATH=str(fake_bin) + ":" + os.environ["PATH"], TEST_CALLS=str(calls))
   for relative in ("src/arch/python/installer/post_install/localdb.py",):
-    env["ARCH_PATH"] = str(root)
+    env["AP"] = str(root)
     subprocess.run(["python3", "-I", str(root / relative)], env=env, check=True)
     check(calls.read_text().splitlines() == options,
           relative + " passes the scheduled service options directly")

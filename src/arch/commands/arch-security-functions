@@ -55,10 +55,10 @@ arch_security_require_source_root() {
 
   # A runtime root selects the code used by this invocation. Accept the
   # canonical checkout containing the entrypoint or the package's bin links.
-  if [[ ${ARCH_PATH:-} != /* || $(/usr/bin/realpath -e -- "$ARCH_PATH") != "$ARCH_PATH" ]] ||
-    ! { [[ $command_source == "$ARCH_PATH/src/arch/commands/$command_name" ]] ||
-      [[ $ARCH_PATH == "/usr/share/arch" && $command_source == "/usr/bin/$command_name" ]]; }; then
-    echo "ARCH_PATH does not match this os command." >&2
+  if [[ ${AP:-} != /* || $(/usr/bin/realpath -e -- "$AP") != "$AP" ]] ||
+    ! { [[ $command_source == "$AP/src/arch/commands/$command_name" ]] ||
+      [[ $AP == "/usr/share/arch" && $command_source == "/usr/bin/$command_name" ]]; }; then
+    echo "AP does not match this os command." >&2
     return 1
   fi
 }
@@ -98,7 +98,7 @@ arch_security_install_sudo_cleanup_traps() {
 }
 
 arch_security_enable_no_update_sudo() {
-  local wrapper_dir="$ARCH_PATH/default/arch/sudo-no-update"
+  local wrapper_dir="$AP/default/arch/sudo-no-update"
   if ! arch_security_sudo_supports_no_update; then
     echo "This sudo does not support --no-update; refusing mixed-trust work." >&2
     return 1
@@ -107,7 +107,7 @@ arch_security_enable_no_update_sudo() {
     echo "The command-scoped sudo wrapper is missing." >&2
     return 1
   fi
-  PATH="$wrapper_dir:$ARCH_PATH/src/arch/commands:/usr/bin:/usr/sbin:/bin:/sbin"
+  PATH="$wrapper_dir:$AP/src/arch/commands:/usr/bin:/usr/sbin:/bin:/sbin"
   ARCH_SUDO_NO_UPDATE=1
   export PATH ARCH_SUDO_NO_UPDATE
 }

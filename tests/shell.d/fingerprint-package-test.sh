@@ -94,7 +94,7 @@ chmod +x "$setup_script"
 
 run_setup() {
   : > "$CALL_LOG"
-  if ARCH_PATH="$scratch" "$setup_script" > "$scratch/output" 2>&1; then
+  if AP="$scratch" "$setup_script" > "$scratch/output" 2>&1; then
     fail "setup stops on the simulated enrollment or installation failure"
   fi
   if grep -Eq '^(pam |apply-lock$|Unexpected privileged call)' "$CALL_LOG"; then
@@ -135,14 +135,14 @@ pass "missing hardware performs no package operations"
 
 # Successful setup must reuse the same lock/recovery installer as updates.
 : > "$CALL_LOG"
-ARCH_PATH="$scratch" ENROLL_STATUS=0 VERIFY_STATUS=0 \
+AP="$scratch" ENROLL_STATUS=0 VERIFY_STATUS=0 \
   "$setup_script" > "$scratch/output" 2>&1 || fail "successful enrollment configures authentication"
 [[ $(grep -E '^(enroll|verify|apply-lock)$' "$CALL_LOG") == $'enroll\nverify\napply-lock' ]] ||
   fail "setup configures lock recovery once, after enrollment and verification"
 pass "setup reuses apply-lock after enrollment and verification"
 
 rm -f "$TEST_LOCK_PAM"
-if ARCH_PATH="$scratch" ENROLL_STATUS=0 VERIFY_STATUS=0 LOCK_SETUP_UNKNOWN=1 \
+if AP="$scratch" ENROLL_STATUS=0 VERIFY_STATUS=0 LOCK_SETUP_UNKNOWN=1 \
   "$setup_script" > "$scratch/output" 2>&1; then
   fail "an inconclusive lock installer cannot report successful lock setup"
 fi
@@ -179,7 +179,7 @@ pass "each scan type gets its own instruction, and an unnamed one is told to tou
 check_verify_prompt() {
   : > "$CALL_LOG"
   INSTALLED=$'libfprint-git\nfprintd\nusbutils' SCAN_TYPE=$1 ENROLL_STATUS=0 VERIFY_STATUS=1 \
-    ARCH_PATH="$scratch" "$setup_script" > "$scratch/output" 2>&1 || true
+    AP="$scratch" "$setup_script" > "$scratch/output" 2>&1 || true
   grep -qF "Now let's verify that it's working correctly. $2" "$scratch/output" ||
     fail "a ${1:-unnamed} sensor is asked to verify with: $2" "$(cat "$scratch/output")"
 }
@@ -211,7 +211,7 @@ pass "enrollment results read as instructions, and a failed enrollment still fai
 # success path's order is checked above.
 : > "$CALL_LOG"
 if INSTALLED=$'libfprint-git\nfprintd\nusbutils' SCAN_TYPE=press ENROLL_STATUS=0 VERIFY_STATUS=1 \
-  ARCH_PATH="$scratch" "$setup_script" > "$scratch/output" 2>&1; then
+  AP="$scratch" "$setup_script" > "$scratch/output" 2>&1; then
   fail "a failed verify fails setup" "$(cat "$scratch/output")"
 fi
 grep -qx verify "$CALL_LOG" && ! grep -Eq '^(pam |apply-lock$|Unexpected privileged call)' "$CALL_LOG" ||

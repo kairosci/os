@@ -30,15 +30,15 @@ if arch-pkg-add $package; then
   # Copy custom desktop entries with X-TerminalArg* keys
   if [[ $package == "alacritty" ]]; then
     mkdir -p ~/.local/share/applications
-    cp "$ARCH_PATH/default/alacritty/$desktop_id" ~/.local/share/applications/
+    cp "$AP/default/alacritty/$desktop_id" ~/.local/share/applications/
   elif [[ $package == "foot" ]]; then
     mkdir -p ~/.local/share/applications
-    cp "$ARCH_PATH/assets/applications/$desktop_id" ~/.local/share/applications/
+    cp "$AP/assets/applications/$desktop_id" ~/.local/share/applications/
   fi
 
   # Copy default config for optional terminals when missing
   if [[ ! -e ~/.config/$package ]]; then
-    cp -Rpf "$ARCH_PATH/config/$package" ~/.config/
+    cp -Rpf "$AP/config/$package" ~/.config/
   fi
 
   # Update xdg-terminals.list to prioritize the proper terminal

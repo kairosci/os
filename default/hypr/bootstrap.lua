@@ -1,8 +1,8 @@
 -- Hyprland bootstrap for os's Lua module path.
 
 local home = os.getenv("HOME")
-local ap = rawget(_G, "ARCH_PATH") or os.getenv("ARCH_PATH") or "/usr/share/arch"
-local inherited_ap = os.getenv("ARCH_PATH")
+local ap = rawget(_G, "AP") or os.getenv("AP") or "/usr/share/arch"
+local inherited_ap = os.getenv("AP")
 local reload_prefixes = {
   "default.hypr",
   "hypr",
@@ -39,7 +39,7 @@ for entry in package.path:gmatch("[^;]+") do
 end
 
 -- Load generated state from ~/.local/state, user modules from ~/.config, and
--- os defaults from $ARCH_PATH.
+-- os defaults from $AP.
 package.path = home
   .. "/.local/state/?.lua;"
   .. home

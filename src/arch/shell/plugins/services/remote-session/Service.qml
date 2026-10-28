@@ -67,7 +67,7 @@ Item {
 
   Process {
     id: statusProbe
-    command: ["python3", Quickshell.env("ARCH_PATH") + "/src/arch/shell/plugins/services/remote-session/probe.py"]
+    command: ["python3", Quickshell.env("AP") + "/src/arch/shell/plugins/services/remote-session/probe.py"]
     stdout: StdioCollector {
       waitForEnd: true
       onStreamFinished: root.applyProbe(text)

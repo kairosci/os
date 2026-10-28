@@ -5,7 +5,7 @@ source "$(dirname "${BASH_SOURCE[0]}")/base-test.sh"
 
 test_tmp=$(mktemp -d)
 trap 'rm -rf "$test_tmp"' EXIT
-export HOME="$test_tmp/home" XDG_CONFIG_HOME="$test_tmp/config" ARCH_PATH="$ROOT"
+export HOME="$test_tmp/home" XDG_CONFIG_HOME="$test_tmp/config" AP="$ROOT"
 export DICTATION_LOG="$test_tmp/calls" DICTATION_INSTALLED="voxtype superwhisper"
 mkdir -p "$test_tmp/bin" "$XDG_CONFIG_HOME/arch/defaults"
 export PATH="$test_tmp/bin:$ROOT/src/arch/commands:$PATH"

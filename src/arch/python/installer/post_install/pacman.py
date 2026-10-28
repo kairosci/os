@@ -123,7 +123,7 @@ def _mode(value: object, label: str) -> str:
 
 
 def settings() -> tuple[Path, PacmanSettings]:
-  ap = Path(os.environ["ARCH_PATH"])
+  ap = Path(os.environ["AP"])
   path = ap / "data/installer/post-install.yml"
   raw: object = yaml.safe_load(path.read_text(encoding="utf-8"))
   root = _mapping(raw, "root")

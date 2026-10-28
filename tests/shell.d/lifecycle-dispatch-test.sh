@@ -281,14 +281,14 @@ done
 pass "apple: setup and the app-install hooks resolve in arch-mac's directory, and are no-ops without arch-mac"
 
 session=(CALLER_SECRET=leak HOME=/home/owner USER=owner XDG_RUNTIME_DIR=/run/user/1000 XDG_CONFIG_HOME=/home/owner/.cfg
-  XDG_STATE_HOME=/home/owner/.st XDG_DATA_HOME=/home/owner/.data DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus ARCH_PATH=/usr/share/arch)
+  XDG_STATE_HOME=/home/owner/.st XDG_DATA_HOME=/home/owner/.data DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus AP=/usr/share/arch)
 rm -f "$tmp/ran"
 env -u WAYLAND_DISPLAY "${session[@]}" ARCH_PROC_ROOT="$tmp/aarch64-apple/proc" ARCH_LIFECYCLE_ROOT="$with_mac" \
   PATH="$tmp/aarch64-apple/bin:$PATH" "$dispatch" setup-system image-first-boot || fail "apple: setup-system runs"
 [[ $(cat "$tmp/ran") == "setup-system image-first-boot" ]] || fail "apple: setup-system gets its argument" "$(cat "$tmp/ran")"
 [[ $(grep -Ev '^(_|PWD|OLDPWD|SHLVL)=' "$tmp/env" | sort) == "PATH=/usr/local/sbin:/usr/local/bin:/usr/bin" ]] ||
   fail "apple: setup-system gets PATH alone" "$(cat "$tmp/env")"
-expected=$(printf '%s\n' DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus HOME=/home/owner ARCH_PATH=/usr/share/arch \
+expected=$(printf '%s\n' DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus HOME=/home/owner AP=/usr/share/arch \
   PATH=/usr/local/sbin:/usr/local/bin:/usr/bin USER=owner XDG_CONFIG_HOME=/home/owner/.cfg XDG_RUNTIME_DIR=/run/user/1000 XDG_STATE_HOME=/home/owner/.st)
 for invocation in "setup-user" "post-install steam" "pre-remove steam"; do
   rm -f "$tmp/ran"

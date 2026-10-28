@@ -104,7 +104,7 @@ def _append_line(content: str, line: str) -> str:
 
 
 def main() -> int:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   config: object = yaml.safe_load((root / "data/installer/system-setup.yml").read_text(encoding="utf-8"))
   if not isinstance(config, dict):
     raise ValueError("invalid system setup configuration")

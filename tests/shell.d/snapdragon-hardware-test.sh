@@ -43,7 +43,7 @@ COMMAND
 chmod +x "$mock_bin"/*
 
 run_firmware_setup() (
-  ARCH_PATH="$ROOT" \
+  AP="$ROOT" \
     ARCH_QUALCOMM_MODPROBE_DIR="$scratch/modprobe.d" \
     PATH="$mock_bin:$PATH" \
     python3 -I "$firmware_setup"
@@ -74,7 +74,7 @@ PCRPrivateKey=/secure/pcr.key
 CONF
 
 run_dtb_setup() (
-  ARCH_PATH="$ROOT" \
+  AP="$ROOT" \
     ARCH_QUALCOMM_DTB_DIR="$scratch/dtbs" \
     ARCH_QUALCOMM_UKI_CONFIG="$scratch/uki.conf" \
     PATH="$mock_bin:$PATH" \
@@ -117,7 +117,7 @@ mkdir -p "$scratch/dtbroot/qcom" "$scratch/dtbroot/linux/qcom"
 : >"$scratch/dtbroot/qcom/x1e80100-stock.dtb"
 : >"$scratch/dtbroot/linux/qcom/x1e80100-own.dtb"
 run_dtb_root_setup() (
-  ARCH_PATH="$ROOT" \
+  AP="$ROOT" \
     ARCH_QUALCOMM_DTB_ROOT="$scratch/dtbroot" \
     ARCH_QUALCOMM_UKI_CONFIG="$scratch/uki-root.conf" \
     PATH="$mock_bin:$PATH" \
@@ -133,7 +133,7 @@ grep -Fq "DeviceTreeAuto=$scratch/dtbroot/qcom/x1e80100-stock.dtb" "$scratch/uki
 
 pass "Snapdragon setup tolerates missing firmware and preserves UKI settings"
 
-defaults=$(ARCH_PATH="$ROOT" "$ROOT/src/arch/commands/arch-pkg-defaults" aarch64-qualcomm)
+defaults=$(AP="$ROOT" "$ROOT/src/arch/commands/arch-pkg-defaults" aarch64-qualcomm)
 for package in linux-firmware-qcom qcom-firmware-extract systemd-ukify vulkan-freedreno; do
   grep -qx "$package" <<<"$defaults" ||
     fail "the Snapdragon package set has $package for offline setup"
@@ -164,17 +164,17 @@ run_leaves_on() (
   ARCH_QUALCOMM_DTB_DIR="$scratch/dtbs"
   ARCH_QUALCOMM_UKI_CONFIG="$out/uki.conf"
   ARCH_QUALCOMM_MKINITCPIO_DIR="$out/mkinitcpio.conf.d"
-  ARCH_PATH="$ROOT" ARCH_QUALCOMM_MODPROBE_DIR="$out/modprobe.d" \
+  AP="$ROOT" ARCH_QUALCOMM_MODPROBE_DIR="$out/modprobe.d" \
     ARCH_TEST_ROOT_SOURCE=/dev/mapper/root ARCH_TEST_ROOT_TRANSPORT=nvme \
     ARCH_TEST_INSPECTION_STATUS=1 PATH="$scratch/platforms/$platform/bin:$mock_bin:$ROOT/src/arch/commands:$PATH" \
     python3 -I "$firmware_setup"
-  ARCH_PATH="$ROOT" ARCH_QUALCOMM_DTB_DIR="$scratch/dtbs" \
+  AP="$ROOT" ARCH_QUALCOMM_DTB_DIR="$scratch/dtbs" \
     ARCH_QUALCOMM_UKI_CONFIG="$out/uki.conf" \
     PATH="$scratch/platforms/$platform/bin:$mock_bin:$ROOT/src/arch/commands:$PATH" \
     python3 -I "$dtb_setup"
-  ARCH_PATH="$ROOT" ARCH_QUALCOMM_KERNEL_PARAMS_FILE="$out/limine-entry-tool.d/qualcomm-snapdragon.conf" \
+  AP="$ROOT" ARCH_QUALCOMM_KERNEL_PARAMS_FILE="$out/limine-entry-tool.d/qualcomm-snapdragon.conf" \
     python3 -I "$kernel_params_setup"
-  ARCH_PATH="$ROOT" ARCH_QUALCOMM_MKINITCPIO_DIR="$out/mkinitcpio.conf.d" \
+  AP="$ROOT" ARCH_QUALCOMM_MKINITCPIO_DIR="$out/mkinitcpio.conf.d" \
     python3 -I "$initramfs_setup"
 )
 

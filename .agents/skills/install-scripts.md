@@ -10,7 +10,7 @@ commands and reusable setup leaves:
 - `src/arch/commands/os-provision-user` runs the per-user runtime finalization (skill links, xdg-user-dirs, MIME defaults, `src/arch/python/installer_user/all.py`). Shipped user defaults are seeded by `/etc/skel` from `arch-settings`, not by this command. `src/arch/commands/os-reinstall-configs` is the explicit destructive resync of those defaults into an existing user's `$HOME`.
 - Python setup leaves under `src/arch/python/installer/` run in isolated Python. Remaining shell leaves under `installer/` are sourced by `src/arch/python/installer/run_logged.py $ARCH_INSTALL/path/to/script.sh` and intentionally do not have shebangs.
 - avoid `exit` in sourced setup scripts unless intentionally aborting setup.
-- use `$ARCH_INSTALL` and `$ARCH_PATH` instead of hard-coded Arch paths.
+- use `$ARCH_INSTALL` and `$AP` instead of hard-coded Arch paths.
 - keep root-scoped hardware setup under `src/arch/python/installer/hardware/` and orchestrate it through `src/arch/python/installer/hardware/all.py`.
 - in an image build every leaf declared by `src/arch/python/installer/hardware/all.py` is queued and runs on the machine's first boot instead (`src/arch/commands/os-provision-hardware`, see `docs/file-layout.md`), possibly offline, using packages already in the image, and before any user exists; keep those leaves idempotent and keep the declared order explicit.
 - gate platform-specific setup on a predicate built on `os-hw-platform` (`os-hw-aarch64-apple`), not on `uname -m`; architecture checks (`os-hw-x86`, `os-hw-aarch64`) are only for ABI, binary availability or a repository's `$arch`. Platform names and where platform code lives are in the Platforms section of `AGENTS.md`.

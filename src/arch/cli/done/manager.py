@@ -55,7 +55,7 @@ def _text_list(value: object, label: str) -> list[str]:
 
 
 def _config() -> DoneConfig:
-  root = Path(os.environ["ARCH_PATH"])
+  root = Path(os.environ["AP"])
   raw: object = yaml.safe_load((root / "data/cli/done.yml").read_text(encoding="utf-8"))
   config = _mapping(raw, "root")
   arguments = _mapping(config.get("argument_counts"), "argument_counts")

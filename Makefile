@@ -55,10 +55,10 @@ arch-package-advisories:
 test: test-cli test-shell
 
 test-cli:
-	ARCH_PATH="$(CURDIR)" ./tests/cli
+	AP="$(CURDIR)" ./tests/cli
 
 test-shell:
-	ARCH_PATH="$(CURDIR)" ./tests/shell
+	AP="$(CURDIR)" ./tests/shell
 
 iso:
 	@if [[ ! -x "$(ARCH_ISO)/src/commands/arch-iso-make" ]]; then \
