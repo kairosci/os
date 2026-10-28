@@ -6,7 +6,8 @@
   },
   "bar": {
     "position": "top",
-      "background": "glassy",
+    "autoHide": true,
+    "background": "glassy",
     "layout": {
       "left": [
         {

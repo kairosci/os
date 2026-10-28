@@ -13,7 +13,7 @@ active           = "{{ red }}"
 # top/bottom bars; size-vertical is the width of left/right bars. With
 # scale-with-font enabled, these grow/shrink with [font] base-size.
 scale-with-font  = true
-size-horizontal  = 26
+size-horizontal  = 48
 size-vertical    = 28
 
 [hyprland]
@@ -86,7 +86,7 @@ scale-with-font = true
 # control-padding-y         = 6
 # input-padding-y           = 7
 # control-height            = 28
-# popup-row-height          = 28
+# popup-row-height          = 30
 # row-gap                   = 8
 # row-padding-x             = 12
 # label-gap                 = 4

@@ -14,9 +14,10 @@ hl.config({
       inactive_border = inactive_border_color,
     },
 
-    resize_on_border = true,
-    extend_border_grab_area = 8,
-    hover_icon_on_border = true,
+    -- Keep pointer edge clicks from resizing application content under a
+    -- stationary border. Super + right-drag remains the explicit resize
+    -- gesture.
+    resize_on_border = false,
     allow_tearing = false,
     layout = "scrolling",
   },
