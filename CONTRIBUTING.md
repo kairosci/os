@@ -17,3 +17,9 @@ Third-party code with an independent release process may be tracked as a Git sub
 ## Configuration and package changes
 
 User settings belong under `~/.config/arch`; generated runtime state belongs under `~/.local/state/arch`. System configuration is installed by packages and setup commands. A developer checkout is not a runtime dependency. Package changes keep source ownership, installed destinations, file permissions, and removal behavior explicit.
+
+## Local checks and ISO builds
+
+Install the repository's developer tools with `mise install`. Run `make check` for source syntax, module ownership, CLI, and shell checks. Use `make type-check` to run the strict type checker on the module catalog validator, and `make lint-workflows` to validate GitHub Actions and their embedded shell. `make security-scan` runs Trivy against dependency manifests, configuration, and secrets.
+
+Build an ISO with the companion `arch-iso` and `arch-pkgs` checkouts: `make iso ARCH_ISO=../arch-iso ARCH_PKGS=../arch-pkgs`. The target calls `arch-iso-make` with this checkout as the local Arch source. The builder writes release artifacts under its own `release/` directory.

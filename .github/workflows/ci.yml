@@ -1,0 +1,82 @@
+name: Source and behavior checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  type-check:
+    name: Strict Python type check
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    env:
+      MISE_ENABLE_TOOLS: ty,ruff
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: jdx/mise-action@6be3c7ed4c21d4f76b208d351d95aac273ebb76d # v5.2.4
+      - name: Check installer and provision types
+        run: make type-check
+
+  workflow-check:
+    name: GitHub Actions workflow checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    env:
+      MISE_ENABLE_TOOLS: jactionlint
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: jdx/mise-action@6be3c7ed4c21d4f76b208d351d95aac273ebb76d # v5.2.4
+      - name: Lint workflow syntax and embedded shell
+        run: make lint-workflows
+
+  source-check:
+    name: Parse source files
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+      - name: Install syntax checkers
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y lua5.4 qt6-declarative-dev-tools ripgrep
+      - name: Parse Python, JavaScript, Lua, QML, and Bash
+        run: make source-check LUA_COMPILER=luac5.4 QML_FORMATTER=/usr/lib/qt6/bin/qmlformat
+
+  tests:
+    name: CLI contract suite
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+      - name: Install CLI test dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y jq ripgrep
+      - name: Run the CLI contract tests
+        run: make test-cli

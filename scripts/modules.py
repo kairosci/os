@@ -13,6 +13,7 @@ import sys
 import tomllib
 from dataclasses import dataclass
 from pathlib import Path
+from typing import cast
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -63,6 +64,9 @@ def load_modules() -> tuple[dict[str, Module], list[str], list[str]]:
         if not all(isinstance(value, str) and value for value in (module_id, domain, package)):
             errors.append(f"{manifest.relative_to(ROOT)}: id, domain, and package must be non-empty strings")
             continue
+        module_id = cast(str, module_id)
+        domain = cast(str, domain)
+        package = cast(str, package)
         module_path = manifest.parent.relative_to(MODULES).parts
         expected_id = ".".join(module_path)
         expected_domain = module_path[0] if module_path else ""
@@ -95,9 +99,12 @@ def load_modules() -> tuple[dict[str, Module], list[str], list[str]]:
         if not isinstance(requires, list) or not all(isinstance(value, str) and value for value in requires):
             errors.append(f"{manifest.relative_to(ROOT)}: requires must be a list of module ids")
             continue
+        sources = cast(list[str], sources)
+        requires = cast(list[str], requires)
         if not isinstance(raw_outputs, list) or not all(isinstance(value, dict) for value in raw_outputs):
             errors.append(f"{manifest.relative_to(ROOT)}: output must be an array of source/target tables")
             continue
+        raw_outputs = cast(list[dict[str, object]], raw_outputs)
         if not raw_outputs:
             errors.append(f"{manifest.relative_to(ROOT)}: module must declare at least one output")
 
@@ -108,6 +115,8 @@ def load_modules() -> tuple[dict[str, Module], list[str], list[str]]:
             if not all(isinstance(value, str) and value for value in (source, target)):
                 errors.append(f"{manifest.relative_to(ROOT)}: every output needs non-empty source and target paths")
                 continue
+            source = cast(str, source)
+            target = cast(str, target)
             source_path = Path(source)
             target_path = Path(target)
             resolved = (ROOT / source_path).resolve()
@@ -143,7 +152,7 @@ def load_modules() -> tuple[dict[str, Module], list[str], list[str]]:
                     errors.append(f"{manifest.relative_to(ROOT)}: source symlink leaves the repository: {entry.relative_to(ROOT)}")
             owner_key = (package, path.as_posix())
             previous = source_owners.get(owner_key)
-            if previous:
+            if previous is not None:
                 errors.append(f"{manifest.relative_to(ROOT)}: {source} is already owned by {previous} in package {package}")
             source_owners[owner_key] = module_id
 
@@ -173,7 +182,7 @@ def load_modules() -> tuple[dict[str, Module], list[str], list[str]]:
             for output_path in output_paths:
                 owner_key = output_path.as_posix()
                 previous = output_owners.get(owner_key)
-                if previous:
+                if previous is not None:
                     errors.append(
                         f"{manifest.relative_to(ROOT)}: package output {output_path} is already owned "
                         f"by {previous[1]} in package {previous[0]}"

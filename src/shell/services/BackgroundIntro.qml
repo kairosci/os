@@ -263,8 +263,8 @@ Item {
         sourceSize: {
           var w = Math.ceil((parent.width || modelData.width) * modelData.devicePixelRatio)
           var h = Math.ceil((parent.height || modelData.height) * modelData.devicePixelRatio)
-          var native = root.themeNativeSize
-          return native && (native.width < w || native.height < h) ? Qt.size(native.width, native.height) : Qt.size(w, h)
+          var nativeSize = root.themeNativeSize
+          return nativeSize && (nativeSize.width < w || nativeSize.height < h) ? Qt.size(nativeSize.width, nativeSize.height) : Qt.size(w, h)
         }
         fillMode: Image.PreserveAspectCrop
         opacity: root.themeOpacity
