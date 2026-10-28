@@ -64,7 +64,7 @@ jobs:
         run: make source-check LUA_COMPILER=luac5.4
 
   tests:
-    name: Non-graphical test suites
+    name: CLI contract suite
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
@@ -74,9 +74,9 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 24
-      - name: Install test dependencies
+      - name: Install CLI test dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install --no-install-recommends -y jq lua5.4 python3-yaml ripgrep
-      - name: Run CLI, shell, and Python tests
-        run: make test LUA_COMPILER=luac5.4
+          sudo apt-get install --no-install-recommends -y jq ripgrep
+      - name: Run the CLI contract tests
+        run: make test-cli
