@@ -12,6 +12,14 @@ matching guide before starting:
 - [`.agents/skills/visual-verification.md`](.agents/skills/visual-verification.md) - verifying any change with a visual effect in the running UI
 - [`.agents/skills/package-owned-state.md`](.agents/skills/package-owned-state.md) - changing installed system or user configuration
 
+## Default Product Guidance
+
+Follow these repository-wide standards when changing code, security boundaries, desktop defaults, or visual behavior:
+
+- [`default/agents/skills/purist-code/SKILL.md`](default/agents/skills/purist-code/SKILL.md) - keep implementation native, focused, and free of duplicated policy
+- [`default/agents/skills/no-weak-no-leak/SKILL.md`](default/agents/skills/no-weak-no-leak/SKILL.md) - protect privilege boundaries and keep diagnostics local and user initiated
+- [`default/agents/skills/desktop-product-quality/SKILL.md`](default/agents/skills/desktop-product-quality/SKILL.md) - guide default apps, bars, icons, theme previews, and other desktop-facing changes
+
 # Documentation Layout
 
 Three documentation trees, split by genre and audience:
