@@ -15,7 +15,7 @@ help:
 	  'check          Run source checks, package module checks, and all non-graphical tests' \
 	  'source-check   Parse Python, JavaScript, Lua, QML, and Bash sources' \
 	  'modules-check  Validate and assemble both package module trees' \
-	  'type-check     Check Python module catalog types' \
+	  'type-check     Check strict types across shipped Python sources' \
 	  'lint-workflows Validate GitHub Actions workflow syntax' \
 	  'security-scan  Scan repository files for secrets with Trivy' \
 	  'arch-package-advisories  Review package names against the Arch security tracker' \
@@ -37,9 +37,11 @@ modules-check:
 	$(PYTHON) scripts/modules.py validate
 	bash tests/shell.d/modules-test.sh
 
+TYPED_PYTHON_SOURCES := $(shell git ls-files '*.py' ':!:tests/**' | sort)
+
 type-check:
-	mise exec -- ruff check --select ANN401 scripts/modules.py scripts/arch_package_advisories.py
-	mise exec -- ty check --error all scripts/modules.py scripts/arch_package_advisories.py
+	mise exec -- ruff check --select ANN401 $(TYPED_PYTHON_SOURCES)
+	mise exec -- ty check --error all --extra-search-path type-stubs $(TYPED_PYTHON_SOURCES)
 
 lint-workflows:
 	mise exec -- jactionlint .github/workflows/*.yml

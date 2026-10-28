@@ -6,31 +6,90 @@ import re
 import subprocess
 import sys
 import tempfile
-from typing import Any
+from typing import TypedDict, cast
 
 import yaml
 
 
-def settings() -> tuple[Path, dict[str, Any]]:
+class Commands(TypedDict):
+  platform_check: list[str]
+  match: list[str]
+  package_drop: list[str]
+  package_add: list[str]
+  module_info: list[str]
+
+
+class Paths(TypedDict):
+  system_root_environment: str
+  kernel_cmdline: str
+  bios_version: str
+  modules: str
+  module_package_base: str
+
+
+class FileEntry(TypedDict, total=False):
+  path: str
+  content: str
+  template: str
+  cmdline_suffix: str
+
+
+class Packages(TypedDict):
+  default_kernels: list[str]
+  nvidia: list[str]
+  auxiliary: str
+  modules: list[str]
+  base_package: str
+
+
+class Hardware(TypedDict):
+  proart_match: str
+  proart_pci_vendor: str
+  proart_pci_device: str
+  prerelease_bios_pattern: str
+  root_cmdline_pattern: str
+
+
+class Statuses(TypedDict):
+  matched: int
+  complete: int
+  failure: int
+
+
+class Config(TypedDict):
+  commands: Commands
+  paths: Paths
+  files: dict[str, FileEntry]
+  paths_to_remove: list[str]
+  gpu_enabled_files: list[str]
+  gpu_disabled_files: list[str]
+  packages: Packages
+  hardware: Hardware
+  statuses: Statuses
+  messages: dict[str, dict[str, str]]
+  file_mode: str
+
+
+def settings() -> tuple[Path, Config]:
   ap = Path(os.environ["ARCH_PATH"])
   config_path = ap / "data/installer/hardware/n1x.yml"
-  config = yaml.safe_load(config_path.read_text(encoding="utf-8"))
-  if not isinstance(config, dict):
+  raw_config: object = yaml.safe_load(config_path.read_text(encoding="utf-8"))
+  if not isinstance(raw_config, dict):
     raise ValueError
-  return ap, config
+  return ap, cast(Config, raw_config)
 
 
-def message(config: dict[str, Any], key: str, **values: str) -> str:
+def message(config: Config, key: str, **values: str) -> str:
   language = os.environ.get("LANG", "en").split(".", 1)[0].split("_", 1)[0].lower()
   localized = config["messages"].get(language, config["messages"]["en"])
   return localized[key].format(**values)
 
 
-def system_root(config: dict[str, Any]) -> Path:
+def system_root(config: Config) -> Path:
   if os.geteuid() == 0:
     return Path("/")
   value = os.environ.get(config["paths"]["system_root_environment"])
-  if value:
+  if value is not None and value != "":
     return Path(value)
   raise PermissionError(message(config, "not_root"))
 
@@ -45,7 +104,7 @@ def has_prefix(command: list[str], prefix: list[str]) -> bool:
   return command[:len(prefix)] == prefix
 
 
-def write_file(root: Path, entry: dict[str, str], content: str, mode: int) -> None:
+def write_file(root: Path, entry: FileEntry, content: str, mode: int) -> None:
   target = root / entry["path"]
   target.parent.mkdir(parents=True, exist_ok=True)
   descriptor, temporary_name = tempfile.mkstemp(prefix=f".{target.name}.", dir=target.parent)
@@ -73,7 +132,7 @@ def remove_files(root: Path, relative_paths: list[str]) -> None:
     (root / relative).unlink(missing_ok=True)
 
 
-def installed_kernel(root: Path, config: dict[str, Any]) -> str:
+def installed_kernel(root: Path, config: Config) -> str:
   paths = config["paths"]
   expected = config["packages"]["base_package"]
   package_base = config["paths"]["module_package_base"]
@@ -86,10 +145,11 @@ def installed_kernel(root: Path, config: dict[str, Any]) -> str:
       continue
   if len(matches) != 1:
     raise RuntimeError(message(config, "kernel_count", count=str(len(matches))))
+  assert matches
   return matches[0].parent.name
 
 
-def configure(root: Path, config: dict[str, Any]) -> None:
+def configure(root: Path, config: Config) -> None:
   commands = config["commands"]
   files = config["files"]
   packages = config["packages"]
