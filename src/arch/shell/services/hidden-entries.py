@@ -3,29 +3,118 @@
 from __future__ import annotations
 
 import os
-from pathlib import Path
 import re
 import sys
-from typing import Any
+from pathlib import Path
+from typing import TypedDict
 
 import yaml
 
 
-def settings() -> dict[str, Any]:
+class Paths(TypedDict):
+  user_applications: str
+  nix_applications: str
+  system_data_dirs_environment: str
+  system_data_dirs_default: list[str]
+  system_data_dirs_separator: str
+  applications_directory: str
+
+
+class DesktopEntry(TypedDict):
+  extension: str
+  group: str
+  section_pattern: str
+  section_name_group: int
+  hidden_keys: list[str]
+  only_show_key: str
+  not_show_key: str
+  true_value: str
+  id_path_separator: str
+  id_name_separator: str
+  key_value_separator: str
+  line_endings: list[str]
+  desktop_names_separator: str
+  list_values_separator: str
+
+
+class Settings(TypedDict):
+  paths: Paths
+  desktop_entry: DesktopEntry
+
+
+def _mapping(value: object, label: str) -> dict[object, object]:
+  if not isinstance(value, dict):
+    raise TypeError(f"invalid hidden-entries configuration: {label} must be a mapping")
+  return {key: item for key, item in value.items()}
+
+
+def _text(value: object, label: str) -> str:
+  if not isinstance(value, str):
+    raise TypeError(f"invalid hidden-entries configuration: {label} must be a string")
+  return value
+
+
+def _integer(value: object, label: str) -> int:
+  if not isinstance(value, int) or isinstance(value, bool):
+    raise TypeError(f"invalid hidden-entries configuration: {label} must be an integer")
+  return value
+
+
+def _text_list(value: object, label: str) -> list[str]:
+  if not isinstance(value, list):
+    raise TypeError(f"invalid hidden-entries configuration: {label} must be a list")
+  return [_text(item, f"{label} item") for item in value]
+
+
+def settings() -> Settings:
   root = Path(os.environ["ARCH_PATH"])
-  config = yaml.safe_load((root / "data/shell/hidden-entries.yml").read_text(encoding="utf-8"))
-  if not isinstance(config, dict):
-    raise ValueError
-  return config
+  raw: object = yaml.safe_load((root / "data/shell/hidden-entries.yml").read_text(encoding="utf-8"))
+  config = _mapping(raw, "root")
+  paths = _mapping(config.get("paths"), "paths")
+  entry = _mapping(config.get("desktop_entry"), "desktop_entry")
+  default_dirs = paths.get("system_data_dirs_default")
+  if isinstance(default_dirs, str):
+    parsed_default_dirs = [_text(item, "paths.system_data_dirs_default item") for item in default_dirs.split(":")]
+  else:
+    parsed_default_dirs = _text_list(default_dirs, "paths.system_data_dirs_default")
+  return {
+    "paths": {
+      "user_applications": _text(paths.get("user_applications"), "paths.user_applications"),
+      "nix_applications": _text(paths.get("nix_applications"), "paths.nix_applications"),
+      "system_data_dirs_environment": _text(paths.get("system_data_dirs_environment"), "paths.system_data_dirs_environment"),
+      "system_data_dirs_default": parsed_default_dirs,
+      "system_data_dirs_separator": _text(paths.get("system_data_dirs_separator"), "paths.system_data_dirs_separator"),
+      "applications_directory": _text(paths.get("applications_directory"), "paths.applications_directory"),
+    },
+    "desktop_entry": {
+      "extension": _text(entry.get("extension"), "desktop_entry.extension"),
+      "group": _text(entry.get("group"), "desktop_entry.group"),
+      "section_pattern": _text(entry.get("section_pattern"), "desktop_entry.section_pattern"),
+      "section_name_group": _integer(entry.get("section_name_group"), "desktop_entry.section_name_group"),
+      "hidden_keys": _text_list(entry.get("hidden_keys"), "desktop_entry.hidden_keys"),
+      "only_show_key": _text(entry.get("only_show_key"), "desktop_entry.only_show_key"),
+      "not_show_key": _text(entry.get("not_show_key"), "desktop_entry.not_show_key"),
+      "true_value": _text(entry.get("true_value"), "desktop_entry.true_value"),
+      "id_path_separator": _text(entry.get("id_path_separator"), "desktop_entry.id_path_separator"),
+      "id_name_separator": _text(entry.get("id_name_separator"), "desktop_entry.id_name_separator"),
+      "key_value_separator": _text(entry.get("key_value_separator"), "desktop_entry.key_value_separator"),
+      "line_endings": _text_list(entry.get("line_endings"), "desktop_entry.line_endings"),
+      "desktop_names_separator": _text(entry.get("desktop_names_separator"), "desktop_entry.desktop_names_separator"),
+      "list_values_separator": _text(entry.get("list_values_separator"), "desktop_entry.list_values_separator"),
+    },
+  }
 
 
-def application_directories(config: dict[str, Any]) -> list[Path]:
+def application_directories(config: Settings) -> list[Path]:
   paths = config["paths"]
   home = str(Path.home())
   directories = [Path(paths["user_applications"].format(home=home))]
-  data_dirs = os.environ.get(paths["system_data_dirs_environment"]) or paths["system_data_dirs_default"]
-  if isinstance(data_dirs, str):
-    data_dirs = data_dirs.split(paths["system_data_dirs_separator"])
+  data_dirs_value = os.environ.get(paths["system_data_dirs_environment"])
+  data_dirs: list[str]
+  if data_dirs_value is None or data_dirs_value == "":
+    data_dirs = paths["system_data_dirs_default"]
+  else:
+    data_dirs = data_dirs_value.split(paths["system_data_dirs_separator"])
   directories.extend(
     Path(data_dir) / paths["applications_directory"]
     for data_dir in data_dirs
@@ -39,7 +128,7 @@ def desktop_matches(value: str, desktop_names: set[str], separator: str) -> bool
   return any(part and part in desktop_names for part in value.split(separator))
 
 
-def is_hidden_desktop_file(path: Path, desktop_names: set[str], config: dict[str, Any]) -> bool:
+def is_hidden_desktop_file(path: Path, desktop_names: set[str], config: Settings) -> bool:
   entry = config["desktop_entry"]
   in_desktop_entry = False
   hidden = False
@@ -78,11 +167,10 @@ def is_hidden_desktop_file(path: Path, desktop_names: set[str], config: dict[str
   return bool(not_show_in and desktop_matches(not_show_in, desktop_names, separator))
 
 
-def desktop_id(path: Path, root: Path, config: dict[str, Any]) -> str:
+def desktop_id(path: Path, root: Path, config: Settings) -> str:
   entry = config["desktop_entry"]
   relative = path.relative_to(root).as_posix()
-  if relative.endswith(entry["extension"]):
-    relative = relative[: -len(entry["extension"])]
+  relative = relative.removesuffix(entry["extension"])
   return relative.replace(entry["id_path_separator"], entry["id_name_separator"])
 
 
@@ -102,15 +190,15 @@ def desktop_files(root: Path, extension: str) -> list[Path]:
 
 
 def main() -> int:
-  config = settings()
+  try:
+    config = settings()
+  except (OSError, UnicodeError, TypeError, ValueError, yaml.YAMLError) as error:
+    print(f"Could not load hidden-entries configuration: {error}", file=sys.stderr)
+    return os.EX_CONFIG
   desktop_entry = config["desktop_entry"]
-  desktop_names = set()
+  desktop_names: set[str] = set()
   if len(sys.argv) > 1:
-    desktop_names = {
-      name
-      for name in sys.argv[1].split(desktop_entry["desktop_names_separator"])
-      if name
-    }
+    desktop_names = {name for name in sys.argv[1].split(desktop_entry["desktop_names_separator"]) if name}
   seen_ids: set[str] = set()
 
   for directory in application_directories(config):
