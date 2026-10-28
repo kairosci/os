@@ -44,7 +44,7 @@ Installa il supporto per i controller Xbox Bluetooth selezionando _Installa > Gi
 
 ## Moonlight (Streaming di gioco da un PC)
 
-Il [client Moonlight](https://github.com/moonlight-stream/moonlight-qt) è preinstallato con Arch, quindi puoi trasmettere subito giochi da un PC Windows che esegue [Sunshine](https://app.lizardbyte.dev/Sunshine/). Avvia Moonlight tramite `Super + Space`.
+Per trasmettere giochi da un PC Windows che esegue [Sunshine](https://app.lizardbyte.dev/Sunshine/), installa il [client Moonlight](https://github.com/moonlight-stream/moonlight-qt) con `os pkg add moonlight-qt`, poi avvialo con `Super + Space`.
 
 Se sia la tua macchina Arch sia il PC da gaming remoto sono cablati, l'esperienza è indistinguibile dal giocare in locale. Alza la risoluzione a quella nativa, imposta l'aggiornamento a 120Hz e porta il bitrate al massimo — questo è il modo migliore per giocare a sparatutto competitivi come Fortnite su Linux.
 
