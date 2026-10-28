@@ -4,6 +4,7 @@ package = "arch"
 sources = [
   "src/commands/arch-battery-low",
   "src/commands/arch-battery-present",
+  "src/cli/battery/present.py",
   "src/commands/arch-battery-status",
   "src/cli/battery/status.py",
 ]
@@ -16,6 +17,10 @@ target = "usr/share/arch/src/commands/arch-battery-low"
 [[output]]
 source = "src/commands/arch-battery-present"
 target = "usr/share/arch/src/commands/arch-battery-present"
+
+[[output]]
+source = "src/cli/battery/present.py"
+target = "usr/share/arch/src/cli/battery/present.py"
 
 [[output]]
 source = "src/commands/arch-battery-status"
