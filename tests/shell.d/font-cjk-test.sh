@@ -42,3 +42,16 @@ if arch-font-cjk cn 2>/dev/null; then
 fi
 pass "an unknown variant is refused"
 
+mkdir -p "$work/invalid/data/cli"
+printf '%s\n' 'commands: [' >"$work/invalid/data/cli/fonts.yml"
+set +e
+ARCH_PATH="$work/invalid" PYTHONPATH="$ROOT/src" python3 -c \
+  'from arch.cli.font.catalog import cjk_main; raise SystemExit(cjk_main(["--help"]))' \
+  >"$work/font-config.out" 2>"$work/font-config.err"
+font_config_status=$?
+set -e
+(( font_config_status == 78 )) || fail "font command reports malformed settings at its command boundary"
+grep -Fq 'Invalid CJK font configuration' "$work/font-config.err" || fail "font command explains malformed settings"
+! grep -Fq 'Traceback' "$work/font-config.err" || fail "font command does not leak a traceback"
+pass "font commands handle malformed YAML at their command boundary"
+
