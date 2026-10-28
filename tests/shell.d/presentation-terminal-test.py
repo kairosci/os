@@ -27,7 +27,7 @@ with tempfile.TemporaryDirectory(prefix="presentation-terminal-") as temporary:
   environment = test_environment(TEST_LOG=log)
   environment["PATH"] = f"{bin_dir}:{environment['PATH']}"
   result = subprocess.run(
-    [str(ROOT / "src/commands/arch-launch-terminal-with-presentation"), "echo hello"],
+    [str(ROOT / "src/arch/commands/arch-launch-terminal-with-presentation"), "echo hello"],
     capture_output=True,
     text=True,
     env=environment,

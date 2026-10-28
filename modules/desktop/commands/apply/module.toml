@@ -2,30 +2,30 @@ id = "desktop.commands.apply"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-apply-hardware",
-  "src/commands/arch-apply-lock",
-  "src/commands/arch-apply-n1x-gpu-memory",
-  "src/commands/arch-apply-pacman",
-  "src/commands/arch-apply-system",
+  "src/arch/commands/arch-apply-hardware",
+  "src/arch/commands/arch-apply-lock",
+  "src/arch/commands/arch-apply-n1x-gpu-memory",
+  "src/arch/commands/arch-apply-pacman",
+  "src/arch/commands/arch-apply-system",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-apply-hardware"
-target = "usr/share/arch/src/commands/arch-apply-hardware"
+source = "src/arch/commands/arch-apply-hardware"
+target = "usr/share/arch/src/arch/commands/arch-apply-hardware"
 
 [[output]]
-source = "src/commands/arch-apply-lock"
-target = "usr/share/arch/src/commands/arch-apply-lock"
+source = "src/arch/commands/arch-apply-lock"
+target = "usr/share/arch/src/arch/commands/arch-apply-lock"
 
 [[output]]
-source = "src/commands/arch-apply-n1x-gpu-memory"
-target = "usr/share/arch/src/commands/arch-apply-n1x-gpu-memory"
+source = "src/arch/commands/arch-apply-n1x-gpu-memory"
+target = "usr/share/arch/src/arch/commands/arch-apply-n1x-gpu-memory"
 
 [[output]]
-source = "src/commands/arch-apply-pacman"
-target = "usr/share/arch/src/commands/arch-apply-pacman"
+source = "src/arch/commands/arch-apply-pacman"
+target = "usr/share/arch/src/arch/commands/arch-apply-pacman"
 
 [[output]]
-source = "src/commands/arch-apply-system"
-target = "usr/share/arch/src/commands/arch-apply-system"
+source = "src/arch/commands/arch-apply-system"
+target = "usr/share/arch/src/arch/commands/arch-apply-system"

@@ -2,10 +2,10 @@ id = "desktop.commands.display"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-display-text-size",
+  "src/arch/commands/arch-display-text-size",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-display-text-size"
-target = "usr/share/arch/src/commands/arch-display-text-size"
+source = "src/arch/commands/arch-display-text-size"
+target = "usr/share/arch/src/arch/commands/arch-display-text-size"

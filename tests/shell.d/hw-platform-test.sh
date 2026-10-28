@@ -4,7 +4,7 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-detector="$ROOT/src/commands/arch-hw-platform"
+detector="$ROOT/src/arch/commands/arch-hw-platform"
 test_tmp=$(mktemp -d)
 trap 'rm -rf "$test_tmp"' EXIT
 
@@ -28,7 +28,7 @@ if (( EUID == 0 )) || unshare --user --map-root-user true 2>/dev/null; then
       mkdir -p "$fixture/sys/firmware/devicetree/base"
       cp "$fixture/proc/device-tree/compatible" "$fixture/sys/firmware/devicetree/base/compatible"
     fi
-    overridden=$(ARCH_PROC_ROOT="$fixture/proc" ARCH_SYS_ROOT="$fixture/sys" PATH="$fixture/bin:$ROOT/src/commands:$PATH" \
+    overridden=$(ARCH_PROC_ROOT="$fixture/proc" ARCH_SYS_ROOT="$fixture/sys" PATH="$fixture/bin:$ROOT/src/arch/commands:$PATH" \
       "${root_runner[@]}" "$detector") || fail "root detects the live platform with a $platform fixture in its environment"
     [[ $overridden == "$live" ]] ||
       fail "root ignores a $platform fixture in its environment" "live: $live
@@ -42,7 +42,7 @@ fi
 # -p in the shebang is what keeps exported functions and BASH_ENV out, so an
 # ordinary Bash launch with a decoy -p argument is refused before it reads anything.
 for command in arch-hw-platform arch-hw-aarch64-apple arch-hw-apple-silicon arch-hw-aarch64-qualcomm arch-hw-aarch64-n1x arch-hw-n1x arch-hw-aarch64-gb10; do
-  if /usr/bin/bash "$ROOT/src/commands/$command" -p >/dev/null 2>"$test_tmp/error"; then
+  if /usr/bin/bash "$ROOT/src/arch/commands/$command" -p >/dev/null 2>"$test_tmp/error"; then
     fail "$command refuses an ordinary Bash launch"
   fi
   grep -Fq "Refusing an unsafe Bash startup" "$test_tmp/error" || fail "$command explains the refusal" "$(cat "$test_tmp/error")"
@@ -54,12 +54,12 @@ require_platform_fixtures "the platform fixtures"
 # The three platforms every caller is written against.
 for platform in aarch64-apple aarch64 x86; do
   fixture="$test_tmp/$platform"
-  actual=$(ARCH_PROC_ROOT="$fixture/proc" PATH="$fixture/bin:$ROOT/src/commands:$PATH" "$detector") ||
+  actual=$(ARCH_PROC_ROOT="$fixture/proc" PATH="$fixture/bin:$ROOT/src/arch/commands:$PATH" "$detector") ||
     fail "the $platform fixture is detected"
   [[ $actual == "$platform" ]] || fail "the $platform fixture is detected" "actual: $actual"
 
   apple_status=0
-  ARCH_PROC_ROOT="$fixture/proc" PATH="$fixture/bin:$ROOT/src/commands:$PATH" "$ROOT/src/commands/arch-hw-aarch64-apple" || apple_status=$?
+  ARCH_PROC_ROOT="$fixture/proc" PATH="$fixture/bin:$ROOT/src/arch/commands:$PATH" "$ROOT/src/arch/commands/arch-hw-aarch64-apple" || apple_status=$?
   if [[ $platform == "aarch64-apple" ]]; then
     (( apple_status == 0 )) || fail "the Apple predicate accepts the Apple fixture"
   else
@@ -71,7 +71,7 @@ done
 # Systemd and the shell run the predicate by absolute path with whatever PATH
 # they have; it must use the detector shipped beside it.
 fixture="$test_tmp/aarch64-apple"
-ARCH_PROC_ROOT="$fixture/proc" PATH="$fixture/bin:/usr/bin:/bin" "$ROOT/src/commands/arch-hw-aarch64-apple" ||
+ARCH_PROC_ROOT="$fixture/proc" PATH="$fixture/bin:/usr/bin:/bin" "$ROOT/src/arch/commands/arch-hw-aarch64-apple" ||
   fail "the Apple predicate finds its detector without os on PATH"
 pass "the Apple predicate finds its detector without os on PATH"
 
@@ -88,7 +88,7 @@ chmod +x "$stub_bin/uname"
 detect() {
   local case_dir="$test_tmp/cases/$1"
   TEST_ARCH="${2:-aarch64}" ARCH_PROC_ROOT="$case_dir/proc" ARCH_SYS_ROOT="$case_dir/sys" \
-    PATH="$stub_bin:$ROOT/src/commands:$PATH" "$detector" 2>"$test_tmp/error"
+    PATH="$stub_bin:$ROOT/src/arch/commands:$PATH" "$detector" 2>"$test_tmp/error"
 }
 
 # $1 case, $2 proc|sys, then the compatible tokens.
@@ -171,8 +171,8 @@ write_tree vendor-vs-none sys linux,dummy-virt
 expect_contradiction vendor-vs-none aarch64 "proc naming Apple while sysfs names nobody fails"
 expect_contradiction m1-pro x86_64 "an Apple device tree on an x86 CPU fails"
 expect_contradiction yoga-slim7x x86_64 "a Qualcomm device tree on an x86 CPU fails"
-if TEST_ARCH=x86_64 ARCH_PROC_ROOT="$test_tmp/cases/m1-pro/proc" PATH="$stub_bin:$ROOT/src/commands:$PATH" \
-  "$ROOT/src/commands/arch-hw-aarch64-apple" 2>/dev/null; then
+if TEST_ARCH=x86_64 ARCH_PROC_ROOT="$test_tmp/cases/m1-pro/proc" PATH="$stub_bin:$ROOT/src/arch/commands:$PATH" \
+  "$ROOT/src/arch/commands/arch-hw-aarch64-apple" 2>/dev/null; then
   fail "the Apple predicate fails closed on contradictory identity"
 fi
 pass "contradictory identity fails with an explanation"
@@ -226,7 +226,7 @@ for family in n1x qualcomm gb10; do
   for case_name in "$yes" "$no"; do
     status=0
     TEST_ARCH=aarch64 ARCH_PROC_ROOT="$test_tmp/cases/$case_name/proc" ARCH_SYS_ROOT="$test_tmp/cases/$case_name/sys" \
-      PATH="$stub_bin:$ROOT/src/commands:$PATH" "$ROOT/src/commands/arch-hw-aarch64-$family" 2>/dev/null || status=$?
+      PATH="$stub_bin:$ROOT/src/arch/commands:$PATH" "$ROOT/src/arch/commands/arch-hw-aarch64-$family" 2>/dev/null || status=$?
     if [[ $case_name == "$yes" ]]; then
       (( status == 0 )) || fail "arch-hw-aarch64-$family accepts $case_name"
     else
@@ -235,7 +235,7 @@ for family in n1x qualcomm gb10; do
   done
 done
 TEST_ARCH=aarch64 ARCH_PROC_ROOT="$test_tmp/cases/n1x-gpu/proc" ARCH_SYS_ROOT="$test_tmp/cases/n1x-gpu/sys" \
-  PATH="$stub_bin:$ROOT/src/commands:$PATH" "$ROOT/src/commands/arch-hw-n1x" || fail "the old arch-hw-n1x name still answers"
+  PATH="$stub_bin:$ROOT/src/arch/commands:$PATH" "$ROOT/src/arch/commands/arch-hw-n1x" || fail "the old arch-hw-n1x name still answers"
 pass "the NVIDIA N1x and GB10 are platforms of their own, and Snapdragon, the N1x and the GB10 have predicates of their own"
 
 failing_uname="$test_tmp/failing-uname"
@@ -251,26 +251,26 @@ pass "an unreadable CPU architecture fails instead of guessing generic"
 # The architecture predicates use the image-aware platform detector rather
 # than uname, and aarch64 covers every ARM hardware family.
 test_arch="$test_tmp/architecture-root"
-mkdir -p "$test_arch/src/commands" "$test_arch/src/cli/hardware" "$test_arch/data/cli"
-cp "$ROOT/src/cli/hardware/architecture.py" "$test_arch/src/cli/hardware/architecture.py"
+mkdir -p "$test_arch/src/arch/commands" "$test_arch/src/arch/cli/hardware" "$test_arch/data/cli"
+cp "$ROOT/src/arch/cli/hardware/architecture.py" "$test_arch/src/arch/cli/hardware/architecture.py"
 cp "$ROOT/data/cli/architecture.yml" "$test_arch/data/cli/architecture.yml"
-cp "$ROOT/src/commands/arch-hw-x86" "$test_arch/src/commands/arch-hw-x86"
-cp "$ROOT/src/commands/arch-hw-aarch64" "$test_arch/src/commands/arch-hw-aarch64"
-cat >"$test_arch/src/commands/arch-hw-platform" <<'SH'
+cp "$ROOT/src/arch/commands/arch-hw-x86" "$test_arch/src/arch/commands/arch-hw-x86"
+cp "$ROOT/src/arch/commands/arch-hw-aarch64" "$test_arch/src/arch/commands/arch-hw-aarch64"
+cat >"$test_arch/src/arch/commands/arch-hw-platform" <<'SH'
 #!/bin/bash
 printf '%s\n' "$TEST_PLATFORM"
 SH
-chmod +x "$test_arch/src/commands/arch-hw-platform"
+chmod +x "$test_arch/src/arch/commands/arch-hw-platform"
 
 for platform in x86 aarch64 aarch64-apple aarch64-qualcomm aarch64-n1x aarch64-gb10; do
   if [[ $platform == "x86" ]]; then
-    ARCH_PATH="$test_arch" TEST_PLATFORM="$platform" "$test_arch/src/commands/arch-hw-x86" || fail "x86: arch-hw-x86 accepts it"
-    if ARCH_PATH="$test_arch" TEST_PLATFORM="$platform" "$test_arch/src/commands/arch-hw-aarch64"; then
+    ARCH_PATH="$test_arch" TEST_PLATFORM="$platform" "$test_arch/src/arch/commands/arch-hw-x86" || fail "x86: arch-hw-x86 accepts it"
+    if ARCH_PATH="$test_arch" TEST_PLATFORM="$platform" "$test_arch/src/arch/commands/arch-hw-aarch64"; then
       fail "x86: arch-hw-aarch64 rejects it"
     fi
   else
-    ARCH_PATH="$test_arch" TEST_PLATFORM="$platform" "$test_arch/src/commands/arch-hw-aarch64" || fail "$platform: arch-hw-aarch64 accepts it"
-    if ARCH_PATH="$test_arch" TEST_PLATFORM="$platform" "$test_arch/src/commands/arch-hw-x86"; then
+    ARCH_PATH="$test_arch" TEST_PLATFORM="$platform" "$test_arch/src/arch/commands/arch-hw-aarch64" || fail "$platform: arch-hw-aarch64 accepts it"
+    if ARCH_PATH="$test_arch" TEST_PLATFORM="$platform" "$test_arch/src/arch/commands/arch-hw-x86"; then
       fail "$platform: arch-hw-x86 rejects it"
     fi
   fi

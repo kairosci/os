@@ -2,35 +2,35 @@ id = "desktop.commands.font"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-font-cjk",
-  "src/commands/arch-font-current",
-  "src/commands/arch-font-list",
-  "src/commands/arch-font-set",
-  "src/cli/font/catalog.py",
-  "src/cli/font/set.py",
+  "src/arch/commands/arch-font-cjk",
+  "src/arch/commands/arch-font-current",
+  "src/arch/commands/arch-font-list",
+  "src/arch/commands/arch-font-set",
+  "src/arch/cli/font/catalog.py",
+  "src/arch/cli/font/set.py",
 ]
 requires = ["desktop.commands", "system.runtime-data"]
 
 [[output]]
-source = "src/commands/arch-font-cjk"
-target = "usr/share/arch/src/commands/arch-font-cjk"
+source = "src/arch/commands/arch-font-cjk"
+target = "usr/share/arch/src/arch/commands/arch-font-cjk"
 
 [[output]]
-source = "src/commands/arch-font-current"
-target = "usr/share/arch/src/commands/arch-font-current"
+source = "src/arch/commands/arch-font-current"
+target = "usr/share/arch/src/arch/commands/arch-font-current"
 
 [[output]]
-source = "src/commands/arch-font-list"
-target = "usr/share/arch/src/commands/arch-font-list"
+source = "src/arch/commands/arch-font-list"
+target = "usr/share/arch/src/arch/commands/arch-font-list"
 
 [[output]]
-source = "src/commands/arch-font-set"
-target = "usr/share/arch/src/commands/arch-font-set"
+source = "src/arch/commands/arch-font-set"
+target = "usr/share/arch/src/arch/commands/arch-font-set"
 
 [[output]]
-source = "src/cli/font/catalog.py"
-target = "usr/share/arch/src/cli/font/catalog.py"
+source = "src/arch/cli/font/catalog.py"
+target = "usr/share/arch/src/arch/cli/font/catalog.py"
 
 [[output]]
-source = "src/cli/font/set.py"
-target = "usr/share/arch/src/cli/font/set.py"
+source = "src/arch/cli/font/set.py"
+target = "usr/share/arch/src/arch/cli/font/set.py"

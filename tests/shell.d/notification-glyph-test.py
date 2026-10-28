@@ -9,7 +9,7 @@ from base_test import ROOT, fail_check, pass_check
 
 invalid_glyph = re.compile(r"arch-notification-send[^#]*[ \t]-g([ \t]+(-|\"\$\(arch-i18n|\"[A-Za-z])|[ \t]*$)")
 matches = []
-for path in (ROOT / "src/commands").iterdir():
+for path in (ROOT / "src/arch/commands").iterdir():
   if not path.is_file():
     continue
   for number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):

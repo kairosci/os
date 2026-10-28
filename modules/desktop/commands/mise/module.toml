@@ -2,15 +2,15 @@ id = "desktop.commands.mise"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-mise-default-tools",
-  "src/commands/arch-mise-install",
+  "src/arch/commands/arch-mise-default-tools",
+  "src/arch/commands/arch-mise-install",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-mise-default-tools"
-target = "usr/share/arch/src/commands/arch-mise-default-tools"
+source = "src/arch/commands/arch-mise-default-tools"
+target = "usr/share/arch/src/arch/commands/arch-mise-default-tools"
 
 [[output]]
-source = "src/commands/arch-mise-install"
-target = "usr/share/arch/src/commands/arch-mise-install"
+source = "src/arch/commands/arch-mise-install"
+target = "usr/share/arch/src/arch/commands/arch-mise-install"

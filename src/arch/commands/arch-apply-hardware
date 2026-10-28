@@ -1,0 +1,89 @@
+#!/bin/bash
+
+# arch:summary=Apply Arch hardware-specific packages and system configuration
+# arch:group=apply
+# arch:requires-sudo=true
+# arch:examples=arch apply hardware --install-user dhh
+# arch:hidden=true
+
+set -euo pipefail
+
+usage() {
+  cat <<USAGE
+Usage: arch apply hardware --install-user USER
+       arch apply hardware --defer-provisioning
+
+Runs idempotent hardware detection/setup for the installed machine. This is
+called by arch-apply-system during ISO finalization and can be rerun later
+for diagnostics or after hardware/package updates.
+
+--defer-provisioning runs without an install user (deferred-provisioning installs create the user at
+first boot); group grants are recorded in /var/lib/arch/provisioning/groups.
+
+In an image build (/var/lib/arch/image/target exists) nothing runs here: every step is queued
+for arch-provision-hardware on the machine's first boot.
+USAGE
+}
+
+install_user="${ARCH_INSTALL_USER:-}"
+defer_provisioning=0
+while (($#)); do
+  case "$1" in
+    --install-user)
+      install_user="${2:-}"
+      shift 2
+      ;;
+    --defer-provisioning)
+      defer_provisioning=1
+      shift
+      ;;
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    *)
+      echo "Unknown option: $1" >&2
+      usage >&2
+      exit 1
+      ;;
+  esac
+done
+
+if (( EUID != 0 )); then
+  echo "Error: arch-apply-hardware must run as root" >&2
+  exit 1
+fi
+
+if (( defer_provisioning )); then
+  install_user=""
+else
+  if [[ -z $install_user || $install_user == "root" ]]; then
+    echo "Error: --install-user must name the target non-root user" >&2
+    exit 1
+  fi
+
+  if ! getent passwd "$install_user" >/dev/null; then
+    echo "Error: user '$install_user' does not exist" >&2
+    exit 1
+  fi
+fi
+
+export ARCH_INSTALL_USER="$install_user"
+# Only arch-provision-hardware runs steps as an image's first boot.
+unset ARCH_IMAGE_DEFERRED_HARDWARE
+export ARCH_PATH="${ARCH_PATH:-/usr/share/arch}"
+export ARCH_INSTALL="${ARCH_INSTALL:-$ARCH_PATH/installer}"
+export ARCH_INSTALL_LOG_FILE="${ARCH_INSTALL_LOG_FILE:-/var/log/arch-install.log}"
+export PATH="$ARCH_PATH/src/arch/commands:$PATH"
+
+source "$ARCH_INSTALL/helpers/logging.sh"
+source "$ARCH_INSTALL/helpers/image-target.sh"
+
+arch_image_init
+arch_image_lock
+if arch_image_manifest_present; then
+  arch_image_read_manifest
+  arch_image_defer_hardware
+else
+  run_logged "$ARCH_PATH/src/arch/python/installer/hardware/all.py"
+fi

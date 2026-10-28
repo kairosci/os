@@ -77,7 +77,7 @@ run_setup() {
     SSHD_PASSWORD_AUTH="${SSHD_PASSWORD_AUTH:-no}" \
     SSHD_KBD_AUTH="${SSHD_KBD_AUTH:-no}" \
     PATH="$stub_bin:$PATH" \
-    bash "$ROOT/src/commands/arch-setup-security-sshd" --key="$public_key"
+    bash "$ROOT/src/arch/commands/arch-setup-security-sshd" --key="$public_key"
 }
 
 output=$(run_setup success)

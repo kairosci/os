@@ -6,7 +6,7 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 source "$SHELL_TEST_DIR/fixtures/sudo-boundary-test.sh"
 copy_boundary_file bin/arch-update
 test_tmp="$boundary_tmp"
-stub_bin="$SUDO_TEST_ROOT/src/commands"
+stub_bin="$SUDO_TEST_ROOT/src/arch/commands"
 
 # Every step arch-update runs, recorded in order with the unattended flag it
 # was handed. One of them can be told to fail. arch-update-available is here
@@ -56,7 +56,7 @@ run_update() {
     FAILING_STEP="${FAILING_STEP:-}" \
     ARCH_UPDATE_LOGGED=1 \
     PATH="$stub_bin:$PATH" \
-    "$SUDO_TEST_ROOT/src/commands/arch-update" "$@" >"$test_tmp/out" 2>"$test_tmp/err"
+    "$SUDO_TEST_ROOT/src/arch/commands/arch-update" "$@" >"$test_tmp/out" 2>"$test_tmp/err"
 }
 
 steps_run() {

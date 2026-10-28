@@ -12,7 +12,7 @@ arch_log_line() {
 
 start_install_log() {
   if ! arch_log_to_stdout; then
-    python3 -I "$ARCH_PATH/src/python/installer/log_file.py"
+    python3 -I "$ARCH_PATH/src/arch/python/installer/log_file.py"
   fi
 
   export ARCH_START_TIME="${ARCH_START_TIME:-$(date '+%Y-%m-%d %H:%M:%S')}"

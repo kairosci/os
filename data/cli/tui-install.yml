@@ -1,7 +1,7 @@
 arguments:
   count: 3
 commands:
-  i18n: src/commands/arch-i18n
+  i18n: src/arch/commands/arch-i18n
   gum: gum
   terminal_launcher: xdg-terminal-exec
   curl: curl

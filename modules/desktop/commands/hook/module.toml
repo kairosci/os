@@ -2,20 +2,20 @@ id = "desktop.commands.hook"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-hook",
-  "src/commands/arch-hook-install",
-  "src/cli/hook/runner.py",
+  "src/arch/commands/arch-hook",
+  "src/arch/commands/arch-hook-install",
+  "src/arch/cli/hook/runner.py",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-hook"
-target = "usr/share/arch/src/commands/arch-hook"
+source = "src/arch/commands/arch-hook"
+target = "usr/share/arch/src/arch/commands/arch-hook"
 
 [[output]]
-source = "src/commands/arch-hook-install"
-target = "usr/share/arch/src/commands/arch-hook-install"
+source = "src/arch/commands/arch-hook-install"
+target = "usr/share/arch/src/arch/commands/arch-hook-install"
 
 [[output]]
-source = "src/cli/hook/runner.py"
-target = "usr/share/arch/src/cli/hook/runner.py"
+source = "src/arch/cli/hook/runner.py"
+target = "usr/share/arch/src/arch/cli/hook/runner.py"

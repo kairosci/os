@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# arch:summary=Refresh the SDDM theme from default
+# arch:requires-sudo=true
+
+# Reuse the fixed-file publisher so root never resolves an untrusted source or
+# follows a destination symlink while restoring the packaged SDDM theme.
+exec "$ARCH_PATH/src/arch/commands/arch-plymouth-set" --refresh-sddm-default

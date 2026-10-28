@@ -11,7 +11,7 @@ import tempfile
 from base_test import ROOT, fail_check, pass_check, test_environment
 
 
-LIBRARY = ROOT / "src/commands/arch-security-functions"
+LIBRARY = ROOT / "src/arch/commands/arch-security-functions"
 CHECK = "arch_security_require_privileged_bash_startup"
 UNSHARE = shutil.which("unshare")
 BASH = "/usr/bin/bash"

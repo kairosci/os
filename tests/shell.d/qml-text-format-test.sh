@@ -57,8 +57,8 @@ trap 'chmod -R u+rwX "$fixture_root" 2>/dev/null; rm -rf "$fixture_root"' EXIT
 function scan_fixture {
   local name=$1
   local dir="$fixture_root/$name"
-  mkdir -p "$dir/src/shell/Ui"
-  cat > "$dir/src/shell/Ui/Fixture.qml"
+  mkdir -p "$dir/src/arch/shell/Ui"
+  cat > "$dir/src/arch/shell/Ui/Fixture.qml"
   python3 "$SCAN" "$dir" 2>&1
 }
 
@@ -258,19 +258,19 @@ empty_root=$(mktemp -d)
 mkdir -p "$empty_root/shell"
 if python3 "$SCAN" "$empty_root" > /dev/null 2>&1; then
   rm -rf "$empty_root"
-  fail "the scan fails when it reads no files" "an empty src/shell/ tree exited 0"
+  fail "the scan fails when it reads no files" "an empty src/arch/shell/ tree exited 0"
 fi
 rm -rf "$empty_root"
 pass "the scan fails when it reads no files"
 
 blind_root="$fixture_root/blind"
-mkdir -p "$blind_root/src/shell/Ui/locked"
-printf 'import QtQuick\nItem {\n  Text {\n    textFormat: Text.PlainText\n    text: "ok"\n  }\n}\n' > "$blind_root/src/shell/Ui/Good.qml"
-printf 'import QtQuick\nItem {\n  property string external: "x"\n  Text {\n    text: external\n  }\n}\n' > "$blind_root/src/shell/Ui/locked/Bad.qml"
-chmod 000 "$blind_root/src/shell/Ui/locked"
+mkdir -p "$blind_root/src/arch/shell/Ui/locked"
+printf 'import QtQuick\nItem {\n  Text {\n    textFormat: Text.PlainText\n    text: "ok"\n  }\n}\n' > "$blind_root/src/arch/shell/Ui/Good.qml"
+printf 'import QtQuick\nItem {\n  property string external: "x"\n  Text {\n    text: external\n  }\n}\n' > "$blind_root/src/arch/shell/Ui/locked/Bad.qml"
+chmod 000 "$blind_root/src/arch/shell/Ui/locked"
 if python3 "$SCAN" "$blind_root" > /dev/null 2>&1; then
-  chmod 755 "$blind_root/src/shell/Ui/locked"
+  chmod 755 "$blind_root/src/arch/shell/Ui/locked"
   fail "the scan fails when a directory hides files from it" "an unreadable subdirectory exited 0"
 fi
-chmod 755 "$blind_root/src/shell/Ui/locked"
+chmod 755 "$blind_root/src/arch/shell/Ui/locked"
 pass "the scan fails when a directory hides files from it"

@@ -87,10 +87,10 @@ mkdir -p "$test_root" "$test_home" "$stub_bin"
 # shell's idle service would eventually screensave/lock the real desktop.
 mkdir -p "$test_home/.local/state/arch/indicators"
 touch "$test_home/.local/state/arch/indicators/stay-awake"
-mkdir -p "$test_root/src"
-cp -a "$ROOT/src/shell" "$test_root/src/shell"
+mkdir -p "$test_root/src/arch"
+cp -a "$ROOT/src/arch/shell" "$test_root/src/arch/shell"
 ln -s "$ROOT/config" "$test_root/config"
-ln -s "$ROOT/src/commands" "$test_root/src/commands"
+ln -s "$ROOT/src/arch/commands" "$test_root/src/arch/commands"
 ln -s "$ROOT/default" "$test_root/default"
 
 # The scratch shell must not reach the real session: the clipboard plugin
@@ -115,11 +115,11 @@ chmod +x "$stub_bin/bash"
 
 
 shell_ipc() {
-  ARCH_PATH="$test_root" "$ROOT/src/commands/arch-shell" "$@"
+  ARCH_PATH="$test_root" "$ROOT/src/arch/commands/arch-shell" "$@"
 }
 
 shell_ipc_quiet() {
-  ARCH_PATH="$test_root" "$ROOT/src/commands/arch-shell" -q "$@"
+  ARCH_PATH="$test_root" "$ROOT/src/arch/commands/arch-shell" -q "$@"
 }
 
 # mapped|absent|unknown: a failed compositor query proves nothing.
@@ -151,8 +151,8 @@ HOME="$test_home" \
 XDG_CONFIG_HOME="$test_home/.config" \
 XDG_CACHE_HOME="$test_home/.cache" \
 XDG_STATE_HOME="$test_home/.local/state" \
-PATH="$stub_bin:$ROOT/src/commands:$PATH" \
-  quickshell -p "$test_root/src/shell" --no-color >"$log" 2>&1 &
+PATH="$stub_bin:$ROOT/src/arch/commands:$PATH" \
+  quickshell -p "$test_root/src/arch/shell" --no-color >"$log" 2>&1 &
 QS_PID=$!
 
 for _ in {1..80}; do

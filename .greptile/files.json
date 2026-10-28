@@ -6,16 +6,16 @@
     },
     {
       "path": "agents/skills/command-metadata.md",
-      "description": "Header metadata every src/commands/ command declares",
+      "description": "Header metadata every src/arch/commands/ command declares",
       "scope": [
-        "src/commands/**"
+        "src/arch/commands/**"
       ]
     },
     {
       "path": "docs/cli-router.md",
-      "description": "How src/commands/archctl resolves routes and what archctl commands --check enforces",
+      "description": "How src/arch/commands/archctl resolves routes and what archctl commands --check enforces",
       "scope": [
-        "src/commands/**",
+        "src/arch/commands/**",
         "tests/cli"
       ]
     },
@@ -24,8 +24,8 @@
       "description": "Rules for installer/ leaves and the apply/finalize/provision commands",
       "scope": [
         "installer/**",
-        "src/commands/arch-apply-*",
-        "src/commands/arch-provision-*"
+        "src/arch/commands/arch-apply-*",
+        "src/arch/commands/arch-provision-*"
       ]
     },
     {
@@ -33,19 +33,19 @@
       "description": "Migration model, format, ordering and when tests are kept",
       "scope": [
         "migrations/**",
-        "src/commands/arch-migrate*",
-        "src/commands/arch-upgrade-to-quattro"
+        "src/arch/commands/arch-migrate*",
+        "src/arch/commands/arch-upgrade-to-quattro"
       ]
     },
     {
       "path": "docs/update-process.md",
       "description": "The archctl update pipeline, its sudo boundary, the pacman guard and channels",
       "scope": [
-        "src/commands/arch-update*",
-        "src/commands/arch-migrate*",
-        "src/commands/arch-channel-*",
-        "src/commands/arch-refresh-pacman",
-        "src/commands/arch-reinstall-pkgs",
+        "src/arch/commands/arch-update*",
+        "src/arch/commands/arch-migrate*",
+        "src/arch/commands/arch-channel-*",
+        "src/arch/commands/arch-refresh-pacman",
+        "src/arch/commands/arch-reinstall-pkgs",
         "default/libalpm/**",
         "default/pacman/**",
         "installer/helpers/pacman.sh"
@@ -55,14 +55,14 @@
       "path": "docs/lifecycle-dispatch.md",
       "description": "Platform lifecycle operations, their callers and the trust rules for root entrypoints",
       "scope": [
-        "src/commands/arch-lifecycle-dispatch",
-        "src/commands/arch-provision-*",
-        "src/commands/arch-system-factory-reset",
-        "src/commands/arch-update-boot",
-        "src/commands/arch-drive-password",
-        "src/commands/arch-install-browser",
-        "src/commands/arch-install-gaming-steam",
-        "src/commands/arch-remove-gaming-steam",
+        "src/arch/commands/arch-lifecycle-dispatch",
+        "src/arch/commands/arch-provision-*",
+        "src/arch/commands/arch-system-factory-reset",
+        "src/arch/commands/arch-update-boot",
+        "src/arch/commands/arch-drive-password",
+        "src/arch/commands/arch-install-browser",
+        "src/arch/commands/arch-install-gaming-steam",
+        "src/arch/commands/arch-remove-gaming-steam",
         "installer/provisioning/**",
         "installer/hardware/platform-setup.sh",
         "installer/user/platform-setup.sh"
@@ -72,8 +72,8 @@
       "path": "docs/passwordless-sudo.md",
       "description": "Grant lifecycle and package ownership for passwordless sudo",
       "scope": [
-        "src/commands/arch-sudo-*",
-        "src/commands/arch-security-functions",
+        "src/arch/commands/arch-sudo-*",
+        "src/arch/commands/arch-security-functions",
         "etc/sudoers.d/**"
       ]
     },
@@ -86,27 +86,27 @@
         "etc/**",
         "applications/**",
         "installer/**",
-        "src/commands/arch-provision-*",
-        "src/commands/arch-reinstall-*",
-        "src/commands/arch-dev-*"
+        "src/arch/commands/arch-provision-*",
+        "src/arch/commands/arch-reinstall-*",
+        "src/arch/commands/arch-dev-*"
       ]
     },
     {
       "path": "agents/skills/shell-dev.md",
       "description": "Quickshell plugin contract, IPC, event sources instead of polling, palette imports",
       "scope": [
-        "src/shell/**",
-        "src/commands/arch-shell*"
+        "src/arch/shell/**",
+        "src/arch/commands/arch-shell*"
       ]
     },
     {
       "path": "docs/arch-shell.md",
       "description": "Plugin manifest, third-party facades, shell.json, theme tokens and bar modules",
       "scope": [
-        "src/shell/**",
+        "src/arch/shell/**",
         "config/arch/shell.json",
-        "src/commands/arch-plugin*",
-        "src/commands/arch-bar*"
+        "src/arch/commands/arch-plugin*",
+        "src/arch/commands/arch-bar*"
       ]
     },
     {
@@ -114,17 +114,17 @@
       "description": "Menu schema, guards, providers and select/input modes",
       "scope": [
         "default/arch/arch-menu.jsonc",
-        "src/shell/plugins/menu/**",
-        "src/commands/arch-menu*"
+        "src/arch/shell/plugins/menu/**",
+        "src/arch/commands/arch-menu*"
       ]
     },
     {
       "path": "docs/notifications.md",
       "description": "Notification daemon, DND rules and the arch-notification-send contract",
       "scope": [
-        "src/shell/plugins/notifications/**",
-        "src/commands/arch-notification-*",
-        "src/commands/arch-reminder*"
+        "src/arch/shell/plugins/notifications/**",
+        "src/arch/commands/arch-notification-*",
+        "src/arch/commands/arch-reminder*"
       ]
     },
     {
@@ -133,7 +133,7 @@
       "scope": [
         "themes/**",
         "default/themed/**",
-        "src/commands/arch-theme-*"
+        "src/arch/commands/arch-theme-*"
       ]
     },
     {
@@ -142,8 +142,8 @@
       "scope": [
         "default/i18n/**",
         "docs/user/**",
-        "src/shell/**",
-        "src/commands/**",
+        "src/arch/shell/**",
+        "src/arch/commands/**",
         "scripts/i18n-sync.py",
         ".github/workflows/**"
       ]
@@ -185,8 +185,8 @@
         "default/audio/**",
         "installer/hardware/speaker-tuning.sh",
         "installer/user/first-run/audio-tuning.sh",
-        "src/commands/arch-audio-*",
-        "src/shell/plugins/panels/audio/**"
+        "src/arch/commands/arch-audio-*",
+        "src/arch/shell/plugins/panels/audio/**"
       ]
     },
     {
@@ -194,7 +194,7 @@
       "description": "Input method setup for CJK languages",
       "scope": [
         "default/input-methods/**",
-        "src/shell/Commons/InputMethodState.qml",
+        "src/arch/shell/Commons/InputMethodState.qml",
         "installer/provisioning/setup-form.sh",
         "installer/user/input-method.sh",
         "default/hypr/**"
@@ -204,7 +204,7 @@
       "path": "docs/elsewhen.md",
       "description": "The Elsewhen world clock plugin",
       "scope": [
-        "src/shell/plugins/panels/elsewhen/**"
+        "src/arch/shell/plugins/panels/elsewhen/**"
       ]
     }
   ]

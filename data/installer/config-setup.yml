@@ -16,13 +16,13 @@ lockout_limit:
     insert_after_pattern: 'auth.*pam_permit\.so'
     insert_line: 'auth        required    pam_faillock.so authsucc'
 systemd_boot_snapshots:
-  helper: src/commands/arch-hw-x86
+  helper: src/arch/commands/arch-hw-x86
   boot_entry:
     environment_override: ARCH_SYSTEMD_BOOT_ESP
     default_esp: /boot
     relative_path: EFI/systemd/systemd-bootx64.efi
   plugin:
-    source: src/python/installer/boot/systemd_boot_snapper_plugin.py
+    source: src/arch/python/installer/boot/systemd_boot_snapper_plugin.py
     settings_source: data/installer/systemd-boot-snapper-plugin.yml
     settings_suffix: .yml
     settings_mode: '0644'

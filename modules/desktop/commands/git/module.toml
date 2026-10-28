@@ -2,10 +2,10 @@ id = "desktop.commands.git"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-git-url-check",
+  "src/arch/commands/arch-git-url-check",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-git-url-check"
-target = "usr/share/arch/src/commands/arch-git-url-check"
+source = "src/arch/commands/arch-git-url-check"
+target = "usr/share/arch/src/arch/commands/arch-git-url-check"

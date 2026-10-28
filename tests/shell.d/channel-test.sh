@@ -11,7 +11,7 @@ copy_boundary_file bin/arch-channel-set
 copy_boundary_file bin/arch-refresh-pacman
 copy_boundary_file bin/arch-apply-pacman
 copy_boundary_file bin/arch-update
-python3 - "$SUDO_TEST_ROOT/src/commands/arch-channel-set" "$package_root" <<'PYTHON'
+python3 - "$SUDO_TEST_ROOT/src/arch/commands/arch-channel-set" "$package_root" <<'PYTHON'
 import sys
 from pathlib import Path
 p = Path(sys.argv[1])
@@ -55,11 +55,11 @@ for arg in "$@"; do printf "\t%s" "$arg" >>"$ARCH_CHANNEL_TEST_LOG"; done
 printf "\n" >>"$ARCH_CHANNEL_TEST_LOG"
 '
 
-cat >"$SUDO_TEST_ROOT/src/commands/arch-refresh-pacman" <<'STUB'
+cat >"$SUDO_TEST_ROOT/src/arch/commands/arch-refresh-pacman" <<'STUB'
 #!/bin/bash
 printf 'refresh\t%s\n' "$1" >>"$ARCH_CHANNEL_TEST_LOG"
 STUB
-chmod +x "$SUDO_TEST_ROOT/src/commands/arch-refresh-pacman"
+chmod +x "$SUDO_TEST_ROOT/src/arch/commands/arch-refresh-pacman"
 
 write_stub arch-dev-unlink '#!/bin/bash
 printf "unlink" >>"$ARCH_CHANNEL_TEST_LOG"
@@ -79,8 +79,8 @@ for arg in "$@"; do printf "\t%s" "$arg" >>"$ARCH_CHANNEL_TEST_LOG"; done
 printf "\tARCH_PATH=%s" "$ARCH_PATH" >>"$ARCH_CHANNEL_TEST_LOG"
 printf "\n" >>"$ARCH_CHANNEL_TEST_LOG"
 '
-cp "$stub_bin/arch-update" "$SUDO_TEST_ROOT/src/commands/arch-update"
-chmod +x "$SUDO_TEST_ROOT/src/commands/arch-update"
+cp "$stub_bin/arch-update" "$SUDO_TEST_ROOT/src/arch/commands/arch-update"
+chmod +x "$SUDO_TEST_ROOT/src/arch/commands/arch-update"
 
 write_stub gum '#!/bin/bash
 printf "gum" >>"$ARCH_CHANNEL_TEST_LOG"
@@ -96,7 +96,7 @@ printf "\n" >>"$ARCH_CHANNEL_TEST_LOG"
 if [[ $1 == "clone" ]]; then
   dest="${@: -1}"
   /usr/bin/cp -a "$SUDO_TEST_ROOT" "$dest"
-  mkdir -p "$dest/.git" "$dest/src/shell"
+  mkdir -p "$dest/.git" "$dest/src/arch/shell"
 fi
 '
 
@@ -121,7 +121,7 @@ esac
 '
 
 for command in "$stub_bin"/*; do
-  cp "$command" "$SUDO_TEST_ROOT/src/commands/${command##*/}"
+  cp "$command" "$SUDO_TEST_ROOT/src/arch/commands/${command##*/}"
 done
 
 run_channel() {
@@ -130,8 +130,8 @@ run_channel() {
     ARCH_PATH="${ARCH_TEST_PATH:-$package_root}" \
     ARCH_REGION_FILE="${ARCH_TEST_REGION_FILE:-$test_tmp/no-region}" \
     HOME="$test_tmp/home" \
-    PATH="$stub_bin:$ROOT/src/commands:$PATH" \
-    "${ARCH_TEST_PATH:-$package_root}/src/commands/arch-channel-set" "$@"
+    PATH="$stub_bin:$ROOT/src/arch/commands:$PATH" \
+    "${ARCH_TEST_PATH:-$package_root}/src/arch/commands/arch-channel-set" "$@"
 }
 
 assert_log_line() {
@@ -219,8 +219,8 @@ pass "dev refuses a checkout without the region before touching pacman"
 # A directory with the region's name, or a helper that cannot run, is not
 # support: the refresh after linking would fail with dev already linked.
 mkdir -p "$checkout/default/regions/cn"
-touch "$checkout/src/commands/arch-apply-pacman"
-chmod +x "$checkout/src/commands/arch-apply-pacman"
+touch "$checkout/src/arch/commands/arch-apply-pacman"
+chmod +x "$checkout/src/arch/commands/arch-apply-pacman"
 if ARCH_TEST_REGION_FILE="$test_tmp/region" run_channel dev >"$test_tmp/region.out" 2>"$test_tmp/region.err"; then
   fail "dev refuses an empty region profile"
 fi
@@ -245,7 +245,7 @@ for missing in "${cn_fragments[@]}"; do
   fi
 done
 touch "${cn_fragments[@]/#/$checkout/default/regions/cn/pacman/}"
-chmod -x "$checkout/src/commands/arch-apply-pacman"
+chmod -x "$checkout/src/arch/commands/arch-apply-pacman"
 if ARCH_TEST_REGION_FILE="$test_tmp/region" run_channel dev >"$test_tmp/region.out" 2>"$test_tmp/region.err"; then
   fail "dev refuses a checkout whose pacman helper cannot run"
 fi
@@ -254,7 +254,7 @@ if grep -Eq $'^(link|refresh)\t' "$log_file"; then
 fi
 pass "dev refuses a region profile missing any fragment or a helper that cannot run"
 
-chmod +x "$checkout/src/commands/arch-apply-pacman"
+chmod +x "$checkout/src/arch/commands/arch-apply-pacman"
 ARCH_TEST_REGION_FILE="$test_tmp/region" run_channel dev
 assert_log_line $'refresh\tedge' "dev proceeds with a checkout that supports the region"
 
@@ -263,8 +263,8 @@ current_channel() {
     ARCH_TEST_PACKAGES="$2" \
     ARCH_PATH="$3" \
     ARCH_PACKAGED_ROOT="$ROOT" \
-    PATH="$stub_bin:$ROOT/src/commands:$PATH" \
-    "$ROOT/src/commands/arch-channel-current"
+    PATH="$stub_bin:$ROOT/src/arch/commands:$PATH" \
+    "$ROOT/src/arch/commands/arch-channel-current"
 }
 
 [[ $(current_channel stable stable "$ROOT") == "stable" ]] || fail "current channel detects stable"
@@ -280,8 +280,8 @@ pass "current channel detects package-backed edge"
 [[ $(current_channel unknown stable "$ROOT") == "unknown" ]] || fail "current channel rejects an unrecognized package channel"
 pass "current channel reports unknown when package or channel detection fails"
 
-mkdir -p "$test_tmp/dev-checkout/src/cli/channel" "$test_tmp/dev-checkout/data/cli"
-cp "$ROOT/src/cli/channel/current.py" "$test_tmp/dev-checkout/src/cli/channel/current.py"
+mkdir -p "$test_tmp/dev-checkout/src/arch/cli/channel" "$test_tmp/dev-checkout/data/cli"
+cp "$ROOT/src/arch/cli/channel/current.py" "$test_tmp/dev-checkout/src/arch/cli/channel/current.py"
 cp "$ROOT/data/cli/channel.yml" "$test_tmp/dev-checkout/data/cli/channel.yml"
 [[ $(current_channel edge dev "$test_tmp/dev-checkout") == "dev" ]] || fail "current channel detects dev from ARCH_PATH"
 pass "current channel honors a dev link outside ~/arch"

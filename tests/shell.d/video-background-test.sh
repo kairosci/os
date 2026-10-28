@@ -7,22 +7,22 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 run_node_test <<'JS'
 const fs = require('fs')
 
-const utilQml = fs.readFileSync(path.join(root, 'src/shell/Commons/Util.qml'), 'utf8')
-const mediaQml = fs.readFileSync(path.join(root, 'src/shell/Ui/BackgroundMedia.qml'), 'utf8')
-const backgroundQml = fs.readFileSync(path.join(root, 'src/shell/plugins/background/Background.qml'), 'utf8')
-const lockQml = fs.readFileSync(path.join(root, 'src/shell/plugins/lock/LockView.qml'), 'utf8')
-const lockVideoQml = fs.readFileSync(path.join(root, 'src/shell/plugins/lock/LockVideoSurface.qml'), 'utf8')
-const videoQml = fs.readFileSync(path.join(root, 'src/shell/Ui/BackgroundVideo.qml'), 'utf8')
-const themeSwitcher = fs.readFileSync(path.join(root, 'src/commands/arch-theme-switcher'), 'utf8')
-const quattroUpgrade = fs.readFileSync(path.join(root, 'src/commands/arch-upgrade-to-quattro'), 'utf8')
-const barTextColor = fs.readFileSync(path.join(root, 'src/commands/arch-bar-text-color'), 'utf8')
-const menuImages = fs.readFileSync(path.join(root, 'src/commands/arch-menu-images'), 'utf8')
-const lockService = fs.readFileSync(path.join(root, 'src/shell/plugins/lock/Service.qml'), 'utf8')
-const lockPoster = fs.readFileSync(path.join(root, 'src/shell/plugins/lock/poster.py'), 'utf8')
+const utilQml = fs.readFileSync(path.join(root, 'src/arch/shell/Commons/Util.qml'), 'utf8')
+const mediaQml = fs.readFileSync(path.join(root, 'src/arch/shell/Ui/BackgroundMedia.qml'), 'utf8')
+const backgroundQml = fs.readFileSync(path.join(root, 'src/arch/shell/plugins/background/Background.qml'), 'utf8')
+const lockQml = fs.readFileSync(path.join(root, 'src/arch/shell/plugins/lock/LockView.qml'), 'utf8')
+const lockVideoQml = fs.readFileSync(path.join(root, 'src/arch/shell/plugins/lock/LockVideoSurface.qml'), 'utf8')
+const videoQml = fs.readFileSync(path.join(root, 'src/arch/shell/Ui/BackgroundVideo.qml'), 'utf8')
+const themeSwitcher = fs.readFileSync(path.join(root, 'src/arch/commands/arch-theme-switcher'), 'utf8')
+const quattroUpgrade = fs.readFileSync(path.join(root, 'src/arch/commands/arch-upgrade-to-quattro'), 'utf8')
+const barTextColor = fs.readFileSync(path.join(root, 'src/arch/commands/arch-bar-text-color'), 'utf8')
+const menuImages = fs.readFileSync(path.join(root, 'src/arch/commands/arch-menu-images'), 'utf8')
+const lockService = fs.readFileSync(path.join(root, 'src/arch/shell/plugins/lock/Service.qml'), 'utf8')
+const lockPoster = fs.readFileSync(path.join(root, 'src/arch/shell/plugins/lock/poster.py'), 'utf8')
 const lockPosterConfig = fs.readFileSync(path.join(root, 'data/shell/lock-poster.yml'), 'utf8')
-const batteryService = fs.readFileSync(path.join(root, 'src/shell/plugins/services/battery/Service.qml'), 'utf8')
-const themeSet = fs.readFileSync(path.join(root, 'src/commands/arch-theme-set'), 'utf8')
-const directImageList = fs.readFileSync(path.join(root, 'src/shell/plugins/image-picker/list.py'), 'utf8')
+const batteryService = fs.readFileSync(path.join(root, 'src/arch/shell/plugins/services/battery/Service.qml'), 'utf8')
+const themeSet = fs.readFileSync(path.join(root, 'src/arch/commands/arch-theme-set'), 'utf8')
+const directImageList = fs.readFileSync(path.join(root, 'src/arch/shell/plugins/image-picker/list.py'), 'utf8')
 const imagePickerConfig = fs.readFileSync(path.join(root, 'data/shell/image-picker.yml'), 'utf8')
 
 assert(
@@ -31,7 +31,7 @@ assert(
   'shared media helper identifies video paths without truncating valid local names'
 )
 assert(
-  fs.existsSync(path.join(root, 'src/shell/Ui/BackgroundVideo.qml')) &&
+  fs.existsSync(path.join(root, 'src/arch/shell/Ui/BackgroundVideo.qml')) &&
     /^import QtMultimedia$/m.test(videoQml) && videoQml.includes('MediaPlayer {') && videoQml.includes('VideoOutput {'),
   'the shell has a first-party Qt Multimedia player for video backgrounds'
 )
@@ -162,7 +162,7 @@ assert(
     !batteryService.includes('["powerprofilesctl"') &&
     !/Timer \{[^}]*refreshPowerProfile/.test(batteryService) &&
     batteryService.includes('function refreshPowerProfile(): void { root.refreshPowerProfile() }') &&
-    fs.readFileSync(path.join(root, 'src/commands/arch-powerprofiles-set'), 'utf8').includes('arch-shell -q battery refreshPowerProfile'),
+    fs.readFileSync(path.join(root, 'src/arch/commands/arch-powerprofiles-set'), 'utf8').includes('arch-shell -q battery refreshPowerProfile'),
   'the battery service tracks the active power-saver profile'
 )
 assert(
@@ -206,26 +206,26 @@ chmod +x "$test_tmp/bin/md5sum"
 
 md5_file_calls="$test_tmp/md5-file-calls"
 PATH="$test_tmp/bin:$PATH" XDG_CACHE_HOME="$test_tmp/generator-cache" MD5_FILE_CALLS="$md5_file_calls" \
-  "$ROOT/src/commands/arch-menu-images" --prepare-only "$test_tmp/backgrounds"
+  "$ROOT/src/arch/commands/arch-menu-images" --prepare-only "$test_tmp/backgrounds"
 
 generator_thumbnail=$(find "$test_tmp/generator-cache/arch/image-selector" -maxdepth 1 -type f -name '*.jpg' -print -quit)
 [[ -s $generator_thumbnail ]] || fail "menu image generator creates a video thumbnail"
 
-generator_row=$(ARCH_PATH="$ROOT" XDG_CACHE_HOME="$test_tmp/generator-cache" "$ROOT/src/shell/plugins/image-picker/list.py" "$test_tmp/backgrounds")
+generator_row=$(ARCH_PATH="$ROOT" XDG_CACHE_HOME="$test_tmp/generator-cache" "$ROOT/src/arch/shell/plugins/image-picker/list.py" "$test_tmp/backgrounds")
 IFS=$'\t' read -r generator_row_path generator_row_thumbnail <<<"$generator_row"
 [[ $generator_row_path == "$test_tmp/backgrounds/sample.mp4" && $generator_row_thumbnail == "$generator_thumbnail" ]] || \
   fail "direct picker consumes the menu image generator thumbnail" "$generator_row"
 
 poster_calls="$test_tmp/poster-calls"
 poster_path=$(ARCH_PATH="$ROOT" PATH="$test_tmp/bin:$PATH" XDG_CACHE_HOME="$test_tmp/poster-cache" POSTER_CALLS="$poster_calls" \
-  "$ROOT/src/shell/plugins/lock/poster.py" "$test_tmp/backgrounds/sample.mp4")
+  "$ROOT/src/arch/shell/plugins/lock/poster.py" "$test_tmp/backgrounds/sample.mp4")
 [[ -s $poster_path ]] || fail "lock poster creates a shared cached video frame"
 cached_poster=$(ARCH_PATH="$ROOT" PATH="$test_tmp/bin:$PATH" XDG_CACHE_HOME="$test_tmp/poster-cache" POSTER_CALLS="$poster_calls" \
-  "$ROOT/src/shell/plugins/lock/poster.py" "$test_tmp/backgrounds/sample.mp4")
+  "$ROOT/src/arch/shell/plugins/lock/poster.py" "$test_tmp/backgrounds/sample.mp4")
 [[ $cached_poster == "$poster_path" && $(wc -l <"$poster_calls") == 1 ]] || fail "lock poster reuses the cached frame"
 
 row=$(ARCH_PATH="$ROOT" PATH="$test_tmp/bin:$PATH" XDG_CACHE_HOME="$test_tmp/direct-cache" MD5_FILE_CALLS="$md5_file_calls" \
-  "$ROOT/src/shell/plugins/image-picker/list.py" "$test_tmp/backgrounds")
+  "$ROOT/src/arch/shell/plugins/image-picker/list.py" "$test_tmp/backgrounds")
 
 IFS=$'\t' read -r row_path row_thumbnail <<<"$row"
 [[ $row_path == "$test_tmp/backgrounds/sample.mp4" && $row_thumbnail == *.jpg && -s $row_thumbnail ]] || \
@@ -242,11 +242,11 @@ exit 1
 SH
 
 cached_row=$(ARCH_PATH="$ROOT" PATH="$test_tmp/bin:$PATH" XDG_CACHE_HOME="$test_tmp/direct-cache" MD5_FILE_CALLS="$md5_file_calls" \
-  "$ROOT/src/shell/plugins/image-picker/list.py" "$test_tmp/backgrounds")
+  "$ROOT/src/arch/shell/plugins/image-picker/list.py" "$test_tmp/backgrounds")
 [[ $cached_row == "$row" ]] || fail "direct picker reuses its cached video thumbnail" "$cached_row"
 
 failed_rows=$(ARCH_PATH="$ROOT" PATH="$test_tmp/bin:$PATH" XDG_CACHE_HOME="$failed_cache" MD5_FILE_CALLS="$md5_file_calls" \
-  "$ROOT/src/shell/plugins/image-picker/list.py" "$failed_backgrounds")
+  "$ROOT/src/arch/shell/plugins/image-picker/list.py" "$failed_backgrounds")
 [[ -z $failed_rows ]] || fail "direct picker omits a video whose thumbnail fails" "$failed_rows"
 
 failed_marker=$(find "$failed_cache/arch/image-selector" -maxdepth 1 -type f -name '*.failed' -print -quit)
@@ -260,18 +260,18 @@ exit 1
 SH
 
 failed_rows=$(ARCH_PATH="$ROOT" PATH="$test_tmp/bin:$PATH" XDG_CACHE_HOME="$failed_cache" THUMBNAILER_CALLS="$thumbnailer_calls" \
-  "$ROOT/src/shell/plugins/image-picker/list.py" "$failed_backgrounds")
+  "$ROOT/src/arch/shell/plugins/image-picker/list.py" "$failed_backgrounds")
 [[ -z $failed_rows && ! -e $thumbnailer_calls ]] || fail "direct picker skips a rejected video on the next scan" "$(cat "$thumbnailer_calls" 2>/dev/null)"
 
 generator_failed_cache="$test_tmp/generator-failed-cache"
 PATH="$test_tmp/bin:$PATH" XDG_CACHE_HOME="$generator_failed_cache" THUMBNAILER_CALLS="$thumbnailer_calls" \
-  "$ROOT/src/commands/arch-menu-images" --prepare-only "$failed_backgrounds"
+  "$ROOT/src/arch/commands/arch-menu-images" --prepare-only "$failed_backgrounds"
 [[ -s $thumbnailer_calls ]] || fail "menu image generator tries a video it has not seen"
 generator_marker=$(find "$generator_failed_cache/arch/image-selector" -maxdepth 1 -type f -name '*.failed' -print -quit)
 [[ -n $generator_marker ]] || fail "menu image generator remembers a video the converter rejected"
 rm -f "$thumbnailer_calls"
 PATH="$test_tmp/bin:$PATH" XDG_CACHE_HOME="$generator_failed_cache" THUMBNAILER_CALLS="$thumbnailer_calls" \
-  "$ROOT/src/commands/arch-menu-images" --prepare-only "$failed_backgrounds"
+  "$ROOT/src/arch/commands/arch-menu-images" --prepare-only "$failed_backgrounds"
 [[ ! -e $thumbnailer_calls ]] || fail "menu image generator skips a rejected video on the next open" "$(<"$thumbnailer_calls")"
 
 # A repaired file gets a fresh key, so the old marker no longer applies, and
@@ -279,7 +279,7 @@ PATH="$test_tmp/bin:$PATH" XDG_CACHE_HOME="$generator_failed_cache" THUMBNAILER_
 # the directory's mtime alone is still noticed.
 touch -d '2 minutes' "$failed_backgrounds/broken.mp4"
 PATH="$test_tmp/bin:$PATH" XDG_CACHE_HOME="$generator_failed_cache" THUMBNAILER_CALLS="$thumbnailer_calls" \
-  "$ROOT/src/commands/arch-menu-images" --prepare-only "$failed_backgrounds"
+  "$ROOT/src/arch/commands/arch-menu-images" --prepare-only "$failed_backgrounds"
 [[ -s $thumbnailer_calls ]] || fail "menu image generator retries a video that changed since it was rejected"
 
 timeout_backgrounds="$test_tmp/timeout-backgrounds"
@@ -291,7 +291,7 @@ cat >"$test_tmp/bin/ffmpegthumbnailer" <<'SH'
 exit 124
 SH
 timeout_rows=$(ARCH_PATH="$ROOT" PATH="$test_tmp/bin:$PATH" XDG_CACHE_HOME="$timeout_cache" \
-  "$ROOT/src/shell/plugins/image-picker/list.py" "$timeout_backgrounds")
+  "$ROOT/src/arch/shell/plugins/image-picker/list.py" "$timeout_backgrounds")
 [[ -z $timeout_rows ]] || fail "direct picker omits a video whose thumbnail timed out" "$timeout_rows"
 timeout_marker=$(find "$timeout_cache/arch/image-selector" -maxdepth 1 -type f -name '*.failed' -print -quit)
 [[ -z $timeout_marker ]] || fail "a timed out video is left to retry rather than remembered as failed"
@@ -300,7 +300,7 @@ if grep -Eq '^(owe|owe-lockfeed)$' "$ROOT/installer/arch-base.packages"; then
   fail "the desktop no longer depends on an external wallpaper engine"
 fi
 grep -qx 'qt6-multimedia' "$ROOT/installer/arch-base.packages" || fail "native video playback requires Qt Multimedia"
-grep -rqs 'import QtMultimedia' "$ROOT/src/shell/Ui/BackgroundVideo.qml" || fail "the first-party player uses Qt Multimedia"
+grep -rqs 'import QtMultimedia' "$ROOT/src/arch/shell/Ui/BackgroundVideo.qml" || fail "the first-party player uses Qt Multimedia"
 
 pass "menu image generator creates thumbnails consumed by the picker"
 pass "direct picker generates and reuses still thumbnails"
@@ -315,7 +315,7 @@ source <(awk '
   /^(is_video_path|snapshot_background_path|background_transition_uses_snapshots|choose_theme_background|choose_staged_theme_background|set_theme_background)\(\) \{/ { copying=1 }
   copying { print }
   copying && /^}$/ { copying=0 }
-' "$ROOT/src/commands/arch-theme-set")
+' "$ROOT/src/arch/commands/arch-theme-set")
 
 transition_home="$test_tmp/transition-home"
 CURRENT_THEME_PATH="$transition_home/.local/state/arch/current/theme"

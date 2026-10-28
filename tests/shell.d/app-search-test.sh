@@ -6,9 +6,9 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 run_node_test <<'JS'
 const fs = require('fs')
-const search = requireFromRoot('src/shell/services/AppSearch.js')
-const menuQml = fs.readFileSync(path.join(root, 'src/shell/plugins/menu/Menu.qml'), 'utf8')
-const appLibraryQml = fs.readFileSync(path.join(root, 'src/shell/services/AppLibrary.qml'), 'utf8')
+const search = requireFromRoot('src/arch/shell/services/AppSearch.js')
+const menuQml = fs.readFileSync(path.join(root, 'src/arch/shell/plugins/menu/Menu.qml'), 'utf8')
+const appLibraryQml = fs.readFileSync(path.join(root, 'src/arch/shell/services/AppLibrary.qml'), 'utf8')
 
 const entries = [
   {

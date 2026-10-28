@@ -17,7 +17,7 @@ export XDG_CONFIG_DIRS="$test_tmp/etc"
 export XDG_DATA_HOME="$test_tmp/data"
 export XDG_DATA_DIRS="$test_tmp/system"
 export XDG_CURRENT_DESKTOP=Hyprland
-export PATH="$mock_bin:$ROOT/src/commands:$PATH"
+export PATH="$mock_bin:$ROOT/src/arch/commands:$PATH"
 unset BROWSER
 
 for command in chromium firefox arch-notification-send update-desktop-database; do

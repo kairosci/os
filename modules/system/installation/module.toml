@@ -1,7 +1,7 @@
 id = "system.installation"
 domain = "system"
 package = "arch"
-sources = ["installer/helpers", "src/python/installer/rekey_state.py", "src/python/installer/step_runner.py"]
+sources = ["installer/helpers", "src/arch/python/installer/rekey_state.py", "src/arch/python/installer/step_runner.py"]
 requires = ["system.settings", "system.runtime-data", "desktop.commands"]
 
 [[output]]
@@ -9,9 +9,9 @@ source = "installer/helpers"
 target = "usr/share/arch/installer/helpers"
 
 [[output]]
-source = "src/python/installer/rekey_state.py"
-target = "usr/share/arch/src/python/installer/rekey_state.py"
+source = "src/arch/python/installer/rekey_state.py"
+target = "usr/share/arch/src/arch/python/installer/rekey_state.py"
 
 [[output]]
-source = "src/python/installer/step_runner.py"
-target = "usr/share/arch/src/python/installer/step_runner.py"
+source = "src/arch/python/installer/step_runner.py"
+target = "usr/share/arch/src/arch/python/installer/step_runner.py"

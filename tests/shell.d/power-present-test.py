@@ -9,7 +9,7 @@ import tempfile
 from base_test import ROOT, fail_check, pass_check, test_environment
 
 
-COMMAND = ROOT / "src/commands/arch-power-present"
+COMMAND = ROOT / "src/arch/commands/arch-power-present"
 
 
 def write_supply(root: Path, name: str, supply_type: str, online: str) -> None:

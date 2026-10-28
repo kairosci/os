@@ -90,7 +90,7 @@ for platform in $platforms; do
     cp "$templates/pacman-$channel.conf" "$work/pacman.conf"
     cp "$templates/mirrorlist-$channel" "$work/mirrorlist"
     said=$(ARCH_PACMAN_CONF="$work/pacman.conf" ARCH_PACMAN_MIRRORLIST="$work/mirrorlist" \
-      "$ROOT/src/commands/arch-version-channel")
+      "$ROOT/src/arch/commands/arch-version-channel")
     [[ $said == "$channel" ]] || fail "$platform $channel: arch-version-channel names it" "$said"
   done
 done
@@ -109,14 +109,14 @@ chmod +x "$finalize_bin"/*
 # Finalization restores the templates through arch-apply-pacman, whose copy
 # here writes into the test's etc rather than the host's.
 finalize_root=$work/finalize-root
-mkdir -p "$finalize_root/installer" "$finalize_root/src/commands" "$finalize_root/src/python/installer/hardware" "$finalize_root/src/python/installer/post_install" "$finalize_root/data/installer/hardware" "$finalize_root/data/installer" "$finalize_root/default"
+mkdir -p "$finalize_root/installer" "$finalize_root/src/arch/commands" "$finalize_root/src/arch/python/installer/hardware" "$finalize_root/src/arch/python/installer/post_install" "$finalize_root/data/installer/hardware" "$finalize_root/data/installer" "$finalize_root/default"
 cp -r "$ROOT/installer/helpers" "$finalize_root/installer/"
-cp "$ROOT/src/python/installer/hardware/pacman_repositories.py" "$finalize_root/src/python/installer/hardware/"
+cp "$ROOT/src/arch/python/installer/hardware/pacman_repositories.py" "$finalize_root/src/arch/python/installer/hardware/"
 cp "$ROOT/data/installer/hardware/pacman-repositories.yml" "$finalize_root/data/installer/hardware/"
-cp "$ROOT/src/python/installer/post_install/pacman.py" "$finalize_root/src/python/installer/post_install/"
+cp "$ROOT/src/arch/python/installer/post_install/pacman.py" "$finalize_root/src/arch/python/installer/post_install/"
 cp "$ROOT/data/installer/post-install.yml" "$finalize_root/data/installer/"
 cp -r "$ROOT/default/pacman" "$ROOT/default/regions" "$finalize_root/default/"
-cp "$ROOT/src/commands/arch-apply-pacman" "$finalize_root/src/commands/arch-apply-pacman"
+cp "$ROOT/src/arch/commands/arch-apply-pacman" "$finalize_root/src/arch/commands/arch-apply-pacman"
 mkdir -p "$work/installer/hardware"
 
 # Finalization asks the image helper whether this is an image build, which root
@@ -135,7 +135,7 @@ for platform in $platforms; do
     mkdir -p "$work/etc/pacman.d"
     printf 'offline\n' | tee "$work/etc/pacman.conf" >"$work/etc/pacman.d/mirrorlist"
     ARCH_PATH=$finalize_root ARCH_IMAGE_ROOT=$work ARCH_MIRROR=$channel PLATFORM=$platform PATH="$finalize_bin:$PATH" \
-      python3 -I "$finalize_root/src/python/installer/post_install/pacman.py" >/dev/null || fail "$platform finalization on '$channel'"
+      python3 -I "$finalize_root/src/arch/python/installer/post_install/pacman.py" >/dev/null || fail "$platform finalization on '$channel'"
     cmp -s "$work/etc/pacman.conf" "$templates/pacman-$expected.conf" || fail "$platform '$channel': finalization copies the $expected template"
     cmp -s "$work/etc/pacman.d/mirrorlist" "$templates/mirrorlist-$expected" || fail "$platform '$channel': finalization copies the $expected mirrorlist"
   done
@@ -146,19 +146,19 @@ fi
 # The Python finalization runner reads the ordered steps from packaged data,
 # sources shell leaves in isolated Bash and stops with the leaf's exit status.
 ARCH_PATH="$ROOT" ARCH_INSTALL="$ROOT/installer" python3 -I \
-  "$ROOT/src/python/installer/step_runner.py" --validate data/installer/post-install.yml ||
+  "$ROOT/src/arch/python/installer/step_runner.py" --validate data/installer/post-install.yml ||
   fail "the post-install setup data resolves every configured leaf"
 pass "post-install setup data resolves every configured leaf"
 
 post_install_root="$work/post-install-root"
 mkdir -p "$post_install_root/data/installer" \
   "$post_install_root/installer/post-install" \
-  "$post_install_root/src/python/installer/post_install"
+  "$post_install_root/src/arch/python/installer/post_install"
 cat >"$post_install_root/data/installer/post-install.yml" <<'YAML'
 steps:
   - root: arch_install
     path: post-install/first.sh
-  - src/python/installer/post_install/second.py
+  - src/arch/python/installer/post_install/second.py
   - installer/post-install/third.sh
 messages:
   en:
@@ -173,7 +173,7 @@ YAML
 cat >"$post_install_root/installer/post-install/first.sh" <<'SH'
 printf 'first\n' >>"$POST_INSTALL_ORDER"
 SH
-cat >"$post_install_root/src/python/installer/post_install/second.py" <<'PY'
+cat >"$post_install_root/src/arch/python/installer/post_install/second.py" <<'PY'
 import os
 from pathlib import Path
 
@@ -190,7 +190,7 @@ post_install_order="$work/post-install-order"
 post_install_output="$work/post-install-output"
 ARCH_PATH="$post_install_root" ARCH_INSTALL="$post_install_root/installer" \
   POST_INSTALL_ORDER="$post_install_order" LANG=it_IT.UTF-8 \
-  python3 -I "$ROOT/src/python/installer/step_runner.py" data/installer/post-install.yml >"$post_install_output" 2>&1 ||
+  python3 -I "$ROOT/src/arch/python/installer/step_runner.py" data/installer/post-install.yml >"$post_install_output" 2>&1 ||
   fail "post-install runner completes every configured step"
 [[ $(<"$post_install_order") == $'first\nsecond\nthird' ]] ||
   fail "post-install runner preserves YAML order across Python and shell leaves"
@@ -201,7 +201,7 @@ pass "post-install runner executes ordered YAML steps and localizes progress"
 : >"$post_install_order"
 ARCH_PATH="$post_install_root" ARCH_INSTALL="$post_install_root/installer" \
   POST_INSTALL_ORDER="$post_install_order" LANG=en_US.UTF-8 \
-  ARCH_INSTALL_DEBUG=1 python3 -I "$ROOT/src/python/installer/step_runner.py" data/installer/post-install.yml \
+  ARCH_INSTALL_DEBUG=1 python3 -I "$ROOT/src/arch/python/installer/step_runner.py" data/installer/post-install.yml \
   >"$post_install_output" 2>&1 || fail "post-install runner supports installer debug mode"
 grep -Fq '+ first.sh:' "$post_install_output" || fail "post-install runner traces sourced leaves in debug mode"
 pass "post-install runner preserves shell tracing in debug mode"
@@ -209,7 +209,7 @@ pass "post-install runner preserves shell tracing in debug mode"
 : >"$post_install_order"
 if ARCH_PATH="$post_install_root" ARCH_INSTALL="$post_install_root/installer" \
   POST_INSTALL_ORDER="$post_install_order" POST_INSTALL_FAIL=1 LANG=it_IT.UTF-8 \
-  python3 -I "$ROOT/src/python/installer/step_runner.py" data/installer/post-install.yml >"$post_install_output" 2>&1; then
+  python3 -I "$ROOT/src/arch/python/installer/step_runner.py" data/installer/post-install.yml >"$post_install_output" 2>&1; then
   fail "post-install runner stops when a step fails"
 else
   [[ $? == 23 ]] || fail "post-install runner preserves the failing step's status" "$(<"$post_install_output")"
@@ -226,7 +226,7 @@ touch "$POST_INSTALL_ESCAPE_MARKER"
 SH
 if ARCH_PATH="$post_install_root" ARCH_INSTALL="$post_install_root/installer" \
   POST_INSTALL_ESCAPE_MARKER="$work/escaped" python3 -I \
-  "$ROOT/src/python/installer/step_runner.py" data/installer/unsafe.yml \
+  "$ROOT/src/arch/python/installer/step_runner.py" data/installer/unsafe.yml \
   >"$post_install_output" 2>&1; then
   fail "post-install runner rejects a step outside its root"
 fi
@@ -239,15 +239,15 @@ rm -rf "$work"
 source "$SHELL_TEST_DIR/fixtures/sudo-boundary-test.sh"
 copy_boundary_file bin/arch-refresh-pacman
 copy_boundary_file bin/arch-apply-pacman
-cat >"$SUDO_TEST_ROOT/src/commands/arch-channel-current" <<'STUB'
+cat >"$SUDO_TEST_ROOT/src/arch/commands/arch-channel-current" <<'STUB'
 #!/bin/bash
 [[ ${SUDO_TEST_CHANNEL_FAIL:-0} != "1" ]] || exit 1
 echo "${SUDO_TEST_CHANNEL:-unknown}"
 STUB
-chmod +x "$SUDO_TEST_ROOT/src/commands/arch-channel-current"
+chmod +x "$SUDO_TEST_ROOT/src/arch/commands/arch-channel-current"
 
 refresh() {
-  "$SUDO_TEST_ROOT/src/commands/arch-refresh-pacman" "$@" >"$boundary_tmp/output" 2>&1
+  "$SUDO_TEST_ROOT/src/arch/commands/arch-refresh-pacman" "$@" >"$boundary_tmp/output" 2>&1
 }
 events() {
   grep -vE '^sudo (-h|-k)$' "$SUDO_TEST_LOG" || true
@@ -351,7 +351,7 @@ for platform in aarch64-apple; do
     assert_boundary_cold "$platform $channel"
   done
 done
-cat >"$SUDO_TEST_ROOT/src/commands/arch-hw-platform" <<'STUB'
+cat >"$SUDO_TEST_ROOT/src/arch/commands/arch-hw-platform" <<'STUB'
 #!/bin/bash
 exit 1
 STUB

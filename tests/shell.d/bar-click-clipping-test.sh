@@ -6,7 +6,7 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 run_node_test <<'JS'
 const fs = require('fs')
-const util = fs.readFileSync(root + '/src/shell/Commons/Util.qml', 'utf8')
+const util = fs.readFileSync(root + '/src/arch/shell/Commons/Util.qml', 'utf8')
 const body = util.match(/function itemContainsPoint\(target, source, x, y\) \{([\s\S]*?)\n  \}/)[1]
 const hit = new Function('target', 'source', 'x', 'y', body)
 
@@ -38,7 +38,7 @@ drawer.visible = true
 drawer.enabled = false
 assert(!hit(hiddenButton, null, 170, 12), 'disabled ancestors prevent forwarded clicks')
 
-for (const file of ['src/shell/plugins/bar/Bar.qml', 'src/shell/Ui/KeyboardPanel.qml']) {
+for (const file of ['src/arch/shell/plugins/bar/Bar.qml', 'src/arch/shell/Ui/KeyboardPanel.qml']) {
   assert(fs.readFileSync(root + '/' + file, 'utf8').includes('Util.itemContainsPoint(target,'),
     file + ' checks clipping when forwarding bar clicks')
 }

@@ -1,9 +1,9 @@
 # Arch Shell Development
 
-Read this before editing the Quickshell desktop under `src/shell/`.
+Read this before editing the Quickshell desktop under `src/arch/shell/`.
 
 The Quickshell desktop runs as a single long-running process out of
-`src/shell/`. Hyprland autostart launches it directly with `quickshell -n -p`;
+`src/arch/shell/`. Hyprland autostart launches it directly with `quickshell -n -p`;
 do not start additional standalone Quickshell instances for individual
 components.
 
@@ -11,14 +11,14 @@ Run `arch-restart-shell` after making changes to QML files.
 
 ## Plugin contract
 
-- First-party plugins live directly under `src/shell/plugins/` or one category
-  level deeper, such as `src/shell/plugins/panels/weather/`. First-party bar-only
+- First-party plugins live directly under `src/arch/shell/plugins/` or one category
+  level deeper, such as `src/arch/shell/plugins/panels/weather/`. First-party bar-only
   widgets may use adjacent `*.manifest.json` files. Third-party plugins live
   at `~/.config/arch/plugins/<id>/` with a `manifest.json` at the root.
 - Every plugin manifest declares `schemaVersion`, `id`, `name`, `version`,
   `kinds`, and `entryPoints`. See
   [`docs/arch-shell.md`](../../docs/arch-shell.md) and
-  `src/shell/services/PluginRegistry.qml` for the current contract; fields such as
+  `src/arch/shell/services/PluginRegistry.qml` for the current contract; fields such as
   `activation` are optional.
 - Entry-point QML files are `Item`s (not `ShellRoot`), and accept the shell-injected properties `archPath`, `shell`, `manifest`, and `pluginRegistry` / `barWidgetRegistry` as appropriate. First-party plugins receive the host objects. Third-party plugins receive capability-scoped facades: ordinary plugins may look up and control only their own service and lifecycle, built-in clones retain narrow source-specific configuration and UI compatibility, menu plugins receive an application-library facade, and plugins can read detached scalar bar state; full-bar plugins additionally receive detached bar configuration and widget-catalog snapshots, narrow proxies for the non-authentication services used by built-in bar widgets, and lifecycle control over configured non-authentication UI plugins. Authentication capabilities must be stamped from trusted first-party manifests, and third-party registry views and bar configuration must be detached snapshots rather than shared objects. These facades reduce accidental authority but are not a same-process QML sandbox: a visual bar widget can walk its parent hierarchy to ordinary host objects. Authentication services must therefore remain outside both `ShellRoot._services` and the host QObject tree. Do not expose authentication services through new third-party-facing properties.
 - Panel / overlay / menu plugins must expose `open(payloadJson)` and
@@ -27,7 +27,7 @@ Run `arch-restart-shell` after making changes to QML files.
 
 ## IPC
 
-- `src/commands/arch-shell` is the canonical IPC entry point. It forwards to
+- `src/arch/commands/arch-shell` is the canonical IPC entry point. It forwards to
   the running shell and does not start it. Prefer it over re-implementing
   direct Quickshell socket calls in every CLI.
 - The `shell` IPC target exposes lifecycle and configuration methods including
@@ -52,7 +52,7 @@ Polling is the last resort, kept for state with no change signal at all (a remot
 
 ## Editing widget files with glyphs
 
-Widget files in `src/shell/plugins/bar/widgets/` contain Nerd Font glyphs as raw
+Widget files in `src/arch/shell/plugins/bar/widgets/` contain Nerd Font glyphs as raw
 unicode characters. Agent file-editing tools can strip multi-byte codepoints
 in some positions — do **not** rewrite widget files wholesale through those
 tools. For glyph fixes, make a targeted edit with the surrounding context, or

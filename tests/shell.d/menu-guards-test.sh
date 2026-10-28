@@ -5,7 +5,7 @@ set -euo pipefail
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 run_node_test <<'JS'
-const menu = requireFromRoot('src/shell/plugins/menu/MenuModel.js')
+const menu = requireFromRoot('src/arch/shell/plugins/menu/MenuModel.js')
 
 const items = {
   'setup.default.browser.brave': { id: 'setup.default.browser.brave', when: 'arch-pkg-present brave-bin', checked: '[[ "$(arch-default-browser)" == "brave" ]]' },
@@ -83,7 +83,7 @@ JS
 prelude() {
   node -e '
     const path = require("path")
-    const menu = require(path.join(process.env.ROOT, "src/shell/plugins/menu/MenuModel.js"))
+    const menu = require(path.join(process.env.ROOT, "src/arch/shell/plugins/menu/MenuModel.js"))
     process.stdout.write(menu.guardScript({ probe: { id: "probe", when: "true" } }))
   ' | command sed '/^__arch_groups=()$/,$d'
 }
@@ -144,7 +144,7 @@ assert_helper_agrees() {
   shift 2
 
   local real=0 shadowed=0
-  PATH="$stub_dir:$PATH" "$ROOT/src/commands/$helper" "$@" >/dev/null 2>&1 || real=$?
+  PATH="$stub_dir:$PATH" "$ROOT/src/arch/commands/$helper" "$@" >/dev/null 2>&1 || real=$?
   # No runtime dir, so the stub's set is built fresh rather than read from the
   # machine's stored one (or stored in its place).
   XDG_RUNTIME_DIR="" PATH="$stub_dir:$PATH" bash -c "$guard_prelude"$'\n'"$helper \"\$@\"" "$helper" "$@" >/dev/null 2>&1 || shadowed=$?
@@ -176,7 +176,7 @@ pass "guard prelude resolves commands as arch-cmd-present and arch-cmd-missing d
 # the substitution it stood in for -- including the trailing newline $() drops.
 reader_script=$(node -e '
   const path = require("path")
-  const menu = require(path.join(process.env.ROOT, "src/shell/plugins/menu/MenuModel.js"))
+  const menu = require(path.join(process.env.ROOT, "src/arch/shell/plugins/menu/MenuModel.js"))
   process.stdout.write(menu.guardScript({
     hit: { id: "hit", checked: "[[ \"$(arch-dns)\" == \"Cloudflare\" ]]" },
     miss: { id: "miss", checked: "[[ \"$(arch-dns)\" == \"Google\" ]]" }
@@ -211,7 +211,7 @@ pass "guard batch survives a reader that exits nonzero under errexit"
 themes_guard=$(node -e '
   const fs = require("fs")
   const path = require("path")
-  const menu = require(path.join(process.env.ROOT, "src/shell/plugins/menu/MenuModel.js"))
+  const menu = require(path.join(process.env.ROOT, "src/arch/shell/plugins/menu/MenuModel.js"))
   const items = menu.parseMenuJsonc(fs.readFileSync(path.join(process.env.ROOT, "default/arch/arch-menu.jsonc"), "utf8"))
   process.stdout.write(items.find(item => item.id === "update.themes").when)
 ')
@@ -232,8 +232,8 @@ assert_themes_guard_agrees() {
   local description="$1" home="$2" expected="$3"
   local guarded=0 updated=0
 
-  HOME="$home" PATH="$ROOT/src/commands:$PATH" bash -e -c "{ $themes_guard; } >/dev/null 2>&1" || guarded=$?
-  [[ -n $(HOME="$home" PATH="$ROOT/src/commands:$stub_dir:$PATH" "$ROOT/src/commands/arch-theme-update" 2>/dev/null) ]] || updated=1
+  HOME="$home" PATH="$ROOT/src/arch/commands:$PATH" bash -e -c "{ $themes_guard; } >/dev/null 2>&1" || guarded=$?
+  [[ -n $(HOME="$home" PATH="$ROOT/src/arch/commands:$stub_dir:$PATH" "$ROOT/src/arch/commands/arch-theme-update" 2>/dev/null) ]] || updated=1
   ((guarded == expected)) || fail "$description" "$home: guard=$guarded expected=$expected"
   ((updated == expected)) || fail "$description" "$home: update=$updated expected=$expected"
 }
@@ -267,15 +267,15 @@ many="$themes_home/many/.config/arch/themes"
 mkdir -p "$many/tokyo night/.git" "$many/zen/.git" "$many/handmade"
 ln -s "$themes_home/checkout" "$many/in-progress"
 
-listed=$(HOME="$themes_home/many" LC_ALL=C "$ROOT/src/commands/arch-theme-extras")
+listed=$(HOME="$themes_home/many" LC_ALL=C "$ROOT/src/arch/commands/arch-theme-extras")
 [[ $listed == "$many/tokyo night"$'\n'"$many/zen" ]] ||
   fail "arch-theme-extras lists every clone and nothing else" "got: $listed"
 pass "arch-theme-extras lists every clone and nothing else"
 
 git_calls=$(mktemp)
 trap 'rm -rf "$stub_dir" "$themes_home" "$git_calls"' EXIT
-HOME="$themes_home/many" LC_ALL=C GIT_CALLS="$git_calls" PATH="$ROOT/src/commands:$stub_dir:$PATH" \
-  "$ROOT/src/commands/arch-theme-update" >/dev/null 2>&1
+HOME="$themes_home/many" LC_ALL=C GIT_CALLS="$git_calls" PATH="$ROOT/src/arch/commands:$stub_dir:$PATH" \
+  "$ROOT/src/arch/commands/arch-theme-update" >/dev/null 2>&1
 pulled=$(<"$git_calls")
 [[ $pulled == "<-C><$many/tokyo night><pull>"$'\n'"<-C><$many/zen><pull>" ]] ||
   fail "arch-theme-update pulls each clone by its whole path" "got: $pulled"
@@ -323,7 +323,7 @@ chmod +x "$cache_bin/pacman" "$cache_bin/pacman-conf"
 
 cache_script=$(node -e '
   const path = require("path")
-  const menu = require(path.join(process.env.ROOT, "src/shell/plugins/menu/MenuModel.js"))
+  const menu = require(path.join(process.env.ROOT, "src/arch/shell/plugins/menu/MenuModel.js"))
   process.stdout.write(menu.guardScript({
     bash: { id: "bash", when: "arch-pkg-present bash" },
     vim: { id: "vim", when: "arch-pkg-present vim" },

@@ -9,7 +9,7 @@ import tempfile
 from base_test import ROOT, fail_check, pass_check, test_environment
 
 
-COMMAND = ROOT / "src/commands/arch-hyprland-window-tiled-fullscreen-toggle"
+COMMAND = ROOT / "src/arch/commands/arch-hyprland-window-tiled-fullscreen-toggle"
 MOCK_HYPRCTL = """#!/usr/bin/python3
 import json
 import os

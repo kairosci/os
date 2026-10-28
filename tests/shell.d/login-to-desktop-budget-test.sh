@@ -98,10 +98,10 @@ mkdir -p "$test_root" "$test_home" "$stub_bin"
 # shell's idle service would eventually screensave/lock the real desktop.
 mkdir -p "$test_home/.local/state/arch/indicators"
 touch "$test_home/.local/state/arch/indicators/stay-awake"
-mkdir -p "$test_root/src"
-cp -a "$ROOT/src/shell" "$test_root/src/shell"
+mkdir -p "$test_root/src/arch"
+cp -a "$ROOT/src/arch/shell" "$test_root/src/arch/shell"
 ln -s "$ROOT/config" "$test_root/config"
-ln -s "$ROOT/src/commands" "$test_root/src/commands"
+ln -s "$ROOT/src/arch/commands" "$test_root/src/arch/commands"
 ln -s "$ROOT/default" "$test_root/default"
 
 # The scratch shell must not reach the real session: the clipboard plugin
@@ -128,7 +128,7 @@ chmod +x "$stub_bin/bash"
 # The shell the launcher starts: found by its scratch config path.
 launcher_shell_pid() {
   local p
-  for p in $(pgrep -f "quickshell -n -p $test_root/src/shell" || true); do
+  for p in $(pgrep -f "quickshell -n -p $test_root/src/arch/shell" || true); do
     echo "$p"
     return 0
   done
@@ -157,8 +157,8 @@ cold_login_ms() {
   XDG_CONFIG_HOME="$test_home/.config" \
   XDG_CACHE_HOME="$test_home/.cache" \
   XDG_STATE_HOME="$test_home/.local/state" \
-  PATH="$stub_bin:$ROOT/src/commands:$PATH" \
-    setsid "$ROOT/src/commands/arch-launch-shell" >"$log" 2>&1 &
+  PATH="$stub_bin:$ROOT/src/arch/commands:$PATH" \
+    setsid "$ROOT/src/arch/commands/arch-launch-shell" >"$log" 2>&1 &
   LAUNCHER_PID=$!
 
   elapsed=""

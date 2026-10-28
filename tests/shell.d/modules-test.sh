@@ -10,7 +10,7 @@ trap 'rm -rf "$stage"' EXIT
 
 python3 "$ROOT/scripts/modules.py" validate
 python3 "$ROOT/scripts/modules.py" graph >"$stage/graph.json"
-python3 - "$stage/graph.json" "$ROOT/src/commands" "$ROOT/default" "$ROOT/etc" "$ROOT/config" <<'PY'
+python3 - "$stage/graph.json" "$ROOT/src/arch/commands" "$ROOT/default" "$ROOT/etc" "$ROOT/config" <<'PY'
 import json
 import re
 import sys
@@ -54,25 +54,25 @@ command_sources = {
     source for module_id, module in modules.items()
     if module_id.startswith("desktop.commands")
     for source in module["sources"]
-    if source.startswith(("src/commands/", "src/cli/"))
+    if source.startswith(("src/arch/commands/", "src/arch/cli/"))
 }
 cli_files = {
-    f"src/commands/{path.name}" for path in cli_directory.iterdir() if path.is_file()
+    f"src/arch/commands/{path.name}" for path in cli_directory.iterdir() if path.is_file()
 }
 python_cli_files = {
-    f"src/cli/{path.relative_to(cli_directory.parent / 'cli').as_posix()}"
+    f"src/arch/cli/{path.relative_to(cli_directory.parent / 'cli').as_posix()}"
     for path in (cli_directory.parent / "cli").rglob("*.py")
     if path.name != "__init__.py"
 }
 cli_files -= {
-    "src/commands/arch-debug",
-    "src/commands/arch-debug-idle",
-    "src/commands/arch-upload-log",
+    "src/arch/commands/arch-debug",
+    "src/arch/commands/arch-debug-idle",
+    "src/arch/commands/arch-upload-log",
 }
 expected_groups = {
-    f"desktop.commands.{source.removeprefix('src/commands/arch-').split('-', 1)[0]}"
+    f"desktop.commands.{source.removeprefix('src/arch/commands/arch-').split('-', 1)[0]}"
     for source in cli_files
-    if source != "src/commands/archctl"
+    if source != "src/arch/commands/archctl"
 }
 default_roots = Path(sys.argv[3])
 etc_roots = Path(sys.argv[4])
@@ -175,7 +175,7 @@ for module_id in command_modules:
     assert len(module["sources"]) == len(module["outputs"]), module_id
     for source, output in zip(module["sources"], module["outputs"]):
         assert output == [source, f"usr/share/arch/{source}"], (module_id, source, output)
-assert modules["desktop.commands"]["sources"] == ["src/commands/archctl"]
+assert modules["desktop.commands"]["sources"] == ["src/arch/commands/archctl"]
 PY
 pass "installation stages are declared as submodules of the shared installer contract"
 pass "settings, applications, and pre-install branding have independent module ownership"
@@ -249,7 +249,7 @@ python3 "$ROOT/scripts/modules.py" assemble --package arch --destination "$stage
 for path in installer; do
   diff -r --no-dereference "$ROOT/$path" "$stage/arch/usr/share/arch/$path"
 done
-python3 - "$ROOT/src/commands" "$stage/arch/usr/share/arch/src/commands" <<'PY'
+python3 - "$ROOT/src/arch/commands" "$stage/arch/usr/share/arch/src/arch/commands" <<'PY'
 import stat
 import sys
 from pathlib import Path

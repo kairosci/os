@@ -2,15 +2,15 @@ id = "desktop.commands.kernel"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-kernel",
-  "src/commands/arch-kernel-rebuild",
+  "src/arch/commands/arch-kernel",
+  "src/arch/commands/arch-kernel-rebuild",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-kernel"
-target = "usr/share/arch/src/commands/arch-kernel"
+source = "src/arch/commands/arch-kernel"
+target = "usr/share/arch/src/arch/commands/arch-kernel"
 
 [[output]]
-source = "src/commands/arch-kernel-rebuild"
-target = "usr/share/arch/src/commands/arch-kernel-rebuild"
+source = "src/arch/commands/arch-kernel-rebuild"
+target = "usr/share/arch/src/arch/commands/arch-kernel-rebuild"

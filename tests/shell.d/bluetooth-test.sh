@@ -6,8 +6,8 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 run_node_test <<'JS'
 const fs = require('fs')
-const bluetooth = requireFromRoot('src/shell/plugins/panels/bluetooth/Model.js')
-const panelSource = fs.readFileSync(root + '/src/shell/plugins/panels/bluetooth/Panel.qml', 'utf8')
+const bluetooth = requireFromRoot('src/arch/shell/plugins/panels/bluetooth/Model.js')
+const panelSource = fs.readFileSync(root + '/src/arch/shell/plugins/panels/bluetooth/Panel.qml', 'utf8')
 
 assert(/IpcHandler[\s\S]*?function toggleBluetooth\(\) \{ root\.toggleBluetooth\(\) \}/.test(panelSource), 'bluetooth exposes the radio toggle over IPC')
 assert(/manageIpc: false/.test(panelSource), 'bluetooth owns its IPC handler so it can extend the target methods')
@@ -179,21 +179,21 @@ SH
 
 chmod +x "$mock_bin/bluetoothctl" "$mock_bin/rfkill"
 
-# $ROOT/src/cli so arch-bluetooth-device resolves the real arch-bluetooth-power.
+# $ROOT/src/arch/cli so arch-bluetooth-device resolves the real arch-bluetooth-power.
 bluetooth_run() {
   local powered="$1"
   shift
 
   echo "$powered" >"$POWERED_FILE"
   : >"$device_tmp/log"
-  ARCH_PATH="$ROOT" PATH="$mock_bin:$ROOT/src/commands:$PATH" BLUETOOTHCTL_LOG="$device_tmp/log" \
+  ARCH_PATH="$ROOT" PATH="$mock_bin:$ROOT/src/arch/commands:$PATH" BLUETOOTHCTL_LOG="$device_tmp/log" \
     ARCH_BLUETOOTH_POWER_WAIT_SECONDS=0 "$@" ||
     fail "$* exits cleanly with Powered: $powered"
   printf '%s' "$device_tmp/log"
 }
 
 bluetooth_power() {
-  bluetooth_run "$1" "$ROOT/src/commands/arch-bluetooth-power" "$2"
+  bluetooth_run "$1" "$ROOT/src/arch/commands/arch-bluetooth-power" "$2"
 }
 
 # Off has to be the block. A bluetoothctl power off would read the same until the
@@ -237,7 +237,7 @@ pass "bluetooth toggles an unpowered adapter on"
 # The power-on shortcut is the whole point of skipping the stabilization sleep:
 # pair/connect from the panel run against an adapter that is already powered.
 bluetooth_device_log() {
-  bluetooth_run "$1" "$ROOT/src/commands/arch-bluetooth-device" connect AA:BB:CC:DD:EE:FF
+  bluetooth_run "$1" "$ROOT/src/arch/commands/arch-bluetooth-device" connect AA:BB:CC:DD:EE:FF
 }
 
 powered_log=$(bluetooth_device_log yes)
@@ -260,7 +260,7 @@ grep -qx "connect AA:BB:CC:DD:EE:FF" "$unpowered_log" ||
   fail "bluetooth connects once the adapter is up" "$(cat "$unpowered_log")"
 pass "bluetooth connects once the adapter is up"
 
-pair_log=$(bluetooth_run yes "$ROOT/src/commands/arch-bluetooth-device" pair AA:BB:CC:DD:EE:FF)
+pair_log=$(bluetooth_run yes "$ROOT/src/arch/commands/arch-bluetooth-device" pair AA:BB:CC:DD:EE:FF)
 grep -qx -- "--agent NoInputNoOutput pair AA:BB:CC:DD:EE:FF" "$pair_log" ||
   fail "bluetooth pairing registers a temporary agent for the user-requested device" "$(cat "$pair_log")"
 ! grep -Eq '^(trust|connect) AA:BB:CC:DD:EE:FF$' "$pair_log" ||
@@ -268,9 +268,9 @@ grep -qx -- "--agent NoInputNoOutput pair AA:BB:CC:DD:EE:FF" "$pair_log" ||
 pass "bluetooth pairs through a temporary agent and leaves trust/connect to BlueZ"
 
 : >"$device_tmp/log"
-if ARCH_PATH="$ROOT" PATH="$mock_bin:$ROOT/src/commands:$PATH" BLUETOOTHCTL_LOG="$device_tmp/log" POWERED_FILE="$POWERED_FILE" \
+if ARCH_PATH="$ROOT" PATH="$mock_bin:$ROOT/src/arch/commands:$PATH" BLUETOOTHCTL_LOG="$device_tmp/log" POWERED_FILE="$POWERED_FILE" \
   PAIR_FAIL=1 ARCH_BLUETOOTH_POWER_WAIT_SECONDS=0 \
-  "$ROOT/src/commands/arch-bluetooth-device" pair AA:BB:CC:DD:EE:FF; then
+  "$ROOT/src/arch/commands/arch-bluetooth-device" pair AA:BB:CC:DD:EE:FF; then
   fail "bluetooth reports a failed pairing"
 fi
 ! grep -Eq '^(trust|connect) AA:BB:CC:DD:EE:FF$' "$device_tmp/log" ||

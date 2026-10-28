@@ -2,15 +2,15 @@ id = "desktop.commands.tailscale"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-tailscale-receive",
-  "src/commands/arch-tailscale-send",
+  "src/arch/commands/arch-tailscale-receive",
+  "src/arch/commands/arch-tailscale-send",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-tailscale-receive"
-target = "usr/share/arch/src/commands/arch-tailscale-receive"
+source = "src/arch/commands/arch-tailscale-receive"
+target = "usr/share/arch/src/arch/commands/arch-tailscale-receive"
 
 [[output]]
-source = "src/commands/arch-tailscale-send"
-target = "usr/share/arch/src/commands/arch-tailscale-send"
+source = "src/arch/commands/arch-tailscale-send"
+target = "usr/share/arch/src/arch/commands/arch-tailscale-send"

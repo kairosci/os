@@ -49,19 +49,19 @@ focus_log="$test_tmp/focus"
 xdg_settings_browser="$test_tmp/xdg-settings-browser"
 HOME="$test_home" PATH="$mock_bin:$PATH" HYPRLAND_INSTANCE_SIGNATURE=test \
   ARCH_TEST_BROWSER_LAUNCH="$launch_log" ARCH_TEST_BROWSER_FOCUS="$focus_log" \
-  bash "$ROOT/src/commands/arch-launch-browser"
+  bash "$ROOT/src/arch/commands/arch-launch-browser"
 
 [[ ! -e $focus_log ]] || fail "browser launcher leaves a new window on the current workspace"
 
 HOME="$test_home" PATH="$mock_bin:$PATH" HYPRLAND_INSTANCE_SIGNATURE=test \
   ARCH_TEST_BROWSER_LAUNCH="$launch_log" ARCH_TEST_BROWSER_FOCUS="$focus_log" \
-  bash "$ROOT/src/commands/arch-launch-browser" --private
+  bash "$ROOT/src/arch/commands/arch-launch-browser" --private
 
 [[ ! -e $focus_log ]] || fail "private browser launcher leaves a new window on the current workspace"
 
 HOME="$test_home" PATH="$mock_bin:$PATH" HYPRLAND_INSTANCE_SIGNATURE=test \
   ARCH_TEST_BROWSER_LAUNCH="$launch_log" ARCH_TEST_BROWSER_FOCUS="$focus_log" \
-  bash "$ROOT/src/commands/arch-launch-browser" "https://example.tests/authorize"
+  bash "$ROOT/src/arch/commands/arch-launch-browser" "https://example.tests/authorize"
 
 grep -F 'https://example.tests/authorize' "$launch_log" >/dev/null || fail "browser launcher passes through the URL"
 grep -Fx '^chromium.*$' "$focus_log" >/dev/null || fail "browser launcher focuses the default browser window"
@@ -72,7 +72,7 @@ HOME="$test_home" PATH="$mock_bin:$PATH" HYPRLAND_INSTANCE_SIGNATURE=test \
   BROWSER=arch-launch-browser ARCH_TEST_XDG_SETTINGS_EMPTY=1 \
   ARCH_TEST_BROWSER_LAUNCH="$launch_log" ARCH_TEST_BROWSER_FOCUS="$focus_log" \
   ARCH_TEST_XDG_SETTINGS_BROWSER="$xdg_settings_browser" \
-  bash "$ROOT/src/commands/arch-launch-browser" "https://example.tests/fallback"
+  bash "$ROOT/src/arch/commands/arch-launch-browser" "https://example.tests/fallback"
 
 grep -F 'https://example.tests/fallback' "$launch_log" >/dev/null ||
   fail "browser launcher falls back to the HTTPS handler when xdg-settings is empty"
@@ -91,7 +91,7 @@ SH
 chmod +x "$mock_bin/arch-cmd-browser-handoff"
 
 HOME="$test_home" PATH="$mock_bin:$PATH" ARCH_TEST_BROWSER_LAUNCH="$launch_log" \
-  ARCH_TEST_BROWSER_FOCUS="$focus_log" bash "$ROOT/src/commands/arch-launch-browser" "https://example.tests/running"
+  ARCH_TEST_BROWSER_FOCUS="$focus_log" bash "$ROOT/src/arch/commands/arch-launch-browser" "https://example.tests/running"
 
 [[ ! -e $launch_log ]] || fail "browser launcher starts no browser when the running one takes the URL"
 pass "browser launcher hands a URL to the running browser"
@@ -106,7 +106,7 @@ chmod +x "$mock_bin/chromium"
 launch() {
   HOME="$test_home" PATH="$mock_bin:$PATH" ARCH_TEST_BROWSER_LAUNCH="$launch_log" \
     ARCH_TEST_BROWSER_FOCUS="$focus_log" ARCH_TEST_BROWSER_HELP="$help_log" \
-    bash "$ROOT/src/commands/arch-launch-browser" "$@"
+    bash "$ROOT/src/arch/commands/arch-launch-browser" "$@"
 }
 
 launch "https://example.tests/a--private-b"

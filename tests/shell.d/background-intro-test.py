@@ -11,7 +11,7 @@ import unittest
 from base_test import ROOT, test_environment
 
 
-MARKER_COMMAND = ROOT / "src/commands/arch-background-session-mark"
+MARKER_COMMAND = ROOT / "src/arch/commands/arch-background-session-mark"
 
 
 class BackgroundSessionMarkerTest(unittest.TestCase):

@@ -123,10 +123,10 @@ cc -shared -fPIC -O2 -o "$TMPDIR/exec-log.so" "$SHELL_TEST_DIR/fixtures/idle-she
 
 # A copy, so the test shell gets its own IPC socket and never answers for, or
 # replaces, the shell running the session.
-mkdir -p "$test_root/src"
-cp -a "$ROOT/src/shell" "$test_root/src/shell"
+mkdir -p "$test_root/src/arch"
+cp -a "$ROOT/src/arch/shell" "$test_root/src/arch/shell"
 ln -s "$ROOT/config" "$test_root/config"
-ln -s "$ROOT/src/commands" "$test_root/bin"
+ln -s "$ROOT/src/arch/commands" "$test_root/bin"
 ln -s "$ROOT/default" "$test_root/default"
 
 stub() {
@@ -174,17 +174,17 @@ HOME="$test_home" \
 XDG_CONFIG_HOME="$test_home/.config" \
 XDG_CACHE_HOME="$test_home/.cache" \
 XDG_STATE_HOME="$test_home/.local/state" \
-PATH="$stub_bin:$ROOT/src/commands:$PATH" \
+PATH="$stub_bin:$ROOT/src/arch/commands:$PATH" \
 ARCH_EXEC_LOG="$exec_log" \
 LD_PRELOAD="$TMPDIR/exec-log.so" \
 QS_DISABLE_FILE_WATCHER=1 \
 QS_NO_RELOAD_POPUP=1 \
-  quickshell -p "$test_root/src/shell" --no-color >"$log" 2>&1 &
+  quickshell -p "$test_root/src/arch/shell" --no-color >"$log" 2>&1 &
 QS_PID=$!
 
 ready=0
 for _ in {1..150}; do
-  if ARCH_PATH="$test_root" "$ROOT/src/commands/arch-shell" shell listPlugins 2>/dev/null | jq -e 'length > 0' >/dev/null 2>&1; then
+  if ARCH_PATH="$test_root" "$ROOT/src/arch/commands/arch-shell" shell listPlugins 2>/dev/null | jq -e 'length > 0' >/dev/null 2>&1; then
     ready=1
     break
   fi
@@ -250,7 +250,7 @@ allow() {
 # Which ones count is the widget's own call, so ask its model.
 keyboard_widget_polls() {
   hyprctl -j devices 2>/dev/null | ROOT="$ROOT" node -e '
-    const model = require(require("path").join(process.env.ROOT, "src/shell/plugins/bar/widgets/KeyboardLayoutModel.js"))
+    const model = require(require("path").join(process.env.ROOT, "src/arch/shell/plugins/bar/widgets/KeyboardLayoutModel.js"))
     let devices = {}
     try { devices = JSON.parse(require("fs").readFileSync(0, "utf8")) } catch (e) {}
     const typed = (devices.keyboards || []).filter(keyboard => model.isTypedKeyboard(keyboard.name))
@@ -267,7 +267,7 @@ add_allowances() {
 
   # wl-paste runs the capture script for each clipboard change, which another
   # program on the desktop can make at any moment.
-  allow '/src/shell/plugins/clipboard/capture\.sh ' "" "runs on each clipboard change"
+  allow '/src/arch/shell/plugins/clipboard/capture\.sh ' "" "runs on each clipboard change"
 
   # The keyboard layout widget, one per screen, asks every 10s while the seat
   # has more than one keyboard: Hyprland raises no event when a keyboard
@@ -283,7 +283,7 @@ add_allowances() {
   # Hyprland reports the screencast stopped whenever frames pause, and nothing
   # at all when the server exits.
   if pgrep -x -u "$(id -u)" gliff-server >/dev/null; then
-    allow '/src/shell/plugins/services/remote-session/probe\.py$' $(( IDLE_WINDOW / 2 + 1 )) \
+    allow '/src/arch/shell/plugins/services/remote-session/probe\.py$' $(( IDLE_WINDOW / 2 + 1 )) \
       "the remote session's 2s check while a session is active"
   fi
 

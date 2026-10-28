@@ -4,7 +4,7 @@ source "$(dirname "$0")/base-test.sh"
 run_node_test <<'JS'
 const fs = require('fs')
 
-const backgroundQml = fs.readFileSync(path.join(root, 'src/shell/plugins/background/Background.qml'), 'utf8')
+const backgroundQml = fs.readFileSync(path.join(root, 'src/arch/shell/plugins/background/Background.qml'), 'utf8')
 
 assert(
   /function openThemeSwitcher\(\) \{[\s\S]*if \(!root\.shell \|\| !root\.shell\.summon\("arch\.image-picker", payload\)\)\s*Util\.execArgv\(\["arch-shell", "shell", "summon", "arch\.image-picker", payload\]\)/.test(backgroundQml) &&
@@ -20,7 +20,7 @@ assert(
   'background theme transition applies pending colors even if image reveal stalls'
 )
 
-const themeSet = fs.readFileSync(path.join(root, 'src/commands/arch-theme-set'), 'utf8')
+const themeSet = fs.readFileSync(path.join(root, 'src/arch/commands/arch-theme-set'), 'utf8')
 
 // The next background decodes while the theme stages, rather than after the
 // transition arrives: WebP decodes take as long at screen size as at native.
@@ -47,7 +47,7 @@ assert(
 // The wallpaper is decoded at the screen's physical size, never at the size
 // it was shipped at, unless it is smaller than the screen: then it is decoded
 // at its own size instead of being scaled up to cover the screen.
-const mediaQml = fs.readFileSync(path.join(root, 'src/shell/Ui/BackgroundMedia.qml'), 'utf8')
+const mediaQml = fs.readFileSync(path.join(root, 'src/arch/shell/Ui/BackgroundMedia.qml'), 'utf8')
 assert(
   backgroundQml.includes('readonly property bool sized: width > 0 && height > 0') &&
     backgroundQml.includes('readonly property int decodeWidth: sized ? Math.ceil(width * screen.devicePixelRatio) : 0') &&

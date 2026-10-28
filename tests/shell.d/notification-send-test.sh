@@ -26,7 +26,7 @@ tripwire="$tmpdir/notify-send-was-used"
 
 send() {
   ARCH_TEST_BUSCTL_ARGS="$args_file" ARCH_TEST_NOTIFY_TRIPWIRE="$tripwire" \
-    PATH="$tmpdir:$ROOT/src/commands:$PATH" arch-notification-send "$@"
+    PATH="$tmpdir:$ROOT/src/arch/commands:$PATH" arch-notification-send "$@"
 }
 
 # Notify(susssasa{sv}i) args, by position in the recorded busctl argv:

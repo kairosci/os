@@ -2,115 +2,115 @@ id = "desktop.commands.launch"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-launch-1password",
-  "src/commands/arch-launch-about",
-  "src/commands/arch-launch-battlenet",
-  "src/commands/arch-launch-browser",
-  "src/commands/arch-launch-config-editor",
-  "src/commands/arch-launch-discord-community",
-  "src/commands/arch-launch-docker-tui",
-  "src/commands/arch-launch-editor",
-  "src/commands/arch-launch-terminal-with-presentation",
-  "src/commands/arch-launch-nautilus",
-  "src/commands/arch-launch-nautilus-cwd",
-  "src/commands/arch-launch-or-focus",
-  "src/commands/arch-launch-or-focus-tui",
-  "src/commands/arch-launch-or-focus-webapp",
-  "src/commands/arch-launch-screensaver",
-  "src/commands/arch-launch-shell",
-  "src/commands/arch-launch-signal",
-  "src/commands/arch-launch-spotify",
-  "src/commands/arch-launch-terminal",
-  "src/commands/arch-launch-terminal-tmux",
-  "src/commands/arch-launch-tui",
-  "src/commands/arch-launch-webapp",
+  "src/arch/commands/arch-launch-1password",
+  "src/arch/commands/arch-launch-about",
+  "src/arch/commands/arch-launch-battlenet",
+  "src/arch/commands/arch-launch-browser",
+  "src/arch/commands/arch-launch-config-editor",
+  "src/arch/commands/arch-launch-discord-community",
+  "src/arch/commands/arch-launch-docker-tui",
+  "src/arch/commands/arch-launch-editor",
+  "src/arch/commands/arch-launch-terminal-with-presentation",
+  "src/arch/commands/arch-launch-nautilus",
+  "src/arch/commands/arch-launch-nautilus-cwd",
+  "src/arch/commands/arch-launch-or-focus",
+  "src/arch/commands/arch-launch-or-focus-tui",
+  "src/arch/commands/arch-launch-or-focus-webapp",
+  "src/arch/commands/arch-launch-screensaver",
+  "src/arch/commands/arch-launch-shell",
+  "src/arch/commands/arch-launch-signal",
+  "src/arch/commands/arch-launch-spotify",
+  "src/arch/commands/arch-launch-terminal",
+  "src/arch/commands/arch-launch-terminal-tmux",
+  "src/arch/commands/arch-launch-tui",
+  "src/arch/commands/arch-launch-webapp",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-launch-1password"
-target = "usr/share/arch/src/commands/arch-launch-1password"
+source = "src/arch/commands/arch-launch-1password"
+target = "usr/share/arch/src/arch/commands/arch-launch-1password"
 
 [[output]]
-source = "src/commands/arch-launch-about"
-target = "usr/share/arch/src/commands/arch-launch-about"
+source = "src/arch/commands/arch-launch-about"
+target = "usr/share/arch/src/arch/commands/arch-launch-about"
 
 [[output]]
-source = "src/commands/arch-launch-battlenet"
-target = "usr/share/arch/src/commands/arch-launch-battlenet"
+source = "src/arch/commands/arch-launch-battlenet"
+target = "usr/share/arch/src/arch/commands/arch-launch-battlenet"
 
 [[output]]
-source = "src/commands/arch-launch-browser"
-target = "usr/share/arch/src/commands/arch-launch-browser"
+source = "src/arch/commands/arch-launch-browser"
+target = "usr/share/arch/src/arch/commands/arch-launch-browser"
 
 [[output]]
-source = "src/commands/arch-launch-config-editor"
-target = "usr/share/arch/src/commands/arch-launch-config-editor"
+source = "src/arch/commands/arch-launch-config-editor"
+target = "usr/share/arch/src/arch/commands/arch-launch-config-editor"
 
 [[output]]
-source = "src/commands/arch-launch-discord-community"
-target = "usr/share/arch/src/commands/arch-launch-discord-community"
+source = "src/arch/commands/arch-launch-discord-community"
+target = "usr/share/arch/src/arch/commands/arch-launch-discord-community"
 
 [[output]]
-source = "src/commands/arch-launch-docker-tui"
-target = "usr/share/arch/src/commands/arch-launch-docker-tui"
+source = "src/arch/commands/arch-launch-docker-tui"
+target = "usr/share/arch/src/arch/commands/arch-launch-docker-tui"
 
 [[output]]
-source = "src/commands/arch-launch-editor"
-target = "usr/share/arch/src/commands/arch-launch-editor"
+source = "src/arch/commands/arch-launch-editor"
+target = "usr/share/arch/src/arch/commands/arch-launch-editor"
 
 [[output]]
-source = "src/commands/arch-launch-terminal-with-presentation"
-target = "usr/share/arch/src/commands/arch-launch-terminal-with-presentation"
+source = "src/arch/commands/arch-launch-terminal-with-presentation"
+target = "usr/share/arch/src/arch/commands/arch-launch-terminal-with-presentation"
 
 [[output]]
-source = "src/commands/arch-launch-nautilus"
-target = "usr/share/arch/src/commands/arch-launch-nautilus"
+source = "src/arch/commands/arch-launch-nautilus"
+target = "usr/share/arch/src/arch/commands/arch-launch-nautilus"
 
 [[output]]
-source = "src/commands/arch-launch-nautilus-cwd"
-target = "usr/share/arch/src/commands/arch-launch-nautilus-cwd"
+source = "src/arch/commands/arch-launch-nautilus-cwd"
+target = "usr/share/arch/src/arch/commands/arch-launch-nautilus-cwd"
 
 [[output]]
-source = "src/commands/arch-launch-or-focus"
-target = "usr/share/arch/src/commands/arch-launch-or-focus"
+source = "src/arch/commands/arch-launch-or-focus"
+target = "usr/share/arch/src/arch/commands/arch-launch-or-focus"
 
 [[output]]
-source = "src/commands/arch-launch-or-focus-tui"
-target = "usr/share/arch/src/commands/arch-launch-or-focus-tui"
+source = "src/arch/commands/arch-launch-or-focus-tui"
+target = "usr/share/arch/src/arch/commands/arch-launch-or-focus-tui"
 
 [[output]]
-source = "src/commands/arch-launch-or-focus-webapp"
-target = "usr/share/arch/src/commands/arch-launch-or-focus-webapp"
+source = "src/arch/commands/arch-launch-or-focus-webapp"
+target = "usr/share/arch/src/arch/commands/arch-launch-or-focus-webapp"
 
 [[output]]
-source = "src/commands/arch-launch-screensaver"
-target = "usr/share/arch/src/commands/arch-launch-screensaver"
+source = "src/arch/commands/arch-launch-screensaver"
+target = "usr/share/arch/src/arch/commands/arch-launch-screensaver"
 
 [[output]]
-source = "src/commands/arch-launch-shell"
-target = "usr/share/arch/src/commands/arch-launch-shell"
+source = "src/arch/commands/arch-launch-shell"
+target = "usr/share/arch/src/arch/commands/arch-launch-shell"
 
 [[output]]
-source = "src/commands/arch-launch-signal"
-target = "usr/share/arch/src/commands/arch-launch-signal"
+source = "src/arch/commands/arch-launch-signal"
+target = "usr/share/arch/src/arch/commands/arch-launch-signal"
 
 [[output]]
-source = "src/commands/arch-launch-spotify"
-target = "usr/share/arch/src/commands/arch-launch-spotify"
+source = "src/arch/commands/arch-launch-spotify"
+target = "usr/share/arch/src/arch/commands/arch-launch-spotify"
 
 [[output]]
-source = "src/commands/arch-launch-terminal"
-target = "usr/share/arch/src/commands/arch-launch-terminal"
+source = "src/arch/commands/arch-launch-terminal"
+target = "usr/share/arch/src/arch/commands/arch-launch-terminal"
 
 [[output]]
-source = "src/commands/arch-launch-terminal-tmux"
-target = "usr/share/arch/src/commands/arch-launch-terminal-tmux"
+source = "src/arch/commands/arch-launch-terminal-tmux"
+target = "usr/share/arch/src/arch/commands/arch-launch-terminal-tmux"
 
 [[output]]
-source = "src/commands/arch-launch-tui"
-target = "usr/share/arch/src/commands/arch-launch-tui"
+source = "src/arch/commands/arch-launch-tui"
+target = "usr/share/arch/src/arch/commands/arch-launch-tui"
 
 [[output]]
-source = "src/commands/arch-launch-webapp"
-target = "usr/share/arch/src/commands/arch-launch-webapp"
+source = "src/arch/commands/arch-launch-webapp"
+target = "usr/share/arch/src/arch/commands/arch-launch-webapp"

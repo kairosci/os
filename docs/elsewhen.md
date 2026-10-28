@@ -1,6 +1,6 @@
 # Elsewhen
 
-A world clock for the Arch shell: a globe in the bar that opens a panel of clocks, one row per city, with a spinnable globe behind it. It lives in `src/shell/plugins/panels/elsewhen/` under the plugin id `arch.elsewhen`, and file names below are relative to that directory. Its checks live in `tests/shell.d/elsewhen/` and run as part of `./tests/shell` through `tests/shell.d/elsewhen-test.sh`.
+A world clock for the Arch shell: a globe in the bar that opens a panel of clocks, one row per city, with a spinnable globe behind it. It lives in `src/arch/shell/plugins/panels/elsewhen/` under the plugin id `arch.elsewhen`, and file names below are relative to that directory. Its checks live in `tests/shell.d/elsewhen/` and run as part of `./tests/shell` through `tests/shell.d/elsewhen-test.sh`.
 
 Everything it needs is already on an Arch install: `date` and `timedatectl` for zone offsets, `curl` for weather and places, and `jq` for reading GitHub profiles. The network is touched for three things only: [Open-Meteo](https://open-meteo.com) geocoding and forecasts, without an API key, and the public GitHub profile of anyone added to a city by handle. The globe's coastlines are [Natural Earth](https://www.naturalearthdata.com) 110m (public domain), shipped as `world.json`. Settings live inline on the widget's `shell.json` entry; see [Settings](#settings).
 

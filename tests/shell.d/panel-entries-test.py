@@ -7,7 +7,7 @@ import re
 from base_test import ROOT, fail_check, pass_check
 
 
-shell_qml = (ROOT / "src/shell/shell.qml").read_text(encoding="utf-8")
+shell_qml = (ROOT / "src/arch/shell/shell.qml").read_text(encoding="utf-8")
 if not re.search(r"Instantiator \{\s*model: panelEntryModel", shell_qml) or "panelEntries" in shell_qml:
   fail_check("panel loaders come from a model synced in place, not a reassigned array")
 pass_check("panel loaders come from a model synced in place, not a reassigned array")

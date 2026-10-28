@@ -11,7 +11,7 @@ from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[2]
 spec = importlib.util.spec_from_file_location(
-  "default_keyring_setup", ROOT / "src/python/installer_user/setup/default_keyring.py"
+  "default_keyring_setup", ROOT / "src/arch/python/installer_user/setup/default_keyring.py"
 )
 setup = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(setup)

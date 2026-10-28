@@ -37,125 +37,125 @@ sources = [
 requires = ["desktop.commands", "system.runtime-data"]
 
 [[output]]
-source = "src/commands/arch-theme-bg-cache"
-target = "usr/share/arch/src/commands/arch-theme-bg-cache"
+source = "src/arch/commands/arch-theme-bg-cache"
+target = "usr/share/arch/src/arch/commands/arch-theme-bg-cache"
 
 [[output]]
-source = "src/commands/arch-theme-bg-current"
-target = "usr/share/arch/src/commands/arch-theme-bg-current"
+source = "src/arch/commands/arch-theme-bg-current"
+target = "usr/share/arch/src/arch/commands/arch-theme-bg-current"
 
 [[output]]
-source = "src/commands/arch-theme-bg-install"
-target = "usr/share/arch/src/commands/arch-theme-bg-install"
+source = "src/arch/commands/arch-theme-bg-install"
+target = "usr/share/arch/src/arch/commands/arch-theme-bg-install"
 
 [[output]]
-source = "src/commands/arch-theme-bg-next"
-target = "usr/share/arch/src/commands/arch-theme-bg-next"
+source = "src/arch/commands/arch-theme-bg-next"
+target = "usr/share/arch/src/arch/commands/arch-theme-bg-next"
 
 [[output]]
-source = "src/commands/arch-theme-bg-set"
-target = "usr/share/arch/src/commands/arch-theme-bg-set"
+source = "src/arch/commands/arch-theme-bg-set"
+target = "usr/share/arch/src/arch/commands/arch-theme-bg-set"
 
 [[output]]
-source = "src/commands/arch-theme-bg-switcher"
-target = "usr/share/arch/src/commands/arch-theme-bg-switcher"
+source = "src/arch/commands/arch-theme-bg-switcher"
+target = "usr/share/arch/src/arch/commands/arch-theme-bg-switcher"
 
 [[output]]
-source = "src/commands/arch-theme-color"
-target = "usr/share/arch/src/commands/arch-theme-color"
+source = "src/arch/commands/arch-theme-color"
+target = "usr/share/arch/src/arch/commands/arch-theme-color"
 
 [[output]]
-source = "src/commands/arch-theme-colors-from-alacritty"
-target = "usr/share/arch/src/commands/arch-theme-colors-from-alacritty"
+source = "src/arch/commands/arch-theme-colors-from-alacritty"
+target = "usr/share/arch/src/arch/commands/arch-theme-colors-from-alacritty"
 
 [[output]]
-source = "src/commands/arch-theme-current"
-target = "usr/share/arch/src/commands/arch-theme-current"
+source = "src/arch/commands/arch-theme-current"
+target = "usr/share/arch/src/arch/commands/arch-theme-current"
 
 [[output]]
-source = "src/commands/arch-theme-dir"
-target = "usr/share/arch/src/commands/arch-theme-dir"
+source = "src/arch/commands/arch-theme-dir"
+target = "usr/share/arch/src/arch/commands/arch-theme-dir"
 
 [[output]]
-source = "src/commands/arch-theme-extras"
-target = "usr/share/arch/src/commands/arch-theme-extras"
+source = "src/arch/commands/arch-theme-extras"
+target = "usr/share/arch/src/arch/commands/arch-theme-extras"
 
 [[output]]
-source = "src/commands/arch-theme-install"
-target = "usr/share/arch/src/commands/arch-theme-install"
+source = "src/arch/commands/arch-theme-install"
+target = "usr/share/arch/src/arch/commands/arch-theme-install"
 
 [[output]]
-source = "src/commands/arch-theme-list"
-target = "usr/share/arch/src/commands/arch-theme-list"
+source = "src/arch/commands/arch-theme-list"
+target = "usr/share/arch/src/arch/commands/arch-theme-list"
 
 [[output]]
-source = "src/commands/arch-theme-osc"
-target = "usr/share/arch/src/commands/arch-theme-osc"
+source = "src/arch/commands/arch-theme-osc"
+target = "usr/share/arch/src/arch/commands/arch-theme-osc"
 
 [[output]]
-source = "src/commands/arch-theme-refresh"
-target = "usr/share/arch/src/commands/arch-theme-refresh"
+source = "src/arch/commands/arch-theme-refresh"
+target = "usr/share/arch/src/arch/commands/arch-theme-refresh"
 
 [[output]]
-source = "src/commands/arch-theme-remove"
-target = "usr/share/arch/src/commands/arch-theme-remove"
+source = "src/arch/commands/arch-theme-remove"
+target = "usr/share/arch/src/arch/commands/arch-theme-remove"
 
 [[output]]
-source = "src/commands/arch-theme-set"
-target = "usr/share/arch/src/commands/arch-theme-set"
+source = "src/arch/commands/arch-theme-set"
+target = "usr/share/arch/src/arch/commands/arch-theme-set"
 
 [[output]]
-source = "src/commands/arch-theme-set-browser"
-target = "usr/share/arch/src/commands/arch-theme-set-browser"
+source = "src/arch/commands/arch-theme-set-browser"
+target = "usr/share/arch/src/arch/commands/arch-theme-set-browser"
 
 [[output]]
-source = "src/commands/arch-theme-set-browser-policy"
-target = "usr/share/arch/src/commands/arch-theme-set-browser-policy"
+source = "src/arch/commands/arch-theme-set-browser-policy"
+target = "usr/share/arch/src/arch/commands/arch-theme-set-browser-policy"
 
 [[output]]
-source = "src/commands/arch-theme-set-fcitx5"
-target = "usr/share/arch/src/commands/arch-theme-set-fcitx5"
+source = "src/arch/commands/arch-theme-set-fcitx5"
+target = "usr/share/arch/src/arch/commands/arch-theme-set-fcitx5"
 
 [[output]]
-source = "src/commands/arch-theme-set-foot"
-target = "usr/share/arch/src/commands/arch-theme-set-foot"
+source = "src/arch/commands/arch-theme-set-foot"
+target = "usr/share/arch/src/arch/commands/arch-theme-set-foot"
 
 [[output]]
-source = "src/commands/arch-theme-set-glass"
-target = "usr/share/arch/src/commands/arch-theme-set-glass"
+source = "src/arch/commands/arch-theme-set-glass"
+target = "usr/share/arch/src/arch/commands/arch-theme-set-glass"
 
 [[output]]
-source = "src/commands/arch-theme-set-gnome"
-target = "usr/share/arch/src/commands/arch-theme-set-gnome"
+source = "src/arch/commands/arch-theme-set-gnome"
+target = "usr/share/arch/src/arch/commands/arch-theme-set-gnome"
 
 [[output]]
-source = "src/commands/arch-theme-set-hunk"
-target = "usr/share/arch/src/commands/arch-theme-set-hunk"
+source = "src/arch/commands/arch-theme-set-hunk"
+target = "usr/share/arch/src/arch/commands/arch-theme-set-hunk"
 
 [[output]]
 source = "src/commands/arch-theme-set-obsidian"
 target = "usr/share/arch/src/commands/arch-theme-set-obsidian"
 
 [[output]]
-source = "src/commands/arch-theme-set-templates"
-target = "usr/share/arch/src/commands/arch-theme-set-templates"
+source = "src/arch/commands/arch-theme-set-templates"
+target = "usr/share/arch/src/arch/commands/arch-theme-set-templates"
 
 [[output]]
-source = "src/commands/arch-theme-set-tmux"
-target = "usr/share/arch/src/commands/arch-theme-set-tmux"
+source = "src/arch/commands/arch-theme-set-tmux"
+target = "usr/share/arch/src/arch/commands/arch-theme-set-tmux"
 
 [[output]]
-source = "src/commands/arch-theme-set-vscode"
-target = "usr/share/arch/src/commands/arch-theme-set-vscode"
+source = "src/arch/commands/arch-theme-set-vscode"
+target = "usr/share/arch/src/arch/commands/arch-theme-set-vscode"
 
 [[output]]
-source = "src/commands/arch-theme-switcher"
-target = "usr/share/arch/src/commands/arch-theme-switcher"
+source = "src/arch/commands/arch-theme-switcher"
+target = "usr/share/arch/src/arch/commands/arch-theme-switcher"
 
 [[output]]
-source = "src/commands/arch-theme-update"
-target = "usr/share/arch/src/commands/arch-theme-update"
+source = "src/arch/commands/arch-theme-update"
+target = "usr/share/arch/src/arch/commands/arch-theme-update"
 
 [[output]]
-source = "src/cli/theme/info.py"
-target = "usr/share/arch/src/cli/theme/info.py"
+source = "src/arch/cli/theme/info.py"
+target = "usr/share/arch/src/arch/cli/theme/info.py"

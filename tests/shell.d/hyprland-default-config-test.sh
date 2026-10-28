@@ -9,7 +9,7 @@ grep -Fqx 'hl.env("ARCH_PATH", paths.arch_path)' "$env_defaults" || fail "Hyprla
 [[ $(grep -Fc 'hl.env("ARCH_PATH"' "$env_defaults") == 1 ]] || fail "Hyprland does not clear the runtime path after setting it"
 pass "Hyprland keeps ARCH_PATH available to the shell and localized catalogs"
 
-hypr_path=$(ARCH_PATH="$ROOT" PATH="$ROOT/src/commands:/usr/bin" lua <<'LUA'
+hypr_path=$(ARCH_PATH="$ROOT" PATH="$ROOT/src/arch/commands:/usr/bin" lua <<'LUA'
 package.path = os.getenv("ARCH_PATH") .. "/?.lua;" .. package.path
 require("default.hypr.helpers")
 o.shell_succeeds = function() return false end
@@ -22,7 +22,7 @@ hl = {
 require("default.hypr.envs")
 LUA
 )
-[[ ${hypr_path%%:*} == "$ROOT/src/commands" && $(tr ':' '\n' <<<"$hypr_path" | grep -Fxc "$ROOT/src/commands") == 1 ]] ||
+[[ ${hypr_path%%:*} == "$ROOT/src/arch/commands" && $(tr ':' '\n' <<<"$hypr_path" | grep -Fxc "$ROOT/src/arch/commands") == 1 ]] ||
   fail "Hyprland PATH resolves the checkout CLI once" "actual PATH: $hypr_path"
 pass "Hyprland PATH resolves the checkout CLI without duplication"
 

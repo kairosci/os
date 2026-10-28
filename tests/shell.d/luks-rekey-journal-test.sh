@@ -26,7 +26,7 @@ platform=x86
 # for x86 only where no boot package is registered.
 platforms=(x86 apple)
 if (( EUID == 0 )); then
-  if [[ $("$ROOT/src/commands/arch-hw-platform") == "aarch64-apple" ]]; then
+  if [[ $("$ROOT/src/arch/commands/arch-hw-platform") == "aarch64-apple" ]]; then
     skip "running as root on Apple Silicon, where dispatch ignores fixtures; skipping"
     exit 0
   fi
@@ -85,14 +85,14 @@ owner_password=owner-password
 sed -n '/^PROVISIONING_UNLOCK_FILES=(/,/^)/p; /^UNLOCK_OWNER=/p; /^limine_auto_unlock_present() {/,/^}/p; /^limine_auto_unlock_drop() {/,/^}/p
   /^unlock_owner() {/,/^}/p; /^luks_auto_unlock_present() {/,/^}/p; /^luks_auto_unlock_drop() {/,/^}/p
   /^luks_record_slots() {/,/^}/p' \
-  "$ROOT/src/commands/arch-provision-owner" | sed "s|/etc/|$tmp/etc/|g" >"$tmp/unlock.sh"
+  "$ROOT/src/arch/commands/arch-provision-owner" | sed "s|/etc/|$tmp/etc/|g" >"$tmp/unlock.sh"
 grep -q '^luks_auto_unlock_drop() {' "$tmp/unlock.sh" && grep -q '^limine_auto_unlock_drop() {' "$tmp/unlock.sh" &&
   grep -q '^luks_record_slots() {' "$tmp/unlock.sh" ||
   fail "arch-provision-owner defines the dispatched and Limine auto-unlock callbacks and the slot record"
 sed -n '/^rekey_luks() {/,/^}/p; /^run_provisioning() {/,/^}/p; /^cleanup_oem_state() {/,/^}/p
   /^platform_ready() {/,/^}/p; /^run_setup() {/,/^}/p
   /^rekey_accepts_password() {/,/^}/p' \
-  "$ROOT/src/commands/arch-provision-owner" |
+  "$ROOT/src/arch/commands/arch-provision-owner" |
   sed "s|/etc/|$tmp/etc/|g" >"$tmp/provision.sh"
 grep -q '^run_provisioning() {' "$tmp/provision.sh" && grep -q '^run_setup() {' "$tmp/provision.sh" ||
   fail "arch-provision-owner defines its setup and provisioning worker"
@@ -102,7 +102,7 @@ set -euo pipefail
 
 source "$ROOT/installer/provisioning/luks-rekey.sh"
 source "$TMP/unlock.sh"
-source <(sed -n '/^luks_boot_layout() {/,/^}/p' "$ROOT/src/commands/arch-provision-owner" | sed "s|/etc/|$TMP/etc/|g")
+source <(sed -n '/^luks_boot_layout() {/,/^}/p' "$ROOT/src/arch/commands/arch-provision-owner" | sed "s|/etc/|$TMP/etc/|g")
 declare -F luks_boot_layout >/dev/null
 
 PROVISIONING_DIR=$TMP/provisioning
@@ -866,13 +866,13 @@ fi
 
 # A boot package that implements only one of the commit/verify pair owns
 # nothing: provisioning fails closed rather than mixing it with the Limine path.
-mkdir -p "$tmp/half/src/commands"
-cat >"$tmp/half/src/commands/arch-lifecycle-dispatch" <<SH
+mkdir -p "$tmp/half/src/arch/commands"
+cat >"$tmp/half/src/arch/commands/arch-lifecycle-dispatch" <<SH
 #!/bin/bash
 echo "\$*" >>"$tmp/half-ran"
 [[ \$* != "--resolve provision-commit" ]] || echo /usr/lib/arch/mac-boot/provision-commit
 SH
-chmod +x "$tmp/half/src/commands/arch-lifecycle-dispatch"
+chmod +x "$tmp/half/src/arch/commands/arch-lifecycle-dispatch"
 runtime=$tmp/half
 fixture
 rm -f "$tmp/limine-ran" "$tmp/half-ran"

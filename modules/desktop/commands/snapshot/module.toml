@@ -2,10 +2,10 @@ id = "desktop.commands.snapshot"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-snapshot",
+  "src/arch/commands/arch-snapshot",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-snapshot"
-target = "usr/share/arch/src/commands/arch-snapshot"
+source = "src/arch/commands/arch-snapshot"
+target = "usr/share/arch/src/arch/commands/arch-snapshot"

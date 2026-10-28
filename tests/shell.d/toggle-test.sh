@@ -6,7 +6,7 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 TMPDIR=""
 
-export PATH="$ROOT/src/commands:$PATH"
+export PATH="$ROOT/src/arch/commands:$PATH"
 
 cleanup() {
   if [[ -n $TMPDIR && -d $TMPDIR ]]; then
@@ -104,7 +104,7 @@ for virt in vm none; do
   printf '#!/bin/bash\n[[ %s == vm ]]\n' "$virt" >"$stub_bin/arch-hw-vm"
   chmod +x "$stub_bin/arch-hw-vm"
   HOME="$test_home" ARCH_PATH="$ROOT" PATH="$stub_bin:$PATH" \
-    python3 -I "$ROOT/src/python/installer_user/setup/vm.py" >/dev/null
+    python3 -I "$ROOT/src/arch/python/installer_user/setup/vm.py" >/dev/null
   if [[ $virt == "vm" ]]; then
     [[ -f $animations_flag ]] || fail "a VM install turns animations off"
     [[ -f ${animations_flag%/*}/window-opaque.lua ]] || fail "a VM install starts with opaque windows"

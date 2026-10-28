@@ -71,7 +71,7 @@ chmod +x "$stub_bin"/*
 export PATH="$stub_bin:$PATH"
 
 {
-  sed -n '/^keyboard_form() {/,/^}/p; /^keyboard_xkb_settings() {/,/^}/p; /^apply_keyboard() {/,/^}/p' "$ROOT/src/commands/arch-provision-owner"
+  sed -n '/^keyboard_form() {/,/^}/p; /^keyboard_xkb_settings() {/,/^}/p; /^apply_keyboard() {/,/^}/p' "$ROOT/src/arch/commands/arch-provision-owner"
   sed -n '/^arch_persist_input_selection() {/,/^}/p' "$ROOT/installer/provisioning/setup-form.sh"
 } | sed "s|/etc/|$root/etc/|g" >"$tmp/keyboard.sh"
 grep -q '^keyboard_form() {' "$tmp/keyboard.sh" && grep -q '^apply_keyboard() {' "$tmp/keyboard.sh" ||
@@ -304,7 +304,7 @@ form || status=$?
   fail "the keyboard step gives up after three failures, and says so" "$(cat "$tmp/screen")"
 ! grep -q 'password form' "$tmp/screen" || fail "a layout that can never be set never reaches the password form" "$(cat "$tmp/screen")"
 grep -q 'no keyboard layout could be set after 3 attempts' "$tmp/log" || fail "the log records giving up" "$(cat "$tmp/log")"
-sed -n '/^run_setup() {/,/^}/p' "$ROOT/src/commands/arch-provision-owner" | grep -qx '    keyboard_form || return 1' ||
+sed -n '/^run_setup() {/,/^}/p' "$ROOT/src/arch/commands/arch-provision-owner" | grep -qx '    keyboard_form || return 1' ||
   fail "a failed keyboard step fails the setup attempt, which offers retry or a console"
 pass "a machine that can't set any layout fails the attempt after three tries, reaching setup's retry-or-console screen"
 

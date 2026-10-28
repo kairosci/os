@@ -4,7 +4,7 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-match="$ROOT/src/commands/arch-hw-match-device-tree"
+match="$ROOT/src/arch/commands/arch-hw-match-device-tree"
 test_tmp=$(mktemp -d)
 trap 'rm -rf "$test_tmp"' EXIT
 

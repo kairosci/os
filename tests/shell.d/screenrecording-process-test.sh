@@ -2,7 +2,7 @@
 set -euo pipefail
 source "$(dirname "$0")/base-test.sh"
 
-SCRIPT="$ROOT/src/commands/arch-capture-screenrecording-process"
+SCRIPT="$ROOT/src/arch/commands/arch-capture-screenrecording-process"
 
 tmp=$(mktemp -d)
 cleanup() {
@@ -186,9 +186,9 @@ else
   skip "the real pgrep finds and signals both recorders by name (needs Linux /proc)"
 fi
 
-grep -Fq '["arch-capture-screenrecording", "--status"]' "$ROOT/src/shell/plugins/bar/indicators/ScreenRecording.qml" ||
+grep -Fq '["arch-capture-screenrecording", "--status"]' "$ROOT/src/arch/shell/plugins/bar/indicators/ScreenRecording.qml" ||
   fail "the bar recording indicator asks the recorder script, which stop also uses"
-! grep -Fq 'gpu-screen-recorder' "$ROOT/src/shell/plugins/bar/indicators/ScreenRecording.qml" ||
+! grep -Fq 'gpu-screen-recorder' "$ROOT/src/arch/shell/plugins/bar/indicators/ScreenRecording.qml" ||
   fail "the bar recording indicator still greps gpu-screen-recorder"
 grep -Fq '"when":"arch-capture-screenrecording --status"' "$ROOT/default/arch/arch-menu.jsonc" ||
   fail "Stop Screenrecording asks the recorder script, which its action also uses"

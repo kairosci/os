@@ -4,8 +4,8 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-setup="$ROOT/src/python/installer/hardware/lenovo/yoga_slim7x.py"
-starter="$ROOT/src/python/installer/hardware/lenovo/start_yoga_slim7x_remoteprocs.py"
+setup="$ROOT/src/arch/python/installer/hardware/lenovo/yoga_slim7x.py"
+starter="$ROOT/src/arch/python/installer/hardware/lenovo/start_yoga_slim7x_remoteprocs.py"
 scratch=$(mktemp -d)
 trap 'rm -rf "$scratch"' EXIT
 
@@ -81,7 +81,7 @@ grep -Fxq 'scmi-cpufreq' "$matching/modules-load.d/yoga-slim7x.conf" ||
 grep -Fq 'ConditionPathExists=!/etc/modprobe.d/qualcomm-adsp-nofw.conf' \
   "$matching/systemd/yoga-slim7x-remoteprocs.service" ||
   fail "Yoga Slim 7x skips DSP startup when the generic firmware leaf blacklists it"
-grep -Fq 'ExecStart=/usr/bin/python3 -I /usr/share/arch/src/python/installer/hardware/lenovo/start_yoga_slim7x_remoteprocs.py' \
+grep -Fq 'ExecStart=/usr/bin/python3 -I /usr/share/arch/src/arch/python/installer/hardware/lenovo/start_yoga_slim7x_remoteprocs.py' \
   "$matching/systemd/yoga-slim7x-remoteprocs.service" ||
   fail "the Yoga DSP service starts the Python helper"
 if grep -Fq 'systemd-udev-settle.service' "$matching/systemd/yoga-slim7x-remoteprocs.service"; then
@@ -197,7 +197,7 @@ run_setup_on() (
   mkdir -p "$out"
   fake_platform "$scratch/platforms/$platform" "$platform"
   export ARCH_PROC_ROOT="$scratch/platforms/$platform/proc"
-  export PATH="$systemd_bin:$board_bin:$scratch/platforms/$platform/bin:$ROOT/src/commands:$PATH"
+  export PATH="$systemd_bin:$board_bin:$scratch/platforms/$platform/bin:$ROOT/src/arch/commands:$PATH"
 
   ARCH_PATH="$ROOT" SYSTEMCTL_LOG="$out/systemctl.log" \
     ARCH_YOGA_MODULES_LOAD_DIR="$out/modules-load.d" \

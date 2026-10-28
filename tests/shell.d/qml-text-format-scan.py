@@ -304,14 +304,14 @@ scanned = 0
 
 
 def unreadable(error):
-    # rglob() swallows a directory it cannot enter, so a src/shell/ subtree with no
+    # rglob() swallows a directory it cannot enter, so a src/arch/shell/ subtree with no
     # read permission scanned as though it were empty and the run reported
     # success. Same failure as an empty tree, and it fails the same way.
     raise SystemExit(f'cannot read {error.filename}: {error.strerror}')
 
 
 qml = []
-for dirpath, dirnames, filenames in os.walk(root / 'src/shell', onerror=unreadable):
+for dirpath, dirnames, filenames in os.walk(root / 'src/arch/shell', onerror=unreadable):
     dirnames.sort()
     qml.extend(Path(dirpath) / name for name in filenames if name.endswith('.qml'))
 
@@ -365,9 +365,9 @@ for path in sorted(qml):
 
 # A scan that read nothing reports nothing, and an all-clear from a run that
 # never opened a file is the one result this test must never give. Only a
-# checkout with no src/shell/ QML at all reaches this.
+# checkout with no src/arch/shell/ QML at all reaches this.
 if scanned == 0:
-    raise SystemExit('no .qml files found under src/shell/; the scan read nothing')
+    raise SystemExit('no .qml files found under src/arch/shell/; the scan read nothing')
 
 for line in found:
     print(line)

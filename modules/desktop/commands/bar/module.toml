@@ -2,15 +2,15 @@ id = "desktop.commands.bar"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-bar",
-  "src/commands/arch-bar-text-color",
+  "src/arch/commands/arch-bar",
+  "src/arch/commands/arch-bar-text-color",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-bar"
-target = "usr/share/arch/src/commands/arch-bar"
+source = "src/arch/commands/arch-bar"
+target = "usr/share/arch/src/arch/commands/arch-bar"
 
 [[output]]
-source = "src/commands/arch-bar-text-color"
-target = "usr/share/arch/src/commands/arch-bar-text-color"
+source = "src/arch/commands/arch-bar-text-color"
+target = "usr/share/arch/src/arch/commands/arch-bar-text-color"

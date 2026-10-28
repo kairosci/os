@@ -45,8 +45,8 @@ run_theme() {
     ARCH_COSMIC_ICON_INDEX="$icon_index" \
     DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus \
     GNOME_TEST_GSETTINGS_LOG="$test_tmp/gsettings.log" \
-    PATH="$stub_bin:$ROOT/src/commands:$PATH" \
-    "$ROOT/src/commands/arch-theme-set-gnome"
+    PATH="$stub_bin:$ROOT/src/arch/commands:$PATH" \
+    "$ROOT/src/arch/commands/arch-theme-set-gnome"
 }
 
 run_theme

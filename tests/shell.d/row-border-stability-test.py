@@ -7,7 +7,7 @@ import re
 from base_test import ROOT, fail_check, pass_check
 
 
-menu_qml = (ROOT / "src/shell/plugins/menu/Menu.qml").read_text(encoding="utf-8")
+menu_qml = (ROOT / "src/arch/shell/plugins/menu/Menu.qml").read_text(encoding="utf-8")
 if not re.search(r"rowReservedBorderLeft:\s*Border\.left\(selectedBorderSpec\)", menu_qml) or not re.search(
   r"rowReservedBorderRight:\s*Border\.right\(selectedBorderSpec\)", menu_qml
 ):

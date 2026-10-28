@@ -44,7 +44,7 @@ fail() {
 # shell removes it afterwards: killing the shell leaves the file behind.
 shell_ipc_socket() {
   local id
-  id=$(printf '%s\n%s' "$1/src/shell" "${WAYLAND_DISPLAY:-}" | md5sum)
+  id=$(printf '%s\n%s' "$1/src/arch/shell" "${WAYLAND_DISPLAY:-}" | md5sum)
   printf '%s/arch-shell-%s.sock\n' "${XDG_RUNTIME_DIR:-/run/user/$UID}" "${id:0:16}"
 }
 
@@ -158,7 +158,7 @@ find_arch_pkgs() {
 
 # Fake the hardware identity arch-hw-platform reads: a device tree under
 # $1/proc and a uname in $1/bin reporting the platform's CPU. Run the code under
-# test with ARCH_PROC_ROOT="$1/proc" and PATH="$1/bin:$ROOT/src/commands:...", so the
+# test with ARCH_PROC_ROOT="$1/proc" and PATH="$1/bin:$ROOT/src/arch/commands:...", so the
 # real detector and its wrappers answer from the fixture.
 fake_platform() {
   local dir="$1" platform="$2" machine=aarch64

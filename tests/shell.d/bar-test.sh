@@ -9,12 +9,12 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 # the test (or nothing at all on a non-os development machine).
 export ARCH_PATH="$ROOT"
 
-if perl -0ne 'exit(/drag\s*\.\s*target\s*:\s*[^;]*\bslot\b/s ? 0 : 1)' "$ROOT/src/shell/plugins/bar/Bar.qml"; then
+if perl -0ne 'exit(/drag\s*\.\s*target\s*:\s*[^;]*\bslot\b/s ? 0 : 1)' "$ROOT/src/arch/shell/plugins/bar/Bar.qml"; then
   fail "bar module dragging must not mutate ModuleSlot positions"
 fi
 pass "bar module dragging leaves layout-managed slots in place"
 
-if rg -q 'barMoveSettling|barMoveSettleTimer' "$ROOT/src/shell/plugins/bar/Bar.qml"; then
+if rg -q 'barMoveSettling|barMoveSettleTimer' "$ROOT/src/arch/shell/plugins/bar/Bar.qml"; then
   fail "bar move outline must clear when the pointer is released"
 fi
 pass "bar move outline has no post-release settling state"
@@ -25,7 +25,7 @@ pass "bar move outline has no post-release settling state"
 # reports pressed, which is what separates the two, so the guard has to stay
 # ahead of the drag.
 if ! perl -0ne 'exit(/onPressAndHold:\s*function[^{]*\{[^}]*?\bpressed\b[^}]*?\bstartDrag\b/s ? 0 : 1)' \
-  "$ROOT/src/shell/plugins/bar/Bar.qml"; then
+  "$ROOT/src/arch/shell/plugins/bar/Bar.qml"; then
   fail "bar move ignores a press-and-hold the gesture area does not hold the press for"
 fi
 pass "bar move ignores a press-and-hold propagated from a widget above"
@@ -34,13 +34,13 @@ pass "bar move ignores a press-and-hold propagated from a widget above"
 # six monitors' worth of widgets that is hundreds of full walks at startup, so
 # the change handlers coalesce into one deferred resync and ownership lookups
 # are keyed by target instead of scanning an array.
-if ! rg -q 'onClickTargetsChanged: schedulePluginBarApiSync\(\)' "$ROOT/src/shell/plugins/bar/Bar.qml"; then
+if ! rg -q 'onClickTargetsChanged: schedulePluginBarApiSync\(\)' "$ROOT/src/arch/shell/plugins/bar/Bar.qml"; then
   fail "bar coalesces plugin api resyncs instead of running one per click target change"
 fi
-if ! rg -q 'Qt\.callLater\(root\.syncAllPluginBarApiObjects\)' "$ROOT/src/shell/plugins/bar/Bar.qml"; then
+if ! rg -q 'Qt\.callLater\(root\.syncAllPluginBarApiObjects\)' "$ROOT/src/arch/shell/plugins/bar/Bar.qml"; then
   fail "bar defers the coalesced plugin api resync to the event loop"
 fi
-if ! rg -q 'pluginObjectOwners\.get\(target\)' "$ROOT/src/shell/plugins/bar/Bar.qml"; then
+if ! rg -q 'pluginObjectOwners\.get\(target\)' "$ROOT/src/arch/shell/plugins/bar/Bar.qml"; then
   fail "bar looks plugin object ownership up by target instead of scanning"
 fi
 pass "bar coalesces plugin api resyncs and looks ownership up by target"
@@ -48,16 +48,16 @@ pass "bar coalesces plugin api resyncs and looks ownership up by target"
 # Both bar orientations used to be instantiated and toggled with `visible`,
 # doubling every indicator (and every process an indicator spawns) per bar.
 if ! rg -q 'sourceComponent: root\.vertical \? verticalIndicatorsTree : horizontalIndicatorsTree' \
-  "$ROOT/src/shell/plugins/bar/widgets/Indicators.qml"; then
+  "$ROOT/src/arch/shell/plugins/bar/widgets/Indicators.qml"; then
   fail "indicators instantiate only the tree for the current bar orientation"
 fi
 pass "indicators instantiate only the tree for the current bar orientation"
 
 run_node_test <<'JS'
 const fs = require('fs')
-const bar = requireFromRoot('src/shell/plugins/bar/BarModel.js')
-const barSource = fs.readFileSync(root + '/src/shell/plugins/bar/Bar.qml', 'utf8')
-const shellSource = fs.readFileSync(root + '/src/shell/shell.qml', 'utf8')
+const bar = requireFromRoot('src/arch/shell/plugins/bar/BarModel.js')
+const barSource = fs.readFileSync(root + '/src/arch/shell/plugins/bar/Bar.qml', 'utf8')
+const shellSource = fs.readFileSync(root + '/src/arch/shell/shell.qml', 'utf8')
 
 assert(/function toggleBarTransparency\(\): string \{[\s\S]*?shell\.bar\.cycleBackground\(\)/.test(shellSource), 'shell exposes the bar background cycle over IPC')
 
@@ -500,11 +500,11 @@ assert(!/pinTrayToInner/.test(barSource) && bar.pinTrayToInner === undefined, 't
 
 // The section list lives in Util for QML and in BarModel and TrayModel for
 // plain JS; all three run the bar the same way.
-const utilSource = fs.readFileSync(root + '/src/shell/Commons/Util.qml', 'utf8')
+const utilSource = fs.readFileSync(root + '/src/arch/shell/Commons/Util.qml', 'utf8')
 const utilSections = JSON.parse(utilSource.match(/readonly property var barSections: (\[[^\]]*\])/)[1])
 assertDeepEqual(bar.sections, ['left', 'centerBegin', 'center', 'centerEnd', 'right', 'tray'], 'the bar runs left, centerBegin, center, centerEnd, right, with tray in the tray\'s drawer')
 assertDeepEqual(utilSections, bar.sections, 'Util and BarModel list the same bar sections')
-const trayModel = requireFromRoot('src/shell/plugins/bar/widgets/TrayModel.js')
+const trayModel = requireFromRoot('src/arch/shell/plugins/bar/widgets/TrayModel.js')
 for (const section of bar.sections)
   assert(trayModel.layoutHasWidget({ [section]: ['arch.dropbox'] }, 'arch.dropbox'), `the tray finds a widget in ${section}`)
 assert(/function normalizeLayout\(layout\) \{\s*return Util\.normalizeLayout\(/.test(barSource), 'bar normalizes every section the way the shared helper does')
@@ -711,7 +711,7 @@ JS
 put_tmp=$(mktemp -d)
 trap 'rm -rf "$put_tmp"' EXIT
 mkdir -p "$put_tmp/bin"
-ln -s "$ROOT/src/commands/arch-shell-config" "$put_tmp/bin/arch-shell-config"
+ln -s "$ROOT/src/arch/commands/arch-shell-config" "$put_tmp/bin/arch-shell-config"
 
 cat >"$put_tmp/bin/arch-shell" <<'STUB'
 #!/bin/bash
@@ -779,61 +779,61 @@ echo "ok"
 STUB
 chmod +x "$put_tmp/bin/arch-shell"
 
-put_output=$(PATH="$put_tmp/bin:$ROOT/src/commands:$PATH" ARCH_TEST_SHELL_STATE=missing \
+put_output=$(PATH="$put_tmp/bin:$ROOT/src/arch/commands:$PATH" ARCH_TEST_SHELL_STATE=missing \
   ARCH_SHELL_ABSENT_ATTEMPTS=2 \
-  "$ROOT/src/commands/arch-bar" put arch.keyboard-layout --after arch.clock 2>&1) ||
+  "$ROOT/src/arch/commands/arch-bar" put arch.keyboard-layout --after arch.clock 2>&1) ||
   fail "put carries on when no shell is running" "$put_output"
 [[ $put_output == *"is not running"* ]] || fail "put says why it placed nothing" "$put_output"
 pass "put carries on when no shell is running"
 
-put_output=$(PATH="$put_tmp/bin:$ROOT/src/commands:$PATH" ARCH_TEST_SHELL_STATE=spawning \
+put_output=$(PATH="$put_tmp/bin:$ROOT/src/arch/commands:$PATH" ARCH_TEST_SHELL_STATE=spawning \
   ARCH_TEST_SHELL_MARKER="$put_tmp/spawned" \
-  "$ROOT/src/commands/arch-bar" put arch.keyboard-layout --after arch.clock 2>&1) ||
+  "$ROOT/src/arch/commands/arch-bar" put arch.keyboard-layout --after arch.clock 2>&1) ||
   fail "put waits for a shell that is being spawned" "$put_output"
 [[ $put_output == "arch.keyboard-layout is on the bar" ]] || fail "put places once the shell answers" "$put_output"
 pass "put waits for a shell that is being spawned"
 
-put_output=$(PATH="$put_tmp/bin:$ROOT/src/commands:$PATH" ARCH_TEST_SHELL_STATE=starting ARCH_SHELL_READY_ATTEMPTS=2 \
-  "$ROOT/src/commands/arch-bar" put arch.keyboard-layout --after arch.clock 2>&1) &&
+put_output=$(PATH="$put_tmp/bin:$ROOT/src/arch/commands:$PATH" ARCH_TEST_SHELL_STATE=starting ARCH_SHELL_READY_ATTEMPTS=2 \
+  "$ROOT/src/arch/commands/arch-bar" put arch.keyboard-layout --after arch.clock 2>&1) &&
   fail "put fails when the shell never becomes ready" "$put_output"
 [[ $put_output == *"did not become ready"* ]] || fail "put says the shell never became ready" "$put_output"
 pass "put fails when the shell never becomes ready"
 
-put_output=$(PATH="$put_tmp/bin:$ROOT/src/commands:$PATH" ARCH_TEST_SHELL_STATE=crashing \
+put_output=$(PATH="$put_tmp/bin:$ROOT/src/arch/commands:$PATH" ARCH_TEST_SHELL_STATE=crashing \
   ARCH_TEST_SHELL_MARKER="$put_tmp/started" \
-  "$ROOT/src/commands/arch-bar" put arch.keyboard-layout --after arch.clock 2>&1) &&
+  "$ROOT/src/arch/commands/arch-bar" put arch.keyboard-layout --after arch.clock 2>&1) &&
   fail "put fails when a starting shell disappears" "$put_output"
 [[ $put_output == *"did not become ready"* ]] || fail "put keeps a lost shell retryable" "$put_output"
 pass "put fails when a starting shell disappears"
 
-put_output=$(PATH="$put_tmp/bin:$ROOT/src/commands:$PATH" ARCH_TEST_SHELL_STATE=oldshell \
-  "$ROOT/src/commands/arch-bar" put arch.keyboard-layout --after arch.clock 2>&1) ||
+put_output=$(PATH="$put_tmp/bin:$ROOT/src/arch/commands:$PATH" ARCH_TEST_SHELL_STATE=oldshell \
+  "$ROOT/src/arch/commands/arch-bar" put arch.keyboard-layout --after arch.clock 2>&1) ||
   fail "put falls back against a shell that has not restarted yet" "$put_output"
 [[ $put_output == "arch.keyboard-layout is on the bar" ]] || fail "put places without the missing neighbour" "$put_output"
 pass "put falls back against a shell that has not restarted yet"
 
-put_output=$(PATH="$put_tmp/bin:$ROOT/src/commands:$PATH" ARCH_TEST_SHELL_STATE=vanishing \
+put_output=$(PATH="$put_tmp/bin:$ROOT/src/arch/commands:$PATH" ARCH_TEST_SHELL_STATE=vanishing \
   ARCH_TEST_SHELL_MARKER="$put_tmp/vanished" \
-  "$ROOT/src/commands/arch-bar" put arch.keyboard-layout --after arch.clock 2>&1) &&
+  "$ROOT/src/arch/commands/arch-bar" put arch.keyboard-layout --after arch.clock 2>&1) &&
   fail "put fails when the shell goes away mid-fallback" "$put_output"
 [[ $put_output == *"did not become ready"* ]] || fail "put remembers the shell answered once" "$put_output"
 pass "put fails when the shell goes away mid-fallback"
 
-put_output=$(PATH="$put_tmp/bin:$ROOT/src/commands:$PATH" ARCH_TEST_SHELL_STATE=unsupported \
-  "$ROOT/src/commands/arch-bar" put arch.keyboard-layout --after arch.clock 2>&1) &&
+put_output=$(PATH="$put_tmp/bin:$ROOT/src/arch/commands:$PATH" ARCH_TEST_SHELL_STATE=unsupported \
+  "$ROOT/src/arch/commands/arch-bar" put arch.keyboard-layout --after arch.clock 2>&1) &&
   fail "put fails when the shell cannot answer the call" "$put_output"
 [[ $put_output == *"Function not found"* ]] || fail "put passes on what the shell said" "$put_output"
 pass "put fails when the shell cannot answer the call"
 
-put_output=$(PATH="$put_tmp/bin:$ROOT/src/commands:$PATH" ARCH_TEST_SHELL_STATE=scanning \
+put_output=$(PATH="$put_tmp/bin:$ROOT/src/arch/commands:$PATH" ARCH_TEST_SHELL_STATE=scanning \
   ARCH_TEST_SHELL_MARKER="$put_tmp/scanned" \
-  "$ROOT/src/commands/arch-bar" put arch.keyboard-layout --after arch.clock 2>&1) ||
+  "$ROOT/src/arch/commands/arch-bar" put arch.keyboard-layout --after arch.clock 2>&1) ||
   fail "put asks again while the shell is still reading its plugins" "$put_output"
 [[ $put_output == "arch.keyboard-layout is on the bar" ]] || fail "put places once the plugins are read" "$put_output"
 pass "put asks again while the shell is still reading its plugins"
 
-put_output=$(PATH="$put_tmp/bin:$ROOT/src/commands:$PATH" \
-  "$ROOT/src/commands/arch-bar" put arch.keyboard-layout --after arch.clock 2>&1) ||
+put_output=$(PATH="$put_tmp/bin:$ROOT/src/arch/commands:$PATH" \
+  "$ROOT/src/arch/commands/arch-bar" put arch.keyboard-layout --after arch.clock 2>&1) ||
   fail "put places a widget through a ready shell" "$put_output"
 [[ $put_output == "arch.keyboard-layout is on the bar" ]] || fail "put reports the placed widget" "$put_output"
 pass "put places a widget through a ready shell"

@@ -5,7 +5,7 @@ set -euo pipefail
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 run_node_test <<'JS'
-const { layout } = requireFromRoot('src/shell/plugins/panels/elsewhen/Arc.js')
+const { layout } = requireFromRoot('src/arch/shell/plugins/panels/elsewhen/Arc.js')
 
 const near = (a, b, eps) => Math.abs(a - b) <= (eps === undefined ? 0.01 : eps)
 const mono = (count, width) => new Array(count).fill(width === undefined ? 6 : width)

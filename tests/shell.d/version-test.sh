@@ -8,8 +8,8 @@ test_tmp=$(mktemp -d)
 trap 'rm -rf "$test_tmp"' EXIT
 
 stub_bin="$test_tmp/bin"
-mkdir -p "$stub_bin" "$test_tmp/checkout/src/cli/version" "$test_tmp/checkout/data/cli"
-cp "$ROOT/src/cli/version/info.py" "$test_tmp/checkout/src/cli/version/info.py"
+mkdir -p "$stub_bin" "$test_tmp/checkout/src/arch/cli/version" "$test_tmp/checkout/data/cli"
+cp "$ROOT/src/arch/cli/version/info.py" "$test_tmp/checkout/src/arch/cli/version/info.py"
 cp "$ROOT/data/cli/version.yml" "$test_tmp/checkout/data/cli/version.yml"
 
 # The edge channel installs arch-dev. Older builds did not declare
@@ -47,7 +47,7 @@ version() {
     ARCH_PATH="${2:-$ROOT}" \
     ARCH_PACKAGED_ROOT="$ROOT" \
     PATH="$stub_bin:$PATH" \
-    "$ROOT/src/commands/arch-version"
+    "$ROOT/src/arch/commands/arch-version"
 }
 
 [[ $(version arch) == "4.0.0-1" ]] || fail "version reports the stable package"
@@ -61,12 +61,12 @@ pass "version reports the edge package"
 pass "version reports a dev checkout"
 
 branch=$(ARCH_PATH="$test_tmp/checkout" ARCH_PACKAGED_ROOT="$ROOT" ARCH_TEST_BRANCH="feature/example" \
-  PATH="$stub_bin:$PATH" "$ROOT/src/commands/arch-version-branch")
+  PATH="$stub_bin:$PATH" "$ROOT/src/arch/commands/arch-version-branch")
 [[ $branch == "feature/example" ]] || fail "dev branch command reports the active branch" "$branch"
 branch=$(ARCH_PATH="$test_tmp/checkout" ARCH_PACKAGED_ROOT="$ROOT" ARCH_TEST_HASH="abc1234" \
-  PATH="$stub_bin:$PATH" "$ROOT/src/commands/arch-version-branch")
+  PATH="$stub_bin:$PATH" "$ROOT/src/arch/commands/arch-version-branch")
 [[ $branch == "detached@abc1234" ]] || fail "dev branch command labels a detached checkout" "$branch"
-if ARCH_PATH="$ROOT" ARCH_PACKAGED_ROOT="$ROOT" "$ROOT/src/commands/arch-version-branch"; then
+if ARCH_PATH="$ROOT" ARCH_PACKAGED_ROOT="$ROOT" "$ROOT/src/arch/commands/arch-version-branch"; then
   fail "packaged install has no dev branch"
 fi
 pass "dev branch reports a branch or detached commit and is empty for a packaged install"
@@ -110,7 +110,7 @@ ARCH_TEST_DATE_LOCALE="$test_tmp/date-locale" \
   ARCH_PATH="$ROOT" \
   LANG=it_IT.UTF-8 \
   PATH="$stub_bin:$PATH" \
-  env -u LC_TIME "$ROOT/src/commands/arch-version-pkgs" >"$test_tmp/date-output"
+  env -u LC_TIME "$ROOT/src/arch/commands/arch-version-pkgs" >"$test_tmp/date-output"
 [[ $(<"$test_tmp/date-output") == "martedì, ottobre 27 2026 alle 19:00" ]] || fail "package upgrade date is printed by date"
 [[ $(<"$test_tmp/date-locale") == "it_IT.UTF-8" ]] || fail "package upgrade date uses the selected locale"
 [[ $(<"$test_tmp/date-args") == $'-d\n2026-10-27T19:00:00+0000\n+%A %d %B %Y alle %H:%M' ]] || fail "the last upgraded package timestamp and Italian format reach date" "$(cat "$test_tmp/date-args")"

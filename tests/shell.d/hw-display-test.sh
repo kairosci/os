@@ -21,7 +21,7 @@ write_backlights() {
 # unless a case writes one, whatever the machine running the suite has installed.
 platform_root="$tmp_dir/platform"
 mkdir -p "$platform_root" "$tmp_dir/bin"
-platform_root_copy "$ROOT/src/commands/arch-hw-display" "$tmp_dir/bin/arch-hw-display" "$platform_root"
+platform_root_copy "$ROOT/src/arch/commands/arch-hw-display" "$tmp_dir/bin/arch-hw-display" "$platform_root"
 
 write_displays_conf() {
   printf '%s\n' "$@" >"$platform_root/displays.conf"

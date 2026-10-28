@@ -2,10 +2,10 @@ id = "desktop.commands.lifecycle"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-lifecycle-dispatch",
+  "src/arch/commands/arch-lifecycle-dispatch",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-lifecycle-dispatch"
-target = "usr/share/arch/src/commands/arch-lifecycle-dispatch"
+source = "src/arch/commands/arch-lifecycle-dispatch"
+target = "usr/share/arch/src/arch/commands/arch-lifecycle-dispatch"

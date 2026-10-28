@@ -14,7 +14,7 @@ awk '
   /^(wf_audio_device|wf_audio_unavailable|wf_audio_cleanup)\(\) \{/ { copying = 1 }
   copying { print }
   /^}/ { copying = 0 }
-' "$ROOT/src/commands/arch-capture-screenrecording" >"$tmp/functions"
+' "$ROOT/src/arch/commands/arch-capture-screenrecording" >"$tmp/functions"
 
 mkdir -p "$tmp/bin"
 # Modules number from 10 up; a load fails when its arguments name a source

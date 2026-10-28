@@ -1,7 +1,7 @@
 steps:
-  - src/python/installer/post_install/pacman.py
-  - src/python/installer/post_install/udev.py
-  - src/python/installer/post_install/localdb.py
+  - src/arch/python/installer/post_install/pacman.py
+  - src/arch/python/installer/post_install/udev.py
+  - src/arch/python/installer/post_install/localdb.py
 messages:
   en:
     starting: "Starting: {step}"
@@ -38,8 +38,8 @@ pacman:
   alarm_keyring_package: archlinuxarm-keyring
   package_command: [arch-pkg-add]
   keyring_command: [pacman-key]
-  apply_command: '{arch_path}/src/commands/arch-apply-pacman'
-  repositories_script: src/python/installer/hardware/pacman_repositories.py
+  apply_command: '{arch_path}/src/arch/commands/arch-apply-pacman'
+  repositories_script: src/arch/python/installer/hardware/pacman_repositories.py
   image:
     root_environment: ARCH_IMAGE_ROOT
     directory: var/lib/arch/image

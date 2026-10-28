@@ -8,7 +8,7 @@ run_node_test <<'JS'
 const fs = require('fs')
 const vm = require('vm')
 
-const source = fs.readFileSync(path.join(root, 'src/shell/plugins/panels/monitor/Panel.qml'), 'utf8')
+const source = fs.readFileSync(path.join(root, 'src/arch/shell/plugins/panels/monitor/Panel.qml'), 'utf8')
 const method = source.match(/^  function toggleDisplay\(name, enabled\) \{[\s\S]*?^  \}/m)
 if (!method) fail('monitor panel provides toggleDisplay')
 

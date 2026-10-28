@@ -27,7 +27,7 @@ run_package_gates() (
   status=${2:-0}
   PATH="$scratch/bin:$PATH" ARCH_PATH="$ROOT" ARCH_TEST_MATCHED="$matched" \
     ARCH_TEST_PKG_STATUS="$status" ARCH_TEST_PACKAGES="$scratch/packages" \
-    python3 -I "$ROOT/src/python/installer/hardware/package_gates.py"
+    python3 -I "$ROOT/src/arch/python/installer/hardware/package_gates.py"
 )
 : >"$scratch/packages"
 run_package_gates "arch-hw-intel-sof"

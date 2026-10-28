@@ -48,7 +48,7 @@ git -C "$incoming" init -q
 git -C "$incoming" add .
 git -C "$incoming" -c user.name=Test -c user.email=test@example.com commit -qm "Initial"
 
-output=$(HOME="$test_home" ARCH_PATH="$ROOT" PATH="$stub_dir:$ROOT/src/commands:$PATH" \
+output=$(HOME="$test_home" ARCH_PATH="$ROOT" PATH="$stub_dir:$ROOT/src/arch/commands:$PATH" \
   arch-plugin-add "$incoming" --yes 2>&1) &&
   fail "plugin add accepts an id already installed under another directory" "$output"
 grep -qF "plugin id 'acme.same' is already used by" <<<"$output" ||
@@ -95,7 +95,7 @@ STUB
 chmod +x "$guard_stubs/gum"
 
 add_url() {
-  HOME="$test_home" ARCH_PATH="$ROOT" PATH="$guard_stubs:$ROOT/src/commands:$PATH" \
+  HOME="$test_home" ARCH_PATH="$ROOT" PATH="$guard_stubs:$ROOT/src/arch/commands:$PATH" \
     arch-plugin-add "$1" --yes 2>&1
 }
 
@@ -147,7 +147,7 @@ if script -qec true /dev/null >/dev/null 2>&1; then
   rm -f "$clone_marker"
   status=0
   raw=$(GUM_INPUT_VALUE="-oProxyCommand=x" HOME="$test_home" ARCH_PATH="$ROOT" \
-    PATH="$guard_stubs:$ROOT/src/commands:$PATH" \
+    PATH="$guard_stubs:$ROOT/src/arch/commands:$PATH" \
     script -qec "arch-plugin-add --yes" /dev/null) || status=$?
   output=$(tr -d '\r' <<<"$raw")
   (( status != 0 )) ||

@@ -40,7 +40,7 @@ SH
 chmod +x "$stub_bin"/*
 
 connected() {
-  ARCH_NET_CLASS_PATH="$net_class" PATH="$stub_bin:$PATH" "$ROOT/src/commands/arch-network-wifi-connected"
+  ARCH_NET_CLASS_PATH="$net_class" PATH="$stub_bin:$PATH" "$ROOT/src/arch/commands/arch-network-wifi-connected"
 }
 
 ROUTE_DEV=wlan0 connected || fail "an activated Wi-Fi default route is connected Wi-Fi"

@@ -1,5 +1,5 @@
 # CLDR cardinal plural categories for whole counts, per os language
-# code, for arch-i18n. src/shell/Commons/Plural.js holds the same rules for
+# code, for arch-i18n. src/arch/shell/Commons/Plural.js holds the same rules for
 # the shell, and i18n-test.sh keeps the two in agreement.
 
 def plural_category($code; $count):

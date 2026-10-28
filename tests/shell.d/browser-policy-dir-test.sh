@@ -25,7 +25,7 @@ config = yaml.safe_load(source.read_text(encoding="utf-8"))
 config["chromium_preferences"]["destination"] = str(target)
 Path(destination).write_text(yaml.safe_dump(config), encoding="utf-8")
 PYTHON
-ARCH_PATH="$preferences_root" python3 -I "$ROOT/src/python/installer/system_setup/chromium_preferences.py"
+ARCH_PATH="$preferences_root" python3 -I "$ROOT/src/arch/python/installer/system_setup/chromium_preferences.py"
 [[ $(stat -c '%a' "$preferences_file") == "644" ]] || fail "initial preferences have mode 0644"
 [[ $(cat "$preferences_file") == '{"distribution":{"require_eula":false},"browser":{"theme":{"color_scheme":0,"color_scheme2":0}}}' ]] ||
   fail "initial preferences contain the configured Chromium defaults"
@@ -37,7 +37,7 @@ import sys
 Path(sys.argv[1]).unlink()
 PYTHON_UNLINK
 ln -s "$outside_file" "$preferences_file"
-ARCH_PATH="$preferences_root" python3 -I "$ROOT/src/python/installer/system_setup/chromium_preferences.py"
+ARCH_PATH="$preferences_root" python3 -I "$ROOT/src/arch/python/installer/system_setup/chromium_preferences.py"
 [[ ! -L $preferences_file && $(cat "$outside_file") == "keep this file" ]] ||
   fail "initial preferences replace a symlink without following it"
 pass "Chromium preferences are installed atomically with safe mode and symlink handling"
@@ -265,11 +265,11 @@ for theme in "$ROOT"/assets/themes/*/chromium.theme; do
 done
 pass "shipped chromium.theme files parse as RGB triples"
 
-grep -F 'browser_policy_theme_hex' "$ROOT/src/commands/arch-theme-set-browser" >/dev/null ||
+grep -F 'browser_policy_theme_hex' "$ROOT/src/arch/commands/arch-theme-set-browser" >/dev/null ||
   fail "arch-theme-set-browser parses chromium.theme through browser_policy_theme_hex"
-grep -F 'arch-theme-set-browser-policy' "$ROOT/src/commands/arch-theme-set-browser" >/dev/null ||
+grep -F 'arch-theme-set-browser-policy' "$ROOT/src/arch/commands/arch-theme-set-browser" >/dev/null ||
   fail "arch-theme-set-browser writes colour through arch-theme-set-browser-policy"
-if grep -E 'printf.*THEME_RGB_COLOR' "$ROOT/src/commands/arch-theme-set-browser" >/dev/null; then
+if grep -E 'printf.*THEME_RGB_COLOR' "$ROOT/src/arch/commands/arch-theme-set-browser" >/dev/null; then
   fail "arch-theme-set-browser does not hand unvetted theme words to printf"
 fi
 pass "arch-theme-set-browser validates the theme colour"
@@ -309,14 +309,14 @@ fi
 [[ -d $dir_dist/policies.json ]] || fail "Firefox policy install leaves a planted policies.json directory in place"
 pass "Firefox policy install does not write into a planted policies.json directory"
 
-grep -F 'exit "$failed"' "$ROOT/src/commands/arch-theme-set-browser" >/dev/null ||
+grep -F 'exit "$failed"' "$ROOT/src/arch/commands/arch-theme-set-browser" >/dev/null ||
   fail "arch-theme-set-browser exits non-zero when a policy write fails"
 pass "arch-theme-set-browser exits non-zero when a policy write fails"
 
 # Bash 5.3 adopts the EXIT trap's last status as the script's exit status, so a
 # handler ending on a false test turns a clean run into a failure and aborts the
 # call that runs through arch-theme-set-browser.
-policy_cleanup=$(sed -n '/^cleanup() {/,/^}/p' "$ROOT/src/commands/arch-theme-set-browser-policy")
+policy_cleanup=$(sed -n '/^cleanup() {/,/^}/p' "$ROOT/src/arch/commands/arch-theme-set-browser-policy")
 [[ -n $policy_cleanup ]] || fail "arch-theme-set-browser-policy defines an EXIT cleanup handler"
 eval "$policy_cleanup"
 staged=""

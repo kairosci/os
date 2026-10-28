@@ -53,8 +53,8 @@ run_toggle() {
   HOME="$home_dir" \
     XDG_STATE_HOME="$xdg_decoy" \
     HYPRCTL_LOG="$log_file" \
-    PATH="$stub_dir:$ROOT/src/commands:$PATH" \
-    "$ROOT/src/commands/arch-toggle-input-device" "$@"
+    PATH="$stub_dir:$ROOT/src/arch/commands:$PATH" \
+    "$ROOT/src/arch/commands/arch-toggle-input-device" "$@"
 }
 
 assert_decoy_untouched() {

@@ -1,0 +1,14 @@
+#!/usr/bin/python3 -I
+
+# arch:summary=List available themes
+# arch:examples=archctl theme list | archctl theme set "Tokyo Night"
+
+import os
+from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(os.environ["ARCH_PATH"]) / "src"))
+from arch.cli.theme.info import theme_list_main
+
+
+raise SystemExit(theme_list_main())

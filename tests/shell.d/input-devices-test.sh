@@ -44,7 +44,7 @@ mkdir -p "$stage/root/dev/input" "$stage/root/run/udev/data"
 # A copy of Commons with InputDevices' delays at a quarter length (settle
 # 125ms, follow-up 750ms, retries 250ms), so the scenarios do not wait
 # them out in real time.
-cp -a "$ROOT/src/shell/Commons" "$stage/Commons"
+cp -a "$ROOT/src/arch/shell/Commons" "$stage/Commons"
 sed -i \
   -e 's/interval: 500/interval: 125/' \
   -e 's/interval: 3000/interval: 750/' \

@@ -2,40 +2,40 @@ id = "desktop.commands.plymouth"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-plymouth-current",
-  "src/commands/arch-plymouth-list",
-  "src/commands/arch-plymouth-preview",
-  "src/commands/arch-plymouth-reset",
-  "src/commands/arch-plymouth-set",
-  "src/commands/arch-plymouth-set-by-theme",
-  "src/commands/arch-plymouth-switcher",
+  "src/arch/commands/arch-plymouth-current",
+  "src/arch/commands/arch-plymouth-list",
+  "src/arch/commands/arch-plymouth-preview",
+  "src/arch/commands/arch-plymouth-reset",
+  "src/arch/commands/arch-plymouth-set",
+  "src/arch/commands/arch-plymouth-set-by-theme",
+  "src/arch/commands/arch-plymouth-switcher",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-plymouth-current"
-target = "usr/share/arch/src/commands/arch-plymouth-current"
+source = "src/arch/commands/arch-plymouth-current"
+target = "usr/share/arch/src/arch/commands/arch-plymouth-current"
 
 [[output]]
-source = "src/commands/arch-plymouth-list"
-target = "usr/share/arch/src/commands/arch-plymouth-list"
+source = "src/arch/commands/arch-plymouth-list"
+target = "usr/share/arch/src/arch/commands/arch-plymouth-list"
 
 [[output]]
-source = "src/commands/arch-plymouth-preview"
-target = "usr/share/arch/src/commands/arch-plymouth-preview"
+source = "src/arch/commands/arch-plymouth-preview"
+target = "usr/share/arch/src/arch/commands/arch-plymouth-preview"
 
 [[output]]
-source = "src/commands/arch-plymouth-reset"
-target = "usr/share/arch/src/commands/arch-plymouth-reset"
+source = "src/arch/commands/arch-plymouth-reset"
+target = "usr/share/arch/src/arch/commands/arch-plymouth-reset"
 
 [[output]]
-source = "src/commands/arch-plymouth-set"
-target = "usr/share/arch/src/commands/arch-plymouth-set"
+source = "src/arch/commands/arch-plymouth-set"
+target = "usr/share/arch/src/arch/commands/arch-plymouth-set"
 
 [[output]]
-source = "src/commands/arch-plymouth-set-by-theme"
-target = "usr/share/arch/src/commands/arch-plymouth-set-by-theme"
+source = "src/arch/commands/arch-plymouth-set-by-theme"
+target = "usr/share/arch/src/arch/commands/arch-plymouth-set-by-theme"
 
 [[output]]
-source = "src/commands/arch-plymouth-switcher"
-target = "usr/share/arch/src/commands/arch-plymouth-switcher"
+source = "src/arch/commands/arch-plymouth-switcher"
+target = "usr/share/arch/src/arch/commands/arch-plymouth-switcher"

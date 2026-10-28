@@ -12,7 +12,7 @@ import tempfile
 from base_test import ROOT, fail_check, pass_check, test_environment
 
 
-COMMAND = ROOT / "src/commands/arch-provision-first-run"
+COMMAND = ROOT / "src/arch/commands/arch-provision-first-run"
 
 
 def write_executable(path: Path, source: str) -> None:

@@ -4,7 +4,7 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-upgrade_to_quattro="$ROOT/src/commands/arch-upgrade-to-quattro"
+upgrade_to_quattro="$ROOT/src/arch/commands/arch-upgrade-to-quattro"
 
 function_body() {
   awk -v name="$1" '$0 == name "() {" { inside = 1; next } inside && $0 == "}" { exit } inside' "$upgrade_to_quattro"
@@ -60,7 +60,7 @@ done
 pass "os 4 upgrade survives a packaged tree missing top-level commands"
 
 grep -F 'configure_snapper_policy' "$upgrade_to_quattro" >/dev/null
-grep -F 'src/python/installer/system_setup/snapper_setup.py' "$upgrade_to_quattro" >/dev/null
+grep -F 'src/arch/python/installer/system_setup/snapper_setup.py' "$upgrade_to_quattro" >/dev/null
 grep -F 'python3 -I "$snapper_setup_script"' "$upgrade_to_quattro" >/dev/null
 pass "os 4 upgrade normalizes Snapper retention"
 
@@ -71,7 +71,7 @@ pass "os 4 upgrade configures lock screen authentication for the target user"
 
 root_path_count=$(awk '/^root_path=/{ count++ } END { print count + 0 }' "$upgrade_to_quattro")
 (( root_path_count == 1 )) || fail "os 4 upgrade defines exactly one root command path"
-grep -Fx 'root_path=/usr/share/arch/src/commands:/usr/local/bin:/usr/bin:/bin' "$upgrade_to_quattro" >/dev/null ||
+grep -Fx 'root_path=/usr/share/arch/src/arch/commands:/usr/local/bin:/usr/bin:/bin' "$upgrade_to_quattro" >/dev/null ||
   fail "os 4 upgrade limits root command lookup to trusted system directories"
 if grep -E '^root_path=.*(target_home|\.local/bin)' "$upgrade_to_quattro" >/dev/null; then
   fail "os 4 upgrade does not put the target user's bin directory on the root command path"

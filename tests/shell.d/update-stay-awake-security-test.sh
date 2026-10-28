@@ -32,7 +32,7 @@ test_run_id="test-$BASHPID-$RANDOM"
 state_dir="$runtime_dir/arch-update-stay-awake-$test_run_id"
 state_hardlink="$runtime_dir/.arch-update-stay-awake-hardlink-$test_run_id"
 inhibitor_log="$test_tmp/inhibitors"
-mkdir -p "$stub_bin" "$test_home" "$mapped_root/src/commands" "$mapped_root/default/arch/sudo-no-update"
+mkdir -p "$stub_bin" "$test_home" "$mapped_root/src/arch/commands" "$mapped_root/default/arch/sudo-no-update"
 : >"$inhibitor_log"
 
 cat >"$stub_bin/pkexec" <<'SH'
@@ -105,15 +105,15 @@ case "$1" in
 esac
 SH
 chmod +x "$stub_bin"/*
-ln -s "$stub_bin/arch-toggle-idle" "$mapped_root/src/commands/arch-toggle-idle"
+ln -s "$stub_bin/arch-toggle-idle" "$mapped_root/src/arch/commands/arch-toggle-idle"
 
-mapped_helper="$mapped_root/src/commands/arch-update-stay-awake"
-cp "$ROOT/src/commands/arch-update-stay-awake" "$mapped_helper"
-cp "$ROOT/src/commands/arch-security-functions" "$mapped_root/src/commands/arch-security-functions"
+mapped_helper="$mapped_root/src/arch/commands/arch-update-stay-awake"
+cp "$ROOT/src/arch/commands/arch-update-stay-awake" "$mapped_helper"
+cp "$ROOT/src/arch/commands/arch-security-functions" "$mapped_root/src/arch/commands/arch-security-functions"
 cp "$ROOT/default/arch/sudo-no-update/sudo" "$mapped_root/default/arch/sudo-no-update/sudo"
 for mapped_file in \
   "$mapped_helper" \
-  "$mapped_root/src/commands/arch-security-functions" \
+  "$mapped_root/src/arch/commands/arch-security-functions" \
   "$mapped_root/default/arch/sudo-no-update/sudo"; do
   sed -i \
     -e "s#/usr/bin/sudo#$stub_bin/sudo#g" \
@@ -132,7 +132,7 @@ run_helper() {
   TEST_STATE_DIR="$state_dir" \
   ARCH_TEST_RUN_ID="$test_run_id" \
   ARCH_PATH="$mapped_root" \
-  PATH="$stub_bin:$ROOT/src/commands:/usr/bin:/bin" \
+  PATH="$stub_bin:$ROOT/src/arch/commands:/usr/bin:/bin" \
     "$mapped_helper" "$@"
 }
 
@@ -205,17 +205,17 @@ pass "update inhibitor without a terminal reuses the update's authorization inst
 
 permissive_runtime="$test_tmp/permissive-runtime"
 mkdir -m 755 "$permissive_runtime"
-if HOME="$test_home" XDG_RUNTIME_DIR="$permissive_runtime" PATH="$stub_bin:$ROOT/src/commands:/usr/bin:/bin" \
+if HOME="$test_home" XDG_RUNTIME_DIR="$permissive_runtime" PATH="$stub_bin:$ROOT/src/arch/commands:/usr/bin:/bin" \
   ARCH_TEST_RUN_ID="$test_run_id" "$mapped_helper" stop 2>/dev/null; then
   fail "permissive XDG runtime is rejected"
 fi
 symlink_runtime="$test_tmp/runtime-link"
 ln -s "$runtime_dir" "$symlink_runtime"
-if HOME="$test_home" XDG_RUNTIME_DIR="$symlink_runtime" PATH="$stub_bin:$ROOT/src/commands:/usr/bin:/bin" \
+if HOME="$test_home" XDG_RUNTIME_DIR="$symlink_runtime" PATH="$stub_bin:$ROOT/src/arch/commands:/usr/bin:/bin" \
   ARCH_TEST_RUN_ID="$test_run_id" "$mapped_helper" stop 2>/dev/null; then
   fail "symlink XDG runtime is rejected"
 fi
-if HOME="$test_home" XDG_RUNTIME_DIR="$test_tmp/../${test_tmp##*/}/runtime" PATH="$stub_bin:$ROOT/src/commands:/usr/bin:/bin" \
+if HOME="$test_home" XDG_RUNTIME_DIR="$test_tmp/../${test_tmp##*/}/runtime" PATH="$stub_bin:$ROOT/src/arch/commands:/usr/bin:/bin" \
   ARCH_TEST_RUN_ID="$test_run_id" "$mapped_helper" stop 2>/dev/null; then
   fail "non-canonical XDG runtime is rejected"
 fi
@@ -466,7 +466,7 @@ PY
     export HOME="$test_home" XDG_RUNTIME_DIR="$runtime_dir" ARCH_PATH="$mapped_root"
     export INHIBITOR_LOG="$inhibitor_log" ARCH_TEST_RUN_ID="$test_run_id"
     export TEST_CANCEL_READY="$test_tmp/cancel-ready" TEST_RELEASE_CHILD="$test_tmp/release-child"
-    export PATH="$stub_bin:$ROOT/src/commands:/usr/bin:/bin"
+    export PATH="$stub_bin:$ROOT/src/arch/commands:/usr/bin:/bin"
     exec "$mapped_helper" start
   ) >"$test_tmp/$cancel_phase-cancel.log" 2>&1 &
   cancelled_launcher=$!
@@ -558,7 +558,7 @@ run_fallback() {
   setpriv --reuid="$uid" --regid="$uid" --clear-groups /usr/bin/env -i \
     HOME="$home" ARCH_PATH="$fixture/arch" ARCH_TEST_RUN_ID="$run_id" \
     INHIBITOR_LOG="$home/inhibitors" PATH="$fixture/bin:/usr/bin:/bin" \
-    "$fixture/arch/src/commands/arch-update-stay-awake" "$@"
+    "$fixture/arch/src/arch/commands/arch-update-stay-awake" "$@"
 }
 
 setpriv --reuid=1001 --regid=1001 --clear-groups /usr/bin/bash -c '

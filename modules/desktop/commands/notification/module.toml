@@ -2,40 +2,40 @@ id = "desktop.commands.notification"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-notification-battery",
-  "src/commands/arch-notification-dismiss",
-  "src/commands/arch-notification-send",
-  "src/commands/arch-notification-time",
-  "src/commands/arch-notification-wait",
-  "src/cli/notification/wait.py",
-  "src/commands/arch-notification-weather",
+  "src/arch/commands/arch-notification-battery",
+  "src/arch/commands/arch-notification-dismiss",
+  "src/arch/commands/arch-notification-send",
+  "src/arch/commands/arch-notification-time",
+  "src/arch/commands/arch-notification-wait",
+  "src/arch/cli/notification/wait.py",
+  "src/arch/commands/arch-notification-weather",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-notification-battery"
-target = "usr/share/arch/src/commands/arch-notification-battery"
+source = "src/arch/commands/arch-notification-battery"
+target = "usr/share/arch/src/arch/commands/arch-notification-battery"
 
 [[output]]
-source = "src/commands/arch-notification-dismiss"
-target = "usr/share/arch/src/commands/arch-notification-dismiss"
+source = "src/arch/commands/arch-notification-dismiss"
+target = "usr/share/arch/src/arch/commands/arch-notification-dismiss"
 
 [[output]]
-source = "src/commands/arch-notification-send"
-target = "usr/share/arch/src/commands/arch-notification-send"
+source = "src/arch/commands/arch-notification-send"
+target = "usr/share/arch/src/arch/commands/arch-notification-send"
 
 [[output]]
-source = "src/commands/arch-notification-time"
-target = "usr/share/arch/src/commands/arch-notification-time"
+source = "src/arch/commands/arch-notification-time"
+target = "usr/share/arch/src/arch/commands/arch-notification-time"
 
 [[output]]
-source = "src/commands/arch-notification-wait"
-target = "usr/share/arch/src/commands/arch-notification-wait"
+source = "src/arch/commands/arch-notification-wait"
+target = "usr/share/arch/src/arch/commands/arch-notification-wait"
 
 [[output]]
-source = "src/cli/notification/wait.py"
-target = "usr/share/arch/src/cli/notification/wait.py"
+source = "src/arch/cli/notification/wait.py"
+target = "usr/share/arch/src/arch/cli/notification/wait.py"
 
 [[output]]
-source = "src/commands/arch-notification-weather"
-target = "usr/share/arch/src/commands/arch-notification-weather"
+source = "src/arch/commands/arch-notification-weather"
+target = "usr/share/arch/src/arch/commands/arch-notification-weather"

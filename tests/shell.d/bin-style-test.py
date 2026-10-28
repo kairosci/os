@@ -8,7 +8,7 @@ import subprocess
 from base_test import ROOT, fail_check, pass_check, test_environment
 
 
-cli = ROOT / "src/commands"
+cli = ROOT / "src/arch/commands"
 environment = test_environment()
 command_checks = subprocess.run(
   ["rg", "-l", "command -v", str(cli)],

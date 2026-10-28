@@ -16,8 +16,8 @@ awk '
   /^export PATH=/ { found = 1; print "exit 99"; exit }
   { print }
   END { if (!found) exit 1 }
-' "$ROOT/src/commands/arch-system-factory-reset" >"$tmp/checkout with spaces/reset"
-grep -Fxq 'PACKAGED_PATH=/usr/bin/arch-system-factory-reset' "$ROOT/src/commands/arch-system-factory-reset" || fail "factory reset pins the packaged path"
+' "$ROOT/src/arch/commands/arch-system-factory-reset" >"$tmp/checkout with spaces/reset"
+grep -Fxq 'PACKAGED_PATH=/usr/bin/arch-system-factory-reset' "$ROOT/src/arch/commands/arch-system-factory-reset" || fail "factory reset pins the packaged path"
 sed -i "s|^PACKAGED_PATH=.*|PACKAGED_PATH=\"$tmp/packaged-reset\"|" "$tmp/checkout with spaces/reset"
 cp "$tmp/checkout with spaces/reset" "$tmp/packaged-reset"
 chmod +x "$tmp/checkout with spaces/reset" "$tmp/packaged-reset"

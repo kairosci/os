@@ -4,7 +4,7 @@ set -euo pipefail
 
 source "$(dirname "$0")/base-test.sh"
 
-dns="$ROOT/src/commands/arch-dns"
+dns="$ROOT/src/arch/commands/arch-dns"
 sudoers_file="$ROOT/etc/sudoers.d/arch-dns"
 rule='%wheel ALL=(root) NOPASSWD: /usr/bin/arch-dns Cloudflare, /usr/bin/arch-dns Google, /usr/bin/arch-dns DHCP'
 

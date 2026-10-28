@@ -2,155 +2,155 @@ id = "desktop.commands.hyprland"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-hyprland-corners",
-  "src/commands/arch-hyprland-focus-app",
-  "src/cli/hyprland/focus.py",
-  "src/commands/arch-hyprland-monitor-clamshell",
-  "src/commands/arch-hyprland-monitor-external-active",
-  "src/commands/arch-hyprland-monitor-focused",
-  "src/cli/hyprland/monitors.py",
-  "src/commands/arch-hyprland-monitor-focused-apple",
-  "src/commands/arch-hyprland-monitor-internal",
-  "src/commands/arch-hyprland-monitor-internal-mirror",
-  "src/commands/arch-hyprland-monitor-laptop",
-  "src/commands/arch-hyprland-monitor-modeless",
-  "src/commands/arch-hyprland-monitor-scaling",
-  "src/commands/arch-hyprland-monitor-watch",
-  "src/commands/arch-hyprland-reload-guard",
-  "src/commands/arch-hyprland-session-lock-stranded",
-  "src/commands/arch-hyprland-session-locked",
-  "src/commands/arch-hyprland-toggle",
-  "src/commands/arch-hyprland-toggle-disabled",
-  "src/commands/arch-hyprland-toggle-enabled",
-  "src/commands/arch-hyprland-window-close-all",
-  "src/commands/arch-hyprland-window-gaps-toggle",
-  "src/commands/arch-hyprland-window-single-square-aspect-toggle",
-  "src/commands/arch-hyprland-window-tiled-fullscreen-toggle",
-  "src/commands/arch-hyprland-window-transparency",
-  "src/commands/arch-hyprland-window-transparency-toggle",
-  "src/commands/arch-hyprland-window-width",
-  "src/commands/arch-hyprland-workspace-layout-current",
-  "src/commands/arch-hyprland-workspace-layout-default",
-  "src/commands/arch-hyprland-workspace-layout-toggle",
+  "src/arch/commands/arch-hyprland-corners",
+  "src/arch/commands/arch-hyprland-focus-app",
+  "src/arch/cli/hyprland/focus.py",
+  "src/arch/commands/arch-hyprland-monitor-clamshell",
+  "src/arch/commands/arch-hyprland-monitor-external-active",
+  "src/arch/commands/arch-hyprland-monitor-focused",
+  "src/arch/cli/hyprland/monitors.py",
+  "src/arch/commands/arch-hyprland-monitor-focused-apple",
+  "src/arch/commands/arch-hyprland-monitor-internal",
+  "src/arch/commands/arch-hyprland-monitor-internal-mirror",
+  "src/arch/commands/arch-hyprland-monitor-laptop",
+  "src/arch/commands/arch-hyprland-monitor-modeless",
+  "src/arch/commands/arch-hyprland-monitor-scaling",
+  "src/arch/commands/arch-hyprland-monitor-watch",
+  "src/arch/commands/arch-hyprland-reload-guard",
+  "src/arch/commands/arch-hyprland-session-lock-stranded",
+  "src/arch/commands/arch-hyprland-session-locked",
+  "src/arch/commands/arch-hyprland-toggle",
+  "src/arch/commands/arch-hyprland-toggle-disabled",
+  "src/arch/commands/arch-hyprland-toggle-enabled",
+  "src/arch/commands/arch-hyprland-window-close-all",
+  "src/arch/commands/arch-hyprland-window-gaps-toggle",
+  "src/arch/commands/arch-hyprland-window-single-square-aspect-toggle",
+  "src/arch/commands/arch-hyprland-window-tiled-fullscreen-toggle",
+  "src/arch/commands/arch-hyprland-window-transparency",
+  "src/arch/commands/arch-hyprland-window-transparency-toggle",
+  "src/arch/commands/arch-hyprland-window-width",
+  "src/arch/commands/arch-hyprland-workspace-layout-current",
+  "src/arch/commands/arch-hyprland-workspace-layout-default",
+  "src/arch/commands/arch-hyprland-workspace-layout-toggle",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-hyprland-corners"
-target = "usr/share/arch/src/commands/arch-hyprland-corners"
+source = "src/arch/commands/arch-hyprland-corners"
+target = "usr/share/arch/src/arch/commands/arch-hyprland-corners"
 
 [[output]]
-source = "src/commands/arch-hyprland-focus-app"
-target = "usr/share/arch/src/commands/arch-hyprland-focus-app"
+source = "src/arch/commands/arch-hyprland-focus-app"
+target = "usr/share/arch/src/arch/commands/arch-hyprland-focus-app"
 
 [[output]]
-source = "src/cli/hyprland/focus.py"
-target = "usr/share/arch/src/cli/hyprland/focus.py"
+source = "src/arch/cli/hyprland/focus.py"
+target = "usr/share/arch/src/arch/cli/hyprland/focus.py"
 
 [[output]]
-source = "src/commands/arch-hyprland-monitor-clamshell"
-target = "usr/share/arch/src/commands/arch-hyprland-monitor-clamshell"
+source = "src/arch/commands/arch-hyprland-monitor-clamshell"
+target = "usr/share/arch/src/arch/commands/arch-hyprland-monitor-clamshell"
 
 [[output]]
-source = "src/commands/arch-hyprland-monitor-external-active"
-target = "usr/share/arch/src/commands/arch-hyprland-monitor-external-active"
+source = "src/arch/commands/arch-hyprland-monitor-external-active"
+target = "usr/share/arch/src/arch/commands/arch-hyprland-monitor-external-active"
 
 [[output]]
-source = "src/commands/arch-hyprland-monitor-focused"
-target = "usr/share/arch/src/commands/arch-hyprland-monitor-focused"
+source = "src/arch/commands/arch-hyprland-monitor-focused"
+target = "usr/share/arch/src/arch/commands/arch-hyprland-monitor-focused"
 
 [[output]]
-source = "src/cli/hyprland/monitors.py"
-target = "usr/share/arch/src/cli/hyprland/monitors.py"
+source = "src/arch/cli/hyprland/monitors.py"
+target = "usr/share/arch/src/arch/cli/hyprland/monitors.py"
 
 [[output]]
-source = "src/commands/arch-hyprland-monitor-focused-apple"
-target = "usr/share/arch/src/commands/arch-hyprland-monitor-focused-apple"
+source = "src/arch/commands/arch-hyprland-monitor-focused-apple"
+target = "usr/share/arch/src/arch/commands/arch-hyprland-monitor-focused-apple"
 
 [[output]]
-source = "src/commands/arch-hyprland-monitor-internal"
-target = "usr/share/arch/src/commands/arch-hyprland-monitor-internal"
+source = "src/arch/commands/arch-hyprland-monitor-internal"
+target = "usr/share/arch/src/arch/commands/arch-hyprland-monitor-internal"
 
 [[output]]
-source = "src/commands/arch-hyprland-monitor-internal-mirror"
-target = "usr/share/arch/src/commands/arch-hyprland-monitor-internal-mirror"
+source = "src/arch/commands/arch-hyprland-monitor-internal-mirror"
+target = "usr/share/arch/src/arch/commands/arch-hyprland-monitor-internal-mirror"
 
 [[output]]
-source = "src/commands/arch-hyprland-monitor-laptop"
-target = "usr/share/arch/src/commands/arch-hyprland-monitor-laptop"
+source = "src/arch/commands/arch-hyprland-monitor-laptop"
+target = "usr/share/arch/src/arch/commands/arch-hyprland-monitor-laptop"
 
 [[output]]
-source = "src/commands/arch-hyprland-monitor-modeless"
-target = "usr/share/arch/src/commands/arch-hyprland-monitor-modeless"
+source = "src/arch/commands/arch-hyprland-monitor-modeless"
+target = "usr/share/arch/src/arch/commands/arch-hyprland-monitor-modeless"
 
 [[output]]
-source = "src/commands/arch-hyprland-monitor-scaling"
-target = "usr/share/arch/src/commands/arch-hyprland-monitor-scaling"
+source = "src/arch/commands/arch-hyprland-monitor-scaling"
+target = "usr/share/arch/src/arch/commands/arch-hyprland-monitor-scaling"
 
 [[output]]
-source = "src/commands/arch-hyprland-monitor-watch"
-target = "usr/share/arch/src/commands/arch-hyprland-monitor-watch"
+source = "src/arch/commands/arch-hyprland-monitor-watch"
+target = "usr/share/arch/src/arch/commands/arch-hyprland-monitor-watch"
 
 [[output]]
-source = "src/commands/arch-hyprland-reload-guard"
-target = "usr/share/arch/src/commands/arch-hyprland-reload-guard"
+source = "src/arch/commands/arch-hyprland-reload-guard"
+target = "usr/share/arch/src/arch/commands/arch-hyprland-reload-guard"
 
 [[output]]
-source = "src/commands/arch-hyprland-session-lock-stranded"
-target = "usr/share/arch/src/commands/arch-hyprland-session-lock-stranded"
+source = "src/arch/commands/arch-hyprland-session-lock-stranded"
+target = "usr/share/arch/src/arch/commands/arch-hyprland-session-lock-stranded"
 
 [[output]]
-source = "src/commands/arch-hyprland-session-locked"
-target = "usr/share/arch/src/commands/arch-hyprland-session-locked"
+source = "src/arch/commands/arch-hyprland-session-locked"
+target = "usr/share/arch/src/arch/commands/arch-hyprland-session-locked"
 
 [[output]]
-source = "src/commands/arch-hyprland-toggle"
-target = "usr/share/arch/src/commands/arch-hyprland-toggle"
+source = "src/arch/commands/arch-hyprland-toggle"
+target = "usr/share/arch/src/arch/commands/arch-hyprland-toggle"
 
 [[output]]
-source = "src/commands/arch-hyprland-toggle-disabled"
-target = "usr/share/arch/src/commands/arch-hyprland-toggle-disabled"
+source = "src/arch/commands/arch-hyprland-toggle-disabled"
+target = "usr/share/arch/src/arch/commands/arch-hyprland-toggle-disabled"
 
 [[output]]
-source = "src/commands/arch-hyprland-toggle-enabled"
-target = "usr/share/arch/src/commands/arch-hyprland-toggle-enabled"
+source = "src/arch/commands/arch-hyprland-toggle-enabled"
+target = "usr/share/arch/src/arch/commands/arch-hyprland-toggle-enabled"
 
 [[output]]
-source = "src/commands/arch-hyprland-window-close-all"
-target = "usr/share/arch/src/commands/arch-hyprland-window-close-all"
+source = "src/arch/commands/arch-hyprland-window-close-all"
+target = "usr/share/arch/src/arch/commands/arch-hyprland-window-close-all"
 
 [[output]]
-source = "src/commands/arch-hyprland-window-gaps-toggle"
-target = "usr/share/arch/src/commands/arch-hyprland-window-gaps-toggle"
+source = "src/arch/commands/arch-hyprland-window-gaps-toggle"
+target = "usr/share/arch/src/arch/commands/arch-hyprland-window-gaps-toggle"
 
 [[output]]
-source = "src/commands/arch-hyprland-window-single-square-aspect-toggle"
-target = "usr/share/arch/src/commands/arch-hyprland-window-single-square-aspect-toggle"
+source = "src/arch/commands/arch-hyprland-window-single-square-aspect-toggle"
+target = "usr/share/arch/src/arch/commands/arch-hyprland-window-single-square-aspect-toggle"
 
 [[output]]
-source = "src/commands/arch-hyprland-window-tiled-fullscreen-toggle"
-target = "usr/share/arch/src/commands/arch-hyprland-window-tiled-fullscreen-toggle"
+source = "src/arch/commands/arch-hyprland-window-tiled-fullscreen-toggle"
+target = "usr/share/arch/src/arch/commands/arch-hyprland-window-tiled-fullscreen-toggle"
 
 [[output]]
-source = "src/commands/arch-hyprland-window-transparency"
-target = "usr/share/arch/src/commands/arch-hyprland-window-transparency"
+source = "src/arch/commands/arch-hyprland-window-transparency"
+target = "usr/share/arch/src/arch/commands/arch-hyprland-window-transparency"
 
 [[output]]
-source = "src/commands/arch-hyprland-window-transparency-toggle"
-target = "usr/share/arch/src/commands/arch-hyprland-window-transparency-toggle"
+source = "src/arch/commands/arch-hyprland-window-transparency-toggle"
+target = "usr/share/arch/src/arch/commands/arch-hyprland-window-transparency-toggle"
 
 [[output]]
-source = "src/commands/arch-hyprland-window-width"
-target = "usr/share/arch/src/commands/arch-hyprland-window-width"
+source = "src/arch/commands/arch-hyprland-window-width"
+target = "usr/share/arch/src/arch/commands/arch-hyprland-window-width"
 
 [[output]]
-source = "src/commands/arch-hyprland-workspace-layout-current"
-target = "usr/share/arch/src/commands/arch-hyprland-workspace-layout-current"
+source = "src/arch/commands/arch-hyprland-workspace-layout-current"
+target = "usr/share/arch/src/arch/commands/arch-hyprland-workspace-layout-current"
 
 [[output]]
-source = "src/commands/arch-hyprland-workspace-layout-default"
-target = "usr/share/arch/src/commands/arch-hyprland-workspace-layout-default"
+source = "src/arch/commands/arch-hyprland-workspace-layout-default"
+target = "usr/share/arch/src/arch/commands/arch-hyprland-workspace-layout-default"
 
 [[output]]
-source = "src/commands/arch-hyprland-workspace-layout-toggle"
-target = "usr/share/arch/src/commands/arch-hyprland-workspace-layout-toggle"
+source = "src/arch/commands/arch-hyprland-workspace-layout-toggle"
+target = "usr/share/arch/src/arch/commands/arch-hyprland-workspace-layout-toggle"

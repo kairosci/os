@@ -4,7 +4,7 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-command="$ROOT/src/commands/arch-kernel"
+command="$ROOT/src/arch/commands/arch-kernel"
 scratch=$(mktemp -d)
 trap 'rm -rf "$scratch"' EXIT
 mkdir -p "$scratch/bin" "$scratch/root-bin" "$scratch/drop-ins" "$scratch/modules"
@@ -163,7 +163,7 @@ pass "set only accepts installed kernels"
 reset_fixture
 "$command" set linux < /dev/null
 [[ $(grep -c '^pkexec ' "$CALL_LOG") == "1" ]] || fail "the menu path escalates through pkexec once" "$(<"$CALL_LOG")"
-grep -Fxq "pkexec $ROOT/src/commands/arch-kernel set linux" "$CALL_LOG" || fail "pkexec runs this command's root half" "$(<"$CALL_LOG")"
+grep -Fxq "pkexec $ROOT/src/arch/commands/arch-kernel set linux" "$CALL_LOG" || fail "pkexec runs this command's root half" "$(<"$CALL_LOG")"
 ! grep -q '^sudo ' "$CALL_LOG" || fail "the menu path has no terminal for sudo"
 grep -Fxq 'arch-state set reboot-required' "$CALL_LOG" || fail "a switch asks for a reboot"
 [[ $(grep -c '^arch-notification-send ' "$CALL_LOG") == "1" ]] || fail "only the finished switch is announced" "$(<"$CALL_LOG")"

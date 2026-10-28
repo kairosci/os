@@ -32,7 +32,7 @@ assert transcode.SUPPORTED_MIME_PREFIXES == ("image/", "video/")
 assert {".jpg", ".mp4"} <= transcode.SUPPORTED_EXTENSIONS
 assert ".pdf" not in transcode.SUPPORTED_EXTENSIONS
 
-dropbox = load("arch_dropbox_status", ROOT / "src/shell/plugins/panels/dropbox/status.py")
+dropbox = load("arch_dropbox_status", ROOT / "src/arch/shell/plugins/panels/dropbox/status.py")
 assert dropbox.PLAN_QUOTAS["basic"] == 2_000_000_000
 assert dropbox.PLAN_QUOTAS["professional"] == 3_000_000_000_000
 

@@ -2,45 +2,45 @@ id = "desktop.commands.setup"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-setup-direct-boot",
-  "src/commands/arch-setup-input",
-  "src/commands/arch-setup-keyboard",
-  "src/commands/arch-setup-security-fido2",
-  "src/commands/arch-setup-security-fingerprint",
-  "src/commands/arch-setup-security-ssh-agent",
-  "src/commands/arch-setup-security-sshd",
-  "src/commands/arch-setup-security-sudoless-docker",
+  "src/arch/commands/arch-setup-direct-boot",
+  "src/arch/commands/arch-setup-input",
+  "src/arch/commands/arch-setup-keyboard",
+  "src/arch/commands/arch-setup-security-fido2",
+  "src/arch/commands/arch-setup-security-fingerprint",
+  "src/arch/commands/arch-setup-security-ssh-agent",
+  "src/arch/commands/arch-setup-security-sshd",
+  "src/arch/commands/arch-setup-security-sudoless-docker",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-setup-direct-boot"
-target = "usr/share/arch/src/commands/arch-setup-direct-boot"
+source = "src/arch/commands/arch-setup-direct-boot"
+target = "usr/share/arch/src/arch/commands/arch-setup-direct-boot"
 
 [[output]]
-source = "src/commands/arch-setup-input"
-target = "usr/share/arch/src/commands/arch-setup-input"
+source = "src/arch/commands/arch-setup-input"
+target = "usr/share/arch/src/arch/commands/arch-setup-input"
 
 [[output]]
-source = "src/commands/arch-setup-keyboard"
-target = "usr/share/arch/src/commands/arch-setup-keyboard"
+source = "src/arch/commands/arch-setup-keyboard"
+target = "usr/share/arch/src/arch/commands/arch-setup-keyboard"
 
 [[output]]
-source = "src/commands/arch-setup-security-fido2"
-target = "usr/share/arch/src/commands/arch-setup-security-fido2"
+source = "src/arch/commands/arch-setup-security-fido2"
+target = "usr/share/arch/src/arch/commands/arch-setup-security-fido2"
 
 [[output]]
-source = "src/commands/arch-setup-security-fingerprint"
-target = "usr/share/arch/src/commands/arch-setup-security-fingerprint"
+source = "src/arch/commands/arch-setup-security-fingerprint"
+target = "usr/share/arch/src/arch/commands/arch-setup-security-fingerprint"
 
 [[output]]
-source = "src/commands/arch-setup-security-ssh-agent"
-target = "usr/share/arch/src/commands/arch-setup-security-ssh-agent"
+source = "src/arch/commands/arch-setup-security-ssh-agent"
+target = "usr/share/arch/src/arch/commands/arch-setup-security-ssh-agent"
 
 [[output]]
-source = "src/commands/arch-setup-security-sshd"
-target = "usr/share/arch/src/commands/arch-setup-security-sshd"
+source = "src/arch/commands/arch-setup-security-sshd"
+target = "usr/share/arch/src/arch/commands/arch-setup-security-sshd"
 
 [[output]]
-source = "src/commands/arch-setup-security-sudoless-docker"
-target = "usr/share/arch/src/commands/arch-setup-security-sudoless-docker"
+source = "src/arch/commands/arch-setup-security-sudoless-docker"
+target = "usr/share/arch/src/arch/commands/arch-setup-security-sudoless-docker"

@@ -40,32 +40,32 @@ sources = [
 requires = ["desktop.commands", "system.runtime-data"]
 
 [[output]]
-source = "src/commands/arch-hw-aarch64"
-target = "usr/share/arch/src/commands/arch-hw-aarch64"
+source = "src/arch/commands/arch-hw-aarch64"
+target = "usr/share/arch/src/arch/commands/arch-hw-aarch64"
 
 [[output]]
-source = "src/commands/arch-hw-aarch64-apple"
-target = "usr/share/arch/src/commands/arch-hw-aarch64-apple"
+source = "src/arch/commands/arch-hw-aarch64-apple"
+target = "usr/share/arch/src/arch/commands/arch-hw-aarch64-apple"
 
 [[output]]
-source = "src/commands/arch-hw-aarch64-gb10"
-target = "usr/share/arch/src/commands/arch-hw-aarch64-gb10"
+source = "src/arch/commands/arch-hw-aarch64-gb10"
+target = "usr/share/arch/src/arch/commands/arch-hw-aarch64-gb10"
 
 [[output]]
-source = "src/commands/arch-hw-aarch64-n1x"
-target = "usr/share/arch/src/commands/arch-hw-aarch64-n1x"
+source = "src/arch/commands/arch-hw-aarch64-n1x"
+target = "usr/share/arch/src/arch/commands/arch-hw-aarch64-n1x"
 
 [[output]]
-source = "src/commands/arch-hw-aarch64-qualcomm"
-target = "usr/share/arch/src/commands/arch-hw-aarch64-qualcomm"
+source = "src/arch/commands/arch-hw-aarch64-qualcomm"
+target = "usr/share/arch/src/arch/commands/arch-hw-aarch64-qualcomm"
 
 [[output]]
-source = "src/cli/hardware/architecture.py"
-target = "usr/share/arch/src/cli/hardware/architecture.py"
+source = "src/arch/cli/hardware/architecture.py"
+target = "usr/share/arch/src/arch/cli/hardware/architecture.py"
 
 [[output]]
-source = "src/commands/arch-hw-apple-silicon"
-target = "usr/share/arch/src/commands/arch-hw-apple-silicon"
+source = "src/arch/commands/arch-hw-apple-silicon"
+target = "usr/share/arch/src/arch/commands/arch-hw-apple-silicon"
 
 [[output]]
 source = "src/commands/arch-hw-clamshell"
@@ -80,97 +80,97 @@ source = "src/commands/arch-hw-external-monitors"
 target = "usr/share/arch/src/commands/arch-hw-external-monitors"
 
 [[output]]
-source = "src/commands/arch-hw-fingerprint"
-target = "usr/share/arch/src/commands/arch-hw-fingerprint"
+source = "src/arch/commands/arch-hw-fingerprint"
+target = "usr/share/arch/src/arch/commands/arch-hw-fingerprint"
 
 [[output]]
 source = "src/commands/arch-hw-hybrid-gpu"
 target = "usr/share/arch/src/commands/arch-hw-hybrid-gpu"
 
 [[output]]
-source = "src/commands/arch-hw-intel"
-target = "usr/share/arch/src/commands/arch-hw-intel"
+source = "src/arch/commands/arch-hw-intel"
+target = "usr/share/arch/src/arch/commands/arch-hw-intel"
 
 [[output]]
-source = "src/commands/arch-hw-intel-ptl"
-target = "usr/share/arch/src/commands/arch-hw-intel-ptl"
+source = "src/arch/commands/arch-hw-intel-ptl"
+target = "usr/share/arch/src/arch/commands/arch-hw-intel-ptl"
 
 [[output]]
-source = "src/commands/arch-hw-intel-sof"
-target = "usr/share/arch/src/commands/arch-hw-intel-sof"
+source = "src/arch/commands/arch-hw-intel-sof"
+target = "usr/share/arch/src/arch/commands/arch-hw-intel-sof"
 
 [[output]]
-source = "src/commands/arch-hw-laptop"
-target = "usr/share/arch/src/commands/arch-hw-laptop"
+source = "src/arch/commands/arch-hw-laptop"
+target = "usr/share/arch/src/arch/commands/arch-hw-laptop"
 
 [[output]]
-source = "src/commands/arch-hw-laptop-closed"
-target = "usr/share/arch/src/commands/arch-hw-laptop-closed"
+source = "src/arch/commands/arch-hw-laptop-closed"
+target = "usr/share/arch/src/arch/commands/arch-hw-laptop-closed"
 
 [[output]]
-source = "src/commands/arch-hw-match"
-target = "usr/share/arch/src/commands/arch-hw-match"
+source = "src/arch/commands/arch-hw-match"
+target = "usr/share/arch/src/arch/commands/arch-hw-match"
 
 [[output]]
-source = "src/commands/arch-hw-match-device-tree"
-target = "usr/share/arch/src/commands/arch-hw-match-device-tree"
+source = "src/arch/commands/arch-hw-match-device-tree"
+target = "usr/share/arch/src/arch/commands/arch-hw-match-device-tree"
 
 [[output]]
-source = "src/commands/arch-hw-n1x"
-target = "usr/share/arch/src/commands/arch-hw-n1x"
+source = "src/arch/commands/arch-hw-n1x"
+target = "usr/share/arch/src/arch/commands/arch-hw-n1x"
 
 [[output]]
-source = "src/commands/arch-hw-nvidia"
-target = "usr/share/arch/src/commands/arch-hw-nvidia"
+source = "src/arch/commands/arch-hw-nvidia"
+target = "usr/share/arch/src/arch/commands/arch-hw-nvidia"
 
 [[output]]
-source = "src/commands/arch-hw-nvidia-display"
-target = "usr/share/arch/src/commands/arch-hw-nvidia-display"
+source = "src/arch/commands/arch-hw-nvidia-display"
+target = "usr/share/arch/src/arch/commands/arch-hw-nvidia-display"
 
 [[output]]
-source = "src/commands/arch-hw-nvidia-gsp"
-target = "usr/share/arch/src/commands/arch-hw-nvidia-gsp"
+source = "src/arch/commands/arch-hw-nvidia-gsp"
+target = "usr/share/arch/src/arch/commands/arch-hw-nvidia-gsp"
 
 [[output]]
-source = "src/commands/arch-hw-nvidia-without-gsp"
-target = "usr/share/arch/src/commands/arch-hw-nvidia-without-gsp"
+source = "src/arch/commands/arch-hw-nvidia-without-gsp"
+target = "usr/share/arch/src/arch/commands/arch-hw-nvidia-without-gsp"
 
 [[output]]
-source = "src/commands/arch-hw-platform"
-target = "usr/share/arch/src/commands/arch-hw-platform"
+source = "src/arch/commands/arch-hw-platform"
+target = "usr/share/arch/src/arch/commands/arch-hw-platform"
 
 [[output]]
-source = "src/commands/arch-hw-recover-internal-monitor"
-target = "usr/share/arch/src/commands/arch-hw-recover-internal-monitor"
+source = "src/arch/commands/arch-hw-recover-internal-monitor"
+target = "usr/share/arch/src/arch/commands/arch-hw-recover-internal-monitor"
 
 [[output]]
 source = "src/commands/arch-hw-touchpad"
 target = "usr/share/arch/src/commands/arch-hw-touchpad"
 
 [[output]]
-source = "src/commands/arch-hw-touchscreen"
-target = "usr/share/arch/src/commands/arch-hw-touchscreen"
+source = "src/arch/commands/arch-hw-touchscreen"
+target = "usr/share/arch/src/arch/commands/arch-hw-touchscreen"
 
 [[output]]
-source = "src/commands/arch-hw-vm"
-target = "usr/share/arch/src/commands/arch-hw-vm"
+source = "src/arch/commands/arch-hw-vm"
+target = "usr/share/arch/src/arch/commands/arch-hw-vm"
 
 [[output]]
-source = "src/cli/hardware/virtualization.py"
-target = "usr/share/arch/src/cli/hardware/virtualization.py"
+source = "src/arch/cli/hardware/virtualization.py"
+target = "usr/share/arch/src/arch/cli/hardware/virtualization.py"
 
 [[output]]
-source = "src/commands/arch-hw-vulkan"
-target = "usr/share/arch/src/commands/arch-hw-vulkan"
+source = "src/arch/commands/arch-hw-vulkan"
+target = "usr/share/arch/src/arch/commands/arch-hw-vulkan"
 
 [[output]]
-source = "src/commands/arch-hw-webcam"
-target = "usr/share/arch/src/commands/arch-hw-webcam"
+source = "src/arch/commands/arch-hw-webcam"
+target = "usr/share/arch/src/arch/commands/arch-hw-webcam"
 
 [[output]]
-source = "src/cli/hardware/webcam.py"
-target = "usr/share/arch/src/cli/hardware/webcam.py"
+source = "src/arch/cli/hardware/webcam.py"
+target = "usr/share/arch/src/arch/cli/hardware/webcam.py"
 
 [[output]]
-source = "src/commands/arch-hw-x86"
-target = "usr/share/arch/src/commands/arch-hw-x86"
+source = "src/arch/commands/arch-hw-x86"
+target = "usr/share/arch/src/arch/commands/arch-hw-x86"

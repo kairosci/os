@@ -4,7 +4,7 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-touchpad="$ROOT/src/commands/arch-hw-touchpad"
+touchpad="$ROOT/src/arch/commands/arch-hw-touchpad"
 
 require_command jq
 

@@ -2,15 +2,15 @@ id = "desktop.commands.voxtype"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-voxtype-config",
-  "src/commands/arch-voxtype-model",
+  "src/arch/commands/arch-voxtype-config",
+  "src/arch/commands/arch-voxtype-model",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-voxtype-config"
-target = "usr/share/arch/src/commands/arch-voxtype-config"
+source = "src/arch/commands/arch-voxtype-config"
+target = "usr/share/arch/src/arch/commands/arch-voxtype-config"
 
 [[output]]
-source = "src/commands/arch-voxtype-model"
-target = "usr/share/arch/src/commands/arch-voxtype-model"
+source = "src/arch/commands/arch-voxtype-model"
+target = "usr/share/arch/src/arch/commands/arch-voxtype-model"

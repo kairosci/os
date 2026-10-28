@@ -2,15 +2,15 @@ id = "desktop.commands.show"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-show-done",
-  "src/commands/arch-show-logo",
+  "src/arch/commands/arch-show-done",
+  "src/arch/commands/arch-show-logo",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-show-done"
-target = "usr/share/arch/src/commands/arch-show-done"
+source = "src/arch/commands/arch-show-done"
+target = "usr/share/arch/src/arch/commands/arch-show-done"
 
 [[output]]
-source = "src/commands/arch-show-logo"
-target = "usr/share/arch/src/commands/arch-show-logo"
+source = "src/arch/commands/arch-show-logo"
+target = "usr/share/arch/src/arch/commands/arch-show-logo"

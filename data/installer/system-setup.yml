@@ -1,20 +1,20 @@
 steps:
-  - src/python/installer/system_setup/chromium_preferences.py
+  - src/arch/python/installer/system_setup/chromium_preferences.py
   - root: arch_install
     path: config/browser-policy.sh
-  - src/python/installer/system_setup/lockout_limit.py
-  - src/python/installer/system_setup/lockscreen.py
-  - src/python/installer/system_setup/powerprofilesctl_shebang.py
-  - src/python/installer/system_setup/ssh_command_path.py
-  - src/python/installer/system_setup/ssh_keepalive.py
-  - src/python/installer/system_setup/locale_setup.py
-  - src/python/installer/system_setup/language_setup.py
-  - src/python/installer/system_setup/systemd_boot_snapshots.py
-  - src/python/installer/system_setup/snapper_setup.py
-  - src/python/installer/system_setup/systemd_boot_kernel.py
-  - src/python/installer/system_setup/enable_services.py
-  - src/python/installer/system_setup/firewall.py
-  - src/python/installer/system_setup/branding.py
+  - src/arch/python/installer/system_setup/lockout_limit.py
+  - src/arch/python/installer/system_setup/lockscreen.py
+  - src/arch/python/installer/system_setup/powerprofilesctl_shebang.py
+  - src/arch/python/installer/system_setup/ssh_command_path.py
+  - src/arch/python/installer/system_setup/ssh_keepalive.py
+  - src/arch/python/installer/system_setup/locale_setup.py
+  - src/arch/python/installer/system_setup/language_setup.py
+  - src/arch/python/installer/system_setup/systemd_boot_snapshots.py
+  - src/arch/python/installer/system_setup/snapper_setup.py
+  - src/arch/python/installer/system_setup/systemd_boot_kernel.py
+  - src/arch/python/installer/system_setup/enable_services.py
+  - src/arch/python/installer/system_setup/firewall.py
+  - src/arch/python/installer/system_setup/branding.py
 messages:
   en:
     starting: "Starting: {step}"
@@ -25,7 +25,7 @@ messages:
     completed: "Completato: {step}"
     failed: "Non riuscito: {step} (codice di uscita: {status})"
 lockscreen:
-  command: ["{arch_path}/src/commands/arch-apply-lock"]
+  command: ["{arch_path}/src/arch/commands/arch-apply-lock"]
 
 chromium_preferences:
   destination: /usr/lib/chromium/initial_preferences
@@ -108,7 +108,7 @@ language_setup:
   code_pattern: '^[a-z]{2,3}(-[A-Z]{2})?$'
   language_environment: LANG
   default_language: en
-  generator_command: ['{arch_path}/src/commands/arch-locale-generate']
+  generator_command: ['{arch_path}/src/arch/commands/arch-locale-generate']
   messages:
     en:
       invalid: 'Ignoring an invalid language in {marker}: {code}'

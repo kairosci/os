@@ -107,21 +107,21 @@ orchestrator:
         network: pianifica le notifiche Wi-Fi e aggiornamenti
   steps:
     - id: fingerprint_hook
-      command: [arch-hook-install, post-update, '{arch_path}/src/python/installer_user/first_run/fingerprint_invitation.py']
+      command: [arch-hook-install, post-update, '{arch_path}/src/arch/python/installer_user/first_run/fingerprint_invitation.py']
     - id: user_units
-      command: [python3, -I, '{arch_path}/src/python/installer_user/first_run/commands.py', user_units]
+      command: [python3, -I, '{arch_path}/src/arch/python/installer_user/first_run/commands.py', user_units]
     - id: platform_setup
       command: [arch-lifecycle-dispatch, setup-user]
     - id: gnome_theme
-      command: [python3, -I, '{arch_path}/src/python/installer_user/first_run/commands.py', gnome_theme]
+      command: [python3, -I, '{arch_path}/src/arch/python/installer_user/first_run/commands.py', gnome_theme]
     - id: gtk_primary_paste
-      command: [python3, -I, '{arch_path}/src/python/installer_user/first_run/commands.py', gtk_primary_paste]
+      command: [python3, -I, '{arch_path}/src/arch/python/installer_user/first_run/commands.py', gtk_primary_paste]
     - id: audio_tuning
-      command: [python3, -I, '{arch_path}/src/python/installer_user/first_run/commands.py', audio_tuning]
+      command: [python3, -I, '{arch_path}/src/arch/python/installer_user/first_run/commands.py', audio_tuning]
     - id: welcome
-      command: [python3, -I, '{arch_path}/src/python/installer_user/first_run/commands.py', welcome]
+      command: [python3, -I, '{arch_path}/src/arch/python/installer_user/first_run/commands.py', welcome]
     - id: network
-      command: [python3, -I, '{arch_path}/src/python/installer_user/first_run/commands.py', wifi]
+      command: [python3, -I, '{arch_path}/src/arch/python/installer_user/first_run/commands.py', wifi]
 user_units:
   input_method: [arch-input-method, configure, --defaults]
   daemon_reload: [systemctl, --user, daemon-reload]

@@ -41,142 +41,142 @@ sources = [
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-install-and-launch"
-target = "usr/share/arch/src/commands/arch-install-and-launch"
+source = "src/arch/commands/arch-install-and-launch"
+target = "usr/share/arch/src/arch/commands/arch-install-and-launch"
 
 [[output]]
-source = "src/commands/arch-install-app"
-target = "usr/share/arch/src/commands/arch-install-app"
+source = "src/arch/commands/arch-install-app"
+target = "usr/share/arch/src/arch/commands/arch-install-app"
 
 [[output]]
-source = "src/commands/arch-install-browser"
-target = "usr/share/arch/src/commands/arch-install-browser"
+source = "src/arch/commands/arch-install-browser"
+target = "usr/share/arch/src/arch/commands/arch-install-browser"
 
 [[output]]
-source = "src/commands/arch-install-camera"
-target = "usr/share/arch/src/commands/arch-install-camera"
+source = "src/arch/commands/arch-install-camera"
+target = "usr/share/arch/src/arch/commands/arch-install-camera"
 
 [[output]]
-source = "src/commands/arch-install-chromium-copy-url"
-target = "usr/share/arch/src/commands/arch-install-chromium-copy-url"
+source = "src/arch/commands/arch-install-chromium-copy-url"
+target = "usr/share/arch/src/arch/commands/arch-install-chromium-copy-url"
 
 [[output]]
-source = "src/commands/arch-install-chromium-google-account"
-target = "usr/share/arch/src/commands/arch-install-chromium-google-account"
+source = "src/arch/commands/arch-install-chromium-google-account"
+target = "usr/share/arch/src/arch/commands/arch-install-chromium-google-account"
 
 [[output]]
-source = "src/commands/arch-install-chromium-ytdlp"
-target = "usr/share/arch/src/commands/arch-install-chromium-ytdlp"
+source = "src/arch/commands/arch-install-chromium-ytdlp"
+target = "usr/share/arch/src/arch/commands/arch-install-chromium-ytdlp"
 
 [[output]]
-source = "src/commands/arch-install-dev-env"
-target = "usr/share/arch/src/commands/arch-install-dev-env"
+source = "src/arch/commands/arch-install-dev-env"
+target = "usr/share/arch/src/arch/commands/arch-install-dev-env"
 
 [[output]]
-source = "src/commands/arch-install-dictation-superwhisper"
-target = "usr/share/arch/src/commands/arch-install-dictation-superwhisper"
+source = "src/arch/commands/arch-install-dictation-superwhisper"
+target = "usr/share/arch/src/arch/commands/arch-install-dictation-superwhisper"
 
 [[output]]
-source = "src/commands/arch-install-dictation-voxtype"
-target = "usr/share/arch/src/commands/arch-install-dictation-voxtype"
+source = "src/arch/commands/arch-install-dictation-voxtype"
+target = "usr/share/arch/src/arch/commands/arch-install-dictation-voxtype"
 
 [[output]]
-source = "src/commands/arch-install-docker-dbs"
-target = "usr/share/arch/src/commands/arch-install-docker-dbs"
+source = "src/arch/commands/arch-install-docker-dbs"
+target = "usr/share/arch/src/arch/commands/arch-install-docker-dbs"
 
 [[output]]
-source = "src/commands/arch-install-editor-emacs"
-target = "usr/share/arch/src/commands/arch-install-editor-emacs"
+source = "src/arch/commands/arch-install-editor-emacs"
+target = "usr/share/arch/src/arch/commands/arch-install-editor-emacs"
 
 [[output]]
-source = "src/commands/arch-install-editor-helix"
-target = "usr/share/arch/src/commands/arch-install-editor-helix"
+source = "src/arch/commands/arch-install-editor-helix"
+target = "usr/share/arch/src/arch/commands/arch-install-editor-helix"
 
 [[output]]
-source = "src/commands/arch-install-editor-vscode"
-target = "usr/share/arch/src/commands/arch-install-editor-vscode"
+source = "src/arch/commands/arch-install-editor-vscode"
+target = "usr/share/arch/src/arch/commands/arch-install-editor-vscode"
 
 [[output]]
-source = "src/commands/arch-install-editor-zed"
-target = "usr/share/arch/src/commands/arch-install-editor-zed"
+source = "src/arch/commands/arch-install-editor-zed"
+target = "usr/share/arch/src/arch/commands/arch-install-editor-zed"
 
 [[output]]
-source = "src/commands/arch-install-font"
-target = "usr/share/arch/src/commands/arch-install-font"
+source = "src/arch/commands/arch-install-font"
+target = "usr/share/arch/src/arch/commands/arch-install-font"
 
 [[output]]
-source = "src/commands/arch-install-gaming-battlenet"
-target = "usr/share/arch/src/commands/arch-install-gaming-battlenet"
+source = "src/arch/commands/arch-install-gaming-battlenet"
+target = "usr/share/arch/src/arch/commands/arch-install-gaming-battlenet"
 
 [[output]]
-source = "src/commands/arch-install-gaming-geforce-now"
-target = "usr/share/arch/src/commands/arch-install-gaming-geforce-now"
+source = "src/arch/commands/arch-install-gaming-geforce-now"
+target = "usr/share/arch/src/arch/commands/arch-install-gaming-geforce-now"
 
 [[output]]
-source = "src/commands/arch-install-gaming-gpu-lib32"
-target = "usr/share/arch/src/commands/arch-install-gaming-gpu-lib32"
+source = "src/arch/commands/arch-install-gaming-gpu-lib32"
+target = "usr/share/arch/src/arch/commands/arch-install-gaming-gpu-lib32"
 
 [[output]]
-source = "src/commands/arch-install-gaming-heroic"
-target = "usr/share/arch/src/commands/arch-install-gaming-heroic"
+source = "src/arch/commands/arch-install-gaming-heroic"
+target = "usr/share/arch/src/arch/commands/arch-install-gaming-heroic"
 
 [[output]]
-source = "src/commands/arch-install-gaming-lutris"
-target = "usr/share/arch/src/commands/arch-install-gaming-lutris"
+source = "src/arch/commands/arch-install-gaming-lutris"
+target = "usr/share/arch/src/arch/commands/arch-install-gaming-lutris"
 
 [[output]]
 source = "src/commands/arch-install-gaming-steam"
 target = "usr/share/arch/src/commands/arch-install-gaming-steam"
 
 [[output]]
-source = "src/commands/arch-install-gaming-xbox-cloud"
-target = "usr/share/arch/src/commands/arch-install-gaming-xbox-cloud"
+source = "src/arch/commands/arch-install-gaming-xbox-cloud"
+target = "usr/share/arch/src/arch/commands/arch-install-gaming-xbox-cloud"
 
 [[output]]
-source = "src/commands/arch-install-gaming-xbox-controllers"
-target = "usr/share/arch/src/commands/arch-install-gaming-xbox-controllers"
+source = "src/arch/commands/arch-install-gaming-xbox-controllers"
+target = "usr/share/arch/src/arch/commands/arch-install-gaming-xbox-controllers"
 
 
 [[output]]
-source = "src/commands/arch-install-service-1password"
-target = "usr/share/arch/src/commands/arch-install-service-1password"
+source = "src/arch/commands/arch-install-service-1password"
+target = "usr/share/arch/src/arch/commands/arch-install-service-1password"
 
 [[output]]
-source = "src/commands/arch-install-service-dropbox"
-target = "usr/share/arch/src/commands/arch-install-service-dropbox"
+source = "src/arch/commands/arch-install-service-dropbox"
+target = "usr/share/arch/src/arch/commands/arch-install-service-dropbox"
 
 [[output]]
-source = "src/commands/arch-install-service-microsoft"
-target = "usr/share/arch/src/commands/arch-install-service-microsoft"
+source = "src/arch/commands/arch-install-service-microsoft"
+target = "usr/share/arch/src/arch/commands/arch-install-service-microsoft"
 
 [[output]]
-source = "src/commands/arch-install-service-nordvpn"
-target = "usr/share/arch/src/commands/arch-install-service-nordvpn"
+source = "src/arch/commands/arch-install-service-nordvpn"
+target = "usr/share/arch/src/arch/commands/arch-install-service-nordvpn"
 
 [[output]]
-source = "src/commands/arch-install-service-once"
-target = "usr/share/arch/src/commands/arch-install-service-once"
+source = "src/arch/commands/arch-install-service-once"
+target = "usr/share/arch/src/arch/commands/arch-install-service-once"
 
 [[output]]
-source = "src/commands/arch-install-service-signal"
-target = "usr/share/arch/src/commands/arch-install-service-signal"
+source = "src/arch/commands/arch-install-service-signal"
+target = "usr/share/arch/src/arch/commands/arch-install-service-signal"
 
 [[output]]
-source = "src/commands/arch-install-service-spotify"
-target = "usr/share/arch/src/commands/arch-install-service-spotify"
+source = "src/arch/commands/arch-install-service-spotify"
+target = "usr/share/arch/src/arch/commands/arch-install-service-spotify"
 
 [[output]]
-source = "src/commands/arch-install-service-sunshine"
-target = "usr/share/arch/src/commands/arch-install-service-sunshine"
+source = "src/arch/commands/arch-install-service-sunshine"
+target = "usr/share/arch/src/arch/commands/arch-install-service-sunshine"
 
 [[output]]
-source = "src/commands/arch-install-service-tailscale"
-target = "usr/share/arch/src/commands/arch-install-service-tailscale"
+source = "src/arch/commands/arch-install-service-tailscale"
+target = "usr/share/arch/src/arch/commands/arch-install-service-tailscale"
 
 [[output]]
-source = "src/commands/arch-install-terminal"
-target = "usr/share/arch/src/commands/arch-install-terminal"
+source = "src/arch/commands/arch-install-terminal"
+target = "usr/share/arch/src/arch/commands/arch-install-terminal"
 
 [[output]]
-source = "src/commands/arch-install-video-decode"
-target = "usr/share/arch/src/commands/arch-install-video-decode"
+source = "src/arch/commands/arch-install-video-decode"
+target = "usr/share/arch/src/arch/commands/arch-install-video-decode"

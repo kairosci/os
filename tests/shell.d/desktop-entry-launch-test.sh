@@ -62,11 +62,11 @@ assert_detached_installer_launch() {
   local desktop_id="$2"
 
   : >"$ARCH_TEST_LOG"
-  bash "$ROOT/src/commands/$script"
+  bash "$ROOT/src/arch/commands/$script"
 
   wait_for_launch "launch:uwsm-app -- gtk-launch $desktop_id" ||
     fail "$script launches its desktop entry through gtk-launch in a UWSM scope"
-  grep -Fqx "setsid uwsm-app -- gtk-launch $desktop_id >/dev/null 2>&1 &" "$ROOT/src/commands/$script" ||
+  grep -Fqx "setsid uwsm-app -- gtk-launch $desktop_id >/dev/null 2>&1 &" "$ROOT/src/arch/commands/$script" ||
     fail "$script detaches its scoped desktop-entry launch"
   pass "$script detaches its scoped desktop-entry launch"
 }
@@ -80,7 +80,7 @@ pass "the Zed installer uses only the official Arch package"
 assert_detached_installer_launch arch-install-gaming-heroic heroic
 assert_detached_installer_launch arch-install-gaming-steam steam
 
-bash "$ROOT/src/commands/arch-install-and-launch" "Example App" "alpha beta" "Disk Usage"
+bash "$ROOT/src/arch/commands/arch-install-and-launch" "Example App" "alpha beta" "Disk Usage"
 presentation_command=$(<"$ARCH_TEST_PRESENTATION")
 
 [[ $presentation_command == *'echo Installing\ Example\ App...;'* ]] ||
@@ -110,7 +110,7 @@ run_presentation() {
   bash -c "sleep() { :; }; $(<"$ARCH_TEST_PRESENTATION")"
 }
 
-bash "$ROOT/src/commands/arch-install-app" "LM Studio" "lmstudio-bin"
+bash "$ROOT/src/arch/commands/arch-install-app" "LM Studio" "lmstudio-bin"
 presentation_command=$(<"$ARCH_TEST_PRESENTATION")
 [[ $presentation_command == *'echo Installing\ LM\ Studio...;'* ]] ||
   fail "install-app shell-quotes the display name" "$presentation_command"
@@ -118,7 +118,7 @@ presentation_command=$(<"$ARCH_TEST_PRESENTATION")
   fail "install-app still passes the package list through" "$presentation_command"
 pass "install-app shell-quotes the display name"
 
-bash "$ROOT/src/commands/arch-install-app" "Example App" "alpha beta"
+bash "$ROOT/src/arch/commands/arch-install-app" "Example App" "alpha beta"
 presentation_command=$(<"$ARCH_TEST_PRESENTATION")
 [[ $presentation_command == 'echo Installing\ Example\ App...; arch-pkg-add alpha beta' ]] ||
   fail "install-app builds the presentation command with no stray argument" "$presentation_command"
@@ -128,7 +128,7 @@ grep -Fxq 'pkg:alpha beta' "$ARCH_TEST_LOG" ||
   fail "install-app passes every package to the package helper"
 pass "install-app passes every package to the package helper"
 
-bash "$ROOT/src/commands/arch-install-app" "Foo's App" "alpha"
+bash "$ROOT/src/arch/commands/arch-install-app" "Foo's App" "alpha"
 presentation_command=$(<"$ARCH_TEST_PRESENTATION")
 quoted_app_message="echo $(printf '%q' "Installing Foo's App...");"
 [[ $presentation_command == "$quoted_app_message"* ]] ||
@@ -139,7 +139,7 @@ grep -Fxq 'pkg:alpha' "$ARCH_TEST_LOG" ||
   fail "install-app still installs when the display name has an apostrophe"
 pass "install-app still installs when the display name has an apostrophe"
 
-bash "$ROOT/src/commands/arch-install-app" "a'; echo PWNED; echo '" "alpha"
+bash "$ROOT/src/arch/commands/arch-install-app" "a'; echo PWNED; echo '" "alpha"
 : >"$ARCH_TEST_LOG"
 run_presentation >"$test_tmp/app-inject.out"
 if grep -Fxq 'PWNED' "$test_tmp/app-inject.out"; then
@@ -149,7 +149,7 @@ grep -Fxq 'pkg:alpha' "$ARCH_TEST_LOG" ||
   fail "install-app still installs after quoting a hostile display name"
 pass "install-app does not run extra commands from a quote in the display name"
 
-bash "$ROOT/src/commands/arch-install-font" "Cascadia Mono" "ttf-cascadia-mono-nerd" "CaskaydiaMono Nerd Font"
+bash "$ROOT/src/arch/commands/arch-install-font" "Cascadia Mono" "ttf-cascadia-mono-nerd" "CaskaydiaMono Nerd Font"
 presentation_command=$(<"$ARCH_TEST_PRESENTATION")
 [[ $presentation_command == *'echo Installing\ Cascadia\ Mono...;'* ]] ||
   fail "install-font shell-quotes the display name" "$presentation_command"
@@ -163,7 +163,7 @@ grep -Fxq 'font:CaskaydiaMono Nerd Font' "$ARCH_TEST_LOG" ||
   fail "install-font passes the family name through as one argument"
 pass "install-font shell-quotes the display name and family"
 
-bash "$ROOT/src/commands/arch-install-font" "Foo's App" "alpha" "Foo's Font"
+bash "$ROOT/src/arch/commands/arch-install-font" "Foo's App" "alpha" "Foo's Font"
 : >"$ARCH_TEST_LOG"
 run_presentation >"$test_tmp/font-apostrophe.out"
 grep -Fxq 'pkg:alpha' "$ARCH_TEST_LOG" ||
@@ -172,7 +172,7 @@ grep -Fxq "font:Foo's Font" "$ARCH_TEST_LOG" ||
   fail "install-font still sets the family when it has an apostrophe"
 pass "install-font still installs when the name or family has an apostrophe"
 
-bash "$ROOT/src/commands/arch-install-font" "a'; echo PWNED; echo '" "alpha" "a'; echo PWNED; echo '"
+bash "$ROOT/src/arch/commands/arch-install-font" "a'; echo PWNED; echo '" "alpha" "a'; echo PWNED; echo '"
 : >"$ARCH_TEST_LOG"
 run_presentation >"$test_tmp/font-inject.out"
 if grep -Fxq 'PWNED' "$test_tmp/font-inject.out"; then
@@ -182,7 +182,7 @@ grep -Fxq 'pkg:alpha' "$ARCH_TEST_LOG" ||
   fail "install-font still installs after quoting a hostile display name"
 pass "install-font does not run extra commands from a quote in the name or family"
 
-bash "$ROOT/src/commands/arch-install-app" "Example App" "alpha; echo PWNED"
+bash "$ROOT/src/arch/commands/arch-install-app" "Example App" "alpha; echo PWNED"
 : >"$ARCH_TEST_LOG"
 run_presentation >"$test_tmp/app-pkg-inject.out"
 if grep -Fxq 'PWNED' "$test_tmp/app-pkg-inject.out"; then
@@ -192,24 +192,24 @@ grep -Fxq 'pkg:alpha; echo PWNED' "$ARCH_TEST_LOG" ||
   fail "install-app hands a hostile package list to the package helper as arguments" "$(<"$ARCH_TEST_LOG")"
 pass "install-app does not run extra commands from a package list"
 
-bash "$ROOT/src/commands/arch-install-app" "Example App" "$(printf 'alpha\nbeta')"
+bash "$ROOT/src/arch/commands/arch-install-app" "Example App" "$(printf 'alpha\nbeta')"
 : >"$ARCH_TEST_LOG"
 run_presentation
 grep -Fxq 'pkg:alpha beta' "$ARCH_TEST_LOG" ||
   fail "install-app keeps every package when the list is newline-separated" "$(<"$ARCH_TEST_LOG")"
 pass "install-app keeps every package when the list is newline-separated"
 
-env SHELLOPTS=errexit bash "$ROOT/src/commands/arch-install-app" "Example App" "alpha beta" ||
+env SHELLOPTS=errexit bash "$ROOT/src/arch/commands/arch-install-app" "Example App" "alpha beta" ||
   fail "install-app builds its command under an inherited errexit"
 [[ $(<"$ARCH_TEST_PRESENTATION") == 'echo Installing\ Example\ App...; arch-pkg-add alpha beta' ]] ||
   fail "install-app builds the same command under an inherited errexit" "$(<"$ARCH_TEST_PRESENTATION")"
-env SHELLOPTS=errexit bash "$ROOT/src/commands/arch-install-and-launch" "Example App" "alpha beta" "Disk Usage" ||
+env SHELLOPTS=errexit bash "$ROOT/src/arch/commands/arch-install-and-launch" "Example App" "alpha beta" "Disk Usage" ||
   fail "install-and-launch builds its command under an inherited errexit"
 grep -Fq 'arch-pkg-add alpha beta' "$ARCH_TEST_PRESENTATION" ||
   fail "install-and-launch keeps its package list under an inherited errexit" "$(<"$ARCH_TEST_PRESENTATION")"
 pass "the installers build their command under an inherited errexit"
 
-bash "$ROOT/src/commands/arch-install-font" "Example Font" "alpha; echo PWNED" "Example Family"
+bash "$ROOT/src/arch/commands/arch-install-font" "Example Font" "alpha; echo PWNED" "Example Family"
 : >"$ARCH_TEST_LOG"
 run_presentation >"$test_tmp/font-pkg-inject.out"
 if grep -Fxq 'PWNED' "$test_tmp/font-pkg-inject.out"; then
@@ -219,7 +219,7 @@ grep -Fxq 'pkg:alpha; echo PWNED' "$ARCH_TEST_LOG" ||
   fail "install-font hands a hostile package to the package helper as one argument" "$(<"$ARCH_TEST_LOG")"
 pass "install-font does not run extra commands from its package"
 
-bash "$ROOT/src/commands/arch-install-font" "Example Font" "alpha" "Example Family"
+bash "$ROOT/src/arch/commands/arch-install-font" "Example Font" "alpha" "Example Family"
 : >"$ARCH_TEST_LOG"
 if ARCH_TEST_PKG_STATUS=1 run_presentation; then
   fail "install-font propagates package installation failure"
@@ -229,7 +229,7 @@ if grep -q '^font:' "$ARCH_TEST_LOG"; then
 fi
 pass "install-font does not set the family after package installation failure"
 
-bash "$ROOT/src/commands/arch-install-and-launch" "Example App" "alpha; echo PWNED" "Disk Usage"
+bash "$ROOT/src/arch/commands/arch-install-and-launch" "Example App" "alpha; echo PWNED" "Disk Usage"
 : >"$ARCH_TEST_LOG"
 run_presentation >"$test_tmp/launch-pkg-inject.out"
 if grep -Fxq 'PWNED' "$test_tmp/launch-pkg-inject.out"; then

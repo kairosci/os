@@ -5,7 +5,7 @@ from __future__ import annotations
 from base_test import ROOT, fail_check, pass_check
 
 
-dns = (ROOT / "src/commands/arch-dns").read_text(encoding="utf-8")
+dns = (ROOT / "src/arch/commands/arch-dns").read_text(encoding="utf-8")
 hardware_network = (ROOT / "data/installer/hardware.yml").read_text(encoding="utf-8")
 
 if "systemd-networkd" in dns:

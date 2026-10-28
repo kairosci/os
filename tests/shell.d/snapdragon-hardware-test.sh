@@ -4,8 +4,8 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-firmware_setup="$ROOT/src/python/installer/hardware/qualcomm/firmware.py"
-dtb_setup="$ROOT/src/python/installer/hardware/qualcomm/dtb_uki.py"
+firmware_setup="$ROOT/src/arch/python/installer/hardware/qualcomm/firmware.py"
+dtb_setup="$ROOT/src/arch/python/installer/hardware/qualcomm/dtb_uki.py"
 scratch=$(mktemp -d)
 trap 'rm -rf "$scratch"' EXIT
 
@@ -14,7 +14,7 @@ mkdir -p "$mock_bin"
 cat >"$mock_bin/arch-hw-aarch64-qualcomm" <<'COMMAND'
 #!/bin/bash
 if [[ -n ${ARCH_PROC_ROOT:-} ]]; then
-  exec "$ROOT/src/commands/arch-hw-aarch64-qualcomm" "$@"
+  exec "$ROOT/src/arch/commands/arch-hw-aarch64-qualcomm" "$@"
 fi
 exit 0
 COMMAND
@@ -133,7 +133,7 @@ grep -Fq "DeviceTreeAuto=$scratch/dtbroot/qcom/x1e80100-stock.dtb" "$scratch/uki
 
 pass "Snapdragon setup tolerates missing firmware and preserves UKI settings"
 
-defaults=$(ARCH_PATH="$ROOT" "$ROOT/src/commands/arch-pkg-defaults" aarch64-qualcomm)
+defaults=$(ARCH_PATH="$ROOT" "$ROOT/src/arch/commands/arch-pkg-defaults" aarch64-qualcomm)
 for package in linux-firmware-qcom qcom-firmware-extract systemd-ukify vulkan-freedreno; do
   grep -qx "$package" <<<"$defaults" ||
     fail "the Snapdragon package set has $package for offline setup"
@@ -144,8 +144,8 @@ pass "the Snapdragon package set has every package its setup installs"
 # detector: a Snapdragon device tree gets the setup and no other platform does.
 require_platform_fixtures "Snapdragon setup under the real detector"
 
-kernel_params_setup="$ROOT/src/python/installer/hardware/qualcomm/kernel_params.py"
-initramfs_setup="$ROOT/src/python/installer/hardware/qualcomm/initramfs.py"
+kernel_params_setup="$ROOT/src/arch/python/installer/hardware/qualcomm/kernel_params.py"
+initramfs_setup="$ROOT/src/arch/python/installer/hardware/qualcomm/initramfs.py"
 
 run_leaves_on() (
   platform=$1
@@ -153,7 +153,7 @@ run_leaves_on() (
   mkdir -p "$out"
   fake_platform "$scratch/platforms/$platform" "$platform"
   export ARCH_PROC_ROOT="$scratch/platforms/$platform/proc"
-  export PATH="$scratch/platforms/$platform/bin:$mock_bin:$ROOT/src/commands:$PATH"
+  export PATH="$scratch/platforms/$platform/bin:$mock_bin:$ROOT/src/arch/commands:$PATH"
 
   arch-pkg-add() { :; }
   qcom-firmware-extract() { [[ $1 != "--list-missing" ]]; }
@@ -166,11 +166,11 @@ run_leaves_on() (
   ARCH_QUALCOMM_MKINITCPIO_DIR="$out/mkinitcpio.conf.d"
   ARCH_PATH="$ROOT" ARCH_QUALCOMM_MODPROBE_DIR="$out/modprobe.d" \
     ARCH_TEST_ROOT_SOURCE=/dev/mapper/root ARCH_TEST_ROOT_TRANSPORT=nvme \
-    ARCH_TEST_INSPECTION_STATUS=1 PATH="$scratch/platforms/$platform/bin:$mock_bin:$ROOT/src/commands:$PATH" \
+    ARCH_TEST_INSPECTION_STATUS=1 PATH="$scratch/platforms/$platform/bin:$mock_bin:$ROOT/src/arch/commands:$PATH" \
     python3 -I "$firmware_setup"
   ARCH_PATH="$ROOT" ARCH_QUALCOMM_DTB_DIR="$scratch/dtbs" \
     ARCH_QUALCOMM_UKI_CONFIG="$out/uki.conf" \
-    PATH="$scratch/platforms/$platform/bin:$mock_bin:$ROOT/src/commands:$PATH" \
+    PATH="$scratch/platforms/$platform/bin:$mock_bin:$ROOT/src/arch/commands:$PATH" \
     python3 -I "$dtb_setup"
   ARCH_PATH="$ROOT" ARCH_QUALCOMM_KERNEL_PARAMS_FILE="$out/limine-entry-tool.d/qualcomm-snapdragon.conf" \
     python3 -I "$kernel_params_setup"

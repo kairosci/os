@@ -2,25 +2,25 @@ id = "desktop.commands.tui"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-tui-install",
-  "src/cli/tui/install.py",
-  "src/commands/arch-tui-remove",
-  "src/commands/arch-tui-remove-all",
+  "src/arch/commands/arch-tui-install",
+  "src/arch/cli/tui/install.py",
+  "src/arch/commands/arch-tui-remove",
+  "src/arch/commands/arch-tui-remove-all",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-tui-install"
-target = "usr/share/arch/src/commands/arch-tui-install"
+source = "src/arch/commands/arch-tui-install"
+target = "usr/share/arch/src/arch/commands/arch-tui-install"
 
 [[output]]
-source = "src/cli/tui/install.py"
-target = "usr/share/arch/src/cli/tui/install.py"
+source = "src/arch/cli/tui/install.py"
+target = "usr/share/arch/src/arch/cli/tui/install.py"
 
 [[output]]
-source = "src/commands/arch-tui-remove"
-target = "usr/share/arch/src/commands/arch-tui-remove"
+source = "src/arch/commands/arch-tui-remove"
+target = "usr/share/arch/src/arch/commands/arch-tui-remove"
 
 [[output]]
-source = "src/commands/arch-tui-remove-all"
-target = "usr/share/arch/src/commands/arch-tui-remove-all"
+source = "src/arch/commands/arch-tui-remove-all"
+target = "usr/share/arch/src/arch/commands/arch-tui-remove-all"

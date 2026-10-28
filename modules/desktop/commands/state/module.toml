@@ -2,15 +2,15 @@ id = "desktop.commands.state"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-state",
-  "src/cli/state/store.py",
+  "src/arch/commands/arch-state",
+  "src/arch/cli/state/store.py",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-state"
-target = "usr/share/arch/src/commands/arch-state"
+source = "src/arch/commands/arch-state"
+target = "usr/share/arch/src/arch/commands/arch-state"
 
 [[output]]
-source = "src/cli/state/store.py"
-target = "usr/share/arch/src/cli/state/store.py"
+source = "src/arch/cli/state/store.py"
+target = "usr/share/arch/src/arch/cli/state/store.py"

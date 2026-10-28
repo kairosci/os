@@ -4,7 +4,7 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-snapper_plugin="$ROOT/src/python/installer/boot/systemd_boot_snapper_plugin.py"
+snapper_plugin="$ROOT/src/arch/python/installer/boot/systemd_boot_snapper_plugin.py"
 scratch=$(mktemp -d)
 trap 'rm -rf "$scratch"' EXIT
 
@@ -39,7 +39,7 @@ export ARCH_KERNEL_PRESET_TEMPLATE="$ROOT/default/mkinitcpio/linux.preset"
 export ARCH_MKINITCPIO_DEFAULT_PRESET=/usr/share/mkinitcpio/hook.preset
 export ARCH_HW_X86_HELPER="$kernel_test/arch-hw-x86"
 export ARCH_TEST_EMBEDDED_CMDLINE="$kernel_test/embedded-cmdline"
-PATH="$kernel_test/bin:$PATH" python3 -I "$ROOT/src/python/installer/system_setup/systemd_boot_kernel.py"
+PATH="$kernel_test/bin:$PATH" python3 -I "$ROOT/src/arch/python/installer/system_setup/systemd_boot_kernel.py"
 cmdline=$(<"$kernel_test/etc/kernel/cmdline")
 [[ $cmdline == *'root=/dev/mapper/custom'* ]] || fail "a custom systemd root parameter is preserved" "$cmdline"
 [[ $cmdline == *'resume=/dev/mapper/root quiet splash'* ]] || fail "the UKI's additional boot parameters are carried into mkinitcpio" "$cmdline"
@@ -69,13 +69,13 @@ default_uki="/boot/EFI/Linux/os_linux.efi"
 fallback_uki="/boot/EFI/Linux/os_linux-fallback.efi"
 fallback_options="-S autodetect"
 PRESET
-PATH="$kernel_test/bin:$PATH" python3 -I "$ROOT/src/python/installer/system_setup/systemd_boot_kernel.py"
+PATH="$kernel_test/bin:$PATH" python3 -I "$ROOT/src/arch/python/installer/system_setup/systemd_boot_kernel.py"
 cmp -s "$ROOT/default/mkinitcpio/linux.preset" "$kernel_test/etc/mkinitcpio.d/linux.preset" ||
   fail "the previous shipped preset is updated to the current Arch kernel path"
 pass "the previous shipped Arch preset is upgraded without overwriting custom presets"
 
 printf '%s\n' 'user preset' >"$kernel_test/etc/mkinitcpio.d/linux.preset"
-if PATH="$kernel_test/bin:$PATH" python3 -I "$ROOT/src/python/installer/system_setup/systemd_boot_kernel.py"; then
+if PATH="$kernel_test/bin:$PATH" python3 -I "$ROOT/src/arch/python/installer/system_setup/systemd_boot_kernel.py"; then
   fail "a custom mkinitcpio preset is not overwritten"
 fi
 grep -Fxq 'user preset' "$kernel_test/etc/mkinitcpio.d/linux.preset" ||

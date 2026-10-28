@@ -90,7 +90,7 @@ compose() {
     cat -- "$etc/mkinitcpio.conf.d/$conf" >>"$config"
   done
 
-  local path="$fixture/bin:$ROOT/src/commands:$PATH"
+  local path="$fixture/bin:$ROOT/src/arch/commands:$PATH"
   [[ $1 != "no-detector" ]] || path="$fixture/bin"
   KERNELVERSION=6.99.0-test ARCH_PROC_ROOT="$fixture/proc" ARCH_PCI_DEVICES_PATH="$devices" PATH="$path" "$BASH" -c '
     . "$1" || exit 1

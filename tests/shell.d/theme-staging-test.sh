@@ -23,10 +23,10 @@ mkdir -p "$state" "$themes"
 marker="arch-theme-staging-marker"
 
 set_theme() {
-  HOME="$home" ARCH_PATH="$ROOT" PATH="$ROOT/src/commands:$PATH" \
+  HOME="$home" ARCH_PATH="$ROOT" PATH="$ROOT/src/arch/commands:$PATH" \
     ARCH_THEME_HEADLESS=1 ARCH_THEME_SKIP_BACKGROUND=1 \
     XDG_RUNTIME_DIR="$test_tmp" \
-    bash "$ROOT/src/commands/arch-theme-set" "$1" 2>"$test_tmp/stderr" || return $?
+    bash "$ROOT/src/arch/commands/arch-theme-set" "$1" 2>"$test_tmp/stderr" || return $?
 }
 
 staged() {

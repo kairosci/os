@@ -1,6 +1,6 @@
 import QtQuick
 import QtTest
-import "../../../../src/shell/Ui"
+import "../../../../src/arch/shell/Ui"
 
 // Text keys carry their modifiers, so a panel can tell Alt+T from T.
 Item {

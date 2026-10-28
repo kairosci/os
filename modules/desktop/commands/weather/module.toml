@@ -2,20 +2,20 @@ id = "desktop.commands.weather"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-weather-icon",
-  "src/commands/arch-weather-location",
-  "src/commands/arch-weather-status",
+  "src/arch/commands/arch-weather-icon",
+  "src/arch/commands/arch-weather-location",
+  "src/arch/commands/arch-weather-status",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-weather-icon"
-target = "usr/share/arch/src/commands/arch-weather-icon"
+source = "src/arch/commands/arch-weather-icon"
+target = "usr/share/arch/src/arch/commands/arch-weather-icon"
 
 [[output]]
-source = "src/commands/arch-weather-location"
-target = "usr/share/arch/src/commands/arch-weather-location"
+source = "src/arch/commands/arch-weather-location"
+target = "usr/share/arch/src/arch/commands/arch-weather-location"
 
 [[output]]
-source = "src/commands/arch-weather-status"
-target = "usr/share/arch/src/commands/arch-weather-status"
+source = "src/arch/commands/arch-weather-status"
+target = "usr/share/arch/src/arch/commands/arch-weather-status"

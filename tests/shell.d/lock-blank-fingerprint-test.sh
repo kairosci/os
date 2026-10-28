@@ -6,7 +6,7 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 run_node_test <<'JS'
 const fs = require('fs')
-const serviceQml = fs.readFileSync(path.join(root, 'src/shell/plugins/lock/Service.qml'), 'utf8')
+const serviceQml = fs.readFileSync(path.join(root, 'src/arch/shell/plugins/lock/Service.qml'), 'utf8')
 
 // The fingerprint PAM stays armed while the lock is lit, waiting for a finger,
 // so gating the blank on `authenticating` would leave the panel lit all night.

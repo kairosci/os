@@ -13,9 +13,9 @@ source "$SHELL_TEST_DIR/fixtures/sudo-boundary-test.sh"
 require_platform_fixtures "archctl update's boot check on platform fixtures"
 
 copy_boundary_file bin/arch-update
-rm "$SUDO_TEST_ROOT/src/commands/arch-update-boot"
+rm "$SUDO_TEST_ROOT/src/arch/commands/arch-update-boot"
 for command in arch-update-boot arch-lifecycle-dispatch arch-hw-platform; do
-  ln -sfn "$ROOT/src/commands/$command" "$SUDO_TEST_ROOT/src/commands/$command"
+  ln -sfn "$ROOT/src/arch/commands/$command" "$SUDO_TEST_ROOT/src/arch/commands/$command"
 done
 export ARCH_UPDATE_LOGGED=1
 
@@ -47,10 +47,10 @@ run_update() {
   local platform=$1 lifecycle=$2
   reset_boundary
   rm -f "$tmp/boot-ran"
-  cp "$tmp/$platform/bin/uname" "$SUDO_TEST_ROOT/src/commands/uname"
+  cp "$tmp/$platform/bin/uname" "$SUDO_TEST_ROOT/src/arch/commands/uname"
   status=0
   ARCH_PROC_ROOT="$tmp/$platform/proc" ARCH_LIFECYCLE_ROOT="$lifecycle" \
-    "$SUDO_TEST_ROOT/src/commands/arch-update" -y >"$tmp/out" 2>"$tmp/err" || status=$?
+    "$SUDO_TEST_ROOT/src/arch/commands/arch-update" -y >"$tmp/out" 2>"$tmp/err" || status=$?
 }
 
 # The line number of the first event in the sudo log that starts with $1.
@@ -93,7 +93,7 @@ pass "apple: verify runs as root through the boot package, and a verified update
 # arch-update-boot takes no operation, so a caller still asking for a
 # preflight is a usage error rather than a verification.
 status=0
-"$SUDO_TEST_ROOT/src/commands/arch-update-boot" preflight >/dev/null 2>&1 || status=$?
+"$SUDO_TEST_ROOT/src/arch/commands/arch-update-boot" preflight >/dev/null 2>&1 || status=$?
 (( status == 2 )) || fail "arch-update-boot refuses an argument" "status $status"
 pass "arch-update-boot refuses an argument"
 

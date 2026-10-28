@@ -12,7 +12,7 @@ awk '
   /^[a-z_]+\(\) \{/ { copying = 1 }
   copying { print }
   /^}/ { copying = 0 }
-' "$ROOT/src/commands/arch-system-factory-reset" >"$test_tmp/functions"
+' "$ROOT/src/arch/commands/arch-system-factory-reset" >"$test_tmp/functions"
 
 OLD_ID=11111111111111111111111111111111
 NEW_ID=22222222222222222222222222222222
@@ -221,7 +221,7 @@ pass "a signal right after the root switch keeps the factory root's boot files"
 # so a failed unmount or rename must still restore the running system's files.
 function_body() {
   awk -v name="$1" '$0 ~ ("^" name "\\(\\) \\{") { copying = 1 } copying { print } copying && /^}/ { exit }' \
-    "$ROOT/src/commands/arch-system-factory-reset"
+    "$ROOT/src/arch/commands/arch-system-factory-reset"
 }
 ! function_body rebuild_next_boot | grep -q commit_ &&
   function_body commit_next_boot | grep -q commit_esp_staging &&
@@ -304,7 +304,7 @@ awk '
   /^(esp_path|limine_entries_stale|reset_limine_config)\(\) \{/ { copying = 1 }
   copying { print }
   /^}/ { copying = 0 }
-' "$ROOT/src/commands/arch-provision-owner" >"$test_tmp/provision-functions"
+' "$ROOT/src/arch/commands/arch-provision-owner" >"$test_tmp/provision-functions"
 [[ $(grep -c '^[a-z_]*() {' "$test_tmp/provision-functions") == 3 ]] ||
   fail "the first-boot boot entry functions can be loaded"
 

@@ -4,16 +4,16 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 source "$SHELL_TEST_DIR/fixtures/sudo-boundary-test.sh"
-copy_boundary_file src/commands/arch-update
-copy_boundary_file src/commands/arch-refresh-pacman
-copy_boundary_file src/commands/arch-apply-pacman
+copy_boundary_file src/arch/commands/arch-update
+copy_boundary_file src/arch/commands/arch-refresh-pacman
+copy_boundary_file src/arch/commands/arch-apply-pacman
 # Replace the step symlink, preserving the real fixture dispatcher.
-rm "$SUDO_TEST_ROOT/src/commands/arch-update-aur-pkgs"
-copy_boundary_file src/commands/arch-update-aur-pkgs
+rm "$SUDO_TEST_ROOT/src/arch/commands/arch-update-aur-pkgs"
+copy_boundary_file src/arch/commands/arch-update-aur-pkgs
 export ARCH_UPDATE_LOGGED=1
 
 run_update() {
-  "$SUDO_TEST_ROOT/src/commands/arch-update" "$@" >"$boundary_tmp/output" 2>&1
+  "$SUDO_TEST_ROOT/src/arch/commands/arch-update" "$@" >"$boundary_tmp/output" 2>&1
 }
 
 for args in '-y' ''; do
@@ -79,7 +79,7 @@ assert_boundary_cold "unsupported sudo"
 pass "unsupported sudo fails without running update steps"
 
 reset_boundary
-"$SUDO_TEST_ROOT/src/commands/arch-refresh-pacman" stable >"$boundary_tmp/output" 2>&1 || fail "refresh failed" "$(<"$boundary_tmp/output")"
+"$SUDO_TEST_ROOT/src/arch/commands/arch-refresh-pacman" stable >"$boundary_tmp/output" 2>&1 || fail "refresh failed" "$(<"$boundary_tmp/output")"
 assert_boundary_cold "refresh"
 python3 - "$SUDO_TEST_LOG" <<'PY'
 import sys
@@ -96,7 +96,7 @@ pass "refresh runs the hook cold between the config re-sync and the transaction"
 for step in pacman arch-hook; do
   reset_boundary
   export SUDO_TEST_FAIL_STEP=$step
-  if "$SUDO_TEST_ROOT/src/commands/arch-refresh-pacman" stable >"$boundary_tmp/output" 2>&1; then fail "refresh must propagate $step failure"; fi
+  if "$SUDO_TEST_ROOT/src/arch/commands/arch-refresh-pacman" stable >"$boundary_tmp/output" 2>&1; then fail "refresh must propagate $step failure"; fi
   assert_boundary_cold "failed refresh $step"
   pass "refresh revokes after $step failure"
 done
@@ -115,7 +115,7 @@ for args in '-v' '-n /usr/bin/true' '--user test -- /usr/bin/true' '-- /usr/bin/
   pass "sudo wrapper preserves $args"
 done
 
-for script in src/commands/arch-update src/commands/arch-refresh-pacman default/arch/sudo-no-update/sudo; do
+for script in src/arch/commands/arch-update src/arch/commands/arch-refresh-pacman default/arch/sudo-no-update/sudo; do
   reset_boundary
   if /usr/bin/bash "$SUDO_TEST_ROOT/$script" -p >"$boundary_tmp/output" 2>&1; then fail "$script accepted an ordinary Bash launch"; fi
   [[ ! -s $SUDO_TEST_LOG ]] || fail "$script reached sudo through an invalid interpreter"

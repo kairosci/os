@@ -6,7 +6,7 @@ source "$(dirname "$0")/base-test.sh"
 
 source "$SHELL_TEST_DIR/fixtures/sudo-boundary-test.sh"
 test_tmp="$boundary_tmp"
-stub_bin="$SUDO_TEST_ROOT/src/commands"
+stub_bin="$SUDO_TEST_ROOT/src/arch/commands"
 test_home="$SUDO_TEST_HOME"
 runtime_dir="/run/user/$(id -u)"
 test_run_id="test-$BASHPID-$RANDOM"
@@ -14,15 +14,15 @@ update_lock_name="arch-update-$test_run_id.lock"
 stay_awake_dir_name="arch-update-stay-awake-$test_run_id"
 trap 'rm -rf -- "$runtime_dir/$stay_awake_dir_name"; rm -f -- "$runtime_dir/$update_lock_name"; rm -rf -- "$boundary_tmp"' EXIT
 for command in arch-update arch-update-lock arch-update-stay-awake; do
-  rm -f "$SUDO_TEST_ROOT/src/commands/$command"
-  copy_boundary_file "src/commands/$command"
+  rm -f "$SUDO_TEST_ROOT/src/arch/commands/$command"
+  copy_boundary_file "src/arch/commands/$command"
 done
 sed -i \
   -e "s/arch-update\.lock/$update_lock_name/g" \
   -e "s#state_dir=\"\$state_base/arch-update-stay-awake\"#state_dir=\"\$state_base/$stay_awake_dir_name\"#" \
-  "$SUDO_TEST_ROOT/src/commands/arch-update" \
-  "$SUDO_TEST_ROOT/src/commands/arch-update-lock" \
-  "$SUDO_TEST_ROOT/src/commands/arch-update-stay-awake"
+  "$SUDO_TEST_ROOT/src/arch/commands/arch-update" \
+  "$SUDO_TEST_ROOT/src/arch/commands/arch-update-lock" \
+  "$SUDO_TEST_ROOT/src/arch/commands/arch-update-stay-awake"
 cat >"$SUDO_TEST_ROOT/mock/setpriv" <<'STUB'
 #!/bin/bash
 while [[ ${1:-} == --* ]]; do
@@ -40,7 +40,7 @@ run_with_lock_env() {
   SUDO_TEST_HOME="$test_home" \
   XDG_RUNTIME_DIR="$runtime_dir" \
   XDG_STATE_HOME="$test_tmp/state" \
-  PATH="$stub_bin:$ROOT/src/commands:$PATH" \
+  PATH="$stub_bin:$ROOT/src/arch/commands:$PATH" \
     "$@"
 }
 
@@ -76,16 +76,16 @@ for command in \
 done
 write_stub arch-update-available 'exit 1'
 write_stub pkexec 'exec "$@"'
-ln -s ../src/commands/pkexec "$SUDO_TEST_ROOT/mock/pkexec"
+ln -s ../src/arch/commands/pkexec "$SUDO_TEST_ROOT/mock/pkexec"
 write_stub systemd-inhibit 'while [[ $1 == --* ]]; do shift; done; exec "$@"'
-ln -s ../src/commands/systemd-inhibit "$SUDO_TEST_ROOT/mock/systemd-inhibit"
+ln -s ../src/arch/commands/systemd-inhibit "$SUDO_TEST_ROOT/mock/systemd-inhibit"
 
 # arch-update should hold the lock before snapshotting, so a second update
 # cannot even enter its pre-update snapshot.
 update_snapshot_marker="$test_tmp/update-snapshot-started"
 write_stub arch-snapshot 'echo started >"$TEST_MARKER"; sleep 0.8; exit 0'
 
-ARCH_UPDATE_LOGGED=1 TEST_MARKER="$update_snapshot_marker" run_with_lock_env "$SUDO_TEST_ROOT/src/commands/arch-update" -y >"$test_tmp/update-first.out" 2>&1 &
+ARCH_UPDATE_LOGGED=1 TEST_MARKER="$update_snapshot_marker" run_with_lock_env "$SUDO_TEST_ROOT/src/arch/commands/arch-update" -y >"$test_tmp/update-first.out" 2>&1 &
 update_pid=$!
 
 for _ in {1..50}; do
@@ -95,7 +95,7 @@ done
 [[ -f $update_snapshot_marker ]] || fail "first arch-update reached snapshot under lock"
 
 set +e
-ARCH_UPDATE_LOGGED=1 TEST_MARKER="$test_tmp/update-second-snapshot-started" run_with_lock_env "$SUDO_TEST_ROOT/src/commands/arch-update" -y >"$test_tmp/update-second.out" 2>&1
+ARCH_UPDATE_LOGGED=1 TEST_MARKER="$test_tmp/update-second-snapshot-started" run_with_lock_env "$SUDO_TEST_ROOT/src/arch/commands/arch-update" -y >"$test_tmp/update-second.out" 2>&1
 update_second_status=$?
 set -e
 
@@ -119,7 +119,7 @@ write_stub systemd-inhibit '[[ -z ${INHIBIT_PID_FILE:-} ]] || echo "$$" >"$INHIB
 write_stub arch-update-keyring 'echo started >"$TEST_MARKER"; sleep 1; exit 0'
 
 ARCH_UPDATE_LOGGED=1 TEST_MARKER="$keyring_marker" INHIBIT_PID_FILE="$inhibit_pid_file" \
-  run_with_lock_env "$SUDO_TEST_ROOT/src/commands/arch-update" -y >"$test_tmp/update-inhibit.out" 2>&1 &
+  run_with_lock_env "$SUDO_TEST_ROOT/src/arch/commands/arch-update" -y >"$test_tmp/update-inhibit.out" 2>&1 &
 inhibit_update_pid=$!
 
 for _ in {1..100}; do
@@ -174,7 +174,7 @@ SH
 
   grep -q -- '^sudo -N -b -- ' "$sudo_log" || fail "terminal inhibition authenticates its background command without a reusable timestamp"
   [[ ! -e $pkexec_marker ]] || fail "terminal sleep inhibition does not use pkexec"
-  run_with_lock_env "$SUDO_TEST_ROOT/src/commands/arch-update-stay-awake" stop
+  run_with_lock_env "$SUDO_TEST_ROOT/src/arch/commands/arch-update-stay-awake" stop
   pass "terminal updates use sudo instead of Polkit for sleep inhibition"
 
   wait_for_process_exit() {
@@ -272,12 +272,12 @@ else
 fi'
 
 rm -f "$test_home/.local/state/arch/indicators/stay-awake"
-ARCH_UPDATE_LOGGED=1 run_with_lock_env "$SUDO_TEST_ROOT/src/commands/arch-update" -y
+ARCH_UPDATE_LOGGED=1 run_with_lock_env "$SUDO_TEST_ROOT/src/arch/commands/arch-update" -y
 [[ ! -f $test_home/.local/state/arch/indicators/stay-awake ]] || fail "update clears its Stay Awake state before restart handling"
 
 mkdir -p "$test_home/.local/state/arch/indicators"
 touch "$test_home/.local/state/arch/indicators/stay-awake"
-ARCH_UPDATE_LOGGED=1 EXPECT_STAY_AWAKE=1 run_with_lock_env "$SUDO_TEST_ROOT/src/commands/arch-update" -y
+ARCH_UPDATE_LOGGED=1 EXPECT_STAY_AWAKE=1 run_with_lock_env "$SUDO_TEST_ROOT/src/arch/commands/arch-update" -y
 [[ -f $test_home/.local/state/arch/indicators/stay-awake ]] || fail "update preserves pre-existing Stay Awake state"
 pass "arch-update restores only its own Stay Awake state before restart handling"
 
@@ -297,7 +297,7 @@ printf "%s %s\n" "$pid" "$(awk '\''{ print $22 }'\'' /proc/$pid/stat)" >"$state/
 printf "%s:1:1\n" "$$" >"$state/idle-owner"
 /usr/bin/cp "$state/idle-owner" "$SUDO_TEST_HOME/.local/state/arch/indicators/stay-awake"'
 write_stub arch-update-system-pkgs '
-/usr/bin/cp "$INHIBITOR_AFTER_UPGRADE" "$ARCH_PATH/src/commands/arch-update-stay-awake"'
+/usr/bin/cp "$INHIBITOR_AFTER_UPGRADE" "$ARCH_PATH/src/arch/commands/arch-update-stay-awake"'
 write_stub arch-update-restart '
 if [[ $1 == "--reboot-only" ]]; then
   [[ ! -e $SUDO_TEST_HOME/.local/state/arch/indicators/stay-awake ]] || exit 91
@@ -308,7 +308,7 @@ rm -f "$test_home/.local/state/arch/indicators/stay-awake"
 ARCH_UPDATE_LOGGED=1 LEGACY_STATE_NAME="$stay_awake_dir_name" \
   INHIBITOR_AFTER_UPGRADE="$test_tmp/inhibitor-after-upgrade" \
   UPGRADE_RESTARTED="$test_tmp/upgrade-restarted" \
-  run_with_lock_env "$SUDO_TEST_ROOT/src/commands/arch-update" -y
+  run_with_lock_env "$SUDO_TEST_ROOT/src/arch/commands/arch-update" -y
 [[ -e $test_tmp/upgrade-restarted ]] || fail "first upgrade did not reach reboot handling"
 pass "first upgrade cleans old inhibitor state with the newly installed helper"
 
@@ -322,7 +322,7 @@ printf '%s\n' "123:456:789" >"$stay_awake_helper_state/idle-owner"
 chmod 600 "$stay_awake_helper_state/idle-owner"
 printf '%s\n' "user-choice" >"$stay_awake_state"
 
-run_with_lock_env "$SUDO_TEST_ROOT/src/commands/arch-update-stay-awake" stop
+run_with_lock_env "$SUDO_TEST_ROOT/src/arch/commands/arch-update-stay-awake" stop
 [[ $(<"$stay_awake_state") == "user-choice" ]] ||
   fail "stale update ownership does not remove a newer Stay Awake choice"
 pass "stale update ownership preserves a newer Stay Awake choice"
@@ -335,7 +335,7 @@ mkdir -m 700 -p "$stay_awake_helper_state"
 printf '1 %s %s %s %032x\n' "$unrelated_pid" "$((unrelated_start_time + 1))" "$(id -u)" 1 >"$stay_awake_helper_state/inhibit-pid"
 chmod 600 "$stay_awake_helper_state/inhibit-pid"
 
-run_with_lock_env "$SUDO_TEST_ROOT/src/commands/arch-update-stay-awake" stop
+run_with_lock_env "$SUDO_TEST_ROOT/src/arch/commands/arch-update-stay-awake" stop
 kill -0 "$unrelated_pid" 2>/dev/null ||
   fail "stale inhibitor state does not terminate a reused PID"
 kill "$unrelated_pid"
@@ -345,14 +345,14 @@ pass "stale inhibitor state does not terminate a reused PID"
 # The hidden helper also establishes its own boundary when invoked directly.
 reset_boundary
 touch "$SUDO_TEST_CACHE"
-run_with_lock_env "$SUDO_TEST_ROOT/src/commands/arch-update-stay-awake" stop
+run_with_lock_env "$SUDO_TEST_ROOT/src/arch/commands/arch-update-stay-awake" stop
 [[ $(head -1 "$SUDO_TEST_LOG") == "sudo -k" ]] || fail "standalone inhibitor cleanup did not start cold"
 assert_boundary_cold "standalone inhibitor cleanup"
 pass "standalone inhibitor cleanup revokes before and after session work"
 
 reset_boundary
 export SUDO_TEST_REVOKE_FAIL=1
-if run_with_lock_env "$SUDO_TEST_ROOT/src/commands/arch-update-stay-awake" start; then
+if run_with_lock_env "$SUDO_TEST_ROOT/src/arch/commands/arch-update-stay-awake" start; then
   fail "inhibitor started after failed initial revocation"
 fi
 [[ ! -e $stay_awake_helper_state/inhibit-pid ]] || fail "failed revocation started an inhibitor"

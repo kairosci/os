@@ -2,10 +2,10 @@ id = "desktop.commands.file"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-file-select",
+  "src/arch/commands/arch-file-select",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-file-select"
-target = "usr/share/arch/src/commands/arch-file-select"
+source = "src/arch/commands/arch-file-select"
+target = "usr/share/arch/src/arch/commands/arch-file-select"

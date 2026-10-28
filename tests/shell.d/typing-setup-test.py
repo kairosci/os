@@ -21,7 +21,7 @@ pass_check("typing setup checks")
 
 model_check = r"""
 const assert = require("node:assert/strict")
-const menu = require(process.cwd() + "/src/shell/plugins/menu/MenuModel.js")
+const menu = require(process.cwd() + "/src/arch/shell/plugins/menu/MenuModel.js")
 const options = ["French", "\tJapanese (Mozc)", "x\tSame label\tfirst", "x\tSame label\tsecond"]
 assert.equal(menu.dmenuValue(options[2]), "Same label\tfirst")
 assert.deepEqual(menu.dmenuSelections(options, ["Same label\tsecond", "French", "stale"]), ["French", "Same label\tsecond"])

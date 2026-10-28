@@ -4,14 +4,14 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-apply_lock="$ROOT/src/commands/arch-apply-lock"
+apply_lock="$ROOT/src/arch/commands/arch-apply-lock"
 
 root_path_guard=$(awk '
   /^if \(\( EUID == 0 \)\); then$/ { inside = 1 }
   inside { print }
   inside && /^fi$/ { exit }
 ' "$apply_lock")
-grep -Fx '  export PATH=/usr/share/arch/src/commands:/usr/local/bin:/usr/bin:/bin' <<<"$root_path_guard" >/dev/null ||
+grep -Fx '  export PATH=/usr/share/arch/src/arch/commands:/usr/local/bin:/usr/bin:/bin' <<<"$root_path_guard" >/dev/null ||
   fail "the root lock helper replaces its inherited command path"
 if grep -E '(\.local/bin|target_user|target_home)' <<<"$root_path_guard" >/dev/null; then
   fail "the root lock helper does not retain a user-controlled command directory"
@@ -127,7 +127,7 @@ prepare_helper() {
         print "if (( 0 )); then"
         next
       }
-      if (line == "  export PATH=/usr/share/arch/src/commands:/usr/local/bin:/usr/bin:/bin") {
+      if (line == "  export PATH=/usr/share/arch/src/arch/commands:/usr/local/bin:/usr/bin:/bin") {
         print "  export PATH=\"" trusted_root_bin "\""
         next
       }

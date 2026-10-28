@@ -4,8 +4,8 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-helper="$ROOT/src/commands/arch-install-camera"
-leaf="$ROOT/src/python/installer/hardware/qualcomm_camera.py"
+helper="$ROOT/src/arch/commands/arch-install-camera"
+leaf="$ROOT/src/arch/python/installer/hardware/qualcomm_camera.py"
 test_tmp=$(mktemp -d)
 trap 'rm -rf "$test_tmp"' EXIT
 
@@ -23,7 +23,7 @@ STUB
 chmod +x "$test_tmp/bin/arch-hw-aarch64-qualcomm" "$test_tmp/bin/arch-pkg-add"
 export ARCH_TEST_QUALCOMM="$test_tmp/qualcomm"
 export ARCH_TEST_PACKAGES="$test_tmp/packages"
-export PATH="$test_tmp/bin:$ROOT/src/commands:$PATH"
+export PATH="$test_tmp/bin:$ROOT/src/arch/commands:$PATH"
 
 new_home() {
   local home="$test_tmp/home-$1"
@@ -35,7 +35,7 @@ shipped="$ROOT/config/chromium-flags.conf"
 features=$(grep -- '^--enable-features=' "$shipped")
 
 touch "$ARCH_TEST_QUALCOMM"
-grep -Fq 'src/python/installer/hardware/qualcomm_camera.py' "$ROOT/data/installer/hardware-setup.yml" ||
+grep -Fq 'src/arch/python/installer/hardware/qualcomm_camera.py' "$ROOT/data/installer/hardware-setup.yml" ||
   fail "hardware setup runs the Qualcomm camera package module"
 pass "hardware setup includes the Python Qualcomm camera package module"
 
@@ -50,7 +50,7 @@ pass "a Snapdragon laptop gets Chromium's PipeWire camera once, even when the he
 
 home=$(new_home both)
 cp "$shipped" "$home/.config/chromium-flags.conf"
-HOME=$home bash "$ROOT/src/commands/arch-install-video-decode"
+HOME=$home bash "$ROOT/src/arch/commands/arch-install-video-decode"
 HOME=$home bash "$helper"
 grep -Fxq -- "$features,AcceleratedVideoDecoder,WebRtcPipeWireCamera" "$home/.config/chromium-flags.conf" ||
   fail "the video and camera features share Chromium's feature list" "$(cat "$home/.config/chromium-flags.conf")"
@@ -66,7 +66,7 @@ HOME=$home bash "$helper"
 [[ ! -e $home/.config/chromium-flags.conf ]] || fail "a missing Chromium flags file stays missing"
 pass "a feature the user set and a missing flags file stay as they are"
 
-if HOME=$home bash "$ROOT/src/commands/arch-chromium-add-feature" 'Foo/Bar' 2>/dev/null; then
+if HOME=$home bash "$ROOT/src/arch/commands/arch-chromium-add-feature" 'Foo/Bar' 2>/dev/null; then
   fail "the feature helper refuses a name that isn't a Chromium feature"
 fi
 pass "the feature helper refuses a name that isn't a Chromium feature"

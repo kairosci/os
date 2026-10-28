@@ -2,35 +2,35 @@ id = "desktop.commands.cmd"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-cmd-browser-handoff",
-  "src/commands/arch-cmd-default-browser",
-  "src/commands/arch-cmd-missing",
-  "src/cli/command/presence.py",
-  "src/commands/arch-cmd-present",
-  "src/commands/arch-cmd-terminal-cwd",
+  "src/arch/commands/arch-cmd-browser-handoff",
+  "src/arch/commands/arch-cmd-default-browser",
+  "src/arch/commands/arch-cmd-missing",
+  "src/arch/cli/command/presence.py",
+  "src/arch/commands/arch-cmd-present",
+  "src/arch/commands/arch-cmd-terminal-cwd",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-cmd-browser-handoff"
-target = "usr/share/arch/src/commands/arch-cmd-browser-handoff"
+source = "src/arch/commands/arch-cmd-browser-handoff"
+target = "usr/share/arch/src/arch/commands/arch-cmd-browser-handoff"
 
 [[output]]
-source = "src/commands/arch-cmd-default-browser"
-target = "usr/share/arch/src/commands/arch-cmd-default-browser"
+source = "src/arch/commands/arch-cmd-default-browser"
+target = "usr/share/arch/src/arch/commands/arch-cmd-default-browser"
 
 [[output]]
-source = "src/commands/arch-cmd-missing"
-target = "usr/share/arch/src/commands/arch-cmd-missing"
+source = "src/arch/commands/arch-cmd-missing"
+target = "usr/share/arch/src/arch/commands/arch-cmd-missing"
 
 [[output]]
-source = "src/cli/command/presence.py"
-target = "usr/share/arch/src/cli/command/presence.py"
+source = "src/arch/cli/command/presence.py"
+target = "usr/share/arch/src/arch/cli/command/presence.py"
 
 [[output]]
-source = "src/commands/arch-cmd-present"
-target = "usr/share/arch/src/commands/arch-cmd-present"
+source = "src/arch/commands/arch-cmd-present"
+target = "usr/share/arch/src/arch/commands/arch-cmd-present"
 
 [[output]]
-source = "src/commands/arch-cmd-terminal-cwd"
-target = "usr/share/arch/src/commands/arch-cmd-terminal-cwd"
+source = "src/arch/commands/arch-cmd-terminal-cwd"
+target = "usr/share/arch/src/arch/commands/arch-cmd-terminal-cwd"

@@ -22,7 +22,7 @@ export ARCH_PATH="$scratch/root"
 fixture_root "$ARCH_PATH"
 cp -a "$ROOT/default" "$ARCH_PATH/"
 
-apply() { "$ROOT/src/commands/arch-apply-pacman" "$1" "$TARGET_ROOT"; }
+apply() { "$ROOT/src/arch/commands/arch-apply-pacman" "$1" "$TARGET_ROOT"; }
 
 for channel in stable rc edge; do
   apply "$channel"
@@ -88,7 +88,7 @@ pass "missing fragment cannot leave a half-generated config"
 # privileged path is covered in the sudo-boundary sandbox, never on the host.
 cp "$TARGET_ROOT/etc/pacman.conf" "$scratch/before.conf"
 mkdir -p "$scratch/rendered"
-"$ROOT/src/commands/arch-apply-pacman" --render rc "$scratch/rendered" "$TARGET_ROOT"
+"$ROOT/src/arch/commands/arch-apply-pacman" --render rc "$scratch/rendered" "$TARGET_ROOT"
 rg -qxF 'Server = https://pkgs.github.com/kairosci/os/rc/$arch' "$scratch/rendered/pacman.conf"
 [[ $(grep -A2 -xF '[arch]' "$scratch/rendered/pacman.conf") == $'[arch]\nServer = https://pkgs.arch.cn/rc/$arch\nServer = https://pkgs.github.com/kairosci/os/rc/$arch' ]] ||
   fail "render puts the China [arch] server first"
@@ -97,7 +97,7 @@ rg -qxF 'Server = https://pkgs.github.com/kairosci/os/rc/$arch' "$scratch/render
 cmp "$scratch/before.conf" "$TARGET_ROOT/etc/pacman.conf"
 pass "render builds the regional channel files without touching the target"
 
-if "$ROOT/src/commands/arch-apply-pacman" --render dev "$scratch/rendered" "$TARGET_ROOT" > "$scratch/error" 2>&1; then
+if "$ROOT/src/arch/commands/arch-apply-pacman" --render dev "$scratch/rendered" "$TARGET_ROOT" > "$scratch/error" 2>&1; then
   fail "render accepts a nonexistent dev pacman template"
 fi
 pass "render rejects channels without pacman templates"

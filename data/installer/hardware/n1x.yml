@@ -25,7 +25,7 @@ files:
     content: |-
       # N1x: the firmware hands over each core with its CPPC floor raised to its
       # ceiling, so restore the full range and turn on autonomous selection, which
-      # programs the floor and ceiling from it; see src/python/installer/hardware/n1x.py.
+      # programs the floor and ceiling from it; see src/arch/python/installer/hardware/n1x.py.
       ACTION=="add", SUBSYSTEM=="module", KERNEL=="cppc_cpufreq", RUN+="/usr/bin/sh -c 'for p in /sys/devices/system/cpu/cpufreq/policy*; do echo 0 >$$p/auto_select; cat $$p/cpuinfo_max_freq >$$p/scaling_max_freq; cat $$p/cpuinfo_min_freq >$$p/scaling_min_freq; echo 1 >$$p/auto_select; done'"
       ACTION=="online", SUBSYSTEM=="cpu", TEST=="cpufreq/auto_select", ATTR{cpufreq/auto_select}="0", ATTR{cpufreq/scaling_max_freq}="$attr{cpufreq/cpuinfo_max_freq}", ATTR{cpufreq/scaling_min_freq}="$attr{cpufreq/cpuinfo_min_freq}", ATTR{cpufreq/auto_select}="1"
   usb4:

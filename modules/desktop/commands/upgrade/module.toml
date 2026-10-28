@@ -2,10 +2,10 @@ id = "desktop.commands.upgrade"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-upgrade-to-quattro",
+  "src/arch/commands/arch-upgrade-to-quattro",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-upgrade-to-quattro"
-target = "usr/share/arch/src/commands/arch-upgrade-to-quattro"
+source = "src/arch/commands/arch-upgrade-to-quattro"
+target = "usr/share/arch/src/arch/commands/arch-upgrade-to-quattro"
