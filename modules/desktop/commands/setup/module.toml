@@ -39,5 +39,3 @@ target = "usr/share/arch/src/arch/commands/arch-setup-security-ssh-agent"
 [[output]]
 source = "src/arch/commands/arch-setup-security-sshd"
 target = "usr/share/arch/src/arch/commands/arch-setup-security-sshd"
-
-[[output]]
