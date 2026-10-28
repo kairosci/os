@@ -62,15 +62,13 @@ Penseresti che dovrebbe funzionare tutto semplicemente collegando l'USB C, ma pu
 
 Ricorda che in Arch hai il controllo integrato della luminosità per gli schermi Apple (sia Studio sia XDR) usando i normali tasti di luminosità della tastiera.
 
-### Come mi libero di tutto il software extra?
+### Come rimuovo il software che non uso?
 
-Se non vuoi programmi come Obsidian o LibreOffice o qualsiasi altra cosa preinstallata, puoi rimuoverla molto facilmente.
+Puoi rimuovere facilmente i programmi che non usi.
 
 Apri _Rimuovi > Pacchetto_ per vedere ogni pacchetto installato. Poi puoi selezionare con il tasto Tab qualsiasi pacchetto che vuoi rimuovere e iniziare a rimuovere tutto ciò che hai selezionato con Invio.
 
-E puoi usare _Rimuovi > Web App_ dal menu di Arch per rimuovere qualsiasi web app preinstallata che non vuoi.
-
-Oppure apri _Rimuovi > Preinstallati_ per spazzare via tutti gli extra preinstallati — web app, TUI e applicazioni opzionali — in un colpo solo. Le scorciatoie che le lanciavano spariscono con loro, così ti ritrovi con una serie pulita di associazioni da riempire con le tue in `~/.config/hypr/bindings.lua`.
+Usa _Rimuovi > Web App_ per eliminare le web app installate che non vuoi.
 
 ---
 

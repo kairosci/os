@@ -102,14 +102,6 @@ local function command_from(value, description)
   return value
 end
 
-function o.preinstalled_bindings_enabled()
-  if _G.arch_preinstalled_bindings ~= nil then
-    return _G.arch_preinstalled_bindings == true
-  end
-
-  return not file_exists((os.getenv("HOME") or "") .. "/.local/state/arch/preinstalls-removed")
-end
-
 function o.bind(keys, description, dispatcher, options)
   local opts = options or {}
 

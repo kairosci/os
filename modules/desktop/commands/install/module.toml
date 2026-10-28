@@ -26,7 +26,6 @@ sources = [
   "src/commands/arch-install-gaming-steam",
   "src/commands/arch-install-gaming-xbox-cloud",
   "src/commands/arch-install-gaming-xbox-controllers",
-  "src/commands/arch-install-preinstalls",
   "src/commands/arch-install-service-1password",
   "src/commands/arch-install-service-dropbox",
   "src/commands/arch-install-service-microsoft",
@@ -137,9 +136,6 @@ target = "usr/share/arch/src/commands/arch-install-gaming-xbox-cloud"
 source = "src/commands/arch-install-gaming-xbox-controllers"
 target = "usr/share/arch/src/commands/arch-install-gaming-xbox-controllers"
 
-[[output]]
-source = "src/commands/arch-install-preinstalls"
-target = "usr/share/arch/src/commands/arch-install-preinstalls"
 
 [[output]]
 source = "src/commands/arch-install-service-1password"

@@ -378,7 +378,6 @@ assertDeepEqual(
     'remove.webapp',
     'remove.tui',
     'remove.windows',
-    'remove.preinstalls',
     'remove.security'
   ],
   'menu keeps the Remove category order'

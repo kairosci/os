@@ -142,8 +142,7 @@ is_allowed_duplicate() {
 tmpdir=$(mktemp -d)
 trap 'rm -rf "$tmpdir"' EXIT
 
-# A fresh home keeps the preinstalled app bindings on, and a stub Voxtype adds
-# its conditional ones, so the check covers the largest set a user can get.
+# A fresh home and stub Voxtype cover the core bindings and installed dictation.
 home="$tmpdir/home"
 stub_bin="$tmpdir/bin"
 mkdir -p "$home" "$stub_bin"
@@ -159,9 +158,8 @@ bindings=$(PATH="$stub_bin:$PATH" list_bindings "$home")
 [[ -n $bindings ]] || fail "default bindings load for the conflict check"
 
 grep -Fq $'SUPER + RETURN\tTerminal' <<<"$bindings" || fail "conflict check sees the essential bindings"
-grep -Fq $'SUPER + SHIFT + O\tObsidian' <<<"$bindings" || fail "conflict check sees the preinstalled bindings"
 grep -Fq $'F9\tStart dictation (push-to-talk)' <<<"$bindings" || fail "conflict check sees the Voxtype bindings"
-pass "conflict check covers the full default binding set"
+pass "conflict check covers the core and installed dictation bindings"
 
 duplicates=$(duplicate_signatures <<<"$bindings")
 
