@@ -4,6 +4,7 @@ SHELL := /bin/bash
 PYTHON ?= python3
 NODE ?= node
 LUA_COMPILER ?= luac
+QML_FORMATTER ?= qmlformat
 ARCH_ISO ?= ../arch-iso
 ARCH_PKGS ?= ../arch-pkgs
 
@@ -12,7 +13,7 @@ ARCH_PKGS ?= ../arch-pkgs
 help:
 	@printf '%s\n' \
 	  'check          Run source checks, package module checks, and all non-graphical tests' \
-	  'source-check   Parse Python, JavaScript, Lua, and Bash sources' \
+	  'source-check   Parse Python, JavaScript, Lua, QML, and Bash sources' \
 	  'modules-check  Validate and assemble both package module trees' \
 	  'type-check     Check Python module catalog types' \
 	  'lint-workflows Validate GitHub Actions workflow syntax' \
@@ -29,6 +30,7 @@ source-check:
 	$(PYTHON) -m compileall -q src tests scripts
 	while IFS= read -r -d '' file; do if rg -q '^\.(pragma|import) ' "$$file"; then continue; fi; $(NODE) --check "$$file" || exit 1; done < <(rg --files src default -g '*.js' -0)
 	rg --files default -g '*.lua' -0 | xargs -0 -r -n 1 $(LUA_COMPILER) -p
+	while IFS= read -r -d '' file; do $(QML_FORMATTER) "$$file" >/dev/null || exit 1; done < <(rg --files src default -g '*.qml' -0)
 	rg --files -g '*.sh' -0 | xargs -0 -r -n 1 bash -n
 
 modules-check:
