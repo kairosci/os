@@ -28,8 +28,8 @@ class IconDownloadFailed(RuntimeError):
 
 
 def _settings() -> dict[str, Any]:
-  arch_path = Path(os.environ["ARCH_PATH"])
-  with (arch_path / "data/cli/tui-install.yml").open(encoding="utf-8") as stream:
+  ap = Path(os.environ["ARCH_PATH"])
+  with (ap / "data/cli/tui-install.yml").open(encoding="utf-8") as stream:
     value = yaml.safe_load(stream)
   if not isinstance(value, dict):
     raise ValueError("invalid TUI installer settings")
@@ -38,8 +38,8 @@ def _settings() -> dict[str, Any]:
 
 def _translator(settings: dict[str, Any]):
   def translate(key: str, *arguments: str) -> str:
-    arch_path = Path(os.environ["ARCH_PATH"])
-    command = [str(arch_path / settings["commands"]["i18n"]), key, *arguments]
+    ap = Path(os.environ["ARCH_PATH"])
+    command = [str(ap / settings["commands"]["i18n"]), key, *arguments]
     result = subprocess.run(command, check=False, capture_output=True, text=True)
     return result.stdout if result.returncode == 0 else key
 

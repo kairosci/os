@@ -5,7 +5,7 @@ source "$(dirname "${BASH_SOURCE[0]}")/base-test.sh"
 require_command lua
 
 env_defaults="$ROOT/default/hypr/envs.lua"
-grep -Fqx 'hl.env("ARCH_PATH", paths.arch_path)' "$env_defaults" || fail "Hyprland exports the Arch runtime path to spawned apps"
+grep -Fqx 'hl.env("ARCH_PATH", paths.ap)' "$env_defaults" || fail "Hyprland exports the Arch runtime path to spawned apps"
 [[ $(grep -Fc 'hl.env("ARCH_PATH"' "$env_defaults") == 1 ]] || fail "Hyprland does not clear the runtime path after setting it"
 pass "Hyprland keeps ARCH_PATH available to the shell and localized catalogs"
 

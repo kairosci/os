@@ -13,12 +13,12 @@ import yaml
 
 
 def _settings() -> tuple[Path, dict[str, Any]]:
-  arch_path = Path(os.environ["ARCH_PATH"])
-  with (arch_path / "data/installer/branding-setup.yml").open(encoding="utf-8") as stream:
+  ap = Path(os.environ["ARCH_PATH"])
+  with (ap / "data/installer/branding-setup.yml").open(encoding="utf-8") as stream:
     settings = yaml.safe_load(stream)
   if not isinstance(settings, dict):
     raise ValueError("invalid branding setup settings")
-  return arch_path, settings["branding"]
+  return ap, settings["branding"]
 
 
 def _backup_directory(settings: dict[str, Any]) -> Path:
@@ -67,21 +67,21 @@ def _target(entry: dict[str, str]) -> Path:
 
 
 def main() -> None:
-  arch_path, settings = _settings()
+  ap, settings = _settings()
   backup_dir = _backup_directory(settings)
   mode = int(settings["installed_file_mode"], 8)
 
   for entry in settings["files"]:
-    _replace_file(arch_path / entry["source"], _target(entry), mode, backup_dir)
+    _replace_file(ap / entry["source"], _target(entry), mode, backup_dir)
 
   for entry in settings["trees"]:
-    shutil.copytree(arch_path / entry["source"], entry["target"], symlinks=True, dirs_exist_ok=True)
+    shutil.copytree(ap / entry["source"], entry["target"], symlinks=True, dirs_exist_ok=True)
 
   for entry in settings["tree_files"]:
-    _replace_file(arch_path / entry["source"], Path(entry["target"]), mode, backup_dir)
+    _replace_file(ap / entry["source"], Path(entry["target"]), mode, backup_dir)
 
   for entry in settings["skeleton_files"]:
-    _replace_file(arch_path / entry["source"], Path(entry["target"]), mode, backup_dir)
+    _replace_file(ap / entry["source"], Path(entry["target"]), mode, backup_dir)
 
   plymouth = settings["plymouth"]
   if plymouth["expected_line"] not in Path(plymouth["config"]).read_text(encoding="utf-8").splitlines():

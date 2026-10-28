@@ -20,23 +20,23 @@ def run(command: list[str], *, timeout: int | None = None) -> subprocess.Complet
   return subprocess.run(command, check=False, capture_output=True, text=True, timeout=timeout)
 
 
-def checkout_updates(config: dict[str, Any], arch_path: str) -> list[str]:
+def checkout_updates(config: dict[str, Any], ap: str) -> list[str]:
   checkout = config["checkout"]
-  if arch_path == checkout["system_path"]:
+  if ap == checkout["system_path"]:
     return []
 
-  upstream_result = run([*checkout["git"], "-C", arch_path, *checkout["upstream_args"]])
+  upstream_result = run([*checkout["git"], "-C", ap, *checkout["upstream_args"]])
   upstream = upstream_result.stdout.strip() if upstream_result.returncode == 0 else ""
   if not upstream:
     return []
 
   try:
     run(
-      [*checkout["git"], "-C", arch_path, *checkout["fetch_args"]],
+      [*checkout["git"], "-C", ap, *checkout["fetch_args"]],
       timeout=int(checkout["fetch_timeout_seconds"]),
     )
     behind_result = run(
-      [*checkout["git"], "-C", arch_path, *checkout["behind_args"], upstream]
+      [*checkout["git"], "-C", ap, *checkout["behind_args"], upstream]
     )
   except (OSError, subprocess.TimeoutExpired):
     return []

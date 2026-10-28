@@ -13,12 +13,12 @@ import yaml
 
 
 def _settings() -> tuple[Path, dict[str, Any]]:
-  arch_path = Path(os.environ["ARCH_PATH"])
-  with (arch_path / "data/installer/systemd-boot-kernel.yml").open(encoding="utf-8") as stream:
+  ap = Path(os.environ["ARCH_PATH"])
+  with (ap / "data/installer/systemd-boot-kernel.yml").open(encoding="utf-8") as stream:
     document = yaml.safe_load(stream)
   if not isinstance(document, dict):
     raise ValueError("invalid systemd-boot kernel setup settings")
-  return arch_path, document["systemd_boot_kernel"]
+  return ap, document["systemd_boot_kernel"]
 
 
 def _messages(settings: dict[str, Any]) -> dict[str, str]:
@@ -27,7 +27,7 @@ def _messages(settings: dict[str, Any]) -> dict[str, str]:
 
 
 def _configured_path(
-  settings: dict[str, Any], key: str, arch_path: Path, relative_base: Path | None = None,
+  settings: dict[str, Any], key: str, ap: Path, relative_base: Path | None = None,
 ) -> Path:
   config = settings["paths"][key]
   override = os.environ.get(config["environment_override"])
@@ -35,7 +35,7 @@ def _configured_path(
     return Path(override)
   if "default" in config:
     return Path(config["default"])
-  base = relative_base if relative_base is not None else arch_path
+  base = relative_base if relative_base is not None else ap
   return base / config["relative_default"]
 
 
@@ -61,13 +61,13 @@ def _atomic_write(path: Path, content: bytes, mode: int) -> None:
 
 
 def _write_preset_if_safe(
-  settings: dict[str, Any], arch_path: Path, messages: dict[str, str], preset_path: Path, template_path: Path,
+  settings: dict[str, Any], ap: Path, messages: dict[str, str], preset_path: Path, template_path: Path,
 ) -> bool:
   files = settings["files"]
   template = template_path.read_bytes()
   if preset_path.exists() and preset_path.read_bytes() != template:
     known_presets = [files["legacy_preset"].encode() + b"\n"]
-    default_preset = _configured_path(settings, "default_preset", arch_path)
+    default_preset = _configured_path(settings, "default_preset", ap)
     if default_preset.is_file():
       default_content = default_preset.read_text(encoding="utf-8")
       known_presets.append(
@@ -119,31 +119,31 @@ def _merged_command_line(
 
 
 def main() -> int:
-  arch_path, settings = _settings()
+  ap, settings = _settings()
   paths = settings["paths"]
-  helper = _configured_path(settings, "hardware_helper", arch_path)
+  helper = _configured_path(settings, "hardware_helper", ap)
   if subprocess.run([str(helper)], check=False).returncode:
     return 0
 
-  esp = _configured_path(settings, "systemd_boot_esp", arch_path)
+  esp = _configured_path(settings, "systemd_boot_esp", ap)
   if not (esp / paths["systemd_boot_entry"]).is_file():
     return 0
 
-  uki = _configured_path(settings, "kernel_uki", arch_path, esp)
+  uki = _configured_path(settings, "kernel_uki", ap, esp)
   messages = _messages(settings)
   if not uki.is_file() or not uki.stat().st_size:
     print(messages["missing_uki"].format(path=uki), file=sys.stderr)
     return 1
 
-  command_line_file = _configured_path(settings, "kernel_cmdline", arch_path)
+  command_line_file = _configured_path(settings, "kernel_cmdline", ap)
   command_line = _merged_command_line(settings, messages, uki, command_line_file)
   if command_line is None:
     return 1
 
-  mkinitcpio_dir = _configured_path(settings, "mkinitcpio_config_dir", arch_path)
+  mkinitcpio_dir = _configured_path(settings, "mkinitcpio_config_dir", ap)
   preset_path = mkinitcpio_dir / settings["files"]["kernel_preset"]
-  template_path = _configured_path(settings, "preset_template", arch_path)
-  if not _write_preset_if_safe(settings, arch_path, messages, preset_path, template_path):
+  template_path = _configured_path(settings, "preset_template", ap)
+  if not _write_preset_if_safe(settings, ap, messages, preset_path, template_path):
     return 1
 
   _atomic_write(command_line_file, command_line, int(settings["files"]["installed_mode"], 8))

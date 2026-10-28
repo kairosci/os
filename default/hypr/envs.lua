@@ -25,9 +25,9 @@ hl.env("XDG_SESSION_DESKTOP", "Hyprland")
 hl.env("XCOMPOSEFILE", paths.home .. "/.XCompose")
 
 -- hyprctl setenv doesn't reach keybind dispatcher env; use hl.env.
-hl.env("ARCH_PATH", paths.arch_path)
+hl.env("ARCH_PATH", paths.ap)
 
-local cli_dir = paths.arch_path .. "/src/arch/commands"
+local cli_dir = paths.ap .. "/src/arch/commands"
 local inherited_arch_cli = (os.getenv("ARCH_PATH") or "") .. "/src/arch/commands"
 local kept = {}
 for entry in (os.getenv("PATH") or "/usr/local/bin:/usr/bin"):gmatch("[^:]+") do

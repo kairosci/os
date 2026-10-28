@@ -59,9 +59,9 @@ esac
     path.chmod(0o755)
 
   def run_command(self, **updates: str) -> subprocess.CompletedProcess[str]:
-    arch_path = updates.pop("ARCH_PATH", str(ROOT))
+    ap = updates.pop("ARCH_PATH", str(ROOT))
     environment = test_environment(
-      ARCH_PATH=arch_path,
+      ARCH_PATH=ap,
       PATH=f"{self.bin_dir}:{os.environ.get('PATH', '')}",
       **updates,
     )

@@ -25,11 +25,11 @@ def _path(value: str, **values: str) -> Path:
 
 def _paths(settings: dict[str, Any]) -> dict[str, Path]:
   home = str(Path.home())
-  arch_path = os.environ["ARCH_PATH"]
+  ap = os.environ["ARCH_PATH"]
   state_home = os.environ.get(settings["paths"]["state_home_environment"])
   if not state_home:
     state_home = settings["paths"]["state_home_default"].format(home=home)
-  values = {"home": home, "arch_path": arch_path, "state_home": state_home}
+  values = {"home": home, "arch_path": ap, "state_home": state_home}
   return {
     name: _path(value, **values)
     for name, value in settings["paths"].items()

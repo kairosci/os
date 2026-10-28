@@ -8,8 +8,8 @@ from pathlib import Path
 import yaml
 
 
-def setup_steps(arch_path: Path) -> list[Path]:
-  config_path = arch_path / "data/installer/user-setup.yml"
+def setup_steps(ap: Path) -> list[Path]:
+  config_path = ap / "data/installer/user-setup.yml"
   config = yaml.safe_load(config_path.read_text(encoding="utf-8"))
   steps = config.get("steps") if isinstance(config, dict) else None
   if not isinstance(steps, list):
@@ -20,7 +20,7 @@ def setup_steps(arch_path: Path) -> list[Path]:
     relative = Path(step) if isinstance(step, str) else Path("/")
     if relative.is_absolute() or relative.suffix != ".py" or ".." in relative.parts:
       raise ValueError(f"Invalid user setup step: {step!r}")
-    script = arch_path / "src/arch/python/installer_user" / relative
+    script = ap / "src/arch/python/installer_user" / relative
     if not script.is_file():
       raise FileNotFoundError(script)
     scripts.append(script)
@@ -28,8 +28,8 @@ def setup_steps(arch_path: Path) -> list[Path]:
 
 
 def main(arguments: list[str] | None = None) -> int:
-  arch_path = Path(os.environ["ARCH_PATH"])
-  scripts = setup_steps(arch_path)
+  ap = Path(os.environ["ARCH_PATH"])
+  scripts = setup_steps(ap)
   arguments = sys.argv[1:] if arguments is None else arguments
   if arguments == ["--count"]:
     print(len(scripts))

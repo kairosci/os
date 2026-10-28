@@ -12,12 +12,12 @@ import yaml
 
 
 def settings() -> tuple[Path, dict[str, Any]]:
-  arch_path = Path(os.environ["ARCH_PATH"])
-  config_path = arch_path / "data/installer/hardware/n1x.yml"
+  ap = Path(os.environ["ARCH_PATH"])
+  config_path = ap / "data/installer/hardware/n1x.yml"
   config = yaml.safe_load(config_path.read_text(encoding="utf-8"))
   if not isinstance(config, dict):
     raise ValueError
-  return arch_path, config
+  return ap, config
 
 
 def message(config: dict[str, Any], key: str, **values: str) -> str:

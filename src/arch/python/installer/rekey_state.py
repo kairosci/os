@@ -14,8 +14,8 @@ import yaml
 
 
 def load_settings() -> dict[str, Any]:
-    arch_path = Path(os.environ["ARCH_PATH"])
-    path = arch_path / "data/installer/rekey-state.yml"
+    ap = Path(os.environ["ARCH_PATH"])
+    path = ap / "data/installer/rekey-state.yml"
     with path.open(encoding="utf-8") as source:
         return yaml.safe_load(source)["rekey_state"]
 

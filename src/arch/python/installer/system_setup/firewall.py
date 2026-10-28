@@ -13,8 +13,8 @@ import yaml
 
 
 def _settings() -> dict[str, Any]:
-  arch_path = Path(os.environ["ARCH_PATH"])
-  with (arch_path / "data/installer/firewall-setup.yml").open(encoding="utf-8") as stream:
+  ap = Path(os.environ["ARCH_PATH"])
+  with (ap / "data/installer/firewall-setup.yml").open(encoding="utf-8") as stream:
     settings = yaml.safe_load(stream)
   if not isinstance(settings, dict):
     raise ValueError("invalid firewall setup settings")

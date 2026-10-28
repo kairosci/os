@@ -79,7 +79,7 @@ hl.on("config.reloaded", function()
       hl.env("ARCH_STARTUP_CURSOR_THEME", arch_startup_cursor.xcursor)
       hl.env("ARCH_STARTUP_CURSOR_SESSION", os.getenv("HYPRLAND_INSTANCE_SIGNATURE"))
       if cold then
-        hl.env("XCURSOR_PATH", paths.arch_path .. "/default/hypr/cursors:" .. arch_startup_cursor.path)
+        hl.env("XCURSOR_PATH", paths.ap .. "/default/hypr/cursors:" .. arch_startup_cursor.path)
         hl.env("XCURSOR_THEME", "arch-startup")
       else
         hl.env("XCURSOR_PATH", arch_startup_cursor.path)

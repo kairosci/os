@@ -16,12 +16,12 @@ import yaml
 
 
 def settings() -> tuple[Path, dict[str, Any]]:
-  arch_path = Path(os.environ["ARCH_PATH"])
-  path = arch_path / "data/installer/post-install.yml"
+  ap = Path(os.environ["ARCH_PATH"])
+  path = ap / "data/installer/post-install.yml"
   config = yaml.safe_load(path.read_text(encoding="utf-8"))
   if not isinstance(config, dict) or not isinstance(config.get("pacman"), dict):
     raise ValueError("invalid post-install pacman settings")
-  return arch_path, config["pacman"]
+  return ap, config["pacman"]
 
 
 def message(config: dict[str, Any], key: str, **values: str) -> str:
@@ -105,9 +105,9 @@ def request_image_keyring(root: Path, config: dict[str, Any]) -> None:
     os.fsync(request.fileno())
 
 
-def install_cups_policy(arch_path: Path, config: dict[str, Any]) -> None:
+def install_cups_policy(ap: Path, config: dict[str, Any]) -> None:
   cups = config["cups"]
-  source = arch_path / cups["source"]
+  source = ap / cups["source"]
   target = Path(cups["target"])
   try:
     source_mode = source.lstat().st_mode
@@ -144,7 +144,7 @@ def install_cups_policy(arch_path: Path, config: dict[str, Any]) -> None:
 
 
 def main() -> int:
-  arch_path, config = settings()
+  ap, config = settings()
   if os.geteuid() == 0:
     os.environ["PATH"] = config["trusted_path"]
 
@@ -155,7 +155,7 @@ def main() -> int:
   if template_directory is None or default_channel is None:
     raise ValueError(message(config, "invalid_platform", platform=platform))
 
-  templates = arch_path / template_directory
+  templates = ap / template_directory
   channel = os.environ.get("ARCH_MIRROR", "")
   if channel not in config["channels"] or not all(
     (templates / filename.format(channel=channel)).is_file()
@@ -170,7 +170,7 @@ def main() -> int:
   root = image_root(config)
   manifest = image_manifest(root, config) if needs_alarm_keyring else None
   target_root = str(root) if os.geteuid() != 0 else "/"
-  run([config["apply_command"].format(arch_path=str(arch_path)), channel, target_root])
+  run([config["apply_command"].format(arch_path=str(ap)), channel, target_root])
 
   if needs_alarm_keyring:
     if manifest is not None:
@@ -179,8 +179,8 @@ def main() -> int:
       run([*config["keyring_command"], "--init"])
       run([*config["keyring_command"], "--populate"])
 
-  install_cups_policy(arch_path, config)
-  run([*config["python_command"], str(arch_path / config["repositories_script"])])
+  install_cups_policy(ap, config)
+  run([*config["python_command"], str(ap / config["repositories_script"])])
   return 0
 
 

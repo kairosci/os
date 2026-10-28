@@ -12,8 +12,8 @@ import yaml
 
 
 def _settings() -> dict[str, Any]:
-  arch_path = Path(os.environ["ARCH_PATH"])
-  with (arch_path / "data/installer/config-setup.yml").open(encoding="utf-8") as stream:
+  ap = Path(os.environ["ARCH_PATH"])
+  with (ap / "data/installer/config-setup.yml").open(encoding="utf-8") as stream:
     settings = yaml.safe_load(stream)
   if not isinstance(settings, dict):
     raise ValueError("invalid system setup settings")
@@ -56,8 +56,8 @@ def _run_optional(command: list[str]) -> None:
 
 def main() -> None:
   settings = _settings()
-  arch_path = Path(os.environ["ARCH_PATH"])
-  helper = subprocess.run([str(arch_path / settings["helper"])], check=False)
+  ap = Path(os.environ["ARCH_PATH"])
+  helper = subprocess.run([str(ap / settings["helper"])], check=False)
   boot_entry = settings["boot_entry"]
   esp = os.environ.get(boot_entry["environment_override"], boot_entry["default_esp"])
   if helper.returncode or not (Path(esp) / boot_entry["relative_path"]).is_file():
@@ -68,14 +68,14 @@ def main() -> None:
   if os.geteuid() != 0:
     target = os.environ.get(plugin["target_environment"], target)
   _copy_plugin(
-    arch_path / plugin["source"],
+    ap / plugin["source"],
     Path(target),
     plugin["mode"],
     plugin["directory_mode"],
   )
   settings_target = Path(target).with_name(Path(target).name + plugin["settings_suffix"])
   _copy_plugin(
-    arch_path / plugin["settings_source"],
+    ap / plugin["settings_source"],
     settings_target,
     plugin["settings_mode"],
     plugin["directory_mode"],

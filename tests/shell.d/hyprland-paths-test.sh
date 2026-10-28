@@ -32,7 +32,7 @@ package.path = os.getenv("ARCH_REPO") .. "/?.lua;" .. package.path
 _G.ARCH_PATH = "/usr/share/arch"
 dofile(os.getenv("ARCH_REPO") .. "/default/hypr/bootstrap.lua")
 local paths = dofile(os.getenv("ARCH_REPO") .. "/default/hypr/paths.lua")
-assert(paths.arch_path == "/usr/share/arch", "arch_path: " .. paths.arch_path)
+assert(paths.ap == "/usr/share/arch", "ap: " .. paths.ap)
 assert(package.path:find("/usr/share/arch/?.lua", 1, true), "package.path does not use the installed runtime")
 assert(not package.path:find(os.getenv("ARCH_REPO") .. "/?.lua", 1, true), "package.path still uses the checkout")
 LUA

@@ -18,12 +18,12 @@ def _relative_path(value: object) -> Path:
   return path
 
 
-def _step_path(step: object, arch_path: Path, arch_install: Path) -> Path:
+def _step_path(step: object, ap: Path, arch_install: Path) -> Path:
   if isinstance(step, str):
-    root = arch_path
+    root = ap
     relative = _relative_path(step)
   elif isinstance(step, dict):
-    roots = {"arch_path": arch_path, "arch_install": arch_install}
+    roots = {"arch_path": ap, "arch_install": arch_install}
     root_name = step.get("root", "arch_path")
     if root_name not in roots:
       raise ValueError(f"Invalid installer step root: {root_name!r}")
@@ -53,11 +53,11 @@ def _step_reference(step: object) -> str:
 
 
 def _load_steps(
-  arch_path: Path, arch_install: Path, config_relative: Path
+  ap: Path, arch_install: Path, config_relative: Path
 ) -> tuple[list[Path], dict[str, str]]:
   if config_relative.is_absolute() or ".." in config_relative.parts:
     raise ValueError(f"Invalid installer step configuration: {config_relative}")
-  config_path = arch_path / config_relative
+  config_path = ap / config_relative
   config = yaml.safe_load(config_path.read_text(encoding="utf-8"))
   steps = config.get("steps") if isinstance(config, dict) else None
   if not isinstance(steps, list):
@@ -66,21 +66,21 @@ def _load_steps(
   language = os.environ.get("LANG", "en").split(".", 1)[0].split("_", 1)[0].lower()
   messages = config.get("messages", {})
   localized = messages.get(language, messages.get("en", {}))
-  scripts = [_step_path(step, arch_path, arch_install) for step in steps]
+  scripts = [_step_path(step, ap, arch_install) for step in steps]
   return scripts, localized
 
 
 def _load_step_references(
-  arch_path: Path, arch_install: Path, config_relative: Path
+  ap: Path, arch_install: Path, config_relative: Path
 ) -> list[str]:
-  _load_steps(arch_path, arch_install, config_relative)
-  config_path = arch_path / config_relative
+  _load_steps(ap, arch_install, config_relative)
+  config_path = ap / config_relative
   config = yaml.safe_load(config_path.read_text(encoding="utf-8"))
   return [_step_reference(step) for step in config["steps"]]
 
 
-def run_steps(arch_path: Path, arch_install: Path, config_relative: Path) -> int:
-  scripts, localized = _load_steps(arch_path, arch_install, config_relative)
+def run_steps(ap: Path, arch_install: Path, config_relative: Path) -> int:
+  scripts, localized = _load_steps(ap, arch_install, config_relative)
 
   for script in scripts:
     _log(localized, "starting", script)
@@ -120,17 +120,17 @@ def main(arguments: list[str] | None = None) -> int:
     arguments = arguments[1:]
   if len(arguments) != 1:
     return 2
-  arch_path = Path(os.environ["ARCH_PATH"])
-  arch_install = Path(os.environ.get("ARCH_INSTALL", str(arch_path / "installer")))
+  ap = Path(os.environ["ARCH_PATH"])
+  arch_install = Path(os.environ.get("ARCH_INSTALL", str(ap / "installer")))
   config_relative = Path(arguments[0])
   if validate:
-    _load_steps(arch_path, arch_install, config_relative)
+    _load_steps(ap, arch_install, config_relative)
     return 0
   if list_steps:
-    for step in _load_step_references(arch_path, arch_install, config_relative):
+    for step in _load_step_references(ap, arch_install, config_relative):
       print(step)
     return 0
-  return run_steps(arch_path, arch_install, config_relative)
+  return run_steps(ap, arch_install, config_relative)
 
 
 if __name__ == "__main__":

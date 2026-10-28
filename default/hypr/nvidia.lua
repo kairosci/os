@@ -1,9 +1,9 @@
 local paths = require("default.hypr.paths")
 
-local nvidia = paths.arch_path .. "/src/arch/commands/arch-hw-nvidia"
-local nvidia_display = paths.arch_path .. "/src/arch/commands/arch-hw-nvidia-display"
-local nvidia_gsp = paths.arch_path .. "/src/arch/commands/arch-hw-nvidia-gsp"
-local nvidia_without_gsp = paths.arch_path .. "/src/arch/commands/arch-hw-nvidia-without-gsp"
+local nvidia = paths.ap .. "/src/arch/commands/arch-hw-nvidia"
+local nvidia_display = paths.ap .. "/src/arch/commands/arch-hw-nvidia-display"
+local nvidia_gsp = paths.ap .. "/src/arch/commands/arch-hw-nvidia-gsp"
+local nvidia_without_gsp = paths.ap .. "/src/arch/commands/arch-hw-nvidia-without-gsp"
 
 -- These detectors read cached sysfs IDs rather than shelling out to lspci.
 -- lspci reads PCI config space, which resumes a runtime-suspended GPU, and on a
