@@ -115,3 +115,15 @@ ARCH_TEST_DATE_LOCALE="$test_tmp/date-locale" \
 [[ $(<"$test_tmp/date-locale") == "it_IT.UTF-8" ]] || fail "package upgrade date uses the selected locale"
 [[ $(<"$test_tmp/date-args") == $'-d\n2026-10-27T19:00:00+0000\n+%A %d %B %Y alle %H:%M' ]] || fail "the last upgraded package timestamp and Italian format reach date" "$(cat "$test_tmp/date-args")"
 pass "package upgrade date uses the latest upgrade timestamp and selected display locale"
+
+printf '%s\n' 'commands: [' >"$test_tmp/checkout/data/cli/version.yml"
+set +e
+version "" "$test_tmp/checkout" >"$test_tmp/invalid-config-output" 2>"$test_tmp/invalid-config-error"
+config_status=$?
+set -e
+[[ $config_status == 78 ]] || fail "version reports invalid configuration at the command boundary" "$config_status"
+rg -q "Could not load version configuration" "$test_tmp/invalid-config-error" || fail "version explains invalid configuration"
+if rg -q "Traceback" "$test_tmp/invalid-config-error"; then
+  fail "version does not leak a traceback for invalid configuration"
+fi
+pass "version handles malformed YAML at the command boundary"
