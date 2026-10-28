@@ -3,19 +3,9 @@ domain = "desktop"
 package = "arch"
 sources = [
   "src/arch/commands/arch-sudo-docker",
-  "src/arch/commands/arch-sudo-keepalive",
-  "src/arch/commands/arch-sudo-passwordless",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
 source = "src/arch/commands/arch-sudo-docker"
 target = "usr/share/arch/src/arch/commands/arch-sudo-docker"
-
-[[output]]
-source = "src/arch/commands/arch-sudo-keepalive"
-target = "usr/share/arch/src/arch/commands/arch-sudo-keepalive"
-
-[[output]]
-source = "src/arch/commands/arch-sudo-passwordless"
-target = "usr/share/arch/src/arch/commands/arch-sudo-passwordless"

@@ -202,7 +202,6 @@
   "setup.security.sshd": {"icon":"󰣀","label":"SSHD","action":"arch-launch-floating-terminal-with-presentation arch-setup-security-sshd"},
   "setup.security.ssh-agent": {"icon":"󰣀","label":"SSH Agent","when":"! systemctl --user -q is-enabled gcr-ssh-agent.socket","action":"arch-launch-floating-terminal-with-presentation arch-setup-security-ssh-agent"},
   "setup.security.sudoless-docker": {"icon":"󰡨","label":"Sudoless Docker","when":"arch-sudo-docker --configured","action":"arch-launch-floating-terminal-with-presentation arch-setup-security-sudoless-docker"},
-  "setup.security.passwordless-sudo": {"icon":"󰟵","label":"Passwordless Sudo","action":"arch-launch-floating-terminal-with-presentation arch-sudo-passwordless"},
   "setup.config.hyprland": {"icon":"","label":"Hyprland","action":"arch-launch-config-editor \"$HOME/.config/hypr/hyprland.lua\""},
   "setup.config.hyprsunset": {"icon":"","label":"Hyprsunset","action":"arch-launch-config-editor ~/.config/hypr/hyprsunset.conf && arch-restart-hyprsunset"},
   "setup.config.xcompose": {"icon":"󰞅","label":"XCompose","action":"arch-launch-config-editor ~/.XCompose && arch-restart-xcompose"},

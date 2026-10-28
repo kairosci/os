@@ -31,7 +31,7 @@ assert(!service.includes('arch-notification-send'), 'a session is shown by the i
 const indicator = read('src/arch/shell/plugins/bar/indicators/RemoteSession.qml')
 const widget = read('src/arch/shell/plugins/bar/widgets/Indicators.qml')
 const widgetManifest = JSON.parse(read('src/arch/shell/plugins/bar/widgets/Indicators.manifest.json'))
-assert(widget.match(/defaultIndicatorEntries: \[ "PasswordlessSudo", "ScreenRecording", "RemoteSession"/), 'remote session is included in the default indicator tray')
+assert(widget.match(/defaultIndicatorEntries: \[ "ScreenRecording", "RemoteSession"/), 'remote session is included in the default indicator tray')
 assert(widgetManifest.barWidget.schema.find(field => field.key === 'items').options.some(option => option.value === 'RemoteSession'), 'remote session is configurable alongside the other indicators')
 assert(indicator.includes('firstPartyServiceFor("arch.remote-session")'), 'indicator reads the remote session service')
 assert(indicator.includes('Commons.I18n.t("bar.remoteSessionFrom").arg(peers.join(", "))'), 'active tooltip names the connected peers')

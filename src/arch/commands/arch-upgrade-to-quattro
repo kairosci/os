@@ -1270,7 +1270,6 @@ run_final_system_package_upgrade() {
     --overwrite '/etc/sddm.conf.d/10-wayland.conf' \
     --overwrite '/etc/sudoers.d/arch-asdcontrol' \
     --overwrite '/etc/sudoers.d/arch-passwd-tries' \
-    --overwrite '/etc/sudoers.d/arch-tzupdate' \
     --overwrite '/etc/sysctl.d/90-arch-file-watchers.conf' \
     --overwrite '/etc/sysctl.d/99-arch-sysctl.conf' \
     --overwrite '/etc/systemd/logind.conf.d/10-ignore-power-button.conf' \

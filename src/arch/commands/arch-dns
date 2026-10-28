@@ -6,8 +6,7 @@
 
 set -euo pipefail
 
-# Whenever this runs as root — invoked directly through the passwordless
-# sudoers rule, or re-execed by require_root below — sudo's secure_path decides
+# Whenever this runs as root — re-execed by require_root below — sudo's secure_path decides
 # where a bare helper resolves, and a dev link (etc/sudoers.d/arch-dev-path)
 # prepends a user-writable checkout src/arch/commands/ to it. Every helper this script calls
 # by bare name (dirname, install, tee, rm, nmcli, systemctl, awk) is a system
@@ -40,29 +39,14 @@ provider_from_arg() {
   esac
 }
 
-# The path etc/sudoers.d/arch-dns names. The privileged half always runs from
-# there rather than from whichever copy was invoked, so the rule matches even
-# where $AP points at a checkout.
+# The privileged half always runs from the packaged command rather than from
+# whichever copy was invoked, so polkit does not execute a checkout copy.
 PACKAGED_PATH=/usr/bin/arch-dns
-
-# True when sudo would run this exact command without stopping for a password.
-# `sudo -l` on its own reports whether a command is permitted, which the blanket
-# %wheel rule answers yes to for everything; the long listing prints the matched
-# entry's tags, so !authenticate is the grant in etc/sudoers.d/arch-dns and
-# nothing else. Listing runs nothing and, under -n, prompts for nothing, so a
-# machine whose arch-settings predates that file falls through to polkit
-# instead of dying on a password prompt it has no terminal to show.
-sudo_grants_passwordless() {
-  sudo -n -l -l "$PACKAGED_PATH" "$@" 2>/dev/null | grep -q '!authenticate'
-}
 
 require_root() {
   if (( EUID == 0 )); then
     return
-  elif [[ -t 0 ]] || sudo_grants_passwordless "$@"; then
-    # A terminal can carry sudo's own password prompt. Without one, sudo is
-    # right only where the grant reaches; polkit can at least put a prompt on
-    # screen, and offer to authenticate as someone else.
+  elif [[ -t 0 ]]; then
     exec sudo "$PACKAGED_PATH" "$@"
   else
     exec pkexec "$PACKAGED_PATH" "$@"

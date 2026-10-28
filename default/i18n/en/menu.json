@@ -526,9 +526,6 @@
   "setup.security.sudoless-docker": {
     "label": "Sudoless Docker"
   },
-  "setup.security.passwordless-sudo": {
-    "label": "Passwordless Sudo"
-  },
   "setup.config.hyprland": {
     "label": "Hyprland"
   },

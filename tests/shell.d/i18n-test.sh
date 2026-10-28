@@ -312,15 +312,9 @@ cat >"$work/stubs/arch-restart-shell" <<'STUB'
 echo "restart" >>"$SESSION_ENV_LOG"
 STUB
 # sudo and pkexec record which one elevated and what it ran, then run it
-# as-is. sudo answers the long listing (`sudo -n -l -l`) with the
-# passwordless grant only when TEST_SUDO_GRANT is set, the way a machine with
-# etc/sudoers.d/arch-locale-generate installed does.
+# as-is.
 cat >"$work/stubs/sudo" <<'STUB'
 #!/bin/bash
-if [[ $1 == "-n" && $2 == "-l" ]]; then
-  [[ -n ${TEST_SUDO_GRANT:-} ]] && echo "    Options: !authenticate"
-  exit 0
-fi
 flag=""
 if [[ $1 == "-n" ]]; then flag=" -n"; shift; fi
 echo "sudo$flag $(basename "$1") $2" >>"$ELEVATE_LOG"
@@ -354,10 +348,10 @@ assert_bash_equal "$(printf '%s\n' "$list" | wc -l)" "2" "arch-language list pri
 assert_bash_equal "$(printf '%s\n' "$list" | head -n 1 | cut -f2)" "en" "arch-language list puts English first"
 assert_bash_equal "$(arch-language locale it)" "it_IT.UTF-8" "arch-language locale maps it to its glibc locale"
 
-# stdin is not a tty here, as when picked from the menu, and this machine has
-# no passwordless grant, so generating the locale asks through polkit.
+# stdin is not a tty here, as when picked from the menu, so generating the
+# locale requests authorization through polkit.
 arch-language it </dev/null
-assert_bash_equal "$(cat "$ELEVATE_LOG")" "pkexec arch-locale-generate it" "without the grant, the menu generates the locale through pkexec"
+assert_bash_equal "$(cat "$ELEVATE_LOG")" "pkexec arch-locale-generate it" "the menu requests Polkit authorization to generate a locale"
 assert_bash_equal "$(cat "$ARCH_LANGUAGE_FILE")" "it" "arch-language persists the choice"
 assert_bash_equal "$(arch-language)" "it" "arch-language reads the persisted choice"
 assert_bash_equal "$(grep '^export LANG=' "$session_env")" "export LANG=it_IT.UTF-8" "arch-language sets the session LANG through uwsm for the next login"
@@ -425,19 +419,6 @@ assert_bash_equal "$(head -n 1 "$SESSION_ENV_LOG")" 'eval hl.env("LANG", "it_IT.
 # Switching back writes the new LANG over the old one rather than adding to it.
 arch-language en </dev/null
 assert_bash_equal "$(grep -c '^export LANG=' "$session_env") $(grep '^export LANG=' "$session_env")" "1 export LANG=en_US.UTF-8" "switching language replaces the session LANG"
-
-# With etc/sudoers.d/arch-locale-generate installed, a language whose locale
-# isn't generated yet still switches from the menu without any password
-# prompt: the helper runs through sudo -n, never polkit.
-cat >"$work/stubs/locale" <<'STUB'
-#!/bin/bash
-if [[ $1 == "-a" ]]; then echo "en_US.utf8"; else echo "LANG=en_US.UTF-8"; fi
-STUB
-: >"$LOCALE_GEN_LOG"; : >"$ELEVATE_LOG"
-TEST_SUDO_GRANT=1 arch-language it </dev/null
-assert_bash_equal "$(cat "$ELEVATE_LOG")" "sudo -n arch-locale-generate it" "with the grant, a new language generates its locale without a password prompt"
-assert_bash_equal "$(cat "$LOCALE_GEN_LOG")" "it_IT.UTF-8" "the passwordless helper generates the language's locale"
-assert_bash_equal "$(cat "$ARCH_LANGUAGE_FILE")" "it" "the passwordless switch persists the choice"
 
 # Languages outside English and Italian are not selectable.
 if arch-language ja </dev/null 2>/dev/null; then

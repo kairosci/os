@@ -419,12 +419,10 @@ function hereAfterPick(zones, current, pick, localZone) {
   return { here: here, zones: out, zoneChange: "" }
 }
 
-// argv that moves this machine's clock to `zone` through the passwordless
-// `timedatectl set-timezone` rule the timezone menu uses (etc/sudoers.d/arch-tzupdate),
-// then tells the bar clock. `-n`: a missing rule fails rather than waiting on a
-// password nobody can type. The zone is an argument, never script text.
+// Ask Polkit before changing the system timezone, then refresh the bar clock.
+// The zone is an argument, never script text.
 function timezoneCommand(zone) {
-  return ["bash", "-c", 'sudo -n timedatectl set-timezone "$1" && arch-shell -q arch.clock refresh', "bash", String(zone)]
+  return ["bash", "-c", 'pkexec /usr/bin/timedatectl set-timezone "$1" && arch-shell -q arch.clock refresh', "bash", String(zone)]
 }
 
 // ---- people

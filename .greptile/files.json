@@ -69,15 +69,6 @@
       ]
     },
     {
-      "path": "docs/passwordless-sudo.md",
-      "description": "Grant lifecycle and package ownership for passwordless sudo",
-      "scope": [
-        "src/arch/commands/arch-sudo-*",
-        "src/arch/commands/arch-security-functions",
-        "etc/sudoers.d/**"
-      ]
-    },
-    {
       "path": "docs/file-layout.md",
       "description": "Where each repo tree is packaged and installed, env bootstrap, first-run and image builds",
       "scope": [
