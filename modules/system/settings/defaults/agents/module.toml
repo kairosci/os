@@ -1,0 +1,9 @@
+id = "system.settings.defaults.agents"
+domain = "system"
+package = "arch-settings"
+sources = ["default/agents"]
+requires = ["system.settings.defaults"]
+
+[[output]]
+source = "default/agents"
+target = "usr/share/arch/default/agents"
