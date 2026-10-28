@@ -3,9 +3,14 @@ domain = "desktop"
 package = "arch"
 sources = [
   "src/commands/arch-power-present",
+  "src/cli/power/present.py",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
 source = "src/commands/arch-power-present"
 target = "usr/share/arch/src/commands/arch-power-present"
+
+[[output]]
+source = "src/cli/power/present.py"
+target = "usr/share/arch/src/cli/power/present.py"
