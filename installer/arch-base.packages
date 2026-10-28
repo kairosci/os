@@ -1,7 +1,6 @@
 # Arch core package list pacstrapped by the ISO.
 # The ISO builder also reads this file when constructing the offline mirror.
 
-aether
 alsa-utils
 asdcontrol
 avahi
@@ -13,8 +12,7 @@ bluez-utils
 bolt
 brightnessctl
 btop
-chromium
-cliamp
+brave-origin-bin
 cosmic-icon-theme
 cups
 cups-filters
@@ -74,14 +72,10 @@ less
 libsecret
 libvips
 libyaml
-libreoffice-fresh
 localsend
-lua51
-luarocks
 man-db
 mariadb-libs
 mise-bin
-moonlight-qt
 mpv
 mpv-mpris
 nautilus
@@ -92,12 +86,10 @@ noto-fonts-cjk
 noto-fonts-emoji
 nss-mdns
 nvim
-obsidian
 neovim
 hyprshot
 pacman-contrib
 pamixer
-pinta
 plocate
 plymouth
 postgresql-libs
@@ -105,7 +97,6 @@ power-profiles-daemon
 python-gobject
 python-yaml
 python-poetry-core
-python-yaml
 qt6-base
 qt6-declarative
 qt6-multimedia
@@ -122,7 +113,6 @@ sddm
 slurp
 socat
 starship
-superwhisper-bin
 sushi
 system-config-printer
 tesseract
@@ -140,7 +130,7 @@ ufw-docker
 unzip
 usage
 uwsm
-vi
+ex-vi-compat
 whois
 wireless-regdb
 wireplumber

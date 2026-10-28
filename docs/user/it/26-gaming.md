@@ -1,6 +1,6 @@
 # Giochi
 
-Arch non è solo per la _pRoDUTTiViTÀ_, è anche per divertirsi, e cosa c'è di più divertente che giocare? Arch include un'intera suite di opzioni per il gaming — Steam e RetroArch per il gioco nativo e retrò, Battle.net, Lutris e Heroic per gli store non Steam, Moonlight per lo streaming da PC, Xbox Cloud Gaming + NVIDIA GeForce NOW per il cloud, oltre all'intramontabile Minecraft.
+Arch non è solo per la _pRoDUTTiViTÀ_, è anche per divertirsi, e cosa c'è di più divertente che giocare? Arch offre Steam, Battle.net, Lutris e Heroic per gli store non Steam, Moonlight per lo streaming da PC, Xbox Cloud Gaming + NVIDIA GeForce NOW per il cloud, oltre all'intramontabile Minecraft.
 
 Grazie all'incredibile lavoro di Valve su [il livello di compatibilità proton](https://en.wikipedia.org/wiki/Proton_(software)), ora ci sono decine di migliaia di giochi moderni giocabili su Linux. Ah, e sapevi che [Steam Deck](https://store.steampowered.com/steamdeck/) esegue effettivamente Arch!
 
@@ -15,22 +15,6 @@ Dopo averlo installato, potrai avviare Steam con `Super + Space`.
 Nota che Steam può impiegare 10-20 secondi per avviarsi e non fornirà alcun feedback visivo del caricamento.
 
  ![gaming-steam](images/gaming-steam.webp)
-
-## RetroArch
-
-Installa [RetroArch](https://www.retroarch.com/) selezionando _Installa > Giochi > RetroArch_ dal menu Arch (`Super + Space`). Include l'intero set di core libretro, quindi tutti i sistemi classici sono coperti.
-
-RetroArch è completamente preconfigurato con il bellissimo shader CRT Royale per quel perfetto look retrò.
-
-Per iniziare:
-
-1. Metti i tuoi file BIOS in `~/Games/bios` e le tue ROM in `~/Games/roms`.
-2. Avvia RetroArch con `Super + Space` e digitando `retro`.
-3. Scansiona la directory `~/Games/roms` e sei pronto a giocare.
-
-Puoi anche dare a un gioco preferito la sua voce nel launcher delle app con _Installa > Giochi > Avvio giochi RetroArch_, che ti permette di scegliere un core e una ROM e saltare direttamente nel gioco da `Super + Space`.
-
- ![gaming-retroarch](images/gaming-retroarch.webp)
 
 ## Xbox Cloud Gaming
 
@@ -60,7 +44,7 @@ Installa il supporto per i controller Xbox Bluetooth selezionando _Installa > Gi
 
 ## Moonlight (Streaming di gioco da un PC)
 
-Il [client Moonlight](https://github.com/moonlight-stream/moonlight-qt) è preinstallato con Arch, quindi puoi trasmettere subito giochi da un PC Windows che esegue [Sunshine](https://app.lizardbyte.dev/Sunshine/). Avvia Moonlight tramite `Super + Space`.
+Per trasmettere giochi da un PC Windows che esegue [Sunshine](https://app.lizardbyte.dev/Sunshine/), installa il [client Moonlight](https://github.com/moonlight-stream/moonlight-qt) con `os pkg add moonlight-qt`, poi avvialo con `Super + Space`.
 
 Se sia la tua macchina Arch sia il PC da gaming remoto sono cablati, l'esperienza è indistinguibile dal giocare in locale. Alza la risoluzione a quella nativa, imposta l'aggiornamento a 120Hz e porta il bitrate al massimo — questo è il modo migliore per giocare a sparatutto competitivi come Fortnite su Linux.
 

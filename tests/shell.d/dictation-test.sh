@@ -99,7 +99,7 @@ for backend in voxtype superwhisper; do
   printf '%s\n' "$backend" > "$config"
   [[ $(arch-default-dictation) == "$backend" ]] || fail "configured backend is readable"
   : > "$DICTATION_LOG"
-  for action in start stop toggle; do arch dictation "$action"; done
+  for action in start stop toggle; do archctl dictation "$action"; done
   if [[ $backend == "voxtype" ]]; then
     expected=$'voxtype record start\nvoxtype status\nvoxtype record stop\nvoxtype record toggle'
   else
@@ -248,11 +248,14 @@ assert(#bindings == 0, "a selected backend that is not installed leaves applicat
 LUA
 pass "dictation shortcuts require an installed selection without limiting backend names"
 
-# Fresh users receive the backend choice through the settings package's skel.
-cp "$ROOT/config/arch/defaults/dictation" "$config"
-[[ $(arch-default-dictation) == "superwhisper" ]] || fail "fresh users default to Superwhisper"
-printf '%s\n' voxtype > "$config"
-pass "fresh users get Superwhisper as their default backend"
+# Fresh users do not get a backend selection for software that is not installed.
+[[ ! -e $ROOT/config/arch/defaults/dictation ]] || fail "fresh users have no uninstalled dictation backend selected"
+rm -f "$config"
+if arch-default-dictation >"$test_tmp/default-dictation.out" 2>&1; then
+  fail "fresh users have no dictation backend selected"
+fi
+[[ ! -e $config ]] || fail "fresh users have no dictation backend config"
+pass "fresh users choose a dictation backend only after installing one"
 
 lua <<'LUA'
 local root = os.getenv("ROOT")

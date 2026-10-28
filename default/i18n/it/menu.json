@@ -598,9 +598,6 @@
   "install.gaming.steam": {
     "label": "Steam"
   },
-  "install.gaming.retroarch": {
-    "label": "RetroArch"
-  },
   "install.gaming.minecraft": {
     "label": "Minecraft"
   },
@@ -621,9 +618,6 @@
   },
   "install.gaming.heroic": {
     "label": "Heroic (Epic Games)"
-  },
-  "install.gaming.retro-launcher": {
-    "label": "Avvio giochi RetroArch"
   },
   "install.development.rails": {
     "label": "Ruby on Rails"
@@ -782,9 +776,6 @@
   },
   "remove.gaming.steam": {
     "label": "Steam"
-  },
-  "remove.gaming.retroarch": {
-    "label": "RetroArch"
   },
   "remove.gaming.minecraft": {
     "label": "Minecraft"

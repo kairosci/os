@@ -65,7 +65,7 @@ DESKTOP
 cat >"$tmp_dir/data/applications/aliens.desktop" <<'DESKTOP'
 [Desktop Entry]
 Name=Aliens
-Exec=retroarch -L /usr/lib/libretro/fbneo_libretro.so /home/example/Games/roms/fbneo/aliens.zip
+Exec=another-emulator --fullscreen /home/example/Games/library/example.rom
 DESKTOP
 
 export TEST_LOG="$tmp_dir/log"
