@@ -82,6 +82,19 @@ grep -Fxq 'user preset' "$kernel_test/etc/mkinitcpio.d/linux.preset" ||
   fail "the existing custom mkinitcpio preset is preserved"
 pass "a custom mkinitcpio preset is preserved"
 
+mkdir -p "$scratch/invalid/data/installer"
+printf '%s\n' 'systemd_boot_kernel: [' >"$scratch/invalid/data/installer/systemd-boot-kernel.yml"
+set +e
+ARCH_PATH="$scratch/invalid" python3 -I "$ROOT/src/arch/python/installer/system_setup/systemd_boot_kernel.py" \
+  >"$scratch/kernel-invalid-output" 2>"$scratch/kernel-invalid-error"
+kernel_config_status=$?
+set -e
+(( kernel_config_status == 78 )) || fail "systemd-boot kernel setup reports malformed configuration at its command boundary"
+grep -Fq 'Could not load systemd-boot kernel settings' "$scratch/kernel-invalid-error" ||
+  fail "systemd-boot kernel setup explains malformed configuration"
+! grep -Fq 'Traceback' "$scratch/kernel-invalid-error" || fail "systemd-boot kernel setup does not leak a traceback"
+pass "systemd-boot kernel setup handles malformed YAML at its command boundary"
+
 # Snapper must archive the Arch UKI at snapshot time and embed that snapshot's
 # Btrfs subvolume in the copied UKI, so this boot path does not depend on Limine.
 plugin_test="$scratch/plugin"
