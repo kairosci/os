@@ -4,9 +4,8 @@ SHELL := /bin/bash
 PYTHON ?= python3
 NODE ?= node
 LUA_COMPILER ?= luac
-ISO_PROFILE ?=
-ISO_OUTPUT ?= build/iso
-ISO_WORK ?= build/iso-work
+ARCH_ISO ?= ../arch-iso
+ARCH_PKGS ?= ../arch-pkgs
 
 .PHONY: help check source-check modules-check type-check lint-workflows security-scan arch-package-advisories test test-cli test-shell iso
 
@@ -22,7 +21,7 @@ help:
 	  'test           Run CLI and shell test suites' \
 	  'test-cli       Run CLI routing and metadata checks' \
 	  'test-shell     Run shell and command behavior checks' \
-	  'iso            Build an ISO from an ArchISO profile (set ISO_PROFILE)'
+	  'iso            Build an ISO through the companion arch-iso checkout'
 
 check: source-check modules-check test
 
@@ -58,14 +57,12 @@ test-shell:
 	ARCH_PATH="$(CURDIR)" ./tests/shell
 
 iso:
-	@if [[ -z "$(ISO_PROFILE)" ]]; then \
-	  printf '%s\n' 'Set ISO_PROFILE to the ArchISO profile directory.' >&2; \
+	@if [[ ! -x "$(ARCH_ISO)/src/commands/arch-iso-make" ]]; then \
+	  printf 'Arch ISO builder not found: %s\n' "$(ARCH_ISO)/src/commands/arch-iso-make" >&2; \
 	  exit 2; \
 	fi
-	@if [[ ! -d "$(ISO_PROFILE)" ]]; then \
-	  printf 'ArchISO profile directory does not exist: %s\n' "$(ISO_PROFILE)" >&2; \
+	@if [[ ! -d "$(ARCH_PKGS)" ]]; then \
+	  printf 'Arch package checkout not found: %s\n' "$(ARCH_PKGS)" >&2; \
 	  exit 2; \
 	fi
-	command -v mkarchiso >/dev/null
-	install -d -m 0755 "$(ISO_OUTPUT)" "$(ISO_WORK)"
-	mkarchiso -v -w "$(ISO_WORK)" -o "$(ISO_OUTPUT)" "$(ISO_PROFILE)"
+	"$(ARCH_ISO)/src/commands/arch-iso-make" --no-boot-offer --local-source "$(CURDIR)" "$(ARCH_PKGS)"

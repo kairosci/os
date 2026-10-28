@@ -22,4 +22,4 @@ User settings belong under `~/.config/arch`; generated runtime state belongs und
 
 Install the repository's developer tools with `mise install`. Run `make check` for source syntax, module ownership, CLI, and shell checks. Use `make type-check` to run the strict type checker on the module catalog validator, and `make lint-workflows` to validate GitHub Actions and their embedded shell. `make security-scan` runs Trivy against dependency manifests, configuration, and secrets.
 
-Build an ArchISO profile with `make iso ISO_PROFILE=path/to/profile`. The image is written under `build/iso`; set `ISO_OUTPUT` and `ISO_WORK` to choose different output and work directories.
+Build an ISO with the companion `arch-iso` and `arch-pkgs` checkouts: `make iso ARCH_ISO=../arch-iso ARCH_PKGS=../arch-pkgs`. The target calls `arch-iso-make` with this checkout as the local Arch source. The builder writes release artifacts under its own `release/` directory.
