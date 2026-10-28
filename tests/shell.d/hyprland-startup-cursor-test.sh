@@ -31,7 +31,7 @@ hl = {
   end,
   exec_cmd = function(value)
     if value == "dbus-update-activation-environment --systemd XCURSOR_PATH XCURSOR_THEME" then
-      assert(env.XCURSOR_THEME ~= "arch-startup" and not env.XCURSOR_PATH:match("/default/hypr/cursors"))
+      assert(env.XCURSOR_THEME ~= "arch-startup" and env.XCURSOR_PATH:match("/default/hypr/cursors$"))
       imported = true
     end
     if value == "arch-launch-shell" then
@@ -49,7 +49,7 @@ assert(config.invisible and not config.enable_hyprcursor and not config.sync_gse
 assert(env.XCURSOR_THEME == "arch-startup" and env.XCURSOR_PATH:match("/default/hypr/cursors:/my/icons$"))
 assert(arch_startup_cursor_pending, "the first compositor frame must use the blank cursor")
 events["hyprland.start"]()
-assert(env.XCURSOR_THEME == "my-xcursor" and env.XCURSOR_PATH == "/my/icons", "applications must inherit the user's cursor")
+assert(env.XCURSOR_THEME == "my-xcursor" and env.XCURSOR_PATH == "/my/icons:" .. os.getenv("ROOT") .. "/default/hypr/cursors", "applications must inherit the user's cursor")
 assert(config.invisible, "starting applications must not reveal the cursor")
 
 local previous_recovery = recovery
@@ -98,7 +98,7 @@ local function orphan(theme)
   dofile(os.getenv("ROOT") .. "/default/hypr/startup-cursor.lua")
   events["config.reloaded"]()
   assert(arch_startup_cursor_pending, "an orphan blank theme must be recovered with live monitors")
-  assert(env.XCURSOR_THEME ~= "arch-startup" and env.XCURSOR_PATH == "/my/icons", "recovery must remove the blank theme and old worktree search path")
+  assert(env.XCURSOR_THEME ~= "arch-startup" and env.XCURSOR_PATH == "/my/icons:" .. os.getenv("ROOT") .. "/default/hypr/cursors", "recovery must remove the blank theme and old worktree search path")
   return arch_startup_cursor.xcursor
 end
 assert(orphan("saved-custom") == "saved-custom", "saved settings take precedence over GSettings")
@@ -123,7 +123,7 @@ assert(not config.invisible and config.sync_gsettings_theme)
 assert(orphan(nil) == "custom-cursor", "recover a nonblank user GSettings theme when no snapshot survives")
 arch_startup_cursor_restore(true)
 gsettings = "'arch-startup'\n"
-assert(orphan(nil) == "default", "a destroyed user preference must fall back to the default alias, never the blank theme")
+assert(orphan(nil) == "Arch", "a destroyed user preference must fall back to the Arch cursor, never the blank theme")
 arch_startup_cursor_restore(true)
 arch_startup_cursor_pending, arch_startup_cursor = nil, nil
 monitors = {}
@@ -131,11 +131,11 @@ env.XCURSOR_THEME, env.XCURSOR_PATH = "next-theme", "/next/icons"
 env.ARCH_STARTUP_CURSOR_PATH = "/stale/icons"
 env.ARCH_STARTUP_CURSOR_SESSION = "old-session"
 events["config.reloaded"]()
-assert(arch_startup_cursor.xcursor == "next-theme" and arch_startup_cursor.path == "/next/icons", "a new session must honor changed cursor settings instead of inherited snapshots")
+assert(arch_startup_cursor.xcursor == "next-theme" and arch_startup_cursor.path == "/next/icons:" .. os.getenv("ROOT") .. "/default/hypr/cursors", "a new session must honor changed cursor settings instead of inherited snapshots")
 arch_startup_cursor_pending, arch_startup_cursor = nil, nil
 env.XCURSOR_THEME, env.ARCH_STARTUP_CURSOR_SESSION, gsettings = "", "old-session", "'custom-cursor'\n"
 events["config.reloaded"]()
-assert(arch_startup_cursor.xcursor == "default", "an ordinary boot without a cursor theme keeps the default alias instead of adopting GSettings")
+assert(arch_startup_cursor.xcursor == "Arch", "an ordinary boot without a cursor theme uses the Arch cursor instead of adopting GSettings")
 io.popen = popen
 LUA
 pass "the first compositor frame starts blank and the reveal restores user cursor settings"

@@ -18,7 +18,6 @@ sources = [
   "src/arch/commands/arch-remove-security-fido2",
   "src/arch/commands/arch-remove-security-fingerprint",
   "src/arch/commands/arch-remove-security-sshd",
-  "src/arch/commands/arch-remove-security-sudoless-docker",
   "src/arch/commands/arch-remove-service-1password",
   "src/arch/commands/arch-remove-service-dropbox",
   "src/arch/commands/arch-remove-service-microsoft",
@@ -92,10 +91,6 @@ target = "usr/share/arch/src/arch/commands/arch-remove-security-fingerprint"
 [[output]]
 source = "src/arch/commands/arch-remove-security-sshd"
 target = "usr/share/arch/src/arch/commands/arch-remove-security-sshd"
-
-[[output]]
-source = "src/arch/commands/arch-remove-security-sudoless-docker"
-target = "usr/share/arch/src/arch/commands/arch-remove-security-sudoless-docker"
 
 [[output]]
 source = "src/arch/commands/arch-remove-service-1password"

@@ -38,7 +38,7 @@ Python setup also installs `uv` through mise. Removing the Python development en
 
 [Docker](https://www.docker.com/) hardly needs any introduction. It allows you to run isolated containers, and Arch installs everything needed to run it well, including Docker itself and [Docker Compose](https://docs.docker.com/compose/).
 
-By default your user is *not* in the `docker` group. That group is effectively passwordless root — anything in it can `docker run -v /:/host` and take over the machine — so a single rogue script or dependency running as you would otherwise be one command away from root. So on the command line you run Docker with `sudo` (`sudo docker ps`, `sudo docker compose up`), and the graphical tools that talk to the daemon — the Windows VM — ask for authorization when they need it. If you want the convenience of a groupless setup back and understand the tradeoff, enable it from **Setup > Security > Sudoless Docker** (or run `arch-setup-security-sudoless-docker`), which adds you to the `docker` group after a warning; then plain `docker` and the `d` alias work without `sudo` again.
+By default your user is *not* in the `docker` group. That group is effectively root access: a container can bind-mount `/` and take over the machine. Use Docker with `sudo` (`sudo docker ps`, `sudo docker compose up`); graphical tools that need the daemon ask for authorization. If your account is already in the `docker` group, remove it with `sudo gpasswd -d "$USER" docker` and start a new session for the change to take effect.
 
 You can setup the common databases for local development in Docker using _Install > Development > Docker DB_ in the Arch menu.
 

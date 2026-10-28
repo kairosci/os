@@ -11,11 +11,10 @@ if ! arch-hw-x86; then
 fi
 
 # The Windows VM runs a privileged container (KVM, /dev/net/tun, NET_ADMIN), so
-# it needs the root-owned Docker daemon. By default the user is NOT in the docker
-# group (that group is root-equivalent), so Docker access is gated behind a
-# single polkit prompt. If the user opted into sudoless Docker
-# (arch-setup-security-sudoless-docker), the socket is reachable directly and
-# no prompt appears.
+# it needs the root-owned Docker daemon. The user should not be in the docker
+# group (that group is root-equivalent), so Docker access is gated behind Polkit.
+# Existing group members can reach the socket until they remove membership and
+# start a new session.
 #
 # The compose file lives in a root-owned directory and is only ever written by
 # the elevated, input-validated write_compose action below. That is the whole
@@ -54,10 +53,8 @@ fi
 
 # --- privilege helpers -------------------------------------------------------
 
-# True when this session can reach the Docker socket directly (sudoless Docker
-# on and in effect). Asking about the socket rather than the configured groups
-# keeps the prompt in place through the window where sudoless Docker is enabled
-# but the reboot that grants the group has not happened yet.
+# True when this session can reach the Docker socket directly. Checking the
+# socket accounts for existing docker-group memberships.
 docker_needs_sudo() { arch-sudo-docker; }
 
 # The command to hand pkexec for the privileged re-exec. pkexec runs whatever
@@ -84,8 +81,8 @@ priv_target() {
 }
 
 # Run a privileged VM action. write_compose always elevates (the compose is
-# root-owned); the daemon operations run directly when sudoless Docker is on and
-# otherwise behind a polkit prompt. The stock org.freedesktop.policykit.exec
+# root-owned); daemon operations run directly only when the session can reach
+# the socket and otherwise behind a Polkit prompt. The stock org.freedesktop.policykit.exec
 # policy is auth_admin (not auth_admin_keep), so each elevated action prompts:
 # a launch asks once to start and, unless authorization is still cached by the
 # agent, again to stop.
@@ -1315,8 +1312,8 @@ EOF
   local tz
   tz=$(timedatectl show -p Timezone --value 2>/dev/null || echo UTC)
 
-  # Write the root-owned compose from the validated settings (one prompt if
-  # sudoless Docker is off). The writer pins the familiar home directories (or
+  # Write the root-owned compose from the validated settings. The writer pins
+  # the familiar home directories (or
   # their legitimate symlink targets) into root-protected bind anchors.
   write_compose "$SELECTED_RAM" "$SELECTED_CORES" "$SELECTED_DISK" \
     "$USERNAME" "$PASSWORD" "$tz" || {
