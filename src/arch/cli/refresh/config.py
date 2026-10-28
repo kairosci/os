@@ -9,17 +9,125 @@ import secrets
 import stat
 import subprocess
 import sys
-from typing import Any
+from typing import TypedDict
 
 import yaml
 
 
-def settings() -> dict[str, Any]:
+class Paths(TypedDict):
+  source_directory: str
+  config_home_environment: str
+  home_environment: str
+  default_config_home: str
+
+
+class TemporaryFiles(TypedDict):
+  replacement_prefix: str
+  backup_suffix: str
+
+
+class Commands(TypedDict):
+  localize: list[str]
+  copy: list[str]
+  diff: list[str]
+
+
+class Statuses(TypedDict):
+  success: int
+  failure: int
+
+
+class Colors(TypedDict):
+  changed_start: str
+  changed_end: str
+
+
+class Validation(TypedDict):
+  forbidden_path_segments: list[str]
+
+
+class RefreshConfig(TypedDict):
+  paths: Paths
+  temporary_files: TemporaryFiles
+  commands: Commands
+  messages: dict[str, str]
+  statuses: Statuses
+  colors: Colors
+  validation: Validation
+
+
+def _mapping(value: object, label: str) -> dict[object, object]:
+  if not isinstance(value, dict):
+    raise ValueError(f"invalid refresh configuration: {label} must be a mapping")
+  return {key: item for key, item in value.items()}
+
+
+def _text(value: object, label: str) -> str:
+  if not isinstance(value, str):
+    raise ValueError(f"invalid refresh configuration: {label} must be a string")
+  return value
+
+
+def _integer(value: object, label: str) -> int:
+  if not isinstance(value, int) or isinstance(value, bool):
+    raise ValueError(f"invalid refresh configuration: {label} must be an integer")
+  return value
+
+
+def _text_list(value: object, label: str) -> list[str]:
+  if not isinstance(value, list) or not all(isinstance(item, str) for item in value):
+    raise ValueError(f"invalid refresh configuration: {label} must be a list of strings")
+  return [item for item in value if isinstance(item, str)]
+
+
+def settings() -> RefreshConfig:
   path = Path(os.environ["ARCH_PATH"]) / "data/cli/refresh-config.yml"
-  return yaml.safe_load(path.read_text(encoding="utf-8"))
+  raw: object = yaml.safe_load(path.read_text(encoding="utf-8"))
+  config = _mapping(raw, "root")
+  paths = _mapping(config.get("paths"), "paths")
+  temporary_files = _mapping(config.get("temporary_files"), "temporary_files")
+  commands = _mapping(config.get("commands"), "commands")
+  messages = _mapping(config.get("messages"), "messages")
+  statuses = _mapping(config.get("statuses"), "statuses")
+  colors = _mapping(config.get("colors"), "colors")
+  validation = _mapping(config.get("validation"), "validation")
+  return {
+    "paths": {
+      "source_directory": _text(paths.get("source_directory"), "paths.source_directory"),
+      "config_home_environment": _text(paths.get("config_home_environment"), "paths.config_home_environment"),
+      "home_environment": _text(paths.get("home_environment"), "paths.home_environment"),
+      "default_config_home": _text(paths.get("default_config_home"), "paths.default_config_home"),
+    },
+    "temporary_files": {
+      "replacement_prefix": _text(temporary_files.get("replacement_prefix"), "temporary_files.replacement_prefix"),
+      "backup_suffix": _text(temporary_files.get("backup_suffix"), "temporary_files.backup_suffix"),
+    },
+    "commands": {
+      "localize": _text_list(commands.get("localize"), "commands.localize"),
+      "copy": _text_list(commands.get("copy"), "commands.copy"),
+      "diff": _text_list(commands.get("diff"), "commands.diff"),
+    },
+    "messages": {
+      _text(key, "messages key"): _text(value, f"messages.{key}")
+      for key, value in messages.items()
+    },
+    "statuses": {
+      "success": _integer(statuses.get("success"), "statuses.success"),
+      "failure": _integer(statuses.get("failure"), "statuses.failure"),
+    },
+    "colors": {
+      "changed_start": _text(colors.get("changed_start"), "colors.changed_start"),
+      "changed_end": _text(colors.get("changed_end"), "colors.changed_end"),
+    },
+    "validation": {
+      "forbidden_path_segments": _text_list(
+        validation.get("forbidden_path_segments"), "validation.forbidden_path_segments"
+      ),
+    },
+  }
 
 
-def localized(config: dict[str, Any], key: str, *values: str) -> str:
+def localized(config: RefreshConfig, key: str, *values: str) -> str:
   result = subprocess.run(
     [*config["commands"]["localize"], config["messages"][key], *values],
     check=False,
@@ -68,7 +176,7 @@ def temporary_file(directory: int, prefix: str) -> str:
   raise FileExistsError
 
 
-def copy(config: dict[str, Any], source: str | Path, destination: str | Path, directory: int) -> int:
+def copy(config: RefreshConfig, source: str | Path, destination: str | Path, directory: int) -> int:
   return subprocess.run(
     [*config["commands"]["copy"], str(source), str(destination)],
     check=False,
@@ -77,7 +185,11 @@ def copy(config: dict[str, Any], source: str | Path, destination: str | Path, di
 
 
 def main(arguments: list[str] | None = None) -> int:
-  config = settings()
+  try:
+    config = settings()
+  except (OSError, UnicodeError, ValueError, yaml.YAMLError) as error:
+    print(f"Could not load refresh configuration: {error}", file=sys.stderr)
+    return 1
   args = sys.argv[1:] if arguments is None else arguments
   status = config["statuses"]
   if len(args) != 1 or not args[0]:
@@ -116,7 +228,7 @@ def main(arguments: list[str] | None = None) -> int:
     return status["failure"]
 
   config_home = os.environ.get(config["paths"]["config_home_environment"])
-  if not config_home:
+  if config_home is None or config_home == "":
     home = Path(os.environ[config["paths"]["home_environment"]])
     config_home = str(home / config["paths"]["default_config_home"])
 
