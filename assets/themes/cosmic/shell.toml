@@ -21,7 +21,7 @@ background-alpha = 0.52
 text             = "#cdd6f4"
 active           = "#cba6f7"
 scale-with-font  = true
-size-horizontal  = 26
+size-horizontal  = 48
 size-vertical    = 28
 
 [hyprland]
@@ -67,7 +67,7 @@ control-padding-x = 8
 control-padding-y = 5
 input-padding-y = 6
 control-height  = 28
-popup-row-height = 28
+popup-row-height = 30
 row-gap         = 6
 row-padding-x   = 10
 label-gap       = 4

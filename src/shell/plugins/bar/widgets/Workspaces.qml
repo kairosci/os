@@ -204,6 +204,7 @@ BarWidget {
         // Keep a visiting workspace's global id visible to distinguish it.
         text: String(root.blockOf(modelData) === root.block ? slot : modelData)
         labelVisible: true
+        fontSize: Style.font.subtitle
         active: shown
         activeColor: Commons.Color.accent
         useActiveColor: true

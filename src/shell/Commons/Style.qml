@@ -249,7 +249,7 @@ QtObject {
     readonly property int controlPaddingY: root.spacingToken("control-padding-y", 6)
     readonly property int inputPaddingY: root.spacingToken("input-padding-y", 7)
     readonly property int controlHeight: root.spacingToken("control-height", 28)
-    readonly property int popupRowHeight: root.spacingToken("popup-row-height", 28)
+    readonly property int popupRowHeight: root.spacingToken("popup-row-height", 30)
     readonly property int dropdownWidth: root.spacingToken("dropdown-width", 240)
     readonly property int searchableDropdownWidth: root.spacingToken("searchable-dropdown-width", 260)
     readonly property int numberFieldWidth: root.spacingToken("number-field-width", 120)
@@ -341,7 +341,7 @@ QtObject {
   }
 
   readonly property QtObject bar: QtObject {
-    readonly property int sizeHorizontal: root.barToken("size-horizontal", 26)
+    readonly property int sizeHorizontal: root.barToken("size-horizontal", 48)
     readonly property int sizeVertical:   root.barToken("size-vertical",   28)
     // Calibrated notch cutout height in logical px, for panels whose real
     // cutout differs from the derived default (see BarModel.notchHeight).
