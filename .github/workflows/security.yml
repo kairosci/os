@@ -1,0 +1,145 @@
+name: Security analysis
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "17 5 * * 1"
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-caller-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  dependency-manifests:
+    name: Detect dependency manifests
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    outputs:
+      found: ${{ steps.detect.outputs.found }}
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Find supported dependency manifests
+        id: detect
+        run: |
+          python3 - <<'PY'
+          import os
+          import subprocess
+          from pathlib import PurePosixPath
+
+          lockfiles = {
+              "Cargo.lock", "Gemfile.lock", "Pipfile.lock", "Podfile.lock",
+              "Package.resolved", "bun.lock", "bun.lockb", "composer.lock",
+              "deno.lock", "flake.lock", "go.sum", "mix.lock", "pnpm-lock.yaml",
+              "poetry.lock", "pubspec.lock", "uv.lock", "yarn.lock", "pylock.toml",
+              "package-lock.json", "packages.lock.json", "gradle.lockfile",
+          }
+          manifests = {
+              "Cargo.toml", "Gemfile", "go.mod", "package.json", "pyproject.toml", "setup.py",
+              "pom.xml", "composer.json", "mix.exs", "pubspec.yaml", "deno.json",
+              "deno.jsonc", "requirements.txt", "Pipfile", "setup.cfg", "build.gradle",
+              "build.gradle.kts",
+          }
+          tracked = subprocess.run(
+              ["git", "ls-files", "-z"], check=True, capture_output=True,
+          ).stdout.split(b"\0")
+          paths = [PurePosixPath(path.decode()) for path in tracked if path]
+          found = any(
+              path.name in lockfiles
+              or path.name in manifests
+              or (path.name.startswith("requirements-") and path.name.endswith(".txt"))
+              for path in paths
+          )
+          print(f"found={str(found).lower()}", file=open(os.environ["GITHUB_OUTPUT"], "a"))
+          if not found:
+              with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as summary:
+                  summary.write("No supported dependency manifests are tracked; dependency CVE scanning is skipped.\n")
+          PY
+
+  osv-scanner:
+    name: Dependency vulnerability scan
+    needs: dependency-manifests
+    if: needs.dependency-manifests.outputs.found == 'true'
+    uses: google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@b1d267aea5211fa648d9d442fa64b90dbdcbdd36 # v2.7.0
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    with:
+      scan-args: |-
+        --recursive
+        ./
+      fail-on-vuln: true
+
+  codeql:
+    name: CodeQL (${{ matrix.language }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      actions: read
+      contents: read
+      pull-requests: read
+      security-events: write
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [python, javascript-typescript]
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@6f2ac81f5cd81fe351a197ba0b00d91d03cd2aee # v4.39.0
+        with:
+          languages: ${{ matrix.language }}
+          build-mode: none
+          queries: security-extended
+      - name: Analyze source
+        uses: github/codeql-action/analyze@6f2ac81f5cd81fe351a197ba0b00d91d03cd2aee # v4.39.0
+
+  workflow-audit:
+    name: Audit GitHub Actions configuration
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      actions: read
+      contents: read
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Audit workflow security
+        uses: zizmorcore/zizmor-action@cc914d7f3750a2d13d75c7f184a1060aa0e9d482 # v0.6.4
+        with:
+          advanced-security: false
+          min-severity: medium
+          min-confidence: medium
+
+  repository-scan:
+    name: Scan repository dependencies, configuration, and secrets
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    env:
+      MISE_ENABLE_TOOLS: trivy
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Install pinned scanner
+        uses: jdx/mise-action@6be3c7ed4c21d4f76b208d351d95aac273ebb76d # v5.2.4
+      - name: Scan dependencies, configuration, and secrets
+        run: make security-scan
