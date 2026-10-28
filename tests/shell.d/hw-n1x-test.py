@@ -36,15 +36,13 @@ def prepare_root(root: Path, bios: str) -> None:
   version.write_text(bios, encoding="utf-8")
 
 
-def configure(root: Path, *, proart: bool, module_info: bool = True) -> list[list[str]]:
+def configure(root: Path, *, module_info: bool = True) -> list[list[str]]:
   calls: list[list[str]] = []
 
   def run(command: list[str], *, check: bool = True, capture: bool = False) -> subprocess.CompletedProcess[str]:
     calls.append(command)
     status = 0
-    if n1x.has_prefix(command, config["commands"]["match"]):
-      status = 0 if proart else 1
-    elif n1x.has_prefix(command, config["commands"]["module_info"]):
+    if n1x.has_prefix(command, config["commands"]["module_info"]):
       status = 0 if module_info else 1
     if check and status:
       raise subprocess.CalledProcessError(status, command)
@@ -74,12 +72,12 @@ with patch.object(n1x, "run", return_value=subprocess.CompletedProcess([], 1)):
 with tempfile.TemporaryDirectory(prefix="arch-n1x-setup-") as scratch:
   root = Path(scratch)
   prepare_root(root, "1.0.4")
-  calls = configure(root, proart=True)
+  calls = configure(root)
   files = config["files"]
 
   input_config = root / files["input"]["path"]
   boot_order = root / files["rescue_boot"]["path"]
-  proart_rule = root / files["usb4_proart_root_ports"]["path"]
+  usb4 = root / files["usb4"]["path"]
   gpu_config = root / files["nvidia_driver_options"]["path"]
   brightness_hook = root / files["brightness_runtime_hook"]["path"]
   disabled = root / files["nvidia_disable"]["path"]
@@ -88,8 +86,7 @@ with tempfile.TemporaryDirectory(prefix="arch-n1x-setup-") as scratch:
         "the initramfs includes the N1x internal keyboard transport")
   check("root=UUID=test" in boot_order.read_text() and "systemd.unit=multi-user.target" in boot_order.read_text(),
         "the rescue entry preserves root and uses the verbose systemd target")
-  check(proart_rule.is_file() and config["hardware"]["proart_pci_device"] in proart_rule.read_text(),
-        "the validated ProArt USB4 ports remain awake")
+  check("pci=hpbussize=0x20" in usb4.read_text(), "N1x family setup applies the shared USB4 settings")
   check(gpu_config.is_file() and "modeset=1 fbdev=1" in gpu_config.read_text(),
         "release firmware enables early NVIDIA display support")
   check(brightness_hook.is_file() and not disabled.exists(),
@@ -110,16 +107,13 @@ with tempfile.TemporaryDirectory(prefix="arch-n1x-setup-") as scratch:
 with tempfile.TemporaryDirectory(prefix="arch-n1x-prerelease-") as scratch:
   root = Path(scratch)
   prepare_root(root, "0.60.1")
-  calls = configure(root, proart=False)
+  calls = configure(root)
   files = config["files"]
   generic_usb4 = root / files["usb4"]["path"]
-  generic_rule = root / files["usb4_proart_root_ports"]["path"]
   disabled = root / files["nvidia_disable"]["path"]
 
-  proart_check = [*config["commands"]["match"], config["hardware"]["proart_match"]]
-  check(proart_check in calls, "setup uses the dedicated ProArt hardware predicate")
-  check("pci=hpbussize=0x20" in generic_usb4.read_text() and not generic_rule.exists(),
-        "other N1x models receive only their validated USB4 settings")
+  check("pci=hpbussize=0x20" in generic_usb4.read_text(),
+        "all N1x models receive the shared validated USB4 settings")
   check(disabled.is_file() and not (root / files["nvidia_driver_options"]["path"]).exists(),
         "pre-release firmware keeps the NVIDIA stack disabled")
   check(not any(n1x.has_prefix(command, config["commands"]["module_info"]) for command in calls),
@@ -128,7 +122,7 @@ with tempfile.TemporaryDirectory(prefix="arch-n1x-prerelease-") as scratch:
 with tempfile.TemporaryDirectory(prefix="arch-n1x-no-dkms-") as scratch:
   root = Path(scratch)
   prepare_root(root, "1.0.4")
-  configure(root, proart=False, module_info=False)
+  configure(root, module_info=False)
   files = config["files"]
   disabled = root / files["nvidia_disable"]["path"]
   check(disabled.is_file() and not (root / files["nvidia_cmdline"]["path"]).exists(),
@@ -150,7 +144,7 @@ with tempfile.TemporaryDirectory(prefix="arch-n1x-invalid-root-") as scratch:
   prepare_root(root, "1.0.4")
   (root / config["paths"]["kernel_cmdline"]).write_text("quiet rw\n", encoding="utf-8")
   try:
-    configure(root, proart=False)
+    configure(root)
   except RuntimeError as error:
     check(str(error) == n1x.message(config, "missing_root"),
           "an invalid kernel command line stops N1x boot setup")

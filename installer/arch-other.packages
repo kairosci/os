@@ -2,7 +2,6 @@
 # Utilized by ISO builder to ensure package availability in the ISO
 
 autoconf-archive
-asusctl
 base
 base-devel
 broadcom-wl-dkms
@@ -39,7 +38,6 @@ sof-firmware
 thermald
 webp-pixbuf-loader
 yay-debug
-tuxedo-drivers-nocompatcheck-dkms
 zram-generator
 
 # Intel encoding processing
@@ -50,20 +48,6 @@ vpl-gpu-rt
 vulkan-intel
 vulkan-radeon
 vulkan-asahi
-
-# Surface laptop support packages
-linux-firmware-marvell
-
-# Dell laptop support packages
-dell-xps-touchpad-haptics
-dell-xps13-sidecar-amps
-linux-firmware-cirrus-dx13260
-
-# ASUS laptop support packages
-asus-proart-p14-speaker-firmware
-
-# Speaker tunings (LV2 limiter every tuning ends in)
-lsp-plugins-lv2
 
 # T2 MacBook support packages
 apple-bcm-firmware-fetcher

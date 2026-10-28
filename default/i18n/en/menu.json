@@ -330,18 +330,6 @@
   "trigger.hardware.touchpad-off": {
     "label": "Disable Touchpad"
   },
-  "trigger.hardware.touchpad-haptics": {
-    "label": "Touchpad Haptics"
-  },
-  "trigger.hardware.touchpad-haptics.low": {
-    "label": "low"
-  },
-  "trigger.hardware.touchpad-haptics.mid": {
-    "label": "mid"
-  },
-  "trigger.hardware.touchpad-haptics.high": {
-    "label": "high"
-  },
   "trigger.hardware.touchscreen-on": {
     "label": "Enable Touchscreen"
   },

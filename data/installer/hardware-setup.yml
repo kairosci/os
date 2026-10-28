@@ -1,6 +1,5 @@
 steps:
   - src/python/installer/hardware/package_gates.py
-  - src/python/installer/hardware/surface_firmware.py
   - src/python/installer/hardware/gb10/sleep.py
   - src/python/installer/hardware/nvidia/dgx_spark_boot.py
   - src/python/installer/hardware/network.py
@@ -18,17 +17,7 @@ steps:
   - src/python/installer/hardware/intel/ipu7_camera.py
   - src/python/installer/hardware/intel/fred.py
   - src/python/installer/hardware/intel/wifi7_eht.py
-  - src/python/installer/hardware/dell_xps13_ptl_speaker_firmware.py
-  - src/python/installer/hardware/elgato_camlink_4k.py
-  - src/python/installer/hardware/dell_xps13_sidecar_amps.py
-  - src/python/installer/hardware/asus/panther_lake_display.py
-  - src/python/installer/hardware/asus/expertbook_b9406_touchpad.py
-  - src/python/installer/hardware/asus/rog_flow_z13_touchpad.py
-  - src/python/installer/hardware/asus/proart_p14_touchpad.py
-  - src/python/installer/hardware/asus/proart_p14_speakers.py
-  - src/python/installer/hardware/asus/proart_p14_fkeys.py
   - src/python/installer/hardware/n1x_gpu_memory.py
-  - src/python/installer/hardware/framework16_qmk_hid.py
   - src/python/installer/hardware/apple/macbook_spi_keyboard.py
   - src/python/installer/hardware/apple/macbook_nvme_suspend.py
   - src/python/installer/hardware/apple/t2.py
@@ -38,13 +27,7 @@ steps:
   - src/python/installer/hardware/qualcomm/initramfs.py
   - src/python/installer/hardware/qualcomm/firmware.py
   - src/python/installer/hardware/qualcomm_camera.py
-  - src/python/installer/hardware/lenovo/yoga_pro7_bass_speakers.py
-  - src/python/installer/hardware/lenovo/yoga_slim7x.py
-  - src/python/installer/hardware/lenovo/thinkpad_t14s_camera.py
   - src/python/installer/hardware/broadcom_wifi.py
-  - src/python/installer/hardware/surface_keyboard.py
-  - src/python/installer/hardware/tuxedo_backlight.py
-  - src/python/installer/hardware/speaker_tuning.py
   - src/python/installer/hardware/pacman_repositories.py
   - src/python/installer/hardware/platform_setup.py
 messages:

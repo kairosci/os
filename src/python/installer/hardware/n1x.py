@@ -99,21 +99,7 @@ def configure(root: Path, config: dict[str, Any]) -> None:
   for name in ("input", "sleep", "cppc_rule"):
     write_file(root, files[name], files[name]["content"], mode)
 
-  proart = run(
-    [*commands["match"], config["hardware"]["proart_match"]], check=False, capture=True
-  ).returncode == int(config["statuses"]["matched"])
-  write_file(
-    root,
-    files["usb4_proart"] if proart else files["usb4"],
-    files["usb4_proart"]["content"] if proart else files["usb4"]["content"],
-    mode,
-  )
-  if proart:
-    entry = files["usb4_proart_root_ports"]
-    content = entry["content"]
-    for key in ("proart_pci_vendor", "proart_pci_device"):
-      content = content.replace(f"@{key.upper()}@", config["hardware"][key])
-    write_file(root, entry, content, mode)
+  write_file(root, files["usb4"], files["usb4"]["content"], mode)
 
   cmdline_path = root / config["paths"]["kernel_cmdline"]
   try:

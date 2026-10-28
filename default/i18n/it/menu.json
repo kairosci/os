@@ -246,18 +246,6 @@
   "trigger.tests": {
     "label": "Test velocità"
   },
-  "trigger.hardware.touchpad-haptics": {
-    "label": "Vibrazione touchpad"
-  },
-  "trigger.hardware.touchpad-haptics.low": {
-    "label": "basso"
-  },
-  "trigger.hardware.touchpad-haptics.mid": {
-    "label": "medio"
-  },
-  "trigger.hardware.touchpad-haptics.high": {
-    "label": "alto"
-  },
   "trigger.reminder.set": {
     "label": "Imposta"
   },
