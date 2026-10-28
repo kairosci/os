@@ -8,7 +8,7 @@ local function normal_theme(interrupted)
   local current = os.getenv("XCURSOR_THEME")
   local theme = cursor_theme(current)
   -- Only a lost preference needs recovering; an unset theme still means the default alias.
-  if theme or not (interrupted or current == "arch-startup") then return theme or "default" end
+  if theme or not (interrupted or current == "arch-startup") then return theme or "Arch" end
   theme = cursor_theme(os.getenv("ARCH_STARTUP_CURSOR_THEME"))
   if theme then return theme end
   local pipe = io.popen("gsettings get org.gnome.desktop.interface cursor-theme 2>/dev/null", "r")
@@ -16,7 +16,7 @@ local function normal_theme(interrupted)
     theme = cursor_theme((pipe:read("*a") or ""):match("^'(.-)'%s*$"))
     pipe:close()
   end
-  return theme or "default"
+  return theme or "Arch"
 end
 
 local function normal_path()
@@ -25,6 +25,10 @@ local function normal_path()
     if not entry:match("/default/hypr/cursors$") then table.insert(kept, entry) end
   end
   return table.concat(kept, ":")
+end
+
+local function arch_cursor_path()
+  return normal_path() .. ":" .. paths.arch_path .. "/default/hypr/cursors"
 end
 
 -- Hyprland polls cursor.invisible, so its first frames need a blank cursor too.
@@ -71,7 +75,7 @@ hl.on("config.reloaded", function()
         },
         hyprcursor = os.getenv("HYPRCURSOR_THEME"),
         size = tonumber((hyprcursor and os.getenv("HYPRCURSOR_SIZE")) or os.getenv("XCURSOR_SIZE")) or 24,
-        path = normal_path(),
+        path = arch_cursor_path(),
         xcursor = normal_theme(interrupted),
       }
       if arch_startup_cursor.size <= 0 then arch_startup_cursor.size = 24 end
@@ -79,7 +83,7 @@ hl.on("config.reloaded", function()
       hl.env("ARCH_STARTUP_CURSOR_THEME", arch_startup_cursor.xcursor)
       hl.env("ARCH_STARTUP_CURSOR_SESSION", os.getenv("HYPRLAND_INSTANCE_SIGNATURE"))
       if cold then
-        hl.env("XCURSOR_PATH", paths.ap .. "/default/hypr/cursors:" .. arch_startup_cursor.path)
+        hl.env("XCURSOR_PATH", paths.ap .. "/default/hypr/cursors:" .. normal_path())
         hl.env("XCURSOR_THEME", "arch-startup")
       else
         hl.env("XCURSOR_PATH", arch_startup_cursor.path)
