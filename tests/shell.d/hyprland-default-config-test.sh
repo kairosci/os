@@ -143,7 +143,6 @@ if grep -F 'wtype -M' "$ROOT/default/hypr/bindings/clipboard.lua" >/dev/null; th
 fi
 pass "universal clipboard shortcuts avoid virtual keyboard modifier merging"
 
-
 no_bindings_home="$tmpdir/no-bindings-home"
 mkdir -p "$no_bindings_home"
 no_bindings_output=$(run_arch_bindings "$no_bindings_home" 'arch_default_bindings = false')
