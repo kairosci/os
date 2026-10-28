@@ -80,3 +80,43 @@ jobs:
           sudo apt-get install --no-install-recommends -y jq ripgrep
       - name: Run the CLI contract tests
         run: make test-cli
+
+  shell-tests:
+    name: Shell behavior suite
+    runs-on: ubuntu-latest
+    container: archlinux:base-devel@sha256:624bdc7fc6615155d67bc34cf7146c0c9fd0e3c92943977da63a630e4ca49c30
+    timeout-minutes: 45
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Install Arch test dependencies
+        run: |
+          pacman -Syu --noconfirm --needed \
+            archlinux-keyring \
+            ffmpeg \
+            git \
+            glib2 \
+            grim \
+            hyprland \
+            hyprshot \
+            imagemagick \
+            inotify-tools \
+            jq \
+            libxkbcommon \
+            lua \
+            nodejs \
+            pacman-contrib \
+            plocate \
+            python \
+            python-yaml \
+            quickshell \
+            ripgrep \
+            socat \
+            systemd \
+            tmux \
+            util-linux
+      - name: Run shell tests (compositor checks self-skip in headless CI)
+        run: make test-shell
