@@ -7,18 +7,55 @@ import stat
 import subprocess
 from datetime import datetime
 from pathlib import Path
+from typing import TypedDict, TypeGuard
 
 import yaml
 
 
-def _run(command: list[str]) -> subprocess.CompletedProcess[str] | None:
+class NetworkSettings(TypedDict):
+  systemctl_command: list[str]
+  disable_units: list[str]
+  mask_units: list[str]
+  network_directory: str
+  timestamp_format: str
+  backup_directory_template: str
+  network_files: list[str]
+  dhcp_pattern: str
+  interface_pattern: str
+  manager_active_command: list[str]
+  stop_command: list[str]
+
+
+def _string_list(value: object) -> TypeGuard[list[str]]:
+  return isinstance(value, list) and all(isinstance(item, str) for item in value)
+
+
+def _network_settings(value: object) -> TypeGuard[NetworkSettings]:
+  if not isinstance(value, dict):
+    return False
+  return (
+    _string_list(value.get("systemctl_command"))
+    and _string_list(value.get("disable_units"))
+    and _string_list(value.get("mask_units"))
+    and isinstance(value.get("network_directory"), str)
+    and isinstance(value.get("timestamp_format"), str)
+    and isinstance(value.get("backup_directory_template"), str)
+    and _string_list(value.get("network_files"))
+    and isinstance(value.get("dhcp_pattern"), str)
+    and isinstance(value.get("interface_pattern"), str)
+    and _string_list(value.get("manager_active_command"))
+    and _string_list(value.get("stop_command"))
+  )
+
+
+def _run(command: list[str]) -> int | None:
   try:
-    return subprocess.run(command, check=False, stderr=subprocess.DEVNULL)
+    return subprocess.run(command, check=False, stderr=subprocess.DEVNULL).returncode
   except OSError:
     return None
 
 
-def _is_stock_networkd_file(path: Path, settings: dict[str, object]) -> bool:
+def _is_stock_networkd_file(path: Path, settings: NetworkSettings) -> bool:
   if not path.is_file() or path.name not in settings["network_files"]:
     return False
   try:
@@ -33,8 +70,12 @@ def _is_stock_networkd_file(path: Path, settings: dict[str, object]) -> bool:
 
 def main() -> int:
   root = Path(os.environ["ARCH_PATH"])
-  config = yaml.safe_load((root / "data/installer/hardware.yml").read_text(encoding="utf-8"))
+  config: object = yaml.safe_load((root / "data/installer/hardware.yml").read_text(encoding="utf-8"))
+  if not isinstance(config, dict):
+    raise ValueError("invalid hardware setup configuration")
   settings = config["network_setup"]
+  if not _network_settings(settings):
+    raise ValueError("invalid network setup configuration")
   systemctl = settings["systemctl_command"]
 
   for unit in settings["disable_units"]:
@@ -53,7 +94,7 @@ def main() -> int:
       shutil.move(str(source), str(backup_directory))
 
   manager_active = _run(settings["manager_active_command"])
-  if manager_active is not None and manager_active.returncode == 0:
+  if manager_active == 0:
     _run([*settings["stop_command"]])
   return 0
 

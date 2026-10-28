@@ -1,49 +1,65 @@
+import heapq
 import json
 import os
 import shutil
 import subprocess
 import sys
-import heapq
 from pathlib import Path
+from typing import TypedDict, TypeGuard
 
 
-def load_plan_quotas():
-  roots = []
-  if os.environ.get("ARCH_PATH"):
-    roots.append(Path(os.environ["ARCH_PATH"]))
-  roots.append(Path("/usr/share/arch"))
-  roots.extend(Path(__file__).resolve().parents)
-  for root in roots:
-    path = root / "data/python/dropbox-plan-quotas.json"
-    if path.is_file():
-      with path.open("r", encoding="utf-8") as handle:
-        return json.load(handle)
-  raise FileNotFoundError("could not locate data/python/dropbox-plan-quotas.json")
+class DropboxFile(TypedDict):
+  name: str
+  path: str
+  folder: str
+  modifiedTs: int
+  sizeBytes: int
+
+
+def _is_string_mapping(value: object) -> TypeGuard[dict[str, object]]:
+  return isinstance(value, dict) and all(isinstance(key, str) for key in value)
+
+
+def _is_quota_mapping(value: object) -> TypeGuard[dict[str, int]]:
+  return isinstance(value, dict) and all(
+    isinstance(key, str) and type(quota) is int and quota >= 0 for key, quota in value.items()
+  )
+
+
+def load_plan_quotas() -> dict[str, int]:
+  root = Path(os.environ["ARCH_PATH"])
+  path = root / "data/python/dropbox-plan-quotas.json"
+  with path.open("r", encoding="utf-8") as handle:
+    quotas: object = json.load(handle)
+  if not _is_quota_mapping(quotas):
+    raise ValueError("Dropbox plan quota data must map plan names to non-negative byte counts")
+  return quotas
 
 
 PLAN_QUOTAS = load_plan_quotas()
 
 
-def read_info():
+def read_info() -> dict[str, object]:
   info_path = Path.home() / ".dropbox" / "info.json"
   if not info_path.exists():
     return {}
   try:
     with info_path.open("r", encoding="utf-8") as handle:
-      return json.load(handle)
+      info: object = json.load(handle)
+      return info if _is_string_mapping(info) else {}
   except (OSError, json.JSONDecodeError):
     return {}
 
 
-def dropbox_account(info):
+def dropbox_account(info: dict[str, object]) -> dict[str, object]:
   for key in ("personal", "business"):
     account = info.get(key)
-    if isinstance(account, dict):
+    if _is_string_mapping(account):
       return account
   return {}
 
 
-def command_output(command):
+def command_output(command: list[str]) -> tuple[int, str]:
   try:
     completed = subprocess.run(command, check=False, capture_output=True, text=True, timeout=4)
   except (OSError, subprocess.TimeoutExpired):
@@ -51,10 +67,10 @@ def command_output(command):
   return completed.returncode, (completed.stdout + completed.stderr).strip()
 
 
-def scan_dropbox(path, limit):
+def scan_dropbox(path: str, limit: int) -> tuple[int, list[DropboxFile]]:
   total = 0
   counter = 0
-  recent = []
+  recent: list[tuple[int, int, DropboxFile]] = []
   try:
     for root, dirs, files in os.walk(path):
       dirs[:] = [name for name in dirs if not os.path.islink(os.path.join(root, name))]
@@ -69,7 +85,7 @@ def scan_dropbox(path, limit):
         total += stat.st_size
         rel = os.path.relpath(file_path, path)
         folder = os.path.dirname(rel)
-        row = {
+        row: DropboxFile = {
           "name": name,
           "path": file_path,
           "folder": "/" if folder in ("", ".") else folder,
@@ -88,7 +104,7 @@ def scan_dropbox(path, limit):
   return total, rows
 
 
-def main():
+def main() -> None:
   limit = 25
   if len(sys.argv) > 1:
     try:
@@ -99,14 +115,18 @@ def main():
   dropbox_cli = shutil.which("dropbox-cli")
   info = read_info()
   account = dropbox_account(info)
-  account_path = account.get("path") if isinstance(account.get("path"), str) else ""
-  plan = account.get("subscription_type") if isinstance(account.get("subscription_type"), str) else ""
+  account_path = account.get("path")
+  if not isinstance(account_path, str):
+    account_path = ""
+  plan = account.get("subscription_type")
+  if not isinstance(plan, str):
+    plan = ""
   quota = PLAN_QUOTAS.get(plan.lower(), 0)
   authenticated = account_path != "" and Path(account_path).exists()
 
   running = False
   status_text = "Not installed"
-  if dropbox_cli:
+  if dropbox_cli is not None:
     status_exit, status_output = command_output([dropbox_cli, "status"])
     status_text = status_output if status_exit == 0 and status_output else "Stopped"
     lowered = status_text.lower()

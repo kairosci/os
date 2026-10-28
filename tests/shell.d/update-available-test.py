@@ -89,6 +89,19 @@ esac
     self.assertEqual(result.returncode, 0, result.stderr)
     self.assertIn("arch-dev-checkout 2 new commits on origin/quattro", result.stdout)
 
+  def test_reports_invalid_configuration_at_command_boundary(self) -> None:
+    invalid_root = self.scratch / "invalid-root"
+    config_path = invalid_root / "data/cli/update-available.yml"
+    config_path.parent.mkdir(parents=True)
+    (invalid_root / "src").symlink_to(ROOT / "src", target_is_directory=True)
+    config_path.write_text("commands: []\n", encoding="utf-8")
+
+    result = self.run_command(ARCH_PATH=str(invalid_root))
+
+    self.assertEqual(result.returncode, 2)
+    self.assertIn("Could not load update availability configuration:", result.stderr)
+    self.assertNotIn("Traceback", result.stderr)
+
 
 if __name__ == "__main__":
   unittest.main()

@@ -6,6 +6,7 @@ import stat
 import subprocess
 import tempfile
 from pathlib import Path
+from typing import cast
 
 import yaml
 
@@ -34,8 +35,9 @@ def _write_atomically(destination: Path, content: str, default_mode: int) -> Non
 
 def _message(settings: dict[str, object], key: str) -> str:
   language = os.environ.get("LANG", "en").split(".", 1)[0].split("_", 1)[0].lower()
-  messages = settings["messages"].get(language, settings["messages"]["en"])
-  return messages[key].format(support_url=settings["support_url"])
+  translations = cast(dict[str, dict[str, str]], settings["messages"])
+  messages = translations.get(language, translations["en"])
+  return messages[key].format(support_url=cast(str, settings["support_url"]))
 
 
 def main() -> int:

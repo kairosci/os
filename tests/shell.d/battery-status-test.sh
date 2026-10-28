@@ -213,3 +213,16 @@ if matches=$(rg -n 'arch-battery-(capacity|remaining|remaining-time)' "$ROOT/src
 fi
 
 pass "battery status owns capacity and remaining calculations"
+
+invalid_root="$tmp_dir/invalid-arch-root"
+mkdir -p "$invalid_root/data/cli"
+ln -s "$ROOT/src" "$invalid_root/src"
+printf 'paths: []\n' >"$invalid_root/data/cli/battery-status.yml"
+invalid_output=""
+invalid_status=0
+invalid_output=$(ARCH_PATH="$invalid_root" "$ROOT/src/arch/commands/arch-battery-status" 2>&1) || invalid_status=$?
+(( invalid_status == 78 )) || fail "invalid battery configuration has a configuration-error status" "$invalid_status: $invalid_output"
+[[ $invalid_output == *"Could not load battery status configuration:"* ]] ||
+  fail "invalid battery configuration is explained at the command boundary" "$invalid_output"
+[[ $invalid_output != *Traceback* ]] || fail "invalid battery configuration does not leak a traceback" "$invalid_output"
+pass "battery status configuration errors are handled at the command boundary"

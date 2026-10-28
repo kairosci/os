@@ -11,17 +11,81 @@ import sys
 import tempfile
 import time
 from pathlib import Path
+from typing import TextIO, TypedDict, TypeGuard
 
 import yaml
 
 
-def settings() -> dict:
+class PosterCache(TypedDict):
+  directory: str
+  key_prefix: str
+  extension: str
+  lock_file: str
+  temporary_prefix: str
+  signature_fields: list[str]
+  signature_separator: str
+  key_separator: str
+  hash_algorithm: str
+  obsolete_pattern: str
+
+
+class PosterLock(TypedDict):
+  wait_seconds: int
+  poll_interval_seconds: float
+
+
+class PosterThumbnail(TypedDict):
+  generator: str
+  size: int
+  quality: int
+  timeout_seconds: int
+  kill_grace_seconds: int
+
+
+class PosterSettings(TypedDict):
+  cache: PosterCache
+  lock: PosterLock
+  thumbnail: PosterThumbnail
+
+
+def _is_string_list(value: object) -> TypeGuard[list[str]]:
+  return isinstance(value, list) and all(isinstance(item, str) for item in value)
+
+
+def _is_poster_settings(value: object) -> TypeGuard[PosterSettings]:
+  if not isinstance(value, dict):
+    return False
+  cache = value.get("cache")
+  lock = value.get("lock")
+  thumbnail = value.get("thumbnail")
+  if not isinstance(cache, dict) or not isinstance(lock, dict) or not isinstance(thumbnail, dict):
+    return False
+  cache_strings = (
+    "directory", "key_prefix", "extension", "lock_file", "temporary_prefix", "signature_separator",
+    "key_separator", "hash_algorithm", "obsolete_pattern",
+  )
+  thumbnail_ints = ("size", "quality", "timeout_seconds", "kill_grace_seconds")
+  return (
+    all(isinstance(cache.get(key), str) for key in cache_strings)
+    and _is_string_list(cache.get("signature_fields"))
+    and {"size", "mtime_ns", "ctime_ns"}.issubset(cache["signature_fields"])
+    and type(lock.get("wait_seconds")) is int
+    and isinstance(lock.get("poll_interval_seconds"), float)
+    and isinstance(thumbnail.get("generator"), str)
+    and all(type(thumbnail.get(key)) is int for key in thumbnail_ints)
+  )
+
+
+def settings() -> PosterSettings:
   root = Path(os.environ["ARCH_PATH"])
   with (root / "data/shell/lock-poster.yml").open(encoding="utf-8") as stream:
-    return yaml.safe_load(stream)
+    config: object = yaml.safe_load(stream)
+  if not _is_poster_settings(config):
+    raise ValueError("invalid lock poster settings")
+  return config
 
 
-def signature(source: Path, config: dict) -> str:
+def signature(source: Path, config: PosterSettings) -> str:
   stat = source.stat()
   values = {
     "size": stat.st_size,
@@ -32,7 +96,7 @@ def signature(source: Path, config: dict) -> str:
   return config["cache"]["signature_separator"].join(str(values[field]) for field in fields)
 
 
-def acquire_lock(lock_file: Path, config: dict):
+def acquire_lock(lock_file: Path, config: PosterSettings) -> TextIO:
   lock = lock_file.open("a")
   deadline = time.monotonic() + config["lock"]["wait_seconds"]
   while True:
@@ -46,7 +110,7 @@ def acquire_lock(lock_file: Path, config: dict):
       time.sleep(config["lock"]["poll_interval_seconds"])
 
 
-def make_poster(source: Path, poster: Path, config: dict) -> None:
+def make_poster(source: Path, poster: Path, config: PosterSettings) -> None:
   thumbnail = config["thumbnail"]
   descriptor, temporary_name = tempfile.mkstemp(
     prefix=config["cache"]["temporary_prefix"],

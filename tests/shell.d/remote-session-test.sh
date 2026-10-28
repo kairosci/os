@@ -86,3 +86,15 @@ pass "probe reports the ssh client address of a spawned server"
 
 [[ $(probe "100 200 300" | wc -l) == 2 ]] || fail "probe lists only matching server processes"
 pass "probe lists only matching server processes"
+
+mkdir -p "$TMPDIR/invalid/data/shell"
+printf '%s\n' 'commands: [' >"$TMPDIR/invalid/data/shell/remote-session.yml"
+set +e
+ARCH_PATH="$TMPDIR/invalid" "$probe_script" >"$TMPDIR/invalid-output" 2>"$TMPDIR/invalid-error"
+config_status=$?
+set -e
+(( config_status == 78 )) || fail "remote-session probe reports malformed settings at its command boundary"
+grep -Fq 'Could not load remote-session configuration' "$TMPDIR/invalid-error" ||
+  fail "remote-session probe explains malformed settings"
+! grep -Fq 'Traceback' "$TMPDIR/invalid-error" || fail "remote-session probe does not leak a traceback"
+pass "remote-session probe handles malformed YAML at its command boundary"

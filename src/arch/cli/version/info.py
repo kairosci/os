@@ -1,20 +1,149 @@
 from __future__ import annotations
 
 import os
-from pathlib import Path
 import re
 import subprocess
-from typing import Any
+import sys
+from collections.abc import Callable
+from pathlib import Path
+from typing import TypedDict
 
 import yaml
 
 
-def _settings() -> dict[str, Any]:
+class Commands(TypedDict):
+  package_query: list[str]
+  git_branch: list[str]
+  git_hash: list[str]
+  packaged_root_environment: str
+  packaged_root_default: str
+
+
+class Version(TypedDict):
+  development_label: str
+  development_hash_template: str
+  branch_empty_status: int
+  detached_branch_template: str
+  package_names: list[str]
+  missing_package_status: int
+
+
+class MirrorPattern(TypedDict):
+  channel: str
+  pattern: str
+
+
+class PackagePattern(TypedDict):
+  channel: str
+  text: str
+
+
+class Channel(TypedDict):
+  mirrorlist_environment: str
+  mirrorlist_default: str
+  config_environment: str
+  config_default: str
+  unknown: str
+  mismatch_separator: str
+  mirror_patterns: list[MirrorPattern]
+  generic_mirror_patterns: list[str]
+  package_patterns: list[PackagePattern]
+
+
+class Settings(TypedDict):
+  commands: Commands
+  version: Version
+  channel: Channel
+
+
+def _mapping(value: object, label: str) -> dict[object, object]:
+  if not isinstance(value, dict):
+    raise TypeError(f"invalid version command configuration: {label} must be a mapping")
+  return {key: item for key, item in value.items()}
+
+
+def _text(value: object, label: str) -> str:
+  if not isinstance(value, str):
+    raise TypeError(f"invalid version command configuration: {label} must be a string")
+  return value
+
+
+def _integer(value: object, label: str) -> int:
+  if not isinstance(value, int) or isinstance(value, bool):
+    raise TypeError(f"invalid version command configuration: {label} must be an integer")
+  return value
+
+
+def _text_list(value: object, label: str) -> list[str]:
+  if not isinstance(value, list):
+    raise TypeError(f"invalid version command configuration: {label} must be a list")
+  return [_text(item, f"{label} item") for item in value]
+
+
+def _mirror_patterns(value: object) -> list[MirrorPattern]:
+  if not isinstance(value, list):
+    raise TypeError("invalid version command configuration: channel.mirror_patterns must be a list")
+  result: list[MirrorPattern] = []
+  for index, item in enumerate(value):
+    pattern = _mapping(item, f"channel.mirror_patterns[{index}]")
+    channel = _text(pattern.get("channel"), f"channel.mirror_patterns[{index}].channel")
+    expression = _text(pattern.get("pattern"), f"channel.mirror_patterns[{index}].pattern")
+    try:
+      re.compile(expression)
+    except re.error as error:
+      raise ValueError(f"invalid version command configuration: invalid mirror pattern {index}") from error
+    result.append({"channel": channel, "pattern": expression})
+  return result
+
+
+def _package_patterns(value: object) -> list[PackagePattern]:
+  if not isinstance(value, list):
+    raise TypeError("invalid version command configuration: channel.package_patterns must be a list")
+  result: list[PackagePattern] = []
+  for index, item in enumerate(value):
+    pattern = _mapping(item, f"channel.package_patterns[{index}]")
+    result.append({
+      "channel": _text(pattern.get("channel"), f"channel.package_patterns[{index}].channel"),
+      "text": _text(pattern.get("text"), f"channel.package_patterns[{index}].text"),
+    })
+  return result
+
+
+def _settings() -> Settings:
   root = Path(os.environ["ARCH_PATH"])
-  settings = yaml.safe_load((root / "data/cli/version.yml").read_text(encoding="utf-8"))
-  if not isinstance(settings, dict):
-    raise ValueError("invalid version command configuration")
-  return settings
+  raw: object = yaml.safe_load((root / "data/cli/version.yml").read_text(encoding="utf-8"))
+  config = _mapping(raw, "root")
+  commands = _mapping(config.get("commands"), "commands")
+  version = _mapping(config.get("version"), "version")
+  channel = _mapping(config.get("channel"), "channel")
+  return {
+    "commands": {
+      "package_query": _text_list(commands.get("package_query"), "commands.package_query"),
+      "git_branch": _text_list(commands.get("git_branch"), "commands.git_branch"),
+      "git_hash": _text_list(commands.get("git_hash"), "commands.git_hash"),
+      "packaged_root_environment": _text(commands.get("packaged_root_environment"), "commands.packaged_root_environment"),
+      "packaged_root_default": _text(commands.get("packaged_root_default"), "commands.packaged_root_default"),
+    },
+    "version": {
+      "development_label": _text(version.get("development_label"), "version.development_label"),
+      "development_hash_template": _text(version.get("development_hash_template"), "version.development_hash_template"),
+      "branch_empty_status": _integer(version.get("branch_empty_status"), "version.branch_empty_status"),
+      "detached_branch_template": _text(version.get("detached_branch_template"), "version.detached_branch_template"),
+      "package_names": _text_list(version.get("package_names"), "version.package_names"),
+      "missing_package_status": _integer(version.get("missing_package_status"), "version.missing_package_status"),
+    },
+    "channel": {
+      "mirrorlist_environment": _text(channel.get("mirrorlist_environment"), "channel.mirrorlist_environment"),
+      "mirrorlist_default": _text(channel.get("mirrorlist_default"), "channel.mirrorlist_default"),
+      "config_environment": _text(channel.get("config_environment"), "channel.config_environment"),
+      "config_default": _text(channel.get("config_default"), "channel.config_default"),
+      "unknown": _text(channel.get("unknown"), "channel.unknown"),
+      "mismatch_separator": _text(channel.get("mismatch_separator"), "channel.mismatch_separator"),
+      "mirror_patterns": _mirror_patterns(channel.get("mirror_patterns")),
+      "generic_mirror_patterns": _text_list(channel.get("generic_mirror_patterns"), "channel.generic_mirror_patterns"),
+      "package_patterns": _package_patterns(channel.get("package_patterns")),
+    },
+  }
 
 
 def _output(command: list[str]) -> tuple[int, str]:
@@ -22,16 +151,14 @@ def _output(command: list[str]) -> tuple[int, str]:
   return result.returncode, result.stdout.strip()
 
 
-def version_main() -> int:
+def _version_main() -> int:
   settings = _settings()
   root = Path(os.environ["ARCH_PATH"])
   version = settings["version"]
-  packaged_root = os.environ.get(
-    settings["commands"]["packaged_root_environment"],
-    settings["commands"]["packaged_root_default"],
-  )
+  commands = settings["commands"]
+  packaged_root = os.environ.get(commands["packaged_root_environment"], commands["packaged_root_default"])
   if str(root).rstrip("/") != str(packaged_root).rstrip("/"):
-    status, commit = _output([argument.format(path=str(root)) for argument in settings["commands"]["git_hash"]])
+    status, commit = _output([argument.format(path=str(root)) for argument in commands["git_hash"]])
     if status == 0 and commit:
       print(version["development_hash_template"].format(hash=commit))
     else:
@@ -39,24 +166,21 @@ def version_main() -> int:
     return 0
 
   for package in version["package_names"]:
-    status, output = _output([*settings["commands"]["package_query"], package])
+    status, output = _output([*commands["package_query"], package])
     fields = output.split()
     if status == 0 and len(fields) > 1:
       print(fields[1])
       return 0
-  return int(version["missing_package_status"])
+  return version["missing_package_status"]
 
 
-def version_branch_main() -> int:
+def _version_branch_main() -> int:
   settings = _settings()
   root = Path(os.environ["ARCH_PATH"])
   commands = settings["commands"]
-  packaged_root = os.environ.get(
-    commands["packaged_root_environment"],
-    commands["packaged_root_default"],
-  )
+  packaged_root = os.environ.get(commands["packaged_root_environment"], commands["packaged_root_default"])
   if str(root).rstrip("/") == str(packaged_root).rstrip("/"):
-    return int(settings["version"]["branch_empty_status"])
+    return settings["version"]["branch_empty_status"]
 
   status, branch = _output([argument.format(path=str(root)) for argument in commands["git_branch"]])
   if status == 0 and branch:
@@ -64,12 +188,12 @@ def version_branch_main() -> int:
     return 0
   status, commit = _output([argument.format(path=str(root)) for argument in commands["git_hash"]])
   if status != 0 or not commit:
-    return int(settings["version"]["branch_empty_status"])
+    return settings["version"]["branch_empty_status"]
   print(settings["version"]["detached_branch_template"].format(hash=commit))
   return 0
 
 
-def version_channel_main() -> int:
+def _version_channel_main() -> int:
   settings = _settings()["channel"]
   mirrorlist = Path(os.environ.get(settings["mirrorlist_environment"]) or settings["mirrorlist_default"])
   pacman_config = Path(os.environ.get(settings["config_environment"]) or settings["config_default"])
@@ -96,3 +220,26 @@ def version_channel_main() -> int:
       mirror = package
   print(mirror if mirror == package else f"{mirror}{settings['mismatch_separator']}{package}")
   return 0
+
+
+def _entry(operation: Callable[[], int], label: str) -> int:
+  try:
+    return operation()
+  except (OSError, UnicodeError, TypeError, ValueError, yaml.YAMLError) as error:
+    print(f"Could not load {label} configuration: {error}", file=sys.stderr)
+    return os.EX_CONFIG
+  except (subprocess.SubprocessError, RuntimeError) as error:
+    print(f"Could not determine {label}: {error}", file=sys.stderr)
+    return os.EX_SOFTWARE
+
+
+def version_main() -> int:
+  return _entry(_version_main, "version")
+
+
+def version_branch_main() -> int:
+  return _entry(_version_branch_main, "version branch")
+
+
+def version_channel_main() -> int:
+  return _entry(_version_channel_main, "version channel")

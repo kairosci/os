@@ -3,24 +3,61 @@ from __future__ import annotations
 import fcntl
 import os
 from pathlib import Path
+import sys
+from typing import TypedDict
 
 import yaml
 
 
-def _settings() -> dict:
+class Settings(TypedDict):
+  default_state_home: str
+  state_directory: str
+  marker_filename: str
+  lock_filename: str
+  session_environment: list[str]
+  file_mode: str
+
+
+def _text(value: object, name: str) -> str:
+  if not isinstance(value, str):
+    raise ValueError(f"invalid background session marker configuration: {name} must be a string")
+  return value
+
+
+def _settings() -> Settings:
   root = Path(os.environ["ARCH_PATH"])
-  settings = yaml.safe_load(
+  raw: object = yaml.safe_load(
     (root / "data/cli/background-session-mark.yml").read_text(encoding="utf-8")
   )
-  if not isinstance(settings, dict):
-    raise ValueError("invalid background session marker configuration")
-  return settings
+  if not isinstance(raw, dict):
+    raise ValueError("invalid background session marker configuration: expected a mapping")
+
+  values = {key: value for key, value in raw.items()}
+  session_environment = values.get("session_environment")
+  if not isinstance(session_environment, list) or not all(
+    isinstance(name, str) for name in session_environment
+  ):
+    raise ValueError(
+      "invalid background session marker configuration: session_environment must be a list of strings"
+    )
+  return {
+    "default_state_home": _text(values.get("default_state_home"), "default_state_home"),
+    "state_directory": _text(values.get("state_directory"), "state_directory"),
+    "marker_filename": _text(values.get("marker_filename"), "marker_filename"),
+    "lock_filename": _text(values.get("lock_filename"), "lock_filename"),
+    "session_environment": [name for name in session_environment if isinstance(name, str)],
+    "file_mode": _text(values.get("file_mode"), "file_mode"),
+  }
 
 
 def main() -> int:
-  settings = _settings()
+  try:
+    settings = _settings()
+  except (OSError, UnicodeError, ValueError, yaml.YAMLError) as error:
+    print(f"Could not load background session marker configuration: {error}", file=sys.stderr)
+    return 1
   session_id = next(
-    (os.environ[name] for name in settings["session_environment"] if os.environ.get(name)),
+    (os.environ[name] for name in settings["session_environment"] if os.environ.get(name, "") != ""),
     None,
   )
   if session_id is None:

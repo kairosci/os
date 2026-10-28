@@ -6,13 +6,41 @@ import os
 import re
 import stat
 from pathlib import Path
+from typing import TypedDict, TypeGuard
 
 import yaml
 
 
-def _timezone_country(root: Path, settings: dict[str, object]) -> str:
-  zoneinfo = root / str(settings["zoneinfo_directory"])
-  localtime = root / str(settings["localtime_file"])
+class WirelessRegdomSettings(TypedDict):
+  root_environment: str
+  regdom_file: str
+  existing_setting_pattern: str
+  zoneinfo_directory: str
+  localtime_file: str
+  country_pattern: str
+  zone_table: str
+  zone_table_country_column: int
+  zone_table_timezone_column: int
+  line_template: str
+
+
+def _is_wireless_regdom_settings(value: object) -> TypeGuard[WirelessRegdomSettings]:
+  if not isinstance(value, dict):
+    return False
+  text_fields = (
+    "root_environment", "regdom_file", "existing_setting_pattern", "zoneinfo_directory", "localtime_file",
+    "country_pattern", "zone_table", "line_template",
+  )
+  return (
+    all(isinstance(value.get(key), str) for key in text_fields)
+    and type(value.get("zone_table_country_column")) is int
+    and type(value.get("zone_table_timezone_column")) is int
+  )
+
+
+def _timezone_country(root: Path, settings: WirelessRegdomSettings) -> str:
+  zoneinfo = root / settings["zoneinfo_directory"]
+  localtime = root / settings["localtime_file"]
   try:
     timezone_path = localtime.resolve(strict=True)
     timezone = timezone_path.relative_to(zoneinfo.resolve(strict=True)).as_posix()
@@ -20,7 +48,7 @@ def _timezone_country(root: Path, settings: dict[str, object]) -> str:
     return ""
 
   country = timezone.split("/", 1)[0]
-  if re.fullmatch(str(settings["country_pattern"]), country):
+  if re.fullmatch(settings["country_pattern"], country):
     return country
 
   table = root / str(settings["zone_table"])
@@ -28,15 +56,15 @@ def _timezone_country(root: Path, settings: dict[str, object]) -> str:
     lines = table.read_text(encoding="utf-8").splitlines()
   except OSError:
     return ""
-  country_column = int(settings["zone_table_country_column"])
-  timezone_column = int(settings["zone_table_timezone_column"])
+  country_column = settings["zone_table_country_column"]
+  timezone_column = settings["zone_table_timezone_column"]
   for line in lines:
     if not line or line.startswith("#"):
       continue
     columns = line.split()
     if len(columns) > max(country_column, timezone_column) and columns[timezone_column] == timezone:
       candidate = columns[country_column]
-      if re.fullmatch(str(settings["country_pattern"]), candidate):
+      if re.fullmatch(settings["country_pattern"], candidate):
         return candidate
       return ""
   return ""
@@ -69,8 +97,12 @@ def _append_unset(path: Path, setting_pattern: str, line: str) -> None:
 
 def main() -> int:
   root_path = os.environ["ARCH_PATH"]
-  config = yaml.safe_load((Path(root_path) / "data/installer/hardware.yml").read_text(encoding="utf-8"))
+  config: object = yaml.safe_load((Path(root_path) / "data/installer/hardware.yml").read_text(encoding="utf-8"))
+  if not isinstance(config, dict):
+    raise ValueError("invalid hardware setup configuration")
   settings = config["wireless_regdom"]
+  if not _is_wireless_regdom_settings(settings):
+    raise ValueError("invalid wireless regulatory domain configuration")
   system_root = Path(os.environ.get(settings["root_environment"]) or "/").resolve()
   config_file = system_root / str(settings["regdom_file"])
   if not config_file.is_file():

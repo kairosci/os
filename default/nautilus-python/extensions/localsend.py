@@ -23,11 +23,11 @@ class SendViaLocalSendAction(GObject.GObject, Nautilus.MenuProvider):
 
     def _resolve_command(self):
         localsend = shutil.which("localsend")
-        if localsend:
+        if localsend is not None:
             return [localsend, "--headless", "send"]
 
         flatpak = shutil.which("flatpak")
-        if flatpak and self._has_flatpak_app(flatpak, "org.localsend.localsend_app"):
+        if flatpak is not None and self._has_flatpak_app(flatpak, "org.localsend.localsend_app"):
             return [
                 flatpak,
                 "run",

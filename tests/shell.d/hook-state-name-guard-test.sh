@@ -131,9 +131,33 @@ HOME="$fake_home" "$ROOT/src/arch/commands/arch-hook-install" "sub/dir" "$source
   fail "archctl hook install creates no nested directory from a slashed name"
 pass "archctl hook install refuses a hook name with a slash"
 
+# Both hook entry points report invalid configuration at their command boundary.
+invalid_arch_path="$work_dir/invalid-hook-arch"
+mkdir -p "$invalid_arch_path/data/cli"
+ln -s "$ROOT/src" "$invalid_arch_path/src"
+printf '[]\n' >"$invalid_arch_path/data/cli/hooks.yml"
+for command in arch-hook arch-hook-install; do
+  status=0
+  output=$(ARCH_PATH="$invalid_arch_path" HOME="$fake_home" "$ROOT/src/arch/commands/$command" 2>&1) || status=$?
+  (( status == 1 )) && [[ $output == *"Could not load hook configuration"* ]] ||
+    fail "$command reports malformed configuration without a traceback" "exit: $status" "$output"
+  pass "$command reports malformed configuration without a traceback"
+done
+
 # --- arch-state -------------------------------------------------------------
 
 state_dir="$fake_home/.local/state/arch"
+
+invalid_arch_path="$work_dir/invalid-arch"
+mkdir -p "$invalid_arch_path/data/cli"
+mkdir -p "$invalid_arch_path/src"
+ln -s "$ROOT/src/arch" "$invalid_arch_path/src/arch"
+printf '[]\n' >"$invalid_arch_path/data/cli/state.yml"
+status=0
+output=$(ARCH_PATH="$invalid_arch_path" HOME="$fake_home" "$ROOT/src/arch/commands/arch-state" set broken 2>&1) || status=$?
+(( status == 1 )) && [[ $output == *"Could not load state configuration"* ]] ||
+  fail "arch state reports malformed configuration without a traceback" "exit: $status" "$output"
+pass "arch state reports malformed configuration without a traceback"
 
 HOME="$fake_home" "$ROOT/src/arch/commands/arch-state" set reboot-required
 [[ -f $state_dir/reboot-required ]] ||

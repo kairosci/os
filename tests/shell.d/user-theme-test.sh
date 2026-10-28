@@ -73,6 +73,19 @@ ln -s missing-theme "$test_tmp/home/.config/arch/themes/user-linked-theme"
 ln -s cosmic-night "$test_tmp/theme-arch/assets/themes/bundled-link"
 cp "$ROOT/src/arch/cli/theme/info.py" "$test_tmp/theme-arch/src/arch/cli/theme/info.py"
 cp "$ROOT/data/cli/theme-info.yml" "$test_tmp/theme-arch/data/cli/theme-info.yml"
+cp "$test_tmp/theme-arch/data/cli/theme-info.yml" "$test_tmp/theme-info-valid.yml"
+printf '%s\n' 'paths: [' >"$test_tmp/theme-arch/data/cli/theme-info.yml"
+set +e
+HOME="$test_tmp/home" ARCH_PATH="$test_tmp/theme-arch" \
+  "$ROOT/src/arch/commands/arch-theme-current" >"$test_tmp/theme-config.out" 2>"$test_tmp/theme-config.err"
+theme_config_status=$?
+set -e
+(( theme_config_status == 78 )) || fail "theme command reports malformed settings at its command boundary"
+grep -Fq 'Could not load or apply theme settings' "$test_tmp/theme-config.err" ||
+  fail "theme command explains malformed settings"
+! grep -Fq 'Traceback' "$test_tmp/theme-config.err" || fail "theme command does not leak a traceback"
+mv "$test_tmp/theme-info-valid.yml" "$test_tmp/theme-arch/data/cli/theme-info.yml"
+pass "theme commands handle malformed YAML at their command boundary"
 printf 'tokyo-night\n' >"$test_tmp/home/.local/state/arch/current/theme.name"
 current=$(HOME="$test_tmp/home" ARCH_PATH="$test_tmp/theme-arch" LC_ALL= LC_MESSAGES=it_IT.UTF-8 \
   "$ROOT/src/arch/commands/arch-theme-current")

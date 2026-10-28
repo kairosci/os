@@ -6,8 +6,55 @@ import stat
 import subprocess
 import tempfile
 from pathlib import Path
+from typing import TypedDict, TypeGuard
 
 import yaml
+
+
+class LocaleSetup(TypedDict):
+  locale_conf_environment: str
+  locale_conf_default: str
+  locale_gen_environment: str
+  locale_gen_default: str
+  language_file_environment: str
+  language_file_default: str
+  default_language: str
+  target_locale: str
+  target_locale_pattern: str
+  target_locale_gen_line: str
+  commented_locale_pattern: str
+  locale_command: list[str]
+  locale_gen_command: list[str]
+  stock_values: list[str]
+  mode: str
+  messages: dict[str, dict[str, str]]
+
+
+def _is_string_mapping(value: object) -> TypeGuard[dict[str, str]]:
+  return isinstance(value, dict) and all(
+    isinstance(key, str) and isinstance(item, str) for key, item in value.items()
+  )
+
+
+def _is_locale_setup(value: object) -> TypeGuard[LocaleSetup]:
+  if not isinstance(value, dict):
+    return False
+  text_fields = (
+    "locale_conf_environment", "locale_conf_default", "locale_gen_environment", "locale_gen_default",
+    "language_file_environment", "language_file_default", "default_language", "target_locale",
+    "target_locale_pattern", "target_locale_gen_line", "commented_locale_pattern", "mode",
+  )
+  messages = value.get("messages")
+  return (
+    all(isinstance(value.get(field), str) for field in text_fields)
+    and all(
+      isinstance(value.get(field), list) and all(isinstance(item, str) for item in value[field])
+      for field in ("locale_command", "locale_gen_command", "stock_values")
+    )
+    and isinstance(messages, dict)
+    and all(isinstance(language, str) and _is_string_mapping(catalog) for language, catalog in messages.items())
+    and isinstance(messages.get("en"), dict)
+  )
 
 
 def _write_atomically(path: Path, content: str, default_mode: int) -> None:
@@ -41,7 +88,7 @@ def _read(path: Path) -> str:
     return ""
 
 
-def _messages(settings: dict[str, object]) -> dict[str, str]:
+def _messages(settings: LocaleSetup) -> dict[str, str]:
   language_path = Path(os.environ.get(settings["language_file_environment"]) or settings["language_file_default"])
   language = settings["default_language"]
   try:
@@ -58,8 +105,12 @@ def _append_line(content: str, line: str) -> str:
 
 def main() -> int:
   root = Path(os.environ["ARCH_PATH"])
-  config = yaml.safe_load((root / "data/installer/system-setup.yml").read_text(encoding="utf-8"))
+  config: object = yaml.safe_load((root / "data/installer/system-setup.yml").read_text(encoding="utf-8"))
+  if not isinstance(config, dict):
+    raise ValueError("invalid system setup configuration")
   settings = config["locale_setup"]
+  if not _is_locale_setup(settings):
+    raise ValueError("invalid locale setup configuration")
   messages = _messages(settings)
   locale_conf = Path(settings["locale_conf_default"])
   locale_gen = Path(settings["locale_gen_default"])

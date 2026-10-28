@@ -68,3 +68,22 @@ with tempfile.TemporaryDirectory(prefix="install-font-") as temporary:
   if log.read_text(encoding="utf-8"):
     fail_check("invalid font values are rejected before installation")
   pass_check("font package and family input are validated before installation")
+
+  invalid_root = scratch / "invalid-arch-root"
+  config_path = invalid_root / "data/cli/fonts.yml"
+  config_path.parent.mkdir(parents=True)
+  (invalid_root / "src").symlink_to(ROOT / "src", target_is_directory=True)
+  config_path.write_text("set:\n  help_arguments: []\n", encoding="utf-8")
+  invalid_environment = test_environment(ARCH_PATH=invalid_root)
+  result = subprocess.run(
+    [str(ROOT / "src/arch/commands/arch-font-set"), "--help"],
+    capture_output=True,
+    text=True,
+    env=invalid_environment,
+    check=False,
+  )
+  if result.returncode == 0 or "Could not load font command configuration:" not in result.stderr:
+    fail_check(f"invalid font configuration is reported at the command boundary: {result.stderr}")
+  if "Traceback" in result.stderr:
+    fail_check("invalid font configuration does not leak an uncaught traceback")
+  pass_check("font configuration errors are reported at the command boundary")

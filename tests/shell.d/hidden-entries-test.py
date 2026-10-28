@@ -2,14 +2,12 @@
 
 from __future__ import annotations
 
-import os
-from pathlib import Path
 import subprocess
 import tempfile
 import unittest
+from pathlib import Path
 
 from base_test import ROOT, test_environment
-
 
 SCANNER = ROOT / "src/arch/shell/services/hidden-entries.py"
 
@@ -85,6 +83,22 @@ class HiddenEntriesTest(unittest.TestCase):
     self.entry(relative, "Hidden=true")
     output = self.scan(cwd=self.scratch)
     self.assertNotIn("relative", output)
+
+  def test_malformed_configuration_fails_at_the_command_boundary(self) -> None:
+    invalid_root = self.scratch / "invalid"
+    config_directory = invalid_root / "data/shell"
+    config_directory.mkdir(parents=True)
+    (config_directory / "hidden-entries.yml").write_text("paths: [\n", encoding="utf-8")
+    result = subprocess.run(
+      [str(SCANNER)],
+      check=False,
+      capture_output=True,
+      text=True,
+      env=test_environment(ARCH_PATH=invalid_root),
+    )
+    self.assertEqual(result.returncode, 78)
+    self.assertIn("Could not load hidden-entries configuration", result.stderr)
+    self.assertNotIn("Traceback", result.stderr)
 
 
 if __name__ == "__main__":

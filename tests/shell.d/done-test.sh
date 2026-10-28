@@ -10,6 +10,16 @@ export ARCH_PATH="$ROOT"
 
 done_marker="$test_home/.local/state/arch/done/example"
 
+invalid_arch_path="$test_home/invalid-arch"
+mkdir -p "$invalid_arch_path/data/cli" "$invalid_arch_path/src"
+ln -s "$ROOT/src/arch" "$invalid_arch_path/src/arch"
+printf '[]\n' >"$invalid_arch_path/data/cli/done.yml"
+status=0
+output=$(ARCH_PATH="$invalid_arch_path" HOME="$test_home" "$ROOT/src/arch/commands/arch-done" check example 2>&1) || status=$?
+(( status == 1 )) && [[ $output == *"Could not load done configuration"* ]] ||
+  fail "done reports malformed configuration without a traceback" "exit: $status" "$output"
+pass "done reports malformed configuration without a traceback"
+
 if HOME="$test_home" "$ROOT/src/arch/commands/arch-done" check example; then
   fail "done reports an unmarked task as complete"
 fi

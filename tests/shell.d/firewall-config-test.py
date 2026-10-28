@@ -87,6 +87,22 @@ def main() -> int:
       fail_check("firewall setup does not activate UFW immediately")
     if config_path.read_text(encoding="utf-8") != "ENABLED=yes\n":
       fail_check("UFW is enabled for the next boot in its configuration")
+    invalid_root = temporary / "invalid"
+    config_directory = invalid_root / "data/installer"
+    config_directory.mkdir(parents=True)
+    (config_directory / "firewall-setup.yml").write_text("firewall: [\n", encoding="utf-8")
+    invalid_environment = test_environment(ARCH_PATH=str(invalid_root))
+    invalid = subprocess.run(
+      ["python3", "-I", str(SETUP)],
+      check=False,
+      env=invalid_environment,
+      capture_output=True,
+      text=True,
+    )
+    if invalid.returncode != 78:
+      fail_check("firewall setup reports malformed configuration at its command boundary")
+    if "Could not load firewall setup configuration" not in invalid.stderr or "Traceback" in invalid.stderr:
+      fail_check("firewall setup explains malformed configuration without a traceback")
     pass_check("firewall config installs ufw-docker rules without activating live UFW")
   return 0
 

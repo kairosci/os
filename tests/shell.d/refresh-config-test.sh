@@ -42,7 +42,7 @@ pass "refresh-config copies from ARCH_PATH/config and backs up existing files pr
 if HOME="$home" ARCH_PATH="$arch_path" "$ROOT/src/arch/commands/arch-refresh-config" ../escape.lua >"$tmpdir/out" 2>"$tmpdir/err"; then
   fail "refresh-config rejects traversal components"
 fi
-[[ $(<"$tmpdir/err") == "Refusing an invalid or unsafe config path: ../escape.lua" ]] ||
+[[ $(<"$tmpdir/err") == "Use a plain relative configuration file path: ../escape.lua" ]] ||
   fail "refresh-config explains traversal rejection"
 pass "refresh-config rejects traversal components"
 
@@ -88,6 +88,17 @@ HOME="$home" ARCH_PATH="$arch_path" "$ROOT/src/arch/commands/arch-refresh-config
 [[ $(stat -c '%a' "$home/.config/hypr/pointer-target.lua") == "600" ]] ||
   fail "refresh-config preserves target permissions through an in-tree symlink"
 pass "refresh-config preserves an in-tree destination symlink and target permissions"
+
+invalid_arch_path="$tmpdir/invalid-arch"
+mkdir -p "$invalid_arch_path/data/cli" "$invalid_arch_path/src"
+ln -s "$ROOT/src/arch" "$invalid_arch_path/src/arch"
+printf '[]\n' >"$invalid_arch_path/data/cli/refresh-config.yml"
+status=0
+output=$(HOME="$home" ARCH_PATH="$invalid_arch_path" \
+  "$ROOT/src/arch/commands/arch-refresh-config" hypr/bindings.lua 2>&1) || status=$?
+(( status == 1 )) && [[ $output == *"Could not load refresh configuration"* ]] ||
+  fail "refresh-config reports malformed configuration without a traceback" "exit: $status" "$output"
+pass "refresh-config reports malformed configuration without a traceback"
 
 if HOME="$home" ARCH_PATH="$arch_path" "$ROOT/src/arch/commands/arch-refresh-config" hypr/missing.lua >"$tmpdir/out" 2>"$tmpdir/err"; then
   fail "refresh-config rejects configs missing from ARCH_PATH/config"
