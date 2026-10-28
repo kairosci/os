@@ -4,20 +4,101 @@ import os
 import re
 import shutil
 import stat
+import sys
 import tempfile
 from pathlib import Path
-from typing import Any
+from typing import TypedDict
 
 import yaml
 
 
-def _settings() -> dict[str, Any]:
+class Rule(TypedDict):
+  name: str
+  pattern: str
+  replacement: str
+
+
+class SystemAuth(TypedDict):
+  path: str
+  rules: list[Rule]
+
+
+class SddmAutologin(TypedDict):
+  path: str
+  remove_patterns: list[str]
+  insert_after_pattern: str
+  insert_line: str
+
+
+class Settings(TypedDict):
+  system_auth: SystemAuth
+  sddm_autologin: SddmAutologin
+
+
+def _mapping(value: object, label: str) -> dict[object, object]:
+  if not isinstance(value, dict):
+    raise TypeError(f"invalid lockout limit configuration: {label} must be a mapping")
+  return {key: item for key, item in value.items()}
+
+
+def _text(value: object, label: str) -> str:
+  if not isinstance(value, str):
+    raise TypeError(f"invalid lockout limit configuration: {label} must be a string")
+  return value
+
+
+def _pattern(value: object, label: str) -> str:
+  pattern = _text(value, label)
+  try:
+    re.compile(pattern)
+  except re.error as error:
+    raise ValueError(f"invalid lockout limit configuration: {label} is not a valid pattern") from error
+  return pattern
+
+
+def _text_list(value: object, label: str) -> list[str]:
+  if not isinstance(value, list):
+    raise TypeError(f"invalid lockout limit configuration: {label} must be a list")
+  return [_text(item, f"{label} item") for item in value]
+
+
+def _rules(value: object) -> list[Rule]:
+  if not isinstance(value, list):
+    raise TypeError("invalid lockout limit configuration: system_auth.rules must be a list")
+  result: list[Rule] = []
+  for index, raw_rule in enumerate(value):
+    rule = _mapping(raw_rule, f"system_auth.rules[{index}]")
+    result.append({
+      "name": _text(rule.get("name"), f"system_auth.rules[{index}].name"),
+      "pattern": _pattern(rule.get("pattern"), f"system_auth.rules[{index}].pattern"),
+      "replacement": _text(rule.get("replacement"), f"system_auth.rules[{index}].replacement"),
+    })
+  return result
+
+
+def _settings() -> Settings:
   ap = Path(os.environ["ARCH_PATH"])
   with (ap / "data/installer/config-setup.yml").open(encoding="utf-8") as stream:
-    settings = yaml.safe_load(stream)
-  if not isinstance(settings, dict):
-    raise ValueError("invalid system setup settings")
-  return settings["lockout_limit"]
+    raw: object = yaml.safe_load(stream)
+  root = _mapping(raw, "root")
+  system_auth = _mapping(root.get("lockout_limit"), "lockout_limit")
+  auth = _mapping(system_auth.get("system_auth"), "system_auth")
+  sddm = _mapping(system_auth.get("sddm_autologin"), "sddm_autologin")
+  remove_patterns = _text_list(sddm.get("remove_patterns"), "sddm_autologin.remove_patterns")
+  for index, pattern in enumerate(remove_patterns):
+    _pattern(pattern, f"sddm_autologin.remove_patterns[{index}]")
+  return {
+    "system_auth": {
+      "path": _text(auth.get("path"), "system_auth.path"),
+      "rules": _rules(auth.get("rules")),
+    },
+    "sddm_autologin": {
+      "path": _text(sddm.get("path"), "sddm_autologin.path"),
+      "remove_patterns": remove_patterns,
+      "insert_after_pattern": _pattern(sddm.get("insert_after_pattern"), "sddm_autologin.insert_after_pattern"),
+      "insert_line": _text(sddm.get("insert_line"), "sddm_autologin.insert_line"),
+    },
+  }
 
 
 def _replace_lines(lines: list[str], pattern: str, replacement: str, description: str) -> tuple[list[str], int]:
@@ -36,18 +117,19 @@ def _replace_lines(lines: list[str], pattern: str, replacement: str, description
   return updated, count
 
 
-def _update_system_auth(path: Path, rules: list[dict[str, str]]) -> str:
+def _update_system_auth(path: Path, rules: list[Rule]) -> str:
   lines = path.read_text(encoding="utf-8").splitlines(keepends=True)
   for rule in rules:
     lines, _ = _replace_lines(lines, rule["pattern"], rule["replacement"], rule["name"])
   return "".join(lines)
 
 
-def _update_sddm(path: Path, settings: dict[str, Any]) -> str:
+def _update_sddm(path: Path, settings: Settings) -> str:
+  options = settings["sddm_autologin"]
   original = path.read_text(encoding="utf-8").splitlines(keepends=True)
-  remove_patterns = [re.compile(pattern) for pattern in settings["sddm_autologin"]["remove_patterns"]]
-  insert_pattern = re.compile(settings["sddm_autologin"]["insert_after_pattern"])
-  insert_line = settings["sddm_autologin"]["insert_line"]
+  remove_patterns = [re.compile(pattern) for pattern in options["remove_patterns"]]
+  insert_pattern = re.compile(options["insert_after_pattern"])
+  insert_line = options["insert_line"]
   lines: list[str] = []
   insertions = 0
   for line in original:
@@ -62,7 +144,7 @@ def _update_sddm(path: Path, settings: dict[str, Any]) -> str:
       lines.append(insert_line + ending)
       insertions += 1
   if insertions == 0:
-    raise ValueError(f"expected PAM insertion point not found: {settings['sddm_autologin']['insert_after_pattern']}")
+    raise ValueError(f"expected PAM insertion point not found: {options['insert_after_pattern']}")
   return "".join(lines)
 
 
@@ -98,15 +180,24 @@ def _replace_file(path: Path, content: str) -> None:
     raise
 
 
-def main() -> None:
-  settings = _settings()
-  system_auth = Path(settings["system_auth"]["path"])
-  sddm_autologin = Path(settings["sddm_autologin"]["path"])
-  system_auth_content = _update_system_auth(system_auth, settings["system_auth"]["rules"])
-  sddm_content = _update_sddm(sddm_autologin, settings)
-  _replace_file(system_auth, system_auth_content)
-  _replace_file(sddm_autologin, sddm_content)
+def main() -> int:
+  try:
+    settings = _settings()
+  except (OSError, UnicodeError, TypeError, ValueError, yaml.YAMLError) as error:
+    print(f"Could not load lockout limit configuration: {error}", file=sys.stderr)
+    return os.EX_CONFIG
+  try:
+    system_auth = Path(settings["system_auth"]["path"])
+    sddm_autologin = Path(settings["sddm_autologin"]["path"])
+    system_auth_content = _update_system_auth(system_auth, settings["system_auth"]["rules"])
+    sddm_content = _update_sddm(sddm_autologin, settings)
+    _replace_file(system_auth, system_auth_content)
+    _replace_file(sddm_autologin, sddm_content)
+  except (OSError, ValueError) as error:
+    print(f"Could not apply lockout limit configuration: {error}", file=sys.stderr)
+    return os.EX_SOFTWARE
+  return 0
 
 
 if __name__ == "__main__":
-  main()
+  raise SystemExit(main())
