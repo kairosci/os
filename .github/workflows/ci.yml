@@ -96,9 +96,11 @@ jobs:
         run: |
           pacman -Syu --noconfirm --needed \
             archlinux-keyring \
+            coreutils \
             ffmpeg \
             git \
             glib2 \
+            gum \
             grim \
             hyprland \
             hyprshot \
@@ -108,6 +110,7 @@ jobs:
             libxkbcommon \
             lua \
             nodejs \
+            openssh \
             pacman-contrib \
             plocate \
             python \
@@ -118,5 +121,7 @@ jobs:
             systemd \
             tmux \
             util-linux
+      - name: Add checkout commands to PATH
+        run: echo "$GITHUB_WORKSPACE/src/commands" >> "$GITHUB_PATH"
       - name: Run shell tests (compositor checks self-skip in headless CI)
         run: make test-shell
