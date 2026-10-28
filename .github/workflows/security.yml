@@ -127,7 +127,7 @@ jobs:
           min-confidence: medium
 
   repository-scan:
-    name: Scan repository dependencies, configuration, and secrets
+    name: Scan repository secrets
     runs-on: ubuntu-latest
     timeout-minutes: 20
     permissions:
@@ -141,5 +141,21 @@ jobs:
           persist-credentials: false
       - name: Install pinned scanner
         uses: jdx/mise-action@6be3c7ed4c21d4f76b208d351d95aac273ebb76d # v5.2.4
-      - name: Scan dependencies, configuration, and secrets
+      - name: Scan repository secrets with Trivy
         run: make security-scan
+
+  arch-package-advisories:
+    name: Review Arch package advisories
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Test the advisory report parser
+        run: python3 tests/shell.d/arch-package-advisories-test.py
+      - name: Compare declared packages with the Arch security tracker
+        run: make arch-package-advisories
