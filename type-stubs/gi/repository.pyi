@@ -20,22 +20,22 @@ class _Subprocess:
 
 class Gio:
   class DBusCallFlags:
-    NONE: DBusCallFlags
-    NO_AUTO_START: DBusCallFlags
+    NONE: int
+    NO_AUTO_START: int
 
   class FileMonitorFlags:
-    WATCH_MOVES: FileMonitorFlags
+    WATCH_MOVES: int
 
   class SubprocessFlags:
-    NONE: SubprocessFlags
-    STDOUT_SILENCE: SubprocessFlags
-    STDERR_SILENCE: SubprocessFlags
+    NONE: int
+    STDOUT_SILENCE: int
+    STDERR_SILENCE: int
 
   class BusNameWatcherFlags:
-    NONE: BusNameWatcherFlags
+    NONE: int
 
   class BusType:
-    SESSION: BusType
+    SESSION: int
 
   File = _File
   Subprocess = _Subprocess
