@@ -1795,6 +1795,7 @@ Item {
         MouseArea {
           property bool holdingBar: false
           anchors.fill: parent
+          hoverEnabled: true
           onEntered: {
             holdingBar = true
             root.setBarHovered(true)
