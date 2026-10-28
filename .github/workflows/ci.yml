@@ -80,4 +80,3 @@ jobs:
           sudo apt-get install --no-install-recommends -y jq ripgrep
       - name: Run the CLI contract tests
         run: make test-cli
-
