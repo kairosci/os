@@ -482,12 +482,21 @@ assertDeepEqual(
 )
 const triggerIds = triggerItems.map(item => item.id)
 const windowLabels = ['Window Gaps On', 'Window Gaps Off', 'Window Corners', 'Window Opacity', '1-Window Ratio On', '1-Window Ratio Off']
-const appearanceLabels = ['Animations On', 'Animations Off', 'Menu Bar', 'Dock', 'Windows', 'Workspace Layout', ...windowLabels]
+const appearanceLabels = ['Animations On', 'Animations Off', 'Menu Bar', 'Windows', 'Workspace Layout', ...windowLabels]
 assertEqual(triggerIds[0], 'trigger.toggle', 'menu lists Toggle first under Trigger')
 assertDeepEqual(
   defaultItems.filter(item => item.parent === 'appearance').map(item => item.label),
-  ['Theme', 'Background', 'Font', 'Menu Bar', 'Windows', 'Branding', 'Dock', 'Workspace Layout', 'Animations On', 'Animations Off', 'Unlock'],
+  ['Theme', 'Background', 'Font', 'Menu Bar', 'Windows', 'Branding', 'Workspace Layout', 'Animations On', 'Animations Off', 'Unlock'],
   'menu gathers the style and look of the desktop under Appearance'
+)
+assert(
+  !defaultById['appearance.dock'] && !defaultItems.some(item => item.parent === 'appearance.dock'),
+  'menu keeps the floating dock out of Appearance'
+)
+assertDeepEqual(
+  defaultItems.filter(item => item.parent === 'appearance.workspace-layout').map(item => item.id),
+  ['appearance.workspace-layout.dwindle', 'appearance.workspace-layout.scrolling'],
+  'menu offers only tiled workspace layouts'
 )
 assertDeepEqual(
   defaultItems.filter(item => item.parent === 'appearance.windows').map(item => item.label),
