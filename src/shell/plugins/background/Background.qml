@@ -348,9 +348,9 @@ Item {
 
       function decodeSize(path) {
         if (!sized || !path) return Qt.size(0, 0)
-        var native = root.nativeSizes[path]
-        if (native === undefined) return Qt.size(0, 0)
-        if (native.width > 0 && (native.width < decodeWidth || native.height < decodeHeight)) return Qt.size(native.width, native.height)
+        var nativeSize = root.nativeSizes[path]
+        if (nativeSize === undefined) return Qt.size(0, 0)
+        if (nativeSize.width > 0 && (nativeSize.width < decodeWidth || nativeSize.height < decodeHeight)) return Qt.size(nativeSize.width, nativeSize.height)
         return Qt.size(decodeWidth, decodeHeight)
       }
 
