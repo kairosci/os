@@ -15,6 +15,23 @@ MARKER_COMMAND = ROOT / "src/arch/commands/arch-background-session-mark"
 
 
 class BackgroundSessionMarkerTest(unittest.TestCase):
+  def test_invalid_settings_fail_with_a_message_without_a_traceback(self) -> None:
+    with tempfile.TemporaryDirectory(prefix="background-session-invalid-settings-") as temporary:
+      scratch = Path(temporary)
+      arch = scratch / "arch"
+      (arch / "data/cli").mkdir(parents=True)
+      (arch / "src").symlink_to(ROOT / "src", target_is_directory=True)
+      (arch / "data/cli/background-session-mark.yml").write_text("[]\n", encoding="utf-8")
+      environment = test_environment(ARCH_PATH=arch, HOME=scratch / "home")
+
+      result = subprocess.run(
+        [str(MARKER_COMMAND)], env=environment, check=False, capture_output=True, text=True
+      )
+
+      self.assertEqual(result.returncode, 1)
+      self.assertIn("Could not load background session marker configuration", result.stderr)
+      self.assertNotIn("Traceback", result.stderr)
+
   def test_marker_is_idempotent_for_the_same_session(self) -> None:
     with tempfile.TemporaryDirectory(prefix="background-session-") as temporary:
       scratch = Path(temporary)
