@@ -1,5 +1,0 @@
-#!/bin/bash
-
-# arch:summary=Detect ASUS Zenbook UX5406AA series laptops on Intel Panther Lake.
-
-arch-hw-match "ux5406aa" && arch-hw-intel-ptl

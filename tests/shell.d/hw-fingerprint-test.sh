@@ -77,6 +77,9 @@ assert_rejects "an FPC token mid-string is not detected"
 write_usb_devices '1234:5678:Goodix Fingerprint USB Device'
 assert_detects "a reader is detected by an existing product-name match"
 
+write_usb_devices '2808:6553:Generic Focaltech FT9365 ESS'
+assert_detects "the supported FocalTech FT9365 reader is detected by its product name"
+
 write_usb_devices '27c6:1234'
 assert_detects "a reader is detected by an existing vendor match"
 

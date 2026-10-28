@@ -30,7 +30,7 @@ fi
 # libfprint drives every reader it supports from userspace over libusb, so a
 # real reader sits there with no kernel driver bound to any of its interfaces.
 # The other things these vendors build — Synaptics webcam bridges (usbio-bridge
-# on the Dell XPS 14), touchpads and touchscreens (usbhid), cameras (uvcvideo)
+# on some laptop models), touchpads and touchscreens (usbhid), cameras (uvcvideo)
 # — all bind one. Only the vendor-ID guess needs this; a device that names
 # itself a fingerprint reader is trusted outright.
 has_kernel_driver() {
@@ -59,7 +59,9 @@ for dev in "$usb_devices_path"/*; do
     # the list above on purpose (Elan also makes touchscreens), so without these
     # they match nothing. FPC leads the string on every reader on record, and
     # three letters are little to match on, so require the prefix.
-    [[ $product == *fingerprint* || $product == *biometric* || $product == *elan:arm-m4* || $product == "fpc "* ]] && exit 0
+    # FocalTech's FT9365 MOC reader is supported by libfprint, but its USB
+    # product descriptor only says "Focaltech FT9365 ESS".
+    [[ $product == *fingerprint* || $product == *biometric* || $product == *elan:arm-m4* || $product == "fpc "* || $product == *ft9365* ]] && exit 0
   fi
 
   if [[ -r $dev/idVendor ]]; then

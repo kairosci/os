@@ -1,5 +1,0 @@
-hardware_check: [arch-hw-match, 'Yoga Pro 7 14IAH10']
-target: /etc/modprobe.d/lenovo-yoga-pro7-bass.conf
-content: "options snd-sof-intel-hda-generic hda_model=alc287-yoga9-bass-spk-pin\n"
-install_file: [sudo, install, -Dm644]
-statuses: {complete: 0}

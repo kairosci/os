@@ -26,9 +26,6 @@ sources = [
   "src/commands/arch-theme-set-glass",
   "src/commands/arch-theme-set-gnome",
   "src/commands/arch-theme-set-hunk",
-  "src/commands/arch-theme-set-keyboard",
-  "src/commands/arch-theme-set-keyboard-asus-rog",
-  "src/commands/arch-theme-set-keyboard-f16",
   "src/commands/arch-theme-set-obsidian",
   "src/commands/arch-theme-set-templates",
   "src/commands/arch-theme-set-tmux",
@@ -134,18 +131,6 @@ target = "usr/share/arch/src/commands/arch-theme-set-gnome"
 [[output]]
 source = "src/commands/arch-theme-set-hunk"
 target = "usr/share/arch/src/commands/arch-theme-set-hunk"
-
-[[output]]
-source = "src/commands/arch-theme-set-keyboard"
-target = "usr/share/arch/src/commands/arch-theme-set-keyboard"
-
-[[output]]
-source = "src/commands/arch-theme-set-keyboard-asus-rog"
-target = "usr/share/arch/src/commands/arch-theme-set-keyboard-asus-rog"
-
-[[output]]
-source = "src/commands/arch-theme-set-keyboard-f16"
-target = "usr/share/arch/src/commands/arch-theme-set-keyboard-f16"
 
 [[output]]
 source = "src/commands/arch-theme-set-obsidian"

@@ -1,5 +1,0 @@
-#!/bin/bash
-
-# arch:summary=Match the Dell XPS 13 DX13260 with an Intel Panther Lake GPU.
-
-arch-hw-match "DX13260" && arch-hw-intel-ptl

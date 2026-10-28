@@ -131,12 +131,13 @@ assert_output_contains "restart group includes inferred commands" "$output" "arc
 assert_output_contains "restart group includes all restart commands" "$output" "arch restart wifi"
 
 output=$("$CLI" hw --help)
-assert_output_contains "hardware group help renders" "$output" "arch hw asus rog"
+assert_output_contains "hardware group help renders" "$output" "arch hw aarch64 qualcomm"
 assert_output_contains "hardware group includes touchpad" "$output" "arch hw touchpad"
 
-output=$("$CLI" hw asus)
-assert_output_contains "partial hardware prefix renders matching commands" "$output" "arch hw asus rog"
-assert_output_contains "partial hardware prefix includes nested match" "$output" "arch hw asus zenbook ux5406aa"
+output=$("$CLI" hw match)
+assert_output_contains "hardware command help renders" "$output" "arch hw match <pattern>"
+output=$("$CLI" hw match device tree)
+assert_output_contains "nested hardware command help renders" "$output" "arch hw match device tree <compatibles...>"
 
 output=$("$CLI" menu --help)
 assert_output_contains "menu group includes share fallback route" "$output" "arch menu share"
