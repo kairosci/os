@@ -54,6 +54,19 @@ grep -Fx 'systemctl enable --now snapper-cleanup.timer' "$test_tmp/calls.log" >/
 grep -Fx 'systemctl disable --now limine-snapper-sync.service arch-snapshot-entries.path arch-snapshot-entries.service' "$test_tmp/calls.log" >/dev/null || fail "snapshot configure disables Limine sync"
 pass "snapshot configure normalizes Snapper policy and services"
 
+mkdir -p "$test_tmp/invalid/data/installer"
+printf '%s\n' 'snapper: [' >"$test_tmp/invalid/data/installer/snapper-setup.yml"
+set +e
+ARCH_PATH="$test_tmp/invalid" python3 -I "$ROOT/src/arch/python/installer/system_setup/snapper_setup.py" \
+  >"$test_tmp/invalid-output" 2>"$test_tmp/invalid-error"
+config_status=$?
+set -e
+(( config_status == 78 )) || fail "snapshot configure reports malformed YAML at its command boundary" "$config_status"
+grep -Fq 'Could not load or apply Snapper setup configuration' "$test_tmp/invalid-error" ||
+  fail "snapshot configure explains malformed YAML"
+! grep -Fq 'Traceback' "$test_tmp/invalid-error" || fail "snapshot configure does not leak a traceback"
+pass "snapshot configure handles malformed YAML at its command boundary"
+
 setup_system="$ROOT/src/arch/commands/arch-apply-system"
 grep -F 'system_setup/all.py' "$setup_system" >/dev/null ||
   fail "system setup runs the config phase"
