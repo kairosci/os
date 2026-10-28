@@ -162,8 +162,8 @@ def transaction(config_home):
 def selection():
   vconsole = values(read(Path(os.environ.get("ARCH_VCONSOLE", "/etc/vconsole.conf"))))
   selection = os.environ.get("ARCH_INPUT_SELECTION")
-  selection_path = Path(selection) if selection else Path("/etc/arch/input-method")
-  if not selection and not selection_path.is_file():
+  selection_path = Path(selection) if selection is not None and selection != "" else Path("/etc/arch/input-method")
+  if (selection is None or selection == "") and not selection_path.is_file():
     selection_path = Path("/etc/arch/input-method")
   preference = values(read(selection_path))
   layout = vconsole.get("XKBLAYOUT", "us").split(",")[0] or "us"

@@ -12,18 +12,175 @@ import stat
 import subprocess
 import sys
 import tempfile
+from typing import TypedDict, TypeGuard
 import xml.etree.ElementTree as ET
 
 import yaml
 
 
-def message(settings: dict, key: str) -> str:
+class EnvironmentDefault(TypedDict):
+  environment: str
+  default: str
+
+
+class MachineIdPath(TypedDict):
+  environment: str
+  source: str
+
+
+class PathSettings(TypedDict):
+  machine_id_pattern: str
+  boot_root: EnvironmentDefault
+  snapshots_root: EnvironmentDefault
+  machine_id: MachineIdPath
+  uki: EnvironmentDefault
+  systemd_unit_dir: EnvironmentDefault
+  systemd_libexec_dir: EnvironmentDefault
+  limine_snapper_plugin: EnvironmentDefault
+  image_directory: str
+  entries_directory: str
+  converter_files: list[str]
+
+
+class SnapshotSettings(TypedDict):
+  root_subvolume: str
+  id_pattern: str
+  actions: dict[str, str]
+  argument_positions: dict[str, int]
+  directory: str
+  info_file: str
+  archive_file: str
+  entry_file: str
+
+
+class BootSettings(TypedDict):
+  product_pattern: str
+  legacy_disable_command: list[str]
+  converter_disable_command: list[str]
+  reload_command: list[str]
+  trusted_path: str
+  objcopy_command: list[str]
+  status_command: list[str]
+  cmdline_section: str
+  snapshot_rootflag: str
+  entry_title: str
+  entry_sort_key: str
+  entry_uki_path: str
+  legacy_entry_files: list[str]
+  entry_template: str
+
+
+class SnapperSettings(TypedDict):
+  paths: PathSettings
+  snapshot: SnapshotSettings
+  boot: BootSettings
+  limits: dict[str, int]
+  modes: dict[str, str]
+  messages: dict[str, dict[str, str]]
+
+
+class RuntimePaths(TypedDict):
+  boot_root: str
+  snapshots_root: str
+  systemd_unit_dir: str
+  systemd_libexec_dir: str
+  limine_snapper_plugin: str
+  machine_id: str
+  uki: str
+  image_directory: str
+  entries_directory: str
+
+
+def _is_string_mapping(value: object) -> TypeGuard[dict[str, str]]:
+  return isinstance(value, dict) and all(
+    isinstance(key, str) and isinstance(item, str) for key, item in value.items()
+  )
+
+
+def _is_string_list(value: object) -> TypeGuard[list[str]]:
+  return isinstance(value, list) and all(isinstance(item, str) for item in value)
+
+
+def _is_integer_mapping(value: object, required: set[str]) -> TypeGuard[dict[str, int]]:
+  return (
+    isinstance(value, dict)
+    and required.issubset(value)
+    and all(isinstance(key, str) and type(item) is int for key, item in value.items())
+  )
+
+
+def _is_snapper_settings(value: object) -> TypeGuard[SnapperSettings]:
+  if not isinstance(value, dict):
+    return False
+  paths = value.get("paths")
+  snapshot = value.get("snapshot")
+  boot = value.get("boot")
+  limits = value.get("limits")
+  modes = value.get("modes")
+  messages = value.get("messages")
+  if not all(isinstance(section, dict) for section in (paths, snapshot, boot, limits, modes, messages)):
+    return False
+  if not isinstance(paths, dict) or not isinstance(snapshot, dict) or not isinstance(boot, dict):
+    return False
+  path_names = (
+    "boot_root", "snapshots_root", "uki", "systemd_unit_dir", "systemd_libexec_dir",
+    "limine_snapper_plugin",
+  )
+  if (
+    not isinstance(paths.get("machine_id_pattern"), str)
+    or any(
+      not isinstance(paths.get(name), dict)
+      or not isinstance(paths[name].get("environment"), str)
+      or not isinstance(paths[name].get("default"), str)
+      for name in path_names
+    )
+    or not isinstance(paths.get("machine_id"), dict)
+    or not isinstance(paths["machine_id"].get("environment"), str)
+    or not isinstance(paths["machine_id"].get("source"), str)
+    or not isinstance(paths.get("image_directory"), str)
+    or not isinstance(paths.get("entries_directory"), str)
+    or not _is_string_list(paths.get("converter_files"))
+  ):
+    return False
+  snapshot_strings = (
+    "root_subvolume", "id_pattern", "directory", "info_file", "archive_file", "entry_file",
+  )
+  if (
+    any(not isinstance(snapshot.get(key), str) for key in snapshot_strings)
+    or not _is_string_mapping(snapshot.get("actions"))
+    or not {"create", "delete"}.issubset(snapshot["actions"])
+    or not _is_integer_mapping(snapshot.get("argument_positions"), {"action", "subvolume", "snapshot_id"})
+  ):
+    return False
+  boot_commands = (
+    "legacy_disable_command", "converter_disable_command", "reload_command", "objcopy_command", "status_command",
+  )
+  boot_strings = (
+    "product_pattern", "trusted_path", "cmdline_section", "snapshot_rootflag", "entry_title",
+    "entry_sort_key", "entry_uki_path", "entry_template",
+  )
+  if (
+    any(not _is_string_list(boot.get(key)) for key in boot_commands)
+    or any(not isinstance(boot.get(key), str) for key in boot_strings)
+    or not _is_string_list(boot.get("legacy_entry_files"))
+    or not _is_integer_mapping(limits, {"snapshot_info_bytes"})
+    or not _is_string_mapping(modes)
+    or "installed_file" not in modes
+    or not isinstance(messages, dict)
+    or not all(isinstance(language, str) and _is_string_mapping(entries) for language, entries in messages.items())
+    or not isinstance(messages.get("en"), dict)
+  ):
+    return False
+  return True
+
+
+def message(settings: SnapperSettings, key: str) -> str:
   language = os.environ.get("LANG", "en").split(".", 1)[0].split("_", 1)[0].lower()
   messages = settings.get("messages", {})
   return messages.get(language, messages["en"])[key]
 
 
-def load_settings() -> dict:
+def load_settings() -> SnapperSettings:
   if os.geteuid() == 0:
     path = Path(__file__).with_suffix(".yml")
     descriptor = os.open(path, os.O_RDONLY | os.O_CLOEXEC | os.O_NOFOLLOW)
@@ -31,20 +188,30 @@ def load_settings() -> dict:
       metadata = os.fstat(stream.fileno())
       if not stat.S_ISREG(metadata.st_mode) or metadata.st_uid != 0 or stat.S_IMODE(metadata.st_mode) & 0o022:
         raise PermissionError("systemd-boot Snapper settings must be a root-owned, non-writable regular file")
-      settings = yaml.safe_load(stream)
+      settings: object = yaml.safe_load(stream)
   else:
     ap = Path(os.environ["ARCH_PATH"])
     path = ap / "data/installer/systemd-boot-snapper-plugin.yml"
     settings = yaml.safe_load(path.read_text(encoding="utf-8"))
-  if not isinstance(settings, dict):
+  if not _is_snapper_settings(settings):
     raise ValueError("Invalid systemd-boot Snapper plugin settings")
   return settings
 
 
-def runtime_paths(settings: dict) -> dict[str, str]:
+def runtime_paths(settings: SnapperSettings) -> tuple[RuntimePaths, list[str]]:
   paths = settings["paths"]
   allow_environment = os.geteuid() != 0
-  values: dict[str, str] = {}
+  values: RuntimePaths = {
+    "boot_root": "",
+    "snapshots_root": "",
+    "systemd_unit_dir": "",
+    "systemd_libexec_dir": "",
+    "limine_snapper_plugin": "",
+    "machine_id": "",
+    "uki": "",
+    "image_directory": "",
+    "entries_directory": "",
+  }
   for name in ("boot_root", "snapshots_root", "systemd_unit_dir", "systemd_libexec_dir", "limine_snapper_plugin"):
     item = paths[name]
     environment_value = os.environ.get(item["environment"]) if allow_environment else None
@@ -62,11 +229,11 @@ def runtime_paths(settings: dict) -> dict[str, str]:
   values["uki"] = environment_uki or uki_item["default"].format(boot_root=values["boot_root"])
   values["image_directory"] = paths["image_directory"].format(**values)
   values["entries_directory"] = paths["entries_directory"].format(**values)
-  values["converter_files"] = [value.format(**values) for value in paths["converter_files"]]
-  return values
+  converter_files = [value.format(**values) for value in paths["converter_files"]]
+  return values, converter_files
 
 
-def configured_path(template: str, paths: dict[str, str], snapshot_id: str) -> Path:
+def configured_path(template: str, paths: RuntimePaths, snapshot_id: str) -> Path:
   return Path(template.format(**paths, snapshot_id=snapshot_id))
 
 
@@ -74,7 +241,7 @@ def run_quietly(command: list[str]) -> None:
   subprocess.run(command, check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 
-def stop_legacy_converter(settings: dict, paths: dict[str, str]) -> None:
+def stop_legacy_converter(settings: SnapperSettings, paths: RuntimePaths, converter_files: list[str]) -> None:
   boot = settings["boot"]
   run_quietly(boot["legacy_disable_command"])
   legacy_plugin = Path(paths["limine_snapper_plugin"])
@@ -86,14 +253,14 @@ def stop_legacy_converter(settings: dict, paths: dict[str, str]) -> None:
     if stat.S_ISREG(mode):
       legacy_plugin.chmod(stat.S_IMODE(mode) & ~0o111, follow_symlinks=False)
   run_quietly(boot["converter_disable_command"])
-  for value in paths["converter_files"]:
+  for value in converter_files:
     path = Path(value)
     if path.is_file() or path.is_symlink():
       path.unlink()
   subprocess.run(boot["reload_command"], check=True, stdout=subprocess.DEVNULL)
 
 
-def systemd_boot_is_active(settings: dict) -> bool:
+def systemd_boot_is_active(settings: SnapperSettings) -> bool:
   result = subprocess.run(
     settings["boot"]["status_command"], check=False, capture_output=True, text=True,
   )
@@ -114,7 +281,7 @@ def snapshot_date(info_file: Path, maximum_bytes: int) -> str:
     return ""
 
 
-def snapshot_cmdline(uki: Path, snapshot_id: str, settings: dict, directory: Path) -> Path:
+def snapshot_cmdline(uki: Path, snapshot_id: str, settings: SnapperSettings, directory: Path) -> Path:
   command = settings["boot"]["objcopy_command"]
   section = settings["boot"]["cmdline_section"]
   descriptor, name = tempfile.mkstemp(prefix=".arch-snapshot-cmdline.")
@@ -165,7 +332,7 @@ def write_entry(path: Path, content: str, mode: str) -> None:
     raise
 
 
-def create_snapshot(snapshot_id: str, settings: dict, paths: dict[str, str]) -> None:
+def create_snapshot(snapshot_id: str, settings: SnapperSettings, paths: RuntimePaths) -> None:
   snapshot = settings["snapshot"]
   boot = settings["boot"]
   snapshot_dir = configured_path(snapshot["directory"], paths, snapshot_id)
@@ -199,7 +366,7 @@ def create_snapshot(snapshot_id: str, settings: dict, paths: dict[str, str]) -> 
     configured_path(template, paths, snapshot_id).unlink(missing_ok=True)
 
 
-def delete_snapshot(snapshot_id: str, settings: dict, paths: dict[str, str]) -> None:
+def delete_snapshot(snapshot_id: str, settings: SnapperSettings, paths: RuntimePaths) -> None:
   snapshot = settings["snapshot"]
   boot = settings["boot"]
   targets = [
@@ -228,8 +395,8 @@ def main(arguments: list[str] | None = None) -> int:
   if action not in snapshot["actions"].values() or not systemd_boot_is_active(settings):
     return 0
 
-  paths = runtime_paths(settings)
-  stop_legacy_converter(settings, paths)
+  paths, converter_files = runtime_paths(settings)
+  stop_legacy_converter(settings, paths, converter_files)
   if action == snapshot["actions"]["create"]:
     create_snapshot(snapshot_id, settings, paths)
   elif action == snapshot["actions"]["delete"]:

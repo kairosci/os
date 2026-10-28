@@ -6,17 +6,28 @@ import os
 from pathlib import Path
 import subprocess
 import tempfile
+from typing import TypedDict, cast
 
 import yaml
 
 
-def load_config() -> dict:
+class SleepConfig(TypedDict):
+  directory_environment: str
+  directory_default: str
+  disabled_filename: str
+  disabled_content: str
+  hardware_check: list[str]
+  install_file: list[str]
+  statuses: dict[str, int]
+
+
+def load_config() -> SleepConfig:
   root = Path(os.environ["ARCH_PATH"])
   config = yaml.safe_load((root / "data/system/sleep.yml").read_text(encoding="utf-8"))
-  return config
+  return cast(SleepConfig, config)
 
 
-def config_path(config: dict) -> Path:
+def config_path(config: SleepConfig) -> Path:
   directory = os.environ.get(config["directory_environment"]) or config["directory_default"]
   return Path(directory) / config["disabled_filename"]
 

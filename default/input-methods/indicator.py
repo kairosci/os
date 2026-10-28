@@ -6,6 +6,7 @@ import os
 import re
 import subprocess
 import sys
+from typing import cast
 
 from pathlib import Path
 
@@ -36,7 +37,7 @@ def snapshot(bus):
 
 def layout_keyboard(keyboards):
   typed = [keyboard for keyboard in keyboards if not re.match(
-    "^(" + "|".join(map(re.escape, SETTINGS["excluded_keyboard_prefixes"])) + ")", keyboard.get("name", ""))]
+    "^(" + "|".join(map(re.escape, cast(list[str], SETTINGS["excluded_keyboard_prefixes"]))) + ")", keyboard.get("name", ""))]
   typed = [item for item in typed if len(item.get("layout", "").split(",")) > 1]
   if not typed:
     return None
@@ -167,7 +168,7 @@ def profile_path(owner=None):
   # path is relative to the working directory.
   environment, cwd = owner or (os.environ, os.getcwd())
   home = environment.get("HOME") or os.path.expanduser("~")
-  if environment.get("FCITX_CONFIG_HOME"):
+  if environment.get("FCITX_CONFIG_HOME") is not None:
     directory = os.path.join(cwd, environment["FCITX_CONFIG_HOME"])
   else:
     # A relative XDG_CONFIG_HOME is relative to the home directory.

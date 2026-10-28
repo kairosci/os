@@ -7,16 +7,73 @@ from pathlib import Path
 import shutil
 import subprocess
 import tempfile
+from typing import TypedDict, TypeGuard
 
 import yaml
 
 
-def translate(messages: dict, key: str) -> str:
+class DtbUkiConfig(TypedDict):
+  hardware_check: list[str]
+  install_packages: list[str]
+  dtb_root_environment: str
+  dtb_root_default: str
+  dtb_subdirectory: str
+  kernel_dtb_glob: str
+  dtb_directory_environment: str
+  uki_config_environment: str
+  uki_config_default: str
+  dtb_patterns: list[str]
+  excluded_suffix: str
+  managed_begin: str
+  managed_end: str
+  generated_comments: list[str]
+  uki_key: str
+  new_file_mode: str
+  rebuild_environment: str
+  messages: dict[str, dict[str, str]]
+  statuses: dict[str, int]
+
+
+def _is_string_list(value: object) -> TypeGuard[list[str]]:
+  return isinstance(value, list) and all(isinstance(item, str) for item in value)
+
+
+def _is_string_mapping(value: object) -> TypeGuard[dict[str, str]]:
+  return isinstance(value, dict) and all(
+    isinstance(key, str) and isinstance(item, str) for key, item in value.items()
+  )
+
+
+def _is_dtb_uki_config(value: object) -> TypeGuard[DtbUkiConfig]:
+  if not isinstance(value, dict):
+    return False
+  string_keys = (
+    "dtb_root_environment", "dtb_root_default", "dtb_subdirectory", "kernel_dtb_glob",
+    "dtb_directory_environment", "uki_config_environment", "uki_config_default", "excluded_suffix",
+    "managed_begin", "managed_end", "uki_key", "new_file_mode", "rebuild_environment",
+  )
+  messages = value.get("messages")
+  statuses = value.get("statuses")
+  return (
+    _is_string_list(value.get("hardware_check"))
+    and _is_string_list(value.get("install_packages"))
+    and all(isinstance(value.get(key), str) for key in string_keys)
+    and _is_string_list(value.get("dtb_patterns"))
+    and _is_string_list(value.get("generated_comments"))
+    and isinstance(messages, dict)
+    and all(isinstance(language, str) and _is_string_mapping(catalog) for language, catalog in messages.items())
+    and isinstance(messages.get("en"), dict)
+    and isinstance(statuses, dict)
+    and type(statuses.get("complete")) is int
+  )
+
+
+def translate(messages: dict[str, dict[str, str]], key: str) -> str:
   language = os.environ.get("LANG", "en").split(".", 1)[0].split("_", 1)[0].lower()
   return messages.get(language, messages["en"])[key]
 
 
-def device_trees(directory: Path, config: dict) -> list[Path]:
+def device_trees(directory: Path, config: DtbUkiConfig) -> list[Path]:
   trees = {
     path
     for pattern in config["dtb_patterns"]
@@ -26,7 +83,7 @@ def device_trees(directory: Path, config: dict) -> list[Path]:
   return sorted(trees)
 
 
-def managed_content(existing: str, trees: list[Path], config: dict) -> str:
+def managed_content(existing: str, trees: list[Path], config: DtbUkiConfig) -> str:
   begin = config["managed_begin"]
   end = config["managed_end"]
   remaining = []
@@ -53,9 +110,11 @@ def managed_content(existing: str, trees: list[Path], config: dict) -> str:
 
 def main() -> int:
   root = Path(os.environ["ARCH_PATH"])
-  config = yaml.safe_load(
+  config: object = yaml.safe_load(
     (root / "data/installer/hardware/qualcomm/dtb-uki.yml").read_text(encoding="utf-8"),
   )
+  if not _is_dtb_uki_config(config):
+    raise ValueError("invalid Qualcomm device tree configuration")
   statuses = config["statuses"]
   if subprocess.run(config["hardware_check"], check=False).returncode != int(statuses["complete"]):
     return int(statuses["complete"])
@@ -94,7 +153,7 @@ def main() -> int:
     else:
       os.replace(temporary, uki_config)
       rebuild_request = os.environ.get(config["rebuild_environment"])
-      if rebuild_request:
+      if rebuild_request is not None and rebuild_request != "":
         Path(rebuild_request).write_text("", encoding="utf-8")
   finally:
     temporary.unlink(missing_ok=True)

@@ -821,8 +821,9 @@ def cmd_collect(args):
     missing = sorted(set(expected) - {p.stem for p in patches})
     summary = f"Collected {len(patches)} language results. Missing runners: {', '.join(missing) or 'none'}.\n"
     print(summary, end="")
-    if os.environ.get("GITHUB_STEP_SUMMARY"):
-        with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as out:
+    summary_path = os.environ.get("GITHUB_STEP_SUMMARY")
+    if summary_path is not None and summary_path != "":
+        with open(summary_path, "a") as out:
             out.write(summary)
 
 

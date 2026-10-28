@@ -13,7 +13,7 @@ from gi.repository import GObject, Gio, Nautilus
 
 def load_supported_types():
     roots = []
-    if os.environ.get("ARCH_PATH"):
+    if os.environ.get("ARCH_PATH") is not None:
         roots.append(Path(os.environ["ARCH_PATH"]))
     roots.append(Path("/usr/share/arch"))
     roots.extend(Path(__file__).resolve().parents)
@@ -32,7 +32,7 @@ class TranscodeAction(GObject.GObject, Nautilus.MenuProvider):
     def _launch_transcode(self, paths):
         wrapper = shutil.which("arch-launch-terminal-with-presentation")
         binary = shutil.which("arch-transcode")
-        if not wrapper or not binary:
+        if wrapper is None or binary is None:
             return
 
         if len(paths) == 1:
