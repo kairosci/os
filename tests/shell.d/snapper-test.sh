@@ -67,6 +67,19 @@ grep -Fq 'Could not load or apply Snapper setup configuration' "$test_tmp/invali
 ! grep -Fq 'Traceback' "$test_tmp/invalid-error" || fail "snapshot configure does not leak a traceback"
 pass "snapshot configure handles malformed YAML at its command boundary"
 
+mkdir -p "$test_tmp/invalid/data/installer"
+printf '%s\n' 'systemd_boot_snapshots: [' >"$test_tmp/invalid/data/installer/config-setup.yml"
+set +e
+ARCH_PATH="$test_tmp/invalid" python3 -I "$ROOT/src/arch/python/installer/system_setup/systemd_boot_snapshots.py" \
+  >"$test_tmp/snapshots-invalid-output" 2>"$test_tmp/snapshots-invalid-error"
+snapshots_config_status=$?
+set -e
+(( snapshots_config_status == 78 )) || fail "systemd-boot snapshots reports malformed configuration at its command boundary"
+grep -Fq 'Could not load systemd-boot snapshot settings' "$test_tmp/snapshots-invalid-error" ||
+  fail "systemd-boot snapshots explains malformed configuration"
+! grep -Fq 'Traceback' "$test_tmp/snapshots-invalid-error" || fail "systemd-boot snapshots does not leak a traceback"
+pass "systemd-boot snapshots handles malformed YAML at its command boundary"
+
 setup_system="$ROOT/src/arch/commands/arch-apply-system"
 grep -F 'system_setup/all.py' "$setup_system" >/dev/null ||
   fail "system setup runs the config phase"
