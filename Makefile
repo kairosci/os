@@ -48,10 +48,10 @@ security-scan:
 test: test-cli test-shell
 
 test-cli:
-	./tests/cli
+	ARCH_PATH="$(CURDIR)" ./tests/cli
 
 test-shell:
-	./tests/shell
+	ARCH_PATH="$(CURDIR)" ./tests/shell
 
 iso:
 	@if [[ -z "$(ISO_PROFILE)" ]]; then \
