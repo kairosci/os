@@ -3,7 +3,7 @@
 How the Arch OS source tree is organized and where its package files end up
 on an installed system.
 
-CLI functionality is implemented in the `src/cli/` Python package. The command router and commands not yet migrated remain under `src/commands/`; Python entrypoints are generated from `data/cli/python-entrypoints.yml` during package construction. Keep new behavior in Python modules and do not add executable files to `src/cli/`.
+CLI functionality is implemented in the `src/arch/cli/` Python package. The command router and commands not yet migrated remain under `src/arch/commands/`; Python entrypoints are generated from `data/cli/python-entrypoints.yml` during package construction. Keep new behavior in Python modules and do not add executable files to `src/arch/cli/`.
 
 ## Mental model
 
@@ -50,14 +50,14 @@ Deferred-provisioning installs (`arch-apply-system --defer-provisioning`)
 create no user at all: the ISO leaves `/var/lib/arch/provisioning/pending`
 behind, which arms `arch-provision-owner.service` (shipped from
 `installer/provisioning/`, alongside the factory-reset finish unit and
-`setup-form.sh`). On first boot `src/commands/arch-provision-owner` creates the
+`setup-form.sh`). On first boot `src/arch/commands/arch-provision-owner` creates the
 user on tty1 and runs the finalize step itself.
 
 On an encrypted install `arch-provision-owner` then re-keys LUKS from the staged install key to the owner's password through `installer/provisioning/luks-rekey.sh`, which journals each step (phase and slot numbers, never keys) in `/var/lib/arch/provisioning/luks-rekey.state` so an interrupted first boot resumes. Setup finishes only once the staged key opens nothing, and removes the journal with `pending`, so a retry after the staged key is retired must use the password the disk holds. On a platform whose boot package owns the boot chain, the check before the owner form, the boot-time unlock and the record of the kept key slot go through `arch-lifecycle-dispatch`. See [lifecycle-dispatch.md](lifecycle-dispatch.md).
 
 `arch-drive-password` reuses those journal helpers when the owner changes the password of the disk holding `/`: it changes the LUKS key and confirms the new key opens the disk and the old one no longer does. The login and root passwords are left alone. `~/.local/state/arch/drive-password.state` records the disk's UUID, the key slots and the phase (never a password) until the change is confirmed and its slot recorded, and the next run finishes an interrupted change with whichever of the old or new password the disk opens with.
 
-Prebuilt images are set up away from the machine they will run on, so their hardware setup waits for that machine. The builder writes a root-owned manifest, `/var/lib/arch/image/target` (`format=1`, `platform=<arch-hw-platform value>`), before `arch-apply-system`. While it exists, `arch-apply-hardware` runs no hardware leaf: it queues each one in `/var/lib/arch/image/deferred-steps` and arms `arch-provision-hardware.service` (shipped from `installer/provisioning/`). On the machine's first boot, before owner setup and the login screen, `src/commands/arch-provision-hardware` renames the manifest to `target.booted` and runs the queue in order, dropping each step that succeeds. Before the first step it makes the machine's own pacman keyring when the build asked for one (`/var/lib/arch/image/pacman-keyring`, which install finalization writes on aarch64 platforms other than Apple Silicon instead of running `pacman-key --init`, so no two machines share a master key). A failed step stays queued for the next boot. It refreshes no package databases: the image carries its sync databases and every package its queued steps install, so the queue runs offline (the image build checks that it carries them; a step whose package is missing stays queued). Once the queue is empty it rebuilds the initramfs if a step changed its inputs (the mkinitcpio configuration, module options in `/etc/modprobe.d/` and `/usr/lib/modprobe.d/`, or the kernel command line in `/etc/default/limine` and `/etc/limine-entry-tool.d/`) or asked for the rebuild (`/var/lib/arch/image/boot-rebuild`), and disables the service; the unit file stays, so a start job already queued is skipped on the emptied queue rather than failed. A platform's own first boot may run `arch-provision-hardware` itself: runs are serialised, and it exits 75 when a step or the keyring failed and stays queued, and 1 when it refused to run (an untrusted manifest or queue) or the final rebuild failed, which the next run retries. Steps know they run on an image's first boot from `ARCH_IMAGE_DEFERRED_HARDWARE=1` (Bluetooth starts its service there, since boot already brought up its target). `installer/helpers/image-target.sh` holds the contract. Root always uses these fixed paths; no environment variable turns a live system into an image build.
+Prebuilt images are set up away from the machine they will run on, so their hardware setup waits for that machine. The builder writes a root-owned manifest, `/var/lib/arch/image/target` (`format=1`, `platform=<arch-hw-platform value>`), before `arch-apply-system`. While it exists, `arch-apply-hardware` runs no hardware leaf: it queues each one in `/var/lib/arch/image/deferred-steps` and arms `arch-provision-hardware.service` (shipped from `installer/provisioning/`). On the machine's first boot, before owner setup and the login screen, `src/arch/commands/arch-provision-hardware` renames the manifest to `target.booted` and runs the queue in order, dropping each step that succeeds. Before the first step it makes the machine's own pacman keyring when the build asked for one (`/var/lib/arch/image/pacman-keyring`, which install finalization writes on aarch64 platforms other than Apple Silicon instead of running `pacman-key --init`, so no two machines share a master key). A failed step stays queued for the next boot. It refreshes no package databases: the image carries its sync databases and every package its queued steps install, so the queue runs offline (the image build checks that it carries them; a step whose package is missing stays queued). Once the queue is empty it rebuilds the initramfs if a step changed its inputs (the mkinitcpio configuration, module options in `/etc/modprobe.d/` and `/usr/lib/modprobe.d/`, or the kernel command line in `/etc/default/limine` and `/etc/limine-entry-tool.d/`) or asked for the rebuild (`/var/lib/arch/image/boot-rebuild`), and disables the service; the unit file stays, so a start job already queued is skipped on the emptied queue rather than failed. A platform's own first boot may run `arch-provision-hardware` itself: runs are serialised, and it exits 75 when a step or the keyring failed and stays queued, and 1 when it refused to run (an untrusted manifest or queue) or the final rebuild failed, which the next run retries. Steps know they run on an image's first boot from `ARCH_IMAGE_DEFERRED_HARDWARE=1` (Bluetooth starts its service there, since boot already brought up its target). `installer/helpers/image-target.sh` holds the contract. Root always uses these fixed paths; no environment variable turns a live system into an image build.
 
 Current generated theme state lives under
 `~/.local/state/arch/current/`. Keep `~/.config/arch/` for files a user
@@ -70,18 +70,18 @@ shell layout, plugins, and themed template overrides.
 arch/                            built into          installed at
 ─────────────────────────           ──────────────      ────────────────────────────────────
 
-src/commands/arch-*              ──►  arch             /usr/bin/arch-*
-                                                        (and symlinks in /usr/share/arch/src/commands/)
-src/commands/arch-debug,
-src/commands/arch-debug-idle,
-src/commands/arch-upload-log     ──►  arch-settings    /usr/bin/  (needed before arch is installed)
+src/arch/commands/arch-*              ──►  arch             /usr/bin/arch-*
+                                                        (and symlinks in /usr/share/arch/src/arch/commands/)
+src/arch/commands/arch-debug,
+src/arch/commands/arch-debug-idle,
+src/arch/commands/arch-upload-log     ──►  arch-settings    /usr/bin/  (needed before arch is installed)
 
 default/libalpm/hooks/*.hook
                                 ──►  arch             /usr/share/libalpm/hooks/*.hook
 
 installer/**                     ──►  arch             /usr/share/arch/installer/
 assets/themes/**                      ──►  arch             /usr/share/arch/assets/themes/
-src/shell/**                       ──►  arch             /usr/share/arch/src/shell/
+src/arch/shell/**                       ──►  arch             /usr/share/arch/src/arch/shell/
 assets/branding/**                 ──►  arch             /usr/share/arch/assets/branding/
 assets/branding/{logo.txt,icon.txt} ──►  arch-settings    /etc/skel/.config/arch/branding/
 assets/branding/arch-symbol.png    ──►  arch-settings    /usr/share/icons/hicolor/256x256/apps/arch.png
@@ -120,7 +120,7 @@ default/snapper/root           ──►  arch-settings    /etc/snapper/config-t
 
 default/**                     ──►  arch-settings    /usr/share/arch/default/
   ├─ bash/env-bootstrap                                 /usr/share/arch/default/bash/env-bootstrap
-  │                                                       (sourced by every src/shell/session entry point; see "Env bootstrap")
+  │                                                       (sourced by every src/arch/shell/session entry point; see "Env bootstrap")
   ├─ bashrc                                             /usr/share/arch/etc-overrides/dot.bashrc
   │                                                       → /etc/skel/.bashrc (post_install cp -f)
   ├─ hypr/toggles/*.lua (flags,
@@ -196,9 +196,9 @@ The audio panel lists every output, input and playback stream PipeWire has, and 
 }
 ```
 
-A pattern is a JavaScript regular expression matched against a whole `node.name`. A `hidden` node is never listed as an output, an input or an app stream, unless it is the current default output or input (so the panel always shows what's in use), and never lights the microphone widget; a `replaced` node is left out only while a node matching `by` exists (a mono processed microphone behind a stereo copy of it, say). Missing or malformed JSON means no hints, and an invalid pattern or entry is skipped. The shell reads the file at that fixed path, which no environment variable moves (`src/shell/Commons/AudioNodes.qml`), and `tests/shell.d/audio-test.sh` covers the parsing.
+A pattern is a JavaScript regular expression matched against a whole `node.name`. A `hidden` node is never listed as an output, an input or an app stream, unless it is the current default output or input (so the panel always shows what's in use), and never lights the microphone widget; a `replaced` node is left out only while a node matching `by` exists (a mono processed microphone behind a stereo copy of it, say). Missing or malformed JSON means no hints, and an invalid pattern or entry is skipped. The shell reads the file at that fixed path, which no environment variable moves (`src/arch/shell/Commons/AudioNodes.qml`), and `tests/shell.d/audio-test.sh` covers the parsing.
 
-A virtual source (an `Audio/Source/Virtual`, such as EasyEffects' or a platform's microphone mapping) needs no hint: Quickshell leaves it untyped, so the panel and widget set its volume and mute through `wpctl` (`src/shell/Commons/UntypedInput.qml`, one `pactl subscribe` for the whole shell), shows no level meter for it (Quickshell's peak monitor takes typed nodes only), and the panel lists it because PulseAudio does (`arch-audio-sink-availability sources`).
+A virtual source (an `Audio/Source/Virtual`, such as EasyEffects' or a platform's microphone mapping) needs no hint: Quickshell leaves it untyped, so the panel and widget set its volume and mute through `wpctl` (`src/arch/shell/Commons/UntypedInput.qml`, one `pactl subscribe` for the whole shell), shows no level meter for it (Quickshell's peak monitor takes typed nodes only), and the panel lists it because PulseAudio does (`arch-audio-sink-availability sources`).
 
 ### Why `etc-overrides/` exists
 
@@ -229,7 +229,7 @@ Single source of truth for `ARCH_PATH` and dev-link-aware `PATH`. It:
   package path by `arch-dev-unlink`) if present; otherwise forces
   `ARCH_PATH=/usr/share/arch` so a stale inherited value can't survive
   an `arch-dev-unlink`.
-- Prepends `$ARCH_PATH/src/commands` to `PATH` **only when** `ARCH_PATH` is
+- Prepends `$ARCH_PATH/src/arch/commands` to `PATH` **only when** `ARCH_PATH` is
   not `/usr/share/arch`. On a production install the binaries are
   already on `PATH` as `/usr/bin/arch-*` via the `arch` package.
 - Appends `~/.local/share/mise/shims` and `~/.local/bin` so login shells and the uwsm session find mise-managed tools without overriding system commands.
@@ -272,7 +272,7 @@ It only does the things `/etc/skel` can't:
   from `/etc/vconsole.conf`; no per-user Hyprland config rewrite is needed.
 - `xdg-settings set default-web-browser chromium.desktop`.
 - `arch-refresh-applications` (composes generated `.desktop` launchers).
-- Runs `src/python/installer_user/all.py`; its ordered setup steps are declared
+- Runs `src/arch/python/installer_user/all.py`; its ordered setup steps are declared
   in `data/installer/user-setup.yml`.
 
 Idempotency marker: `~/.local/state/arch/done/finalize-user`, managed
@@ -290,7 +290,7 @@ System defaults are owned by pacman packages. Existing home configuration stays 
 
 ## First-run (`arch-provision-first-run`)
 
-Runs once on first interactive login, after the user manager is live. The Python entry point in `src/commands/arch-provision-first-run` delegates to `src/python/installer_user/first_run/orchestrator.py`; step commands, ordering, log messages, and localized English/Italian strings live in `data/installer/first-run.yml`. It first runs `arch-provision-user` so finalization catches up if it never ran, then handles the setup that needs a running graphical session and/or user systemd instance.
+Runs once on first interactive login, after the user manager is live. The Python entry point in `src/arch/commands/arch-provision-first-run` delegates to `src/arch/python/installer_user/first_run/orchestrator.py`; step commands, ordering, log messages, and localized English/Italian strings live in `data/installer/first-run.yml`. It first runs `arch-provision-user` so finalization catches up if it never ran, then handles the setup that needs a running graphical session and/or user systemd instance.
 
 The configured steps install the fingerprint invitation Python hook, enable user systemd units individually, run `arch-lifecycle-dispatch setup-user`, apply GNOME/GTK/audio settings, show the welcome notification, and start the detached Wi-Fi/update notification worker. `arch-notification-wait` runs before the welcome and network notifications so they land on a live notification server. The unit list and commands are in the YAML file; unit `ConditionPath*` guards keep services inert when they do not apply.
 
@@ -311,13 +311,13 @@ the legacy finalization marker from `~/.local/state/arch/` into `done/`.
 `arch-apply-system` (root, in chroot) runs target-side setup at ISO
 finalization. It dispatches:
 
-- `src/python/installer/system_setup/all.py` — runs the root-side configuration
+- `src/arch/python/installer/system_setup/all.py` — runs the root-side configuration
   steps declared in `data/installer/system-setup.yml`.
 - `installer/hardware/all.sh` via `arch-apply-hardware` — vendor- and
   device-specific kernel modules, udev rules, microcode, wireless regdom,
   ASUS / Framework / Intel / Apple / Lenovo quirks.
 - `installer/login/all.sh` — SDDM theme/session config.
-- `src/python/installer/post_install/all.py` — runs the final pacman, udev,
+- `src/arch/python/installer/post_install/all.py` — runs the final pacman, udev,
   and local database setup steps declared in `data/installer/post-install.yml`.
 
 Logging goes to `/var/log/arch-install.log` via
@@ -371,11 +371,11 @@ return to the packaged default.
 | `/etc/` file owned by an upstream package | `etc/` (see `etc/security/faillock.conf`), then add to `etc-overrides` in `arch-settings` PKGBUILD + scriptlet |
 | Package-owned system file (e.g. systemd user service in `/usr/lib`) | `default/`, then add the `install -Dm644` line in `arch-settings` PKGBUILD |
 | Per-user file that's static but lives outside `~/.config` | `default/`, then add `install -Dm644 ... $pkgdir/etc/skel/...` in `arch-settings` PKGBUILD |
-| Runtime tweak that needs `$HOME` or live system state | add a per-user Python leaf under `src/python/installer_user/setup/` and declare its order in `data/installer/user-setup.yml` |
-| One-time root-side setup step | add a Python leaf under `src/python/installer/system_setup/` and declare it in `data/installer/system-setup.yml` |
+| Runtime tweak that needs `$HOME` or live system state | add a per-user Python leaf under `src/arch/python/installer_user/setup/` and declare its order in `data/installer/user-setup.yml` |
+| One-time root-side setup step | add a Python leaf under `src/arch/python/installer/system_setup/` and declare it in `data/installer/system-setup.yml` |
 | Update a package-owned system default | Change the packaged source and install rule; pacman applies it on upgrade |
-| Package-owned path something else may already write | Prefer a path nothing else writes, such as a vendor drop-in under `/usr/lib`. Otherwise the `--overwrite` entry in `src/commands/arch-update-system-pkgs` has to ship a release before the file |
-| User-facing `arch-*` command | `src/commands/arch-<group>-<verb>` — see `GROUP_DESCRIPTIONS` in `src/commands/archctl` |
+| Package-owned path something else may already write | Prefer a path nothing else writes, such as a vendor drop-in under `/usr/lib`. Otherwise the `--overwrite` entry in `src/arch/commands/arch-update-system-pkgs` has to ship a release before the file |
+| User-facing `arch-*` command | `src/arch/commands/arch-<group>-<verb>` — see `GROUP_DESCRIPTIONS` in `src/arch/commands/archctl` |
 | New stock theme | `themes/<name>/` (+ matching templates under `default/themed/` if they need theme colors) |
 | User-installed theme | `~/.config/arch/themes/<name>/` |
 | Generated current theme/background state | `~/.local/state/arch/current/` |

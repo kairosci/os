@@ -18,5 +18,5 @@ return {
   home = home,
   config_home = env_or("XDG_CONFIG_HOME", home .. "/.config"),
   state_home = env_or("XDG_STATE_HOME", home .. "/.local/state"),
-  arch_path = rawget(_G, "ARCH_PATH") or env_or("ARCH_PATH", "/usr/share/arch"),
+  ap = rawget(_G, "ARCH_PATH") or env_or("ARCH_PATH", "/usr/share/arch"),
 }

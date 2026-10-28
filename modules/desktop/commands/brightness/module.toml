@@ -2,30 +2,30 @@ id = "desktop.commands.brightness"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-brightness-display",
-  "src/commands/arch-brightness-display-apple",
-  "src/commands/arch-brightness-display-ddc",
-  "src/commands/arch-brightness-keyboard",
-  "src/commands/arch-brightness-keyboard-mute",
+  "src/arch/commands/arch-brightness-display",
+  "src/arch/commands/arch-brightness-display-apple",
+  "src/arch/commands/arch-brightness-display-ddc",
+  "src/arch/commands/arch-brightness-keyboard",
+  "src/arch/commands/arch-brightness-keyboard-mute",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-brightness-display"
-target = "usr/share/arch/src/commands/arch-brightness-display"
+source = "src/arch/commands/arch-brightness-display"
+target = "usr/share/arch/src/arch/commands/arch-brightness-display"
 
 [[output]]
-source = "src/commands/arch-brightness-display-apple"
-target = "usr/share/arch/src/commands/arch-brightness-display-apple"
+source = "src/arch/commands/arch-brightness-display-apple"
+target = "usr/share/arch/src/arch/commands/arch-brightness-display-apple"
 
 [[output]]
-source = "src/commands/arch-brightness-display-ddc"
-target = "usr/share/arch/src/commands/arch-brightness-display-ddc"
+source = "src/arch/commands/arch-brightness-display-ddc"
+target = "usr/share/arch/src/arch/commands/arch-brightness-display-ddc"
 
 [[output]]
-source = "src/commands/arch-brightness-keyboard"
-target = "usr/share/arch/src/commands/arch-brightness-keyboard"
+source = "src/arch/commands/arch-brightness-keyboard"
+target = "usr/share/arch/src/arch/commands/arch-brightness-keyboard"
 
 [[output]]
-source = "src/commands/arch-brightness-keyboard-mute"
-target = "usr/share/arch/src/commands/arch-brightness-keyboard-mute"
+source = "src/arch/commands/arch-brightness-keyboard-mute"
+target = "usr/share/arch/src/arch/commands/arch-brightness-keyboard-mute"

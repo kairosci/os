@@ -7,7 +7,7 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 run_node_test <<'JS'
 const fs = require('fs')
 const { execFileSync } = require('child_process')
-const g = requireFromRoot('src/shell/plugins/panels/elsewhen/Greetings.js')
+const g = requireFromRoot('src/arch/shell/plugins/panels/elsewhen/Greetings.js')
 
 const at = (zone, hour) => g.greeting(zone, hour).text
 const language = (zone, hour) => g.greeting(zone, hour === undefined ? 9 : hour).language
@@ -26,7 +26,7 @@ assertDeepEqual(places.filter(z => g.countryFor(z) === ''), [], 'elsewhen puts e
 assertDeepEqual(places.filter(z => !countries.has(g.countryFor(z))), [], 'elsewhen greets every place by its country, never by accident')
 assert(at('Etc/GMT+5', 9) === 'Good morning' && g.countryFor('Etc/GMT+5') === '', 'elsewhen still greets offset-only zones')
 
-const cities = JSON.parse(fs.readFileSync(path.join(root, 'src/shell/plugins/panels/elsewhen/cities.json'), 'utf8'))
+const cities = JSON.parse(fs.readFileSync(path.join(root, 'src/arch/shell/plugins/panels/elsewhen/cities.json'), 'utf8'))
 assertDeepEqual([...new Set(cities.map(c => c[1]))].filter(z => !zoneIds.has(z)), [], 'elsewhen maps every catalogue city')
 
 // ---- languages, overrides and aliases

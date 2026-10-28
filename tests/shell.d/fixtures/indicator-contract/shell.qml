@@ -90,7 +90,7 @@ ShellRoot {
   }
 
   function createIndicator(name) {
-    var component = Qt.createComponent("file://" + rootPath + "/src/shell/plugins/bar/indicators/" + name + ".qml")
+    var component = Qt.createComponent("file://" + rootPath + "/src/arch/shell/plugins/bar/indicators/" + name + ".qml")
     if (component.status !== Component.Ready) {
       fail(name + " failed to load: " + component.errorString())
       return null
@@ -138,7 +138,7 @@ ShellRoot {
   function checkIndicatorTray() {
     idleService.setIdleEnabled(true)
 
-    var component = Qt.createComponent("file://" + rootPath + "/src/shell/plugins/bar/widgets/Indicators.qml")
+    var component = Qt.createComponent("file://" + rootPath + "/src/arch/shell/plugins/bar/widgets/Indicators.qml")
     if (component.status !== Component.Ready) {
       fail("Indicators failed to load: " + component.errorString())
       writeResult()
@@ -224,7 +224,7 @@ ShellRoot {
     mockBar.centerSectionRevealHeld = true
     mockBar.vertical = vertical
 
-    var component = Qt.createComponent("file://" + rootPath + "/src/shell/plugins/bar/widgets/Indicators.qml")
+    var component = Qt.createComponent("file://" + rootPath + "/src/arch/shell/plugins/bar/widgets/Indicators.qml")
     var tray = component.createObject(root)
     if (!tray) {
       fail(label + ": Indicators failed to instantiate: " + component.errorString())
@@ -289,7 +289,7 @@ ShellRoot {
     mockBar.centerSectionRevealHeld = false
     mockBar.vertical = vertical
 
-    var component = Qt.createComponent("file://" + rootPath + "/src/shell/plugins/bar/widgets/Indicators.qml")
+    var component = Qt.createComponent("file://" + rootPath + "/src/arch/shell/plugins/bar/widgets/Indicators.qml")
     var tray = component.createObject(root)
     if (!tray) {
       fail(label + ": Indicators failed to instantiate: " + component.errorString())

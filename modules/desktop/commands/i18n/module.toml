@@ -2,10 +2,10 @@ id = "desktop.commands.i18n"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-i18n",
+  "src/arch/commands/arch-i18n",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-i18n"
-target = "usr/share/arch/src/commands/arch-i18n"
+source = "src/arch/commands/arch-i18n"
+target = "usr/share/arch/src/arch/commands/arch-i18n"

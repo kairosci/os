@@ -71,13 +71,13 @@ update_env() {
     "OWNED_PATHS=" \
     "ARCH_UPDATE_UNATTENDED=${ARCH_UPDATE_UNATTENDED:-}" \
     "ARCH_UPDATE_INTERACTIVE=${ARCH_UPDATE_INTERACTIVE:-}" \
-    "PATH=$stub_bin:$ROOT/src/commands:$PATH"
+    "PATH=$stub_bin:$ROOT/src/arch/commands:$PATH"
 }
 
 # No terminal on any stream, the way a cron or ssh caller arrives.
 run_headless() {
   mapfile -t environment < <(update_env)
-  env "${environment[@]}" bash "$ROOT/src/commands/arch-update-system-pkgs" \
+  env "${environment[@]}" bash "$ROOT/src/arch/commands/arch-update-system-pkgs" \
     </dev/null >"$test_tmp/out" 2>"$test_tmp/err"
 }
 
@@ -88,7 +88,7 @@ run_headless() {
 run_on_terminal() {
   mapfile -t environment < <(update_env)
   env "${environment[@]}" \
-    script -qec "bash '$ROOT/src/commands/arch-update-system-pkgs' ${1:-}" "$test_tmp/out" >/dev/null 2>&1
+    script -qec "bash '$ROOT/src/arch/commands/arch-update-system-pkgs' ${1:-}" "$test_tmp/out" >/dev/null 2>&1
 }
 
 call_line() {

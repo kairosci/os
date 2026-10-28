@@ -1,9 +1,9 @@
 id = "desktop.commands"
 domain = "desktop"
 package = "arch"
-sources = ["src/commands/archctl"]
+sources = ["src/arch/commands/archctl"]
 requires = ["system.settings"]
 
 [[output]]
-source = "src/commands/archctl"
-target = "usr/share/arch/src/commands/archctl"
+source = "src/arch/commands/archctl"
+target = "usr/share/arch/src/arch/commands/archctl"

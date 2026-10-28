@@ -5,7 +5,7 @@ run_node_test <<'JS'
 const fs = require('fs')
 const vm = require('vm')
 
-const source = fs.readFileSync(path.join(root, 'src/shell/Commons/BorderGeometry.js'), 'utf8').replace(/^\.pragma library\n/, '')
+const source = fs.readFileSync(path.join(root, 'src/arch/shell/Commons/BorderGeometry.js'), 'utf8').replace(/^\.pragma library\n/, '')
 const geometry = {}
 vm.createContext(geometry)
 vm.runInContext(source, geometry)
@@ -284,7 +284,7 @@ const endpoints = geometry.gradientEndpoints(100, 50, 0)
 assertEqual(Math.round(endpoints.x1), 0, 'border geometry 0deg starts at left edge')
 assertEqual(Math.round(endpoints.x2), 100, 'border geometry 0deg ends at right edge')
 
-const overlayQml = fs.readFileSync(path.join(root, 'src/shell/Ui/BorderOverlay.qml'), 'utf8')
+const overlayQml = fs.readFileSync(path.join(root, 'src/arch/shell/Ui/BorderOverlay.qml'), 'utf8')
 assert(overlayQml.includes('ShapePath.WindingFill'), 'border overlay uses winding fill for side-run and compound paths')
 assert(!overlayQml.includes('ShapePath.OddEvenFill'), 'border overlay no longer uses touching odd-even geometry')
 JS

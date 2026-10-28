@@ -12,7 +12,7 @@ import yaml
 from base_test import ROOT, fail_check, pass_check, test_environment
 
 os.environ.update(test_environment())
-sys.path.insert(0, str(ROOT / "src/python"))
+sys.path.insert(0, str(ROOT / "src/arch/python"))
 
 from installer.hardware import n1x
 
@@ -60,8 +60,8 @@ def check(condition: bool, description: str) -> None:
     fail_check(description)
 
 
-n1x_step = "src/python/installer/hardware/n1x.py"
-nvidia_step = "src/python/installer/hardware/nvidia.py"
+n1x_step = "src/arch/python/installer/hardware/n1x.py"
+nvidia_step = "src/arch/python/installer/hardware/nvidia.py"
 check(n1x_step in setup_steps and setup_steps.index(n1x_step) < setup_steps.index(nvidia_step),
       "N1x setup stays before the generic NVIDIA module")
 

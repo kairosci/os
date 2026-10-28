@@ -6,7 +6,7 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 run_node_test <<'JS'
 const fs = require('fs')
-const picker = requireFromRoot('src/shell/plugins/image-picker/ImagePickerModel.js')
+const picker = requireFromRoot('src/arch/shell/plugins/image-picker/ImagePickerModel.js')
 
 assertEqual(picker.nameForPath('/themes/nord-river.png'), 'nord-river', 'image picker strips directory and extension')
 assertEqual(picker.labelForPath('/themes/nord_river.png'), 'Nord River', 'image picker builds display labels')
@@ -81,7 +81,7 @@ for (const radius of [1, 8, 16]) {
   assertEqual(picker.visibleWindow(allIndices, 100, radius).length, radius * 2 + 1, `carousel scales its window to radius ${radius}`)
 }
 
-const imagePickerQml = fs.readFileSync(path.join(root, 'src/shell/plugins/image-picker/ImagePicker.qml'), 'utf8')
+const imagePickerQml = fs.readFileSync(path.join(root, 'src/arch/shell/plugins/image-picker/ImagePicker.qml'), 'utf8')
 // Exercise the actual QML refresh handler: model-only filtering tests cannot
 // catch a row refresh selecting an image outside the active filter.
 const refreshHandler = imagePickerQml.match(/function loadRows\(rows, reveal\) \{[\s\S]*?\n  \}/)[0]
@@ -198,7 +198,7 @@ assert(
   !imagePickerQml.includes('color: root.scrim') && !/property color scrim:/.test(imagePickerQml),
   'image picker shows no fullscreen scrim wash behind the carousel'
 )
-const colorQml = fs.readFileSync(path.join(root, 'src/shell/Commons/Color.qml'), 'utf8')
+const colorQml = fs.readFileSync(path.join(root, 'src/arch/shell/Commons/Color.qml'), 'utf8')
 const shellTpl = fs.readFileSync(path.join(root, 'default/themed/shell.toml.tpl'), 'utf8')
 const pickerSection = shellTpl.slice(shellTpl.indexOf('[image-picker]'), shellTpl.indexOf('\n[', shellTpl.indexOf('[image-picker]') + 1))
 assert(

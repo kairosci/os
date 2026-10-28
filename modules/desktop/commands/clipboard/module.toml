@@ -2,20 +2,20 @@ id = "desktop.commands.clipboard"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-clipboard-open",
-  "src/commands/arch-clipboard-paste-file",
-  "src/commands/arch-clipboard-paste-text",
+  "src/arch/commands/arch-clipboard-open",
+  "src/arch/commands/arch-clipboard-paste-file",
+  "src/arch/commands/arch-clipboard-paste-text",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-clipboard-open"
-target = "usr/share/arch/src/commands/arch-clipboard-open"
+source = "src/arch/commands/arch-clipboard-open"
+target = "usr/share/arch/src/arch/commands/arch-clipboard-open"
 
 [[output]]
-source = "src/commands/arch-clipboard-paste-file"
-target = "usr/share/arch/src/commands/arch-clipboard-paste-file"
+source = "src/arch/commands/arch-clipboard-paste-file"
+target = "usr/share/arch/src/arch/commands/arch-clipboard-paste-file"
 
 [[output]]
-source = "src/commands/arch-clipboard-paste-text"
-target = "usr/share/arch/src/commands/arch-clipboard-paste-text"
+source = "src/arch/commands/arch-clipboard-paste-text"
+target = "usr/share/arch/src/arch/commands/arch-clipboard-paste-text"

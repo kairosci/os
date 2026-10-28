@@ -1,6 +1,6 @@
 import QtQuick
 import QtTest
-import "../../../../src/shell/Ui"
+import "../../../../src/arch/shell/Ui"
 
 // A SizedImage holds a bitmap no bigger than it is drawn, nor than its file,
 // and places it the way PreserveAspectFit would.
@@ -180,7 +180,7 @@ Item {
 
     // A failed load is not taken for a thin strip, and does not keep retrying.
     function test_a_missing_file_is_tried_a_few_times_then_left() {
-      var missing = Qt.createQmlObject('import "../../../../src/shell/Ui"; SizedImage { width: 40; height: 40; url: "file:///nonexistent/arch-sized-image.png" }', root)
+      var missing = Qt.createQmlObject('import "../../../../src/arch/shell/Ui"; SizedImage { width: 40; height: 40; url: "file:///nonexistent/arch-sized-image.png" }', root)
       var spy = Qt.createQmlObject('import QtTest; SignalSpy { signalName: "statusChanged" }', root)
       spy.target = missing
       tryCompare(missing, "status", Image.Error)
@@ -204,7 +204,7 @@ Item {
     }
 
     function test_clipboard_svg_captures_count_as_svgs() {
-      var probe = Qt.createQmlObject('import "../../../../src/shell/Ui"; SizedImage {}', root)
+      var probe = Qt.createQmlObject('import "../../../../src/arch/shell/Ui"; SizedImage {}', root)
       probe.url = "file:///state/clipboard-images/abc.svg+xml"
       verify(probe.scalable, "a capture named after image/svg+xml")
       probe.url = "file:///state/clipboard-images/abc.svg%2Bxml"

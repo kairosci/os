@@ -2,125 +2,125 @@ id = "desktop.commands.update"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-update",
-  "src/commands/arch-update-analyze-logs",
-  "src/commands/arch-update-aur-pkgs",
-  "src/commands/arch-update-available",
-  "src/cli/update/available.py",
-  "src/commands/arch-update-boot",
-  "src/commands/arch-update-confirm",
-  "src/cli/update/confirm.py",
-  "src/commands/arch-update-dev",
-  "src/commands/arch-update-firmware",
-  "src/commands/arch-update-keyring",
-  "src/commands/arch-update-lock",
-  "src/commands/arch-update-mise",
-  "src/commands/arch-update-orphan-pkgs",
-  "src/commands/arch-update-pacman",
-  "src/commands/arch-update-pacman-guard",
-  "src/commands/arch-update-pkg-prune",
-  "src/commands/arch-update-requires-free-space",
-  "src/commands/arch-update-restart",
-  "src/commands/arch-update-status",
-  "src/commands/arch-update-stay-awake",
-  "src/commands/arch-update-system-pkgs",
-  "src/commands/arch-update-system-pkgs-when-conflicted",
-  "src/commands/arch-update-time",
+  "src/arch/commands/arch-update",
+  "src/arch/commands/arch-update-analyze-logs",
+  "src/arch/commands/arch-update-aur-pkgs",
+  "src/arch/commands/arch-update-available",
+  "src/arch/cli/update/available.py",
+  "src/arch/commands/arch-update-boot",
+  "src/arch/commands/arch-update-confirm",
+  "src/arch/cli/update/confirm.py",
+  "src/arch/commands/arch-update-dev",
+  "src/arch/commands/arch-update-firmware",
+  "src/arch/commands/arch-update-keyring",
+  "src/arch/commands/arch-update-lock",
+  "src/arch/commands/arch-update-mise",
+  "src/arch/commands/arch-update-orphan-pkgs",
+  "src/arch/commands/arch-update-pacman",
+  "src/arch/commands/arch-update-pacman-guard",
+  "src/arch/commands/arch-update-pkg-prune",
+  "src/arch/commands/arch-update-requires-free-space",
+  "src/arch/commands/arch-update-restart",
+  "src/arch/commands/arch-update-status",
+  "src/arch/commands/arch-update-stay-awake",
+  "src/arch/commands/arch-update-system-pkgs",
+  "src/arch/commands/arch-update-system-pkgs-when-conflicted",
+  "src/arch/commands/arch-update-time",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-update"
-target = "usr/share/arch/src/commands/arch-update"
+source = "src/arch/commands/arch-update"
+target = "usr/share/arch/src/arch/commands/arch-update"
 
 [[output]]
-source = "src/commands/arch-update-analyze-logs"
-target = "usr/share/arch/src/commands/arch-update-analyze-logs"
+source = "src/arch/commands/arch-update-analyze-logs"
+target = "usr/share/arch/src/arch/commands/arch-update-analyze-logs"
 
 [[output]]
-source = "src/commands/arch-update-aur-pkgs"
-target = "usr/share/arch/src/commands/arch-update-aur-pkgs"
+source = "src/arch/commands/arch-update-aur-pkgs"
+target = "usr/share/arch/src/arch/commands/arch-update-aur-pkgs"
 
 [[output]]
-source = "src/commands/arch-update-available"
-target = "usr/share/arch/src/commands/arch-update-available"
+source = "src/arch/commands/arch-update-available"
+target = "usr/share/arch/src/arch/commands/arch-update-available"
 
 [[output]]
-source = "src/cli/update/available.py"
-target = "usr/share/arch/src/cli/update/available.py"
+source = "src/arch/cli/update/available.py"
+target = "usr/share/arch/src/arch/cli/update/available.py"
 
 [[output]]
-source = "src/commands/arch-update-boot"
-target = "usr/share/arch/src/commands/arch-update-boot"
+source = "src/arch/commands/arch-update-boot"
+target = "usr/share/arch/src/arch/commands/arch-update-boot"
 
 [[output]]
-source = "src/commands/arch-update-confirm"
-target = "usr/share/arch/src/commands/arch-update-confirm"
+source = "src/arch/commands/arch-update-confirm"
+target = "usr/share/arch/src/arch/commands/arch-update-confirm"
 
 [[output]]
-source = "src/cli/update/confirm.py"
-target = "usr/share/arch/src/cli/update/confirm.py"
+source = "src/arch/cli/update/confirm.py"
+target = "usr/share/arch/src/arch/cli/update/confirm.py"
 
 [[output]]
-source = "src/commands/arch-update-dev"
-target = "usr/share/arch/src/commands/arch-update-dev"
+source = "src/arch/commands/arch-update-dev"
+target = "usr/share/arch/src/arch/commands/arch-update-dev"
 
 [[output]]
-source = "src/commands/arch-update-firmware"
-target = "usr/share/arch/src/commands/arch-update-firmware"
+source = "src/arch/commands/arch-update-firmware"
+target = "usr/share/arch/src/arch/commands/arch-update-firmware"
 
 [[output]]
-source = "src/commands/arch-update-keyring"
-target = "usr/share/arch/src/commands/arch-update-keyring"
+source = "src/arch/commands/arch-update-keyring"
+target = "usr/share/arch/src/arch/commands/arch-update-keyring"
 
 [[output]]
-source = "src/commands/arch-update-lock"
-target = "usr/share/arch/src/commands/arch-update-lock"
+source = "src/arch/commands/arch-update-lock"
+target = "usr/share/arch/src/arch/commands/arch-update-lock"
 
 [[output]]
-source = "src/commands/arch-update-mise"
-target = "usr/share/arch/src/commands/arch-update-mise"
+source = "src/arch/commands/arch-update-mise"
+target = "usr/share/arch/src/arch/commands/arch-update-mise"
 
 [[output]]
-source = "src/commands/arch-update-orphan-pkgs"
-target = "usr/share/arch/src/commands/arch-update-orphan-pkgs"
+source = "src/arch/commands/arch-update-orphan-pkgs"
+target = "usr/share/arch/src/arch/commands/arch-update-orphan-pkgs"
 
 [[output]]
-source = "src/commands/arch-update-pacman"
-target = "usr/share/arch/src/commands/arch-update-pacman"
+source = "src/arch/commands/arch-update-pacman"
+target = "usr/share/arch/src/arch/commands/arch-update-pacman"
 
 [[output]]
-source = "src/commands/arch-update-pacman-guard"
-target = "usr/share/arch/src/commands/arch-update-pacman-guard"
+source = "src/arch/commands/arch-update-pacman-guard"
+target = "usr/share/arch/src/arch/commands/arch-update-pacman-guard"
 
 [[output]]
-source = "src/commands/arch-update-pkg-prune"
-target = "usr/share/arch/src/commands/arch-update-pkg-prune"
+source = "src/arch/commands/arch-update-pkg-prune"
+target = "usr/share/arch/src/arch/commands/arch-update-pkg-prune"
 
 [[output]]
-source = "src/commands/arch-update-requires-free-space"
-target = "usr/share/arch/src/commands/arch-update-requires-free-space"
+source = "src/arch/commands/arch-update-requires-free-space"
+target = "usr/share/arch/src/arch/commands/arch-update-requires-free-space"
 
 [[output]]
-source = "src/commands/arch-update-restart"
-target = "usr/share/arch/src/commands/arch-update-restart"
+source = "src/arch/commands/arch-update-restart"
+target = "usr/share/arch/src/arch/commands/arch-update-restart"
 
 [[output]]
-source = "src/commands/arch-update-status"
-target = "usr/share/arch/src/commands/arch-update-status"
+source = "src/arch/commands/arch-update-status"
+target = "usr/share/arch/src/arch/commands/arch-update-status"
 
 [[output]]
-source = "src/commands/arch-update-stay-awake"
-target = "usr/share/arch/src/commands/arch-update-stay-awake"
+source = "src/arch/commands/arch-update-stay-awake"
+target = "usr/share/arch/src/arch/commands/arch-update-stay-awake"
 
 [[output]]
-source = "src/commands/arch-update-system-pkgs"
-target = "usr/share/arch/src/commands/arch-update-system-pkgs"
+source = "src/arch/commands/arch-update-system-pkgs"
+target = "usr/share/arch/src/arch/commands/arch-update-system-pkgs"
 
 [[output]]
-source = "src/commands/arch-update-system-pkgs-when-conflicted"
-target = "usr/share/arch/src/commands/arch-update-system-pkgs-when-conflicted"
+source = "src/arch/commands/arch-update-system-pkgs-when-conflicted"
+target = "usr/share/arch/src/arch/commands/arch-update-system-pkgs-when-conflicted"
 
 [[output]]
-source = "src/commands/arch-update-time"
-target = "usr/share/arch/src/commands/arch-update-time"
+source = "src/arch/commands/arch-update-time"
+target = "usr/share/arch/src/arch/commands/arch-update-time"

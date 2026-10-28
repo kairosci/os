@@ -7,7 +7,7 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 run_node_test <<'JS'
 const fs = require('fs')
 
-const pluginsDir = path.join(root, 'src/shell/plugins')
+const pluginsDir = path.join(root, 'src/arch/shell/plugins')
 const kindEntryPoints = {
   'bar': 'bar',
   'bar-widget': 'barWidget',
@@ -201,7 +201,7 @@ for (const id of ['arch.lock', 'arch.idle', 'arch.polkit', 'arch.notifications',
   check(byId[id]?.keepLoaded === true, `${id} must stay loaded across plugin reloads`)
 }
 
-const shellSource = fs.readFileSync(path.join(root, 'src/shell/shell.qml'), 'utf8')
+const shellSource = fs.readFileSync(path.join(root, 'src/arch/shell/shell.qml'), 'utf8')
 const unloadMatch = shellSource.match(/function unloadPluginServices\(\) \{[\s\S]*?\n  \}/)
 check(!!unloadMatch, 'unloadPluginServices is defined')
 check(!!unloadMatch && /serviceKeepLoaded/.test(unloadMatch[0]), 'unloadPluginServices honors keepLoaded')

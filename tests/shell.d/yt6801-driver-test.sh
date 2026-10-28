@@ -146,7 +146,7 @@ chmod +x "$stub_bin/stub"
 for command in lspci pacman lsmod readlink modinfo modprobe rmmod tee sudo arch-notification-dismiss; do
   ln -s stub "$stub_bin/$command"
 done
-ln -s "$ROOT/src/commands/arch-pkg-drop" "$stub_bin/arch-pkg-drop"
+ln -s "$ROOT/src/arch/commands/arch-pkg-drop" "$stub_bin/arch-pkg-drop"
 
 reset_state() {
   rm -rf "$TEST_STATE"

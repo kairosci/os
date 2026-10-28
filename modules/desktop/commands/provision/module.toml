@@ -2,25 +2,25 @@ id = "desktop.commands.provision"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-provision-first-run",
-  "src/commands/arch-provision-hardware",
-  "src/commands/arch-provision-owner",
-  "src/commands/arch-provision-user",
+  "src/arch/commands/arch-provision-first-run",
+  "src/arch/commands/arch-provision-hardware",
+  "src/arch/commands/arch-provision-owner",
+  "src/arch/commands/arch-provision-user",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-provision-first-run"
-target = "usr/share/arch/src/commands/arch-provision-first-run"
+source = "src/arch/commands/arch-provision-first-run"
+target = "usr/share/arch/src/arch/commands/arch-provision-first-run"
 
 [[output]]
-source = "src/commands/arch-provision-hardware"
-target = "usr/share/arch/src/commands/arch-provision-hardware"
+source = "src/arch/commands/arch-provision-hardware"
+target = "usr/share/arch/src/arch/commands/arch-provision-hardware"
 
 [[output]]
-source = "src/commands/arch-provision-owner"
-target = "usr/share/arch/src/commands/arch-provision-owner"
+source = "src/arch/commands/arch-provision-owner"
+target = "usr/share/arch/src/arch/commands/arch-provision-owner"
 
 [[output]]
-source = "src/commands/arch-provision-user"
-target = "usr/share/arch/src/commands/arch-provision-user"
+source = "src/arch/commands/arch-provision-user"
+target = "usr/share/arch/src/arch/commands/arch-provision-user"

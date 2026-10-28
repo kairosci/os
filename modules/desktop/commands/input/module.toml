@@ -2,10 +2,10 @@ id = "desktop.commands.input"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-input-method",
+  "src/arch/commands/arch-input-method",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-input-method"
-target = "usr/share/arch/src/commands/arch-input-method"
+source = "src/arch/commands/arch-input-method"
+target = "usr/share/arch/src/arch/commands/arch-input-method"

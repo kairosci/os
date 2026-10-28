@@ -2,7 +2,7 @@
 -- Used for os extension-style folders such as default/hypr/apps,
 -- default/hypr/bindings, and ~/.local/state/arch/toggles/hypr.
 -- Pass a module prefix for normal package.path modules, e.g.
---   require_all.files(paths.arch_path .. "/default/hypr/apps", "default.hypr.apps")
+--   require_all.files(paths.ap .. "/default/hypr/apps", "default.hypr.apps")
 -- Pass nil as the prefix when the directory itself has been added to package.path.
 -- Pass options.exclude as a set of base names (without ".lua") to skip; a legacy
 -- file that must never be loaded as code stays inert until an explicit cleanup.

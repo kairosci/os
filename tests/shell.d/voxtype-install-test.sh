@@ -46,7 +46,7 @@ run_install() {
 
   HOME="$test_tmp/home" ARCH_PATH="$ROOT" ARCH_VOXTYPE_LIB_PATH="$lib_path" \
     VULKAN="$vulkan" TEST_LOG="$calls" PATH="$stub_bin:$PATH" \
-    XDG_CONFIG_HOME="$test_tmp/home/.config" bash "$ROOT/src/commands/arch-install-dictation-voxtype" >/dev/null ||
+    XDG_CONFIG_HOME="$test_tmp/home/.config" bash "$ROOT/src/arch/commands/arch-install-dictation-voxtype" >/dev/null ||
     fail "Voxtype install completes (vulkan=$vulkan backend=$backend)"
 
   grep -Fx 'voxtype setup systemd' "$calls" >/dev/null ||

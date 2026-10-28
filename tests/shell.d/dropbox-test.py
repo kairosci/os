@@ -9,7 +9,7 @@ from base_test import ROOT, fail_check, pass_check, test_environment
 
 model_check = r"""
 const assert = require("node:assert/strict")
-const dropbox = require(process.cwd() + "/src/shell/plugins/panels/dropbox/Model.js")
+const dropbox = require(process.cwd() + "/src/arch/shell/plugins/panels/dropbox/Model.js")
 assert.equal(dropbox.fileKind("photo.JPG"), "image")
 assert.equal(dropbox.fileKind("clip.webm"), "video")
 assert.equal(dropbox.fileKind("report.pdf"), "document")

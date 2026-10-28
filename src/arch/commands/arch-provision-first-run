@@ -1,0 +1,15 @@
+#!/usr/bin/python3
+
+# arch:summary=Finish first-login setup for Arch.
+# arch:args=[--force]
+# arch:hidden=true
+
+import os
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(os.environ["ARCH_PATH"]) / "src/arch/python"))
+
+from installer_user.first_run.orchestrator import main
+
+raise SystemExit(main())

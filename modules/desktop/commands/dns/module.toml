@@ -2,10 +2,10 @@ id = "desktop.commands.dns"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-dns",
+  "src/arch/commands/arch-dns",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-dns"
-target = "usr/share/arch/src/commands/arch-dns"
+source = "src/arch/commands/arch-dns"
+target = "usr/share/arch/src/arch/commands/arch-dns"

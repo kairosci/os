@@ -19,7 +19,7 @@
 #
 # An image carries no pacman master key of its own, or every machine flashed
 # from it would share one: where install finalization would make the keyring
-# (src/python/installer/post_install/pacman.py), a build requests it in
+# (src/arch/python/installer/post_install/pacman.py), a build requests it in
 # /var/lib/arch/image/pacman-keyring instead, and the first boot makes it
 # before any deferred step runs.
 #
@@ -142,11 +142,11 @@ arch_image_defer_hardware() {
   local listing
   local -a steps=()
 
-  listing=$(python3 -I "$ARCH_PATH/src/python/installer/step_runner.py" --list data/installer/hardware-setup.yml) || return 1
+  listing=$(python3 -I "$ARCH_PATH/src/arch/python/installer/step_runner.py" --list data/installer/hardware-setup.yml) || return 1
   if [[ -n $listing ]]; then
     while IFS= read -r step; do
       [[ $step == installer/hardware/*.sh && $step != *..* ]] ||
-        [[ $step == src/python/installer/hardware/*.py && $step != *..* ]] || {
+        [[ $step == src/arch/python/installer/hardware/*.py && $step != *..* ]] || {
           echo "Error: cannot defer a step outside the hardware setup: $step" >&2
           return 1
         }

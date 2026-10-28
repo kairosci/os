@@ -2,50 +2,50 @@ id = "desktop.commands.plugin"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-plugin-add",
-  "src/commands/arch-plugin-catalog",
-  "src/commands/arch-plugin-clone",
-  "src/commands/arch-plugin-disable",
-  "src/commands/arch-plugin-enable",
-  "src/commands/arch-plugin-list",
-  "src/commands/arch-plugin-remove",
-  "src/commands/arch-plugin-update",
-  "src/commands/arch-plugin-validate",
+  "src/arch/commands/arch-plugin-add",
+  "src/arch/commands/arch-plugin-catalog",
+  "src/arch/commands/arch-plugin-clone",
+  "src/arch/commands/arch-plugin-disable",
+  "src/arch/commands/arch-plugin-enable",
+  "src/arch/commands/arch-plugin-list",
+  "src/arch/commands/arch-plugin-remove",
+  "src/arch/commands/arch-plugin-update",
+  "src/arch/commands/arch-plugin-validate",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-plugin-add"
-target = "usr/share/arch/src/commands/arch-plugin-add"
+source = "src/arch/commands/arch-plugin-add"
+target = "usr/share/arch/src/arch/commands/arch-plugin-add"
 
 [[output]]
-source = "src/commands/arch-plugin-catalog"
-target = "usr/share/arch/src/commands/arch-plugin-catalog"
+source = "src/arch/commands/arch-plugin-catalog"
+target = "usr/share/arch/src/arch/commands/arch-plugin-catalog"
 
 [[output]]
-source = "src/commands/arch-plugin-clone"
-target = "usr/share/arch/src/commands/arch-plugin-clone"
+source = "src/arch/commands/arch-plugin-clone"
+target = "usr/share/arch/src/arch/commands/arch-plugin-clone"
 
 [[output]]
-source = "src/commands/arch-plugin-disable"
-target = "usr/share/arch/src/commands/arch-plugin-disable"
+source = "src/arch/commands/arch-plugin-disable"
+target = "usr/share/arch/src/arch/commands/arch-plugin-disable"
 
 [[output]]
-source = "src/commands/arch-plugin-enable"
-target = "usr/share/arch/src/commands/arch-plugin-enable"
+source = "src/arch/commands/arch-plugin-enable"
+target = "usr/share/arch/src/arch/commands/arch-plugin-enable"
 
 [[output]]
-source = "src/commands/arch-plugin-list"
-target = "usr/share/arch/src/commands/arch-plugin-list"
+source = "src/arch/commands/arch-plugin-list"
+target = "usr/share/arch/src/arch/commands/arch-plugin-list"
 
 [[output]]
-source = "src/commands/arch-plugin-remove"
-target = "usr/share/arch/src/commands/arch-plugin-remove"
+source = "src/arch/commands/arch-plugin-remove"
+target = "usr/share/arch/src/arch/commands/arch-plugin-remove"
 
 [[output]]
-source = "src/commands/arch-plugin-update"
-target = "usr/share/arch/src/commands/arch-plugin-update"
+source = "src/arch/commands/arch-plugin-update"
+target = "usr/share/arch/src/arch/commands/arch-plugin-update"
 
 [[output]]
-source = "src/commands/arch-plugin-validate"
-target = "usr/share/arch/src/commands/arch-plugin-validate"
+source = "src/arch/commands/arch-plugin-validate"
+target = "usr/share/arch/src/arch/commands/arch-plugin-validate"

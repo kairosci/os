@@ -9,7 +9,7 @@ import tempfile
 from base_test import ROOT, fail_check, pass_check, test_environment
 
 
-SETUP = ROOT / "src/python/installer/system_setup/firewall.py"
+SETUP = ROOT / "src/arch/python/installer/system_setup/firewall.py"
 UFw_MOCK = """#!/usr/bin/python3
 import os
 from pathlib import Path

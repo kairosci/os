@@ -2,7 +2,7 @@ systemd_boot_kernel:
   paths:
     hardware_helper:
       environment_override: ARCH_HW_X86_HELPER
-      relative_default: src/commands/arch-hw-x86
+      relative_default: src/arch/commands/arch-hw-x86
     systemd_boot_esp:
       environment_override: ARCH_SYSTEMD_BOOT_KERNEL_ESP
       default: /boot

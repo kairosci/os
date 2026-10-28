@@ -2,15 +2,15 @@ id = "desktop.commands.crash"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-crash-mute",
-  "src/commands/arch-crash-watch",
+  "src/arch/commands/arch-crash-mute",
+  "src/arch/commands/arch-crash-watch",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-crash-mute"
-target = "usr/share/arch/src/commands/arch-crash-mute"
+source = "src/arch/commands/arch-crash-mute"
+target = "usr/share/arch/src/arch/commands/arch-crash-mute"
 
 [[output]]
-source = "src/commands/arch-crash-watch"
-target = "usr/share/arch/src/commands/arch-crash-watch"
+source = "src/arch/commands/arch-crash-watch"
+target = "usr/share/arch/src/arch/commands/arch-crash-watch"

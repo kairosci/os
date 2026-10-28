@@ -8,7 +8,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-MODEL = ROOT / "src/shell/plugins/panels/wifiqr/Model.js"
+MODEL = ROOT / "src/arch/shell/plugins/panels/wifiqr/Model.js"
 NODE_TEST = r"""
 const assert = require('node:assert/strict')
 const wifiqr = require(process.argv[1])

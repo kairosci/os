@@ -4,7 +4,7 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-remove="$ROOT/src/commands/arch-remove-security-fingerprint"
+remove="$ROOT/src/arch/commands/arch-remove-security-fingerprint"
 test_tmp=$(mktemp -d /tmp/arch-fingerprint-remove.XXXXXX)
 trap 'rm -rf "$test_tmp"' EXIT
 mkdir -p "$test_tmp/bin" "$test_tmp/etc/pam.d" "$test_tmp/fprint"

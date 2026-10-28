@@ -1,9 +1,9 @@
 id = "desktop.shell.emojis"
 domain = "desktop"
 package = "arch"
-sources = ["src/shell/plugins/emojis"]
+sources = ["src/arch/shell/plugins/emojis"]
 requires = ["desktop.runtime"]
 
 [[output]]
-source = "src/shell/plugins/emojis"
-target = "usr/share/arch/src/shell/plugins/emojis"
+source = "src/arch/shell/plugins/emojis"
+target = "usr/share/arch/src/arch/shell/plugins/emojis"

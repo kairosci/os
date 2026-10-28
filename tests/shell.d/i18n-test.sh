@@ -8,7 +8,7 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 run_node_test <<'JS'
 const fs = require('fs')
-const MenuModel = requireFromRoot('src/shell/plugins/menu/MenuModel.js')
+const MenuModel = requireFromRoot('src/arch/shell/plugins/menu/MenuModel.js')
 
 const i18nDir = path.join(root, 'default/i18n')
 const readJson = (rel) => JSON.parse(fs.readFileSync(path.join(i18nDir, rel), 'utf8'))
@@ -47,7 +47,7 @@ const manifest = readJson('translation-manifest.json')
 const canonical = (value) => typeof value === 'string' ? value
   : '{' + Object.keys(value).sort().map((k) => `${JSON.stringify(k)}: ${JSON.stringify(value[k])}`).join(', ') + '}'
 const sourceHash = (value) => crypto.createHash('sha256').update(canonical(value), 'utf8').digest('hex').slice(0, 12)
-const Plural = requireFromRoot('src/shell/Commons/Plural.js')
+const Plural = requireFromRoot('src/arch/shell/Commons/Plural.js')
 const isStale = (code, unit, englishValue) => !manifest[code] || manifest[code][unit] !== sourceHash(englishValue)
 // Only %1-style tokens count, as in scripts/i18n-sync.py: nothing escapes a
 // percent sign, and Turkish writes it before the number ("%%2" shows "%80").
@@ -112,7 +112,7 @@ function collectKeys(dir, extensions, pattern) {
   walk(dir)
   return found
 }
-const shellKeys = collectKeys(path.join(root, 'src/shell'), ['.qml', '.js'], /(?:I18n\.tn?|[^a-zA-Z_.]tn?|translator\(tr\))\("([a-z][a-zA-Z0-9]*(?:\.[a-zA-Z0-9]+)+)"/g)
+const shellKeys = collectKeys(path.join(root, 'src/arch/shell'), ['.qml', '.js'], /(?:I18n\.tn?|[^a-zA-Z_.]tn?|translator\(tr\))\("([a-z][a-zA-Z0-9]*(?:\.[a-zA-Z0-9]+)+)"/g)
 const unreferencedShell = Object.keys(enShell).filter((key) => !shellKeys.has(key))
 assert(unreferencedShell.length === 0, 'every shell catalog key is referenced', JSON.stringify(unreferencedShell))
 const unknownShell = [...shellKeys].filter((key) => !Object.hasOwn(enShell, key))
@@ -120,12 +120,12 @@ assert(unknownShell.length === 0, 'every referenced shell key exists in the Engl
 
 const cliKeyPattern = /arch-i18n (?:--count \S+ )?([a-z][a-zA-Z0-9]*(?:\.[a-zA-Z0-9]+)+)/g
 const cliKeys = new Set([
-  ...collectKeys(path.join(root, 'src/commands'), [''], cliKeyPattern),
-  ...collectKeys(path.join(root, 'src/cli'), ['.py'], cliKeyPattern),
+  ...collectKeys(path.join(root, 'src/arch/commands'), [''], cliKeyPattern),
+  ...collectKeys(path.join(root, 'src/arch/cli'), ['.py'], cliKeyPattern),
   ...collectKeys(path.join(root, 'installer'), ['.sh', '.py', '.hook'], cliKeyPattern),
 ])
-for (const key of collectKeys(path.join(root, 'src/commands'), ['.py'], /_message\(\s*['"]([a-z][a-zA-Z0-9]*(?:\.[a-zA-Z0-9]+)+)['"]/g)) cliKeys.add(key)
-for (const key of collectKeys(path.join(root, 'src/cli'), ['.py'], /_message\(\s*['"]([a-z][a-zA-Z0-9]*(?:\.[a-zA-Z0-9]+)+)['"]/g)) cliKeys.add(key)
+for (const key of collectKeys(path.join(root, 'src/arch/commands'), ['.py'], /_message\(\s*['"]([a-z][a-zA-Z0-9]*(?:\.[a-zA-Z0-9]+)+)['"]/g)) cliKeys.add(key)
+for (const key of collectKeys(path.join(root, 'src/arch/cli'), ['.py'], /_message\(\s*['"]([a-z][a-zA-Z0-9]*(?:\.[a-zA-Z0-9]+)+)['"]/g)) cliKeys.add(key)
 for (const key of collectKeys(path.join(root, 'data/cli'), ['.yml'], /^\s*[A-Za-z0-9_-]+:\s*([a-z][a-zA-Z0-9]*(?:\.[a-zA-Z0-9]+)+)\s*$/gm)) cliKeys.add(key)
 const unreferencedCli = Object.keys(enCli).filter((key) => !cliKeys.has(key))
 assert(unreferencedCli.length === 0, 'every cli catalog key is referenced', JSON.stringify(unreferencedCli))
@@ -166,9 +166,9 @@ assert(MenuModel.nameSearchText(itMerged.items.setup).includes('setup'), 'Englis
 // without one (the audio/monitor/clipboard tests assert the same English).
 const itShell = readJson('it/shell.json')
 const tr = (key, english) => itShell[key] || english
-const audio = requireFromRoot('src/shell/plugins/panels/audio/Model.js')
+const audio = requireFromRoot('src/arch/shell/plugins/panels/audio/Model.js')
 assertEqual(audio.outputVolumeName(0.5, true, tr), itShell['audio.level.muted'], 'audio levels translate through tr')
-const clipboard = requireFromRoot('src/shell/plugins/clipboard/ClipboardHistory.js')
+const clipboard = requireFromRoot('src/arch/shell/plugins/clipboard/ClipboardHistory.js')
 const itRow = clipboard.displayRows([{ type: 'image', path: '/tmp/a.png', mime: 'image/png', capturedAt: 'Friday 14:42' }], '', 50, tr)[0]
 assertEqual(itRow.previewText, itShell['clipboard.screenshotFrom'].replace('%1', 'Friday 14:42'), 'clipboard previews translate through tr')
 
@@ -247,8 +247,8 @@ jq_numbers=$(jq -c -n -L "$ROOT/default/i18n" --slurpfile registry "$ROOT/defaul
   'include "plural"; [$registry[0] | to_entries[] | .value as $r | ("13.1", "2026", "-0.5") | localize_number($r.decimal; $r.zeroDigit)]')
 JQ_CATEGORIES=$jq_categories JQ_NUMBERS=$jq_numbers CODES=$codes_json COUNTS=$counts run_node_test <<'JS'
 const fs = require('fs')
-const Plural = requireFromRoot('src/shell/Commons/Plural.js')
-const Numbers = requireFromRoot('src/shell/Commons/Numbers.js')
+const Plural = requireFromRoot('src/arch/shell/Commons/Plural.js')
+const Numbers = requireFromRoot('src/arch/shell/Commons/Numbers.js')
 const codes = JSON.parse(process.env.CODES)
 const counts = JSON.parse(process.env.COUNTS)
 const shell = codes.flatMap((code) => counts.map((n) => Plural.category(code, n)))
@@ -278,7 +278,7 @@ JS
 work=$(mktemp -d)
 trap 'rm -rf "$work"' EXIT
 export ARCH_PATH=$ROOT
-export PATH="$ROOT/src/commands:$PATH"
+export PATH="$ROOT/src/arch/commands:$PATH"
 export ARCH_LANGUAGE_FILE=$work/language
 export ARCH_LOCALE_GEN=$work/locale.gen
 export ARCH_LOCALE_REGISTRY=$ROOT/default/i18n/locales.json
@@ -483,7 +483,7 @@ assert_bash_equal "$extract_candidates" "0" "no embedded English literals await 
 # A miniature tree exercises staleness: one key changed in English, one
 # deleted from the translation, one manual chapter missing.
 fix=$work/fixture
-mkdir -p "$fix/default/i18n/en" "$fix/default/i18n/da" "$fix/default/arch" "$fix/docs/user" "$fix/src/shell" "$fix/src/commands"
+mkdir -p "$fix/default/i18n/en" "$fix/default/i18n/da" "$fix/default/arch" "$fix/docs/user" "$fix/src/arch/shell" "$fix/src/arch/commands"
 cat >"$fix/default/i18n/locales.json" <<'FIXJSON'
 {
   "en": {"name": "English", "englishName": "English", "formatLocale": "en-US", "locale": "en_US.UTF-8"},
@@ -510,7 +510,7 @@ printf '# New\n' >"$fix/docs/user/02-new.md"
 pending_units=$(python3 "$ROOT/scripts/i18n-sync.py" --root "$fix" pending | jq -c '.jobs.da.pending | sort')
 assert_bash_equal "$pending_units" '["manual:02-new.md","shell:a.one"]' "sync detects changed English and missing chapters"
 
-printf 'Text {\n  text: "Brand new string"\n}\n' >"$fix/src/shell/Panel.qml"
+printf 'Text {\n  text: "Brand new string"\n}\n' >"$fix/src/arch/shell/Panel.qml"
 scan_strings=$(python3 "$ROOT/scripts/i18n-sync.py" --root "$fix" extract-scan | jq -c '[.candidates[].string]')
 assert_bash_equal "$scan_strings" '["Brand new string"]' "extract-scan finds embedded English literals"
 
@@ -538,7 +538,7 @@ assert_bash_equal "$keybinding_texts" '["Bar panel %1", "Keybindings", "Start di
 
 # Any display-text property name counts, both arms of a ternary count, and a
 # bare list item counts; identifiers and lines marked "i18n: ignore" do not.
-cat >"$fix/src/shell/Panel.qml" <<'QML'
+cat >"$fix/src/arch/shell/Panel.qml" <<'QML'
 Item {
   activeTooltipText: "Allow notifications"
   leftLabel: busy ? "Working" : "Ready now"

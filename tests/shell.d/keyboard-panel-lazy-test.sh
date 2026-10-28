@@ -7,7 +7,7 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 run_node_test <<'JS'
 const fs = require('fs')
 
-const keyboardPanel = fs.readFileSync(root + '/src/shell/Ui/KeyboardPanel.qml', 'utf8')
+const keyboardPanel = fs.readFileSync(root + '/src/arch/shell/Ui/KeyboardPanel.qml', 'utf8')
 assert(/property Component content: null/.test(keyboardPanel), 'keyboard panels take their content as a component')
 assert(/active: !!root\.content && \(root\.open \|\| root\.contentRequested\)/.test(keyboardPanel), 'keyboard panel content is built when the panel opens, not at startup')
 assert(/if \(content\) contentRequested = true/.test(keyboardPanel), 'keyboard panel content stays built after its first open')
@@ -27,7 +27,7 @@ function panelFiles(dir) {
   return out
 }
 
-const users = panelFiles(root + '/src/shell/plugins').filter(file => /^\s*KeyboardPanel\s*\{/m.test(fs.readFileSync(file, 'utf8')))
+const users = panelFiles(root + '/src/arch/shell/plugins').filter(file => /^\s*KeyboardPanel\s*\{/m.test(fs.readFileSync(file, 'utf8')))
 assert(users.length >= 10, 'first-party keyboard panels are found', String(users.length))
 
 for (const file of users) {
@@ -58,8 +58,8 @@ require_command quickshell
 
 stage=$(mktemp -d)
 trap 'rm -rf -- "$stage"' EXIT
-ln -s "$ROOT/src/shell/Ui" "$stage/Ui"
-ln -s "$ROOT/src/shell/Commons" "$stage/Commons"
+ln -s "$ROOT/src/arch/shell/Ui" "$stage/Ui"
+ln -s "$ROOT/src/arch/shell/Commons" "$stage/Commons"
 cp "$SHELL_TEST_DIR/fixtures/keyboard-panel-lazy/shell.qml" "$stage/shell.qml"
 
 output=$(HOME="$stage" ARCH_PATH="$ROOT" timeout 30 quickshell -p "$stage" --no-color 2>&1) || fail "keyboard panel fixture exits cleanly" "$output"

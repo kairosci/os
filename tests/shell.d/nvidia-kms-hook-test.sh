@@ -40,7 +40,7 @@ resolved_hooks() {
   # only KEYMAP; predefine XKBLAYOUT so its expansion survives set -u and the
   # test stays independent of the machine it runs on.
   ARCH_PCI_DEVICES_PATH="$tmp_dir/devices" ARCH_PROC_ROOT="$tmp_dir/generic/proc" \
-    PATH="$tmp_dir/generic/bin:$ROOT/src/commands:$PATH" bash -uc "
+    PATH="$tmp_dir/generic/bin:$ROOT/src/arch/commands:$PATH" bash -uc "
     FILES=()
     XKBLAYOUT=us
     source '$baseline_conf'

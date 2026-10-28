@@ -30,7 +30,7 @@ printf '%s\n' "$*" >>"$NOTIFY_LOG"
 STUB
 chmod +x "$tmpdir/bin"/*
 export HOME="$tmpdir/home" XDG_STATE_HOME="$tmpdir/home/.local/state"
-export PATH="$tmpdir/bin:$ROOT/src/commands:$PATH" HYPR_LOG="$tmpdir/hypr.log" NOTIFY_LOG="$tmpdir/notify.log"
+export PATH="$tmpdir/bin:$ROOT/src/arch/commands:$PATH" HYPR_LOG="$tmpdir/hypr.log" NOTIFY_LOG="$tmpdir/notify.log"
 
 arch-hyprland-workspace-layout-toggle
 [[ $(arch-hyprland-workspace-layout-current) == dwindle ]] || fail "the layout cycles from scrolling to tiling"

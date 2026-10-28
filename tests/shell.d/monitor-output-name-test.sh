@@ -46,8 +46,8 @@ run_monitor() {
     LAPTOP_NAME="${LAPTOP_NAME:-eDP-1}" \
     MONITORS_JSON="$monitors_json" \
     EVAL_LOG="$eval_log" \
-    PATH="$stub_dir:$ROOT/src/commands:$PATH" \
-    "$ROOT/src/commands/$command" "$@"
+    PATH="$stub_dir:$ROOT/src/arch/commands:$PATH" \
+    "$ROOT/src/arch/commands/$command" "$@"
 }
 
 printf '[{"name":"eDP-1"},{"name":"DP-3"}]\n' >"$monitors_json"

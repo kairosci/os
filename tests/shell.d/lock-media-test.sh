@@ -11,8 +11,8 @@ trap 'rm -rf "$work"' EXIT
 mkdir -p "$work/config" "$work/runtime" "$work/home"
 chmod 700 "$work/runtime"
 cp "$SHELL_TEST_DIR/fixtures/lock-media/shell.qml" "$work/config/shell.qml"
-ln -s "$ROOT/src/shell/Ui" "$work/config/Ui"
-ln -s "$ROOT/src/shell/Commons" "$work/config/Commons"
+ln -s "$ROOT/src/arch/shell/Ui" "$work/config/Ui"
+ln -s "$ROOT/src/arch/shell/Commons" "$work/config/Commons"
 
 # Offscreen rendering exercises the real QML bindings without taking a lock
 # or connecting to the user's compositor.

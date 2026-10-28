@@ -2,20 +2,20 @@ id = "desktop.commands.drive"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-drive-info",
-  "src/commands/arch-drive-password",
-  "src/commands/arch-drive-select",
+  "src/arch/commands/arch-drive-info",
+  "src/arch/commands/arch-drive-password",
+  "src/arch/commands/arch-drive-select",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-drive-info"
-target = "usr/share/arch/src/commands/arch-drive-info"
+source = "src/arch/commands/arch-drive-info"
+target = "usr/share/arch/src/arch/commands/arch-drive-info"
 
 [[output]]
-source = "src/commands/arch-drive-password"
-target = "usr/share/arch/src/commands/arch-drive-password"
+source = "src/arch/commands/arch-drive-password"
+target = "usr/share/arch/src/arch/commands/arch-drive-password"
 
 [[output]]
-source = "src/commands/arch-drive-select"
-target = "usr/share/arch/src/commands/arch-drive-select"
+source = "src/arch/commands/arch-drive-select"
+target = "usr/share/arch/src/arch/commands/arch-drive-select"

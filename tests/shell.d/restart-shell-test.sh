@@ -17,8 +17,8 @@ trap cleanup EXIT
 
 wrapper_root="$test_tmp/wrapper-root"
 wrapper_bin="$test_tmp/wrapper-bin"
-mkdir -p "$wrapper_root/src/shell" "$wrapper_bin"
-touch "$wrapper_root/src/shell/shell.qml"
+mkdir -p "$wrapper_root/src/arch/shell" "$wrapper_bin"
+touch "$wrapper_root/src/arch/shell/shell.qml"
 
 cat >"$wrapper_bin/qs" <<'SH'
 #!/bin/bash
@@ -39,7 +39,7 @@ wrapper_error=$(PATH="$wrapper_bin:$PATH" \
   ARCH_PATH="$wrapper_root" \
   ARCH_SHELL_IPC_TIMEOUT=0.1s \
   ARCH_TEST_QS_HANG=1 \
-  "$ROOT/src/commands/arch-shell" shell ping 2>&1) && fail "hung shell IPC returns a failure"
+  "$ROOT/src/arch/commands/arch-shell" shell ping 2>&1) && fail "hung shell IPC returns a failure"
 [[ $wrapper_error == "arch-shell is not responding" ]] || fail "hung shell IPC reports that the shell is unresponsive" "$wrapper_error"
 pass "shell IPC calls time out when Quickshell is unresponsive"
 
@@ -47,14 +47,14 @@ pass "shell IPC calls time out when Quickshell is unresponsive"
 wrapper_error=$(PATH="$wrapper_bin:$PATH" \
   ARCH_PATH="$wrapper_root" \
   ARCH_TEST_QS_STARTING=1 \
-  "$ROOT/src/commands/arch-shell" shell ping 2>&1) && fail "a starting shell answers IPC calls with a failure"
+  "$ROOT/src/arch/commands/arch-shell" shell ping 2>&1) && fail "a starting shell answers IPC calls with a failure"
 [[ $wrapper_error == "arch-shell is not ready" ]] || fail "a starting shell reports that it is not ready" "$wrapper_error"
 pass "shell IPC calls fail while Quickshell is still starting"
 
 PATH="$wrapper_bin:$PATH" \
 ARCH_PATH="$wrapper_root" \
 ARCH_TEST_QS_STARTING=1 \
-  "$ROOT/src/commands/arch-shell" -q shell ping >/dev/null 2>&1 ||
+  "$ROOT/src/arch/commands/arch-shell" -q shell ping >/dev/null 2>&1 ||
   fail "quiet best-effort IPC calls tolerate a starting shell"
 pass "quiet best-effort IPC calls tolerate a starting shell"
 
@@ -62,7 +62,7 @@ wrapper_args="$test_tmp/wrapper-args"
 PATH="$wrapper_bin:$PATH" \
 ARCH_PATH="$wrapper_root" \
 ARCH_TEST_QS_ARGS="$wrapper_args" \
-  "$ROOT/src/commands/arch-shell" shell ping >/dev/null
+  "$ROOT/src/arch/commands/arch-shell" shell ping >/dev/null
 
 grep -F -- 'ipc -n -p' "$wrapper_args" >/dev/null || fail "shell IPC targets the newest live Quickshell instance"
 pass "shell IPC targets the newest live Quickshell instance"
@@ -75,12 +75,12 @@ restart_env_log="$test_tmp/restart-env.log"
 dispatch_log="$test_tmp/dispatch.log"
 ipc_log="$test_tmp/ipc.log"
 runtime_dir="$test_tmp/runtime"
-mkdir -p "$restart_root/src/shell" "$restart_bin" "$runtime_dir"
-touch "$restart_root/src/shell/shell.qml"
-ln -s "$ROOT/src/commands/arch-shell" "$restart_bin/arch-shell"
-ln -s "$ROOT/src/commands/arch-launch-shell" "$restart_bin/arch-launch-shell"
-ln -s "$ROOT/src/commands/arch-cmd-missing" "$restart_bin/arch-cmd-missing"
-ln -s "$ROOT/src/commands/arch-hyprland-session-locked" "$restart_bin/arch-hyprland-session-locked"
+mkdir -p "$restart_root/src/arch/shell" "$restart_bin" "$runtime_dir"
+touch "$restart_root/src/arch/shell/shell.qml"
+ln -s "$ROOT/src/arch/commands/arch-shell" "$restart_bin/arch-shell"
+ln -s "$ROOT/src/arch/commands/arch-launch-shell" "$restart_bin/arch-launch-shell"
+ln -s "$ROOT/src/arch/commands/arch-cmd-missing" "$restart_bin/arch-cmd-missing"
+ln -s "$ROOT/src/arch/commands/arch-hyprland-session-locked" "$restart_bin/arch-hyprland-session-locked"
 
 cat >"$restart_bin/qs" <<'SH'
 #!/bin/bash
@@ -89,7 +89,7 @@ printf '%s\n' "$*" >>"$ARCH_TEST_IPC_LOG"
 
 case "$*" in
   *'shell ping')
-    [[ $* == *"-p $ARCH_TEST_SESSION_PATH/src/shell"* ]] &&
+    [[ $* == *"-p $ARCH_TEST_SESSION_PATH/src/arch/shell"* ]] &&
       grep -Fx '303' "$ARCH_TEST_QS_STATE" >/dev/null &&
       printf 'ok\n'
     ;;
@@ -204,8 +204,8 @@ restart_pid_two=$!
 printf '%s\n%s\n' "$restart_pid_one" "$restart_pid_two" >"$restart_state"
 
 caller_root="$test_tmp/caller-root"
-mkdir -p "$caller_root/src/shell"
-touch "$caller_root/src/shell/shell.qml"
+mkdir -p "$caller_root/src/arch/shell"
+touch "$caller_root/src/arch/shell/shell.qml"
 
 PATH="$restart_bin:$PATH" \
 ARCH_PATH="$caller_root" \
@@ -218,7 +218,7 @@ ARCH_TEST_IPC_LOG="$ipc_log" \
 ARCH_TEST_SESSION_PATH="$restart_root" \
 ARCH_TEST_TRANSIENT_ENV=leaked \
 ARCH_TEST_NOTIFICATION_CHECKS="$test_tmp/notification-checks" \
-  timeout 5 "$ROOT/src/commands/arch-restart-shell"
+  timeout 5 "$ROOT/src/arch/commands/arch-restart-shell"
 
 if kill -0 "$restart_pid_one" 2>/dev/null; then
   fail "restart stops the first matching shell instance"
@@ -232,10 +232,10 @@ restart_pid_one=""
 restart_pid_two=""
 [[ $(<"$restart_state") == 303 ]] || fail "restart leaves exactly one fresh shell instance"
 [[ $(grep -c '^-n -p ' "$restart_log") == 1 ]] || fail "restart launches one fresh shell process"
-grep -F "kill -p $restart_root/src/shell --any-display" "$restart_log" >/dev/null || fail "restart stops the shell from the session checkout"
+grep -F "kill -p $restart_root/src/arch/shell --any-display" "$restart_log" >/dev/null || fail "restart stops the shell from the session checkout"
 [[ $(<"$restart_env_log") == "unset" ]] || fail "restart uses the Hyprland session environment for the fresh shell"
 grep -F 'hl.dsp.exec_cmd("arch-launch-shell")' "$dispatch_log" >/dev/null || fail "restart launches the fresh shell through Hyprland"
-grep -F "ipc -n -p $restart_root/src/shell call -- shell ping" "$ipc_log" >/dev/null || fail "restart checks readiness in the session checkout"
+grep -F "ipc -n -p $restart_root/src/arch/shell call -- shell ping" "$ipc_log" >/dev/null || fail "restart checks readiness in the session checkout"
 pass "restart replaces duplicate shell instances from the session checkout"
 [[ $(<"$test_tmp/notification-checks") == 4 ]] || fail "restart waits for the existing notification service after core IPC is ready"
 pass "restart waits for notification readiness before one-time update hooks"
@@ -253,7 +253,7 @@ locked_error=$(PATH="$restart_bin:$PATH" \
   ARCH_TEST_DISPATCH_LOG="$dispatch_log" \
   ARCH_TEST_IPC_LOG="$ipc_log" \
   ARCH_TEST_SESSION_PATH="$restart_root" \
-  "$ROOT/src/commands/arch-restart-shell" 2>&1) && fail "restart refuses while the shell lock is active"
+  "$ROOT/src/arch/commands/arch-restart-shell" 2>&1) && fail "restart refuses while the shell lock is active"
 
 [[ $locked_error == "Refusing to restart os shell while the session is locked." ]] || fail "locked restart explains why it was refused" "$locked_error"
 [[ $(<"$restart_state") == 303 ]] || fail "locked restart preserves the running shell"
@@ -280,7 +280,7 @@ ARCH_TEST_QS_ENV_LOG="$restart_env_log" \
 ARCH_TEST_DISPATCH_LOG="$dispatch_log" \
 ARCH_TEST_IPC_LOG="$ipc_log" \
 ARCH_TEST_SESSION_PATH="$restart_root" \
-  timeout 5 "$ROOT/src/commands/arch-restart-shell" || fail "locked restart recovers when the lock client is dead"
+  timeout 5 "$ROOT/src/arch/commands/arch-restart-shell" || fail "locked restart recovers when the lock client is dead"
 
 if kill -0 "$restart_pid_one" 2>/dev/null; then
   fail "dead-lock recovery stops the stale shell instance"
@@ -288,8 +288,8 @@ fi
 wait "$restart_pid_one" 2>/dev/null || true
 restart_pid_one=""
 [[ $(<"$restart_state") == 303 ]] || fail "dead-lock recovery leaves one fresh shell instance"
-grep -F "ipc -n -p $restart_root/src/shell call -- lock lock" "$ipc_log" >/dev/null || fail "dead-lock recovery re-acquires the session lock"
-grep -F "ipc -n -p $restart_root/src/shell call -- lock status" "$ipc_log" >/dev/null || fail "dead-lock recovery waits for the lock to become secure"
+grep -F "ipc -n -p $restart_root/src/arch/shell call -- lock lock" "$ipc_log" >/dev/null || fail "dead-lock recovery re-acquires the session lock"
+grep -F "ipc -n -p $restart_root/src/arch/shell call -- lock status" "$ipc_log" >/dev/null || fail "dead-lock recovery waits for the lock to become secure"
 pass "restart recovers a locked session whose lock client died"
 
 # Lock recovery must not wait on the notification plugin: a stranded user gets
@@ -314,12 +314,12 @@ if PATH="$restart_bin:$PATH" \
   ARCH_TEST_SESSION_PATH="$restart_root" \
   ARCH_TEST_NOTIFICATION_CHECKS="$test_tmp/notification-checks" \
   ARCH_TEST_NOTIFICATIONS_DIE=1 \
-  timeout 10 "$ROOT/src/commands/arch-restart-shell" >"$test_tmp/dead-notifications.out" 2>&1; then
+  timeout 10 "$ROOT/src/arch/commands/arch-restart-shell" >"$test_tmp/dead-notifications.out" 2>&1; then
   fail "a restart whose notification service never returns must not report success"
 fi
 wait "$restart_pid_one" 2>/dev/null || true
 restart_pid_one=""
-grep -F "ipc -n -p $restart_root/src/shell call -- lock lock" "$ipc_log" >/dev/null || fail "lock recovery waited on the notification service" "$(cat "$ipc_log")"
+grep -F "ipc -n -p $restart_root/src/arch/shell call -- lock lock" "$ipc_log" >/dev/null || fail "lock recovery waited on the notification service" "$(cat "$ipc_log")"
 [[ -f $restart_state.locked ]] || fail "lock recovery did not re-secure the session without notifications"
 grep -q "notification service did not become ready" "$test_tmp/dead-notifications.out" || fail "a missing notification service is not reported" "$(cat "$test_tmp/dead-notifications.out")"
 pass "restart recovers the lock even when the notification service never returns"

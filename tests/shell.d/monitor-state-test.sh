@@ -38,7 +38,7 @@ monitor_state() {
 
   mapfile -t state_lines < <(
     FAKE_MONITORS="$monitors_file" PATH="$test_bin:$PATH" \
-      bash "$ROOT/src/commands/arch-monitor-state" 2>/dev/null
+      bash "$ROOT/src/arch/commands/arch-monitor-state" 2>/dev/null
   )
 }
 

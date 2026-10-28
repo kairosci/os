@@ -2,30 +2,30 @@ id = "desktop.commands.webapp"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-webapp-handler-zoom",
-  "src/commands/arch-webapp-install",
-  "src/commands/arch-webapp-remove",
-  "src/commands/arch-webapp-remove-all",
-  "src/commands/arch-webapp-window-class",
+  "src/arch/commands/arch-webapp-handler-zoom",
+  "src/arch/commands/arch-webapp-install",
+  "src/arch/commands/arch-webapp-remove",
+  "src/arch/commands/arch-webapp-remove-all",
+  "src/arch/commands/arch-webapp-window-class",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-webapp-handler-zoom"
-target = "usr/share/arch/src/commands/arch-webapp-handler-zoom"
+source = "src/arch/commands/arch-webapp-handler-zoom"
+target = "usr/share/arch/src/arch/commands/arch-webapp-handler-zoom"
 
 [[output]]
-source = "src/commands/arch-webapp-install"
-target = "usr/share/arch/src/commands/arch-webapp-install"
+source = "src/arch/commands/arch-webapp-install"
+target = "usr/share/arch/src/arch/commands/arch-webapp-install"
 
 [[output]]
-source = "src/commands/arch-webapp-remove"
-target = "usr/share/arch/src/commands/arch-webapp-remove"
+source = "src/arch/commands/arch-webapp-remove"
+target = "usr/share/arch/src/arch/commands/arch-webapp-remove"
 
 [[output]]
-source = "src/commands/arch-webapp-remove-all"
-target = "usr/share/arch/src/commands/arch-webapp-remove-all"
+source = "src/arch/commands/arch-webapp-remove-all"
+target = "usr/share/arch/src/arch/commands/arch-webapp-remove-all"
 
 [[output]]
-source = "src/commands/arch-webapp-window-class"
-target = "usr/share/arch/src/commands/arch-webapp-window-class"
+source = "src/arch/commands/arch-webapp-window-class"
+target = "usr/share/arch/src/arch/commands/arch-webapp-window-class"

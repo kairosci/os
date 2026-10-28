@@ -4,7 +4,7 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-export PATH="$ROOT/src/commands:$PATH"
+export PATH="$ROOT/src/arch/commands:$PATH"
 
 require_command jq
 require_command lua
@@ -52,13 +52,13 @@ pass "default center layout puts elsewhen immediately after the clock and before
 
 # Every CLI write goes through the normalizer, which keeps every bar section a
 # list, the ones beside the center box included.
-normalized=$(ARCH_PATH="$ROOT" bash -c 'source "$ARCH_PATH/src/commands/arch-shell-config" && jq -c "$NORMALIZE | .bar.layout" <<<"{\"bar\":{\"layout\":{\"centerBegin\":null}}}"')
+normalized=$(ARCH_PATH="$ROOT" bash -c 'source "$ARCH_PATH/src/arch/commands/arch-shell-config" && jq -c "$NORMALIZE | .bar.layout" <<<"{\"bar\":{\"layout\":{\"centerBegin\":null}}}"')
 [[ $normalized == '{"centerBegin":[],"left":[],"center":[],"centerEnd":[],"right":[]}' ]] ||
   fail "shell config normalizer keeps every bar section a list" "$normalized"
 pass "shell config normalizer keeps every bar section a list"
 
 # A service widget defaulting to centerEnd goes after the weather.
-grep -qF 'def anchor_for(\$section): { left: \"arch.workspaces\", centerEnd: \"arch.weather\", right: \"arch.tray\" }[\$section];' "$ROOT/src/commands/arch-bar" ||
+grep -qF 'def anchor_for(\$section): { left: \"arch.workspaces\", centerEnd: \"arch.weather\", right: \"arch.tray\" }[\$section];' "$ROOT/src/arch/commands/arch-bar" ||
   fail "bar defaults anchors centerEnd widgets after the weather"
 pass "bar defaults anchors centerEnd widgets after the weather"
 
@@ -85,10 +85,10 @@ from pathlib import Path
 root = Path(os.environ["ROOT"])
 config = json.loads((root / "config/arch/shell.json").read_text())
 manifests = {}
-for manifest_path in (root / "src/shell/plugins").glob("**/*.manifest.json"):
+for manifest_path in (root / "src/arch/shell/plugins").glob("**/*.manifest.json"):
   data = json.loads(manifest_path.read_text())
   manifests[data.get("id", "")] = (manifest_path, data)
-for manifest_path in (root / "src/shell/plugins").glob("**/manifest.json"):
+for manifest_path in (root / "src/arch/shell/plugins").glob("**/manifest.json"):
   data = json.loads(manifest_path.read_text())
   manifests[data.get("id", "")] = (manifest_path, data)
 
@@ -258,10 +258,10 @@ mkdir -p "$test_arch_root"
 for entry in config default etc version; do
   [[ -e $ROOT/$entry ]] && ln -s "$ROOT/$entry" "$test_arch_root/$entry"
 done
-mkdir -p "$test_arch_root/src"
-ln -s "$ROOT/src/commands" "$test_arch_root/src/commands"
+mkdir -p "$test_arch_root/src/arch"
+ln -s "$ROOT/src/arch/commands" "$test_arch_root/src/arch/commands"
 ln -s "$ROOT/installer" "$test_arch_root/installer"
-ln -s "$ROOT/src/shell" "$test_arch_root/src/shell"
+ln -s "$ROOT/src/arch/shell" "$test_arch_root/src/arch/shell"
 mkdir -p "$test_arch_root/assets"
 ln -s "$ROOT/assets/themes" "$test_arch_root/assets/themes"
 ln -s "$ROOT/assets/applications" "$test_arch_root/assets/applications"
@@ -505,7 +505,7 @@ set -euo pipefail
 SH
 
 chmod +x "$mock_bin"/*
-mock_path="$mock_bin:$ROOT/src/commands:$PATH"
+mock_path="$mock_bin:$ROOT/src/arch/commands:$PATH"
 
 HOME="$TMPDIR/home" ARCH_PATH="$test_arch_root" PATH="$mock_path" ARCH_TEST_DROPBOX=0 ARCH_TEST_TAILSCALE=0 arch-bar defaults
 jq -e --slurpfile defaults "$ROOT/config/arch/shell.json" '

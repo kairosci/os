@@ -7,10 +7,10 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 # The two setup leaves and first run call the platform's own setup through the
 # real dispatcher: a Mac fixture with arch-mac's entrypoints, and x86.
 
-hardware_leaf="$ROOT/src/python/installer/hardware/platform_setup.py"
-user_leaf="$ROOT/src/python/installer_user/setup/platform.py"
+hardware_leaf="$ROOT/src/arch/python/installer/hardware/platform_setup.py"
+user_leaf="$ROOT/src/arch/python/installer_user/setup/platform.py"
 
-[[ $(python3 -c 'import sys, yaml; print(yaml.safe_load(open(sys.argv[1], encoding="utf-8"))["steps"][-1])' "$ROOT/data/installer/hardware-setup.yml") == 'src/python/installer/hardware/platform_setup.py' ]] ||
+[[ $(python3 -c 'import sys, yaml; print(yaml.safe_load(open(sys.argv[1], encoding="utf-8"))["steps"][-1])' "$ROOT/data/installer/hardware-setup.yml") == 'src/arch/python/installer/hardware/platform_setup.py' ]] ||
   fail "the platform's system setup is the last hardware leaf"
 [[ $(grep '^  - setup/' "$ROOT/data/installer/user-setup.yml" | tail -n 1) == '  - setup/platform.py' ]] ||
   fail "the platform's user setup is the last user leaf"
@@ -44,10 +44,10 @@ leaf() {
   rm -f "$tmp/ran"
   if [[ $script == *.py ]]; then
     env "$@" ARCH_PATH="$ROOT" ARCH_PROC_ROOT="$tmp/$platform/proc" ARCH_LIFECYCLE_ROOT="$lifecycle" \
-      PATH="$tmp/$platform/bin:$ROOT/src/commands:$PATH" python3 -I "$script" >"$tmp/output" 2>&1
+      PATH="$tmp/$platform/bin:$ROOT/src/arch/commands:$PATH" python3 -I "$script" >"$tmp/output" 2>&1
   else
     env "$@" ARCH_PROC_ROOT="$tmp/$platform/proc" ARCH_LIFECYCLE_ROOT="$lifecycle" \
-      PATH="$tmp/$platform/bin:$ROOT/src/commands:$PATH" bash -eE -c 'source "$1"' bash "$script" >"$tmp/output" 2>&1
+      PATH="$tmp/$platform/bin:$ROOT/src/arch/commands:$PATH" bash -eE -c 'source "$1"' bash "$script" >"$tmp/output" 2>&1
   fi
 }
 
@@ -127,11 +127,11 @@ for helper in arch-provision-user arch-hook-install arch-notification-wait; do
   printf '#!/bin/bash\nexit 0\n' >"$first_bin/$helper"
 done
 chmod +x "$first_bin"/*
-mkdir -p "$first_root/src/python/installer_user/first_run" "$first_root/data/installer"
-cp "$ROOT/src/python/installer_user/first_run/commands.py" \
-  "$first_root/src/python/installer_user/first_run/commands.py"
-cp "$ROOT/src/python/installer_user/first_run/orchestrator.py" \
-  "$first_root/src/python/installer_user/first_run/orchestrator.py"
+mkdir -p "$first_root/src/arch/python/installer_user/first_run" "$first_root/data/installer"
+cp "$ROOT/src/arch/python/installer_user/first_run/commands.py" \
+  "$first_root/src/arch/python/installer_user/first_run/commands.py"
+cp "$ROOT/src/arch/python/installer_user/first_run/orchestrator.py" \
+  "$first_root/src/arch/python/installer_user/first_run/orchestrator.py"
 cp "$ROOT/data/installer/first-run.yml" "$first_root/data/installer/first-run.yml"
 cat >"$first_bin/gsettings" <<'SH'
 #!/bin/bash
@@ -167,7 +167,7 @@ first_run() {
   rm -f "$tmp/ran" "$tmp/first-run-marker" "$tmp/home/.local/state/arch/first-run.log"
   HOME="$tmp/home" ARCH_PATH="$first_root" FIRST_RUN_MARKER="$tmp/first-run-marker" GSETTINGS_LOG="$tmp/gsettings.log" AUDIO_TUNING_LOG="$tmp/audio-tuning.log" NOTIFICATION_LOG="$tmp/notifications.log" INPUT_METHOD_LOG="$tmp/input-method.log" SYSTEMCTL_LOG="$tmp/systemctl.log" \
     ARCH_PROC_ROOT="$tmp/$platform/proc" ARCH_LIFECYCLE_ROOT="$lifecycle" \
-    PATH="$first_bin:$tmp/$platform/bin:$ROOT/src/commands:$PATH" "$ROOT/src/commands/arch-provision-first-run" >"$tmp/output" 2>&1
+    PATH="$first_bin:$tmp/$platform/bin:$ROOT/src/arch/commands:$PATH" "$ROOT/src/arch/commands/arch-provision-first-run" >"$tmp/output" 2>&1
 }
 
 LANG=it_IT.UTF-8 first_run apple || fail "apple: first run finishes" "$(cat "$tmp/output")"
@@ -217,21 +217,21 @@ exit "${CHECKOUT_UPDATE_STATUS:-1}"
 SH
 chmod +x "$first_bin/nm-online" "$first_bin/checkupdates" "$first_bin/arch-update-available"
 LANG=it_IT.UTF-8 WIFI_CONNECTED=0 WIFI_WAIT_CONNECTED=0 ARCH_PATH="$first_root" NOTIFICATION_LOG="$tmp/notifications.log" \
-  PATH="$first_bin:$PATH" python3 -I "$first_root/src/python/installer_user/first_run/commands.py" wifi_worker ||
+  PATH="$first_bin:$PATH" python3 -I "$first_root/src/arch/python/installer_user/first_run/commands.py" wifi_worker ||
   fail "offline first run notifies the user to configure Wi-Fi" "$(cat "$tmp/notifications.log")"
 grep -q 'Configura il Wi-Fi' "$tmp/notifications.log" || fail "Wi-Fi notification uses its Italian YAML translation" "$(cat "$tmp/notifications.log")"
 LANG=it_IT.UTF-8 WIFI_CONNECTED=1 CHECKUPDATES_STATUS=0 ARCH_PATH="$first_root" NOTIFICATION_LOG="$tmp/notifications.log" \
-  PATH="$first_bin:$PATH" python3 -I "$first_root/src/python/installer_user/first_run/commands.py" wifi_worker ||
+  PATH="$first_bin:$PATH" python3 -I "$first_root/src/arch/python/installer_user/first_run/commands.py" wifi_worker ||
   fail "available updates produce a notification" "$(cat "$tmp/notifications.log")"
 grep -q 'Aggiorna il sistema' "$tmp/notifications.log" || fail "update notification uses its Italian YAML translation" "$(cat "$tmp/notifications.log")"
 if ! LANG=it_IT.UTF-8 INPUT_METHOD_FAIL=1 ARCH_PATH="$first_root" INPUT_METHOD_LOG="$tmp/user-units-input.log" SYSTEMCTL_LOG="$tmp/user-units-systemctl.log" \
-  PATH="$first_bin:$PATH" python3 -I "$first_root/src/python/installer_user/first_run/commands.py" user_units >"$tmp/user-units.out" 2>&1; then
+  PATH="$first_bin:$PATH" python3 -I "$first_root/src/arch/python/installer_user/first_run/commands.py" user_units >"$tmp/user-units.out" 2>&1; then
   fail "input-method defaults may fail without blocking user unit setup" "$(cat "$tmp/user-units.out")"
 fi
 grep -q "Configurazione del metodo di input rimandata" "$tmp/user-units.out" || fail "input-method fallback is localized from YAML" "$(cat "$tmp/user-units.out")"
 grep -q '^--user enable --now arch-crash-watch.service$' "$tmp/user-units-systemctl.log" || fail "a failed optional setup does not prevent later units" "$(cat "$tmp/user-units-systemctl.log")"
 if SYSTEMCTL_FAIL_UNIT=arch-sleep-lock.service ARCH_PATH="$first_root" SYSTEMCTL_LOG="$tmp/user-units-failure.log" \
-  PATH="$first_bin:$PATH" python3 -I "$first_root/src/python/installer_user/first_run/commands.py" user_units >"$tmp/user-units.out" 2>&1; then
+  PATH="$first_bin:$PATH" python3 -I "$first_root/src/arch/python/installer_user/first_run/commands.py" user_units >"$tmp/user-units.out" 2>&1; then
   fail "a failed systemd unit keeps first run pending"
 fi
 grep -q '^--user enable --now arch-crash-watch.service$' "$tmp/user-units-failure.log" || fail "unit failures do not skip the remaining service setup" "$(cat "$tmp/user-units-failure.log")"

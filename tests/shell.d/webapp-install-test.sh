@@ -11,7 +11,7 @@ home="$tmpdir/home"
 mkdir -p "$home/.local/share/applications"
 
 install_webapp() {
-  HOME="$home" PATH="$ROOT/src/commands:$PATH" "$ROOT/src/commands/arch-webapp-install" "$@"
+  HOME="$home" PATH="$ROOT/src/arch/commands:$PATH" "$ROOT/src/arch/commands/arch-webapp-install" "$@"
 }
 
 desktop_for() {
@@ -40,8 +40,8 @@ for case in \
   "https://maps.google.com|chrome-maps.google.com__-Default" \
   "https://discord.com/channels/@me|chrome-discord.com__channels_@me-Default" \
   "https://Example.com:8443/a/b?x=1#y|chrome-example.com__a_b-Default"; do
-  [[ $("$ROOT/src/commands/arch-webapp-window-class" "${case%%|*}") == "${case#*|}" ]] ||
-    fail "the window class of ${case%%|*} is ${case#*|}" "$("$ROOT/src/commands/arch-webapp-window-class" "${case%%|*}")"
+  [[ $("$ROOT/src/arch/commands/arch-webapp-window-class" "${case%%|*}") == "${case#*|}" ]] ||
+    fail "the window class of ${case%%|*} is ${case#*|}" "$("$ROOT/src/arch/commands/arch-webapp-window-class" "${case%%|*}")"
 done
 pass "web app window classes follow Chromium's host and path naming"
 
@@ -128,7 +128,7 @@ printf 'Evil\nfile:///etc/passwd\n' >"$tmpdir/answers"
 : >"$tmpdir/curl-log"
 
 if GUM_ANSWERS="$tmpdir/answers" GUM_COUNT="$tmpdir/gum-count" CURL_LOG="$tmpdir/curl-log" \
-  PATH="$stubs:$PATH" HOME="$home" "$ROOT/src/commands/arch-webapp-install" \
+  PATH="$stubs:$PATH" HOME="$home" "$ROOT/src/arch/commands/arch-webapp-install" \
   >"$tmpdir/out" 2>"$tmpdir/err"; then
   fail "interactive webapp install refuses a file: URL" "$(cat "$tmpdir/out")"
 fi

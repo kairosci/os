@@ -6,21 +6,21 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 scratch=$(mktemp -d)
 trap 'rm -rf "$scratch"' EXIT
 export ARCH_PATH="$scratch/arch" ARCH_INSTALL="$ROOT/installer" COMMAND_LOG="$scratch/commands"
-mkdir -p "$ARCH_PATH/src/commands" "$ARCH_PATH/default/i18n"
+mkdir -p "$ARCH_PATH/src/arch/commands" "$ARCH_PATH/default/i18n"
 printf '{"en":{},"fr":{},"es":{},"it":{}}\n' >"$ARCH_PATH/default/i18n/locales.json"
 mkdir -p "$ARCH_PATH/data/installer"
 cp "$ROOT/data/installer/system-setup.yml" "$ARCH_PATH/data/installer/system-setup.yml"
 cp "$ROOT/data/installer/user-setup.yml" "$ARCH_PATH/data/installer/user-setup.yml"
 for command in arch-locale-generate arch-language; do
-  printf '#!/bin/bash\nprintf "%%s %%s\\n" "${0##*/}" "$*" >>"$COMMAND_LOG"\n' >"$ARCH_PATH/src/commands/$command"
-  chmod +x "$ARCH_PATH/src/commands/$command"
+  printf '#!/bin/bash\nprintf "%%s %%s\\n" "${0##*/}" "$*" >>"$COMMAND_LOG"\n' >"$ARCH_PATH/src/arch/commands/$command"
+  chmod +x "$ARCH_PATH/src/arch/commands/$command"
 done
 export ARCH_LANGUAGE_MARKER="$scratch/language"
 sed -i "s|preset_file: /etc/arch/language|preset_file: $ARCH_LANGUAGE_MARKER|" \
   "$ARCH_PATH/data/installer/user-setup.yml"
 
-system_step() { : >"$COMMAND_LOG"; python3 -I "$ROOT/src/python/installer/system_setup/language_setup.py" 2>"$scratch/err"; }
-user_step() { : >"$COMMAND_LOG"; python3 -I "$ROOT/src/python/installer_user/setup/language.py" 2>"$scratch/err"; }
+system_step() { : >"$COMMAND_LOG"; python3 -I "$ROOT/src/arch/python/installer/system_setup/language_setup.py" 2>"$scratch/err"; }
+user_step() { : >"$COMMAND_LOG"; python3 -I "$ROOT/src/arch/python/installer_user/setup/language.py" 2>"$scratch/err"; }
 
 system_step
 [[ ! -s $COMMAND_LOG ]] || fail "no preset language generates no locale"
@@ -46,7 +46,7 @@ grep -q 'preset_file: /etc/arch/language' "$ROOT/data/installer/user-setup.yml" 
   fail "the user step reads the preset path from data"
 grep -q 'marker_default: /etc/arch/language' "$ROOT/data/installer/system-setup.yml" ||
   fail "the system step reads the Arch language marker"
-grep -Fq 'src/python/installer/system_setup/language_setup.py' "$ROOT/data/installer/system-setup.yml" || fail "system finalization declares the language step"
+grep -Fq 'src/arch/python/installer/system_setup/language_setup.py' "$ROOT/data/installer/system-setup.yml" || fail "system finalization declares the language step"
 grep -Fq '  - setup/language.py' "$ROOT/data/installer/user-setup.yml" || fail "user finalization declares the language step"
 pass "both finalization steps run, and read the preset as data"
 
@@ -59,7 +59,7 @@ for command in sudo pkexec locale-gen arch-notification-send dbus-update-activat
   printf '#!/bin/bash\necho "%s $*" >>"$SEED_LOG"\n' "$command" >"$work/stubs/$command"
 done
 chmod +x "$work/stubs/"*
-seed() { : >"$SEED_LOG"; ARCH_PATH=$ROOT PATH="$work/stubs:$ROOT/src/commands:$PATH" "$ROOT/src/commands/arch-language" seed "$@" </dev/null; }
+seed() { : >"$SEED_LOG"; ARCH_PATH=$ROOT PATH="$work/stubs:$ROOT/src/arch/commands:$PATH" "$ROOT/src/arch/commands/arch-language" seed "$@" </dev/null; }
 seed it
 [[ $(<"$ARCH_LANGUAGE_FILE") == it ]] || fail "seeding persists the preset language"
 grep -qx 'export LANG=it_IT.UTF-8' "$XDG_CONFIG_HOME/uwsm/env.d/50-arch-language" || fail "seeding sets the session LANG for the first login"
@@ -73,12 +73,12 @@ pass "seeding sets the user's language and session LANG without elevating or not
 
 # A deferred install's region, settled at first boot against the owner's
 # timezone; the function is taken from owner setup itself.
-eval "$(sed -n '/^configure_region() {$/,/^}$/p' "$ROOT/src/commands/arch-provision-owner")"
+eval "$(sed -n '/^configure_region() {$/,/^}$/p' "$ROOT/src/arch/commands/arch-provision-owner")"
 region_root=$scratch/region
-mkdir -p "$region_root/arch/default/regions/cn" "$region_root/arch/src/commands" "$region_root/etc/arch"
+mkdir -p "$region_root/arch/default/regions/cn" "$region_root/arch/src/arch/commands" "$region_root/etc/arch"
 printf 'Asia/Shanghai\nAsia/Urumqi\n' >"$region_root/arch/default/regions/cn/timezones"
-printf '#!/bin/bash\necho "apply $*" >>"$REGION_LOG"\n' >"$region_root/arch/src/commands/arch-apply-pacman"
-chmod +x "$region_root/arch/src/commands/arch-apply-pacman"
+printf '#!/bin/bash\necho "apply $*" >>"$REGION_LOG"\n' >"$region_root/arch/src/arch/commands/arch-apply-pacman"
+chmod +x "$region_root/arch/src/arch/commands/arch-apply-pacman"
 export ARCH_FORM_DEFAULTS=$region_root/etc/arch/form-defaults ARCH_REGION_FILE=$region_root/etc/arch/region \
   ARCH_PACMAN_CONF=$region_root/etc/pacman.conf ARCH_REGION_TARGET=$region_root REGION_LOG=$region_root/log
 printf '[arch]\nServer = https://pkgs.arch.cn/stable/$arch\nServer = https://pkgs.github.com/kairosci/os/stable/$arch\n' >"$ARCH_PACMAN_CONF"

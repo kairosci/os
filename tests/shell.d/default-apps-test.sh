@@ -22,15 +22,15 @@ arch_runtime="$test_tmp/arch-runtime"
 mkdir -p "$terminal_home/.local/share/applications" "$arch_runtime/assets"
 cp -a assets/applications "$arch_runtime/assets/"
 cp -a config data default installer "$arch_runtime/"
-mkdir -p "$arch_runtime/src"
-cp -a src/python "$arch_runtime/src/"
+mkdir -p "$arch_runtime/src/arch"
+cp -a src/arch/python "$arch_runtime/src/"
 printf 'legacy desktop entry\n' >"$terminal_home/.local/share/applications/org.legacy.terminal.desktop"
 grep -Fxq 'kitty.desktop' "$ROOT/default/xdg-terminal-exec/hyprland-xdg-terminals.list" ||
   fail "Kitty remains the default terminal emulator"
 pass "Kitty remains the default terminal emulator"
 
 printf 'obsolete launcher\n' >"$terminal_home/.local/share/applications/org.old.terminal.desktop"
-HOME="$terminal_home" ARCH_PATH="$ROOT" python3 -I "$ROOT/src/python/installer_user/setup/terminal.py"
+HOME="$terminal_home" ARCH_PATH="$ROOT" python3 -I "$ROOT/src/arch/python/installer_user/setup/terminal.py"
 cmp -s "$ROOT/assets/applications/org.arch.terminal.desktop" \
   "$terminal_home/.local/share/applications/org.arch.terminal.desktop" ||
   fail "user setup installs the shipped Arch terminal launcher"
@@ -78,7 +78,7 @@ cat >"$mock_bin/arch-test-installer" <<'SH'
 installer=${0##*/}
 
 if [[ $installer == "arch-install-browser" && ${ARCH_TEST_REAL_BROWSER_INSTALL:-false} == "true" ]]; then
-  exec "$ROOT/src/commands/arch-install-browser" "$@"
+  exec "$ROOT/src/arch/commands/arch-install-browser" "$@"
 fi
 
 case $installer in
@@ -152,7 +152,7 @@ printf '#!/bin/bash\nexit 0\n' >"$mock_bin/arch-lifecycle-dispatch"
 chmod +x "$mock_bin"/*
 
 export HOME="$test_home"
-export PATH="$mock_bin:$ROOT/src/commands:$PATH"
+export PATH="$mock_bin:$ROOT/src/arch/commands:$PATH"
 export ARCH_PATH="$ROOT"
 export ARCH_TEST_INSTALLED_DIR="$installed_dir"
 export ARCH_TEST_INSTALL_LOG="$install_log"

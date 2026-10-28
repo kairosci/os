@@ -1,8 +1,8 @@
 # The Arch CLI router
 
-`src/commands/archctl` maps spaced commands onto the flat `src/commands/arch-*` namespace:
+`src/arch/commands/archctl` maps spaced commands onto the flat `src/arch/commands/arch-*` namespace:
 `archctl theme set foo` becomes `exec arch-theme-set foo`. There is no
-registry to maintain — every executable `src/commands/arch-*` file is a command, and
+registry to maintain — every executable `src/arch/commands/arch-*` file is a command, and
 its filename is its default route. Metadata comments in the file header refine
 how it presents and routes; the keys are documented in
 [`.agents/skills/command-metadata.md`](../.agents/skills/command-metadata.md).
@@ -95,7 +95,7 @@ canonical `arch share` stands alone. On the fast path, group help loads
 only that group's filename-prefixed binaries rather than everything.
 
 The top-level `arch` listing is driven entirely by the hand-curated
-`GROUP_DESCRIPTIONS` table in `src/commands/archctl`, which also titles each group's
+`GROUP_DESCRIPTIONS` table in `src/arch/commands/archctl`, which also titles each group's
 help. An entry there advertises the group even when every command in it is
 hidden — which is exactly why `apply` and `provision` have none: they route,
 but a listing entry would put install-time plumbing back in front of users

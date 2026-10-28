@@ -41,7 +41,7 @@ guard_scripts() {
   node -e '
     const path = require("path")
     const fs = require("fs")
-    const menu = require(path.join(process.env.ROOT, "src/shell/plugins/menu/MenuModel.js"))
+    const menu = require(path.join(process.env.ROOT, "src/arch/shell/plugins/menu/MenuModel.js"))
     const shipped = menu.parseMenuJsonc(fs.readFileSync(path.join(process.env.ROOT, "default/arch/arch-menu.jsonc"), "utf8"))
     const all = {}
     for (const item of shipped) all[item.id] = item
@@ -63,7 +63,7 @@ fastest_ms() {
   for _ in 1 2 3; do
     start=$EPOCHREALTIME
     status=0
-    ARCH_PATH="$ROOT" PATH="$ROOT/src/commands:$PATH" timeout --kill-after=1s 10s bash -c "$1" >"$output" 2>/dev/null || status=$?
+    ARCH_PATH="$ROOT" PATH="$ROOT/src/arch/commands:$PATH" timeout --kill-after=1s 10s bash -c "$1" >"$output" 2>/dev/null || status=$?
     end=$EPOCHREALTIME
     elapsed=$(( (${end/[.,]/} - ${start/[.,]/}) / 1000 ))
     if (( status == 124 || status == 137 )); then

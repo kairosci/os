@@ -4,7 +4,7 @@ The Arch desktop runs as a single long-lived Quickshell process called `arch-she
 
 That's not just an implementation detail. It means you can turn pieces of the desktop off, swap them out, or write your own without touching a line of Arch's source.
 
-The first-party plugins ship with Arch and live in `$ARCH_PATH/src/shell/plugins/`. Anything you add yourself — your own experiments, or something you found on GitHub — lives in `~/.config/arch/plugins/`. Both are discovered the same way at startup, but built-ins receive trusted shell interfaces while third-party plugins receive a limited interface scoped to their own service and lifecycle. Clones of built-ins keep only the source-specific configuration and UI calls needed for the original behavior.
+The first-party plugins ship with Arch and live in `$ARCH_PATH/src/arch/shell/plugins/`. Anything you add yourself — your own experiments, or something you found on GitHub — lives in `~/.config/arch/plugins/`. Both are discovered the same way at startup, but built-ins receive trusted shell interfaces while third-party plugins receive a limited interface scoped to their own service and lifecycle. Clones of built-ins keep only the source-specific configuration and UI calls needed for the original behavior.
 
 ## Seeing what you have
 

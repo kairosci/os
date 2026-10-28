@@ -1,0 +1,220 @@
+#!/bin/bash -p
+
+# arch:summary=Set the Arch package channel.
+# arch:args=<stable|rc|edge|dev>
+# arch:requires-sudo=true
+
+if [[ $- != *p* ]]; then
+  echo "Refusing an unsafe Bash startup for channel switching." >&2
+  exit 126
+fi
+security_entrypoint=$(/usr/bin/readlink -e -- "${BASH_SOURCE[0]}") || exit 126
+source "${security_entrypoint%/*}/arch-security-functions" || exit 126
+arch_security_require_privileged_bash_startup || exit 126
+set -euo pipefail
+arch_security_sanitize_bash_environment "$0" "$@"
+arch_security_require_source_root "$0"
+user_path=$PATH
+# Traps first, so a signal or failure during the entry revocation still
+# exits through the cleanup path.
+arch_security_install_sudo_cleanup_traps
+arch_security_revoke_sudo_timestamp || exit 1
+arch_security_enable_no_update_sudo
+
+usage() { echo "Usage: arch-channel-set [stable|rc|edge|dev]"; }
+fail() { echo "Error: $*" >&2; exit 1; }
+
+confirm_dev() {
+  cat <<'WARNING'
+
+The dev channel links Arch directly to a checkout of the source in ~/arch.
+It's exclusively intended for developers working on os itself.
+
+WARNING
+
+  gum confirm --default=false "Switch to dev channel?"
+}
+
+validate_dev_checkout() {
+  local checkout="$1"
+
+  if [[ -e $checkout && ! -d $checkout/.git ]]; then
+    fail "$checkout already exists and is not a git checkout."
+  fi
+
+  if [[ -d $checkout/.git && ( ! -d $checkout/src/arch/commands || ! -d $checkout/default || ! -d $checkout/src/arch/shell ) ]]; then
+    fail "$checkout is a git checkout, but it does not look like os."
+  fi
+}
+
+# The dev channel refreshes pacman with the checkout's own tools. A checkout
+# without this machine's region profile would silently drop its repositories.
+validate_dev_region() {
+  local checkout="$1" region_file="${ARCH_REGION_FILE:-/etc/arch/region}" region=global
+
+  [[ -f $region_file ]] && region=$(<"$region_file")
+  [[ $region == "global" ]] && return 0
+
+  # The refresh after linking needs a runnable helper and every fragment, not
+  # just a directory with the region's name: dev refreshes edge, and leaving
+  # dev later refreshes stable or rc with this checkout's tools.
+  local profile="$checkout/default/regions/$region/pacman" fragment supported=true
+  [[ -x $checkout/src/arch/commands/arch-apply-pacman ]] || supported=false
+  for fragment in arch-{stable,rc,edge}.prepend mirrorlist-{stable,rc,edge}.prepend; do
+    [[ -r $profile/$fragment ]] || supported=false
+  done
+  if ! $supported; then
+    fail "$checkout does not support the '$region' region, so switching would drop its package repositories. Check out a branch with default/regions/$region, or remove $region_file to use global defaults."
+  fi
+}
+
+link_dev_checkout() {
+  local checkout="$1" required
+  # Skip file contents only old history holds, like retired theme videos; git
+  # fetches whatever a checkout needs when it needs it.
+  [[ -d $checkout/.git ]] || git clone --filter=blob:none https://github.com/kairosci/os.git "$checkout"
+  validate_dev_region "$checkout"
+
+  # Check the destination before changing /etc/arch.conf or sudo's path.
+  # An existing checkout is not pulled automatically and may predate this policy.
+  for required in src/arch/commands/arch-security-functions src/arch/commands/arch-update src/arch/commands/arch-refresh-pacman default/arch/sudo-no-update/sudo; do
+    if [[ ! -f $checkout/$required || ! -r $checkout/$required ||
+      ( $required != "src/arch/commands/arch-security-functions" && ! -x $checkout/$required ) ]]; then
+      fail "Update the checkout before switching to dev; missing required update support in $required."
+    fi
+  done
+
+  # The checkout's own channel refresh runs next, from its own templates.
+  if [[ ! -f $checkout/${templates#"$ARCH_PATH"/}/pacman-$pacman_channel.conf ||
+    ! -f $checkout/${templates#"$ARCH_PATH"/}/mirrorlist-$pacman_channel ]]; then
+    fail "Update the checkout before switching to dev; it has no $pacman_channel templates for $platform."
+  fi
+
+  # On aarch64 one from before it had platform templates would replace this
+  # machine's repositories with x86's.
+  if [[ $platform != "x86" ]]; then
+    for required in src/arch/commands/arch-hw-platform installer/helpers/pacman.sh; do
+      if [[ ! -f $checkout/$required || ! -r $checkout/$required ||
+        ( $required == "src/arch/commands/arch-hw-platform" && ! -x $checkout/$required ) ]]; then
+        fail "Update the checkout before switching to dev; on $platform it needs $required for this machine's repositories."
+      fi
+    done
+  fi
+
+  arch-dev-link "$checkout" --no-reboot
+}
+
+# A packaged destination cannot be inspected before its package is installed,
+# and a package transaction can replace the running tree with a release that
+# predates the command-scoped wrapper. After that, a bare sudo would resolve to
+# /usr/bin/sudo and publish a timestamp, and the destination's own updater
+# authenticates the same way. Neither may run from a flow that has just run
+# user hooks: stop at a consistent point and say how to finish from a fresh
+# session. That depends on whether the destination's packages are in: a
+# transaction before the swap can have replaced the tree too.
+stop_for_older_destination() {
+  local installed listed line
+  local -a names=()
+
+  # arch-dev provides arch, so this lists whichever pair is installed.
+  installed=$(pacman -Q arch arch-settings 2>/dev/null) || true
+  while read -r line; do
+    names+=("${line%% *}")
+  done <<<"$installed"
+  listed=${installed//$'\n'/, }
+
+  if [[ ${names[*]} == "${packages[*]}" ]]; then
+    cat >&2 <<EOF
+The destination predates command-scoped sudo, so this switch stops before its update.
+Packages are switched to $listed. Run 'archctl update' from a new terminal to finish, then reboot if prompted.
+EOF
+  else
+    cat >&2 <<EOF
+A package transaction replaced os with a release that predates command-scoped sudo, so this switch stops before installing ${packages[*]}.
+Installed now: ${listed:-neither arch nor arch-settings}. Run 'archctl channel set $channel' from a new terminal to finish, then reboot if prompted.
+EOF
+  fi
+  exit 3
+}
+
+wrapper_present() {
+  [[ -f $ARCH_PATH/default/arch/sudo-no-update/sudo && -x $ARCH_PATH/default/arch/sudo-no-update/sudo ]]
+}
+
+(( $# > 0 )) || { usage; exit 1; }
+
+dev_checkout=""
+channel="$1"
+leaving_dev=0
+
+case "$channel" in
+  stable)
+    pacman_channel=stable
+    packages=(arch arch-settings)
+    ;;
+  rc)
+    pacman_channel=rc
+    packages=(arch arch-settings)
+    ;;
+  edge)
+    pacman_channel=edge
+    packages=(arch-dev arch-settings-dev)
+    ;;
+  dev)
+    pacman_channel=edge
+    packages=(arch-dev arch-settings-dev)
+    ;;
+  *)
+    echo "Unknown channel: $channel" >&2
+    usage >&2
+    exit 1
+    ;;
+esac
+
+# A channel this machine's platform has no templates for is refused before
+# anything changes (installer/helpers/pacman.sh).
+source "$ARCH_PATH/installer/helpers/pacman.sh"
+platform=$(arch-hw-platform) || fail "Cannot tell this machine's platform; nothing changed."
+templates=$(arch_pacman_templates "$platform") || exit 1
+[[ -f $templates/pacman-$pacman_channel.conf && -f $templates/mirrorlist-$pacman_channel ]] ||
+  fail "os has no $pacman_channel channel for $platform; nothing changed."
+
+if [[ $channel == "dev" ]]; then
+  confirm_dev || { echo "Cancelled."; exit 0; }
+  dev_checkout="$HOME/arch"
+  validate_dev_checkout "$dev_checkout"
+fi
+
+# A failure past this point leaves the channel switch half-applied, so say how
+# to pick it back up rather than dying silently under set -e.
+trap 'echo -e "\nThe channel switch did not complete. Review the error above, then rerun: arch-channel-set '"$channel"'" >&2' ERR
+
+if [[ -z $dev_checkout && $ARCH_PATH != "/usr/share/arch" ]]; then
+  leaving_dev=1
+fi
+
+if [[ -n $dev_checkout ]]; then
+  link_dev_checkout "$dev_checkout"
+  export ARCH_PATH="$dev_checkout"
+  arch_security_enable_no_update_sudo
+  arch-state set reboot-required
+fi
+
+ARCH_UPDATE_USER_PATH="$user_path" arch-refresh-pacman "$pacman_channel"
+# Each transaction can have replaced this tree; check before the next sudo.
+wrapper_present || stop_for_older_destination
+# --ask 4 accepts arch <-> arch-dev replacement prompts without file overwrites.
+arch-update-pacman -S --needed --noconfirm --ask 4 "${packages[@]}"
+wrapper_present || stop_for_older_destination
+
+if [[ -z $dev_checkout ]]; then
+  arch-dev-unlink --no-reboot
+  export ARCH_PATH=/usr/share/arch
+
+  if (( leaving_dev )); then
+    arch-state set reboot-required
+  fi
+  arch_security_enable_no_update_sudo 2>/dev/null || stop_for_older_destination
+fi
+
+ARCH_UPDATE_USER_PATH="$user_path" "$ARCH_PATH/src/arch/commands/arch-update" -y

@@ -2,15 +2,15 @@ id = "desktop.commands.installed"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-installed-service-dropbox",
-  "src/commands/arch-installed-service-tailscale",
+  "src/arch/commands/arch-installed-service-dropbox",
+  "src/arch/commands/arch-installed-service-tailscale",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-installed-service-dropbox"
-target = "usr/share/arch/src/commands/arch-installed-service-dropbox"
+source = "src/arch/commands/arch-installed-service-dropbox"
+target = "usr/share/arch/src/arch/commands/arch-installed-service-dropbox"
 
 [[output]]
-source = "src/commands/arch-installed-service-tailscale"
-target = "usr/share/arch/src/commands/arch-installed-service-tailscale"
+source = "src/arch/commands/arch-installed-service-tailscale"
+target = "usr/share/arch/src/arch/commands/arch-installed-service-tailscale"

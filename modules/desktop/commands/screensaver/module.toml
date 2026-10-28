@@ -2,10 +2,10 @@ id = "desktop.commands.screensaver"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-screensaver",
+  "src/arch/commands/arch-screensaver",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-screensaver"
-target = "usr/share/arch/src/commands/arch-screensaver"
+source = "src/arch/commands/arch-screensaver"
+target = "usr/share/arch/src/arch/commands/arch-screensaver"

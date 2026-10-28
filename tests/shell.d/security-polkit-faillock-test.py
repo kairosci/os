@@ -28,7 +28,7 @@ def pam_stack(source: str) -> str:
 
 def main() -> int:
   for setup in SETUPS:
-    source = (ROOT / "src/commands" / setup).read_text(encoding="utf-8")
+    source = (ROOT / "src/arch/commands" / setup).read_text(encoding="utf-8")
     body = pam_stack(source)
     if not body:
       fail_check(f"{setup} writes a polkit-1 stack")

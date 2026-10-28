@@ -1,8 +1,8 @@
 -- Hyprland bootstrap for os's Lua module path.
 
 local home = os.getenv("HOME")
-local arch_path = rawget(_G, "ARCH_PATH") or os.getenv("ARCH_PATH") or "/usr/share/arch"
-local inherited_arch_path = os.getenv("ARCH_PATH")
+local ap = rawget(_G, "ARCH_PATH") or os.getenv("ARCH_PATH") or "/usr/share/arch"
+local inherited_ap = os.getenv("ARCH_PATH")
 local reload_prefixes = {
   "default.hypr",
   "hypr",
@@ -32,7 +32,7 @@ end
 
 local inherited_package_paths = {}
 for entry in package.path:gmatch("[^;]+") do
-  local stale_prefix = inherited_arch_path and inherited_arch_path .. "/"
+  local stale_prefix = inherited_ap and inherited_ap .. "/"
   if not stale_prefix or entry:sub(1, #stale_prefix) ~= stale_prefix then
     table.insert(inherited_package_paths, entry)
   end
@@ -44,6 +44,6 @@ package.path = home
   .. "/.local/state/?.lua;"
   .. home
   .. "/.config/?.lua;"
-  .. arch_path
+  .. ap
   .. "/?.lua;"
   .. table.concat(inherited_package_paths, ";")

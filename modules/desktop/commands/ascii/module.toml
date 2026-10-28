@@ -2,10 +2,10 @@ id = "desktop.commands.ascii"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-ascii",
+  "src/arch/commands/arch-ascii",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-ascii"
-target = "usr/share/arch/src/commands/arch-ascii"
+source = "src/arch/commands/arch-ascii"
+target = "usr/share/arch/src/arch/commands/arch-ascii"

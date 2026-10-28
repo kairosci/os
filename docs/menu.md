@@ -7,8 +7,8 @@ runtime from `$ARCH_PATH`) and overlaid by the user's
 at startup and watches them for changes, so the keybind → IPC → visible path
 never shells out to parse anything, and edits to either file take effect
 without restarting the shell. Rendering and behavior live in
-`src/shell/plugins/menu/Menu.qml`; the pure logic lives in
-`src/shell/plugins/menu/MenuModel.js`, which is plain JavaScript that Node can
+`src/arch/shell/plugins/menu/Menu.qml`; the pure logic lives in
+`src/arch/shell/plugins/menu/MenuModel.js`, which is plain JavaScript that Node can
 also load — the shell tests in `tests/shell.d/menu-test.sh` and
 `menu-guards-test.sh` exercise it directly.
 
@@ -144,7 +144,7 @@ it with `provider:`.
 
 ## Driving the menu from the CLI
 
-`src/commands/arch-menu` is a thin wrapper over the standard plugin IPC surface:
+`src/arch/commands/arch-menu` is a thin wrapper over the standard plugin IPC surface:
 
 ```bash
 archctl menu                    # toggle the root menu

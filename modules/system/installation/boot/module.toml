@@ -1,12 +1,12 @@
 id = "system.installation.boot"
 domain = "system"
 package = "arch"
-sources = ["src/python/installer/boot", "installer/boot"]
+sources = ["src/arch/python/installer/boot", "installer/boot"]
 requires = ["system.installation"]
 
 [[output]]
-source = "src/python/installer/boot"
-target = "usr/share/arch/src/python/installer/boot"
+source = "src/arch/python/installer/boot"
+target = "usr/share/arch/src/arch/python/installer/boot"
 
 [[output]]
 source = "installer/boot"

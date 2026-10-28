@@ -12,14 +12,14 @@ trap 'rm -rf "$tmp_dir"' EXIT
 
 # The launcher ends by taking over the process, so source it short of that line
 # and exercise its animation logic without opening a terminal.
-about="$ROOT/src/commands/arch-launch-about"
+about="$ROOT/src/arch/commands/arch-launch-about"
 grep -q -- '--app-id=org.arch.about' "$about" || fail "About uses the Arch app id"
 pass "About uses the Arch app id"
 grep -q '^if \[\[ ${1:-} == "--render" \]\]; then$' "$about" || fail "About launcher can be sourced short of its launch"
 sed '/^if \[\[ ${1:-} == "--render" \]\]; then$/,$d' "$about" >"$tmp_dir/about.bash"
 
 export HOME="$tmp_dir/home"
-export PATH="$ROOT/src/commands:$PATH"
+export PATH="$ROOT/src/arch/commands:$PATH"
 mkdir -p "$HOME/.config/arch/branding"
 printf '%s\n' '████████' '████████' >"$HOME/.config/arch/branding/screensaver.txt"
 

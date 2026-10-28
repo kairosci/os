@@ -5,7 +5,7 @@ set -euo pipefail
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 export ARCH_PATH="$ROOT"
-export PATH="$ROOT/src/commands:$PATH"
+export PATH="$ROOT/src/arch/commands:$PATH"
 
 tmp_dir=$(mktemp -d)
 trap 'rm -rf "$tmp_dir"' EXIT
@@ -59,7 +59,7 @@ exit 1
 STUB
 chmod +x "$tmp_dir/bin/upower"
 
-shell_output=$(ARCH_TEST_NATIVE_PATH=macsmc-battery ARCH_POWER_SUPPLY_PATH="$tmp_dir/power" PATH="$tmp_dir/bin:$PATH" "$ROOT/src/commands/arch-battery-status" --shell)
+shell_output=$(ARCH_TEST_NATIVE_PATH=macsmc-battery ARCH_POWER_SUPPLY_PATH="$tmp_dir/power" PATH="$tmp_dir/bin:$PATH" "$ROOT/src/arch/commands/arch-battery-status" --shell)
 
 grep -Fx $'percentage\t51%' <<<"$shell_output" >/dev/null || fail "battery status reports the machine's battery, not the mouse's"
 grep -Fx $'state\tdischarging' <<<"$shell_output" >/dev/null || fail "battery status reports state"
@@ -68,14 +68,14 @@ grep -Fx $'size\t56Wh' <<<"$shell_output" >/dev/null || fail "battery status rep
 grep -Fx $'time\t2h 37m' <<<"$shell_output" >/dev/null || fail "battery status works the time left out from the draw it shows"
 grep -Fx $'cycles\t212' <<<"$shell_output" >/dev/null || fail "battery status reports native-path cycle count"
 grep -Fx $'threshold\t75-80%' <<<"$shell_output" >/dev/null || fail "battery status reports native-path charge thresholds"
-line_output=$(ARCH_TEST_NATIVE_PATH=macsmc-battery ARCH_POWER_SUPPLY_PATH="$tmp_dir/power" PATH="$tmp_dir/bin:$PATH" "$ROOT/src/commands/arch-battery-status")
+line_output=$(ARCH_TEST_NATIVE_PATH=macsmc-battery ARCH_POWER_SUPPLY_PATH="$tmp_dir/power" PATH="$tmp_dir/bin:$PATH" "$ROOT/src/arch/commands/arch-battery-status")
 [[ $line_output == *$' '"10.8W"$' / '"56Wh" ]] || fail "a draw signed negative still shows in the status line" "$line_output"
 
 # The BAT* name the script used to key on is one of many; CMB0 is another.
 mkdir -p "$tmp_dir/power/CMB0"
 printf '7300000\n' >"$tmp_dir/power/CMB0/power_now"
 sed -i 's/native-path:          macsmc-battery/native-path:          CMB0/' "$tmp_dir/bin/upower"
-generic_output=$(ARCH_TEST_NATIVE_PATH=CMB0 ARCH_POWER_SUPPLY_PATH="$tmp_dir/power" PATH="$tmp_dir/bin:$PATH" "$ROOT/src/commands/arch-battery-status" --shell)
+generic_output=$(ARCH_TEST_NATIVE_PATH=CMB0 ARCH_POWER_SUPPLY_PATH="$tmp_dir/power" PATH="$tmp_dir/bin:$PATH" "$ROOT/src/arch/commands/arch-battery-status" --shell)
 grep -Fx $'rate\t7.3W' <<<"$generic_output" >/dev/null || fail "battery status accepts arbitrary UPower battery paths"
 grep -Fx $'time\t3h 53m' <<<"$generic_output" >/dev/null || fail "battery status time left follows the live draw"
 pass "battery status supports Apple Silicon and arbitrary native battery paths"
@@ -85,7 +85,7 @@ pass "battery status supports Apple Silicon and arbitrary native battery paths"
 mkdir -p "$tmp_dir/escape"
 printf '8800000\n' >"$tmp_dir/escape/power_now"
 sed -i 's#native-path:          CMB0#native-path:          ../escape#' "$tmp_dir/bin/upower"
-safe_path_output=$(ARCH_TEST_NATIVE_PATH=CMB0 ARCH_POWER_SUPPLY_PATH="$tmp_dir/power" PATH="$tmp_dir/bin:$PATH" "$ROOT/src/commands/arch-battery-status" --shell)
+safe_path_output=$(ARCH_TEST_NATIVE_PATH=CMB0 ARCH_POWER_SUPPLY_PATH="$tmp_dir/power" PATH="$tmp_dir/bin:$PATH" "$ROOT/src/arch/commands/arch-battery-status" --shell)
 grep -Fx $'rate\t7.3W' <<<"$safe_path_output" >/dev/null || fail "battery status rejects a native path that escapes the power-supply root" "$safe_path_output"
 pass "battery status confines UPower native paths to the power-supply root"
 
@@ -123,14 +123,14 @@ exit 1
 STUB
 chmod +x "$hold_dir/bin/upower"
 
-hold_output=$(ARCH_POWER_SUPPLY_PATH="$hold_dir/power" PATH="$hold_dir/bin:$PATH" "$ROOT/src/commands/arch-battery-status" --shell)
+hold_output=$(ARCH_POWER_SUPPLY_PATH="$hold_dir/power" PATH="$hold_dir/bin:$PATH" "$ROOT/src/arch/commands/arch-battery-status" --shell)
 
 grep -Fx $'state\tcharging' <<<"$hold_output" >/dev/null || fail "a hold below its threshold is still charging"
 pass "battery status doesn't trip a hold early"
 
 # Once the battery reaches the threshold, idle charging is holding.
 sed -i 's/percentage:           79.5%/percentage:           80.0%/' "$hold_dir/bin/upower"
-held_output=$(ARCH_POWER_SUPPLY_PATH="$hold_dir/power" PATH="$hold_dir/bin:$PATH" "$ROOT/src/commands/arch-battery-status" --shell)
+held_output=$(ARCH_POWER_SUPPLY_PATH="$hold_dir/power" PATH="$hold_dir/bin:$PATH" "$ROOT/src/arch/commands/arch-battery-status" --shell)
 grep -Fx $'percentage\t80%' <<<"$held_output" >/dev/null || fail "threshold percentage still displays as 80%"
 grep -Fx $'state\tholding' <<<"$held_output" >/dev/null || fail "idle charging at the threshold is holding"
 pass "battery status reports holding once the raw percentage reaches the threshold"
@@ -138,19 +138,19 @@ pass "battery status reports holding once the raw percentage reaches the thresho
 # Charging counts up to the charge limit, not to a full battery.
 printf '27800000\n' >"$hold_dir/power/BAT0/power_now"
 sed -i 's/percentage:           80.0%/percentage:           40.0%/; s/energy-full:          69.6 Wh/energy:               27.84 Wh\n  energy-full:          69.6 Wh/' "$hold_dir/bin/upower"
-charging_output=$(ARCH_POWER_SUPPLY_PATH="$hold_dir/power" PATH="$hold_dir/bin:$PATH" "$ROOT/src/commands/arch-battery-status" --shell)
+charging_output=$(ARCH_POWER_SUPPLY_PATH="$hold_dir/power" PATH="$hold_dir/bin:$PATH" "$ROOT/src/arch/commands/arch-battery-status" --shell)
 grep -Fx $'time\t1h' <<<"$charging_output" >/dev/null || fail "time to full counts up to the charge limit" "$charging_output"
 pass "battery status times charging to the charge limit"
 
 # UPower's own estimate stands in when the draw is too small to divide by...
 printf '100000\n' >"$hold_dir/power/BAT0/power_now"
-idle_output=$(ARCH_POWER_SUPPLY_PATH="$hold_dir/power" PATH="$hold_dir/bin:$PATH" "$ROOT/src/commands/arch-battery-status" --shell)
+idle_output=$(ARCH_POWER_SUPPLY_PATH="$hold_dir/power" PATH="$hold_dir/bin:$PATH" "$ROOT/src/arch/commands/arch-battery-status" --shell)
 grep -Fx $'time\t12m' <<<"$idle_output" >/dev/null || fail "a negligible draw falls back to UPower's time" "$idle_output"
 
 # ...and when the energy reading is missing.
 printf '27800000\n' >"$hold_dir/power/BAT0/power_now"
 sed -i '/energy:               27.84 Wh/d' "$hold_dir/bin/upower"
-unread_output=$(ARCH_POWER_SUPPLY_PATH="$hold_dir/power" PATH="$hold_dir/bin:$PATH" "$ROOT/src/commands/arch-battery-status" --shell)
+unread_output=$(ARCH_POWER_SUPPLY_PATH="$hold_dir/power" PATH="$hold_dir/bin:$PATH" "$ROOT/src/arch/commands/arch-battery-status" --shell)
 grep -Fx $'time\t12m' <<<"$unread_output" >/dev/null || fail "a missing energy reading falls back to UPower's time" "$unread_output"
 pass "battery status falls back to UPower's time when it cannot work it out"
 
@@ -160,15 +160,15 @@ rm "$hold_dir/power/BAT0/charge_control_end_threshold"
 sed -i '/charge-end-threshold: 80%/d' "$hold_dir/bin/upower"
 mkdir -p "$hold_dir/power/BAT1"
 printf '60\n' >"$hold_dir/power/BAT1/charge_control_end_threshold"
-unlimited_output=$(ARCH_POWER_SUPPLY_PATH="$hold_dir/power" PATH="$hold_dir/bin:$PATH" "$ROOT/src/commands/arch-battery-status" --shell)
+unlimited_output=$(ARCH_POWER_SUPPLY_PATH="$hold_dir/power" PATH="$hold_dir/bin:$PATH" "$ROOT/src/arch/commands/arch-battery-status" --shell)
 grep -Fx $'time\t1h 30m' <<<"$unlimited_output" >/dev/null || fail "time to full ignores another battery's charge limit" "$unlimited_output"
 pass "battery status times charging to its own battery's limit"
 
 # The status line and its durations follow the os language.
 echo "it" >"$tmp_dir/language"
-italian_output=$(ARCH_LANGUAGE_FILE="$tmp_dir/language" ARCH_POWER_SUPPLY_PATH="$hold_dir/power" PATH="$hold_dir/bin:$PATH" "$ROOT/src/commands/arch-battery-status")
+italian_output=$(ARCH_LANGUAGE_FILE="$tmp_dir/language" ARCH_POWER_SUPPLY_PATH="$hold_dir/power" PATH="$hold_dir/bin:$PATH" "$ROOT/src/arch/commands/arch-battery-status")
 [[ $italian_output == "Batteria 40%  ·  1 h 30 min alla carica completa  ·  "* ]] || fail "battery status reads in Italian" "$italian_output"
-italian_time=$(ARCH_LANGUAGE_FILE="$tmp_dir/language" ARCH_POWER_SUPPLY_PATH="$hold_dir/power" PATH="$hold_dir/bin:$PATH" "$ROOT/src/commands/arch-battery-status" --shell)
+italian_time=$(ARCH_LANGUAGE_FILE="$tmp_dir/language" ARCH_POWER_SUPPLY_PATH="$hold_dir/power" PATH="$hold_dir/bin:$PATH" "$ROOT/src/arch/commands/arch-battery-status" --shell)
 grep -Fx $'time\t1 h 30 min' <<<"$italian_time" >/dev/null || fail "battery status durations follow the Italian locale" "$italian_time"
 pass "battery status reads in the os language"
 
@@ -197,18 +197,18 @@ fi
 exit 1
 STUB
 printf '0\n' >"$hold_dir/power/BAT0/power_now"
-full_output=$(ARCH_POWER_SUPPLY_PATH="$hold_dir/power" PATH="$hold_dir/bin:$PATH" "$ROOT/src/commands/arch-battery-status")
+full_output=$(ARCH_POWER_SUPPLY_PATH="$hold_dir/power" PATH="$hold_dir/bin:$PATH" "$ROOT/src/arch/commands/arch-battery-status")
 [[ $full_output == "Battery 100%  ·  Fully charged  ·  53Wh" ]] || fail "a full battery shows no time or draw" "$full_output"
 
 # A battery with no time estimate and no capacity reading leaves both out.
 sed -i 's/state:                fully-charged/state:                discharging/; s/percentage:           100%/percentage:           60%/; /energy/d' "$hold_dir/bin/upower"
 printf '0\n' >"$hold_dir/power/ac/online"
 printf '9000000\n' >"$hold_dir/power/BAT0/power_now"
-sparse_output=$(ARCH_POWER_SUPPLY_PATH="$hold_dir/power" PATH="$hold_dir/bin:$PATH" "$ROOT/src/commands/arch-battery-status")
+sparse_output=$(ARCH_POWER_SUPPLY_PATH="$hold_dir/power" PATH="$hold_dir/bin:$PATH" "$ROOT/src/arch/commands/arch-battery-status")
 [[ $sparse_output == "Battery 60%  ·  "$' '"9W" ]] || fail "missing readings drop out of the status line" "$sparse_output"
 pass "battery status leaves out readings it doesn't have"
 
-if matches=$(rg -n 'arch-battery-(capacity|remaining|remaining-time)' "$ROOT/src/commands" "$ROOT/tests" "$ROOT/src/shell" "$ROOT/docs"); then
+if matches=$(rg -n 'arch-battery-(capacity|remaining|remaining-time)' "$ROOT/src/arch/commands" "$ROOT/tests" "$ROOT/src/arch/shell" "$ROOT/docs"); then
   fail "battery status owns capacity and remaining calculations" "$matches"
 fi
 

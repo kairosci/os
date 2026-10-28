@@ -44,9 +44,9 @@ FAKE
 chmod +x "$stat_bin/stat"
 
 # No theme file -> fallback color #1c2027, which matches the fixture.
-HOME="$TMPDIR" PATH="$stat_bin:$TMP_BIN:$ROOT/src/commands:$PATH" ARCH_PATH="$ROOT" STAT_OWNER="root:root 644" \
+HOME="$TMPDIR" PATH="$stat_bin:$TMP_BIN:$ROOT/src/arch/commands:$PATH" ARCH_PATH="$ROOT" STAT_OWNER="root:root 644" \
   ARCH_BROWSER_POLICY_DIRS="$policy_tmp" CALL_LOG="$CALL_LOG" \
-  bash "$ROOT/src/commands/arch-theme-set-browser" >/dev/null
+  bash "$ROOT/src/arch/commands/arch-theme-set-browser" >/dev/null
 
 if [[ -e $CALL_LOG ]]; then
   fail "setter skipped the privileged write when color.json already matches"
@@ -54,9 +54,9 @@ fi
 pass "setter skips the privileged write when color.json already matches"
 
 # The same color in a file the writer did not leave behind is not trusted.
-HOME="$TMPDIR" PATH="$stat_bin:$TMP_BIN:$ROOT/src/commands:$PATH" ARCH_PATH="$ROOT" STAT_OWNER="user:user 666" \
+HOME="$TMPDIR" PATH="$stat_bin:$TMP_BIN:$ROOT/src/arch/commands:$PATH" ARCH_PATH="$ROOT" STAT_OWNER="user:user 666" \
   ARCH_BROWSER_POLICY_DIRS="$policy_tmp" CALL_LOG="$CALL_LOG" \
-  bash "$ROOT/src/commands/arch-theme-set-browser" >/dev/null
+  bash "$ROOT/src/arch/commands/arch-theme-set-browser" >/dev/null
 
 if [[ ! -e $CALL_LOG ]]; then
   fail "setter rewrites a matching color.json that is not root-owned 0644"
@@ -67,9 +67,9 @@ pass "setter rewrites a matching color.json that is not root-owned 0644"
 rm -f "$CALL_LOG"
 printf '{"BrowserThemeColor": "#ff0000"}\n' > "$policy_tmp/color.json"
 
-HOME="$TMPDIR" PATH="$TMP_BIN:$ROOT/src/commands:$PATH" ARCH_PATH="$ROOT" \
+HOME="$TMPDIR" PATH="$TMP_BIN:$ROOT/src/arch/commands:$PATH" ARCH_PATH="$ROOT" \
   ARCH_BROWSER_POLICY_DIRS="$policy_tmp" CALL_LOG="$CALL_LOG" \
-  bash "$ROOT/src/commands/arch-theme-set-browser" >/dev/null
+  bash "$ROOT/src/arch/commands/arch-theme-set-browser" >/dev/null
 
 if [[ ! -e $CALL_LOG ]]; then
   fail "setter invoked the privileged writer when color.json mismatched"
@@ -79,9 +79,9 @@ pass "setter invokes the privileged writer when color.json mismatches"
 # No managed policy dirs at all must not vacuously skip the writer.
 rm -f "$CALL_LOG"
 
-HOME="$TMPDIR" PATH="$TMP_BIN:$ROOT/src/commands:$PATH" ARCH_PATH="$ROOT" \
+HOME="$TMPDIR" PATH="$TMP_BIN:$ROOT/src/arch/commands:$PATH" ARCH_PATH="$ROOT" \
   ARCH_BROWSER_POLICY_DIRS="$TMPDIR/nonexistent" CALL_LOG="$CALL_LOG" \
-  bash "$ROOT/src/commands/arch-theme-set-browser" >/dev/null
+  bash "$ROOT/src/arch/commands/arch-theme-set-browser" >/dev/null
 
 if [[ ! -e $CALL_LOG ]]; then
   fail "setter invoked the privileged writer when no managed dirs exist"
@@ -113,9 +113,9 @@ chmod +x "$browser_bin"/*
 
 printf '{"BrowserThemeColor": "#ff0000"}\n' >"$policy_tmp/color.json"
 refresh_log="$TMPDIR/refreshes"
-HOME="$TMPDIR" PATH="$browser_bin:$TMP_BIN:$ROOT/src/commands:$PATH" ARCH_PATH="$ROOT" \
+HOME="$TMPDIR" PATH="$browser_bin:$TMP_BIN:$ROOT/src/arch/commands:$PATH" ARCH_PATH="$ROOT" \
   ARCH_BROWSER_POLICY_DIRS="$policy_tmp" CALL_LOG="$CALL_LOG" REFRESH_LOG="$refresh_log" BROWSER_BIN="$browser_bin" \
-  bash "$ROOT/src/commands/arch-theme-set-browser" >/dev/null
+  bash "$ROOT/src/arch/commands/arch-theme-set-browser" >/dev/null
 
 refreshed=$(sort "$refresh_log" | tr '\n' ' ')
 # Chrome running as plain google-chrome is refreshed through that name; Edge is
@@ -125,6 +125,6 @@ refreshed=$(sort "$refresh_log" | tr '\n' ' ')
   fail "setter refreshes exactly the running browsers (got: $refreshed)"
 pass "setter refreshes exactly the running browsers"
 
-grep -q '<&0 &$' "$ROOT/src/commands/arch-theme-set-browser" ||
+grep -q '<&0 &$' "$ROOT/src/arch/commands/arch-theme-set-browser" ||
   fail "setter keeps stdin for the backgrounded policy writer"
 pass "setter keeps stdin for the backgrounded policy writer"

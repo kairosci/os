@@ -1,6 +1,6 @@
 import QtQuick
 import QtTest
-import "../../../../src/shell/Ui"
+import "../../../../src/arch/shell/Ui"
 
 // The search line types what its panel leaves alone, and nothing else.
 Item {

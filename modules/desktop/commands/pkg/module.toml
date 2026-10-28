@@ -2,45 +2,45 @@ id = "desktop.commands.pkg"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-pkg-add",
-  "src/commands/arch-pkg-aur-accessible",
-  "src/commands/arch-pkg-aur-add",
-  "src/commands/arch-pkg-defaults",
-  "src/commands/arch-pkg-drop",
-  "src/commands/arch-pkg-missing",
-  "src/commands/arch-pkg-present",
-  "src/commands/arch-pkg-remove",
+  "src/arch/commands/arch-pkg-add",
+  "src/arch/commands/arch-pkg-aur-accessible",
+  "src/arch/commands/arch-pkg-aur-add",
+  "src/arch/commands/arch-pkg-defaults",
+  "src/arch/commands/arch-pkg-drop",
+  "src/arch/commands/arch-pkg-missing",
+  "src/arch/commands/arch-pkg-present",
+  "src/arch/commands/arch-pkg-remove",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-pkg-add"
-target = "usr/share/arch/src/commands/arch-pkg-add"
+source = "src/arch/commands/arch-pkg-add"
+target = "usr/share/arch/src/arch/commands/arch-pkg-add"
 
 [[output]]
-source = "src/commands/arch-pkg-aur-accessible"
-target = "usr/share/arch/src/commands/arch-pkg-aur-accessible"
+source = "src/arch/commands/arch-pkg-aur-accessible"
+target = "usr/share/arch/src/arch/commands/arch-pkg-aur-accessible"
 
 [[output]]
-source = "src/commands/arch-pkg-aur-add"
-target = "usr/share/arch/src/commands/arch-pkg-aur-add"
+source = "src/arch/commands/arch-pkg-aur-add"
+target = "usr/share/arch/src/arch/commands/arch-pkg-aur-add"
 
 [[output]]
-source = "src/commands/arch-pkg-defaults"
-target = "usr/share/arch/src/commands/arch-pkg-defaults"
+source = "src/arch/commands/arch-pkg-defaults"
+target = "usr/share/arch/src/arch/commands/arch-pkg-defaults"
 
 [[output]]
-source = "src/commands/arch-pkg-drop"
-target = "usr/share/arch/src/commands/arch-pkg-drop"
+source = "src/arch/commands/arch-pkg-drop"
+target = "usr/share/arch/src/arch/commands/arch-pkg-drop"
 
 [[output]]
-source = "src/commands/arch-pkg-missing"
-target = "usr/share/arch/src/commands/arch-pkg-missing"
+source = "src/arch/commands/arch-pkg-missing"
+target = "usr/share/arch/src/arch/commands/arch-pkg-missing"
 
 [[output]]
-source = "src/commands/arch-pkg-present"
-target = "usr/share/arch/src/commands/arch-pkg-present"
+source = "src/arch/commands/arch-pkg-present"
+target = "usr/share/arch/src/arch/commands/arch-pkg-present"
 
 [[output]]
-source = "src/commands/arch-pkg-remove"
-target = "usr/share/arch/src/commands/arch-pkg-remove"
+source = "src/arch/commands/arch-pkg-remove"
+target = "usr/share/arch/src/arch/commands/arch-pkg-remove"

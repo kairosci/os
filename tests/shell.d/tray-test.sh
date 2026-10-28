@@ -5,7 +5,7 @@ set -euo pipefail
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 run_node_test "tray model helpers" <<'JS'
-const tray = requireFromRoot('src/shell/plugins/bar/widgets/TrayModel.js')
+const tray = requireFromRoot('src/arch/shell/plugins/bar/widgets/TrayModel.js')
 
 assert(tray.itemNamed({ id: 'dropbox-client' }, 'dropbox'), 'tray matches item ids')
 assert(tray.itemNamed({ title: 'Dropbox' }, 'dropbox'), 'tray matches item titles')
@@ -39,7 +39,7 @@ JS
 
 run_node_test "tray section host lifecycle" <<'JS'
 const fs = require('fs')
-const trayQml = fs.readFileSync(root + '/src/shell/plugins/bar/widgets/Tray.qml', 'utf8')
+const trayQml = fs.readFileSync(root + '/src/arch/shell/plugins/bar/widgets/Tray.qml', 'utf8')
 assert(/Component\.onDestruction: if \(root && root\.sectionHost === sectionArea\) root\.sectionHost = null/.test(trayQml),
   'tray section host unregisters only while its widget still exists')
 // The bar outlines the section during a drag, as it does the center box, so
@@ -49,7 +49,7 @@ JS
 
 run_node_test "tray drawer opens away from its fixed edge" <<'JS'
 const fs = require('fs')
-const source = fs.readFileSync(root + '/src/shell/plugins/bar/widgets/Tray.qml', 'utf8')
+const source = fs.readFileSync(root + '/src/arch/shell/plugins/bar/widgets/Tray.qml', 'utf8')
 const horizontal = source.slice(source.indexOf('id: horizontalTray'), source.indexOf('id: verticalTray'))
 const vertical = source.slice(source.indexOf('id: verticalTray'), source.indexOf('id: managePopup'))
 

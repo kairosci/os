@@ -44,7 +44,7 @@ def load_entrypoints() -> list[dict[str, str]]:
 
 def generate(destination: Path) -> None:
   for entry in load_entrypoints():
-    module_path = ROOT / "src/cli" / entry["module"]
+    module_path = ROOT / "src/arch/cli" / entry["module"]
     module_path = module_path.with_suffix(".py")
     if not module_path.is_file():
       raise ValueError(f"entrypoint module does not exist: {module_path.relative_to(ROOT)}")
@@ -52,7 +52,7 @@ def generate(destination: Path) -> None:
     if not re.search(rf"^def {re.escape(entry['function'])}\s*\(", source, re.MULTILINE):
       raise ValueError(f"entrypoint function is missing: {entry['module']}.{entry['function']}")
 
-    output = destination / "usr/share/arch/src/commands" / entry["binary"]
+    output = destination / "usr/share/arch/src/arch/commands" / entry["binary"]
     if not output.is_file():
       raise ValueError(f"entrypoint command is not declared by a module: {entry['binary']}")
     output.write_text(
@@ -62,7 +62,7 @@ def generate(destination: Path) -> None:
       "from pathlib import Path\n"
       "\n"
       "sys.path.insert(0, str(Path(os.environ[\"ARCH_PATH\"]) / \"src\"))\n"
-      f"from cli.{entry['module'].replace('/', '.')} import {entry['function']}\n"
+      f"from arch.cli.{entry['module'].replace('/', '.')} import {entry['function']}\n"
       "\n"
       f"raise SystemExit({entry['function']}())\n",
       encoding="utf-8",

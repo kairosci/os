@@ -59,13 +59,13 @@ run_link() {
     ARCH_DEV_LINK_TEST_CONF="$conf_file" \
     ARCH_DEV_LINK_TEST_SUDOERS="$sudoers_file" \
     PATH="$stub_bin:$PATH" \
-    "$ROOT/src/commands/arch-dev-link" "$@"
+    "$ROOT/src/arch/commands/arch-dev-link" "$@"
 }
 
 make_checkout() {
   local checkout="$test_tmp/$1"
 
-  mkdir -p "$checkout/src/commands" "$checkout/default" "$checkout/src/shell"
+  mkdir -p "$checkout/src/arch/commands" "$checkout/default" "$checkout/src/arch/shell"
   printf '%s' "$checkout"
 }
 
@@ -81,7 +81,7 @@ pass "dev link points ARCH_PATH at the checkout"
 
 # sudo reads secure_path, not the caller's PATH, so the checkout has to come
 # first there too or `sudo arch-*` runs the packaged copy.
-[[ $(<"$sudoers_file") == "Defaults secure_path=\"$checkout/src/commands:/usr/local/sbin:/usr/local/bin:/usr/bin\"" ]] ||
+[[ $(<"$sudoers_file") == "Defaults secure_path=\"$checkout/src/arch/commands:/usr/local/sbin:/usr/local/bin:/usr/bin\"" ]] ||
   fail "dev link prepends the checkout to sudo's secure_path" "$(<"$sudoers_file")"
 pass "dev link prepends the checkout to sudo's secure_path"
 
@@ -93,7 +93,7 @@ visudo -cf "$sudoers_file" >/dev/null ||
   fail "dev link writes a sudoers drop-in sudo can parse" "$(<"$sudoers_file")"
 pass "dev link writes a sudoers drop-in sudo can parse"
 
-grep -F "sudo now resolves arch-* from $checkout/src/commands" "$test_tmp/link.out" >/dev/null ||
+grep -F "sudo now resolves arch-* from $checkout/src/arch/commands" "$test_tmp/link.out" >/dev/null ||
   fail "dev link reports the sudo change" "$(cat "$test_tmp/link.out")"
 pass "dev link reports the sudo change"
 

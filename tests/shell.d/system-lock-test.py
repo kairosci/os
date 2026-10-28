@@ -9,7 +9,7 @@ import tempfile
 from base_test import ROOT, fail_check, pass_check, test_environment
 
 
-COMMAND = ROOT / "src/commands/arch-system-lock"
+COMMAND = ROOT / "src/arch/commands/arch-system-lock"
 MOCK_COMMAND = """#!/usr/bin/python3
 import os
 from pathlib import Path

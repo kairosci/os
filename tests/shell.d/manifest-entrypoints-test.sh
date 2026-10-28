@@ -45,7 +45,7 @@ kind_entry_points = {
   "service": "service",
 }
 
-for manifest_path in sorted((root / "src/shell/plugins").glob("**/manifest.json")) + sorted((root / "src/shell/plugins").glob("**/*.manifest.json")):
+for manifest_path in sorted((root / "src/arch/shell/plugins").glob("**/manifest.json")) + sorted((root / "src/arch/shell/plugins").glob("**/*.manifest.json")):
   manifest = json.loads(manifest_path.read_text())
   for kind in manifest.get("kinds", []):
     entry_key = kind_entry_points.get(kind)
@@ -72,8 +72,8 @@ log="$TMPDIR/quickshell.log"
 config_dir="$TMPDIR/manifest-entrypoints"
 mkdir -p "$config_dir" "$TMPDIR/home"
 cp "$SHELL_TEST_DIR/fixtures/manifest-entrypoints/shell.qml" "$config_dir/shell.qml"
-ln -s "$ROOT/src/shell/Ui" "$config_dir/Ui"
-ln -s "$ROOT/src/shell/Commons" "$config_dir/Commons"
+ln -s "$ROOT/src/arch/shell/Ui" "$config_dir/Ui"
+ln -s "$ROOT/src/arch/shell/Commons" "$config_dir/Commons"
 
 ARCH_PATH="$ROOT" \
 ARCH_QML_TEST_RESULT="$result" \
@@ -82,9 +82,9 @@ HOME="$TMPDIR/home" \
 XDG_CONFIG_HOME="$TMPDIR/home/.config" \
 XDG_CACHE_HOME="$TMPDIR/home/.cache" \
 XDG_STATE_HOME="$TMPDIR/home/.local/state" \
-QML2_IMPORT_PATH="$ROOT/src/shell${QML2_IMPORT_PATH:+:$QML2_IMPORT_PATH}" \
-QML_IMPORT_PATH="$ROOT/src/shell${QML_IMPORT_PATH:+:$QML_IMPORT_PATH}" \
-PATH="$ROOT/src/commands:$PATH" \
+QML2_IMPORT_PATH="$ROOT/src/arch/shell${QML2_IMPORT_PATH:+:$QML2_IMPORT_PATH}" \
+QML_IMPORT_PATH="$ROOT/src/arch/shell${QML_IMPORT_PATH:+:$QML_IMPORT_PATH}" \
+PATH="$ROOT/src/arch/commands:$PATH" \
   quickshell -p "$config_dir" --no-color >"$log" 2>&1 &
 QS_PID=$!
 

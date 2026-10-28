@@ -4,11 +4,11 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-leaf="$ROOT/src/python/installer/hardware/apple/brcmfmac_supplicant.py"
+leaf="$ROOT/src/arch/python/installer/hardware/apple/brcmfmac_supplicant.py"
 fix_t2="$ROOT/installer/hardware/apple/fix-t2.sh"
 setup="$ROOT/data/installer/hardware-setup.yml"
 
-grep -q 'src/python/installer/hardware/apple/brcmfmac_supplicant.py' "$setup" ||
+grep -q 'src/arch/python/installer/hardware/apple/brcmfmac_supplicant.py' "$setup" ||
   fail "the brcmfmac quirk runs during hardware setup"
 
 # Two leaves writing one config means the later one silently wins, and which is

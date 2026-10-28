@@ -34,30 +34,30 @@ chmod +x "$wait_bin/arch-shell" "$wait_bin/busctl"
 
 : >"$wait_log"
 ARCH_PATH="$ROOT" WAIT_LOG="$wait_log" WAIT_SHELL_READY=1 WAIT_BUS_READY=1 PATH="$wait_bin:$PATH" \
-  "$ROOT/src/commands/arch-notification-wait" 1 || fail "notification wait succeeds only after both readiness checks"
+  "$ROOT/src/arch/commands/arch-notification-wait" 1 || fail "notification wait succeeds only after both readiness checks"
 [[ $(<"$wait_log") == $'shell\nbus' ]] || fail "notification wait probes the shell before the D-Bus server" "$(<"$wait_log")"
 pass "notification wait checks shell IPC and the notification D-Bus name"
 
 : >"$wait_log"
 if ARCH_PATH="$ROOT" WAIT_LOG="$wait_log" WAIT_SHELL_READY=1 WAIT_BUS_READY=0 PATH="$wait_bin:$PATH" \
-  "$ROOT/src/commands/arch-notification-wait" 1 >/dev/null 2>&1; then
+  "$ROOT/src/arch/commands/arch-notification-wait" 1 >/dev/null 2>&1; then
   fail "notification wait times out until the D-Bus server is ready"
 fi
 grep -q '^bus$' "$wait_log" || fail "notification wait checks D-Bus after shell IPC succeeds" "$(<"$wait_log")"
 pass "notification wait times out while the D-Bus server is unavailable"
 
-if LANG=it_IT.UTF-8 ARCH_PATH="$ROOT" "$ROOT/src/commands/arch-notification-wait" invalid >"$tmp/wait-error" 2>&1; then
+if LANG=it_IT.UTF-8 ARCH_PATH="$ROOT" "$ROOT/src/arch/commands/arch-notification-wait" invalid >"$tmp/wait-error" 2>&1; then
   fail "notification wait rejects a non-integer timeout"
 fi
 grep -q 'Il timeout deve essere un intero' "$tmp/wait-error" || fail "notification wait localizes timeout errors" "$(<"$tmp/wait-error")"
 pass "notification wait validates and localizes timeout arguments"
 
-if ARCH_PATH="$ROOT" "$ROOT/src/commands/arch-notification-wait" 301 >/dev/null 2>&1; then
+if ARCH_PATH="$ROOT" "$ROOT/src/arch/commands/arch-notification-wait" 301 >/dev/null 2>&1; then
   fail "notification wait rejects an excessive timeout"
 fi
 pass "notification wait enforces the configured maximum timeout"
 
-service="$ROOT/src/shell/plugins/notifications/Service.qml"
+service="$ROOT/src/arch/shell/plugins/notifications/Service.qml"
 
 # The startup step that makes the state directory, run as the service runs
 # it, on a scratch HOME. It must keep the current files, replace a symlinked
@@ -91,7 +91,7 @@ used=$(
   {
     sed -nE 's/^ipc notifications\.([A-Za-z]+)$/\1/p' "$ROOT/default/arch/shortcuts"
     grep -rhoE 'ipc = "notifications\.[A-Za-z]+"' "$ROOT/default/hypr" | sed -E 's/.*notifications\.([A-Za-z]+)"/\1/'
-    grep -rhoE 'arch-shell( -q)? notifications [A-Za-z]+' "$ROOT/src/commands" "$ROOT/installer" | awk '{print $NF}'
+    grep -rhoE 'arch-shell( -q)? notifications [A-Za-z]+' "$ROOT/src/arch/commands" "$ROOT/installer" | awk '{print $NF}'
   } | sort -u
 )
 missing=$(comm -13 <(echo "$declared") <(echo "$used"))

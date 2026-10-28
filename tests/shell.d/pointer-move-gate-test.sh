@@ -6,8 +6,8 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 run_node_test <<'JS'
 const fs = require('fs')
-const gateQml = fs.readFileSync(path.join(root, 'src/shell/Ui/PointerMoveGate.qml'), 'utf8')
-const uiQmldir = fs.readFileSync(path.join(root, 'src/shell/Ui/qmldir'), 'utf8')
+const gateQml = fs.readFileSync(path.join(root, 'src/arch/shell/Ui/PointerMoveGate.qml'), 'utf8')
+const uiQmldir = fs.readFileSync(path.join(root, 'src/arch/shell/Ui/qmldir'), 'utf8')
 
 assert(
   /PointerMoveGate 1\.0 PointerMoveGate\.qml/.test(uiQmldir),
@@ -62,7 +62,7 @@ test_tmp=$(mktemp -d)
 trap 'rm -rf "$test_tmp"' EXIT
 
 cp "$SHELL_TEST_DIR/fixtures/pointer-move-gate/shell.qml" "$test_tmp/shell.qml"
-ln -s "$ROOT/src/shell/Ui" "$test_tmp/Ui"
+ln -s "$ROOT/src/arch/shell/Ui" "$test_tmp/Ui"
 
 output=$(timeout 15 quickshell -p "$test_tmp" --no-color 2>&1) || {
   printf '%s\n' "$output" >&2

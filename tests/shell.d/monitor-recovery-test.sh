@@ -4,16 +4,16 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-monitor_watch="$ROOT/src/commands/arch-hyprland-monitor-watch"
-monitor_internal="$ROOT/src/commands/arch-hyprland-monitor-internal"
-monitor_mirror="$ROOT/src/commands/arch-hyprland-monitor-internal-mirror"
-monitor_laptop="$ROOT/src/commands/arch-hyprland-monitor-laptop"
-monitor_external_active="$ROOT/src/commands/arch-hyprland-monitor-external-active"
-system_wake="$ROOT/src/commands/arch-system-wake"
-clamshell="$ROOT/src/commands/arch-hyprland-monitor-clamshell"
-lock_service="$ROOT/src/shell/plugins/lock/Service.qml"
-hw_clamshell="$ROOT/src/commands/arch-hw-clamshell"
-hw_laptop_closed="$ROOT/src/commands/arch-hw-laptop-closed"
+monitor_watch="$ROOT/src/arch/commands/arch-hyprland-monitor-watch"
+monitor_internal="$ROOT/src/arch/commands/arch-hyprland-monitor-internal"
+monitor_mirror="$ROOT/src/arch/commands/arch-hyprland-monitor-internal-mirror"
+monitor_laptop="$ROOT/src/arch/commands/arch-hyprland-monitor-laptop"
+monitor_external_active="$ROOT/src/arch/commands/arch-hyprland-monitor-external-active"
+system_wake="$ROOT/src/arch/commands/arch-system-wake"
+clamshell="$ROOT/src/arch/commands/arch-hyprland-monitor-clamshell"
+lock_service="$ROOT/src/arch/shell/plugins/lock/Service.qml"
+hw_clamshell="$ROOT/src/arch/commands/arch-hw-clamshell"
+hw_laptop_closed="$ROOT/src/arch/commands/arch-hw-laptop-closed"
 utilities="$ROOT/default/hypr/bindings/utilities.lua"
 
 grep -F 'sleep "$delay"' "$monitor_watch" >/dev/null
@@ -55,8 +55,8 @@ pass "modeless recovery also runs after a config reload"
 grep -F 'arch-hyprland-reload-guard paused' "$monitor_watch" >/dev/null
 pass "modeless recovery does not reload into a package transaction"
 
-grep -F '.disabled != true and (.width == 0 or .height == 0)' "$ROOT/src/commands/arch-hyprland-monitor-modeless" >/dev/null
-grep -F 'hyprctl monitors all -j' "$ROOT/src/commands/arch-hyprland-monitor-modeless" >/dev/null
+grep -F '.disabled != true and (.width == 0 or .height == 0)' "$ROOT/src/arch/commands/arch-hyprland-monitor-modeless" >/dev/null
+grep -F 'hyprctl monitors all -j' "$ROOT/src/arch/commands/arch-hyprland-monitor-modeless" >/dev/null
 pass "modeless helper sees mirrors and ignores monitors disabled on purpose"
 
 grep -F 'arch-hw-laptop-closed && arch-hw-external-monitors' "$hw_clamshell" >/dev/null

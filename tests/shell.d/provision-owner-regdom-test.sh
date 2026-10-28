@@ -18,10 +18,12 @@ arch=$tmp/arch
 stub_bin=$tmp/bin
 conf=$root/etc/conf.d/wireless-regdom
 calls=$tmp/calls
-mkdir -p "$stub_bin" "$arch/bin" "$arch/src/python/installer/hardware" "$arch/data/installer"
+mkdir -p "$stub_bin" "$arch/bin" "$arch/src/arch/python/installer/hardware" "$arch/data/installer"
 
-ln -s "$ROOT/src/commands/arch-cmd-present" "$arch/bin/arch-cmd-present"
-cp "$ROOT/src/python/installer/hardware/wireless_regdom.py" "$arch/src/python/installer/hardware/wireless_regdom.py"
+ln -s "$ROOT/src/arch/commands/arch-cmd-present" "$arch/bin/arch-cmd-present"
+ln -s "$ROOT/src/arch/cli" "$arch/src/arch/cli"
+ln -s "$ROOT/data/cli" "$arch/data/cli"
+cp "$ROOT/src/arch/python/installer/hardware/wireless_regdom.py" "$arch/src/arch/python/installer/hardware/wireless_regdom.py"
 cp "$ROOT/data/installer/hardware.yml" "$arch/data/installer/hardware.yml"
 
 cat >"$stub_bin/timedatectl" <<SH
@@ -64,7 +66,7 @@ export ARCH_SYSTEM_ROOT=$root
 
 # The setup functions as arch-provision-owner defines them, with its fixed
 # paths moved into the fixture root.
-sed -n '/^configure_timezone() {/,/^}/p; /^configure_wireless_regdom() {/,/^}/p; /^configure_region() {/,/^}/p' "$ROOT/src/commands/arch-provision-owner" |
+sed -n '/^configure_timezone() {/,/^}/p; /^configure_wireless_regdom() {/,/^}/p; /^configure_region() {/,/^}/p' "$ROOT/src/arch/commands/arch-provision-owner" |
   sed -e "s|/usr/share/zoneinfo|$root/usr/share/zoneinfo|g" -e "s|/etc/|$root/etc/|g" >"$tmp/setup.sh"
 grep -q '^configure_wireless_regdom() {' "$tmp/setup.sh" || fail "arch-provision-owner sets the regulatory domain in setup"
 # shellcheck disable=SC1091
@@ -78,13 +80,13 @@ regdom_lines() {
 # the radios untouched until the reboot that follows an install.
 fresh_root
 ln -sfn ../usr/share/zoneinfo/America/New_York "$root/etc/localtime"
-python3 -I "$arch/src/python/installer/hardware/wireless_regdom.py"
+python3 -I "$arch/src/arch/python/installer/hardware/wireless_regdom.py"
 [[ $(regdom_lines) == 'WIRELESS_REGDOM="US"' ]] || fail "an up-front install persists its timezone's country" "$(cat "$conf")"
 [[ ! -s $calls ]] || fail "an up-front install leaves the radios alone" "$(cat "$calls")"
 pass "an up-front install persists its timezone's country and leaves the radios to the reboot"
 
 fresh_root
-python3 -I "$arch/src/python/installer/hardware/wireless_regdom.py"
+python3 -I "$arch/src/arch/python/installer/hardware/wireless_regdom.py"
 [[ -z $(regdom_lines) ]] || fail "the UTC placeholder names no country" "$(cat "$conf")"
 pass "a deferred install's hardware step sets nothing from the UTC placeholder"
 

@@ -5,7 +5,7 @@ set -euo pipefail
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 run_node_test <<'JS'
-const audio = requireFromRoot('src/shell/plugins/panels/audio/Model.js')
+const audio = requireFromRoot('src/arch/shell/plugins/panels/audio/Model.js')
 
 assert(audio.isPlaybackStream({ isStream: true, isSink: true }), 'audio detects sink-backed playback streams')
 assert(audio.isPlaybackStream({ isStream: true, type: 'Stream/Output/Audio' }), 'audio detects typed playback streams')
@@ -69,7 +69,7 @@ assert(!audio.isUntypedSource({ name: 'virtual_mic', isSink: false, isStream: tr
 assert(!audio.isUntypedSource({ name: '', isSink: false, isStream: false }, { '': true }), 'a nameless node is never an untyped source')
 assert(!audio.isUntypedSource({ name: 'virtual_mic', isSink: false, isStream: false }, {}), 'nothing is untyped before the listing')
 
-const nodes = requireFromRoot('src/shell/Commons/AudioNodesModel.js')
+const nodes = requireFromRoot('src/arch/shell/Commons/AudioNodesModel.js')
 
 for (const name of ['quickshell', 'quickshell-peak-monitor'])
   assert(nodes.isShellLevelMeter(name), 'audio knows the shell meter ' + name)
@@ -111,18 +111,18 @@ for (const text of ['', 'Translate ID error: 404', 'Volume: loud', 'Volume: 0.50
 // root, and the audio code names no platform or hardware of its own.
 const fs = require('fs')
 const read = (file) => fs.readFileSync(path.join(root, file), 'utf8')
-const audioNodes = read('src/shell/Commons/AudioNodes.qml')
+const audioNodes = read('src/arch/shell/Commons/AudioNodes.qml')
 assert(/path: "\/usr\/share\/arch-platform\/audio\.json"/.test(audioNodes) && !/Quickshell\.env|ARCH_/.test(audioNodes),
   'audio reads the platform hints from the fixed platform root')
 assert(/onLoadFailed: \{\s*missing = true\s*root\.hints = Model\.parsePlatformAudio\(""\)/.test(audioNodes), 'a removed hints file hides nothing')
 assert(/property var hints: Model\.parsePlatformAudio\(hintsFile\.text\(\)\)/.test(audioNodes), 'audio reads the platform hints synchronously at startup')
-const sources = ['src/shell/plugins/panels/audio/Panel.qml', 'src/shell/plugins/panels/audio/Model.js', 'src/shell/Commons/AudioNodes.qml',
-  'src/shell/Commons/AudioNodesModel.js', 'src/shell/Commons/UntypedInput.qml', 'src/shell/plugins/bar/widgets/Microphone.qml',
-  'src/commands/arch-audio-input-set-default', 'src/commands/arch-audio-sink-availability']
+const sources = ['src/arch/shell/plugins/panels/audio/Panel.qml', 'src/arch/shell/plugins/panels/audio/Model.js', 'src/arch/shell/Commons/AudioNodes.qml',
+  'src/arch/shell/Commons/AudioNodesModel.js', 'src/arch/shell/Commons/UntypedInput.qml', 'src/arch/shell/plugins/bar/widgets/Microphone.qml',
+  'src/arch/commands/arch-audio-input-set-default', 'src/arch/commands/arch-audio-sink-availability']
 for (const file of sources)
   assert(!/apple|asahi|macbook|j[0-9]{3}|arch-hw-|platform-sound/i.test(read(file)), file + ' names no platform')
 
-const panel = read('src/shell/plugins/panels/audio/Panel.qml')
+const panel = read('src/arch/shell/plugins/panels/audio/Panel.qml')
 assert(/inputPeakNode: inputViaWpctl \? null : source/.test(panel) && /inputLevelShown: !!inputPeakNode/.test(panel) &&
   /visible: root\.inputLevelShown[^}]*inputPeakMonitor\.peak/.test(panel),
   'the input level bar is hidden when the input is driven through wpctl')

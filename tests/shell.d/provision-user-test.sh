@@ -10,14 +10,14 @@ trap 'rm -rf "$test_tmp"' EXIT
 mock_bin="$test_tmp/bin"
 mkdir -p "$mock_bin" "$test_tmp/home" "$test_tmp/home/.hermes/profiles/james"
 test_arch_path="$test_tmp/arch"
-mkdir -p "$test_arch_path/src/python/installer_user"
-ln -s "$ROOT/src/commands" "$test_arch_path/src/commands"
-ln -s "$ROOT/src/cli" "$test_arch_path/src/cli"
+mkdir -p "$test_arch_path/src/arch/python/installer_user"
+ln -s "$ROOT/src/arch/commands" "$test_arch_path/src/arch/commands"
+ln -s "$ROOT/src/arch/cli" "$test_arch_path/src/arch/cli"
 ln -s "$ROOT/data" "$test_arch_path/data"
 mkdir -p "$test_arch_path/applications"
 printf '[Desktop Entry]\nName=Provisioning test\nType=Application\n' >"$test_arch_path/applications/provisioning-test.desktop"
 ln -s "$ROOT/default" "$test_arch_path/default"
-cat >"$test_arch_path/src/python/installer_user/all.py" <<'PY'
+cat >"$test_arch_path/src/arch/python/installer_user/all.py" <<'PY'
 import os
 from pathlib import Path
 
@@ -33,7 +33,7 @@ chmod +x "$mock_bin"/*
 
 setup_arch_path="$test_tmp/setup-arch"
 setup_bin="$test_tmp/setup-bin"
-mkdir -p "$setup_arch_path/data/installer" "$setup_arch_path/src/python/installer_user/setup" "$setup_bin"
+mkdir -p "$setup_arch_path/data/installer" "$setup_arch_path/src/arch/python/installer_user/setup" "$setup_bin"
 cat >"$setup_arch_path/data/installer/user-setup.yml" <<'YAML'
 steps:
   - setup/first.py
@@ -41,7 +41,7 @@ steps:
   - setup/third.py
 YAML
 for step in first second third; do
-  : >"$setup_arch_path/src/python/installer_user/setup/$step.py"
+  : >"$setup_arch_path/src/arch/python/installer_user/setup/$step.py"
 done
 cat >"$setup_bin/python3" <<'SH'
 #!/bin/bash
@@ -54,40 +54,40 @@ chmod +x "$setup_bin/python3"
 export TEST_SETUP_LOG="$test_tmp/setup-steps.log"
 
 ARCH_PATH="$setup_arch_path" PATH="$setup_bin:$PATH" /usr/bin/python3 -I \
-  "$ROOT/src/python/installer_user/all.py" || fail "Python setup orchestrator succeeds"
-[[ $(<"$TEST_SETUP_LOG") == "$setup_arch_path/src/python/installer_user/setup/first.py
-$setup_arch_path/src/python/installer_user/setup/second.py
-$setup_arch_path/src/python/installer_user/setup/third.py" ]] ||
+  "$ROOT/src/arch/python/installer_user/all.py" || fail "Python setup orchestrator succeeds"
+[[ $(<"$TEST_SETUP_LOG") == "$setup_arch_path/src/arch/python/installer_user/setup/first.py
+$setup_arch_path/src/arch/python/installer_user/setup/second.py
+$setup_arch_path/src/arch/python/installer_user/setup/third.py" ]] ||
   fail "Python setup orchestrator preserves YAML step order"
 pass "Python setup orchestrator preserves YAML step order"
 
 setup_count=$(ARCH_PATH="$setup_arch_path" /usr/bin/python3 -I \
-  "$ROOT/src/python/installer_user/all.py" --count)
+  "$ROOT/src/arch/python/installer_user/all.py" --count)
 [[ $setup_count == 3 ]] || fail "Python setup orchestrator reports its configured step count"
 pass "Python setup orchestrator reports its configured step count"
 
 production_setup_count=$(ARCH_PATH="$ROOT" /usr/bin/python3 -I \
-  "$ROOT/src/python/installer_user/all.py" --count)
+  "$ROOT/src/arch/python/installer_user/all.py" --count)
 (( production_setup_count > 0 )) || fail "packaged setup data references existing Python setup steps"
 pass "packaged setup data references existing Python setup steps"
 
 : >"$TEST_SETUP_LOG"
 if ARCH_PATH="$setup_arch_path" PATH="$setup_bin:$PATH" TEST_FAIL_STEP=second.py \
-  /usr/bin/python3 -I "$ROOT/src/python/installer_user/all.py"; then
+  /usr/bin/python3 -I "$ROOT/src/arch/python/installer_user/all.py"; then
   fail "Python setup orchestrator stops after a failed setup step"
 else
   [[ $? == 7 ]] || fail "Python setup orchestrator preserves the failing step's status"
 fi
-[[ $(<"$TEST_SETUP_LOG") == "$setup_arch_path/src/python/installer_user/setup/first.py
-$setup_arch_path/src/python/installer_user/setup/second.py" ]] ||
+[[ $(<"$TEST_SETUP_LOG") == "$setup_arch_path/src/arch/python/installer_user/setup/first.py
+$setup_arch_path/src/arch/python/installer_user/setup/second.py" ]] ||
   fail "Python setup orchestrator does not run steps after a failure"
 pass "Python setup orchestrator stops after a failed setup step"
 
-# Provisioning prepends $ARCH_PATH/src/cli, which shadows a mock for anything
+# Provisioning prepends $ARCH_PATH/src/arch/cli, which shadows a mock for anything
 # os ships, so its Python setup orchestrator is stubbed under the test root.
 
-HOME="$test_tmp/home" PATH="$mock_bin:$ROOT/src/commands:$PATH" ARCH_PATH="$test_arch_path" \
-  ARCH_INSTALL="$test_tmp/installer" bash "$ROOT/src/commands/arch-provision-user" >/dev/null ||
+HOME="$test_tmp/home" PATH="$mock_bin:$ROOT/src/arch/commands:$PATH" ARCH_PATH="$test_arch_path" \
+  ARCH_INSTALL="$test_tmp/installer" bash "$ROOT/src/arch/commands/arch-provision-user" >/dev/null ||
   fail "arch-provision-user finishes"
 
 [[ -f $TEST_SETUP_CALLED ]] || fail "arch-provision-user runs the Python user setup orchestrator"
@@ -111,8 +111,8 @@ pass "provisioning names the user folders in English before a first login in ano
 : >"$TEST_COMMAND_LOG"
 mkdir -p "$test_tmp/home/.config"
 printf 'XDG_DOWNLOAD_DIR="$HOME/下载"\n' >"$test_tmp/home/.config/user-dirs.dirs"
-HOME="$test_tmp/home" PATH="$mock_bin:$ROOT/src/commands:$PATH" ARCH_PATH="$test_arch_path" \
-  ARCH_INSTALL="$test_tmp/installer" bash "$ROOT/src/commands/arch-provision-user" --force >/dev/null ||
+HOME="$test_tmp/home" PATH="$mock_bin:$ROOT/src/arch/commands:$PATH" ARCH_PATH="$test_arch_path" \
+  ARCH_INSTALL="$test_tmp/installer" bash "$ROOT/src/arch/commands/arch-provision-user" --force >/dev/null ||
   fail "arch-provision-user finishes again"
 ! grep -q -- '--set DOWNLOAD ' "$TEST_COMMAND_LOG" || fail "provisioning keeps a folder the user already named"
 grep -q -- '--set PICTURES ' "$TEST_COMMAND_LOG" || fail "provisioning still names the folders the user has not"

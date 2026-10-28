@@ -2,15 +2,15 @@ id = "desktop.commands.power"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-power-present",
-  "src/cli/power/present.py",
+  "src/arch/commands/arch-power-present",
+  "src/arch/cli/power/present.py",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-power-present"
-target = "usr/share/arch/src/commands/arch-power-present"
+source = "src/arch/commands/arch-power-present"
+target = "usr/share/arch/src/arch/commands/arch-power-present"
 
 [[output]]
-source = "src/cli/power/present.py"
-target = "usr/share/arch/src/cli/power/present.py"
+source = "src/arch/cli/power/present.py"
+target = "usr/share/arch/src/arch/cli/power/present.py"

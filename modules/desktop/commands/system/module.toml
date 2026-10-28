@@ -2,55 +2,55 @@ id = "desktop.commands.system"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-system",
-  "src/commands/arch-system-factory-reset",
-  "src/commands/arch-system-factory-reset-finish",
-  "src/commands/arch-system-lid-close",
-  "src/commands/arch-system-lid-inhibit",
-  "src/commands/arch-system-lock",
-  "src/commands/arch-system-sleep-lock",
-  "src/commands/arch-system-sleep-monitor",
-  "src/commands/arch-system-stats",
-  "src/commands/arch-system-wake",
+  "src/arch/commands/arch-system",
+  "src/arch/commands/arch-system-factory-reset",
+  "src/arch/commands/arch-system-factory-reset-finish",
+  "src/arch/commands/arch-system-lid-close",
+  "src/arch/commands/arch-system-lid-inhibit",
+  "src/arch/commands/arch-system-lock",
+  "src/arch/commands/arch-system-sleep-lock",
+  "src/arch/commands/arch-system-sleep-monitor",
+  "src/arch/commands/arch-system-stats",
+  "src/arch/commands/arch-system-wake",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-system"
-target = "usr/share/arch/src/commands/arch-system"
+source = "src/arch/commands/arch-system"
+target = "usr/share/arch/src/arch/commands/arch-system"
 
 [[output]]
-source = "src/commands/arch-system-factory-reset"
-target = "usr/share/arch/src/commands/arch-system-factory-reset"
+source = "src/arch/commands/arch-system-factory-reset"
+target = "usr/share/arch/src/arch/commands/arch-system-factory-reset"
 
 [[output]]
-source = "src/commands/arch-system-factory-reset-finish"
-target = "usr/share/arch/src/commands/arch-system-factory-reset-finish"
+source = "src/arch/commands/arch-system-factory-reset-finish"
+target = "usr/share/arch/src/arch/commands/arch-system-factory-reset-finish"
 
 [[output]]
-source = "src/commands/arch-system-lid-close"
-target = "usr/share/arch/src/commands/arch-system-lid-close"
+source = "src/arch/commands/arch-system-lid-close"
+target = "usr/share/arch/src/arch/commands/arch-system-lid-close"
 
 [[output]]
-source = "src/commands/arch-system-lid-inhibit"
-target = "usr/share/arch/src/commands/arch-system-lid-inhibit"
+source = "src/arch/commands/arch-system-lid-inhibit"
+target = "usr/share/arch/src/arch/commands/arch-system-lid-inhibit"
 
 [[output]]
-source = "src/commands/arch-system-lock"
-target = "usr/share/arch/src/commands/arch-system-lock"
+source = "src/arch/commands/arch-system-lock"
+target = "usr/share/arch/src/arch/commands/arch-system-lock"
 
 [[output]]
-source = "src/commands/arch-system-sleep-lock"
-target = "usr/share/arch/src/commands/arch-system-sleep-lock"
+source = "src/arch/commands/arch-system-sleep-lock"
+target = "usr/share/arch/src/arch/commands/arch-system-sleep-lock"
 
 [[output]]
-source = "src/commands/arch-system-sleep-monitor"
-target = "usr/share/arch/src/commands/arch-system-sleep-monitor"
+source = "src/arch/commands/arch-system-sleep-monitor"
+target = "usr/share/arch/src/arch/commands/arch-system-sleep-monitor"
 
 [[output]]
-source = "src/commands/arch-system-stats"
-target = "usr/share/arch/src/commands/arch-system-stats"
+source = "src/arch/commands/arch-system-stats"
+target = "usr/share/arch/src/arch/commands/arch-system-stats"
 
 [[output]]
-source = "src/commands/arch-system-wake"
-target = "usr/share/arch/src/commands/arch-system-wake"
+source = "src/arch/commands/arch-system-wake"
+target = "usr/share/arch/src/arch/commands/arch-system-wake"

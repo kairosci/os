@@ -1,9 +1,9 @@
 id = "desktop.shell.lock"
 domain = "desktop"
 package = "arch"
-sources = ["src/shell/plugins/lock"]
+sources = ["src/arch/shell/plugins/lock"]
 requires = ["desktop.runtime"]
 
 [[output]]
-source = "src/shell/plugins/lock"
-target = "usr/share/arch/src/shell/plugins/lock"
+source = "src/arch/shell/plugins/lock"
+target = "usr/share/arch/src/arch/shell/plugins/lock"

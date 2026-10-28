@@ -4,7 +4,7 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-helper="$ROOT/src/commands/arch-install-video-decode"
+helper="$ROOT/src/arch/commands/arch-install-video-decode"
 grep -Fq '  - setup/video_decode.py' "$ROOT/data/installer/user-setup.yml" ||
   fail "user setup runs the Python video decode module"
 test_tmp=$(mktemp -d)
@@ -18,7 +18,7 @@ cat >"$test_tmp/bin/arch-hw-aarch64-qualcomm" <<'STUB'
 STUB
 chmod +x "$test_tmp/bin/arch-hw-aarch64-qualcomm"
 export ARCH_TEST_QUALCOMM="$test_tmp/qualcomm"
-export PATH="$test_tmp/bin:$ROOT/src/commands:$PATH"
+export PATH="$test_tmp/bin:$ROOT/src/arch/commands:$PATH"
 
 new_home() {
   local home="$test_tmp/home-$1"
@@ -27,7 +27,7 @@ new_home() {
 }
 
 run_helper() {
-  HOME="$1" ARCH_PATH="$ROOT" python3 -I "$ROOT/src/python/installer_user/setup/video_decode.py"
+  HOME="$1" ARCH_PATH="$ROOT" python3 -I "$ROOT/src/arch/python/installer_user/setup/video_decode.py"
 }
 
 shipped="$ROOT/config/chromium-flags.conf"

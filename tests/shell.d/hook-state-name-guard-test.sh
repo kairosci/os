@@ -20,7 +20,7 @@ cat >"$fake_home/.config/arch/hooks/test-hook" <<'SH'
 touch "$HOME/hook-ran"
 SH
 
-HOME="$fake_home" "$ROOT/src/commands/arch-hook" test-hook
+HOME="$fake_home" "$ROOT/src/arch/commands/arch-hook" test-hook
 [[ -f $fake_home/hook-ran ]] ||
   fail "archctl hook runs a named hook from the hooks directory"
 pass "archctl hook runs a named hook from the hooks directory"
@@ -30,7 +30,7 @@ cat >"$fake_home/.config/arch/hooks/a..b" <<'SH'
 touch "$HOME/dotted-hook-ran"
 SH
 
-HOME="$fake_home" "$ROOT/src/commands/arch-hook" a..b
+HOME="$fake_home" "$ROOT/src/arch/commands/arch-hook" a..b
 [[ -f $fake_home/dotted-hook-ran ]] ||
   fail "archctl hook accepts a hook name with dots in the middle"
 pass "archctl hook accepts a hook name with dots in the middle"
@@ -41,7 +41,7 @@ import sys
 
 Path.home().joinpath("python-hook-ran").write_text(" ".join(sys.argv[1:]))
 PY
-HOME="$fake_home" "$ROOT/src/commands/arch-hook" python-hook.py first second
+HOME="$fake_home" "$ROOT/src/arch/commands/arch-hook" python-hook.py first second
 [[ $(<"$fake_home/python-hook-ran") == "first second" ]] || fail "archctl hook runs a Python hook in isolated mode and forwards arguments"
 pass "archctl hook runs a Python hook in isolated mode and forwards arguments"
 
@@ -49,13 +49,13 @@ mkdir -p "$fake_home/.config/arch/hooks/hidden-hook.d"
 cat >"$fake_home/.config/arch/hooks/hidden-hook.d/.hidden" <<'SH'
 touch "$HOME/hidden-hook-ran"
 SH
-HOME="$fake_home" "$ROOT/src/commands/arch-hook" hidden-hook
+HOME="$fake_home" "$ROOT/src/arch/commands/arch-hook" hidden-hook
 [[ ! -e $fake_home/hidden-hook-ran ]] || fail "archctl hook ignores hidden files in hook directories"
 pass "archctl hook ignores hidden files in hook directories"
 
 for name in . ..; do
   status=0
-  HOME="$fake_home" "$ROOT/src/commands/arch-hook" "$name" >/dev/null 2>&1 || status=$?
+  HOME="$fake_home" "$ROOT/src/arch/commands/arch-hook" "$name" >/dev/null 2>&1 || status=$?
   (( status == 2 )) ||
     fail "archctl hook refuses a hook name of $name" "exit: $status"
   pass "archctl hook refuses a hook name of $name"
@@ -69,7 +69,7 @@ SH
 chmod +x "$fake_home/.config/evil"
 
 status=0
-HOME="$fake_home" "$ROOT/src/commands/arch-hook" "../../evil" >/dev/null 2>&1 || status=$?
+HOME="$fake_home" "$ROOT/src/arch/commands/arch-hook" "../../evil" >/dev/null 2>&1 || status=$?
 (( status == 2 )) ||
   fail "archctl hook refuses a hook name with a dot-dot" "exit: $status"
 [[ ! -e $fake_home/escape-ran ]] ||
@@ -77,7 +77,7 @@ HOME="$fake_home" "$ROOT/src/commands/arch-hook" "../../evil" >/dev/null 2>&1 ||
 pass "archctl hook refuses a hook name with a dot-dot"
 
 status=0
-HOME="$fake_home" "$ROOT/src/commands/arch-hook" "sub/dir" >/dev/null 2>&1 || status=$?
+HOME="$fake_home" "$ROOT/src/arch/commands/arch-hook" "sub/dir" >/dev/null 2>&1 || status=$?
 (( status == 2 )) ||
   fail "archctl hook refuses a hook name with a slash" "exit: $status"
 pass "archctl hook refuses a hook name with a slash"
@@ -94,19 +94,19 @@ cat >"$source_hook" <<'SH'
 true
 SH
 
-HOME="$fake_home" "$ROOT/src/commands/arch-hook-install" post-update "$source_hook" >/dev/null
+HOME="$fake_home" "$ROOT/src/arch/commands/arch-hook-install" post-update "$source_hook" >/dev/null
 [[ -f $fake_home/.config/arch/hooks/post-update.d/source-hook ]] ||
   fail "archctl hook install still installs a named hook"
 pass "archctl hook install still installs a named hook"
 
-HOME="$fake_home" "$ROOT/src/commands/arch-hook-install" a..b "$source_hook" >/dev/null
+HOME="$fake_home" "$ROOT/src/arch/commands/arch-hook-install" a..b "$source_hook" >/dev/null
 [[ -f $fake_home/.config/arch/hooks/a..b.d/source-hook ]] ||
   fail "archctl hook install accepts a hook name with dots in the middle"
 pass "archctl hook install accepts a hook name with dots in the middle"
 
 for name in . ..; do
   status=0
-  HOME="$fake_home" "$ROOT/src/commands/arch-hook-install" "$name" "$source_hook" >/dev/null 2>&1 || status=$?
+  HOME="$fake_home" "$ROOT/src/arch/commands/arch-hook-install" "$name" "$source_hook" >/dev/null 2>&1 || status=$?
   (( status == 2 )) ||
     fail "archctl hook install refuses a hook name of $name" "exit: $status"
   [[ ! -e $fake_home/.config/arch/hooks/${name}.d ]] ||
@@ -116,7 +116,7 @@ done
 
 # hooks/../../evil.d is ~/.config/evil.d. The guard must fire before mkdir.
 status=0
-HOME="$fake_home" "$ROOT/src/commands/arch-hook-install" "../../evil" "$source_hook" >/dev/null 2>&1 || status=$?
+HOME="$fake_home" "$ROOT/src/arch/commands/arch-hook-install" "../../evil" "$source_hook" >/dev/null 2>&1 || status=$?
 (( status == 2 )) ||
   fail "archctl hook install refuses a hook name with a dot-dot" "exit: $status"
 [[ ! -e $fake_home/.config/evil.d ]] ||
@@ -124,7 +124,7 @@ HOME="$fake_home" "$ROOT/src/commands/arch-hook-install" "../../evil" "$source_h
 pass "archctl hook install refuses a hook name with a dot-dot"
 
 status=0
-HOME="$fake_home" "$ROOT/src/commands/arch-hook-install" "sub/dir" "$source_hook" >/dev/null 2>&1 || status=$?
+HOME="$fake_home" "$ROOT/src/arch/commands/arch-hook-install" "sub/dir" "$source_hook" >/dev/null 2>&1 || status=$?
 (( status == 2 )) ||
   fail "archctl hook install refuses a hook name with a slash" "exit: $status"
 [[ ! -e $fake_home/.config/arch/hooks/sub ]] ||
@@ -135,19 +135,19 @@ pass "archctl hook install refuses a hook name with a slash"
 
 state_dir="$fake_home/.local/state/arch"
 
-HOME="$fake_home" "$ROOT/src/commands/arch-state" set reboot-required
+HOME="$fake_home" "$ROOT/src/arch/commands/arch-state" set reboot-required
 [[ -f $state_dir/reboot-required ]] ||
   fail "arch state set still creates a plain state file"
 pass "arch state set still creates a plain state file"
 
-HOME="$fake_home" "$ROOT/src/commands/arch-state" set v1..2
+HOME="$fake_home" "$ROOT/src/arch/commands/arch-state" set v1..2
 [[ -f $state_dir/v1..2 ]] ||
   fail "arch state set accepts a state name with dots in the middle"
 pass "arch state set accepts a state name with dots in the middle"
 
 for name in . ..; do
   status=0
-  HOME="$fake_home" "$ROOT/src/commands/arch-state" set "$name" >/dev/null 2>&1 || status=$?
+  HOME="$fake_home" "$ROOT/src/arch/commands/arch-state" set "$name" >/dev/null 2>&1 || status=$?
   (( status == 2 )) ||
     fail "arch state set refuses a state name of $name" "exit: $status"
   pass "arch state set refuses a state name of $name"
@@ -155,7 +155,7 @@ done
 
 # state/../.. is ~/.local. The guard must fire before touch gets there.
 status=0
-HOME="$fake_home" "$ROOT/src/commands/arch-state" set "../../escape" >/dev/null 2>&1 || status=$?
+HOME="$fake_home" "$ROOT/src/arch/commands/arch-state" set "../../escape" >/dev/null 2>&1 || status=$?
 (( status == 2 )) ||
   fail "arch state set refuses a state name with a dot-dot" "exit: $status"
 [[ ! -e $fake_home/.local/escape ]] ||
@@ -163,7 +163,7 @@ HOME="$fake_home" "$ROOT/src/commands/arch-state" set "../../escape" >/dev/null 
 pass "arch state set refuses a state name with a dot-dot"
 
 status=0
-HOME="$fake_home" "$ROOT/src/commands/arch-state" set "sub/dir" >/dev/null 2>&1 || status=$?
+HOME="$fake_home" "$ROOT/src/arch/commands/arch-state" set "sub/dir" >/dev/null 2>&1 || status=$?
 (( status == 2 )) ||
   fail "arch state set refuses a state name with a slash" "exit: $status"
 pass "arch state set refuses a state name with a slash"
@@ -173,14 +173,14 @@ pass "arch state set refuses a state name with a slash"
 touch "$state_dir/restart-a-required" "$state_dir/restart-b-required" "$state_dir/keep-me"
 printf 'protected\n' >"$fake_home/protected-state-target"
 ln -s "$fake_home/protected-state-target" "$state_dir/restart-link-required"
-HOME="$fake_home" "$ROOT/src/commands/arch-state" clear "restart-*-required"
+HOME="$fake_home" "$ROOT/src/arch/commands/arch-state" clear "restart-*-required"
 [[ ! -e $state_dir/restart-a-required && ! -e $state_dir/restart-b-required && -f $state_dir/keep-me ]] ||
   fail "arch state clear still clears matching patterns only"
 [[ -L $state_dir/restart-link-required && $(<"$fake_home/protected-state-target") == protected ]] ||
   fail "arch state clear leaves symlinks and their targets untouched"
 pass "arch state clear still clears matching patterns only"
 
-if HOME="$fake_home" "$ROOT/src/commands/arch-state" set restart-link-required >/dev/null 2>&1; then
+if HOME="$fake_home" "$ROOT/src/arch/commands/arch-state" set restart-link-required >/dev/null 2>&1; then
   fail "arch state set refuses a symlink marker"
 fi
 [[ -L $state_dir/restart-link-required && $(<"$fake_home/protected-state-target") == protected ]] ||

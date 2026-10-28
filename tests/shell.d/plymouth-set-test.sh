@@ -48,7 +48,7 @@ pass "SDDM refresh allowlist covers every packaged asset"
 printf 'not yours\n' >"$secret"
 ln -s "$secret" "$test_tmp/logo-link.png"
 
-output=$(ARCH_PATH="$ROOT" /bin/bash "$ROOT/src/commands/arch-plymouth-set" '#1d2021' '#ebdbb2' "$test_tmp/logo-link.png" 2>&1)
+output=$(ARCH_PATH="$ROOT" /bin/bash "$ROOT/src/arch/commands/arch-plymouth-set" '#1d2021' '#ebdbb2' "$test_tmp/logo-link.png" 2>&1)
 status=$?
 
 (( status != 0 )) || fail "arch-plymouth-set refuses a symlinked logo"
@@ -62,13 +62,13 @@ pass "a themed logo cannot republish a file it merely points at"
 # without real privilege; retain a structural assertion on hosts that disable
 # them so the invariant never becomes an untested skip.
 if unshare --user --map-root-user true 2>/dev/null; then
-  output=$(unshare --user --map-root-user env ARCH_PATH="$ROOT" /bin/bash "$ROOT/src/commands/arch-plymouth-set" '#1d2021' '#ebdbb2' "$secret" 2>&1)
+  output=$(unshare --user --map-root-user env ARCH_PATH="$ROOT" /bin/bash "$ROOT/src/arch/commands/arch-plymouth-set" '#1d2021' '#ebdbb2' "$secret" 2>&1)
   status=$?
   (( status != 0 )) || fail "arch-plymouth-set refuses to run as root"
   [[ $output == *"as your user"* && $output == *"not under sudo"* ]] ||
     fail "the root refusal explains how to invoke the publisher safely" "$output"
 else
-  grep -A2 -Eq '^if \(\( EUID == 0 \)\); then$' "$ROOT/src/commands/arch-plymouth-set" ||
+  grep -A2 -Eq '^if \(\( EUID == 0 \)\); then$' "$ROOT/src/arch/commands/arch-plymouth-set" ||
     fail "arch-plymouth-set retains its root-invocation guard"
 fi
 pass "the logo descriptor can only be opened by an unprivileged caller"
@@ -84,7 +84,7 @@ require_command node
 unlock_action=$(node -e '
   const fs = require("fs")
   const path = require("path")
-  const menu = require(path.join(process.env.ROOT, "src/shell/plugins/menu/MenuModel.js"))
+  const menu = require(path.join(process.env.ROOT, "src/arch/shell/plugins/menu/MenuModel.js"))
   const items = menu.parseMenuJsonc(fs.readFileSync(path.join(process.env.ROOT, "default/arch/arch-menu.jsonc"), "utf8"))
   process.stdout.write(items.find(item => item.id === "appearance.unlock").action)
 ')
@@ -113,7 +113,7 @@ STUB
 # Run the real presentation wrapper while replacing only its terminal launcher.
 # The launcher stub executes the final `bash -c` locally instead of opening a
 # terminal window.
-ln -s "$ROOT/src/commands/arch-launch-terminal-with-presentation" "$stub_dir/arch-launch-terminal-with-presentation"
+ln -s "$ROOT/src/arch/commands/arch-launch-terminal-with-presentation" "$stub_dir/arch-launch-terminal-with-presentation"
 
 cat >"$stub_dir/arch-restart-gum" <<'STUB'
 #!/bin/bash
@@ -376,7 +376,7 @@ run_in_fake_root() {
   shift
   (
     umask "$requested_umask"
-    PATH="$fake_bin:$ROOT/src/commands:$PATH" \
+    PATH="$fake_bin:$ROOT/src/arch/commands:$PATH" \
       TMPDIR="$stages" \
       ARCH_PATH="$ROOT" \
       TEST_FAKE_ROOT="$fake_root" \
@@ -393,7 +393,7 @@ run_set_colors() {
   local requested_umask="$1" background="$2" text="$3"
   shift 3
   run_in_fake_root "$requested_umask" "$@" \
-    /bin/bash "$ROOT/src/commands/arch-plymouth-set" "$background" "$text" "$test_tmp/logo.png"
+    /bin/bash "$ROOT/src/arch/commands/arch-plymouth-set" "$background" "$text" "$test_tmp/logo.png"
 }
 
 run_set() {
@@ -403,15 +403,15 @@ run_set() {
 }
 
 run_refresh_plymouth() {
-  run_in_fake_root 022 "$@" /bin/bash "$ROOT/src/commands/arch-refresh-plymouth"
+  run_in_fake_root 022 "$@" /bin/bash "$ROOT/src/arch/commands/arch-refresh-plymouth"
 }
 
 run_refresh_sddm() {
-  run_in_fake_root 022 "$@" /bin/bash "$ROOT/src/commands/arch-refresh-sddm"
+  run_in_fake_root 022 "$@" /bin/bash "$ROOT/src/arch/commands/arch-refresh-sddm"
 }
 
 run_reset() {
-  run_in_fake_root 022 "$@" /bin/bash "$ROOT/src/commands/arch-plymouth-reset"
+  run_in_fake_root 022 "$@" /bin/bash "$ROOT/src/arch/commands/arch-plymouth-reset"
 }
 
 assert_no_temporary_files() {
@@ -509,7 +509,7 @@ preopen_marker="$run_dir/preopen-marker"
 printf 'ROOT ONLY\n' >"$secret"
 chmod 000 "$secret"
 cat >"$preopen_hook" <<'SH'
-if [[ $0 == */src/commands/arch-plymouth-set ]]; then
+if [[ $0 == */src/arch/commands/arch-plymouth-set ]]; then
   set -T
   trap '
     if [[ $BASH_COMMAND == exec* && $BASH_COMMAND == *logo_fd* &&
@@ -547,7 +547,7 @@ setup_run
 nonregular_hook="$run_dir/nonregular-hook"
 nonregular_marker="$run_dir/nonregular-marker"
 cat >"$nonregular_hook" <<'SH'
-if [[ $0 == */src/commands/arch-plymouth-set ]]; then
+if [[ $0 == */src/arch/commands/arch-plymouth-set ]]; then
   set -T
   trap '
     if [[ $BASH_COMMAND == exec* && $BASH_COMMAND == *logo_fd* &&

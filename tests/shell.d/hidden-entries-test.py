@@ -11,7 +11,7 @@ import unittest
 from base_test import ROOT, test_environment
 
 
-SCANNER = ROOT / "src/shell/services/hidden-entries.py"
+SCANNER = ROOT / "src/arch/shell/services/hidden-entries.py"
 
 
 class HiddenEntriesTest(unittest.TestCase):

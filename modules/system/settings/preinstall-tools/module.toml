@@ -2,20 +2,20 @@ id = "system.settings.preinstall-tools"
 domain = "system"
 package = "arch-settings"
 sources = [
-  "src/commands/arch-debug",
-  "src/commands/arch-debug-idle",
-  "src/commands/arch-upload-log",
+  "src/arch/commands/arch-debug",
+  "src/arch/commands/arch-debug-idle",
+  "src/arch/commands/arch-upload-log",
 ]
 requires = ["system.settings"]
 
 [[output]]
-source = "src/commands/arch-debug"
+source = "src/arch/commands/arch-debug"
 target = "usr/bin/arch-debug"
 
 [[output]]
-source = "src/commands/arch-debug-idle"
+source = "src/arch/commands/arch-debug-idle"
 target = "usr/bin/arch-debug-idle"
 
 [[output]]
-source = "src/commands/arch-upload-log"
+source = "src/arch/commands/arch-upload-log"
 target = "usr/bin/arch-upload-log"

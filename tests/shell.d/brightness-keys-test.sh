@@ -6,7 +6,7 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 run_node_test <<'JS'
 const fs = require('fs')
-const model = requireFromRoot('src/shell/services/BrightnessModel.js')
+const model = requireFromRoot('src/arch/shell/services/BrightnessModel.js')
 
 // The in-shell brightness keys follow arch-brightness-display's steps.
 const steps = [
@@ -18,7 +18,7 @@ for (const [action, current, target] of steps) {
   assertEqual(model.brightnessKeyTarget(action, current), target, `brightness ${action} from ${current}% lands on ${target}%`)
 }
 
-const qml = fs.readFileSync(path.join(root, 'src/shell/services/BrightnessKeys.qml'), 'utf8')
+const qml = fs.readFileSync(path.join(root, 'src/arch/shell/services/BrightnessKeys.qml'), 'utf8')
 assert(
   qml.includes('if (!/^(eDP|LVDS|DSI)-/.test(name) || !device) return false'),
   'brightness keys act in the shell only on the internal panel and defer external and Apple displays to the script'
@@ -37,7 +37,7 @@ assert(
   'brightness keys compute percentages as brightnessctl reports them'
 )
 
-const shellQml = fs.readFileSync(path.join(root, 'src/shell/shell.qml'), 'utf8')
+const shellQml = fs.readFileSync(path.join(root, 'src/arch/shell/shell.qml'), 'utf8')
 assert(
   /if \(!shell\.brightnessKeys\.handle\(entry\.target\)\)\s*Util\.execArgv\(\["arch-brightness-display", entry\.target === "raise" \? "\+5%" : "5%-"\]\)/.test(shellQml),
   'a brightness key the shell declines runs arch-brightness-display'

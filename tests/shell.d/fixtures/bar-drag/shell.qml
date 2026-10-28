@@ -179,7 +179,7 @@ ShellRoot {
   Component.onCompleted: {
     steps = [
       [function() {
-        var component = Qt.createComponent("file://" + root.rootPath + "/src/shell/plugins/bar/Bar.qml")
+        var component = Qt.createComponent("file://" + root.rootPath + "/src/arch/shell/plugins/bar/Bar.qml")
         if (component.status !== Component.Ready) {
           root.check(false, "Bar.qml loads: " + component.errorString())
           return

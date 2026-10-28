@@ -1,9 +1,9 @@
 id = "desktop.shell.image-picker"
 domain = "desktop"
 package = "arch"
-sources = ["src/shell/plugins/image-picker"]
+sources = ["src/arch/shell/plugins/image-picker"]
 requires = ["desktop.runtime"]
 
 [[output]]
-source = "src/shell/plugins/image-picker"
-target = "usr/share/arch/src/shell/plugins/image-picker"
+source = "src/arch/shell/plugins/image-picker"
+target = "usr/share/arch/src/arch/shell/plugins/image-picker"

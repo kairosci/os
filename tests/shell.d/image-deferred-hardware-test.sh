@@ -22,7 +22,7 @@ unit_source="$ROOT/installer/provisioning/$unit_name"
 # fixture root. Run a copy whose only change is that check, so a normal user
 # can build an image into a fixture root.
 apply_hardware="$test_tmp/arch-apply-hardware"
-sed 's/^if (( EUID != 0 )); then$/if false; then/' "$ROOT/src/commands/arch-apply-hardware" >"$apply_hardware"
+sed 's/^if (( EUID != 0 )); then$/if false; then/' "$ROOT/src/arch/commands/arch-apply-hardware" >"$apply_hardware"
 chmod +x "$apply_hardware"
 grep -q '^if false; then$' "$apply_hardware" || fail "the test copy of arch-apply-hardware drops only its root check"
 
@@ -59,17 +59,17 @@ chmod +x "$stub_bin"/*
 export LEAF_CALLS="$test_tmp/leaf-calls" REBUILDS="$test_tmp/rebuilds"
 
 fake_platform "$test_tmp/hw" aarch64-apple
-base_path="$test_tmp/hw/bin:$stub_bin:$ROOT/src/commands:/usr/local/bin:/usr/bin:/bin"
+base_path="$test_tmp/hw/bin:$stub_bin:$ROOT/src/arch/commands:/usr/local/bin:/usr/bin:/bin"
 
 # An os tree whose hardware setup is three leaves that log their runs.
 # Leaves a and b write initramfs drop-ins; b then fails while $FAIL_B exists.
 fixture="$test_tmp/arch"
 mkdir -p "$fixture/installer/helpers" "$fixture/installer/provisioning" "$fixture/installer/hardware/apple" \
-  "$fixture/src/commands" "$fixture/src/python/installer" "$fixture/src/python/installer/hardware" "$fixture/data/installer"
+  "$fixture/src/arch/commands" "$fixture/src/arch/python/installer" "$fixture/src/arch/python/installer/hardware" "$fixture/data/installer"
 cp "$ROOT/installer/helpers/logging.sh" "$ROOT/installer/helpers/image-target.sh" "$fixture/installer/helpers/"
 cp "$unit_source" "$fixture/installer/provisioning/"
-cp "$ROOT/src/python/installer/step_runner.py" "$fixture/src/python/installer/"
-cp "$ROOT/src/python/installer/hardware/all.py" "$fixture/src/python/installer/hardware/"
+cp "$ROOT/src/arch/python/installer/step_runner.py" "$fixture/src/arch/python/installer/"
+cp "$ROOT/src/arch/python/installer/hardware/all.py" "$fixture/src/arch/python/installer/hardware/"
 cat >"$fixture/data/installer/hardware-setup.yml" <<'YAML'
 steps:
   - root: arch_install
@@ -130,7 +130,7 @@ build() {
 first_boot() {
   local root=$1
   ARCH_IMAGE_ROOT="$root" ARCH_PATH="$fixture" ARCH_PROC_ROOT="$test_tmp/hw/proc" \
-    PATH="$base_path" "$ROOT/src/commands/arch-provision-hardware"
+    PATH="$base_path" "$ROOT/src/arch/commands/arch-provision-hardware"
 }
 
 reset_logs() {
@@ -300,7 +300,7 @@ root=$(new_root vm)
 write_manifest "$root"
 build "$root" >/dev/null || fail "the fixture image builds for a VM boot"
 output=$(ARCH_IMAGE_ROOT="$root" ARCH_PATH="$fixture" ARCH_PROC_ROOT="$test_tmp/vm/proc" \
-  PATH="$test_tmp/vm/bin:$stub_bin:$ROOT/src/commands:/usr/local/bin:/usr/bin:/bin" "$ROOT/src/commands/arch-provision-hardware") ||
+  PATH="$test_tmp/vm/bin:$stub_bin:$ROOT/src/arch/commands:/usr/local/bin:/usr/bin:/bin" "$ROOT/src/arch/commands/arch-provision-hardware") ||
   fail "the first boot on other hardware finishes" "$output"
 [[ $output == *"First boot of an image built for aarch64-apple, on aarch64 hardware"* ]] ||
   fail "the first boot reports the hardware it runs on, not the image target" "$output"
@@ -397,16 +397,16 @@ pass "a step that only changed module options gets the rebuild"
 # An image build asks for it instead, so every machine flashed from the image
 # makes its own master key on its first boot, before any step installs a package.
 keyring_bin="$test_tmp/keyring-bin"
-mkdir -p "$keyring_bin" "$fixture/src/python/installer/post_install" "$fixture/src/python/installer/hardware" \
+mkdir -p "$keyring_bin" "$fixture/src/arch/python/installer/post_install" "$fixture/src/arch/python/installer/hardware" \
   "$fixture/data/installer/hardware" "$fixture/data/installer"
 # Finalization's repositories are pacman-templates-test.sh's; here they land in
 # the root under test, never the host's /etc.
 cp "$ROOT/installer/helpers/pacman.sh" "$fixture/installer/helpers/pacman.sh"
-cp "$ROOT/src/python/installer/post_install/pacman.py" "$fixture/src/python/installer/post_install/"
+cp "$ROOT/src/arch/python/installer/post_install/pacman.py" "$fixture/src/arch/python/installer/post_install/"
 cp "$ROOT/data/installer/post-install.yml" "$fixture/data/installer/"
-cp "$ROOT/src/python/installer/hardware/pacman_repositories.py" "$fixture/src/python/installer/hardware/"
+cp "$ROOT/src/arch/python/installer/hardware/pacman_repositories.py" "$fixture/src/arch/python/installer/hardware/"
 cp "$ROOT/data/installer/hardware/pacman-repositories.yml" "$fixture/data/installer/hardware/"
-cp "$ROOT/src/commands/arch-apply-pacman" "$fixture/src/commands/arch-apply-pacman"
+cp "$ROOT/src/arch/commands/arch-apply-pacman" "$fixture/src/arch/commands/arch-apply-pacman"
 mkdir -p "$fixture/default"
 cp -r "$ROOT/default/pacman" "$ROOT/default/regions" "$fixture/default/"
 for command in pacman-key arch-pkg-add; do
@@ -423,7 +423,7 @@ export KEYRING="$test_tmp/keyring" KEYRING_FAIL="$test_tmp/keyring-fail"
 request=var/lib/arch/image/pacman-keyring
 
 security_test_status=0
-ARCH_PATH="$ROOT" PACMAN_TEST_ROOT="$test_tmp" python3 -I - "$ROOT/src/python/installer/post_install/pacman.py" <<'PY' || security_test_status=$?
+ARCH_PATH="$ROOT" PACMAN_TEST_ROOT="$test_tmp" python3 -I - "$ROOT/src/arch/python/installer/post_install/pacman.py" <<'PY' || security_test_status=$?
 import os
 import runpy
 import sys
@@ -473,12 +473,12 @@ pass "pacman finalization ignores root fixture overrides and refuses a symlinked
 finalize() {
   mkdir -p "$1/etc/pacman.d"
   ARCH_IMAGE_ROOT="$1" ARCH_PATH="$fixture" PLATFORM=$2 \
-    PATH="$keyring_bin:$base_path" python3 -I "$fixture/src/python/installer/post_install/pacman.py"
+    PATH="$keyring_bin:$base_path" python3 -I "$fixture/src/arch/python/installer/post_install/pacman.py"
 }
 
 keyring_boot() {
   ARCH_IMAGE_ROOT="$1" ARCH_PATH="$fixture" ARCH_PROC_ROOT="$test_tmp/hw/proc" \
-    PATH="$keyring_bin:$base_path" "$ROOT/src/commands/arch-provision-hardware"
+    PATH="$keyring_bin:$base_path" "$ROOT/src/arch/commands/arch-provision-hardware"
 }
 
 for platform in aarch64; do
@@ -604,8 +604,8 @@ first_boot "$root" >/dev/null || fail "the next boot finishes the deferred hardw
   fail "the requested rebuild runs once after the last step and is then cleared" "$(cat "$REBUILDS" 2>/dev/null)"
 pass "a step can ask for the one rebuild after the last step"
 
-for entry in /etc/passwd installer/hardware/../../src/commands/x.sh installer/login/sddm.sh \
-  src/python/installer/hardware/../../cli/x.py src/python/installer/../../cli/x.py; do
+for entry in /etc/passwd installer/hardware/../../src/arch/commands/x.sh installer/login/sddm.sh \
+  src/arch/python/installer/hardware/../../cli/x.py src/arch/python/installer/../../cli/x.py; do
   reset_logs
   root=$(new_root unsafe)
   write_manifest "$root"
@@ -625,7 +625,7 @@ output=$(first_boot "$root") || fail "the first-boot hardware setup succeeds wit
 [[ -z $output && ! -e $root/var/lib/arch ]] || fail "the first-boot hardware setup does nothing with nothing deferred" "$output"
 pass "with nothing deferred the first-boot hardware setup does nothing"
 
-if env -u ARCH_IMAGE_ROOT ARCH_PATH="$fixture" PATH="$base_path" "$ROOT/src/commands/arch-provision-hardware" >/dev/null 2>&1; then
+if env -u ARCH_IMAGE_ROOT ARCH_PATH="$fixture" PATH="$base_path" "$ROOT/src/arch/commands/arch-provision-hardware" >/dev/null 2>&1; then
   fail "the first-boot hardware setup refuses a normal user"
 fi
 pass "the first-boot hardware setup refuses a normal user"
@@ -647,17 +647,17 @@ pass "the first-boot hardware service runs on the queue before owner setup and t
 # does: an install or a rerun of hardware setup leaves the service as it finds it.
 bt_fixture="$test_tmp/arch-bluetooth"
 mkdir -p "$bt_fixture/installer/helpers" "$bt_fixture/installer/provisioning" "$bt_fixture/installer/hardware" \
-  "$bt_fixture/src/python/installer/hardware" "$bt_fixture/src/python/installer" "$bt_fixture/data/installer"
+  "$bt_fixture/src/arch/python/installer/hardware" "$bt_fixture/src/arch/python/installer" "$bt_fixture/data/installer"
 cp "$ROOT/installer/helpers/logging.sh" "$ROOT/installer/helpers/image-target.sh" "$bt_fixture/installer/helpers/"
 cp "$unit_source" "$bt_fixture/installer/provisioning/"
-cp "$ROOT/src/python/installer/hardware/bluetooth.py" "$bt_fixture/src/python/installer/hardware/"
-cp "$ROOT/src/python/installer/hardware/all.py" "$bt_fixture/src/python/installer/hardware/"
-cp "$ROOT/src/python/installer/step_runner.py" "$bt_fixture/src/python/installer/"
+cp "$ROOT/src/arch/python/installer/hardware/bluetooth.py" "$bt_fixture/src/arch/python/installer/hardware/"
+cp "$ROOT/src/arch/python/installer/hardware/all.py" "$bt_fixture/src/arch/python/installer/hardware/"
+cp "$ROOT/src/arch/python/installer/step_runner.py" "$bt_fixture/src/arch/python/installer/"
 cp "$ROOT/data/installer/hardware.yml" "$bt_fixture/data/installer/hardware.yml"
 cp "$fixture/installer/hardware/c.sh" "$bt_fixture/installer/hardware/"
 cat >"$bt_fixture/data/installer/hardware-setup.yml" <<'YAML'
 steps:
-  - src/python/installer/hardware/bluetooth.py
+  - src/arch/python/installer/hardware/bluetooth.py
   - root: arch_install
     path: hardware/c.sh
 messages:
@@ -697,7 +697,7 @@ bt_image() {
 bt_first_boot() {
   rm -f "$SYSTEMCTL_CALLS" "$RUNS"
   ARCH_IMAGE_ROOT="$1" ARCH_PATH="$bt_fixture" ARCH_PROC_ROOT="$test_tmp/hw/proc" \
-    PATH="$bt_path" "$ROOT/src/commands/arch-provision-hardware" >/dev/null 2>&1
+    PATH="$bt_path" "$ROOT/src/arch/commands/arch-provision-hardware" >/dev/null 2>&1
 }
 
 started=$'enable bluetooth.service\nstart --no-block bluetooth.service'
@@ -752,7 +752,7 @@ elif unshare --user --map-root-user true 2>/dev/null; then
   root=$(new_root root-build)
   write_manifest "$root"
   ARCH_IMAGE_ROOT="$root" ARCH_PATH="$fixture" ARCH_INSTALL_LOG_FILE="$root/var/log/arch-install.log" \
-    PATH="$base_path" "${root_runner[@]}" "$ROOT/src/commands/arch-apply-hardware" --defer-provisioning >/dev/null ||
+    PATH="$base_path" "${root_runner[@]}" "$ROOT/src/arch/commands/arch-apply-hardware" --defer-provisioning >/dev/null ||
     fail "root runs hardware setup with a fixture root in its environment"
   [[ $(cat "$RUNS") == $'a user= path='"$fixture"$'\nb\nc' && ! -e $root/var/lib/arch/image/deferred-steps ]] ||
     fail "root ignores a fixture manifest named by its environment"

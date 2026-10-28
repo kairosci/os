@@ -11,7 +11,7 @@ const fs = require('fs')
 const https = require('https')
 const { Solar: G } = requireFromRoot('tests/shell.d/elsewhen/solar.js')
 
-const dataDir = path.join(root, 'src/shell/plugins/panels/elsewhen')
+const dataDir = path.join(root, 'src/arch/shell/plugins/panels/elsewhen')
 const cities = JSON.parse(fs.readFileSync(path.join(dataDir, 'cities.json'), 'utf8'))
 const land = JSON.parse(fs.readFileSync(path.join(dataDir, 'world.json'), 'utf8')).filter(r => r.length >= 40)
 const DEG = Math.PI / 180

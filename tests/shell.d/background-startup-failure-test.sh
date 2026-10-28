@@ -11,13 +11,13 @@ trap 'rm -rf "$stage"' EXIT
 mkdir -p "$stage/bin" "$stage/home/.local/state/arch/current"
 ln -s "$stage/deleted.png" "$stage/home/.local/state/arch/current/background"
 for component in Commons Ui; do
-  ln -s "$ROOT/src/shell/$component" "$stage/$component"
+  ln -s "$ROOT/src/arch/shell/$component" "$stage/$component"
 done
 # A copy of the services with the 10s startup deadline shortened to 1.5s:
 # the scenario proves the deadline fires, not its real length.
-cp -a "$ROOT/src/shell/services" "$stage/services"
+cp -a "$ROOT/src/arch/shell/services" "$stage/services"
 sed -i 's/interval: 10000/interval: 1500/' "$stage/services/BackgroundIntro.qml"
-ln -s "$ROOT/src/shell/plugins/background" "$stage/background"
+ln -s "$ROOT/src/arch/shell/plugins/background" "$stage/background"
 cp "$SHELL_TEST_DIR/fixtures/background-startup-failure/shell.qml" "$stage/shell.qml"
 cat >"$stage/bin/arch-background-session-mark" <<'SH'
 #!/bin/bash

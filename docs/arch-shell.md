@@ -53,7 +53,7 @@ Entry points are QML `Item`s. Panel, overlay, and menu entry points expose `open
 
 A third-party replacement bar can render registered widget components, but widgets it hosts receive a service-less entry facade. Allowing the bar to manufacture an own-service facade for an arbitrary widget would also let it retrieve that plugin's live service object. Service-backed third-party widgets therefore retain their full integration only under the trusted built-in bar; a replacement bar may still provide their target-scoped lifecycle and settings operations.
 
-Full schema: [`src/shell/services/PluginRegistry.qml`](../src/shell/services/PluginRegistry.qml).
+Full schema: [`src/arch/shell/services/PluginRegistry.qml`](../src/arch/shell/services/PluginRegistry.qml).
 
 ## Installing a third-party plugin
 
@@ -99,7 +99,7 @@ The lower-level IPC methods remain available through `arch-shell shell ...`.
 
 ## Elsewhen
 
-Elsewhen (`arch.elsewhen`), the world clock, is a first-party plugin in `src/shell/plugins/panels/elsewhen/`; [`elsewhen.md`](elsewhen.md) covers how it works. The shipped shell layout places it immediately after the clock and before Weather. Users can change plugin placement with `archctl bar put`.
+Elsewhen (`arch.elsewhen`), the world clock, is a first-party plugin in `src/arch/shell/plugins/panels/elsewhen/`; [`elsewhen.md`](elsewhen.md) covers how it works. The shipped shell layout places it immediately after the clock and before Weather. Users can change plugin placement with `archctl bar put`.
 
 ## IPC
 

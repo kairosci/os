@@ -4,7 +4,7 @@ set -euo pipefail
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 run_node_test <<'JS'
-const network = requireFromRoot('src/shell/plugins/panels/network/Model.js')
+const network = requireFromRoot('src/arch/shell/plugins/panels/network/Model.js')
 const states = { Unknown: 0, None: 1, Portal: 2, Limited: 3, Full: 4 }
 
 for (const kind of ['wifi', 'ethernet']) {
@@ -44,7 +44,7 @@ JS
 # intercepts the probed host would never show its sign-in page.
 nm_conf="$ROOT/etc/NetworkManager/conf.d/arch-connectivity.conf"
 nm_uri=$(sed -n 's/^uri=//p' "$nm_conf")
-panel_uri=$(sed -n 's/^var captivePortalUrl = "\(.*\)"$/\1/p' "$ROOT/src/shell/plugins/panels/network/Model.js")
+panel_uri=$(sed -n 's/^var captivePortalUrl = "\(.*\)"$/\1/p' "$ROOT/src/arch/shell/plugins/panels/network/Model.js")
 [[ -n $nm_uri && $nm_uri == "$panel_uri" ]] || fail "NetworkManager probes the URL the panel opens ($nm_uri vs $panel_uri)"
 pass "NetworkManager probes the URL the panel opens"
 [[ $(sed -n 's/^response=\(.*\)$/[\1]/p' "$nm_conf") == "[]" ]] || fail "NetworkManager expects the endpoint's empty 204"
@@ -56,17 +56,17 @@ require_command quickshell
 stage=$(mktemp -d)
 trap 'rm -rf -- "$stage"' EXIT
 fixture="$SHELL_TEST_DIR/fixtures/network-captive-portal"
-mkdir -p "$stage/network" "$stage/bin" "$stage/home" "$stage/src/commands"
-ln -s "$ROOT/src/shell/Ui" "$stage/Ui"
-ln -s "$ROOT/src/shell/Commons" "$stage/Commons"
+mkdir -p "$stage/network" "$stage/bin" "$stage/home" "$stage/src/arch/commands"
+ln -s "$ROOT/src/arch/shell/Ui" "$stage/Ui"
+ln -s "$ROOT/src/arch/shell/Commons" "$stage/Commons"
 ln -s "$ROOT/default" "$stage/default"
 cp -r "$fixture/mocks" "$stage/mocks"
 cp "$fixture/shell.qml" "$stage/shell.qml"
-cp "$ROOT/src/shell/plugins/panels/network/Model.js" "$stage/network/Model.js"
+cp "$ROOT/src/arch/shell/plugins/panels/network/Model.js" "$stage/network/Model.js"
 node - "$ROOT" "$stage" <<'JS'
 const fs = require('fs')
 const [root, stage] = process.argv.slice(2)
-let source = fs.readFileSync(`${root}/src/shell/plugins/panels/network/Panel.qml`, 'utf8')
+let source = fs.readFileSync(`${root}/src/arch/shell/plugins/panels/network/Panel.qml`, 'utf8')
 // Keep installed enum values and actual UI bindings. Only replace the singleton
 // and expose private IDs in the disposable copy, never in production code.
 source = source.replace('import Quickshell.Networking', 'import Quickshell.Networking\nimport "../mocks"')
@@ -91,7 +91,7 @@ JS
 printf '#!/bin/bash\nexit 0\n' > "$stage/bin/noop"
 chmod +x "$stage/bin/noop"
 for command in arch-dns arch-network-band; do
-  ln -s ../../bin/noop "$stage/src/commands/$command"
+  ln -s ../../bin/noop "$stage/src/arch/commands/$command"
 done
 # Preview uses only synthetic details, never the host's SSID or addresses.
 # Normal assertions keep the details empty to exercise missing-route handling.

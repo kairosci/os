@@ -32,10 +32,10 @@ with tempfile.TemporaryDirectory(prefix="mise-setup-") as temporary:
   environment = test_environment(
     HOME=home,
     ARCH_TEST_MISE_LOG=log,
-    PATH=f"{bin_dir}:{home / '.local/bin'}:{ROOT / 'src/commands'}:/usr/local/bin:/usr/bin",
+    PATH=f"{bin_dir}:{home / '.local/bin'}:{ROOT / 'src/arch/commands'}:/usr/local/bin:/usr/bin",
   )
   result = subprocess.run(
-    [sys.executable, "-I", str(ROOT / "src/python/installer_user/setup/mise.py")],
+    [sys.executable, "-I", str(ROOT / "src/arch/python/installer_user/setup/mise.py")],
     capture_output=True,
     text=True,
     env=environment,

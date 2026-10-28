@@ -4,7 +4,7 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-registry="$ROOT/src/shell/services/PluginRegistry.qml"
+registry="$ROOT/src/arch/shell/services/PluginRegistry.qml"
 source_text=$(cat "$registry")
 
 # Source wiring: shell start reaps orphaned watchers before starting its

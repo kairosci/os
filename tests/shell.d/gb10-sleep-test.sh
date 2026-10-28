@@ -4,7 +4,7 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-setup="$ROOT/src/python/installer/hardware/gb10/sleep.py"
+setup="$ROOT/src/arch/python/installer/hardware/gb10/sleep.py"
 hardware_setup="$ROOT/data/installer/hardware-setup.yml"
 menu="$ROOT/default/arch/arch-menu.jsonc"
 
@@ -16,7 +16,7 @@ scratch=$(mktemp -d)
 trap 'rm -rf "$scratch"' EXIT
 mkdir -p "$scratch/bin"
 
-grep -q 'src/python/installer/hardware/gb10/sleep.py' "$hardware_setup" ||
+grep -q 'src/arch/python/installer/hardware/gb10/sleep.py' "$hardware_setup" ||
   fail "the GB10 sleep setting runs during hardware setup"
 pass "the GB10 sleep setting runs during hardware setup"
 
@@ -60,7 +60,7 @@ run() {
   local machine=$1 config_dir=$2
   shift 2
   : >"$CALL_LOG"
-  PATH="$scratch/hw/$machine/bin:$scratch/bin:$ROOT/src/commands:$PATH" ARCH_PATH="$ROOT" \
+  PATH="$scratch/hw/$machine/bin:$scratch/bin:$ROOT/src/arch/commands:$PATH" ARCH_PATH="$ROOT" \
     ARCH_PROC_ROOT="$scratch/hw/$machine/proc" ARCH_SYS_ROOT="$scratch/hw/$machine/sys" \
     ARCH_SLEEP_CONFIG_DIR="$config_dir" "$@"
 }
@@ -84,12 +84,12 @@ run spark "$scratch/spark" arch-sleep-disabled || fail "sleep reads as disabled 
 run spark "$scratch/none" arch-sleep-disabled && fail "sleep reads as enabled without the setting"
 pass "arch-sleep-disabled follows the sleep setting"
 
-run spark "$scratch/spark" bash "$ROOT/src/commands/arch-toggle-suspend"
+run spark "$scratch/spark" bash "$ROOT/src/arch/commands/arch-toggle-suspend"
 ! grep -q '^toggle ' "$CALL_LOG" || fail "the suspend toggle does nothing while sleep is disabled"
 grep -q '^notify .*Suspend is turned off on this machine' "$CALL_LOG" ||
   fail "the suspend toggle says suspend is turned off"
 # Refuse sudo so a missing check cannot reach this machine's swap or boot files.
-hibernation=$(TEST_SUDO_STATUS=1 run spark "$scratch/spark" bash "$ROOT/src/commands/arch-hibernation-setup" 2>&1) ||
+hibernation=$(TEST_SUDO_STATUS=1 run spark "$scratch/spark" bash "$ROOT/src/arch/commands/arch-hibernation-setup" 2>&1) ||
   fail "hibernation setup exits cleanly while sleep is disabled"
 [[ $hibernation == *"Hibernation is turned off on this machine"* ]] ||
   fail "hibernation setup says hibernation is turned off" "$hibernation"

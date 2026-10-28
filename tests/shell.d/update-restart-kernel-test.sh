@@ -45,7 +45,7 @@ kernel() {
 prompts() {
   : >"$TEST_LOG"
   TEST_RUNNING_KERNEL=$1 ARCH_KERNEL_MODULES_PATH="$tmp_dir/modules" HOME="$tmp_dir/home" \
-    ARCH_UPDATE_UNATTENDED=0 PATH="$tmp_dir/bin:$PATH" "$ROOT/src/commands/arch-update-restart" --reboot-only >/dev/null 2>&1
+    ARCH_UPDATE_UNATTENDED=0 PATH="$tmp_dir/bin:$PATH" "$ROOT/src/arch/commands/arch-update-restart" --reboot-only >/dev/null 2>&1
   cat "$TEST_LOG"
 }
 

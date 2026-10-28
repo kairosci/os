@@ -15,7 +15,7 @@ the end and exits non-zero.
 - **`./tests/cli`** — one big script, one suite. It owns the CLI router: help
   and group rendering, route resolution, aliases, hidden commands, and the
   guarantee that a trailing `--help` never executes the target. It also owns
-  the metadata lint — every `arch-*` executable under `src/commands/` is checked for a
+  the metadata lint — every `arch-*` executable under `src/arch/commands/` is checked for a
   `# arch:summary=` header and against removed or redundant fields — plus
   the theme pipeline: template rendering (`arch-theme-set-templates`,
   `arch-theme-color`, `arch-theme-osc`), the theme sync commands
@@ -23,7 +23,7 @@ the end and exits non-zero.
   `$HOME`.
 - **`./tests/shell`** — runs every `tests/shell.d/*-test.sh` (except
   `base-test.sh` itself). Each file is an independent suite covering one area:
-  a shell plugin, a `src/commands/` command, or a config invariant. This is where new tests go.
+  a shell plugin, a `src/arch/commands/` command, or a config invariant. This is where new tests go.
 - **Acceptance** — everything that needs a real desktop doing real things.
   Deliberately excluded from `./tests/all`; it runs in a VM, not the
   development session.
@@ -46,7 +46,7 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 `base-test.sh` refuses to be executed directly — it is a library. It discovers
 the repo root from its own location and exports it as `ROOT`, so tests
-reference files as `$ROOT/src/commands/...` and never depend on the caller's working
+reference files as `$ROOT/src/arch/commands/...` and never depend on the caller's working
 directory or an installed Arch.
 
 Assertions are TAP-flavored and blunt:
@@ -94,7 +94,7 @@ that runs unconditionally before or beside it.
 
 A handful of tests fail when a fast path gets slow again. Each prefers a count that is the same on every machine over a wall-clock time. Where it has to time something it takes the fastest of several runs, and either compares two paths timed in the same run or scales its budget with `process_speed_percent` from `base-test.sh`: how long 100 fork/execs take here against the 25ms they take on the laptop the budgets were set on. A machine more than 8x slower skips the timing (`require_comparable_speed`) rather than guess.
 
-- `tests/shell.d/shell-idle-spawn-test.sh` starts a second shell on the default config, waits for its startup work to go quiet, then fails if it starts any process over 30 idle seconds, naming each command line. A preloaded shim (`fixtures/idle-src/shell/exec-log.c`, built with `cc` at test time) logs every exec, fork and spawn the shell and its descendants make, so a probe that lives for a millisecond is caught, and nothing outside the shell's process tree can be. A command that legitimately runs while idle is allowed with `allow` in that file, only while its reason holds and at most as often as the reason implies. The test watches Hyprland, UPower and NetworkManager events meanwhile; a spawn that coincides with one is given a second window before it fails, and the events are printed with it. The test shell gets stubs for everything that would act on the session (signals, power profiles, `bash -l`). Compositor-gated, and skipped without a C compiler.
+- `tests/shell.d/shell-idle-spawn-test.sh` starts a second shell on the default config, waits for its startup work to go quiet, then fails if it starts any process over 30 idle seconds, naming each command line. A preloaded shim (`fixtures/idle-src/arch/shell/exec-log.c`, built with `cc` at test time) logs every exec, fork and spawn the shell and its descendants make, so a probe that lives for a millisecond is caught, and nothing outside the shell's process tree can be. A command that legitimately runs while idle is allowed with `allow` in that file, only while its reason holds and at most as often as the reason implies. The test watches Hyprland, UPower and NetworkManager events meanwhile; a spawn that coincides with one is given a second window before it fails, and the events are printed with it. The test shell gets stubs for everything that would act on the session (signals, power profiles, `bash -l`). Compositor-gated, and skipped without a C compiler.
 - `tests/cli` times `archctl screenshot` against help for it on a copy of the real command table, and fails unless the alias dispatch costs under a quarter of the full load (13ms against 190ms today).
 - `tests/shell.d/menu-guard-budget-test.sh` runs the shipped menu's guard batch on this machine's real hardware: the batch within 200ms (about 50ms today) and each guard alone within 100ms (the slowest is about 30ms), scaled to the machine, listing the slowest guards when either fails. Skipped without `$XDG_RUNTIME_DIR`, which holds the package snapshot the menu relies on.
 - `tests/shell.d/theme-set-budget-test.sh` runs the whole `arch-theme-set` in a scratch home where every app is a stub given its real cost (a running Hunk, VS Code's Electron boot, three tmux sessions). It fails when either theme's switch takes over 500ms scaled to the machine (about 80ms today), starts more than a handful of tmux clients, starts VS Code to list its extensions, or waits for Hunk's settle nudge.
@@ -108,7 +108,7 @@ Some checks hold Arch's scripts against the packages in the separate arch-pkgs r
 ## Unit-testing shell JavaScript from bash
 
 The Quickshell plugins keep their logic in plain `.js` modules
-(`src/shell/plugins/menu/MenuModel.js`, `bar/BarModel.js`, ...) that end in a
+(`src/arch/shell/plugins/menu/MenuModel.js`, `bar/BarModel.js`, ...) that end in a
 guarded `if (typeof module !== "undefined") module.exports = {...}` block. QML
 imports them directly and ignores the guard; Node loads them as CommonJS. That
 dual citizenship is what makes the shell's model logic unit-testable without a
@@ -122,7 +122,7 @@ exported `ROOT`), `path`, and `requireFromRoot(relativePath)`:
 
 ```bash
 run_node_test <<'JS'
-const menu = requireFromRoot('src/shell/plugins/menu/MenuModel.js')
+const menu = requireFromRoot('src/arch/shell/plugins/menu/MenuModel.js')
 
 const parsed = menu.parseMenuJsonc('{ "items": { "root": { "label": "Go" }, }, }')
 assertEqual(parsed.length, 1, 'menu parses JSONC with trailing commas')
@@ -136,11 +136,11 @@ only a live session can prove.
 ## Conventions worth copying
 
 - **Redirect background output.** Send background fixtures' stdout to a log or `/dev/null` and clean up the processes on exit. An inherited output pipe can hold the runner open after the test exits.
-- **Stub the world, run the real code.** Tests build a scratch `src/commands/` of stub
+- **Stub the world, run the real code.** Tests build a scratch `src/arch/commands/` of stub
   executables (`sudo`, `tmux`, `gsettings`, helper commands) that log their
   arguments to a file, prepend it to `PATH`, and then run the real script
   under test. Assertions grep the call log and the files the script wrote.
-- **Login shells drop the stubs.** A `bash -l` rereads `/etc/profile`, which resets `ARCH_PATH` from `/etc/arch.conf` and puts that checkout's `src/commands/` ahead of the stub directory, so a command run through one reaches the real commands again. Commands that start `bash -lc` (`arch-theme-set` runs its app retints that way) need a `bash` stub that drops the `-l`.
+- **Login shells drop the stubs.** A `bash -l` rereads `/etc/profile`, which resets `ARCH_PATH` from `/etc/arch.conf` and puts that checkout's `src/arch/commands/` ahead of the stub directory, so a command run through one reaches the real commands again. Commands that start `bash -lc` (`arch-theme-set` runs its app retints that way) need a `bash` stub that drops the `-l`.
 - **Fake `$HOME`, real `$ARCH_PATH`.** Anything touching user state runs
   with `HOME` pointed at a `mktemp -d` directory (cleaned up via
   `trap ... EXIT`) and `ARCH_PATH="$ROOT"`, so tests exercise the checkout

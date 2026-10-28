@@ -15,12 +15,12 @@ done
 
 run_install() {
   HOME="$tmp_dir/home" PATH="$tmp_dir/bin:$PATH" \
-    "$ROOT/src/commands/arch-webapp-install" "$@"
+    "$ROOT/src/arch/commands/arch-webapp-install" "$@"
 }
 
 run_remove() {
   HOME="$tmp_dir/home" PATH="$tmp_dir/bin:$PATH" ARCH_REMOVE_NOTIFY=false \
-    "$ROOT/src/commands/arch-webapp-remove" "$@"
+    "$ROOT/src/arch/commands/arch-webapp-remove" "$@"
 }
 
 apps_dir="$tmp_dir/home/.local/share/applications"
@@ -82,7 +82,7 @@ chmod +x "$tmp_dir/ibin/gum" "$tmp_dir/ibin/curl"
 
 if HOME="$tmp_dir/home" PATH="$tmp_dir/ibin:$PATH" \
   GUM_STUB_COUNT="$tmp_dir/gum-count" \
-  "$ROOT/src/commands/arch-webapp-install" >/dev/null 2>&1; then
+  "$ROOT/src/arch/commands/arch-webapp-install" >/dev/null 2>&1; then
   fail "interactive webapp install rejects a name containing a slash"
 fi
 if compgen -G "$icons_dir/*.png" >/dev/null; then
@@ -120,7 +120,7 @@ pass "webapp remove reaches a nested legacy launcher"
 # Removing by name on a machine with no applications directory yet must stay
 # quiet: arch-remove-gaming-xbox-cloud calls it without hiding stderr.
 noise=$(HOME="$tmp_dir/empty" PATH="$tmp_dir/bin:$PATH" ARCH_REMOVE_NOTIFY=false \
-  "$ROOT/src/commands/arch-webapp-remove" "Xbox Cloud Gaming" 2>&1 >/dev/null)
+  "$ROOT/src/arch/commands/arch-webapp-remove" "Xbox Cloud Gaming" 2>&1 >/dev/null)
 [[ -n $noise ]] &&
   fail "webapp remove stays quiet with no applications directory" "$noise"
 pass "webapp remove stays quiet when there is no applications directory"

@@ -32,10 +32,10 @@ run_setup() (
   export INSTALLED_PACKAGES="$installed"
   export SETUP_FAILURE="$failure"
   export ARCH_IMAGE_DEFERRED_HARDWARE=${3:-}
-  PATH="$mock_bin:$PATH" python3 -I "$ROOT/src/python/installer/hardware/nvidia_apps.py"
+  PATH="$mock_bin:$PATH" python3 -I "$ROOT/src/arch/python/installer/hardware/nvidia_apps.py"
 )
 
-grep -Fq 'src/python/installer/hardware/nvidia_apps.py' "$ROOT/data/installer/hardware-setup.yml" ||
+grep -Fq 'src/arch/python/installer/hardware/nvidia_apps.py' "$ROOT/data/installer/hardware-setup.yml" ||
   fail "hardware setup runs the NVIDIA apps module"
 
 for deferred in "" 0 1; do

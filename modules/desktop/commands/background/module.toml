@@ -2,16 +2,16 @@ id = "desktop.commands.background"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-background-session-mark",
-  "src/cli/background/session_mark.py",
+  "src/arch/commands/arch-background-session-mark",
+  "src/arch/cli/background/session_mark.py",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-background-session-mark"
-target = "usr/share/arch/src/commands/arch-background-session-mark"
+source = "src/arch/commands/arch-background-session-mark"
+target = "usr/share/arch/src/arch/commands/arch-background-session-mark"
 
 [[output]]
-source = "src/cli/background/session_mark.py"
-target = "usr/share/arch/src/cli/background/session_mark.py"
+source = "src/arch/cli/background/session_mark.py"
+target = "usr/share/arch/src/arch/cli/background/session_mark.py"
 

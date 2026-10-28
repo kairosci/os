@@ -8,7 +8,7 @@ trap 'rm -rf "$tmp_dir"' EXIT
 mkdir -p "$tmp_dir/bin" "$tmp_dir/efivars"
 export CALL_LOG="$tmp_dir/calls" N1X="$tmp_dir/n1x"
 export ARCH_EFIVARS="$tmp_dir/efivars" ARCH_N1X_GPU_MEMORY_CONF="$tmp_dir/arch-n1x-gpu-memory.conf"
-export PATH="$tmp_dir/bin:$ROOT/src/commands:$PATH"
+export PATH="$tmp_dir/bin:$ROOT/src/arch/commands:$PATH"
 
 cat > "$tmp_dir/bin/arch-hw-aarch64-n1x" <<'SH'
 #!/bin/bash

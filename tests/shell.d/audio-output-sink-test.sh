@@ -33,7 +33,7 @@ physical=alsa_output.pci-0000_00_1f.3.analog-surround-40
 
 resolve() {
   HOME="$test_home" XDG_CONFIG_HOME="$test_home/.config" TEST_DATA="$test_home/data" \
-    PATH="$test_bin:$PATH" bash "$ROOT/src/commands/arch-audio-output-sink" "$@"
+    PATH="$test_bin:$PATH" bash "$ROOT/src/arch/commands/arch-audio-output-sink" "$@"
 }
 
 reset_scenario() {

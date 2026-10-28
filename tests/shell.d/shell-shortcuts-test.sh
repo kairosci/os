@@ -108,16 +108,16 @@ while IFS= read -r line; do
     [[ $line =~ ^ipc\ (media|notifications)\.[A-Za-z]+$ ]] || fail "ipc shortcuts name a mapped target and method: $line"
   fi
 done <"$shortcuts"
-grep -q 'path: shell.archPath + "/default/arch/shortcuts"' "$ROOT/src/shell/shell.qml" ||
+grep -q 'path: shell.archPath + "/default/arch/shortcuts"' "$ROOT/src/arch/shell/shell.qml" ||
   fail "the shell registers the declared shortcuts"
 ! grep -q 'hl\.dsp\.global' "$ROOT/default/hypr/helpers.lua" ||
   fail "desktop keybindings do not pass unsupported D-Bus dispatchers to Hyprland"
 # An ipc shortcut runs the service's own IPC handler, so it behaves exactly as
 # the arch-shell call it replaces.
 for service in services/media notifications; do
-  grep -Pzq 'function runShortcut\(method\) \{\n    if \(typeof ipcHandler\[method\] !== "function"\) return false\n    ipcHandler\[method\]\(\)' "$ROOT/src/shell/plugins/$service/Service.qml" ||
+  grep -Pzq 'function runShortcut\(method\) \{\n    if \(typeof ipcHandler\[method\] !== "function"\) return false\n    ipcHandler\[method\]\(\)' "$ROOT/src/arch/shell/plugins/$service/Service.qml" ||
     fail "$service runs ipc shortcuts through its IPC handler"
-  grep -Pzq '(IpcHandler|ShellIpc) \{\n    id: ipcHandler' "$ROOT/src/shell/plugins/$service/Service.qml" ||
+  grep -Pzq '(IpcHandler|ShellIpc) \{\n    id: ipcHandler' "$ROOT/src/arch/shell/plugins/$service/Service.qml" ||
     fail "$service names its IPC handler for shortcuts"
 done
 pass "the shell and the helpers share one shortcut list"
@@ -125,7 +125,7 @@ pass "the shell and the helpers share one shortcut list"
 # Every default menu binding target is a real menu route.
 run_node_test <<'JS'
 const fs = require('fs')
-const menu = requireFromRoot('src/shell/plugins/menu/MenuModel.js')
+const menu = requireFromRoot('src/arch/shell/plugins/menu/MenuModel.js')
 const entries = menu.parseMenuJsonc(fs.readFileSync(path.join(root, 'default/arch/arch-menu.jsonc'), 'utf8'))
 const items = {}
 const order = []

@@ -2,25 +2,25 @@ id = "desktop.commands.dictation"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-dictation",
-  "src/commands/arch-dictation-superwhisper",
-  "src/commands/arch-dictation-use",
-  "src/commands/arch-dictation-voxtype",
+  "src/arch/commands/arch-dictation",
+  "src/arch/commands/arch-dictation-superwhisper",
+  "src/arch/commands/arch-dictation-use",
+  "src/arch/commands/arch-dictation-voxtype",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-dictation"
-target = "usr/share/arch/src/commands/arch-dictation"
+source = "src/arch/commands/arch-dictation"
+target = "usr/share/arch/src/arch/commands/arch-dictation"
 
 [[output]]
-source = "src/commands/arch-dictation-superwhisper"
-target = "usr/share/arch/src/commands/arch-dictation-superwhisper"
+source = "src/arch/commands/arch-dictation-superwhisper"
+target = "usr/share/arch/src/arch/commands/arch-dictation-superwhisper"
 
 [[output]]
-source = "src/commands/arch-dictation-use"
-target = "usr/share/arch/src/commands/arch-dictation-use"
+source = "src/arch/commands/arch-dictation-use"
+target = "usr/share/arch/src/arch/commands/arch-dictation-use"
 
 [[output]]
-source = "src/commands/arch-dictation-voxtype"
-target = "usr/share/arch/src/commands/arch-dictation-voxtype"
+source = "src/arch/commands/arch-dictation-voxtype"
+target = "usr/share/arch/src/arch/commands/arch-dictation-voxtype"

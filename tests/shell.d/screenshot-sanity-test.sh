@@ -32,11 +32,11 @@ require_command jq
 require_command python3
 
 shell_ipc() {
-  ARCH_PATH="$test_root" "$ROOT/src/commands/arch-shell" "$@"
+  ARCH_PATH="$test_root" "$ROOT/src/arch/commands/arch-shell" "$@"
 }
 
 shell_ipc_quiet() {
-  ARCH_PATH="$test_root" "$ROOT/src/commands/arch-shell" -q "$@"
+  ARCH_PATH="$test_root" "$ROOT/src/arch/commands/arch-shell" -q "$@"
 }
 
 fail_with_log() {
@@ -53,16 +53,16 @@ stub_bin="$TMPDIR/bin"
 screenshot_dir="$TMPDIR/screenshots"
 log="$TMPDIR/quickshell.log"
 screenshot_err="$TMPDIR/screenshot.err"
-mkdir -p "$test_root/src" "$test_home" "$stub_bin" "$screenshot_dir"
+mkdir -p "$test_root/src/arch" "$test_home" "$stub_bin" "$screenshot_dir"
 
 # This shell joins an already-running compositor session, like a shell
 # restart. Seed the background-intro session marker so it does not map
 # the solid new-login startup cover over the bar being screenshotted.
 mkdir -p "$test_home/.local/state/arch"
 printf '%s\n' "$HYPRLAND_INSTANCE_SIGNATURE" >"$test_home/.local/state/arch/background-intro.session-id"
-cp -a "$ROOT/src/shell" "$test_root/src/shell"
+cp -a "$ROOT/src/arch/shell" "$test_root/src/arch/shell"
 ln -s "$ROOT/config" "$test_root/config"
-ln -s "$ROOT/src/commands" "$test_root/src/commands"
+ln -s "$ROOT/src/arch/commands" "$test_root/src/arch/commands"
 
 cat >"$stub_bin/arch-update-available" <<'SH'
 #!/bin/bash
@@ -93,8 +93,8 @@ HOME="$test_home" \
 XDG_CONFIG_HOME="$test_home/.config" \
 XDG_CACHE_HOME="$test_home/.cache" \
 XDG_STATE_HOME="$test_home/.local/state" \
-PATH="$stub_bin:$ROOT/src/commands:$PATH" \
-  quickshell -p "$test_root/src/shell" --no-color >"$log" 2>&1 &
+PATH="$stub_bin:$ROOT/src/arch/commands:$PATH" \
+  quickshell -p "$test_root/src/arch/shell" --no-color >"$log" 2>&1 &
 QS_PID=$!
 
 for _ in {1..80}; do
@@ -123,8 +123,8 @@ jq -e '
 ARCH_PATH="$test_root" \
 HYPRSHOT_DIR="$screenshot_dir" \
 HOME="$test_home" \
-PATH="$stub_bin:$ROOT/src/commands:$PATH" \
-  "$ROOT/src/commands/arch" capture screenshot fullscreen save >/dev/null 2>"$screenshot_err"
+PATH="$stub_bin:$ROOT/src/arch/commands:$PATH" \
+  "$ROOT/src/arch/commands/arch" capture screenshot fullscreen save >/dev/null 2>"$screenshot_err"
 
 screenshot=$(find "$screenshot_dir" -maxdepth 1 -type f -name '*.png' -print -quit)
 

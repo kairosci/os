@@ -6,9 +6,9 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 run_node_test <<'JS'
 const fs = require('fs')
-const emojis = requireFromRoot('src/shell/plugins/emojis/EmojiSearch.js')
+const emojis = requireFromRoot('src/arch/shell/plugins/emojis/EmojiSearch.js')
 
-const raw = fs.readFileSync(path.join(root, 'src/shell/plugins/emojis/emojis.json'), 'utf8')
+const raw = fs.readFileSync(path.join(root, 'src/arch/shell/plugins/emojis/emojis.json'), 'utf8')
 const data = emojis.parseEmojis(raw)
 
 assert(data.length > 1000, 'emoji dataset parses')
@@ -76,7 +76,7 @@ SH
 chmod +x "$TMPDIR/bin/wl-copy" "$TMPDIR/bin/wtype" "$TMPDIR/bin/sleep"
 
 WL_COPY_OUT="$TMPDIR/copy" WL_COPY_EMOJI_OUT="$TMPDIR/emoji" WTYPE_OUT="$TMPDIR/wtype" PATH="$TMPDIR/bin:$PATH" \
-  "$ROOT/src/commands/arch-menu-emoji-insert" "😀"
+  "$ROOT/src/arch/commands/arch-menu-emoji-insert" "😀"
 
 [[ $(<"$TMPDIR/emoji") == "😀" ]] || fail "emoji insert helper copies emoji transiently"
 pass "emoji insert helper copies emoji transiently"

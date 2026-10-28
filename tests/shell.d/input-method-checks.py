@@ -17,7 +17,7 @@ spec = importlib.util.spec_from_file_location("input_setup", ROOT / "default/inp
 setup = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(setup)
 xcompose_spec = importlib.util.spec_from_file_location(
-    "xcompose_setup", ROOT / "src/python/installer_user/setup/xcompose.py"
+    "xcompose_setup", ROOT / "src/arch/python/installer_user/setup/xcompose.py"
 )
 xcompose_setup = importlib.util.module_from_spec(xcompose_spec)
 xcompose_spec.loader.exec_module(xcompose_setup)

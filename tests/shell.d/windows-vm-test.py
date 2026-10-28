@@ -7,7 +7,7 @@ import re
 from base_test import ROOT, fail_check, pass_check
 
 
-command = (ROOT / "src/commands/arch-windows-vm").read_text(encoding="utf-8")
+command = (ROOT / "src/arch/commands/arch-windows-vm").read_text(encoding="utf-8")
 if not re.search(r'^    restart: "no"$', command, re.MULTILINE):
   fail_check("Windows VM uses manual startup by default")
 pass_check("Windows VM uses manual startup by default")

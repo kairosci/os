@@ -2,7 +2,7 @@
 
 source "$(dirname "${BASH_SOURCE[0]}")/base-test.sh"
 
-export PATH="$ROOT/src/commands:$PATH"
+export PATH="$ROOT/src/arch/commands:$PATH"
 
 TMPDIR=""
 
@@ -64,7 +64,7 @@ native_manifest="$test_home/.config/chromium/NativeMessagingHosts/com.arch.copy_
 HOME="$test_home" ARCH_PATH="$ROOT" arch-install-chromium-copy-url
 
 [[ -f $native_manifest ]] || fail "copy-url native host installer creates fresh Chromium profile root"
-jq -e --arg path "$ROOT/src/commands/arch-chromium-copy-url-host" '
+jq -e --arg path "$ROOT/src/arch/commands/arch-chromium-copy-url-host" '
   .name == "com.arch.copy_url" and
   .path == $path and
   (.allowed_origins | index("chrome-extension://bgpiichlckmfanooecilcjemknkcpngb/"))
@@ -82,8 +82,8 @@ grep -Fq '  - setup/chromium_extensions.py' "$ROOT/data/installer/user-setup.yml
   fail "user install runs the Chromium native messaging host module"
 
 fresh_home="$TMPDIR/fresh-install"
-HOME="$fresh_home" ARCH_PATH="$ROOT" PATH="$ROOT/src/commands:$PATH" \
-  python3 -I "$ROOT/src/python/installer_user/setup/chromium_extensions.py"
+HOME="$fresh_home" ARCH_PATH="$ROOT" PATH="$ROOT/src/arch/commands:$PATH" \
+  python3 -I "$ROOT/src/arch/python/installer_user/setup/chromium_extensions.py"
 
 [[ -f $fresh_home/.config/chromium/NativeMessagingHosts/com.arch.copy_url.json ]] ||
   fail "fresh install registers the copy-url native messaging host"
@@ -94,7 +94,7 @@ copied_url=$(bash -c '
   wl-copy() { cat; }
   arch-notification-send() { :; }
   copy_url "$2"
-' bash "$ROOT/src/commands/arch-chromium-copy-url-host" 'https://example.tests/path?q=one&name=two')
+' bash "$ROOT/src/arch/commands/arch-chromium-copy-url-host" 'https://example.tests/path?q=one&name=two')
 
 [[ $copied_url == "https://example.tests/path?q=one&name=two" ]] ||
   fail "copy-url native host writes the complete URL" "$copied_url"
@@ -103,7 +103,7 @@ pass "copy-url native host writes the complete URL"
 native_reply=$(bash -c '
   source "$1"
   reply_copied true
-' bash "$ROOT/src/commands/arch-chromium-copy-url-host" | od -An -v -tx1 | tr -d ' \n')
+' bash "$ROOT/src/arch/commands/arch-chromium-copy-url-host" | od -An -v -tx1 | tr -d ' \n')
 
 [[ $native_reply == "0f0000007b22636f70696564223a747275657d" ]] ||
   fail "copy-url native host returns a framed success response" "$native_reply"

@@ -2,10 +2,10 @@ id = "desktop.commands.boot"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-boot-direct",
+  "src/arch/commands/arch-boot-direct",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/commands/arch-boot-direct"
-target = "usr/share/arch/src/commands/arch-boot-direct"
+source = "src/arch/commands/arch-boot-direct"
+target = "usr/share/arch/src/arch/commands/arch-boot-direct"

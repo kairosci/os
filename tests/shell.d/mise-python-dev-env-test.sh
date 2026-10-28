@@ -20,14 +20,14 @@ chmod +x "$mock_bin/mise"
 
 export HOME="$test_home"
 export ARCH_TEST_MISE_LOG="$mise_log"
-export PATH="$mock_bin:$ROOT/src/commands:$PATH"
+export PATH="$mock_bin:$ROOT/src/arch/commands:$PATH"
 
 mise_config="$test_tmp/etc/mise/config.toml"
 mkdir -p "$(dirname "$mise_config")"
 cp "$ROOT/etc/mise/conf.d/arch-tools.toml" "$mise_config"
 export ARCH_MISE_CONFIG_PATH="$mise_config"
 
-bash "$ROOT/src/commands/arch-install-dev-env" python >/dev/null
+bash "$ROOT/src/arch/commands/arch-install-dev-env" python >/dev/null
 grep -Fx 'use --global python@latest' "$mise_log" >/dev/null || fail "Python setup installs Python through mise"
 grep -Fx 'install uv' "$mise_log" >/dev/null || fail "Python setup installs the system-configured uv"
 grep -Fx 'use --global uv' "$mise_log" >/dev/null && fail "Python setup leaves the system-configured uv out of the user config"
@@ -40,7 +40,7 @@ mkdir -p "$(dirname "$miserc")"
 printf 'ignored_config_paths = ["%s"]\n' "$mise_config" >"$miserc"
 cp "$miserc" "$test_tmp/expected-miserc"
 : >"$mise_log"
-bash "$ROOT/src/commands/arch-install-dev-env" python >/dev/null
+bash "$ROOT/src/arch/commands/arch-install-dev-env" python >/dev/null
 grep -Fx 'use --global uv' "$mise_log" >/dev/null || fail "Python setup selects uv when os's declaration is skipped"
 grep -Fx 'install uv' "$mise_log" >/dev/null && fail "Python setup does not count on os's uv when its declaration is skipped"
 cmp -s "$miserc" "$test_tmp/expected-miserc" || fail "Python setup keeps the mise opt-out"
@@ -50,13 +50,13 @@ pass "Python setup selects uv when os's declaration is skipped"
 # Without os's declarations, nothing else declares uv.
 rm "$mise_config"
 : >"$mise_log"
-bash "$ROOT/src/commands/arch-install-dev-env" python >/dev/null
+bash "$ROOT/src/arch/commands/arch-install-dev-env" python >/dev/null
 grep -Fx 'use --global uv' "$mise_log" >/dev/null || fail "Python setup selects uv when no system config declares it"
 pass "Python setup selects uv without os's declarations"
 
 touch "$test_home/.local/bin/uv" "$test_home/.local/bin/uvx" "$test_home/.cargo/bin/uv"
 : >"$mise_log"
-bash "$ROOT/src/commands/arch-remove-dev-env" python >/dev/null
+bash "$ROOT/src/arch/commands/arch-remove-dev-env" python >/dev/null
 grep -Fx 'uninstall python --all' "$mise_log" >/dev/null || fail "Python removal uninstalls mise Python"
 grep -Fx 'rm -g python' "$mise_log" >/dev/null || fail "Python removal removes the global Python declaration"
 grep -q 'uv' "$mise_log" && fail "Python removal does not remove the independent uv tool"

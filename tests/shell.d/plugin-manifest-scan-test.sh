@@ -28,7 +28,7 @@ try {
   }
 
   // Exercise the actual shell command assembled by QML, without a compositor.
-  const qml = fs.readFileSync(path.join(root, 'src/shell/services/PluginRegistry.qml'), 'utf8')
+  const qml = fs.readFileSync(path.join(root, 'src/arch/shell/services/PluginRegistry.qml'), 'utf8')
   const body = qml.split('  function rescan() {')[1].split('\n  function ensureUserDir()')[0].replace(/\n  }\s*$/, '')
   const scan = {}
   new Function('scanProcess', 'registry', 'scanning', body)(scan, { firstPartyDir: first, pluginsDir: third }, false)

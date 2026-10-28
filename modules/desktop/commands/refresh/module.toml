@@ -2,65 +2,65 @@ id = "desktop.commands.refresh"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/commands/arch-refresh-applications",
-  "src/commands/arch-refresh-chromium",
-  "src/commands/arch-refresh-config",
-  "src/cli/refresh/config.py",
-  "src/commands/arch-refresh-hyprland",
-  "src/commands/arch-refresh-hyprsunset",
-  "src/commands/arch-refresh-limine",
-  "src/commands/arch-refresh-pacman",
-  "src/commands/arch-refresh-plymouth",
-  "src/commands/arch-refresh-sddm",
-  "src/commands/arch-refresh-shell",
-  "src/commands/arch-refresh-tmux",
+  "src/arch/commands/arch-refresh-applications",
+  "src/arch/commands/arch-refresh-chromium",
+  "src/arch/commands/arch-refresh-config",
+  "src/arch/cli/refresh/config.py",
+  "src/arch/commands/arch-refresh-hyprland",
+  "src/arch/commands/arch-refresh-hyprsunset",
+  "src/arch/commands/arch-refresh-limine",
+  "src/arch/commands/arch-refresh-pacman",
+  "src/arch/commands/arch-refresh-plymouth",
+  "src/arch/commands/arch-refresh-sddm",
+  "src/arch/commands/arch-refresh-shell",
+  "src/arch/commands/arch-refresh-tmux",
 ]
 requires = ["desktop.commands", "system.runtime-data"]
 
 [[output]]
-source = "src/commands/arch-refresh-applications"
-target = "usr/share/arch/src/commands/arch-refresh-applications"
+source = "src/arch/commands/arch-refresh-applications"
+target = "usr/share/arch/src/arch/commands/arch-refresh-applications"
 
 [[output]]
-source = "src/commands/arch-refresh-chromium"
-target = "usr/share/arch/src/commands/arch-refresh-chromium"
+source = "src/arch/commands/arch-refresh-chromium"
+target = "usr/share/arch/src/arch/commands/arch-refresh-chromium"
 
 [[output]]
-source = "src/commands/arch-refresh-config"
-target = "usr/share/arch/src/commands/arch-refresh-config"
+source = "src/arch/commands/arch-refresh-config"
+target = "usr/share/arch/src/arch/commands/arch-refresh-config"
 
 [[output]]
-source = "src/cli/refresh/config.py"
-target = "usr/share/arch/src/cli/refresh/config.py"
+source = "src/arch/cli/refresh/config.py"
+target = "usr/share/arch/src/arch/cli/refresh/config.py"
 
 [[output]]
-source = "src/commands/arch-refresh-hyprland"
-target = "usr/share/arch/src/commands/arch-refresh-hyprland"
+source = "src/arch/commands/arch-refresh-hyprland"
+target = "usr/share/arch/src/arch/commands/arch-refresh-hyprland"
 
 [[output]]
-source = "src/commands/arch-refresh-hyprsunset"
-target = "usr/share/arch/src/commands/arch-refresh-hyprsunset"
+source = "src/arch/commands/arch-refresh-hyprsunset"
+target = "usr/share/arch/src/arch/commands/arch-refresh-hyprsunset"
 
 [[output]]
-source = "src/commands/arch-refresh-limine"
-target = "usr/share/arch/src/commands/arch-refresh-limine"
+source = "src/arch/commands/arch-refresh-limine"
+target = "usr/share/arch/src/arch/commands/arch-refresh-limine"
 
 [[output]]
-source = "src/commands/arch-refresh-pacman"
-target = "usr/share/arch/src/commands/arch-refresh-pacman"
+source = "src/arch/commands/arch-refresh-pacman"
+target = "usr/share/arch/src/arch/commands/arch-refresh-pacman"
 
 [[output]]
-source = "src/commands/arch-refresh-plymouth"
-target = "usr/share/arch/src/commands/arch-refresh-plymouth"
+source = "src/arch/commands/arch-refresh-plymouth"
+target = "usr/share/arch/src/arch/commands/arch-refresh-plymouth"
 
 [[output]]
-source = "src/commands/arch-refresh-sddm"
-target = "usr/share/arch/src/commands/arch-refresh-sddm"
+source = "src/arch/commands/arch-refresh-sddm"
+target = "usr/share/arch/src/arch/commands/arch-refresh-sddm"
 
 [[output]]
-source = "src/commands/arch-refresh-shell"
-target = "usr/share/arch/src/commands/arch-refresh-shell"
+source = "src/arch/commands/arch-refresh-shell"
+target = "usr/share/arch/src/arch/commands/arch-refresh-shell"
 
 [[output]]
-source = "src/commands/arch-refresh-tmux"
-target = "usr/share/arch/src/commands/arch-refresh-tmux"
+source = "src/arch/commands/arch-refresh-tmux"
+target = "usr/share/arch/src/arch/commands/arch-refresh-tmux"
