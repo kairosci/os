@@ -1,7 +1,0 @@
-# Picking a language under Setup > Language is a menu click, so generating its
-# locale the first time must not stop for a password. The rule names each
-# registry code as the whole argument (no wildcard), and the helper reads the
-# locale only from the packaged registry, so the grant can do nothing but
-# generate one of the four supported display languages. tests/shell.d/locale-sudoers-test.sh
-# keeps this list equal to default/i18n/locales.json.
-%wheel ALL=(root) NOPASSWD: /usr/bin/arch-locale-generate en, /usr/bin/arch-locale-generate es, /usr/bin/arch-locale-generate fr, /usr/bin/arch-locale-generate it

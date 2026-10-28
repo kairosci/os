@@ -18,16 +18,6 @@ If you're handing your machine over to someone else, you don't have to reinstall
 
 It works by restoring the baseline snapshot the installer takes, so it's only available on machines installed from the Arch ISO. And on a drive without encryption, a reset is deletion rather than a secure erase, so if the data was sensitive, do a fresh install instead.
 
-## Passwordless sudo
-
-_Setup > Security > Passwordless Sudo_ asks how long to allow access: **15 minutes**, **1 Hour**, **1 Day**, or **Permanently**. A red warning icon appears beside the other menu bar indicators while access is active. Click it or run the command again to turn access off. You can also pass your own number of minutes (from 1 to 1440) with `arch-sudo-passwordless 30`, or use `arch-sudo-passwordless permanent`.
-
-Timed access expires automatically, including immediately after resuming from a suspend that crossed the deadline. Restarting the computer ends it early. Permanent access survives reboots and stays enabled until you disable it.
-
-Updating or removing Arch's settings package ends any temporary grant before its expiry support changes. If the command reports an authorization or cleanup error, resolve it before trying to enable another grant; an error does not mean passwordless access is inactive.
-
-Be clear-eyed about this one: while it's on, anything running as your user can do anything as root without being asked. That's the whole point, and it's also the whole risk.
-
 ## Signing Keys
 
 The public key for all ISO signatures and Arch repo package is `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([verify at openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os)). The `arch/arch-keyring` package contains this as well and will be used to rollout any potential updates seamlessly.

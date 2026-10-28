@@ -18,16 +18,6 @@ Se stai consegnando la tua macchina a qualcun altro, non devi reinstallarla. Apr
 
 Funziona ripristinando lo snapshot di base che il programma di installazione crea, quindi è disponibile solo sulle macchine installate dall'ISO di Arch. E su un disco senza crittografia, una reimpostazione è una cancellazione piuttosto che una cancellazione sicura, quindi se i dati erano sensibili, fai invece un'installazione pulita.
 
-## Sudo senza password
-
-_Impostazioni > Sicurezza > Sudo senza password_ chiede per quanto tempo consentire l'accesso: **15 minuti**, **1 ora**, **1 giorno** o **Permanentemente**. Accanto agli altri indicatori della barra dei menu compare un'icona di avviso rossa mentre l'accesso è attivo. Fai clic su di essa o esegui di nuovo il comando per disattivare l'accesso. Puoi anche passare un tuo numero di minuti (da 1 a 1440) con `arch-sudo-passwordless 30`, oppure usare `arch-sudo-passwordless permanent`.
-
-L'accesso a tempo scade automaticamente, anche subito dopo la ripresa da una sospensione che ha superato la scadenza. Riavviare il computer lo interrompe in anticipo. L'accesso permanente sopravvive ai riavvii e resta attivo finché non lo disattivi.
-
-Aggiornare o rimuovere il pacchetto delle impostazioni di Arch interrompe qualsiasi concessione temporanea prima che cambi il suo supporto alla scadenza. Se il comando segnala un errore di autorizzazione o di pulizia, risolvilo prima di provare ad attivare un'altra concessione; un errore non significa che l'accesso senza password sia inattivo.
-
-Sii lucido su questo punto: mentre è attivo, qualsiasi cosa eseguita come il tuo utente può fare qualsiasi cosa come root senza che le venga chiesto. È esattamente lo scopo, ed è anche esattamente il rischio.
-
 ## Chiavi di firma
 
 La chiave pubblica per tutte le firme ISO e i pacchetti del repository Arch è `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([verifica su openpgp.org](https://keys.openpgp.org/search?q=pkgs%40github.com/kairosci/os)). Anche il pacchetto `arch/arch-keyring` la contiene e verrà usato per distribuire senza intoppi eventuali aggiornamenti.

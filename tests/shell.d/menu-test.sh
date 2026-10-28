@@ -383,12 +383,8 @@ assertDeepEqual(
   'menu keeps the Remove category order'
 )
 assert(
-  defaultById['setup.security.passwordless-sudo'].action.includes('arch-sudo-passwordless'),
-  'menu places Passwordless Sudo under Setup > Security'
-)
-assert(
-  !defaultById['trigger.toggle.direct-boot'] && !defaultById['trigger.toggle.passwordless-sudo'],
-  'menu removes the relocated toggles from Trigger > Toggle'
+  !defaultById['trigger.toggle.direct-boot'],
+  'menu keeps direct boot out of Trigger > Toggle'
 )
 assertDeepEqual(
   defaultItems.filter(item => item.parent === 'appearance.top-bar').map(item => item.label),

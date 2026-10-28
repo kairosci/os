@@ -225,10 +225,6 @@ grep -Fq 'pre_upgrade() {' "$ROOT/packages/arch/arch-branding.install" &&
   grep -Fq 'arch-hyprland-reload-guard pause' "$ROOT/packages/arch/arch-branding.install" &&
   grep -Fq 'arch-hyprland-reload-guard resume' "$ROOT/packages/arch/arch-branding.install" ||
   fail "Arch package upgrades pause Hyprland config reload until the payload is replaced"
-grep -Fq 'initialize_passwordless_sudo_state' "$ROOT/packages/arch/arch-branding.install" &&
-  grep -Fq 'arch-sudo-passwordless __initialize' "$ROOT/packages/arch/arch-branding.install" ||
-  fail "the runtime package reconciles passwordless sudo state through its package hook"
-
 grep -F 'dofile((os.getenv("AP") or "/usr/share/arch") .. "/default/hypr/bootstrap.lua")' "$ROOT/config/hypr/hyprland.lua" >/dev/null
 grep -F 'require("default.hypr.arch")' "$ROOT/config/hypr/hyprland.lua" >/dev/null
 grep -F 'package.path = home' "$ROOT/default/hypr/bootstrap.lua" >/dev/null

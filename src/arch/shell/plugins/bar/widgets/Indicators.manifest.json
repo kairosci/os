@@ -27,11 +27,6 @@
         "emptyText": "No indicators",
         "options": [
           {
-            "value": "PasswordlessSudo",
-            "label": "Passwordless sudo",
-            "description": "Warning while passwordless root access is enabled"
-          },
-          {
             "value": "ScreenRecording",
             "label": "Screen recording",
             "description": "GPU screen recorder status"

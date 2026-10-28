@@ -415,7 +415,7 @@ assertEqual(M.hereAfterPick(seeded, guess, { label: 'Nowhere', id: '$(rm -rf)' }
 assertEqual(M.hereAfterPick(seeded, null, { label: 'Miami', id: NY }, ''), null, 'elsewhen moves nothing before the machine zone is known')
 const tzArgs = M.timezoneCommand(CHI)
 assertDeepEqual(tzArgs.slice(3), ['bash', CHI], 'elsewhen passes the new zone as an argument')
-assert(tzArgs[2].indexOf(CHI) === -1 && tzArgs[2].indexOf('sudo -n timedatectl set-timezone "$1"') >= 0, 'elsewhen moves the clock through the passwordless timedatectl rule, never prompting')
+assert(tzArgs[2].indexOf(CHI) === -1 && tzArgs[2].indexOf('pkexec /usr/bin/timedatectl set-timezone "$1"') >= 0, 'elsewhen requests Polkit authorization to move the clock')
 const withPeople = [{ label: 'New York', id: NY, people: ['Ann'] }]
 assertDeepEqual(M.hereAfterPick(withPeople, guess, { label: 'Miami', id: NY }, NY).zones[0].people, ['Ann'], 'elsewhen keeps the people on a renamed here row')
 const back = M.hereAfterPick(hereMoved.zones, M.resolveHere(hereMoved.here, '', NY), { label: 'New York', id: NY }, NY)

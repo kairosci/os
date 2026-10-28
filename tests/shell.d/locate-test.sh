@@ -41,7 +41,6 @@ with tempfile.TemporaryDirectory(prefix="arch-locate-") as scratch:
     "updatedb": 'printf "%s\\n" "$@" >"$TEST_CALLS"',
     "sudo": 'exec "$@"',
     "fzf": 'cat >/dev/null\nprintf "%s\\n" test-package',
-    "arch-sudo-keepalive": ':',
     "arch-show-done": ':',
   }
   for name, body in stubs.items():

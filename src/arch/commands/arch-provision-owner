@@ -801,10 +801,9 @@ create_user() {
   printf '%s:%s\n' "$username" "$password" | chpasswd
   printf '%s:%s\n' root "$password" | chpasswd
 
-  # deferred-provisioning installs skip archinstall's create_users, which is what normally
-  # uncomments %wheel in /etc/sudoers. Always write the drop-in: detecting an
-  # existing grant is error-prone (arch ships narrow %wheel NOPASSWD rules
-  # for specific commands), and a duplicate grant is harmless.
+  # Deferred-provisioning installs skip archinstall's create_users, which is
+  # what normally uncomments %wheel in /etc/sudoers. Ensure wheel can use
+  # ordinary authenticated sudo in that case.
   echo "%wheel ALL=(ALL:ALL) ALL" >/etc/sudoers.d/00-arch-wheel
   chmod 440 /etc/sudoers.d/00-arch-wheel
 

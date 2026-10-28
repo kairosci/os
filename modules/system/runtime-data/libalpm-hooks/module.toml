@@ -4,6 +4,7 @@ package = "arch"
 sources = [
   "default/libalpm/hooks/10-arch-hyprland-reload-pause.hook",
   "default/libalpm/hooks/20-arch-ap-path-migration.hook",
+  "default/libalpm/hooks/30-arch-passwordless-cleanup.hook",
   "default/libalpm/hooks/90-arch-hyprland-reload-resume.hook",
 ]
 requires = ["system.runtime-data"]
@@ -15,6 +16,10 @@ target = "usr/share/libalpm/hooks/10-arch-hyprland-reload-pause.hook"
 [[output]]
 source = "default/libalpm/hooks/20-arch-ap-path-migration.hook"
 target = "usr/share/libalpm/hooks/20-arch-ap-path-migration.hook"
+
+[[output]]
+source = "default/libalpm/hooks/30-arch-passwordless-cleanup.hook"
+target = "usr/share/libalpm/hooks/30-arch-passwordless-cleanup.hook"
 
 [[output]]
 source = "default/libalpm/hooks/90-arch-hyprland-reload-resume.hook"

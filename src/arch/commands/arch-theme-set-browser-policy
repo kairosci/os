@@ -6,8 +6,7 @@
 
 set -euo pipefail
 
-# Whenever this runs as root — invoked directly through the passwordless
-# sudoers rule, or re-execed by require_root below — sudo's secure_path decides
+# Whenever this runs as root — re-execed by require_root below — sudo's secure_path decides
 # where a bare helper resolves, and a dev link (etc/sudoers.d/arch-dev-path)
 # prepends a user-writable checkout src/arch/commands/ to it. Every helper this script calls
 # by bare name (printf's builtin aside: install, mktemp, rm) is a system tool,
@@ -52,20 +51,10 @@ if [[ ! $color =~ ^[0-9a-f]{6}$ ]]; then
   exit 1
 fi
 
-# True when sudo would run this exact command without stopping for a password.
-# `sudo -l` on its own reports whether a command is permitted, which the blanket
-# %wheel rule answers yes to for everything; the long listing prints the matched
-# entry's tags, so !authenticate is the grant in
-# etc/sudoers.d/arch-theme-browser and nothing else. Listing runs nothing
-# and, under -n, prompts for nothing.
-sudo_grants_passwordless() {
-  sudo -n -l -l "$PACKAGED_PATH" "$@" 2>/dev/null | grep -q '!authenticate'
-}
-
 require_root() {
   if (( EUID == 0 )); then
     return
-  elif [[ -t 0 ]] || sudo_grants_passwordless "$@"; then
+  elif [[ -t 0 ]]; then
     exec sudo "$PACKAGED_PATH" "$@"
   else
     exec pkexec "$PACKAGED_PATH" "$@"
