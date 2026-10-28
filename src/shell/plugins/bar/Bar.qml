@@ -41,6 +41,8 @@ Item {
   // killing the entire shell. Hidden panels stay mapped but park off-screen
   // without an exclusion zone; updated by the FileView watcher further down.
   property bool barHidden: false
+  property bool autoHide: true
+  readonly property bool autoHidden: autoHide && !barHovered
   readonly property var idleService: shell && typeof shell.firstPartyServiceFor === "function" ? shell.firstPartyServiceFor("arch.idle") : null
   readonly property bool screensaverActive: idleService ? idleService.screensaverWindowCount > 0 : false
   property string home: Quickshell.env("HOME")
@@ -739,6 +741,7 @@ Item {
     var config = Util.isPlainObject(barConfig) ? barConfig : fallbackBarConfig
 
     position = normalizePosition(config.position)
+    autoHide = config.autoHide !== false
     // opaque, glassy or none; a config from before background says
     // transparent instead.
     var look = config.background || (config.transparent === true ? "none" : "opaque")
@@ -1547,7 +1550,7 @@ Item {
     // instead of growing once the windows are laid out. The wait ends once, for
     // good: when the mode settles it, or after two seconds without one.
     visible: !root.screensaverActive && !remapGuard.remapping && (cutoutWaitOver || !cutoutPending)
-    exclusionMode: root.barHidden ? ExclusionMode.Ignore : ExclusionMode.Auto
+    exclusionMode: root.barHidden || root.autoHidden ? ExclusionMode.Ignore : ExclusionMode.Auto
 
     ScreenMoveRemap {
       id: remapGuard
@@ -1557,10 +1560,10 @@ Item {
     // Parked by its full thickness, which a notch floor may make more than
     // barSize, so no strip of it stays on screen.
     margins {
-      top: root.barHidden && root.position === "top" ? -barWindow.thickness : 0
-      bottom: root.barHidden && root.position === "bottom" ? -barWindow.thickness : 0
-      left: root.barHidden && root.position === "left" ? -barWindow.thickness : 0
-      right: root.barHidden && root.position === "right" ? -barWindow.thickness : 0
+      top: (root.barHidden || root.autoHidden) && root.position === "top" ? -barWindow.thickness + (root.autoHidden && !root.barHidden ? 2 : 0) : 0
+      bottom: (root.barHidden || root.autoHidden) && root.position === "bottom" ? -barWindow.thickness + (root.autoHidden && !root.barHidden ? 2 : 0) : 0
+      left: (root.barHidden || root.autoHidden) && root.position === "left" ? -barWindow.thickness + (root.autoHidden && !root.barHidden ? 2 : 0) : 0
+      right: (root.barHidden || root.autoHidden) && root.position === "right" ? -barWindow.thickness + (root.autoHidden && !root.barHidden ? 2 : 0) : 0
     }
 
     anchors {
@@ -1587,6 +1590,7 @@ Item {
 
     // The same thickness the bar publishes for its screen (screenBarSizes).
     readonly property int thickness: root.thicknessFor(screen)
+
     // Where the center box ends along the bar, set by the drawn center
     // sections. Hovering past it, over the clock's trailing widgets and the
     // right section, leaves the indicator peek shut.
@@ -1760,6 +1764,47 @@ Item {
           anchors.bottom: parent.bottom
           anchors.bottomMargin: Style.space(8)
           anchors.horizontalCenter: parent.horizontalCenter
+        }
+      }
+    }
+  }
+
+  Variants {
+    model: Quickshell.screens
+
+    delegate: Component {
+      PanelWindow {
+        required property var modelData
+
+        screen: modelData
+        visible: root.autoHidden && !root.barHidden
+        color: "transparent"
+        exclusionMode: ExclusionMode.Ignore
+        WlrLayershell.namespace: "arch-bar-reveal"
+        WlrLayershell.layer: WlrLayer.Overlay
+        WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
+        anchors {
+          top: root.position === "top"
+          bottom: root.position === "bottom"
+          left: root.position === "left" || !root.vertical
+          right: root.position === "right" || !root.vertical
+        }
+        implicitWidth: root.vertical ? 2 : 0
+        implicitHeight: root.vertical ? 0 : 2
+
+        MouseArea {
+          property bool holdingBar: false
+          anchors.fill: parent
+          onEntered: {
+            holdingBar = true
+            root.setBarHovered(true)
+          }
+          onExited: {
+            if (!holdingBar) return
+            holdingBar = false
+            root.setBarHovered(false)
+          }
+          Component.onDestruction: if (holdingBar) root.setBarHovered(false)
         }
       }
     }

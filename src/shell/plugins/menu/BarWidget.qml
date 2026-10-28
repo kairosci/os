@@ -16,7 +16,34 @@ BarWidget {
     var screen = window ? window.screen : null
     return screen ? Hyprland.monitorFor(screen) : Hyprland.focusedMonitor
   }
-  readonly property int workspaceNumber: root.monitor && root.monitor.activeWorkspace ? root.monitor.activeWorkspace.id : 0
+  property int workspaceRevision: 0
+
+  function activeWorkspaceId() {
+    var revision = root.workspaceRevision
+    var monitorName = root.monitor ? String(root.monitor.name || "") : ""
+    var workspaces = Hyprland.workspaces.values
+    for (var i = 0; i < workspaces.length; i++) {
+      var workspace = workspaces[i]
+      if (workspace.active && workspace.monitor && workspace.monitor.name === monitorName)
+        return workspace.id
+    }
+    return root.monitor && root.monitor.activeWorkspace ? root.monitor.activeWorkspace.id : 0
+  }
+
+  readonly property int workspaceNumber: root.activeWorkspaceId()
+
+
+  Connections {
+    target: Hyprland
+    function onRawEvent(event) {
+      var name = event ? String(event.name) : ""
+      if (name === "workspacev2" || name === "focusedmonv2" || name === "moveworkspacev2" || name === "changeworkspaceid") {
+        Hyprland.refreshMonitors()
+        Hyprland.refreshWorkspaces()
+        root.workspaceRevision++
+      }
+    }
+  }
 
   BarIconButton {
     id: button
