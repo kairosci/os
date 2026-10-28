@@ -103,7 +103,7 @@ verify_runtime_tools() {
   # group is root-equivalent, so a rogue process running as the user could
   # otherwise `docker run -v /:/host` its way to passwordless root. The daemon is
   # still enabled (docker.socket, checked in verify_services) and reached through
-  # a polkit/sudo prompt; opting into sudoless Docker is a separate, warned step.
+  # a polkit/sudo prompt; docker-group membership is not an available setup option.
   command -v docker >/dev/null 2>&1 || fail "Docker CLI is installed"
   ! id -nG | grep -qw docker || fail "desktop user must not be in the docker group"
   # The group name being absent is not sufficient — a world-writable socket or an

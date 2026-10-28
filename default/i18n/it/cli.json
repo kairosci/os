@@ -52,8 +52,6 @@
   "directBoot.disable": "Disattivare l'avvio diretto (rimuovere la voce EFI di Arch Linux)?",
   "directBoot.setup": "Configurare l'avvio diretto (l'avvio da snapshot dovrà avvenire tramite BIOS)?",
   "display.restartFootForFontSize": "Riavvia Foot per applicare la nuova dimensione del carattere",
-  "docker.enableSudoless": "Attivare Docker senza sudo? Tutto ciò che gira come te ottiene root senza password.",
-  "docker.rebootToApply": "Riavviare ora per applicare?",
   "docker.selectDatabase": "Seleziona database (return per installare, esc per annullare)",
   "done.failed": "Operazione non riuscita (codice di uscita %1)! Premi un tasto qualsiasi per chiudere...",
   "done.success": "Fatto! Premi un tasto qualsiasi per chiudere...",

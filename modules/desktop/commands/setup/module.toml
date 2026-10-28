@@ -9,7 +9,6 @@ sources = [
   "src/arch/commands/arch-setup-security-fingerprint",
   "src/arch/commands/arch-setup-security-ssh-agent",
   "src/arch/commands/arch-setup-security-sshd",
-  "src/arch/commands/arch-setup-security-sudoless-docker",
 ]
 requires = ["desktop.commands"]
 
@@ -40,7 +39,3 @@ target = "usr/share/arch/src/arch/commands/arch-setup-security-ssh-agent"
 [[output]]
 source = "src/arch/commands/arch-setup-security-sshd"
 target = "usr/share/arch/src/arch/commands/arch-setup-security-sshd"
-
-[[output]]
-source = "src/arch/commands/arch-setup-security-sudoless-docker"
-target = "usr/share/arch/src/arch/commands/arch-setup-security-sudoless-docker"

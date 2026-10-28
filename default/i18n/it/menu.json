@@ -433,9 +433,6 @@
   "setup.security.ssh-agent": {
     "label": "Agente SSH"
   },
-  "setup.security.sudoless-docker": {
-    "label": "Docker senza sudo"
-  },
   "setup.config.hyprland": {
     "label": "Hyprland"
   },
@@ -713,9 +710,6 @@
   },
   "remove.security.sshd": {
     "label": "SSHD"
-  },
-  "remove.security.sudoless-docker": {
-    "label": "Docker senza sudo"
   },
   "remove.browser.chrome": {
     "label": "Chrome"
