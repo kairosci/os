@@ -435,6 +435,8 @@ jobs:
               if [ "$(gh pr view "$pr" --json autoMergeRequest --jq '.autoMergeRequest != null')" = true ]; then
                 gh pr merge --disable-auto "$pr"
               fi
+              # Keep Markdown backticks literal in the posted comment.
+              # shellcheck disable=SC2016
               gh pr comment "$pr" --body 'This sync includes an automated extraction that changed executable code under `src/arch/commands/` or `src/arch/shell/`, so auto-merge is off: please review those hunks before merging.'
               echo "Extraction touched code; PR #$pr waits for human review."
             else
