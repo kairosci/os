@@ -93,8 +93,6 @@ source = "src/arch/commands/arch-remove-security-sshd"
 target = "usr/share/arch/src/arch/commands/arch-remove-security-sshd"
 
 [[output]]
-
-[[output]]
 source = "src/arch/commands/arch-remove-service-1password"
 target = "usr/share/arch/src/arch/commands/arch-remove-service-1password"
 
