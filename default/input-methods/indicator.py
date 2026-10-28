@@ -168,7 +168,7 @@ def profile_path(owner=None):
   # path is relative to the working directory.
   environment, cwd = owner or (os.environ, os.getcwd())
   home = environment.get("HOME") or os.path.expanduser("~")
-  if environment.get("FCITX_CONFIG_HOME") is not None:
+  if bool(environment.get("FCITX_CONFIG_HOME")):
     directory = os.path.join(cwd, environment["FCITX_CONFIG_HOME"])
   else:
     # A relative XDG_CONFIG_HOME is relative to the home directory.
