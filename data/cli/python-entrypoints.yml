@@ -1,4 +1,7 @@
 entrypoints:
+  - binary: arch-battery-present
+    module: battery/present
+    function: main
   - binary: arch-power-present
     module: power/present
     function: main

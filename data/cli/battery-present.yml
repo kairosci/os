@@ -1,0 +1,13 @@
+paths:
+  power_supply: /sys/class/power_supply
+  override_environment: ARCH_POWER_SUPPLY_PATH
+  present_file: present
+  type_file: type
+  scope_file: scope
+values:
+  present: '1'
+  battery_type: Battery
+  peripheral_scope: Device
+statuses:
+  present: 0
+  absent: 1
