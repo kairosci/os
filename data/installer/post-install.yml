@@ -38,7 +38,7 @@ pacman:
   alarm_keyring_package: archlinuxarm-keyring
   package_command: [arch-pkg-add]
   keyring_command: [pacman-key]
-  apply_command: '{arch_path}/src/arch/commands/arch-apply-pacman'
+  apply_command: '{ap}/src/arch/commands/arch-apply-pacman'
   repositories_script: src/arch/python/installer/hardware/pacman_repositories.py
   image:
     root_environment: ARCH_IMAGE_ROOT

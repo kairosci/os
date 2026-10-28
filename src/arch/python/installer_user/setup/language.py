@@ -22,7 +22,7 @@ def main() -> int:
 
   locale_code = os.environ.get("LANG", settings["default_language"]).split(".", 1)[0].split("_", 1)[0].lower()
   messages = settings["messages"].get(locale_code, settings["messages"][settings["default_language"]])
-  command = settings["command"].format(arch_path=root)
+  command = settings["command"].format(ap=root)
   status = subprocess.run([command, *settings["arguments"], code], check=False).returncode
   if status != 0:
     print(messages["failure"].format(code=code), file=sys.stderr)

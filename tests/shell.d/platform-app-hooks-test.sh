@@ -32,11 +32,11 @@ done
 chmod -R go-w "$lifecycle"
 
 stub_bin=$tmp/bin
-arch_path=$tmp/arch
-mkdir -p "$stub_bin" "$arch_path/installer/helpers" "$arch_path/config"
+ap=$tmp/arch
+mkdir -p "$stub_bin" "$ap/installer/helpers" "$ap/config"
 printf 'browser_policy_setup_dir() { :; }\nbrowser_policy_setup_firefox_distribution() { :; }\nas_root() { "$@"; }\n' \
-  >"$arch_path/installer/helpers/browser-policy.sh"
-cp "$ROOT/config/chromium-flags.conf" "$arch_path/config/"
+  >"$ap/installer/helpers/browser-policy.sh"
+cp "$ROOT/config/chromium-flags.conf" "$ap/config/"
 for command in arch-pkg-add arch-pkg-aur-add arch-pkg-drop arch-install-gaming-gpu-lib32; do
   printf '#!/bin/bash\nprintf "%%s %%s\\n" "%s" "$*" >>"%s"\n' "$command" "$tmp/calls" >"$stub_bin/$command"
 done
@@ -51,7 +51,7 @@ run() {
   rm -f "$tmp/calls" "$tmp/flags-at-hook"
   rm -rf "$tmp/home"
   mkdir -p "$tmp/home"
-  HOME="$tmp/home" ARCH_PATH="$arch_path" ARCH_OPT_PATH="$tmp/opt" \
+  HOME="$tmp/home" ARCH_PATH="$ap" ARCH_OPT_PATH="$tmp/opt" \
     ARCH_PROC_ROOT="$tmp/$platform/proc" ARCH_LIFECYCLE_ROOT="$lifecycle" \
     PATH="$stub_bin:$tmp/$platform/bin:$ROOT/src/arch/commands:$PATH" bash "$@" >"$tmp/output" 2>&1
 }

@@ -27,7 +27,7 @@ def main() -> int:
     print(message, file=sys.stderr)
     return 2
 
-  values["arch_path"] = str(root)
+  values["ap"] = str(root)
   output = Template(settings["template"]).substitute(
     {key: _quote(value) for key, value in values.items()}
   )

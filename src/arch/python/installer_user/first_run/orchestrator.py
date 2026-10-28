@@ -21,7 +21,7 @@ def _language(config: dict[str, object]) -> str:
 
 def _command(template: list[str], root: Path, settings: dict[str, object]) -> list[str]:
   completion_marker = cast(str, settings["completion_marker"])
-  return [part.format(arch_path=root, completion_marker=completion_marker) for part in template]
+  return [part.format(ap=root, completion_marker=completion_marker) for part in template]
 
 
 def _log(path: Path, timestamp_format: str, message: str) -> None:

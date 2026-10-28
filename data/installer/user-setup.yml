@@ -18,7 +18,7 @@ steps:
 language:
   preset_file: /etc/arch/language
   default_language: en
-  command: "{arch_path}/src/arch/commands/arch-language"
+  command: "{ap}/src/arch/commands/arch-language"
   arguments: [seed]
   messages:
     en:
@@ -49,7 +49,7 @@ xcompose:
     # Run arch-restart-xcompose to apply changes
 
     # Include fast emoji access
-    include "$arch_path/default/xcompose"
+    include "$ap/default/xcompose"
 
     # Identification
     <Multi_key> <space> <n> : "$user_name"
