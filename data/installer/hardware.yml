@@ -1,28 +1,6 @@
-speaker_tuning:
-  match_command: [arch-audio-tuning, match]
-  package_command: [arch-pkg-add]
-  packages: [lsp-plugins-lv2]
-
-surface_firmware:
-  checks:
-    - [arch-hw-surface]
-    - [arch-hw-x86]
-  package_command: [arch-pkg-add]
-  package: linux-firmware-marvell
-
 package_gates:
   package_command: [arch-pkg-add]
   rules:
-    - checks:
-        - [arch-hw-asus-rog]
-      packages: [asusctl]
-    - checks:
-        - [arch-hw-framework16]
-      packages: [qmk-hid]
-    - checks:
-        - [arch-hw-dell-xps-haptic-touchpad]
-      packages: [dell-xps-touchpad-haptics]
-
     - checks:
         - [arch-hw-intel-sof]
       packages: [sof-firmware]
@@ -48,28 +26,8 @@ intel_wifi7_eht_workaround:
   device_pattern: '\[8086:(e440|272b)\]'
   target: /etc/modprobe.d/iwlwifi-disable-eht.conf
   mode: '0644'
-  content: "# Temporary fix Dell XPS 14/16 on Panther lake\n# Disable WiFi 7 (EHT) on Intel BE200/BE211 — broken RX rate adaptation\n# Remove this file when fixes land in the iwlwifi EHT data path\noptions iwlwifi disable_11be=Y\n"
+  content: "# Temporary workaround for Intel BE200/BE211 WiFi 7 RX rate adaptation\n# Disable WiFi 7 (EHT) until the iwlwifi data path is fixed\n# Remove this file when fixes land in the iwlwifi EHT data path\noptions iwlwifi disable_11be=Y\n"
   statuses: {complete: 0, failed: 1}
-
-surface_keyboard_setup:
-  hardware_checks:
-    - [arch-hw-surface]
-    - [arch-hw-x86]
-  loaded_modules_command: [lsmod]
-  pinctrl_module_pattern: '^pinctrl_'
-  initramfs_directory: /etc/mkinitcpio.conf.d
-  config_filename: surface_device_modules.conf
-  mode: '0644'
-  modules:
-    - surface_aggregator
-    - surface_aggregator_registry
-    - surface_aggregator_hub
-    - surface_hid_core
-    - surface_hid
-    - surface_kbd
-    - intel_lpss_pci
-    - 8250_dw
-  statuses: {complete: 0}
 
 qualcomm_camera:
   check_command: [arch-hw-aarch64-qualcomm]
@@ -168,9 +126,7 @@ qualcomm_kernel_params:
     # Keep display and I/O resources enabled until their drivers load.
     # Disable pointer authentication and waiting for an unavailable TPM.
     KERNEL_CMDLINE[default]+=" clk_ignore_unused pd_ignore_unused arm64.nopauth systemd.tpm2_wait=0"
-    # Translate device memory access, as Arch Linux ARM's kernel does by default.
-    # On a kernel that defaults to passthrough, the Yoga Slim 7x's keyboard,
-    # touchpad and touchscreen read back empty descriptors and never appear.
+    # Preserve device memory access behavior expected by device-tree firmware.
     KERNEL_CMDLINE[default]+=" iommu.passthrough=0"
 intel_power_setup:
   cpu_info_file: /proc/cpuinfo
@@ -221,18 +177,6 @@ nvidia_driver_setup:
     it:
       n1x: "Piattaforma NVIDIA N1x rilevata; il driver GPU è gestito dalla configurazione della piattaforma."
       unsupported: "Nessun driver compatibile per questa GPU NVIDIA. Consulta: {support_url}"
-tuxedo_backlight_setup:
-  vendor_file: /sys/class/dmi/id/sys_vendor
-  vendor_pattern: '(TUXEDO|Slimbook)'
-  package_command: [arch-pkg-add]
-  package: tuxedo-drivers-nocompatcheck-dkms
-  blacklist_file: /etc/modprobe.d/blacklist-clevo-xsm-wmi.conf
-  blacklist_content: "blacklist clevo_xsm_wmi\n"
-  mode: '0644'
-  module_glob: /lib/modules/*/extra/clevo-xsm-wmi.ko
-  ownership_command: [pacman, -Qo]
-  ownership_environment: {LC_ALL: C}
-  unowned_pattern: '^error: No package owns '
 qualcomm_initramfs:
   platform_check: [arch-hw-aarch64-qualcomm]
   directory_environment: ARCH_QUALCOMM_MKINITCPIO_DIR

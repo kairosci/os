@@ -6,7 +6,7 @@ Arch themes live under `themes/<name>/` in the source tree (installed at
 `colors.toml`; Arch generates the active theme files from
 `default/themed/*.tpl` when `arch-theme-set <name>` runs.
 
-Beyond `colors.toml` and hand-written config overrides, a first-party theme can ship `backgrounds/` (users overlay their own via `~/.config/arch/backgrounds/<name>/`; the active image is the `~/.local/state/arch/current/background` symlink), `preview.png` and `preview-unlock.png` for the theme switcher, `icons.theme`, `keyboard.rgb`, `unlock.png`, and a `light.mode` marker file.
+Beyond `colors.toml` and hand-written config overrides, a first-party theme can ship `backgrounds/` (users overlay their own via `~/.config/arch/backgrounds/<name>/`; the active image is the `~/.local/state/arch/current/background` symlink), `preview.png` and `preview-unlock.png` for the theme switcher, `icons.theme`, `unlock.png`, and a `light.mode` marker file.
 
 Theme backgrounds can be still images or videos. Arch’s Quickshell background plugin uses Qt Multimedia for video playback, pauses it when hidden or covered, and keeps lock-screen playback muted. Video-to-video switches go directly to the selected file; still-image switches can use the shell’s crossfade. Background intro clips are not supported.
 
@@ -48,7 +48,7 @@ A switch from the theme picker, the menu or a script does not wait for that seco
 - `alacritty.toml`, `foot.ini`, `ghostty.conf`, `kitty.conf` — each names the program the terminal launches
 - `vscode.json` — names the extension `arch-theme-set-vscode` installs, and a VS Code extension is arbitrary JavaScript
 
-Symlinks are dropped with them, at any depth; in a cloned theme they point wherever the theme author chose. Everything a cloned theme ships that is colour is kept, including files Arch would otherwise have generated — `btop.theme`, `chromium.theme`, `helix.toml`, `shell.toml`, `icons.theme`, `keyboard.rgb` and the rest — so a theme can still say exactly how it wants each app to look. What is dropped gets generated from `default/themed/*.tpl` instead, and is named on stderr.
+Symlinks are dropped with them, at any depth; in a cloned theme they point wherever the theme author chose. Everything a cloned theme ships that is colour is kept, including files Arch would otherwise have generated — `btop.theme`, `chromium.theme`, `helix.toml`, `shell.toml`, `icons.theme` and the rest — so a theme can still say exactly how it wants each app to look. What is dropped gets generated from `default/themed/*.tpl` instead, and is named on stderr.
 
 A denylist is only right while it is maintained. Adding a template for another terminal, or for another editor that loads Lua, means adding it to `INSTALLED_THEME_DENIED` in `src/commands/arch-theme-set`; `tests/shell.d/theme-staging-test.sh` fails on any `default/themed/*.tpl` whose output is recorded as neither code nor colour, so a new template cannot be added without that decision being made.
 

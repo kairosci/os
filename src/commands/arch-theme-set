@@ -464,7 +464,6 @@ other_theme_commands=(
   arch-theme-set-browser
   arch-theme-set-vscode
   arch-theme-set-obsidian
-  arch-theme-set-keyboard
   arch-theme-set-fcitx5
 )
 

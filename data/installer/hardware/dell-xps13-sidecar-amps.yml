@@ -1,4 +1,0 @@
-hardware_check: [arch-hw-dell-xps13-sidecar-amps]
-install_package: [arch-pkg-add, dell-xps13-sidecar-amps]
-apply_workaround: [sudo, dell-xps13-sidecar-amps-apply]
-statuses: {complete: 0}

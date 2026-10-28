@@ -7,10 +7,6 @@ steps:
   - setup/language.py
   - setup/input_method.py
   - setup/work_directories.py
-  - setup/asus_mixer.py
-  - setup/asus_mic.py
-  - setup/framework_audio.py
-  - setup/dell_text_scaling.py
   - setup/video_decode.py
   - setup/qualcomm_camera.py
   - setup/nouveau_cursor.py
@@ -160,32 +156,5 @@ vm_setup:
       detected: "Detected a virtual machine. Turning off animations and transparency."
     it:
       detected: "Macchina virtuale rilevata. Disattivo animazioni e trasparenze."
-dell_text_scaling_setup:
-  predicate: [arch-hw-match, DX13260]
-  command: [arch-display-text-size, '11']
 qualcomm_camera_setup:
   command: [arch-install-camera]
-asus_mixer_setup:
-  predicate: [arch-hw-asus-rog]
-  wireplumber_source: default/wireplumber/wireplumber.conf.d/alsa-soft-mixer.conf
-  wireplumber_destination: .config/wireplumber/wireplumber.conf.d/alsa-soft-mixer.conf
-  default_routes: .local/state/wireplumber/default-routes
-  card_command: [aplay, -l]
-  card_pattern: 'card (\d+).*ALC285'
-  mixer_command: [amixer, -c, '{card}', set, Master, '80%', unmute]
-framework_audio_setup:
-  list_command: [pactl, list, cards]
-  family_pattern: Family 17h/19h
-  context_lines: 20
-  name_pattern: '^Name: (\S+)'
-  profile_command: [pactl, set-card-profile, '{card}', 'HiFi (Mic1, Mic2, Speaker)']
-asus_mic_setup:
-  predicate: [arch-hw-asus-rog]
-  codec_root: /proc/asound
-  codec_glob: card*/codec*
-  codec_pattern: ALC285
-  card_pattern: 'card(\d+)'
-  mixer_commands:
-    - [amixer, -c, '{card}', set, 'Internal Mic Boost', '0']
-    - [amixer, -c, '{card}', set, Capture, '70%', unmute]
-  privilege_command: [sudo, alsactl, store, '{card}']

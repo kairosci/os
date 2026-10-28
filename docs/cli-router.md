@@ -13,7 +13,7 @@ actually work.
 
 The stem after `arch-` splits at the first hyphen: `arch-theme-set` gets
 group `theme` and name `set`, with remaining hyphens becoming spaces
-(`arch-hw-asus-rog` → group `hw`, name `asus rog`). A single-segment stem
+(`arch-hw-laptop` → group `hw`, name `laptop`). A single-segment stem
 (`arch-update`) is the root command of its own group, with an empty name.
 
 Every command registers two routes: the canonical route `arch <group>

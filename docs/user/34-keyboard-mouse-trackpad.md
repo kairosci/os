@@ -55,7 +55,6 @@ You can also turn on [touchpad gestures](https://wiki.hypr.land/Configuring/Adva
 hl.gesture({ fingers = 3, direction = "horizontal", action = "workspace" })
 ```
 
-On Dell XPS laptops with a haptic touchpad, you can also set the click strength to low, mid, or high under _Trigger > Hardware > Touchpad Haptics_.
 
 ### Typing in Chinese, Japanese, and other languages
 

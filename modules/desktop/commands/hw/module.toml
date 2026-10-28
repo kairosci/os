@@ -9,19 +9,10 @@ sources = [
   "src/commands/arch-hw-aarch64-qualcomm",
   "src/cli/hardware/architecture.py",
   "src/commands/arch-hw-apple-silicon",
-  "src/commands/arch-hw-asus-expertbook-b9406",
-  "src/commands/arch-hw-asus-rog",
-  "src/commands/arch-hw-asus-zenbook-ux5406aa",
   "src/commands/arch-hw-clamshell",
-  "src/commands/arch-hw-dell-xps-haptic-touchpad",
-  "src/commands/arch-hw-dell-xps-oled",
-  "src/commands/arch-hw-dell-xps13-dx13260-ptl",
-  "src/commands/arch-hw-dell-xps13-sidecar-amps",
   "src/commands/arch-hw-display",
-  "src/commands/arch-hw-elgato-camlink-4k",
   "src/commands/arch-hw-external-monitors",
   "src/commands/arch-hw-fingerprint",
-  "src/commands/arch-hw-framework16",
   "src/commands/arch-hw-hybrid-gpu",
   "src/commands/arch-hw-intel",
   "src/commands/arch-hw-intel-ptl",
@@ -37,7 +28,6 @@ sources = [
   "src/commands/arch-hw-nvidia-without-gsp",
   "src/commands/arch-hw-platform",
   "src/commands/arch-hw-recover-internal-monitor",
-  "src/commands/arch-hw-surface",
   "src/commands/arch-hw-touchpad",
   "src/commands/arch-hw-touchscreen",
   "src/commands/arch-hw-vm",
@@ -78,44 +68,12 @@ source = "src/commands/arch-hw-apple-silicon"
 target = "usr/share/arch/src/commands/arch-hw-apple-silicon"
 
 [[output]]
-source = "src/commands/arch-hw-asus-expertbook-b9406"
-target = "usr/share/arch/src/commands/arch-hw-asus-expertbook-b9406"
-
-[[output]]
-source = "src/commands/arch-hw-asus-rog"
-target = "usr/share/arch/src/commands/arch-hw-asus-rog"
-
-[[output]]
-source = "src/commands/arch-hw-asus-zenbook-ux5406aa"
-target = "usr/share/arch/src/commands/arch-hw-asus-zenbook-ux5406aa"
-
-[[output]]
 source = "src/commands/arch-hw-clamshell"
 target = "usr/share/arch/src/commands/arch-hw-clamshell"
 
 [[output]]
-source = "src/commands/arch-hw-dell-xps-haptic-touchpad"
-target = "usr/share/arch/src/commands/arch-hw-dell-xps-haptic-touchpad"
-
-[[output]]
-source = "src/commands/arch-hw-dell-xps-oled"
-target = "usr/share/arch/src/commands/arch-hw-dell-xps-oled"
-
-[[output]]
-source = "src/commands/arch-hw-dell-xps13-dx13260-ptl"
-target = "usr/share/arch/src/commands/arch-hw-dell-xps13-dx13260-ptl"
-
-[[output]]
-source = "src/commands/arch-hw-dell-xps13-sidecar-amps"
-target = "usr/share/arch/src/commands/arch-hw-dell-xps13-sidecar-amps"
-
-[[output]]
 source = "src/commands/arch-hw-display"
 target = "usr/share/arch/src/commands/arch-hw-display"
-
-[[output]]
-source = "src/commands/arch-hw-elgato-camlink-4k"
-target = "usr/share/arch/src/commands/arch-hw-elgato-camlink-4k"
 
 [[output]]
 source = "src/commands/arch-hw-external-monitors"
@@ -124,10 +82,6 @@ target = "usr/share/arch/src/commands/arch-hw-external-monitors"
 [[output]]
 source = "src/commands/arch-hw-fingerprint"
 target = "usr/share/arch/src/commands/arch-hw-fingerprint"
-
-[[output]]
-source = "src/commands/arch-hw-framework16"
-target = "usr/share/arch/src/commands/arch-hw-framework16"
 
 [[output]]
 source = "src/commands/arch-hw-hybrid-gpu"
@@ -188,10 +142,6 @@ target = "usr/share/arch/src/commands/arch-hw-platform"
 [[output]]
 source = "src/commands/arch-hw-recover-internal-monitor"
 target = "usr/share/arch/src/commands/arch-hw-recover-internal-monitor"
-
-[[output]]
-source = "src/commands/arch-hw-surface"
-target = "usr/share/arch/src/commands/arch-hw-surface"
 
 [[output]]
 source = "src/commands/arch-hw-touchpad"

@@ -55,7 +55,6 @@ Puoi anche attivare i [gesti del touchpad](https://wiki.hypr.land/Configuring/Ad
 hl.gesture({ fingers = 3, direction = "horizontal", action = "workspace" })
 ```
 
-Sui portatili Dell XPS con touchpad aptico, puoi anche impostare l'intensità del clic su basso, medio o alto in _Azioni > Hardware > Vibrazione touchpad_.
 
 ### Digitare in cinese, giapponese e altre lingue
 
