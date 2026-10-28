@@ -12,8 +12,8 @@ style:
     - {message: whats_new, arguments: [https://github.com/kairosci/os]}
 flags: {affirmative: --affirmative, negative: --negative}
 messages:
-  yes: common.yes
-  no: common.no
+  "yes": common.yes
+  "no": common.no
   continue: update.continue
   cancelled: update.cancelled
 strings:
