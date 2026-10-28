@@ -6,9 +6,6 @@ dofile((os.getenv("ARCH_PATH") or "/usr/share/arch") .. "/default/hypr/bootstrap
 -- Disable all os default bindings. Add your own in hypr/bindings.lua.
 -- arch_default_bindings = false
 --
--- Or disable only bindings for os's preinstalled apps/web apps while
--- keeping core window-manager bindings:
--- arch_preinstalled_bindings = false
 
 -- Load os defaults.
 require("default.hypr.arch")

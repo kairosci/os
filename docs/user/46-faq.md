@@ -62,15 +62,13 @@ You'd think that it should all work just plugging in USB C, but unfortunately th
 
 Remember that you have built-in brightness control in Arch for the Apple Displays (both Studio and XDR) using the regular keyboard brightness buttons.
 
-### How do I get rid of all the extra software?
+### How do I remove software I don't use?
 
 If you don't want programs like Obsidian or LibreOffice or any of the other preinstalled stuff, you can very easily remove it.
 
 Run _Remove > Package_ to see every package that's installed. Then you can select any package you'd like to remove with tab, and start removing everything you've selected with return.
 
-And you can use _Remove > Web App_ from the Arch menu to remove any of the preinstalled web apps you don't want.
-
-Or run _Remove > Preinstalls_ to sweep out all the preinstalled extras — web apps, TUIs, and optional applications — in one go. The hotkeys that launched them go away with them, so you're left with a clean slate of bindings to fill with your own in `~/.config/hypr/bindings.lua`.
+Use _Remove > Web App_ from the Arch menu to remove any installed web apps you don't want.
 
 ---
 

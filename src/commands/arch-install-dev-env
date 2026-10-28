@@ -20,8 +20,7 @@ install_php() {
 
 install_node() {
   echo -e "Installing Node.js...\n"
-  # os declares Node as a default tool. A user who removed the preinstalls,
-  # like one without os's declarations, selects it in their own config.
+  # Users without os's Node declaration select the version in their own config.
   if arch-mise-default-tools declares node; then
     mise install node
   else
@@ -76,8 +75,7 @@ python)
   echo -e "Installing Python...\n"
   mise use --global python@latest
   echo -e "\nInstalling uv...\n"
-  # os declares uv as a default tool. A user who removed the preinstalls,
-  # like one without os's declarations, selects it in their own config.
+  # Users without os's uv declaration select the version in their own config.
   if arch-mise-default-tools declares uv; then
     mise install uv
   else

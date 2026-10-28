@@ -592,9 +592,6 @@
   "install.windows": {
     "label": "Windows"
   },
-  "install.preinstalls": {
-    "label": "Preinstalls"
-  },
   "install.browser.chrome": {
     "label": "Chrome"
   },
@@ -802,9 +799,6 @@
   },
   "remove.windows": {
     "label": "Windows"
-  },
-  "remove.preinstalls": {
-    "label": "Preinstalls"
   },
   "remove.security": {
     "label": "Security",

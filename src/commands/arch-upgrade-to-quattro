@@ -1814,17 +1814,6 @@ refresh_known_config_defaults() {
   done < <(default_hash_paths refresh)
 }
 
-mark_removed_preinstalls_from_legacy_bindings() {
-  local bindings_file="$HOME/.config/hypr/bindings.lua"
-  local plain_bindings_sha="5d92d4008b04848256445da3cf5c10422a8d537baad499a4e63f60daecaefc6f"
-
-  [[ -f $bindings_file ]] || return 0
-  [[ $(file_sha256 "$bindings_file") == "$plain_bindings_sha" ]] || return 0
-
-  mkdir -p "$state_dir"
-  touch "$state_dir/preinstalls-removed"
-}
-
 copy_always_config_defaults() {
   local rel
   for rel in "${always_copy_config_files[@]}"; do
@@ -1966,7 +1955,6 @@ done
 # and always write the quattro-only entry points that older installs cannot have.
 refresh_known_config_defaults
 copy_missing_config_defaults "$root/config" "$HOME/.config"
-mark_removed_preinstalls_from_legacy_bindings
 copy_always_config_defaults
 repair_chromium_copy_url_extension_flags
 

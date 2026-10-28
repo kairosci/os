@@ -9,9 +9,6 @@
 -- only the bindings you want below:
 --   arch_default_bindings = false
 
--- To disable all preinstalled app/webapp bindings, set:
---   arch_preinstalled_bindings = false
-
 -- Add a new binding.
 -- o.bind("SUPER + SHIFT + R", "SSH", "alacritty -e ssh your-server")
 

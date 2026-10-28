@@ -33,19 +33,19 @@ grep -Fx 'install uv' "$mise_log" >/dev/null || fail "Python setup installs the 
 grep -Fx 'use --global uv' "$mise_log" >/dev/null && fail "Python setup leaves the system-configured uv out of the user config"
 pass "Python setup installs Python and uv through mise"
 
-# mise skips os's declarations for a user who removed the preinstalls, so
-# uv goes in their own config, leaving the opt-out in place.
+# A user can opt out of os's declarations, so uv goes in their own config
+# while leaving that opt-out in place.
 miserc="$test_home/.config/mise/miserc.toml"
 mkdir -p "$(dirname "$miserc")"
 printf 'ignored_config_paths = ["%s"]\n' "$mise_config" >"$miserc"
 cp "$miserc" "$test_tmp/expected-miserc"
 : >"$mise_log"
 bash "$ROOT/src/commands/arch-install-dev-env" python >/dev/null
-grep -Fx 'use --global uv' "$mise_log" >/dev/null || fail "Python setup selects uv after Remove Preinstalls"
-grep -Fx 'install uv' "$mise_log" >/dev/null && fail "Python setup does not count on os's uv after Remove Preinstalls"
-cmp -s "$miserc" "$test_tmp/expected-miserc" || fail "Python setup keeps the preinstall opt-out"
+grep -Fx 'use --global uv' "$mise_log" >/dev/null || fail "Python setup selects uv when os's declaration is skipped"
+grep -Fx 'install uv' "$mise_log" >/dev/null && fail "Python setup does not count on os's uv when its declaration is skipped"
+cmp -s "$miserc" "$test_tmp/expected-miserc" || fail "Python setup keeps the mise opt-out"
 rm "$miserc"
-pass "Python setup selects uv after Remove Preinstalls"
+pass "Python setup selects uv when os's declaration is skipped"
 
 # Without os's declarations, nothing else declares uv.
 rm "$mise_config"

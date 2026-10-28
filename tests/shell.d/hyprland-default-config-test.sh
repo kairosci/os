@@ -124,10 +124,10 @@ fresh_home="$tmpdir/fresh-home"
 mkdir -p "$fresh_home"
 fresh_output=$(run_application_bindings "$fresh_home")
 grep -Fq $'SUPER + RETURN	Terminal' <<<"$fresh_output" || fail "default application bindings include essentials"
-grep -Fq $'SUPER + SHIFT + A	ChatGPT' <<<"$fresh_output" || fail "default application bindings include preinstalled web apps"
-grep -Fq $'SUPER + SHIFT + Q	Calculator' <<<"$fresh_output" || fail "default application bindings include the preinstalled calculator"
-grep -Fq $'XF86Calculator	Calculator' <<<"$fresh_output" || fail "default application bindings include the calculator hardware key"
-pass "default application bindings load from package defaults"
+if grep -Eq $'	(ChatGPT|Calculator|YouTube|WhatsApp|Obsidian)$' <<<"$fresh_output"; then
+  fail "default application bindings do not include optional apps"
+fi
+pass "default application bindings include essentials without optional apps"
 
 grep -F 'hl.dsp.send_key_state({ mods = mods, key = key, state = "down" })' "$ROOT/default/hypr/bindings/clipboard.lua" >/dev/null ||
   fail "universal clipboard shortcuts send explicit mods to the focused surface"
@@ -142,31 +142,6 @@ if grep -F 'wtype -M' "$ROOT/default/hypr/bindings/clipboard.lua" >/dev/null; th
   fail "universal clipboard shortcuts avoid the virtual keyboard so held SUPER cannot merge in"
 fi
 pass "universal clipboard shortcuts avoid virtual keyboard modifier merging"
-
-removed_home="$tmpdir/removed-home"
-mkdir -p "$removed_home/.local/state/arch"
-touch "$removed_home/.local/state/arch/preinstalls-removed"
-removed_output=$(run_arch_bindings "$removed_home")
-grep -Fq $'SUPER + RETURN	Terminal' <<<"$removed_output" || fail "preinstall removal keeps essential bindings"
-if grep -Fq $'SUPER + SHIFT + A	ChatGPT' <<<"$removed_output"; then
-  fail "preinstall removal skips preinstalled web app bindings"
-fi
-if grep -Fq $'	Calculator' <<<"$removed_output"; then
-  fail "preinstall removal skips calculator bindings"
-fi
-pass "preinstall removal flag skips optional application bindings"
-
-variable_home="$tmpdir/variable-home"
-mkdir -p "$variable_home"
-variable_output=$(run_arch_bindings "$variable_home" 'arch_preinstalled_bindings = false')
-grep -Fq $'SUPER + RETURN	Terminal' <<<"$variable_output" || fail "preinstalled binding variable keeps essential bindings"
-if grep -Fq $'SUPER + SHIFT + A	ChatGPT' <<<"$variable_output"; then
-  fail "preinstalled binding variable skips optional application bindings"
-fi
-if grep -Fq $'	Calculator' <<<"$variable_output"; then
-  fail "preinstalled binding variable skips calculator bindings"
-fi
-pass "preinstalled binding variable skips optional application bindings"
 
 no_bindings_home="$tmpdir/no-bindings-home"
 mkdir -p "$no_bindings_home"
@@ -247,13 +222,3 @@ number_claims=$(cut -f1 <<<"$panels_output" | grep -cE '^SUPER \+ CTRL \+ code:1
 (( number_claims == 9 )) ||
   fail "only the bar panel hotkeys bind SUPER + CTRL + a number" "$number_claims"
 pass "bar panel hotkeys bind SUPER + CTRL + a number without a collision"
-
-upgrade_script="$ROOT/src/commands/arch-upgrade-to-quattro"
-grep -Fq 'touch "$state_dir/preinstalls-removed"' "$upgrade_script" ||
-  fail "upgrade-to-quattro preserves preinstall removal state"
-
-mark_line=$(awk '/^mark_removed_preinstalls_from_legacy_bindings$/ { print NR; exit }' "$upgrade_script")
-copy_line=$(awk '/^copy_always_config_defaults$/ { print NR; exit }' "$upgrade_script")
-[[ -n $mark_line && -n $copy_line ]] || fail "upgrade-to-quattro preinstall marker and config refresh calls exist"
-(( mark_line < copy_line )) || fail "upgrade-to-quattro detects plain legacy bindings before overwriting Hyprland bindings"
-pass "upgrade-to-quattro preserves preinstall removal before refreshing Hyprland bindings"

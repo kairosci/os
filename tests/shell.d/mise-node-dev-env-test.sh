@@ -31,16 +31,16 @@ bash "$ROOT/src/commands/arch-install-dev-env" node >/dev/null
 [[ $(<"$mise_log") == "install node" ]] || fail "Node setup installs the system-configured Node and leaves the user config alone"
 pass "Node setup installs os's declared Node"
 
-# mise skips os's declarations for a user who removed the preinstalls, so
-# Node goes in their own config, leaving the opt-out in place.
+# A user can opt out of os's declarations, so Node goes in their own config
+# while leaving that opt-out in place.
 miserc="$test_home/.config/mise/miserc.toml"
 mkdir -p "$(dirname "$miserc")"
 printf 'ignored_config_paths = ["%s"]\n' "$mise_config" >"$miserc"
 : >"$mise_log"
 bash "$ROOT/src/commands/arch-install-dev-env" node >/dev/null
-[[ $(<"$mise_log") == "use --global node" ]] || fail "Node setup selects Node after Remove Preinstalls"
+[[ $(<"$mise_log") == "use --global node" ]] || fail "Node setup selects Node when os's declaration is skipped"
 rm "$miserc"
-pass "Node setup selects Node after Remove Preinstalls"
+pass "Node setup selects Node when os's declaration is skipped"
 
 rm "$mise_config"
 : >"$mise_log"

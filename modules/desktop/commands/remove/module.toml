@@ -15,7 +15,6 @@ sources = [
   "src/commands/arch-remove-gaming-xbox-cloud",
   "src/commands/arch-remove-gaming-xbox-controllers",
   "src/commands/arch-remove-launcher-entry",
-  "src/commands/arch-remove-preinstalls",
   "src/commands/arch-remove-security-fido2",
   "src/commands/arch-remove-security-fingerprint",
   "src/commands/arch-remove-security-sshd",
@@ -81,9 +80,6 @@ target = "usr/share/arch/src/commands/arch-remove-gaming-xbox-controllers"
 source = "src/commands/arch-remove-launcher-entry"
 target = "usr/share/arch/src/commands/arch-remove-launcher-entry"
 
-[[output]]
-source = "src/commands/arch-remove-preinstalls"
-target = "usr/share/arch/src/commands/arch-remove-preinstalls"
 
 [[output]]
 source = "src/commands/arch-remove-security-fido2"
