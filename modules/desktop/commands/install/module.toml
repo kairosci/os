@@ -23,7 +23,6 @@ sources = [
   "src/commands/arch-install-gaming-gpu-lib32",
   "src/commands/arch-install-gaming-heroic",
   "src/commands/arch-install-gaming-lutris",
-  "src/commands/arch-install-gaming-retroarch",
   "src/commands/arch-install-gaming-steam",
   "src/commands/arch-install-gaming-xbox-cloud",
   "src/commands/arch-install-gaming-xbox-controllers",
@@ -125,10 +124,6 @@ target = "usr/share/arch/src/commands/arch-install-gaming-heroic"
 [[output]]
 source = "src/commands/arch-install-gaming-lutris"
 target = "usr/share/arch/src/commands/arch-install-gaming-lutris"
-
-[[output]]
-source = "src/commands/arch-install-gaming-retroarch"
-target = "usr/share/arch/src/commands/arch-install-gaming-retroarch"
 
 [[output]]
 source = "src/commands/arch-install-gaming-steam"

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# arch:summary=Install support for using Xbox controllers with Steam/RetroArch/etc.
+# arch:summary=Install support for using Xbox controllers with Steam and other games.
 # arch:group=install
 # arch:name=gaming xbox-controllers
 # arch:requires-sudo=true

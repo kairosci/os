@@ -1,6 +1,6 @@
 # Gaming
 
-Arch isn't just for _pRoDUcTiVItY_, it's also for having fun, and what's more fun than gaming? Arch ships with a whole suite of gaming options — Steam and RetroArch for native and retro play, Battle.net, Lutris, and Heroic for non-Steam stores, Moonlight for PC streaming, Xbox Cloud Gaming + NVIDIA GeForce NOW for cloud, plus the evergreen Minecraft.
+Arch isn't just for _pRoDUcTiVItY_, it's also for having fun, and what's more fun than gaming? Arch offers Steam, Battle.net, Lutris, and Heroic for non-Steam stores, Moonlight for PC streaming, Xbox Cloud Gaming + NVIDIA GeForce NOW for cloud, plus the evergreen Minecraft.
 
 Thanks to Valve's incredible work on [the proton compatibility layer](https://en.wikipedia.org/wiki/Proton_(software)), there are now tens of thousands of playable modern games on Linux. Oh, and did you know that the [Steam Deck](https://store.steampowered.com/steamdeck/) actually runs Arch!
 
@@ -15,22 +15,6 @@ After you've installed it, you'll be able to launch Steam with `Super + Space`.
 Note that Steam can take 10-20 seconds to start up, and it's not going to provide any visual feedback that it's loading.
 
  ![gaming-steam](images/gaming-steam.webp)
-
-## RetroArch
-
-Install [RetroArch](https://www.retroarch.com/) by selecting _Install > Gaming > RetroArch_ from the Arch menu (`Super + Space`). It comes with the full set of libretro cores, so all the classic systems are covered.
-
-RetroArch is fully preconfigured with the beautiful CRT Royale shader for that perfect retro look.
-
-To get going:
-
-1. Drop your BIOS files into `~/Games/bios` and your ROMs into `~/Games/roms`.
-2. Launch RetroArch with `Super + Space` and typing `retro`.
-3. Scan the `~/Games/roms` directory and you're ready to play.
-
-You can also give a favorite game its own entry in the app launcher with _Install > Gaming > RetroArch Game Launcher_, which lets you pick a core and a ROM, and jump straight into the game from `Super + Space`.
-
- ![gaming-retroarch](images/gaming-retroarch.webp)
 
 ## Xbox Cloud Gaming
 
