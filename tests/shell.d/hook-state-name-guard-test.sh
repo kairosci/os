@@ -135,6 +135,17 @@ pass "archctl hook install refuses a hook name with a slash"
 
 state_dir="$fake_home/.local/state/arch"
 
+invalid_arch_path="$work_dir/invalid-arch"
+mkdir -p "$invalid_arch_path/data/cli"
+mkdir -p "$invalid_arch_path/src"
+ln -s "$ROOT/src/arch" "$invalid_arch_path/src/arch"
+printf '[]\n' >"$invalid_arch_path/data/cli/state.yml"
+status=0
+output=$(ARCH_PATH="$invalid_arch_path" HOME="$fake_home" "$ROOT/src/arch/commands/arch-state" set broken 2>&1) || status=$?
+(( status == 1 )) && [[ $output == *"Could not load state configuration"* ]] ||
+  fail "arch state reports malformed configuration without a traceback" "exit: $status" "$output"
+pass "arch state reports malformed configuration without a traceback"
+
 HOME="$fake_home" "$ROOT/src/arch/commands/arch-state" set reboot-required
 [[ -f $state_dir/reboot-required ]] ||
   fail "arch state set still creates a plain state file"
