@@ -18,6 +18,20 @@ tmp=$(mktemp -d)
 token_key=""
 trap 'rm -rf "$tmp"; [[ -z $token_key ]] || keyctl unlink "$token_key" @s >/dev/null 2>&1 || true' EXIT
 
+invalid_rekey_arch="$tmp/invalid-rekey-arch"
+mkdir -p "$invalid_rekey_arch/data/installer"
+printf '[]\n' >"$invalid_rekey_arch/data/installer/rekey-state.yml"
+status=0
+output=$(ARCH_PATH="$invalid_rekey_arch" PYTHONPATH="$ROOT/src/python" python3 - <<'PY' 2>&1
+from installer.rekey_state import main
+
+raise SystemExit(main(["get", "/tmp/rekey-state", "phase"]))
+PY
+) || status=$?
+(( status == 1 )) && [[ $output == *"Could not load re-key state settings"* ]] ||
+  fail "re-key state reports malformed configuration without a traceback" "exit: $status" "$output"
+pass "re-key state reports malformed configuration without a traceback"
+
 fake_platform "$tmp/x86" x86
 fake_platform "$tmp/apple" aarch64-apple
 platform=x86
