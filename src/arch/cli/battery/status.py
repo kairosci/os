@@ -7,38 +7,269 @@ from pathlib import Path
 import re
 import subprocess
 import sys
-from typing import Any
+from typing import TypedDict
 
 import yaml
 
 
-def settings() -> dict[str, Any]:
-  root = Path(os.environ["ARCH_PATH"])
-  value = yaml.safe_load((root / "data/cli/battery-status.yml").read_text(encoding="utf-8"))
+class Commands(TypedDict):
+  power_supply: list[str]
+  i18n: list[str]
+
+
+class Flags(TypedDict):
+  power_supply_enumerate: str
+  power_supply_info: str
+  number: str
+  shell: str
+
+
+Paths = dict[str, str]
+Patterns = dict[str, str]
+
+class Formulas(TypedDict):
+  minutes_per_hour: int
+  minutes_rounding_offset: float
+  micro_units_per_watt: int
+  microamp_microvolt_units_per_watt: int
+  idle_rate_threshold_watts: float
+  percentage_scale: int
+  holding_below_percent: int
+  fully_charged_percent: int
+  default_charge_limit_percent: int
+  missing_percentage: int
+  missing_rate_watts: int
+  rate_decimal_places: int
+  zero_rate_suffix: str
+
+
+class ShellFields(TypedDict):
+  percentage: str
+  state: str
+  rate: str
+  size: str
+  time: str
+  cycles: str
+  threshold: str
+
+
+class Formats(TypedDict):
+  percentage_sign: str
+  watt_unit: str
+  watt_hour_unit: str
+  ac_type: str
+  online_value: str
+  holding_state: str
+  shell_fields: ShellFields
+  hour_unit_prefix: str
+  separator: str
+  no_break_space: str
+  charge_arrow: str
+  discharge_arrow: str
+  power_separator: str
+  threshold_range_separator: str
+
+
+class States(TypedDict):
+  charging: str
+  fully_charged: str
+  pending_charge: str
+
+
+Messages = dict[str, str]
+
+
+class Statuses(TypedDict):
+  usage: int
+  success: int
+
+
+class BatteryConfig(TypedDict):
+  commands: Commands
+  flags: Flags
+  environment: dict[str, str]
+  paths: Paths
+  patterns: Patterns
+  formulas: Formulas
+  format: Formats
+  states: States
+  messages: Messages
+  statuses: Statuses
+
+
+class BatteryValues(TypedDict):
+  percentage: int
+  capacity: int | str
+  energy: float | None
+  energy_full: float | None
+  rate_raw: float
+  rate: str
+  state: str
+  threshold_start: str
+  threshold_end: str
+  minutes_remaining: int | None
+  time_remaining: str
+  ac_online: bool
+  charge_idle: bool
+  holding: bool
+  battery_full: bool
+  cycles: str
+
+
+def _mapping(value: object, label: str) -> dict[object, object]:
   if not isinstance(value, dict):
-    raise ValueError("invalid battery status configuration")
+    raise ValueError(f"invalid battery status configuration: {label} must be a mapping")
+  return {key: item for key, item in value.items()}
+
+
+def _text(value: object, label: str) -> str:
+  if not isinstance(value, str):
+    raise ValueError(f"invalid battery status configuration: {label} must be a string")
   return value
 
 
-def match(config: dict[str, Any], key: str, text: str) -> re.Match[str] | None:
+def _integer(value: object, label: str) -> int:
+  if not isinstance(value, int) or isinstance(value, bool):
+    raise ValueError(f"invalid battery status configuration: {label} must be an integer")
+  return value
+
+
+def _number(value: object, label: str) -> int | float:
+  if not isinstance(value, (int, float)) or isinstance(value, bool):
+    raise ValueError(f"invalid battery status configuration: {label} must be numeric")
+  return value
+
+
+def _text_list(value: object, label: str) -> list[str]:
+  if not isinstance(value, list) or not all(isinstance(item, str) for item in value):
+    raise ValueError(f"invalid battery status configuration: {label} must be a list of strings")
+  return [item for item in value if isinstance(item, str)]
+
+
+def _text_mapping(value: object, label: str) -> dict[str, str]:
+  mapping = _mapping(value, label)
+  return {
+    _text(key, f"{label} key"): _text(item, f"{label} value")
+    for key, item in mapping.items()
+  }
+
+
+def settings() -> BatteryConfig:
+  root = Path(os.environ["ARCH_PATH"])
+  raw: object = yaml.safe_load((root / "data/cli/battery-status.yml").read_text(encoding="utf-8"))
+  config = _mapping(raw, "root")
+  commands = _mapping(config.get("commands"), "commands")
+  flags = _mapping(config.get("flags"), "flags")
+  environment = _mapping(config.get("environment"), "environment")
+  paths = _mapping(config.get("paths"), "paths")
+  patterns = _mapping(config.get("patterns"), "patterns")
+  formulas = _mapping(config.get("formulas"), "formulas")
+  formats = _mapping(config.get("format"), "format")
+  shell_fields = _mapping(formats.get("shell_fields"), "format.shell_fields")
+  states = _mapping(config.get("states"), "states")
+  messages = _mapping(config.get("messages"), "messages")
+  statuses = _mapping(config.get("statuses"), "statuses")
+  return {
+    "commands": {
+      "power_supply": _text_list(commands.get("power_supply"), "commands.power_supply"),
+      "i18n": _text_list(commands.get("i18n"), "commands.i18n"),
+    },
+    "flags": {
+      "power_supply_enumerate": _text(flags.get("power_supply_enumerate"), "flags.power_supply_enumerate"),
+      "power_supply_info": _text(flags.get("power_supply_info"), "flags.power_supply_info"),
+      "number": _text(flags.get("number"), "flags.number"),
+      "shell": _text(flags.get("shell"), "flags.shell"),
+    },
+    "environment": {"power_supply_path": _text(environment.get("power_supply_path"), "environment.power_supply_path")},
+    "paths": _text_mapping(paths, "paths"),
+    "patterns": _text_mapping(patterns, "patterns"),
+    "formulas": {
+      "minutes_per_hour": _integer(formulas.get("minutes_per_hour"), "formulas.minutes_per_hour"),
+      "minutes_rounding_offset": _number(formulas.get("minutes_rounding_offset"), "formulas.minutes_rounding_offset"),
+      "micro_units_per_watt": _integer(formulas.get("micro_units_per_watt"), "formulas.micro_units_per_watt"),
+      "microamp_microvolt_units_per_watt": _integer(formulas.get("microamp_microvolt_units_per_watt"), "formulas.microamp_microvolt_units_per_watt"),
+      "idle_rate_threshold_watts": _number(formulas.get("idle_rate_threshold_watts"), "formulas.idle_rate_threshold_watts"),
+      "percentage_scale": _integer(formulas.get("percentage_scale"), "formulas.percentage_scale"),
+      "holding_below_percent": _integer(formulas.get("holding_below_percent"), "formulas.holding_below_percent"),
+      "fully_charged_percent": _integer(formulas.get("fully_charged_percent"), "formulas.fully_charged_percent"),
+      "default_charge_limit_percent": _integer(formulas.get("default_charge_limit_percent"), "formulas.default_charge_limit_percent"),
+      "missing_percentage": _integer(formulas.get("missing_percentage"), "formulas.missing_percentage"),
+      "missing_rate_watts": _integer(formulas.get("missing_rate_watts"), "formulas.missing_rate_watts"),
+      "rate_decimal_places": _integer(formulas.get("rate_decimal_places"), "formulas.rate_decimal_places"),
+      "zero_rate_suffix": _text(formulas.get("zero_rate_suffix"), "formulas.zero_rate_suffix"),
+    },
+    "format": {
+      "percentage_sign": _text(formats.get("percentage_sign"), "format.percentage_sign"),
+      "watt_unit": _text(formats.get("watt_unit"), "format.watt_unit"),
+      "watt_hour_unit": _text(formats.get("watt_hour_unit"), "format.watt_hour_unit"),
+      "ac_type": _text(formats.get("ac_type"), "format.ac_type"),
+      "online_value": _text(formats.get("online_value"), "format.online_value"),
+      "holding_state": _text(formats.get("holding_state"), "format.holding_state"),
+      "shell_fields": {
+        "percentage": _text(shell_fields.get("percentage"), "format.shell_fields.percentage"),
+        "state": _text(shell_fields.get("state"), "format.shell_fields.state"),
+        "rate": _text(shell_fields.get("rate"), "format.shell_fields.rate"),
+        "size": _text(shell_fields.get("size"), "format.shell_fields.size"),
+        "time": _text(shell_fields.get("time"), "format.shell_fields.time"),
+        "cycles": _text(shell_fields.get("cycles"), "format.shell_fields.cycles"),
+        "threshold": _text(shell_fields.get("threshold"), "format.shell_fields.threshold"),
+      },
+      "hour_unit_prefix": _text(formats.get("hour_unit_prefix"), "format.hour_unit_prefix"),
+      "separator": _text(formats.get("separator"), "format.separator"),
+      "no_break_space": _text(formats.get("no_break_space"), "format.no_break_space"),
+      "charge_arrow": _text(formats.get("charge_arrow"), "format.charge_arrow"),
+      "discharge_arrow": _text(formats.get("discharge_arrow"), "format.discharge_arrow"),
+      "power_separator": _text(formats.get("power_separator"), "format.power_separator"),
+      "threshold_range_separator": _text(formats.get("threshold_range_separator"), "format.threshold_range_separator"),
+    },
+    "states": {
+      "charging": _text(states.get("charging"), "states.charging"),
+      "fully_charged": _text(states.get("fully_charged"), "states.fully_charged"),
+      "pending_charge": _text(states.get("pending_charge"), "states.pending_charge"),
+    },
+    "messages": _text_mapping(messages, "messages"),
+    "statuses": {
+      "usage": _integer(statuses.get("usage"), "statuses.usage"),
+      "success": _integer(statuses.get("success"), "statuses.success"),
+    },
+  }
+
+
+def match(config: BatteryConfig, key: str, text: str) -> re.Match[str] | None:
   return re.search(config["patterns"][key], text, re.MULTILINE)
 
 
-def capture(config: dict[str, Any], key: str, text: str, group: int = 1, default: str = "") -> str:
+def capture(config: BatteryConfig, key: str, text: str, group: int = 1, default: str = "") -> str:
   result = match(config, key, text)
-  return result.group(group) if result else default
+  if result is None:
+    return default
+  value = result.group(group)
+  return value if isinstance(value, str) else default
 
 
-def run(command: list[str], **kwargs: Any) -> subprocess.CompletedProcess[str]:
-  return subprocess.run(command, check=False, text=True, **kwargs)
+def run(
+  command: list[str],
+  *,
+  capture_output: bool = False,
+  stdout: int | None = None,
+  stderr: int | None = None,
+) -> subprocess.CompletedProcess[str]:
+  return subprocess.run(
+    command,
+    check=False,
+    text=True,
+    capture_output=capture_output,
+    stdout=stdout,
+    stderr=stderr,
+  )
 
 
-def localized(config: dict[str, Any], key: str, *arguments: object) -> str:
+def localized(config: BatteryConfig, key: str, *arguments: str | int | float) -> str:
   result = run([*config["commands"]["i18n"], key, *(str(value) for value in arguments)], capture_output=True)
   return result.stdout.rstrip("\n")
 
 
-def format_duration(config: dict[str, Any], minutes: int | None) -> str:
+def format_duration(config: BatteryConfig, minutes: int | None) -> str:
   if minutes is None or minutes <= 0:
     return ""
   per_hour = int(config["formulas"]["minutes_per_hour"])
@@ -58,7 +289,7 @@ def first_file(directory: Path, basename: str) -> str:
     return ""
 
 
-def legacy_value(config: dict[str, Any], root: Path, filename: str) -> str:
+def legacy_value(config: BatteryConfig, root: Path, filename: str) -> str:
   pattern = str(root / config["paths"]["legacy_battery_glob"] / filename)
   for path in sorted(Path(item) for item in glob.glob(pattern)):
     try:
@@ -68,11 +299,11 @@ def legacy_value(config: dict[str, Any], root: Path, filename: str) -> str:
   return ""
 
 
-def number(config: dict[str, Any], value: object) -> str:
+def number(config: BatteryConfig, value: str | int | float) -> str:
   return localized(config, config["flags"]["number"], value)
 
 
-def battery_info(config: dict[str, Any]) -> tuple[str, str]:
+def battery_info(config: BatteryConfig) -> tuple[str, str]:
   result = run(config["commands"]["power_supply"] + [config["flags"]["power_supply_enumerate"]], stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
   for candidate in result.stdout.splitlines():
     if config["patterns"]["battery_identifier"] not in candidate:
@@ -85,7 +316,7 @@ def battery_info(config: dict[str, Any]) -> tuple[str, str]:
   return "", ""
 
 
-def read_values(config: dict[str, Any], info: str, root: Path) -> dict[str, Any]:
+def read_values(config: BatteryConfig, info: str, root: Path) -> BatteryValues:
   paths = config["paths"]
   formulas = config["formulas"]
   states = config["states"]
@@ -188,7 +419,7 @@ def read_values(config: dict[str, Any], info: str, root: Path) -> dict[str, Any]
   }
 
 
-def shell_output(config: dict[str, Any], values: dict[str, Any]) -> None:
+def shell_output(config: BatteryConfig, values: BatteryValues) -> None:
   fields = config["format"]["shell_fields"]
   percentage = f"{values['percentage']}{config['format']['percentage_sign']}"
   state = config["format"]["holding_state"] if values["holding"] else values["state"]
@@ -211,7 +442,7 @@ def shell_output(config: dict[str, Any], values: dict[str, Any]) -> None:
     print(f"{fields['threshold']}\t{threshold}")
 
 
-def status_line(config: dict[str, Any], values: dict[str, Any]) -> str:
+def status_line(config: BatteryConfig, values: BatteryValues) -> str:
   messages = config["messages"]
   formats = config["format"]
   states = config["states"]
@@ -241,25 +472,36 @@ def status_line(config: dict[str, Any], values: dict[str, Any]) -> str:
   return formats["separator"].join(parts)
 
 
-def main() -> int:
-  config = settings()
-  arguments = sys.argv[1:]
+def _run(config: BatteryConfig, arguments: list[str]) -> int:
   shell_flag = config["flags"]["shell"]
   shell_mode = arguments == [shell_flag]
   if arguments not in ([], [shell_flag]):
     print(localized(config, config["messages"]["usage"]), file=sys.stderr)
-    return int(config["statuses"]["usage"])
+    return config["statuses"]["usage"]
 
   root = Path(os.environ.get(config["environment"]["power_supply_path"], config["paths"]["default_power_supply_path"]))
   _, info = battery_info(config)
   if not info:
-    return int(config["statuses"]["success"])
+    return config["statuses"]["success"]
   values = read_values(config, info, root)
   if shell_mode:
     shell_output(config, values)
   else:
     print(status_line(config, values))
-  return int(config["statuses"]["success"])
+  return config["statuses"]["success"]
+
+
+def main() -> int:
+  try:
+    config = settings()
+  except (OSError, UnicodeError, ValueError, yaml.YAMLError) as error:
+    print(f"Could not load battery status configuration: {error}", file=sys.stderr)
+    return os.EX_CONFIG
+  try:
+    return _run(config, sys.argv[1:])
+  except (KeyError, OSError, re.error, subprocess.SubprocessError, TypeError, ValueError) as error:
+    print(f"Could not read battery status: {error}", file=sys.stderr)
+    return os.EX_SOFTWARE
 
 
 if __name__ == "__main__":
