@@ -58,6 +58,7 @@ class ContainerSettings(TypedDict):
     host_uid_environment: str
     host_gid_environment: str
     directory_environment: list[str]
+    internal_directories: dict[str, str]
     root_build_uid: int
     root_build_gid: int
     commands: dict[str, list[str]]
@@ -180,6 +181,7 @@ def container_command(settings: Settings) -> list[str]:
             argument.format(source=source, destination=mount["destination"])
             for argument in container["additional_mount_arguments"]
         )
+    inner_environment.update(container["internal_directories"])
     format_values = {
         "repository": str(repository()),
         "mount_path": mount_path,
@@ -331,6 +333,7 @@ def run_in_container(settings: Settings) -> int:
             "build_user_environment": container["build_user_environment"],
             **{name: os.environ[name] for name in container["mounts"]},
             **{name: os.environ[name] for name in container["directory_environment"]},
+            **container["internal_directories"],
         }
         command = [argument.format(**values) for argument in container["build_command"]]
         result = subprocess.run(command, check=False)
