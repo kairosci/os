@@ -368,7 +368,7 @@ builder:
       - --env
       - '{build_operation_environment}={operation}'
     environment_arguments: ['--env', '{name}={value}']
-    ci_environment_arguments: ['--env', '{name}']
+    ci_environment_arguments: ['--env', '{name}={value}']
     entrypoint: [bash, -e, -c]
     packages:
       - arch-install-scripts

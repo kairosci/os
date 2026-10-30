@@ -178,8 +178,11 @@ def container_command(settings: Settings) -> list[str]:
         *(argument.format(**format_values) for argument in container["run_arguments"]),
     ]
     for name in container["ci_environment_passthrough"]:
+        value = os.environ.get(name)
+        if value is None:
+            continue
         command.extend(
-            argument.format(name=name)
+            argument.format(name=name, value=value)
             for argument in container["ci_environment_arguments"]
         )
     for name, value in inner_environment.items():
