@@ -294,7 +294,7 @@ builder:
     root_home: /root
     build_script: scripts/iso/container_build.py
     operation: container
-    bootstrap_command: 'pacman -Syu --noconfirm --needed "$@" && patch --batch --forward --strip=1 --directory=/ --input="$AP/scripts/iso/arch-install-scripts-container.patch" && exec python3 "$ISO_CONTAINER_SCRIPT" "$ISO_CONTAINER_OPERATION"'
+    bootstrap_command: 'pacman -Syu --noconfirm --needed "$@" && exec python3 "$ISO_CONTAINER_SCRIPT" "$ISO_CONTAINER_OPERATION"'
     bootstrap_argument_zero: iso-container
     host_uid_environment: HOST_UID
     host_gid_environment: HOST_GID
@@ -375,12 +375,37 @@ builder:
       - '{build_script_environment}={build_script}'
       - --env
       - '{build_operation_environment}={operation}'
+    apparmor_profile_name: archiso-build
+    apparmor_profile_command: [sudo, apparmor_parser, --replace, --write-cache, '-']
+    apparmor_profile_arguments: [--security-opt, 'apparmor={profile}']
+    apparmor_profile: |
+      #include <tunables/global>
+      profile archiso-build flags=(attach_disconnected,mediate_deleted) {
+        #include <abstractions/base>
+        network,
+        capability,
+        file,
+        umount,
+        deny @{PROC}/* w,
+        deny @{PROC}/{[^1-9],[^1-9][^0-9],[^1-9s][^0-9y][^0-9s],[^1-9][^0-9][^0-9][^0-9]*}/** w,
+        deny @{PROC}/sys/[^k]** w,
+        deny @{PROC}/sys/kernel/{?,??,[^s][^h][^m]**} w,
+        deny @{PROC}/sysrq-trigger rwklx,
+        deny @{PROC}/kcore rwklx,
+        mount,
+        deny /sys/[^f]*/** wklx,
+        deny /sys/f[^s]*/** wklx,
+        deny /sys/fs/[^c]*/** wklx,
+        deny /sys/fs/c[^g]*/** wklx,
+        deny /sys/fs/cg[^r]*/** wklx,
+        deny /sys/firmware/** rwklx,
+        deny /sys/kernel/security/** rwklx,
+      }
     environment_arguments: ['--env', '{name}={value}']
     ci_environment_arguments: ['--env', '{name}={value}']
     entrypoint: [bash, -e, -c]
     packages:
       - arch-install-scripts
-      - patch
       - util-linux
       - base-devel
       - cargo

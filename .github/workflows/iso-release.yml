@@ -60,7 +60,7 @@ jobs:
       - name: Install Podman
         run: |
           sudo apt-get update
-          sudo apt-get install --yes podman python3-yaml
+          sudo apt-get install --yes apparmor podman python3-yaml
           if [[ $(sudo podman info --format '{{.Host.Security.Rootless}}') != false ]]; then
             printf '%s\n' 'Podman must run as the isolated GitHub runner user.' >&2
             exit 1

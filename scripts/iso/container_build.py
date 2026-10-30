@@ -43,6 +43,10 @@ class ContainerSettings(TypedDict):
     build_operation_environment: str
     mount_path_environment: str
     run_arguments: list[str]
+    apparmor_profile_name: str
+    apparmor_profile: str
+    apparmor_profile_command: list[str]
+    apparmor_profile_arguments: list[str]
     environment_arguments: list[str]
     ci_environment_arguments: list[str]
     ci_environment_passthrough: list[str]
@@ -197,6 +201,10 @@ def container_command(settings: Settings) -> list[str]:
         *(argument.format(**format_values) for argument in container["run_arguments"]),
         *additional_mount_arguments,
     ]
+    command.extend(
+        argument.format(profile=container["apparmor_profile_name"])
+        for argument in container["apparmor_profile_arguments"]
+    )
     for name in container["ci_environment_passthrough"]:
         value = os.environ.get(name)
         if value is None:
@@ -344,6 +352,12 @@ def main() -> int:
             return run_in_container(settings)
         if sys.argv[1:]:
             raise ValueError(container["messages"]["unknown_operation"])
+        subprocess.run(
+            container["apparmor_profile_command"],
+            input=container["apparmor_profile"],
+            check=True,
+            text=True,
+        )
         command = container_command(settings)
         result = subprocess.run(command, check=False)
         return result.returncode
