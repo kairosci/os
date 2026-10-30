@@ -57,9 +57,7 @@ Panel {
     var battery = {
       isPresent: device.isPresent,
       state: device.state,
-      percentage: device.percentage,
-      changeRate: device.changeRate,
-      timeToFull: device.timeToFull
+      percentage: device.percentage
     }
     return Model.batteryIcon(battery, !!UPower.onBattery, upowerStates())
   }
