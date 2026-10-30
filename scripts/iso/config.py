@@ -83,6 +83,7 @@ class BuilderSettings(TypedDict):
     architecture_commands: dict[str, list[str]]
     platform_command: list[str]
     platform_timeout_seconds: int
+    architecture_environment: str
     platform_architectures: dict[str, str]
     iso_names: dict[str, str]
     package_build_commands: list[str]

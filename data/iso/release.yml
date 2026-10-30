@@ -204,6 +204,7 @@ builder:
     aarch64: [grub-mkstandalone]
   platform_command: [arch-hw-platform]
   platform_timeout_seconds: 10
+  architecture_environment: ISO_BUILD_ARCHITECTURE
   platform_architectures:
     x86: x86_64
     aarch64: aarch64
@@ -230,6 +231,7 @@ builder:
   generic_package_list_file: packages
   messages:
     platform_detection_failed: "could not determine the native Arch platform for ISO build"
+    invalid_architecture_environment: "the build runner passed an unsupported ISO architecture"
     unsupported_architecture: "unsupported ISO build architecture: {architecture}"
     invalid_iso_name: "invalid ISO name configured for {architecture}: {name}"
     missing_build_commands: "missing ISO build commands: {commands}"
