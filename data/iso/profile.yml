@@ -1,0 +1,39 @@
+name:
+  environment: ARCHISO_NAME
+  default: arch
+  pattern: '[A-Za-z0-9][A-Za-z0-9._+-]*'
+date:
+  source_date_epoch_environment: SOURCE_DATE_EPOCH
+  source_date_epoch_pattern: '[0-9]+'
+  label_format: 'ARCH_{date:%Y%m}'
+  version_format: '{date:%Y.%m.%d}'
+publisher: 'Arch <https://github.com/kairosci/os>'
+application: Arch desktop installation media
+install_directory: arch
+boot_modes:
+  x86_64:
+    - bios.syslinux
+    - uefi.systemd-boot
+  aarch64:
+    - uefi.grub
+pacman_configuration: pacman.conf
+root_filesystem:
+  image_type: squashfs
+  image_tool_options: ['-comp', xz, '-Xbcj', 'x86,arm64', '-b', 1M, '-Xdict-size', 1M]
+bootstrap_tarball_compression: [zstd, '-c', '-T0', --auto-threads=logical, --long, '-19']
+kernel_parameters:
+  aarch64: clk_ignore_unused pd_ignore_unused arm64.nopauth
+file_permissions:
+  /etc/shadow: 0:0:400
+  /root: 0:0:750
+  /root/.automated_script.sh: 0:0:755
+  /root/.gnupg: 0:0:700
+  /usr/local/bin/choose-mirror: 0:0:755
+  /usr/local/bin/Installation_guide: 0:0:755
+  /usr/local/bin/livecd-sound: 0:0:755
+messages:
+  mapping_required: profile setting must be a mapping
+  string_required: profile setting must be a string
+  string_list_required: profile setting must be a list of strings
+  invalid_iso_name: configured ISO name contains unsupported characters
+  source_date_epoch_required: CI must provide a numeric source timestamp for a reproducible ISO profile
