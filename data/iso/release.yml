@@ -306,8 +306,6 @@ builder:
     package_artifact_count: "makepkg must produce one installable package for {package}, found {count}"
     repository_package_count: "local package repository contains an unexpected package count"
     staged_package_list_missing: "ArchISO profile has no regular package list for {architecture}"
-    package_repository_config_invalid: "ArchISO profile must define exactly one configured local package repository"
-    local_packages_missing: "ArchISO package list is missing configured local packages: {packages}"
     local_repository_empty: "local package repository contains no package archives"
     local_repository_database_missing: "local package repository is missing its pacman database"
     repository_symlink_unsafe: "local package repository contains an unsafe symlink: {name}"
