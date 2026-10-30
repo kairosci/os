@@ -161,7 +161,7 @@ def container_command(settings: Settings) -> list[str]:
     }
     additional_mount_arguments: list[str] = []
     for mount in container["additional_mounts"]:
-        source = Path(
+        container_source = Path(
             repository_path(
                 cast(dict[str, str], builder)[mount["setting"]],
                 mount_path,
@@ -169,6 +169,7 @@ def container_command(settings: Settings) -> list[str]:
                 messages,
             )
         )
+        source = repository() / container_source.relative_to(mount_path)
         source.mkdir(parents=True, exist_ok=True)
         inner_environment[mount["environment"]] = mount["destination"]
         additional_mount_arguments.extend(
