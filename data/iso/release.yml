@@ -270,7 +270,7 @@ builder:
     output_directory_option_help: "directory for the complete ISO image"
     parts_directory_option_help: "directory for checksummed release parts and manifest"
   container:
-    engine: podman
+    engine_command: [sudo, podman]
     images:
       x86_64: archlinux:base-devel@sha256:624bdc7fc6615155d67bc34cf7146c0c9fd0e3c92943977da63a630e4ca49c30
       aarch64: menci/archlinuxarm@sha256:33207bdd76fff7cc15c5da08994ee06aa1e4a39a4bbce39012a3382f98253945
@@ -343,12 +343,12 @@ builder:
     run_arguments:
       - run
       - --rm
-      - --userns=keep-id
       - --user
       - '0'
-      - --privileged
+      - --cap-add
+      - SYS_ADMIN
       - --security-opt
-      - seccomp=unconfined
+      - no-new-privileges
       - --volume
       - '{repository}:{mount_path}'
       - --workdir
