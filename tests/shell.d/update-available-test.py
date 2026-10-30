@@ -11,7 +11,7 @@ import unittest
 from base_test import ROOT, test_environment
 
 
-COMMAND = ROOT / "src/arch/commands/arch-update-available"
+COMMAND = [str(ROOT / "src/arch/commands/archctl"), "update", "available"]
 
 
 class UpdateAvailableTest(unittest.TestCase):
@@ -65,7 +65,7 @@ esac
       PATH=f"{self.bin_dir}:{os.environ.get('PATH', '')}",
       **updates,
     )
-    return subprocess.run([str(COMMAND)], env=environment, check=False, capture_output=True, text=True)
+    return subprocess.run(COMMAND, env=environment, check=False, capture_output=True, text=True)
 
   def test_reports_all_package_updates(self) -> None:
     result = self.run_command()

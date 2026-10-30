@@ -8,9 +8,11 @@ import subprocess
 import tempfile
 import unittest
 
+from base_test import CLI_BIN, ROOT
+
 
 ROOT = Path(__file__).resolve().parents[2]
-COMMAND = ROOT / "src/arch/commands/arch-network-qr"
+COMMAND = CLI_BIN / "arch-network-qr"
 EXPECTED_MATRIX = "100\n010\n001"
 
 
@@ -58,7 +60,7 @@ class NetworkQrTest(unittest.TestCase):
             ARCH_LANGUAGE_FILE=str(ROOT / "tests/.no-language"),
             LANG="en_US.UTF-8",
             LC_ALL="en_US.UTF-8",
-            PATH=f"{self.bin_dir}:{ROOT / 'src/arch/commands'}:{self.environment.get('PATH', '')}",
+            PATH=f"{self.bin_dir}:{CLI_BIN}:{ROOT / 'src/arch/commands'}:{self.environment.get('PATH', '')}",
         )
 
     def tearDown(self) -> None:

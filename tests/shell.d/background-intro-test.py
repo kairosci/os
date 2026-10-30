@@ -8,10 +8,10 @@ import subprocess
 import tempfile
 import unittest
 
-from base_test import ROOT, test_environment
+from base_test import CLI_BIN, ROOT, test_environment
 
 
-MARKER_COMMAND = ROOT / "src/arch/commands/arch-background-session-mark"
+MARKER_COMMAND = CLI_BIN / "arch-background-session-mark"
 
 
 class BackgroundSessionMarkerTest(unittest.TestCase):

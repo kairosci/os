@@ -1,13 +1,89 @@
 entrypoints:
+  - binary: arch-background-session-mark
+    module: background/session_mark
+    function: main
+    group: background
+    name: session mark
+    summary: Mark the current graphical login as checked for a background intro
+    hidden: "true"
   - binary: arch-battery-present
     module: battery/present
     function: main
+    group: battery
+    name: present
+    summary: Returns true if a battery is present on the system.
+  - binary: arch-battery-status
+    module: battery/status
+    function: main
+    group: battery
+    name: status
+    summary: Returns a formatted battery status string with percentage and power draw/charge.
+    args: "[--shell]"
+  - binary: arch-channel-current
+    module: channel/current
+    function: channel_current_main
+    group: channel
+    name: current
+    summary: Print the active Arch package channel
+  - binary: arch-font-set
+    module: font/set
+    function: main
+    group: font
+    name: set
+    summary: Set the system monospace font
+    args: <font-name>
+    examples: 'archctl font list | archctl font set "CaskaydiaMono Nerd Font"'
+  - binary: arch-network-qr
+    module: network/qr
+    function: main
+    group: network
+    name: qr
+    summary: Generate a Wi-Fi QR matrix for the shell
+    args: "[--meta] [interface]"
+  - binary: arch-notification-wait
+    module: notification/wait
+    function: main
+    group: notification
+    name: wait
+    summary: Wait for the desktop notification server to accept notifications
+    args: "[timeout-seconds]"
+    hidden: "true"
   - binary: arch-power-present
     module: power/present
     function: main
+    group: power
+    name: present
+    summary: Returns true if external power is connected.
+  - binary: arch-refresh-config
+    module: refresh/config
+    function: main
+    group: refresh
+    name: config
+    summary: Restore a shipped user config with an automatic backup
+    args: <config-path>
+  - binary: arch-sleep-disabled
+    module: sleep/disabled
+    function: main
+    group: sleep
+    name: disabled
+    summary: Check whether Arch has turned off system sleep on this machine.
+    hidden: "true"
+  - binary: arch-tui-install
+    module: tui/install
+    function: main
+    group: tui
+    name: install
+    summary: Create a tiled desktop launcher for a terminal UI app
+    args: <name> <command> <icon-url-or-name>
   - binary: arch-update-available
     module: update/available
     function: main
+    group: update
+    name: available
+    summary: Check whether system updates are available
   - binary: arch-update-confirm
     module: update/confirm
     function: main
+    group: update
+    name: confirm
+    summary: Prompt for confirmation before starting an update

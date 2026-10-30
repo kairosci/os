@@ -4,7 +4,6 @@ package = "arch"
 sources = [
   "src/arch/commands/arch-refresh-applications",
   "src/arch/commands/arch-refresh-chromium",
-  "src/arch/commands/arch-refresh-config",
   "src/arch/cli/refresh/config.py",
   "src/arch/commands/arch-refresh-hyprland",
   "src/arch/commands/arch-refresh-hyprsunset",
@@ -24,10 +23,6 @@ target = "usr/share/arch/src/arch/commands/arch-refresh-applications"
 [[output]]
 source = "src/arch/commands/arch-refresh-chromium"
 target = "usr/share/arch/src/arch/commands/arch-refresh-chromium"
-
-[[output]]
-source = "src/arch/commands/arch-refresh-config"
-target = "usr/share/arch/src/arch/commands/arch-refresh-config"
 
 [[output]]
 source = "src/arch/cli/refresh/config.py"

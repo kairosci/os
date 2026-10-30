@@ -5,10 +5,8 @@ sources = [
   "src/arch/commands/arch-update",
   "src/arch/commands/arch-update-analyze-logs",
   "src/arch/commands/arch-update-aur-pkgs",
-  "src/arch/commands/arch-update-available",
   "src/arch/cli/update/available.py",
   "src/arch/commands/arch-update-boot",
-  "src/arch/commands/arch-update-confirm",
   "src/arch/cli/update/confirm.py",
   "src/arch/commands/arch-update-dev",
   "src/arch/commands/arch-update-firmware",
@@ -42,20 +40,12 @@ source = "src/arch/commands/arch-update-aur-pkgs"
 target = "usr/share/arch/src/arch/commands/arch-update-aur-pkgs"
 
 [[output]]
-source = "src/arch/commands/arch-update-available"
-target = "usr/share/arch/src/arch/commands/arch-update-available"
-
-[[output]]
 source = "src/arch/cli/update/available.py"
 target = "usr/share/arch/src/arch/cli/update/available.py"
 
 [[output]]
 source = "src/arch/commands/arch-update-boot"
 target = "usr/share/arch/src/arch/commands/arch-update-boot"
-
-[[output]]
-source = "src/arch/commands/arch-update-confirm"
-target = "usr/share/arch/src/arch/commands/arch-update-confirm"
 
 [[output]]
 source = "src/arch/cli/update/confirm.py"

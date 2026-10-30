@@ -176,7 +176,7 @@ done
 panels=(arch.audio arch.bluetooth arch.monitor arch.network)
 # The power panel hides itself without a battery, so it can only be
 # timed where one exists.
-if "$ROOT/src/arch/commands/arch-battery-present" >/dev/null 2>&1; then
+if AP="$ROOT" "$ROOT/src/arch/commands/archctl" battery present >/dev/null 2>&1; then
   panels+=(arch.power)
 else
   skip "panel arch.power first open and reopen (no battery)"

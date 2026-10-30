@@ -10,7 +10,7 @@ import tempfile
 from base_test import ROOT, fail_check, pass_check, test_environment
 
 
-COMMAND = ROOT / "src/arch/commands/arch-battery-present"
+COMMAND = [str(ROOT / "src/arch/commands/archctl"), "battery", "present"]
 
 
 def write_supply(root: Path, name: str, supply_type: str, present: str, scope: str | None = None) -> Path:
@@ -25,7 +25,7 @@ def write_supply(root: Path, name: str, supply_type: str, present: str, scope: s
 
 def detects_battery(path: Path) -> bool:
   result = subprocess.run(
-    [str(COMMAND)],
+    COMMAND,
     check=False,
     env=test_environment(ARCH_POWER_SUPPLY_PATH=str(path)),
     stdout=subprocess.DEVNULL,

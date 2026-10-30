@@ -8,6 +8,8 @@ __pycache__/
 # Arch package build output
 /build/iso/
 /build/iso-work/
+/build/test-cli-entrypoints/
+/build/test-cli-entrypoints.lock
 /packages/arch-systemd-boot/src/
 /packages/arch-systemd-boot/pkg/
 /packages/arch-systemd-boot/arch-*.pkg.tar.zst
