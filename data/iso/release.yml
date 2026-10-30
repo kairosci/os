@@ -376,7 +376,7 @@ builder:
       - --env
       - '{build_operation_environment}={operation}'
     apparmor_profile_name: archiso-build
-    apparmor_profile_command: [sudo, apparmor_parser, --replace, --write-cache, '-']
+    apparmor_profile_command: [sudo, apparmor_parser, --replace, --write-cache]
     apparmor_profile_arguments: [--security-opt, 'apparmor={profile}']
     apparmor_profile: |
       #include <tunables/global>
