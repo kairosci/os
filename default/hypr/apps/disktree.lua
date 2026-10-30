@@ -1,2 +1,3 @@
--- Disktree's treemap needs enough room to show directory hierarchy.
-o.window("^disktree$", { tile = false, size = { 1400, 900 } })
+-- Give the treemap all of the current monitor's usable space without floating
+-- it or assuming a particular resolution or scale factor.
+o.window("^disktree$", { tile = true, maximize = true })
