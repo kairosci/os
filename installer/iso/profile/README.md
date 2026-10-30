@@ -1,5 +1,0 @@
-# ArchISO profile
-
-This checked-in profile owns the boot files and live root filesystem inputs for the repository's future ISO build. Its ArchISO releng base comes from `https://github.com/archlinux/archiso` commit `9aabd21ef18c7e9e129e347135afdaa115a10942`; `LICENSE.archiso` preserves the upstream GPL-3.0 license. Keep the profile updated against the ArchISO profile format and preserve the source attribution when changing upstream-derived files. `profiledef.py` reads `data/iso/profile.yml` and renders ArchISO's required shell definition into a temporary build profile. It requires `AP`, `SOURCE_DATE_EPOCH`, an output path, and an architecture argument (`x86_64` or `aarch64`). The profile uses Syslinux BIOS and systemd-boot UEFI on x86_64, and GRUB UEFI on aarch64. The live package lists include `python-yaml` for the profile's runtime bootstrap.
-
-This profile does not yet include the guided installer or repository-owned ISO builder. Those are separate roadmap items; this profile alone cannot produce an installable image. The profile includes ArchISO's live-media and recovery tools.
