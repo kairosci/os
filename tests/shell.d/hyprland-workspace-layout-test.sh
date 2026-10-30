@@ -33,11 +33,11 @@ export HOME="$tmpdir/home" XDG_STATE_HOME="$tmpdir/home/.local/state"
 export PATH="$tmpdir/bin:$ROOT/src/arch/commands:$PATH" HYPR_LOG="$tmpdir/hypr.log" NOTIFY_LOG="$tmpdir/notify.log"
 
 arch-hyprland-workspace-layout-toggle
-[[ $(arch-hyprland-workspace-layout-current) == dwindle ]] || fail "the layout cycles from scrolling to tiling"
+[[ $(arch-hyprland-workspace-layout-current) == tiling ]] || fail "the layout cycles from scrolling to tiling"
 arch-hyprland-workspace-layout-toggle
 [[ ! -e $XDG_STATE_HOME/arch/workspace-layouts/3.lua ]] || fail "the second tiled layout cycles back to default scrolling"
 arch-hyprland-workspace-layout-toggle back
-[[ $(arch-hyprland-workspace-layout-current) == dwindle ]] || fail "reverse cycling selects tiling"
+[[ $(arch-hyprland-workspace-layout-current) == tiling ]] || fail "reverse cycling selects tiling"
 pass "workspace layout cycling only uses tiled layouts"
 
 mkdir -p "$XDG_STATE_HOME/arch/workspace-layouts"

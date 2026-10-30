@@ -204,11 +204,11 @@
     "label": "Workspace Layout",
     "title": "Default Workspace Layout"
   },
-  "appearance.workspace-layout.dwindle": {
-    "label": "Tiling"
-  },
   "appearance.workspace-layout.scrolling": {
     "label": "Scrolling"
+  },
+  "appearance.workspace-layout.tiling": {
+    "label": "Tiling"
   },
   "appearance.animations-on": {
     "label": "Animations On"

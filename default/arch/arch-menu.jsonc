@@ -92,7 +92,7 @@
   "appearance.branding.screensaver.image": {"icon":"","label":"Set From Image","action":"arch-branding-screensaver image"},
   "appearance.branding.screensaver.default": {"icon":"","label":"Restore Default","action":"arch-branding-screensaver reset"},
   "appearance.workspace-layout": {"icon":"󱂬","label":"Workspace Layout","title":"Default Workspace Layout"},
-  "appearance.workspace-layout.dwindle": {"icon":"󱓻","label":"Tiling","checked":"[[ $(arch-hyprland-workspace-layout-default) == \"dwindle\" ]]","action":"arch-hyprland-workspace-layout-default dwindle"},
+  "appearance.workspace-layout.tiling": {"icon":"󱓻","label":"Tiling","checked":"[[ $(arch-hyprland-workspace-layout-default) == \"tiling\" ]]","action":"arch-hyprland-workspace-layout-default tiling"},
   "appearance.workspace-layout.scrolling": {"icon":"󰝥","label":"Scrolling","checked":"[[ $(arch-hyprland-workspace-layout-default) == \"scrolling\" ]]","action":"arch-hyprland-workspace-layout-default scrolling"},
   "appearance.animations-on": {"icon":"󰗘","label":"Animations On","when":"arch-hyprland-toggle-enabled no-animations","action":"arch-toggle-animations"},
   "appearance.animations-off": {"icon":"󰗘","label":"Animations Off","when":"! arch-hyprland-toggle-enabled no-animations","action":"arch-toggle-animations"},

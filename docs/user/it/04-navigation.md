@@ -26,28 +26,17 @@ Chiudi una finestra con `Super + W` o `Super + Q` (e chiudi tutte le finestre co
 
 Puoi anche andare a schermo intero con `Super + F` o persino solo a tutta larghezza (mantenendo la barra superiore) con `Super + Alt + F` o a schermo intero all'interno di una finestra con `Super + Ctrl + F` (ottimo per YouTube!).
 
-### Dwindle vs layout scorrevole
+### Layout scorrevole e affiancato
 
-Il layout predefinito di Arch si chiama dwindle. Mantiene tutte le finestre che apri su un singolo workspace sempre visibili, anche se deve rimpicciolirle.
-
- ![navigation-dwindle-layout](images/navigation-dwindle-layout.webp)
-
-Ma puoi anche scegliere di trasformare un workspace nel layout scorrevole, in cui le finestre sono allineate una accanto all'altra, oltre il bordo visibile dello schermo. Trasformi un singolo workspace in questo layout tramite `Super + L`.
-
+Lo scorrimento è il layout predefinito. Le finestre si dispongono una accanto all'altra e puoi scorrere in orizzontale per raggiungere quelle oltre il bordo dello schermo.
 
  ![navigation-scrolling-layout](images/navigation-scrolling-layout.webp)
 
-La scelta è per workspace, e rimane. Così puoi tenere il workspace 1 su dwindle per navigare e il workspace 2 sullo scorrevole per il codice, e torneranno così dopo un riavvio.
+Premi `Super + L` per passare al layout affiancato nel workspace corrente. Mantiene tutte le finestre visibili, riducendole quando necessario.
 
-Se desideri usare il layout scorrevole come predefinito, puoi impostarlo in `~/.config/hypr/looknfeel.lua`:
+ ![navigation-tiling-layout](images/navigation-dwindle-layout.webp)
 
-```lua
-hl.config({
-  general = {
-    layout = "scrolling",
-  },
-})
-```
+La scelta è salvata per workspace e resta dopo il riavvio. Imposta il layout predefinito in Aspetto > Layout workspace nel menu di Arch.
 
 ### Raggruppare le finestre
 
