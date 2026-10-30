@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# arch:summary=Print the tiled layout of a workspace: dwindle or scrolling
+# arch:summary=Print a workspace layout: tiling or scrolling
 # arch:args=[workspace-id]
 
 if [[ -n $1 ]]; then
@@ -25,6 +25,8 @@ if [[ $WORKSPACE_ID =~ ^[0-9]+$ ]] && (( WORKSPACE_ID >= 1 )); then
 fi
 
 MODE=${MODE:-$TILED_LAYOUT}
-[[ $MODE == floating ]] && MODE=scrolling
-[[ $MODE == scrolling ]] || [[ $MODE == dwindle ]] || MODE=scrolling
-echo "${MODE:-scrolling}"
+case $MODE in
+  tiling|dwindle) echo tiling ;;
+  scrolling|floating) echo scrolling ;;
+  *) echo scrolling ;;
+esac

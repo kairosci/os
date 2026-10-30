@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# arch:summary=Cycle the current active workspace through the dwindle and scrolling layouts
+# arch:summary=Cycle the current active workspace through tiling and scrolling layouts
 # arch:args=[back]
 
 # Layout changes replace one notification instead of stacking a new one for
@@ -30,26 +30,17 @@ MODE_FILE="$MODES_DIR/$ACTIVE_WORKSPACE.lua"
 
 CURRENT_MODE=$(arch-hyprland-workspace-layout-current)
 
-if [[ $DIRECTION == "back" ]]; then
-  case "$CURRENT_MODE" in
-    dwindle) NEW_MODE=scrolling ;;
-    scrolling) NEW_MODE=dwindle ;;
-    *) NEW_MODE=scrolling ;;
-  esac
-else
-  case "$CURRENT_MODE" in
-    dwindle) NEW_MODE=scrolling ;;
-    scrolling) NEW_MODE=dwindle ;;
-    *) NEW_MODE=scrolling ;;
-  esac
-fi
+case "$CURRENT_MODE" in
+  tiling) NEW_MODE=scrolling ;;
+  scrolling) NEW_MODE=tiling ;;
+  *) NEW_MODE=scrolling ;;
+esac
 
 APPLY="o.workspace_mode({ workspace = \"$ACTIVE_WORKSPACE\", mode = \"$NEW_MODE\" })"
 
-# Dwindle is Hyprland's name for it; the menu and the bar call it tiling.
 # Each layout has whole sentences of its own, so a translation can inflect it.
 case $NEW_MODE in
-  dwindle)
+  tiling)
     SET_MESSAGE=$(arch-i18n layout.workspaceTiling)
     UNSAVED_MESSAGE=$(arch-i18n layout.workspaceTilingUnsaved)
     ;;

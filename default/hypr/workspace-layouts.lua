@@ -16,5 +16,5 @@ package.path = paths.state_home .. "/?.lua;" .. package.path
 
 require_all.files(layouts_dir, "arch.workspace-layouts", { reload = true })
 
--- Restore only tiled layouts. Legacy floating modes are normalized to dwindle.
+-- Restore only scrolling and tiling layouts. Legacy saved modes are normalized at load.
 workspace_modes.apply()

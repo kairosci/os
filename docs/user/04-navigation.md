@@ -28,28 +28,17 @@ You close a window on `Super + W` or `Super + Q` (and close all windows on `Ctrl
 
 You can also go full screen with `Super + F` or even just full-width (keeping the top bar) with `Super + Alt + F` or full-screen within a window with `Super + Ctrl + F` (good for YouTube!).
 
-### Dwindle vs scrolling layout
+### Scrolling and tiling layouts
 
-Arch's default layout is called dwindle. It keeps all the windows you open on a single workspace visible at all time, even if it has to shrink them down.
-
- ![navigation-dwindle-layout](images/navigation-dwindle-layout.webp)
-
-But you can also choose to turn a workspace into the scrolling layout where windows are lined up side-by-side, beyond the visible edge of the display. You turn a single workspace into this layout via `Super + L`.
-
+Scrolling is the default layout. Windows line up side by side, and you can scroll horizontally to reach those beyond the edge of the screen.
 
  ![navigation-scrolling-layout](images/navigation-scrolling-layout.webp)
 
-The choice is per workspace, and it sticks. So you can keep workspace 1 on dwindle for browsing and workspace 2 on scrolling for code, and they'll come back that way after a restart.
+You can switch any workspace to tiling with `Super + L`. Tiling keeps every open window visible, shrinking them when needed.
 
-If you wish to use the scrolling layout as the default, you can set that in `~/.config/hypr/looknfeel.lua`:
+ ![navigation-tiling-layout](images/navigation-dwindle-layout.webp)
 
-```lua
-hl.config({
-  general = {
-    layout = "scrolling",
-  },
-})
-```
+The choice is per workspace and persists across restarts. You can keep one workspace in tiling and another in scrolling. Set the default in Appearance > Workspace Layout in the Arch menu.
 
 ### Grouping windows
 

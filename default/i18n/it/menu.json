@@ -180,11 +180,11 @@
     "label": "Layout workspace",
     "title": "Layout workspace predefinito"
   },
-  "appearance.workspace-layout.dwindle": {
-    "label": "Affiancamento"
-  },
   "appearance.workspace-layout.scrolling": {
     "label": "Scorrimento"
+  },
+  "appearance.workspace-layout.tiling": {
+    "label": "Affiancamento"
   },
   "appearance.unlock": {
     "label": "Sblocca"
