@@ -35,7 +35,7 @@ class ContainerSettings(TypedDict):
     build_user: str
     build_path: str
     build_user_environment: str
-    build_home: str
+    root_home: str
     build_script: str
     bootstrap_command: str
     bootstrap_argument_zero: str
@@ -317,7 +317,7 @@ def run_in_container(settings: Settings) -> int:
 
         values = {
             "user": build_user,
-            "build_home": container["build_home"],
+            "root_home": container["root_home"],
             "path": container["build_path"],
             "mount_path": os.environ[container["mount_path_environment"]],
             "build_user_environment": container["build_user_environment"],
