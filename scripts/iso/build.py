@@ -138,7 +138,14 @@ def configure_architecture_repository(
         return config
     include_directive = repository_settings["include_directive"]
     include_count = repository_settings["include_directive_count"]
-    if config.count(include_directive) != include_count:
+    include_pattern = re.compile(
+        rf"(?m)^([ \t]*){re.escape(include_directive)}[ \t]*$"
+    )
+    configured, active_include_count = include_pattern.subn(
+        lambda match: f"{match.group(1)}{repository_settings['server_directive']}",
+        config,
+    )
+    if active_include_count != include_count:
         raise ValueError(builder["messages"]["architecture_repository_config_invalid"])
     live_root = profile_root / builder["layout"]["profile_live_root"]
     key_path = safe_profile_output(live_root, repository_settings["live_key_path"])
@@ -171,7 +178,7 @@ def configure_architecture_repository(
         ),
         encoding="utf-8",
     )
-    return config.replace(include_directive, repository_settings["server_directive"])
+    return configured
 
 
 def prepare_architecture_repository(architecture: str) -> None:
