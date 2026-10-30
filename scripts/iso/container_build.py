@@ -27,7 +27,7 @@ class ArchitectureSetup(TypedDict):
 
 
 class ContainerSettings(TypedDict):
-    engine: str
+    engine_command: list[str]
     images: dict[str, str]
     architecture_packages: dict[str, list[str]]
     architecture_setup: dict[str, ArchitectureSetup]
@@ -130,15 +130,22 @@ def repository_path(
 def container_command(settings: Settings) -> list[str]:
     builder = settings["builder"]
     container = builder["container"]
-    engine = container["engine"]
+    engine_command = container["engine_command"]
     messages = container["messages"]
     architecture = platform_architecture()
     if architecture not in container["images"]:
         raise RuntimeError(
             messages["unsupported_architecture"].format(architecture=architecture)
         )
-    if shutil.which(engine) is None:
-        raise RuntimeError(messages["engine_required"].format(engine=engine))
+    missing_engine_commands = [
+        name for name in engine_command if shutil.which(name) is None
+    ]
+    if missing_engine_commands:
+        raise RuntimeError(
+            messages["engine_required"].format(
+                engine=" ".join(missing_engine_commands)
+            )
+        )
 
     mount_path = container["mount_path"]
     inner_environment = {
@@ -167,7 +174,7 @@ def container_command(settings: Settings) -> list[str]:
         "operation": container["operation"],
     }
     command = [
-        engine,
+        *engine_command,
         *(argument.format(**format_values) for argument in container["run_arguments"]),
     ]
     for name in container["ci_environment_passthrough"]:
