@@ -12,7 +12,7 @@ from typing import TypedDict, cast
 import yaml
 
 sys.path.insert(0, str(Path(os.environ["AP"])))
-from scripts.iso.build import native_architecture
+from scripts.iso.build import native_architecture, platform_architecture
 from scripts.iso.config import CiBuildSettings, require_ci_build
 
 
@@ -64,6 +64,7 @@ class ContainerSettings(TypedDict):
 class BuilderSettings(TypedDict):
     container: ContainerSettings
     ci: CiBuildSettings
+    architecture_environment: str
     makepkg_run_as: list[str]
     profile: str
     work_directory: str
@@ -131,7 +132,7 @@ def container_command(settings: Settings) -> list[str]:
     container = builder["container"]
     engine = container["engine"]
     messages = container["messages"]
-    architecture = native_architecture()
+    architecture = platform_architecture()
     if architecture not in container["images"]:
         raise RuntimeError(
             messages["unsupported_architecture"].format(architecture=architecture)
@@ -179,6 +180,10 @@ def container_command(settings: Settings) -> list[str]:
             argument.format(name=name, value=value)
             for argument in container["environment_arguments"]
         )
+    command.extend(
+        argument.format(name=builder["architecture_environment"], value=architecture)
+        for argument in container["environment_arguments"]
+    )
     command.extend(
         (
             container["images"][architecture],

@@ -23,7 +23,7 @@ def _settings() -> IsoSettings:
     return load_config()
 
 
-def native_architecture() -> str:
+def platform_architecture() -> str:
     builder = _settings()["builder"]
     try:
         result = subprocess.run(
@@ -40,6 +40,18 @@ def native_architecture() -> str:
     if result.returncode != 0 or architecture is None:
         raise RuntimeError(builder["messages"]["platform_detection_failed"])
     return architecture
+
+
+def native_architecture() -> str:
+    builder = _settings()["builder"]
+    architecture = os.environ.get(builder["architecture_environment"])
+    if architecture is not None:
+        if architecture not in builder["iso_names"]:
+            raise RuntimeError(
+                builder["messages"]["invalid_architecture_environment"]
+            )
+        return architecture
+    return platform_architecture()
 
 
 def missing_build_commands(available: set[str] | None = None) -> list[str]:
