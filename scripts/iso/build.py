@@ -116,13 +116,19 @@ def inside(path: Path, parent: Path) -> bool:
 
 
 def safe_profile_output(root: Path, relative: str) -> Path:
-    destination = root / relative
-    if root.is_symlink() or destination.is_absolute() or not inside(destination, root):
+    relative_path = Path(relative)
+    components = relative.split("/")
+    destination = root / relative_path
+    if (
+        root.is_symlink()
+        or relative_path.is_absolute()
+        or not components
+        or any(component in {"", ".", ".."} for component in components)
+        or not inside(destination, root)
+    ):
         raise ValueError(_settings()["builder"]["messages"]["unsafe_key_path"])
     current = root
-    for component in Path(relative).parts:
-        if component in {"", ".", ".."}:
-            raise ValueError(_settings()["builder"]["messages"]["unsafe_key_path"])
+    for component in components:
         current = current / component
         if current.is_symlink():
             raise ValueError(_settings()["builder"]["messages"]["unsafe_key_path"])
