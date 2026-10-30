@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
+import json
 import os
 import shutil
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 from typing import TypedDict, cast
 
@@ -24,6 +26,15 @@ class ArchitectureSetup(TypedDict):
     source: ArchitectureSource
     commands: list[list[str]]
     verify_command: list[str]
+
+
+class SeccompSettings(TypedDict):
+    default_profile: str
+    temporary_prefix: str
+    temporary_filename: str
+    allow_syscalls: list[str]
+    allow_action: str
+    allow_comment: str
 
 
 class ContainerSettings(TypedDict):
@@ -58,7 +69,7 @@ class ContainerSettings(TypedDict):
     host_uid_environment: str
     host_gid_environment: str
     directory_environment: list[str]
-    internal_directories: dict[str, str]
+    seccomp: SeccompSettings
     root_build_uid: int
     root_build_gid: int
     commands: dict[str, list[str]]
@@ -134,7 +145,7 @@ def repository_path(
     return str(Path(mount_path) / relative)
 
 
-def container_command(settings: Settings) -> list[str]:
+def container_command(settings: Settings, seccomp_profile: Path) -> list[str]:
     builder = settings["builder"]
     container = builder["container"]
     engine_command = container["engine_command"]
@@ -181,10 +192,10 @@ def container_command(settings: Settings) -> list[str]:
             argument.format(source=source, destination=mount["destination"])
             for argument in container["additional_mount_arguments"]
         )
-    inner_environment.update(container["internal_directories"])
     format_values = {
         "repository": str(repository()),
         "mount_path": mount_path,
+        "seccomp_profile": str(seccomp_profile),
         "host_uid": os.getuid(),
         "host_gid": os.getgid(),
         "build_user": container["build_user"],
@@ -333,7 +344,6 @@ def run_in_container(settings: Settings) -> int:
             "build_user_environment": container["build_user_environment"],
             **{name: os.environ[name] for name in container["mounts"]},
             **{name: os.environ[name] for name in container["directory_environment"]},
-            **container["internal_directories"],
         }
         command = [argument.format(**values) for argument in container["build_command"]]
         result = subprocess.run(command, check=False)
@@ -361,8 +371,50 @@ def main() -> int:
             check=True,
             text=True,
         )
-        command = container_command(settings)
-        result = subprocess.run(command, check=False)
+        seccomp = container["seccomp"]
+        with tempfile.TemporaryDirectory(
+            prefix=seccomp["temporary_prefix"]
+        ) as temporary_directory:
+            profile = Path(temporary_directory) / seccomp["temporary_filename"]
+            source = Path(seccomp["default_profile"])
+            if source.is_symlink() or not source.is_file():
+                raise RuntimeError(container["messages"]["seccomp_profile_missing"])
+            profile_data = json.loads(source.read_text(encoding="utf-8"))
+            if not isinstance(profile_data, dict) or not isinstance(
+                profile_data.get("syscalls"), list
+            ):
+                raise RuntimeError(container["messages"]["seccomp_profile_invalid"])
+            syscall_names = seccomp["allow_syscalls"]
+            existing_rules = [
+                rule
+                for rule in profile_data["syscalls"]
+                if isinstance(rule, dict)
+                and set(rule.get("names", [])) & set(syscall_names)
+            ]
+            if any(
+                rule.get("action") != seccomp["allow_action"]
+                or rule.get("args")
+                or rule.get("includes")
+                or rule.get("excludes")
+                for rule in existing_rules
+            ):
+                raise RuntimeError(container["messages"]["seccomp_syscall_configured"])
+            if not existing_rules:
+                profile_data["syscalls"].append(
+                    {
+                        "names": syscall_names,
+                        "action": seccomp["allow_action"],
+                        "args": [],
+                        "comment": seccomp["allow_comment"],
+                        "includes": {},
+                        "excludes": {},
+                    }
+                )
+            profile.write_text(
+                json.dumps(profile_data, separators=(",", ":")), encoding="utf-8"
+            )
+            command = container_command(settings, profile)
+            result = subprocess.run(command, check=False)
         return result.returncode
     except (
         KeyError,
