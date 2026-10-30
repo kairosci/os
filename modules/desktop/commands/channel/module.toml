@@ -2,15 +2,10 @@ id = "desktop.commands.channel"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/arch/commands/arch-channel-current",
   "src/arch/commands/arch-channel-set",
   "src/arch/cli/channel/current.py",
 ]
 requires = ["desktop.commands", "desktop.commands.version", "system.runtime-data"]
-
-[[output]]
-source = "src/arch/commands/arch-channel-current"
-target = "usr/share/arch/src/arch/commands/arch-channel-current"
 
 [[output]]
 source = "src/arch/commands/arch-channel-set"

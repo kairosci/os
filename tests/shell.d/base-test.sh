@@ -7,8 +7,20 @@ fi
 
 ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/../.." && pwd)
 SHELL_TEST_DIR="$ROOT/tests/shell.d"
+ARCH_TEST_CLI_STAGE="$ROOT/build/test-cli-entrypoints"
+ARCH_TEST_CLI_BIN="$ARCH_TEST_CLI_STAGE/usr/share/arch/src/arch/commands"
+
+mkdir -p "$ROOT/build"
+(
+  flock -x 9
+  if [[ ! -x $ARCH_TEST_CLI_BIN/arch-update-confirm || $ROOT/scripts/cli_entrypoints.py -nt $ARCH_TEST_CLI_BIN/arch-update-confirm || $ROOT/data/cli/python-entrypoints.yml -nt $ARCH_TEST_CLI_BIN/arch-update-confirm || $ROOT/data/cli/groups.yml -nt $ARCH_TEST_CLI_BIN/arch-update-confirm ]]; then
+    python3 "$ROOT/scripts/cli_entrypoints.py" generate --destination "$ARCH_TEST_CLI_STAGE"
+  fi
+) 9>"$ROOT/build/test-cli-entrypoints.lock"
 
 export ROOT
+export ARCH_TEST_CLI_BIN
+export PATH="$ARCH_TEST_CLI_BIN:$ROOT/src/arch/commands:$PATH"
 
 # Commands print user-facing text in the language picked under Setup >
 # Language, so pin tests to English (a missing file means English) rather than

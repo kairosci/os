@@ -6,7 +6,6 @@ sources = [
   "src/arch/commands/arch-notification-dismiss",
   "src/arch/commands/arch-notification-send",
   "src/arch/commands/arch-notification-time",
-  "src/arch/commands/arch-notification-wait",
   "src/arch/cli/notification/wait.py",
   "src/arch/commands/arch-notification-weather",
 ]
@@ -27,10 +26,6 @@ target = "usr/share/arch/src/arch/commands/arch-notification-send"
 [[output]]
 source = "src/arch/commands/arch-notification-time"
 target = "usr/share/arch/src/arch/commands/arch-notification-time"
-
-[[output]]
-source = "src/arch/commands/arch-notification-wait"
-target = "usr/share/arch/src/arch/commands/arch-notification-wait"
 
 [[output]]
 source = "src/arch/cli/notification/wait.py"

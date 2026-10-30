@@ -4,9 +4,20 @@ set -euo pipefail
 
 ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
 CLI="$ROOT/src/arch/commands/archctl"
+CLI_STAGE="$ROOT/build/test-cli-entrypoints"
+CLI_BIN="$CLI_STAGE/usr/share/arch/src/arch/commands"
 TMPDIRS=()
 
-export PATH="$ROOT/src/arch/commands:$PATH"
+mkdir -p "$ROOT/build"
+(
+  flock -x 9
+  if [[ ! -x $CLI_BIN/arch-update-confirm || $ROOT/scripts/cli_entrypoints.py -nt $CLI_BIN/arch-update-confirm || $ROOT/data/cli/python-entrypoints.yml -nt $CLI_BIN/arch-update-confirm || $ROOT/data/cli/groups.yml -nt $CLI_BIN/arch-update-confirm ]]; then
+    python3 "$ROOT/scripts/cli_entrypoints.py" generate --destination "$CLI_STAGE"
+  fi
+) 9>"$ROOT/build/test-cli-entrypoints.lock"
+
+export AP="$ROOT"
+export PATH="$CLI_BIN:$ROOT/src/arch/commands:$PATH"
 
 # Assigns a fresh temporary directory to the named variable and registers it for
 # removal on exit, so every scratch directory this suite makes is cleaned up.

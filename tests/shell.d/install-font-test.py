@@ -7,7 +7,7 @@ from pathlib import Path
 import subprocess
 import tempfile
 
-from base_test import ROOT, fail_check, pass_check, test_environment
+from base_test import CLI_BIN, ROOT, fail_check, pass_check, test_environment
 
 
 with tempfile.TemporaryDirectory(prefix="install-font-") as temporary:
@@ -76,7 +76,7 @@ with tempfile.TemporaryDirectory(prefix="install-font-") as temporary:
   config_path.write_text("set:\n  help_arguments: []\n", encoding="utf-8")
   invalid_environment = test_environment(AP=invalid_root)
   result = subprocess.run(
-    [str(ROOT / "src/arch/commands/arch-font-set"), "--help"],
+    [str(CLI_BIN / "arch-font-set"), "--help"],
     capture_output=True,
     text=True,
     env=invalid_environment,

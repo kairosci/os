@@ -34,25 +34,25 @@ chmod +x "$wait_bin/arch-shell" "$wait_bin/busctl"
 
 : >"$wait_log"
 AP="$ROOT" WAIT_LOG="$wait_log" WAIT_SHELL_READY=1 WAIT_BUS_READY=1 PATH="$wait_bin:$PATH" \
-  "$ROOT/src/arch/commands/arch-notification-wait" 1 || fail "notification wait succeeds only after both readiness checks"
+  "$ARCH_TEST_CLI_BIN/arch-notification-wait" 1 || fail "notification wait succeeds only after both readiness checks"
 [[ $(<"$wait_log") == $'shell\nbus' ]] || fail "notification wait probes the shell before the D-Bus server" "$(<"$wait_log")"
 pass "notification wait checks shell IPC and the notification D-Bus name"
 
 : >"$wait_log"
 if AP="$ROOT" WAIT_LOG="$wait_log" WAIT_SHELL_READY=1 WAIT_BUS_READY=0 PATH="$wait_bin:$PATH" \
-  "$ROOT/src/arch/commands/arch-notification-wait" 1 >/dev/null 2>&1; then
+  "$ARCH_TEST_CLI_BIN/arch-notification-wait" 1 >/dev/null 2>&1; then
   fail "notification wait times out until the D-Bus server is ready"
 fi
 grep -q '^bus$' "$wait_log" || fail "notification wait checks D-Bus after shell IPC succeeds" "$(<"$wait_log")"
 pass "notification wait times out while the D-Bus server is unavailable"
 
-if LANG=it_IT.UTF-8 AP="$ROOT" "$ROOT/src/arch/commands/arch-notification-wait" invalid >"$tmp/wait-error" 2>&1; then
+if LANG=it_IT.UTF-8 AP="$ROOT" "$ARCH_TEST_CLI_BIN/arch-notification-wait" invalid >"$tmp/wait-error" 2>&1; then
   fail "notification wait rejects a non-integer timeout"
 fi
 grep -q 'Il timeout deve essere un intero' "$tmp/wait-error" || fail "notification wait localizes timeout errors" "$(<"$tmp/wait-error")"
 pass "notification wait validates and localizes timeout arguments"
 
-if AP="$ROOT" "$ROOT/src/arch/commands/arch-notification-wait" 301 >/dev/null 2>&1; then
+if AP="$ROOT" "$ARCH_TEST_CLI_BIN/arch-notification-wait" 301 >/dev/null 2>&1; then
   fail "notification wait rejects an excessive timeout"
 fi
 pass "notification wait enforces the configured maximum timeout"

@@ -140,7 +140,7 @@ chmod +x "$confirm_bin/arch-i18n" "$confirm_bin/gum"
 AP="$ROOT" \
   ARCH_TEST_CONFIRM_LOG="$confirm_log" \
   PATH="$confirm_bin:$PATH" \
-  "$ROOT/src/arch/commands/arch-update-confirm" >"$test_tmp/confirm.out" 2>"$test_tmp/confirm.err" ||
+  "$ROOT/src/arch/commands/archctl" update confirm >"$test_tmp/confirm.out" 2>"$test_tmp/confirm.err" ||
   fail "update confirmation renders configured prompts" "$(cat "$test_tmp/confirm.err")"
 grep -Fx 'confirm --affirmative common.yes --negative common.no update.continue' "$confirm_log" >/dev/null ||
   fail "update confirmation preserves string yes/no translation keys" "$(cat "$confirm_log")"

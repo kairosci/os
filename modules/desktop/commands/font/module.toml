@@ -5,7 +5,6 @@ sources = [
   "src/arch/commands/arch-font-cjk",
   "src/arch/commands/arch-font-current",
   "src/arch/commands/arch-font-list",
-  "src/arch/commands/arch-font-set",
   "src/arch/cli/font/catalog.py",
   "src/arch/cli/font/set.py",
 ]
@@ -22,10 +21,6 @@ target = "usr/share/arch/src/arch/commands/arch-font-current"
 [[output]]
 source = "src/arch/commands/arch-font-list"
 target = "usr/share/arch/src/arch/commands/arch-font-list"
-
-[[output]]
-source = "src/arch/commands/arch-font-set"
-target = "usr/share/arch/src/arch/commands/arch-font-set"
 
 [[output]]
 source = "src/arch/cli/font/catalog.py"

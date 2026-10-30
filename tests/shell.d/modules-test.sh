@@ -10,14 +10,18 @@ trap 'rm -rf "$stage"' EXIT
 
 python3 "$ROOT/scripts/modules.py" validate
 python3 "$ROOT/scripts/modules.py" graph >"$stage/graph.json"
-python3 - "$stage/graph.json" "$ROOT/src/arch/commands" "$ROOT/default" "$ROOT/etc" "$ROOT/config" <<'PY'
+python3 - "$stage/graph.json" "$ROOT/src/arch/commands" "$ROOT/default" "$ROOT/etc" "$ROOT/config" "$ROOT/data/cli/python-entrypoints.yml" <<'PY'
 import json
 import re
 import sys
 from pathlib import Path
 
+import yaml
+
 modules = {module["id"]: module for module in json.load(open(sys.argv[1]))}
 cli_directory = Path(sys.argv[2])
+entrypoints = yaml.safe_load(Path(sys.argv[6]).read_text(encoding="utf-8"))["entrypoints"]
+generated_commands = {f"src/arch/commands/{entry['binary']}" for entry in entrypoints}
 stages = {
     "system.installation.boot",
     "system.installation.config",
@@ -69,11 +73,13 @@ cli_files -= {
     "src/arch/commands/arch-debug-idle",
     "src/arch/commands/arch-upload-log",
 }
+cli_files -= generated_commands
 expected_groups = {
     f"desktop.commands.{source.removeprefix('src/arch/commands/arch-').split('-', 1)[0]}"
     for source in cli_files
     if source != "src/arch/commands/archctl"
 }
+expected_groups |= {f"desktop.commands.{entry['group']}" for entry in entrypoints}
 default_roots = Path(sys.argv[3])
 etc_roots = Path(sys.argv[4])
 config_roots = Path(sys.argv[5])
@@ -246,25 +252,38 @@ PY
 pass "module validation rejects source symlinks that escape the repository or have no target"
 
 python3 "$ROOT/scripts/modules.py" assemble --package arch --destination "$stage/arch"
+python3 "$ROOT/scripts/cli_entrypoints.py" generate --destination "$stage/arch"
 for path in installer; do
   diff -r --no-dereference "$ROOT/$path" "$stage/arch/usr/share/arch/$path"
 done
-python3 - "$ROOT/src/arch/commands" "$stage/arch/usr/share/arch/src/arch/commands" <<'PY'
+python3 - "$ROOT/src/arch/commands" "$stage/arch/usr/share/arch/src/arch/commands" "$ROOT/data/cli/python-entrypoints.yml" <<'PY'
 import stat
 import sys
 from pathlib import Path
 
-source, assembled = map(Path, sys.argv[1:])
+import yaml
+
+source, assembled = map(Path, sys.argv[1:3])
+entrypoints = yaml.safe_load(Path(sys.argv[3]).read_text(encoding="utf-8"))["entrypoints"]
 excluded = {"arch-debug", "arch-debug-idle", "arch-upload-log"}
-expected = {path.name for path in source.iterdir() if path.is_file()} - excluded
+source_commands = {path.name for path in source.iterdir() if path.is_file()} - excluded
+generated_commands = {entry["binary"] for entry in entrypoints}
+expected = source_commands | generated_commands
 actual = {path.name for path in assembled.iterdir() if path.is_file() or path.is_symlink()}
 assert actual == expected, (expected - actual, actual - expected)
-for name in expected:
+for name in source_commands:
     original, packaged = source / name, assembled / name
     assert original.read_bytes() == packaged.read_bytes(), name
     assert stat.S_IMODE(original.stat().st_mode) == stat.S_IMODE(packaged.stat().st_mode), name
+for entry in entrypoints:
+    packaged = assembled / entry["binary"]
+    metadata = packaged.read_text(encoding="utf-8").splitlines()
+    assert f"# arch:group={entry['group']}" in metadata, entry["binary"]
+    assert f"# arch:name={entry['name']}" in metadata, entry["binary"]
+    assert f"# arch:summary={entry['summary']}" in metadata, entry["binary"]
+    assert stat.S_IMODE(packaged.stat().st_mode) == 0o755, entry["binary"]
 PY
-pass "the runtime package assembles every installer and CLI source without changing its path"
+pass "the runtime package assembles legacy commands and generates Python CLI launchers from YAML"
 
 python3 "$ROOT/scripts/modules.py" assemble --package arch-settings --destination "$stage/settings"
 for path in config default; do
@@ -284,6 +303,8 @@ import json
 import stat
 import sys
 from pathlib import Path
+
+import yaml
 
 graph_path, source_root, stage_root = map(Path, sys.argv[1:])
 source_root, stage_root = source_root.resolve(), stage_root.resolve()
@@ -322,6 +343,12 @@ for module in json.loads(graph_path.read_text()):
             else:
                 assert destination.read_bytes() == source_path.read_bytes(), destination
                 assert stat.S_IMODE(destination.stat().st_mode) == stat.S_IMODE(source_path.stat().st_mode), destination
+
+entrypoints = yaml.safe_load((source_root / "data/cli/python-entrypoints.yml").read_text(encoding="utf-8"))["entrypoints"]
+expected["arch"].add("usr/share/arch/data/cli/group-descriptions.sh")
+expected["arch"].update(
+    f"usr/share/arch/src/arch/commands/{entry['binary']}" for entry in entrypoints
+)
 
 for package, package_root in package_roots.items():
     actual = {

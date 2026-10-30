@@ -1,0 +1,70 @@
+groups:
+  ascii: Text drawn as ASCII art
+  audio: Audio input and output controls
+  bar: Arch shell bar layout and settings
+  battery: Battery status helpers
+  bluetooth: Bluetooth device controls
+  branch: Arch git branch management
+  branding: About and screensaver branding
+  brightness: Display and keyboard brightness
+  capture: Screenshots and screen recording
+  channel: Arch release channel management
+  clipboard: Clipboard helpers
+  cmd: Command and shortcut helpers
+  config: System configuration helpers
+  crash: Crash notification controls
+  debug: Diagnostics and support logs
+  finalize: Finalize user setup
+  default: Default application selection
+  dev: Arch development tools
+  disk: Disk performance helpers
+  dictation: Dictation recording
+  display: Display and text scaling
+  dns: DNS resolver configuration
+  drive: Drive selection and encryption
+  file: File selection helpers
+  font: Font management
+  games: Game launchers and helpers
+  hibernation: Hibernation setup and removal
+  hook: User hook runner
+  hw: Hardware detection and controls
+  hyprland: Hyprland window, monitor, and toggle controls
+  install: Optional software installers
+  installed: Installed optional service checks
+  launch: Application launchers
+  kernel: Default boot kernel selection
+  language: Display language and system locale
+  menu: Arch menu commands
+  monitor: Monitor status helpers
+  network: Network status helpers
+  notification: Notification helpers
+  mise: Mise tool wrappers
+  osd: On-screen display status helpers
+  pkg: Package management helpers
+  plugin: Arch shell plugin and bar widget management
+  plymouth: Plymouth boot theme management
+  power: Power supply detection
+  powerprofiles: Power profile management
+  refresh: Reset config to defaults
+  reinstall: Reinstall and reset workflows
+  reminder: Desktop notification reminders
+  remove: Removal workflows
+  restart: Restart Arch components
+  setup: Interactive setup wizards
+  shell: Arch shell IPC helpers
+  screensaver: Screensaver branding and animation
+  snapshot: System snapshots
+  sudo: Sudo configuration helpers
+  system: System status, reboot, shutdown, logout, and lock
+  tailscale: Tailscale helpers
+  theme: Theme management
+  toggle: Toggle Arch features
+  transcode: Image and video transcoding
+  tui: Terminal UI launchers
+  update: Arch and system updates
+  version: Version and channel information
+  voxtype: Voxtype dictation
+  weather: Weather status
+  webapp: Web app launchers
+  wifi: Wi-Fi helpers
+  windows: Windows VM management

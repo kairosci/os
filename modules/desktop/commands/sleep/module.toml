@@ -2,14 +2,9 @@ id = "desktop.commands.sleep"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/arch/commands/arch-sleep-disabled",
   "src/arch/cli/sleep/disabled.py",
 ]
 requires = ["desktop.commands"]
-
-[[output]]
-source = "src/arch/commands/arch-sleep-disabled"
-target = "usr/share/arch/src/arch/commands/arch-sleep-disabled"
 
 [[output]]
 source = "src/arch/cli/sleep/disabled.py"
