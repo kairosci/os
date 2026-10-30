@@ -5,7 +5,7 @@ This roadmap tracks the requested CLI, ISO, desktop, and release work as separat
 ## Current evidence
 
 - Release asset tooling is integrated in `scripts/iso/`; it splits images below GitHub's asset limit, verifies checksums, and downloads and assembles release parts.
-- `make iso` still calls a sibling ISO builder and package checkout. The repository now has checked-in ArchISO profile inputs and a Python profile renderer, but no repository-owned builder, CI release workflow, or guided live installer.
+- The repository now has a Python-rendered ArchISO profile and a CI-only builder/release workflow that build local runtime packages and publish bounded, checksummed parts. The actual release image and the repository-specific guided installer have not yet passed end-to-end acceptance.
 - The CLI catalog already maps many routes to Python modules. Compatibility entrypoints and shell command implementations remain under `src/cli/os-*`, and code still calls those names directly.
 - The desktop layout implementation is being converted to the public modes `scrolling` and `tiling`; the compositor's internal layout names remain an implementation detail.
 
@@ -33,7 +33,7 @@ Make the package set reproducible from this checkout. Build the runtime and sett
 
 ### 6. Add the ISO profile and CI-only builder
 
-Replace sibling-checkout assumptions in `Makefile` with a repository-owned builder under `scripts/iso/` and a checked-in profile whose values are stored in YAML and rendered by `profiledef.py`. The builder should validate its host tools and target, build or fetch every declared package source, create the local package repository, invoke ArchISO, and emit a checksum manifest. ISO generation must run only in the dedicated GitHub Actions release workflow; local commands may download and assemble published images but must not build them.
+Replace sibling-checkout assumptions in `Makefile` with a repository-owned builder under `scripts/iso/` and a checked-in profile whose values are stored in YAML and rendered by `profiledef.py`. The builder should validate its host tools and target, build or fetch every declared package source, create the local package repository, invoke ArchISO, and emit a checksum manifest. ISO generation runs only in the dedicated GitHub Actions release workflow; local commands may download and assemble published images but must not build them. Completion still requires a successful native build on each runner architecture.
 
 ### 7. Port the live installer and unattended path
 

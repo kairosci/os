@@ -1,0 +1,101 @@
+name: Arch ISO release
+
+on:
+  push:
+    tags: [v*]
+  workflow_dispatch:
+    inputs:
+      source_ref:
+        description: Branch, tag, or commit to build
+        required: true
+        type: string
+        default: main
+      publish:
+        description: Publish the generated image parts to a release for source_ref
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+env:
+  AP: ${{ github.workspace }}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  queue: max
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build ${{ matrix.platform }} image
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 360
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: x86
+            architecture: x86_64
+            runner: ubuntu-24.04
+          - platform: aarch64
+            architecture: aarch64
+            runner: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ inputs.source_ref || github.ref }}
+          persist-credentials: false
+      - name: Set reproducible image timestamp
+        run: printf 'SOURCE_DATE_EPOCH=%s\n' "$(git show -s --format=%ct HEAD)" >> "$GITHUB_ENV"
+      - name: Verify runner architecture
+        env:
+          TARGET_ARCH: ${{ matrix.architecture }}
+        run: |
+          if [[ $TARGET_ARCH != "$(uname -m)" ]]; then
+            printf 'Runner architecture mismatch: expected %s, got %s\n' "$TARGET_ARCH" "$(uname -m)" >&2
+            exit 1
+          fi
+      - name: Install Podman
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes podman python3-yaml
+          if [[ $(podman info --format '{{.Host.Security.Rootless}}') != true ]]; then
+            printf '%s\n' 'Podman must run rootless on the ISO build runner.' >&2
+            exit 1
+          fi
+      - name: Build native ArchISO profile and bounded release assets
+        run: make iso
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: archiso-${{ matrix.platform }}
+          path: build/iso/release-assets/*
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 1
+
+  release:
+    name: Publish checksummed images
+    if: startsWith(github.ref, 'refs/tags/v') || inputs.publish
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 360
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          pattern: archiso-*
+          path: release-assets
+          merge-multiple: true
+      - name: Create or update the GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ inputs.source_ref || github.ref_name }}
+        run: |
+          if gh release view "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release upload "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" --clobber release-assets/*
+          else
+            gh release create "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" --verify-tag --title "$RELEASE_TAG" release-assets/*
+          fi
