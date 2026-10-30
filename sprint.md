@@ -21,5 +21,28 @@
 | #496 | Remove passwordless sudo grants |
 | #497 | Remove sudoless Docker option |
 | #499 | Remove model-specific hardware integrations |
+| #504 | Add verified ISO download, checksum, and assembly tooling |
+| #505 | Add repository consolidation roadmap |
+| #506 | Show scroll position in overflowing menus |
+| #507 | Use scrolling and tiling as the public workspace modes |
+| #508 | Refresh the battery glyph from UPower state changes |
+| #509 | Set a useful default size for Disktree |
+| #510 | Add the Python-rendered ArchISO profile |
+| #512 | Build Arch ISO releases in CI |
+| #513 | Pass the runner architecture into ISO builds |
+| #514 | Build ArchISO with scoped container privileges |
+| #515 | Pass CI environment into the ISO container |
+| #516 | Mount ISO build directories separately |
+| #517 | Resolve ISO mount sources on the host |
+| #518 | Isolate the ISO build mount namespace |
+| #519 | Use an isolated PID namespace for ISO builds |
+| #520 | Isolate ISO build mount and PID namespaces |
+| #521 | Keep inherited mount propagation in the ISO namespace |
+| #522 | Run ISO builds as an unprivileged user |
+| #523 | Bind the container proc filesystem into ArchISO chroots |
+| #524 | Allow isolated ArchISO mounts under AppArmor |
+| #525 | Load the AppArmor policy from standard input |
+| #526 | Publish complete ArchISO images with release parts |
+| #527 | Use a signed ARMv8 repository for ISO builds |
 
 PR #483 was closed when its base branch was deleted during integration. Its change was rebased and merged as PR #499.
