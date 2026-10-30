@@ -355,14 +355,13 @@ builder:
     mount_path_environment: MOUNT_PATH
     build_script_environment: ISO_CONTAINER_SCRIPT
     build_operation_environment: ISO_CONTAINER_OPERATION
-    directory_environment: [ISO_WORK, ISO_OUTPUT, ISO_RELEASE_OUTPUT]
+    directory_environment: [ISO_OUTPUT, ISO_RELEASE_OUTPUT]
+    internal_directories:
+      ISO_WORK: /var/tmp/archiso-work
     ci_environment_passthrough: [CI, GITHUB_ACTIONS, GITHUB_WORKFLOW, GITHUB_RUN_ID, GITHUB_RUN_ATTEMPT, SOURCE_DATE_EPOCH]
     mounts:
       ISO_PROFILE: profile
     additional_mounts:
-      - environment: ISO_WORK
-        setting: work_directory
-        destination: /iso-work
       - environment: ISO_OUTPUT
         setting: output_directory
         destination: /iso-output
