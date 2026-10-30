@@ -319,6 +319,7 @@ builder:
     build_script_description: container build script
     root_build_uid: 1000
     root_build_gid: 1000
+    build_namespace_command: [unshare, --pid, --fork, --mount, --propagation, private]
     build_command:
       - env
       - 'HOME={root_home}'
@@ -380,6 +381,7 @@ builder:
     entrypoint: [bash, -e, -c]
     packages:
       - arch-install-scripts
+      - util-linux
       - base-devel
       - cargo
       - dbus
