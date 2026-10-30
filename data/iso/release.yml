@@ -305,9 +305,17 @@ builder:
     ci_environment_passthrough: [CI, GITHUB_ACTIONS, GITHUB_WORKFLOW, GITHUB_RUN_ID, GITHUB_RUN_ATTEMPT, SOURCE_DATE_EPOCH]
     mounts:
       ISO_PROFILE: profile
-      ISO_WORK: work_directory
-      ISO_OUTPUT: output_directory
-      ISO_RELEASE_OUTPUT: parts_directory
+    additional_mounts:
+      - environment: ISO_WORK
+        setting: work_directory
+        destination: /iso-work
+      - environment: ISO_OUTPUT
+        setting: output_directory
+        destination: /iso-output
+      - environment: ISO_RELEASE_OUTPUT
+        setting: parts_directory
+        destination: /iso-release-assets
+    additional_mount_arguments: ['--volume', '{source}:{destination}:rprivate']
     build_script_description: container build script
     root_build_uid: 1000
     root_build_gid: 1000
