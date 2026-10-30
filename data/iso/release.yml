@@ -1,0 +1,417 @@
+release:
+  github_asset_limit_bytes: 2000000000
+  max_part_bytes: 1900000000
+  read_size_bytes: 1048576
+  manifest_max_bytes: 1000000
+  maximum_part_count: 1000
+  manifest_format: 1
+  manifest_suffix: .parts.json
+  part_name_format: '{iso}.part{index:04d}'
+  sha256_pattern: '[0-9a-f]{64}\Z'
+  checksum_algorithm: sha256
+  iso_name_pattern: '[A-Za-z0-9][A-Za-z0-9._+-]*\.iso\Z'
+  repository_pattern: '[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+\Z'
+  tag_pattern: '[A-Za-z0-9][A-Za-z0-9._+-]*\Z'
+  default_repository: kairosci/os
+  download_directory_prefix: arch-iso-release-
+  upload_directory_prefix: arch-iso-release-
+  split_temporary_prefix: .
+  github_command: gh
+  release_metadata_command: [release, view, '{tag}', --repo, '{repository}', --json, assets]
+  release_metadata_timeout_seconds: 30
+  download_timeout_seconds: 3600
+  upload_timeout_seconds: 7200
+  maximum_release_asset_count: 2002
+  asset_list_field: assets
+  asset_name_field: name
+  asset_size_field: size
+  download_command: [release, download, '{tag}', --repo, '{repository}', --dir, '{directory}']
+  upload_command: [release, upload]
+  upload_repository_option: --repo
+  download_pattern_arguments: [--pattern, '{pattern}']
+  messages:
+    missing_manifest: "release does not contain an ISO parts manifest"
+    selected_iso_missing: "release does not contain {iso}; available images: {available}"
+    multiple_isos: "release contains multiple ISO images; select one with --iso: {available}"
+    iso_selection_help: "ISO filename to select when a release contains multiple architectures"
+    repository_invalid: "repository must use owner/repository format"
+    tag_invalid: "release tag contains unsupported characters"
+    github_cli_required: "GitHub CLI (gh) is required to download release assets"
+    release_metadata_invalid: "GitHub returned invalid release asset metadata"
+    release_asset_count_limit: "release exceeds the configured asset count limit"
+    release_asset_duplicate: "release contains duplicate asset names: {name}"
+    release_asset_size_invalid: "release contains an invalid asset size: {name}"
+    release_asset_too_large: "release asset exceeds the configured GitHub size limit: {name}"
+    release_manifest_too_large: "release manifest exceeds the configured metadata size limit: {name}"
+    release_asset_missing: "release is missing the declared ISO asset: {name}"
+    release_asset_size_mismatch: "release asset size does not match its manifest: {name}"
+    download_error_prefix: "iso download: "
+    parts_iso_missing: "{description} does not exist: {path}"
+    parts_regular_file: "{description} must be a regular file: {path}"
+    parts_iso_name_invalid: "ISO image filename must be a simple .iso filename"
+    parts_size_out_of_range: "part size must be between 1 and {maximum} bytes"
+    parts_config_limit_invalid: "configured ISO part size must be positive and below the GitHub asset limit"
+    parts_iso_empty: "ISO image is empty"
+    parts_existing_assets: "refusing to overwrite existing release assets: {names}"
+    parts_iso_truncated: "ISO image changed or ended while it was being split"
+    parts_iso_grew: "ISO image grew while it was being split"
+    parts_manifest_invalid: "invalid parts manifest: {path}"
+    parts_manifest_too_large: "parts manifest exceeds the configured {maximum}-byte limit"
+    parts_manifest_schema: "parts manifest has an unsupported schema"
+    parts_manifest_version: "parts manifest has an unsupported format version"
+    parts_manifest_iso_name: "parts manifest has an unsafe ISO filename"
+    parts_manifest_iso_mismatch: "parts manifest filename does not match the ISO filename"
+    parts_manifest_field_invalid: "parts manifest has an invalid {field}"
+    parts_manifest_part_limit: "parts manifest exceeds the maximum release asset size"
+    parts_manifest_checksum: "parts manifest has an invalid ISO checksum"
+    parts_manifest_no_parts: "parts manifest has no parts"
+    parts_manifest_count: "parts manifest has a missing or extra part"
+    parts_count_limit: "ISO exceeds the configured limit of {maximum} release parts"
+    parts_manifest_record: "parts manifest has an invalid part record at index {index}"
+    parts_manifest_part_name: "parts manifest has an unsafe or unordered part filename at index {index}"
+    parts_manifest_part_size: "parts manifest has an invalid size for {name}"
+    parts_manifest_nonfinal_size: "non-final part has an invalid size: {name}"
+    parts_manifest_part_checksum: "parts manifest has an invalid checksum for {name}"
+    parts_manifest_total: "parts manifest total does not match the ISO size"
+    parts_existing_iso: "refusing to overwrite existing ISO: {path}"
+    parts_part_checksum_failed: "ISO part failed its size or checksum check: {name}"
+    parts_assembly_checksum_failed: "assembled ISO failed its size or checksum check"
+    parts_split_help: "split an ISO into release assets"
+    parts_assemble_help: "verify and reassemble ISO release parts"
+    parts_error_prefix: "iso parts: "
+    upload_github_cli_required: "GitHub CLI (gh) is required to upload release assets"
+    upload_timeout: "GitHub release upload timed out after {seconds} seconds"
+    upload_error_prefix: "iso upload: "
+  parts:
+    parser_description: "Split and reassemble ISO release assets within GitHub's asset size limit"
+    operation_destination: operation
+    split_operation: split
+    assemble_operation: assemble
+    iso_argument: iso
+    manifest_argument: manifest
+    output_directory_destination: output_dir
+    part_size_destination: part_size
+    output_directory_option: --output-dir
+    part_size_option: --part-size
+    iso_label: ISO image
+    manifest_label: parts manifest
+    part_label: ISO part
+  download:
+    parser_description: "Download and verify the ISO parts attached to a GitHub release"
+    tag_help: "GitHub release tag"
+    repository_help: "GitHub repository (owner/repository)"
+    output_directory_help: "directory for the assembled ISO"
+    tag_argument: tag
+    repository_option: --repo
+    output_directory_option: --output-dir
+    iso_option: --iso
+  upload:
+    parser_description: Split an ISO and upload its parts to an existing GitHub release
+    iso_argument: iso
+    tag_argument: tag
+    tag_help: existing GitHub release tag
+    repository_option: --repo
+    repository_help: GitHub repository (owner/repository)
+settings_cli:
+  usage: 'Usage: os dev iso config <section.key>'
+  key_format_error: 'ISO setting must use section.key format'
+  unknown_setting: 'unknown ISO setting: {key}'
+  non_string_setting: 'ISO setting is not a string: {key}'
+builder:
+  cli:
+    parser_description: Build one native ArchISO image and publish its verified release parts
+    profile_option: --profile
+    profile_destination: profile
+    work_directory_option: --work-dir
+    work_directory_destination: work_dir
+    output_directory_option: --output-dir
+    output_directory_destination: output_dir
+    parts_directory_option: --parts-dir
+    parts_directory_destination: parts_dir
+  layout:
+    local_repository: local-repository
+    package_build: build
+    package_sources: sources
+    package_logs: logs
+    package_repository: repo
+    package_source_archives: source-packages
+    package_directory: packages
+    package_build_file: PKGBUILD
+    local_repository_database: arch-local.db.tar.zst
+    profile_live_root: airootfs
+    profile_staging_directory: profile
+    live_repository_directory: usr/share/arch/repo
+    live_pacman_config: etc/pacman.conf
+  package_artifacts:
+    archive_glob: '*.pkg.tar.*'
+    iso_glob: '*.iso'
+    signature_suffixes: [.sig, .asc]
+  package_repository:
+    name: arch-local
+    database_files: [arch-local.db, arch-local.db.tar.zst]
+    section_header_format: '[{name}]'
+    server_line_format: 'Server = {url}'
+    live_server_url: file:///usr/share/arch/repo
+  makepkg_environment_keys:
+    source: ARCH_SRC
+    build: BUILDDIR
+    logs: LOGDEST
+    packages: PKGDEST
+    sources: SRCDEST
+    source_packages: SRCPKGDEST
+  repository_url_prefix: file://
+  iso_name_environment_key: ARCHISO_NAME
+  temporary_prefixes:
+    build_inputs: archiso-inputs-
+    build_output: .archiso-output-
+    build_work: archiso-work-
+    release_parts: .iso-parts-
+  local_packages: [arch-settings, arch]
+  ci:
+    required_environment:
+      CI: 'true'
+      GITHUB_ACTIONS: 'true'
+      GITHUB_WORKFLOW: Arch ISO release
+    run_id_environment: GITHUB_RUN_ID
+    run_attempt_environment: GITHUB_RUN_ATTEMPT
+    run_identifier_pattern: '[1-9][0-9]*'
+    required_message: ISO image generation is restricted to the Arch ISO release GitHub Actions workflow
+  required_commands:
+    - awk
+    - bsdtar
+    - fakeroot
+    - git
+    - gzip
+    - makepkg
+    - magick
+    - mcopy
+    - mkarchiso
+    - mkfs.fat
+    - mke2fs
+    - mksquashfs
+    - arch-hw-platform
+    - openssl
+    - pacman
+    - pacstrap
+    - python3
+    - repo-add
+    - rg
+    - sed
+    - unshare
+    - xorriso
+  architecture_commands:
+    x86_64: [syslinux]
+    aarch64: [grub-mkstandalone]
+  platform_command: [arch-hw-platform]
+  platform_timeout_seconds: 10
+  platform_architectures:
+    x86: x86_64
+    aarch64: aarch64
+    aarch64-apple: aarch64
+    aarch64-qualcomm: aarch64
+    aarch64-n1x: aarch64
+    aarch64-gb10: aarch64
+  iso_names:
+    x86_64: arch-x86
+    aarch64: arch-aarch64
+  package_build_commands: [cargo, fakeroot, gem, git, magick, make, pkg-config, python3, runuser]
+  makepkg_run_as: [runuser, --user, '{user}', --preserve-environment, --]
+  makepkg_command: makepkg
+  repo_add_command: repo-add
+  mkarchiso_command: mkarchiso
+  yaml_check_command: [python3, -c, 'import yaml']
+  makepkg_arguments: [--nodeps, --noconfirm, --cleanbuild, --force]
+  repo_add_arguments: []
+  mkarchiso_arguments: [-v, -w, '{work}', -o, '{output}', '{profile}']
+  profile_definition_file: profiledef.py
+  generated_profile_definition_file: profiledef.sh
+  pacman_config_file: pacman.conf
+  architecture_package_list_format: packages.{architecture}
+  generic_package_list_file: packages
+  messages:
+    platform_detection_failed: "could not determine the native Arch platform for ISO build"
+    unsupported_architecture: "unsupported ISO build architecture: {architecture}"
+    invalid_iso_name: "invalid ISO name configured for {architecture}: {name}"
+    missing_build_commands: "missing ISO build commands: {commands}"
+    yaml_required: "python-yaml is required to build the local runtime packages"
+    profile_missing: "ArchISO profile does not exist: {path}"
+    profile_outside_repository: "ArchISO profile must be inside this repository"
+    profile_not_directory: "ArchISO profile is not a directory: {path}"
+    profile_required_file: "ArchISO profile is missing a regular {name}"
+    profile_package_list_missing: "ArchISO profile has no package list for {architecture}"
+    package_repository_config_invalid: "ArchISO profile must define exactly one configured local package repository"
+    local_packages_missing: "ArchISO package list is missing configured local packages: {packages}"
+    unprivileged_makepkg: "Build local packages as an unprivileged user with makepkg"
+    makepkg_required: "makepkg and repo-add are required to build the local runtime packages"
+    missing_package_build_tools: "missing local package build tools: {commands}"
+    package_build_file_missing: "local package PKGBUILD is missing: {path}"
+    package_artifact_count: "makepkg must produce one installable package for {package}, found {count}"
+    repository_package_count: "local package repository contains an unexpected package count"
+    staged_package_list_missing: "ArchISO profile has no regular package list for {architecture}"
+    package_repository_config_invalid: "ArchISO profile must define exactly one configured local package repository"
+    local_packages_missing: "ArchISO package list is missing configured local packages: {packages}"
+    local_repository_empty: "local package repository contains no package archives"
+    local_repository_database_missing: "local package repository is missing its pacman database"
+    repository_symlink_unsafe: "local package repository contains an unsafe symlink: {name}"
+    unsafe_image_name: "mkarchiso produced an unsafe ISO filename: {name}"
+    invalid_image: "mkarchiso produced an empty or invalid ISO image"
+    output_symlink: "ISO output directory must not be a symlink"
+    existing_image: "refusing to overwrite existing ISO: {path}"
+    existing_release_assets: "refusing to overwrite existing release assets: {names}"
+    mkarchiso_required: "mkarchiso is required to build the selected ArchISO profile"
+    output_paths_symlink: "ISO output, work, and release paths must not be symlinks"
+    output_inside_profile: "ISO output, work, and release paths must be outside the profile"
+    image_count: "mkarchiso must produce exactly one ISO, found {count}"
+    error_prefix: "iso build: "
+    profile_option_help: "ArchISO profile directory"
+    work_directory_option_help: "temporary ArchISO work directory"
+    output_directory_option_help: "directory for the complete ISO image"
+    parts_directory_option_help: "directory for checksummed release parts and manifest"
+  container:
+    engine: podman
+    images:
+      x86_64: archlinux:base-devel@sha256:624bdc7fc6615155d67bc34cf7146c0c9fd0e3c92943977da63a630e4ca49c30
+      aarch64: menci/archlinuxarm@sha256:33207bdd76fff7cc15c5da08994ee06aa1e4a39a4bbce39012a3382f98253945
+    architecture_packages:
+      x86_64: [archiso, syslinux]
+      aarch64: []
+    architecture_setup:
+      aarch64:
+        source:
+          revision: 9aabd21ef18c7e9e129e347135afdaa115a10942
+        commands:
+          - [git, init, /opt/archiso]
+          - [git, -C, /opt/archiso, fetch, --depth, '1', https://gitlab.archlinux.org/archlinux/archiso.git, 9aabd21ef18c7e9e129e347135afdaa115a10942]
+          - [git, -C, /opt/archiso, checkout, --detach, FETCH_HEAD]
+          - [ln, -s, /opt/archiso/archiso/mkarchiso, /usr/local/bin/mkarchiso]
+        verify_command: [git, -C, /opt/archiso, rev-parse, HEAD]
+    mount_path: /workspace
+    build_user: archiso-builder
+    build_path: /usr/local/sbin:/usr/local/bin:/usr/bin:/usr/sbin:/bin:/sbin
+    build_user_environment: ISO_BUILD_USER
+    root_home: /root
+    build_script: scripts/iso/container_build.py
+    operation: container
+    bootstrap_command: 'pacman -Syu --noconfirm --needed "$@" && exec python3 "$ISO_CONTAINER_SCRIPT" "$ISO_CONTAINER_OPERATION"'
+    bootstrap_argument_zero: iso-container
+    host_uid_environment: HOST_UID
+    host_gid_environment: HOST_GID
+    mount_path_environment: MOUNT_PATH
+    build_script_environment: ISO_CONTAINER_SCRIPT
+    build_operation_environment: ISO_CONTAINER_OPERATION
+    directory_environment: [ISO_WORK, ISO_OUTPUT, ISO_RELEASE_OUTPUT]
+    ci_environment_passthrough: [CI, GITHUB_ACTIONS, GITHUB_WORKFLOW, GITHUB_RUN_ID, GITHUB_RUN_ATTEMPT, SOURCE_DATE_EPOCH]
+    mounts:
+      ISO_PROFILE: profile
+      ISO_WORK: work_directory
+      ISO_OUTPUT: output_directory
+      ISO_RELEASE_OUTPUT: parts_directory
+    build_script_description: container build script
+    root_build_uid: 1000
+    root_build_gid: 1000
+    build_command:
+      - env
+      - 'HOME={root_home}'
+      - 'PATH={mount_path}/src/arch/commands:{path}'
+      - '{build_user_environment}={user}'
+      - 'AP={mount_path}'
+      - 'PYTHONPATH={mount_path}'
+      - 'ISO_PROFILE={ISO_PROFILE}'
+      - 'ISO_WORK={ISO_WORK}'
+      - 'ISO_OUTPUT={ISO_OUTPUT}'
+      - 'ISO_RELEASE_OUTPUT={ISO_RELEASE_OUTPUT}'
+      - python3
+      - -m
+      - scripts.iso.build
+      - --profile
+      - '{ISO_PROFILE}'
+      - --work-dir
+      - '{ISO_WORK}'
+      - --output-dir
+      - '{ISO_OUTPUT}'
+      - --parts-dir
+      - '{ISO_RELEASE_OUTPUT}'
+    commands:
+      lookup_group: [getent, group]
+      create_group: [groupadd, --gid]
+      lookup_user: [getent, passwd]
+      create_user: [useradd, --create-home, --uid, '{uid}', --gid, '{gid}', '{name}']
+      make_directory: [mkdir, -p]
+      change_owner: [chown, -R]
+    run_arguments:
+      - run
+      - --rm
+      - --userns=keep-id
+      - --user
+      - '0'
+      - --privileged
+      - --security-opt
+      - seccomp=unconfined
+      - --volume
+      - '{repository}:{mount_path}'
+      - --workdir
+      - '{mount_path}'
+      - --env
+      - 'AP={mount_path}'
+      - --env
+      - HOST_UID={host_uid}
+      - --env
+      - HOST_GID={host_gid}
+      - --env
+      - BUILD_USER={build_user}
+      - --env
+      - MOUNT_PATH={mount_path}
+      - --env
+      - '{build_script_environment}={build_script}'
+      - --env
+      - '{build_operation_environment}={operation}'
+    environment_arguments: ['--env', '{name}={value}']
+    ci_environment_arguments: ['--env', '{name}']
+    entrypoint: [bash, -e, -c]
+    packages:
+      - arch-install-scripts
+      - base-devel
+      - cargo
+      - dbus
+      - dosfstools
+      - e2fsprogs
+      - erofs-utils
+      - git
+      - gtk4
+      - hicolor-icon-theme
+      - grub
+      - libadwaita
+      - libdrm
+      - libva
+      - libxkbcommon
+      - imagemagick
+      - libisoburn
+      - mtools
+      - mesa
+      - nasm
+      - openssh
+      - openssl
+      - python
+      - python-yaml
+      - pkgconf
+      - ripgrep
+      - ruby
+      - squashfs-tools
+      - vulkan-icd-loader
+      - wayland
+    messages:
+      invalid_settings: 'invalid ISO builder settings: {path}'
+      unsupported_architecture: 'no ISO container configured for architecture: {architecture}'
+      source_revision_mismatch: 'ArchISO source revision mismatch: expected {expected}, got {actual}'
+      build_user_missing: 'could not find the ISO build user after creating it'
+      build_user_invalid: 'the ISO build user record is invalid'
+      unknown_operation: 'unknown ISO container operation'
+      path_inside_repository: '{description} must be inside the repository for a container build'
+      path_is_repository_root: '{description} must not be the repository root'
+      path_traverses_symlink: '{description} must not traverse a symlink: {path}'
+      engine_required: 'container engine is required to build the ISO: {engine}'
+      build_failure: 'iso container build: {error}'
+  profile: installer/iso/profile
+  work_directory: build/iso-work
+  output_directory: build/iso
+  parts_directory: build/iso/release-assets

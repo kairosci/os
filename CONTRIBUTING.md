@@ -22,4 +22,4 @@ User settings belong under `~/.config/arch`; generated runtime state belongs und
 
 Install the repository's developer tools with `mise install`. Run `make check` for source syntax, module ownership, CLI, and shell checks. Use `make type-check` to run the strict type checker on the module catalog validator, and `make lint-workflows` to validate GitHub Actions and their embedded shell. `make security-scan` runs Trivy against dependency manifests, configuration, and secrets.
 
-Build an ISO with the companion `arch-iso` and `arch-pkgs` checkouts: `make iso ARCH_ISO=../arch-iso ARCH_PKGS=../arch-pkgs`. The target calls `arch-iso-make` with this checkout as the local Arch source. The builder writes release artifacts under its own `release/` directory.
+ISO images are generated only by the dedicated GitHub Actions release workflow. `make iso` enforces that workflow identity, builds the repository-owned profile in a pinned Arch container, and writes the complete image and bounded release assets under `build/iso/`. Local release tooling can download and assemble an already-published image.

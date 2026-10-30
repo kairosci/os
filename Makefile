@@ -5,9 +5,6 @@ PYTHON ?= python3
 NODE ?= node
 LUA_COMPILER ?= luac
 QML_FORMATTER ?= qmlformat
-ARCH_ISO ?= ../arch-iso
-ARCH_PKGS ?= ../arch-pkgs
-
 .PHONY: help check source-check modules-check type-check lint-workflows security-scan arch-package-advisories test test-cli test-shell iso
 
 help:
@@ -22,7 +19,7 @@ help:
 	  'test           Run CLI and shell test suites' \
 	  'test-cli       Run CLI routing and metadata checks' \
 	  'test-shell     Run shell and command behavior checks' \
-	  'iso            Build an ISO through the companion arch-iso checkout'
+	  'iso            Build an ISO in the dedicated GitHub Actions release workflow'
 
 check: source-check modules-check test
 
@@ -61,12 +58,4 @@ test-shell:
 	AP="$(CURDIR)" ./tests/shell
 
 iso:
-	@if [[ ! -x "$(ARCH_ISO)/src/commands/arch-iso-make" ]]; then \
-	  printf 'Arch ISO builder not found: %s\n' "$(ARCH_ISO)/src/commands/arch-iso-make" >&2; \
-	  exit 2; \
-	fi
-	@if [[ ! -d "$(ARCH_PKGS)" ]]; then \
-	  printf 'Arch package checkout not found: %s\n' "$(ARCH_PKGS)" >&2; \
-	  exit 2; \
-	fi
-	"$(ARCH_ISO)/src/commands/arch-iso-make" --no-boot-offer --local-source "$(CURDIR)" "$(ARCH_PKGS)"
+	AP="$(CURDIR)" PATH="$(CURDIR)/src/arch/commands:$$PATH" $(PYTHON) -m scripts.iso.container_build
