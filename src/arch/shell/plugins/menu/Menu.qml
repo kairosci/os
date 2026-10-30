@@ -1689,6 +1689,68 @@ Item {
             }
           }
 
+          Item {
+            id: scrollTrack
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.right: parent.right
+            width: Style.space(10)
+            visible: resultList.contentHeight > resultList.height
+            z: 2
+
+            Rectangle {
+              anchors.horizontalCenter: parent.horizontalCenter
+              anchors.top: parent.top
+              anchors.bottom: parent.bottom
+              width: Style.space(3)
+              radius: width / 2
+              color: Util.alpha(root.foreground, 0.12)
+            }
+
+            Rectangle {
+              id: scrollThumb
+              x: (parent.width - width) / 2
+              width: Style.space(4)
+              height: Math.min(
+                parent.height,
+                Math.max(Style.space(24), parent.height * parent.height / resultList.contentHeight)
+              )
+              y: {
+                var range = resultList.contentHeight - resultList.height
+                var travel = parent.height - height
+                return range > 0 ? travel * (resultList.contentY - resultList.originY) / range : 0
+              }
+              radius: width / 2
+              color: Util.alpha(root.foreground, 0.58)
+            }
+
+            MouseArea {
+              anchors.fill: parent
+              property real grabOffset: 0
+
+              function moveThumb(mouseY) {
+                var range = resultList.contentHeight - resultList.height
+                var travel = scrollTrack.height - scrollThumb.height
+                if (travel > 0 && range > 0) {
+                  var position = Math.max(0, Math.min(1, (mouseY - grabOffset) / travel))
+                  resultList.contentY = resultList.originY + position * range
+                }
+              }
+
+              onPressed: function(mouse) {
+                if (mouse.y >= scrollThumb.y && mouse.y <= scrollThumb.y + scrollThumb.height) {
+                  grabOffset = mouse.y - scrollThumb.y
+                } else {
+                  grabOffset = scrollThumb.height / 2
+                }
+                moveThumb(mouse.y)
+              }
+              onPositionChanged: function(mouse) {
+                if (pressed) moveThumb(mouse.y)
+              }
+            }
+          }
+
           Column {
             anchors.centerIn: parent
             spacing: Style.space(8)
