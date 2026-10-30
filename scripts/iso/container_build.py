@@ -35,7 +35,7 @@ class ContainerSettings(TypedDict):
     build_user: str
     build_path: str
     build_user_environment: str
-    root_home: str
+    build_home: str
     build_script: str
     bootstrap_command: str
     bootstrap_argument_zero: str
@@ -56,7 +56,6 @@ class ContainerSettings(TypedDict):
     directory_environment: list[str]
     root_build_uid: int
     root_build_gid: int
-    build_namespace_command: list[str]
     commands: dict[str, list[str]]
     build_command: list[str]
     mounts: dict[str, str]
@@ -318,17 +317,14 @@ def run_in_container(settings: Settings) -> int:
 
         values = {
             "user": build_user,
-            "root_home": container["root_home"],
+            "build_home": container["build_home"],
             "path": container["build_path"],
             "mount_path": os.environ[container["mount_path_environment"]],
             "build_user_environment": container["build_user_environment"],
             **{name: os.environ[name] for name in container["mounts"]},
             **{name: os.environ[name] for name in container["directory_environment"]},
         }
-        command = [
-            *container["build_namespace_command"],
-            *(argument.format(**values) for argument in container["build_command"]),
-        ]
+        command = [argument.format(**values) for argument in container["build_command"]]
         result = subprocess.run(command, check=False)
         return result.returncode
     finally:

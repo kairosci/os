@@ -291,7 +291,7 @@ builder:
     build_user: archiso-builder
     build_path: /usr/local/sbin:/usr/local/bin:/usr/bin:/usr/sbin:/bin:/sbin
     build_user_environment: ISO_BUILD_USER
-    root_home: /root
+    build_home: /home/archiso-builder
     build_script: scripts/iso/container_build.py
     operation: container
     bootstrap_command: 'pacman -Syu --noconfirm --needed "$@" && exec python3 "$ISO_CONTAINER_SCRIPT" "$ISO_CONTAINER_OPERATION"'
@@ -319,10 +319,13 @@ builder:
     build_script_description: container build script
     root_build_uid: 1000
     root_build_gid: 1000
-    build_namespace_command: [unshare, --pid, --fork, --mount, --propagation, unchanged]
     build_command:
+      - runuser
+      - --user
+      - '{user}'
+      - --
       - env
-      - 'HOME={root_home}'
+      - 'HOME={build_home}'
       - 'PATH={mount_path}/src/arch/commands:{path}'
       - '{build_user_environment}={user}'
       - 'AP={mount_path}'
