@@ -335,12 +335,14 @@ builder:
       aarch64:
         source:
           revision: 9aabd21ef18c7e9e129e347135afdaa115a10942
+        source_path: /opt/archiso
         commands:
           - [git, init, /opt/archiso]
           - [git, -C, /opt/archiso, fetch, --depth, '1', https://gitlab.archlinux.org/archlinux/archiso.git, 9aabd21ef18c7e9e129e347135afdaa115a10942]
           - [git, -C, /opt/archiso, checkout, --detach, FETCH_HEAD]
           - [ln, -s, /opt/archiso/archiso/mkarchiso, /usr/local/bin/mkarchiso]
         verify_command: [git, -C, /opt/archiso, rev-parse, HEAD]
+        patches: [scripts/iso/patches/archiso-arm64-grub-modules.patch]
     mount_path: /workspace
     build_user: archiso-builder
     build_path: /usr/local/sbin:/usr/local/bin:/usr/bin:/usr/sbin:/bin:/sbin
@@ -503,6 +505,7 @@ builder:
       invalid_settings: 'invalid ISO builder settings: {path}'
       unsupported_architecture: 'no ISO container configured for architecture: {architecture}'
       source_revision_mismatch: 'ArchISO source revision mismatch: expected {expected}, got {actual}'
+      architecture_patch_invalid: 'ArchISO source patch is missing, unsafe, or outside the repository'
       build_user_missing: 'could not find the ISO build user after creating it'
       build_user_invalid: 'the ISO build user record is invalid'
       unknown_operation: 'unknown ISO container operation'
