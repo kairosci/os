@@ -4,10 +4,11 @@ This roadmap tracks the requested CLI, ISO, desktop, and release work as separat
 
 ## Current evidence
 
-- Release asset tooling is integrated in `scripts/iso/`; it splits images below GitHub's asset limit, verifies checksums, and downloads and assembles release parts.
-- The repository now has a Python-rendered ArchISO profile and a CI-only builder/release workflow that build local runtime packages and publish bounded, checksummed parts. The actual release image and the repository-specific guided installer have not yet passed end-to-end acceptance.
-- The CLI catalog already maps many routes to Python modules. Compatibility entrypoints and shell command implementations remain under `src/cli/os-*`, and code still calls those names directly.
-- The desktop layout implementation is being converted to the public modes `scrolling` and `tiling`; the compositor's internal layout names remain an implementation detail.
+- `scripts/iso/` contains the CI-only native builder, checksum manifest, downloader, assembler, and release publisher. The x86 build produced a complete ISO in CI; the AArch64 builder now uses a pinned, signature-verified ARMv8 repository, and its post-merge build is still running. No release has been published because validation runs use `publish=false`.
+- The ISO profile is rendered from `data/iso/profile.yml`, and local runtime packages are built from this checkout. The full installer and its target provisioning flow are still absent from the ISO; end-to-end boot and install acceptance remains open.
+- The current source tree has 28 Python CLI modules and 454 flat command files under `src/arch/commands`; only four Python entrypoints are generated from `data/cli/python-entrypoints.yml`. The requested unified `os` router and removal of migrated flat wrappers are not complete. Build a generated route inventory before continuing module migration so callers and package assembly stay accounted for.
+- The workspace default is `scrolling`, and the menu presents `scrolling` and `tiling`. Stored legacy values are normalized at load, while compositor layout names remain implementation details.
+- Disktree has a shipped per-application Hyprland rule in `default/hypr/apps/disktree.lua`. The menu overflow indicator and battery glyph refresh have also been integrated; visual verification of the current battery charge state still needs a machine connected to external power.
 
 ## Sprints
 
@@ -17,15 +18,15 @@ Make `scrolling` the default in every shipped configuration, expose only `scroll
 
 ### 2. Inventory and classify CLI entrypoints
 
-For each executable in `src/cli/os-*`, record whether it is a Python compatibility wrapper, a shell implementation, or a caller-facing executable that still has references elsewhere in the repository. Match every public route to its catalog record and Python module. Keep the inventory generated from the catalog so it cannot silently drift.
+For each executable in `src/arch/commands/`, record whether it is already backed by a Python module, still contains command behavior, or has callers that rely on its binary name. Match every public route to its YAML metadata and Python module. Keep the inventory generated from the catalog so it cannot silently drift.
 
 ### 3. Move remaining command behavior into modules
 
-Port each shell implementation into a feature module under `src/cli/`, retaining the existing command arguments, exit statuses, privilege boundary, and user-visible output. Add or extend focused tests for behavior with real logic. Update in-repository callers to use `os <group> <command>` and add regression coverage for routes whose argument forwarding differs from the old executable form.
+Port each remaining command implementation into a feature module under `src/arch/cli/`, retaining its arguments, exit statuses, privilege boundary, and user-visible output. Update in-repository callers to use `os <group> <command>` and account for routes whose argument forwarding differs from the old executable form.
 
 ### 4. Remove flat compatibility entrypoints
 
-After all commands are catalogued, implemented as Python modules, and all in-repository callers use the unified router, remove `src/cli/os-*` compatibility files and the router's executable-discovery fallback. Keep only the `os` entrypoint. Update package assembly, command metadata checks, docs, and tests in the same sprint; verify that every catalog route imports a real module and that command groups and help still work.
+After commands are catalogued, implemented as Python modules, and all in-repository callers use the unified router, remove their flat compatibility files and executable-discovery fallbacks. Keep only the `os` entrypoint. Update package assembly, command metadata, and documentation in the same sprint; verify that every catalog route imports a real module and that groups and help still work.
 
 ### 5. Bring package build inputs into this repository
 
@@ -33,7 +34,7 @@ Make the package set reproducible from this checkout. Build the runtime and sett
 
 ### 6. Add the ISO profile and CI-only builder
 
-Replace sibling-checkout assumptions in `Makefile` with a repository-owned builder under `scripts/iso/` and a checked-in profile whose values are stored in YAML and rendered by `profiledef.py`. The builder should validate its host tools and target, build or fetch every declared package source, create the local package repository, invoke ArchISO, and emit a checksum manifest. ISO generation runs only in the dedicated GitHub Actions release workflow; local commands may download and assemble published images but must not build them. Completion still requires a successful native build on each runner architecture.
+Keep the repository-owned builder under `scripts/iso/` and its profile values in YAML rendered by `profiledef.py`. Validate host tools and build targets, produce the local package repository, invoke ArchISO only in the dedicated GitHub Actions release workflow, and emit bounded release parts with a checksum manifest. Local commands may download and assemble published images but must not generate an ISO. Completion requires successful native builds on both supported runner architectures.
 
 ### 7. Port the live installer and unattended path
 
