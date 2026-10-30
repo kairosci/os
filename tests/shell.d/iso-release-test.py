@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 import sys
 import tempfile
@@ -11,7 +12,11 @@ from base_test import ROOT, fail_check, pass_check
 
 
 sys.path.insert(0, str(ROOT))
-from scripts.iso.parts import MAX_PART_BYTES, assemble_iso, read_manifest, split_iso
+os.environ["AP"] = str(ROOT)
+from scripts.iso.config import load_config
+from scripts.iso.parts import assemble_iso, read_manifest, split_iso
+
+max_part_bytes = load_config()["release"]["max_part_bytes"]
 
 
 with tempfile.TemporaryDirectory(prefix="arch-iso-parts-test-") as temporary:
@@ -30,7 +35,7 @@ with tempfile.TemporaryDirectory(prefix="arch-iso-parts-test-") as temporary:
 
   broken_manifest = stage / "broken.parts.json"
   broken = dict(manifest)
-  broken["part_size"] = MAX_PART_BYTES + 1
+  broken["part_size"] = max_part_bytes + 1
   broken_manifest.write_text(json.dumps(broken), encoding="utf-8")
   try:
     read_manifest(broken_manifest)
@@ -41,7 +46,7 @@ with tempfile.TemporaryDirectory(prefix="arch-iso-parts-test-") as temporary:
   pass_check("manifest cannot declare a part above the release asset limit")
 
   try:
-    split_iso(source, stage / "oversized-split", part_size=MAX_PART_BYTES + 1)
+    split_iso(source, stage / "oversized-split", part_size=max_part_bytes + 1)
   except ValueError:
     pass
   else:

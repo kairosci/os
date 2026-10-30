@@ -6,6 +6,8 @@ __pycache__/
 .claude/
 
 # Arch package build output
+/build/iso/
+/build/iso-work/
 /packages/arch-systemd-boot/src/
 /packages/arch-systemd-boot/pkg/
 /packages/arch-systemd-boot/arch-*.pkg.tar.zst
