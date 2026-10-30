@@ -411,7 +411,7 @@ builder:
       path_traverses_symlink: '{description} must not traverse a symlink: {path}'
       engine_required: 'container engine is required to build the ISO: {engine}'
       build_failure: 'iso container build: {error}'
-  profile: installer/iso/profile
+  profile: scripts/iso/profile
   work_directory: build/iso-work
   output_directory: build/iso
   parts_directory: build/iso/release-assets
