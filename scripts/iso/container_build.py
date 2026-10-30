@@ -46,6 +46,8 @@ class ContainerSettings(TypedDict):
     environment_arguments: list[str]
     ci_environment_arguments: list[str]
     ci_environment_passthrough: list[str]
+    additional_mounts: list[dict[str, str]]
+    additional_mount_arguments: list[str]
     entrypoint: list[str]
     packages: list[str]
     operation: str
@@ -157,6 +159,22 @@ def container_command(settings: Settings) -> list[str]:
         )
         for name, destination in container["mounts"].items()
     }
+    additional_mount_arguments: list[str] = []
+    for mount in container["additional_mounts"]:
+        source = Path(
+            repository_path(
+                cast(dict[str, str], builder)[mount["setting"]],
+                mount_path,
+                mount["environment"],
+                messages,
+            )
+        )
+        source.mkdir(parents=True, exist_ok=True)
+        inner_environment[mount["environment"]] = mount["destination"]
+        additional_mount_arguments.extend(
+            argument.format(source=source, destination=mount["destination"])
+            for argument in container["additional_mount_arguments"]
+        )
     format_values = {
         "repository": str(repository()),
         "mount_path": mount_path,
@@ -176,6 +194,7 @@ def container_command(settings: Settings) -> list[str]:
     command = [
         *engine_command,
         *(argument.format(**format_values) for argument in container["run_arguments"]),
+        *additional_mount_arguments,
     ]
     for name in container["ci_environment_passthrough"]:
         value = os.environ.get(name)
