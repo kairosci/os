@@ -24,8 +24,10 @@ class ArchitectureSource(TypedDict):
 
 class ArchitectureSetup(TypedDict):
     source: ArchitectureSource
+    source_path: str
     commands: list[list[str]]
     verify_command: list[str]
+    patches: list[str]
 
 
 class SeccompSettings(TypedDict):
@@ -143,6 +145,28 @@ def repository_path(
                 )
             )
     return str(Path(mount_path) / relative)
+
+
+def repository_file(relative: str, message: str) -> Path:
+    path = Path(relative)
+    root = repository().resolve(strict=True)
+    if path.is_absolute() or not path.parts or any(
+        part in {"", ".", ".."} for part in path.parts
+    ):
+        raise ValueError(message)
+    candidate = root
+    for part in path.parts:
+        candidate /= part
+        if candidate.is_symlink():
+            raise ValueError(message)
+    try:
+        resolved = candidate.resolve(strict=True)
+        resolved.relative_to(root)
+    except (OSError, ValueError) as error:
+        raise ValueError(message) from error
+    if not resolved.is_file():
+        raise ValueError(message)
+    return resolved
 
 
 def container_command(settings: Settings, seccomp_profile: Path) -> list[str]:
@@ -278,6 +302,31 @@ def run_in_container(settings: Settings) -> int:
                 container["messages"]["source_revision_mismatch"].format(
                     expected=source["revision"], actual=revision
                 )
+            )
+        for patch_name in architecture_setup["patches"]:
+            patch_path = repository_file(
+                patch_name, container["messages"]["architecture_patch_invalid"]
+            )
+            subprocess.run(
+                [
+                    "git",
+                    "-C",
+                    architecture_setup["source_path"],
+                    "apply",
+                    "--check",
+                    str(patch_path),
+                ],
+                check=True,
+            )
+            subprocess.run(
+                [
+                    "git",
+                    "-C",
+                    architecture_setup["source_path"],
+                    "apply",
+                    str(patch_path),
+                ],
+                check=True,
             )
     commands = container["commands"]
     uid_name = container["host_uid_environment"]
