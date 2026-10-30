@@ -48,9 +48,20 @@ Panel {
     setProfile(profiles[profileIndex])
   }
 
-  function batteryIcon() {
+  readonly property string batteryGlyph: {
     var device = UPower.displayDevice
-    return Model.batteryIcon(device, root.discharging, upowerStates())
+    if (!device || !device.isPresent) return ""
+
+    // Read the changing device fields in this property binding so the bar
+    // glyph refreshes when UPower changes charge state or level.
+    var battery = {
+      isPresent: device.isPresent,
+      state: device.state,
+      percentage: device.percentage,
+      changeRate: device.changeRate,
+      timeToFull: device.timeToFull
+    }
+    return Model.batteryIcon(battery, !!UPower.onBattery, upowerStates())
   }
 
   function modeLabel() {
@@ -208,7 +219,7 @@ Panel {
     id: button
     anchors.fill: parent
     bar: root.bar
-    text: root.batteryIcon()
+    text: root.batteryGlyph
     labelText: root.showPercentage && !vertical ? Commons.I18n.formatNumber(Math.round(root.batteryFraction * 100)) + "%" : ""
     slotSize: Style.bar.iconSlot * (root.showPercentage && !vertical ? 2 : 1)
     tooltipText: ""
@@ -257,7 +268,7 @@ Panel {
           Text {
             id: heroIcon
             textFormat: Text.PlainText
-            text: root.batteryIcon()
+            text: root.batteryGlyph
             color: root.bar.foreground
             font.family: root.bar.fontFamily
             font.pixelSize: Style.font.display
