@@ -115,6 +115,103 @@ def inside(path: Path, parent: Path) -> bool:
     return True
 
 
+def safe_profile_output(root: Path, relative: str) -> Path:
+    destination = root / relative
+    if root.is_symlink() or destination.is_absolute() or not inside(destination, root):
+        raise ValueError(_settings()["builder"]["messages"]["unsafe_key_path"])
+    current = root
+    for component in Path(relative).parts:
+        if component in {"", ".", ".."}:
+            raise ValueError(_settings()["builder"]["messages"]["unsafe_key_path"])
+        current = current / component
+        if current.is_symlink():
+            raise ValueError(_settings()["builder"]["messages"]["unsafe_key_path"])
+    return destination
+
+
+def configure_architecture_repository(
+    architecture: str, profile_root: Path, config: str
+) -> str:
+    builder = _settings()["builder"]
+    repository_settings = builder["architecture_repositories"].get(architecture)
+    if repository_settings is None:
+        return config
+    include_directive = repository_settings["include_directive"]
+    include_count = repository_settings["include_directive_count"]
+    if config.count(include_directive) != include_count:
+        raise ValueError(builder["messages"]["architecture_repository_config_invalid"])
+    live_root = profile_root / builder["layout"]["profile_live_root"]
+    key_path = safe_profile_output(live_root, repository_settings["live_key_path"])
+    key_path.parent.mkdir(parents=True, exist_ok=True)
+    key_path.write_text(repository_settings["public_key"], encoding="utf-8")
+    drop_in = safe_profile_output(live_root, repository_settings["live_key_drop_in"])
+    drop_in.parent.mkdir(parents=True, exist_ok=True)
+    rendered_commands = []
+    for command in repository_settings["service_commands"]:
+        arguments = [
+            argument.format(
+                fingerprint=repository_settings["fingerprint"],
+                key_path="/" + repository_settings["live_key_path"],
+            )
+            for argument in command
+        ]
+        if any(not argument or any(character.isspace() for character in argument) for argument in arguments):
+            raise ValueError(builder["messages"]["architecture_repository_config_invalid"])
+        rendered_commands.append(" ".join(arguments))
+    drop_in.write_text(
+        "\n".join(
+            [
+                repository_settings["service_section"],
+                *(
+                    f"{repository_settings['service_command_directive']}={command}"
+                    for command in rendered_commands
+                ),
+                "",
+            ]
+        ),
+        encoding="utf-8",
+    )
+    return config.replace(include_directive, repository_settings["server_directive"])
+
+
+def prepare_architecture_repository(architecture: str) -> None:
+    builder = _settings()["builder"]
+    settings = builder["architecture_repositories"].get(architecture)
+    if settings is None:
+        return
+    with tempfile.TemporaryDirectory(
+        prefix=settings["keyring_temporary_prefix"]
+    ) as temporary_home:
+        key_file = Path(temporary_home) / "repository-key.asc"
+        key_file.write_text(settings["public_key"], encoding="utf-8")
+        environment = {**os.environ, settings["keyring_environment"]: temporary_home}
+        fingerprint_result = subprocess.run(
+            [*settings["verification_command"], str(key_file)],
+            check=True,
+            capture_output=True,
+            text=True,
+            env=environment,
+        )
+        fingerprint_field = settings["fingerprint_field_index"]
+        fingerprints = [
+            fields[fingerprint_field].upper()
+            for line in fingerprint_result.stdout.splitlines()
+            if (fields := line.split(":"))
+            and len(fields) > fingerprint_field
+            and fields[0] == settings["fingerprint_record_prefix"]
+        ]
+        configured = settings["fingerprint"].upper()
+        if fingerprints.count(configured) != settings["fingerprint_count"]:
+            raise ValueError(builder["messages"]["architecture_repository_key_invalid"])
+        subprocess.run(settings["keyring_commands"]["initialize"], check=True)
+        subprocess.run(
+            [*settings["keyring_commands"]["add"], str(key_file)], check=True
+        )
+        subprocess.run(
+            [*settings["keyring_commands"]["sign"], configured], check=True
+        )
+
+
 def validate_profile(profile: Path, repository: Path) -> Path:
     try:
         resolved = profile.resolve(strict=True)
@@ -360,6 +457,7 @@ def prepare_profile(
             )
         )
     config = pacman_conf.read_text(encoding="utf-8")
+    config = configure_architecture_repository(architecture, destination, config)
     repository_name = _settings()["builder"]["package_repository"]["name"]
     repository_header = _settings()["builder"]["package_repository"][
         "section_header_format"
@@ -430,6 +528,7 @@ def prepare_profile(
     live_config = (profile / _settings()["builder"]["pacman_config_file"]).read_text(
         encoding="utf-8"
     )
+    live_config = configure_architecture_repository(architecture, destination, live_config)
     live_pacman_conf.write_text(live_config, encoding="utf-8")
     return destination
 
@@ -536,6 +635,7 @@ def build_iso(
             local_repository,
             architecture,
         )
+        prepare_architecture_repository(architecture)
         with (
             tempfile.TemporaryDirectory(
                 prefix=_settings()["builder"]["temporary_prefixes"]["build_output"],

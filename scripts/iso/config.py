@@ -63,6 +63,26 @@ class PackageRepository(TypedDict):
     live_server_url: str
 
 
+class ArchitectureRepositorySettings(TypedDict):
+    fingerprint: str
+    public_key: str
+    include_directive: str
+    include_directive_count: int
+    server_directive: str
+    live_key_path: str
+    live_key_drop_in: str
+    service_section: str
+    service_command_directive: str
+    service_commands: list[list[str]]
+    verification_command: list[str]
+    keyring_commands: dict[str, list[str]]
+    keyring_environment: str
+    keyring_temporary_prefix: str
+    fingerprint_record_prefix: str
+    fingerprint_field_index: int
+    fingerprint_count: int
+
+
 class CiBuildSettings(TypedDict):
     required_environment: dict[str, str]
     run_id_environment: str
@@ -82,6 +102,7 @@ class BuilderSettings(TypedDict):
     local_packages: list[str]
     required_commands: list[str]
     architecture_commands: dict[str, list[str]]
+    architecture_repositories: dict[str, ArchitectureRepositorySettings]
     platform_command: list[str]
     platform_timeout_seconds: int
     architecture_environment: str
