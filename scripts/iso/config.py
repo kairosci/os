@@ -41,6 +41,7 @@ class ReleaseSettings(TypedDict):
     download_command: list[str]
     upload_command: list[str]
     upload_repository_option: str
+    upload_clobber_option: str
     download_pattern_arguments: list[str]
     messages: dict[str, str]
     parts: dict[str, str]

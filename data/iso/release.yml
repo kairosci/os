@@ -21,13 +21,14 @@ release:
   release_metadata_timeout_seconds: 30
   download_timeout_seconds: 3600
   upload_timeout_seconds: 7200
-  maximum_release_asset_count: 2002
+  maximum_release_asset_count: 2004
   asset_list_field: assets
   asset_name_field: name
   asset_size_field: size
   download_command: [release, download, '{tag}', --repo, '{repository}', --dir, '{directory}']
   upload_command: [release, upload]
   upload_repository_option: --repo
+  upload_clobber_option: --clobber
   download_pattern_arguments: [--pattern, '{pattern}']
   messages:
     missing_manifest: "release does not contain an ISO parts manifest"
@@ -82,6 +83,11 @@ release:
     upload_github_cli_required: "GitHub CLI (gh) is required to upload release assets"
     upload_timeout: "GitHub release upload timed out after {seconds} seconds"
     upload_error_prefix: "iso upload: "
+    upload_skipping_oversized_iso: "not attaching {name} as a complete image because it exceeds GitHub's per-asset limit"
+    upload_assets_directory_invalid: "ISO release assets directory is invalid: {path}"
+    upload_asset_not_regular: "ISO release asset is not a regular file: {path}"
+    upload_assets_mismatch: "ISO release assets do not match their manifests"
+    release_image_size_mismatch: "complete ISO does not match its parts manifest: {name}"
   parts:
     parser_description: "Split and reassemble ISO release assets within GitHub's asset size limit"
     operation_destination: operation
@@ -107,6 +113,8 @@ release:
     iso_option: --iso
   upload:
     parser_description: Split an ISO and upload its parts to an existing GitHub release
+    release_assets_parser_description: Upload release parts and include complete images when GitHub's per-asset limit allows
+    release_assets_directory_option: --assets-dir
     iso_argument: iso
     tag_argument: tag
     tag_help: existing GitHub release tag
@@ -376,7 +384,7 @@ builder:
       - --env
       - '{build_operation_environment}={operation}'
     apparmor_profile_name: archiso-build
-    apparmor_profile_command: [sudo, apparmor_parser, --replace, --write-cache]
+    apparmor_profile_command: [sudo, apparmor_parser, --replace]
     apparmor_profile_arguments: [--security-opt, 'apparmor={profile}']
     apparmor_profile: |
       #include <tunables/global>

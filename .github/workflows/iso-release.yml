@@ -74,6 +74,13 @@ jobs:
           if-no-files-found: error
           compression-level: 0
           retention-days: 1
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: iso-image-${{ matrix.platform }}
+          path: build/iso/*.iso
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 1
 
   release:
     name: Publish checksummed images
@@ -84,18 +91,30 @@ jobs:
     permissions:
       contents: write
     steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          persist-credentials: false
       - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           pattern: archiso-*
           path: release-assets
           merge-multiple: true
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          pattern: iso-image-*
+          path: release-assets
+          merge-multiple: true
+      - name: Install release tooling
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes python3-yaml
       - name: Create or update the GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
           RELEASE_TAG: ${{ inputs.source_ref || github.ref_name }}
         run: |
-          if gh release view "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
-            gh release upload "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" --clobber release-assets/*
-          else
-            gh release create "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" --verify-tag --title "$RELEASE_TAG" release-assets/*
+          if ! gh release view "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release create "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" --verify-tag --title "$RELEASE_TAG"
           fi
+          AP="$GITHUB_WORKSPACE" python3 -m scripts.iso.publish "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" --assets-dir release-assets
