@@ -10,20 +10,19 @@ diff --git a/archiso/mkarchiso b/archiso/mkarchiso
  
      _msg_info "Setting up GRUB for UEFI booting..."
  
-@@ -751,6 +751,18 @@
+@@ -751,6 +751,17 @@
                   minicmd normal ntfs ntfscomp part_apple part_gpt part_msdos png read reboot regexp search \
                   search_fs_file search_fs_uuid search_label serial sleep tpm udf usb usbserial_common usbserial_ftdi \
                   usbserial_pl2303 usbserial_usbdebug video xfs zstd)
 +
-+    # Arch Linux ARM does not ship the AT/PS/2 keyboard module for arm64-efi.
-+    # Use the supported USB keyboard module on ARM instead.
++    # Arch Linux ARM ships only the modules built for its arm64-efi GRUB target.
++    # Include the USB keyboard module when that target provides it.
 +    if [[ "$arch" == 'aarch64' ]]; then
-+        for grubmodule in "${grubmodules[@]}"; do
-+            if [[ "$grubmodule" != 'at_keyboard' ]]; then
++        for grubmodule in "${grubmodules[@]}" usb_keyboard; do
++            if [[ -f "/usr/lib/grub/${grub_target}/${grubmodule}.mod" ]]; then
 +                grubmodules_platform+=("$grubmodule")
 +            fi
 +        done
-+        grubmodules_platform+=(usb_keyboard)
 +        grubmodules=("${grubmodules_platform[@]}")
 +    fi
  
