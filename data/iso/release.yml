@@ -209,7 +209,52 @@ builder:
     - xorriso
   architecture_commands:
     x86_64: [syslinux]
-    aarch64: [grub-mkstandalone]
+    aarch64: [grub-mkstandalone, gpg, pacman-key]
+  architecture_repositories:
+    aarch64:
+      fingerprint: C43E3B9B9CE3F35E97AEF93873556FFF735F691D
+      public_key: |
+        -----BEGIN PGP PUBLIC KEY BLOCK-----
+        Comment: Hostname:
+        Version: Hockeypuck 2.2
+
+        xjMEZ5qpjRYJKwYBBAHaRw8BAQdARu/WJl321mDZMFvSpBaQHliACrunZA6X1PYH
+        C9qOfyLNIkJlbmphbWluIFNjaG5laWRlciA8YmVuQGJlbnMuaGF1cz7CkwQTFgoA
+        OwIbAwULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgBYhBMQ+O5uc4/Nel675OHNV
+        b/9zX2kdBQJn8zTiAAoJEHNVb/9zX2kdckEA/iOpN21reOIJ2Aorm3u2BWdF+lp9
+        XFCYnVrTHw+fR7TeAQCWksRovujE7xhRQlsv32yIyXevQBdnKYDccZ6qAPKHC8KZ
+        BBMWCgBBFiEExD47m5zj816Xrvk4c1Vv/3NfaR0FAmeaqY0CGwMFCQHhM4AFCwkI
+        BwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQc1Vv/3NfaR2oqgEAi+6iY81rb8HD
+        G+rzU1NOD25WxkRYdMtLafM1p03f0gQA/iLeUC5aTE7mlVH9I6RN0GF0ngIgQ529
+        ro47+1dARF8MzjgEZ5qpjRIKKwYBBAGXVQEFAQEHQLRqb7E3L0N5qgPfbvTeGzcE
+        aSB6eYaM7XN9S8qdOo4NAwEIB8J4BBgWCgAgAhsMFiEExD47m5zj816Xrvk4c1Vv
+        /3NfaR0FAmfzNZ4ACgkQc1Vv/3NfaR3ypwEA1/TfcnaXCvmcMsofrqo1Ggl1zpvD
+        ATCn+6ZWfpxr7qUBANhbgtb4Bm2Xy6jiCiQMItfviCguaiEk4xWHwgs+BP8Jwn4E
+        GBYKACYWIQTEPjubnOPzXpeu+ThzVW//c19pHQUCZ5qpjQIbDAUJAeEzgAAKCRBz
+        VW//c19pHVblAP47In7lVhB2wJ/6mIhAreRjlOd53qcRS2gCON+vlrK7lwD/VAPI
+        xY72gN5J0YW8mSzJGo5Q4bx7yCROGe5+NNvsgwE=
+        =Oyxm
+        -----END PGP PUBLIC KEY BLOCK-----
+      include_directive: 'Include = /etc/pacman.d/mirrorlist'
+      include_directive_count: 2
+      server_directive: 'Server = https://arch.bens.haus/repos/$repo/os/$arch'
+      live_key_path: usr/share/pacman/keyrings/arch-bens.asc
+      live_key_drop_in: etc/systemd/system/pacman-init.service.d/arch-bens.conf
+      service_section: '[Service]'
+      service_command_directive: ExecStartPost
+      service_commands:
+        - [/usr/bin/pacman-key, --add, '{key_path}']
+        - [/usr/bin/gpg, --homedir, /etc/pacman.d/gnupg, --batch, --yes, --quick-lsign-key, '{fingerprint}']
+      verification_command: [gpg, --batch, --show-keys, --with-colons]
+      keyring_commands:
+        initialize: [pacman-key, --init]
+        add: [pacman-key, --add]
+        sign: [gpg, --homedir, /etc/pacman.d/gnupg, --batch, --yes, --quick-lsign-key]
+      keyring_environment: GNUPGHOME
+      keyring_temporary_prefix: archiso-keyring-
+      fingerprint_record_prefix: fpr
+      fingerprint_field_index: 9
+      fingerprint_count: 1
   platform_command: [arch-hw-platform]
   platform_timeout_seconds: 10
   architecture_environment: ISO_BUILD_ARCHITECTURE
@@ -250,6 +295,9 @@ builder:
     profile_required_file: "ArchISO profile is missing a regular {name}"
     profile_package_list_missing: "ArchISO profile has no package list for {architecture}"
     package_repository_config_invalid: "ArchISO profile must define exactly one configured local package repository"
+    architecture_repository_config_invalid: "ArchISO profile mirror directives do not match the architecture repository configuration"
+    architecture_repository_key_invalid: "architecture repository public key does not match its pinned fingerprint"
+    unsafe_key_path: "architecture repository key paths must stay inside the live profile and contain no symlinks"
     local_packages_missing: "ArchISO package list is missing configured local packages: {packages}"
     unprivileged_makepkg: "Build local packages as an unprivileged user with makepkg"
     makepkg_required: "makepkg and repo-add are required to build the local runtime packages"
@@ -284,7 +332,7 @@ builder:
       aarch64: menci/archlinuxarm@sha256:33207bdd76fff7cc15c5da08994ee06aa1e4a39a4bbce39012a3382f98253945
     architecture_packages:
       x86_64: [archiso, syslinux]
-      aarch64: []
+      aarch64: [gnupg]
     architecture_setup:
       aarch64:
         source:
