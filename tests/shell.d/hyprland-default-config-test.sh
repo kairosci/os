@@ -157,11 +157,12 @@ ln -s "$(command -v lspci)" "$missing_bin/lspci"
 ln -s "$(command -v sort)" "$missing_bin/sort"
 dictation_output=$(PATH="$missing_bin" run_arch_bindings "$dictation_home")
 if grep -Fq 'dictation' <<<"$dictation_output"; then fail "unconfigured dictation leaves application shortcuts available"; fi
-cat > "$missing_bin/arch-default-dictation" <<'SH'
+cat > "$missing_bin/archctl" <<'SH'
 #!/bin/bash
+[[ $1 == default && $2 == dictation ]] || exit 2
 echo future-backend
 SH
-chmod +x "$missing_bin/arch-default-dictation"
+chmod +x "$missing_bin/archctl"
 dictation_output=$(PATH="$missing_bin" run_arch_bindings "$dictation_home")
 if grep -Fq 'dictation' <<<"$dictation_output"; then fail "a selected backend that is not installed leaves application shortcuts available"; fi
 printf '#!/bin/bash\nexit 0\n' > "$missing_bin/future-backend"

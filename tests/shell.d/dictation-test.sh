@@ -65,6 +65,9 @@ fi
 SH
 cat > "$test_tmp/bin/archctl" <<'SH'
 #!/bin/bash
+if [[ ${1:-} == default && ${2:-} == dictation ]]; then
+  exec "$ARCH_TEST_CLI_BIN/archctl" "$@"
+fi
 if [[ ${1:-} == hw && ${2:-} == vulkan ]]; then
   exit 1
 fi
@@ -90,17 +93,17 @@ if arch-dictation start 2> "$test_tmp/error"; then
 fi
 [[ ! -e $DICTATION_LOG ]] || fail "recording never configures or installs a backend"
 pass "dictation requires explicit configuration"
-arch-default-dictation superwhisper
+archctl default dictation superwhisper
 [[ $(cat "$DICTATION_INSTALL_LOG") == "arch-install-dictation-superwhisper" ]] || fail "Defaults launches backend installer"
 [[ ! -e $config ]] || fail "Defaults does not select before setup succeeds"
-if arch-default-dictation unknown > "$test_tmp/output" 2>&1; then fail "missing installer must fail"; fi
-if arch-default-dictation '../invalid' > "$test_tmp/output" 2>&1; then fail "invalid backend must fail"; fi
+if archctl default dictation unknown > "$test_tmp/output" 2>&1; then fail "missing installer must fail"; fi
+if archctl default dictation '../invalid' > "$test_tmp/output" 2>&1; then fail "invalid backend must fail"; fi
 pass "Defaults delegates setup without prematurely selecting a backend"
 
 
 for backend in voxtype superwhisper; do
   printf '%s\n' "$backend" > "$config"
-  [[ $(arch-default-dictation) == "$backend" ]] || fail "configured backend is readable"
+  [[ $(archctl default dictation) == "$backend" ]] || fail "configured backend is readable"
   : > "$DICTATION_LOG"
   for action in start stop toggle; do archctl dictation "$action"; done
   if [[ $backend == "voxtype" ]]; then
@@ -124,7 +127,7 @@ cat > "$test_tmp/bin/arch-install-dictation-future-backend" <<'SH'
 exit 0
 SH
 chmod +x "$test_tmp/bin/arch-install-dictation-future-backend"
-arch-default-dictation future-backend
+archctl default dictation future-backend
 [[ $(cat "$DICTATION_INSTALL_LOG") == "arch-install-dictation-future-backend" ]] || fail "third backend installer requires no selector changes"
 printf '%s\n' future-backend > "$config"
 : > "$DICTATION_LOG"
@@ -147,7 +150,7 @@ if SETUP_EXIT=1 arch-install-dictation-superwhisper > "$test_tmp/output" 2>&1; t
 if DICTATION_EXIT=7 arch-install-dictation-superwhisper > "$test_tmp/output" 2>&1; then fail "failed shortcut setup must fail"; fi
 [[ $(cat "$config") == "voxtype" ]] || fail "failed shortcuts must preserve selection"
 arch-install-dictation-superwhisper
-[[ $(arch-default-dictation) == "superwhisper" ]] || fail "installer selects Superwhisper"
+[[ $(archctl default dictation) == "superwhisper" ]] || fail "installer selects Superwhisper"
 jq -e '.shortcuts | .hold == "" and .toggle == "Alt+Space"' "$SHORTCUT_STATE" >/dev/null || fail "installer repairs conflicting hold-only profiles"
 printf '%s\n' '{"shortcuts":{"hold":"RightAlt","toggle":"RightSuper","cancel":"Escape"}}' > "$SHORTCUT_STATE"
 arch-install-dictation-superwhisper
@@ -159,7 +162,7 @@ DICTATION_INSTALLED=superwhisper
 CONFIRM_EXIT=1 arch-install-dictation-voxtype
 [[ $(cat "$config") == "superwhisper" ]] || fail "cancelled installation preserves selection"
 arch-install-dictation-voxtype
-[[ $(arch-default-dictation) == "voxtype" ]] || fail "installer selects Voxtype"
+[[ $(archctl default dictation) == "voxtype" ]] || fail "installer selects Voxtype"
 DICTATION_INSTALLED="voxtype superwhisper"
 : > "$DICTATION_LOG"
 arch-install-dictation-voxtype
@@ -217,7 +220,7 @@ lua <<'LUA'
 local root = os.getenv("ROOT")
 local selected, installed, bindings = nil, true, {}
 io.popen = function(command)
-  assert(command == "arch-default-dictation 2>/dev/null")
+  assert(command == "archctl default dictation 2>/dev/null")
   return { read = function() return selected end, close = function() end }
 end
 o = {
@@ -254,7 +257,7 @@ pass "dictation shortcuts require an installed selection without limiting backen
 # Fresh users do not get a backend selection for software that is not installed.
 [[ ! -e $ROOT/config/arch/defaults/dictation ]] || fail "fresh users have no uninstalled dictation backend selected"
 rm -f "$config"
-if arch-default-dictation >"$test_tmp/default-dictation.out" 2>&1; then
+if archctl default dictation >"$test_tmp/default-dictation.out" 2>&1; then
   fail "fresh users have no dictation backend selected"
 fi
 [[ ! -e $config ]] || fail "fresh users have no dictation backend config"
@@ -269,7 +272,7 @@ local missing = false
 o = { cmd_missing = function() return missing end }
 local real_open, real_popen, real_dofile = io.open, io.popen, dofile
 io.popen = function(command)
-  assert(command == "arch-default-dictation 2>/dev/null")
+  assert(command == "archctl default dictation 2>/dev/null")
   return { read = function() return selected end, close = function() end }
 end
 io.open = function(path)
@@ -319,7 +322,7 @@ SH
 chmod +x "$test_tmp/bin/systemctl" "$test_tmp/bin/arch-pkg-drop"
 arch-remove-dictation-voxtype
 [[ ! -e $config ]] || fail "removing Voxtype clears selection"
-if arch-default-dictation 2> "$test_tmp/error"; then fail "removal must not auto-select another backend"; fi
+if archctl default dictation 2> "$test_tmp/error"; then fail "removal must not auto-select another backend"; fi
 pass "removal clears selection without automatic fallback"
 
 cat > "$test_tmp/bin/arch-shell" <<'SH'
