@@ -63,8 +63,8 @@ orchestrator:
   completion_marker: first-run-user
   timestamp_format: '%Y-%m-%d %H:%M:%S'
   notification_wait_before: welcome
-  done_check: [arch-done, check, '{completion_marker}']
-  done_mark: [arch-done, mark, '{completion_marker}']
+  done_check: [archctl, done, check, '{completion_marker}']
+  done_mark: [archctl, done, mark, '{completion_marker}']
   provision_user: [arch-provision-user]
   notification_wait: [archctl, notification, wait]
   messages:
@@ -138,7 +138,7 @@ user_units:
 fingerprint_invitation:
   hardware_check: [archctl, hw, fingerprint]
   pam_file: /etc/pam.d/arch-lock-fingerprint
-  marker: [arch-done, ensure, fingerprint-setup-invitation]
+  marker: [archctl, done, ensure, fingerprint-setup-invitation]
   notification:
     command: [arch-notification-send, -u, critical, -g, 󰈷]
     action: [--exec, arch-launch-terminal, arch-setup-security-fingerprint]

@@ -29,10 +29,10 @@ def main() -> int:
     home.mkdir()
 
     write_executable(
-      mock_bin / "arch-done",
+      mock_bin / "archctl",
       "#!/usr/bin/python3\n"
       "import os, sys\n"
-      "sys.exit(0 if sys.argv[1:] == ['check', 'first-run-user'] and os.getenv('ARCH_TEST_DONE') == '1' else 1)\n",
+      "sys.exit(0 if sys.argv[1:] == ['done', 'check', 'first-run-user'] and os.getenv('ARCH_TEST_DONE') == '1' else 1)\n",
     )
     write_executable(
       mock_bin / "arch-provision-user",

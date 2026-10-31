@@ -16,10 +16,10 @@ exit_codes:
   operation_failed: 1
 messages:
   en:
-    usage: 'Usage: arch-done <check|mark|ensure> <name>'
+    usage: 'Usage: archctl done <check|mark|ensure> <name>'
     invalid_name: 'Invalid done marker name: {name}'
     operation_failed: 'Could not update completion marker: {path}'
   it:
-    usage: 'Uso: arch-done <check|mark|ensure> <nome>'
+    usage: 'Uso: archctl done <check|mark|ensure> <nome>'
     invalid_name: 'Nome del marker di completamento non valido: {name}'
     operation_failed: 'Impossibile aggiornare il marker di completamento: {path}'
