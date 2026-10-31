@@ -18,7 +18,7 @@ runtime_dir="$test_tmp/runtime"
 snapshot_marker="$test_tmp/snapshot"
 gum_marker="$test_tmp/gum"
 mkdir -p "$runtime_dir"
-for command in arch-update arch-update-requires-free-space arch-i18n; do
+for command in arch-update arch-i18n; do
   rm -f "$stub_bin/$command"
   copy_boundary_file "src/arch/commands/$command"
 done
@@ -51,6 +51,8 @@ write_stub() {
 $body
 SH
   chmod +x "$stub_bin/$name"
+  rm -f "$SUDO_TEST_ROOT/src/arch/commands/$name"
+  ln -s "$stub_bin/$name" "$SUDO_TEST_ROOT/src/arch/commands/$name"
 }
 
 write_stub archctl '
@@ -68,6 +70,12 @@ fi
 if [[ ${1:-} == "snapshot" && ${2:-} == "create" ]]; then
   touch "$SNAPSHOT_MARKER"
   exit 0
+fi
+if [[ ${1:-} == "hook" ]]; then
+  exit 0
+fi
+if [[ ${1:-} == "update" && ${2:-} == "requires" && ${3:-} == "free" && ${4:-} == "space" ]]; then
+  AP="$ROOT" exec "$ROOT/src/arch/commands/archctl" "$@"
 fi
 [[ $1 == "update" && $2 == "confirm" ]] || exit 2
 AP="$ROOT" "$ROOT/src/arch/commands/archctl" "$@"'
@@ -109,12 +117,29 @@ write_stub pkexec 'exec "$@"'
 
 set +e
 TEST_AVAILABLE_BYTES=$((9 * 1024 * 1024 * 1024)) \
+  AP="$ROOT" \
   PATH="$stub_bin:$ROOT/src/arch/commands:$PATH" \
-  "$ROOT/src/arch/commands/arch-update-requires-free-space" >/dev/null
+  archctl update requires free space >/dev/null
 status=$?
 set -e
 (( status == 1 )) || fail "free-space helper exits non-zero when disk space is low"
 pass "free-space helper reports low disk space through its exit status"
+
+AP="$ROOT" PYTHONPATH="$ROOT/src" python3 - <<'PY' || fail "a hanging disk-space query is stopped within its configured timeout"
+from copy import deepcopy
+import sys
+import time
+
+from arch.cli.update.space_guard import _settings, available_bytes
+
+settings = deepcopy(_settings())
+settings["command"] = [sys.executable, "-c", "import time; time.sleep(10)"]
+settings["limits"]["command_timeout_seconds"] = 1
+started = time.monotonic()
+assert available_bytes(settings) is None
+assert time.monotonic() - started < 4
+PY
+pass "a hanging disk-space query is stopped within its configured timeout"
 
 set +e
 output=$(run_update -y)

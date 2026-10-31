@@ -96,7 +96,7 @@ trap 'echo ""; echo -e "\033[0;31mSomething went wrong during the update!\n\nPle
 trap cleanup_update EXIT
 arch_security_install_signal_exit_traps
 
-arch-update-requires-free-space
+archctl update requires free space
 
 # -y suppresses os confirmation prompts; sudo authorization is still
 # required. Interactive review steps report and move on instead of waiting.

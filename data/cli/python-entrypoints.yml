@@ -175,6 +175,14 @@ entrypoints:
     group: update
     name: available
     summary: Check whether system updates are available
+  - binary: arch-update-requires-free-space
+    module: update/space_guard
+    function: main
+    group: update
+    name: requires free space
+    summary: Check free disk space required for an update
+    hidden: 'true'
+    pass_args: 'true'
   - binary: arch-update-confirm
     module: update/confirm
     function: main

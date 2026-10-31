@@ -13,7 +13,6 @@ stub_bin="$SUDO_TEST_ROOT/src/arch/commands"
 # so a recheck after the update would show up as an unexpected step.
 steps=(
   arch-update-lock
-  arch-update-requires-free-space
   archctl
   arch-update-pkg-prune
   archctl
@@ -43,6 +42,9 @@ if [[ $step == archctl && ${1:-} == hook ]]; then
 elif [[ $step == archctl && ${1:-} == snapshot ]]; then
   step=arch-snapshot
 fi
+if [[ $step == archctl && ${1:-} == update && ${2:-} == requires && ${3:-} == free && ${4:-} == space ]]; then
+  printf '%s\n' "$*" >>"$STEP_LOG.routes"
+fi
 printf '%s unattended=%s\n' "$step" "${ARCH_UPDATE_UNATTENDED:-}" >>"$STEP_LOG"
 if [[ ${0##*/} == "arch-update-orphan-pkgs" ]]; then
   printf '%s\n' "$@" >"$STEP_LOG.orphan-args"
@@ -59,6 +61,7 @@ done
 # itself under; the stubbed lock reports itself already held.
 run_update() {
   : >"$test_tmp/steps"
+  : >"$test_tmp/steps.routes"
   STEP_LOG="$test_tmp/steps" \
     FAILING_STEP="${FAILING_STEP:-}" \
     ARCH_UPDATE_LOGGED=1 \
@@ -75,7 +78,7 @@ steps_run() {
 expected_steps() {
   printf '%s\n' \
     arch-update-lock \
-    arch-update-requires-free-space \
+    archctl \
     ${1:+archctl} \
     arch-update-pkg-prune \
     arch-snapshot \
@@ -98,6 +101,8 @@ expected_steps() {
 run_update -y || fail "an update where everything works reports a failure"
 diff <(expected_steps) <(steps_run) >"$test_tmp/order" ||
   fail "an update where everything works does not run every step in order" "$(cat "$test_tmp/order")"
+[[ $(head -n 1 "$test_tmp/steps.routes") == "update requires free space" ]] ||
+  fail "an update checks free space through the unified CLI route"
 pass "an update where every step works runs all of them, in order"
 [[ $(cat "$test_tmp/steps.orphan-args") == "-y" ]] || fail "an unattended update approves orphan removal"
 pass "an unattended update approves orphan removal"
