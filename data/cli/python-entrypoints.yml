@@ -540,6 +540,7 @@ entrypoints:
     args: <path-to-media>
     examples: archctl theme bg set ~/Pictures/background.png
     pass_args: 'true'
+    generate_launcher: "false"
   - binary: arch-theme-current
     module: theme/info
     function: theme_current_main

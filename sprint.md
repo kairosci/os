@@ -117,3 +117,4 @@ PR #483 was closed when its base branch was deleted during integration. Its chan
 | #598 | Route the background session marker through the unified CLI |
 | #599 | Route font callers through the unified CLI |
 | #600 | Route Plymouth theme directory lookup through the unified CLI |
+| #601 | Route background selection through the unified CLI |

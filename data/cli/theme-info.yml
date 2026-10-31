@@ -11,7 +11,7 @@ paths:
 background_cycle:
   extensions: [.jpg, .jpeg, .png, .gif, .bmp, .webp, .mp4, .m4v, .mov, .webm, .mkv, .avi]
   commands:
-    set_background: [arch-theme-bg-set]
+    set_background: [archctl, theme, bg, set]
     translate: [arch-i18n]
     notify: [arch-notification-send]
   no_background_message: theme.noBackground
@@ -46,8 +46,8 @@ messages:
     en: "Usage: archctl theme dir <theme-name>"
     it: "Uso: archctl theme dir <nome-tema>"
   background_set_usage:
-    en: "Usage: arch-theme-bg-set <path-to-media>"
-    it: "Uso: arch-theme-bg-set <percorso-media>"
+    en: "Usage: archctl theme bg set <path-to-media>"
+    it: "Uso: archctl theme bg set <percorso-media>"
   background_file_missing:
     en: "File does not exist: {path}"
     it: "Il file non esiste: {path}"
