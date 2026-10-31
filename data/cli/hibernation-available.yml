@@ -1,0 +1,11 @@
+paths:
+  swaps: /proc/swaps
+  image_size: /sys/power/image_size
+  resume_config: /etc/mkinitcpio.conf.d/arch_resume.conf
+swap_size_bytes_per_unit: 1024
+swap_size_column: 2
+swap_header_lines: 1
+excluded_swap_name_fragments: [zram]
+statuses:
+  available: 0
+  unavailable: 1

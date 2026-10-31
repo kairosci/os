@@ -236,6 +236,13 @@ entrypoints:
     summary: Install a hook into ~/.config/arch/hooks/<type>.d/
     args: <type> <file>
     examples: archctl hook install post-update ~/my-hook
+  - binary: arch-hibernation-available
+    module: hibernation/available
+    function: main
+    group: hibernation
+    name: available
+    summary: Check whether the system can hibernate
+    hidden: 'true'
   - binary: arch-hw-aarch64
     module: hardware/architecture
     function: aarch64_main

@@ -63,6 +63,39 @@ ARCH_TEST_REBUILD_LOG="$tmpdir/rebuild.log" \
   fail "mkinitcpio remains available without the optional Limine integration"
 pass "kernel image rebuilds follow the active bootloader"
 
+hibernation_ap="$tmpdir/hibernation-ap"
+mkdir -p "$hibernation_ap/data/cli" "$tmpdir/power" "$tmpdir/etc/mkinitcpio.conf.d"
+ln -s "$ROOT/src" "$hibernation_ap/src"
+cat >"$hibernation_ap/data/cli/hibernation-available.yml" <<EOF
+paths:
+  swaps: '$tmpdir/swaps'
+  image_size: '$tmpdir/power/image_size'
+  resume_config: '$tmpdir/etc/mkinitcpio.conf.d/arch_resume.conf'
+swap_size_bytes_per_unit: 1024
+swap_size_column: 2
+swap_header_lines: 1
+excluded_swap_name_fragments: [zram]
+statuses:
+  available: 0
+  unavailable: 1
+EOF
+printf 'Filename Type Size Used Priority\n/dev/swap partition 2 0 -2\n/dev/zram0 partition 4096 0 100\n' >"$tmpdir/swaps"
+printf '2048\n' >"$tmpdir/power/image_size"
+printf 'resume=fixture\n' >"$tmpdir/etc/mkinitcpio.conf.d/arch_resume.conf"
+
+status=0
+AP="$hibernation_ap" "$ARCH_TEST_CLI_BIN/arch-hibernation-available" || status=$?
+(( status == 1 )) || fail "hibernation is unavailable when swap only equals the image size" "$status"
+pass "hibernation requires swap to exceed the image size"
+
+printf '2047\n' >"$tmpdir/power/image_size"
+AP="$hibernation_ap" "$ARCH_TEST_CLI_BIN/arch-hibernation-available" || fail "hibernation is available when non-zram swap exceeds the image size"
+rm "$tmpdir/etc/mkinitcpio.conf.d/arch_resume.conf"
+status=0
+AP="$hibernation_ap" "$ARCH_TEST_CLI_BIN/arch-hibernation-available" || status=$?
+(( status == 1 )) || fail "hibernation is unavailable without its resume configuration" "$status"
+pass "hibernation availability requires a resume configuration"
+
 if [[ ! -f /sys/power/image_size ]]; then
   skip "hibernation is unavailable; skipping setup prompt test"
   exit 0
