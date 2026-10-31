@@ -1,0 +1,29 @@
+paths:
+  usb_root_default: /sys/bus/usb/devices
+  usb_root_environment: ARCH_USB_DEVICES_PATH
+  usb_device_glob: '*'
+  product_file: product
+  vendor_file: idVendor
+  interface_glob: '*:*'
+  driver_link: driver
+  platform_manifest_default: /usr/share/arch-platform/fingerprint-readers
+  platform_manifest_environment: ARCH_PLATFORM_FINGERPRINT_READERS_PATH
+  encoding: utf-8
+identifiers:
+  platform_manifest_fields: 2
+  ignored_kernel_driver: usbfs
+  product_substrings: [fingerprint, biometric, 'elan:arm-m4', ft9365]
+  product_prefixes: ['fpc ']
+  usb_vendor_ids: ['27c6', '138a', '06cb', '08ff', '1c7a', '147e']
+limits:
+  manifest_bytes: 65536
+  attribute_bytes: 4096
+  platform_matches: 4096
+  usb_devices: 4096
+  usb_interfaces: 256
+statuses:
+  detected: 0
+  not_detected: 1
+  configuration_error: 78
+messages:
+  detection_failed: Could not detect a fingerprint reader because its configuration or system data is invalid.
