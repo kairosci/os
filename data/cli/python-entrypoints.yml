@@ -510,6 +510,7 @@ entrypoints:
     summary: "Print a workspace layout: tiling or scrolling"
     args: "[workspace-id]"
     pass_args: 'true'
+    generate_launcher: "false"
   - binary: arch-restart-app
     module: restart/app
     function: restart_app_main
