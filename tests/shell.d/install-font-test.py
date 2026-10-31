@@ -21,7 +21,7 @@ with tempfile.TemporaryDirectory(prefix="install-font-") as temporary:
     "with open(os.environ['FONT_LOG'], 'a', encoding='utf-8') as stream:\n"
     "  stream.write(json.dumps([pathlib.Path(sys.argv[0]).name, *sys.argv[1:]]) + '\\n')\n"
   )
-  for command in ("arch-pkg-add", "fc-cache", "arch-font-set"):
+  for command in ("arch-pkg-add", "fc-cache", "archctl"):
     path = bin_dir / command
     path.write_text(stub, encoding="utf-8")
     path.chmod(0o755)
@@ -45,7 +45,7 @@ with tempfile.TemporaryDirectory(prefix="install-font-") as temporary:
   expected = [
     ["arch-pkg-add", "ttf-example"],
     ["fc-cache", "-f"],
-    ["arch-font-set", "Family Example"],
+    ["archctl", "font", "set", "Family Example"],
   ]
   if calls != expected:
     fail_check(f"preferred font installation and activation: {calls}")
@@ -76,7 +76,7 @@ with tempfile.TemporaryDirectory(prefix="install-font-") as temporary:
   config_path.write_text("set:\n  help_arguments: []\n", encoding="utf-8")
   invalid_environment = test_environment(AP=invalid_root)
   result = subprocess.run(
-    [str(CLI_BIN / "arch-font-set"), "--help"],
+    [str(CLI_BIN / "archctl"), "font", "set", "--help"],
     capture_output=True,
     text=True,
     env=invalid_environment,

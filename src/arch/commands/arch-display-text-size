@@ -131,8 +131,8 @@ term_pt_for() {
 
 # Set the font point size in terminal configs, creating Kitty overrides when
 # it inherits its size from the system config. Family is left
-# untouched — that is arch-font-set's job. Live-reload signals mirror
-# arch-font-set; foot has no reload signal, so running instances are nudged.
+# untouched — that is archctl font set's job. Live-reload signals mirror
+# archctl font set; foot has no reload signal, so running instances are nudged.
 set_terminal_size() {
   local pt="$1"
 
