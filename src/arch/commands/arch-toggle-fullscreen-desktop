@@ -10,7 +10,7 @@ case $ACTION in
   toggle|"")
     # Only leave full screen when both halves are already in it, so a lone bar
     # or a lone gap toggle is pulled into line rather than flipped away.
-    if arch-toggle-enabled bar-off && arch-hyprland-toggle-enabled window-no-gaps; then
+    if arch-toggle-enabled bar-off && archctl hyprland toggle enabled window-no-gaps; then
       ACTION="off"
     else
       ACTION="on"

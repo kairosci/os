@@ -1,6 +1,0 @@
-#!/bin/bash
-
-# arch:summary=Check if a Hyprland toggle is currently disabled (missing).
-# arch:args=<flag-name>
-
-[[ ! -f "$HOME/.local/state/arch/toggles/hypr/$1.lua" ]]

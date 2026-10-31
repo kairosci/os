@@ -14,7 +14,7 @@ wake() {
 }
 
 on() {
-  if arch-hyprland-toggle-enabled $TOGGLE; then
+  if archctl hyprland toggle enabled $TOGGLE; then
     arch-hyprland-toggle $TOGGLE off
     archctl notification send -g 󰍹 "$(arch-i18n monitor.laptopEnabled)"
   fi
@@ -40,7 +40,7 @@ off() {
     exit 1
   fi
 
-  if arch-hyprland-toggle-disabled $TOGGLE && arch-hyprland-toggle-disabled $MIRROR_TOGGLE; then
+  if archctl hyprland toggle disabled $TOGGLE && archctl hyprland toggle disabled $MIRROR_TOGGLE; then
     printf 'hl.monitor({ output = "%s", disabled = true })\n' "$INTERNAL" >"$TOGGLE_FLAG"
     archctl notification send -g 󰍹 "$(arch-i18n monitor.laptopDisabled)"
     hyprctl reload
@@ -52,14 +52,14 @@ recover() {
   # unless it actually re-enables a display: an unconditional wake here undoes
   # lock-screen blanking and races the resume modeset into a visible flash.
   archctl hyprland monitor external active && return 0
-  arch-hyprland-toggle-enabled $TOGGLE || return 0
+  archctl hyprland toggle enabled $TOGGLE || return 0
 
   arch-hyprland-toggle $TOGGLE off
   wake
 }
 
 toggle() {
-  if arch-hyprland-toggle-enabled $TOGGLE; then
+  if archctl hyprland toggle enabled $TOGGLE; then
     on
   else
     off

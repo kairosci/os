@@ -33,7 +33,7 @@ on() {
 
   arch-hyprland-toggle $DISABLE_TOGGLE off
 
-  if arch-hyprland-toggle-disabled $TOGGLE; then
+  if archctl hyprland toggle disabled $TOGGLE; then
     printf 'hl.monitor({ output = "%s", mode = "preferred", position = "auto", scale = 1, mirror = "%s" })\n' "$EXTERNAL" "$INTERNAL" >"$TOGGLE_FLAG"
     archctl notification send -g 󰍹 "$(arch-i18n monitor.mirroringEnabled "$EXTERNAL")"
     hyprctl reload
@@ -41,14 +41,14 @@ on() {
 }
 
 off() {
-  if arch-hyprland-toggle-enabled $TOGGLE; then
+  if archctl hyprland toggle enabled $TOGGLE; then
     arch-hyprland-toggle $TOGGLE off
     archctl notification send -g 󰍹 "$(arch-i18n monitor.extendedRestored)"
   fi
 }
 
 toggle() {
-  if arch-hyprland-toggle-enabled $TOGGLE; then
+  if archctl hyprland toggle enabled $TOGGLE; then
     off
   else
     on
@@ -56,7 +56,7 @@ toggle() {
 }
 
 recover() {
-  if ! archctl hyprland monitor external active && arch-hyprland-toggle-enabled $TOGGLE; then
+  if ! archctl hyprland monitor external active && archctl hyprland toggle enabled $TOGGLE; then
     arch-hyprland-toggle $TOGGLE off
   fi
 }
