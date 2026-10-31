@@ -7,7 +7,7 @@ TOGGLE="internal-monitor-disable"
 TOGGLE_FLAG="$HOME/.local/state/arch/toggles/hypr/$TOGGLE.lua"
 MIRROR_TOGGLE="internal-monitor-mirror"
 
-INTERNAL=$(arch-hyprland-monitor-laptop)
+INTERNAL=$(archctl hyprland monitor laptop)
 
 wake() {
   hyprctl dispatch 'hl.dsp.dpms({ action = "enable" })' >/dev/null 2>&1 || true

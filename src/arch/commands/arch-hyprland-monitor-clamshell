@@ -9,7 +9,7 @@ MANUAL_DISABLE_FLAG="$TOGGLES_DIR/internal-monitor-disable.lua"
 SCALE_STATE="$TOGGLES_DIR/internal-monitor-scale"
 MONITOR_LUA="$HOME/.config/hypr/monitors.lua"
 
-INTERNAL=$(arch-hyprland-monitor-laptop)
+INTERNAL=$(archctl hyprland monitor laptop)
 
 # INTERNAL is written into generated Lua and hyprctl eval/dispatch below, so a
 # name that is not a plain connector string could execute on the next reload.

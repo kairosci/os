@@ -7,7 +7,7 @@ TOGGLE="internal-monitor-mirror"
 TOGGLE_FLAG="$HOME/.local/state/arch/toggles/hypr/$TOGGLE.lua"
 DISABLE_TOGGLE="internal-monitor-disable"
 
-INTERNAL=$(arch-hyprland-monitor-laptop)
+INTERNAL=$(archctl hyprland monitor laptop)
 # The first active external monitor
 EXTERNAL=$(hyprctl monitors -j | jq -r '.[] | select(.name | test("^(eDP|LVDS|DSI)-") | not).name' | head -n 1)
 

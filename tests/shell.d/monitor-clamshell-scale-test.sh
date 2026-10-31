@@ -46,9 +46,9 @@ cat >"$stub_bin/arch-hyprland-monitor-internal-mirror" <<'SH'
 exit 0
 SH
 
-cat >"$stub_bin/arch-hyprland-monitor-laptop" <<'SH'
+cat >"$stub_bin/archctl" <<'SH'
 #!/bin/bash
-echo eDP-1
+[[ $* == "hyprland monitor laptop" ]] && echo eDP-1
 SH
 
 cat >"$stub_bin/arch-hyprland-monitor-external-active" <<'SH'
