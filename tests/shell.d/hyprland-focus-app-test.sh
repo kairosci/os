@@ -3,6 +3,7 @@
 set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
+export AP="$ROOT"
 
 test_tmp=$(mktemp -d)
 trap 'rm -rf "$test_tmp"' EXIT
@@ -24,7 +25,7 @@ dispatch_log="$test_tmp/dispatch"
 clients_json='[{"address":"0xabc","class":"chromium"}]'
 PATH="$mock_bin:$PATH" AP="$ROOT" ARCH_TEST_CLIENTS_JSON="$clients_json" \
   ARCH_TEST_FOCUS_DISPATCH="$dispatch_log" \
-  "$ARCH_TEST_CLI_BIN/arch-hyprland-focus-app" '^chromium$'
+  archctl hyprland focus app '^chromium$'
 
 grep -F 'hl.dsp.focus({ window = "address:0xabc" })' "$dispatch_log" >/dev/null || \
   fail "app focus uses the workspace-aware Hyprland dispatcher"
@@ -37,7 +38,7 @@ clients_json='[
 ]'
 PATH="$mock_bin:$PATH" AP="$ROOT" ARCH_TEST_CLIENTS_JSON="$clients_json" \
   ARCH_TEST_FOCUS_DISPATCH="$dispatch_log" \
-  "$ARCH_TEST_CLI_BIN/arch-hyprland-focus-app" kitty
+  archctl hyprland focus app kitty
 
 grep -F 'hl.dsp.focus({ window = "address:0xkitty" })' "$dispatch_log" >/dev/null || \
   fail "app focus matches the concrete application class"
@@ -50,7 +51,7 @@ clients_json='[
 rm -f "$dispatch_log"
 if PATH="$mock_bin:$PATH" AP="$ROOT" ARCH_TEST_CLIENTS_JSON="$clients_json" \
   ARCH_TEST_FOCUS_DISPATCH="$dispatch_log" \
-  "$ARCH_TEST_CLI_BIN/arch-hyprland-focus-app" Mail; then
+  archctl hyprland focus app Mail; then
   fail "app focus rejects title matches"
 fi
 
@@ -64,7 +65,7 @@ clients_json='[
 ]'
 PATH="$mock_bin:$PATH" AP="$ROOT" ARCH_TEST_CLIENTS_JSON="$clients_json" \
   ARCH_TEST_FOCUS_DISPATCH="$dispatch_log" \
-  "$ARCH_TEST_CLI_BIN/arch-hyprland-focus-app" '^chromium$'
+  archctl hyprland focus app '^chromium$'
 
 grep -F 'hl.dsp.focus({ window = "address:0xrecent" })' "$dispatch_log" >/dev/null || \
   fail "app focus picks the window focused last"

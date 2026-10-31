@@ -38,9 +38,9 @@ cat >"$mock_bin/systemd-run" <<'SH'
 #!/bin/bash
 printf '%s\n' "$*" >"$ARCH_TEST_BROWSER_LAUNCH"
 SH
-cat >"$mock_bin/arch-hyprland-focus-app" <<'SH'
+cat >"$mock_bin/archctl" <<'SH'
 #!/bin/bash
-printf '%s\n' "$1" >"$ARCH_TEST_BROWSER_FOCUS"
+[[ $* == hyprland\ focus\ app\ * ]] && printf '%s\n' "$4" >"$ARCH_TEST_BROWSER_FOCUS"
 SH
 chmod +x "$mock_bin"/*
 

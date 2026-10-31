@@ -466,6 +466,7 @@ entrypoints:
     summary: Focus a Hyprland window by application identity
     args: <app-name>
     examples: archctl hyprland focus app Slack
+    generate_launcher: "false"
   - binary: arch-hyprland-monitor-focused
     module: hyprland/monitors
     function: focused_main

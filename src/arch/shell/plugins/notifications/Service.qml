@@ -1139,7 +1139,7 @@ Item {
       else if (Markup.hostname(row.source))
         Security.openExternalUrl("https://" + Markup.hostname(row.source) + "/")
       else if (String(row.link || "")) Security.openExternalUrl(String(row.link))
-      else if (String(row.app || "")) Util.execArgv(["arch-hyprland-focus-app", String(row.app)])
+      else if (String(row.app || "")) Util.execArgv(["archctl", "hyprland", "focus", "app", String(row.app)])
     }
     closeToast(key, "activated")
   }
