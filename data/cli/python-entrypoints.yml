@@ -390,6 +390,7 @@ entrypoints:
     summary: Match against the computer's DMI product name or product family (case-insensitive).
     args: <pattern>
     pass_args: "true"
+    generate_launcher: "false"
   - binary: arch-hw-match-device-tree
     module: hardware/match_device_tree
     function: match_device_tree_main

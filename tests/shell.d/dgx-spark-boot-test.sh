@@ -36,9 +36,9 @@ machine() {
     printf '%s\n' "$3" >"$dir/sys/bus/pci/devices/000f:01:00.0/device"
   fi
   printf '#!/bin/bash\n[[ ${1:-} == -m ]] && { echo aarch64; exit 0; }\nexec /usr/bin/uname "$@"\n' >"$dir/bin/uname"
-  # arch-hw-match reads the fixed /sys/class/dmi/id; read the fixture's instead.
-  printf '#!/bin/bash\ngrep -qi -- "$1" "%s/dmi/product_name"\n' "$dir" >"$dir/bin/arch-hw-match"
-  chmod +x "$dir/bin/uname" "$dir/bin/arch-hw-match"
+  # The router's DMI matcher reads the fixed /sys/class/dmi/id; read the fixture's instead.
+  printf '#!/bin/bash\n[[ ${1:-} == hw && ${2:-} == match ]] || exit 2\ngrep -qi -- "${3:-}" "%s/dmi/product_name"\n' "$dir" >"$dir/bin/archctl"
+  chmod +x "$dir/bin/uname" "$dir/bin/archctl"
 }
 machine spark NVIDIA_DGX_Spark 0x2e12
 machine gx10 GX10 0x2e12

@@ -1,5 +1,5 @@
 hardware_check: [arch-hw-aarch64-gb10]
-model_check: [arch-hw-match, NVIDIA_DGX_Spark]
+model_check: [archctl, hw, match, NVIDIA_DGX_Spark]
 direct_boot_check: [arch-boot-direct]
 config_directory_environment: ARCH_LIMINE_CONFIG_DIR
 config_directory_default: /etc/limine-entry-tool.d
