@@ -540,6 +540,15 @@ entrypoints:
     args: <flag-name>
     examples: archctl toggle enabled screensaver-off
     pass_args: 'true'
+  - binary: arch-toggle
+    module: toggle/state
+    function: set_main
+    group: toggle
+    name: set
+    summary: Enable, disable, or flip a persistent Arch toggle
+    args: <flag-name> [toggle|on|off]
+    examples: archctl toggle set screensaver-off off
+    pass_args: 'true'
   - binary: arch-theme-bg-current
     module: theme/info
     function: background_current_main

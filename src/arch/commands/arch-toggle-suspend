@@ -7,7 +7,7 @@ if archctl sleep disabled; then
   exit 0
 fi
 
-arch-toggle suspend-off
+archctl toggle set suspend-off
 
 if archctl toggle enabled suspend-off; then
   archctl notification send -g 󰒲 "$(arch-i18n suspend.removedFromMenu)"

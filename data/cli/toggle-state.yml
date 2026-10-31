@@ -1,1 +1,8 @@
 home_relative_state_directory: .local/state/arch/toggles
+actions:
+  enable: "on"
+  disable: "off"
+  toggle: "toggle"
+messages:
+  usage: "Usage: archctl toggle set <flag-name> [toggle|on|off]"
+  state_error: "Could not update toggle state"

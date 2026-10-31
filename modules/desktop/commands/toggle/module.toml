@@ -2,7 +2,6 @@ id = "desktop.commands.toggle"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/arch/commands/arch-toggle",
   "src/arch/commands/arch-toggle-animations",
   "src/arch/commands/arch-toggle-bar",
   "src/arch/commands/arch-toggle-crash-capture",
@@ -19,10 +18,6 @@ sources = [
   "src/arch/commands/arch-toggle-touchscreen",
 ]
 requires = ["desktop.commands", "system.runtime-data"]
-
-[[output]]
-source = "src/arch/commands/arch-toggle"
-target = "usr/share/arch/src/arch/commands/arch-toggle"
 
 [[output]]
 source = "src/arch/commands/arch-toggle-animations"

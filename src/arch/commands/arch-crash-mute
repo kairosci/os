@@ -62,7 +62,7 @@ case "$action" in
     ;;
 esac
 
-arch-toggle "crash-ignore/$program" "$action" || exit 1
+archctl toggle set "crash-ignore/$program" "$action" || exit 1
 
 # Report what is now true rather than what was asked for: the flag is what the
 # watcher reads, and a toggle does not say which way it went.

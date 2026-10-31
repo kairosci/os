@@ -19,24 +19,25 @@ TMPDIR=$(mktemp -d)
 test_home="$TMPDIR/home"
 flag="$test_home/.local/state/arch/toggles/example"
 bar_flag="$test_home/.local/state/arch/toggles/bar-off"
+export AP="$ROOT"
 
-HOME="$test_home" arch-toggle example on
+HOME="$test_home" archctl toggle set example on
 [[ -f $flag ]] || fail "generic toggle enables explicit on state"
 pass "generic toggle enables explicit on state"
 
-HOME="$test_home" arch-toggle example on
+HOME="$test_home" archctl toggle set example on
 [[ -f $flag ]] || fail "generic toggle on is idempotent"
 pass "generic toggle on is idempotent"
 
-HOME="$test_home" arch-toggle example off
+HOME="$test_home" archctl toggle set example off
 [[ ! -f $flag ]] || fail "generic toggle disables explicit off state"
 pass "generic toggle disables explicit off state"
 
-HOME="$test_home" arch-toggle example
+HOME="$test_home" archctl toggle set example
 [[ -f $flag ]] || fail "generic toggle flips disabled state on"
 pass "generic toggle flips disabled state on"
 
-HOME="$test_home" arch-toggle example toggle
+HOME="$test_home" archctl toggle set example toggle
 [[ ! -f $flag ]] || fail "generic toggle flips enabled state off"
 pass "generic toggle flips enabled state off"
 
@@ -54,7 +55,6 @@ pass "bar off disables bar-off toggle"
 
 # Hyprland toggle state is routed through the Python module; give it this
 # checkout and a hyprctl that answers without a compositor.
-export AP="$ROOT"
 stub_bin="$TMPDIR/bin"
 mkdir -p "$stub_bin"
 printf '#!/bin/bash\nexit 0\n' >"$stub_bin/hyprctl"

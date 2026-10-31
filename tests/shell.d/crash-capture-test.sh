@@ -361,14 +361,17 @@ rmdir "$(mute_flag notactuallymuted)"
 # command can print success for a flag that was never created.
 failing_bin="$TMPDIR/failing-bin"
 mkdir -p "$failing_bin"
-cat >"$failing_bin/arch-toggle" <<'SH'
+cat >"$failing_bin/archctl" <<'SH'
 #!/bin/bash
-exit 1
+if [[ ${1:-} == toggle && ${2:-} == set ]]; then
+  exit 1
+fi
+exec "$ROOT/src/arch/commands/archctl" "$@"
 SH
-chmod +x "$failing_bin/arch-toggle"
+chmod +x "$failing_bin/archctl"
 
 status=0
-refusal=$(HOME="$mute_home" PATH="$failing_bin:$ROOT/src/arch/commands:$PATH" \
+refusal=$(HOME="$mute_home" AP="$ROOT" PATH="$failing_bin:$ROOT/src/arch/commands:$PATH" \
   "$ROOT/src/arch/commands/arch-crash-mute" hyprland 2>&1) || status=$?
 (( status != 0 )) ||
   fail "a mute that could not be written exits zero, so nothing downstream learns it failed"

@@ -4,7 +4,7 @@
 # arch:args=[toggle|on|off]
 # arch:examples=archctl toggle bar | archctl toggle bar off | archctl toggle bar on
 
-arch-toggle bar-off "${1:-toggle}"
+archctl toggle set bar-off "${1:-toggle}"
 
 # The shell's watch on the toggles directory can miss flag changes that land in
 # quick succession, stranding the bar off screen until the shell restarts.
