@@ -52,7 +52,7 @@ Bring the actual installation UI and its target provisioning code into repositor
 
 ### 8. Connect release assembly and distribution
 
-Have the release workflow build the ISO from the local profile, validate the resulting image, split it into assets no larger than 2 GB, publish the manifest, and attach all parts to the release. Keep the existing downloader's checksum checks and atomic reassembly. Test failure paths for missing, oversized, and corrupted assets.
+Have the release workflow build the ISO from the local profile, validate the resulting image, split it into assets no larger than 2 GB, publish the manifest, and attach all parts to the release. Keep the existing downloader's checksum checks and atomic reassembly. The workflow must pin the exact validated commit across both architecture builds and publication; publishing is allowed only for an existing `v*` tag pointing to that commit. Test failure paths for missing, oversized, and corrupted assets, then verify download and assembly from a published release.
 
 ### 9. Move default app rules into user configuration — implemented
 

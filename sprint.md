@@ -110,3 +110,4 @@ PR #483 was closed when its base branch was deleted during integration. Its chan
 | #591 | Retire the update status flat launcher |
 | #592 | Retire unused Python CLI flat launchers |
 | #593 | Route menu and emoji actions through the unified CLI |
+| #594 | Pin ISO builds to the validated release source |
