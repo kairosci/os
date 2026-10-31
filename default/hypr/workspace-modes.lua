@@ -6,7 +6,6 @@ local hyprland_layouts = { tiling = "dwindle", scrolling = "scrolling" }
 
 function o.workspace_mode(spec)
   local mode = spec.default or spec.mode
-  if mode == "floating" then mode = "scrolling" end
   if mode == "dwindle" then mode = "tiling" end
   local layout = hyprland_layouts[mode]
   if not layout then return end

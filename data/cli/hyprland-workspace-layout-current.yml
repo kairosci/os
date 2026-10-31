@@ -14,7 +14,7 @@ fields:
   tiled_layout: tiledLayout
 values:
   tiling_modes: [tiling, dwindle]
-  scrolling_modes: [scrolling, floating]
+  scrolling_modes: [scrolling]
   fallback_mode: scrolling
 patterns:
   workspace_id: '^[0-9]+$'
