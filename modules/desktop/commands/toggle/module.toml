@@ -11,7 +11,7 @@ sources = [
   "src/arch/commands/arch-toggle-idle",
   "src/arch/cli/toggle/input_device.py",
   "src/arch/cli/toggle/nightlight.py",
-  "src/arch/commands/arch-toggle-notification-silencing",
+  "src/arch/cli/toggle/notification_silencing.py",
   "src/arch/commands/arch-toggle-screensaver",
   "src/arch/commands/arch-toggle-suspend",
 ]
@@ -63,8 +63,8 @@ source = "src/arch/cli/toggle/nightlight.py"
 target = "usr/share/arch/src/arch/cli/toggle/nightlight.py"
 
 [[output]]
-source = "src/arch/commands/arch-toggle-notification-silencing"
-target = "usr/share/arch/src/arch/commands/arch-toggle-notification-silencing"
+source = "src/arch/cli/toggle/notification_silencing.py"
+target = "usr/share/arch/src/arch/cli/toggle/notification_silencing.py"
 
 [[output]]
 source = "src/arch/commands/arch-toggle-screensaver"
