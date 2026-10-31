@@ -4,21 +4,22 @@ This roadmap tracks the requested CLI, ISO, desktop, and release work as separat
 
 ## Current evidence
 
-- `scripts/iso/` contains the CI-only native builder, checksum manifest, downloader, assembler, and release publisher. The x86 build produced a complete ISO in CI; the AArch64 builder now uses a pinned, signature-verified ARMv8 repository, and its post-merge build is still running. No release has been published because validation runs use `publish=false`.
-- The ISO profile is rendered from `data/iso/profile.yml`, and local runtime packages are built from this checkout. The full installer and its target provisioning flow are still absent from the ISO; end-to-end boot and install acceptance remains open.
-- The current source tree has 28 Python CLI modules and 454 flat command files under `src/arch/commands`; only four Python entrypoints are generated from `data/cli/python-entrypoints.yml`. The requested unified `os` router and removal of migrated flat wrappers are not complete. Build a generated route inventory before continuing module migration so callers and package assembly stay accounted for.
-- The workspace default is `scrolling`, and the menu presents `scrolling` and `tiling`. Stored legacy values are normalized at load, while compositor layout names remain implementation details.
-- Disktree has a shipped per-application Hyprland rule in `default/hypr/apps/disktree.lua`. The menu overflow indicator and battery glyph refresh have also been integrated; visual verification of the current battery charge state still needs a machine connected to external power.
+- `scripts/iso/` contains the CI-only native builder, checksum manifest, downloader, assembler, and release publisher. Workflow run `41133288654` built both x86_64 and AArch64 images successfully; its publish job was skipped. The GitHub repository currently has no releases, so a published multipart release has not yet been verified.
+- The profile is rendered from `data/iso/profile.yml` through `scripts/iso/profile/profiledef.py`. The builder creates a complete ISO and release parts capped at 1,900,000,000 bytes each, below GitHub's 2 GB per-asset limit. `scripts/iso/download.py` verifies release metadata and delegates checksum-checked assembly to `scripts/iso/parts.py`. The ISO includes `archinstall`, but this build evidence does not prove the repository's intended online, offline, and unattended target-install flows; those remain open for disposable-VM acceptance.
+- `src/arch/commands/` contains 441 command files and `src/arch/cli/` contains 28 Python modules. Thirteen entrypoints are declared in `data/cli/python-entrypoints.yml`; PR #538 removed their matching flat command files and generates package launchers from YAML. The remaining flat commands still need classification and migration before the requested cleanup is complete.
+- PR #507 established `scrolling` as the default and `tiling` as the only alternate public workspace mode. Stored legacy layout values are normalized during configuration loading; the compositor's internal layout names are implementation details.
+- PR #532 gives Disktree a per-application Hyprland rule that tiles and maximizes it. The repository does not yet provide the requested system-specific application configuration. The menu overflow indicator and the event-driven battery glyph refresh have been integrated; the current charging glyph has not been visually checked on a machine connected to external power.
+- The theme asset tree contains no keyboard image asset or keyboard-image reference. PR #539 removed Windows VM install and removal rows from the default menu; the existing command and user data remain untouched. Menu hierarchy, labels, focus behavior, and visual verification still need a broader review.
 
 ## Sprints
 
-### 1. Finish the public layout contract
+### 1. Finish the public layout contract — integrated
 
-Make `scrolling` the default in every shipped configuration, expose only `scrolling` and `tiling` in commands and menus, and migrate stored preferences without losing existing workspace state. Update English and Italian documentation and catalogs together. Verify the setting, current-mode query, toggle, and migration with focused tests.
+PR #507 made `scrolling` the default and exposed `tiling` as the only alternate public mode. Its configuration migration preserves existing workspace state and maps prior stored values to the supported modes. Keep this contract intact as CLI commands and menus are refined.
 
 ### 2. Inventory and classify CLI entrypoints
 
-For each executable in `src/arch/commands/`, record whether it is already backed by a Python module, still contains command behavior, or has callers that rely on its binary name. Match every public route to its YAML metadata and Python module. Keep the inventory generated from the catalog so it cannot silently drift.
+For each executable in `src/arch/commands/`, record whether it is already backed by a Python module, still contains command behavior, or has callers that rely on its binary name. Thirteen Python entrypoints are catalogued today, but the complete 441-file command tree has not been classified. Keep the inventory generated from source metadata so it cannot silently drift.
 
 ### 3. Move remaining command behavior into modules
 
@@ -32,9 +33,9 @@ After commands are catalogued, implemented as Python modules, and all in-reposit
 
 Make the package set reproducible from this checkout. Build the runtime and settings packages from their local `PKGBUILD`s, describe third-party package sources and versions in repository-owned manifests, and fail before ISO work starts when a source or package is unavailable. Keep architecture-specific packages explicit and preserve the platform names defined in `AGENTS.md`.
 
-### 6. Add the ISO profile and CI-only builder
+### 6. Add the ISO profile and CI-only builder — implemented, acceptance open
 
-Keep the repository-owned builder under `scripts/iso/` and its profile values in YAML rendered by `profiledef.py`. Validate host tools and build targets, produce the local package repository, invoke ArchISO only in the dedicated GitHub Actions release workflow, and emit bounded release parts with a checksum manifest. Local commands may download and assemble published images but must not generate an ISO. Completion requires successful native builds on both supported runner architectures.
+The repository-owned builder lives under `scripts/iso/`, and its profile values are rendered from YAML by `profiledef.py`. It validates tools and targets, builds the local package repository, invokes ArchISO only in the dedicated GitHub Actions workflow, and emits checksum-verified parts capped at 1,900,000,000 bytes. Local commands download and assemble images but cannot generate them. Run `41133288654` passed native builds on both supported runner architectures; boot and installation acceptance remains open.
 
 ### 7. Port the live installer and unattended path
 
@@ -44,9 +45,9 @@ Bring the actual installation UI and its target provisioning code into repositor
 
 Have the release workflow build the ISO from the local profile, validate the resulting image, split it into assets no larger than 2 GB, publish the manifest, and attach all parts to the release. Keep the existing downloader's checksum checks and atomic reassembly. Test failure paths for missing, oversized, and corrupted assets.
 
-### 9. Finish menu and theme polish
+### 9. Finish menu and theme polish — in progress
 
-Remove the keyboard image from every theme variant and its references. Review the menu hierarchy, labels, duplicate routes, checked state, and keyboard navigation against the supported layout modes. Keep the English and Italian catalogs synchronized and verify visible changes in the running desktop.
+The requested keyboard image is absent from the current theme assets and references. PR #539 removed Windows VM install and removal rows from the default menu and pruned their English and Italian catalog entries. Review the remaining hierarchy, labels, duplicate routes, checked state, keyboard navigation, and per-application defaults against the supported layout modes, then verify visible changes in the running desktop.
 
 ### 10. Release acceptance
 

@@ -44,5 +44,17 @@
 | #525 | Load the AppArmor policy from standard input |
 | #526 | Publish complete ArchISO images with release parts |
 | #527 | Use a signed ARMv8 repository for ISO builds |
+| #528 | Update roadmap with integrated sprint state |
+| #529 | Remove duplicate ISO error settings |
+| #530 | Count active ISO mirror directives |
+| #531 | Validate relative ISO profile key paths |
+| #532 | Tile and maximize Disktree windows |
+| #533 | Keep ArchISO worktree inside container |
+| #534 | Allow fchmodat2 in ArchISO container seccomp |
+| #535 | Build ARM GRUB without unavailable AT module |
+| #536 | Keep the charging indicator for slow charging |
+| #537 | Filter ARM GRUB modules by package availability |
+| #538 | Remove CLI wrappers backed by Python modules |
+| #539 | Remove Windows VM from the desktop menu |
 
 PR #483 was closed when its base branch was deleted during integration. Its change was rebased and merged as PR #499.
