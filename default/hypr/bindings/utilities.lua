@@ -14,7 +14,7 @@ o.bind("SUPER + CTRL + W", "Background switcher", { menu = "background" })
 o.bind("SUPER + SHIFT + CTRL + SPACE", "Theme menu", { menu = "theme" })
 o.bind("SUPER + CTRL + T", "Theme menu", { menu = "theme" })
 o.bind("SUPER + BACKSPACE", "Toggle transparency on a window", "arch-hyprland-window-transparency-toggle")
-o.bind("SUPER + SHIFT + BACKSPACE", "Toggle window gaps", "arch-hyprland-window-gaps-toggle")
+o.bind("SUPER + SHIFT + BACKSPACE", "Toggle window gaps", "archctl hyprland toggle window-no-gaps")
 o.bind("SUPER + CTRL + BACKSPACE", "Toggle single-window square aspect", "arch-hyprland-window-single-square-aspect-toggle")
 o.bind_toggle("SUPER + CTRL + ALT + F", "Toggle full screen desktop", "fullscreen-desktop")
 
