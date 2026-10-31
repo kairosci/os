@@ -102,6 +102,7 @@ entrypoints:
     summary: List available power profiles
     args: '[--active-state]'
     pass_args: 'true'
+    generate_launcher: "false"
   - binary: arch-powerprofiles-set
     module: powerprofiles/set
     function: main

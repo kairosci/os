@@ -51,15 +51,15 @@ export POWERPROFILES_REFRESH_LOG="$tmp_dir/refresh-calls"
 export XDG_STATE_HOME="$tmp_dir/state-home"
 profile_state_dir="$XDG_STATE_HOME/arch/powerprofiles"
 
-profiles=$(arch-powerprofiles-list)
+profiles=$(archctl powerprofiles list)
 [[ $profiles == $'performance\nbalanced\npower-saver' ]] || fail "power profile listing keeps the daemon order reversed" "$profiles"
 pass "power profile listing prints supported profiles in display order"
 
-active_profiles=$(arch-powerprofiles-list --active-state)
+active_profiles=$(archctl powerprofiles list --active-state)
 [[ $active_profiles == $'performance\t0\nbalanced\t1\npower-saver\t0' ]] || fail "power profile listing reports the active profile" "$active_profiles"
 pass "power profile listing reports active state on request"
 
-if arch-powerprofiles-list unexpected >/dev/null 2>&1; then
+if archctl powerprofiles list unexpected >/dev/null 2>&1; then
   fail "power profile listing rejects unknown arguments"
 fi
 pass "power profile listing rejects unknown arguments"
@@ -67,6 +67,8 @@ pass "power profile listing rejects unknown arguments"
 profile_ap="$tmp_dir/profile-ap"
 mkdir -p "$profile_ap/data/cli"
 ln -s "$ROOT/src" "$profile_ap/src"
+ln -s "$ROOT/data/cli/python-entrypoints.yml" "$profile_ap/data/cli/python-entrypoints.yml"
+ln -s "$ROOT/data/cli/groups.yml" "$profile_ap/data/cli/groups.yml"
 cat >"$profile_ap/data/cli/powerprofiles-list.yml" <<EOF
 command: ['$tmp_dir/bin/powerprofilesctl', list]
 timeout_seconds: 1
@@ -75,18 +77,18 @@ max_output_bytes: 8
 read_chunk_bytes: 4
 profile_line_pattern: '^\\s*(?P<active>\\*)?\\s*(?P<name>[a-zA-Z0-9-]+):\\s*$'
 active_state_option: --active-state
-usage: 'Usage: arch-powerprofiles-list [--active-state]'
+usage: 'Usage: archctl powerprofiles list [--active-state]'
 statuses:
   success: 0
   invalid_arguments: 1
 EOF
 
 slow_output=$(timeout --kill-after=1s 4s env AP="$profile_ap" POWERPROFILES_TEST_MODE=slow \
-  "$ARCH_TEST_CLI_BIN/arch-powerprofiles-list") || fail "power profile listing returns when the daemon stalls"
+  archctl powerprofiles list) || fail "power profile listing returns when the daemon stalls"
 [[ -z $slow_output ]] || fail "a timed out power profile query returns no partial profiles" "$slow_output"
 pass "power profile listing bounds a stalled daemon request"
 
-large_output=$(AP="$profile_ap" POWERPROFILES_TEST_MODE=large "$ARCH_TEST_CLI_BIN/arch-powerprofiles-list") ||
+large_output=$(AP="$profile_ap" POWERPROFILES_TEST_MODE=large archctl powerprofiles list) ||
   fail "an oversized power profile response is rejected without failing the caller"
 [[ -z $large_output ]] || fail "an oversized power profile response is not retained" "$large_output"
 pass "power profile listing caps daemon output before parsing"
