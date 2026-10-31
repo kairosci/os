@@ -1,0 +1,8 @@
+command: [arch-shell, shell, toggle, arch.weather]
+timeout_seconds: 4
+statuses:
+  timeout: 124
+  command_error: 127
+messages:
+  timeout: Toggling the weather panel timed out
+  command_error: Could not toggle the weather panel

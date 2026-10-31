@@ -119,6 +119,20 @@ grep -Fxq 'Usage: arch-notification-dismiss <summary>' "$tmp/dismiss-usage" ||
 [[ ! -s $tmp/dismiss-usage-error ]] || fail "notification dismiss keeps usage on standard output" "$(<"$tmp/dismiss-usage-error")"
 pass "notification dismiss validates its required summary"
 
+weather_bin="$tmp/weather-bin"
+weather_log="$tmp/weather-log"
+mkdir -p "$weather_bin"
+cat >"$weather_bin/arch-shell" <<'SH'
+#!/bin/bash
+printf '%s\n' "$@" >"$WEATHER_LOG"
+SH
+chmod +x "$weather_bin/arch-shell"
+AP="$ROOT" WEATHER_LOG="$weather_log" PATH="$weather_bin:$PATH" \
+  "$ARCH_TEST_CLI_BIN/arch-notification-weather" || fail "weather command reaches the shell toggle route"
+[[ $(<"$weather_log") == $'shell\ntoggle\narch.weather' ]] ||
+  fail "weather command preserves the existing IPC arguments" "$(<"$weather_log")"
+pass "weather command preserves the existing IPC route"
+
 service="$ROOT/src/arch/shell/plugins/notifications/Service.qml"
 
 # The startup step that makes the state directory, run as the service runs
