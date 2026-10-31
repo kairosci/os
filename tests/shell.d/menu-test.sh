@@ -664,7 +664,7 @@ assertEqual(
 )
 assertEqual(
   defaultById['trigger.capture.screenrecord.webcam'].when,
-  'arch-hw-webcam',
+  'archctl hw webcam',
   'menu only shows webcam screen recording when a webcam is available'
 )
 assertEqual(
