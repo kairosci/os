@@ -4,10 +4,23 @@ limits:
 commands:
   stop_application: [pkill, -x, --]
   launch_application: [setsid, uwsm-app, --]
+  signal_application: [pkill]
+  process_presence: [pgrep, -x]
+  tmux_has_session: [tmux, has-session]
+  tmux_source_file: [tmux, source-file]
 paths:
   output_discard: /dev/null
+  config_home_environment: XDG_CONFIG_HOME
+  home_environment: HOME
+  default_config_home: .config
+  tmux_config_relative: tmux/tmux.conf
 applications:
   hyprsunset: hyprsunset
+  btop: btop
+  helix: helix
+signals:
+  btop: -SIGUSR2
+  helix: -USR1
 messages:
   usage: 'Usage: archctl restart app <application-name> [application-args...]'
   configuration_error: Invalid restart application configuration.
@@ -16,3 +29,4 @@ statuses:
   success: 0
   invalid_arguments: 2
   operation_failed: 1
+  process_not_found: 1

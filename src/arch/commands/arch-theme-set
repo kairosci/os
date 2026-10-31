@@ -459,8 +459,8 @@ visible_theme_commands=(
   arch-restart-terminal ::
   arch-theme-set-foot ::
   arch-theme-set-tmux ::
-  arch-restart-btop ::
-  arch-restart-helix ::
+  archctl restart btop ::
+  archctl restart helix ::
   arch-theme-set-hunk ::
 )
 

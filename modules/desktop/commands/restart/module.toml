@@ -4,14 +4,11 @@ package = "arch"
 sources = [
   "src/arch/commands/arch-restart-audio",
   "src/arch/commands/arch-restart-bluetooth",
-  "src/arch/commands/arch-restart-btop",
   "src/arch/commands/arch-restart-gum",
-  "src/arch/commands/arch-restart-helix",
   "src/arch/cli/restart/hyprland.py",
   "src/arch/cli/restart/app.py",
   "src/arch/commands/arch-restart-shell",
   "src/arch/commands/arch-restart-terminal",
-  "src/arch/commands/arch-restart-tmux",
   "src/arch/commands/arch-restart-trackpad",
   "src/arch/commands/arch-restart-wifi",
   "src/arch/commands/arch-restart-xcompose",
@@ -27,16 +24,8 @@ source = "src/arch/commands/arch-restart-bluetooth"
 target = "usr/share/arch/src/arch/commands/arch-restart-bluetooth"
 
 [[output]]
-source = "src/arch/commands/arch-restart-btop"
-target = "usr/share/arch/src/arch/commands/arch-restart-btop"
-
-[[output]]
 source = "src/arch/commands/arch-restart-gum"
 target = "usr/share/arch/src/arch/commands/arch-restart-gum"
-
-[[output]]
-source = "src/arch/commands/arch-restart-helix"
-target = "usr/share/arch/src/arch/commands/arch-restart-helix"
 
 [[output]]
 source = "src/arch/cli/restart/hyprland.py"
@@ -53,10 +42,6 @@ target = "usr/share/arch/src/arch/commands/arch-restart-shell"
 [[output]]
 source = "src/arch/commands/arch-restart-terminal"
 target = "usr/share/arch/src/arch/commands/arch-restart-terminal"
-
-[[output]]
-source = "src/arch/commands/arch-restart-tmux"
-target = "usr/share/arch/src/arch/commands/arch-restart-tmux"
 
 [[output]]
 source = "src/arch/commands/arch-restart-trackpad"

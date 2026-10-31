@@ -22,11 +22,15 @@ printf 'set -g mouse on\n' >"$ap/config/tmux/tmux.conf"
 
 restart_bin="$tmpdir/bin"
 mkdir -p "$restart_bin"
-cat >"$restart_bin/arch-restart-tmux" <<'EOF'
+cat >"$restart_bin/archctl" <<'EOF'
 #!/bin/bash
-printf restarted >"$MARKER"
+if [[ $* == "restart tmux" ]]; then
+  printf restarted >"$MARKER"
+else
+  exec "$ARCH_TEST_CLI_BIN/archctl" "$@"
+fi
 EOF
-chmod +x "$restart_bin/arch-restart-tmux"
+chmod +x "$restart_bin/archctl"
 
 cat >"$ap/config/hypr/bindings.lua" <<'EOF'
 -- refreshed from AP

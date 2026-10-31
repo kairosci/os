@@ -77,6 +77,8 @@ if [[ ${1:-} == notification && ${2:-} == send ]]; then
 elif [[ ${1:-} == hook ]]; then
   shift
   TEST_RETINT_NAME=arch-hook "$TEST_COMMANDS_DIR/retint" "$@"
+elif [[ ${1:-} == restart && (${2:-} == btop || ${2:-} == helix) ]]; then
+  echo "archctl $*" >>"$TEST_LOG"
 else
   exec "$ARCH_TEST_CLI_BIN/archctl" "$@"
 fi
@@ -133,7 +135,7 @@ wait_for_detached_work() {
 }
 
 TEST_VSCODE_OK_THEME=beta set_theme beta
-for command in arch-restart-terminal arch-theme-set-foot arch-theme-set-tmux arch-restart-btop arch-theme-set-gnome; do
+for command in arch-restart-terminal arch-theme-set-foot arch-theme-set-tmux 'archctl restart btop' 'archctl restart helix' arch-theme-set-gnome; do
   grep -qx "$command" "$log" || fail "$command retints during the native wallpaper transition" "$(cat "$log")"
 done
 grep -qx 'arch-theme-bg-cache' "$log" || fail "thumbnail warmup starts with the wallpaper transition"

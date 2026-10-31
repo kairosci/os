@@ -548,6 +548,24 @@ entrypoints:
     args: <application-name> [application-args...]
     examples: archctl restart app firefox
     pass_args: 'true'
+  - binary: arch-restart-btop
+    module: restart/app
+    function: restart_btop_main
+    group: restart
+    name: btop
+    summary: Refresh the configuration of a running btop window
+  - binary: arch-restart-helix
+    module: restart/app
+    function: restart_helix_main
+    group: restart
+    name: helix
+    summary: Refresh the configuration of a running Helix editor
+  - binary: arch-restart-tmux
+    module: restart/app
+    function: restart_tmux_main
+    group: restart
+    name: tmux
+    summary: Reload the tmux configuration when a session is running
   - binary: arch-restart-hyprctl
     module: restart/hyprland
     function: main

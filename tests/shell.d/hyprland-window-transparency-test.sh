@@ -13,7 +13,7 @@ state_home="$tmpdir/state"
 toggles_dir="$state_home/arch/toggles/hypr"
 mkdir -p "$stub_dir" "$home_dir"
 
-for command in hyprctl archctl arch-restart-terminal arch-theme-set-foot arch-restart-btop; do
+for command in hyprctl archctl arch-restart-terminal arch-theme-set-foot; do
   printf '#!/bin/bash\nprintf "%%s\\n" "%s $*" >>"%s/commands.log"\n' "$command" "$tmpdir" >"$stub_dir/$command"
 done
 chmod +x "$stub_dir"/*
@@ -29,7 +29,7 @@ run arch-hyprland-window-transparency glassy
 [[ $(run arch-hyprland-window-transparency) == "glassy" ]] || fail "glassy windows are reported"
 cmp -s "$ROOT/default/hypr/toggles/window-glassy.lua" "$toggles_dir/window-glassy.lua" || fail "glassy windows are loaded after the theme"
 grep -qx 'hyprctl reload' "$tmpdir/commands.log" || fail "new transparency reloads Hyprland"
-grep -q '^arch-restart-btop ' "$tmpdir/commands.log" || fail "new transparency reloads running btop windows"
+grep -q '^archctl restart btop$' "$tmpdir/commands.log" || fail "new transparency reloads running btop windows"
 ! grep -q '^archctl notification send' "$tmpdir/commands.log" || fail "new transparency is shown, not announced"
 pass "glassy windows override the theme"
 
