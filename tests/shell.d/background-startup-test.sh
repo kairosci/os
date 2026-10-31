@@ -14,11 +14,11 @@ ln -s "$stage/still.ppm" "$stage/home/.local/state/arch/current/background"
 ln -s "$ROOT/src/arch/shell/Commons" "$stage/Commons"
 cp "$ROOT/src/arch/shell/services/BackgroundIntro.qml" "$stage/services/"
 cp "$SHELL_TEST_DIR/fixtures/background-startup/shell.qml" "$stage/shell.qml"
-cat >"$stage/bin/arch-background-session-mark" <<'SH'
+cat >"$stage/bin/archctl" <<'SH'
 #!/bin/bash
 exit 0
 SH
-chmod +x "$stage/bin/arch-background-session-mark"
+chmod +x "$stage/bin/archctl"
 cat >"$stage/bin/hyprctl" <<'SH'
 #!/bin/bash
 if [[ $1 == "eval" ]]; then

@@ -24,7 +24,7 @@ with tempfile.TemporaryDirectory() as directory:
   home.mkdir()
   (stage / "release").write_text("")
   (stage / "bin").mkdir()
-  launcher = stage / "bin/arch-background-session-mark"
+  launcher = stage / "bin/archctl"
   launcher.write_text("#!/bin/bash\nexit 0\n")
   launcher.chmod(0o755)
   for name in ("Commons", "services"):

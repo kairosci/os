@@ -284,7 +284,7 @@ Item {
 
   Process {
     id: introProc
-    command: ["arch-background-session-mark"]
+    command: ["archctl", "background", "session-mark"]
     onExited: {
       root.startupSettled = true
       root.finishStartup()
