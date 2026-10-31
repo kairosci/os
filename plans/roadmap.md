@@ -4,7 +4,7 @@ This roadmap tracks the requested CLI, ISO, desktop, and release work as separat
 
 ## Current evidence
 
-- Current CLI inventory after PR #654: 366 flat command source files, 61 Python CLI modules, and 90 YAML routes. All Python routes currently omit flat launchers. Launcher generation is now opt-in; legacy chronological entries below describe earlier rollout states, not the current package output.
+- Current CLI inventory for this change: 364 flat command source files, 62 Python CLI modules, and 92 YAML routes. No source command has the same binary name as a Python route, and all routes omit generated launchers by default. Historical launcher counts below describe earlier rollout states.
 
 - `scripts/iso/` contains the CI-only native builder, checksum manifest, downloader, assembler, and release publisher. Workflow run `41202718530` built both x86_64 and AArch64 images successfully; publishing was skipped. The complete image artifacts were about 1.82 GB and 1.74 GB, and each release-assets artifact contained three files, corresponding to two image parts plus a manifest with the configured 1,000,000,000-byte cap. No GitHub release has been published, so download and assembly from a published release remain unverified.
 - `scripts/iso/profile/profiledef.py` is the checked-in Python profile renderer and reads `data/iso/profile.yml`; the CI builder emits ArchISO's required `profiledef.sh` only inside its temporary staging profile. The builder creates a complete ISO and release parts capped at 1,000,000,000 bytes each, below GitHub's 2 GB per-asset limit. `scripts/iso/download.py` verifies release metadata and delegates checksum-checked assembly to `scripts/iso/parts.py`. The ISO includes `archinstall`, but this build evidence does not prove the repository's intended online, offline, and unattended target-install flows; those remain open for disposable-VM acceptance.
@@ -34,7 +34,7 @@ PR #507 made `scrolling` the default and exposed `tiling` as the only alternate 
 
 ### 2. Inventory and classify CLI entrypoints
 
-For each executable in `src/arch/commands/`, record whether it is already backed by a Python module, still contains command behavior, or has callers that rely on its binary name. Ninety Python entrypoints are catalogued, while 366 command files remain for classification and migration. Keep the inventory generated from source metadata so it cannot silently drift.
+For each executable in `src/arch/commands/`, record whether it is already backed by a Python module, still contains command behavior, or has callers that rely on its binary name. Ninety-two Python entrypoints are catalogued, while 364 command files remain for classification and migration. Keep the inventory generated from source metadata so it cannot silently drift.
 
 ### 3. Move remaining command behavior into modules
 
@@ -100,6 +100,6 @@ PR #588 moves emoji insertion into a Python module. The clipboard provider is st
 
 PR #590 moves update status into `src/arch/cli/update/status.py`, with its configured `arch-shell` argv in YAML. PR #591 keeps the `archctl update status` route while disabling its generated flat launcher. The focused test invokes the unified route and asserts that package generation leaves no flat binary.
 
-### 18. Retire generated flat CLI launchers — in progress
+### 18. Retire generated flat CLI launchers — integrated
 
-The entrypoint generator now supports routes that do not emit a per-command binary. PRs #591 and #592 disabled update status and 11 unused routes; PR #593 moved clipboard and emoji callers, PR #595 moved battery status callers, PR #596 moved power-profile listing callers, PR #597 moved power-profile setting callers, and PR #598 moved the background-session marker to the unified router. These changes leave 68 generated launchers for 87 routes. Continue with the remaining in-repository callers before retiring generator compatibility output entirely.
+PR #655 makes launcher generation opt-in; all 90 existing Python routes omit launcher output. The toggle-state migration in this change adds two Python routes, moves their menu and command callers to `archctl`, and deletes both old command files. This retires the generator compatibility output while sprint 3 continues porting remaining command behavior.

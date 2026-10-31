@@ -654,12 +654,12 @@ assert(
 }
 assertEqual(
   defaultById['trigger.hardware.laptop-display-on'].when,
-  'archctl hw laptop && arch-hyprland-toggle-enabled internal-monitor-disable',
+  'archctl hw laptop && archctl hyprland toggle enabled internal-monitor-disable',
   'menu only shows Laptop Display on laptops'
 )
 assertEqual(
   defaultById['trigger.hardware.mirror-display-on'].when,
-  'archctl hw laptop && ! arch-hyprland-toggle-enabled internal-monitor-mirror',
+  'archctl hw laptop && ! archctl hyprland toggle enabled internal-monitor-mirror',
   'menu only shows Mirror Display on laptops'
 )
 assertEqual(

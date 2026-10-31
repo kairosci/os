@@ -1,0 +1,2 @@
+home_relative_state_directory: .local/state/arch/toggles/hypr
+filename_suffix: .lua

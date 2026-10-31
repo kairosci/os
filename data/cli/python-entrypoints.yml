@@ -468,6 +468,22 @@ entrypoints:
     name: session locked
     summary: Check whether the compositor holds a session lock
     hidden: 'true'
+  - binary: arch-hyprland-toggle-enabled
+    module: hyprland/toggle
+    function: enabled_main
+    group: hyprland
+    name: toggle enabled
+    summary: Check whether a Hyprland toggle is enabled
+    args: <flag-name>
+    pass_args: 'true'
+  - binary: arch-hyprland-toggle-disabled
+    module: hyprland/toggle
+    function: disabled_main
+    group: hyprland
+    name: toggle disabled
+    summary: Check whether a Hyprland toggle is disabled
+    args: <flag-name>
+    pass_args: 'true'
   - binary: arch-hyprland-workspace-layout-current
     module: hyprland/workspace_layout
     function: workspace_layout_current_main
