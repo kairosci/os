@@ -14,4 +14,4 @@ fi
 level=$1
 
 arch-notification-send -g 󱐋 -u critical "$(arch-i18n battery.lowTitle)" "$(arch-i18n battery.lowBody "$level")" -i battery-caution -t 30000
-arch-hook battery-low "$level"
+archctl hook battery-low "$level"

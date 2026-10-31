@@ -14,7 +14,7 @@ from base_test import CLI_BIN, ROOT, fail_check, pass_check, test_environment
 
 
 HOOK_SOURCE = ROOT / "src/arch/python/installer_user/first_run/fingerprint_invitation.py"
-HOOK_RUNNER = CLI_BIN / "arch-hook"
+HOOK_RUNNER = CLI_BIN / "archctl"
 DESCRIPTION = "fingerprint invitation waits for a reader and only runs once"
 
 
@@ -25,7 +25,7 @@ def executable(path: Path, content: str) -> None:
 
 def run_hook(environment: dict[str, str]) -> subprocess.CompletedProcess[str]:
   return subprocess.run(
-    [str(HOOK_RUNNER), "post-update"],
+    [str(HOOK_RUNNER), "hook", "post-update"],
     env=environment,
     check=False,
     capture_output=True,

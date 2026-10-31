@@ -36,7 +36,12 @@ for step in "${steps[@]}"; do
   rm -f "$stub_bin/$step"
   cat >"$stub_bin/$step" <<'STUB'
 #!/bin/bash
-printf '%s unattended=%s\n' "${0##*/}" "${ARCH_UPDATE_UNATTENDED:-}" >>"$STEP_LOG"
+step=${0##*/}
+if [[ $step == archctl && ${1:-} == hook ]]; then
+  step=arch-hook
+  shift
+fi
+printf '%s unattended=%s\n' "$step" "${ARCH_UPDATE_UNATTENDED:-}" >>"$STEP_LOG"
 if [[ ${0##*/} == "arch-update-orphan-pkgs" ]]; then
   printf '%s\n' "$@" >"$STEP_LOG.orphan-args"
 fi

@@ -107,4 +107,4 @@ set:
       application: Foot
   notification_message: font.restartToSeeChange
   restart_command: [arch-restart-shell]
-  hook_command: [arch-hook, font-set]
+  hook_command: [archctl, hook, font-set]

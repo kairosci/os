@@ -34,7 +34,7 @@ printf 'user-tool:%s\n' "$1" >>"$SUDO_TEST_LOG"
 STUB
 chmod +x "$SUDO_TEST_ROOT/src/arch/commands/script" "$SUDO_TEST_ROOT/src/arch/commands/arch-update-lock" "$boundary_tmp/user commands/update-user-tool"
 
-for step in arch-hook arch-update-mise; do
+for step in arch-update-mise; do
   rm "$SUDO_TEST_ROOT/src/arch/commands/$step"
   cat >"$SUDO_TEST_ROOT/src/arch/commands/$step" <<'STUB'
 #!/bin/bash
@@ -44,6 +44,15 @@ update-user-tool "${0##*/}"
 STUB
   chmod +x "$SUDO_TEST_ROOT/src/arch/commands/$step"
 done
+rm -f "$SUDO_TEST_ROOT/src/arch/commands/archctl"
+cat >"$SUDO_TEST_ROOT/src/arch/commands/archctl" <<'STUB'
+#!/bin/bash
+[[ ${1:-} == hook && ${2:-} == post-update ]] || exit 90
+[[ -e $SUDO_TEST_CACHE ]] || exit 91
+[[ $(command -v sudo) != "$AP/default/arch/sudo-no-update/sudo" ]] || exit 92
+update-user-tool arch-hook
+STUB
+chmod +x "$SUDO_TEST_ROOT/src/arch/commands/archctl"
 
 for entry in fresh logged locked; do
   reset_boundary

@@ -22,7 +22,7 @@ exit_codes:
   install_failed: 1
 messages:
   en:
-    usage: 'Usage: arch-hook [name] [args...]'
+    usage: 'Usage: archctl hook [name] [args...]'
     invalid_hook_name: 'Invalid hook name: {name}'
     hook_failed: 'Hook failed: {hook}'
     install_usage: 'Usage: archctl hook install <type> <file>'
@@ -30,7 +30,7 @@ messages:
     hook_install_failed: 'Could not install hook at {path}'
     hook_installed: 'Installed {hook_type} hook: {path}'
   it:
-    usage: 'Uso: arch-hook [nome] [argomenti...]'
+    usage: 'Uso: archctl hook [nome] [argomenti...]'
     invalid_hook_name: 'Nome hook non valido: {name}'
     hook_failed: 'Hook non riuscito: {hook}'
     install_usage: 'Uso: archctl hook install <tipo> <file>'

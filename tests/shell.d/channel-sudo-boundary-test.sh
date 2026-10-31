@@ -245,7 +245,7 @@ cat >"$boundary_tmp/user tools/channel-user-tool" <<'STUB'
 printf 'user-tool:%s\n' "$*" >>"$SUDO_TEST_LOG"
 STUB
 chmod +x "$boundary_tmp/user tools/channel-user-tool"
-for command in arch-hook arch-update-mise; do
+for command in arch-update-mise; do
   rm "$SUDO_TEST_ROOT/src/arch/commands/$command"
   cat >"$SUDO_TEST_ROOT/src/arch/commands/$command" <<'STUB'
 #!/bin/bash
@@ -260,6 +260,24 @@ channel-user-tool "${0##*/}" "$@"
 STUB
   chmod +x "$SUDO_TEST_ROOT/src/arch/commands/$command"
 done
+rm "$SUDO_TEST_ROOT/src/arch/commands/archctl"
+cat >"$SUDO_TEST_ROOT/src/arch/commands/archctl" <<'STUB'
+#!/bin/bash
+if [[ ${1:-} == hook ]]; then
+  hook=${2:-}
+  if [[ $hook == "pre-refresh-pacman" ]]; then
+    [[ ! -e $SUDO_TEST_CACHE ]] || exit 91
+    [[ $(command -v sudo) == "$AP/default/arch/sudo-no-update/sudo" ]] || exit 92
+  else
+    [[ -e $SUDO_TEST_CACHE ]] || exit 94
+    [[ $(command -v sudo) != "$AP/default/arch/sudo-no-update/sudo" ]] || exit 95
+  fi
+  channel-user-tool arch-hook "$hook"
+else
+  printf 'step:archctl %s\n' "$*" >>"$SUDO_TEST_LOG"
+fi
+STUB
+chmod +x "$SUDO_TEST_ROOT/src/arch/commands/archctl"
 reset_boundary
 PATH="$boundary_tmp/user tools:$PATH" run_channel stable || fail "channel hooks lost the user's PATH" "$(cat "$boundary_tmp/output" "$SUDO_TEST_LOG")"
 for event in 'arch-hook post-update' 'arch-update-mise' 'arch-hook pre-refresh-pacman'; do
@@ -269,6 +287,7 @@ assert_boundary_cold "channel user PATH"
 for command in arch-hook arch-update-mise; do
   ln -sfn test-step "$SUDO_TEST_ROOT/src/arch/commands/$command"
 done
+ln -sfn test-step "$SUDO_TEST_ROOT/src/arch/commands/archctl"
 pass "channel switching preserves user tools for both hooks and mise"
 
 for step in pacman arch-update-system-pkgs arch-hook; do
