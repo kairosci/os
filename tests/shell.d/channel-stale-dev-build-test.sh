@@ -22,7 +22,7 @@ p = Path(sys.argv[1])
 p.write_text(p.read_text().replace('/usr/share/arch', sys.argv[2]))
 PY
 
-for command in arch-dev-link arch-dev-unlink arch-state gum git; do
+for command in arch-dev-link arch-dev-unlink archctl gum git; do
   cat >"$SUDO_TEST_ROOT/src/arch/commands/$command" <<'STUB'
 #!/bin/bash
 set -euo pipefail

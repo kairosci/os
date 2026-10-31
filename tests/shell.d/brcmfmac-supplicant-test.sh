@@ -53,10 +53,10 @@ printf '\n' >>"$TEST_LOG"
 SH
 
 # Stubbed rather than run: the real one would write the running user's state.
-cat >"$stub_bin/arch-state" <<'SH'
+cat >"$stub_bin/archctl" <<'SH'
 #!/bin/bash
 
-printf 'arch-state' >>"$TEST_LOG"
+printf 'archctl' >>"$TEST_LOG"
 printf '\t%s' "$@" >>"$TEST_LOG"
 printf '\n' >>"$TEST_LOG"
 SH

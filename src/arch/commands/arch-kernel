@@ -207,12 +207,12 @@ set_kernel() {
 
   if [[ -t 0 ]]; then
     sudo "$self" set "$kernel"
-    arch-state set reboot-required
+    archctl state set reboot-required
     echo "$kernel will boot after the next restart."
   else
     # From the menu there is no terminal, so polkit asks once, on screen.
     if pkexec "$self" set "$kernel"; then
-      arch-state set reboot-required
+      archctl state set reboot-required
       arch-notification-send -g  -t 30000 "$(arch-i18n kernel.nowUsing "$kernel")" "$(arch-i18n kernel.rebootToUse)" --exec arch-system reboot
     else
       arch-notification-send -g  -u critical -t 30000 "$(arch-i18n kernel.switchFailed "$kernel")" "$(arch-i18n kernel.retryInTerminal)" --exec arch-launch-terminal-with-presentation "arch-kernel set $kernel"

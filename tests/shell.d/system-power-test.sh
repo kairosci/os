@@ -40,7 +40,7 @@ trap 'rm -f "$CALL_LOG.inhibited"' EXIT
 "$@"
 SH
 
-for command in uwsm arch-state arch-hyprland-window-close-all arch-osd arch-notification-send sleep timeout systemctl; do
+for command in uwsm archctl arch-hyprland-window-close-all arch-osd arch-notification-send sleep timeout systemctl; do
   cat >"$mock_bin/$command" <<'SH'
 #!/bin/bash
 
@@ -116,7 +116,7 @@ grep -q '^systemd-inhibit --what=sleep:idle:handle-lid-switch .* --mode=block .*
 inhibit_line=$(grep -n '^systemd-inhibit ' "$CALL_LOG" | cut -d: -f1)
 osd_line=$(grep -n '^arch-osd ' "$CALL_LOG" | cut -d: -f1)
 (( inhibit_line < osd_line )) || fail "inhibition precedes preparation"
-grep -q '^arch-state clear re\*-required$' "$CALL_LOG" || fail "shutdown clears restart state"
+grep -q '^archctl state clear re\*-required$' "$CALL_LOG" || fail "shutdown clears restart state"
 grep -q '^timeout 2s arch-hyprland-window-close-all --wait$' "$CALL_LOG" || fail "shutdown waits for applications with a deadline"
 ! grep -q '^sleep ' "$CALL_LOG" || fail "shutdown has no fixed sleep"
 grep -q '^systemctl poweroff --no-wall$' "$CALL_LOG" || fail "poweroff runs after the grace period while inhibited"

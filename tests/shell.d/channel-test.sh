@@ -67,7 +67,9 @@ for arg in "$@"; do printf "\t%s" "$arg" >>"$ARCH_CHANNEL_TEST_LOG"; done
 printf "\n" >>"$ARCH_CHANNEL_TEST_LOG"
 '
 
-write_stub arch-state '#!/bin/bash
+write_stub archctl '#!/bin/bash
+[[ $1 == state ]] || exit 2
+shift
 printf "state" >>"$ARCH_CHANNEL_TEST_LOG"
 for arg in "$@"; do printf "\t%s" "$arg" >>"$ARCH_CHANNEL_TEST_LOG"; done
 printf "\n" >>"$ARCH_CHANNEL_TEST_LOG"

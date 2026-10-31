@@ -149,7 +149,7 @@ check_invalid_hook_configuration() {
 check_invalid_hook_configuration hook hook example
 check_invalid_hook_configuration "hook install" hook install post-update "$source_hook"
 
-# --- arch-state -------------------------------------------------------------
+# --- archctl state ---------------------------------------------------------
 
 state_dir="$fake_home/.local/state/arch"
 
@@ -159,24 +159,24 @@ mkdir -p "$invalid_ap/src"
 ln -s "$ROOT/src/arch" "$invalid_ap/src/arch"
 printf '[]\n' >"$invalid_ap/data/cli/state.yml"
 status=0
-output=$(AP="$invalid_ap" HOME="$fake_home" "$ARCH_TEST_CLI_BIN/arch-state" set broken 2>&1) || status=$?
+output=$(AP="$invalid_ap" HOME="$fake_home" "$ARCH_TEST_CLI_BIN/archctl" state set broken 2>&1) || status=$?
 (( status == 1 )) && [[ $output == *"Could not load state configuration"* ]] ||
   fail "arch state reports malformed configuration without a traceback" "exit: $status" "$output"
 pass "arch state reports malformed configuration without a traceback"
 
-HOME="$fake_home" "$ARCH_TEST_CLI_BIN/arch-state" set reboot-required
+HOME="$fake_home" "$ARCH_TEST_CLI_BIN/archctl" state set reboot-required
 [[ -f $state_dir/reboot-required ]] ||
   fail "arch state set still creates a plain state file"
 pass "arch state set still creates a plain state file"
 
-HOME="$fake_home" "$ARCH_TEST_CLI_BIN/arch-state" set v1..2
+HOME="$fake_home" "$ARCH_TEST_CLI_BIN/archctl" state set v1..2
 [[ -f $state_dir/v1..2 ]] ||
   fail "arch state set accepts a state name with dots in the middle"
 pass "arch state set accepts a state name with dots in the middle"
 
 for name in . ..; do
   status=0
-  HOME="$fake_home" "$ARCH_TEST_CLI_BIN/arch-state" set "$name" >/dev/null 2>&1 || status=$?
+  HOME="$fake_home" "$ARCH_TEST_CLI_BIN/archctl" state set "$name" >/dev/null 2>&1 || status=$?
   (( status == 2 )) ||
     fail "arch state set refuses a state name of $name" "exit: $status"
   pass "arch state set refuses a state name of $name"
@@ -184,7 +184,7 @@ done
 
 # state/../.. is ~/.local. The guard must fire before touch gets there.
 status=0
-HOME="$fake_home" "$ARCH_TEST_CLI_BIN/arch-state" set "../../escape" >/dev/null 2>&1 || status=$?
+HOME="$fake_home" "$ARCH_TEST_CLI_BIN/archctl" state set "../../escape" >/dev/null 2>&1 || status=$?
 (( status == 2 )) ||
   fail "arch state set refuses a state name with a dot-dot" "exit: $status"
 [[ ! -e $fake_home/.local/escape ]] ||
@@ -192,7 +192,7 @@ HOME="$fake_home" "$ARCH_TEST_CLI_BIN/arch-state" set "../../escape" >/dev/null 
 pass "arch state set refuses a state name with a dot-dot"
 
 status=0
-HOME="$fake_home" "$ARCH_TEST_CLI_BIN/arch-state" set "sub/dir" >/dev/null 2>&1 || status=$?
+HOME="$fake_home" "$ARCH_TEST_CLI_BIN/archctl" state set "sub/dir" >/dev/null 2>&1 || status=$?
 (( status == 2 )) ||
   fail "arch state set refuses a state name with a slash" "exit: $status"
 pass "arch state set refuses a state name with a slash"
@@ -202,14 +202,14 @@ pass "arch state set refuses a state name with a slash"
 touch "$state_dir/restart-a-required" "$state_dir/restart-b-required" "$state_dir/keep-me"
 printf 'protected\n' >"$fake_home/protected-state-target"
 ln -s "$fake_home/protected-state-target" "$state_dir/restart-link-required"
-HOME="$fake_home" "$ARCH_TEST_CLI_BIN/arch-state" clear "restart-*-required"
+HOME="$fake_home" "$ARCH_TEST_CLI_BIN/archctl" state clear "restart-*-required"
 [[ ! -e $state_dir/restart-a-required && ! -e $state_dir/restart-b-required && -f $state_dir/keep-me ]] ||
   fail "arch state clear still clears matching patterns only"
 [[ -L $state_dir/restart-link-required && $(<"$fake_home/protected-state-target") == protected ]] ||
   fail "arch state clear leaves symlinks and their targets untouched"
 pass "arch state clear still clears matching patterns only"
 
-if HOME="$fake_home" "$ARCH_TEST_CLI_BIN/arch-state" set restart-link-required >/dev/null 2>&1; then
+if HOME="$fake_home" "$ARCH_TEST_CLI_BIN/archctl" state set restart-link-required >/dev/null 2>&1; then
   fail "arch state set refuses a symlink marker"
 fi
 [[ -L $state_dir/restart-link-required && $(<"$fake_home/protected-state-target") == protected ]] ||
