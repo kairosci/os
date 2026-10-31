@@ -6,14 +6,12 @@ entrypoints:
     name: session mark
     summary: Mark the current graphical login as checked for a background intro
     hidden: "true"
-    generate_launcher: "false"
   - binary: arch-battery-present
     module: battery/present
     function: main
     group: battery
     name: present
     summary: Returns true if a battery is present on the system.
-    generate_launcher: "false"
   - binary: arch-battery-status
     module: battery/status
     function: main
@@ -21,14 +19,12 @@ entrypoints:
     name: status
     summary: Returns a formatted battery status string with percentage and power draw/charge.
     args: "[--shell]"
-    generate_launcher: "false"
   - binary: arch-channel-current
     module: channel/current
     function: channel_current_main
     group: channel
     name: current
     summary: Print the active Arch package channel
-    generate_launcher: "false"
   - binary: arch-font-set
     module: font/set
     function: main
@@ -37,7 +33,6 @@ entrypoints:
     summary: Set the system monospace font
     args: <font-name>
     examples: 'archctl font list | archctl font set "CaskaydiaMono Nerd Font"'
-    generate_launcher: "false"
   - binary: arch-network-qr
     module: network/qr
     function: main
@@ -45,7 +40,6 @@ entrypoints:
     name: qr
     summary: Generate a Wi-Fi QR matrix for the shell
     args: "[--meta] [interface]"
-    generate_launcher: "false"
   - binary: arch-notification-wait
     module: notification/wait
     function: main
@@ -54,7 +48,6 @@ entrypoints:
     summary: Wait for the desktop notification server to accept notifications
     args: "[timeout-seconds]"
     hidden: "true"
-    generate_launcher: "false"
   - binary: arch-notification-dismiss
     module: notification/dismiss
     function: main
@@ -63,14 +56,12 @@ entrypoints:
     summary: Dismiss a notification by summary substring
     args: <summary>
     pass_args: 'true'
-    generate_launcher: "false"
   - binary: arch-notification-send
     module: notification/send
     function: main
     group: notification
     name: send
     summary: Send a desktop notification
-    generate_launcher: "false"
     args: '[--app-name <app-name>] [-g <glyph>] [-u <low|normal|critical>] [-i <icon>] [-t <ms>] [-r <id>] [-p] [--image <path-or-uri>] <headline> [description] [--exec <program> [args...]]'
     examples: 'archctl notification send "Reminder" "5 minutes are up"'
     pass_args: 'true'
@@ -81,7 +72,6 @@ entrypoints:
     name: battery
     summary: Show the current battery status notification
     pass_args: 'true'
-    generate_launcher: "false"
   - binary: arch-notification-time
     module: notification/time
     function: main
@@ -89,7 +79,6 @@ entrypoints:
     name: time
     summary: Show the current time and date notification
     pass_args: 'true'
-    generate_launcher: "false"
   - binary: arch-notification-weather
     module: notification/weather
     function: main
@@ -97,14 +86,12 @@ entrypoints:
     name: weather
     summary: Toggle the current weather panel
     pass_args: 'true'
-    generate_launcher: "false"
   - binary: arch-power-present
     module: power/present
     function: main
     group: power
     name: present
     summary: Returns true if external power is connected.
-    generate_launcher: "false"
   - binary: arch-powerprofiles-list
     module: powerprofiles/list
     function: main
@@ -113,7 +100,6 @@ entrypoints:
     summary: List available power profiles
     args: '[--active-state]'
     pass_args: 'true'
-    generate_launcher: "false"
   - binary: arch-powerprofiles-set
     module: powerprofiles/set
     function: main
@@ -123,7 +109,6 @@ entrypoints:
     args: '[autodetect|ac|battery] [power-saver|balanced|performance]'
     examples: 'archctl powerprofiles set ac balanced | archctl powerprofiles set autodetect'
     pass_args: 'true'
-    generate_launcher: "false"
   - binary: arch-refresh-config
     module: refresh/config
     function: main
@@ -131,7 +116,6 @@ entrypoints:
     name: config
     summary: Restore a shipped user config with an automatic backup
     args: <config-path>
-    generate_launcher: "false"
   - binary: arch-sleep-disabled
     module: sleep/disabled
     function: main
@@ -139,7 +123,6 @@ entrypoints:
     name: disabled
     summary: Check whether Arch has turned off system sleep on this machine.
     hidden: "true"
-    generate_launcher: "false"
   - binary: arch-tui-install
     module: tui/install
     function: main
@@ -147,28 +130,24 @@ entrypoints:
     name: install
     summary: Create a tiled desktop launcher for a terminal UI app
     args: <name> <command> <icon-url-or-name>
-    generate_launcher: "false"
   - binary: arch-update-available
     module: update/available
     function: main
     group: update
     name: available
     summary: Check whether system updates are available
-    generate_launcher: "false"
   - binary: arch-update-confirm
     module: update/confirm
     function: main
     group: update
     name: confirm
     summary: Prompt for confirmation before starting an update
-    generate_launcher: "false"
   - binary: arch-update-status
     module: update/status
     function: main
     group: update
     name: status
     summary: Clear the shell update indicator after an update
-    generate_launcher: "false"
     hidden: "true"
   - binary: arch-bluetooth-device
     module: bluetooth/control
@@ -179,7 +158,6 @@ entrypoints:
     args: '[pair|connect|disconnect|forget] <address>'
     examples: archctl bluetooth device connect 00:11:22:33:44:55
     pass_args: 'true'
-    generate_launcher: "false"
   - binary: arch-bluetooth-power
     module: bluetooth/control
     function: power_main
@@ -188,21 +166,18 @@ entrypoints:
     summary: Turn Bluetooth on or off, remembered across reboots
     args: <on|off|toggle|is-on>
     pass_args: 'true'
-    generate_launcher: "false"
   - binary: arch-cmd-missing
     module: command/presence
     function: missing_main
     group: cmd
     name: missing
     summary: Check whether any required commands are missing
-    generate_launcher: "false"
   - binary: arch-cmd-present
     module: command/presence
     function: present_main
     group: cmd
     name: present
     summary: Check whether all required commands are available
-    generate_launcher: "false"
   - binary: arch-done
     module: done/manager
     function: main
@@ -211,7 +186,6 @@ entrypoints:
     summary: Check or mark completed Arch setup tasks
     args: <check|mark|ensure> <name>
     hidden: 'true'
-    generate_launcher: "false"
   - binary: arch-default-browser
     module: default/browser
     function: default_browser_main
@@ -221,7 +195,6 @@ entrypoints:
     args: '[--install] [chromium|chrome|brave|brave-origin|edge|firefox|zen]'
     examples: archctl default browser | archctl default browser firefox
     pass_args: 'true'
-    generate_launcher: "false"
   - binary: arch-default-dictation
     module: default/dictation
     function: default_dictation_main
@@ -231,7 +204,6 @@ entrypoints:
     args: '[backend]'
     examples: archctl default dictation | archctl default dictation superwhisper
     pass_args: 'true'
-    generate_launcher: "false"
   - binary: arch-default-editor
     module: default/editor
     function: default_editor_main
@@ -241,7 +213,6 @@ entrypoints:
     args: '[--install] [editor]'
     examples: archctl default editor | archctl default editor helix
     pass_args: 'true'
-    generate_launcher: "false"
   - binary: arch-default-terminal
     module: default/terminal
     function: default_terminal_main
@@ -251,7 +222,6 @@ entrypoints:
     args: '[--install] [terminal]'
     examples: archctl default terminal | archctl default terminal kitty
     pass_args: 'true'
-    generate_launcher: "false"
   - binary: arch-font-cjk
     module: font/catalog
     function: cjk_main
@@ -261,7 +231,6 @@ entrypoints:
     args: '[jp|kr|sc|tc|hk|default]'
     examples: archctl font cjk | archctl font cjk jp | archctl font cjk default
     pass_args: 'true'
-    generate_launcher: "false"
   - binary: arch-font-current
     module: font/catalog
     function: current_main
@@ -269,7 +238,6 @@ entrypoints:
     name: current
     summary: Show current monospace font
     examples: archctl font current
-    generate_launcher: "false"
   - binary: arch-font-list
     module: font/catalog
     function: list_main
@@ -277,7 +245,6 @@ entrypoints:
     name: list
     summary: List available monospace fonts
     examples: archctl font list | archctl font set "CaskaydiaMono Nerd Font"
-    generate_launcher: "false"
   - binary: arch-hook
     module: hook/runner
     function: run_main
@@ -285,7 +252,6 @@ entrypoints:
     name: ''
     summary: Run a named hook from ~/.config/arch/hooks/<name> and ~/.config/arch/hooks/<name>.d/.
     args: '[name] [args...]'
-    generate_launcher: "false"
   - binary: arch-hook-install
     module: hook/runner
     function: install_main
@@ -294,7 +260,6 @@ entrypoints:
     summary: Install a hook into ~/.config/arch/hooks/<type>.d/
     args: <type> <file>
     examples: archctl hook install post-update ~/my-hook
-    generate_launcher: "false"
   - binary: arch-hibernation-available
     module: hibernation/available
     function: main
@@ -302,21 +267,18 @@ entrypoints:
     name: available
     summary: Check whether the system can hibernate
     hidden: 'true'
-    generate_launcher: "false"
   - binary: arch-hw-aarch64
     module: hardware/architecture
     function: aarch64_main
     group: hw
     name: aarch64
     summary: Detect whether the CPU is aarch64 (every ARM machine, Apple Silicon included).
-    generate_launcher: "false"
   - binary: arch-hw-intel
     module: hardware/intel
     function: intel_main
     group: hw
     name: intel
     summary: Detect whether the computer has an Intel CPU.
-    generate_launcher: "false"
 
   - binary: arch-hw-intel-ptl
     module: hardware/intel
@@ -324,14 +286,12 @@ entrypoints:
     group: hw
     name: intel ptl
     summary: Detect whether the computer has an Intel Panther Lake GPU.
-    generate_launcher: "false"
   - binary: arch-hw-intel-sof
     module: hardware/intel
     function: intel_sof_main
     group: hw
     name: intel sof
     summary: Detect an Intel SOF-capable audio DSP.
-    generate_launcher: "false"
 
   - binary: arch-hw-external-monitors
     module: hardware/misc
@@ -340,28 +300,24 @@ entrypoints:
     name: external monitors
     summary: Detect whether an external monitor is connected
     hidden: 'true'
-    generate_launcher: "false"
   - binary: arch-hw-touchscreen
     module: hardware/misc
     function: touchscreen_main
     group: hw
     name: touchscreen
     summary: Print the detected Hyprland touchscreen or tablet device name
-    generate_launcher: "false"
   - binary: arch-hw-vulkan
     module: hardware/misc
     function: vulkan_main
     group: hw
     name: vulkan
     summary: Detect whether Vulkan is available.
-    generate_launcher: "false"
   - binary: arch-hw-hybrid-gpu
     module: hardware/hybrid_gpu
     function: main
     group: hw
     name: hybrid gpu
     summary: Detect whether the system has an active hybrid GPU configuration
-    generate_launcher: "false"
 
   - binary: arch-hw-vm
     module: hardware/virtualization
@@ -369,7 +325,6 @@ entrypoints:
     group: hw
     name: vm
     summary: Returns true when running in a virtual machine.
-    generate_launcher: "false"
   - binary: arch-hw-clamshell
     module: hardware/clamshell
     function: main
@@ -377,7 +332,6 @@ entrypoints:
     name: clamshell
     summary: Returns true when clamshell mode is active
     hidden: "true"
-    generate_launcher: "false"
   - binary: arch-hw-laptop
     module: hardware/laptop
     function: laptop_main
@@ -385,7 +339,6 @@ entrypoints:
     name: laptop
     summary: Returns true when running on a laptop (has a lid or laptop chassis).
     hidden: "true"
-    generate_launcher: "false"
   - binary: arch-hw-match
     module: hardware/match
     function: match_main
@@ -394,7 +347,6 @@ entrypoints:
     summary: Match against the computer's DMI product name or product family (case-insensitive).
     args: <pattern>
     pass_args: "true"
-    generate_launcher: "false"
   - binary: arch-hw-match-device-tree
     module: hardware/match_device_tree
     function: match_device_tree_main
@@ -403,7 +355,6 @@ entrypoints:
     summary: Match against the device tree's top-level compatible strings (whole string, case-insensitive).
     args: <compatibles...>
     pass_args: "true"
-    generate_launcher: "false"
   - binary: arch-hw-fingerprint
     module: hardware/fingerprint
     function: fingerprint_main
@@ -411,35 +362,30 @@ entrypoints:
     name: fingerprint
     summary: Returns true when a fingerprint reader is present
     hidden: "true"
-    generate_launcher: "false"
   - binary: arch-hw-display
     module: hardware/display
     function: display_main
     group: hw
     name: display
     summary: Print the most likely display backlight device
-    generate_launcher: "false"
   - binary: arch-hw-recover-internal-monitor
     module: hardware/monitor_recovery
     function: recover_internal_monitor_main
     group: hw
     name: recover internal monitor
     summary: Clear the disabled internal-monitor toggle when no external display is connected
-    generate_launcher: "false"
   - binary: arch-hw-nvidia
     module: hardware/nvidia
     function: main
     group: hw
     name: nvidia
     summary: Detect whether the computer has an NVIDIA GPU.
-    generate_launcher: "false"
   - binary: arch-hw-nvidia-display
     module: hardware/nvidia
     function: nvidia_display_main
     group: hw
     name: nvidia display
     summary: Detect whether NVIDIA drives the display instead of a hybrid iGPU
-    generate_launcher: "false"
   - binary: arch-hw-nvidia-gsp
     module: hardware/nvidia
     function: gsp_main
@@ -447,7 +393,6 @@ entrypoints:
     name: nvidia gsp
     summary: Detect whether an NVIDIA GPU has GSP firmware
     hidden: 'true'
-    generate_launcher: "false"
   - binary: arch-hw-nvidia-without-gsp
     module: hardware/nvidia
     function: without_gsp_main
@@ -455,21 +400,18 @@ entrypoints:
     name: nvidia without gsp
     summary: Detect an NVIDIA GPU without GSP firmware
     hidden: 'true'
-    generate_launcher: "false"
   - binary: arch-hw-touchpad
     module: hardware/touchpad
     function: touchpad_main
     group: hw
     name: touchpad
     summary: Print the detected Hyprland touchpad or trackpad device name
-    generate_launcher: "false"
   - binary: arch-hw-webcam
     module: hardware/webcam
     function: main
     group: hw
     name: webcam
     summary: Check whether a webcam is available
-    generate_launcher: "false"
 
   - binary: arch-hw-x86
     module: hardware/architecture
@@ -477,7 +419,6 @@ entrypoints:
     group: hw
     name: x86
     summary: Detect whether the CPU is x86_64.
-    generate_launcher: "false"
   - binary: arch-hyprland-focus-app
     module: hyprland/focus
     function: main
@@ -486,14 +427,12 @@ entrypoints:
     summary: Focus a Hyprland window by application identity
     args: <app-name>
     examples: archctl hyprland focus app Slack
-    generate_launcher: "false"
   - binary: arch-hyprland-monitor-focused
     module: hyprland/monitors
     function: focused_main
     group: hyprland
     name: monitor focused
     summary: Print the name of the currently focused Hyprland monitor.
-    generate_launcher: "false"
   - binary: arch-hyprland-monitor-focused-apple
     module: hyprland/monitors
     function: apple_main
@@ -502,7 +441,6 @@ entrypoints:
     summary: Return success if the focused or named Hyprland monitor is an Apple display.
     args: "[monitor]"
     pass_args: 'true'
-    generate_launcher: "false"
   - binary: arch-hyprland-monitor-external-active
     module: hyprland/monitors
     function: external_active_main
@@ -510,14 +448,12 @@ entrypoints:
     name: monitor external active
     summary: Check whether Hyprland has an active external monitor.
     hidden: 'true'
-    generate_launcher: "false"
   - binary: arch-hyprland-monitor-laptop
     module: hyprland/monitors
     function: laptop_main
     group: hyprland
     name: monitor laptop
     summary: Print the name of the built-in laptop display, including disabled outputs.
-    generate_launcher: "false"
   - binary: arch-hyprland-monitor-modeless
     module: hyprland/monitors
     function: modeless_main
@@ -525,7 +461,6 @@ entrypoints:
     name: monitor modeless
     summary: Check whether Hyprland has an enabled monitor with no mode.
     hidden: 'true'
-    generate_launcher: "false"
   - binary: arch-hyprland-session-locked
     module: hyprland/session_locked
     function: main
@@ -533,7 +468,6 @@ entrypoints:
     name: session locked
     summary: Check whether the compositor holds a session lock
     hidden: 'true'
-    generate_launcher: "false"
   - binary: arch-hyprland-workspace-layout-current
     module: hyprland/workspace_layout
     function: workspace_layout_current_main
@@ -542,7 +476,6 @@ entrypoints:
     summary: "Print a workspace layout: tiling or scrolling"
     args: "[workspace-id]"
     pass_args: 'true'
-    generate_launcher: "false"
   - binary: arch-restart-app
     module: restart/app
     function: restart_app_main
@@ -552,14 +485,12 @@ entrypoints:
     args: <application-name> [application-args...]
     examples: archctl restart app firefox
     pass_args: 'true'
-    generate_launcher: "false"
   - binary: arch-restart-hyprctl
     module: restart/hyprland
     function: main
     group: restart
     name: hyprctl
     summary: Reload hyprland configuration (used by the Arch theme switching).
-    generate_launcher: "false"
   - binary: arch-restart-hyprsunset
     module: restart/app
     function: restart_hyprsunset_main
@@ -567,7 +498,6 @@ entrypoints:
     name: hyprsunset
     summary: Restart the blue light filter service
     hidden: 'true'
-    generate_launcher: "false"
   - binary: arch-state
     module: state/store
     function: main
@@ -576,7 +506,6 @@ entrypoints:
     summary: Manage persistent state files for Arch toggles and settings.
     args: <set|clear> <state-name-or-pattern>
     hidden: 'true'
-    generate_launcher: "false"
   - binary: arch-theme-bg-current
     module: theme/info
     function: background_current_main
@@ -584,7 +513,6 @@ entrypoints:
     name: bg current
     summary: Show current background
     examples: archctl theme bg current
-    generate_launcher: "false"
   - binary: arch-theme-bg-next
     module: theme/info
     function: background_next_main
@@ -592,7 +520,6 @@ entrypoints:
     name: bg next
     summary: Cycle to the next background for the current theme
     examples: archctl theme bg next
-    generate_launcher: "false"
   - binary: arch-theme-bg-set
     module: theme/info
     function: background_set_main
@@ -602,7 +529,6 @@ entrypoints:
     args: <path-to-media>
     examples: archctl theme bg set ~/Pictures/background.png
     pass_args: 'true'
-    generate_launcher: "false"
   - binary: arch-theme-current
     module: theme/info
     function: theme_current_main
@@ -610,7 +536,6 @@ entrypoints:
     name: current
     summary: Show current theme
     examples: archctl theme current
-    generate_launcher: "false"
   - binary: arch-theme-dir
     module: theme/info
     function: theme_dir_main
@@ -620,7 +545,6 @@ entrypoints:
     args: <theme-name>
     examples: archctl theme dir tokyo-night
     pass_args: 'true'
-    generate_launcher: "false"
   - binary: arch-theme-list
     module: theme/info
     function: theme_list_main
@@ -628,14 +552,12 @@ entrypoints:
     name: list
     summary: List available themes
     examples: archctl theme list | archctl theme set "Tokyo Night"
-    generate_launcher: "false"
   - binary: arch-version
     module: version/info
     function: version_main
     group: version
     name: ''
     summary: Print the installed Arch version
-    generate_launcher: "false"
   - binary: arch-version-branch
     module: version/info
     function: version_branch_main
@@ -643,21 +565,18 @@ entrypoints:
     name: branch
     summary: Print the active Arch dev-link git branch
     hidden: 'true'
-    generate_launcher: "false"
   - binary: arch-version-channel
     module: version/info
     function: version_channel_main
     group: version
     name: channel
     summary: Print the active Arch mirror and package channel
-    generate_launcher: "false"
   - binary: arch-version-pkgs
     module: version/packages
     function: main
     group: version
     name: pkgs
     summary: Print when system packages were last upgraded
-    generate_launcher: "false"
   - binary: arch-menu-clipboard
     module: menu/launch
     function: main
@@ -665,7 +584,6 @@ entrypoints:
     name: clipboard
     summary: Launch the clipboard manager
     examples: archctl menu clipboard
-    generate_launcher: "false"
   - binary: arch-menu-emoji
     module: menu/launch
     function: main
@@ -673,7 +591,6 @@ entrypoints:
     name: emoji
     summary: Launch emojis
     examples: archctl menu emoji
-    generate_launcher: "false"
   - binary: arch-menu-emoji-insert
     module: menu/emoji_insert
     function: main
@@ -683,7 +600,6 @@ entrypoints:
     args: <emoji>
     hidden: 'true'
     pass_args: 'true'
-    generate_launcher: "false"
   - binary: arch-iso-download
     module: iso/release
     function: download_main
@@ -692,7 +608,6 @@ entrypoints:
     summary: Download and verify an ISO from a GitHub release
     args: <tag> [--repo <owner/repository>] [--output-dir <directory>] [--iso <filename>]
     pass_args: "true"
-    generate_launcher: "false"
   - binary: arch-iso-parts
     module: iso/release
     function: parts_main
@@ -701,7 +616,6 @@ entrypoints:
     summary: Split or assemble checksummed ISO release parts
     args: <split|assemble> ...
     pass_args: "true"
-    generate_launcher: "false"
   - binary: arch-iso-upload
     module: iso/release
     function: upload_main
@@ -710,25 +624,21 @@ entrypoints:
     summary: Split an ISO and upload its parts to a GitHub release
     args: <iso> <tag> [--repo <owner/repository>]
     pass_args: "true"
-    generate_launcher: "false"
   - binary: arch-launch-nautilus
     module: launch/dispatch
     function: main
     group: launch
     name: nautilus
     summary: Launch Files
-    generate_launcher: "false"
   - binary: arch-launch-nautilus-cwd
     module: launch/dispatch
     function: main
     group: launch
     name: nautilus cwd
     summary: Launch Files in the active terminal's current directory
-    generate_launcher: "false"
   - binary: arch-launch-terminal-tmux
     module: launch/dispatch
     function: main
     group: launch
     name: terminal tmux
     summary: Launch or attach to the Work tmux session in a terminal
-    generate_launcher: "false"

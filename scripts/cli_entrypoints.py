@@ -51,7 +51,7 @@ def load_entrypoints() -> list[dict[str, str]]:
         for key in set(entry) - {"binary", "module", "function", "group"}
       )
       or entry.get("hidden", "false") not in {"true", "false"}
-      or entry.get("generate_launcher", "true") not in {"true", "false"}
+      or entry.get("generate_launcher", "false") not in {"true", "false"}
       or entry.get("pass_args", "false") not in {"true", "false"}
     ):
       raise ValueError(f"invalid entrypoint metadata: {entry}")
@@ -105,7 +105,7 @@ def generate(destination: Path) -> None:
   for entry in load_entrypoints():
     validate_module(entry)
     output = destination / "usr/share/arch/src/arch/commands" / entry["binary"]
-    if entry.get("generate_launcher", "true") == "false":
+    if entry.get("generate_launcher", "false") == "false":
       output.unlink(missing_ok=True)
       continue
     output.parent.mkdir(parents=True, exist_ok=True)

@@ -4,6 +4,8 @@ This roadmap tracks the requested CLI, ISO, desktop, and release work as separat
 
 ## Current evidence
 
+- Current CLI inventory after PR #654: 366 flat command source files, 61 Python CLI modules, and 90 YAML routes. All Python routes currently omit flat launchers. Launcher generation is now opt-in; legacy chronological entries below describe earlier rollout states, not the current package output.
+
 - `scripts/iso/` contains the CI-only native builder, checksum manifest, downloader, assembler, and release publisher. Workflow run `41202718530` built both x86_64 and AArch64 images successfully; publishing was skipped. The complete image artifacts were about 1.82 GB and 1.74 GB, and each release-assets artifact contained three files, corresponding to two image parts plus a manifest with the configured 1,000,000,000-byte cap. No GitHub release has been published, so download and assembly from a published release remain unverified.
 - `scripts/iso/profile/profiledef.py` is the checked-in Python profile renderer and reads `data/iso/profile.yml`; the CI builder emits ArchISO's required `profiledef.sh` only inside its temporary staging profile. The builder creates a complete ISO and release parts capped at 1,000,000,000 bytes each, below GitHub's 2 GB per-asset limit. `scripts/iso/download.py` verifies release metadata and delegates checksum-checked assembly to `scripts/iso/parts.py`. The ISO includes `archinstall`, but this build evidence does not prove the repository's intended online, offline, and unattended target-install flows; those remain open for disposable-VM acceptance.
 - After PR #583, `src/arch/commands/` contains 374 command files and `src/arch/cli/` contains 56 Python modules. Eighty entrypoints are declared in `data/cli/python-entrypoints.yml`; PRs #538, #541, #545, #547, #548, #549, #550, #551, #552, #553, #556, #557, #558, #559, #561, #562, #563, #564, #565, #566, #567, #568, #569, #570, #571, #573, #574, #575, #577, #578, #579, #580, #581, #582, and #583 removed their matching source wrappers and generate package launchers from YAML. The remaining flat commands still need classification and migration before the requested cleanup is complete.
@@ -32,7 +34,7 @@ PR #507 made `scrolling` the default and exposed `tiling` as the only alternate 
 
 ### 2. Inventory and classify CLI entrypoints
 
-For each executable in `src/arch/commands/`, record whether it is already backed by a Python module, still contains command behavior, or has callers that rely on its binary name. Eighty-seven Python entrypoints are catalogued after PR #590, but the remaining 367 command files have not been classified. Keep the inventory generated from source metadata so it cannot silently drift.
+For each executable in `src/arch/commands/`, record whether it is already backed by a Python module, still contains command behavior, or has callers that rely on its binary name. Ninety Python entrypoints are catalogued, while 366 command files remain for classification and migration. Keep the inventory generated from source metadata so it cannot silently drift.
 
 ### 3. Move remaining command behavior into modules
 
