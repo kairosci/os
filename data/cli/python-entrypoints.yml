@@ -92,6 +92,14 @@ entrypoints:
     group: power
     name: present
     summary: Returns true if external power is connected.
+  - binary: arch-powerprofiles-list
+    module: powerprofiles/list
+    function: main
+    group: powerprofiles
+    name: list
+    summary: List available power profiles
+    args: '[--active-state]'
+    pass_args: 'true'
   - binary: arch-refresh-config
     module: refresh/config
     function: main
