@@ -3,11 +3,13 @@
 set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
+export AP="$ROOT"
 
 test_tmp=$(mktemp -d)
 trap 'rm -rf "$test_tmp"' EXIT
 
 drm_path="$test_tmp/drm"
+mock_bin="$test_tmp/bin"
 
 write_connectors() {
   rm -rf "$drm_path"
@@ -24,7 +26,7 @@ write_connectors() {
 }
 
 has_external_monitor() {
-  ARCH_DRM_PATH="$drm_path" "$ARCH_TEST_CLI_BIN/arch-hw-external-monitors"
+  ARCH_DRM_PATH="$drm_path" archctl hw external monitors
 }
 
 write_connectors
@@ -59,3 +61,13 @@ pass "physical monitor detection ignores disconnected external displays"
 write_connectors DP-1 connected
 has_external_monitor || fail "external-only systems still report a connected display"
 pass "physical monitor detection still supports external-only systems"
+
+mkdir -p "$mock_bin"
+cat >"$mock_bin/arch-hw-laptop-closed" <<'SH'
+#!/bin/bash
+exit 0
+SH
+chmod +x "$mock_bin/arch-hw-laptop-closed"
+PATH="$mock_bin:$PATH" ARCH_DRM_PATH="$drm_path" archctl hw clamshell || \
+  fail "clamshell CLI evaluates its configured argv predicates"
+pass "clamshell CLI resolves the external-monitor route from YAML argv"

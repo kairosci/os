@@ -14,7 +14,7 @@
 # ignore, and arch-system-lid-inhibit covers displays logind does not count),
 # so it must not lock either: that is clamshell mode, still in use on the
 # external display.
-if arch-hw-laptop-closed && ! arch-hw-external-monitors; then
+if arch-hw-laptop-closed && ! archctl hw external monitors; then
   arch-system-lock >/dev/null 2>&1 || true
 fi
 

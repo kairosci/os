@@ -326,6 +326,7 @@ entrypoints:
     name: external monitors
     summary: Detect whether an external monitor is connected
     hidden: 'true'
+    generate_launcher: "false"
   - binary: arch-hw-touchscreen
     module: hardware/misc
     function: touchscreen_main
