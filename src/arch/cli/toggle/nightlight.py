@@ -54,7 +54,7 @@ def _integer(value: object, label: str, minimum: int = 1) -> int:
 
 
 def _duration(value: object, label: str) -> float:
-  if type(value) not in (int, float) or value <= 0:
+  if isinstance(value, bool) or not isinstance(value, (int, float)) or value <= 0:
     raise ValueError(f"{label} must be a positive duration")
   return float(value)
 

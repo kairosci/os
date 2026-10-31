@@ -589,7 +589,6 @@ entrypoints:
     name: nightlight
     summary: Toggle or inspect the nightlight screen temperature
     args: '[on|off|--status]'
-    hidden: 'true'
     pass_args: 'true'
   - binary: arch-theme-bg-current
     module: theme/info
