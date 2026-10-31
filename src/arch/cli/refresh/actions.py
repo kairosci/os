@@ -32,17 +32,17 @@ def _settings() -> tuple[list[str], list[str], str, dict[str, int]]:
     raise ValueError("invalid tmux restart command")
   if not isinstance(usage, str) or not usage:
     raise ValueError("invalid tmux refresh message")
-  parsed_statuses = {
-    name: statuses.get(name)
-    for name in ("success", "failure", "invalid_arguments")
-  }
-  if not all(type(value) is int and 0 <= cast(int, value) <= 255 for value in parsed_statuses.values()):
-    raise ValueError("invalid tmux refresh status codes")
+  parsed_statuses: dict[str, int] = {}
+  for name in ("success", "failure", "invalid_arguments"):
+    value = statuses.get(name)
+    if type(value) is not int or not 0 <= value <= 255:
+      raise ValueError("invalid tmux refresh status codes")
+    parsed_statuses[name] = value
   return (
     cast(list[str], refresh),
     cast(list[str], restart),
     usage,
-    cast(dict[str, int], parsed_statuses),
+    parsed_statuses,
   )
 
 
