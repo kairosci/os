@@ -63,6 +63,13 @@ entrypoints:
     name: time
     summary: Show the current time and date notification
     pass_args: 'true'
+  - binary: arch-notification-weather
+    module: notification/weather
+    function: main
+    group: notification
+    name: weather
+    summary: Toggle the current weather panel
+    pass_args: 'true'
   - binary: arch-power-present
     module: power/present
     function: main
