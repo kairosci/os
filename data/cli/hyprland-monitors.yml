@@ -15,6 +15,17 @@ apple:
   make: Apple Computer Inc
   model_field: model
   model_pattern: "StudioDisplay|ProDisplayXDR|Studio XDR"
+query_timeout_seconds: 2
+modeless:
+  fields:
+    disabled: disabled
+    disabled_value: true
+    dimensions: [width, height]
+    no_mode_value: 0
+  statuses:
+    modeless: 0
+    working: 1
+    unknown: 2
 output_field: name
 exit_codes:
   invalid_json:

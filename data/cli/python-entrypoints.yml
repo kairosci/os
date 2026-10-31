@@ -338,6 +338,13 @@ entrypoints:
     group: hyprland
     name: monitor laptop
     summary: Print the name of the built-in laptop display, including disabled outputs.
+  - binary: arch-hyprland-monitor-modeless
+    module: hyprland/monitors
+    function: modeless_main
+    group: hyprland
+    name: monitor modeless
+    summary: Check whether Hyprland has an enabled monitor with no mode.
+    hidden: 'true'
   - binary: arch-hyprland-workspace-layout-current
     module: hyprland/workspace_layout
     function: workspace_layout_current_main

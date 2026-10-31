@@ -55,10 +55,6 @@ pass "modeless recovery also runs after a config reload"
 grep -F 'arch-hyprland-reload-guard paused' "$monitor_watch" >/dev/null
 pass "modeless recovery does not reload into a package transaction"
 
-grep -F '.disabled != true and (.width == 0 or .height == 0)' "$ROOT/src/arch/commands/arch-hyprland-monitor-modeless" >/dev/null
-grep -F 'hyprctl monitors all -j' "$ROOT/src/arch/commands/arch-hyprland-monitor-modeless" >/dev/null
-pass "modeless helper sees mirrors and ignores monitors disabled on purpose"
-
 grep -F 'arch-hw-laptop-closed && arch-hw-external-monitors' "$hw_clamshell" >/dev/null
 grep -F 'org.freedesktop.login1.Manager LidClosed' "$hw_laptop_closed" >/dev/null
 grep -F 'ARCH_ACPI_LID_PATH:-/proc/acpi/button/lid' "$hw_laptop_closed" >/dev/null
