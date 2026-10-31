@@ -15,20 +15,25 @@ SH
 chmod +x "$menu_tmp/bin/arch-shell"
 menu_args="$menu_tmp/args"
 
+for launcher in arch-menu-clipboard arch-menu-emoji arch-menu-emoji-insert; do
+  [[ ! -e $ARCH_TEST_CLI_BIN/$launcher ]] || fail "menu route does not install flat launcher $launcher"
+done
+pass "clipboard and emoji routes install without flat launchers"
+
 status=0
 AP="$ROOT" PATH="$menu_tmp/bin:$PATH" ARCH_MENU_LOG="$menu_args" ARCH_MENU_STATUS=7 \
-  "$ARCH_TEST_CLI_BIN/arch-menu-clipboard" || status=$?
-[[ $status == 7 ]] || fail "clipboard menu launcher preserves the shell command status" "$status"
+  archctl menu clipboard || status=$?
+[[ $status == 7 ]] || fail "clipboard menu route preserves the shell command status" "$status"
 mapfile -d '' -t actual_args <"$menu_args"
 [[ ${#actual_args[@]} == 3 && ${actual_args[0]} == shell && ${actual_args[1]} == toggle && ${actual_args[2]} == arch.clipboard ]] ||
-  fail "clipboard menu launcher sends its configured shell action" "${actual_args[*]}"
+  fail "clipboard menu route sends its configured shell action" "${actual_args[*]}"
 
 AP="$ROOT" PATH="$menu_tmp/bin:$PATH" ARCH_MENU_LOG="$menu_args" ARCH_MENU_STATUS=0 \
-  "$ARCH_TEST_CLI_BIN/arch-menu-emoji" || fail "emoji menu launcher opens successfully"
+  archctl menu emoji || fail "emoji menu route opens successfully"
 mapfile -d '' -t actual_args <"$menu_args"
 [[ ${#actual_args[@]} == 3 && ${actual_args[0]} == shell && ${actual_args[1]} == toggle && ${actual_args[2]} == arch.emojis ]] ||
-  fail "emoji menu launcher sends its configured shell action" "${actual_args[*]}"
-pass "clipboard and emoji menu launchers use their YAML actions"
+  fail "emoji menu route sends its configured shell action" "${actual_args[*]}"
+pass "clipboard and emoji menu routes use their YAML actions"
 
 run_node_test <<'JS'
 const fs = require('fs')
@@ -265,7 +270,7 @@ assertEqual(menu.resolveRoute(rankBase.items, rankBase.itemOrder, 'toggle'), 'tr
 assertEqual(menu.resolveRoute(rankBase.items, rankBase.itemOrder, 'toggles'), 'trigger.toggle', 'menu routes toggles to the Toggle menu')
 assertEqual(
   defaultById['trigger.emoji'].action,
-  'arch-menu-emoji',
+  'archctl menu emoji',
   'menu opens the emoji picker from Trigger'
 )
 assert(
@@ -519,7 +524,7 @@ assert(
 )
 assertDeepEqual(
   defaultItems.filter(item => item.parent === 'appearance.workspace-layout').map(item => item.id),
-  ['appearance.workspace-layout.dwindle', 'appearance.workspace-layout.scrolling'],
+  ['appearance.workspace-layout.tiling', 'appearance.workspace-layout.scrolling'],
   'menu offers only tiled workspace layouts'
 )
 assertDeepEqual(

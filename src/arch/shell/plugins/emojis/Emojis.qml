@@ -149,7 +149,7 @@ Item {
   function applySelected(emoji) {
     if (!emoji) return
     root.dismiss()
-    Quickshell.execDetached([root.archPath + "/src/arch/commands/arch-menu-emoji-insert", emoji])
+    Quickshell.execDetached(["archctl", "menu", "emoji", "insert", emoji])
   }
 
   ListModel { id: displayModel }

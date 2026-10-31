@@ -592,6 +592,7 @@ entrypoints:
     name: clipboard
     summary: Launch the clipboard manager
     examples: archctl menu clipboard
+    generate_launcher: "false"
   - binary: arch-menu-emoji
     module: menu/launch
     function: main
@@ -599,6 +600,7 @@ entrypoints:
     name: emoji
     summary: Launch emojis
     examples: archctl menu emoji
+    generate_launcher: "false"
   - binary: arch-menu-emoji-insert
     module: menu/emoji_insert
     function: main
@@ -608,6 +610,7 @@ entrypoints:
     args: <emoji>
     hidden: 'true'
     pass_args: 'true'
+    generate_launcher: "false"
   - binary: arch-launch-nautilus
     module: launch/dispatch
     function: main

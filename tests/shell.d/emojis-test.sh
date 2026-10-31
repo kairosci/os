@@ -83,7 +83,7 @@ chmod +x "$TMPDIR/bin/wl-copy" "$TMPDIR/bin/wtype"
 
 WL_COPY_OUT="$TMPDIR/copy" WL_COPY_EMOJI_OUT="$TMPDIR/emoji" WTYPE_OUT="$TMPDIR/wtype" \
 WL_COPY_PID_OUT="$TMPDIR/provider.pid" WL_COPY_STOPPED="$TMPDIR/provider.stopped" \
-  AP="$ROOT" PATH="$TMPDIR/bin:$PATH" "$ARCH_TEST_CLI_BIN/arch-menu-emoji-insert" "😀"
+  AP="$ROOT" PATH="$TMPDIR/bin:$PATH" archctl menu emoji insert "😀"
 
 [[ $(<"$TMPDIR/emoji") == "😀" ]] || fail "emoji insert helper copies emoji transiently"
 pass "emoji insert helper copies emoji transiently"
@@ -99,13 +99,13 @@ pass "emoji insert helper terminates its clipboard process group"
 
 rm -f "$TMPDIR/provider.pid" "$TMPDIR/provider.stopped" "$TMPDIR/wtype"
 AP="$ROOT" PATH="$TMPDIR/bin:$PATH" \
-  "$ARCH_TEST_CLI_BIN/arch-menu-emoji-insert" "" || fail "empty emoji input remains a no-op"
+  archctl menu emoji insert "" || fail "empty emoji input remains a no-op"
 [[ ! -e $TMPDIR/provider.pid && ! -e $TMPDIR/wtype ]] || fail "empty emoji input starts no helper processes"
 pass "empty emoji input starts no helper processes"
 
 oversized=$(printf '%4097s' x)
 status=0
-AP="$ROOT" PATH="$TMPDIR/bin:$PATH" "$ARCH_TEST_CLI_BIN/arch-menu-emoji-insert" "$oversized" 2>/dev/null || status=$?
+AP="$ROOT" PATH="$TMPDIR/bin:$PATH" archctl menu emoji insert "$oversized" 2>/dev/null || status=$?
 [[ $status == 1 && ! -e $TMPDIR/provider.pid ]] || fail "oversized emoji input fails before starting the clipboard provider"
 pass "oversized emoji input is rejected before process startup"
 
@@ -113,7 +113,7 @@ rm -f "$TMPDIR/provider.pid" "$TMPDIR/provider.stopped" "$TMPDIR/wtype" "$TMPDIR
 WTYPE_BLOCK=1 WTYPE_STOPPED="$TMPDIR/wtype.stopped" \
 WL_COPY_OUT="$TMPDIR/copy" WL_COPY_EMOJI_OUT="$TMPDIR/emoji" WTYPE_OUT="$TMPDIR/wtype" \
 WL_COPY_PID_OUT="$TMPDIR/provider.pid" WL_COPY_STOPPED="$TMPDIR/provider.stopped" \
-  AP="$ROOT" PATH="$TMPDIR/bin:$PATH" "$ARCH_TEST_CLI_BIN/arch-menu-emoji-insert" "😀" &
+  AP="$ROOT" PATH="$TMPDIR/bin:$PATH" archctl menu emoji insert "😀" &
 insert_pid=$!
 for ((attempt = 0; attempt < 100; attempt++)); do
   [[ -f $TMPDIR/wtype ]] && break
