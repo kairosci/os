@@ -13,7 +13,6 @@ sources = [
   "src/arch/commands/arch-hyprland-reload-guard",
   "src/arch/commands/arch-hyprland-session-lock-stranded",
   "src/arch/cli/hyprland/session_locked.py",
-  "src/arch/commands/arch-hyprland-toggle",
   "src/arch/cli/hyprland/toggle.py",
   "src/arch/commands/arch-hyprland-window-close-all",
   "src/arch/commands/arch-hyprland-window-gaps-toggle",
@@ -71,10 +70,6 @@ target = "usr/share/arch/src/arch/commands/arch-hyprland-session-lock-stranded"
 [[output]]
 source = "src/arch/cli/hyprland/session_locked.py"
 target = "usr/share/arch/src/arch/cli/hyprland/session_locked.py"
-
-[[output]]
-source = "src/arch/commands/arch-hyprland-toggle"
-target = "usr/share/arch/src/arch/commands/arch-hyprland-toggle"
 
 [[output]]
 source = "src/arch/cli/hyprland/toggle.py"

@@ -468,6 +468,15 @@ entrypoints:
     name: session locked
     summary: Check whether the compositor holds a session lock
     hidden: 'true'
+  - binary: arch-hyprland-toggle
+    module: hyprland/toggle
+    function: set_main
+    group: hyprland
+    name: toggle
+    summary: Enable, disable, or toggle a persistent Hyprland setting
+    args: <flag-name> [on|off|toggle]
+    examples: archctl hyprland toggle no-animations on
+    pass_args: 'true'
   - binary: arch-hyprland-toggle-enabled
     module: hyprland/toggle
     function: enabled_main

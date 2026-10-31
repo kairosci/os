@@ -52,9 +52,8 @@ HOME="$test_home" arch-toggle-bar off
 [[ ! -f $bar_flag ]] || fail "bar off disables bar-off toggle"
 pass "bar off disables bar-off toggle"
 
-# The gaps half of full screen copies a flag file in and reloads Hyprland, so
-# give it this checkout to copy from and a hyprctl that answers without a
-# compositor.
+# Hyprland toggle state is routed through the Python module; give it this
+# checkout and a hyprctl that answers without a compositor.
 export AP="$ROOT"
 stub_bin="$TMPDIR/bin"
 mkdir -p "$stub_bin"

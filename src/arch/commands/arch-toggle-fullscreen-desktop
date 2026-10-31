@@ -24,4 +24,4 @@ case $ACTION in
 esac
 
 arch-toggle-bar "$ACTION"
-arch-hyprland-toggle window-no-gaps "$ACTION"
+archctl hyprland toggle window-no-gaps "$ACTION"

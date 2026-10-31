@@ -23,7 +23,6 @@ make_stub() {
 }
 
 make_stub arch-notification-send ':'
-make_stub arch-hyprland-toggle ':'
 make_stub arch-hyprland-monitor-internal ':'
 make_stub arch-hyprland-monitor-internal-mirror ':'
 make_stub archctl 'if [[ ${1:-} == notification && ${2:-} == send ]]; then
@@ -31,7 +30,7 @@ make_stub archctl 'if [[ ${1:-} == notification && ${2:-} == send ]]; then
   notification_command=$(command -v arch-notification-send) || exit 127
   exec "$notification_command" "$@"
 fi
-if [[ ${1:-} == hyprland && ${2:-} == toggle && ( ${3:-} == enabled || ${3:-} == disabled ) ]]; then
+if [[ ${1:-} == hyprland && ${2:-} == toggle ]]; then
   exit 0
 fi
 case "$*" in
