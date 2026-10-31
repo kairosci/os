@@ -333,9 +333,10 @@ exit 0
 SH
 done
 
-cat >"$fake_bin/arch-hyprland-monitor-modeless" <<'SH'
+cat >"$fake_bin/archctl" <<'SH'
 #!/bin/bash
 
+[[ ${1:-} == hyprland && ${2:-} == monitor && ${3:-} == modeless && $# == 3 ]] || exit 2
 exit 1
 SH
 

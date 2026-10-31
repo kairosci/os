@@ -110,7 +110,6 @@ SH
 cp "$fake_bin/arch-hyprland-monitor-clamshell" "$fake_bin/arch-system-lid-inhibit"
 
 chmod +x "$fake_bin"/*
-ln -s "$ARCH_TEST_CLI_BIN/arch-hyprland-monitor-modeless" "$fake_bin/arch-hyprland-monitor-modeless"
 
 MODELESS=0
 WORKING=1
@@ -122,7 +121,7 @@ assert_state() {
   printf '%s' "$2" >"$monitors_file"
   PATH="$fake_bin:$PATH" ARCH_TEST_MONITORS_FILE="$monitors_file" \
   ARCH_TEST_HYPRCTL_FAIL_FLAG="$hyprctl_fail" ARCH_TEST_HYPRCTL_SLOW_FLAG="$hyprctl_slow" \
-    "$ARCH_TEST_CLI_BIN/arch-hyprland-monitor-modeless" || actual=$?
+    "$ARCH_TEST_CLI_BIN/archctl" hyprland monitor modeless || actual=$?
 
   (( actual == expected )) || fail "$3" "expected exit $expected, got $actual"
   pass "$3"
@@ -165,7 +164,7 @@ touch "$hyprctl_fail"
 unreachable=0
 PATH="$fake_bin:$PATH" ARCH_TEST_MONITORS_FILE="$monitors_file" \
 ARCH_TEST_HYPRCTL_FAIL_FLAG="$hyprctl_fail" ARCH_TEST_HYPRCTL_SLOW_FLAG="$hyprctl_slow" \
-  "$ARCH_TEST_CLI_BIN/arch-hyprland-monitor-modeless" || unreachable=$?
+  "$ARCH_TEST_CLI_BIN/archctl" hyprland monitor modeless || unreachable=$?
 rm -f "$hyprctl_fail"
 (( unreachable == UNDETERMINED )) || fail "an unreachable compositor cannot say" "got $unreachable"
 pass "an unreachable compositor cannot say"

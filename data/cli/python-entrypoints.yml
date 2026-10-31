@@ -496,6 +496,7 @@ entrypoints:
     name: monitor modeless
     summary: Check whether Hyprland has an enabled monitor with no mode.
     hidden: 'true'
+    generate_launcher: "false"
   - binary: arch-hyprland-session-locked
     module: hyprland/session_locked
     function: main
