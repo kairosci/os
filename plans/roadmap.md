@@ -6,7 +6,7 @@ This roadmap tracks the requested CLI, ISO, desktop, and release work as separat
 
 - `scripts/iso/` contains the CI-only native builder, checksum manifest, downloader, assembler, and release publisher. Workflow run `41133288654` built both x86_64 and AArch64 images successfully; its publish job was skipped. The GitHub repository currently has no releases, so a published multipart release has not yet been verified.
 - `scripts/iso/profile/profiledef.py` is the checked-in Python profile renderer and reads `data/iso/profile.yml`; the CI builder emits ArchISO's required `profiledef.sh` only inside its temporary staging profile. The builder creates a complete ISO and release parts capped at 1,900,000,000 bytes each, below GitHub's 2 GB per-asset limit. `scripts/iso/download.py` verifies release metadata and delegates checksum-checked assembly to `scripts/iso/parts.py`. The ISO includes `archinstall`, but this build evidence does not prove the repository's intended online, offline, and unattended target-install flows; those remain open for disposable-VM acceptance.
-- After PR #553, `src/arch/commands/` contains 400 command files and `src/arch/cli/` contains 33 Python modules. Fifty-four entrypoints are declared in `data/cli/python-entrypoints.yml`; PRs #538, #541, #545, #547, #548, #549, #550, #551, #552, and #553 removed their matching source wrappers and generate package launchers from YAML. The remaining flat commands still need classification and migration before the requested cleanup is complete.
+- After PR #556, `src/arch/commands/` contains 399 command files and `src/arch/cli/` contains 34 Python modules. Fifty-five entrypoints are declared in `data/cli/python-entrypoints.yml`; PRs #538, #541, #545, #547, #548, #549, #550, #551, #552, #553, and #556 removed their matching source wrappers and generate package launchers from YAML. The remaining flat commands still need classification and migration before the requested cleanup is complete.
 - PR #507 established `scrolling` as the default and `tiling` as the only alternate public workspace mode. Stored legacy layout values are normalized during configuration loading; the compositor's internal layout names are implementation details.
 - PRs #542 and #555 keep every shipped window and layer rule, including global tiling and transparency defaults, in the user-editable `config/hypr/apps.yml`. Disktree tiles and maximizes into the active display's usable area instead of using a fixed pixel size. The YAML loader reports an invalid user file and applies packaged defaults so a typo does not disable the desktop's window rules. The menu overflow indicator and the event-driven battery glyph refresh have been integrated; the current charging glyph has not been visually checked on a machine connected to external power.
 - The theme asset tree contains no keyboard image asset or keyboard-image reference. PR #539 removed Windows VM install and removal rows from the default menu; the existing command and user data remain untouched. Menu hierarchy, labels, focus behavior, and visual verification still need a broader review.
@@ -19,7 +19,7 @@ PR #507 made `scrolling` the default and exposed `tiling` as the only alternate 
 
 ### 2. Inventory and classify CLI entrypoints
 
-For each executable in `src/arch/commands/`, record whether it is already backed by a Python module, still contains command behavior, or has callers that rely on its binary name. Fifty-four Python entrypoints are catalogued today, but the remaining 400 command files have not been classified. Keep the inventory generated from source metadata so it cannot silently drift.
+For each executable in `src/arch/commands/`, record whether it is already backed by a Python module, still contains command behavior, or has callers that rely on its binary name. Fifty-five Python entrypoints are catalogued today, but the remaining 399 command files have not been classified. Keep the inventory generated from source metadata so it cannot silently drift.
 
 ### 3. Move remaining command behavior into modules
 
@@ -47,7 +47,7 @@ Have the release workflow build the ISO from the local profile, validate the res
 
 ### 9. Move default app rules into user configuration — implemented
 
-PRs #542 and #555 keep all default window and layer behavior for shipped applications in `config/hypr/apps.yml`, which is copied into new user profiles and can be restored for existing profiles with `archctl refresh config hypr/apps.yml`. The loader treats YAML as data, bounds its size and nesting, and uses packaged defaults with a diagnostic when a user's file is invalid. Disktree uses the active tiled layout area. Verify the running UI when the package is rolled out.
+PR #542 moved all default window and layer behavior for shipped applications into `config/hypr/apps.yml`, which is copied into new user profiles and can be restored for existing profiles with `archctl refresh config hypr/apps.yml`. The loader treats YAML as data, bounds its size and nesting, and uses packaged defaults with a diagnostic when a user's file is invalid. PR #555 keeps Disktree in the active tiled layout area. Verify the running UI when the package is rolled out.
 
 ### 10. Finish menu and theme polish — in progress
 
