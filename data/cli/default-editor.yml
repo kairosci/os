@@ -1,0 +1,77 @@
+paths:
+  state_home_environment: XDG_STATE_HOME
+  home_environment: HOME
+  default_state_home: .local/state
+  state_relative: arch/defaults/editor
+  encoding: utf-8
+limits:
+  arguments: 1
+  command_timeout_seconds: 5
+  stored_value_characters: 128
+values:
+  binary: arch-default-editor
+  install_flag: --install
+  default_command: nvim
+  localization_key: default.editorSet
+commands:
+  command_missing: [arch-cmd-missing]
+  launch_installer: [arch-launch-terminal-with-presentation]
+  notification: [arch-notification-send, -g]
+  localization: [arch-i18n]
+legacy:
+  command_names:
+    sublime_text: subl
+aliases:
+  zeditor: zed
+  subl: sublime_text
+editors:
+  code:
+    command: code
+    name: VSCode
+    glyph: 
+    installer: [arch-install-editor-vscode]
+  cursor:
+    command: cursor
+    name: Cursor
+    glyph: 
+    installer: [arch-pkg-add, cursor-bin]
+  zed:
+    command: zeditor
+    name: Zed
+    glyph: 
+    installer: [arch-install-editor-zed]
+  sublime_text:
+    command: subl
+    name: Sublime Text
+    glyph: 
+    installer: [arch-pkg-add, sublime-text-4]
+  helix:
+    command: helix
+    name: Helix
+    glyph: 
+    installer: [arch-install-editor-helix]
+  vim:
+    command: vim
+    name: Vim
+    glyph: 
+    installer: [arch-pkg-add, vim]
+  emacs:
+    command: emacs
+    name: Emacs
+    glyph: 
+    installer: [arch-install-editor-emacs]
+  nvim:
+    command: nvim
+    name: Neovim
+    glyph: 
+    installer: [arch-pkg-add, neovim]
+messages:
+  usage: 'Usage: arch-default-editor [--install] <editor>'
+  config_error: 'Could not read the editor preference.'
+  command_error: 'Could not run editor preference command.'
+statuses:
+  success: 0
+  invalid_arguments: 1
+  invalid_selection: 1
+  config_error: 1
+  command_error: 127
