@@ -548,6 +548,25 @@ entrypoints:
     summary: "Print a workspace layout: tiling or scrolling"
     args: "[workspace-id]"
     pass_args: 'true'
+  - binary: arch-hyprland-workspace-layout-default
+    module: hyprland/workspace_layout
+    function: workspace_layout_default_main
+    group: hyprland
+    name: workspace layout default
+    summary: Set or show the default workspace layout
+    args: "[tiling|scrolling]"
+    examples: archctl hyprland workspace layout default scrolling
+    generate_launcher: 'false'
+    pass_args: 'true'
+  - binary: arch-hyprland-workspace-layout-toggle
+    module: hyprland/workspace_layout
+    function: workspace_layout_toggle_main
+    group: hyprland
+    name: workspace layout toggle
+    summary: Cycle the current workspace between tiling and scrolling
+    args: '[back]'
+    generate_launcher: 'false'
+    pass_args: 'true'
   - binary: arch-restart-app
     module: restart/app
     function: restart_app_main

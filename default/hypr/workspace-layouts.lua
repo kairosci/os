@@ -1,4 +1,4 @@
--- Restore workspace layouts saved by arch-hyprland-workspace-layout-toggle.
+-- Restore workspace layouts saved by `archctl hyprland workspace layout toggle`.
 
 local paths = require("default.hypr.paths")
 local require_all = require("default.hypr.require_all")

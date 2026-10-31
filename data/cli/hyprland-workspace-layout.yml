@@ -1,0 +1,69 @@
+paths:
+  home_environment: HOME
+  state_home_environment: XDG_STATE_HOME
+  default_state_home_relative: .local/state
+  layout_directory: arch/workspace-layouts
+  default_file_name: default.lua
+  workspace_file_suffix: .lua
+  notification_file_name: workspace-layout-notification
+  state_namespace: arch
+  temporary_prefix: .workspace-layout.
+commands:
+  active_workspace: [hyprctl, activeworkspace, -j]
+  workspaces: [hyprctl, workspaces, -j]
+  default_layout: [hyprctl, getoption, general.layout, -j]
+  apply_workspace_layout: [hyprctl, eval]
+  reload: [hyprctl, reload]
+  refresh_workspaces: [arch-shell, -q, arch.workspaces, refresh]
+  notification_send: [arch-notification-send]
+  notification_flags: [-p, -r, -g]
+  localize: [arch-i18n]
+fields:
+  workspace_id: id
+  tiled_layout: tiledLayout
+  window_count: windows
+  default_layout: str
+values:
+  tiling_modes: [tiling, dwindle]
+  scrolling_modes: [scrolling]
+  fallback_mode: scrolling
+  public_modes: [tiling, scrolling]
+  toggle_back_argument: back
+  empty_notification_id: '0'
+  notification_glyph: 󱂬
+  workspace_layout_expression: 'o.workspace_mode({ workspace = "{workspace}", mode = "{mode}" })'
+  default_layout_expression: 'o.workspace_mode({ default = "{mode}" })'
+  workspace_layout_notification: layout.workspaceTiling
+  workspace_layout_unsaved_notification: layout.workspaceTilingUnsaved
+  scrolling_layout_notification: layout.workspaceScrolling
+  scrolling_layout_unsaved_notification: layout.workspaceScrollingUnsaved
+  default_tiling_notification: layout.defaultTiling
+  default_scrolling_notification: layout.defaultScrolling
+  reload_required_notification: layout.needsReload
+patterns:
+  workspace_id: '^[0-9]+$'
+  notification_id: '^[0-9]+$'
+  saved_mode: '.*mode = "([a-z]*)".*'
+  saved_default_mode: '.*default = "([a-z]*)".*'
+limits:
+  command_timeout_seconds: 5
+  saved_file_characters: 4096
+  workspace_id_digits: 12
+  notification_id_characters: 24
+statuses:
+  success: 0
+  configuration_error: 78
+  invalid_arguments: 2
+  command_failure: 1
+messages:
+  current_usage: 'Usage: archctl hyprland workspace layout current [workspace-id]'
+  toggle_usage: 'Usage: archctl hyprland workspace layout toggle [back]'
+  default_usage: 'Usage: archctl hyprland workspace layout default [tiling|scrolling]'
+  default_set: 'The default workspace layout is stored, but no localized notification was available.'
+  toggle_set: 'The workspace layout changed, but no localized notification was available.'
+  toggle_unsaved: 'The workspace layout changed, but its per-workspace override could not be saved.'
+  workspace_query_failed: 'could not read the current workspace; no layout was changed'
+  workspaces_query_failed: 'could not read the workspaces; no layout was changed'
+  apply_failed: 'Hyprland did not apply the workspace layout'
+  reload_failed: 'the workspace layout was saved, but Hyprland could not reload it'
+  configuration_failed: 'workspace layout configuration is invalid'

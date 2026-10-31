@@ -9,8 +9,8 @@ o.bind("SUPER + CTRL + F", "Tiled full screen", "arch-hyprland-window-tiled-full
 o.bind("SUPER + ALT + F", "Full width", hl.dsp.window.fullscreen({ mode = "maximized" }))
 o.bind("SUPER + ALT + Home", "Save window width", "arch-hyprland-window-width save")
 o.bind("SUPER + Home", "Restore window width", "arch-hyprland-window-width restore")
-o.bind("SUPER + L", "Cycle workspace layout", "arch-hyprland-workspace-layout-toggle")
-o.bind("SUPER + ALT + L", "Cycle workspace layout back", "arch-hyprland-workspace-layout-toggle back")
+o.bind("SUPER + L", "Cycle workspace layout", "archctl hyprland workspace layout toggle")
+o.bind("SUPER + ALT + L", "Cycle workspace layout back", "archctl hyprland workspace layout toggle back")
 
 o.bind("SUPER + LEFT", "Focus on left window", hl.dsp.focus({ direction = "l" }))
 o.bind("SUPER + RIGHT", "Focus on right window", hl.dsp.focus({ direction = "r" }))
