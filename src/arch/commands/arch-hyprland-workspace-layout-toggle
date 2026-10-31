@@ -28,7 +28,7 @@ ACTIVE_WORKSPACE=$(hyprctl activeworkspace -j | jq -r '.id')
 MODES_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/arch/workspace-layouts"
 MODE_FILE="$MODES_DIR/$ACTIVE_WORKSPACE.lua"
 
-CURRENT_MODE=$(arch-hyprland-workspace-layout-current)
+CURRENT_MODE=$(archctl hyprland workspace layout current)
 
 case "$CURRENT_MODE" in
   tiling) NEW_MODE=scrolling ;;

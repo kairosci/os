@@ -68,7 +68,7 @@ fi
 
 while read -r workspace; do
   [[ -n $workspace && ! -f $MODES_DIR/$workspace.lua ]] || continue
-  current=$(arch-hyprland-workspace-layout-current "$workspace")
+  current=$(archctl hyprland workspace layout current "$workspace")
   if [[ $current != "$1" ]]; then
     printf 'o.workspace_mode({ workspace = "%s", mode = "%s" })\n' "$workspace" "$current" >"$MODES_DIR/$workspace.lua"
   fi
