@@ -1302,10 +1302,10 @@ run_post_upgrade_update_steps() {
     fi
   fi
 
-  if PATH="$package_path" command -v arch-update-available >/dev/null 2>&1; then
+  if PATH="$package_path" command -v archctl >/dev/null 2>&1; then
     log "Refreshing update indicator state"
     update_status=0
-    update_output=$(run_as_user_arch arch-update-available 2>&1) || update_status=$?
+    update_output=$(run_as_user_arch archctl update available 2>&1) || update_status=$?
 
     if (( update_status == 0 )); then
       warn "Updates are still available after the upgrade; run arch-update after reboot:"

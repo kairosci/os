@@ -27,7 +27,7 @@ pass "os 4 upgrade forces a database refresh before installing keyrings"
 
 grep -F 'pacman -Syu --needed' "$upgrade_to_quattro" >/dev/null
 grep -F 'arch-update-aur-pkgs' "$upgrade_to_quattro" >/dev/null
-grep -F 'arch-update-available' "$upgrade_to_quattro" >/dev/null
+grep -F 'archctl update available' "$upgrade_to_quattro" >/dev/null
 grep -F 'arch-update-mise' "$upgrade_to_quattro" >/dev/null
 grep -F 'run_final_system_package_upgrade' "$upgrade_to_quattro" >/dev/null
 pass "os 4 upgrade completes package update checks"
