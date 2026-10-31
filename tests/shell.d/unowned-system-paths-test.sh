@@ -138,7 +138,7 @@ else
   skip "no os script writes a path under /usr that no package owns: needs the arch-pkgs checkout; set ARCH_PKGS_PATH to it"
 fi
 
-for script in src/arch/commands/arch-hibernation-setup src/arch/commands/arch-toggle-hybrid-gpu; do
+for script in src/arch/commands/arch-hibernation-setup; do
   grep -F '"${destination%/*}/.${destination##*/}.arch.XXXXXX"' "$ROOT/$script" >/dev/null ||
     fail "$script reserves a hidden sibling for the privileged replacement"
   grep -F 'sudo /usr/bin/install -m "$mode" -o root -g root -T "$source" "$stage"' "$ROOT/$script" >/dev/null ||
@@ -160,14 +160,21 @@ resume_marker_line=$(rg -n '^echo "HOOKS\+=\(resume\)"' "$ROOT/src/arch/commands
 (( hook_install_line < resume_marker_line )) ||
   fail "hibernation setup marks completion before a failed hook install can be retried"
 
-grep -F '  /usr/lib/systemd/system-sleep/force-igpu 0755' "$ROOT/src/arch/commands/arch-toggle-hybrid-gpu" >/dev/null ||
+hybrid_gpu_module="$ROOT/src/arch/cli/toggle/hybrid_gpu.py"
+grep -F 'if not stage.startswith(prefix) or not re.fullmatch(suffix_pattern, stage.removeprefix(prefix)):' "$hybrid_gpu_module" >/dev/null ||
+  fail "hybrid GPU setup validates the privileged staging path"
+grep -F 'install_root_owned: [-o, root, -g, root, -T]' "$ROOT/data/cli/hybrid-gpu-toggle.yml" >/dev/null ||
+  fail "hybrid GPU setup prepares privileged files with final root ownership and mode"
+grep -F '_run(publish).returncode == 0' "$hybrid_gpu_module" >/dev/null ||
+  fail "hybrid GPU setup atomically publishes staged files"
+grep -F 'sleep_hook_destination: /usr/lib/systemd/system-sleep/force-igpu' "$ROOT/data/cli/hybrid-gpu-toggle.yml" >/dev/null ||
   fail "hybrid GPU setup installs force-igpu as a root-owned executable"
-grep -F '  /etc/systemd/system/supergfxd.service.d/delay-start.conf 0644' "$ROOT/src/arch/commands/arch-toggle-hybrid-gpu" >/dev/null ||
+grep -F 'startup_delay_destination: /etc/systemd/system/supergfxd.service.d/delay-start.conf' "$ROOT/data/cli/hybrid-gpu-toggle.yml" >/dev/null ||
   fail "hybrid GPU setup installs its root service drop-in as root-owned configuration"
 
-delay_install_line=$(rg -n '^    if ! install_root_file .*delay-start\.conf' "$ROOT/src/arch/commands/arch-toggle-hybrid-gpu" | cut -d: -f1)
-force_install_line=$(rg -n '^    if ! install_root_file .*force-igpu' "$ROOT/src/arch/commands/arch-toggle-hybrid-gpu" | cut -d: -f1)
-config_switch_line=$(rg -n '^    sudo sed -i \\' "$ROOT/src/arch/commands/arch-toggle-hybrid-gpu" | tail -1 | cut -d: -f1)
+delay_install_line=$(rg -n '"startup_delay_source", "startup_delay_destination"' "$hybrid_gpu_module" | cut -d: -f1)
+force_install_line=$(rg -n '"sleep_hook_source", "sleep_hook_destination"' "$hybrid_gpu_module" | cut -d: -f1)
+config_switch_line=$(rg -n 'if not _switch\(settings, cast\(str, values\["integrated_mode"\]\)\)' "$hybrid_gpu_module" | cut -d: -f1)
 [[ -n $delay_install_line && -n $force_install_line && -n $config_switch_line ]] ||
   fail "hybrid GPU setup keeps recognizable support-file and config-switch steps"
 (( delay_install_line < config_switch_line && force_install_line < config_switch_line )) ||
@@ -176,7 +183,7 @@ config_switch_line=$(rg -n '^    sudo sed -i \\' "$ROOT/src/arch/commands/arch-t
 grep -Fq '/usr/bin/grep -Eq' "$ROOT/default/systemd/system-sleep/force-igpu" ||
   fail "force-igpu does not guard execution with the configured GPU mode"
 
-if rg -n 'cp -p.*(system-sleep|supergfxd\.service\.d)' "$ROOT/src/arch/commands/arch-hibernation-setup" "$ROOT/src/arch/commands/arch-toggle-hybrid-gpu"; then
+if rg -n 'cp -p.*(system-sleep|supergfxd\.service\.d)' "$ROOT/src/arch/commands/arch-hibernation-setup" "$hybrid_gpu_module"; then
   fail "privileged sleep and hybrid GPU files are never copied with source ownership"
 fi
 
