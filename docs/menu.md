@@ -78,7 +78,7 @@ describes — which is why the batch works hard to be fast:
   transaction (`db.lck`) or whose queries failed is used once and never
   stored.
 - Commands that several rows read a value from — every Defaults > Browser row
-  compares against `$(arch-default-browser)` — run once, with the captured
+  compares against `$(archctl default browser)` — run once, with the captured
   answer substituted into each expression. The reader list is
   `GUARD_READERS` in `MenuModel.js`; a new `$(arch-...)` reader used by
   more than one row must be added there, and `menu-guards-test.sh` fails the

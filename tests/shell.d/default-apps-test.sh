@@ -15,6 +15,7 @@ terminal_log="$test_tmp/terminal-log"
 notification_log="$test_tmp/notification-log"
 setup_log="$test_tmp/setup-log"
 browser_file="$test_tmp/browser"
+browser_env_log="$test_tmp/browser-env-log"
 mkdir -p "$mock_bin" "$test_home/.config" "$installed_dir"
 
 terminal_home="$test_tmp/terminal-home"
@@ -69,7 +70,10 @@ cat >"$mock_bin/xdg-settings" <<'SH'
 #!/bin/bash
 case $1 in
 get) [[ -f $ARCH_TEST_BROWSER_FILE ]] && cat "$ARCH_TEST_BROWSER_FILE" ;;
-set) printf '%s\n' "$3" >"$ARCH_TEST_BROWSER_FILE" ;;
+set)
+  printf '%s|%s\n' "${BROWSER-}" "${XDG_CURRENT_DESKTOP-}" >>"$ARCH_TEST_BROWSER_ENV_LOG"
+  printf '%s\n' "$3" >"$ARCH_TEST_BROWSER_FILE"
+  ;;
 esac
 SH
 
@@ -160,15 +164,22 @@ export ARCH_TEST_TERMINAL_LOG="$terminal_log"
 export ARCH_TEST_NOTIFICATION_LOG="$notification_log"
 export ARCH_TEST_SETUP_LOG="$setup_log"
 export ARCH_TEST_BROWSER_FILE="$browser_file"
+export ARCH_TEST_BROWSER_ENV_LOG="$browser_env_log"
 
 assert_missing_opens_installer() {
-  local type=$1
+  local type=$1 expected_route
   local selection=$2
+
+  if [[ $type == "browser" ]]; then
+    expected_route="archctl default browser --install $selection"
+  else
+    expected_route="arch-default-$type --install $selection"
+  fi
 
   : >"$terminal_log"
   "arch-default-$type" "$selection"
   mapfile -d '' -t terminal_args <"$terminal_log"
-  [[ ${terminal_args[*]} == "arch-default-$type --install $selection" ]] ||
+  [[ ${terminal_args[*]} == "$expected_route" ]] ||
     fail "missing $selection opens its default installer in a terminal"
 }
 
@@ -223,6 +234,11 @@ for entry in "${browser_cases[@]}"; do
   [[ $(arch-default-browser) == "$selection" ]] || fail "$selection becomes the default browser after installation"
 done
 pass "browser defaults install every missing browser before selection"
+
+: >"$browser_env_log"
+BROWSER=arch-launch-browser XDG_CURRENT_DESKTOP=Hyprland arch-default-browser firefox
+[[ $(<"$browser_env_log") == "|" ]] || fail "default browser selection clears session browser overrides before setting XDG state"
+pass "setting the default browser ignores inherited session overrides"
 
 : >"$install_log"
 : >"$setup_log"
