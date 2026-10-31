@@ -4,8 +4,6 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-require_command jq
-
 test_tmp=$(mktemp -d)
 trap 'rm -rf "$test_tmp"' EXIT
 
@@ -17,9 +15,34 @@ cat >"$fake_bin/hyprctl" <<'SH'
 
 [[ ${1:-} == "-j" && ${2:-} == "monitors" ]] || exit 1
 [[ ${ARCH_TEST_HYPRCTL_FAILS:-0} == 1 ]] && exit 4
+if [[ ${ARCH_TEST_HYPRCTL_MODE:-} == "slow" ]]; then
+  exec sleep 10
+elif [[ ${ARCH_TEST_HYPRCTL_MODE:-} == "large" ]]; then
+  exec head -c 256 /dev/zero
+fi
 printf '%s\n' "$ARCH_TEST_MONITORS"
 SH
 chmod +x "$fake_bin/hyprctl"
+
+test_ap="$test_tmp/ap"
+mkdir -p "$test_ap/data/cli"
+ln -s "$ROOT/src" "$test_ap/src"
+cat >"$test_ap/data/cli/hyprland-session-locked.yml" <<EOF
+command: ['$fake_bin/hyprctl', -j, monitors]
+timeout_seconds: 1
+cleanup_timeout_seconds: 1
+max_output_bytes: 262144
+read_chunk_bytes: 4
+fields:
+  blockers: solitaryBlockedBy
+blockers:
+  lock: LOCK
+  workspace: WORKSPACE
+statuses:
+  locked: 0
+  unlocked: 1
+  undetermined: 2
+EOF
 
 LOCKED=0
 UNLOCKED=1
@@ -28,10 +51,10 @@ UNDETERMINED=2
 assert_status() {
   local expected="$1" monitors="$2" description="$3" hyprctl_fails="${4:-0}" actual=0
 
-  PATH="$fake_bin:$PATH" \
+  AP="$test_ap" PATH="$fake_bin:$ARCH_TEST_CLI_BIN:$PATH" \
   ARCH_TEST_MONITORS="$monitors" \
   ARCH_TEST_HYPRCTL_FAILS="$hyprctl_fails" \
-    "$ROOT/src/arch/commands/arch-hyprland-session-locked" || actual=$?
+    "$ARCH_TEST_CLI_BIN/arch-hyprland-session-locked" || actual=$?
 
   (( actual == expected )) || fail "$description" "expected exit $expected, got $actual"
   pass "$description"
@@ -82,3 +105,15 @@ assert_status $UNLOCKED \
 assert_status $LOCKED \
   '[{"name":"HDMI-A-1","solitaryBlockedBy":["WORKSPACE"]},{"name":"DP-2","solitaryBlockedBy":["LOCK"]}]' \
   "a lock is still found alongside a monitor that cannot say"
+
+status=0
+timeout --kill-after=1s 4s env AP="$test_ap" ARCH_TEST_HYPRCTL_MODE=slow \
+  "$ARCH_TEST_CLI_BIN/arch-hyprland-session-locked" || status=$?
+(( status == UNDETERMINED )) || fail "a stalled compositor query is bounded and undetermined" "$status"
+pass "a stalled compositor query does not block callers"
+
+sed -i 's/max_output_bytes: 262144/max_output_bytes: 16/' "$test_ap/data/cli/hyprland-session-locked.yml"
+status=0
+AP="$test_ap" ARCH_TEST_HYPRCTL_MODE=large "$ARCH_TEST_CLI_BIN/arch-hyprland-session-locked" || status=$?
+(( status == UNDETERMINED )) || fail "an oversized compositor response is undetermined" "$status"
+pass "a compositor response is size bounded before parsing"

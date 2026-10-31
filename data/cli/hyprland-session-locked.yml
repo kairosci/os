@@ -1,0 +1,14 @@
+command: [hyprctl, -j, monitors]
+timeout_seconds: 2
+cleanup_timeout_seconds: 1
+max_output_bytes: 262144
+read_chunk_bytes: 8192
+fields:
+  blockers: solitaryBlockedBy
+blockers:
+  lock: LOCK
+  workspace: WORKSPACE
+statuses:
+  locked: 0
+  unlocked: 1
+  undetermined: 2

@@ -12,7 +12,7 @@ sources = [
   "src/arch/commands/arch-hyprland-monitor-watch",
   "src/arch/commands/arch-hyprland-reload-guard",
   "src/arch/commands/arch-hyprland-session-lock-stranded",
-  "src/arch/commands/arch-hyprland-session-locked",
+  "src/arch/cli/hyprland/session_locked.py",
   "src/arch/commands/arch-hyprland-toggle",
   "src/arch/commands/arch-hyprland-toggle-disabled",
   "src/arch/commands/arch-hyprland-toggle-enabled",
@@ -27,7 +27,7 @@ sources = [
   "src/arch/commands/arch-hyprland-workspace-layout-default",
   "src/arch/commands/arch-hyprland-workspace-layout-toggle",
 ]
-requires = ["desktop.commands"]
+requires = ["desktop.commands", "system.runtime-data"]
 
 [[output]]
 source = "src/arch/commands/arch-hyprland-corners"
@@ -70,8 +70,8 @@ source = "src/arch/commands/arch-hyprland-session-lock-stranded"
 target = "usr/share/arch/src/arch/commands/arch-hyprland-session-lock-stranded"
 
 [[output]]
-source = "src/arch/commands/arch-hyprland-session-locked"
-target = "usr/share/arch/src/arch/commands/arch-hyprland-session-locked"
+source = "src/arch/cli/hyprland/session_locked.py"
+target = "usr/share/arch/src/arch/cli/hyprland/session_locked.py"
 
 [[output]]
 source = "src/arch/commands/arch-hyprland-toggle"
