@@ -1,4 +1,4 @@
-match_command: [arch-hw-match]
+match_command: [archctl, hw, match]
 install_packages: [arch-pkg-add, macbook12-spi-driver-dkms]
 install_file: [sudo, install, -Dm644]
 target: /etc/mkinitcpio.conf.d/macbook_spi_modules.conf

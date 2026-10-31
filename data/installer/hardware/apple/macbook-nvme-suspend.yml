@@ -1,4 +1,4 @@
-match_command: [arch-hw-match]
+match_command: [archctl, hw, match]
 models:
   - MacBook8,1
   - MacBook9,1

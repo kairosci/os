@@ -59,7 +59,7 @@ sku_matches() {
 dmi_matches() {
   local want
   for want in "$@"; do
-    arch-hw-match "$want" 2>/dev/null && return 0
+    archctl hw match "$want" 2>/dev/null && return 0
   done
   return 1
 }
