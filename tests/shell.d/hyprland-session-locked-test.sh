@@ -54,7 +54,7 @@ assert_status() {
   AP="$test_ap" PATH="$fake_bin:$ARCH_TEST_CLI_BIN:$PATH" \
   ARCH_TEST_MONITORS="$monitors" \
   ARCH_TEST_HYPRCTL_FAILS="$hyprctl_fails" \
-    "$ARCH_TEST_CLI_BIN/arch-hyprland-session-locked" || actual=$?
+    "$ARCH_TEST_CLI_BIN/archctl" hyprland session locked || actual=$?
 
   (( actual == expected )) || fail "$description" "expected exit $expected, got $actual"
   pass "$description"
@@ -108,12 +108,12 @@ assert_status $LOCKED \
 
 status=0
 timeout --kill-after=1s 4s env AP="$test_ap" ARCH_TEST_HYPRCTL_MODE=slow \
-  "$ARCH_TEST_CLI_BIN/arch-hyprland-session-locked" || status=$?
+  "$ARCH_TEST_CLI_BIN/archctl" hyprland session locked || status=$?
 (( status == UNDETERMINED )) || fail "a stalled compositor query is bounded and undetermined" "$status"
 pass "a stalled compositor query does not block callers"
 
 sed -i 's/max_output_bytes: 262144/max_output_bytes: 16/' "$test_ap/data/cli/hyprland-session-locked.yml"
 status=0
-AP="$test_ap" ARCH_TEST_HYPRCTL_MODE=large "$ARCH_TEST_CLI_BIN/arch-hyprland-session-locked" || status=$?
+AP="$test_ap" ARCH_TEST_HYPRCTL_MODE=large "$ARCH_TEST_CLI_BIN/archctl" hyprland session locked || status=$?
 (( status == UNDETERMINED )) || fail "an oversized compositor response is undetermined" "$status"
 pass "a compositor response is size bounded before parsing"

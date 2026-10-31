@@ -504,6 +504,7 @@ entrypoints:
     name: session locked
     summary: Check whether the compositor holds a session lock
     hidden: 'true'
+    generate_launcher: "false"
   - binary: arch-hyprland-workspace-layout-current
     module: hyprland/workspace_layout
     function: workspace_layout_current_main

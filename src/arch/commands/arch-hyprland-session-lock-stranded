@@ -12,7 +12,7 @@
 #
 # Exits 0 stranded, 1 unlocked, 2 undetermined. The caller passes its own pid,
 # as a crash re-execs the shell in place.
-arch-hyprland-session-locked || exit
+archctl hyprland session locked || exit
 
 if pgrep -u "$UID" -x 'quickshell|qs|hyprlock' | grep -qvxF "$1"; then
   exit 2
