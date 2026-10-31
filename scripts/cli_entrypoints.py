@@ -29,7 +29,7 @@ def load_entrypoints() -> list[dict[str, str]]:
   entries: list[dict[str, str]] = []
   names: set[str] = set()
   required_fields = {"binary", "module", "function", "group", "name", "summary"}
-  optional_fields = {"args", "examples", "hidden"}
+  optional_fields = {"args", "examples", "hidden", "pass_args"}
   for entry in document["entrypoints"]:
     if (
       not isinstance(entry, dict)
@@ -44,7 +44,6 @@ def load_entrypoints() -> list[dict[str, str]]:
       or not MODULE.fullmatch(entry["module"])
       or not FUNCTION.fullmatch(entry["function"])
       or not NAME.fullmatch(entry["group"])
-      or not entry["name"].strip()
       or not entry["summary"].strip()
       or any(key in entry and not entry[key].strip() for key in optional_fields)
       or any(
@@ -52,6 +51,7 @@ def load_entrypoints() -> list[dict[str, str]]:
         for key in set(entry) - {"binary", "module", "function", "group"}
       )
       or entry.get("hidden", "false") not in {"true", "false"}
+      or entry.get("pass_args", "false") not in {"true", "false"}
     ):
       raise ValueError(f"invalid entrypoint metadata: {entry}")
     if entry["binary"] in names:
@@ -117,6 +117,7 @@ def generate(destination: Path) -> None:
       header.append(f"# arch:examples={entry['examples']}\n")
     if entry.get("hidden") == "true":
       header.append("# arch:hidden=true\n")
+    call = f"{entry['function']}(sys.argv[1:])" if entry.get("pass_args") == "true" else f"{entry['function']}()"
     source = (
       "import os\n"
       "import sys\n"
@@ -125,7 +126,7 @@ def generate(destination: Path) -> None:
       "sys.path.insert(0, str(Path(os.environ[\"AP\"]) / \"src\"))\n"
       f"from arch.cli.{entry['module'].replace('/', '.')} import {entry['function']}\n"
       "\n"
-      f"raise SystemExit({entry['function']}())\n"
+      f"raise SystemExit({call})\n"
     )
     output.write_text("".join(header) + source, encoding="utf-8")
     output.chmod(0o755)
@@ -155,7 +156,7 @@ def run_entrypoint(binary: str, arguments: list[str]) -> int:
   module = importlib.import_module(f"arch.cli.{entry['module'].replace('/', '.')}")
   function = getattr(module, entry["function"])
   sys.argv = [binary, *arguments]
-  result = function()
+  result = function(arguments) if entry.get("pass_args") == "true" else function()
   return int(result) if result is not None else 0
 
 

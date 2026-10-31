@@ -87,3 +87,207 @@ entrypoints:
     group: update
     name: confirm
     summary: Prompt for confirmation before starting an update
+  - binary: arch-bluetooth-device
+    module: bluetooth/control
+    function: device_main
+    group: bluetooth
+    name: device
+    summary: Control a Bluetooth device
+    args: '[pair|connect|disconnect|forget] <address>'
+    examples: archctl bluetooth device connect 00:11:22:33:44:55
+    pass_args: 'true'
+  - binary: arch-bluetooth-power
+    module: bluetooth/control
+    function: power_main
+    group: bluetooth
+    name: power
+    summary: Turn Bluetooth on or off, remembered across reboots
+    args: <on|off|toggle|is-on>
+    pass_args: 'true'
+  - binary: arch-cmd-missing
+    module: command/presence
+    function: missing_main
+    group: cmd
+    name: missing
+    summary: Check whether any required commands are missing
+  - binary: arch-cmd-present
+    module: command/presence
+    function: present_main
+    group: cmd
+    name: present
+    summary: Check whether all required commands are available
+  - binary: arch-done
+    module: done/manager
+    function: main
+    group: done
+    name: ''
+    summary: Check or mark completed Arch setup tasks
+    args: <check|mark|ensure> <name>
+    hidden: 'true'
+  - binary: arch-font-cjk
+    module: font/catalog
+    function: cjk_main
+    group: font
+    name: cjk
+    summary: Show or set the glyph forms for Chinese, Japanese, and Korean text
+    args: '[jp|kr|sc|tc|hk|default]'
+    examples: archctl font cjk | archctl font cjk jp | archctl font cjk default
+    pass_args: 'true'
+  - binary: arch-font-current
+    module: font/catalog
+    function: current_main
+    group: font
+    name: current
+    summary: Show current monospace font
+    examples: archctl font current
+  - binary: arch-font-list
+    module: font/catalog
+    function: list_main
+    group: font
+    name: list
+    summary: List available monospace fonts
+    examples: archctl font list | archctl font set "CaskaydiaMono Nerd Font"
+  - binary: arch-hook
+    module: hook/runner
+    function: run_main
+    group: hook
+    name: ''
+    summary: Run a named hook from ~/.config/arch/hooks/<name> and ~/.config/arch/hooks/<name>.d/.
+    args: '[name] [args...]'
+  - binary: arch-hook-install
+    module: hook/runner
+    function: install_main
+    group: hook
+    name: install
+    summary: Install a hook into ~/.config/arch/hooks/<type>.d/
+    args: <type> <file>
+    examples: archctl hook install post-update ~/my-hook
+  - binary: arch-hw-aarch64
+    module: hardware/architecture
+    function: aarch64_main
+    group: hw
+    name: aarch64
+    summary: Detect whether the CPU is aarch64 (every ARM machine, Apple Silicon included).
+  - binary: arch-hw-vm
+    module: hardware/virtualization
+    function: main
+    group: hw
+    name: vm
+    summary: Returns true when running in a virtual machine.
+  - binary: arch-hw-webcam
+    module: hardware/webcam
+    function: main
+    group: hw
+    name: webcam
+    summary: Check whether a webcam is available
+  - binary: arch-hw-x86
+    module: hardware/architecture
+    function: x86_main
+    group: hw
+    name: x86
+    summary: Detect whether the CPU is x86_64.
+  - binary: arch-hyprland-focus-app
+    module: hyprland/focus
+    function: main
+    group: hyprland
+    name: focus app
+    summary: Focus a Hyprland window by application identity
+    args: <app-name>
+    examples: archctl hyprland focus app Slack
+  - binary: arch-hyprland-monitor-focused
+    module: hyprland/monitors
+    function: focused_main
+    group: hyprland
+    name: monitor focused
+    summary: Print the name of the currently focused Hyprland monitor.
+  - binary: arch-hyprland-monitor-laptop
+    module: hyprland/monitors
+    function: laptop_main
+    group: hyprland
+    name: monitor laptop
+    summary: Print the name of the built-in laptop display, including disabled outputs.
+  - binary: arch-restart-hyprctl
+    module: restart/hyprland
+    function: main
+    group: restart
+    name: hyprctl
+    summary: Reload hyprland configuration (used by the Arch theme switching).
+  - binary: arch-state
+    module: state/store
+    function: main
+    group: state
+    name: ''
+    summary: Manage persistent state files for Arch toggles and settings.
+    args: <set|clear> <state-name-or-pattern>
+    hidden: 'true'
+  - binary: arch-theme-bg-current
+    module: theme/info
+    function: background_current_main
+    group: theme
+    name: bg current
+    summary: Show current background
+    examples: archctl theme bg current
+  - binary: arch-theme-bg-next
+    module: theme/info
+    function: background_next_main
+    group: theme
+    name: bg next
+    summary: Cycle to the next background for the current theme
+    examples: archctl theme bg next
+  - binary: arch-theme-bg-set
+    module: theme/info
+    function: background_set_main
+    group: theme
+    name: bg set
+    summary: Set the current background image or video
+    args: <path-to-media>
+    examples: archctl theme bg set ~/Pictures/background.png
+    pass_args: 'true'
+  - binary: arch-theme-current
+    module: theme/info
+    function: theme_current_main
+    group: theme
+    name: current
+    summary: Show current theme
+    examples: archctl theme current
+  - binary: arch-theme-dir
+    module: theme/info
+    function: theme_dir_main
+    group: theme
+    name: dir
+    summary: Print the directory holding a theme, preferring a user-installed copy
+    args: <theme-name>
+    examples: archctl theme dir tokyo-night
+    pass_args: 'true'
+  - binary: arch-theme-list
+    module: theme/info
+    function: theme_list_main
+    group: theme
+    name: list
+    summary: List available themes
+    examples: archctl theme list | archctl theme set "Tokyo Night"
+  - binary: arch-version
+    module: version/info
+    function: version_main
+    group: version
+    name: ''
+    summary: Print the installed Arch version
+  - binary: arch-version-branch
+    module: version/info
+    function: version_branch_main
+    group: version
+    name: branch
+    summary: Print the active Arch dev-link git branch
+    hidden: 'true'
+  - binary: arch-version-channel
+    module: version/info
+    function: version_channel_main
+    group: version
+    name: channel
+    summary: Print the active Arch mirror and package channel
+  - binary: arch-version-pkgs
+    module: version/packages
+    function: main
+    group: version
+    name: pkgs
+    summary: Print when system packages were last upgraded

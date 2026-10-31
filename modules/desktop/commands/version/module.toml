@@ -2,30 +2,10 @@ id = "desktop.commands.version"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/arch/commands/arch-version",
-  "src/arch/commands/arch-version-branch",
-  "src/arch/commands/arch-version-channel",
-  "src/arch/commands/arch-version-pkgs",
   "src/arch/cli/version/packages.py",
   "src/arch/cli/version/info.py",
 ]
 requires = ["desktop.commands", "system.runtime-data"]
-
-[[output]]
-source = "src/arch/commands/arch-version"
-target = "usr/share/arch/src/arch/commands/arch-version"
-
-[[output]]
-source = "src/arch/commands/arch-version-branch"
-target = "usr/share/arch/src/arch/commands/arch-version-branch"
-
-[[output]]
-source = "src/arch/commands/arch-version-channel"
-target = "usr/share/arch/src/arch/commands/arch-version-channel"
-
-[[output]]
-source = "src/arch/commands/arch-version-pkgs"
-target = "usr/share/arch/src/arch/commands/arch-version-pkgs"
 
 [[output]]
 source = "src/arch/cli/version/packages.py"

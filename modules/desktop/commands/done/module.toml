@@ -2,14 +2,9 @@ id = "desktop.commands.done"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/arch/commands/arch-done",
   "src/arch/cli/done/manager.py",
 ]
 requires = ["desktop.commands"]
-
-[[output]]
-source = "src/arch/commands/arch-done"
-target = "usr/share/arch/src/arch/commands/arch-done"
 
 [[output]]
 source = "src/arch/cli/done/manager.py"

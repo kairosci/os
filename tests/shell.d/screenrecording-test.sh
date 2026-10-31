@@ -106,19 +106,19 @@ expected_dual_node="/dev/video42  Built-in Webcam: Integrated Camera
   fail "webcam detection falls through to a later capture-capable node in a group" "$dual_node"
 pass "webcam detection falls through to a later capture-capable node in a group"
 
-if AP="$ROOT" "$ROOT/src/arch/commands/arch-hw-webcam"; then
+if AP="$ROOT" "$ARCH_TEST_CLI_BIN/arch-hw-webcam"; then
   pass "webcam hardware detection succeeds when a capture device is available"
 else
   fail "webcam hardware detection succeeds when a capture device is available"
 fi
 
-if AP="$ROOT" ARCH_TEST_RAW_WEBCAM=true "$ROOT/src/arch/commands/arch-hw-webcam"; then
+if AP="$ROOT" ARCH_TEST_RAW_WEBCAM=true "$ARCH_TEST_CLI_BIN/arch-hw-webcam"; then
   fail "webcam hardware detection rejects output-only video devices"
 else
   pass "webcam hardware detection rejects output-only video devices"
 fi
 
-if AP="$ROOT" ARCH_TEST_NO_WEBCAM=true "$ROOT/src/arch/commands/arch-hw-webcam"; then
+if AP="$ROOT" ARCH_TEST_NO_WEBCAM=true "$ARCH_TEST_CLI_BIN/arch-hw-webcam"; then
   fail "webcam hardware detection fails when no video device is available"
 else
   pass "webcam hardware detection fails when no video device is available"

@@ -6,16 +6,16 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 export AP="$ROOT"
 
-if "$ROOT/src/arch/commands/arch-cmd-present" -p; then
+if "$ARCH_TEST_CLI_BIN/arch-cmd-present" -p; then
   fail "cmd-present treats an option-shaped command name literally"
 fi
 pass "cmd-present treats an option-shaped command name literally"
 
-"$ROOT/src/arch/commands/arch-cmd-missing" -p ||
+"$ARCH_TEST_CLI_BIN/arch-cmd-missing" -p ||
   fail "cmd-missing treats an option-shaped command name literally"
 pass "cmd-missing treats an option-shaped command name literally"
 
-"$ROOT/src/arch/commands/arch-cmd-present" bash || fail "cmd-present still finds an ordinary command"
+"$ARCH_TEST_CLI_BIN/arch-cmd-present" bash || fail "cmd-present still finds an ordinary command"
 pass "cmd-present still finds an ordinary command"
 
 test_tmp=$(mktemp -d)
@@ -225,7 +225,7 @@ printf 'protected\n' >"$protected_file"
 ln -s "$protected_file" "$hook_directory/--help"
 (
   cd -- "$test_tmp"
-  HOME="$hook_home" AP="$ROOT" "$ROOT/src/arch/commands/arch-hook-install" post-update --help >"$test_tmp/hook-install-output"
+  HOME="$hook_home" AP="$ROOT" "$ARCH_TEST_CLI_BIN/arch-hook-install" post-update --help >"$test_tmp/hook-install-output"
 )
 [[ -f $hook_directory/--help && ! -L $hook_directory/--help ]] || fail "hook-install replaces a destination symlink itself"
 [[ $(<"$protected_file") == protected ]] || fail "hook-install does not overwrite the symlink target"

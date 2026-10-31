@@ -256,7 +256,8 @@ register_python_command() {
   local hidden="$9"
   local stem="${binary#arch-}"
   local fallback_route="arch ${stem//-/ }"
-  local route="arch $group $name"
+  local route="arch $group"
+  [[ -z $name ]] || route+=" $name"
 
   [[ -x $ARCH_BIN_DIR/$binary ]] && return 0
   [[ -n ${BINARY_TO_KEY[$binary]} ]] && return 0

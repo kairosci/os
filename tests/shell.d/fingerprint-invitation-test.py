@@ -10,11 +10,11 @@ from pathlib import Path
 
 import yaml
 
-from base_test import ROOT, fail_check, pass_check, test_environment
+from base_test import CLI_BIN, ROOT, fail_check, pass_check, test_environment
 
 
 HOOK_SOURCE = ROOT / "src/arch/python/installer_user/first_run/fingerprint_invitation.py"
-HOOK_RUNNER = ROOT / "src/arch/commands/arch-hook"
+HOOK_RUNNER = CLI_BIN / "arch-hook"
 DESCRIPTION = "fingerprint invitation waits for a reader and only runs once"
 
 

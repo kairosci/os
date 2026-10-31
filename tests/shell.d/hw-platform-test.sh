@@ -254,8 +254,8 @@ test_arch="$test_tmp/architecture-root"
 mkdir -p "$test_arch/src/arch/commands" "$test_arch/src/arch/cli/hardware" "$test_arch/data/cli"
 cp "$ROOT/src/arch/cli/hardware/architecture.py" "$test_arch/src/arch/cli/hardware/architecture.py"
 cp "$ROOT/data/cli/architecture.yml" "$test_arch/data/cli/architecture.yml"
-cp "$ROOT/src/arch/commands/arch-hw-x86" "$test_arch/src/arch/commands/arch-hw-x86"
-cp "$ROOT/src/arch/commands/arch-hw-aarch64" "$test_arch/src/arch/commands/arch-hw-aarch64"
+cp "$ARCH_TEST_CLI_BIN/arch-hw-x86" "$test_arch/src/arch/commands/arch-hw-x86"
+cp "$ARCH_TEST_CLI_BIN/arch-hw-aarch64" "$test_arch/src/arch/commands/arch-hw-aarch64"
 cat >"$test_arch/src/arch/commands/arch-hw-platform" <<'SH'
 #!/bin/bash
 printf '%s\n' "$TEST_PLATFORM"

@@ -8,7 +8,6 @@ sources = [
   "src/arch/commands/arch-restart-btop",
   "src/arch/commands/arch-restart-gum",
   "src/arch/commands/arch-restart-helix",
-  "src/arch/commands/arch-restart-hyprctl",
   "src/arch/cli/restart/hyprland.py",
   "src/arch/commands/arch-restart-hyprsunset",
   "src/arch/commands/arch-restart-shell",
@@ -43,10 +42,6 @@ target = "usr/share/arch/src/arch/commands/arch-restart-gum"
 [[output]]
 source = "src/arch/commands/arch-restart-helix"
 target = "usr/share/arch/src/arch/commands/arch-restart-helix"
-
-[[output]]
-source = "src/arch/commands/arch-restart-hyprctl"
-target = "usr/share/arch/src/arch/commands/arch-restart-hyprctl"
 
 [[output]]
 source = "src/arch/cli/restart/hyprland.py"
