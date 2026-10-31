@@ -4,11 +4,10 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-match="$ROOT/src/arch/commands/arch-hw-match-device-tree"
+export AP="$ROOT"
+match="$ARCH_TEST_CLI_BIN/arch-hw-match-device-tree"
 test_tmp=$(mktemp -d)
 trap 'rm -rf "$test_tmp"' EXIT
-
-bash -n "$match" || fail "hw-match-device-tree has valid syntax"
 
 # Root reads only the live device tree, as arch-hw-platform does.
 if (( EUID != 0 )) && unshare --user --map-root-user true 2>/dev/null; then
