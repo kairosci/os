@@ -205,6 +205,12 @@ entrypoints:
     group: hw
     name: vulkan
     summary: Detect whether Vulkan is available.
+  - binary: arch-hw-hybrid-gpu
+    module: hardware/hybrid_gpu
+    function: main
+    group: hw
+    name: hybrid gpu
+    summary: Detect whether the system has an active hybrid GPU configuration
   - binary: arch-hw-vm
     module: hardware/virtualization
     function: main

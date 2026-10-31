@@ -73,7 +73,7 @@ pci_devices() {
 }
 
 hybrid_gpu() {
-  ARCH_PCI_DEVICES_PATH="$(pci_devices)" PATH="$fake_bin:$PATH" timeout --kill-after=1s 10s bash "$ROOT/src/arch/commands/arch-hw-hybrid-gpu"
+  ARCH_PCI_DEVICES_PATH="$(pci_devices)" PATH="$fake_bin:$PATH" timeout --kill-after=1s 10s "$ARCH_TEST_CLI_BIN/arch-hw-hybrid-gpu"
 }
 
 hybrid_gpu ||

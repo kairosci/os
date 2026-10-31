@@ -66,5 +66,6 @@
 | #549 | Migrate Vulkan and touchscreen hardware commands to Python |
 | #550 | Migrate external monitor detection to Python |
 | #551 | Migrate NVIDIA GSP checks to Python |
+| #552 | Migrate hybrid GPU detection to Python |
 
 PR #483 was closed when its base branch was deleted during integration. Its change was rebased and merged as PR #499.
