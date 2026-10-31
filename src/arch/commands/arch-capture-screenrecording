@@ -95,7 +95,7 @@ start_webcam_overlay() {
 
   # Auto-detect first available webcam if none specified
   if [[ -z $WEBCAM_DEVICE ]]; then
-    WEBCAM_DEVICE=$(arch-capture-webcam-list | sed -n '1s/[[:space:]].*//p')
+    WEBCAM_DEVICE=$(archctl capture webcam list | sed -n '1s/[[:space:]].*//p')
     if [[ -z $WEBCAM_DEVICE ]]; then
       archctl notification send -u critical -t 3000 "$(arch-i18n capture.noWebcam)"
       return 1

@@ -25,6 +25,13 @@ entrypoints:
     group: channel
     name: current
     summary: Print the active Arch package channel
+  - binary: arch-capture-webcam-list
+    module: hardware/webcam
+    function: list_devices_main
+    group: capture
+    name: webcam list
+    summary: List webcam devices that support video capture
+    hidden: 'true'
   - binary: arch-font-set
     module: font/set
     function: main

@@ -174,6 +174,7 @@ for module_id in command_modules:
     allowed_requirements = (
         ["desktop.commands"],
         ["desktop.commands", "system.runtime-data"],
+        ["desktop.commands", "desktop.commands.hw", "system.runtime-data"],
         ["desktop.commands", "desktop.commands.version", "system.runtime-data"],
         ["desktop.commands", "desktop.commands.i18n", "system.runtime-data"],
         ["desktop.commands", "desktop.commands.i18n", "desktop.commands.notification", "system.runtime-data"],
