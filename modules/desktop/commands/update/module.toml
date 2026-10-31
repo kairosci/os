@@ -8,6 +8,7 @@ sources = [
   "src/arch/cli/update/available.py",
   "src/arch/commands/arch-update-boot",
   "src/arch/cli/update/confirm.py",
+  "src/arch/cli/update/space_guard.py",
   "src/arch/commands/arch-update-dev",
   "src/arch/commands/arch-update-firmware",
   "src/arch/commands/arch-update-keyring",
@@ -17,7 +18,6 @@ sources = [
   "src/arch/commands/arch-update-pacman",
   "src/arch/commands/arch-update-pacman-guard",
   "src/arch/commands/arch-update-pkg-prune",
-  "src/arch/commands/arch-update-requires-free-space",
   "src/arch/commands/arch-update-restart",
   "src/arch/cli/update/status.py",
   "src/arch/commands/arch-update-stay-awake",
@@ -50,6 +50,10 @@ target = "usr/share/arch/src/arch/commands/arch-update-boot"
 [[output]]
 source = "src/arch/cli/update/confirm.py"
 target = "usr/share/arch/src/arch/cli/update/confirm.py"
+
+[[output]]
+source = "src/arch/cli/update/space_guard.py"
+target = "usr/share/arch/src/arch/cli/update/space_guard.py"
 
 [[output]]
 source = "src/arch/commands/arch-update-dev"
@@ -86,10 +90,6 @@ target = "usr/share/arch/src/arch/commands/arch-update-pacman-guard"
 [[output]]
 source = "src/arch/commands/arch-update-pkg-prune"
 target = "usr/share/arch/src/arch/commands/arch-update-pkg-prune"
-
-[[output]]
-source = "src/arch/commands/arch-update-requires-free-space"
-target = "usr/share/arch/src/arch/commands/arch-update-requires-free-space"
 
 [[output]]
 source = "src/arch/commands/arch-update-restart"

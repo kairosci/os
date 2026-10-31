@@ -1,0 +1,18 @@
+space_guard:
+  command: [df, --output=avail, --block-size=1, /]
+  force_environment: ARCH_UPDATE_FORCE
+  force_value: '1'
+  minimum_available_bytes: 10737418240
+  available_bytes_pattern: '^\d+$'
+  limits:
+    command_timeout_seconds: 3
+    cleanup_timeout_seconds: 1
+    maximum_output_bytes: 4096
+    read_chunk_bytes: 1024
+  messages:
+    low_space: You need at least 10 GiB free to safely update os.
+    usage: 'Usage: archctl update requires free space'
+  statuses:
+    success: 0
+    insufficient_space: 1
+    invalid_arguments: 2
