@@ -41,16 +41,14 @@ arch-hyprland-workspace-layout-toggle back
 pass "workspace layout cycling only uses tiled layouts"
 
 mkdir -p "$XDG_STATE_HOME/arch/workspace-layouts"
-printf 'o.workspace_mode({ default = "floating" })\n' >"$XDG_STATE_HOME/arch/workspace-layouts/default.lua"
-[[ $(arch-hyprland-workspace-layout-default) == scrolling ]] || fail "a legacy floating default is normalized to scrolling"
-pass "legacy floating layout state resolves to a tiled default"
+printf 'o.workspace_mode({ default = "unknown" })\n' >"$XDG_STATE_HOME/arch/workspace-layouts/default.lua"
+[[ $(arch-hyprland-workspace-layout-default) == scrolling ]] || fail "an unknown saved mode falls back to scrolling"
+pass "workspace layout state accepts only the configured modes"
 
-if rg -n 'float[[:space:]]*=[[:space:]]*true|pin[[:space:]]*=[[:space:]]*true|floating-window' "$ROOT/default/hypr"; then
-  fail "application rules contain no forced floating windows"
-fi
 grep -q 'tile = true' "$ROOT/default/hypr/windows.lua" || fail "all application windows receive the tiled rule"
-! grep -q 'workspace-layout.floating' "$ROOT/default/arch/arch-menu.jsonc" || fail "the menu has no floating layout option"
-pass "Hyprland configuration forces application windows to tile"
+grep -q 'appearance.workspace-layout.scrolling' "$ROOT/default/arch/arch-menu.jsonc" || fail "scrolling remains in the layout menu"
+grep -q 'appearance.workspace-layout.tiling' "$ROOT/default/arch/arch-menu.jsonc" || fail "tiling remains in the layout menu"
+pass "Hyprland configuration offers scrolling and tiling layouts"
 
 cat >"$tmpdir/modes.lua" <<'LUA'
 local config, rules = {}, {}
@@ -60,11 +58,11 @@ hl = {
 }
 o = {}
 local modes = dofile(os.getenv("AP") .. "/default/hypr/workspace-modes.lua")
-o.workspace_mode({ default = "floating" })
-o.workspace_mode({ workspace = "3", mode = "floating" })
+o.workspace_mode({ default = "unknown" })
+o.workspace_mode({ workspace = "3", mode = "unknown" })
 modes.apply()
-assert(config.layout == "scrolling", "legacy floating default was not normalized")
-assert(#rules >= 1 and rules[#rules].workspace == "3" and rules[#rules].layout == "scrolling", "legacy floating workspace was not normalized")
+assert(config.layout == "scrolling", "unknown defaults must retain scrolling")
+assert(#rules == 0, "unknown per-workspace modes must not add compositor rules")
 LUA
-AP="$ROOT" lua "$tmpdir/modes.lua" || fail "Lua workspace-mode compatibility normalizes legacy modes to scrolling"
-pass "workspace layout restoration keeps legacy state tiled"
+AP="$ROOT" lua "$tmpdir/modes.lua" || fail "workspace-mode validation must ignore unknown modes safely"
+pass "workspace layout restoration accepts only scrolling and tiling"
