@@ -46,10 +46,6 @@ cat >"$scratch/bin/arch-notification-send" <<'SH'
 #!/bin/bash
 printf 'notify %s\n' "$*" >>"$CALL_LOG"
 SH
-cat >"$scratch/bin/arch-toggle" <<'SH'
-#!/bin/bash
-printf 'toggle %s\n' "$*" >>"$CALL_LOG"
-SH
 for command in gum btrfs swapon limine-mkinitcpio; do
   printf '#!/bin/bash\nprintf "%s %%s\\n" "$*" >>"$CALL_LOG"\n' "$command" >"$scratch/bin/$command"
 done
@@ -104,6 +100,8 @@ cat >"$scratch/bin/archctl" <<'SH'
 #!/bin/bash
 if [[ ${1:-} == toggle && ${2:-} == enabled ]]; then
   [[ ${TEST_SUSPEND_OFF:-0} == 1 ]]
+elif [[ ${1:-} == toggle && ${2:-} == set ]]; then
+  printf 'toggle %s\n' "${*:3}" >>"$CALL_LOG"
 elif [[ ${1:-} == hibernation && ${2:-} == available ]]; then
   [[ ${TEST_HIBERNATION_OFF:-0} != 1 ]]
 else

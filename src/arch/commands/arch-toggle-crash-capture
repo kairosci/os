@@ -5,7 +5,7 @@
 # nf-md-robot_dead, escaped so this file reads without a Nerd Font.
 readonly CRASH_GLYPH=$'\U000f16a1'
 
-arch-toggle crash-capture-off
+archctl toggle set crash-capture-off
 
 # The unit checks the same flag with ConditionPathExists, so stopping and
 # starting only settles this session; the next login reads the flag itself.

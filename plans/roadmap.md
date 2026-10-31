@@ -4,7 +4,7 @@ This roadmap tracks the requested CLI, ISO, desktop, and release work as separat
 
 ## Current evidence
 
-- Current CLI inventory for this change: 362 flat command source files, 63 Python CLI modules, and 94 YAML routes. No source command has the same binary name as a Python route, and all routes omit generated launchers by default. Historical launcher counts below describe earlier rollout states.
+- Current CLI inventory for this change: 361 flat command source files, 63 Python CLI modules, and 95 YAML routes. No source command has the same binary name as a Python route, and all routes omit generated launchers by default. Historical launcher counts below describe earlier rollout states.
 
 - `scripts/iso/` contains the CI-only native builder, checksum manifest, downloader, assembler, and release publisher. Workflow run `41202718530` built both x86_64 and AArch64 images successfully; publishing was skipped. The complete image artifacts were about 1.82 GB and 1.74 GB, and each release-assets artifact contained three files, corresponding to two image parts plus a manifest with the configured 1,000,000,000-byte cap. No GitHub release has been published, so download and assembly from a published release remain unverified.
 - `scripts/iso/profile/profiledef.py` is the checked-in Python profile renderer and reads `data/iso/profile.yml`; the CI builder emits ArchISO's required `profiledef.sh` only inside its temporary staging profile. The builder creates a complete ISO and release parts capped at 1,000,000,000 bytes each, below GitHub's 2 GB per-asset limit. `scripts/iso/download.py` verifies release metadata and delegates checksum-checked assembly to `scripts/iso/parts.py`. The ISO includes `archinstall`, but this build evidence does not prove the repository's intended online, offline, and unattended target-install flows; those remain open for disposable-VM acceptance.
@@ -34,7 +34,7 @@ PR #507 made `scrolling` the default and exposed `tiling` as the only alternate 
 
 ### 2. Inventory and classify CLI entrypoints
 
-For each executable in `src/arch/commands/`, record whether it is already backed by a Python module, still contains command behavior, or has callers that rely on its binary name. Ninety-four Python entrypoints are catalogued, while 362 command files remain for classification and migration. Keep the inventory generated from source metadata so it cannot silently drift.
+For each executable in `src/arch/commands/`, record whether it is already backed by a Python module, still contains command behavior, or has callers that rely on its binary name. Ninety-five Python entrypoints are catalogued, while 361 command files remain for classification and migration. Keep the inventory generated from source metadata so it cannot silently drift.
 
 ### 3. Move remaining command behavior into modules
 
@@ -102,4 +102,4 @@ PR #590 moves update status into `src/arch/cli/update/status.py`, with its confi
 
 ### 18. Retire generated flat CLI launchers — integrated
 
-PR #655 makes launcher generation opt-in; all 90 existing Python routes omit launcher output. PR #656 moves Hyprland toggle readers into Python and removes their old command files. PR #657 moves the Hyprland toggle writer into that module, routes callers and data through YAML, and removes its flat file. This change moves the general toggle state reader into Python, updates its callers and user docs, and removes its flat file. This retires the generator compatibility output while sprint 3 continues porting remaining command behavior.
+PR #655 makes launcher generation opt-in; all 90 existing Python routes omit launcher output. PR #656 moves Hyprland toggle readers into Python and removes their old command files. PR #657 moves the Hyprland toggle writer into that module, routes callers and data through YAML, and removes its flat file. PR #658 moves the general toggle state reader into Python, updates callers and user docs, and removes its flat file. This change ports the generic toggle writer, moves its callers to `archctl`, and removes the last generic toggle binary. Sprint 3 continues porting remaining command behavior.
