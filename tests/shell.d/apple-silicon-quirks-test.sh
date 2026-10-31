@@ -87,7 +87,10 @@ const fs = require('fs')
 const menu = requireFromRoot('src/arch/shell/plugins/menu/MenuModel.js')
 const items = menu.parseMenuJsonc(fs.readFileSync(path.join(root, 'default/arch/arch-menu.jsonc'), 'utf8'))
 const when = id => (items.find(entry => entry.id === id) || {}).when
-assertEqual(when('install.windows'), 'arch-hw-x86', 'install.windows is offered on x86_64 only')
+assert(
+  !items.some(entry => entry.id === 'install.windows' || entry.id === 'remove.windows'),
+  'Windows VM is absent from the desktop menu'
+)
 assertEqual(when('setup.direct-boot'), '! arch-hw-aarch64-apple && [[ ! -f /etc/limine-entry-tool.d/zz-arch-dgx-spark.conf ]]', 'setup.direct-boot is hidden on Apple Silicon, and on a DGX Spark that boots without a UKI')
 JS
-pass "the menu offers Windows on x86_64 only and hides Direct Boot on Apple Silicon only"
+pass "the menu omits Windows VM and hides Direct Boot on Apple Silicon only"

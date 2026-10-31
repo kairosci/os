@@ -309,14 +309,14 @@ assert(
 // Software you already have keeps its place in Install, dimmed rather than
 // dropped, so the list reads as a catalog of what os can install.
 // Chromium Account is the sole Install row with anything left to hide for. The
-// Windows VM, whose guest can't run elsewhere, and the installers that need
-// x86_64 binaries (vendor builds for x86_64 alone, Windows games under Wine)
-// hide only off x86_64. Dropbox's x86_64 client runs under box64 on ARM, which
+// installers that need x86_64 binaries (vendor builds for x86_64 alone, games
+// under Wine) hide only off x86_64. Dropbox's x86_64 client runs under box64
+// on ARM, which
 // needs 4K pages, so it hides only where pages are larger. Spotify installs its
 // web player where its client can't run, so it never hides. Any other `when:`
 // here is a row that went back to vanishing once installed.
-const windowsGuard = 'arch-hw-x86'
-const x86OnlyInstalls = ['install.windows', 'install.browser.edge', 'install.gaming.minecraft', 'install.gaming.heroic', 'install.gaming.geforce-now', 'install.gaming.battlenet', 'install.gaming.lutris']
+const x86Guard = 'arch-hw-x86'
+const x86OnlyInstalls = ['install.browser.edge', 'install.gaming.minecraft', 'install.gaming.heroic', 'install.gaming.geforce-now', 'install.gaming.battlenet', 'install.gaming.lutris']
 const fourKPageGuard = '[[ $(getconf PAGESIZE) == 4096 ]]'
 assertDeepEqual(
   defaultItems
@@ -327,8 +327,12 @@ assertDeepEqual(
   'menu never hides an Install row because the software is already there'
 )
 assert(
-  x86OnlyInstalls.every(id => defaultById[id].when === windowsGuard),
-  'menu hides the Windows VM and the x86_64-only installers only off x86_64'
+  x86OnlyInstalls.every(id => defaultById[id].when === x86Guard),
+  'menu hides the x86_64-only installers only off x86_64'
+)
+assert(
+  !defaultById['install.windows'] && !defaultById['remove.windows'],
+  'menu does not expose Windows VM install or removal actions'
 )
 assertEqual(
   defaultById['install.service.dropbox'].when,
@@ -341,8 +345,8 @@ assert(
   'menu offers Spotify on every platform and dims it once its client or web player is installed'
 )
 assert(
-  ['install.browser.zen', 'install.editor.vscode', 'install.gaming.steam', 'install.development.rust', 'install.windows'].every(
-    id => defaultById[id].disabled && (!defaultById[id].when || defaultById[id].when === windowsGuard)
+  ['install.browser.zen', 'install.editor.vscode', 'install.gaming.steam', 'install.development.rust'].every(
+    id => defaultById[id].disabled && !defaultById[id].when
   ),
   'menu dims the Install rows for software that is already installed'
 )
@@ -377,7 +381,6 @@ assertDeepEqual(
     'remove.browser',
     'remove.webapp',
     'remove.tui',
-    'remove.windows',
     'remove.security'
   ],
   'menu keeps the Remove category order'

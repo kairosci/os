@@ -487,9 +487,6 @@
   "install.tui": {
     "label": "TUI"
   },
-  "install.windows": {
-    "label": "Windows"
-  },
   "install.browser.chrome": {
     "label": "Chrome"
   },
@@ -694,9 +691,6 @@
   },
   "remove.tui": {
     "label": "TUI"
-  },
-  "remove.windows": {
-    "label": "Windows"
   },
   "remove.security": {
     "label": "Sicurezza",
