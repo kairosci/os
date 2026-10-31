@@ -273,6 +273,12 @@ entrypoints:
     name: nvidia without gsp
     summary: Detect an NVIDIA GPU without GSP firmware
     hidden: 'true'
+  - binary: arch-hw-touchpad
+    module: hardware/touchpad
+    function: touchpad_main
+    group: hw
+    name: touchpad
+    summary: Print the detected Hyprland touchpad or trackpad device name
   - binary: arch-hw-webcam
     module: hardware/webcam
     function: main

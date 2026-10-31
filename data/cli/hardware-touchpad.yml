@@ -1,0 +1,15 @@
+commands:
+  hyprland_devices: [hyprctl, devices, -j]
+  mouse_names: [jq, -r, '.mice[].name']
+  udev_properties: [udevadm, info, --query=property]
+paths:
+  input_class_default: /sys/class/input
+  input_class_environment: ARCH_INPUT_CLASS_PATH
+  event_glob: 'event*'
+  device_name_relative: device/name
+patterns:
+  named_touchpad: 'touchpad|trackpad'
+  name_characters_to_replace: '[ ,\n]'
+  duplicate_name_suffix: '[0-9]+'
+identifiers:
+  udev_touchpad_property: ID_INPUT_TOUCHPAD=1
