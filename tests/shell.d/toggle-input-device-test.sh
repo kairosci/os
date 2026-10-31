@@ -50,15 +50,14 @@ stub_device() {
 }
 
 # XDG_STATE_HOME deliberately points away from HOME everywhere below: the
-# input-device state is hardcoded to ~/.local/state like the sibling toggle
-# tools, so nothing may read or write the XDG
-# directory.
+# input-device state is configured under ~/.local/state, so nothing may read or
+# write the XDG directory.
 run_toggle() {
   HOME="$home_dir" \
     XDG_STATE_HOME="$xdg_decoy" \
     HYPRCTL_LOG="$log_file" \
     PATH="$stub_dir:$ROOT/src/arch/commands:$PATH" \
-    "$ROOT/src/arch/commands/arch-toggle-input-device" "$@"
+    "$ARCH_TEST_CLI_ROUTER/archctl" toggle input device "$@"
 }
 
 assert_decoy_untouched() {

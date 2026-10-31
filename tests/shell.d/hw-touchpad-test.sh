@@ -53,7 +53,7 @@ event_device event2 "Apple MTP multi-touch" "ID_INPUT_TOUCHPAD=1"
   fail "the Apple Silicon trackpad is detected" "$(detected "apple-mtp-multi-touch")"
 pass "the Apple Silicon trackpad is detected"
 
-# arch-toggle-input-device passes the name straight to hl.device, so a name
+# The input-device CLI passes the name straight to hl.device, so a name
 # that does not match leaves the menu entry hidden and the toggle dead.
 for name in "elan-touchpad" "apple-magic-trackpad-2"; do
   [[ $(detected "$name") == "$name" ]] || fail "the touchpads that already worked still do" "$(detected "$name")"

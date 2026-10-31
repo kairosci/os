@@ -1,0 +1,42 @@
+commands:
+  device_name: [archctl, hw]
+  apply_device: [hyprctl, eval]
+  localize: [arch-i18n]
+  osd: [arch-osd, -i]
+paths:
+  home_relative_state_directory: .local/state/arch/toggles/hypr
+  disabled_name_suffix: -disabled-name
+  temporary_prefix: .input-device-
+values:
+  kinds: [touchpad, touchscreen]
+  actions:
+    enable: "on"
+    disable: "off"
+    toggle: "toggle"
+  lua_device_call: 'hl.device({ name = "{name}", enabled = {enabled} })'
+  lua_true: "true"
+  lua_false: "false"
+notifications:
+  touchpad:
+    icon: touchpad
+    enabled_key: input.touchpadEnabled
+    disabled_key: input.touchpadDisabled
+  touchscreen:
+    icon: touch
+    enabled_key: input.touchscreenEnabled
+    disabled_key: input.touchscreenDisabled
+limits:
+  device_timeout_seconds: 5
+  command_timeout_seconds: 5
+  cleanup_timeout_seconds: 1
+  maximum_device_output_bytes: 4096
+  read_chunk_bytes: 1024
+messages:
+  usage: 'Usage: archctl toggle input device <touchpad|touchscreen> [on|off|toggle]'
+  no_device: 'No {kind} device found'
+  invalid_device_name: 'Invalid {kind} device name'
+  command_error: 'Could not change the {kind} state'
+statuses:
+  success: 0
+  invalid_arguments: 1
+  command_error: 1

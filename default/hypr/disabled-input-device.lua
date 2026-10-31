@@ -4,9 +4,8 @@
 local paths = require("default.hypr.paths")
 
 return function(kind)
-  -- Hardcoded to ~/.local/state to match arch-toggle-input-device and the
-  -- sibling bash toggle tools, which all write there regardless of
-  -- XDG_STATE_HOME.
+  -- The input-device toggle config and sibling toggle tools use ~/.local/state
+  -- regardless of XDG_STATE_HOME.
   local file = io.open(paths.home .. "/.local/state/arch/toggles/hypr/" .. kind .. "-disabled-name", "r")
   if not file then
     return

@@ -573,6 +573,15 @@ entrypoints:
     args: <flag-name> [toggle|on|off]
     examples: archctl toggle set screensaver-off off
     pass_args: 'true'
+  - binary: arch-toggle-input-device
+    module: toggle/input_device
+    function: input_device_main
+    group: toggle
+    name: input device
+    summary: Enable, disable, or toggle a touchpad or touchscreen
+    args: <touchpad|touchscreen> [on|off|toggle]
+    hidden: 'true'
+    pass_args: 'true'
   - binary: arch-theme-bg-current
     module: theme/info
     function: background_current_main
