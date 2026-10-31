@@ -251,11 +251,12 @@ pass "an unreadable CPU architecture fails instead of guessing generic"
 # The architecture predicates use the image-aware platform detector rather
 # than uname, and aarch64 covers every ARM hardware family.
 test_arch="$test_tmp/architecture-root"
-mkdir -p "$test_arch/src/arch/commands" "$test_arch/src/arch/cli/hardware" "$test_arch/data/cli"
+mkdir -p "$test_arch/src/arch/commands" "$test_arch/src/arch/cli/hardware" "$test_arch/data/cli" "$test_arch/scripts"
 cp "$ROOT/src/arch/cli/hardware/architecture.py" "$test_arch/src/arch/cli/hardware/architecture.py"
 cp "$ROOT/data/cli/architecture.yml" "$test_arch/data/cli/architecture.yml"
-cp "$ARCH_TEST_CLI_BIN/arch-hw-x86" "$test_arch/src/arch/commands/arch-hw-x86"
-cp "$ARCH_TEST_CLI_BIN/arch-hw-aarch64" "$test_arch/src/arch/commands/arch-hw-aarch64"
+cp "$ROOT/data/cli/python-entrypoints.yml" "$test_arch/data/cli/python-entrypoints.yml"
+cp "$ROOT/data/cli/groups.yml" "$test_arch/data/cli/groups.yml"
+cp "$ROOT/scripts/cli_entrypoints.py" "$test_arch/scripts/cli_entrypoints.py"
 cat >"$test_arch/src/arch/commands/arch-hw-platform" <<'SH'
 #!/bin/bash
 printf '%s\n' "$TEST_PLATFORM"
@@ -264,15 +265,15 @@ chmod +x "$test_arch/src/arch/commands/arch-hw-platform"
 
 for platform in x86 aarch64 aarch64-apple aarch64-qualcomm aarch64-n1x aarch64-gb10; do
   if [[ $platform == "x86" ]]; then
-    AP="$test_arch" TEST_PLATFORM="$platform" "$test_arch/src/arch/commands/arch-hw-x86" || fail "x86: arch-hw-x86 accepts it"
-    if AP="$test_arch" TEST_PLATFORM="$platform" "$test_arch/src/arch/commands/arch-hw-aarch64"; then
-      fail "x86: arch-hw-aarch64 rejects it"
+    AP="$test_arch" TEST_PLATFORM="$platform" "$ARCH_TEST_CLI_BIN/archctl" hw x86 || fail "x86: archctl hw x86 accepts it"
+    if AP="$test_arch" TEST_PLATFORM="$platform" "$ARCH_TEST_CLI_BIN/archctl" hw aarch64; then
+      fail "x86: archctl hw aarch64 rejects it"
     fi
   else
-    AP="$test_arch" TEST_PLATFORM="$platform" "$test_arch/src/arch/commands/arch-hw-aarch64" || fail "$platform: arch-hw-aarch64 accepts it"
-    if AP="$test_arch" TEST_PLATFORM="$platform" "$test_arch/src/arch/commands/arch-hw-x86"; then
-      fail "$platform: arch-hw-x86 rejects it"
+    AP="$test_arch" TEST_PLATFORM="$platform" "$ARCH_TEST_CLI_BIN/archctl" hw aarch64 || fail "$platform: archctl hw aarch64 accepts it"
+    if AP="$test_arch" TEST_PLATFORM="$platform" "$ARCH_TEST_CLI_BIN/archctl" hw x86; then
+      fail "$platform: archctl hw x86 rejects it"
     fi
   fi
 done
-pass "arch-hw-x86 and arch-hw-aarch64 follow the platform detector for every CPU family"
+pass "archctl architecture predicates follow the platform detector for every CPU family"

@@ -34,7 +34,7 @@ class LegacyPlugin(TypedDict):
 
 
 class Settings(TypedDict):
-  helper: str
+  helper: list[str]
   boot_entry: BootEntry
   plugin: Plugin
   legacy_plugin: LegacyPlugin
@@ -82,7 +82,7 @@ def _settings() -> Settings:
   plugin = _mapping(snapshots.get("plugin"), "plugin")
   legacy = _mapping(snapshots.get("legacy_plugin"), "legacy_plugin")
   return {
-    "helper": _text(snapshots.get("helper"), "helper"),
+    "helper": _text_list(snapshots.get("helper"), "helper"),
     "boot_entry": {
       "environment_override": _text(boot.get("environment_override"), "boot_entry.environment_override"),
       "default_esp": _text(boot.get("default_esp"), "boot_entry.default_esp"),
@@ -147,7 +147,7 @@ def main() -> int:
     return os.EX_CONFIG
   try:
     ap = Path(os.environ["AP"])
-    helper = subprocess.run([str(ap / settings["helper"])], check=False)
+    helper = subprocess.run(settings["helper"], check=False)
     boot_entry = settings["boot_entry"]
     esp = os.environ.get(boot_entry["environment_override"], boot_entry["default_esp"])
     if helper.returncode or not (Path(esp) / boot_entry["relative_path"]).is_file():

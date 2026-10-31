@@ -18,7 +18,6 @@ class PathSetting(TypedDict):
 
 
 class Paths(TypedDict):
-  hardware_helper: PathSetting
   systemd_boot_esp: PathSetting
   systemd_boot_entry: str
   kernel_cmdline: PathSetting
@@ -29,6 +28,7 @@ class Paths(TypedDict):
 
 
 class Commands(TypedDict):
+  hardware_architecture: list[str]
   objcopy: list[str]
 
 
@@ -114,7 +114,6 @@ def _settings() -> tuple[Path, Settings]:
   files = _mapping(settings.get("files"), "files")
   return ap, {
     "paths": {
-      "hardware_helper": _path_setting(paths.get("hardware_helper"), "paths.hardware_helper"),
       "systemd_boot_esp": _path_setting(paths.get("systemd_boot_esp"), "paths.systemd_boot_esp"),
       "systemd_boot_entry": _text(paths.get("systemd_boot_entry"), "paths.systemd_boot_entry"),
       "kernel_cmdline": _path_setting(paths.get("kernel_cmdline"), "paths.kernel_cmdline"),
@@ -123,7 +122,10 @@ def _settings() -> tuple[Path, Settings]:
       "preset_template": _path_setting(paths.get("preset_template"), "paths.preset_template"),
       "default_preset": _path_setting(paths.get("default_preset"), "paths.default_preset"),
     },
-    "commands": {"objcopy": _text_list(commands.get("objcopy"), "commands.objcopy")},
+    "commands": {
+      "hardware_architecture": _text_list(commands.get("hardware_architecture"), "commands.hardware_architecture"),
+      "objcopy": _text_list(commands.get("objcopy"), "commands.objcopy"),
+    },
     "files": {
       "kernel_preset": _text(files.get("kernel_preset"), "files.kernel_preset"),
       "preset_package_base": _text(files.get("preset_package_base"), "files.preset_package_base"),
@@ -142,7 +144,7 @@ def _messages(settings: Settings) -> Messages:
 
 def _configured_path(
   settings: Settings, key: Literal[
-    "hardware_helper", "systemd_boot_esp", "kernel_cmdline", "kernel_uki",
+    "systemd_boot_esp", "kernel_cmdline", "kernel_uki",
     "mkinitcpio_config_dir", "preset_template", "default_preset",
   ], ap: Path, relative_base: Path | None = None,
 ) -> Path:
@@ -247,8 +249,7 @@ def main() -> int:
     return os.EX_CONFIG
   try:
     paths = settings["paths"]
-    helper = _configured_path(settings, "hardware_helper", ap)
-    if subprocess.run([str(helper)], check=False).returncode:
+    if subprocess.run(settings["commands"]["hardware_architecture"], check=False).returncode:
       return 0
 
     esp = _configured_path(settings, "systemd_boot_esp", ap)

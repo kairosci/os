@@ -5,7 +5,7 @@
 
 set -e
 
-if arch-hw-x86; then
+if archctl hw x86; then
   echo "Installing Spotify..."
   arch-pkg-add spotify
 

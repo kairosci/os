@@ -305,6 +305,7 @@ entrypoints:
     group: hw
     name: aarch64
     summary: Detect whether the CPU is aarch64 (every ARM machine, Apple Silicon included).
+    generate_launcher: "false"
   - binary: arch-hw-intel
     module: hardware/intel
     function: intel_main
@@ -471,6 +472,7 @@ entrypoints:
     group: hw
     name: x86
     summary: Detect whether the CPU is x86_64.
+    generate_launcher: "false"
   - binary: arch-hyprland-focus-app
     module: hyprland/focus
     function: main
