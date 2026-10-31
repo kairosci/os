@@ -53,6 +53,10 @@ source = "src/arch/cli/hardware/clamshell.py"
 target = "usr/share/arch/src/arch/cli/hardware/clamshell.py"
 
 [[output]]
+source = "src/arch/cli/hardware/fingerprint.py"
+target = "usr/share/arch/src/arch/cli/hardware/fingerprint.py"
+
+[[output]]
 source = "src/arch/cli/hardware/intel.py"
 target = "usr/share/arch/src/arch/cli/hardware/intel.py"
 
