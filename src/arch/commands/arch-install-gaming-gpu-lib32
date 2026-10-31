@@ -25,9 +25,9 @@ for vendor in "${!VULKAN_DRIVERS[@]}"; do
   fi
 done
 
-if arch-hw-nvidia-gsp; then
+if archctl hw nvidia gsp; then
   PACKAGES+=(lib32-nvidia-utils)
-elif arch-hw-nvidia-without-gsp; then
+elif archctl hw nvidia without gsp; then
   PACKAGES+=(lib32-nvidia-580xx-utils)
 fi
 

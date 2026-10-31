@@ -150,11 +150,11 @@ nvidia_driver_setup:
   n1x_check: [arch-hw-aarch64-n1x]
   pci_command: [lspci]
   pci_pattern: nvidia
-  gsp_check: [arch-hw-nvidia-gsp]
+  gsp_check: [archctl, hw, nvidia, gsp]
   gsp_packages: [nvidia-open-dkms, nvidia-utils]
   gsp_x86_packages: [lib32-nvidia-utils]
   gsp_common_packages: [libva-nvidia-driver]
-  legacy_check: [arch-hw-nvidia-without-gsp]
+  legacy_check: [archctl, hw, nvidia, without, gsp]
   legacy_packages: [nvidia-580xx-dkms, nvidia-580xx-utils]
   legacy_x86_packages: [lib32-nvidia-580xx-utils]
   x86_check: [arch-hw-x86]

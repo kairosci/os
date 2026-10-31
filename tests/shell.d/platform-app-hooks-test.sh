@@ -123,8 +123,13 @@ gpu_bin=$tmp/gpu-bin
 mkdir -p "$gpu_bin"
 printf '#!/bin/bash\necho "00:02.0 VGA compatible controller: %s"\n' '${GPU:-Apple Inc. AGX}' >"$gpu_bin/lspci"
 printf '#!/bin/bash\nexit "${ARCH_X86:-0}"\n' >"$gpu_bin/arch-hw-x86"
-printf '#!/bin/bash\nexit 1\n' >"$gpu_bin/arch-hw-nvidia-gsp"
-printf '#!/bin/bash\nexit 1\n' >"$gpu_bin/arch-hw-nvidia-without-gsp"
+cat >"$gpu_bin/archctl" <<'SH'
+#!/bin/bash
+case "$*" in
+  "hw nvidia gsp"|"hw nvidia without gsp") exit 1 ;;
+  *) exit 2 ;;
+esac
+SH
 printf '#!/bin/bash\necho "arch-pkg-add $*" >>"%s"\n' "$tmp/calls" >"$gpu_bin/arch-pkg-add"
 chmod +x "$gpu_bin"/*
 rm -f "$tmp/calls"

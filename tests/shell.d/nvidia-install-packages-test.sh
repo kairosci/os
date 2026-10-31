@@ -23,13 +23,13 @@ cat >"$mock_bin/arch-hw-x86" <<'SH'
 #!/bin/bash
 [[ ${TEST_ARCH:-} == x86_64 ]]
 SH
-cat >"$mock_bin/arch-hw-nvidia-gsp" <<'SH'
+cat >"$mock_bin/archctl" <<'SH'
 #!/bin/bash
-[[ ${TEST_DRIVER:-} == gsp ]]
-SH
-cat >"$mock_bin/arch-hw-nvidia-without-gsp" <<'SH'
-#!/bin/bash
-[[ ${TEST_DRIVER:-} == legacy ]]
+case "$*" in
+  "hw nvidia gsp") [[ ${TEST_DRIVER:-} == gsp ]] ;;
+  "hw nvidia without gsp") [[ ${TEST_DRIVER:-} == legacy ]] ;;
+  *) exit 2 ;;
+esac
 SH
 cat >"$mock_bin/arch-pkg-add" <<'SH'
 #!/bin/bash
