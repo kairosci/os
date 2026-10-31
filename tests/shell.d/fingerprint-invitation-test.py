@@ -87,7 +87,7 @@ def main() -> int:
       if title not in arguments:
         fail_check("fingerprint notification uses its Italian YAML translation")
       action = arguments.index("--exec") if "--exec" in arguments else -1
-      if action < 0 or arguments[action + 1:action + 3] != ["arch-launch-terminal", "arch-setup-security-fingerprint"]:
+      if action < 0 or arguments[action + 1:action + 5] != ["archctl", "launch", "terminal", "arch-setup-security-fingerprint"]:
         fail_check("invitation launches setup in a tiling terminal")
 
       result = run_hook(environment)

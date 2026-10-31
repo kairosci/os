@@ -141,13 +141,13 @@ function o.launch_terminal()
   local function launch()
     local window = hl.get_active_window()
     if window and window.pid then
-      hl.exec_cmd("arch-launch-terminal --pid=" .. window.pid)
+      hl.exec_cmd("archctl launch terminal --pid=" .. window.pid)
     else
-      hl.exec_cmd("arch-launch-terminal")
+      hl.exec_cmd("archctl launch terminal")
     end
   end
 
-  o.bind_commands[launch] = "arch-launch-terminal"
+  o.bind_commands[launch] = "archctl launch terminal"
   return launch
 end
 

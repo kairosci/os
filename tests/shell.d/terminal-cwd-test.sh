@@ -7,6 +7,7 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 test_tmp=$(mktemp -d)
 stub_bin="$test_tmp/bin"
 work_dir="$test_tmp/project dir"
+launch_args="$test_tmp/launch-args"
 mkdir -p "$stub_bin" "$work_dir"
 
 # A stand-in terminal whose newest child is a shell sitting in work_dir. The
@@ -31,68 +32,66 @@ done
 
 cat >"$stub_bin/hyprctl" <<'SH'
 #!/bin/bash
-[[ -n ${ACTIVE_PID:-} ]] && printf 'Window 1 -> terminal:\n\tpid: %s\n' "$ACTIVE_PID"
-exit 0
+[[ ${1:-} == activewindow && -n ${ACTIVE_PID:-} ]] || exit 0
+printf 'Window 1 -> terminal:\n\tpid: %s\n' "$ACTIVE_PID"
 SH
-chmod +x "$stub_bin/hyprctl"
-
-cwd=$(ACTIVE_PID="$terminal_pid" PATH="$stub_bin:$PATH" XDG_RUNTIME_DIR="$test_tmp" "$ROOT/src/arch/commands/arch-cmd-terminal-cwd")
-[[ $cwd == "$work_dir" ]] || fail "a new terminal opens in the focused terminal's shell directory" "got: $cwd"
-pass "a new terminal opens in the focused terminal's shell directory"
-
-output=$(PATH="$stub_bin:$PATH" XDG_RUNTIME_DIR="$test_tmp" HOME="$test_tmp" "$ROOT/src/arch/commands/arch-cmd-terminal-cwd" 2>&1)
-[[ $output == "$test_tmp" ]] || fail "with no focused terminal the new one opens in HOME" "got: $output"
-pass "with no focused terminal the new one opens in HOME, quietly"
-
-# The Super+Return binding hands over the focused window's pid, so Hyprland is
-# not asked again; a hyprctl that fails the test proves it goes unasked.
-cat >"$stub_bin/hyprctl" <<'SH'
-#!/bin/bash
-echo "hyprctl was asked for the active window" >&2
-exit 1
-SH
-
-cwd=$(PATH="$stub_bin:$PATH" XDG_RUNTIME_DIR="$test_tmp" "$ROOT/src/arch/commands/arch-cmd-terminal-cwd" "$terminal_pid" 2>&1)
-[[ $cwd == "$work_dir" ]] || fail "a terminal pid passed in finds its shell directory without hyprctl" "got: $cwd"
-pass "a terminal pid passed in finds its shell directory without hyprctl"
-
 cat >"$stub_bin/setsid" <<'SH'
 #!/bin/bash
 printf '%s\0' "$@" >"$LAUNCH_ARGS"
 exit "${LAUNCH_STATUS:-0}"
 SH
-cat >"$stub_bin/arch-cmd-terminal-cwd" <<'SH'
-#!/bin/bash
-printf '%s' "$LAUNCH_CWD"
-SH
-chmod +x "$stub_bin/setsid" "$stub_bin/arch-cmd-terminal-cwd"
-launch_args="$test_tmp/launch-args"
+chmod +x "$stub_bin/hyprctl" "$stub_bin/setsid"
 
-AP="$ROOT" PATH="$stub_bin:$PATH" LAUNCH_ARGS="$launch_args" \
-  "$ARCH_TEST_CLI_BIN/archctl" launch nautilus || fail "Files launcher starts successfully"
+AP="$ROOT" ACTIVE_PID="$terminal_pid" PATH="$stub_bin:$PATH" XDG_RUNTIME_DIR="$test_tmp" \
+  HOME="$test_tmp" LAUNCH_ARGS="$launch_args" "$ARCH_TEST_CLI_BIN/archctl" launch terminal ||
+  fail "a new terminal starts in the focused terminal shell directory"
 mapfile -d '' -t actual_args <"$launch_args"
 [[ ${#actual_args[@]} == 4 && ${actual_args[0]} == uwsm-app && ${actual_args[1]} == -- &&
-  ${actual_args[2]} == nautilus && ${actual_args[3]} == --new-window ]] ||
-  fail "Files launcher preserves its application argv" "${actual_args[*]}"
+  ${actual_args[2]} == xdg-terminal-exec && ${actual_args[3]} == "--dir=$work_dir" ]] ||
+  fail "terminal launch preserves the focused shell directory as one argument" "${actual_args[*]}"
+pass "a new terminal opens in the focused terminal shell directory"
 
-AP="$ROOT" PATH="$stub_bin:$PATH" LAUNCH_ARGS="$launch_args" LAUNCH_CWD="$work_dir" \
-  "$ARCH_TEST_CLI_BIN/archctl" launch nautilus cwd || fail "Files launcher in the terminal directory starts successfully"
+: >"$launch_args"
+AP="$ROOT" PATH="$stub_bin:$PATH" XDG_RUNTIME_DIR="$test_tmp" HOME="$test_tmp" \
+  LAUNCH_ARGS="$launch_args" "$ARCH_TEST_CLI_BIN/archctl" launch terminal ||
+  fail "a terminal starts in HOME when there is no focused terminal"
+mapfile -d '' -t actual_args <"$launch_args"
+[[ ${actual_args[3]} == "--dir=$test_tmp" ]] ||
+  fail "a missing focused terminal falls back to HOME" "${actual_args[*]}"
+pass "a missing focused terminal falls back to HOME"
+
+cat >"$stub_bin/hyprctl" <<'SH'
+#!/bin/bash
+echo "hyprctl was asked for the active window" >&2
+exit 1
+SH
+chmod +x "$stub_bin/hyprctl"
+: >"$launch_args"
+AP="$ROOT" PATH="$stub_bin:$PATH" XDG_RUNTIME_DIR="$test_tmp" HOME="$test_tmp" \
+  LAUNCH_ARGS="$launch_args" "$ARCH_TEST_CLI_BIN/archctl" launch terminal "--pid=$terminal_pid" ||
+  fail "a terminal pid supplied by the binding starts successfully"
+mapfile -d '' -t actual_args <"$launch_args"
+[[ ${actual_args[3]} == "--dir=$work_dir" ]] ||
+  fail "a supplied terminal pid avoids querying Hyprland and preserves its directory" "${actual_args[*]}"
+pass "a supplied terminal pid avoids querying Hyprland"
+
+: >"$launch_args"
+AP="$ROOT" PATH="$stub_bin:$PATH" XDG_RUNTIME_DIR="$test_tmp" HOME="$test_tmp" \
+  LAUNCH_ARGS="$launch_args" "$ARCH_TEST_CLI_BIN/archctl" launch nautilus cwd ||
+  fail "Files launches in the active terminal directory"
 mapfile -d '' -t actual_args <"$launch_args"
 [[ ${#actual_args[@]} == 5 && ${actual_args[0]} == uwsm-app && ${actual_args[1]} == -- &&
   ${actual_args[2]} == nautilus && ${actual_args[3]} == --new-window && ${actual_args[4]} == "$work_dir" ]] ||
   fail "Files launcher forwards a path with spaces as one argv item" "${actual_args[*]}"
-pass "Files launchers preserve argv and the focused terminal directory"
+pass "Files launcher preserves argv and the focused terminal directory"
 
-cat >"$stub_bin/arch-launch-terminal" <<'SH'
-#!/bin/bash
-printf '%s\0' "$@" >"$LAUNCH_ARGS"
-exit "${LAUNCH_STATUS:-0}"
-SH
-chmod +x "$stub_bin/arch-launch-terminal"
-AP="$ROOT" PATH="$stub_bin:$PATH" LAUNCH_ARGS="$launch_args" \
-  "$ARCH_TEST_CLI_BIN/archctl" launch terminal tmux || fail "tmux terminal launcher starts successfully"
+: >"$launch_args"
+AP="$ROOT" PATH="$stub_bin:$PATH" XDG_RUNTIME_DIR="$test_tmp" HOME="$test_tmp" \
+  LAUNCH_ARGS="$launch_args" "$ARCH_TEST_CLI_BIN/archctl" launch terminal tmux ||
+  fail "tmux starts in a tiled terminal"
 mapfile -d '' -t actual_args <"$launch_args"
-[[ ${#actual_args[@]} == 3 && ${actual_args[0]} == bash && ${actual_args[1]} == -c &&
-  ${actual_args[2]} == 'tmux attach || tmux new -s Work' ]] ||
-  fail "tmux terminal launcher preserves its attach-or-create command" "${actual_args[*]}"
-pass "tmux terminal launcher preserves the Work session fallback"
+[[ ${#actual_args[@]} == 7 && ${actual_args[2]} == xdg-terminal-exec &&
+  ${actual_args[3]} == "--dir=$test_tmp" && ${actual_args[4]} == bash &&
+  ${actual_args[5]} == -c && ${actual_args[6]} == 'tmux attach || tmux new -s Work' ]] ||
+  fail "tmux terminal launcher preserves the Work session command" "${actual_args[*]}"
+pass "tmux terminal launcher preserves its attach-or-create command"

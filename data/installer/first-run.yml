@@ -46,7 +46,7 @@ wifi:
         body: Fai clic per configurare la rete wireless.
   update_notification:
     command: [archctl, notification, send, -u, critical, -g, ]
-    action: [--exec, arch-launch-terminal, arch-update]
+    action: [--exec, archctl, launch, terminal, arch-update]
     messages:
       en:
         title: Update System
@@ -141,7 +141,7 @@ fingerprint_invitation:
   marker: [archctl, done, ensure, fingerprint-setup-invitation]
   notification:
     command: [archctl, notification, send, -u, critical, -g, 󰈷]
-    action: [--exec, arch-launch-terminal, arch-setup-security-fingerprint]
+    action: [--exec, archctl, launch, terminal, arch-setup-security-fingerprint]
     messages:
       en:
         title: Setup Fingerprint Reader

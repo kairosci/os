@@ -264,7 +264,7 @@ BINDS
 
 rm -rf "$tmpdir/cache"
 keybindings >/dev/null
-grep -qP '→ Terminal\texec\tarch-launch-terminal$' "$tmpdir"/cache/arch/keybindings-*.records ||
+grep -qP '→ Terminal\texec\tarchctl launch terminal$' "$tmpdir"/cache/arch/keybindings-*.records ||
   fail "picking the terminal bind from the menu launches a terminal" "$(cat "$tmpdir"/cache/arch/keybindings-*.records)"
 pass "picking the terminal bind from the menu launches a terminal"
 
@@ -283,7 +283,7 @@ timeout --kill-after=1s 60s env -i PATH="$stub_bin:$ROOT/src/arch/commands:$PATH
   XDG_CACHE_HOME="$tmpdir/cache" AP="$ROOT" \
   bash "$menu" --print >/dev/null 2>&1 ||
   fail "a plugin iterating windows at load time does not wedge the keybindings scan"
-grep -qP '→ Terminal\texec\tarch-launch-terminal$' "$tmpdir"/cache/arch/keybindings-*.records ||
+grep -qP '→ Terminal\texec\tarchctl launch terminal$' "$tmpdir"/cache/arch/keybindings-*.records ||
   fail "a plugin iterating windows at load time does not wedge the keybindings scan (it stopped before the Terminal bind)"
 pass "a plugin iterating windows at load time does not wedge the keybindings scan"
 
@@ -297,12 +297,12 @@ printf '{"Terminal": "Terminal (fr)", "Switch to workspace %%1": "Changer vers e
 echo fr >"$tmpdir/translate-language"
 eval "$(sed -n '/^translate_binding_records()/,/^}/p' "$ROOT/src/arch/commands/arch-menu-keybindings")"
 translated=$(printf '%s\n' \
-  $'SUPER + RETURN                      → Terminal\texec\tarch-launch-terminal' \
+  $'SUPER + RETURN                      → Terminal\texec\tarchctl launch terminal' \
   $'SUPER + 3                           → Switch to workspace 3\tworkspace\t3' \
   $'SUPER + X                           → My own thing\texec\tmy-thing' |
   AP=$translate_root ARCH_LANGUAGE_FILE=$tmpdir/translate-language translate_binding_records)
 expected=$(printf '%s\n' \
-  $'SUPER + RETURN                      → Terminal (fr)\texec\tarch-launch-terminal' \
+  $'SUPER + RETURN                      → Terminal (fr)\texec\tarchctl launch terminal' \
   $'SUPER + 3                           → Changer vers espace 3\tworkspace\t3' \
   $'SUPER + X                           → My own thing\texec\tmy-thing')
 [[ $translated == "$expected" ]] || fail "keybinding descriptions show in the os language" "$translated"
