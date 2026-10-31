@@ -136,13 +136,13 @@ intel_power_setup:
       - [arch-hw-intel]
     minimum_cpu_model: 42
     missing_cpu_model: 0
-    battery_check: [arch-battery-present]
+    battery_check: [archctl, battery, present]
     package_command: [arch-pkg-add, thermald]
     enable_command: [sudo, systemctl, enable, thermald.service]
   lpmd:
     checks:
       - [arch-hw-intel]
-      - [arch-battery-present]
+      - [archctl, battery, present]
     supported_cpu_models: [151, 154, 170, 172, 183, 186, 189, 191, 204]
     package_command: [arch-pkg-add, intel-lpmd]
     enable_command: [sudo, systemctl, enable, intel_lpmd.service]

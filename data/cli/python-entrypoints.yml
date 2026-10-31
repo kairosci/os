@@ -13,6 +13,7 @@ entrypoints:
     group: battery
     name: present
     summary: Returns true if a battery is present on the system.
+    generate_launcher: "false"
   - binary: arch-battery-status
     module: battery/status
     function: main
