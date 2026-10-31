@@ -186,6 +186,18 @@ entrypoints:
     group: hw
     name: intel sof
     summary: Detect an Intel SOF-capable audio DSP.
+  - binary: arch-hw-touchscreen
+    module: hardware/misc
+    function: touchscreen_main
+    group: hw
+    name: touchscreen
+    summary: Print the detected Hyprland touchscreen or tablet device name
+  - binary: arch-hw-vulkan
+    module: hardware/misc
+    function: vulkan_main
+    group: hw
+    name: vulkan
+    summary: Detect whether Vulkan is available.
   - binary: arch-hw-vm
     module: hardware/virtualization
     function: main

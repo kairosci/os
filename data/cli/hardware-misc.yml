@@ -1,0 +1,10 @@
+commands:
+  hyprland_devices: [hyprctl, devices, -j]
+paths:
+  vulkan_icd_directory: /usr/share/vulkan/icd.d
+patterns:
+  vulkan_icd: "*.json"
+fields:
+  touch: touch
+  tablets: tablets
+  name: name

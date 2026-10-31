@@ -9,6 +9,7 @@ sources = [
   "src/arch/cli/hardware/architecture.py",
   "src/arch/cli/hardware/clamshell.py",
   "src/arch/cli/hardware/intel.py",
+  "src/arch/cli/hardware/misc.py",
   "src/arch/cli/hardware/nvidia.py",
   "src/arch/commands/arch-hw-apple-silicon",
   "src/arch/commands/arch-hw-display",
@@ -26,9 +27,7 @@ sources = [
   "src/arch/commands/arch-hw-platform",
   "src/arch/commands/arch-hw-recover-internal-monitor",
   "src/arch/commands/arch-hw-touchpad",
-  "src/arch/commands/arch-hw-touchscreen",
   "src/arch/cli/hardware/virtualization.py",
-  "src/arch/commands/arch-hw-vulkan",
   "src/arch/cli/hardware/webcam.py",
 ]
 requires = ["desktop.commands", "system.runtime-data"]
@@ -60,6 +59,10 @@ target = "usr/share/arch/src/arch/cli/hardware/clamshell.py"
 [[output]]
 source = "src/arch/cli/hardware/intel.py"
 target = "usr/share/arch/src/arch/cli/hardware/intel.py"
+
+[[output]]
+source = "src/arch/cli/hardware/misc.py"
+target = "usr/share/arch/src/arch/cli/hardware/misc.py"
 
 [[output]]
 source = "src/arch/cli/hardware/nvidia.py"
@@ -130,16 +133,8 @@ source = "src/arch/commands/arch-hw-touchpad"
 target = "usr/share/arch/src/arch/commands/arch-hw-touchpad"
 
 [[output]]
-source = "src/arch/commands/arch-hw-touchscreen"
-target = "usr/share/arch/src/arch/commands/arch-hw-touchscreen"
-
-[[output]]
 source = "src/arch/cli/hardware/virtualization.py"
 target = "usr/share/arch/src/arch/cli/hardware/virtualization.py"
-
-[[output]]
-source = "src/arch/commands/arch-hw-vulkan"
-target = "usr/share/arch/src/arch/commands/arch-hw-vulkan"
 
 [[output]]
 source = "src/arch/cli/hardware/webcam.py"
