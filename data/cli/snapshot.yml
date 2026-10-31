@@ -1,0 +1,33 @@
+actions:
+  create: create
+  restore: restore
+commands:
+  command_presence: [archctl, cmd, missing, snapper]
+  version: [archctl, version]
+  list_configs: [sudo, snapper, --csvout, list-configs]
+  create: [sudo, snapper]
+  cleanup: [sudo, snapper]
+  restore: [sudo, limine-snapper-restore]
+  setup_guide: [sudo, python3, -I, '{ap}/src/arch/python/installer/system_setup/snapper_setup.py']
+messages:
+  usage: 'Usage: archctl snapshot <create|restore>'
+  no_configs: 'No Snapper configs found, so no snapshot was created.'
+  setup_guide: 'Configure Snapper with: {command}'
+  create: 'Create system snapshot'
+  created: 'Snapshots can be selected during boot.'
+  command_failure: 'Could not start {command}: {error}'
+  color_warning: "\u001b[33m"
+  color_success: "\u001b[32m"
+  color_reset: "\u001b[0m"
+statuses:
+  usage: 1
+  snapper_missing: 127
+  presence_missing: 0
+  presence_available: 1
+  command_failure: 78
+values:
+  csv_header_rows: 1
+  config_column: 0
+  snapshot_class: number
+  cleanup_type: number
+  unknown_version: unknown

@@ -4,102 +4,89 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-snapshot="$ROOT/src/arch/commands/arch-snapshot"
-
+snapshot="$ROOT/src/arch/cli/snapshot/manage.py"
 test_tmp=$(mktemp -d)
 trap 'rm -rf "$test_tmp"' EXIT
-
 fake_bin="$test_tmp/bin"
 mkdir -p "$fake_bin"
 
-cat >"$fake_bin/sudo" <<'STUB'
-#!/bin/bash
-exec "$@"
-STUB
-chmod +x "$fake_bin/sudo"
-
-cat >"$fake_bin/arch-cmd-missing" <<'STUB'
-#!/bin/bash
-exit 1
-STUB
-chmod +x "$fake_bin/arch-cmd-missing"
-
 cat >"$fake_bin/archctl" <<'STUB'
 #!/bin/bash
-[[ $1 == "version" ]] || exit 2
-echo 4.0.0
+case "$*" in
+  "cmd missing snapper") exit "${SNAPPER_MISSING:-1}" ;;
+  version) [[ ${VERSION_FAILURE:-0} == 0 ]] || exit 1; printf '%s\n' "${SNAPSHOT_VERSION:-4.0.0}" ;;
+  *) exit 2 ;;
+esac
 STUB
-chmod +x "$fake_bin/archctl"
-
-# Snapper with no configs: list-configs prints only the CSV header.
+cat >"$fake_bin/sudo" <<'STUB'
+#!/bin/bash
+printf 'sudo %s\n' "$*" >>"$TEST_LOG"
+exec "$@"
+STUB
 cat >"$fake_bin/snapper" <<'STUB'
 #!/bin/bash
 printf 'snapper %s\n' "$*" >>"$TEST_LOG"
-if [[ "$*" == *"list-configs"* ]]; then
-  echo "config,subvolume"
+if [[ $* == "--csvout list-configs" ]]; then
+  printf 'config,subvolume\n'
+  if [[ ${SNAPPER_NO_CONFIGS:-0} == 0 ]]; then
+    printf 'root,/\nhome,/home\n'
+  fi
 fi
 STUB
-chmod +x "$fake_bin/snapper"
+cat >"$fake_bin/limine-snapper-restore" <<'STUB'
+#!/bin/bash
+printf 'restore %s\n' "$*" >>"$TEST_LOG"
+STUB
+chmod +x "$fake_bin"/*
 
-# A snapshot that silently creates nothing reads as a successful snapshot, so
-# an unconfigured Snapper has to fail loudly instead of passing for a backup.
+run_snapshot() {
+  AP="$ROOT" \
+  PATH="$fake_bin:$PATH" \
+  python3 -I "$snapshot" "$@"
+}
+
 : >"$test_tmp/calls.log"
 set +e
-stderr=$(TEST_LOG="$test_tmp/calls.log" PATH="$fake_bin:$PATH" \
-  bash "$snapshot" create 2>&1 >/dev/null)
+output=$(TEST_LOG="$test_tmp/calls.log" SNAPPER_MISSING=0 run_snapshot create 2>&1)
 status=$?
 set -e
-
-(( status != 0 )) || fail "snapshot create fails when Snapper has no configs"
-grep -qF 'No Snapper configs found' <<<"$stderr" ||
-  fail "snapshot create reports that no snapshot was created" "$stderr"
-! grep -q '^snapper -c .* create ' "$test_tmp/calls.log" ||
-  fail "snapshot create does not invent a config to snapshot"
-pass "snapshot create fails loudly when Snapper is installed but unconfigured"
-
-cat >"$fake_bin/snapper" <<'STUB'
-#!/bin/bash
-printf 'snapper %s\n' "$*" >>"$TEST_LOG"
-if [[ "$*" == *"list-configs"* ]]; then
-  echo "config,subvolume"
-  echo "root,/"
-fi
-STUB
-chmod +x "$fake_bin/snapper"
+(( status == 127 )) || fail "snapshot creation returns 127 when Snapper is absent" "got $status"
+[[ -z $output ]] || fail "missing Snapper remains quiet" "$output"
+pass "snapshot creation quietly reports missing Snapper with status 127"
 
 : >"$test_tmp/calls.log"
-TEST_LOG="$test_tmp/calls.log" PATH="$fake_bin:$PATH" \
-  bash "$snapshot" create >/dev/null
+set +e
+output=$(TEST_LOG="$test_tmp/calls.log" SNAPPER_NO_CONFIGS=1 run_snapshot create 2>&1)
+status=$?
+set -e
+(( status != 0 )) || fail "snapshot creation fails when Snapper has no configs"
+grep -qF 'No Snapper configs found' <<<"$output" ||
+  fail "snapshot creation reports that no snapshot was created" "$output"
+grep -qF 'sudo snapper -c ' "$test_tmp/calls.log" &&
+  fail "snapshot creation does not invent a config to snapshot"
+pass "snapshot creation fails loudly when Snapper is installed but unconfigured"
 
+: >"$test_tmp/calls.log"
+TEST_LOG="$test_tmp/calls.log" run_snapshot create >"$test_tmp/create.out"
 grep -qFx 'snapper -c root create -c number -d 4.0.0' "$test_tmp/calls.log" ||
-  fail "snapshot create snapshots each configured subvolume" "$(cat "$test_tmp/calls.log")"
+  fail "snapshot creation snapshots the root config" "$(cat "$test_tmp/calls.log")"
 grep -qFx 'snapper -c root cleanup number' "$test_tmp/calls.log" ||
-  fail "snapshot create prunes older snapshots"
-pass "snapshot create snapshots every configured Snapper config"
+  fail "snapshot creation cleans up the root config"
+grep -qFx 'snapper -c home create -c number -d 4.0.0' "$test_tmp/calls.log" ||
+  fail "snapshot creation snapshots the home config"
+grep -qFx 'snapper -c home cleanup number' "$test_tmp/calls.log" ||
+  fail "snapshot creation cleans up the home config"
+grep -qF 'Snapshots can be selected during boot.' "$test_tmp/create.out" ||
+  fail "snapshot creation reports the boot selection path"
+pass "snapshot creation processes every configured Snapper config"
 
-# Snapper being deliberately absent is the one skip that stays quiet, and the
-# update has to keep treating it as such.
-cat >"$fake_bin/arch-cmd-missing" <<'STUB'
-#!/bin/bash
-exit 0
-STUB
-chmod +x "$fake_bin/arch-cmd-missing"
+: >"$test_tmp/calls.log"
+TEST_LOG="$test_tmp/calls.log" run_snapshot restore
+grep -qFx 'restore ' "$test_tmp/calls.log" || fail "restore delegates to the configured snapshot restore command"
+pass "snapshot restore delegates to the boot snapshot restore command"
 
-set +e
-TEST_LOG="$test_tmp/calls.log" PATH="$fake_bin:$PATH" \
-  bash "$snapshot" create >/dev/null 2>&1
-status=$?
-set -e
-
-(( status == 127 )) || fail "snapshot create exits 127 without snapper" "got $status"
-grep -qF 'arch-snapshot create || (($? == 127))' "$ROOT/src/arch/commands/arch-update" ||
-  fail "update ignores only the missing-snapper exit code"
-pass "snapshot create keeps the quiet 127 path for systems without snapper"
-
-# The quattro upgrade runs under set -e, so a failed snapshot has to be warned
-# past there too or it aborts the whole upgrade at the snapshot step.
-grep -qF 'arch-snapshot create || (($? == 127))' "$ROOT/src/arch/commands/arch-upgrade-to-quattro" ||
-  fail "upgrade ignores only the missing-snapper exit code"
-grep -qF 'Continuing the upgrade without a snapshot' "$ROOT/src/arch/commands/arch-upgrade-to-quattro" ||
-  fail "upgrade continues past a failed snapshot instead of aborting"
-pass "upgrade to quattro survives a failed snapshot without passing it off"
+grep -qF 'archctl snapshot create || (($? == 127))' "$ROOT/src/arch/commands/arch-update" ||
+  fail "update ignores only the missing-Snapper status"
+grep -qF 'archctl snapshot create || (($? == 127))' "$ROOT/src/arch/commands/arch-upgrade-to-quattro" ||
+  fail "upgrade ignores only the missing-Snapper status"
+pass "update and upgrade continue without Snapper but preserve other snapshot failures"

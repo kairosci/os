@@ -14,7 +14,7 @@ snapshot_line=$(grep -n '^create_pre_upgrade_snapshot$' "$upgrade_to_quattro" | 
 pacman_line=$(grep -n '^configure_pacman_channel$' "$upgrade_to_quattro" | cut -d: -f1)
 [[ -n $snapshot_line && -n $pacman_line ]] || fail "upgrade snapshot and first mutation calls exist"
 (( snapshot_line < pacman_line )) || fail "upgrade snapshot runs before pacman configuration"
-grep -F 'arch-snapshot create || (($? == 127))' "$upgrade_to_quattro" >/dev/null
+grep -F 'archctl snapshot create || (($? == 127))' "$upgrade_to_quattro" >/dev/null
 pass "os 4 upgrade snapshots the system before mutation"
 
 # The mirrors are repointed immediately before the keyrings go in, so only a

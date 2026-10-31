@@ -150,7 +150,7 @@ if [[ ${SUDO_TEST_SIGNAL_STEP:-} == "$step" ]]; then
   exit 0
 fi
 case "$step" in
-  arch-update-system-pkgs|arch-update-keyring|arch-snapshot)
+  arch-update-system-pkgs|arch-update-keyring)
     sudo /usr/bin/true
     ;;
   pacman)
@@ -167,7 +167,7 @@ case "$step" in
 esac
 STUB
 chmod +x "$SUDO_TEST_ROOT/src/arch/commands/test-step"
-for step in arch-update-lock arch-update-requires-free-space archctl arch-update-pkg-prune arch-snapshot arch-update-stay-awake arch-update-dev arch-update-boot arch-update-keyring arch-update-system-pkgs arch-hook arch-update-aur-pkgs arch-update-mise arch-update-orphan-pkgs arch-update-analyze-logs arch-shell arch-update-restart arch-pkg-aur-accessible pacman systemd-run cp yay; do
+for step in arch-update-lock arch-update-requires-free-space archctl arch-update-pkg-prune arch-update-stay-awake arch-update-dev arch-update-boot arch-update-keyring arch-update-system-pkgs arch-hook arch-update-aur-pkgs arch-update-mise arch-update-orphan-pkgs arch-update-analyze-logs arch-shell arch-update-restart arch-pkg-aur-accessible pacman systemd-run cp yay; do
   ln -s test-step "$SUDO_TEST_ROOT/src/arch/commands/$step"
 done
 ln -s ../bin/test-step "$SUDO_TEST_ROOT/mock/pacman"

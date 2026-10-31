@@ -16,7 +16,7 @@ steps=(
   arch-update-requires-free-space
   archctl
   arch-update-pkg-prune
-  arch-snapshot
+  archctl
   arch-update-stay-awake
   arch-update-dev
   arch-update-boot
@@ -40,6 +40,8 @@ step=${0##*/}
 if [[ $step == archctl && ${1:-} == hook ]]; then
   step=arch-hook
   shift
+elif [[ $step == archctl && ${1:-} == snapshot ]]; then
+  step=arch-snapshot
 fi
 printf '%s unattended=%s\n' "$step" "${ARCH_UPDATE_UNATTENDED:-}" >>"$STEP_LOG"
 if [[ ${0##*/} == "arch-update-orphan-pkgs" ]]; then
@@ -48,7 +50,7 @@ fi
 if [[ ${0##*/} == "arch-shell" ]]; then
   printf '%s\n' "$*" >"$STEP_LOG.shell-args"
 fi
-[[ ${FAILING_STEP:-} != "${0##*/}" ]] || exit 1
+[[ ${FAILING_STEP:-} != "$step" ]] || exit 1
 STUB
   chmod +x "$stub_bin/$step"
 done

@@ -65,6 +65,10 @@ if [[ ${1:-} == "toggle" && ${2:-} == "idle" ]]; then
   fi
   exit 0
 fi
+if [[ ${1:-} == "snapshot" && ${2:-} == "create" ]]; then
+  touch "$SNAPSHOT_MARKER"
+  exit 0
+fi
 [[ $1 == "update" && $2 == "confirm" ]] || exit 2
 AP="$ROOT" "$ROOT/src/arch/commands/archctl" "$@"'
 
@@ -80,10 +84,6 @@ printf "%s\n" "$*" >>"$GUM_MARKER"
 if [[ ${1:-} == "confirm" ]]; then
   exit "$GUM_STATUS"
 fi
-exit 0'
-
-write_stub arch-snapshot '
-touch "$SNAPSHOT_MARKER"
 exit 0'
 
 for command in \

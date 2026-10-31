@@ -1,11 +1,9 @@
 id = "desktop.commands.snapshot"
 domain = "desktop"
 package = "arch"
-sources = [
-  "src/arch/commands/arch-snapshot",
-]
-requires = ["desktop.commands"]
+sources = ["src/arch/cli/snapshot/manage.py"]
+requires = ["desktop.commands", "system.runtime-data"]
 
 [[output]]
-source = "src/arch/commands/arch-snapshot"
-target = "usr/share/arch/src/arch/commands/arch-snapshot"
+source = "src/arch/cli/snapshot/manage.py"
+target = "usr/share/arch/src/arch/cli/snapshot/manage.py"
