@@ -4,8 +4,8 @@ package = "arch"
 sources = [
   "src/arch/commands/arch-default-browser",
   "src/arch/commands/arch-default-editor",
-  "src/arch/commands/arch-default-terminal",
   "src/arch/cli/default/dictation.py",
+  "src/arch/cli/default/terminal.py",
 ]
 requires = ["desktop.commands", "system.runtime-data"]
 
@@ -18,9 +18,9 @@ source = "src/arch/commands/arch-default-editor"
 target = "usr/share/arch/src/arch/commands/arch-default-editor"
 
 [[output]]
-source = "src/arch/commands/arch-default-terminal"
-target = "usr/share/arch/src/arch/commands/arch-default-terminal"
-
-[[output]]
 source = "src/arch/cli/default/dictation.py"
 target = "usr/share/arch/src/arch/cli/default/dictation.py"
+
+[[output]]
+source = "src/arch/cli/default/terminal.py"
+target = "usr/share/arch/src/arch/cli/default/terminal.py"

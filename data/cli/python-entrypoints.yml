@@ -133,6 +133,15 @@ entrypoints:
     args: '[backend]'
     examples: archctl default dictation | archctl default dictation superwhisper
     pass_args: 'true'
+  - binary: arch-default-terminal
+    module: default/terminal
+    function: default_terminal_main
+    group: default
+    name: terminal
+    summary: Set the default terminal used by xdg-terminal-exec
+    args: '[--install] [terminal]'
+    examples: archctl default terminal | archctl default terminal kitty
+    pass_args: 'true'
   - binary: arch-font-cjk
     module: font/catalog
     function: cjk_main

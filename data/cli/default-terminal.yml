@@ -1,0 +1,56 @@
+paths:
+  config_home_environment: XDG_CONFIG_HOME
+  home_environment: HOME
+  default_config_home: .config
+  config_relative: xdg-terminals.list
+  encoding: utf-8
+limits:
+  arguments: 1
+  command_timeout_seconds: 5
+values:
+  binary: arch-default-terminal
+  install_flag: --install
+  localization_key: default.terminalSet
+  config_content: |
+    # Terminal emulator preference order for xdg-terminal-exec
+    # The first found and valid terminal will be used
+    {desktop_id}
+commands:
+  read_default: [xdg-terminal-exec, --print-id]
+  command_missing: [arch-cmd-missing]
+  launch_installer: [arch-launch-terminal-with-presentation]
+  notification: [arch-notification-send, -g]
+  localization: [arch-i18n]
+apps:
+  alacritty:
+    command: alacritty
+    desktop_id: Alacritty.desktop
+    name: Alacritty
+    glyph: 
+    installer: [arch-install-terminal, alacritty]
+  foot:
+    command: foot
+    desktop_id: foot.desktop
+    name: Foot
+    glyph: 
+    installer: [arch-install-terminal, foot]
+  ghostty:
+    command: ghostty
+    desktop_id: com.mitchellh.ghostty.desktop
+    name: Ghostty
+    glyph: 
+    installer: [arch-install-terminal, ghostty]
+  kitty:
+    command: kitty
+    desktop_id: kitty.desktop
+    name: Kitty
+    glyph: 
+    installer: [arch-install-terminal, kitty]
+messages:
+  usage: 'Usage: arch-default-terminal [--install] [terminal]'
+  command_error: 'Could not run terminal preference command.'
+statuses:
+  success: 0
+  invalid_arguments: 1
+  invalid_selection: 1
+  command_error: 127
