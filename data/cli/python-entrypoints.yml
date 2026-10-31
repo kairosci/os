@@ -100,6 +100,15 @@ entrypoints:
     summary: List available power profiles
     args: '[--active-state]'
     pass_args: 'true'
+  - binary: arch-powerprofiles-set
+    module: powerprofiles/set
+    function: main
+    group: powerprofiles
+    name: set
+    summary: Apply and remember the AC or battery power profile
+    args: '[autodetect|ac|battery] [power-saver|balanced|performance]'
+    examples: 'archctl powerprofiles set ac balanced | archctl powerprofiles set autodetect'
+    pass_args: 'true'
   - binary: arch-refresh-config
     module: refresh/config
     function: main

@@ -4,7 +4,7 @@ package = "arch"
 sources = [
   "src/arch/commands/arch-powerprofiles-init",
   "src/arch/cli/powerprofiles/list.py",
-  "src/arch/commands/arch-powerprofiles-set",
+  "src/arch/cli/powerprofiles/set.py",
 ]
 requires = ["desktop.commands", "system.runtime-data"]
 
@@ -17,5 +17,5 @@ source = "src/arch/cli/powerprofiles/list.py"
 target = "usr/share/arch/src/arch/cli/powerprofiles/list.py"
 
 [[output]]
-source = "src/arch/commands/arch-powerprofiles-set"
-target = "usr/share/arch/src/arch/commands/arch-powerprofiles-set"
+source = "src/arch/cli/powerprofiles/set.py"
+target = "usr/share/arch/src/arch/cli/powerprofiles/set.py"

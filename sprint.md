@@ -97,5 +97,6 @@
 | #580 | Migrate hibernation availability check to Python |
 | #581 | Migrate power profile listing to Python |
 | #582 | Migrate Hyprland session lock check to Python |
+| #583 | Migrate power profile selection to Python |
 
 PR #483 was closed when its base branch was deleted during integration. Its change was rebased and merged as PR #499.

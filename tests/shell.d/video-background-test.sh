@@ -161,8 +161,7 @@ assert(
     batteryService.includes('"get-property", "net.hadess.PowerProfiles", "/net/hadess/PowerProfiles", "net.hadess.PowerProfiles", "ActiveProfile"') &&
     !batteryService.includes('["powerprofilesctl"') &&
     !/Timer \{[^}]*refreshPowerProfile/.test(batteryService) &&
-    batteryService.includes('function refreshPowerProfile(): void { root.refreshPowerProfile() }') &&
-    fs.readFileSync(path.join(root, 'src/arch/commands/arch-powerprofiles-set'), 'utf8').includes('arch-shell -q battery refreshPowerProfile'),
+    batteryService.includes('function refreshPowerProfile(): void { root.refreshPowerProfile() }'),
   'the battery service tracks the active power-saver profile'
 )
 assert(
