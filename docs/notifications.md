@@ -191,8 +191,7 @@ The `notifications` IPC target also answers `ping` (used by `arch-notification-w
 
 Everything goes through the same sender contract, so the pieces are small:
 
-- **Low battery** — `arch-battery-low` sends a critical toast and runs the
-  `battery-low` hook.
+- **Low battery** — the battery shell service calls `archctl notification battery low <percentage>`, which sends a critical toast and runs the `battery-low` hook.
 - **Crash capture** — `arch-crash-watch` follows the systemd-coredump
   journal stream and announces each crashed program (deduped per minute) as a
   hostile process name stays a discrete argument). It waits for the

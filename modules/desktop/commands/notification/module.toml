@@ -9,7 +9,7 @@ sources = [
   "src/arch/cli/notification/wait.py",
   "src/arch/cli/notification/weather.py",
 ]
-requires = ["desktop.commands", "system.runtime-data"]
+requires = ["desktop.commands", "desktop.commands.hook", "desktop.commands.i18n", "system.runtime-data"]
 
 [[output]]
 source = "src/arch/cli/notification/battery.py"

@@ -46,7 +46,10 @@ Item {
   function sendLowBatteryWarning(level) {
     if (warningProcess.running) return
     warningProcess.command = [
-      "arch-battery-low",
+      "archctl",
+      "notification",
+      "battery",
+      "low",
       String(level)
     ]
     warningProcess.running = true
