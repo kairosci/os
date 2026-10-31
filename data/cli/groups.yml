@@ -30,6 +30,7 @@ groups:
   hw: Hardware detection and controls
   hyprland: Hyprland window, monitor, and toggle controls
   install: Optional software installers
+  iso: ISO release tools
   installed: Installed optional service checks
   launch: Application launchers
   kernel: Default boot kernel selection

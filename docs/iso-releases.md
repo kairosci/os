@@ -7,7 +7,7 @@ The profile source is Python in `scripts/iso/profile/profiledef.py`; its values 
 Split an ISO into assets for a release:
 
 ```sh
-AP="$PWD" python3 scripts/iso/parts.py split arch-4.0.6.iso --output-dir release-assets
+archctl iso parts split arch-4.0.6.iso --output-dir release-assets
 ```
 
 The release workflow uploads the parts and manifest together. Keep the manifest with the parts; the downloader uses it to select assets and verify their contents.
@@ -15,13 +15,19 @@ The release workflow uploads the parts and manifest together. Keep the manifest 
 Download, verify, and assemble an ISO from a release:
 
 ```sh
-AP="$PWD" python3 scripts/iso/download.py v4.0.6 --repo kairosci/os --output-dir .
+archctl iso download v4.0.6 --repo kairosci/os --output-dir .
 ```
 
 The downloader requires the GitHub CLI to be authenticated for the selected repository. To assemble already-downloaded assets without network access:
 
 ```sh
-AP="$PWD" python3 scripts/iso/parts.py assemble release-assets/arch-4.0.6.iso.parts.json --output-dir .
+archctl iso parts assemble release-assets/arch-4.0.6.iso.parts.json --output-dir .
+```
+
+Upload an existing ISO to an existing release with the GitHub CLI:
+
+```sh
+archctl iso upload arch-4.0.6.iso v4.0.6 --repo kairosci/os
 ```
 
 Assembly checks each part's expected name, byte count, and SHA-256 checksum, then checks the complete ISO before publishing the destination with an atomic rename. It refuses to overwrite an existing ISO. The manifest format is versioned so future release tooling can reject unsupported layouts instead of producing a truncated image.

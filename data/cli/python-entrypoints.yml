@@ -657,6 +657,33 @@ entrypoints:
     hidden: 'true'
     pass_args: 'true'
     generate_launcher: "false"
+  - binary: arch-iso-download
+    module: iso/release
+    function: download_main
+    group: iso
+    name: download
+    summary: Download and verify an ISO from a GitHub release
+    args: <tag> [--repo <owner/repository>] [--output-dir <directory>] [--iso <filename>]
+    pass_args: "true"
+    generate_launcher: "false"
+  - binary: arch-iso-parts
+    module: iso/release
+    function: parts_main
+    group: iso
+    name: parts
+    summary: Split or assemble checksummed ISO release parts
+    args: <split|assemble> ...
+    pass_args: "true"
+    generate_launcher: "false"
+  - binary: arch-iso-upload
+    module: iso/release
+    function: upload_main
+    group: iso
+    name: upload
+    summary: Split an ISO and upload its parts to a GitHub release
+    args: <iso> <tag> [--repo <owner/repository>]
+    pass_args: "true"
+    generate_launcher: "false"
   - binary: arch-launch-nautilus
     module: launch/dispatch
     function: main

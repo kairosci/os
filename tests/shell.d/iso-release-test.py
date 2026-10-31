@@ -5,10 +5,11 @@ from __future__ import annotations
 import json
 import os
 from pathlib import Path
+import subprocess
 import sys
 import tempfile
 
-from base_test import ROOT, fail_check, pass_check
+from base_test import CLI_BIN, ROOT, fail_check, pass_check, test_environment
 
 
 sys.path.insert(0, str(ROOT))
@@ -32,6 +33,95 @@ with tempfile.TemporaryDirectory(prefix="arch-iso-parts-test-") as temporary:
   assembled = assemble_iso(manifest_path, stage / "assembled")
   assert assembled.read_bytes() == payload
   pass_check("split ISO parts are bounded, checksummed, and reassemble byte-for-byte")
+
+  cli_assets = stage / "cli-release-assets"
+  cli_result = subprocess.run(
+    [
+      str(CLI_BIN / "archctl"),
+      "iso",
+      "parts",
+      "split",
+      str(source),
+      "--output-dir",
+      str(cli_assets),
+      "--part-size",
+      "7",
+    ],
+    check=False,
+    capture_output=True,
+    text=True,
+    env=test_environment(),
+  )
+  assert cli_result.returncode == 0, cli_result.stderr
+  assert read_manifest(Path(cli_result.stdout.strip()))["iso"] == source.name
+  pass_check("archctl ISO parts route invokes the configured splitter")
+
+  github_assets = stage / "github-assets"
+  github_assets.mkdir()
+  github_manifest = split_iso(source, github_assets, part_size=7)
+  metadata = github_assets / "metadata.json"
+  metadata.write_text(
+    json.dumps(
+      {
+        "assets": [
+          {"name": path.name, "size": path.stat().st_size}
+          for path in sorted(github_assets.iterdir())
+          if path.name != metadata.name
+        ]
+      }
+    ),
+    encoding="utf-8",
+  )
+  fake_bin = stage / "fake-bin"
+  fake_bin.mkdir()
+  fake_gh = fake_bin / "gh"
+  fake_gh.write_text(
+    "#!/usr/bin/python3\n"
+    "import json, os, shutil, sys\n"
+    "from pathlib import Path\n"
+    "args = sys.argv[1:]\n"
+    "assets = Path(os.environ['ISO_TEST_ASSET_DIR'])\n"
+    "if args[:2] == ['release', 'view']:\n"
+    "  print(Path(os.environ['ISO_TEST_ASSET_METADATA']).read_text())\n"
+    "elif args[:2] == ['release', 'download']:\n"
+    "  destination = Path(args[args.index('--dir') + 1])\n"
+    "  patterns = [args[index + 1] for index, value in enumerate(args[:-1]) if value == '--pattern']\n"
+    "  for pattern in patterns:\n"
+    "    for asset in assets.glob(pattern):\n"
+    "      shutil.copyfile(asset, destination / asset.name)\n"
+    "else:\n"
+    "  raise SystemExit(2)\n",
+    encoding="utf-8",
+  )
+  fake_gh.chmod(0o755)
+  download_dir = stage / "downloaded"
+  download_result = subprocess.run(
+    [
+      str(CLI_BIN / "archctl"),
+      "iso",
+      "download",
+      "v-test",
+      "--repo",
+      "owner/repository",
+      "--output-dir",
+      str(download_dir),
+      "--iso",
+      source.name,
+    ],
+    check=False,
+    capture_output=True,
+    text=True,
+    env=test_environment(
+      PATH=str(fake_bin),
+      ISO_TEST_ASSET_DIR=str(github_assets),
+      ISO_TEST_ASSET_METADATA=str(metadata),
+    ),
+  )
+  assert download_result.returncode == 0, download_result.stderr
+  downloaded_iso = Path(download_result.stdout.strip())
+  assert downloaded_iso.read_bytes() == payload
+  assert github_manifest.is_file()
+  pass_check("archctl ISO download verifies release assets and assembles the complete image")
 
   broken_manifest = stage / "broken.parts.json"
   broken = dict(manifest)
