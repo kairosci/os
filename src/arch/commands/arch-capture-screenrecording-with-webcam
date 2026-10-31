@@ -3,7 +3,7 @@
 # arch:summary=Pick a webcam and start a screen recording with it
 # arch:examples=archctl capture screenrecording-with-webcam
 
-mapfile -t devices < <(arch-capture-webcam-list)
+mapfile -t devices < <(archctl capture webcam list)
 if (( ${#devices[@]} == 0 )); then
   archctl notification send "$(arch-i18n capture.noWebcam)" -u critical -t 3000
   exit 1

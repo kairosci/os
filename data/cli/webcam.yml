@@ -1,4 +1,20 @@
 commands:
-  list_devices: [arch-capture-webcam-list]
+  list_devices: [v4l2-ctl, --list-devices]
+  device_info: [v4l2-ctl, --device, '{device}', --info]
+parsing:
+  video_node_pattern: '^/dev/video[0-9]+$'
+  device_caps_marker: Device Caps
+  capture_capability_prefix: Video Capture
+limits:
+  command_timeout_seconds: 3
+  cleanup_timeout_seconds: 1
+  maximum_list_output_bytes: 32768
+  maximum_device_info_output_bytes: 8192
+  read_chunk_bytes: 4096
 output:
+  separator: '  '
   trailing_newline: "\n"
+statuses:
+  list_success: 0
+  detected: 0
+  absent: 1

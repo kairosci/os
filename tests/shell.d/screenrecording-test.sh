@@ -3,6 +3,7 @@
 set -euo pipefail
 
 source "$(dirname "$0")/base-test.sh"
+export AP="$ROOT"
 
 tmp_dir=$(mktemp -d)
 trap 'rm -rf "$tmp_dir"' EXIT
@@ -74,6 +75,16 @@ cat >"$stub_bin/arch-notification-send" <<'SH'
 printf '%s\n' "$@" >"$ARCH_TEST_NOTIFICATION_ARGS"
 SH
 
+cat >"$stub_bin/archctl" <<'SH'
+#!/bin/bash
+
+if [[ ${1:-} == notification && ${2:-} == send ]]; then
+  shift 2
+  exec "$ARCH_TEST_NOTIFICATION_COMMAND" "$@"
+fi
+exec "$ROOT/src/arch/commands/archctl" "$@"
+SH
+
 chmod +x "$stub_bin"/*
 
 export PATH="$stub_bin:$ROOT/src/arch/commands:$PATH"
@@ -84,7 +95,7 @@ export ARCH_TEST_MENU_ARGS="$tmp_dir/menu-args"
 export ARCH_TEST_RECORDER_ARGS="$tmp_dir/recorder-args"
 export ARCH_TEST_NOTIFICATION_ARGS="$tmp_dir/notification-args"
 
-mapfile -t capture_devices < <(arch-capture-webcam-list)
+mapfile -t capture_devices < <(archctl capture webcam list)
 expected_capture_devices=(
   "/dev/video42  Built-in Webcam: Integrated Camera"
   "/dev/video2  USB Capture Card: External Camera"
@@ -96,7 +107,7 @@ if [[ ${capture_devices[*]} != "${expected_capture_devices[*]}" ]]; then
 fi
 pass "webcam detection filters output-only devices and collapses each capture group"
 
-dual_node=$(ARCH_TEST_DUAL_NODE_WEBCAM=true arch-capture-webcam-list) ||
+dual_node=$(ARCH_TEST_DUAL_NODE_WEBCAM=true archctl capture webcam list) ||
   fail "webcam listing exits zero when the trailing device is filtered"
 pass "webcam listing exits zero when the trailing device is filtered"
 
@@ -162,9 +173,9 @@ if ! cmp -s "$ARCH_TEST_RECORDER_ARGS" "$expected_recorder_args"; then
 fi
 pass "screenrecording webcam picker starts recording with selected device"
 
-first_webcam=$(arch-capture-webcam-list | sed -n '1s/[[:space:]].*//p')
+first_webcam=$(archctl capture webcam list | sed -n '1s/[[:space:]].*//p')
 [[ $first_webcam == "/dev/video42" ]] || fail "screenrecording auto-detection selects the first capture device"
-grep -F 'WEBCAM_DEVICE=$(arch-capture-webcam-list' "$ROOT/src/arch/commands/arch-capture-screenrecording" >/dev/null || \
+grep -F 'WEBCAM_DEVICE=$(archctl capture webcam list' "$ROOT/src/arch/commands/arch-capture-screenrecording" >/dev/null || \
   fail "screenrecording auto-detection uses capture-capable webcams"
 pass "screenrecording auto-detection uses the first capture-capable webcam"
 
