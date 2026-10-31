@@ -7,12 +7,9 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 run_node_test <<'JS'
 const nightlight = requireFromRoot('src/arch/shell/plugins/services/nightlight/NightlightModel.js')
 
-assertEqual(nightlight.temperatureFromOutput('4000\n'), 4000, 'nightlight parses probe temperature')
-assertEqual(nightlight.temperatureFromOutput("Couldn't connect to hyprsunset"), null, 'nightlight treats unreachable hyprsunset as unknown')
-assertEqual(nightlight.isNightlight(4000), true, 'nightlight reports warm temperatures as enabled')
-assertEqual(nightlight.isNightlight(5999), true, 'nightlight reports warmer-than-identity values as enabled')
-assertEqual(nightlight.isNightlight(6000), false, 'nightlight reports identity temperature as disabled')
-assertEqual(nightlight.isNightlight(null), false, 'nightlight reports unknown temperature as disabled')
+assertEqual(nightlight.statusFromOutput('{"enabled":true,"temperature":4000}').enabled, true, 'nightlight parses its configured CLI status')
+assertEqual(nightlight.statusFromOutput('{"enabled":false,"temperature":null}').temperature, null, 'nightlight preserves an unknown temperature')
+assertEqual(nightlight.statusFromOutput('{"enabled":1,"temperature":4000}'), null, 'nightlight rejects invalid status data')
 JS
 
 TMPDIR=$(mktemp -d)
@@ -39,7 +36,18 @@ SH
 
 cat >"$TMPDIR/bin/pgrep" <<'SH'
 #!/bin/bash
+printf '4242\n'
 exit 0
+SH
+
+cat >"$TMPDIR/bin/ps" <<'SH'
+#!/bin/bash
+[[ $* == *etimes* ]] && printf '%s\n' "${HYPRSUNSET_AGE:-100}"
+SH
+
+cat >"$TMPDIR/bin/uwsm-app" <<'SH'
+#!/bin/bash
+:
 SH
 
 cat >"$TMPDIR/bin/arch-shell" <<'SH'
@@ -47,13 +55,14 @@ cat >"$TMPDIR/bin/arch-shell" <<'SH'
 printf '%s\n' "$*" >>"$ARCH_SHELL_LOG"
 SH
 
-chmod +x "$TMPDIR/bin/hyprctl" "$TMPDIR/bin/pgrep" "$TMPDIR/bin/arch-shell"
+chmod +x "$TMPDIR/bin/hyprctl" "$TMPDIR/bin/pgrep" "$TMPDIR/bin/ps" "$TMPDIR/bin/uwsm-app" "$TMPDIR/bin/arch-shell"
 
 nightlight_cli() {
+  AP="$ROOT" \
   PATH="$TMPDIR/bin:$PATH" \
   HYPRSUNSET_STATE="$STATE" \
   ARCH_SHELL_LOG="$SHELL_LOG" \
-    "$ROOT/src/arch/commands/arch-toggle-nightlight" "$@"
+    "$ARCH_TEST_CLI_ROUTER/archctl" toggle nightlight "$@"
 }
 
 nightlight_status() {
@@ -98,7 +107,7 @@ if [[ -e $BOOT_PENDING ]]; then
   printf '6000\n' >"$HYPRSUNSET_STATE"
 fi
 SH
-printf '#!/bin/bash\necho 4242\n' >"$TMPDIR/bin/pgrep"
+printf '#!/bin/bash\nprintf "4242\\n"\n' >"$TMPDIR/bin/pgrep"
 chmod +x "$TMPDIR/bin/sleep" "$TMPDIR/bin/ps" "$TMPDIR/bin/pgrep"
 toggle_from_daylight() {
   printf '6500\n' >"$STATE"
@@ -116,14 +125,12 @@ toggle_from_daylight 1
 pass "a hyprsunset still booting can't undo the toggle with its default"
 
 printf '#!/bin/bash\nexit 1\n' >"$TMPDIR/bin/pgrep"
-printf '#!/bin/bash\nexit 0\n' >"$TMPDIR/bin/setsid"
-chmod +x "$TMPDIR/bin/setsid"
 : >"$BOOT_PENDING"
 toggle_from_daylight 100
 [[ $(<"$STATE") == 4000 && ! -e $BOOT_PENDING ]] || fail "a freshly started hyprsunset can't undo the toggle with its default"
 pass "a freshly started hyprsunset can't undo the toggle with its default"
 
-if rg -q 'arch.indicators' "$ROOT/src/arch/commands/arch-toggle-nightlight"; then
+if rg -q 'arch.indicators' "$ROOT/src/arch/cli/toggle/nightlight.py"; then
   fail "nightlight toggle leaves indicator refresh to the nightlight service"
 fi
 pass "nightlight toggle leaves indicator refresh to the nightlight service"

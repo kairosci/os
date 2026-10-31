@@ -434,7 +434,7 @@ var GUARD_READERS = [
   "arch-hyprland-window-transparency",
   "arch-hyprland-workspace-layout-default",
   "arch-shell notifications isDnd",
-  "arch-toggle-nightlight --status"
+  "archctl toggle nightlight --status"
 ]
 
 // Package and command presence account for most of what the guards ask, and

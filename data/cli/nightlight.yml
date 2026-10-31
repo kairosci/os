@@ -1,0 +1,36 @@
+commands:
+  temperature: [hyprctl, '{process_name}', temperature]
+  newest_process: [pgrep, -nx, '{process_name}']
+  process_age: [ps, -o, etimes=, -p]
+  start: [uwsm-app, --, '{process_name}']
+  refresh_shell: [arch-shell, -q, nightlight, refresh]
+  sleep: [sleep]
+values:
+  process_name: hyprsunset
+  actions:
+    enable: "on"
+    disable: "off"
+    status: --status
+  identity_temperature: 6000
+  night_temperature: 4000
+  day_temperature: 6500
+  startup_age_seconds: 3
+  temperature_pattern: '[0-9]+'
+  process_id_pattern: '[1-9][0-9]*'
+  maximum_temperature_output_bytes: 256
+  maximum_process_output_bytes: 64
+  read_chunk_bytes: 128
+limits:
+  command_timeout_seconds: 2
+  cleanup_timeout_seconds: 1
+  startup_retry_interval_seconds: 0.2
+  startup_timeout_seconds: 2
+  maximum_startup_attempts: 10
+messages:
+  usage: 'Usage: archctl toggle nightlight [on|off|--status]'
+  command_error: 'Could not change the nightlight setting'
+  start_error: 'Could not start the nightlight service'
+statuses:
+  success: 0
+  invalid_arguments: 2
+  command_error: 1

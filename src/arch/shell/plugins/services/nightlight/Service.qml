@@ -9,63 +9,54 @@ Item {
   // Injected by arch-shell (the first-party service loader).
   property var shell: null
 
-  // Keep in sync with src/arch/commands/arch-toggle-nightlight, which sets the same
-  // temperatures for callers outside the shell (keybindings, menu, ssh).
-  readonly property int nightTemperature: 4000
-  readonly property int dayTemperature: 6500
-
   property bool stateLoaded: false
-  property var temperature: null
-  readonly property bool enabled: stateLoaded && NightlightModel.isNightlight(temperature)
+  property var status: ({ enabled: false, temperature: null })
+  readonly property bool enabled: stateLoaded && status !== null && status.enabled
 
-  property bool hasPendingTemperature: false
-  property int pendingTemperature: 0
+  property bool hasPendingState: false
+  property bool pendingEnabled: false
 
   function refresh() {
     if (!statusProbe.running) statusProbe.running = true
   }
 
   function setNightlight(value) {
-    applyTemperature(value ? nightTemperature : dayTemperature)
+    applyState(value)
   }
 
   function toggle() {
     setNightlight(!enabled)
   }
 
-  function applyTemperature(temp) {
-    root.temperature = temp
-    root.stateLoaded = true
-
+  function applyState(value) {
     if (applyProcess.running) {
-      root.pendingTemperature = temp
-      root.hasPendingTemperature = true
+      root.pendingEnabled = value
+      root.hasPendingState = true
       return
     }
 
-    runApply(temp)
+    runApply(value)
   }
 
-  function runApply(temp) {
-    applyProcess.command = ["bash", "-lc",
-      "pgrep -x hyprsunset >/dev/null || { setsid uwsm-app -- hyprsunset >/dev/null 2>&1 & sleep 1; }; " +
-      "hyprctl hyprsunset temperature " + Number(temp)]
+  function runApply(value) {
+    applyProcess.command = ["archctl", "toggle", "nightlight", value ? "on" : "off"]
     applyProcess.running = true
   }
 
   Process {
     id: statusProbe
-    command: ["hyprctl", "hyprsunset", "temperature"]
+    command: ["archctl", "toggle", "nightlight", "--status"]
     stdout: StdioCollector {
       waitForEnd: true
       onStreamFinished: {
-        root.temperature = NightlightModel.temperatureFromOutput(text)
+        var parsed = NightlightModel.statusFromOutput(text)
+        root.status = parsed === null ? { enabled: false, temperature: null } : parsed
         root.stateLoaded = true
       }
     }
     onExited: function(exitCode) {
       if (exitCode !== 0) {
-        root.temperature = null
+        root.status = { enabled: false, temperature: null }
         root.stateLoaded = true
       }
     }
@@ -74,9 +65,9 @@ Item {
   Process {
     id: applyProcess
     onExited: function() {
-      if (root.hasPendingTemperature) {
-        root.hasPendingTemperature = false
-        root.runApply(root.pendingTemperature)
+      if (root.hasPendingState) {
+        root.hasPendingState = false
+        root.runApply(root.pendingEnabled)
         return
       }
 
@@ -90,7 +81,7 @@ Item {
     target: "nightlight"
 
     function status(): string {
-      return JSON.stringify({ enabled: root.enabled, temperature: root.temperature })
+      return JSON.stringify(root.status)
     }
 
     function refresh(): void {

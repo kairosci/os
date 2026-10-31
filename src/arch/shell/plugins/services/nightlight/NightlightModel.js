@@ -1,20 +1,16 @@
-// Temperatures below the identity point count as night light. Keep in sync
-// with src/arch/commands/arch-toggle-nightlight, which applies the same threshold.
-var IDENTITY_TEMPERATURE = 6000
-
-function temperatureFromOutput(output) {
-  var match = String(output === undefined || output === null ? "" : output).match(/[0-9]+/)
-  return match ? Number(match[0]) : null
-}
-
-function isNightlight(temperature) {
-  return temperature !== null && temperature !== undefined && temperature < IDENTITY_TEMPERATURE
+function statusFromOutput(output) {
+  try {
+    var status = JSON.parse(String(output === undefined || output === null ? "" : output))
+    if (typeof status.enabled !== "boolean") return null
+    if (status.temperature !== null && (!Number.isInteger(status.temperature) || status.temperature < 0)) return null
+    return { enabled: status.enabled, temperature: status.temperature }
+  } catch (_) {
+    return null
+  }
 }
 
 if (typeof module !== "undefined") {
   module.exports = {
-    IDENTITY_TEMPERATURE: IDENTITY_TEMPERATURE,
-    temperatureFromOutput: temperatureFromOutput,
-    isNightlight: isNightlight
+    statusFromOutput: statusFromOutput
   }
 }
