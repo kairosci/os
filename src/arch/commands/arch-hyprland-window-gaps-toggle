@@ -1,5 +1,0 @@
-#!/bin/bash
-
-# arch:summary=Toggles the window gaps globally between no gaps and the default.
-
-archctl hyprland toggle window-no-gaps

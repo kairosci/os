@@ -15,7 +15,6 @@ sources = [
   "src/arch/cli/hyprland/session_locked.py",
   "src/arch/cli/hyprland/toggle.py",
   "src/arch/commands/arch-hyprland-window-close-all",
-  "src/arch/commands/arch-hyprland-window-gaps-toggle",
   "src/arch/commands/arch-hyprland-window-single-square-aspect-toggle",
   "src/arch/commands/arch-hyprland-window-tiled-fullscreen-toggle",
   "src/arch/commands/arch-hyprland-window-transparency",
@@ -78,10 +77,6 @@ target = "usr/share/arch/src/arch/cli/hyprland/toggle.py"
 [[output]]
 source = "src/arch/commands/arch-hyprland-window-close-all"
 target = "usr/share/arch/src/arch/commands/arch-hyprland-window-close-all"
-
-[[output]]
-source = "src/arch/commands/arch-hyprland-window-gaps-toggle"
-target = "usr/share/arch/src/arch/commands/arch-hyprland-window-gaps-toggle"
 
 [[output]]
 source = "src/arch/commands/arch-hyprland-window-single-square-aspect-toggle"
