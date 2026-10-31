@@ -3,6 +3,7 @@
 set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
+export AP="$ROOT"
 
 test_tmp=$(mktemp -d)
 trap 'rm -rf "$test_tmp"' EXIT
@@ -48,7 +49,7 @@ text/html=firefox.desktop
 x-scheme-handler/http=missing.desktop;removed.desktop;chromium.desktop;
 EOF
 
-[[ $(arch-cmd-default-browser) == "chromium.desktop" ]] ||
+[[ $(archctl default browser desktop-id) == "chromium.desktop" ]] ||
   fail "default browser is the first installed http handler in mimeapps.list"
 [[ ! -e $ARCH_TEST_XDG_SETTINGS_LOG ]] ||
   fail "default browser skips xdg-settings when mimeapps.list names one"
@@ -58,13 +59,13 @@ cat >"$XDG_CONFIG_HOME/hyprland-mimeapps.list" <<'EOF'
 x-scheme-handler/http=brave-browser.desktop
 EOF
 
-[[ $(arch-cmd-default-browser) == "brave-browser.desktop" ]] ||
+[[ $(archctl default browser desktop-id) == "brave-browser.desktop" ]] ||
   fail "default browser prefers the desktop-specific mimeapps.list"
 
 rm "$XDG_CONFIG_HOME/hyprland-mimeapps.list"
 printf '[Default Applications]\nx-scheme-handler/http=missing.desktop\n' >"$XDG_CONFIG_HOME/mimeapps.list"
 
-[[ $(arch-cmd-default-browser) == "fallback.desktop" ]] ||
+[[ $(archctl default browser desktop-id) == "fallback.desktop" ]] ||
   fail "default browser falls back to xdg-settings when no listed handler is installed"
 [[ $(<"$ARCH_TEST_XDG_SETTINGS_LOG") == "unset" ]] ||
   fail "default browser unsets BROWSER before asking xdg-settings"

@@ -195,6 +195,14 @@ entrypoints:
     args: '[--install] [chromium|chrome|brave|brave-origin|edge|firefox|zen]'
     examples: archctl default browser | archctl default browser firefox
     pass_args: 'true'
+  - binary: arch-default-browser-desktop-id
+    module: default/browser
+    function: default_browser_desktop_id_main
+    group: default
+    name: browser desktop-id
+    summary: Print the desktop entry ID of the current browser
+    hidden: 'true'
+    pass_args: 'true'
   - binary: arch-default-dictation
     module: default/dictation
     function: default_dictation_main

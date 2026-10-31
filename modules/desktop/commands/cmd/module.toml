@@ -3,7 +3,6 @@ domain = "desktop"
 package = "arch"
 sources = [
   "src/arch/commands/arch-cmd-browser-handoff",
-  "src/arch/commands/arch-cmd-default-browser",
   "src/arch/cli/command/presence.py",
   "src/arch/commands/arch-cmd-terminal-cwd",
 ]
@@ -12,10 +11,6 @@ requires = ["desktop.commands"]
 [[output]]
 source = "src/arch/commands/arch-cmd-browser-handoff"
 target = "usr/share/arch/src/arch/commands/arch-cmd-browser-handoff"
-
-[[output]]
-source = "src/arch/commands/arch-cmd-default-browser"
-target = "usr/share/arch/src/arch/commands/arch-cmd-default-browser"
 
 [[output]]
 source = "src/arch/cli/command/presence.py"

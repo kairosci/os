@@ -6,17 +6,40 @@ values:
   localization_key: default.browserSet
   default_route: [archctl, default, browser]
 commands:
-  read_default: [arch-cmd-default-browser]
   command_missing: [arch-cmd-missing]
   launch_installer: [arch-launch-terminal-with-presentation]
   install_browser: [arch-install-browser]
   set_default: [xdg-settings, set, default-web-browser]
   localization: [arch-i18n]
   notification: [archctl, notification, send, -g]
+  current_fallbacks:
+    - [xdg-settings, get, default-web-browser]
+    - [xdg-mime, query, default, x-scheme-handler/https]
 environment:
   browser: BROWSER
   desktop: XDG_CURRENT_DESKTOP
   desktop_value: ""
+  data_home: XDG_DATA_HOME
+  data_dirs: XDG_DATA_DIRS
+  config_home: XDG_CONFIG_HOME
+  config_dirs: XDG_CONFIG_DIRS
+defaults:
+  data_home_suffix: .local/share
+  data_dirs: [/usr/local/share, /usr/share]
+  config_home_suffix: .config
+  config_dirs: [/etc/xdg]
+current_browser:
+  applications_directory: applications
+  mimeapps_filename: mimeapps.list
+  desktop_mimeapps_suffix: -mimeapps.list
+  application_exec_prefix: "Exec="
+  default_applications_section: "[Default Applications]"
+  http_handler_key: x-scheme-handler/http=
+  browser_link_entry: arch-browser.desktop
+  entry_separator: ";"
+  path_separator: ":"
+  max_mimeapps_bytes: 1048576
+  max_desktop_entry_bytes: 65536
 browsers:
   chromium:
     command: chromium

@@ -3,7 +3,7 @@
 # arch:summary=Launch a URL as a web app in the default supported browser
 # arch:args=<url>
 
-browser=$(arch-cmd-default-browser)
+browser=$(archctl default browser desktop-id)
 
 case $browser in
 google-chrome* | brave* | microsoft-edge* | opera* | vivaldi* | helium*) ;;

@@ -3,7 +3,7 @@
 # arch:summary=Launch the default browser as determined by xdg-settings.
 # arch:args=[url]
 
-default_browser=$(arch-cmd-default-browser)
+default_browser=$(archctl default browser desktop-id)
 browser_exec=$(sed -n 's/^Exec=\([^ ]*\).*/\1/p' {~/.local,~/.nix-profile,/usr}/share/applications/$default_browser 2>/dev/null | head -1)
 
 # Only a private launch needs the browser's flag, and probing a Firefox-family
