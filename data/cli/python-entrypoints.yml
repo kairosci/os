@@ -6,6 +6,7 @@ entrypoints:
     name: session mark
     summary: Mark the current graphical login as checked for a background intro
     hidden: "true"
+    generate_launcher: "false"
   - binary: arch-battery-present
     module: battery/present
     function: main

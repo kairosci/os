@@ -19,11 +19,11 @@ cp -a "$ROOT/src/arch/shell/services" "$stage/services"
 sed -i 's/interval: 10000/interval: 1500/' "$stage/services/BackgroundIntro.qml"
 ln -s "$ROOT/src/arch/shell/plugins/background" "$stage/background"
 cp "$SHELL_TEST_DIR/fixtures/background-startup-failure/shell.qml" "$stage/shell.qml"
-cat >"$stage/bin/arch-background-session-mark" <<'SH'
+cat >"$stage/bin/archctl" <<'SH'
 #!/bin/bash
 exit 0
 SH
-chmod +x "$stage/bin/arch-background-session-mark"
+chmod +x "$stage/bin/archctl"
 
 output=$(HOME="$stage/home" PATH="$stage/bin:$PATH" timeout 6 quickshell -p "$stage" --no-color 2>&1) || fail "failed background startup exits cleanly" "$output"
 [[ $output == *"RESULT pass"* ]] || fail "a missing wallpaper reveals the desktop within the startup deadline" "$output"

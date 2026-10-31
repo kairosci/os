@@ -11,7 +11,7 @@ import unittest
 from base_test import CLI_BIN, ROOT, test_environment
 
 
-MARKER_COMMAND = CLI_BIN / "arch-background-session-mark"
+MARKER_COMMAND = [str(CLI_BIN / "archctl"), "background", "session-mark"]
 
 
 class BackgroundSessionMarkerTest(unittest.TestCase):
@@ -21,11 +21,15 @@ class BackgroundSessionMarkerTest(unittest.TestCase):
       arch = scratch / "arch"
       (arch / "data/cli").mkdir(parents=True)
       (arch / "src").symlink_to(ROOT / "src", target_is_directory=True)
+      (arch / "data/cli/python-entrypoints.yml").symlink_to(
+        ROOT / "data/cli/python-entrypoints.yml"
+      )
+      (arch / "data/cli/groups.yml").symlink_to(ROOT / "data/cli/groups.yml")
       (arch / "data/cli/background-session-mark.yml").write_text("[]\n", encoding="utf-8")
       environment = test_environment(AP=arch, HOME=scratch / "home")
 
       result = subprocess.run(
-        [str(MARKER_COMMAND)], env=environment, check=False, capture_output=True, text=True
+        MARKER_COMMAND, env=environment, check=False, capture_output=True, text=True
       )
 
       self.assertEqual(result.returncode, 1)
@@ -44,7 +48,7 @@ class BackgroundSessionMarkerTest(unittest.TestCase):
         ARCH_SESSION_ID="login-one",
       )
 
-      first = subprocess.run([str(MARKER_COMMAND)], env=environment, check=False)
+      first = subprocess.run(MARKER_COMMAND, env=environment, check=False)
       self.assertEqual(first.returncode, 0)
       marker = state / "arch/background-intro.session-id"
       self.assertEqual(marker.read_text(encoding="utf-8"), "login-one\n")
@@ -52,12 +56,12 @@ class BackgroundSessionMarkerTest(unittest.TestCase):
       os.utime(marker, ns=(1_700_000_000_000_000_000, 1_700_000_000_000_000_000))
       original_mtime = marker.stat().st_mtime_ns
 
-      repeated = subprocess.run([str(MARKER_COMMAND)], env=environment, check=False)
+      repeated = subprocess.run(MARKER_COMMAND, env=environment, check=False)
       self.assertEqual(repeated.returncode, 0)
       self.assertEqual(marker.stat().st_mtime_ns, original_mtime)
 
       environment["ARCH_SESSION_ID"] = "login-two"
-      next_session = subprocess.run([str(MARKER_COMMAND)], env=environment, check=False)
+      next_session = subprocess.run(MARKER_COMMAND, env=environment, check=False)
       self.assertEqual(next_session.returncode, 0)
       self.assertEqual(marker.read_text(encoding="utf-8"), "login-two\n")
 

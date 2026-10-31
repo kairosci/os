@@ -29,15 +29,16 @@ cat >"$stage/bin/arch-plugin-list" <<'SH'
 #!/bin/bash
 printf '[{"id":"intro-test.background"}]\n'
 SH
-cat >"$stage/bin/arch-background-session-mark" <<'SH'
+cat >"$stage/bin/archctl" <<'SH'
 #!/bin/bash
+[[ $1 == background && $2 == session-mark ]] || exit 1
 for attempt in {1..200}; do
   [[ ! -s $INTRO_TEST_RELEASE ]] || exit 0
   sleep 0.05
 done
 exit 1
 SH
-chmod +x "$stage/bin/arch-plugin-list" "$stage/bin/arch-background-session-mark"
+chmod +x "$stage/bin/arch-plugin-list" "$stage/bin/archctl"
 HOME="$stage/home" USER=intro-test AP="$ROOT" PATH="$stage/bin:$ROOT/src/arch/commands:$PATH" \
   "$ROOT/src/arch/commands/arch-plugin-clone" arch.background >/dev/null
 ln -s "$stage/home/.config/arch/plugins/intro-test.background" "$stage/clone"

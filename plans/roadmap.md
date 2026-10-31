@@ -22,6 +22,7 @@ This roadmap tracks the requested CLI, ISO, desktop, and release work as separat
 - PR #595 routes the power widget and battery notification through `archctl battery status`, then disables its generated flat launcher. There are now 71 generated launchers for 87 Python routes; continue migrating in-repository callers and disabling the matching launchers.
 - PR #596 routes the power panel, menu provider, and profile setter's list dependency through `archctl powerprofiles list`, then disables that launcher's generation. There are now 70 generated launchers for 87 Python routes; the profile-setting launcher remains in use by the device power-event path.
 - PR #597 routes all power-profile setting callers through `archctl powerprofiles set`, disables its generated launcher, and removes the redundant `arch-powerprofiles-init` wrapper. This leaves 69 generated launchers for 87 Python routes and 366 remaining command source files.
+- PR #598 routes the background-session marker through `archctl background session-mark` and disables its flat launcher. There are now 68 generated launchers for 87 Python routes; the route remains available through the unified router.
 
 ## Sprints
 
@@ -99,4 +100,4 @@ PR #590 moves update status into `src/arch/cli/update/status.py`, with its confi
 
 ### 18. Retire generated flat CLI launchers — in progress
 
-The entrypoint generator now supports routes that do not emit a per-command binary. PRs #591 and #592 disabled update status and 11 unused routes; PR #593 moved clipboard and emoji callers, PR #595 moved battery status callers, PR #596 moved power-profile listing callers, and PR #597 moved power-profile setting callers to the unified router. These changes leave 69 generated launchers for 87 routes. Continue with the remaining in-repository callers before retiring generator compatibility output entirely.
+The entrypoint generator now supports routes that do not emit a per-command binary. PRs #591 and #592 disabled update status and 11 unused routes; PR #593 moved clipboard and emoji callers, PR #595 moved battery status callers, PR #596 moved power-profile listing callers, PR #597 moved power-profile setting callers, and PR #598 moved the background-session marker to the unified router. These changes leave 68 generated launchers for 87 routes. Continue with the remaining in-repository callers before retiring generator compatibility output entirely.
