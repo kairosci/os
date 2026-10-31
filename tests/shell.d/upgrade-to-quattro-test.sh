@@ -179,6 +179,12 @@ if grep -Fx '  arch-shell.service' <<<"$retired_user_units" >/dev/null; then
 fi
 grep -F 'enable_user_unit arch-shell.service' "$upgrade_to_quattro" >/dev/null ||
   fail "os 4 upgrade keeps the arch shell enabled for the next graphical session"
+shell_unit_guard_line=$(grep -n '^if \[\[ ! -f /usr/lib/systemd/user/arch-shell\.service' "$upgrade_to_quattro" | cut -d: -f1)
+shell_unit_removal_line=$(grep -n '^  "\$HOME/.config/systemd/user/arch-shell\.service"' "$upgrade_to_quattro" | cut -d: -f1)
+[[ -n $shell_unit_guard_line && -n $shell_unit_removal_line ]] ||
+  fail "os 4 upgrade checks for the packaged shell unit before removing the legacy user unit"
+(( shell_unit_guard_line < shell_unit_removal_line )) ||
+  fail "os 4 upgrade preserves the legacy shell unit if its packaged replacement is missing"
 pass "os 4 upgrade preserves arch-shell supervision across the session cutover"
 
 grep -F 'arch-bar defaults' "$upgrade_to_quattro" >/dev/null
