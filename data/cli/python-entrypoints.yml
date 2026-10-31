@@ -125,6 +125,13 @@ entrypoints:
     name: config
     summary: Restore a shipped user config with an automatic backup
     args: <config-path>
+  - binary: arch-refresh-tmux
+    module: refresh/actions
+    function: tmux_main
+    group: refresh
+    name: tmux
+    summary: Restore the default tmux config and restart tmux
+    pass_args: 'true'
   - binary: arch-sleep-disabled
     module: sleep/disabled
     function: main

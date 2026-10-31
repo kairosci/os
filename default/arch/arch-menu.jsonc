@@ -354,7 +354,7 @@
   "update.config.hyprland": {"icon":"","label":"Hyprland","action":"arch-launch-terminal-with-presentation arch-refresh-hyprland"},
   "update.config.hyprsunset": {"icon":"","label":"Hyprsunset","action":"arch-launch-terminal-with-presentation arch-refresh-hyprsunset"},
   "update.config.plymouth": {"icon":"󱣴","label":"Plymouth","action":"arch-launch-terminal-with-presentation arch-refresh-plymouth"},
-  "update.config.tmux": {"icon":"","label":"Tmux","action":"arch-launch-terminal-with-presentation arch-refresh-tmux"},
+  "update.config.tmux": {"icon":"","label":"Tmux","action":"arch-launch-terminal-with-presentation archctl refresh tmux"},
   "update.config.shell": {"icon":"󰍜","label":"Shell","action":"arch-launch-terminal-with-presentation arch-refresh-shell"},
   "update.hardware.audio": {"icon":"","label":"Audio","action":"arch-launch-terminal-with-presentation arch-restart-audio"},
   "update.hardware.wifi": {"icon":"󱚾","label":"Wi-Fi","action":"arch-launch-terminal-with-presentation arch-restart-wifi"},

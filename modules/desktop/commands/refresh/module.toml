@@ -5,6 +5,7 @@ sources = [
   "src/arch/commands/arch-refresh-applications",
   "src/arch/commands/arch-refresh-chromium",
   "src/arch/cli/refresh/config.py",
+  "src/arch/cli/refresh/actions.py",
   "src/arch/commands/arch-refresh-hyprland",
   "src/arch/commands/arch-refresh-hyprsunset",
   "src/arch/commands/arch-refresh-limine",
@@ -12,7 +13,6 @@ sources = [
   "src/arch/commands/arch-refresh-plymouth",
   "src/arch/commands/arch-refresh-sddm",
   "src/arch/commands/arch-refresh-shell",
-  "src/arch/commands/arch-refresh-tmux",
 ]
 requires = ["desktop.commands", "system.runtime-data"]
 
@@ -27,6 +27,10 @@ target = "usr/share/arch/src/arch/commands/arch-refresh-chromium"
 [[output]]
 source = "src/arch/cli/refresh/config.py"
 target = "usr/share/arch/src/arch/cli/refresh/config.py"
+
+[[output]]
+source = "src/arch/cli/refresh/actions.py"
+target = "usr/share/arch/src/arch/cli/refresh/actions.py"
 
 [[output]]
 source = "src/arch/commands/arch-refresh-hyprland"
@@ -55,7 +59,3 @@ target = "usr/share/arch/src/arch/commands/arch-refresh-sddm"
 [[output]]
 source = "src/arch/commands/arch-refresh-shell"
 target = "usr/share/arch/src/arch/commands/arch-refresh-shell"
-
-[[output]]
-source = "src/arch/commands/arch-refresh-tmux"
-target = "usr/share/arch/src/arch/commands/arch-refresh-tmux"
