@@ -61,22 +61,29 @@ fi
 
 printf '%s\n' "$args" >"$target.args"
 cat >"$target"
+printf '%s\n' "$BASHPID" >"$WL_COPY_PID_OUT"
+trap 'kill "$provider_child" 2>/dev/null || true; wait "$provider_child" 2>/dev/null || true; : >"$WL_COPY_STOPPED"; exit 0' TERM
+/usr/bin/sleep 30 &
+provider_child=$!
+wait "$provider_child"
 SH
 
 cat >"$TMPDIR/bin/wtype" <<'SH'
 #!/bin/bash
 printf '%s\n' "$*" >"$WTYPE_OUT"
+if [[ ${WTYPE_BLOCK:-} == 1 ]]; then
+  trap 'kill "$paste_child" 2>/dev/null || true; wait "$paste_child" 2>/dev/null || true; : >"$WTYPE_STOPPED"; exit 0' TERM
+  /usr/bin/sleep 30 &
+  paste_child=$!
+  wait "$paste_child"
+fi
 SH
 
-cat >"$TMPDIR/bin/sleep" <<'SH'
-#!/bin/bash
-exit 0
-SH
+chmod +x "$TMPDIR/bin/wl-copy" "$TMPDIR/bin/wtype"
 
-chmod +x "$TMPDIR/bin/wl-copy" "$TMPDIR/bin/wtype" "$TMPDIR/bin/sleep"
-
-WL_COPY_OUT="$TMPDIR/copy" WL_COPY_EMOJI_OUT="$TMPDIR/emoji" WTYPE_OUT="$TMPDIR/wtype" PATH="$TMPDIR/bin:$PATH" \
-  "$ROOT/src/arch/commands/arch-menu-emoji-insert" "😀"
+WL_COPY_OUT="$TMPDIR/copy" WL_COPY_EMOJI_OUT="$TMPDIR/emoji" WTYPE_OUT="$TMPDIR/wtype" \
+WL_COPY_PID_OUT="$TMPDIR/provider.pid" WL_COPY_STOPPED="$TMPDIR/provider.stopped" \
+  AP="$ROOT" PATH="$TMPDIR/bin:$PATH" "$ARCH_TEST_CLI_BIN/arch-menu-emoji-insert" "😀"
 
 [[ $(<"$TMPDIR/emoji") == "😀" ]] || fail "emoji insert helper copies emoji transiently"
 pass "emoji insert helper copies emoji transiently"
@@ -86,3 +93,35 @@ pass "emoji insert helper serves transient clipboard in foreground"
 
 [[ $(<"$TMPDIR/wtype") == "-M shift -k Insert -m shift" ]] || fail "emoji insert helper pastes with shift insert"
 pass "emoji insert helper pastes with shift insert"
+
+[[ -f $TMPDIR/provider.stopped ]] || fail "emoji insert helper terminates the transient clipboard provider"
+pass "emoji insert helper terminates its clipboard process group"
+
+rm -f "$TMPDIR/provider.pid" "$TMPDIR/provider.stopped" "$TMPDIR/wtype"
+AP="$ROOT" PATH="$TMPDIR/bin:$PATH" \
+  "$ARCH_TEST_CLI_BIN/arch-menu-emoji-insert" "" || fail "empty emoji input remains a no-op"
+[[ ! -e $TMPDIR/provider.pid && ! -e $TMPDIR/wtype ]] || fail "empty emoji input starts no helper processes"
+pass "empty emoji input starts no helper processes"
+
+oversized=$(printf '%4097s' x)
+status=0
+AP="$ROOT" PATH="$TMPDIR/bin:$PATH" "$ARCH_TEST_CLI_BIN/arch-menu-emoji-insert" "$oversized" 2>/dev/null || status=$?
+[[ $status == 1 && ! -e $TMPDIR/provider.pid ]] || fail "oversized emoji input fails before starting the clipboard provider"
+pass "oversized emoji input is rejected before process startup"
+
+rm -f "$TMPDIR/provider.pid" "$TMPDIR/provider.stopped" "$TMPDIR/wtype" "$TMPDIR/wtype.stopped"
+WTYPE_BLOCK=1 WTYPE_STOPPED="$TMPDIR/wtype.stopped" \
+WL_COPY_OUT="$TMPDIR/copy" WL_COPY_EMOJI_OUT="$TMPDIR/emoji" WTYPE_OUT="$TMPDIR/wtype" \
+WL_COPY_PID_OUT="$TMPDIR/provider.pid" WL_COPY_STOPPED="$TMPDIR/provider.stopped" \
+  AP="$ROOT" PATH="$TMPDIR/bin:$PATH" "$ARCH_TEST_CLI_BIN/arch-menu-emoji-insert" "😀" &
+insert_pid=$!
+for ((attempt = 0; attempt < 100; attempt++)); do
+  [[ -f $TMPDIR/wtype ]] && break
+  /usr/bin/sleep 0.02
+done
+[[ -f $TMPDIR/wtype ]] || fail "emoji insert helper starts paste process for termination test"
+kill -TERM "$insert_pid"
+status=0
+wait "$insert_pid" || status=$?
+[[ $status == 143 && -f $TMPDIR/provider.stopped && -f $TMPDIR/wtype.stopped ]] || fail "termination cleans up clipboard and paste process groups"
+pass "termination cleans up clipboard and paste process groups"

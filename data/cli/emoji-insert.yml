@@ -1,0 +1,20 @@
+commands:
+  clipboard: [wl-copy, --type, text/plain, --sensitive, --foreground]
+  paste: [wtype, -M, shift, -k, Insert, -m, shift]
+timing:
+  clipboard_ready_seconds: 0.15
+  paste_settle_seconds: 0.2
+timeouts:
+  paste_seconds: 2
+  cleanup_seconds: 1
+limits:
+  emoji_utf8_bytes: 4096
+statuses:
+  success: 0
+  invalid_input: 1
+  configuration_error: 78
+  command_error: 127
+messages:
+  usage: 'Usage: arch-menu-emoji-insert <emoji>'
+  invalid_input: 'Emoji input is too large or cannot be encoded'
+  command_error: 'Could not start the transient clipboard'
