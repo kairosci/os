@@ -490,6 +490,7 @@ entrypoints:
     name: monitor external active
     summary: Check whether Hyprland has an active external monitor.
     hidden: 'true'
+    generate_launcher: "false"
   - binary: arch-hyprland-monitor-laptop
     module: hyprland/monitors
     function: laptop_main

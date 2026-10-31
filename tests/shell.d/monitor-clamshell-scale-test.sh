@@ -50,13 +50,9 @@ cat >"$stub_bin/archctl" <<'SH'
 #!/bin/bash
 case "$*" in
   "hyprland monitor laptop") echo eDP-1 ;;
+  "hyprland monitor external active") [[ ${ARCH_TEST_EXTERNAL_ACTIVE:-false} == "true" ]] ;;
   "hw clamshell") [[ ${ARCH_TEST_CLAMSHELL:-false} == "true" ]] ;;
 esac
-SH
-
-cat >"$stub_bin/arch-hyprland-monitor-external-active" <<'SH'
-#!/bin/bash
-[[ ${ARCH_TEST_EXTERNAL_ACTIVE:-false} == "true" ]]
 SH
 
 chmod +x "$stub_bin"/*

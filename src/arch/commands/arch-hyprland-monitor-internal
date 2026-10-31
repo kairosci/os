@@ -35,7 +35,7 @@ off() {
     exit 1
   fi
 
-  if ! arch-hyprland-monitor-external-active; then
+  if ! archctl hyprland monitor external active; then
     arch-notification-send -g 󰍹 "$(arch-i18n monitor.onlyDisplay)"
     exit 1
   fi
@@ -51,7 +51,7 @@ recover() {
   # Runs from the clamshell watcher every few seconds, so it must be a no-op
   # unless it actually re-enables a display: an unconditional wake here undoes
   # lock-screen blanking and races the resume modeset into a visible flash.
-  arch-hyprland-monitor-external-active && return 0
+  archctl hyprland monitor external active && return 0
   arch-hyprland-toggle-enabled $TOGGLE || return 0
 
   arch-hyprland-toggle $TOGGLE off

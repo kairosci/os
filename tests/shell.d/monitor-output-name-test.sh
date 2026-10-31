@@ -23,13 +23,13 @@ make_stub() {
 }
 
 make_stub arch-notification-send ':'
-make_stub arch-hyprland-monitor-external-active 'exit 0'
 make_stub arch-hyprland-toggle-disabled 'exit 0'
 make_stub arch-hyprland-toggle ':'
 make_stub arch-hyprland-monitor-internal ':'
 make_stub arch-hyprland-monitor-internal-mirror ':'
 make_stub archctl 'case "$*" in
   "hyprland monitor laptop") printf "%s\n" "$LAPTOP_NAME" ;;
+  "hyprland monitor external active") exec "$ROOT/src/arch/commands/archctl" "$@" ;;
   "hw clamshell") exit 0 ;;
 esac'
 make_stub hyprctl 'case "$1" in
@@ -56,7 +56,7 @@ run_external_active() {
   AP="$ROOT" \
   MONITORS_JSON="$monitors_json" \
   PATH="$stub_dir:$PATH" \
-    "$ARCH_TEST_CLI_BIN/arch-hyprland-monitor-external-active"
+    archctl hyprland monitor external active
 }
 
 printf '[{"name":"eDP-1"},{"name":"DP-3"}]\n' >"$monitors_json"
