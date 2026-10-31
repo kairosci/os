@@ -92,6 +92,7 @@ entrypoints:
     group: power
     name: present
     summary: Returns true if external power is connected.
+    generate_launcher: "false"
   - binary: arch-powerprofiles-list
     module: powerprofiles/list
     function: main
@@ -196,6 +197,7 @@ entrypoints:
     args: '[--install] [chromium|chrome|brave|brave-origin|edge|firefox|zen]'
     examples: archctl default browser | archctl default browser firefox
     pass_args: 'true'
+    generate_launcher: "false"
   - binary: arch-default-dictation
     module: default/dictation
     function: default_dictation_main
@@ -353,6 +355,7 @@ entrypoints:
     summary: Match against the device tree's top-level compatible strings (whole string, case-insensitive).
     args: <compatibles...>
     pass_args: "true"
+    generate_launcher: "false"
   - binary: arch-hw-fingerprint
     module: hardware/fingerprint
     function: fingerprint_main
@@ -482,6 +485,7 @@ entrypoints:
     args: <application-name> [application-args...]
     examples: archctl restart app firefox
     pass_args: 'true'
+    generate_launcher: "false"
   - binary: arch-restart-hyprctl
     module: restart/hyprland
     function: main
@@ -495,6 +499,7 @@ entrypoints:
     name: hyprsunset
     summary: Restart the blue light filter service
     hidden: 'true'
+    generate_launcher: "false"
   - binary: arch-state
     module: state/store
     function: main
@@ -510,6 +515,7 @@ entrypoints:
     name: bg current
     summary: Show current background
     examples: archctl theme bg current
+    generate_launcher: "false"
   - binary: arch-theme-bg-next
     module: theme/info
     function: background_next_main
@@ -517,6 +523,7 @@ entrypoints:
     name: bg next
     summary: Cycle to the next background for the current theme
     examples: archctl theme bg next
+    generate_launcher: "false"
   - binary: arch-theme-bg-set
     module: theme/info
     function: background_set_main
@@ -533,6 +540,7 @@ entrypoints:
     name: current
     summary: Show current theme
     examples: archctl theme current
+    generate_launcher: "false"
   - binary: arch-theme-dir
     module: theme/info
     function: theme_dir_main
@@ -549,6 +557,7 @@ entrypoints:
     name: list
     summary: List available themes
     examples: archctl theme list | archctl theme set "Tokyo Night"
+    generate_launcher: "false"
   - binary: arch-version
     module: version/info
     function: version_main
@@ -562,6 +571,7 @@ entrypoints:
     name: branch
     summary: Print the active Arch dev-link git branch
     hidden: 'true'
+    generate_launcher: "false"
   - binary: arch-version-channel
     module: version/info
     function: version_channel_main
@@ -574,6 +584,7 @@ entrypoints:
     group: version
     name: pkgs
     summary: Print when system packages were last upgraded
+    generate_launcher: "false"
   - binary: arch-menu-clipboard
     module: menu/launch
     function: main

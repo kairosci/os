@@ -15,8 +15,9 @@ This roadmap tracks the requested CLI, ISO, desktop, and release work as separat
 - PR #586 moves both Files launchers into Python, keeping application argv and the terminal-directory helper in YAML. PR #587 generalizes that module to `src/arch/cli/launch/dispatch.py` and migrates the tmux terminal launcher with its exact attach-or-create command in YAML. With PR #587 integrated, the repository has 369 flat command files, 58 Python modules, and 85 Python entrypoints.
 - PR #588 migrates emoji insertion into `src/arch/cli/menu/emoji_insert.py`. Clipboard and paste argv, timing, limits, statuses, and messages are YAML data; the clipboard provider runs in a dedicated process group and is terminated on every exit path. With PR #588 integrated, the repository has 368 flat command files, 59 Python modules, and 86 Python entrypoints.
 - The Arch shell user service starts from Hyprland autostart, remains under `Restart=always`, and its launcher retries Quickshell exits. PR #589 gives Hyprland a non-black clear color beneath the shell wallpaper so a missing layer does not clear to pure black; verify the recovery appearance in a disposable graphical session before closing the blank-desktop sprint.
-- PR #590 removes `arch-update-status` from the flat command directory and keeps its hidden compatibility name as a generated Python entrypoint. Its `arch-shell` argv is in YAML; the current catalog has 367 flat command files, 60 Python modules, and 87 entrypoints.
+- PR #590 removes `arch-update-status` from the flat command directory and keeps its hidden route in Python entrypoint metadata. Its `arch-shell` argv is in YAML; the current catalog has 367 flat command files, 60 Python modules, and 87 entrypoints.
 - PR #591 disables the generated flat launcher for that route. `archctl update status` still resolves the Python module from its metadata, and package assembly removes the stale launcher from an existing test stage. This is the first command on the path to retiring flat compatibility binaries; the remaining migrated routes still generate launchers until their callers are moved.
+- PR #592 disables launcher generation for 11 additional Python routes with no in-repository binary callers. The catalog remains at 87 module routes; only 75 generate per-command launchers. Each remains available through the unified `archctl` router.
 
 ## Sprints
 
@@ -94,4 +95,4 @@ PR #590 moves update status into `src/arch/cli/update/status.py`, with its confi
 
 ### 18. Retire generated flat CLI launchers — in progress
 
-The entrypoint generator now supports routes that do not emit a per-command binary, beginning with update status. Continue switching in-repository callers to the unified router and disable each corresponding launcher; only remove the generator's compatibility output entirely after all remaining routes and packaging checks are adjusted.
+The entrypoint generator now supports routes that do not emit a per-command binary. PR #591 disabled update status, and PR #592 disables 11 more routes without in-repository binary callers. Continue switching remaining callers to the unified router and disable each launcher; only remove the generator's compatibility output entirely after the remaining routes and package checks are adjusted.

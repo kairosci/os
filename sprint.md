@@ -108,3 +108,4 @@ PR #483 was closed when its base branch was deleted during integration. Its chan
 | #589 | Keep compositor fallback visibly nonblack |
 | #590 | Migrate update status to Python |
 | #591 | Retire the update status flat launcher |
+| #592 | Retire unused Python CLI flat launchers |
