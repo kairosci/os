@@ -462,10 +462,12 @@ pass "bar set rejects multiple JSON values"
 mock_bin="$TMPDIR/mock-bin"
 mkdir -p "$mock_bin"
 
-cat >"$mock_bin/arch-refresh-config" <<'SH'
+cat >"$mock_bin/archctl" <<'SH'
 #!/bin/bash
 set -euo pipefail
 
+[[ ${1:-} == refresh && ${2:-} == config ]] || exit 1
+shift 2
 relative_path="${1:-}"
 [[ -n $relative_path ]] || exit 1
 mkdir -p "$HOME/.config/$(dirname "$relative_path")"

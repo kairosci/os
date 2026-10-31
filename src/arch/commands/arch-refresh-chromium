@@ -13,7 +13,7 @@ if [[ -f $CONFIG_FILE ]] && \
 fi
 
 # Refresh the Chromium configuration
-arch-refresh-config chromium-flags.conf
+archctl refresh config chromium-flags.conf
 
 # Install/refresh the native messaging hosts used by the bundled extensions
 arch-install-chromium-copy-url

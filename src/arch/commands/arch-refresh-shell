@@ -5,7 +5,7 @@
 
 set -euo pipefail
 
-arch-refresh-config arch/shell.json
+archctl refresh config arch/shell.json
 arch-bar defaults
 
 arch-restart-shell

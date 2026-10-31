@@ -2,5 +2,5 @@
 
 # arch:summary=Overwrite the user tmux config with the Arch default and reload tmux.
 
-arch-refresh-config tmux/tmux.conf
+archctl refresh config tmux/tmux.conf
 arch-restart-tmux
