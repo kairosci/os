@@ -16,6 +16,7 @@ Da terminale, gli stessi interruttori sono `archctl toggle <thing>`. Esegui `arc
 | Cattura crash | — | `archctl toggle crash-capture` |
 | Salvaschermo | — | `archctl toggle screensaver` |
 | Barra menu | `Super + Shift + Space` | `archctl toggle bar` |
+| Schermo intero | — | `archctl toggle fullscreen desktop` |
 | Touchpad | `XF86TouchpadToggle` | `archctl toggle touchpad` |
 | Touchscreen | — | `archctl toggle touchscreen` |
 | Sospendi | — | `archctl toggle suspend` |

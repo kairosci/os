@@ -1,0 +1,14 @@
+actions:
+  default: toggle
+  toggle: toggle
+  enable: on
+  disable: off
+flags:
+  bar: bar-off
+  window_gaps: window-no-gaps
+messages:
+  usage: 'Usage: archctl toggle fullscreen desktop [toggle|on|off]'
+  state_error: 'Could not read fullscreen desktop state'
+statuses:
+  invalid_arguments: 1
+  configuration_error: 78

@@ -63,24 +63,24 @@ export PATH="$stub_bin:$PATH"
 
 gaps_flag="$test_home/.local/state/arch/toggles/hypr/window-no-gaps.lua"
 
-HOME="$test_home" arch-toggle-fullscreen-desktop
+HOME="$test_home" archctl toggle fullscreen desktop
 [[ -f $bar_flag && -f $gaps_flag ]] || fail "fullscreen toggle hides the bar and the gaps together"
 pass "fullscreen toggle hides the bar and the gaps together"
 
-HOME="$test_home" arch-toggle-fullscreen-desktop
+HOME="$test_home" archctl toggle fullscreen desktop
 [[ ! -f $bar_flag && ! -f $gaps_flag ]] || fail "fullscreen toggle restores the bar and the gaps together"
 pass "fullscreen toggle restores the bar and the gaps together"
 
 HOME="$test_home" archctl toggle bar on
-HOME="$test_home" arch-toggle-fullscreen-desktop
+HOME="$test_home" archctl toggle fullscreen desktop
 [[ -f $bar_flag && -f $gaps_flag ]] || fail "fullscreen toggle pulls a half-hidden desktop into full screen"
 pass "fullscreen toggle pulls a half-hidden desktop into full screen"
 
-HOME="$test_home" arch-toggle-fullscreen-desktop off
+HOME="$test_home" archctl toggle fullscreen desktop off
 [[ ! -f $bar_flag && ! -f $gaps_flag ]] || fail "fullscreen off leaves full screen"
 pass "fullscreen off leaves full screen"
 
-HOME="$test_home" arch-toggle-fullscreen-desktop on
+HOME="$test_home" archctl toggle fullscreen desktop on
 [[ -f $bar_flag && -f $gaps_flag ]] || fail "fullscreen on enters full screen"
 pass "fullscreen on enters full screen"
 
