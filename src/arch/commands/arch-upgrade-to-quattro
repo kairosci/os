@@ -2188,6 +2188,9 @@ mkdir -p "$HOME/.local/share/applications"
 rm -f "$HOME/.config/autostart/walker.desktop"
 rm -rf "$HOME/.config/elephant" "$HOME/.config/makima" "$HOME/.config/wiremix"
 rm -rf "$HOME/.config/systemd/user/app-walker@autostart.service.d"
+if [[ ! -f /usr/lib/systemd/user/arch-shell.service && ! -f $root/default/systemd/user/arch-shell.service ]]; then
+  fail "The packaged Arch shell service is unavailable; preserving the existing user unit."
+fi
 rm -f \
   "$HOME/.config/systemd/user/arch-battery-monitor.service" \
   "$HOME/.config/systemd/user/arch-battery-monitor.timer" \
