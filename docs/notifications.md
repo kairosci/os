@@ -177,7 +177,7 @@ as a `busctl` option; the summary/body themselves are never parsed as options.)
 - `arch-notification-dismiss <summary>` — dismiss by summary substring,
   used by the first-run toasts once their action has been clicked.
 - `arch-notification-time` / `-battery` — the hotkey notices: one-line
-  low-urgency glyph toasts wrapping `date` and `arch-battery-status`.
+  low-urgency glyph toasts wrapping `date` and `archctl battery status`.
 - `arch-notification-weather` — despite the name, not a sender: it toggles
   the `arch.weather` shell panel.
 

@@ -111,3 +111,4 @@ PR #483 was closed when its base branch was deleted during integration. Its chan
 | #592 | Retire unused Python CLI flat launchers |
 | #593 | Route menu and emoji actions through the unified CLI |
 | #594 | Pin ISO builds to the validated release source |
+| #595 | Route battery status callers through the unified CLI |

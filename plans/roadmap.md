@@ -19,6 +19,7 @@ This roadmap tracks the requested CLI, ISO, desktop, and release work as separat
 - PR #591 disables the generated flat launcher for that route. `archctl update status` still resolves the Python module from its metadata, and package assembly removes the stale launcher from an existing test stage. This is the first command on the path to retiring flat compatibility binaries; the remaining migrated routes still generate launchers until their callers are moved.
 - PR #592 disables launcher generation for 11 additional Python routes with no in-repository binary callers. The catalog remains at 87 module routes; only 75 generate per-command launchers. Each remains available through the unified `archctl` router.
 - PR #593 routes the clipboard, emoji, and emoji insertion actions through `archctl` from YAML, the default menu, and QML, then disables their three flat launchers. There are now 72 generated launchers for 87 Python routes, with 367 remaining command source files.
+- PR #595 routes the power widget and battery notification through `archctl battery status`, then disables its generated flat launcher. There are now 71 generated launchers for 87 Python routes; continue migrating in-repository callers and disabling the matching launchers.
 
 ## Sprints
 
@@ -96,4 +97,4 @@ PR #590 moves update status into `src/arch/cli/update/status.py`, with its confi
 
 ### 18. Retire generated flat CLI launchers — in progress
 
-The entrypoint generator now supports routes that do not emit a per-command binary. PRs #591 and #592 disabled update status and 11 unused routes; PR #593 switches the clipboard and emoji callers to the unified router and disables their three launchers, leaving 72 generated launchers for 87 routes. Continue with the remaining in-repository callers before retiring generator compatibility output entirely.
+The entrypoint generator now supports routes that do not emit a per-command binary. PRs #591 and #592 disabled update status and 11 unused routes; PR #593 moved clipboard and emoji callers, and PR #595 moved the battery status callers, to the unified router. These changes leave 71 generated launchers for 87 routes. Continue with the remaining in-repository callers before retiring generator compatibility output entirely.
