@@ -71,5 +71,6 @@
 | #554 | Configure Disktree window for Hyprland |
 | #555 | Keep Disktree in the active workspace layout |
 | #556 | Migrate laptop detection to Python |
+| #557 | Migrate DMI hardware matching to Python |
 
 PR #483 was closed when its base branch was deleted during integration. Its change was rebased and merged as PR #499.

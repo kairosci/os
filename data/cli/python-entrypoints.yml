@@ -231,6 +231,14 @@ entrypoints:
     name: laptop
     summary: Returns true when running on a laptop (has a lid or laptop chassis).
     hidden: "true"
+  - binary: arch-hw-match
+    module: hardware/match
+    function: match_main
+    group: hw
+    name: match
+    summary: Match against the computer's DMI product name or product family (case-insensitive).
+    args: <pattern>
+    pass_args: "true"
   - binary: arch-hw-nvidia
     module: hardware/nvidia
     function: main

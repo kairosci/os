@@ -11,13 +11,13 @@ sources = [
   "src/arch/cli/hardware/intel.py",
   "src/arch/cli/hardware/hybrid_gpu.py",
   "src/arch/cli/hardware/laptop.py",
+  "src/arch/cli/hardware/match.py",
   "src/arch/cli/hardware/misc.py",
   "src/arch/cli/hardware/nvidia.py",
   "src/arch/commands/arch-hw-apple-silicon",
   "src/arch/commands/arch-hw-display",
   "src/arch/commands/arch-hw-fingerprint",
   "src/arch/commands/arch-hw-laptop-closed",
-  "src/arch/commands/arch-hw-match",
   "src/arch/commands/arch-hw-match-device-tree",
   "src/arch/commands/arch-hw-n1x",
   "src/arch/commands/arch-hw-platform",
@@ -65,6 +65,10 @@ source = "src/arch/cli/hardware/laptop.py"
 target = "usr/share/arch/src/arch/cli/hardware/laptop.py"
 
 [[output]]
+source = "src/arch/cli/hardware/match.py"
+target = "usr/share/arch/src/arch/cli/hardware/match.py"
+
+[[output]]
 source = "src/arch/cli/hardware/misc.py"
 target = "usr/share/arch/src/arch/cli/hardware/misc.py"
 
@@ -87,10 +91,6 @@ target = "usr/share/arch/src/arch/commands/arch-hw-fingerprint"
 [[output]]
 source = "src/arch/commands/arch-hw-laptop-closed"
 target = "usr/share/arch/src/arch/commands/arch-hw-laptop-closed"
-
-[[output]]
-source = "src/arch/commands/arch-hw-match"
-target = "usr/share/arch/src/arch/commands/arch-hw-match"
 
 [[output]]
 source = "src/arch/commands/arch-hw-match-device-tree"
