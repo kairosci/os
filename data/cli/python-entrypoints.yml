@@ -332,6 +332,13 @@ entrypoints:
     summary: Return success if the focused or named Hyprland monitor is an Apple display.
     args: "[monitor]"
     pass_args: 'true'
+  - binary: arch-hyprland-monitor-external-active
+    module: hyprland/monitors
+    function: external_active_main
+    group: hyprland
+    name: monitor external active
+    summary: Check whether Hyprland has an active external monitor.
+    hidden: 'true'
   - binary: arch-hyprland-monitor-laptop
     module: hyprland/monitors
     function: laptop_main

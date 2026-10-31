@@ -8,7 +8,6 @@ monitor_watch="$ROOT/src/arch/commands/arch-hyprland-monitor-watch"
 monitor_internal="$ROOT/src/arch/commands/arch-hyprland-monitor-internal"
 monitor_mirror="$ROOT/src/arch/commands/arch-hyprland-monitor-internal-mirror"
 monitor_laptop="$ARCH_TEST_CLI_BIN/arch-hyprland-monitor-laptop"
-monitor_external_active="$ROOT/src/arch/commands/arch-hyprland-monitor-external-active"
 system_wake="$ROOT/src/arch/commands/arch-system-wake"
 clamshell="$ROOT/src/arch/commands/arch-hyprland-monitor-clamshell"
 lock_service="$ROOT/src/arch/shell/plugins/lock/Service.qml"
@@ -62,11 +61,6 @@ pass "clamshell helper detects closed-lid external monitor state"
 
 # A mirrored external is absent from plain `monitors`, so asking without `all`
 # reads as a disconnect and hands the mirror toggle straight to recovery.
-grep -F 'hyprctl monitors all -j' "$monitor_external_active" >/dev/null
-grep -F 'select(.name | test("^(eDP|LVDS|DSI)-") | not)' "$monitor_external_active" >/dev/null
-grep -F 'select(.disabled == false)' "$monitor_external_active" >/dev/null
-pass "active external monitor helper sees mirrors and ignores monitors disabled on purpose"
-
 grep -F 'arch-hyprland-monitor-internal recover >/dev/null 2>&1 || true' "$clamshell" >/dev/null
 grep -F 'arch-hyprland-monitor-internal-mirror recover >/dev/null 2>&1 || true' "$clamshell" >/dev/null
 grep -F 'internal-monitor-clamshell.lua' "$clamshell" >/dev/null

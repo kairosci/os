@@ -44,6 +44,13 @@ class ModelessCommand(TypedDict):
   unknown_status: int
 
 
+class ExternalActiveCommand(TypedDict):
+  disabled_field: str
+  active_value: object
+  active_status: int
+  inactive_status: int
+
+
 class Commands(TypedDict):
   focused: FocusedCommand
   laptop: LaptopCommand
@@ -62,6 +69,7 @@ class Settings(TypedDict):
   commands: Commands
   apple: AppleCommand
   modeless: ModelessCommand
+  external_active: ExternalActiveCommand
   output_field: str
   query_timeout_seconds: int
   exit_codes: ExitCodes
@@ -153,6 +161,18 @@ def _modeless_command(value: object) -> ModelessCommand:
   }
 
 
+def _external_active_command(value: object) -> ExternalActiveCommand:
+  command = _mapping(value, "external_active")
+  fields = _mapping(command.get("fields"), "external_active.fields")
+  statuses = _mapping(command.get("statuses"), "external_active.statuses")
+  return {
+    "disabled_field": _text(fields.get("disabled"), "external_active.fields.disabled"),
+    "active_value": fields.get("active_value"),
+    "active_status": _integer(statuses.get("active"), "external_active.statuses.active"),
+    "inactive_status": _integer(statuses.get("inactive"), "external_active.statuses.inactive"),
+  }
+
+
 def _settings() -> Settings:
   root = Path(os.environ["AP"])
   raw: object = yaml.safe_load(
@@ -172,6 +192,7 @@ def _settings() -> Settings:
     },
     "apple": _apple_command(settings.get("apple")),
     "modeless": _modeless_command(settings.get("modeless")),
+    "external_active": _external_active_command(settings.get("external_active")),
     "output_field": _text(settings.get("output_field"), "output_field"),
     "query_timeout_seconds": query_timeout_seconds,
     "exit_codes": {
@@ -314,3 +335,30 @@ def _modeless_main() -> int:
 
 def modeless_main() -> int:
   return _entry(_modeless_main, "modeless")
+
+
+def _external_active_main() -> int:
+  settings = _settings()
+  external_active = settings["external_active"]
+  try:
+    monitors = _monitors(settings, "laptop")
+  except json.JSONDecodeError:
+    return external_active["inactive_status"]
+  if monitors is None:
+    return external_active["inactive_status"]
+  internal_name = re.compile(settings["commands"]["laptop"]["name_pattern"])
+  for monitor in monitors:
+    if not isinstance(monitor, dict):
+      continue
+    name = monitor.get(settings["output_field"])
+    if (
+      isinstance(name, str)
+      and not internal_name.search(name)
+      and monitor.get(external_active["disabled_field"]) == external_active["active_value"]
+    ):
+      return external_active["active_status"]
+  return external_active["inactive_status"]
+
+
+def external_active_main() -> int:
+  return _entry(_external_active_main, "external monitor")

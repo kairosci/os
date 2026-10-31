@@ -50,6 +50,13 @@ run_monitor() {
     "$ROOT/src/arch/commands/$command" "$@"
 }
 
+run_external_active() {
+  AP="$ROOT" \
+  MONITORS_JSON="$monitors_json" \
+  PATH="$stub_dir:$PATH" \
+    "$ARCH_TEST_CLI_BIN/arch-hyprland-monitor-external-active"
+}
+
 printf '[{"name":"eDP-1"},{"name":"DP-3"}]\n' >"$monitors_json"
 
 disable_flag="$flag_dir/internal-monitor-disable.lua"
@@ -121,3 +128,15 @@ set -e
 (( status != 0 )) || fail "scaling rejects a focused monitor name with Lua metacharacters"
 [[ ! -s $eval_log ]] || fail "an unsafe focused monitor name is not eval'd as Lua"
 pass "scaling refuses an unsafe focused monitor name"
+
+printf '[{"name":"eDP-1","disabled":false},{"name":"DP-3","disabled":false}]\n' >"$monitors_json"
+run_external_active || fail "an active external display is detected"
+pass "an active external display is detected"
+
+printf '[{"name":"eDP-1","disabled":false},{"name":"DP-3","disabled":true}]\n' >"$monitors_json"
+if run_external_active; then fail "a disabled external display is not active"; fi
+pass "a disabled external display is not active"
+
+printf '[{"name":"eDP-1","disabled":false}]\n' >"$monitors_json"
+if run_external_active; then fail "an active internal display is not external"; fi
+pass "an active internal display is not external"
