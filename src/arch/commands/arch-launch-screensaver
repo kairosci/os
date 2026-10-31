@@ -6,7 +6,7 @@
 pgrep -f '[o]rg.arch.screensaver' && exit 0
 
 # Allow screensaver to be turned off but also force started
-if arch-toggle-enabled screensaver-off && [[ $1 != "force" ]]; then
+if archctl toggle enabled screensaver-off && [[ $1 != "force" ]]; then
   exit 1
 fi
 

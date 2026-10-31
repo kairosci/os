@@ -190,15 +190,15 @@ set_theme() {
   fi
 }
 
-if ! arch-toggle-enabled skip-vscode-theme-changes; then
+if ! archctl toggle enabled skip-vscode-theme-changes; then
   set_theme "code" "$HOME/.config/Code/User/settings.json" "$HOME/.vscode/extensions"
 fi
-if ! arch-toggle-enabled skip-vscode-insiders-theme-changes; then
+if ! archctl toggle enabled skip-vscode-insiders-theme-changes; then
   set_theme "code-insiders" "$HOME/.config/Code - Insiders/User/settings.json" "$HOME/.vscode-insiders/extensions"
 fi
-if ! arch-toggle-enabled skip-codium-theme-changes; then
+if ! archctl toggle enabled skip-codium-theme-changes; then
   set_theme "codium" "$HOME/.config/VSCodium/User/settings.json" "$HOME/.vscode-oss/extensions"
 fi
-if ! arch-toggle-enabled skip-cursor-theme-changes; then
+if ! archctl toggle enabled skip-cursor-theme-changes; then
   set_theme "/usr/bin/cursor" "$HOME/.config/Cursor/User/settings.json" "$HOME/.cursor/extensions"
 fi

@@ -41,9 +41,11 @@ printf '%s\n' "$$" >"$TEST_DIR/socat.pid"
 exec cat "$TEST_DIR/events"
 SH
 printf '#!/bin/bash\nexit 1\n' >"$tmpdir/bin/pgrep"
-printf '#!/bin/bash\nexit 1\n' >"$tmpdir/bin/arch-toggle-enabled"
 cat >"$tmpdir/bin/archctl" <<'SH'
 #!/bin/bash
+if [[ ${1:-} == toggle && ${2:-} == enabled ]]; then
+  exit 1
+fi
 [[ $* == "hyprland monitor focused" ]] && printf 'DP-1\n'
 SH
 printf '#!/bin/bash\necho foot.desktop\n' >"$tmpdir/bin/xdg-terminal-exec"

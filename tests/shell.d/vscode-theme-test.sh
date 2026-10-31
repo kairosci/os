@@ -16,11 +16,6 @@ exit 1
 EOF
 arch_test_command_presence_router "$FAKE_BIN"
 
-cat >"$FAKE_BIN/arch-toggle-enabled" <<'EOF'
-#!/bin/bash
-exit 1
-EOF
-
 cat >"$FAKE_BIN/cursor" <<'EOF'
 #!/bin/bash
 touch "$CURSOR_SHIM_CALLED"
@@ -34,6 +29,7 @@ EDITOR_PROBE_LOG="$TEST_HOME/editor-probes.log" \
   CURSOR_SHIM_CALLED="$TEST_HOME/cursor-shim-called" \
   PATH="$FAKE_BIN:$ROOT/src/arch/commands:$PATH" \
   HOME="$TEST_HOME" \
+  AP="$ROOT" \
   "$ROOT/src/arch/commands/arch-theme-set-vscode"
 
 grep -Fxq '/usr/bin/cursor' "$TEST_HOME/editor-probes.log" || fail "VS Code theme sync probes the packaged Cursor executable"
@@ -54,11 +50,6 @@ cat >"$EDITOR_BIN/arch-cmd-present" <<'EOF'
 EOF
 arch_test_command_presence_router "$EDITOR_BIN"
 
-cat >"$EDITOR_BIN/arch-toggle-enabled" <<'EOF'
-#!/bin/bash
-exit 1
-EOF
-
 cat >"$EDITOR_BIN/code" <<'EOF'
 #!/bin/bash
 printf '%s\n' "$*" >>"$EDITOR_LOG"
@@ -75,6 +66,7 @@ run_vscode_sync() {
     LISTED_EXTENSIONS="${LISTED_EXTENSIONS:-}" \
     PATH="$EDITOR_BIN:$ROOT/src/arch/commands:$PATH" \
     HOME="$TEST_HOME" \
+    AP="$ROOT" \
     "$ROOT/src/arch/commands/arch-theme-set-vscode"
 }
 
@@ -114,11 +106,15 @@ pass "VS Code theme sync asks the editor when it has no extension registry"
 # editor by its toggle must still succeed.
 SKIP_BIN="$TEST_HOME/skip-bin"
 mkdir -p "$SKIP_BIN"
-cat >"$SKIP_BIN/arch-toggle-enabled" <<'EOF2'
+cat >"$SKIP_BIN/archctl" <<'EOF2'
 #!/bin/bash
-[[ $1 == "skip-cursor-theme-changes" ]]
+if [[ ${1:-} == toggle && ${2:-} == enabled ]]; then
+  [[ ${3:-} == "skip-cursor-theme-changes" ]]
+else
+  exec "$ROOT/src/arch/commands/archctl" "$@"
+fi
 EOF2
-chmod +x "$SKIP_BIN/arch-toggle-enabled"
-EDITOR_PROBE_LOG="$TEST_HOME/editor-probes.log" PATH="$SKIP_BIN:$FAKE_BIN:$ROOT/src/arch/commands:$PATH" HOME="$TEST_HOME" \
+chmod +x "$SKIP_BIN/archctl"
+EDITOR_PROBE_LOG="$TEST_HOME/editor-probes.log" PATH="$SKIP_BIN:$FAKE_BIN:$ROOT/src/arch/commands:$PATH" HOME="$TEST_HOME" AP="$ROOT" \
   "$ROOT/src/arch/commands/arch-theme-set-vscode" || fail "VS Code theme sync succeeds when the last editor is skipped by its toggle"
 pass "VS Code theme sync succeeds when the last editor is skipped by its toggle"

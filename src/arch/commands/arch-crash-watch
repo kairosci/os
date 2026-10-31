@@ -85,7 +85,7 @@ journalctl -f -n 0 -o json "MESSAGE_ID=$COREDUMP_MESSAGE_ID" 2>/dev/null |
     # Muted by the user after seeing a notification. A flag per program rather
     # than one list, so arch-crash-mute can lift one without reading,
     # rewriting and re-parsing the rest.
-    arch-toggle-enabled "crash-ignore/$name" && continue
+    archctl toggle enabled "crash-ignore/$name" && continue
 
     now=$EPOCHSECONDS
     (((now - ${last_notified[$name]:-0}) < dedupe_seconds)) && continue

@@ -4,7 +4,7 @@
 
 arch-toggle screensaver-off
 
-if arch-toggle-enabled screensaver-off; then
+if archctl toggle enabled screensaver-off; then
   archctl notification send -g 󱄄 "$(arch-i18n screensaver.disabled)"
 else
   archctl notification send -g 󱄄 "$(arch-i18n screensaver.enabled)"

@@ -25,10 +25,10 @@ Gli interruttori touchpad, touchscreen e Hybrid GPU vivono sotto _Azioni > Hardw
 
 _Azioni > Aspetto_ contiene la barra menu e le animazioni, più alcune cose che non sono comandi `archctl toggle` ma si comportano allo stesso modo: percentuale batteria nella barra, il layout workspace predefinito, gli spazi finestre (`Super + Shift + Backspace`) e la proporzione quadrata a 1 finestra (`Super + Ctrl + Backspace`).
 
-La maggior parte di questi è solo un file flag sotto `~/.local/state/arch/toggles/`. Se vuoi diramare su uno in uno script, `arch-toggle-enabled` ti dà un codice di uscita invece di farti andare a cercare:
+La maggior parte di questi è solo un file flag sotto `~/.local/state/arch/toggles/`. Se vuoi diramare su uno in uno script, `archctl toggle enabled` ti dà un codice di uscita invece di farti andare a cercare:
 
 ```bash
-arch-toggle-enabled screensaver-off && echo "screensaver is off"
+archctl toggle enabled screensaver-off && echo "screensaver is off"
 ```
 
 I flag sono chiamati per lo stato spento — `screensaver-off`, `suspend-off`, `bar-off` — quindi la loro presenza significa che la funzione è disabilitata.

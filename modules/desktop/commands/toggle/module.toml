@@ -6,7 +6,7 @@ sources = [
   "src/arch/commands/arch-toggle-animations",
   "src/arch/commands/arch-toggle-bar",
   "src/arch/commands/arch-toggle-crash-capture",
-  "src/arch/commands/arch-toggle-enabled",
+  "src/arch/cli/toggle/state.py",
   "src/arch/commands/arch-toggle-fullscreen-desktop",
   "src/arch/commands/arch-toggle-hybrid-gpu",
   "src/arch/commands/arch-toggle-idle",
@@ -18,7 +18,7 @@ sources = [
   "src/arch/commands/arch-toggle-touchpad",
   "src/arch/commands/arch-toggle-touchscreen",
 ]
-requires = ["desktop.commands"]
+requires = ["desktop.commands", "system.runtime-data"]
 
 [[output]]
 source = "src/arch/commands/arch-toggle"
@@ -37,8 +37,8 @@ source = "src/arch/commands/arch-toggle-crash-capture"
 target = "usr/share/arch/src/arch/commands/arch-toggle-crash-capture"
 
 [[output]]
-source = "src/arch/commands/arch-toggle-enabled"
-target = "usr/share/arch/src/arch/commands/arch-toggle-enabled"
+source = "src/arch/cli/toggle/state.py"
+target = "usr/share/arch/src/arch/cli/toggle/state.py"
 
 [[output]]
 source = "src/arch/commands/arch-toggle-fullscreen-desktop"
