@@ -177,6 +177,7 @@ for module_id in command_modules:
         ["desktop.commands", "desktop.commands.version", "system.runtime-data"],
         ["desktop.commands", "desktop.commands.i18n", "system.runtime-data"],
         ["desktop.commands", "desktop.commands.i18n", "desktop.commands.notification", "system.runtime-data"],
+        ["desktop.commands", "desktop.commands.hw", "desktop.commands.i18n", "desktop.commands.osd", "system.runtime-data"],
         [
             "desktop.commands",
             "desktop.commands.file",

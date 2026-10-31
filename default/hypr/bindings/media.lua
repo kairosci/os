@@ -11,8 +11,8 @@ o.bind("XF86KbdBrightnessUp", "Keyboard brightness up", "arch-brightness-keyboar
 o.bind("XF86KbdBrightnessDown", "Keyboard brightness down", "arch-brightness-keyboard down", { locked = true, repeating = true })
 o.bind("XF86KbdLightOnOff", "Keyboard backlight cycle", "arch-brightness-keyboard cycle", { locked = true })
 o.bind_toggle("XF86TouchpadToggle", "Toggle touchpad", "touchpad", { locked = true })
-o.bind("XF86TouchpadOn", "Enable touchpad", "arch-toggle-touchpad on", { locked = true })
-o.bind("XF86TouchpadOff", "Disable touchpad", "arch-toggle-touchpad off", { locked = true })
+o.bind("XF86TouchpadOn", "Enable touchpad", "archctl toggle input device touchpad on", { locked = true })
+o.bind("XF86TouchpadOff", "Disable touchpad", "archctl toggle input device touchpad off", { locked = true })
 
 -- Precise volume and brightness controls.
 o.bind("ALT + XF86AudioRaiseVolume", "Volume up precise", "arch-audio-output-volume +1", { locked = true, repeating = true })
