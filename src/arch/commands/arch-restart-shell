@@ -26,7 +26,7 @@ fi
 # ask the lock service rather than merely pinging the shell: only a locker
 # that reports the lock secure or in progress is worth preserving.
 relock=0
-if arch-hyprland-session-locked; then
+if AP="$session_ap" arch-hyprland-session-locked; then
   locking=$(AP="$session_ap" ARCH_SHELL_IPC_TIMEOUT=0.5s arch-shell lock status 2>/dev/null |
     jq -r '.secure or .requested' 2>/dev/null)
   if [[ $locking == "true" ]]; then

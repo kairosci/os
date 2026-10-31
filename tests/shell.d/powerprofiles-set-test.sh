@@ -14,9 +14,9 @@ cat >"$tmp_dir/bin/powerprofilesctl" <<'EOF'
 
 if [[ $1 == "list" ]]; then
   if [[ ${POWERPROFILES_TEST_MODE:-} == "slow" ]]; then
-    sleep 10
+    exec sleep 10
   elif [[ ${POWERPROFILES_TEST_MODE:-} == "large" ]]; then
-    head -c 256 /dev/zero
+    exec head -c 256 /dev/zero
   else
     printf '  power-saver:\n* balanced:\n  performance:\n'
   fi
@@ -64,6 +64,7 @@ command: ['$tmp_dir/bin/powerprofilesctl', list]
 timeout_seconds: 1
 cleanup_timeout_seconds: 1
 max_output_bytes: 8
+read_chunk_bytes: 4
 profile_line_pattern: '^\\s*(?P<active>\\*)?\\s*(?P<name>[a-zA-Z0-9-]+):\\s*$'
 active_state_option: --active-state
 usage: 'Usage: arch-powerprofiles-list [--active-state]'

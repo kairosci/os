@@ -2,14 +2,13 @@ from __future__ import annotations
 
 import os
 import re
-import selectors
-import subprocess
 import sys
-import time
 from pathlib import Path
 from typing import TypedDict, cast
 
 import yaml
+
+from arch.cli.lib.bounded import run_bounded
 
 
 class Settings(TypedDict):
@@ -17,6 +16,7 @@ class Settings(TypedDict):
   timeout_seconds: int
   cleanup_timeout_seconds: int
   max_output_bytes: int
+  read_chunk_bytes: int
   profile_line_pattern: re.Pattern[str]
   active_state_option: str
   usage: str
@@ -65,6 +65,7 @@ def _settings() -> Settings:
     "timeout_seconds": _positive_integer(document.get("timeout_seconds")),
     "cleanup_timeout_seconds": _positive_integer(document.get("cleanup_timeout_seconds")),
     "max_output_bytes": _positive_integer(document.get("max_output_bytes")),
+    "read_chunk_bytes": _positive_integer(document.get("read_chunk_bytes")),
     "profile_line_pattern": pattern,
     "active_state_option": _text(document.get("active_state_option")),
     "usage": _text(document.get("usage")),
@@ -73,64 +74,22 @@ def _settings() -> Settings:
   }
 
 
-def _stop(process: subprocess.Popen[bytes], timeout: int) -> None:
-  process.kill()
-  try:
-    process.wait(timeout=timeout)
-  except subprocess.TimeoutExpired:
-    pass
-
-
 def _profiles(settings: Settings, with_state: bool) -> str:
   try:
-    process = subprocess.Popen(
+    output = run_bounded(
       settings["command"],
-      stdout=subprocess.PIPE,
-      stderr=subprocess.DEVNULL,
+      timeout_seconds=settings["timeout_seconds"],
+      cleanup_timeout_seconds=settings["cleanup_timeout_seconds"],
+      max_output_bytes=settings["max_output_bytes"],
+      read_chunk_bytes=settings["read_chunk_bytes"],
     )
   except OSError:
     return ""
-  if process.stdout is None:
-    _stop(process, settings["cleanup_timeout_seconds"])
-    return ""
-
-  output = bytearray()
-  deadline = time.monotonic() + settings["timeout_seconds"]
-  try:
-    with selectors.DefaultSelector() as selector:
-      selector.register(process.stdout, selectors.EVENT_READ)
-      while selector.get_map():
-        remaining = deadline - time.monotonic()
-        if remaining <= 0 or not selector.select(remaining):
-          _stop(process, settings["cleanup_timeout_seconds"])
-          return ""
-        chunk = os.read(process.stdout.fileno(), min(8192, settings["max_output_bytes"] + 1 - len(output)))
-        if not chunk:
-          selector.unregister(process.stdout)
-          continue
-        output.extend(chunk)
-        if len(output) > settings["max_output_bytes"]:
-          _stop(process, settings["cleanup_timeout_seconds"])
-          return ""
-    remaining = deadline - time.monotonic()
-    if remaining <= 0:
-      _stop(process, settings["cleanup_timeout_seconds"])
-      return ""
-    try:
-      status = process.wait(timeout=remaining)
-    except subprocess.TimeoutExpired:
-      _stop(process, settings["cleanup_timeout_seconds"])
-      return ""
-  except OSError:
-    _stop(process, settings["cleanup_timeout_seconds"])
-    return ""
-  finally:
-    process.stdout.close()
-  if status != 0:
+  if output is None:
     return ""
 
   profiles: list[tuple[str, bool]] = []
-  for line in bytes(output).decode("utf-8", errors="replace").splitlines():
+  for line in output.decode("utf-8", errors="replace").splitlines():
     match = settings["profile_line_pattern"].fullmatch(line)
     if match is not None:
       profiles.append((match.group("name"), bool(match.group("active"))))

@@ -2,6 +2,7 @@ command: [powerprofilesctl, list]
 timeout_seconds: 3
 cleanup_timeout_seconds: 1
 max_output_bytes: 32768
+read_chunk_bytes: 8192
 profile_line_pattern: '^\s*(?P<active>\*)?\s*(?P<name>[a-zA-Z0-9-]+):\s*$'
 active_state_option: --active-state
 usage: 'Usage: arch-powerprofiles-list [--active-state]'

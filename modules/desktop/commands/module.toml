@@ -1,9 +1,13 @@
 id = "desktop.commands"
 domain = "desktop"
 package = "arch"
-sources = ["src/arch/commands/archctl"]
+sources = ["src/arch/commands/archctl", "src/arch/cli/lib/bounded.py"]
 requires = ["system.settings"]
 
 [[output]]
 source = "src/arch/commands/archctl"
 target = "usr/share/arch/src/arch/commands/archctl"
+
+[[output]]
+source = "src/arch/cli/lib/bounded.py"
+target = "usr/share/arch/src/arch/cli/lib/bounded.py"

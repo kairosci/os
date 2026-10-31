@@ -441,6 +441,13 @@ entrypoints:
     name: monitor modeless
     summary: Check whether Hyprland has an enabled monitor with no mode.
     hidden: 'true'
+  - binary: arch-hyprland-session-locked
+    module: hyprland/session_locked
+    function: main
+    group: hyprland
+    name: session locked
+    summary: Check whether the compositor holds a session lock
+    hidden: 'true'
   - binary: arch-hyprland-workspace-layout-current
     module: hyprland/workspace_layout
     function: workspace_layout_current_main
