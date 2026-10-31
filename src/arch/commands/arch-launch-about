@@ -186,4 +186,4 @@ if [[ ${1:-} == "--render" ]]; then
   done
 fi
 
-exec arch-launch-or-focus-tui --app-id=org.arch.about arch-launch-about --render
+exec archctl launch tui focus --app-id=org.arch.about arch-launch-about --render

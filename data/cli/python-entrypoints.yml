@@ -926,6 +926,24 @@ entrypoints:
     group: launch
     name: terminal tmux
     summary: Launch or attach to the Work tmux session in a terminal
+  - binary: arch-launch-tui
+    module: launch/dispatch
+    function: launch_tui_main
+    group: launch
+    name: tui
+    summary: Launch a TUI command in the default terminal with Arch styling
+    args: '[--app-id=<app-id>] <command> [args...]'
+    examples: archctl launch tui htop
+    pass_args: 'true'
+  - binary: arch-launch-or-focus-tui
+    module: launch/dispatch
+    function: focus_tui_main
+    group: launch
+    name: tui focus
+    summary: Focus a matching TUI window or launch the command in the default terminal
+    args: '[--app-id=<app-id>] <command> [args...]'
+    examples: archctl launch tui focus htop
+    pass_args: 'true'
   - binary: arch-branding-screensaver
     module: branding/screensaver
     function: screensaver_main

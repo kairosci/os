@@ -159,7 +159,7 @@ Item {
 
   MouseArea {
     anchors.fill: parent
-    onClicked: if (bar) bar.run("arch-launch-or-focus-tui btop")
+    onClicked: if (bar) bar.run("archctl launch tui focus btop")
   }
 }
 ```

@@ -266,23 +266,71 @@ editor_argv=$(<"$editor_calls")
   fail "launch-editor separates an option-shaped path from editor options" "$editor_argv"
 pass "launch-editor separates an option-shaped path from editor options"
 
-cat >"$mock_bin/arch-launch-tui" <<'STUB'
+cat >"$mock_bin/archctl" <<'STUB'
 #!/bin/bash
 
+if [[ ${1:-} != "launch" || ${2:-} != "tui" ]]; then
+  exec "$ROOT/src/arch/commands/archctl" "$@"
+fi
 : "${ARCH_TEST_EDITOR_CALLS:?}"
 printf '<%s>\n' "$@" >"$ARCH_TEST_EDITOR_CALLS"
 STUB
-chmod +x "$mock_bin/arch-launch-tui"
+chmod +x "$mock_bin/archctl"
 
 HOME="$fake_home" PATH="$mock_bin:$ROOT/src/arch/commands:$PATH" ARCH_TEST_EDITOR_CALLS="$editor_calls" \
   "$ROOT/src/arch/commands/arch-launch-editor" -cquit
 
 editor_argv=$(<"$editor_calls")
-[[ $editor_argv == $'<nvim>\n<-->\n<-cquit>' ]] ||
+[[ $editor_argv == $'<launch>\n<tui>\n<nvim>\n<-->\n<-cquit>' ]] ||
   fail "launch-editor separates a terminal editor path from editor options" "$editor_argv"
 pass "launch-editor separates a terminal editor path from editor options"
 
-setsid_calls="$test_tmp/setsid-calls"
+: >"$setsid_calls"
+AP="$ROOT" PATH="$mock_bin:$ROOT/src/arch/commands:$PATH" ARCH_TEST_SETSID_CALLS="$setsid_calls" \
+  "$ROOT/src/arch/commands/archctl" launch tui nvim -- -cquit
+[[ $(<"$setsid_calls") == $'<uwsm-app>\n<-->\n<xdg-terminal-exec>\n<--app-id=org.arch.nvim>\n<-e>\n<nvim>\n<-->\n<-cquit>' ]] ||
+  fail "launch-tui passes the app ID and command arguments as separate argv entries" "$(<"$setsid_calls")"
+pass "launch-tui passes the app ID and command arguments as separate argv entries"
+
+: >"$setsid_calls"
+hypr_calls="$test_tmp/hypr-calls"
+cat >"$mock_bin/hyprctl" <<'STUB'
+#!/bin/bash
+
+if [[ $1 == "clients" ]]; then
+  if [[ -n ${ARCH_TEST_HYPR_CLIENTS_DELAY:-} ]]; then
+    exec sleep "$ARCH_TEST_HYPR_CLIENTS_DELAY"
+  fi
+  printf '%s\n' "${ARCH_TEST_HYPR_CLIENTS_JSON:?}"
+  exit 0
+fi
+if [[ $1 == "dispatch" ]]; then
+  printf '<%s>\n' "$@" >>"${ARCH_TEST_HYPR_CALLS:?}"
+  exit "${ARCH_TEST_HYPR_FOCUS_STATUS:-0}"
+fi
+exit 2
+STUB
+chmod +x "$mock_bin/hyprctl"
+printf '%s\n' '[{"class":"org.arch.editor","title":"Editor","address":"0x123"}]' >"$test_tmp/hypr-clients"
+: >"$hypr_calls"
+AP="$ROOT" PATH="$mock_bin:$ROOT/src/arch/commands:$PATH" ARCH_TEST_HYPR_CALLS="$hypr_calls" \
+  ARCH_TEST_HYPR_CLIENTS_JSON="$(<"$test_tmp/hypr-clients")" \
+  "$ROOT/src/arch/commands/archctl" launch tui focus --app-id=org.arch.editor nvim
+[[ $(<"$hypr_calls") == $'<dispatch>\n<hl.dsp.focus({ window = "address:0x123" })>' && ! -s $setsid_calls ]] ||
+  fail "launch-tui focus selects a matching window without launching a second terminal" "$(<"$hypr_calls")"
+pass "launch-tui focus selects a matching window without launching a second terminal"
+
+: >"$setsid_calls"
+focus_started=$SECONDS
+AP="$ROOT" PATH="$mock_bin:$ROOT/src/arch/commands:$PATH" ARCH_TEST_SETSID_CALLS="$setsid_calls" \
+  ARCH_TEST_HYPR_CLIENTS_DELAY=6 \
+  "$ROOT/src/arch/commands/archctl" launch tui focus nvim
+focus_elapsed=$((SECONDS - focus_started))
+(( focus_elapsed < 6 )) || fail "launch-tui focus bounds an unresponsive compositor query" "${focus_elapsed}s"
+[[ $(<"$setsid_calls") == $'<uwsm-app>\n<-->\n<xdg-terminal-exec>\n<--app-id=org.arch.nvim>\n<-e>\n<nvim>' ]] ||
+  fail "launch-tui focus launches the command when the compositor query times out" "$(<"$setsid_calls")"
+pass "launch-tui focus bounds a stalled compositor query before launching the command"
+
 printf 'code\n' >"$fake_home/.local/state/arch/defaults/editor"
 cat >"$mock_bin/code" <<'STUB'
 #!/bin/bash

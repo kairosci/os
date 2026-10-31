@@ -12,13 +12,11 @@ sources = [
   "src/arch/commands/arch-launch-editor",
   "src/arch/commands/arch-launch-terminal-with-presentation",
   "src/arch/commands/arch-launch-or-focus",
-  "src/arch/commands/arch-launch-or-focus-tui",
   "src/arch/commands/arch-launch-or-focus-webapp",
   "src/arch/commands/arch-launch-screensaver",
   "src/arch/commands/arch-launch-shell",
   "src/arch/commands/arch-launch-signal",
   "src/arch/commands/arch-launch-spotify",
-  "src/arch/commands/arch-launch-tui",
   "src/arch/commands/arch-launch-webapp",
   "src/arch/cli/launch/dispatch.py",
 ]
@@ -65,10 +63,6 @@ source = "src/arch/commands/arch-launch-or-focus"
 target = "usr/share/arch/src/arch/commands/arch-launch-or-focus"
 
 [[output]]
-source = "src/arch/commands/arch-launch-or-focus-tui"
-target = "usr/share/arch/src/arch/commands/arch-launch-or-focus-tui"
-
-[[output]]
 source = "src/arch/commands/arch-launch-or-focus-webapp"
 target = "usr/share/arch/src/arch/commands/arch-launch-or-focus-webapp"
 
@@ -87,10 +81,6 @@ target = "usr/share/arch/src/arch/commands/arch-launch-signal"
 [[output]]
 source = "src/arch/commands/arch-launch-spotify"
 target = "usr/share/arch/src/arch/commands/arch-launch-spotify"
-
-[[output]]
-source = "src/arch/commands/arch-launch-tui"
-target = "usr/share/arch/src/arch/commands/arch-launch-tui"
 
 [[output]]
 source = "src/arch/commands/arch-launch-webapp"

@@ -28,7 +28,7 @@ nvim | vim | nano | micro | hx | helix | fresh)
   if [[ $inline == "true" ]]; then
     exec "$editor" -- "$@"
   else
-    exec arch-launch-tui "$editor" -- "$@"
+    exec archctl launch tui "$editor" -- "$@"
   fi
   ;;
 *)

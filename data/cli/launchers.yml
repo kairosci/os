@@ -45,9 +45,34 @@ terminal_directory:
     maximum_child_processes: 8192
     maximum_shells_file_bytes: 65536
     maximum_pid_digits: 10
+tui:
+  command: [setsid, uwsm-app, --, xdg-terminal-exec]
+  execute_option: -e
+  app_id_option_prefix: --app-id=
+  default_app_id_prefix: org.arch.
+  clients_command: [hyprctl, clients, -j]
+  match_fields: [class, title]
+  match_prefix: '\b'
+  match_suffix: '\b'
+  case_insensitive: true
+  address_placeholder: '{address}'
+  focus_commands:
+    - [hyprctl, dispatch, 'hl.dsp.focus({ window = "address:{address}" })']
+    - [hyprctl, dispatch, focuswindow, 'address:{address}']
+  address_field: address
+  address_pattern: '^0x[0-9A-Fa-f]+$'
+  command_timeout_seconds: 3
+  maximum_clients_output_bytes: 1048576
+  maximum_client_count: 4096
+  maximum_address_length: 64
 statuses:
   configuration_error: 78
   command_error: 127
+  invalid_arguments: 64
+  success: 0
 messages:
   command_error: 'Could not launch the configured command'
   unknown_launcher: 'Unknown configured launcher'
+  tui_usage: 'Usage: archctl launch tui [--app-id=<app-id>] <command> [args...]'
+  tui_focus_usage: 'Usage: archctl launch tui focus [--app-id=<app-id>] <command> [args...]'
+  invalid_app_id: 'The application ID must not be empty or contain a null byte'
