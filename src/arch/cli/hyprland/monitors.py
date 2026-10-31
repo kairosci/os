@@ -24,6 +24,16 @@ class LaptopCommand(TypedDict):
   first_match: bool
 
 
+class AppleCommand(TypedDict):
+  name_field: str
+  focused_field: str
+  focused_value: object
+  make_field: str
+  make: str
+  model_field: str
+  model_pattern: str
+
+
 class Commands(TypedDict):
   focused: FocusedCommand
   laptop: LaptopCommand
@@ -40,6 +50,7 @@ class ExitCodes(TypedDict):
 
 class Settings(TypedDict):
   commands: Commands
+  apple: AppleCommand
   output_field: str
   exit_codes: ExitCodes
 
@@ -97,6 +108,24 @@ def _laptop_command(value: object) -> LaptopCommand:
   }
 
 
+def _apple_command(value: object) -> AppleCommand:
+  command = _mapping(value, "apple")
+  model_pattern = _text(command.get("model_pattern"), "apple.model_pattern")
+  try:
+    re.compile(model_pattern)
+  except re.error as error:
+    raise ValueError("invalid Hyprland monitor configuration: apple.model_pattern is invalid") from error
+  return {
+    "name_field": _text(command.get("name_field"), "apple.name_field"),
+    "focused_field": _text(command.get("focused_field"), "apple.focused_field"),
+    "focused_value": command.get("focused_value"),
+    "make_field": _text(command.get("make_field"), "apple.make_field"),
+    "make": _text(command.get("make"), "apple.make"),
+    "model_field": _text(command.get("model_field"), "apple.model_field"),
+    "model_pattern": model_pattern,
+  }
+
+
 def _settings() -> Settings:
   root = Path(os.environ["AP"])
   raw: object = yaml.safe_load(
@@ -111,6 +140,7 @@ def _settings() -> Settings:
       "focused": _focused_command(commands.get("focused")),
       "laptop": _laptop_command(commands.get("laptop")),
     },
+    "apple": _apple_command(settings.get("apple")),
     "output_field": _text(settings.get("output_field"), "output_field"),
     "exit_codes": {
       "invalid_json": {
@@ -184,3 +214,32 @@ def focused_main() -> int:
 
 def laptop_main() -> int:
   return _entry(_laptop_main, "laptop")
+
+
+def _apple_main(arguments: list[str]) -> int:
+  settings = _settings()
+  apple = settings["apple"]
+  try:
+    monitors = _monitors(settings, "focused")
+  except json.JSONDecodeError:
+    return settings["exit_codes"]["invalid_json"]["focused"]
+  if monitors is None:
+    return settings["exit_codes"]["invalid_json"]["focused"]
+  pattern = re.compile(apple["model_pattern"])
+  named_monitor = arguments[0] if arguments else ""
+  for monitor in monitors:
+    if not isinstance(monitor, dict):
+      continue
+    selected = (
+      monitor.get(apple["name_field"]) == named_monitor
+      if named_monitor
+      else monitor.get(apple["focused_field"]) == apple["focused_value"]
+    )
+    model = monitor.get(apple["model_field"])
+    if selected and monitor.get(apple["make_field"]) == apple["make"] and isinstance(model, str) and pattern.search(model):
+      return 0
+  return 1
+
+
+def apple_main(arguments: list[str]) -> int:
+  return _entry(lambda: _apple_main(arguments), "Apple")

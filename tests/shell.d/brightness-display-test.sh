@@ -3,6 +3,7 @@
 set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
+export AP="$ROOT"
 
 test_tmp=$(mktemp -d)
 trap 'rm -rf "$test_tmp"' EXIT
@@ -148,9 +149,9 @@ printf '%s\n' '[
 SH
 chmod +x "$mock_bin/hyprctl"
 
-PATH="$mock_bin:$PATH" "$ROOT/src/arch/commands/arch-hyprland-monitor-focused-apple" DP-2 || \
+PATH="$mock_bin:$PATH" "$ARCH_TEST_CLI_BIN/arch-hyprland-monitor-focused-apple" DP-2 || \
   fail "named Apple display is detected independently of focus"
-if PATH="$mock_bin:$PATH" "$ROOT/src/arch/commands/arch-hyprland-monitor-focused-apple"; then
+if PATH="$mock_bin:$PATH" "$ARCH_TEST_CLI_BIN/arch-hyprland-monitor-focused-apple"; then
   fail "focused non-Apple display is not detected as Apple"
 fi
 pass "named Apple display is detected independently of focus"
