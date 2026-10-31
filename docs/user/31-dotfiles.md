@@ -75,7 +75,7 @@ o.rebind("SUPER + SHIFT + O", "Joplin", "joplin-desktop")
 
 `o.rebind` removes the existing binding before adding its replacement. It takes the same arguments as `o.bind`, including launch helpers and binding options. Use `o.bind` to add a binding, or `hl.unbind` to remove one without replacing it.
 
-Window and layer behavior for the shipped apps and the default transparency opacity live in `~/.config/hypr/apps.yml`. The Disktree rule uses the full usable tiled area, so it follows the active display's resolution and scale without a fixed pixel size. Edit `window_rules` or `layer_rules` to change an app's matching class or its Hyprland rule options. To restore the packaged defaults later, run `archctl refresh config hypr/apps.yml`.
+Window and layer behavior for the shipped apps and the default transparency opacity live in `~/.config/hypr/apps.yml`. Disktree opens in a floating 1400 × 900 window so its treemap and side panel have room; adjust its `size` rule to fit your displays. Edit `window_rules` or `layer_rules` to change any app's matching class or Hyprland options. To restore the packaged defaults later, run `archctl refresh config hypr/apps.yml`.
 
 If you insist on hacking on the internal Arch files, switch to the dev channel via _Update > Channel > Dev_. That links Arch to a git checkout of the source code in `~/arch`, which you're free to change to your heart's content. Ain't nobody here to tell you what to do!
 

@@ -51,7 +51,7 @@ window_rules:
     options: {stay_focused: false}
   - application: disktree
     match: {class: '^disktree$'}
-    options: {tile: true, maximize: true}
+    options: {float: true, size: [1400, 900]}
   - application: geforce-now
     match: {class: GeForceNOW}
     options: {idle_inhibit: fullscreen}

@@ -75,7 +75,7 @@ o.rebind("SUPER + SHIFT + O", "Joplin", "joplin-desktop")
 
 `o.rebind` rimuove l'associazione esistente prima di aggiungere la sua sostituzione. Accetta gli stessi argomenti di `o.bind`, inclusi helper di avvio e opzioni di associazione. Usa `o.bind` per aggiungere un'associazione, oppure `hl.unbind` per rimuoverne una senza sostituirla.
 
-Le regole per finestre e layer delle app incluse, insieme all'opacità predefinita, sono in `~/.config/hypr/apps.yml`. Disktree usa tutta l'area utile del layout a schede e segue risoluzione e scala del display attivo, senza dimensioni fisse in pixel. Modifica `window_rules` o `layer_rules` per cambiare la classe riconosciuta da un'app o le sue opzioni Hyprland. Per ripristinare i valori predefiniti del pacchetto, esegui `archctl refresh config hypr/apps.yml`.
+Le regole per finestre e layer delle app incluse, insieme all'opacità predefinita, sono in `~/.config/hypr/apps.yml`. Disktree si apre in una finestra flottante da 1400 × 900 per lasciare spazio alla treemap e al pannello laterale; modifica la regola `size` per adattarla ai tuoi monitor. In `window_rules` o `layer_rules` puoi cambiare la classe riconosciuta e le opzioni Hyprland di ogni app. Per ripristinare i valori predefiniti del pacchetto, esegui `archctl refresh config hypr/apps.yml`.
 
 Se insisti a smanettare sui file interni di Arch, passa al canale dev tramite _Aggiorna > Canale > Dev_. Questo collega Arch a un checkout git del codice sorgente in `~/arch`, che sei libero di cambiare a tuo piacimento. Non c'è nessuno qui a dirti cosa fare!
 
