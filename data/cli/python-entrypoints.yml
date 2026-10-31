@@ -224,6 +224,20 @@ entrypoints:
     group: hw
     name: nvidia
     summary: Detect whether the computer has an NVIDIA GPU.
+  - binary: arch-hw-nvidia-gsp
+    module: hardware/nvidia
+    function: gsp_main
+    group: hw
+    name: nvidia gsp
+    summary: Detect whether an NVIDIA GPU has GSP firmware
+    hidden: 'true'
+  - binary: arch-hw-nvidia-without-gsp
+    module: hardware/nvidia
+    function: without_gsp_main
+    group: hw
+    name: nvidia without gsp
+    summary: Detect an NVIDIA GPU without GSP firmware
+    hidden: 'true'
   - binary: arch-hw-webcam
     module: hardware/webcam
     function: main
