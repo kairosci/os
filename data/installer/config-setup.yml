@@ -16,7 +16,7 @@ lockout_limit:
     insert_after_pattern: 'auth.*pam_permit\.so'
     insert_line: 'auth        required    pam_faillock.so authsucc'
 systemd_boot_snapshots:
-  helper: src/arch/commands/arch-hw-x86
+  helper: [archctl, hw, x86]
   boot_entry:
     environment_override: ARCH_SYSTEMD_BOOT_ESP
     default_esp: /boot

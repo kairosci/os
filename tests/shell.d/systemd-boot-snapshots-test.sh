@@ -13,8 +13,6 @@ trap 'rm -rf "$scratch"' EXIT
 kernel_test="$scratch/kernel"
 mkdir -p "$kernel_test/esp/EFI/systemd" "$kernel_test/esp/EFI/Linux" \
   "$kernel_test/etc/kernel" "$kernel_test/etc/mkinitcpio.d"
-printf '#!/bin/bash\nexit 0\n' >"$kernel_test/arch-hw-x86"
-chmod +x "$kernel_test/arch-hw-x86"
 printf 'systemd-boot\n' >"$kernel_test/esp/EFI/systemd/systemd-bootx64.efi"
 printf 'kernel\n' >"$kernel_test/esp/EFI/Linux/os_linux.efi"
 printf '%s\n' 'cryptdevice=PARTUUID=1234:root root=/dev/mapper/custom rootflags=subvol=@ rw' \
@@ -23,6 +21,11 @@ printf '%s\n' 'cryptdevice=PARTUUID=1234:root root=/dev/mapper/root rootflags=su
   >"$kernel_test/embedded-cmdline"
 
 mkdir -p "$kernel_test/bin"
+cat >"$kernel_test/bin/archctl" <<'ARCHCTL'
+#!/bin/bash
+[[ $1 == hw && $2 == x86 ]]
+ARCHCTL
+chmod +x "$kernel_test/bin/archctl"
 cat >"$kernel_test/bin/objcopy" <<'OBJCOPY'
 #!/bin/bash
 [[ $1 == "-O" && $2 == "binary" && $3 == "--only-section=.cmdline" ]] || exit 1
@@ -37,7 +40,6 @@ export ARCH_KERNEL_CMDLINE_FILE="$kernel_test/etc/kernel/cmdline"
 export ARCH_KERNEL_UKI="$kernel_test/esp/EFI/Linux/os_linux.efi"
 export ARCH_KERNEL_PRESET_TEMPLATE="$ROOT/default/mkinitcpio/linux.preset"
 export ARCH_MKINITCPIO_DEFAULT_PRESET=/usr/share/mkinitcpio/hook.preset
-export ARCH_HW_X86_HELPER="$kernel_test/arch-hw-x86"
 export ARCH_TEST_EMBEDDED_CMDLINE="$kernel_test/embedded-cmdline"
 PATH="$kernel_test/bin:$PATH" python3 -I "$ROOT/src/arch/python/installer/system_setup/systemd_boot_kernel.py"
 cmdline=$(<"$kernel_test/etc/kernel/cmdline")
