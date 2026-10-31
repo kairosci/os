@@ -550,7 +550,7 @@ assert(
 assertEqual(triggerIds.indexOf('trigger.clipboard-history'), triggerIds.indexOf('trigger.emoji') + 1, 'menu places Clipboard History right after Emoji')
 assert(
   !defaultItems.some(item => item.id.startsWith('appearance.background-intro'))
-    && defaultById['appearance.animations-on'].action === 'arch-toggle-animations',
+    && defaultById['appearance.animations-on'].action === 'archctl toggle animations on',
   'menu uses the existing animations toggle without separate background intro controls'
 )
 assertDeepEqual(

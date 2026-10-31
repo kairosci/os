@@ -590,6 +590,15 @@ entrypoints:
     summary: Toggle or inspect the nightlight screen temperature
     args: '[on|off|--status]'
     pass_args: 'true'
+  - binary: arch-toggle-animations
+    module: toggle/animations
+    function: main
+    group: toggle
+    name: animations
+    summary: Toggle desktop animations
+    args: "[toggle|on|off]"
+    examples: 'archctl toggle animations | archctl toggle animations off | archctl toggle animations on'
+    pass_args: 'true'
   - binary: arch-theme-bg-current
     module: theme/info
     function: background_current_main

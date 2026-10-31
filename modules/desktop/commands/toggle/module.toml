@@ -2,7 +2,7 @@ id = "desktop.commands.toggle"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/arch/commands/arch-toggle-animations",
+  "src/arch/cli/toggle/animations.py",
   "src/arch/commands/arch-toggle-bar",
   "src/arch/commands/arch-toggle-crash-capture",
   "src/arch/cli/toggle/state.py",
@@ -19,14 +19,16 @@ requires = [
   "desktop.commands",
   "desktop.commands.hw",
   "desktop.commands.i18n",
+  "desktop.commands.hyprland",
+  "desktop.commands.notification",
   "desktop.commands.osd",
   "desktop.commands.shell",
   "system.runtime-data",
 ]
 
 [[output]]
-source = "src/arch/commands/arch-toggle-animations"
-target = "usr/share/arch/src/arch/commands/arch-toggle-animations"
+source = "src/arch/cli/toggle/animations.py"
+target = "usr/share/arch/src/arch/cli/toggle/animations.py"
 
 [[output]]
 source = "src/arch/commands/arch-toggle-bar"

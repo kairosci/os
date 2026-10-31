@@ -89,11 +89,11 @@ printf '#!/bin/bash\nexit 0\n' >"$stub_bin/arch-notification-send"
 chmod +x "$stub_bin/arch-notification-send"
 animations_flag="$test_home/.local/state/arch/toggles/hypr/no-animations.lua"
 
-HOME="$test_home" arch-toggle-animations off
+HOME="$test_home" archctl toggle animations off
 [[ -f $animations_flag ]] || fail "animations off places the no-animations flag"
-HOME="$test_home" arch-toggle-animations on
+HOME="$test_home" archctl toggle animations on
 [[ ! -f $animations_flag ]] || fail "animations on removes the no-animations flag"
-HOME="$test_home" arch-toggle-animations
+HOME="$test_home" archctl toggle animations
 [[ -f $animations_flag ]] || fail "toggling animations flips the flag"
 pass "animations toggle turns the no-animations flag the right way round"
 
