@@ -80,7 +80,7 @@ run spark "$scratch/spark" archctl sleep disabled || fail "sleep reads as disabl
 run spark "$scratch/none" archctl sleep disabled && fail "sleep reads as enabled without the setting"
 pass "archctl sleep disabled follows the sleep setting"
 
-run spark "$scratch/spark" bash "$ROOT/src/arch/commands/arch-toggle-suspend"
+run spark "$scratch/spark" archctl toggle suspend
 ! grep -q '^toggle ' "$CALL_LOG" || fail "the suspend toggle does nothing while sleep is disabled"
 grep -q '^notify .*Suspend is turned off on this machine' "$CALL_LOG" ||
   fail "the suspend toggle says suspend is turned off"
