@@ -3,8 +3,7 @@
 set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
-
-require_command jq
+export AP="$ROOT"
 
 test_tmp=$(mktemp -d)
 watch_pid=""
@@ -65,6 +64,7 @@ recovered="$test_tmp/recovered.json"
 events="$test_tmp/events"
 modeless_lock="$test_tmp/arch-monitor-modeless.lock"
 hyprctl_fail="$test_tmp/hyprctl-fails"
+hyprctl_slow="$test_tmp/hyprctl-slow"
 
 # The monitor list lives in a file so a reload can "fix" it mid-run.
 cat >"$fake_bin/hyprctl" <<'SH'
@@ -72,6 +72,7 @@ cat >"$fake_bin/hyprctl" <<'SH'
 
 # Mirrors are absent from plain `monitors`, so the helper must ask for `all`.
 if [[ ${1:-} == "monitors" && ${2:-} == "all" && ${3:-} == "-j" ]]; then
+  [[ ! -f $ARCH_TEST_HYPRCTL_SLOW_FLAG ]] || exec python3 -c 'import time; time.sleep(5)'
   [[ -f $ARCH_TEST_HYPRCTL_FAIL_FLAG ]] && exit 4
   cat "$ARCH_TEST_MONITORS_FILE"
 elif [[ ${1:-} == "reload" ]]; then
@@ -109,7 +110,7 @@ SH
 cp "$fake_bin/arch-hyprland-monitor-clamshell" "$fake_bin/arch-system-lid-inhibit"
 
 chmod +x "$fake_bin"/*
-ln -s "$ROOT/src/arch/commands/arch-hyprland-monitor-modeless" "$fake_bin/arch-hyprland-monitor-modeless"
+ln -s "$ARCH_TEST_CLI_BIN/arch-hyprland-monitor-modeless" "$fake_bin/arch-hyprland-monitor-modeless"
 
 MODELESS=0
 WORKING=1
@@ -120,8 +121,8 @@ assert_state() {
 
   printf '%s' "$2" >"$monitors_file"
   PATH="$fake_bin:$PATH" ARCH_TEST_MONITORS_FILE="$monitors_file" \
-  ARCH_TEST_HYPRCTL_FAIL_FLAG="$hyprctl_fail" \
-    "$ROOT/src/arch/commands/arch-hyprland-monitor-modeless" || actual=$?
+  ARCH_TEST_HYPRCTL_FAIL_FLAG="$hyprctl_fail" ARCH_TEST_HYPRCTL_SLOW_FLAG="$hyprctl_slow" \
+    "$ARCH_TEST_CLI_BIN/arch-hyprland-monitor-modeless" || actual=$?
 
   (( actual == expected )) || fail "$3" "expected exit $expected, got $actual"
   pass "$3"
@@ -163,11 +164,18 @@ printf '%s' '[{"name":"DP-1","width":0,"height":0,"disabled":false}]' >"$monitor
 touch "$hyprctl_fail"
 unreachable=0
 PATH="$fake_bin:$PATH" ARCH_TEST_MONITORS_FILE="$monitors_file" \
-ARCH_TEST_HYPRCTL_FAIL_FLAG="$hyprctl_fail" \
-  "$ROOT/src/arch/commands/arch-hyprland-monitor-modeless" || unreachable=$?
+ARCH_TEST_HYPRCTL_FAIL_FLAG="$hyprctl_fail" ARCH_TEST_HYPRCTL_SLOW_FLAG="$hyprctl_slow" \
+  "$ARCH_TEST_CLI_BIN/arch-hyprland-monitor-modeless" || unreachable=$?
 rm -f "$hyprctl_fail"
 (( unreachable == UNDETERMINED )) || fail "an unreachable compositor cannot say" "got $unreachable"
 pass "an unreachable compositor cannot say"
+
+touch "$hyprctl_slow"
+started=$SECONDS
+assert_state $UNDETERMINED '[]' "a stalled compositor cannot say"
+(( SECONDS - started < 4 )) || fail "a stalled monitor query returns within its configured timeout"
+rm -f "$hyprctl_slow"
+pass "a stalled monitor query returns within its configured timeout"
 
 start_watcher() {
   : >"$reload_log"

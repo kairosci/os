@@ -34,6 +34,16 @@ class AppleCommand(TypedDict):
   model_pattern: str
 
 
+class ModelessCommand(TypedDict):
+  disabled_field: str
+  disabled_value: object
+  dimension_fields: list[str]
+  no_mode_value: int
+  modeless_status: int
+  working_status: int
+  unknown_status: int
+
+
 class Commands(TypedDict):
   focused: FocusedCommand
   laptop: LaptopCommand
@@ -51,7 +61,9 @@ class ExitCodes(TypedDict):
 class Settings(TypedDict):
   commands: Commands
   apple: AppleCommand
+  modeless: ModelessCommand
   output_field: str
+  query_timeout_seconds: int
   exit_codes: ExitCodes
 
 
@@ -126,6 +138,21 @@ def _apple_command(value: object) -> AppleCommand:
   }
 
 
+def _modeless_command(value: object) -> ModelessCommand:
+  command = _mapping(value, "modeless")
+  fields = _mapping(command.get("fields"), "modeless.fields")
+  statuses = _mapping(command.get("statuses"), "modeless.statuses")
+  return {
+    "disabled_field": _text(fields.get("disabled"), "modeless.fields.disabled"),
+    "disabled_value": fields.get("disabled_value"),
+    "dimension_fields": _command(fields.get("dimensions"), "modeless.fields.dimensions"),
+    "no_mode_value": _integer(fields.get("no_mode_value"), "modeless.fields.no_mode_value"),
+    "modeless_status": _integer(statuses.get("modeless"), "modeless.statuses.modeless"),
+    "working_status": _integer(statuses.get("working"), "modeless.statuses.working"),
+    "unknown_status": _integer(statuses.get("unknown"), "modeless.statuses.unknown"),
+  }
+
+
 def _settings() -> Settings:
   root = Path(os.environ["AP"])
   raw: object = yaml.safe_load(
@@ -135,13 +162,18 @@ def _settings() -> Settings:
   commands = _mapping(settings.get("commands"), "commands")
   exit_codes = _mapping(settings.get("exit_codes"), "exit_codes")
   invalid_json = _mapping(exit_codes.get("invalid_json"), "exit_codes.invalid_json")
+  query_timeout_seconds = _integer(settings.get("query_timeout_seconds"), "query_timeout_seconds")
+  if query_timeout_seconds <= 0:
+    raise ValueError("invalid Hyprland monitor configuration: query_timeout_seconds must be positive")
   return {
     "commands": {
       "focused": _focused_command(commands.get("focused")),
       "laptop": _laptop_command(commands.get("laptop")),
     },
     "apple": _apple_command(settings.get("apple")),
+    "modeless": _modeless_command(settings.get("modeless")),
     "output_field": _text(settings.get("output_field"), "output_field"),
+    "query_timeout_seconds": query_timeout_seconds,
     "exit_codes": {
       "invalid_json": {
         "focused": _integer(invalid_json.get("focused"), "exit_codes.invalid_json.focused"),
@@ -153,7 +185,11 @@ def _settings() -> Settings:
 
 def _monitors(settings: Settings, command: Literal["focused", "laptop"]) -> list[object] | None:
   result = subprocess.run(
-    settings["commands"][command]["command"], check=False, capture_output=True, text=True
+    settings["commands"][command]["command"],
+    check=False,
+    capture_output=True,
+    text=True,
+    timeout=settings["query_timeout_seconds"],
   )
   if not result.stdout:
     return None
@@ -243,3 +279,38 @@ def _apple_main(arguments: list[str]) -> int:
 
 def apple_main(arguments: list[str]) -> int:
   return _entry(lambda: _apple_main(arguments), "Apple")
+
+
+def _modeless_main() -> int:
+  settings = _settings()
+  command = settings["modeless"]
+  try:
+    result = subprocess.run(
+      settings["commands"]["laptop"]["command"],
+      check=False,
+      capture_output=True,
+      text=True,
+      timeout=settings["query_timeout_seconds"],
+    )
+  except (OSError, subprocess.SubprocessError):
+    return command["unknown_status"]
+  if result.returncode != 0 or not result.stdout:
+    return command["unknown_status"]
+  try:
+    monitors: object = json.loads(result.stdout)
+  except json.JSONDecodeError:
+    return command["unknown_status"]
+  if not isinstance(monitors, list):
+    return command["unknown_status"]
+  for monitor in monitors:
+    if not isinstance(monitor, dict) or monitor.get(command["disabled_field"]) == command["disabled_value"]:
+      continue
+    for dimension in command["dimension_fields"]:
+      value = monitor.get(dimension)
+      if isinstance(value, (int, float)) and not isinstance(value, bool) and value == command["no_mode_value"]:
+        return command["modeless_status"]
+  return command["working_status"]
+
+
+def modeless_main() -> int:
+  return _entry(_modeless_main, "modeless")
