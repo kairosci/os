@@ -288,6 +288,7 @@ entrypoints:
     name: available
     summary: Check whether the system can hibernate
     hidden: 'true'
+    generate_launcher: "false"
   - binary: arch-hw-aarch64
     module: hardware/architecture
     function: aarch64_main

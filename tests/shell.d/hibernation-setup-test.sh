@@ -84,15 +84,15 @@ printf '2048\n' >"$tmpdir/power/image_size"
 printf 'resume=fixture\n' >"$tmpdir/etc/mkinitcpio.conf.d/arch_resume.conf"
 
 status=0
-AP="$hibernation_ap" "$ARCH_TEST_CLI_BIN/arch-hibernation-available" || status=$?
+AP="$hibernation_ap" "$ARCH_TEST_CLI_BIN/archctl" hibernation available || status=$?
 (( status == 1 )) || fail "hibernation is unavailable when swap only equals the image size" "$status"
 pass "hibernation requires swap to exceed the image size"
 
 printf '2047\n' >"$tmpdir/power/image_size"
-AP="$hibernation_ap" "$ARCH_TEST_CLI_BIN/arch-hibernation-available" || fail "hibernation is available when non-zram swap exceeds the image size"
+AP="$hibernation_ap" "$ARCH_TEST_CLI_BIN/archctl" hibernation available || fail "hibernation is available when non-zram swap exceeds the image size"
 rm "$tmpdir/etc/mkinitcpio.conf.d/arch_resume.conf"
 status=0
-AP="$hibernation_ap" "$ARCH_TEST_CLI_BIN/arch-hibernation-available" || status=$?
+AP="$hibernation_ap" "$ARCH_TEST_CLI_BIN/archctl" hibernation available || status=$?
 (( status == 1 )) || fail "hibernation is unavailable without its resume configuration" "$status"
 pass "hibernation availability requires a resume configuration"
 

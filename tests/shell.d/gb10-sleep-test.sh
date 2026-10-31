@@ -104,9 +104,13 @@ cat >"$scratch/bin/arch-toggle-enabled" <<'SH'
 #!/bin/bash
 [[ ${TEST_SUSPEND_OFF:-0} == 1 ]]
 SH
-cat >"$scratch/bin/arch-hibernation-available" <<'SH'
+cat >"$scratch/bin/archctl" <<'SH'
 #!/bin/bash
-[[ ${TEST_HIBERNATION_OFF:-0} != 1 ]]
+if [[ ${1:-} == hibernation && ${2:-} == available ]]; then
+  [[ ${TEST_HIBERNATION_OFF:-0} != 1 ]]
+else
+  exec "$ROOT/src/arch/commands/archctl" "$@"
+fi
 SH
 chmod +x "$scratch/bin"/*
 for item in system.suspend system.hibernate; do

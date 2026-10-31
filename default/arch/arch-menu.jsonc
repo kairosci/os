@@ -34,7 +34,7 @@
   "system.screensaver": {"icon":"󱄄","label":"Screensaver","action":"arch-launch-screensaver force"},
   "system.lock": {"icon":"","label":"Lock","action":"arch-system-lock"},
   "system.suspend": {"icon":"󰒲","label":"Suspend","when":"! arch-toggle-enabled suspend-off && ! archctl sleep disabled","action":"systemctl suspend"},
-  "system.hibernate": {"icon":"󰤁","label":"Hibernate","when":"arch-hibernation-available && ! archctl sleep disabled","action":"systemctl hibernate"},
+  "system.hibernate": {"icon":"󰤁","label":"Hibernate","when":"archctl hibernation available && ! archctl sleep disabled","action":"systemctl hibernate"},
   "system.logout": {"icon":"󰍃","label":"Logout","action":"arch-system logout"},
   "system.reboot": {"icon":"󰜉","label":"Reboot","action":"arch-system reboot"},
   "system.shutdown": {"icon":"󰐥","label":"Shutdown","action":"arch-system shutdown"},
