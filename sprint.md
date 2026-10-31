@@ -58,5 +58,7 @@
 | #539 | Remove Windows VM from the desktop menu |
 | #541 | Migrate another set of CLI wrappers |
 | #542 | Move default app rules into user YAML |
+| #544 | Show charging glyph from device state |
+| #545 | Migrate NVIDIA hardware command to Python |
 
 PR #483 was closed when its base branch was deleted during integration. Its change was rebased and merged as PR #499.
