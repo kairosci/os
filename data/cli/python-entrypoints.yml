@@ -327,12 +327,14 @@ entrypoints:
     group: hw
     name: touchscreen
     summary: Print the detected Hyprland touchscreen or tablet device name
+    generate_launcher: "false"
   - binary: arch-hw-vulkan
     module: hardware/misc
     function: vulkan_main
     group: hw
     name: vulkan
     summary: Detect whether Vulkan is available.
+    generate_launcher: "false"
   - binary: arch-hw-hybrid-gpu
     module: hardware/hybrid_gpu
     function: main

@@ -18,9 +18,13 @@ printf '#!/bin/bash\nexit 1\n' >"$stub_bin/arch-pkg-present"
 # Voxtype is already installed, so the install asks nothing and only sets it up.
 printf '#!/bin/bash\nexit 1\n' >"$stub_bin/arch-cmd-missing"
 printf '#!/bin/bash\nexit 0\n' >"$stub_bin/arch-dictation-use"
-cat >"$stub_bin/arch-hw-vulkan" <<'SH'
+cat >"$stub_bin/archctl" <<'SH'
 #!/bin/bash
-(( ${VULKAN:-1} == 1 ))
+if [[ ${1:-} == hw && ${2:-} == vulkan ]]; then
+  (( ${VULKAN:-1} == 1 ))
+else
+  exit 0
+fi
 SH
 cat >"$stub_bin/voxtype" <<'SH'
 #!/bin/bash
