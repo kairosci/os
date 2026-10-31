@@ -68,5 +68,7 @@
 | #551 | Migrate NVIDIA GSP checks to Python |
 | #552 | Migrate hybrid GPU detection to Python |
 | #553 | Migrate NVIDIA display detection to Python |
+| #554 | Configure Disktree window for Hyprland |
+| #555 | Keep Disktree in the active workspace layout |
 
 PR #483 was closed when its base branch was deleted during integration. Its change was rebased and merged as PR #499.
