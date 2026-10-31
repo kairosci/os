@@ -324,6 +324,14 @@ entrypoints:
     group: hyprland
     name: monitor focused
     summary: Print the name of the currently focused Hyprland monitor.
+  - binary: arch-hyprland-monitor-focused-apple
+    module: hyprland/monitors
+    function: apple_main
+    group: hyprland
+    name: monitor focused apple
+    summary: Return success if the focused or named Hyprland monitor is an Apple display.
+    args: "[monitor]"
+    pass_args: 'true'
   - binary: arch-hyprland-monitor-laptop
     module: hyprland/monitors
     function: laptop_main

@@ -7,7 +7,6 @@ sources = [
   "src/arch/commands/arch-hyprland-monitor-clamshell",
   "src/arch/commands/arch-hyprland-monitor-external-active",
   "src/arch/cli/hyprland/monitors.py",
-  "src/arch/commands/arch-hyprland-monitor-focused-apple",
   "src/arch/commands/arch-hyprland-monitor-internal",
   "src/arch/commands/arch-hyprland-monitor-internal-mirror",
   "src/arch/commands/arch-hyprland-monitor-modeless",
@@ -51,10 +50,6 @@ target = "usr/share/arch/src/arch/commands/arch-hyprland-monitor-external-active
 [[output]]
 source = "src/arch/cli/hyprland/monitors.py"
 target = "usr/share/arch/src/arch/cli/hyprland/monitors.py"
-
-[[output]]
-source = "src/arch/commands/arch-hyprland-monitor-focused-apple"
-target = "usr/share/arch/src/arch/commands/arch-hyprland-monitor-focused-apple"
 
 [[output]]
 source = "src/arch/commands/arch-hyprland-monitor-internal"

@@ -7,6 +7,14 @@ commands:
     command: [hyprctl, monitors, all, -j]
     name_pattern: "^(eDP|LVDS|DSI)-"
     first_match: true
+apple:
+  name_field: name
+  focused_field: focused
+  focused_value: true
+  make_field: make
+  make: Apple Computer Inc
+  model_field: model
+  model_pattern: "StudioDisplay|ProDisplayXDR|Studio XDR"
 output_field: name
 exit_codes:
   invalid_json:
