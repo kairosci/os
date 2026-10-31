@@ -1,9 +1,16 @@
 paths:
   pci_devices: /sys/bus/pci/devices
   override_environment: ARCH_PCI_DEVICES_PATH
+  device_glob: '*'
+  vendor_attribute: vendor
+  class_attribute: class
+  device_attribute: device
+  boot_vga_attribute: boot_vga
+  attribute_encoding: ascii
 identifiers:
   vendor: "0x10de"
   display_class_prefix: "0x03"
+  boot_vga_value: '1'
 device_ids:
   # GSP firmware starts with Turing at device ID 0x1e00.
   gsp_minimum: 0x1e00
