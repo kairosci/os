@@ -3,12 +3,11 @@
 from __future__ import annotations
 
 import json
-from pathlib import Path
 import subprocess
 import tempfile
+from pathlib import Path
 
-from base_test import ROOT, fail_check, pass_check, test_environment
-
+from base_test import CLI_BIN, fail_check, pass_check, test_environment
 
 with tempfile.TemporaryDirectory(prefix="update-status-") as temporary:
   scratch = Path(temporary)
@@ -26,12 +25,10 @@ with tempfile.TemporaryDirectory(prefix="update-status-") as temporary:
     path.write_text(stub, encoding="utf-8")
     path.chmod(0o755)
 
-  environment = test_environment(
-    CALL_LOG=log,
-    PATH=f"{bin_dir}:{ROOT / 'src/arch/commands'}:/usr/local/bin:/usr/bin",
-  )
+  environment = test_environment(CALL_LOG=log)
+  environment["PATH"] = f"{bin_dir}:{environment['PATH']}"
   result = subprocess.run(
-    [str(ROOT / "src/arch/commands/arch-update-status")],
+    [str(CLI_BIN / "arch-update-status")],
     capture_output=True,
     text=True,
     env=environment,

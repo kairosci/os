@@ -15,6 +15,7 @@ This roadmap tracks the requested CLI, ISO, desktop, and release work as separat
 - PR #586 moves both Files launchers into Python, keeping application argv and the terminal-directory helper in YAML. PR #587 generalizes that module to `src/arch/cli/launch/dispatch.py` and migrates the tmux terminal launcher with its exact attach-or-create command in YAML. With PR #587 integrated, the repository has 369 flat command files, 58 Python modules, and 85 Python entrypoints.
 - PR #588 migrates emoji insertion into `src/arch/cli/menu/emoji_insert.py`. Clipboard and paste argv, timing, limits, statuses, and messages are YAML data; the clipboard provider runs in a dedicated process group and is terminated on every exit path. With PR #588 integrated, the repository has 368 flat command files, 59 Python modules, and 86 Python entrypoints.
 - The Arch shell user service starts from Hyprland autostart, remains under `Restart=always`, and its launcher retries Quickshell exits. PR #589 gives Hyprland a non-black clear color beneath the shell wallpaper so a missing layer does not clear to pure black; verify the recovery appearance in a disposable graphical session before closing the blank-desktop sprint.
+- PR #590 removes `arch-update-status` from the flat command directory and keeps its hidden compatibility name as a generated Python entrypoint. Its `arch-shell` argv is in YAML; the current catalog has 367 flat command files, 60 Python modules, and 87 entrypoints.
 
 ## Sprints
 
@@ -24,7 +25,7 @@ PR #507 made `scrolling` the default and exposed `tiling` as the only alternate 
 
 ### 2. Inventory and classify CLI entrypoints
 
-For each executable in `src/arch/commands/`, record whether it is already backed by a Python module, still contains command behavior, or has callers that rely on its binary name. Eighty-six Python entrypoints are catalogued after PR #588, but the remaining 368 command files have not been classified. Keep the inventory generated from source metadata so it cannot silently drift.
+For each executable in `src/arch/commands/`, record whether it is already backed by a Python module, still contains command behavior, or has callers that rely on its binary name. Eighty-seven Python entrypoints are catalogued after PR #590, but the remaining 367 command files have not been classified. Keep the inventory generated from source metadata so it cannot silently drift.
 
 ### 3. Move remaining command behavior into modules
 
@@ -85,3 +86,7 @@ PR #587 moves the remaining `arch-launch-terminal-tmux` wrapper into the shared 
 ### 16. Migrate emoji insertion — implemented
 
 PR #588 moves emoji insertion into a Python module. The clipboard provider is started in its own process group, receives bounded UTF-8 input, remains available through Shift+Insert, and is stopped in `finally` with a bounded TERM/KILL cleanup. The focused emoji test, strict Python type check, CLI contract suite, and menu package assembly passed before integration.
+
+### 17. Migrate update status — in progress
+
+Move the hidden `arch-update-status` compatibility command into `src/arch/cli/update/status.py`. Its configured `arch-shell` argv belongs in YAML, while the generated launcher preserves calls made by older update pipelines. Keep the existing focused test on the generated entrypoint and remove the flat wrapper from package assembly.

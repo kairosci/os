@@ -19,13 +19,13 @@ sources = [
   "src/arch/commands/arch-update-pkg-prune",
   "src/arch/commands/arch-update-requires-free-space",
   "src/arch/commands/arch-update-restart",
-  "src/arch/commands/arch-update-status",
+  "src/arch/cli/update/status.py",
   "src/arch/commands/arch-update-stay-awake",
   "src/arch/commands/arch-update-system-pkgs",
   "src/arch/commands/arch-update-system-pkgs-when-conflicted",
   "src/arch/commands/arch-update-time",
 ]
-requires = ["desktop.commands"]
+requires = ["desktop.commands", "system.runtime-data"]
 
 [[output]]
 source = "src/arch/commands/arch-update"
@@ -96,8 +96,8 @@ source = "src/arch/commands/arch-update-restart"
 target = "usr/share/arch/src/arch/commands/arch-update-restart"
 
 [[output]]
-source = "src/arch/commands/arch-update-status"
-target = "usr/share/arch/src/arch/commands/arch-update-status"
+source = "src/arch/cli/update/status.py"
+target = "usr/share/arch/src/arch/cli/update/status.py"
 
 [[output]]
 source = "src/arch/commands/arch-update-stay-awake"
