@@ -19,7 +19,7 @@ if arch-hw-aarch64-apple; then
   exit 0
 fi
 
-if arch-sleep-disabled; then
+if archctl sleep disabled; then
   echo "Hibernation is turned off on this machine" >&2
   exit 0
 fi

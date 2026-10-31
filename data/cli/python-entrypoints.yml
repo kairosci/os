@@ -136,6 +136,7 @@ entrypoints:
     name: disabled
     summary: Check whether Arch has turned off system sleep on this machine.
     hidden: "true"
+    generate_launcher: "false"
   - binary: arch-tui-install
     module: tui/install
     function: main

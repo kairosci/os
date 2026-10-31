@@ -80,9 +80,9 @@ for machine in n1x other; do
 done
 pass "the GB10 setting disallows every sleep operation and leaves the N1x and other machines alone"
 
-run spark "$scratch/spark" arch-sleep-disabled || fail "sleep reads as disabled with the setting in place"
-run spark "$scratch/none" arch-sleep-disabled && fail "sleep reads as enabled without the setting"
-pass "arch-sleep-disabled follows the sleep setting"
+run spark "$scratch/spark" archctl sleep disabled || fail "sleep reads as disabled with the setting in place"
+run spark "$scratch/none" archctl sleep disabled && fail "sleep reads as enabled without the setting"
+pass "archctl sleep disabled follows the sleep setting"
 
 run spark "$scratch/spark" bash "$ROOT/src/arch/commands/arch-toggle-suspend"
 ! grep -q '^toggle ' "$CALL_LOG" || fail "the suspend toggle does nothing while sleep is disabled"
@@ -111,7 +111,7 @@ SH
 chmod +x "$scratch/bin"/*
 for item in system.suspend system.hibernate; do
   when=$(guard "$item")
-  [[ $when == *"arch-sleep-disabled"* && $when != *"arch-hw-"* ]] ||
+  [[ $when == *"archctl sleep disabled"* && $when != *"arch-hw-"* ]] ||
     fail "the $item row follows the sleep setting, not the hardware"
   run spark "$scratch/spark" bash -c "$when" && fail "the $item row is hidden while sleep is disabled"
   run spark "$scratch/none" bash -c "$when" || fail "the $item row returns when the setting is removed"
