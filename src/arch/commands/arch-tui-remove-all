@@ -30,7 +30,7 @@ for file in "${tui_desktop_files[@]}"; do
   rm -f "$ICON_DIR/$icon_name.png" "$ICON_DIR/$app_name.png" "$OLD_ICON_DIR/$app_name.png"
 done
 
-if arch-cmd-present update-desktop-database; then
+if archctl cmd present update-desktop-database; then
   update-desktop-database "$APP_DIR" &>/dev/null || true
 fi
 

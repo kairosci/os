@@ -6,7 +6,7 @@
 mkdir -p ~/.local/share/applications
 cp "$AP"/applications/*.desktop ~/.local/share/applications/
 
-if arch-cmd-present alacritty; then
+if archctl cmd present alacritty; then
   cp "$AP/default/alacritty/Alacritty.desktop" ~/.local/share/applications/
 fi
 

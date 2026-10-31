@@ -152,7 +152,7 @@ reset_usb_audio_device() {
 
   [[ -d $sysfs ]] || return 1
 
-  if ! arch-cmd-present usbreset; then
+  if ! archctl cmd present usbreset; then
     echo "usbreset is not installed; replug or power-cycle $device to recover it."
     return 1
   fi

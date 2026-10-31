@@ -180,7 +180,7 @@ recorder_backends() {
   local backend found=false
 
   for backend in gpu-screen-recorder wf-recorder; do
-    if arch-cmd-present "$backend"; then
+    if archctl cmd present "$backend"; then
       echo "$backend"
       found=true
     fi

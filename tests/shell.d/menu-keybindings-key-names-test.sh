@@ -87,6 +87,7 @@ cat >"$mock_bin/arch-cmd-present" <<'SH'
 exit 1
 SH
 chmod +x "$mock_bin/arch-cmd-present"
+arch_test_command_presence_router "$mock_bin"
 
 # The menu reads key names from the fixed platform root; copies of it read a
 # fixture root with key names, and one without.

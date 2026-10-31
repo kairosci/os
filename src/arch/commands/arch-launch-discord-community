@@ -4,7 +4,7 @@
 
 invite="https://discord.gg/tXFUdasqhY"
 
-if arch-cmd-present discord; then
+if archctl cmd present discord; then
   exec setsid uwsm-app -- discord --url -- "discord://-/invite/${invite##*/}"
 else
   exec arch-launch-webapp "$invite"

@@ -5,7 +5,7 @@
 
 set -euo pipefail
 
-if arch-cmd-present dropbox-cli && dropbox-cli running >/dev/null 2>&1; then
+if archctl cmd present dropbox-cli && dropbox-cli running >/dev/null 2>&1; then
   exit 0
 fi
 

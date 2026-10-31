@@ -67,7 +67,7 @@ set:
       replacement: 'family = "{font}"'
     kitty:
       path: kitty/kitty.conf
-      presence_command: [arch-cmd-present, kitty]
+      presence_command: [archctl, cmd, present, kitty]
       pattern: '(?m)^[ \t]*font_family[ \t]+.*$'
       replacement: 'font_family {font}'
       append: '\nfont_family {font}\n'

@@ -14,6 +14,7 @@ cat >"$stub_bin/arch-cmd-present" <<'STUB'
 #!/bin/bash
 [[ $1 == "ufw" && ${UFW_PRESENT:-1} == 1 ]]
 STUB
+arch_test_command_presence_router "$stub_bin"
 
 cat >"$stub_bin/sudo" <<'STUB'
 #!/bin/bash

@@ -1734,7 +1734,7 @@ migrate_uwsm_env_customizations() {
     /^[[:space:]]*export[[:space:]]+PATH="\$AP\/bin:\$PATH:\$HOME\/\.local\/bin"[[:space:]]*$/ { omitted("PATH setup") }
     /^[[:space:]]*source[[:space:]]+~\/\.config\/uwsm\/default[[:space:]]*$/ { omitted("uwsm/default source") }
     /^[[:space:]]*\[ -f "\$HOME\/\.config\/uwsm\/default" \] && \. "\$HOME\/\.config\/uwsm\/default"[[:space:]]*$/ { omitted("uwsm/default source") }
-    /^[[:space:]]*arch-cmd-present[[:space:]]+mise && eval "\$\(mise activate bash --shims\)"[[:space:]]*$/ { omitted("mise activation") }
+    /^[[:space:]]*archctl cmd present[[:space:]]+mise && eval "\$\(mise activate bash --shims\)"[[:space:]]*$/ { omitted("mise activation") }
 
     { print }
   ' "$source" >"$tmp"

@@ -54,6 +54,10 @@ SH
 }
 
 write_stub archctl '
+if [[ ${1:-} == "cmd" && ${2:-} == "present" ]]; then
+  shift 2
+  exec "$stub_bin/arch-cmd-present" "$@"
+fi
 [[ $1 == "update" && $2 == "confirm" ]] || exit 2
 AP="$ROOT" "$ROOT/src/arch/commands/archctl" "$@"'
 

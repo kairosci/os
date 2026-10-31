@@ -119,6 +119,7 @@ cat >"$fake_bin/arch-cmd-present" <<'STUB'
 exit 1
 STUB
 chmod +x "$fake_bin/arch-cmd-present"
+arch_test_command_presence_router "$fake_bin"
 
 GPU_COUNT=2 hybrid_gpu ||
   fail "hybrid GPU detection counts GPUs without supergfxctl"

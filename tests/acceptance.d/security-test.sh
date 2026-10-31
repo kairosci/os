@@ -89,7 +89,7 @@ verify_sshd_hardening() {
   grep -qixF "kbdinteractiveauthentication no" <<<"$effective_config" || fail "keyboard-interactive authentication is off"
   pass "keyboard-interactive authentication is off"
 
-  if arch-cmd-present ufw; then
+  if archctl cmd present ufw; then
     sudo -n ufw status | grep -qE '^22/tcp\s+LIMIT' || fail "the SSH port is rate limited in the firewall"
     pass "the SSH port is rate limited in the firewall"
   fi

@@ -76,6 +76,11 @@ cat >"$tmp/bin/arch-cmd-present" <<'SH'
 SH
 cat >"$tmp/bin/archctl" <<'SH'
 #!/bin/bash
+if [[ ${1:-} == cmd && ${2:-} == present ]]; then
+  shift 2
+  presence_command=$(command -v arch-cmd-present) || exit 127
+  exec "$presence_command" "$@"
+fi
 [[ $* == "hyprland monitor focused" ]] && echo Virtual-1
 SH
 cat >"$tmp/bin/ffmpeg" <<'SH'

@@ -5,7 +5,7 @@
 
 set -euo pipefail
 
-if arch-cmd-present tailscale && tailscale status --json >/dev/null 2>&1; then
+if archctl cmd present tailscale && tailscale status --json >/dev/null 2>&1; then
   exit 0
 fi
 

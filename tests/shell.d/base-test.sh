@@ -51,6 +51,22 @@ fail() {
   exit 1
 }
 
+arch_test_command_presence_router() {
+  local bin_directory="$1"
+  local router="$bin_directory/archctl"
+
+  cat >"$router" <<'SH'
+#!/bin/bash
+if [[ ${1:-} == cmd && ${2:-} == present ]]; then
+  shift 2
+  presence_command=$(command -v arch-cmd-present) || exit 127
+  exec "$presence_command" "$@"
+fi
+exec "$ROOT/src/arch/commands/archctl" "$@"
+SH
+  chmod +x "$router"
+}
+
 # The IPC socket a shell running an AP's config on this display
 # serves, derived as arch-shell derives it. A test that starts the real
 # shell removes it afterwards: killing the shell leaves the file behind.

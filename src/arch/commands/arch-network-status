@@ -59,7 +59,7 @@ print_ping_samples() {
   local tmpdir router_file internet_file
   local router_pid="" internet_pid=""
 
-  arch-cmd-present ping || return
+  archctl cmd present ping || return
   tmpdir=$(mktemp -d) || return
   router_file="$tmpdir/router"
   internet_file="$tmpdir/internet"
@@ -111,7 +111,7 @@ print_verbose() {
   if [[ -d /sys/class/net/$iface/wireless ]]; then
     printf 'type\twifi\n'
 
-    if arch-cmd-present iw; then
+    if archctl cmd present iw; then
       link=$(iw dev "$iface" link 2>/dev/null)
 
       if [[ -n $link ]]; then

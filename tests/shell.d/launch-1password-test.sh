@@ -14,6 +14,7 @@ cat >"$mock_bin/arch-cmd-present" <<'SH'
 #!/bin/bash
 [[ ${ARCH_TEST_INSTALLED:-false} == "true" ]]
 SH
+arch_test_command_presence_router "$mock_bin"
 
 cat >"$mock_bin/setsid" <<'SH'
 #!/bin/bash

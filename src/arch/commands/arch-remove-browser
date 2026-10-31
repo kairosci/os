@@ -13,7 +13,7 @@ set_fallback_default_browser() {
     return
   fi
 
-  if arch-cmd-present chromium; then
+  if archctl cmd present chromium; then
     env -u BROWSER XDG_CURRENT_DESKTOP= xdg-settings set default-web-browser chromium.desktop || true
   fi
 }

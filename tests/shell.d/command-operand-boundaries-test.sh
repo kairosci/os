@@ -6,7 +6,7 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 export AP="$ROOT"
 
-if "$ARCH_TEST_CLI_BIN/arch-cmd-present" -p; then
+if "$ARCH_TEST_CLI_BIN/archctl" cmd present -p; then
   fail "cmd-present treats an option-shaped command name literally"
 fi
 pass "cmd-present treats an option-shaped command name literally"
@@ -15,7 +15,7 @@ pass "cmd-present treats an option-shaped command name literally"
   fail "cmd-missing treats an option-shaped command name literally"
 pass "cmd-missing treats an option-shaped command name literally"
 
-"$ARCH_TEST_CLI_BIN/arch-cmd-present" bash || fail "cmd-present still finds an ordinary command"
+"$ARCH_TEST_CLI_BIN/archctl" cmd present bash || fail "cmd-present still finds an ordinary command"
 pass "cmd-present still finds an ordinary command"
 
 test_tmp=$(mktemp -d)

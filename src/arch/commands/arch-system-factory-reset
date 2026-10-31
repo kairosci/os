@@ -713,7 +713,7 @@ require_factory_snapshot() {
 }
 
 main() {
-  arch-cmd-present btrfs || { echo "Error: btrfs-progs is required" >&2; exit 1; }
+  archctl cmd present btrfs || { echo "Error: btrfs-progs is required" >&2; exit 1; }
 
   root_is_btrfs_at || fail "reset requires the standard os Btrfs layout (subvol=@)"
 
