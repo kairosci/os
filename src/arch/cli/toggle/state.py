@@ -46,12 +46,19 @@ def _state_path(name: str, settings: Settings) -> Path:
   return Path(os.environ["HOME"]) / settings["state_directory"] / name
 
 
+def is_enabled(name: str) -> bool:
+  settings = _settings()
+  try:
+    return stat.S_ISREG(_state_path(name, settings).stat().st_mode)
+  except FileNotFoundError:
+    return False
+
+
 def enabled_main(args: list[str]) -> int:
   if not args:
     return 1
   try:
-    settings = _settings()
-    return 0 if _state_path(args[0], settings).is_file() else 1
+    return 0 if is_enabled(args[0]) else 1
   except (KeyError, OSError, TypeError, ValueError, yaml.YAMLError):
     print("Could not read toggle state", file=sys.stderr)
     return os.EX_CONFIG

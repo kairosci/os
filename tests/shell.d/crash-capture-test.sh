@@ -15,21 +15,22 @@ cat >"$TMPDIR/bin/systemctl" <<'SH'
 printf '%s\n' "$*" >>"$SYSTEMCTL_LOG"
 SH
 
-cat >"$TMPDIR/bin/arch-notification-send" <<'SH'
+cat >"$TMPDIR/bin/busctl" <<'SH'
 #!/bin/bash
 exit 0
 SH
 
-chmod +x "$TMPDIR/bin/systemctl" "$TMPDIR/bin/arch-notification-send"
+chmod +x "$TMPDIR/bin/systemctl" "$TMPDIR/bin/busctl"
 
 test_home="$TMPDIR/home"
 flag="$test_home/.local/state/arch/toggles/crash-capture-off"
 
 toggle_crash_capture() {
   PATH="$TMPDIR/bin:$ROOT/src/arch/commands:$PATH" \
+  AP="$ROOT" \
   SYSTEMCTL_LOG="$SYSTEMCTL_LOG" \
   HOME="$test_home" \
-    "$ROOT/src/arch/commands/arch-toggle-crash-capture"
+    archctl toggle crash capture
 }
 
 toggle_crash_capture
@@ -391,7 +392,7 @@ const byId = Object.fromEntries(items.map(item => [item.id, item]))
 
 assertEqual(
   byId['trigger.toggle.crash-capture-on'].action,
-  'arch-toggle-crash-capture',
+  'archctl toggle crash capture',
   'menu toggles crash capture from Trigger > Toggle'
 )
 JS

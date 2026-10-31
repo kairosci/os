@@ -4,7 +4,7 @@ package = "arch"
 sources = [
   "src/arch/cli/toggle/animations.py",
   "src/arch/cli/toggle/bar.py",
-  "src/arch/commands/arch-toggle-crash-capture",
+  "src/arch/cli/toggle/crash_capture.py",
   "src/arch/cli/toggle/state.py",
   "src/arch/commands/arch-toggle-fullscreen-desktop",
   "src/arch/commands/arch-toggle-hybrid-gpu",
@@ -35,8 +35,8 @@ source = "src/arch/cli/toggle/bar.py"
 target = "usr/share/arch/src/arch/cli/toggle/bar.py"
 
 [[output]]
-source = "src/arch/commands/arch-toggle-crash-capture"
-target = "usr/share/arch/src/arch/commands/arch-toggle-crash-capture"
+source = "src/arch/cli/toggle/crash_capture.py"
+target = "usr/share/arch/src/arch/cli/toggle/crash_capture.py"
 
 [[output]]
 source = "src/arch/cli/toggle/state.py"

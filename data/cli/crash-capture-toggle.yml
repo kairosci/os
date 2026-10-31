@@ -1,0 +1,30 @@
+commands:
+  set_state: [archctl, toggle, set]
+  systemctl: [systemctl, --user]
+  localize: [arch-i18n]
+  notify: [archctl, notification, send, -g]
+values:
+  flag_name: crash-capture-off
+  unit_name: arch-crash-watch.service
+  toggle_action: toggle
+  disabled_key: crash.captureDisabled
+  enabled_key: crash.captureEnabled
+  notification_glyph: "\U000f16a1"
+  state_effects:
+    enabled: disable_service
+    disabled: start_service
+  service_actions:
+    disable_service: stop
+    start_service: start
+limits:
+  command_timeout_seconds: 5
+  cleanup_timeout_seconds: 1
+  maximum_output_bytes: 4096
+  read_chunk_bytes: 1024
+messages:
+  usage: 'Usage: archctl toggle crash capture'
+  command_error: 'Could not change crash capture notifications'
+statuses:
+  invalid_arguments: 2
+  command_error: 1
+  success: 0
