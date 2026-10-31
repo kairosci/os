@@ -1,0 +1,21 @@
+state_file: .local/state/arch/indicators/stay-awake
+actions:
+  toggle: [toggle]
+  stay_awake: [stay-awake, awake, on]
+  allow_idle: [allow-idle, idle, off]
+  status: [status, --status]
+  enabled: [enabled]
+  state_path: [state-path]
+outputs:
+  stay_awake_idle_state: disabled
+  allow_idle_idle_state: enabled
+  stay_awake_status: '{"enabled":true,"class":"enabled","tooltip":"Allow Idle Lock & Screensaver"}'
+  allow_idle_status: '{"enabled":false,"class":"disabled","tooltip":"Stay Awake"}'
+messages:
+  usage: 'Usage: archctl toggle idle [toggle|stay-awake|allow-idle|enabled|status]'
+  state_error: 'Could not update Stay Awake state'
+statuses:
+  invalid_arguments: 2
+  state_error: 1
+  stay_awake_enabled: 0
+  stay_awake_disabled: 1

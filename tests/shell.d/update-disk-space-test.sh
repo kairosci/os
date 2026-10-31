@@ -58,6 +58,13 @@ if [[ ${1:-} == "cmd" && ${2:-} == "present" ]]; then
   shift 2
   exec "$stub_bin/arch-cmd-present" "$@"
 fi
+if [[ ${1:-} == "toggle" && ${2:-} == "idle" ]]; then
+  if [[ ${3:-} == "state-path" ]]; then
+    printf '%s/.local/state/arch/indicators/stay-awake\n' "$SUDO_TEST_HOME"
+    exit 0
+  fi
+  exit 0
+fi
 [[ $1 == "update" && $2 == "confirm" ]] || exit 2
 AP="$ROOT" "$ROOT/src/arch/commands/archctl" "$@"'
 
@@ -81,7 +88,6 @@ exit 0'
 
 for command in \
   arch-cmd-present \
-  arch-toggle-idle \
   pkexec \
   systemd-inhibit \
   arch-update-dev \

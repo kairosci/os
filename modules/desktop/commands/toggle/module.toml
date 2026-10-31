@@ -5,10 +5,10 @@ sources = [
   "src/arch/cli/toggle/animations.py",
   "src/arch/cli/toggle/bar.py",
   "src/arch/cli/toggle/crash_capture.py",
+  "src/arch/cli/toggle/idle.py",
   "src/arch/cli/toggle/state.py",
   "src/arch/commands/arch-toggle-fullscreen-desktop",
   "src/arch/commands/arch-toggle-hybrid-gpu",
-  "src/arch/commands/arch-toggle-idle",
   "src/arch/cli/toggle/input_device.py",
   "src/arch/cli/toggle/nightlight.py",
   "src/arch/cli/toggle/notification_silencing.py",
@@ -40,6 +40,10 @@ source = "src/arch/cli/toggle/crash_capture.py"
 target = "usr/share/arch/src/arch/cli/toggle/crash_capture.py"
 
 [[output]]
+source = "src/arch/cli/toggle/idle.py"
+target = "usr/share/arch/src/arch/cli/toggle/idle.py"
+
+[[output]]
 source = "src/arch/cli/toggle/state.py"
 target = "usr/share/arch/src/arch/cli/toggle/state.py"
 
@@ -50,10 +54,6 @@ target = "usr/share/arch/src/arch/commands/arch-toggle-fullscreen-desktop"
 [[output]]
 source = "src/arch/commands/arch-toggle-hybrid-gpu"
 target = "usr/share/arch/src/arch/commands/arch-toggle-hybrid-gpu"
-
-[[output]]
-source = "src/arch/commands/arch-toggle-idle"
-target = "usr/share/arch/src/arch/commands/arch-toggle-idle"
 
 [[output]]
 source = "src/arch/cli/toggle/input_device.py"

@@ -622,6 +622,15 @@ entrypoints:
     name: notifications
     summary: Toggle Do Not Disturb mode
     pass_args: 'true'
+  - binary: arch-toggle-idle
+    module: toggle/idle
+    function: main
+    group: toggle
+    name: idle
+    summary: Toggle Stay Awake and idle locking
+    args: '[toggle|stay-awake|allow-idle|enabled|status]'
+    examples: 'archctl toggle idle | archctl toggle idle stay-awake | archctl toggle idle status'
+    pass_args: 'true'
   - binary: arch-toggle-screensaver
     module: toggle/screensaver
     function: main
