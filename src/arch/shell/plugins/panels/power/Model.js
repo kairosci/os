@@ -71,6 +71,7 @@ function batteryIcon(device, onBattery, states) {
 
   if (threshold) return defaultIcons[index]
   if (d.state === states.FullyCharged) return "󰂅"
+  if (d.state === states.Charging) return chargingIcons[index]
   if (!onBattery) return chargingIcons[index]
   return defaultIcons[index]
 }
