@@ -557,6 +557,7 @@ entrypoints:
     args: <theme-name>
     examples: archctl theme dir tokyo-night
     pass_args: 'true'
+    generate_launcher: "false"
   - binary: arch-theme-list
     module: theme/info
     function: theme_list_main

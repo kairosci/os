@@ -14,7 +14,7 @@ fi
 
 theme=$1
 
-theme_dir=$(arch-theme-dir "$theme")
+theme_dir=$(archctl theme dir "$theme")
 
 theme_color() {
   local key="$1"
