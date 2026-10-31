@@ -3,7 +3,7 @@
 # arch:summary=Add the named packages to the system from the AUR if they're missing. Returns false if it couldn't be done.
 # arch:args=<packages...>
 
-if arch-pkg-missing "$@"; then
+if archctl pkg missing "$@"; then
   yay -S --noconfirm --needed -- "$@" || exit 1
 fi
 

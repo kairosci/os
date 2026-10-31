@@ -17,7 +17,7 @@ if ! id -nG "$USER" | tr ' ' '\n' | grep -x input >/dev/null; then
   pkexec usermod -aG input "$USER"
 fi
 
-if archctl cmd missing ydotool || arch-pkg-missing ydotool; then
+if archctl cmd missing ydotool || archctl pkg missing ydotool; then
   arch-pkg-add ydotool
 fi
 

@@ -24,7 +24,7 @@ alarm_key_trusted() {
 }
 
 if archctl hw aarch64 && ! alarm_key_trusted; then
-  if arch-pkg-present archlinuxarm-keyring; then
+  if archctl pkg present archlinuxarm-keyring; then
     sudo pacman-key --populate archlinuxarm
   else
     sudo pacman-key --recv-keys "$alarm_key" --keyserver keyserver.ubuntu.com
@@ -40,7 +40,7 @@ fi
 # An aarch64 machine's Arch Linux ARM repositories are signed with keys of
 # their own, so its keyring is kept current the same way.
 keyrings=(archlinux-keyring)
-if archctl hw aarch64 && { arch-pkg-present archlinuxarm-keyring || (( alarm_keyring_missing )); }; then
+if archctl hw aarch64 && { archctl pkg present archlinuxarm-keyring || (( alarm_keyring_missing )); }; then
   keyrings+=(archlinuxarm-keyring)
 fi
 # A platform package names the signing keyrings of the repositories it adds,
@@ -56,7 +56,7 @@ if [[ -f $platform_keyrings ]]; then
       echo "Warning: skipping ${keyring}${extra:+ $extra} in $platform_keyrings: not a keyring package name" >&2
       continue
     fi
-    if arch-pkg-present "$keyring" && [[ " ${keyrings[*]} " != *" $keyring "* ]]; then
+    if archctl pkg present "$keyring" && [[ " ${keyrings[*]} " != *" $keyring "* ]]; then
       keyrings+=("$keyring")
     fi
   done <"$platform_keyrings"

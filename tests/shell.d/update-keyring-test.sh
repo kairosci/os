@@ -12,9 +12,8 @@ log_file="$test_tmp/keyring.log"
 mkdir -p "$stub_bin"
 
 # Behavior is driven by env vars so each case can pick its failure point:
-# KEYRING_TEST_PKG_MISSING     exit status of arch-pkg-missing (default 1: installed)
-# KEYRING_TEST_LIST_FAIL_ON    which --list-keys call fails, counted per run (default: none)
-# KEYRING_TEST_RECV_STATUS     exit status of --recv-keys (default 0)
+# KEYRING_TEST_LIST_FAIL_ON    which key-trust query fails, counted per run (default: none)
+# KEYRING_TEST_ALARM_RECV_STATUS exit status of --recv-keys (default 0)
 # KEYRING_TEST_REINSTALL_STATUS exit status of the archlinux-keyring refresh (default 0)
 # KEYRING_TEST_WARN=1          pacman prints --needed's notice and another warning
 # KEYRING_TEST_ALARM_TRUST     starting validity of the Arch Linux ARM key: f (trusted),
@@ -36,6 +35,12 @@ alarm_key=68B3537F39A313B3E574D06777193F152BDBE6A6
 trust_file="$KEYRING_TEST_DIR/alarm-trust"
 
 if [[ $1 == "gpg" && ${*: -1} == "$alarm_key" ]]; then
+  calls_file="$KEYRING_TEST_DIR/list-calls"
+  calls=$(( $(cat "$calls_file" 2>/dev/null || echo 0) + 1 ))
+  echo "$calls" >"$calls_file"
+  if [[ ${KEYRING_TEST_LIST_FAIL_ON:-} == "$calls" ]]; then
+    exit 2
+  fi
   trust=$(cat "$trust_file" 2>/dev/null)
   [[ -n $trust ]] || exit 2
   printf 'tru::1:0:0:3:1:5\npub:%s:4096:1:77193F152BDBE6A6:1390085363:::-:::scESC::::::23::0:\n' "$trust"
@@ -97,21 +102,20 @@ exit 0
 SH
 chmod +x "$stub_bin/sudo"
 
-cat >"$stub_bin/arch-pkg-missing" <<'SH'
+cat >"$stub_bin/archctl" <<'SH'
 #!/bin/bash
-
-exit "${KEYRING_TEST_PKG_MISSING:-1}"
+case "$1 $2" in
+  "pkg present")
+    shift 2
+    [[ ($* == "archlinuxarm-keyring" && ${KEYRING_TEST_ARM:-0} == 1) || " ${KEYRING_TEST_INSTALLED:-} " == *" $* "* ]]
+    ;;
+  "hw aarch64")
+    [[ ${KEYRING_TEST_PLATFORM:-x86} == aarch64* ]]
+    ;;
+  *) exit 2 ;;
+esac
 SH
-chmod +x "$stub_bin/arch-pkg-missing"
-
-# KEYRING_TEST_ARM=1: Arch Linux ARM's keyring is installed.
-# KEYRING_TEST_PLATFORM: the platform (default x86).
-cat >"$stub_bin/arch-pkg-present" <<'SH'
-#!/bin/bash
-
-[[ ($* == "archlinuxarm-keyring" && ${KEYRING_TEST_ARM:-0} == 1) || " ${KEYRING_TEST_INSTALLED:-} " == *" $* "* ]]
-SH
-chmod +x "$stub_bin/arch-pkg-present"
+chmod +x "$stub_bin/archctl"
 
 cat >"$stub_bin/arch-hw-aarch64" <<'SH'
 #!/bin/bash
@@ -119,14 +123,6 @@ cat >"$stub_bin/arch-hw-aarch64" <<'SH'
 [[ ${KEYRING_TEST_PLATFORM:-x86} == aarch64* ]]
 SH
 chmod +x "$stub_bin/arch-hw-aarch64"
-
-cat >"$stub_bin/arch-pkg-add" <<'SH'
-#!/bin/bash
-
-printf 'pkg-add\t%s\n' "$1" >>"$KEYRING_TEST_LOG"
-exit 0
-SH
-chmod +x "$stub_bin/arch-pkg-add"
 
 # The platform's keyrings list is read at a fixed path; the test runs a copy
 # rewritten to read a fixture there.
@@ -149,7 +145,7 @@ rm -f "$test_tmp/list-calls"
 # process substitution, which can still be writing after the script exits.
 KEYRING_TEST_WARN=1 run_keyring 2>&1 >"$test_tmp/ok.out" | cat >"$test_tmp/ok.err"
 
-grep -F "Keys are correct" "$test_tmp/ok.out" >/dev/null ||
+grep -F "Arch signing keys are current" "$test_tmp/ok.out" >/dev/null ||
   fail "update-keyring reports success when the keyring is healthy" "$(cat "$test_tmp/ok.out")"
 pass "update-keyring reports success when the keyring is healthy"
 
@@ -207,23 +203,23 @@ pass "update-keyring skips a platform list line naming anything but a keyring pa
 # Key and package missing: the full populate path runs and verifies at the end.
 : >"$log_file"
 rm -f "$test_tmp/list-calls"
-KEYRING_TEST_PKG_MISSING=0 run_keyring >"$test_tmp/populate.out"
+KEYRING_TEST_PLATFORM=aarch64 KEYRING_TEST_ALARM_TRUST= run_keyring >"$test_tmp/populate.out"
 
-grep -F "Keys are correct" "$test_tmp/populate.out" >/dev/null ||
+grep -F "Arch signing keys are current" "$test_tmp/populate.out" >/dev/null ||
   fail "update-keyring populates a missing keyring and reports success" "$(cat "$test_tmp/populate.out")"
-for expected in 'recv-keys' 'lsign-key' $'pkg-add\tarch-keyring'; do
+for expected in 'recv-keys' 'lsign-key' $'pacman\t-Sy\t--needed\t--noconfirm\tarchlinux-keyring\tarchlinuxarm-keyring'; do
   grep -Eq "$expected" "$log_file" ||
     fail "update-keyring populates a missing keyring and reports success" "$(cat "$log_file")"
 done
 pass "update-keyring populates a missing keyring and reports success"
 
-# recv-keys failing must stop the script, not end in "Keys are correct".
+# recv-keys failing must stop the script, not end in "Arch signing keys are current".
 : >"$log_file"
 rm -f "$test_tmp/list-calls"
-if KEYRING_TEST_PKG_MISSING=0 KEYRING_TEST_RECV_STATUS=1 run_keyring >"$test_tmp/recv.out" 2>&1; then
+if KEYRING_TEST_PLATFORM=aarch64 KEYRING_TEST_ALARM_TRUST= KEYRING_TEST_ALARM_RECV_STATUS=1 run_keyring >"$test_tmp/recv.out" 2>&1; then
   fail "update-keyring fails when recv-keys fails"
 fi
-if grep -F "Keys are correct" "$test_tmp/recv.out" >/dev/null; then
+if grep -F "Arch signing keys are current" "$test_tmp/recv.out" >/dev/null; then
   fail "update-keyring fails when recv-keys fails" "$(cat "$test_tmp/recv.out")"
 fi
 if grep -q 'lsign-key' "$log_file"; then
@@ -237,7 +233,7 @@ rm -f "$test_tmp/list-calls"
 if KEYRING_TEST_REINSTALL_STATUS=1 run_keyring >"$test_tmp/reinstall.out" 2>&1; then
   fail "update-keyring fails when the archlinux-keyring reinstall fails"
 fi
-if grep -F "Keys are correct" "$test_tmp/reinstall.out" >/dev/null; then
+if grep -F "Arch signing keys are current" "$test_tmp/reinstall.out" >/dev/null; then
   fail "update-keyring fails when the archlinux-keyring reinstall fails" "$(cat "$test_tmp/reinstall.out")"
 fi
 pass "update-keyring fails when the archlinux-keyring reinstall fails"
@@ -246,10 +242,10 @@ pass "update-keyring fails when the archlinux-keyring reinstall fails"
 # passes (key present, populate skipped), the verifying one fails.
 : >"$log_file"
 rm -f "$test_tmp/list-calls"
-if KEYRING_TEST_LIST_FAIL_ON=2 run_keyring >"$test_tmp/verify.out" 2>&1; then
+if KEYRING_TEST_ARM=1 KEYRING_TEST_PLATFORM=aarch64 KEYRING_TEST_LIST_FAIL_ON=2 run_keyring >"$test_tmp/verify.out" 2>&1; then
   fail "update-keyring fails when the final key check fails"
 fi
-if grep -F "Keys are correct" "$test_tmp/verify.out" >/dev/null; then
+if grep -F "Arch signing keys are current" "$test_tmp/verify.out" >/dev/null; then
   fail "update-keyring fails when the final key check fails" "$(cat "$test_tmp/verify.out")"
 fi
 pass "update-keyring fails when the final key check fails"
@@ -277,7 +273,7 @@ pass "update-keyring does not re-bootstrap a trusted Arch Linux ARM key"
 : >"$log_file"
 rm -f "$test_tmp/list-calls"
 KEYRING_TEST_ARM=1 KEYRING_TEST_PLATFORM=aarch64 KEYRING_TEST_ALARM_TRUST= run_keyring >"$test_tmp/arm-populate.out"
-grep -F "Keys are correct" "$test_tmp/arm-populate.out" >/dev/null ||
+grep -F "Arch signing keys are current" "$test_tmp/arm-populate.out" >/dev/null ||
   fail "update-keyring populates an installed Arch Linux ARM keyring" "$(cat "$test_tmp/arm-populate.out")"
 populate_line=$(grep -nE $'^sudo\tpacman-key\t--populate\tarchlinuxarm$' "$log_file" | cut -d: -f1 || true)
 refresh_line=$(grep -nE $'^sudo\tpacman\t-Sy\t--needed\t--noconfirm\tarchlinux-keyring\tarchlinuxarm-keyring$' "$log_file" | cut -d: -f1 || true)
@@ -290,7 +286,7 @@ pass "update-keyring populates an installed Arch Linux ARM keyring before the re
 : >"$log_file"
 rm -f "$test_tmp/list-calls"
 KEYRING_TEST_PLATFORM=aarch64 KEYRING_TEST_ALARM_TRUST=- run_keyring >"$test_tmp/arm-recv.out"
-grep -F "Keys are correct" "$test_tmp/arm-recv.out" >/dev/null ||
+grep -F "Arch signing keys are current" "$test_tmp/arm-recv.out" >/dev/null ||
   fail "update-keyring bootstraps a missing Arch Linux ARM keyring" "$(cat "$test_tmp/arm-recv.out")"
 for expected in $'^sudo\tpacman-key\t--recv-keys\t'"$alarm_key"$'\t--keyserver\tkeyserver.ubuntu.com$' \
   $'^sudo\tpacman-key\t--lsign-key\t'"$alarm_key"'$' \
@@ -320,7 +316,7 @@ if KEYRING_TEST_ARM=1 KEYRING_TEST_PLATFORM=aarch64 KEYRING_TEST_ALARM_TRUST=- K
   run_keyring >"$test_tmp/arm-untrusted.out" 2>&1; then
   fail "update-keyring fails while the Arch Linux ARM key is untrusted"
 fi
-if grep -F "Keys are correct" "$test_tmp/arm-untrusted.out" >/dev/null; then
+if grep -F "Arch signing keys are current" "$test_tmp/arm-untrusted.out" >/dev/null; then
   fail "update-keyring fails while the Arch Linux ARM key is untrusted" "$(cat "$test_tmp/arm-untrusted.out")"
 fi
 pass "update-keyring fails while the Arch Linux ARM key is untrusted"

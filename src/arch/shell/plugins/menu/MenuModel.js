@@ -509,8 +509,11 @@ function guardHelpers() {
     + 'for __arch_pkg in "${__arch_pkg_names[@]}"; do __arch_pkgs[$__arch_pkg]=1; done\n'
     + '__arch_pkg_has() { [[ -n ${__arch_pkgs[$1]-} ]] && return 0; '
     + '[[ $1 == *[\\<\\>=]* ]] && { pacman -Q "$1" &>/dev/null; return; }; return 1; }\n'
-    + 'arch-pkg-present() { local p; for p in "$@"; do __arch_pkg_has "$p" || return 1; done; return 0; }\n'
-    + 'arch-pkg-missing() { local p; for p in "$@"; do __arch_pkg_has "$p" || return 0; done; return 1; }\n'
+    + '__arch_pkg_present() { local p; for p in "$@"; do __arch_pkg_has "$p" || return 1; done; return 0; }\n'
+    + '__arch_pkg_missing() { local p; for p in "$@"; do __arch_pkg_has "$p" || return 0; done; return 1; }\n'
+    + 'archctl() { if [[ ${1:-} == pkg && ${2:-} == present ]]; then shift 2; __arch_pkg_present "$@"; return; fi; '
+    + 'if [[ ${1:-} == pkg && ${2:-} == missing ]]; then shift 2; __arch_pkg_missing "$@"; return; fi; '
+    + 'command archctl "$@"; }\n'
     + 'arch-cmd-present() { local c; for c in "$@"; do type -P -- "$c" &>/dev/null || return 1; done; return 0; }\n'
     + 'arch-cmd-missing() { local c; for c in "$@"; do type -P -- "$c" &>/dev/null || return 0; done; return 1; }\n'
 }

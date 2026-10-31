@@ -37,7 +37,7 @@ verify_bootloader() {
 verify_kernel_headers() {
   local kernel=linux headers=linux-headers release pkgbase
   release=$(uname -r)
-  if arch-pkg-present linux-t2; then
+  if archctl pkg present linux-t2; then
     kernel=linux-t2
     headers=linux-t2-headers
   fi
@@ -47,7 +47,7 @@ verify_kernel_headers() {
   pkgbase=$(</usr/lib/modules/$release/pkgbase)
   [[ $pkgbase == "$kernel" ]] ||
     fail "the installed system boots the Arch Linux kernel" "$release uses $pkgbase, expected $kernel"
-  arch-pkg-present "$headers" || fail "kernel headers are installed" "$headers is missing"
+  archctl pkg present "$headers" || fail "kernel headers are installed" "$headers is missing"
   [[ $(cat "/usr/lib/modules/$release/build/include/config/kernel.release") == "$release" ]] ||
     fail "headers match the running kernel" "$release has missing or mismatched headers"
   pass "the running Arch $kernel kernel has matching headers ($release)"

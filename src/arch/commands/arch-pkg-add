@@ -5,7 +5,7 @@
 # arch:examples=archctl pkg add jq ripgrep
 # arch:requires-sudo=true
 
-if arch-pkg-missing "$@"; then
+if archctl pkg missing "$@"; then
   if (( EUID == 0 )); then
     pacman -S --noconfirm --needed -- "$@" || exit 1
   else

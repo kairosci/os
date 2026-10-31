@@ -8,8 +8,10 @@ mock_bin="$scratch/bin"
 mkdir -p "$mock_bin"
 export mock_bin
 
-cat >"$mock_bin/arch-pkg-present" <<'SH'
+cat >"$mock_bin/archctl" <<'SH'
 #!/bin/bash
+[[ $1 == pkg && $2 == present ]] || exit 2
+shift 2
 [[ " ${INSTALLED_PACKAGES:-} " == *" $1 "* ]]
 SH
 cat >"$mock_bin/nvidia-ctk" <<'SH'

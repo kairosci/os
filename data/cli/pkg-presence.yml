@@ -1,0 +1,11 @@
+command: pacman
+query_arguments: [-Q, --]
+maximum_packages: 128
+timeout_seconds: 5
+statuses:
+  present_all_installed: 0
+  present_at_least_one_missing: 1
+  missing_at_least_one_missing: 0
+  missing_none_missing: 1
+  query_error: 2
+error_message: 'Could not check installed packages: {error}'

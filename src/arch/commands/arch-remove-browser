@@ -39,7 +39,7 @@ brave)
   arch-pkg-drop brave-bin
   rm -f ~/.config/brave-flags.conf
 
-  if arch-pkg-missing brave-origin-bin; then
+  if archctl pkg missing brave-origin-bin; then
     sudo rm -rf /etc/brave
   fi
   ;;
@@ -49,7 +49,7 @@ brave-origin)
   arch-pkg-drop brave-origin-bin
   rm -f ~/.config/brave-origin-flags.conf
 
-  if arch-pkg-missing brave-bin; then
+  if archctl pkg missing brave-bin; then
     sudo rm -rf /etc/brave
   fi
   ;;

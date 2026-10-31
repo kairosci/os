@@ -7,11 +7,10 @@ sources = [
   "src/arch/commands/arch-pkg-aur-add",
   "src/arch/commands/arch-pkg-defaults",
   "src/arch/commands/arch-pkg-drop",
-  "src/arch/commands/arch-pkg-missing",
-  "src/arch/commands/arch-pkg-present",
   "src/arch/commands/arch-pkg-remove",
+  "src/arch/cli/pkg/presence.py",
 ]
-requires = ["desktop.commands"]
+requires = ["desktop.commands", "system.runtime-data"]
 
 [[output]]
 source = "src/arch/commands/arch-pkg-add"
@@ -34,13 +33,9 @@ source = "src/arch/commands/arch-pkg-drop"
 target = "usr/share/arch/src/arch/commands/arch-pkg-drop"
 
 [[output]]
-source = "src/arch/commands/arch-pkg-missing"
-target = "usr/share/arch/src/arch/commands/arch-pkg-missing"
-
-[[output]]
-source = "src/arch/commands/arch-pkg-present"
-target = "usr/share/arch/src/arch/commands/arch-pkg-present"
-
-[[output]]
 source = "src/arch/commands/arch-pkg-remove"
 target = "usr/share/arch/src/arch/commands/arch-pkg-remove"
+
+[[output]]
+source = "src/arch/cli/pkg/presence.py"
+target = "usr/share/arch/src/arch/cli/pkg/presence.py"

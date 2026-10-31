@@ -150,7 +150,7 @@ fi
 # needs a pin bump in arch-pkgs. It conflicts with stock libfprint, and
 # --noconfirm answers that prompt with N; --ask 4 accepts the replacement in
 # one transaction, so a failed install leaves the existing driver in place.
-if arch-pkg-missing libfprint-git fprintd usbutils; then
+if archctl pkg missing libfprint-git fprintd usbutils; then
   echo "Installing required packages..."
   sudo pacman -S --needed --noconfirm --ask 4 -- libfprint-git fprintd usbutils
 fi

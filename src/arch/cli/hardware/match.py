@@ -1,9 +1,9 @@
 from __future__ import annotations
 
 import os
-from pathlib import Path
 import subprocess
 import sys
+from pathlib import Path
 from typing import TypedDict, cast
 
 import yaml
@@ -16,7 +16,7 @@ class Settings(TypedDict):
 
 def _mapping(value: object, label: str) -> dict[object, object]:
   if not isinstance(value, dict):
-    raise ValueError(f"invalid hardware match configuration: {label} must be a mapping")
+    raise TypeError(f"invalid hardware match configuration: {label} must be a mapping")
   return {key: item for key, item in value.items()}
 
 
@@ -50,6 +50,8 @@ def _settings() -> Settings:
 
 
 def match_main(arguments: list[str]) -> int:
+  if arguments and arguments[0] == "--":
+    arguments = arguments[1:]
   try:
     settings = _settings()
     pattern = arguments[0] if arguments else ""

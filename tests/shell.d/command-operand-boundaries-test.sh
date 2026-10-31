@@ -6,16 +6,16 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 export AP="$ROOT"
 
-if "$ARCH_TEST_CLI_BIN/archctl" cmd present -p; then
+if AP="$ROOT" "$ROOT/src/arch/commands/archctl" cmd present -p; then
   fail "cmd-present treats an option-shaped command name literally"
 fi
 pass "cmd-present treats an option-shaped command name literally"
 
-"$ARCH_TEST_CLI_BIN/arch-cmd-missing" -p ||
+AP="$ROOT" "$ROOT/src/arch/commands/archctl" cmd missing -p ||
   fail "cmd-missing treats an option-shaped command name literally"
 pass "cmd-missing treats an option-shaped command name literally"
 
-"$ARCH_TEST_CLI_BIN/archctl" cmd present bash || fail "cmd-present still finds an ordinary command"
+AP="$ROOT" "$ROOT/src/arch/commands/archctl" cmd present bash || fail "cmd-present still finds an ordinary command"
 pass "cmd-present still finds an ordinary command"
 
 test_tmp=$(mktemp -d)
@@ -42,36 +42,51 @@ elif [[ $1 != "-Q" ]]; then
 fi
 shift
 
+if [[ ${1:-} == "--" ]]; then
+  shift
+fi
+
+if [[ ${1:-} == "stalled" ]]; then
+  sleep 6
+fi
+
 if [[ -n ${ARCH_TEST_PACKAGE_CALLS:-} ]]; then
   exit 0
 elif [[ ${1:-} == "--" ]]; then
   shift
   [[ ${1:-} == "installed" ]]
-elif [[ ${1:-} == "--help" ]]; then
-  exit 0
 else
   [[ ${1:-} == "installed" ]]
 fi
 STUB
 chmod +x "$mock_bin/pacman"
 
-if PATH="$mock_bin:$PATH" "$ROOT/src/arch/commands/arch-pkg-present" --help; then
+if AP="$ROOT" PATH="$mock_bin:$PATH" "$ROOT/src/arch/commands/archctl" pkg present -- --help; then
   fail "pkg-present treats an option-shaped package name literally"
 fi
 pass "pkg-present treats an option-shaped package name literally"
 
-PATH="$mock_bin:$PATH" "$ROOT/src/arch/commands/arch-pkg-missing" --help ||
+AP="$ROOT" PATH="$mock_bin:$PATH" "$ROOT/src/arch/commands/archctl" pkg missing -- --help ||
   fail "pkg-missing treats an option-shaped package name literally"
 pass "pkg-missing treats an option-shaped package name literally"
 
-PATH="$mock_bin:$PATH" "$ROOT/src/arch/commands/arch-pkg-present" installed ||
+AP="$ROOT" PATH="$mock_bin:$PATH" "$ROOT/src/arch/commands/archctl" pkg present installed ||
   fail "pkg-present still finds an installed package"
 pass "pkg-present still finds an installed package"
 
-package_calls="$test_tmp/package-calls"
-cat >"$mock_bin/arch-pkg-missing" <<'STUB'
-#!/bin/bash
+timeout_output="$test_tmp/pkg-timeout-output"
+timeout_status=0
+AP="$ROOT" PATH="$mock_bin:$PATH" "$ROOT/src/arch/commands/archctl" pkg present stalled \
+  >/dev/null 2>"$timeout_output" || timeout_status=$?
+(( timeout_status == 2 )) || fail "pkg-present times out a stalled package query" "status=$timeout_status"
+grep -F "Could not check installed packages" "$timeout_output" >/dev/null ||
+  fail "pkg-present explains a stalled package query" "$(<"$timeout_output")"
+pass "pkg-present bounds a stalled package query"
 
+package_calls="$test_tmp/package-calls"
+cat >"$mock_bin/archctl" <<'STUB'
+#!/bin/bash
+[[ $1 == pkg && $2 == missing ]]
 exit 0
 STUB
 cat >"$mock_bin/sudo" <<'STUB'
@@ -89,7 +104,7 @@ cat >"$mock_bin/yay" <<'STUB'
   printf '\n'
 } >>"$ARCH_TEST_PACKAGE_CALLS"
 STUB
-chmod +x "$mock_bin/arch-pkg-missing" "$mock_bin/sudo" "$mock_bin/yay"
+chmod +x "$mock_bin/archctl" "$mock_bin/sudo" "$mock_bin/yay"
 
 : >"$package_calls"
 PATH="$mock_bin:$ROOT/src/arch/commands:$PATH" ARCH_TEST_PACKAGE_CALLS="$package_calls" \
@@ -128,12 +143,12 @@ fi
 STUB
 chmod +x "$mock_bin/grep"
 
-if PATH="$mock_bin:$PATH" "$ARCH_TEST_CLI_BIN/arch-hw-match" --help; then
+if AP="$ROOT" PATH="$mock_bin:$PATH" "$ROOT/src/arch/commands/archctl" hw match -- --help; then
   fail "hw-match treats an option-shaped hardware pattern literally"
 fi
 pass "hw-match treats an option-shaped hardware pattern literally"
 
-PATH="$mock_bin:$PATH" "$ARCH_TEST_CLI_BIN/arch-hw-match" known-hardware ||
+AP="$ROOT" PATH="$mock_bin:$PATH" "$ROOT/src/arch/commands/archctl" hw match known-hardware ||
   fail "hw-match still accepts an ordinary hardware pattern"
 pass "hw-match still accepts an ordinary hardware pattern"
 
@@ -156,7 +171,7 @@ exit 0
 STUB
 chmod +x "$mock_bin/pkill" "$mock_bin/setsid"
 
-PATH="$mock_bin:$ARCH_TEST_CLI_BIN:$PATH" ARCH_TEST_PKILL_CALLS="$pkill_calls" \
+PATH="$mock_bin:$ROOT/src/arch/commands:$PATH" ARCH_TEST_PKILL_CALLS="$pkill_calls" \
   ARCH_TEST_SETSID_CALLS="$setsid_calls" "$ROOT/src/arch/commands/archctl" restart app "-9 kitty"
 
 pkill_argv=$(<"$pkill_calls")
@@ -168,24 +183,25 @@ pass "restart-app treats the application name as one literal pkill pattern"
 pass "restart-app preserves application arguments without shell evaluation"
 : >"$pkill_calls"
 : >"$setsid_calls"
-if PATH="$mock_bin:$ARCH_TEST_CLI_BIN:$PATH" ARCH_TEST_PKILL_CALLS="$pkill_calls" \
-  ARCH_TEST_SETSID_CALLS="$setsid_calls" "$ARCH_TEST_CLI_BIN/arch-restart-app" >/dev/null 2>&1; then
-  fail "restart-app rejects a missing application name"
-fi
+PATH="$mock_bin:$ROOT/src/arch/commands:$PATH" ARCH_TEST_PKILL_CALLS="$pkill_calls" \
+  ARCH_TEST_SETSID_CALLS="$setsid_calls" "$ROOT/src/arch/commands/archctl" restart app \
+  >"$test_tmp/restart-app-usage" 2>&1
 [[ ! -s $pkill_calls && ! -s $setsid_calls ]] ||
   fail "restart-app validates arguments before stopping or launching processes"
+grep -F "Usage:" "$test_tmp/restart-app-usage" >/dev/null ||
+  fail "restart-app shows usage when the application name is missing"
 pass "restart-app validates arguments before stopping or launching processes"
 : >"$pkill_calls"
 : >"$setsid_calls"
-PATH="$mock_bin:$ARCH_TEST_CLI_BIN:$PATH" ARCH_TEST_PKILL_CALLS="$pkill_calls" \
-  ARCH_TEST_SETSID_CALLS="$setsid_calls" "$ARCH_TEST_CLI_BIN/arch-restart-hyprsunset"
+PATH="$mock_bin:$ROOT/src/arch/commands:$PATH" ARCH_TEST_PKILL_CALLS="$pkill_calls" \
+  ARCH_TEST_SETSID_CALLS="$setsid_calls" "$ROOT/src/arch/commands/archctl" restart hyprsunset
 [[ $(<"$pkill_calls") == $'<-x>\n<-->\n<hyprsunset>' && \
   $(<"$setsid_calls") == $'<uwsm-app>\n<-->\n<hyprsunset>' ]] ||
   fail "the hidden hyprsunset compatibility entrypoint uses the shared restart module"
 pass "the hidden hyprsunset compatibility entrypoint uses the shared restart module"
 
-PATH="$mock_bin:$ARCH_TEST_CLI_BIN:$PATH" ARCH_TEST_PKILL_CALLS="$pkill_calls" \
-  ARCH_TEST_PKILL_STATUS=1 "$ARCH_TEST_CLI_BIN/archctl" restart btop
+PATH="$mock_bin:$ROOT/src/arch/commands:$PATH" ARCH_TEST_PKILL_CALLS="$pkill_calls" \
+  ARCH_TEST_PKILL_STATUS=1 "$ROOT/src/arch/commands/archctl" restart btop
 [[ $(<"$pkill_calls") == $'<-SIGUSR2>\n<-x>\n<btop>' ]] ||
   fail "restart btop signals only btop and treats an absent process as a no-op" "$(<"$pkill_calls")"
 pass "restart btop preserves its signal and missing-process behavior"
@@ -206,16 +222,16 @@ chmod +x "$mock_bin/pgrep" "$mock_bin/tmux"
 
 pgrep_calls="$test_tmp/pgrep-calls"
 : >"$pkill_calls"
-PATH="$mock_bin:$ARCH_TEST_CLI_BIN:$PATH" ARCH_TEST_PGREP_CALLS="$pgrep_calls" \
+PATH="$mock_bin:$ROOT/src/arch/commands:$PATH" ARCH_TEST_PGREP_CALLS="$pgrep_calls" \
   ARCH_TEST_PGREP_STATUS=1 ARCH_TEST_PKILL_CALLS="$pkill_calls" \
-  "$ARCH_TEST_CLI_BIN/archctl" restart helix
+  "$ROOT/src/arch/commands/archctl" restart helix
 [[ $(<"$pgrep_calls") == $'<-x>\n<helix>' && ! -s $pkill_calls ]] ||
   fail "restart helix leaves a missing editor alone"
 pass "restart helix skips a process that is not running"
 
-PATH="$mock_bin:$ARCH_TEST_CLI_BIN:$PATH" ARCH_TEST_PGREP_CALLS="$pgrep_calls" \
+PATH="$mock_bin:$ROOT/src/arch/commands:$PATH" ARCH_TEST_PGREP_CALLS="$pgrep_calls" \
   ARCH_TEST_PGREP_STATUS=0 ARCH_TEST_PKILL_CALLS="$pkill_calls" \
-  "$ARCH_TEST_CLI_BIN/archctl" restart helix
+  "$ROOT/src/arch/commands/archctl" restart helix
 [[ $(<"$pkill_calls") == $'<-USR1>\n<helix>' ]] ||
   fail "restart helix signals a running editor with the configured signal"
 pass "restart helix reloads a running editor"
@@ -223,8 +239,8 @@ pass "restart helix reloads a running editor"
 tmux_calls="$test_tmp/tmux-calls"
 tmux_config_home="$test_tmp/tmux-config"
 mkdir -p "$tmux_config_home/tmux"
-PATH="$mock_bin:$ARCH_TEST_CLI_BIN:$PATH" XDG_CONFIG_HOME="$tmux_config_home" \
-  ARCH_TEST_TMUX_CALLS="$tmux_calls" "$ARCH_TEST_CLI_BIN/archctl" restart tmux
+PATH="$mock_bin:$ROOT/src/arch/commands:$PATH" XDG_CONFIG_HOME="$tmux_config_home" \
+  ARCH_TEST_TMUX_CALLS="$tmux_calls" "$ROOT/src/arch/commands/archctl" restart tmux
 [[ $(<"$tmux_calls") == $'<has-session>\n<source-file>\n<'"$tmux_config_home"'/tmux/tmux.conf>' ]] ||
   fail "restart tmux reloads the config from XDG_CONFIG_HOME" "$(<"$tmux_calls")"
 pass "restart tmux reloads the configured tmux file"
@@ -292,7 +308,7 @@ printf 'protected\n' >"$protected_file"
 ln -s "$protected_file" "$hook_directory/--help"
 (
   cd -- "$test_tmp"
-  HOME="$hook_home" AP="$ROOT" "$ARCH_TEST_CLI_BIN/archctl" hook install post-update ./--help >"$test_tmp/hook-install-output"
+  HOME="$hook_home" AP="$ROOT" "$ROOT/src/arch/commands/archctl" hook install post-update ./--help >"$test_tmp/hook-install-output"
 )
 [[ -f $hook_directory/--help && ! -L $hook_directory/--help ]] || fail "hook-install replaces a destination symlink itself"
 [[ $(<"$protected_file") == protected ]] || fail "hook-install does not overwrite the symlink target"

@@ -164,7 +164,7 @@ assert(menu.isVisible(visibilityItems, visibilityOrder, {}, visibilityItems.dyna
 
 // `disabled:` is the softer guard: the row stays listed and only loses the
 // cursor, which is how an already-installed app keeps its place in Install.
-const installed = menu.normalizeItem('install.browser.zen', { label: 'Zen', disabled: 'arch-pkg-present zen-browser-bin', action: 'install-zen' })
+const installed = menu.normalizeItem('install.browser.zen', { label: 'Zen', disabled: 'archctl pkg present zen-browser-bin', action: 'install-zen' })
 assert(menu.isVisible({ 'install.browser.zen': installed }, ['install.browser.zen'], { 'install.browser.zen': false }, installed), 'menu keeps a disabled row visible')
 assert(menu.isDisabled({ 'install.browser.zen': true }, installed), 'menu disables a row whose disabled: succeeded')
 assert(!menu.isDisabled({ 'install.browser.zen': false }, installed), 'menu leaves a row selectable when its disabled: failed')
@@ -351,7 +351,7 @@ assert(
 // needs 4K pages, so it hides only where pages are larger. Spotify installs its
 // web player where its client can't run, so it never hides. Any other `when:`
 // here is a row that went back to vanishing once installed.
-const x86Guard = 'arch-hw-x86'
+const x86Guard = 'archctl hw x86'
 const x86OnlyInstalls = ['install.browser.edge', 'install.gaming.minecraft', 'install.gaming.heroic', 'install.gaming.geforce-now', 'install.gaming.battlenet', 'install.gaming.lutris']
 const fourKPageGuard = '[[ $(getconf PAGESIZE) == 4096 ]]'
 assertDeepEqual(
@@ -388,7 +388,7 @@ assert(
 )
 assertEqual(
   defaultById['install.browser.zen'].disabled,
-  'arch-pkg-present zen-browser-bin',
+  'archctl pkg present zen-browser-bin',
   'menu asks the same presence question it used to hide the row with'
 )
 // A guard can still be about something other than having the software: no
@@ -400,7 +400,7 @@ assert(
 )
 assert(
   defaultItems.filter(item => item.id.startsWith('remove.')).every(item => !item.disabled)
-    && defaultById['remove.browser.zen'].when === 'arch-pkg-present zen-browser-bin',
+    && defaultById['remove.browser.zen'].when === 'archctl pkg present zen-browser-bin',
   'menu still hides Remove rows for software that is not installed'
 )
 assertDeepEqual(
@@ -645,10 +645,21 @@ assert(
 // shows while the feature is off and turns it on, the -off row the reverse.
 {
   const pairs = defaultItems.filter(item => item.id.endsWith('-on') && defaultById[item.id.replace(/-on$/, '-off')])
+  const explicitSetters = {
+    'appearance.animations-on': ['archctl toggle animations on', 'archctl toggle animations off'],
+    'trigger.toggle.idle-lock-on': ['archctl toggle idle stay-awake', 'archctl toggle idle allow-idle'],
+    'trigger.toggle.nightlight-on': ['archctl toggle nightlight on', 'archctl toggle nightlight off'],
+    'trigger.hardware.touchpad-on': ['archctl toggle input device touchpad on', 'archctl toggle input device touchpad off'],
+    'trigger.hardware.touchscreen-on': ['archctl toggle input device touchscreen on', 'archctl toggle input device touchscreen off']
+  }
   assert(pairs.length >= 14, 'menu names every toggle by what picking it does', String(pairs.length))
   for (const on of pairs) {
     const off = defaultById[on.id.replace(/-on$/, '-off')]
-    assertEqual(off.action, on.action, `${on.id} and its -off row flip the same toggle`)
+    if (explicitSetters[on.id]) {
+      assertDeepEqual([on.action, off.action], explicitSetters[on.id], `${on.id} uses explicit set actions`)
+    } else {
+      assertEqual(off.action, on.action, `${on.id} and its -off row flip the same toggle`)
+    }
     assert(on.when && off.when && on.when !== off.when, `${on.id} and its -off row show in opposite states`)
   }
 }

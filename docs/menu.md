@@ -69,7 +69,7 @@ lines. The menu opens immediately on the previous evaluation's answers, so
 the batch's runtime is exactly how long a row can contradict the state it
 describes — which is why the batch works hard to be fast:
 
-- Package and command presence (`arch-pkg-present` and friends) are
+- Package and command presence (`archctl pkg present` and friends) are
   answered in-process from one `pacman -Q` snapshot instead of a fork per
   row. The snapshot resolves provides too, so gvim answers for vim. It is
   stored in `$XDG_RUNTIME_DIR/arch-menu-packages`, stamped with the
