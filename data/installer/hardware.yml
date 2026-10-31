@@ -2,7 +2,7 @@ package_gates:
   package_command: [arch-pkg-add]
   rules:
     - checks:
-        - [arch-hw-intel-sof]
+        - [archctl, hw, intel, sof]
       packages: [sof-firmware]
 
 intel_video_acceleration:
@@ -133,7 +133,7 @@ intel_power_setup:
   cpu_model_pattern: '^model\s*:\s*(\d+)'
   thermald:
     checks:
-      - [arch-hw-intel]
+      - [archctl, hw, intel]
     minimum_cpu_model: 42
     missing_cpu_model: 0
     battery_check: [archctl, battery, present]
@@ -141,7 +141,7 @@ intel_power_setup:
     enable_command: [sudo, systemctl, enable, thermald.service]
   lpmd:
     checks:
-      - [arch-hw-intel]
+      - [archctl, hw, intel]
       - [archctl, battery, present]
     supported_cpu_models: [151, 154, 170, 172, 183, 186, 189, 191, 204]
     package_command: [arch-pkg-add, intel-lpmd]

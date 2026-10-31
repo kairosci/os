@@ -301,6 +301,8 @@ entrypoints:
     group: hw
     name: intel
     summary: Detect whether the computer has an Intel CPU.
+    generate_launcher: "false"
+
   - binary: arch-hw-intel-ptl
     module: hardware/intel
     function: intel_ptl_main
@@ -314,6 +316,8 @@ entrypoints:
     group: hw
     name: intel sof
     summary: Detect an Intel SOF-capable audio DSP.
+    generate_launcher: "false"
+
   - binary: arch-hw-external-monitors
     module: hardware/misc
     function: external_monitors_main

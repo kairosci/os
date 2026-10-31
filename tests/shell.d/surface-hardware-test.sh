@@ -7,11 +7,11 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 scratch=$(mktemp -d)
 trap 'rm -rf "$scratch"' EXIT
 mkdir -p "$scratch/bin"
-cat >"$scratch/bin/arch-hw-device-match" <<'SH'
+cat >"$scratch/bin/archctl" <<'SH'
 #!/bin/bash
-gate=${0##*/}
+[[ ${1:-} == hw && ${2:-} == intel && ${3:-} == sof && $# == 3 ]] || exit 2
 case ",${ARCH_TEST_MATCHED:-}," in
-  *,"$gate",*) exit 0 ;;
+  *,arch-hw-intel-sof,*) exit 0 ;;
   *) exit 1 ;;
 esac
 SH
@@ -20,8 +20,7 @@ cat >"$scratch/bin/arch-pkg-add" <<'SH'
 printf '%s\n' "$*" >>"$ARCH_TEST_PACKAGES"
 exit "${ARCH_TEST_PKG_STATUS:-0}"
 SH
-chmod +x "$scratch/bin/arch-hw-device-match" "$scratch/bin/arch-pkg-add"
-ln -s arch-hw-device-match "$scratch/bin/arch-hw-intel-sof"
+chmod +x "$scratch/bin/archctl" "$scratch/bin/arch-pkg-add"
 run_package_gates() (
   matched=$1
   status=${2:-0}
