@@ -212,7 +212,7 @@ def _xdg_directories(
   path_separator: str,
 ) -> list[Path]:
   configured = os.environ.get(environment)
-  if configured:
+  if configured is not None and configured != "":
     return [Path(item) for item in configured.split(path_separator) if item]
   if default_suffix:
     return [Path.home() / default_suffix]
@@ -288,7 +288,7 @@ def _current_desktop_id(settings: Settings) -> str:
             ),
             "",
           )
-          if command and shutil.which(command):
+          if command != "" and shutil.which(command) is not None:
             return entry
           break
 
