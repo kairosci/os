@@ -1,6 +1,6 @@
 commands:
   battery_state: [busctl, get-property, org.freedesktop.UPower, /org/freedesktop/UPower, org.freedesktop.UPower, OnBattery]
-  list_profiles: [arch-powerprofiles-list]
+  list_profiles: [archctl, powerprofiles, list]
   set_profile: [powerprofilesctl, set]
   refresh_shell: [arch-shell, -q, battery, refreshPowerProfile]
 timeouts:

@@ -196,7 +196,7 @@ Panel {
 
   Process {
     id: profilesProc
-    command: ["arch-powerprofiles-list", "--active-state"]
+    command: ["archctl", "powerprofiles", "list", "--active-state"]
     stdout: StdioCollector { waitForEnd: true; onStreamFinished: root.updateProfiles(text) }
   }
 

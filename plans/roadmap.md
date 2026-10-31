@@ -20,6 +20,7 @@ This roadmap tracks the requested CLI, ISO, desktop, and release work as separat
 - PR #592 disables launcher generation for 11 additional Python routes with no in-repository binary callers. The catalog remains at 87 module routes; only 75 generate per-command launchers. Each remains available through the unified `archctl` router.
 - PR #593 routes the clipboard, emoji, and emoji insertion actions through `archctl` from YAML, the default menu, and QML, then disables their three flat launchers. There are now 72 generated launchers for 87 Python routes, with 367 remaining command source files.
 - PR #595 routes the power widget and battery notification through `archctl battery status`, then disables its generated flat launcher. There are now 71 generated launchers for 87 Python routes; continue migrating in-repository callers and disabling the matching launchers.
+- PR #596 routes the power panel, menu provider, and profile setter's list dependency through `archctl powerprofiles list`, then disables that launcher's generation. There are now 70 generated launchers for 87 Python routes; the profile-setting launcher remains in use by the device power-event path.
 
 ## Sprints
 
@@ -97,4 +98,4 @@ PR #590 moves update status into `src/arch/cli/update/status.py`, with its confi
 
 ### 18. Retire generated flat CLI launchers — in progress
 
-The entrypoint generator now supports routes that do not emit a per-command binary. PRs #591 and #592 disabled update status and 11 unused routes; PR #593 moved clipboard and emoji callers, and PR #595 moved the battery status callers, to the unified router. These changes leave 71 generated launchers for 87 routes. Continue with the remaining in-repository callers before retiring generator compatibility output entirely.
+The entrypoint generator now supports routes that do not emit a per-command binary. PRs #591 and #592 disabled update status and 11 unused routes; PR #593 moved clipboard and emoji callers, PR #595 moved battery status callers, and PR #596 moved power-profile listing callers to the unified router. These changes leave 70 generated launchers for 87 routes. Continue with the remaining in-repository callers before retiring generator compatibility output entirely.
