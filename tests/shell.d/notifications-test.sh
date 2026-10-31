@@ -71,7 +71,7 @@ messages:
   invalid_arguments: Invalid arguments
   operation_error: Operation failed
 YAML
-if timeout 5s env AP="$time_root" "$ARCH_TEST_CLI_BIN/arch-notification-time" >"$tmp/time-error" 2>&1; then
+if timeout 5s env AP="$time_root" "$ARCH_TEST_CLI_BIN/archctl" notification time >"$tmp/time-error" 2>&1; then
   fail "time notification rejects an unresponsive helper"
 else
   status=$?
@@ -128,7 +128,7 @@ printf '%s\n' "$@" >"$WEATHER_LOG"
 SH
 chmod +x "$weather_bin/arch-shell"
 AP="$ROOT" WEATHER_LOG="$weather_log" PATH="$weather_bin:$PATH" \
-  "$ARCH_TEST_CLI_BIN/arch-notification-weather" || fail "weather command reaches the shell toggle route"
+  "$ARCH_TEST_CLI_BIN/archctl" notification weather || fail "weather command reaches the shell toggle route"
 [[ $(<"$weather_log") == $'shell\ntoggle\narch.weather' ]] ||
   fail "weather command preserves the existing IPC arguments" "$(<"$weather_log")"
 pass "weather command preserves the existing IPC route"
@@ -148,7 +148,7 @@ SH
 chmod +x "$battery_bin/archctl" "$battery_bin/arch-notification-send"
 battery_status="85% available; touch $tmp/injected"
 battery_status_args="$tmp/battery-status-args"
-env AP="$ROOT" BATTERY_STATUS="$battery_status" BATTERY_STATUS_ARGS="$battery_status_args" BATTERY_LOG="$battery_log" PATH="$battery_bin:$PATH" "$ARCH_TEST_CLI_BIN/arch-notification-battery" ||
+env AP="$ROOT" BATTERY_STATUS="$battery_status" BATTERY_STATUS_ARGS="$battery_status_args" BATTERY_LOG="$battery_log" PATH="$battery_bin:$PATH" "$ARCH_TEST_CLI_BIN/archctl" notification battery ||
   fail "battery notification reports the configured status"
 [[ $(<"$battery_status_args") == $'battery\nstatus' ]] || fail "battery notification invokes the unified battery status route" "$(<"$battery_status_args")"
 [[ $(wc -l <"$battery_log") == 5 ]] || fail "battery notification sends exactly five arguments" "$(<"$battery_log")"
@@ -160,7 +160,7 @@ env AP="$ROOT" BATTERY_STATUS="$battery_status" BATTERY_STATUS_ARGS="$battery_st
 pass "battery notification preserves notification argv without shell evaluation"
 
 : >"$battery_log"
-if env AP="$ROOT" BATTERY_STATUS= BATTERY_STATUS_ARGS="$battery_status_args" BATTERY_LOG="$battery_log" PATH="$battery_bin:$PATH" "$ARCH_TEST_CLI_BIN/arch-notification-battery" >/dev/null 2>&1; then
+if env AP="$ROOT" BATTERY_STATUS= BATTERY_STATUS_ARGS="$battery_status_args" BATTERY_LOG="$battery_log" PATH="$battery_bin:$PATH" "$ARCH_TEST_CLI_BIN/archctl" notification battery >/dev/null 2>&1; then
   fail "battery notification rejects an empty status"
 fi
 [[ ! -s $battery_log ]] || fail "battery notification does not send an empty status" "$(<"$battery_log")"

@@ -120,3 +120,4 @@ PR #483 was closed when its base branch was deleted during integration. Its chan
 | #601 | Route background selection through the unified CLI |
 | #602 | Remove the CJK font flat launcher |
 | #603 | Route Wi-Fi QR callers through the unified CLI |
+| #604 | Retire the notification flat launchers |
