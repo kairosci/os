@@ -29,7 +29,7 @@ def load_entrypoints() -> list[dict[str, str]]:
   entries: list[dict[str, str]] = []
   names: set[str] = set()
   required_fields = {"binary", "module", "function", "group", "name", "summary"}
-  optional_fields = {"args", "examples", "hidden", "pass_args"}
+  optional_fields = {"args", "examples", "generate_launcher", "hidden", "pass_args"}
   for entry in document["entrypoints"]:
     if (
       not isinstance(entry, dict)
@@ -51,6 +51,7 @@ def load_entrypoints() -> list[dict[str, str]]:
         for key in set(entry) - {"binary", "module", "function", "group"}
       )
       or entry.get("hidden", "false") not in {"true", "false"}
+      or entry.get("generate_launcher", "true") not in {"true", "false"}
       or entry.get("pass_args", "false") not in {"true", "false"}
     ):
       raise ValueError(f"invalid entrypoint metadata: {entry}")
@@ -104,6 +105,9 @@ def generate(destination: Path) -> None:
   for entry in load_entrypoints():
     validate_module(entry)
     output = destination / "usr/share/arch/src/arch/commands" / entry["binary"]
+    if entry.get("generate_launcher", "true") == "false":
+      output.unlink(missing_ok=True)
+      continue
     output.parent.mkdir(parents=True, exist_ok=True)
     header = [
       "#!/usr/bin/python3 -I\n",

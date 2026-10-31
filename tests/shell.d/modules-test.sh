@@ -270,7 +270,7 @@ source, assembled = map(Path, sys.argv[1:3])
 entrypoints = yaml.safe_load(Path(sys.argv[3]).read_text(encoding="utf-8"))["entrypoints"]
 excluded = {"arch-debug", "arch-debug-idle", "arch-upload-log"}
 source_commands = {path.name for path in source.iterdir() if path.is_file()} - excluded
-generated_commands = {entry["binary"] for entry in entrypoints}
+generated_commands = {entry["binary"] for entry in entrypoints if entry.get("generate_launcher", "true") == "true"}
 expected = source_commands | generated_commands
 actual = {path.name for path in assembled.iterdir() if path.is_file() or path.is_symlink()}
 assert actual == expected, (expected - actual, actual - expected)
@@ -280,6 +280,9 @@ for name in source_commands:
     assert stat.S_IMODE(original.stat().st_mode) == stat.S_IMODE(packaged.stat().st_mode), name
 for entry in entrypoints:
     packaged = assembled / entry["binary"]
+    if entry.get("generate_launcher", "true") == "false":
+        assert not packaged.exists(), entry["binary"]
+        continue
     metadata = packaged.read_text(encoding="utf-8").splitlines()
     assert f"# arch:group={entry['group']}" in metadata, entry["binary"]
     assert f"# arch:name={entry['name']}" in metadata, entry["binary"]
@@ -350,7 +353,9 @@ for module in json.loads(graph_path.read_text()):
 entrypoints = yaml.safe_load((source_root / "data/cli/python-entrypoints.yml").read_text(encoding="utf-8"))["entrypoints"]
 expected["arch"].add("usr/share/arch/data/cli/group-descriptions.sh")
 expected["arch"].update(
-    f"usr/share/arch/src/arch/commands/{entry['binary']}" for entry in entrypoints
+    f"usr/share/arch/src/arch/commands/{entry['binary']}"
+    for entry in entrypoints
+    if entry.get("generate_launcher", "true") == "true"
 )
 
 for package, package_root in package_roots.items():

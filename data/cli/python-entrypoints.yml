@@ -148,6 +148,7 @@ entrypoints:
     group: update
     name: status
     summary: Clear the shell update indicator after an update
+    generate_launcher: "false"
     hidden: "true"
   - binary: arch-bluetooth-device
     module: bluetooth/control

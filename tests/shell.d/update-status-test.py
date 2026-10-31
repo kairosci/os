@@ -27,8 +27,10 @@ with tempfile.TemporaryDirectory(prefix="update-status-") as temporary:
 
   environment = test_environment(CALL_LOG=log)
   environment["PATH"] = f"{bin_dir}:{environment['PATH']}"
+  if (CLI_BIN / "arch-update-status").exists():
+    fail_check("update status does not install a flat compatibility launcher")
   result = subprocess.run(
-    [str(CLI_BIN / "arch-update-status")],
+    ["archctl", "update", "status"],
     capture_output=True,
     text=True,
     env=environment,
