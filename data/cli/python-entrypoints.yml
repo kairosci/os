@@ -56,6 +56,13 @@ entrypoints:
     summary: Dismiss a notification by summary substring
     args: <summary>
     pass_args: 'true'
+  - binary: arch-notification-battery
+    module: notification/battery
+    function: main
+    group: notification
+    name: battery
+    summary: Show the current battery status notification
+    pass_args: 'true'
   - binary: arch-notification-time
     module: notification/time
     function: main
