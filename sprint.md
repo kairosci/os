@@ -113,3 +113,4 @@ PR #483 was closed when its base branch was deleted during integration. Its chan
 | #594 | Pin ISO builds to the validated release source |
 | #595 | Route battery status callers through the unified CLI |
 | #596 | Route power profile listing through the unified CLI |
+| #597 | Route power profile selection through the unified CLI |

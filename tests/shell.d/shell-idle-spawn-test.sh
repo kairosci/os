@@ -148,7 +148,6 @@ esac'
 # and a charger plugged in or out switches the power profile.
 stub pkill 'exit 1'
 stub killall 'exit 1'
-stub arch-powerprofiles-set 'exit 0'
 stub powerprofilesctl 'exit 0'
 # The shell runs some commands under `bash -lc`, and a login shell resets PATH
 # and AP from /etc/arch.conf, which would put the session's

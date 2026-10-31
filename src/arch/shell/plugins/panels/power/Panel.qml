@@ -145,7 +145,7 @@ Panel {
 
   function setProfile(profile) {
     if (!profile || actionProc.running) return
-    actionProc.command = ["arch-powerprofiles-set", root.discharging ? "battery" : "ac", profile]
+    actionProc.command = ["archctl", "powerprofiles", "set", root.discharging ? "battery" : "ac", profile]
     actionProc.running = true
   }
 

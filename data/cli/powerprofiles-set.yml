@@ -38,7 +38,7 @@ statuses:
   command_error: 127
   signal_status_base: 128
 messages:
-  usage: 'Usage: arch-powerprofiles-set [autodetect|ac|battery] [power-saver|balanced|performance]'
+  usage: 'Usage: archctl powerprofiles set [autodetect|ac|battery] [power-saver|balanced|performance]'
   profile_unavailable: 'The requested power profile is not available'
   apply_failed: 'Could not apply power profile'
   timeout: 'Power profile operation timed out'

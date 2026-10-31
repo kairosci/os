@@ -341,7 +341,7 @@ Item {
         if (value === "performance") return Commons.I18n.t("menu.powerProfilePerformance")
         return value
       },
-      actionFor: function(value) { return "arch-powerprofiles-set autodetect " + Util.shellQuote(value) }
+      actionFor: function(value) { return "archctl powerprofiles set autodetect " + Util.shellQuote(value) }
     },
     // Kernel names are package names, the same in every language.
     "kernels": {

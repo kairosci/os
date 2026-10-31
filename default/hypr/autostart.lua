@@ -13,7 +13,7 @@ hl.on("hyprland.start", function()
 
   hl.exec_cmd("systemctl --user daemon-reload && systemctl --user start arch-shell.service")
   hl.exec_cmd("arch-provision-first-run")
-  hl.exec_cmd("arch-powerprofiles-init")
+  hl.exec_cmd("archctl powerprofiles set autodetect")
   hl.exec_cmd(o.launch("arch-hyprland-monitor-watch"))
   hl.exec_cmd(o.launch("udiskie --automount --no-notify --no-tray"))
 
