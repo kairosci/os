@@ -27,7 +27,7 @@ ln -s "$state/theme/backgrounds/1-sky.webp" "$state/background"
 # only once, for that theme. The VS Code one fails.
 cat >"$commands/retint" <<'STUB'
 #!/bin/bash
-name=${0##*/}
+name=${TEST_RETINT_NAME:-${0##*/}}
 if [[ $name == arch-theme-set-browser ]]; then
   theme=$(<"$TEST_STATE/theme.name")
   if [[ -z ${TEST_HOLD_THEME:-} || ($theme == "$TEST_HOLD_THEME" && ! -f $TEST_TMP/held) ]]; then
@@ -66,9 +66,19 @@ cat >"$commands/noop" <<'STUB'
 exit 0
 STUB
 chmod +x "$commands/retint" "$commands/noop"
-for command in "$ROOT"/src/arch/commands/arch-restart-* "$ROOT"/src/arch/commands/arch-theme-set-* arch-hook arch-theme-bg-cache; do
+for command in "$ROOT"/src/arch/commands/arch-restart-* "$ROOT"/src/arch/commands/arch-theme-set-* arch-theme-bg-cache; do
   ln -sf retint "$commands/${command##*/}"
 done
+cat >"$commands/archctl" <<'STUB'
+#!/bin/bash
+if [[ ${1:-} == hook ]]; then
+  shift
+  TEST_RETINT_NAME=arch-hook "$TEST_COMMANDS_DIR/retint" "$@"
+else
+  exec "$ARCH_TEST_CLI_BIN/archctl" "$@"
+fi
+STUB
+chmod +x "$commands/archctl"
 for command in arch-theme-set-templates; do
   ln -sf noop "$commands/$command"
 done
@@ -89,7 +99,7 @@ set_theme() {
 
 switch_theme() {
   HOME="$home" AP="$ROOT" PATH="$commands:$ROOT/src/arch/commands:$PATH" XDG_RUNTIME_DIR="$test_tmp" \
-    TEST_LOG="$log" TEST_TMP="$test_tmp" TEST_STATE="$state" TEST_ROOT="$ROOT" \
+    TEST_LOG="$log" TEST_TMP="$test_tmp" TEST_STATE="$state" TEST_ROOT="$ROOT" TEST_COMMANDS_DIR="$commands" \
     /bin/bash "$ROOT/src/arch/commands/arch-theme-set" "$1" </dev/null >"$test_tmp/stdout" 2>"$test_tmp/stderr" ||
     fail "theme selection completes" "$(cat "$test_tmp/stderr")"
 }

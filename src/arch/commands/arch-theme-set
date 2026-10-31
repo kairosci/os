@@ -517,7 +517,7 @@ apply_other_theme_commands() {
 
   # Call hook on theme set. The lock is released first: a hook may switch the
   # theme itself, and that switch's batch needs the lock.
-  arch-hook theme-set "$THEME_NAME" >/dev/null
+  archctl hook theme-set "$THEME_NAME" >/dev/null
 
   # A newer switch replaced this theme during the hook, so its failures say
   # nothing about the apps any more; the newer batch reports its own.

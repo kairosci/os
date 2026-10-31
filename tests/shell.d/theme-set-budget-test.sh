@@ -72,7 +72,7 @@ for tool in awk base64 basename cat chmod cksum cmp cp cut date dirname env find
 done
 
 for name in hyprctl arch-shell pkill killall arch-theme-set-browser-policy \
-  arch-theme-bg-cache arch-hook; do
+  arch-theme-bg-cache archctl; do
   stub "$name"
 done
 # Never escalate: the browser policy hook would rewrite the system's policy.

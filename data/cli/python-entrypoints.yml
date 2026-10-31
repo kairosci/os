@@ -283,6 +283,7 @@ entrypoints:
     name: ''
     summary: Run a named hook from ~/.config/arch/hooks/<name> and ~/.config/arch/hooks/<name>.d/.
     args: '[name] [args...]'
+    generate_launcher: "false"
   - binary: arch-hook-install
     module: hook/runner
     function: install_main

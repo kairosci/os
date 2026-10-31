@@ -20,7 +20,7 @@ cat >"$fake_home/.config/arch/hooks/test-hook" <<'SH'
 touch "$HOME/hook-ran"
 SH
 
-HOME="$fake_home" "$ARCH_TEST_CLI_BIN/arch-hook" test-hook
+HOME="$fake_home" "$ARCH_TEST_CLI_BIN/archctl" hook test-hook
 [[ -f $fake_home/hook-ran ]] ||
   fail "archctl hook runs a named hook from the hooks directory"
 pass "archctl hook runs a named hook from the hooks directory"
@@ -30,7 +30,7 @@ cat >"$fake_home/.config/arch/hooks/a..b" <<'SH'
 touch "$HOME/dotted-hook-ran"
 SH
 
-HOME="$fake_home" "$ARCH_TEST_CLI_BIN/arch-hook" a..b
+HOME="$fake_home" "$ARCH_TEST_CLI_BIN/archctl" hook a..b
 [[ -f $fake_home/dotted-hook-ran ]] ||
   fail "archctl hook accepts a hook name with dots in the middle"
 pass "archctl hook accepts a hook name with dots in the middle"
@@ -41,7 +41,7 @@ import sys
 
 Path.home().joinpath("python-hook-ran").write_text(" ".join(sys.argv[1:]))
 PY
-HOME="$fake_home" "$ARCH_TEST_CLI_BIN/arch-hook" python-hook.py first second
+HOME="$fake_home" "$ARCH_TEST_CLI_BIN/archctl" hook python-hook.py first second
 [[ $(<"$fake_home/python-hook-ran") == "first second" ]] || fail "archctl hook runs a Python hook in isolated mode and forwards arguments"
 pass "archctl hook runs a Python hook in isolated mode and forwards arguments"
 
@@ -49,13 +49,13 @@ mkdir -p "$fake_home/.config/arch/hooks/hidden-hook.d"
 cat >"$fake_home/.config/arch/hooks/hidden-hook.d/.hidden" <<'SH'
 touch "$HOME/hidden-hook-ran"
 SH
-HOME="$fake_home" "$ARCH_TEST_CLI_BIN/arch-hook" hidden-hook
+HOME="$fake_home" "$ARCH_TEST_CLI_BIN/archctl" hook hidden-hook
 [[ ! -e $fake_home/hidden-hook-ran ]] || fail "archctl hook ignores hidden files in hook directories"
 pass "archctl hook ignores hidden files in hook directories"
 
 for name in . ..; do
   status=0
-  HOME="$fake_home" "$ARCH_TEST_CLI_BIN/arch-hook" "$name" >/dev/null 2>&1 || status=$?
+  HOME="$fake_home" "$ARCH_TEST_CLI_BIN/archctl" hook "$name" >/dev/null 2>&1 || status=$?
   (( status == 2 )) ||
     fail "archctl hook refuses a hook name of $name" "exit: $status"
   pass "archctl hook refuses a hook name of $name"
@@ -69,7 +69,7 @@ SH
 chmod +x "$fake_home/.config/evil"
 
 status=0
-HOME="$fake_home" "$ARCH_TEST_CLI_BIN/arch-hook" "../../evil" >/dev/null 2>&1 || status=$?
+HOME="$fake_home" "$ARCH_TEST_CLI_BIN/archctl" hook "../../evil" >/dev/null 2>&1 || status=$?
 (( status == 2 )) ||
   fail "archctl hook refuses a hook name with a dot-dot" "exit: $status"
 [[ ! -e $fake_home/escape-ran ]] ||
@@ -77,7 +77,7 @@ HOME="$fake_home" "$ARCH_TEST_CLI_BIN/arch-hook" "../../evil" >/dev/null 2>&1 ||
 pass "archctl hook refuses a hook name with a dot-dot"
 
 status=0
-HOME="$fake_home" "$ARCH_TEST_CLI_BIN/arch-hook" "sub/dir" >/dev/null 2>&1 || status=$?
+HOME="$fake_home" "$ARCH_TEST_CLI_BIN/archctl" hook "sub/dir" >/dev/null 2>&1 || status=$?
 (( status == 2 )) ||
   fail "archctl hook refuses a hook name with a slash" "exit: $status"
 pass "archctl hook refuses a hook name with a slash"

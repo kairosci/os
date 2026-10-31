@@ -115,6 +115,10 @@ cat >"$SUDO_TEST_ROOT/src/arch/commands/test-step" <<'STUB'
 #!/bin/bash
 set -euo pipefail
 step=${0##*/}
+if [[ $step == "archctl" && ${1:-} == "hook" ]]; then
+  step=arch-hook
+  shift
+fi
 printf 'step:%s %s\n' "$step" "$*" >>"$SUDO_TEST_LOG"
 if [[ $step == "systemd-run" ]]; then
   # arch-update-pacman registers the transaction as a PID 1 scope on booted

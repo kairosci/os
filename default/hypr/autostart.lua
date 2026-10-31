@@ -18,5 +18,5 @@ hl.on("hyprland.start", function()
   hl.exec_cmd(o.launch("udiskie --automount --no-notify --no-tray"))
 
   -- Run post-boot hooks after startup config has loaded.
-  hl.exec_cmd("sleep 2 && arch-hook post-boot")
+  hl.exec_cmd("sleep 2 && archctl hook post-boot")
 end)
