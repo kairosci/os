@@ -1,0 +1,9 @@
+paths:
+  themes: .config/arch/themes
+  git_marker: .git
+output:
+  separator: "\n"
+  trailing_newline: false
+status:
+  listed: 0
+  none: 1

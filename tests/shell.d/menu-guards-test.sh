@@ -247,14 +247,14 @@ many="$themes_home/many/.config/arch/themes"
 mkdir -p "$many/tokyo night/.git" "$many/zen/.git" "$many/handmade"
 ln -s "$themes_home/checkout" "$many/in-progress"
 
-listed=$(HOME="$themes_home/many" LC_ALL=C "$ROOT/src/arch/commands/arch-theme-extras")
+listed=$(AP="$ROOT" HOME="$themes_home/many" LC_ALL=C "$ROOT/src/arch/commands/archctl" theme extras)
 [[ $listed == "$many/tokyo night"$'\n'"$many/zen" ]] ||
   fail "arch-theme-extras lists every clone and nothing else" "got: $listed"
 pass "arch-theme-extras lists every clone and nothing else"
 
 git_calls=$(mktemp)
 trap 'rm -rf "$stub_dir" "$themes_home" "$git_calls"' EXIT
-HOME="$themes_home/many" LC_ALL=C GIT_CALLS="$git_calls" PATH="$ROOT/src/arch/commands:$stub_dir:$PATH" \
+AP="$ROOT" HOME="$themes_home/many" LC_ALL=C GIT_CALLS="$git_calls" PATH="$ROOT/src/arch/commands:$stub_dir:$PATH" \
   "$ROOT/src/arch/commands/arch-theme-update" >/dev/null 2>&1
 pulled=$(<"$git_calls")
 [[ $pulled == "<-C><$many/tokyo night><pull>"$'\n'"<-C><$many/zen><pull>" ]] ||
