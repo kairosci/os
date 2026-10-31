@@ -1,0 +1,18 @@
+commands:
+  set_state: [archctl, toggle, set, bar-off]
+  refresh: [arch-shell, -q, arch.bar, syncHidden]
+values:
+  default_action: toggle
+  actions: [on, off, toggle]
+limits:
+  command_timeout_seconds: 5
+  cleanup_timeout_seconds: 1
+  maximum_output_bytes: 1024
+  read_chunk_bytes: 256
+messages:
+  usage: 'Usage: archctl toggle bar [on|off|toggle]'
+  command_error: 'Could not change bar visibility'
+statuses:
+  invalid_arguments: 2
+  command_error: 1
+  success: 0

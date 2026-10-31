@@ -433,8 +433,8 @@ assertDeepEqual(
 assert(
   defaultById['appearance.top-bar.hide'].when === '! archctl toggle enabled bar-off'
     && defaultById['appearance.top-bar.show'].when === 'archctl toggle enabled bar-off'
-    && defaultById['appearance.top-bar.hide'].action === 'arch-toggle-bar'
-    && defaultById['appearance.top-bar.show'].action === 'arch-toggle-bar',
+    && defaultById['appearance.top-bar.hide'].action === 'archctl toggle bar off'
+    && defaultById['appearance.top-bar.show'].action === 'archctl toggle bar on',
   'menu offers Hide while the Menu Bar shows and Show while it is hidden'
 )
 assert(

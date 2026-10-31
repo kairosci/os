@@ -41,15 +41,15 @@ HOME="$test_home" archctl toggle set example toggle
 [[ ! -f $flag ]] || fail "generic toggle flips enabled state off"
 pass "generic toggle flips enabled state off"
 
-HOME="$test_home" arch-toggle-bar on
+HOME="$test_home" archctl toggle bar on
 [[ -f $bar_flag ]] || fail "bar on enables bar-off toggle"
 pass "bar on enables bar-off toggle"
 
-HOME="$test_home" arch-toggle-bar on
+HOME="$test_home" archctl toggle bar on
 [[ -f $bar_flag ]] || fail "bar on is idempotent"
 pass "bar on is idempotent"
 
-HOME="$test_home" arch-toggle-bar off
+HOME="$test_home" archctl toggle bar off
 [[ ! -f $bar_flag ]] || fail "bar off disables bar-off toggle"
 pass "bar off disables bar-off toggle"
 
@@ -71,7 +71,7 @@ HOME="$test_home" arch-toggle-fullscreen-desktop
 [[ ! -f $bar_flag && ! -f $gaps_flag ]] || fail "fullscreen toggle restores the bar and the gaps together"
 pass "fullscreen toggle restores the bar and the gaps together"
 
-HOME="$test_home" arch-toggle-bar on
+HOME="$test_home" archctl toggle bar on
 HOME="$test_home" arch-toggle-fullscreen-desktop
 [[ -f $bar_flag && -f $gaps_flag ]] || fail "fullscreen toggle pulls a half-hidden desktop into full screen"
 pass "fullscreen toggle pulls a half-hidden desktop into full screen"

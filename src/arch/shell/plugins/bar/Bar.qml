@@ -1469,7 +1469,7 @@ Item {
 
   // Presence of the `bar-off` flag = bar hidden. Watching the parent toggles
   // directory because FileView can't observe a file that doesn't exist yet,
-  // and the flag is created/removed by `arch-toggle-bar`.
+  // and the flag is created/removed by `archctl toggle bar`.
   Process {
     id: barHiddenProbe
     running: true
@@ -1485,7 +1485,7 @@ Item {
 
   // The directory watch can permanently stop delivering events after flag
   // changes land in quick succession, stranding the bar off screen until the
-  // shell restarts. `arch-toggle-bar` nudges this after flipping the flag
+  // shell restarts. `archctl toggle bar` nudges this after flipping the flag
   // so the probe re-reads it even when the watch has gone quiet.
   ShellIpc {
     target: "arch.bar"
