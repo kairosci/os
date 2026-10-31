@@ -127,6 +127,7 @@ user_units:
   daemon_reload: [systemctl, --user, daemon-reload]
   enable: [systemctl, --user, enable, --now]
   units:
+    - arch-shell.service
     - arch-recover-internal-monitor.service
     - arch-sleep-lock.service
     - arch-fcitx5.service

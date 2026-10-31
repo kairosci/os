@@ -11,7 +11,7 @@ hl.on("hyprland.start", function()
   -- starting session services.
   hl.exec_cmd("dbus-update-activation-environment --systemd --all")
 
-  hl.exec_cmd("arch-launch-shell")
+  hl.exec_cmd("systemctl --user daemon-reload && systemctl --user start arch-shell.service")
   hl.exec_cmd("arch-provision-first-run")
   hl.exec_cmd("arch-powerprofiles-init")
   hl.exec_cmd(o.launch("arch-hyprland-monitor-watch"))
