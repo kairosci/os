@@ -82,3 +82,17 @@ mapfile -d '' -t actual_args <"$launch_args"
   ${actual_args[2]} == nautilus && ${actual_args[3]} == --new-window && ${actual_args[4]} == "$work_dir" ]] ||
   fail "Files launcher forwards a path with spaces as one argv item" "${actual_args[*]}"
 pass "Files launchers preserve argv and the focused terminal directory"
+
+cat >"$stub_bin/arch-launch-terminal" <<'SH'
+#!/bin/bash
+printf '%s\0' "$@" >"$LAUNCH_ARGS"
+exit "${LAUNCH_STATUS:-0}"
+SH
+chmod +x "$stub_bin/arch-launch-terminal"
+AP="$ROOT" PATH="$stub_bin:$PATH" LAUNCH_ARGS="$launch_args" \
+  "$ARCH_TEST_CLI_BIN/arch-launch-terminal-tmux" || fail "tmux terminal launcher starts successfully"
+mapfile -d '' -t actual_args <"$launch_args"
+[[ ${#actual_args[@]} == 3 && ${actual_args[0]} == bash && ${actual_args[1]} == -c &&
+  ${actual_args[2]} == 'tmux attach || tmux new -s Work' ]] ||
+  fail "tmux terminal launcher preserves its attach-or-create command" "${actual_args[*]}"
+pass "tmux terminal launcher preserves the Work session fallback"

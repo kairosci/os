@@ -19,10 +19,9 @@ sources = [
   "src/arch/commands/arch-launch-signal",
   "src/arch/commands/arch-launch-spotify",
   "src/arch/commands/arch-launch-terminal",
-  "src/arch/commands/arch-launch-terminal-tmux",
   "src/arch/commands/arch-launch-tui",
   "src/arch/commands/arch-launch-webapp",
-  "src/arch/cli/launch/files.py",
+  "src/arch/cli/launch/dispatch.py",
 ]
 requires = ["desktop.commands", "system.runtime-data"]
 
@@ -95,10 +94,6 @@ source = "src/arch/commands/arch-launch-terminal"
 target = "usr/share/arch/src/arch/commands/arch-launch-terminal"
 
 [[output]]
-source = "src/arch/commands/arch-launch-terminal-tmux"
-target = "usr/share/arch/src/arch/commands/arch-launch-terminal-tmux"
-
-[[output]]
 source = "src/arch/commands/arch-launch-tui"
 target = "usr/share/arch/src/arch/commands/arch-launch-tui"
 
@@ -107,5 +102,5 @@ source = "src/arch/commands/arch-launch-webapp"
 target = "usr/share/arch/src/arch/commands/arch-launch-webapp"
 
 [[output]]
-source = "src/arch/cli/launch/files.py"
-target = "usr/share/arch/src/arch/cli/launch/files.py"
+source = "src/arch/cli/launch/dispatch.py"
+target = "usr/share/arch/src/arch/cli/launch/dispatch.py"

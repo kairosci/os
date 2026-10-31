@@ -581,14 +581,20 @@ entrypoints:
     summary: Launch emojis
     examples: archctl menu emoji
   - binary: arch-launch-nautilus
-    module: launch/files
+    module: launch/dispatch
     function: main
     group: launch
     name: nautilus
     summary: Launch Files
   - binary: arch-launch-nautilus-cwd
-    module: launch/files
+    module: launch/dispatch
     function: main
     group: launch
     name: nautilus cwd
     summary: Launch Files in the active terminal's current directory
+  - binary: arch-launch-terminal-tmux
+    module: launch/dispatch
+    function: main
+    group: launch
+    name: terminal tmux
+    summary: Launch or attach to the Work tmux session in a terminal

@@ -103,3 +103,4 @@ PR #483 was closed when its base branch was deleted during integration. Its chan
 | #584 | Keep a themed desktop visible during shell recovery |
 | #585 | Migrate clipboard and emoji menu launchers to Python |
 | #586 | Migrate Files launchers to Python |
+| #587 | Migrate terminal tmux launcher to Python |

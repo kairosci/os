@@ -26,6 +26,7 @@ class Settings(TypedDict):
   statuses: Statuses
   command_error_message: str
   timeout_message: str
+  unknown_launcher_message: str
 
 
 def _mapping(value: object, label: str) -> dict[str, object]:
@@ -54,7 +55,7 @@ def _status(value: object, label: str) -> int:
 
 def _settings() -> Settings:
   root = Path(os.environ["AP"])
-  raw: object = yaml.safe_load((root / "data/cli/launch-files.yml").read_text(encoding="utf-8"))
+  raw: object = yaml.safe_load((root / "data/cli/launchers.yml").read_text(encoding="utf-8"))
   document = _mapping(raw, "configuration")
   raw_launchers = _mapping(document.get("launchers"), "launchers")
   launchers: dict[str, Launcher] = {}
@@ -85,6 +86,7 @@ def _settings() -> Settings:
     },
     "command_error_message": _text(messages.get("command_error"), "messages.command_error"),
     "timeout_message": _text(messages.get("timeout"), "messages.timeout"),
+    "unknown_launcher_message": _text(messages.get("unknown_launcher"), "messages.unknown_launcher"),
   }
 
 
@@ -97,7 +99,7 @@ def main() -> int:
 
   launcher = settings["launchers"].get(Path(sys.argv[0]).name)
   if launcher is None:
-    print("Unknown Files launcher", file=sys.stderr)
+    print(settings["unknown_launcher_message"], file=sys.stderr)
     return settings["statuses"]["configuration_error"]
 
   command = launcher["command"]
