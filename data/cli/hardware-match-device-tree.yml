@@ -1,0 +1,11 @@
+root_uid: 0
+image_root_environment: ARCH_IMAGE_ROOT
+maximum_bytes: 65536
+sources:
+  - environment: ARCH_PROC_ROOT
+    default: /proc/device-tree/compatible
+    suffix: device-tree/compatible
+  - environment: ARCH_SYS_ROOT
+    default: /sys/firmware/devicetree/base/compatible
+    suffix: firmware/devicetree/base/compatible
+statuses: {found: 0, not_found: 1}
