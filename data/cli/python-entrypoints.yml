@@ -662,15 +662,18 @@ entrypoints:
     group: launch
     name: nautilus
     summary: Launch Files
+    generate_launcher: "false"
   - binary: arch-launch-nautilus-cwd
     module: launch/dispatch
     function: main
     group: launch
     name: nautilus cwd
     summary: Launch Files in the active terminal's current directory
+    generate_launcher: "false"
   - binary: arch-launch-terminal-tmux
     module: launch/dispatch
     function: main
     group: launch
     name: terminal tmux
     summary: Launch or attach to the Work tmux session in a terminal
+    generate_launcher: "false"
