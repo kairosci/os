@@ -7,7 +7,7 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 tmp_dir=$(mktemp -d)
 trap 'rm -rf "$tmp_dir"' EXIT
 
-mkdir -p "$tmp_dir/bin" "$tmp_dir/state"
+mkdir -p "$tmp_dir/bin" "$tmp_dir/state-home"
 
 cat >"$tmp_dir/bin/powerprofilesctl" <<'EOF'
 #!/bin/bash
@@ -21,7 +21,7 @@ if [[ $1 == "list" ]]; then
     printf '  power-saver:\n* balanced:\n  performance:\n'
   fi
 elif [[ $1 == "set" ]]; then
-  [[ ${POWERPROFILES_SET_FAIL:-0} == "0" ]] || exit 1
+  [[ ${POWERPROFILES_SET_FAIL:-0} == "0" ]] || exit "$POWERPROFILES_SET_FAIL"
   printf '%s\n' "$2" >>"$POWERPROFILES_LOG"
 fi
 EOF
@@ -38,10 +38,18 @@ fi
 EOF
 chmod +x "$tmp_dir/bin/busctl"
 
+cat >"$tmp_dir/bin/arch-shell" <<'EOF'
+#!/bin/bash
+printf '%s\n' "$*" >>"$POWERPROFILES_REFRESH_LOG"
+EOF
+chmod +x "$tmp_dir/bin/arch-shell"
+
 export AP="$ROOT"
 export PATH="$tmp_dir/bin:$ARCH_TEST_CLI_BIN:$ROOT/src/arch/commands:$PATH"
 export POWERPROFILES_LOG="$tmp_dir/calls"
-export ARCH_POWERPROFILES_STATE_DIR="$tmp_dir/state"
+export POWERPROFILES_REFRESH_LOG="$tmp_dir/refresh-calls"
+export XDG_STATE_HOME="$tmp_dir/state-home"
+profile_state_dir="$XDG_STATE_HOME/arch/powerprofiles"
 
 profiles=$(arch-powerprofiles-list)
 [[ $profiles == $'performance\nbalanced\npower-saver' ]] || fail "power profile listing keeps the daemon order reversed" "$profiles"
@@ -83,39 +91,54 @@ large_output=$(AP="$profile_ap" POWERPROFILES_TEST_MODE=large "$ARCH_TEST_CLI_BI
 [[ -z $large_output ]] || fail "an oversized power profile response is not retained" "$large_output"
 pass "power profile listing caps daemon output before parsing"
 
-"$ROOT/src/arch/commands/arch-powerprofiles-set" ac balanced
-[[ $(<"$tmp_dir/state/ac") == "balanced" ]] || fail "power profile stores AC preference"
+"$ARCH_TEST_CLI_BIN/arch-powerprofiles-set" ac balanced
+[[ $(<"$profile_state_dir/ac") == "balanced" ]] || fail "power profile stores AC preference"
+[[ $(stat -c %a "$profile_state_dir/ac") == "600" ]] || fail "power profile state is private"
 [[ $(tail -n 1 "$tmp_dir/calls") == "balanced" ]] || fail "power profile applies selected AC preference"
+[[ $(tail -n 1 "$tmp_dir/refresh-calls") == "-q battery refreshPowerProfile" ]] || fail "power profile refreshes the battery indicator after applying"
 pass "power profile stores and applies AC preference"
 
-"$ROOT/src/arch/commands/arch-powerprofiles-set" ac
+"$ARCH_TEST_CLI_BIN/arch-powerprofiles-set" ac
 [[ $(tail -n 1 "$tmp_dir/calls") == "balanced" ]] || fail "power profile restores AC preference"
 pass "power profile restores AC preference"
 
-if POWERPROFILES_SET_FAIL=1 "$ROOT/src/arch/commands/arch-powerprofiles-set" ac performance; then
+if POWERPROFILES_SET_FAIL=7 "$ARCH_TEST_CLI_BIN/arch-powerprofiles-set" ac performance; then
   fail "power profile reports a failed selection"
+else
+  failed_status=$?
 fi
-[[ $(<"$tmp_dir/state/ac") == "balanced" ]] || fail "power profile preserves preference after failed selection"
+(( failed_status == 7 )) || fail "power profile preserves the apply command exit status" "$failed_status"
+[[ $(<"$profile_state_dir/ac") == "balanced" ]] || fail "power profile preserves preference after failed selection"
 pass "power profile persists only successful selections"
 
-"$ROOT/src/arch/commands/arch-powerprofiles-set" battery performance
-[[ $(<"$tmp_dir/state/battery") == "performance" ]] || fail "power profile stores battery preference"
+"$ARCH_TEST_CLI_BIN/arch-powerprofiles-set" battery performance
+[[ $(<"$profile_state_dir/battery") == "performance" ]] || fail "power profile stores battery preference"
 pass "power profile stores battery preference separately"
 
-"$ROOT/src/arch/commands/arch-powerprofiles-set" ac
+outside_state="$tmp_dir/outside-state"
+printf 'preserve this file\n' >"$outside_state"
+ln -sf "$outside_state" "$profile_state_dir/battery"
+"$ARCH_TEST_CLI_BIN/arch-powerprofiles-set" battery balanced
+[[ $(<"$outside_state") == "preserve this file" ]] || fail "power profile state replacement does not follow a symlink"
+[[ ! -L $profile_state_dir/battery && $(<"$profile_state_dir/battery") == "balanced" ]] ||
+  fail "power profile state replaces a symlink with its own private file"
+"$ARCH_TEST_CLI_BIN/arch-powerprofiles-set" battery performance
+pass "power profile state writes atomically without following a symlink"
+
+"$ARCH_TEST_CLI_BIN/arch-powerprofiles-set" ac
 [[ $(tail -n 1 "$tmp_dir/calls") == "balanced" ]] || fail "battery preference does not replace AC preference"
 pass "power profile keeps AC and battery preferences separate"
 
-ON_BATTERY=1 "$ROOT/src/arch/commands/arch-powerprofiles-set"
+ON_BATTERY=1 "$ARCH_TEST_CLI_BIN/arch-powerprofiles-set"
 [[ $(tail -n 1 "$tmp_dir/calls") == "performance" ]] || fail "autodetect restores battery preference"
 pass "power profile autodetect restores battery preference"
 
-rm "$tmp_dir/state/ac"
-ON_BATTERY=0 "$ROOT/src/arch/commands/arch-powerprofiles-set"
+rm "$profile_state_dir/ac"
+ON_BATTERY=0 "$ARCH_TEST_CLI_BIN/arch-powerprofiles-set"
 [[ $(tail -n 1 "$tmp_dir/calls") == "performance" ]] || fail "power profile uses performance as AC default"
 pass "power profile retains performance as AC default"
 
-"$ROOT/src/arch/commands/arch-powerprofiles-set" ac power-saver
+"$ARCH_TEST_CLI_BIN/arch-powerprofiles-set" ac power-saver
 "$ROOT/src/arch/commands/arch-powerprofiles-init"
 [[ $(tail -n 1 "$tmp_dir/calls") == "power-saver" ]] || fail "init restores the autodetected preference"
 pass "power profile init restores the autodetected preference"

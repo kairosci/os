@@ -1,0 +1,46 @@
+commands:
+  battery_state: [busctl, get-property, org.freedesktop.UPower, /org/freedesktop/UPower, org.freedesktop.UPower, OnBattery]
+  list_profiles: [arch-powerprofiles-list]
+  set_profile: [powerprofilesctl, set]
+  refresh_shell: [arch-shell, -q, battery, refreshPowerProfile]
+timeouts:
+  battery_state: 2
+  list_profiles: 3
+  set_profile: 3
+  refresh_shell: 2
+cleanup_timeout_seconds: 1
+max_output_bytes: 32768
+read_chunk_bytes: 8192
+on_battery_value: 'b true'
+actions:
+  autodetect: autodetect
+  ac: ac
+  battery: battery
+fallback_profiles:
+  ac: performance
+  battery: balanced
+last_resort_profile: balanced
+state:
+  default_directory: ~/.local/state/arch/powerprofiles
+  xdg_subdirectory: arch/powerprofiles
+  files:
+    ac: ac
+    battery: battery
+  max_file_bytes: 128
+  directory_mode: 448
+  file_mode: 384
+statuses:
+  success: 0
+  invalid_arguments: 1
+  profile_unavailable: 1
+  state_error: 1
+  timeout: 124
+  command_error: 127
+  signal_status_base: 128
+messages:
+  usage: 'Usage: arch-powerprofiles-set [autodetect|ac|battery] [power-saver|balanced|performance]'
+  profile_unavailable: 'The requested power profile is not available'
+  apply_failed: 'Could not apply power profile'
+  timeout: 'Power profile operation timed out'
+  command_error: 'Could not start power profile operation'
+  state_error: 'Could not save power profile preference'
