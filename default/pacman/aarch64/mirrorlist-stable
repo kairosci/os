@@ -1,2 +1,5 @@
-# Official Arch Linux ARM GeoIP mirror.
+# Official Arch Linux ARM mirrors. Keep independently hosted regional mirrors
+# ahead of GeoIP so builders can continue when its selected mirror is slow.
+Server = http://de.mirror.archlinuxarm.org/$arch/$repo
+Server = http://fr.mirror.archlinuxarm.org/$arch/$repo
 Server = http://mirror.archlinuxarm.org/$arch/$repo

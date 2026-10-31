@@ -50,7 +50,7 @@ class ContainerSettings(TypedDict):
     build_user_environment: str
     root_home: str
     build_script: str
-    bootstrap_command: str
+    bootstrap_commands: dict[str, str]
     bootstrap_argument_zero: str
     build_script_environment: str
     build_operation_environment: str
@@ -263,7 +263,9 @@ def container_command(settings: Settings, seccomp_profile: Path) -> list[str]:
         (
             container["images"][architecture],
             *container["entrypoint"],
-            container["bootstrap_command"],
+            container["bootstrap_commands"][architecture].format(
+                mount_path=container["mount_path"]
+            ),
             container["bootstrap_argument_zero"],
             *container["packages"],
             *container["architecture_packages"].get(architecture, []),
