@@ -1,0 +1,29 @@
+paths:
+  config_home_environment: XDG_CONFIG_HOME
+  home_environment: HOME
+  default_config_home: .config
+  config_relative: arch/defaults/dictation
+  encoding: utf-8
+limits:
+  arguments: 1
+  backend_characters: 128
+patterns:
+  backend: '^[a-z0-9][a-z0-9-]*$'
+commands:
+  installer_missing: [arch-cmd-missing]
+  launch_installer: [arch-launch-terminal-with-presentation]
+messages:
+  usage: 'Usage: archctl default dictation [backend]'
+  no_backend: 'No dictation backend configured. Select one in Setup > Defaults > Dictation.'
+  invalid_backend: 'Invalid dictation backend.'
+  installer_missing: 'No installer available for the selected dictation backend.'
+  config_error: 'Could not read the dictation backend configuration.'
+  command_error: 'Could not start dictation backend setup.'
+statuses:
+  success: 0
+  invalid_arguments: 1
+  invalid_backend: 1
+  no_backend: 1
+  installer_missing: 1
+  config_error: 1
+  command_error: 127
