@@ -1,0 +1,12 @@
+paths:
+  cpu_info: /proc/cpuinfo
+commands:
+  pci_devices: [lspci]
+cpu:
+  vendor_key: vendor_id
+  vendor_id: GenuineIntel
+devices:
+  display_classes: [vga, 3d, display]
+  panther_lake: panther lake
+  audio_classes: [multimedia audio controller, audio device]
+  intel_vendor: intel
