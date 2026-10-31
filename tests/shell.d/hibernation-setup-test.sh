@@ -38,6 +38,7 @@ cat >"$tmpdir/bin/arch-cmd-present" <<'EOF'
 #!/bin/bash
 [[ $1 == "limine-mkinitcpio" && ${ARCH_TEST_HAVE_LIMINE:-0} == "1" ]]
 EOF
+arch_test_command_presence_router "$tmpdir/bin"
 chmod +x "$tmpdir/bin/"*
 
 ARCH_TEST_REBUILD_LOG="$tmpdir/rebuild.log" \

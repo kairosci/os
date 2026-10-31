@@ -109,6 +109,7 @@ cat >"$browser_bin/arch-cmd-present" <<'FAKE'
 #!/bin/bash
 [[ -x ${BROWSER_BIN:?}/$1 ]]
 FAKE
+arch_test_command_presence_router "$browser_bin"
 chmod +x "$browser_bin"/*
 
 printf '{"BrowserThemeColor": "#ff0000"}\n' >"$policy_tmp/color.json"

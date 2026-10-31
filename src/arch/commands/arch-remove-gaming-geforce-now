@@ -6,7 +6,7 @@
 
 set -e
 
-if arch-cmd-present flatpak && flatpak info com.nvidia.geforcenow &>/dev/null; then
+if archctl cmd present flatpak && flatpak info com.nvidia.geforcenow &>/dev/null; then
   flatpak uninstall -y --delete-data com.nvidia.geforcenow
 fi
 

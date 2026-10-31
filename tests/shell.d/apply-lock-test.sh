@@ -22,7 +22,7 @@ grep -F '[[ -x /usr/bin/fprintd-list ]]' "$apply_lock" >/dev/null ||
   fail "the lock helper checks the trusted fprintd-list executable"
 grep -F '/usr/bin/fprintd-list "$target_user"' "$apply_lock" >/dev/null ||
   fail "the lock helper invokes fprintd-list by its trusted absolute path"
-if grep -F 'arch-cmd-present fprintd-list' "$apply_lock" >/dev/null ||
+if grep -F 'archctl cmd present fprintd-list' "$apply_lock" >/dev/null ||
   grep -E '(^|[[:space:];&|])fprintd-list([[:space:]]|$)' "$apply_lock" >/dev/null ||
   grep -E 'command[[:space:]]+-v[[:space:]]+fprintd-list' "$apply_lock" >/dev/null; then
   fail "the lock helper does not resolve fprintd-list through PATH"

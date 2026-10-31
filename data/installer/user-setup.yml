@@ -126,7 +126,7 @@ theme_setup:
 nouveau_cursor_setup:
   nvidia_config_environment: ARCH_NVIDIA_MODPROBE_CONFIG
   nvidia_config_default: /etc/modprobe.d/nvidia.conf
-  command_check: [arch-cmd-present, lspci]
+  command_check: [archctl, cmd, present, lspci]
   driver_command: [lspci, -k]
   driver_environment: {LC_ALL: C}
   driver_pattern: 'Kernel driver in use: nouveau'

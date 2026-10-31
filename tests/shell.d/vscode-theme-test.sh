@@ -14,6 +14,7 @@ cat >"$FAKE_BIN/arch-cmd-present" <<'EOF'
 printf '%s\n' "$1" >>"$EDITOR_PROBE_LOG"
 exit 1
 EOF
+arch_test_command_presence_router "$FAKE_BIN"
 
 cat >"$FAKE_BIN/arch-toggle-enabled" <<'EOF'
 #!/bin/bash
@@ -51,6 +52,7 @@ cat >"$EDITOR_BIN/arch-cmd-present" <<'EOF'
 #!/bin/bash
 [[ $1 == "code" ]]
 EOF
+arch_test_command_presence_router "$EDITOR_BIN"
 
 cat >"$EDITOR_BIN/arch-toggle-enabled" <<'EOF'
 #!/bin/bash

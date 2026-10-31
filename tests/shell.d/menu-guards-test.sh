@@ -149,6 +149,10 @@ assert_helper_agrees() {
     command_path="$ARCH_TEST_CLI_BIN/archctl"
     route=(cmd missing)
     shadow_helper=arch-cmd-missing
+  elif [[ $helper == "archctl cmd present" ]]; then
+    command_path="$ARCH_TEST_CLI_BIN/archctl"
+    route=(cmd present)
+    shadow_helper=arch-cmd-present
   else
     command_path="$ROOT/src/arch/commands/$helper"
     [[ -x $command_path ]] || command_path="$ARCH_TEST_CLI_BIN/$helper"
@@ -176,13 +180,13 @@ pass "guard prelude resolves packages through provides, wrapping, and constraint
 # Command presence means an executable found through PATH, as shutil.which
 # does in the Python command. Shell builtins such as cd are not executables.
 cmd_cases=("gvim" "cd" "absent" "gvim absent" "gvim cd" "")
-for helper in arch-cmd-present "archctl cmd missing"; do
+for helper in "archctl cmd present" "archctl cmd missing"; do
   for case in "${cmd_cases[@]}"; do
     read -r -a argv <<<"$case"
     assert_helper_agrees "guard prelude resolves commands as the real helper does" "$helper" "${argv[@]}"
   done
 done
-pass "guard prelude resolves executable commands as archctl cmd present and archctl cmd missing do"
+pass "guard prelude resolves executable commands as the routed presence commands do"
 
 # A reader is replaced by what it printed, which has to compare identically to
 # the substitution it stood in for -- including the trailing newline $() drops.

@@ -21,7 +21,7 @@ fi
 # sublime-text-4 ships `subl` on PATH, not `sublime_text`.
 [[ $editor == sublime_text ]] && editor=subl
 
-arch-cmd-present "$editor" || editor="nvim"
+archctl cmd present "$editor" || editor="nvim"
 
 case "${editor##*/}" in
 nvim | vim | nano | micro | hx | helix | fresh)

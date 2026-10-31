@@ -7,7 +7,7 @@ set -e
 
 # Remove voxtype and its configurations.
 
-if arch-cmd-present voxtype; then
+if archctl cmd present voxtype; then
   echo "Uninstall Voxtype to remove dictation."
 
   # Remove services

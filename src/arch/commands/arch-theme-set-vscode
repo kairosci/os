@@ -141,7 +141,7 @@ set_theme() {
   local settings_path="$2"
   local ext_base="$3"
 
-  arch-cmd-present "$editor_cmd" || return 0
+  archctl cmd present "$editor_cmd" || return 0
 
   local theme_name=""
 

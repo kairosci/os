@@ -112,7 +112,7 @@ parse_keycodes() {
 build_lua_bind_cache() {
   local modmask description key dispatcher arg cache_key
 
-  arch-cmd-present lua || return 0
+  archctl cmd present lua || return 0
 
   while IFS=$'\t' read -r modmask description key dispatcher arg; do
     [[ -z $modmask || -z $description || -z $key ]] && continue

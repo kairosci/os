@@ -67,15 +67,15 @@ done < <(ps -eo comm=,args=)
 
 # Chrome installs as either binary name, so take whichever exists.
 chrome=google-chrome-stable
-arch-cmd-present "$chrome" || chrome=google-chrome
+archctl cmd present "$chrome" || chrome=google-chrome
 
 browsers_to_refresh=()
 for browser in chromium:chromium "chrome:$chrome" msedge:microsoft-edge-stable brave:brave; do
-  [[ -n ${running_names[${browser%%:*}]:-} ]] && arch-cmd-present "${browser#*:}" && browsers_to_refresh+=("${browser#*:}")
+  [[ -n ${running_names[${browser%%:*}]:-} ]] && archctl cmd present "${browser#*:}" && browsers_to_refresh+=("${browser#*:}")
 done
 # Match on the binary path: the running process is named plain "brave", and a
 # bare brave-origin pattern would also match the installer's own terminal.
-[[ $running_args == *"/opt/brave-origin-bin/"* ]] && arch-cmd-present brave-origin && browsers_to_refresh+=(brave-origin)
+[[ $running_args == *"/opt/brave-origin-bin/"* ]] && archctl cmd present brave-origin && browsers_to_refresh+=(brave-origin)
 
 wait "$policy_pid" || failed=1
 

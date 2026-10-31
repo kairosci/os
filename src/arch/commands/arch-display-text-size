@@ -140,7 +140,7 @@ set_terminal_size() {
     sed -i -E "s/^size[[:space:]]*=.*/size = $pt/" ~/.config/alacritty/alacritty.toml
   fi
 
-  if [[ -f ~/.config/kitty/kitty.conf ]] || arch-cmd-present kitty; then
+  if [[ -f ~/.config/kitty/kitty.conf ]] || archctl cmd present kitty; then
     mkdir -p ~/.config/kitty
     if grep -qE '^[[:space:]]*font_size[[:space:]]+' ~/.config/kitty/kitty.conf 2>/dev/null; then
       sed --follow-symlinks -i -E "s/^[[:space:]]*font_size[[:space:]]+.*/font_size $pt.0/" ~/.config/kitty/kitty.conf
@@ -188,7 +188,7 @@ term_current_pt() {
     echo "${pt:-$TERM_DEFAULT_PT}"
   elif [[ -f ~/.config/foot/foot.ini ]]; then
     grep -oP ':size=\K[0-9.]+' ~/.config/foot/foot.ini | head -1
-  elif arch-cmd-present kitty; then
+  elif archctl cmd present kitty; then
     echo "$TERM_DEFAULT_PT"
   fi
 }

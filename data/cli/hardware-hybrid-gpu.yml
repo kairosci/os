@@ -1,5 +1,5 @@
 commands:
-  availability: [arch-cmd-present, supergfxctl]
+  availability: [archctl, cmd, present, supergfxctl]
   query: [supergfxctl, -s]
   timeout: [timeout, --kill-after=1s, 1s]
 paths:

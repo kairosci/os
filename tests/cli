@@ -569,6 +569,16 @@ cat >"$FAKE_BIN/arch-cmd-present" <<'EOF'
 [[ $1 == "code" ]]
 EOF
 chmod +x "$FAKE_BIN/arch-cmd-present"
+export FAKE_BIN
+cat >"$FAKE_BIN/archctl" <<'EOF'
+#!/bin/bash
+if [[ ${1:-} == cmd && ${2:-} == present ]]; then
+  shift 2
+  exec "$FAKE_BIN/arch-cmd-present" "$@"
+fi
+exec "$ROOT/src/arch/commands/archctl" "$@"
+EOF
+chmod +x "$FAKE_BIN/archctl"
 
 cat >"$FAKE_BIN/arch-toggle-enabled" <<'EOF'
 #!/bin/bash

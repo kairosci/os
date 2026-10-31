@@ -55,6 +55,7 @@ cat >"$stub_bin/arch-cmd-present" <<SH
 #!/bin/bash
 [[ -x $stub_bin/\$1 ]]
 SH
+arch_test_command_presence_router "$stub_bin"
 chmod +x "$stub_bin"/*
 export LEAF_CALLS="$test_tmp/leaf-calls" REBUILDS="$test_tmp/rebuilds"
 

@@ -302,6 +302,7 @@ cat >"$fake_bin/arch-cmd-present" <<'SH'
 #!/bin/bash
 exit 1
 SH
+arch_test_command_presence_router "$fake_bin"
 
 chmod +x "$fake_bin"/* "$root_tools"/*
 

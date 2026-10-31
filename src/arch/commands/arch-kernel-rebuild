@@ -7,7 +7,7 @@ set -euo pipefail
 
 if bootctl status --no-pager 2>/dev/null | grep -Eq '^[[:space:]]*Product: systemd-boot([[:space:]]|$)'; then
   mkinitcpio -P
-elif arch-cmd-present limine-mkinitcpio; then
+elif archctl cmd present limine-mkinitcpio; then
   limine-mkinitcpio "$@"
 else
   mkinitcpio -P

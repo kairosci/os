@@ -2,7 +2,7 @@
 
 # arch:summary=Update mise-managed tools
 
-if arch-cmd-present mise; then
+if archctl cmd present mise; then
   echo -e "\e[32m\nUpdate mise tools\e[0m"
 
   # mise withholds releases younger than its cooldown, so tools stay behind for

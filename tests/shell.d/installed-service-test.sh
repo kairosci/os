@@ -28,6 +28,7 @@ case "${1:-}" in
     ;;
 esac
 SH
+arch_test_command_presence_router "$mock_bin"
 
 cat >"$mock_bin/dropbox-cli" <<'SH'
 #!/bin/bash

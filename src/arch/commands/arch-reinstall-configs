@@ -21,9 +21,9 @@ cp -af /etc/skel/. ~/
 arch-refresh-limine
 arch-refresh-plymouth
 
-if arch-cmd-present neovim-refresh; then
+if archctl cmd present neovim-refresh; then
   neovim-refresh
-elif arch-cmd-present neovim-setup; then
+elif archctl cmd present neovim-setup; then
   neovim-setup --force
 fi
 

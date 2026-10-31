@@ -20,7 +20,12 @@ conf=$root/etc/conf.d/wireless-regdom
 calls=$tmp/calls
 mkdir -p "$stub_bin" "$arch/bin" "$arch/src/arch/python/installer/hardware" "$arch/data/installer"
 
-ln -s "$ARCH_TEST_CLI_BIN/arch-cmd-present" "$arch/bin/arch-cmd-present"
+cat >"$arch/bin/arch-cmd-present" <<'PRESENT'
+#!/bin/bash
+[[ ${1:-} == lspci ]]
+PRESENT
+chmod +x "$arch/bin/arch-cmd-present"
+arch_test_command_presence_router "$arch/bin"
 ln -s "$ROOT/src/arch/cli" "$arch/src/arch/cli"
 ln -s "$ROOT/data/cli" "$arch/data/cli"
 cp "$ROOT/src/arch/python/installer/hardware/wireless_regdom.py" "$arch/src/arch/python/installer/hardware/wireless_regdom.py"

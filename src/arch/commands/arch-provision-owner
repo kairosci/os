@@ -934,7 +934,7 @@ configure_region() {
 # it at every boot.
 configure_wireless_regdom() {
   python3 -I "$AP/src/arch/python/installer/hardware/wireless_regdom.py" 2>&1 || return 0
-  if arch-cmd-present set-wireless-regdom; then
+  if archctl cmd present set-wireless-regdom; then
     set-wireless-regdom 2>&1 || true
   fi
 }

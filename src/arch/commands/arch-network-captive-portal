@@ -15,7 +15,7 @@ paused_exit_node=0
 # still blocking. tailscaled's own toggle (the one Tailscale's apps use) turns
 # it off and remembers the node, so the same one comes back afterwards.
 exit_node_active() {
-  arch-cmd-present tailscale && tailscale status --json 2>/dev/null | jq -e '.ExitNodeStatus != null' >/dev/null
+  archctl cmd present tailscale && tailscale status --json 2>/dev/null | jq -e '.ExitNodeStatus != null' >/dev/null
 }
 
 set_exit_node_enabled() {

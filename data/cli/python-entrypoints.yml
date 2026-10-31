@@ -201,6 +201,7 @@ entrypoints:
     group: cmd
     name: present
     summary: Check whether all required commands are available
+    generate_launcher: "false"
   - binary: arch-done
     module: done/manager
     function: main
