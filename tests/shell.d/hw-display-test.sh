@@ -4,6 +4,8 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
+export AP="$ROOT"
+
 tmp_dir=$(mktemp -d)
 trap 'rm -rf "$tmp_dir"' EXIT
 
@@ -17,18 +19,17 @@ write_backlights() {
   done
 }
 
-# A copy of the command reads its platform file from a fixture root: none
-# unless a case writes one, whatever the machine running the suite has installed.
 platform_root="$tmp_dir/platform"
-mkdir -p "$platform_root" "$tmp_dir/bin"
-platform_root_copy "$ROOT/src/arch/commands/arch-hw-display" "$tmp_dir/bin/arch-hw-display" "$platform_root"
+mkdir -p "$platform_root"
 
 write_displays_conf() {
   printf '%s\n' "$@" >"$platform_root/displays.conf"
 }
 
 hw_display() {
-  ARCH_BACKLIGHT_PATH="$tmp_dir/backlight" "$tmp_dir/bin/arch-hw-display"
+  ARCH_BACKLIGHT_PATH="$tmp_dir/backlight" \
+    ARCH_DISPLAYS_CONF_PATH="$platform_root/displays.conf" \
+    "$ARCH_TEST_CLI_BIN/arch-hw-display"
 }
 
 write_backlights intel_backlight

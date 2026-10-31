@@ -8,6 +8,7 @@ sources = [
   "src/arch/commands/arch-hw-aarch64-qualcomm",
   "src/arch/cli/hardware/architecture.py",
   "src/arch/cli/hardware/clamshell.py",
+  "src/arch/cli/hardware/display.py",
   "src/arch/cli/hardware/fingerprint.py",
   "src/arch/cli/hardware/intel.py",
   "src/arch/cli/hardware/hybrid_gpu.py",
@@ -18,7 +19,6 @@ sources = [
   "src/arch/cli/hardware/nvidia.py",
   "src/arch/cli/hardware/touchpad.py",
   "src/arch/commands/arch-hw-apple-silicon",
-  "src/arch/commands/arch-hw-display",
   "src/arch/commands/arch-hw-laptop-closed",
   "src/arch/commands/arch-hw-n1x",
   "src/arch/commands/arch-hw-platform",
@@ -51,6 +51,10 @@ target = "usr/share/arch/src/arch/cli/hardware/architecture.py"
 [[output]]
 source = "src/arch/cli/hardware/clamshell.py"
 target = "usr/share/arch/src/arch/cli/hardware/clamshell.py"
+
+[[output]]
+source = "src/arch/cli/hardware/display.py"
+target = "usr/share/arch/src/arch/cli/hardware/display.py"
 
 [[output]]
 source = "src/arch/cli/hardware/fingerprint.py"
@@ -91,10 +95,6 @@ target = "usr/share/arch/src/arch/cli/hardware/touchpad.py"
 [[output]]
 source = "src/arch/commands/arch-hw-apple-silicon"
 target = "usr/share/arch/src/arch/commands/arch-hw-apple-silicon"
-
-[[output]]
-source = "src/arch/commands/arch-hw-display"
-target = "usr/share/arch/src/arch/commands/arch-hw-display"
 
 [[output]]
 source = "src/arch/commands/arch-hw-laptop-closed"
