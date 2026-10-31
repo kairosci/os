@@ -582,6 +582,15 @@ entrypoints:
     args: <touchpad|touchscreen> [on|off|toggle]
     hidden: 'true'
     pass_args: 'true'
+  - binary: arch-toggle-nightlight
+    module: toggle/nightlight
+    function: nightlight_main
+    group: toggle
+    name: nightlight
+    summary: Toggle or inspect the nightlight screen temperature
+    args: '[on|off|--status]'
+    hidden: 'true'
+    pass_args: 'true'
   - binary: arch-theme-bg-current
     module: theme/info
     function: background_current_main

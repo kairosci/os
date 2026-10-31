@@ -10,12 +10,19 @@ sources = [
   "src/arch/commands/arch-toggle-hybrid-gpu",
   "src/arch/commands/arch-toggle-idle",
   "src/arch/cli/toggle/input_device.py",
-  "src/arch/commands/arch-toggle-nightlight",
+  "src/arch/cli/toggle/nightlight.py",
   "src/arch/commands/arch-toggle-notification-silencing",
   "src/arch/commands/arch-toggle-screensaver",
   "src/arch/commands/arch-toggle-suspend",
 ]
-requires = ["desktop.commands", "desktop.commands.hw", "desktop.commands.i18n", "desktop.commands.osd", "system.runtime-data"]
+requires = [
+  "desktop.commands",
+  "desktop.commands.hw",
+  "desktop.commands.i18n",
+  "desktop.commands.osd",
+  "desktop.commands.shell",
+  "system.runtime-data",
+]
 
 [[output]]
 source = "src/arch/commands/arch-toggle-animations"
@@ -50,8 +57,8 @@ source = "src/arch/cli/toggle/input_device.py"
 target = "usr/share/arch/src/arch/cli/toggle/input_device.py"
 
 [[output]]
-source = "src/arch/commands/arch-toggle-nightlight"
-target = "usr/share/arch/src/arch/commands/arch-toggle-nightlight"
+source = "src/arch/cli/toggle/nightlight.py"
+target = "usr/share/arch/src/arch/cli/toggle/nightlight.py"
 
 [[output]]
 source = "src/arch/commands/arch-toggle-notification-silencing"
