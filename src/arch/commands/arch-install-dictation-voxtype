@@ -7,7 +7,7 @@ set -e
 
 voxtype_lib_path="${ARCH_VOXTYPE_LIB_PATH:-/usr/lib/voxtype}"
 
-if arch-cmd-missing voxtype; then
+if archctl cmd missing voxtype; then
   if gum confirm --affirmative "$(arch-i18n common.yes)" --negative "$(arch-i18n common.no)" "$(arch-i18n dictation.installVoxtype)"; then
     arch-pkg-add wtype voxtype-bin
   else

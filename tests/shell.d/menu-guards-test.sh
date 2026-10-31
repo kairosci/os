@@ -140,17 +140,25 @@ guard_prelude=$(prelude)
 # script text would let `bash>=1` parse as a redirection, so the case that
 # exists to prove constraints work would quietly test `bash` instead.
 assert_helper_agrees() {
-  local description="$1" helper="$2" command_path
+  local description="$1" helper="$2" command_path shadow_helper
+  local -a route=()
   shift 2
 
-  command_path="$ROOT/src/arch/commands/$helper"
-  [[ -x $command_path ]] || command_path="$ARCH_TEST_CLI_BIN/$helper"
+  shadow_helper=$helper
+  if [[ $helper == "archctl cmd missing" ]]; then
+    command_path="$ARCH_TEST_CLI_BIN/archctl"
+    route=(cmd missing)
+    shadow_helper=arch-cmd-missing
+  else
+    command_path="$ROOT/src/arch/commands/$helper"
+    [[ -x $command_path ]] || command_path="$ARCH_TEST_CLI_BIN/$helper"
+  fi
 
   local real=0 shadowed=0
-  AP="$ROOT" PATH="$stub_dir:$ARCH_TEST_CLI_BIN:$PATH" "$command_path" "$@" >/dev/null 2>&1 || real=$?
+  AP="$ROOT" PATH="$stub_dir:$ARCH_TEST_CLI_BIN:$PATH" "$command_path" "${route[@]}" "$@" >/dev/null 2>&1 || real=$?
   # No runtime dir, so the stub's set is built fresh rather than read from the
   # machine's stored one (or stored in its place).
-  XDG_RUNTIME_DIR="" PATH="$stub_dir:$PATH" bash -c "$guard_prelude"$'\n'"$helper \"\$@\"" "$helper" "$@" >/dev/null 2>&1 || shadowed=$?
+  XDG_RUNTIME_DIR="" PATH="$stub_dir:$PATH" bash -c "$guard_prelude"$'\n'"$shadow_helper \"\$@\"" "$shadow_helper" "$@" >/dev/null 2>&1 || shadowed=$?
   ((real == shadowed)) || fail "$description" "$helper $*: real=$real shadowed=$shadowed"
 }
 
@@ -168,13 +176,13 @@ pass "guard prelude resolves packages through provides, wrapping, and constraint
 # Command presence means an executable found through PATH, as shutil.which
 # does in the Python command. Shell builtins such as cd are not executables.
 cmd_cases=("gvim" "cd" "absent" "gvim absent" "gvim cd" "")
-for helper in arch-cmd-present arch-cmd-missing; do
+for helper in arch-cmd-present "archctl cmd missing"; do
   for case in "${cmd_cases[@]}"; do
     read -r -a argv <<<"$case"
     assert_helper_agrees "guard prelude resolves commands as the real helper does" "$helper" "${argv[@]}"
   done
 done
-pass "guard prelude resolves executable commands as arch-cmd-present and arch-cmd-missing do"
+pass "guard prelude resolves executable commands as archctl cmd present and archctl cmd missing do"
 
 # A reader is replaced by what it printed, which has to compare identically to
 # the substitution it stood in for -- including the trailing newline $() drops.

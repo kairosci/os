@@ -13,7 +13,7 @@ if [[ -z $COMMAND ]]; then
   exit 1
 fi
 
-if arch-cmd-missing snapper; then
+if archctl cmd missing snapper; then
   exit 127 # arch-update can use this to just ignore if snapper is not available
 fi
 

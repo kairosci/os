@@ -194,6 +194,7 @@ entrypoints:
     group: cmd
     name: missing
     summary: Check whether any required commands are missing
+    generate_launcher: "false"
   - binary: arch-cmd-present
     module: command/presence
     function: present_main

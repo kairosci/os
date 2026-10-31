@@ -38,7 +38,7 @@ open_ufw_port_for_tailscale() {
 open_ufw_ports() {
   local port
 
-  if arch-cmd-missing ufw; then
+  if archctl cmd missing ufw; then
     echo "UFW is not installed; skipping Sunshine firewall rules."
     return
   fi
