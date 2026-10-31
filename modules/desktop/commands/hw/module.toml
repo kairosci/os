@@ -15,6 +15,7 @@ sources = [
   "src/arch/cli/hardware/laptop.py",
   "src/arch/cli/hardware/match.py",
   "src/arch/cli/hardware/match_device_tree.py",
+  "src/arch/cli/hardware/monitor_recovery.py",
   "src/arch/cli/hardware/misc.py",
   "src/arch/cli/hardware/nvidia.py",
   "src/arch/cli/hardware/touchpad.py",
@@ -22,7 +23,6 @@ sources = [
   "src/arch/commands/arch-hw-laptop-closed",
   "src/arch/commands/arch-hw-n1x",
   "src/arch/commands/arch-hw-platform",
-  "src/arch/commands/arch-hw-recover-internal-monitor",
   "src/arch/cli/hardware/virtualization.py",
   "src/arch/cli/hardware/webcam.py",
 ]
@@ -81,6 +81,10 @@ source = "src/arch/cli/hardware/match_device_tree.py"
 target = "usr/share/arch/src/arch/cli/hardware/match_device_tree.py"
 
 [[output]]
+source = "src/arch/cli/hardware/monitor_recovery.py"
+target = "usr/share/arch/src/arch/cli/hardware/monitor_recovery.py"
+
+[[output]]
 source = "src/arch/cli/hardware/misc.py"
 target = "usr/share/arch/src/arch/cli/hardware/misc.py"
 
@@ -107,10 +111,6 @@ target = "usr/share/arch/src/arch/commands/arch-hw-n1x"
 [[output]]
 source = "src/arch/commands/arch-hw-platform"
 target = "usr/share/arch/src/arch/commands/arch-hw-platform"
-
-[[output]]
-source = "src/arch/commands/arch-hw-recover-internal-monitor"
-target = "usr/share/arch/src/arch/commands/arch-hw-recover-internal-monitor"
 
 [[output]]
 source = "src/arch/cli/hardware/virtualization.py"
