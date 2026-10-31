@@ -247,6 +247,13 @@ entrypoints:
     summary: Match against the device tree's top-level compatible strings (whole string, case-insensitive).
     args: <compatibles...>
     pass_args: "true"
+  - binary: arch-hw-fingerprint
+    module: hardware/fingerprint
+    function: fingerprint_main
+    group: hw
+    name: fingerprint
+    summary: Returns true when a fingerprint reader is present
+    hidden: "true"
   - binary: arch-hw-nvidia
     module: hardware/nvidia
     function: main
