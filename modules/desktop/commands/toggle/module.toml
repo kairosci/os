@@ -12,7 +12,7 @@ sources = [
   "src/arch/cli/toggle/input_device.py",
   "src/arch/cli/toggle/nightlight.py",
   "src/arch/cli/toggle/notification_silencing.py",
-  "src/arch/commands/arch-toggle-screensaver",
+  "src/arch/cli/toggle/screensaver.py",
   "src/arch/commands/arch-toggle-suspend",
 ]
 requires = [
@@ -67,8 +67,8 @@ source = "src/arch/cli/toggle/notification_silencing.py"
 target = "usr/share/arch/src/arch/cli/toggle/notification_silencing.py"
 
 [[output]]
-source = "src/arch/commands/arch-toggle-screensaver"
-target = "usr/share/arch/src/arch/commands/arch-toggle-screensaver"
+source = "src/arch/cli/toggle/screensaver.py"
+target = "usr/share/arch/src/arch/cli/toggle/screensaver.py"
 
 [[output]]
 source = "src/arch/commands/arch-toggle-suspend"

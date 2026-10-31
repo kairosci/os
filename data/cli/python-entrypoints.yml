@@ -622,6 +622,13 @@ entrypoints:
     name: notifications
     summary: Toggle Do Not Disturb mode
     pass_args: 'true'
+  - binary: arch-toggle-screensaver
+    module: toggle/screensaver
+    function: main
+    group: toggle
+    name: screensaver
+    summary: Toggle screensaver availability
+    pass_args: 'true'
   - binary: arch-theme-bg-current
     module: theme/info
     function: background_current_main
