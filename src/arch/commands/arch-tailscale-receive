@@ -72,7 +72,7 @@ announce() {
 
   # Announcing is best-effort: the file is already delivered, and under `set -e`
   # a notification outage would otherwise kill the long-running receiver.
-  arch-notification-send "${args[@]}" --exec xdg-open "$path" || true
+  archctl notification send "${args[@]}" --exec xdg-open "$path" || true
 }
 
 deliver() {

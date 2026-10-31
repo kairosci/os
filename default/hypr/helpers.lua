@@ -235,7 +235,7 @@ function o.bind_hold(keys, press_description, press, release_description, releas
 end
 
 function o.notify(message)
-  return "arch-notification-send -u low " .. shell_quote(message)
+  return "archctl notification send -u low " .. shell_quote(message)
 end
 
 function o.window(match, rules)

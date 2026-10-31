@@ -35,5 +35,5 @@ fi
 
 # Now remove the theme directory for THEME_NAME
 rm -rf "$THEME_PATH"
-arch-notification-send "$(arch-i18n theme.removed)" "$THEME_NAME" || true
+archctl notification send "$(arch-i18n theme.removed)" "$THEME_NAME" || true
 echo "Removed $THEME_NAME"

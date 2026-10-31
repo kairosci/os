@@ -190,7 +190,7 @@ set_kernel() {
   elif ! systemd_boot_active && direct_boot_active; then
     echo "Error: Direct Boot skips the boot menu. Turn it off in Setup > Direct Boot to switch kernels." >&2
     if (( EUID != 0 )) && [[ ! -t 0 ]]; then
-      arch-notification-send -g  -u critical "$(arch-i18n kernel.directBoot)"
+      archctl notification send -g  -u critical "$(arch-i18n kernel.directBoot)"
     fi
     exit 1
   fi
@@ -213,9 +213,9 @@ set_kernel() {
     # From the menu there is no terminal, so polkit asks once, on screen.
     if pkexec "$self" set "$kernel"; then
       archctl state set reboot-required
-      arch-notification-send -g  -t 30000 "$(arch-i18n kernel.nowUsing "$kernel")" "$(arch-i18n kernel.rebootToUse)" --exec arch-system reboot
+      archctl notification send -g  -t 30000 "$(arch-i18n kernel.nowUsing "$kernel")" "$(arch-i18n kernel.rebootToUse)" --exec arch-system reboot
     else
-      arch-notification-send -g  -u critical -t 30000 "$(arch-i18n kernel.switchFailed "$kernel")" "$(arch-i18n kernel.retryInTerminal)" --exec arch-launch-terminal-with-presentation "arch-kernel set $kernel"
+      archctl notification send -g  -u critical -t 30000 "$(arch-i18n kernel.switchFailed "$kernel")" "$(arch-i18n kernel.retryInTerminal)" --exec arch-launch-terminal-with-presentation "arch-kernel set $kernel"
       exit 1
     fi
   fi

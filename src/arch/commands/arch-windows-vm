@@ -1417,7 +1417,7 @@ launch_windows() {
   if ! priv up_wait; then
     echo "❌ Failed to start Windows VM!"
     echo "   Try checking: arch-windows-vm status"
-    arch-notification-send -u critical "Windows VM" "$(arch-i18n windowsVm.failed)"
+    archctl notification send -u critical "Windows VM" "$(arch-i18n windowsVm.failed)"
     exit 1
   fi
 

@@ -81,6 +81,11 @@ if [[ ${1:-} == cmd && ${2:-} == present ]]; then
   presence_command=$(command -v arch-cmd-present) || exit 127
   exec "$presence_command" "$@"
 fi
+if [[ ${1:-} == notification && ${2:-} == send ]]; then
+  shift 2
+  presence_command=$(command -v arch-notification-send) || exit 127
+  exec "$presence_command" "$@"
+fi
 [[ $* == "hyprland monitor focused" ]] && echo Virtual-1
 SH
 cat >"$tmp/bin/ffmpeg" <<'SH'

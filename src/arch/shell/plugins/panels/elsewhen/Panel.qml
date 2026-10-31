@@ -197,7 +197,7 @@ Panel {
     refreshFacts()
   }
 
-  function notify(title) { Util.execArgv(["arch-notification-send", title]) }
+  function notify(title) { Util.execArgv(["archctl", "notification", "send", title]) }
 
   function startChoosingHere() { if (hereSearch && localZone !== "" && !globeMode) hereSearch.start() }
 

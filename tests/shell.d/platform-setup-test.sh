@@ -118,6 +118,10 @@ first_root=$tmp/arch
 mkdir -p "$first_bin" "$tmp/home"
 cat >"$first_bin/archctl" <<'SH'
 #!/bin/bash
+if [[ ${1:-} == notification && ${2:-} == send ]]; then
+  shift 2
+  exec "$FIRST_RUN_NOTIFICATION_COMMAND" "$@"
+fi
 case "$1:$2:$3" in
   done:check:first-run-user) exit 1 ;;
   done:mark:first-run-user) touch "$FIRST_RUN_MARKER" ;;
@@ -150,6 +154,7 @@ printf '%s\n' "$*" >>"$NOTIFICATION_LOG"
 [[ ${NOTIFICATION_FAIL:-0} == 0 ]]
 SH
 chmod +x "$first_bin/arch-audio-tuning" "$first_bin/arch-notification-send"
+FIRST_RUN_NOTIFICATION_COMMAND="$first_bin/arch-notification-send"
 cat >"$first_bin/arch-input-method" <<'SH'
 #!/bin/bash
 printf '%s\n' "$*" >>"$INPUT_METHOD_LOG"

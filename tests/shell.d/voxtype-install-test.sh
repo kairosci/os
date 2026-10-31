@@ -11,7 +11,7 @@ lib_path="$test_tmp/lib/voxtype"
 calls="$test_tmp/calls.log"
 mkdir -p "$stub_bin" "$lib_path"
 
-for command in gum arch-pkg-drop arch-pkg-add hyprctl arch-restart-shell arch-notification-send systemctl; do
+for command in gum arch-pkg-drop arch-pkg-add hyprctl arch-restart-shell archctl systemctl; do
   printf '#!/bin/bash\nexit 0\n' >"$stub_bin/$command"
 done
 printf '#!/bin/bash\nexit 1\n' >"$stub_bin/arch-pkg-present"

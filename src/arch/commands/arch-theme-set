@@ -74,7 +74,7 @@ report_failed_theme_commands() {
 
   echo "Theme retint failed: ${FAILED_THEME_COMMANDS[*]}" >&2
   if [[ $detached == "detached" ]]; then
-    arch-notification-send -u normal "$(arch-i18n theme.notAppliedEverywhere)" \
+    archctl notification send -u normal "$(arch-i18n theme.notAppliedEverywhere)" \
       "$(arch-i18n theme.commandsFailed "${FAILED_THEME_COMMANDS[*]}" "$THEME_SET_LOG")" >/dev/null 2>&1 || true
   fi
 }
@@ -207,7 +207,7 @@ set_theme_background() {
 
   if [[ -z $CHOSEN_THEME_BACKGROUND || ! -f $CHOSEN_THEME_BACKGROUND ]]; then
     if ! choose_theme_background; then
-      arch-notification-send "$(arch-i18n theme.noBackground)" -t 2000
+      archctl notification send "$(arch-i18n theme.noBackground)" -t 2000
       shell_ipc shell applyTheme "$colors_payload" "$shell_payload" || true
       return
     fi

@@ -118,7 +118,7 @@ Use these instead of raw shell commands:
 - `arch-pkg-missing` / `arch-pkg-present` - check for packages (don't use these if you can just use `arch-pkg-add`/`arch-pkg-drop`)
 - `arch-pkg-add` - install packages from the configured pacman repos, Arch's included; use `arch-pkg-aur-add` for AUR packages
 - `arch-pkg-drop` - remove packages; use this instead of raw `pacman -R*`
-- `arch-notification-send` - send desktop notifications; do not call `notify-send` directly
+- `os notification send` - send desktop notifications; do not call `notify-send` directly
 - `arch-hw-asus-rog` - detect ASUS ROG hardware (and similar `hw-*` commands)
 
 Commands installed by Arch's default package set are runtime invariants. Invoke them directly; do not add defensive `arch-cmd-present` / `arch-cmd-missing` checks around them. Use command-presence helpers only for genuinely optional dependencies or code that can run before the default package set is installed.

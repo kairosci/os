@@ -7,7 +7,7 @@ import re
 import yaml
 from base_test import ROOT, fail_check, pass_check
 
-invalid_glyph = re.compile(r"arch-notification-send[^#]*[ \t]-g([ \t]+(-|\"\$\(arch-i18n|\"[A-Za-z])|[ \t]*$)")
+invalid_glyph = re.compile(r"archctl notification send[^#]*[ \t]-g([ \t]+(-|\"\$\(arch-i18n|\"[A-Za-z])|[ \t]*$)")
 matches = []
 for path in (ROOT / "src/arch/commands").iterdir():
   if not path.is_file():

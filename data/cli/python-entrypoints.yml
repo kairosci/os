@@ -70,6 +70,7 @@ entrypoints:
     group: notification
     name: send
     summary: Send a desktop notification
+    generate_launcher: "false"
     args: '[--app-name <app-name>] [-g <glyph>] [-u <low|normal|critical>] [-i <icon>] [-t <ms>] [-r <id>] [-p] [--image <path-or-uri>] <headline> [description] [--exec <program> [args...]]'
     examples: 'archctl notification send "Reminder" "5 minutes are up"'
     pass_args: 'true'

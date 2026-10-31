@@ -9,4 +9,4 @@ set -e
 timezone=$(timedatectl list-timezones | arch-menu-select "$(arch-i18n timezone.setTitle)" -- --width 520 --maxheight 520) || exit 1
 sudo timedatectl set-timezone "$timezone"
 arch-shell -q arch.clock refresh
-arch-notification-send "$(arch-i18n timezone.changed "$timezone")"
+archctl notification send "$(arch-i18n timezone.changed "$timezone")"

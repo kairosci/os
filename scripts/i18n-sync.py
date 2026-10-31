@@ -253,7 +253,7 @@ QML_STRING = re.compile(r'"((?:[^"\\]|\\.)*)"')
 QML_LIST_ITEM = re.compile(r'^\s*"([A-Z][a-z][^"]*\s[^"]*)",?\s*$')
 # Marks a line whose English must stay as-is (an IPC or stored value).
 IGNORE_MARK = "i18n: ignore"
-BIN_NOTIFY = re.compile(r'arch-notification-send[^\n]*"([A-Z][^"$]{3,})"')
+BIN_NOTIFY = re.compile(r'archctl\s+notification\s+send[^\n]*"([A-Z][^"$]{3,})"')
 BIN_PROMPT = re.compile(r'(?:arch-menu-select|arch-menu-input)\s+"([A-Z][^"$]{2,})"|--title\s+"([A-Z][^"$]{2,})"')
 
 

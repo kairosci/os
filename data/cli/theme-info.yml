@@ -13,7 +13,7 @@ background_cycle:
   commands:
     set_background: [archctl, theme, bg, set]
     translate: [arch-i18n]
-    notify: [arch-notification-send]
+    notify: [archctl, notification, send]
   no_background_message: theme.noBackground
   notification_timeout_option: -t
   notification_timeout: 2000

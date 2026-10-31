@@ -27,9 +27,9 @@ restore_exit_node() {
   if (( paused_exit_node )); then
     paused_exit_node=0
     if set_exit_node_enabled true; then
-      arch-notification-send -g "" "$(arch-i18n tailscale.exitNodeRestored)" 9>&-
+      archctl notification send -g "" "$(arch-i18n tailscale.exitNodeRestored)" 9>&-
     else
-      arch-notification-send -g "" -u critical "$(arch-i18n tailscale.exitNodeRestoreFailed)" "$(arch-i18n tailscale.exitNodeRestoreHint)" 9>&-
+      archctl notification send -g "" -u critical "$(arch-i18n tailscale.exitNodeRestoreFailed)" "$(arch-i18n tailscale.exitNodeRestoreHint)" 9>&-
     fi
   fi
 }
@@ -110,7 +110,7 @@ if flock -n 9; then
 
   if exit_node_active && set_exit_node_enabled false; then
     paused_exit_node=1
-    arch-notification-send -g "" "$(arch-i18n tailscale.exitNodePaused)" "$(arch-i18n tailscale.exitNodePausedForSignIn)" 9>&-
+    archctl notification send -g "" "$(arch-i18n tailscale.exitNodePaused)" "$(arch-i18n tailscale.exitNodePausedForSignIn)" 9>&-
   fi
 
   open_portal_window

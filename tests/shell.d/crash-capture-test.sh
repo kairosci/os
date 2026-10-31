@@ -73,6 +73,10 @@ SH
 
 cat >"$watch_bin/archctl" <<'SH'
 #!/bin/bash
+if [[ ${1:-} == notification && ${2:-} == send ]]; then
+  shift 2
+  exec "$TEST_NOTIFICATION_COMMAND" "$@"
+fi
 exit 0
 SH
 
@@ -82,6 +86,7 @@ printf '%s\n' "$*" >>"$NOTIFY_LOG"
 SH
 
 chmod +x "$watch_bin/journalctl" "$watch_bin/archctl" "$watch_bin/arch-notification-send"
+TEST_NOTIFICATION_COMMAND="$watch_bin/arch-notification-send"
 
 reset_entries() {
   : >"$JOURNAL_ENTRIES"
@@ -109,6 +114,7 @@ run_watch() {
   PATH="$watch_bin:$ROOT/src/arch/commands:$PATH" \
   JOURNAL_ENTRIES="$JOURNAL_ENTRIES" \
   NOTIFY_LOG="$NOTIFY_LOG" \
+  TEST_NOTIFICATION_COMMAND="$TEST_NOTIFICATION_COMMAND" \
   HOME="$watch_home" \
     "$ROOT/src/arch/commands/arch-crash-watch" || status=$?
 

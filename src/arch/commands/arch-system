@@ -67,7 +67,7 @@ elif [[ ${2:-} == "--execute" ]]; then
   fi
   status=$?
   if (( status != 0 )); then
-    arch-notification-send -u critical "$failed_title" "$failed_body"
+    archctl notification send -u critical "$failed_title" "$failed_body"
     exit "$status"
   fi
 elif [[ -z ${2:-} ]]; then

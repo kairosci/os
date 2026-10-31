@@ -23,4 +23,4 @@ TEXT=$(grim -g "$SELECTION" - | tesseract stdin stdout --oem 1 --psm 6 -l "${ARC
 [[ -z $TEXT ]] && exit 1
 
 printf "%s" "$TEXT" | wl-copy
-arch-notification-send -g 󰴑 "$(arch-i18n capture.textCopied)"
+archctl notification send -g 󰴑 "$(arch-i18n capture.textCopied)"

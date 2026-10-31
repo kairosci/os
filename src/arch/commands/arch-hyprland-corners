@@ -38,4 +38,4 @@ for mode in sharp rounded; do
 done
 
 hyprctl reload >/dev/null || exit 1
-arch-notification-send -g 󰘇 "$LABEL"
+archctl notification send -g 󰘇 "$LABEL"

@@ -16,7 +16,7 @@ terminal=$(xdg-terminal-exec --print-id)
 case $terminal in
 *Alacritty* | *ghostty* | *foot* | *kitty*) ;;
 *)
-  arch-notification-send -g ✋ "$(arch-i18n screensaver.terminalOnly)"
+  archctl notification send -g ✋ "$(arch-i18n screensaver.terminalOnly)"
   exit 1
   ;;
 esac

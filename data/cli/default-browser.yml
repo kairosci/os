@@ -12,7 +12,7 @@ commands:
   install_browser: [arch-install-browser]
   set_default: [xdg-settings, set, default-web-browser]
   localization: [arch-i18n]
-  notification: [arch-notification-send, -g]
+  notification: [archctl, notification, send, -g]
 environment:
   browser: BROWSER
   desktop: XDG_CURRENT_DESKTOP

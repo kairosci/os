@@ -33,4 +33,4 @@ systemctl --user enable --now voxtype.service
 
 arch-dictation-use voxtype
 hyprctl reload >/dev/null
-arch-notification-send -g  "$(arch-i18n dictation.voxtypeReady)" "$(arch-i18n dictation.hint)" -t 10000
+archctl notification send -g  "$(arch-i18n dictation.voxtypeReady)" "$(arch-i18n dictation.hint)" -t 10000

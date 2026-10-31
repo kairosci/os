@@ -87,7 +87,7 @@ download_url() {
 
   # Don't show anything until yt-dlp confirms there's actually a video to grab.
   if ! yt-dlp --no-playlist --simulate --quiet --no-warnings --no-exec --no-exec-before-download -- "$url" >/dev/null 2>&1; then
-    arch-notification-send -u critical -g 󰅖 "$(arch-i18n download.none)" "$url"
+    archctl notification send -u critical -g 󰅖 "$(arch-i18n download.none)" "$url"
     exit 0
   fi
 
@@ -148,7 +148,7 @@ download_url() {
     # toast would exit before the thumbnail cleanup below is ever scheduled.
     # `--` keeps mpv from parsing a leading-dash filename as an option; the path
     # is one discrete argument, so it never reaches a shell.
-    arch-notification-send -g 󰄬 "$(arch-i18n download.complete)" "$title" \
+    archctl notification send -g 󰄬 "$(arch-i18n download.complete)" "$title" \
       -t 10000 --image "${preview:-$filepath}" \
       --exec mpv -- "$filepath" || true
 
@@ -160,7 +160,7 @@ download_url() {
       rm -f "$preview"
     ) &
   else
-    arch-notification-send -u critical -g 󰅖 "$(arch-i18n download.failed)" "$url"
+    archctl notification send -u critical -g 󰅖 "$(arch-i18n download.failed)" "$url"
   fi
 
   exit 0

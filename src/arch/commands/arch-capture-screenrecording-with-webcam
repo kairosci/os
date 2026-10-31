@@ -5,7 +5,7 @@
 
 mapfile -t devices < <(arch-capture-webcam-list)
 if (( ${#devices[@]} == 0 )); then
-  arch-notification-send "$(arch-i18n capture.noWebcam)" -u critical -t 3000
+  archctl notification send "$(arch-i18n capture.noWebcam)" -u critical -t 3000
   exit 1
 fi
 

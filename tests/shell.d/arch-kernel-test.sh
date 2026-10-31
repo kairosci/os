@@ -28,9 +28,14 @@ install_kernels() {
 }
 
 # Unprivileged side: escalation records what it would run instead of running it.
-for tool in pkexec sudo archctl arch-notification-send; do
+for tool in pkexec sudo archctl; do
   cat > "$scratch/bin/$tool" <<SH
 #!/bin/bash
+if [[ $tool == archctl && \${1:-} == notification && \${2:-} == send ]]; then
+  shift 2
+  printf 'arch-notification-send %s\\n' "\$*" >> "\$CALL_LOG"
+  exit 0
+fi
 printf '$tool %s\n' "\$*" >> "\$CALL_LOG"
 [[ \${ESCALATION_FAIL:-0} == "0" || $tool != "pkexec" ]]
 SH

@@ -37,5 +37,5 @@ icon_name=$(printf '%s\n' "$APP_NAME" | tr '[:upper:]' '[:lower:]' | sed 's/[^[:
 rm -f "$DESKTOP_DIR/$APP_NAME.desktop"
 rm -f "$ICON_DIR/$icon_name.png" "$ICON_DIR/$APP_NAME.png" "$OLD_ICON_DIR/$APP_NAME.png"
 if [[ ${ARCH_REMOVE_NOTIFY:-true} != "false" ]]; then
-  arch-notification-send -g  "$(arch-i18n tui.removed)" "$APP_NAME"
+  archctl notification send -g  "$(arch-i18n tui.removed)" "$APP_NAME"
 fi

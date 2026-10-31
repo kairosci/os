@@ -13,12 +13,12 @@ EXTERNAL=$(hyprctl monitors -j | jq -r '.[] | select(.name | test("^(eDP|LVDS|DS
 
 on() {
   if [[ -z $EXTERNAL ]]; then
-    arch-notification-send -g 󰍹 "$(arch-i18n monitor.noExternalForMirror)"
+    archctl notification send -g 󰍹 "$(arch-i18n monitor.noExternalForMirror)"
     exit 1
   fi
 
   if [[ -z $INTERNAL ]]; then
-    arch-notification-send -g 󰍹 "$(arch-i18n monitor.noLaptopToMirror)"
+    archctl notification send -g 󰍹 "$(arch-i18n monitor.noLaptopToMirror)"
     exit 1
   fi
 
@@ -26,7 +26,7 @@ on() {
   # names may pass; a user-created headless output can carry any name.
   for output in "$INTERNAL" "$EXTERNAL"; do
     if [[ ! $output =~ ^[A-Za-z0-9._-]+$ ]]; then
-      arch-notification-send -g 󰍹 "$(arch-i18n monitor.unsafeName)"
+      archctl notification send -g 󰍹 "$(arch-i18n monitor.unsafeName)"
       exit 1
     fi
   done
@@ -35,7 +35,7 @@ on() {
 
   if arch-hyprland-toggle-disabled $TOGGLE; then
     printf 'hl.monitor({ output = "%s", mode = "preferred", position = "auto", scale = 1, mirror = "%s" })\n' "$EXTERNAL" "$INTERNAL" >"$TOGGLE_FLAG"
-    arch-notification-send -g 󰍹 "$(arch-i18n monitor.mirroringEnabled "$EXTERNAL")"
+    archctl notification send -g 󰍹 "$(arch-i18n monitor.mirroringEnabled "$EXTERNAL")"
     hyprctl reload
   fi
 }
@@ -43,7 +43,7 @@ on() {
 off() {
   if arch-hyprland-toggle-enabled $TOGGLE; then
     arch-hyprland-toggle $TOGGLE off
-    arch-notification-send -g 󰍹 "$(arch-i18n monitor.extendedRestored)"
+    archctl notification send -g 󰍹 "$(arch-i18n monitor.extendedRestored)"
   fi
 }
 

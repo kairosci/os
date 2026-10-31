@@ -9,7 +9,7 @@ notify_layout() {
   local state="${XDG_STATE_HOME:-$HOME/.local/state}/arch/workspace-layout-notification"
   local last id
   [[ -r $state ]] && read -r last <"$state"
-  if id=$(arch-notification-send -p -r "${last:-0}" -g 󱂬 "$1") && [[ $id =~ ^[0-9]+$ ]]; then
+  if id=$(archctl notification send -p -r "${last:-0}" -g 󱂬 "$1") && [[ $id =~ ^[0-9]+$ ]]; then
     mkdir -p "$(dirname "$state")" && printf '%s\n' "$id" >"$state"
   fi
 }

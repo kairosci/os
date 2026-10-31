@@ -22,7 +22,7 @@ cat >"$stage/bin/noop" <<'SH'
 exit 0
 SH
 chmod +x "$stage/bin/noop"
-for command in arch-shell arch-plugin-enable arch-notification-send; do
+for command in arch-shell arch-plugin-enable archctl; do
   ln -s noop "$stage/src/arch/commands/$command"
 done
 cat >"$stage/bin/arch-plugin-list" <<'SH'

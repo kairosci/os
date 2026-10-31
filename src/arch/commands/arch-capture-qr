@@ -23,7 +23,7 @@ SELECTION=$(slurp 2>/dev/null)
 RESULT=$(grim -g "$SELECTION" - | zbarimg -q --raw -Sdisable -Sqrcode.enable - 2>/dev/null)
 
 if [[ -z $RESULT ]]; then
-  arch-notification-send -g 󰐲 -u critical "$(arch-i18n capture.qrNone)" "$(arch-i18n capture.qrHelp)"
+  archctl notification send -g 󰐲 -u critical "$(arch-i18n capture.qrNone)" "$(arch-i18n capture.qrHelp)"
   exit 1
 fi
 
@@ -33,4 +33,4 @@ fi
 # the notification history, and an unmarked copy would be retained by clipboard
 # history. Pasting still works; only the recorded copy is given up.
 printf '%s' "$RESULT" | wl-copy --sensitive
-arch-notification-send -g 󰐲 "$(arch-i18n capture.qrCopied)"
+archctl notification send -g 󰐲 "$(arch-i18n capture.qrCopied)"

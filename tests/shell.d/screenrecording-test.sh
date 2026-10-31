@@ -77,6 +77,7 @@ SH
 chmod +x "$stub_bin"/*
 
 export PATH="$stub_bin:$ROOT/src/arch/commands:$PATH"
+export ARCH_TEST_NOTIFICATION_COMMAND="$stub_bin/arch-notification-send"
 # The resize helper anchors to a region file here, so keep it out of the real one
 export XDG_RUNTIME_DIR="$tmp_dir"
 export ARCH_TEST_MENU_ARGS="$tmp_dir/menu-args"
@@ -315,6 +316,10 @@ SH
 
 cat >"$stub_bin/archctl" <<'SH'
 #!/bin/bash
+if [[ ${1:-} == notification && ${2:-} == send ]]; then
+  shift 2
+  exec "$ARCH_TEST_NOTIFICATION_COMMAND" "$@"
+fi
 [[ $* == "hyprland monitor focused" ]] && printf 'DP-1\n'
 SH
 

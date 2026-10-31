@@ -212,14 +212,14 @@ main() {
   esac
 
   if [[ $type == "video" ]]; then
-    arch-notification-send -g  "$(arch-i18n transcode.working)" "$(arch-i18n transcode.workingBody "$(basename -- "$input")" "$format" "$resolution")"
+    archctl notification send -g  "$(arch-i18n transcode.working)" "$(arch-i18n transcode.workingBody "$(basename -- "$input")" "$format" "$resolution")"
     transcode_video "$input" "$format" "$resolution" "$output"
     copy_to_clipboard "$output"
-    arch-notification-send -g  "$(arch-i18n transcode.done "$resolution" "$format")" "$(arch-i18n transcode.saved)"
+    archctl notification send -g  "$(arch-i18n transcode.done "$resolution" "$format")" "$(arch-i18n transcode.saved)"
   else
     transcode_picture "$input" "$format" "$resolution" "$output"
     copy_to_clipboard "$output"
-    arch-notification-send -g  "$(arch-i18n transcode.done "$resolution_label" "$format")" "$(arch-i18n transcode.saved)"
+    archctl notification send -g  "$(arch-i18n transcode.done "$resolution_label" "$format")" "$(arch-i18n transcode.saved)"
   fi
 }
 

@@ -18,7 +18,7 @@ copy_url() {
 
   [[ -n $url ]] || return 1
   printf '%s' "$url" | wl-copy --type text/plain
-  arch-notification-send -g 󰅍 "$(arch-i18n clipboard.urlCopied)"
+  archctl notification send -g 󰅍 "$(arch-i18n clipboard.urlCopied)"
 }
 
 reply_copied() {

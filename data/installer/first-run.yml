@@ -10,7 +10,7 @@ audio_tuning:
   commands:
     - [arch-audio-tuning, "on"]
 welcome:
-  command: [arch-notification-send, -u, critical, -g, ]
+  command: [archctl, notification, send, -u, critical, -g, ]
   action: [--exec, arch-menu-keybindings]
   messages:
     en:
@@ -35,7 +35,7 @@ wifi:
     installed_path: /usr/share/arch
     checkout_check: [archctl, update, available]
   wifi_notification:
-    command: [arch-notification-send, -u, critical, -g, 󰖩]
+    command: [archctl, notification, send, -u, critical, -g, 󰖩]
     action: [--exec, arch-shell, shell, toggle, arch.network]
     messages:
       en:
@@ -45,7 +45,7 @@ wifi:
         title: Configura il Wi-Fi
         body: Fai clic per configurare la rete wireless.
   update_notification:
-    command: [arch-notification-send, -u, critical, -g, ]
+    command: [archctl, notification, send, -u, critical, -g, ]
     action: [--exec, arch-launch-terminal, arch-update]
     messages:
       en:
@@ -140,7 +140,7 @@ fingerprint_invitation:
   pam_file: /etc/pam.d/arch-lock-fingerprint
   marker: [archctl, done, ensure, fingerprint-setup-invitation]
   notification:
-    command: [arch-notification-send, -u, critical, -g, 󰈷]
+    command: [archctl, notification, send, -u, critical, -g, 󰈷]
     action: [--exec, arch-launch-terminal, arch-setup-security-fingerprint]
     messages:
       en:

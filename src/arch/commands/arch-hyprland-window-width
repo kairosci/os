@@ -40,14 +40,14 @@ notify_missing_width() {
   local key="$1"
   local workspace="$2"
 
-  arch-notification-send -g  "$(arch-i18n window.noSavedWidth "$key" "$workspace")" "$(arch-i18n window.saveWidthHint)"
+  archctl notification send -g  "$(arch-i18n window.noSavedWidth "$key" "$workspace")" "$(arch-i18n window.saveWidthHint)"
 }
 
 notify_saved_width() {
   local key="$1"
   local workspace="$2"
 
-  arch-notification-send -g  "$(arch-i18n window.savedWidth "$key" "$workspace")" "$(arch-i18n window.restoreWidthHint)"
+  archctl notification send -g  "$(arch-i18n window.savedWidth "$key" "$workspace")" "$(arch-i18n window.restoreWidthHint)"
 }
 
 hypr_dispatch() {

@@ -45,6 +45,10 @@ for command in uwsm archctl arch-hyprland-window-close-all arch-osd arch-notific
 #!/bin/bash
 
 command=${0##*/}
+if [[ $command == archctl && ${1:-} == notification && ${2:-} == send ]]; then
+  command=arch-notification-send
+  shift 2
+fi
 printf '%s %s\n' "$command" "$*" >>"$CALL_LOG"
 case $command in
   arch-osd)

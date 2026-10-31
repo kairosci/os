@@ -53,7 +53,7 @@ def main() -> int:
       log = work / "events"
       log.touch()
       marker = work / "hardware-present"
-      executable(bin_directory / "archctl", "#!/bin/bash\n[[ $* == 'hw fingerprint' && -f $TEST_HW_MARKER ]]\n")
+      executable(bin_directory / "archctl", "#!/bin/bash\nif [[ ${1:-} == notification && ${2:-} == send ]]; then shift 2; exec \"$TEST_NOTIFICATION_COMMAND\" \"$@\"; fi\n[[ $* == 'hw fingerprint' && -f $TEST_HW_MARKER ]]\n")
       executable(
         bin_directory / "arch-notification-send",
         '#!/bin/bash\nprintf \'%s\\0\' "$@" >>"$TEST_LOG"\nprintf \'\\0\' >>"$TEST_LOG"\n',
@@ -61,8 +61,9 @@ def main() -> int:
       environment = test_environment(
         HOME=home,
         LANG="it_IT.UTF-8",
-        PATH=f"{bin_directory}:{ROOT / 'src/arch/commands'}:{os.environ.get('PATH', '')}",
+        PATH=f"{bin_directory}:{ROOT / 'build/test-cli-router'}:{ROOT / 'src/arch/commands'}:{os.environ.get('PATH', '')}",
         TEST_LOG=log,
+        TEST_NOTIFICATION_COMMAND=bin_directory / "arch-notification-send",
         TEST_HW_MARKER=marker,
       )
       log_arguments = lambda: [item.decode() for item in log.read_bytes().split(b"\0") if item]

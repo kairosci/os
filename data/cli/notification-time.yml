@@ -3,7 +3,7 @@ commands:
   timestamp: [date, +%s]
   date: [date, -d]
   translation: [arch-i18n, time.now]
-  notification: [arch-notification-send, -g, , -u, low]
+  notification: [archctl, notification, send, -g, , -u, low]
 formats:
   day_time: '+%A %H:%M'
   day_month_year: '+%d %B %Y'

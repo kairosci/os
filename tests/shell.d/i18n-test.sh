@@ -278,7 +278,7 @@ JS
 work=$(mktemp -d)
 trap 'rm -rf "$work"' EXIT
 export AP=$ROOT
-export PATH="$ROOT/src/arch/commands:$PATH"
+export PATH="$ARCH_TEST_CLI_ROUTER:$ROOT/src/arch/commands:$PATH"
 export ARCH_LANGUAGE_FILE=$work/language
 export ARCH_LOCALE_GEN=$work/locale.gen
 export ARCH_LOCALE_REGISTRY=$ROOT/default/i18n/locales.json

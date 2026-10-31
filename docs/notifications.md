@@ -107,7 +107,7 @@ Unknown flags are a hard error, not a silent pass-through: `--exec` is the only
 door to a click command, and there is no generic option pass-through to smuggle
 one through.
 
-The defaults are the point: an unadorned `arch-notification-send "Done"`
+The defaults are the point: an unadorned `os notification send "Done"`
 is a low-urgency user-action toast that pops through DND and is treated as
 ephemeral noise when silenced.
 
@@ -128,7 +128,7 @@ an action and just expect click-to-jump.
 `--exec` consumes the rest of the line as the click command:
 
 ```bash
-arch-notification-send "Download complete" "$title" --exec mpv -- "$file"
+os notification send "Download complete" "$title" --exec mpv -- "$file"
 ```
 
 The caller's shell has already split those words into discrete arguments, and a

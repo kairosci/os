@@ -30,7 +30,7 @@ cjk:
   i18n_command: [arch-i18n]
   changed_message: font.cjkChanged
   restart_apps_message: font.restartAppsToSeeChange
-  notification_command: [arch-notification-send, -g]
+  notification_command: [archctl, notification, send, -g]
   notification_glyph: 
 set:
   allowed_extra_characters: "_. -"
@@ -98,7 +98,7 @@ set:
           </match>
         </fontconfig>
   process_command: [pgrep, -x]
-  notification_command: [arch-notification-send, -g, ]
+  notification_command: [archctl, notification, send, -g, ]
   i18n_command: [arch-i18n]
   notifications:
     - process: ghostty

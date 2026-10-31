@@ -36,7 +36,7 @@ rows=$(jq -r --arg icon "$PLUGIN_ICON" \
   ". as \$plugins
    | .[] | select($filter)
    | \$icon + \"\\t\" + .name + \"\\t\" + .id" <<<"$plugins")
-[[ -n $rows ]] || { arch-notification-send "$none"; exit 0; }
+[[ -n $rows ]] || { archctl notification send "$none"; exit 0; }
 
 selection=$(arch-menu-select "$title" <<<"$rows") || exit 0
 [[ -n $selection ]] || exit 0

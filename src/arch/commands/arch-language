@@ -138,7 +138,7 @@ set_language() {
   seed_typing "$code"
   apply_session_locale "$locale"
 
-  arch-notification-send -g  "$(arch-i18n language.changed "$name")" "$(arch-i18n language.newApps)"
+  archctl notification send -g  "$(arch-i18n language.changed "$name")" "$(arch-i18n language.newApps)"
 }
 
 case "${1:-}" in

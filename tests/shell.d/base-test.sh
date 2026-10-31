@@ -9,6 +9,7 @@ ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/../.." && pwd)
 SHELL_TEST_DIR="$ROOT/tests/shell.d"
 ARCH_TEST_CLI_STAGE="$ROOT/build/test-cli-entrypoints"
 ARCH_TEST_CLI_BIN="$ARCH_TEST_CLI_STAGE/usr/share/arch/src/arch/commands"
+ARCH_TEST_CLI_ROUTER="$ROOT/build/test-cli-router"
 
 mkdir -p "$ROOT/build"
 (
@@ -18,9 +19,38 @@ mkdir -p "$ROOT/build"
   fi
 ) 9>"$ROOT/build/test-cli-entrypoints.lock"
 
+mkdir -p "$ARCH_TEST_CLI_ROUTER"
+router_script="$ARCH_TEST_CLI_ROUTER/archctl.$$"
+cat >"$router_script" <<'SH'
+#!/bin/bash
+if [[ ${1:-} == notification && ${2:-} == send ]]; then
+  shift 2
+  IFS=: read -r -a path_directories <<<"$PATH"
+  for directory in "${path_directories[@]}"; do
+    [[ $directory == "$ARCH_TEST_CLI_ROUTER" ]] && continue
+    [[ $directory == "$ARCH_TEST_CLI_BIN" || $directory == "$ROOT/src/arch/commands" ]] && break
+    if [[ -x $directory/arch-notification-send ]]; then
+      exec "$directory/arch-notification-send" "$@"
+    fi
+  done
+fi
+
+IFS=: read -r -a path_directories <<<"$PATH"
+for directory in "${path_directories[@]}"; do
+  [[ $directory == "$ARCH_TEST_CLI_ROUTER" ]] && continue
+  if [[ -x $directory/archctl ]]; then
+    exec "$directory/archctl" "$@"
+  fi
+done
+exec "$ARCH_TEST_CLI_BIN/archctl" "$@"
+SH
+chmod +x "$router_script"
+mv -f "$router_script" "$ARCH_TEST_CLI_ROUTER/archctl"
+
 export ROOT
 export ARCH_TEST_CLI_BIN
-export PATH="$ARCH_TEST_CLI_BIN:$ROOT/src/arch/commands:$PATH"
+export ARCH_TEST_CLI_ROUTER
+export PATH="$ARCH_TEST_CLI_ROUTER:$ARCH_TEST_CLI_BIN:$ROOT/src/arch/commands:$PATH"
 
 # Commands print user-facing text in the language picked under Setup >
 # Language, so pin tests to English (a missing file means English) rather than
@@ -57,6 +87,11 @@ arch_test_command_presence_router() {
 
   cat >"$router" <<'SH'
 #!/bin/bash
+if [[ ${1:-} == notification && ${2:-} == send ]]; then
+  shift 2
+  notification_command=$(command -v arch-notification-send) || exit 127
+  exec "$notification_command" "$@"
+fi
 if [[ ${1:-} == cmd && ${2:-} == present ]]; then
   shift 2
   presence_command=$(command -v arch-cmd-present) || exit 127

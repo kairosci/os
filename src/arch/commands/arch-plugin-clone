@@ -158,7 +158,7 @@ done
 (( discovered )) || fail "cloned plugin '$new_id' was not discovered"
 arch-plugin-enable "$new_id" >/dev/null
 clone_complete=1
-arch-notification-send -g 󰐱 \
+archctl notification send -g 󰐱 \
   "$(arch-i18n plugin.editingClone)" \
   "$(arch-i18n plugin.replacedByClone)"
 echo "Cloned $source_id to $target_dir and switched to $new_id"
