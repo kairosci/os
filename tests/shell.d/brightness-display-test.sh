@@ -13,7 +13,7 @@ call_log="$test_tmp/calls"
 runtime_dir="$test_tmp/runtime"
 mkdir -p "$mock_bin" "$runtime_dir"
 
-cat >"$mock_bin/arch-hyprland-monitor-focused-apple" <<'SH'
+cat >"$mock_bin/archctl" <<'SH'
 #!/bin/bash
 exit 1
 SH
@@ -149,9 +149,9 @@ printf '%s\n' '[
 SH
 chmod +x "$mock_bin/hyprctl"
 
-PATH="$mock_bin:$PATH" "$ARCH_TEST_CLI_BIN/arch-hyprland-monitor-focused-apple" DP-2 || \
+PATH="$mock_bin:$PATH" "$ARCH_TEST_CLI_BIN/archctl" hyprland monitor focused apple DP-2 || \
   fail "named Apple display is detected independently of focus"
-if PATH="$mock_bin:$PATH" "$ARCH_TEST_CLI_BIN/arch-hyprland-monitor-focused-apple"; then
+if PATH="$mock_bin:$PATH" "$ARCH_TEST_CLI_BIN/archctl" hyprland monitor focused apple; then
   fail "focused non-Apple display is not detected as Apple"
 fi
 pass "named Apple display is detected independently of focus"
