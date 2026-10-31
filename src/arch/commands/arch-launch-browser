@@ -35,5 +35,5 @@ for argument in "$@"; do
 done
 
 if [[ -n $url && -n ${HYPRLAND_INSTANCE_SIGNATURE:-} ]]; then
-  arch-hyprland-focus-app "^$(basename "$browser_exec" -stable).*$" || true
+  archctl hyprland focus app "^$(basename "$browser_exec" -stable).*$" || true
 fi

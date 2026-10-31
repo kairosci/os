@@ -12,6 +12,6 @@ exit_codes:
   no_match: 1
 messages:
   en:
-    usage: 'Usage: arch-hyprland-focus-app <app-name>'
+    usage: 'Usage: archctl hyprland focus app <app-name>'
   it:
-    usage: 'Uso: arch-hyprland-focus-app <nome-app>'
+    usage: 'Uso: archctl hyprland focus app <nome-app>'
