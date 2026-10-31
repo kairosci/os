@@ -32,17 +32,17 @@ chmod +x "$tmpdir/bin"/*
 export HOME="$tmpdir/home" XDG_STATE_HOME="$tmpdir/home/.local/state"
 export AP="$ROOT" PATH="$tmpdir/bin:$ARCH_TEST_CLI_ROUTER:$ARCH_TEST_CLI_BIN:$ROOT/src/arch/commands:$PATH" HYPR_LOG="$tmpdir/hypr.log" NOTIFY_LOG="$tmpdir/notify.log"
 
-arch-hyprland-workspace-layout-toggle
+archctl hyprland workspace layout toggle
 [[ $(archctl hyprland workspace layout current) == tiling ]] || fail "the layout cycles from scrolling to tiling"
-arch-hyprland-workspace-layout-toggle
+archctl hyprland workspace layout toggle
 [[ ! -e $XDG_STATE_HOME/arch/workspace-layouts/3.lua ]] || fail "the second tiled layout cycles back to default scrolling"
-arch-hyprland-workspace-layout-toggle back
+archctl hyprland workspace layout toggle back
 [[ $(archctl hyprland workspace layout current) == tiling ]] || fail "reverse cycling selects tiling"
 pass "workspace layout cycling only uses tiled layouts"
 
 mkdir -p "$XDG_STATE_HOME/arch/workspace-layouts"
 printf 'o.workspace_mode({ default = "unknown" })\n' >"$XDG_STATE_HOME/arch/workspace-layouts/default.lua"
-[[ $(arch-hyprland-workspace-layout-default) == scrolling ]] || fail "an unknown saved mode falls back to scrolling"
+[[ $(archctl hyprland workspace layout default) == scrolling ]] || fail "an unknown saved mode falls back to scrolling"
 pass "workspace layout state accepts only the configured modes"
 
 grep -q 'tile = true' "$ROOT/default/hypr/windows.lua" || fail "all application windows receive the tiled rule"

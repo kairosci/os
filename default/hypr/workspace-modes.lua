@@ -1,4 +1,4 @@
--- Restore tiled workspace layouts saved by arch-hyprland-workspace-layout-toggle.
+-- Restore workspace layouts saved by `archctl hyprland workspace layout toggle`.
 local M = {}
 local modes = {}
 local default_mode = "scrolling"

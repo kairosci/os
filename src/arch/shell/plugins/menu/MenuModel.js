@@ -432,7 +432,6 @@ var GUARD_READERS = [
   "arch-dns",
   "arch-hyprland-corners",
   "arch-hyprland-window-transparency",
-  "arch-hyprland-workspace-layout-default",
   "arch-shell notifications isDnd",
   "archctl toggle nightlight --status"
 ]
