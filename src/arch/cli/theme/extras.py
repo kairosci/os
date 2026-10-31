@@ -8,10 +8,10 @@ from pathlib import Path
 import yaml
 
 
-def _mapping(value: object, label: str) -> Mapping[str, object]:
+def _mapping(value: object, label: str) -> dict[object, object]:
   if not isinstance(value, Mapping):
     raise TypeError(f"invalid theme extras configuration: {label} must be a mapping")
-  return value
+  return {key: item for key, item in value.items()}
 
 
 def _text(value: object, label: str) -> str:
