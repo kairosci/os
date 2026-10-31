@@ -13,7 +13,7 @@ ARCH_TEST_CLI_BIN="$ARCH_TEST_CLI_STAGE/usr/share/arch/src/arch/commands"
 mkdir -p "$ROOT/build"
 (
   flock -x 9
-  if [[ ! -x $ARCH_TEST_CLI_BIN/arch-update-confirm || $ROOT/scripts/cli_entrypoints.py -nt $ARCH_TEST_CLI_BIN/arch-update-confirm || $ROOT/data/cli/python-entrypoints.yml -nt $ARCH_TEST_CLI_BIN/arch-update-confirm || $ROOT/data/cli/groups.yml -nt $ARCH_TEST_CLI_BIN/arch-update-confirm ]]; then
+  if [[ ! -x $ARCH_TEST_CLI_BIN/archctl || $ROOT/scripts/cli_entrypoints.py -nt $ARCH_TEST_CLI_BIN/archctl || $ROOT/data/cli/python-entrypoints.yml -nt $ARCH_TEST_CLI_BIN/archctl || $ROOT/data/cli/groups.yml -nt $ARCH_TEST_CLI_BIN/archctl ]]; then
     python3 "$ROOT/scripts/cli_entrypoints.py" generate --destination "$ARCH_TEST_CLI_STAGE"
   fi
 ) 9>"$ROOT/build/test-cli-entrypoints.lock"

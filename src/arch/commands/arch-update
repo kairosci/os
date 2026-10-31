@@ -102,7 +102,7 @@ arch-update-requires-free-space
 # required. Interactive review steps report and move on instead of waiting.
 [[ ${1:-} != "-y" ]] || export ARCH_UPDATE_UNATTENDED=1
 
-if [[ ${1:-} == "-y" ]] || arch-update-confirm; then
+if [[ ${1:-} == "-y" ]] || archctl update confirm; then
   authorize_update
 
   # Before the snapshot: the cache is on the snapshotted subvolume, so pruning
