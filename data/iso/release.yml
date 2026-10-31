@@ -1,6 +1,6 @@
 release:
   github_asset_limit_bytes: 2000000000
-  max_part_bytes: 1900000000
+  max_part_bytes: 1000000000
   read_size_bytes: 1048576
   manifest_max_bytes: 1000000
   maximum_part_count: 1000
