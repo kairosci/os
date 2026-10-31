@@ -1,0 +1,61 @@
+timeout_seconds: 5
+statuses:
+  usage: 1
+  invalid: 1
+  timeout: 124
+  command_error: 127
+defaults:
+  headline: ""
+  description: ""
+  glyph: ""
+  urgency: low
+  app_name: arch-action
+  app_icon: ""
+  image: ""
+  expire_timeout: -1
+  replaces_id: 0
+  print_id: false
+options:
+  -g: glyph
+  --glyph: glyph
+  -u: urgency
+  --urgency: urgency
+  --app-name: app_name
+  -i: app_icon
+  --icon: app_icon
+  --image: image
+  -r: replaces_id
+  --replace-id: replaces_id
+  -t: expire_timeout
+  --expire-time: expire_timeout
+  -p: print_id
+  --print-id: print_id
+boolean_options: [print_id]
+urgency:
+  low: 0
+  normal: 1
+  critical: 2
+dbus:
+  command: [busctl, --user, --, call]
+  destination: org.freedesktop.Notifications
+  path: /org/freedesktop/Notifications
+  interface: org.freedesktop.Notifications
+  method: Notify
+  signature: susssasa{sv}i
+  urgency_hint: urgency
+  urgency_type: y
+  glyph_hint: arch-glyph
+  image_hint: image-path
+  exec_hint: arch-exec-argv
+  actions_count: 0
+messages:
+  usage: 'Usage: arch-notification-send [--app-name <app-name>] [-g <glyph>] [-u <low|normal|critical>] [-i <icon>] [-t <ms>] [-r <id>] [-p] [--image <path-or-uri>] <headline> [description] [--exec <program> [args...]]'
+  missing_value: 'Missing value for {option}'
+  invalid_numeric: 'Invalid {option} value ({expected} expected): {value}'
+  unknown_option: 'Unknown option: {option}'
+  urgency: 'Unknown urgency: {value} (use low, normal, or critical)'
+  exec_missing: '--exec needs a command: --exec <program> [args...]'
+  exec_whole_command: '--exec takes the command as separate words, not one quoted string.'
+  exec_whole_command_hint: 'Pass the program and its arguments as separate words.'
+  timeout: 'Notification request timed out'
+  command_error: 'Could not send notification'

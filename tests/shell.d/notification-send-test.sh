@@ -25,8 +25,8 @@ chmod +x "$tmpdir/notify-send"
 tripwire="$tmpdir/notify-send-was-used"
 
 send() {
-  ARCH_TEST_BUSCTL_ARGS="$args_file" ARCH_TEST_NOTIFY_TRIPWIRE="$tripwire" \
-    PATH="$tmpdir:$ROOT/src/arch/commands:$PATH" arch-notification-send "$@"
+  AP="$ROOT" ARCH_TEST_BUSCTL_ARGS="$args_file" ARCH_TEST_NOTIFY_TRIPWIRE="$tripwire" \
+    PATH="$tmpdir:$PATH" "$ARCH_TEST_CLI_BIN/arch-notification-send" "$@"
 }
 
 # Notify(susssasa{sv}i) args, by position in the recorded busctl argv:
@@ -49,7 +49,8 @@ hint_value() { # key -> variant value
 
 # ---------------------------------------------------------------- happy path
 send --app-name custom-app -g K -u critical -i battery-caution -t 5000 \
-  "Download complete" "A body" --exec mpv -- "/tmp/a b.mp4"
+  "Download complete" "A body" --exec mpv -- "/tmp/a b.mp4" >"$tmpdir/send.stdout"
+[[ ! -s $tmpdir/send.stdout ]] || fail "notification wrapper suppresses busctl output unless -p is requested" "$(<"$tmpdir/send.stdout")"
 load
 
 [[ ${args[2]} == "call" ]] || fail "notification wrapper calls a bus method"

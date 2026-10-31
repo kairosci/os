@@ -85,7 +85,8 @@ Preferences live in the `notifications` object of `~/.config/arch/shell.json`; e
 
 ## The sender contract
 
-`src/arch/commands/arch-notification-send` is the one way Arch code sends
+`src/arch/cli/notification/send.py`, configured by
+`data/cli/notification-send.yml`, is the one way Arch code sends
 notifications — never raw `notify-send`. It calls
 `org.freedesktop.Notifications.Notify` directly over the session bus (via
 `busctl --user`), so each value is one typed D-Bus parameter and there is no
