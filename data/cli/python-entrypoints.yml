@@ -860,6 +860,15 @@ entrypoints:
     summary: Split an ISO and upload its parts to a GitHub release
     args: <iso> <tag> [--repo <owner/repository>]
     pass_args: "true"
+  - binary: arch-webapp-window-class
+    module: webapp/window_class
+    function: main
+    group: webapp
+    name: window class
+    summary: Print the Chromium window class for a web app URL
+    args: <url>
+    hidden: 'true'
+    pass_args: 'true'
   - binary: arch-launch-nautilus
     module: launch/dispatch
     function: main
