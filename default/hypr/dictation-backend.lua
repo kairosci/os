@@ -1,7 +1,7 @@
 -- Backends may supply their own desktop integration without editing the
 -- user's Hyprland config. Recording bindings remain owned by os.
 local paths = require("default.hypr.paths")
-local pipe = io.popen("arch-default-dictation 2>/dev/null", "r")
+local pipe = io.popen("archctl default dictation 2>/dev/null", "r")
 if not pipe then
   return
 end

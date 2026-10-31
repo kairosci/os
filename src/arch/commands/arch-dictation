@@ -17,7 +17,7 @@ if ! flock -w 5 9; then
   exit 1
 fi
 
-backend=$(arch-default-dictation) || exit 1
+backend=$(archctl default dictation) || exit 1
 adapter="arch-dictation-$backend"
 if arch-cmd-missing "$adapter"; then
   echo "The selected dictation backend ($backend) is not installed." >&2

@@ -227,6 +227,7 @@ entrypoints:
     args: '[backend]'
     examples: archctl default dictation | archctl default dictation superwhisper
     pass_args: 'true'
+    generate_launcher: "false"
   - binary: arch-default-editor
     module: default/editor
     function: default_editor_main

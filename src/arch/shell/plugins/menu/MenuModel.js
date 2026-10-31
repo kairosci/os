@@ -428,7 +428,7 @@ var GUARD_READERS = [
   "archctl default browser",
   "archctl default editor",
   "archctl default terminal",
-  "arch-default-dictation",
+  "archctl default dictation",
   "arch-dns",
   "arch-hyprland-corners",
   "arch-hyprland-window-transparency",

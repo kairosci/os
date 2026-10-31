@@ -1,7 +1,7 @@
 -- Bound only once the chosen backend's own program is installed (os ships
 -- every adapter): an aarch64 machine has no Superwhisper build, and
 -- push-to-talk would hold Right Alt (AltGr) for nothing.
-local pipe = io.popen("arch-default-dictation 2>/dev/null", "r")
+local pipe = io.popen("archctl default dictation 2>/dev/null", "r")
 local backend = pipe and pipe:read("*l")
 if pipe then
   pipe:close()

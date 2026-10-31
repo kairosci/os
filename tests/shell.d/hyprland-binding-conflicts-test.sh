@@ -146,13 +146,14 @@ trap 'rm -rf "$tmpdir"' EXIT
 home="$tmpdir/home"
 stub_bin="$tmpdir/bin"
 mkdir -p "$home" "$stub_bin"
-cat > "$stub_bin/arch-default-dictation" <<'SH'
+cat > "$stub_bin/archctl" <<'SH'
 #!/bin/bash
+[[ $1 == default && $2 == dictation ]] || exit 2
 echo voxtype
 SH
 # The dictation keys are bound only once the selected backend is installed.
 printf '#!/bin/bash\nexit 0\n' > "$stub_bin/voxtype"
-chmod +x "$stub_bin/arch-default-dictation" "$stub_bin/voxtype"
+chmod +x "$stub_bin/archctl" "$stub_bin/voxtype"
 
 bindings=$(PATH="$stub_bin:$PATH" list_bindings "$home")
 [[ -n $bindings ]] || fail "default bindings load for the conflict check"
