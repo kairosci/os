@@ -27,7 +27,7 @@ esac
 # toggle tools, so it keeps working when XDG_STATE_HOME diverges.
 NAME_FILE="$HOME/.local/state/arch/toggles/hypr/$KIND-disabled-name"
 
-device="$("arch-hw-$KIND")"
+device="$(archctl hw "$KIND")"
 
 require_device() {
   if [[ -z $device ]]; then

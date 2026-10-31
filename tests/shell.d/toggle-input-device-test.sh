@@ -10,6 +10,7 @@ tmpdir=$(mktemp -d)
 trap 'rm -rf "$tmpdir"' EXIT
 
 stub_dir="$tmpdir/bin"
+export AP="$ROOT" DEVICE_STUB_DIR="$stub_dir"
 home_dir="$tmpdir/home"
 xdg_decoy="$tmpdir/xdg-decoy"
 log_file="$tmpdir/hyprctl.log"
@@ -35,14 +36,17 @@ cat >"$stub_dir/arch-osd" <<'EOF'
 EOF
 chmod +x "$stub_dir/arch-osd"
 
+cat >"$stub_dir/archctl" <<'EOF'
+#!/bin/bash
+[[ ${1:-} == hw && $# == 2 ]] || exit 2
+cat "$DEVICE_STUB_DIR/$2"
+EOF
+chmod +x "$stub_dir/archctl"
+
 stub_device() {
   local kind=$1
   local name=$2
-  cat >"$stub_dir/arch-hw-$kind" <<EOF
-#!/bin/bash
-printf '%s\n' '$name'
-EOF
-  chmod +x "$stub_dir/arch-hw-$kind"
+  printf '%s\n' "$name" >"$stub_dir/$kind"
 }
 
 # XDG_STATE_HOME deliberately points away from HOME everywhere below: the
@@ -177,11 +181,7 @@ assert(seen[1].name == poc)
 LUA
 pass "PoC device name cannot execute via eval or reload"
 
-cat >"$stub_dir/arch-hw-touchpad" <<'EOF'
-#!/bin/bash
-printf 'evil\nname\n'
-EOF
-chmod +x "$stub_dir/arch-hw-touchpad"
+printf 'evil\nname\n' >"$stub_dir/touchpad"
 
 rm -f "$name_file"
 set +e
@@ -201,11 +201,7 @@ set -e
 [[ ! -e $name_file ]] || fail "enable clears persisted state even with an invalid device name"
 pass "a bad device name cannot wedge the persisted disable"
 
-cat >"$stub_dir/arch-hw-touchpad" <<'EOF'
-#!/bin/bash
-:
-EOF
-chmod +x "$stub_dir/arch-hw-touchpad"
+: >"$stub_dir/touchpad"
 
 set +e
 run_toggle touchpad off >/dev/null 2>&1
