@@ -1,6 +1,6 @@
 # Snapshot di sistema
 
-Creiamo snapshot automaticamente a ogni aggiornamento di Arch, ma se vuoi crearne uno tuo, puoi usare `arch-snapshot create`.
+Creiamo snapshot automaticamente a ogni aggiornamento di Arch, ma se vuoi crearne uno tuo, puoi usare `archctl snapshot create`.
 
 Per avviare e ripristinare uno snapshot, lo selezioni dal bootloader Limine. (Se al momento avvii direttamente nella schermata di decrittazione di Arch, dovrai prima selezionare Limine come opzione di avvio tramite il BIOS.)
 
@@ -8,7 +8,7 @@ Da quella schermata, scegli lo snapshot in cui vuoi avviarti in base a data e ve
 
  ![snapshots-bootloader](images/snapshots-bootloader.webp)
 
-Quando arrivi dentro, comparirà una notifica che ti avvisa che sei in uno snapshot avviabile e, se ci fai clic sopra, avvierà il processo di ripristino. In alternativa, puoi usare `arch-snapshot restore`.
+Quando arrivi dentro, comparirà una notifica che ti avvisa che sei in uno snapshot avviabile e, se ci fai clic sopra, avvierà il processo di ripristino. In alternativa, puoi usare `archctl snapshot restore`.
 
  ![snapshots-restore](images/snapshots-restore.webp)
 

@@ -101,6 +101,15 @@ entrypoints:
     group: power
     name: present
     summary: Returns true if external power is connected.
+  - binary: arch-snapshot
+    module: snapshot/manage
+    function: main
+    group: snapshot
+    name: ''
+    summary: Create or restore system snapshots with Snapper
+    args: <create|restore>
+    pass_args: 'true'
+    generate_launcher: 'false'
   - binary: arch-powerprofiles-list
     module: powerprofiles/list
     function: main

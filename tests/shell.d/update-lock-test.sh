@@ -82,7 +82,13 @@ ln -s ../src/arch/commands/systemd-inhibit "$SUDO_TEST_ROOT/mock/systemd-inhibit
 # arch-update should hold the lock before snapshotting, so a second update
 # cannot even enter its pre-update snapshot.
 update_snapshot_marker="$test_tmp/update-snapshot-started"
-write_stub arch-snapshot 'echo started >"$TEST_MARKER"; sleep 0.8; exit 0'
+write_stub archctl '
+if [[ ${1:-} == snapshot && ${2:-} == create ]]; then
+  echo started >"$TEST_MARKER"
+  sleep 0.8
+  exit 0
+fi
+AP="$ROOT" exec "$ROOT/src/arch/commands/archctl" "$@"'
 
 ARCH_UPDATE_LOGGED=1 TEST_MARKER="$update_snapshot_marker" run_with_lock_env "$SUDO_TEST_ROOT/src/arch/commands/arch-update" -y >"$test_tmp/update-first.out" 2>&1 &
 update_pid=$!
@@ -113,7 +119,9 @@ pass "arch-update prevents overlapping top-level updates"
 # later update and blocking the next update.
 inhibit_pid_file="$test_tmp/inhibit-pid"
 keyring_marker="$test_tmp/keyring-started"
-write_stub arch-snapshot 'exit 0'
+write_stub archctl '
+if [[ ${1:-} == snapshot && ${2:-} == create ]]; then exit 0; fi
+AP="$ROOT" exec "$ROOT/src/arch/commands/archctl" "$@"'
 write_stub systemd-inhibit '[[ -z ${INHIBIT_PID_FILE:-} ]] || echo "$$" >"$INHIBIT_PID_FILE"; while [[ $1 == --* ]]; do shift; done; exec "$@"'
 write_stub arch-update-keyring 'echo started >"$TEST_MARKER"; sleep 1; exit 0'
 
@@ -249,10 +257,11 @@ fi
 
 # Update-owned Stay Awake state must be cleared before the restart helper can
 # reboot the machine, rather than relying on an EXIT trap during shutdown.
-write_stub arch-snapshot 'exit 0'
 write_stub arch-update-keyring 'exit 0'
 write_stub archctl '
-if [[ ${1:-} == toggle && ${2:-} == idle ]]; then
+if [[ ${1:-} == snapshot && ${2:-} == create ]]; then
+  exit 0
+elif [[ ${1:-} == toggle && ${2:-} == idle ]]; then
   if [[ ${3:-} == state-path ]]; then
     printf '%s/.local/state/arch/indicators/stay-awake\n' "$SUDO_TEST_HOME"
     exit 0

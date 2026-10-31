@@ -49,7 +49,7 @@ line_of() {
 }
 
 prune_line=$(line_of arch-update-pkg-prune)
-snapshot_line=$(line_of arch-snapshot)
+snapshot_line=$(line_of 'archctl snapshot create')
 pkgs_line=$(line_of arch-update-system-pkgs)
 [[ -n $prune_line && -n $snapshot_line && -n $pkgs_line ]] ||
   fail "arch-update runs the cache prune, the snapshot, and the packages update"
