@@ -9,9 +9,20 @@ actions:
   disabled_output: "off"
 commands:
   reload: [hyprctl, reload]
+  localize: [arch-i18n]
+  notification: [archctl, notification, send, -g]
+values:
+  aspect_toggle_name: single-window-aspect-ratio
+notifications:
+  glyph: 
+  keys:
+    enabled: window.squareOn
+    disabled: window.squareOff
 messages:
   usage: "Usage: archctl hyprland toggle <flag-name> [on|off|toggle]"
   query_usage: "Usage: archctl hyprland toggle enabled|disabled <flag-name>"
+  aspect_toggle_usage: "Usage: archctl hyprland window single square aspect toggle"
+  notification_error: "Could not notify about the Hyprland toggle change"
   missing_flag: "Flag not found: {name}"
   read_error: "Could not read Hyprland toggle state"
   state_error: "Could not update Hyprland toggle state"

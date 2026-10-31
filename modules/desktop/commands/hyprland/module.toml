@@ -15,7 +15,6 @@ sources = [
   "src/arch/cli/hyprland/session_locked.py",
   "src/arch/cli/hyprland/toggle.py",
   "src/arch/commands/arch-hyprland-window-close-all",
-  "src/arch/commands/arch-hyprland-window-single-square-aspect-toggle",
   "src/arch/commands/arch-hyprland-window-tiled-fullscreen-toggle",
   "src/arch/commands/arch-hyprland-window-transparency",
   "src/arch/commands/arch-hyprland-window-transparency-toggle",
@@ -24,7 +23,7 @@ sources = [
   "src/arch/commands/arch-hyprland-workspace-layout-default",
   "src/arch/commands/arch-hyprland-workspace-layout-toggle",
 ]
-requires = ["desktop.commands", "system.runtime-data"]
+requires = ["desktop.commands", "desktop.commands.i18n", "desktop.commands.notification", "system.runtime-data"]
 
 [[output]]
 source = "src/arch/commands/arch-hyprland-corners"
@@ -77,10 +76,6 @@ target = "usr/share/arch/src/arch/cli/hyprland/toggle.py"
 [[output]]
 source = "src/arch/commands/arch-hyprland-window-close-all"
 target = "usr/share/arch/src/arch/commands/arch-hyprland-window-close-all"
-
-[[output]]
-source = "src/arch/commands/arch-hyprland-window-single-square-aspect-toggle"
-target = "usr/share/arch/src/arch/commands/arch-hyprland-window-single-square-aspect-toggle"
 
 [[output]]
 source = "src/arch/commands/arch-hyprland-window-tiled-fullscreen-toggle"
