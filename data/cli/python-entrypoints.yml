@@ -379,6 +379,7 @@ entrypoints:
     name: laptop
     summary: Returns true when running on a laptop (has a lid or laptop chassis).
     hidden: "true"
+    generate_launcher: "false"
   - binary: arch-hw-match
     module: hardware/match
     function: match_main

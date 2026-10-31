@@ -95,9 +95,10 @@ exec cat "$ARCH_TEST_EVENTS"
 SH
 
 # A desktop, so the clamshell half of the watcher stays idle.
-cat >"$fake_bin/arch-hw-laptop" <<'SH'
+cat >"$fake_bin/archctl" <<'SH'
 #!/bin/bash
 
+[[ $1 == hw && $2 == laptop ]] || exit 2
 exit 1
 SH
 

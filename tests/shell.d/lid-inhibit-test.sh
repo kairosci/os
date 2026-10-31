@@ -97,10 +97,10 @@ cat >"$fake_bin/busctl" <<'SH'
 printf 's "%s"\n' "$ARCH_TEST_DOCKED_ACTION"
 SH
 
-cat >"$fake_bin/arch-hw-laptop" <<'SH'
+cat >"$fake_bin/archctl" <<'SH'
 #!/bin/bash
 
-[[ $ARCH_TEST_LAPTOP == 1 ]]
+[[ $1 == hw && $2 == laptop && $ARCH_TEST_LAPTOP == 1 ]]
 SH
 
 cat >"$fake_bin/hyprctl" <<'SH'
