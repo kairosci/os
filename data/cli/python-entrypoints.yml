@@ -143,6 +143,7 @@ entrypoints:
     name: install
     summary: Create a tiled desktop launcher for a terminal UI app
     args: <name> <command> <icon-url-or-name>
+    generate_launcher: "false"
   - binary: arch-update-available
     module: update/available
     function: main

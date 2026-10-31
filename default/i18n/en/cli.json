@@ -255,7 +255,7 @@
   "tui.removed": "TUI removed",
   "tui.requiredValues": "Set the launcher name, command, and icon.",
   "tui.selectRemove": "Select TUI to remove",
-  "tui.usage": "Usage: arch-tui-install <name> <command> <icon-url-or-name>",
+  "tui.usage": "Usage: archctl tui install <name> <command> <icon-url-or-name>",
   "update.cancelled": "Update cancelled",
   "update.available.none": "System is up to date",
   "update.available.checkout": {
