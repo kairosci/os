@@ -1,6 +1,6 @@
 -- Require every *.lua file in a directory in sorted order.
--- Used for os extension-style folders such as default/hypr/apps,
--- default/hypr/bindings, and ~/.local/state/arch/toggles/hypr.
+-- Used for extension-style folders such as default/hypr/bindings,
+-- default/hypr/workspace-layouts, and ~/.local/state/arch/toggles/hypr.
 -- Pass a module prefix for normal package.path modules, e.g.
 --   require_all.files(paths.ap .. "/default/hypr/apps", "default.hypr.apps")
 -- Pass nil as the prefix when the directory itself has been added to package.path.

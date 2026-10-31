@@ -5,7 +5,7 @@ pkgdesc='Arch desktop defaults, system configuration, and greeter assets'
 arch=('x86_64' 'aarch64')
 url='https://github.com/kairosci/os'
 license=('MIT')
-depends=('bash' 'curl' 'gum' 'hicolor-icon-theme' 'plymouth' 'sudo')
+depends=('bash' 'curl' 'gum' 'hicolor-icon-theme' 'plymouth' 'python-yaml' 'sudo')
 makedepends=('git' 'imagemagick' 'python')
 backup=(
   'etc/docker/daemon.json'

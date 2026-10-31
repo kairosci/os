@@ -13,6 +13,7 @@ Here's a list of the key files in `~/.config` and what they control:
 | `~/.config/hypr/monitors.lua` | Controls your monitors, resolution, and position. |
 | `~/.config/hypr/input.lua` | Controls your keyboard layout, mouse, and trackpad settings. |
 | `~/.config/hypr/looknfeel.lua` | Controls gaps, borders, animations, and the rest of the look. |
+| `~/.config/hypr/apps.yml` | Controls default window rules for Disktree and the other shipped apps. |
 | `~/.config/hypr/autostart.lua` | Controls extra processes started with the session. |
 | `~/.config/arch/shell.json` | Controls the Arch shell: bar position, layout, and widgets, plus screensaver, lock, and idle timings. |
 | `~/.config/foot/foot.ini` | Controls your terminal (foot is the default). |
@@ -73,6 +74,8 @@ o.rebind("SUPER + SHIFT + O", "Joplin", "joplin-desktop")
 ```
 
 `o.rebind` removes the existing binding before adding its replacement. It takes the same arguments as `o.bind`, including launch helpers and binding options. Use `o.bind` to add a binding, or `hl.unbind` to remove one without replacing it.
+
+Window and layer behavior for the shipped apps and the default transparency opacity live in `~/.config/hypr/apps.yml`. The Disktree rule uses the full usable tiled area, so it follows the active display's resolution and scale without a fixed pixel size. Edit `window_rules` or `layer_rules` to change an app's matching class or its Hyprland rule options. To restore the packaged defaults later, run `archctl refresh config hypr/apps.yml`.
 
 If you insist on hacking on the internal Arch files, switch to the dev channel via _Update > Channel > Dev_. That links Arch to a git checkout of the source code in `~/arch`, which you're free to change to your heart's content. Ain't nobody here to tell you what to do!
 

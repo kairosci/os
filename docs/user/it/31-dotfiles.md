@@ -13,6 +13,7 @@ Ecco un elenco dei file chiave in `~/.config` e cosa controllano:
 | `~/.config/hypr/monitors.lua` | Controlla i tuoi monitor, la risoluzione e la posizione. |
 | `~/.config/hypr/input.lua` | Controlla il layout della tastiera, il mouse e le impostazioni del trackpad. |
 | `~/.config/hypr/looknfeel.lua` | Controlla spazi, bordi, animazioni e il resto dell'aspetto. |
+| `~/.config/hypr/apps.yml` | Controlla le regole predefinite delle finestre per Disktree e le altre app incluse. |
 | `~/.config/hypr/autostart.lua` | Controlla i processi extra avviati con la sessione. |
 | `~/.config/arch/shell.json` | Controlla la shell Arch: posizione della barra, layout e widget, oltre a salvaschermo, blocco e tempi di inattività. |
 | `~/.config/foot/foot.ini` | Controlla il tuo terminale (foot è il predefinito). |
@@ -73,6 +74,8 @@ o.rebind("SUPER + SHIFT + O", "Joplin", "joplin-desktop")
 ```
 
 `o.rebind` rimuove l'associazione esistente prima di aggiungere la sua sostituzione. Accetta gli stessi argomenti di `o.bind`, inclusi helper di avvio e opzioni di associazione. Usa `o.bind` per aggiungere un'associazione, oppure `hl.unbind` per rimuoverne una senza sostituirla.
+
+Le regole per finestre e layer delle app incluse, insieme all'opacità predefinita, sono in `~/.config/hypr/apps.yml`. Disktree usa tutta l'area utile del layout a schede e segue risoluzione e scala del display attivo, senza dimensioni fisse in pixel. Modifica `window_rules` o `layer_rules` per cambiare la classe riconosciuta da un'app o le sue opzioni Hyprland. Per ripristinare i valori predefiniti del pacchetto, esegui `archctl refresh config hypr/apps.yml`.
 
 Se insisti a smanettare sui file interni di Arch, passa al canale dev tramite _Aggiorna > Canale > Dev_. Questo collega Arch a un checkout git del codice sorgente in `~/arch`, che sei libero di cambiare a tuo piacimento. Non c'è nessuno qui a dirti cosa fare!
 

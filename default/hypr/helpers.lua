@@ -255,5 +255,8 @@ end
 -- Opt a window in to os's standard active/inactive transparency. The tag
 -- lets Appearance > Windows > Window Opacity turn these windows opaque or glassy.
 function o.transparent_window(match, opacity)
-  o.window(match, { opacity = opacity or "0.985 0.96", tag = "+transparent-window" })
+  o.window(match, {
+    opacity = opacity or o.app_transparency,
+    tag = o.app_transparency_tag,
+  })
 end
