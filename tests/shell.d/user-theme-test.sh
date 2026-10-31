@@ -14,11 +14,13 @@ printf '%s\n' "$*" >>"$ARCH_TEST_THEME_CALLS"
 SH
 chmod +x "$mock_bin/arch-theme-set"
 
-cat >"$mock_bin/arch-theme-bg-set" <<'SH'
+cat >"$mock_bin/archctl" <<'SH'
 #!/bin/bash
-printf '%s\n' "$1" >>"$ARCH_TEST_BACKGROUND_CALLS"
+if [[ $1 == theme && $2 == bg && $3 == set ]]; then
+  printf '%s\n' "$4" >>"$ARCH_TEST_BACKGROUND_CALLS"
+fi
 SH
-chmod +x "$mock_bin/arch-theme-bg-set"
+chmod +x "$mock_bin/archctl"
 
 cat >"$mock_bin/arch-i18n" <<'SH'
 #!/bin/bash
@@ -180,7 +182,7 @@ printf 'image\n' >"$selected_background"
 shell_calls="$test_tmp/background-shell-calls"
 HOME="$test_tmp/home" AP="$test_tmp/theme-arch" PATH="$mock_bin:$PATH" \
   ARCH_TEST_BACKGROUND_SHELL_CALLS="$shell_calls" \
-  "$ARCH_TEST_CLI_BIN/arch-theme-bg-set" "$selected_background"
+  "$ARCH_TEST_CLI_BIN/archctl" theme bg set "$selected_background"
 [[ $(readlink "$test_tmp/home/.local/state/arch/current/background") == "$selected_background" ]] ||
   fail "background setter atomically selects the resolved media path"
 [[ $(cat "$shell_calls") == $'-q\nbackground\nset\n'"$selected_background" ]] ||
@@ -190,7 +192,7 @@ HOME="$test_tmp/home" AP="$test_tmp/theme-arch" PATH="$mock_bin:$PATH" \
 pass "background setter atomically selects media and refreshes the shell"
 
 if HOME="$test_tmp/home" AP="$test_tmp/theme-arch" LC_ALL= LC_MESSAGES=it_IT.UTF-8 \
-  "$ARCH_TEST_CLI_BIN/arch-theme-bg-set" "$test_tmp/missing.png" >"$test_tmp/background-set.out" 2>"$test_tmp/background-set.err"; then
+  "$ARCH_TEST_CLI_BIN/archctl" theme bg set "$test_tmp/missing.png" >"$test_tmp/background-set.out" 2>"$test_tmp/background-set.err"; then
   fail "background setter rejects a missing file"
 fi
 grep -F 'Il file non esiste:' "$test_tmp/background-set.err" >/dev/null ||

@@ -206,7 +206,7 @@ Item {
 
   Process {
     id: bgSwitchProc
-    command: ["bash", "-c", "background=$(arch-theme-bg-switcher); [[ -n $background ]] && arch-theme-bg-set \"$background\""]
+    command: ["bash", "-c", "background=$(arch-theme-bg-switcher); [[ -n $background ]] && archctl theme bg set \"$background\""]
     onExited: root.refreshBackground()
   }
 
