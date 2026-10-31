@@ -2,7 +2,7 @@
 
 # arch:summary=Update user-installed git themes
 
-mapfile -t themes < <(arch-theme-extras)
+mapfile -t themes < <(archctl theme extras)
 
 for theme in "${themes[@]}"; do
   echo "Updating: $(basename "$theme")"

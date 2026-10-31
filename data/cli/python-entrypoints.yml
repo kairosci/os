@@ -1,4 +1,11 @@
 entrypoints:
+  - binary: arch-theme-extras
+    module: theme/extras
+    function: main
+    group: theme
+    name: extras
+    summary: List the user-installed themes that came from a git clone
+    examples: archctl theme extras
   - binary: arch-background-session-mark
     module: background/session_mark
     function: main

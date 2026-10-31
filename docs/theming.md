@@ -42,7 +42,7 @@ A switch from the theme picker, the menu or a script does not wait for that seco
 
 `themes/<name>/` in this repo is Arch's own code and is trusted. So is a theme the user wrote by hand in `~/.config/arch/themes/<name>/`: it is their machine and their file, and both stage in full.
 
-`archctl theme install <url>` is different. It clones a stranger's git repo straight into that same directory, so the contents are whatever the theme author pushed. `arch-theme-set` tells the two apart the way `arch-theme-extras` already does — a `.git` directory means it was cloned, while a plain directory or a symlink to a working copy is the user's own — and from a cloned one it drops only what can run code:
+`archctl theme install <url>` is different. It clones a stranger's git repo straight into that same directory, so the contents are whatever the theme author pushed. `arch-theme-set` tells the two apart the way `archctl theme extras` already does — a `.git` directory means it was cloned, while a plain directory or a symlink to a working copy is the user's own — and from a cloned one it drops only what can run code:
 
 - any `*.lua` — Hyprland `require`s a theme's `hyprland.lua` and `gum_env.lua` at login, and Neovim loads its `neovim.lua` at startup
 - `alacritty.toml`, `foot.ini`, `ghostty.conf`, `kitty.conf` — each names the program the terminal launches

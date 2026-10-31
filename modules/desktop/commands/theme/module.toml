@@ -7,7 +7,6 @@ sources = [
   "src/arch/commands/arch-theme-bg-switcher",
   "src/arch/commands/arch-theme-color",
   "src/arch/commands/arch-theme-colors-from-alacritty",
-  "src/arch/commands/arch-theme-extras",
   "src/arch/commands/arch-theme-install",
   "src/arch/commands/arch-theme-osc",
   "src/arch/commands/arch-theme-refresh",
@@ -27,6 +26,7 @@ sources = [
   "src/arch/commands/arch-theme-switcher",
   "src/arch/commands/arch-theme-update",
   "src/arch/cli/theme/info.py",
+  "src/arch/cli/theme/extras.py",
 ]
 requires = ["desktop.commands", "system.runtime-data"]
 
@@ -49,10 +49,6 @@ target = "usr/share/arch/src/arch/commands/arch-theme-color"
 [[output]]
 source = "src/arch/commands/arch-theme-colors-from-alacritty"
 target = "usr/share/arch/src/arch/commands/arch-theme-colors-from-alacritty"
-
-[[output]]
-source = "src/arch/commands/arch-theme-extras"
-target = "usr/share/arch/src/arch/commands/arch-theme-extras"
 
 [[output]]
 source = "src/arch/commands/arch-theme-install"
@@ -129,3 +125,7 @@ target = "usr/share/arch/src/arch/commands/arch-theme-update"
 [[output]]
 source = "src/arch/cli/theme/info.py"
 target = "usr/share/arch/src/arch/cli/theme/info.py"
+
+[[output]]
+source = "src/arch/cli/theme/extras.py"
+target = "usr/share/arch/src/arch/cli/theme/extras.py"
