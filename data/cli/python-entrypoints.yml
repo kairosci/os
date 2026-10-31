@@ -260,6 +260,12 @@ entrypoints:
     group: hw
     name: display
     summary: Print the most likely display backlight device
+  - binary: arch-hw-recover-internal-monitor
+    module: hardware/monitor_recovery
+    function: recover_internal_monitor_main
+    group: hw
+    name: recover internal monitor
+    summary: Clear the disabled internal-monitor toggle when no external display is connected
   - binary: arch-hw-nvidia
     module: hardware/nvidia
     function: main

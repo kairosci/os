@@ -1,0 +1,9 @@
+paths:
+  home_environment: HOME
+  toggle_relative: .local/state/arch/toggles/hypr/internal-monitor-disable.lua
+  parent_component: ..
+commands:
+  external_monitor_status: [os, hw, external, monitors]
+statuses:
+  success: 0
+  configuration_error: 78
