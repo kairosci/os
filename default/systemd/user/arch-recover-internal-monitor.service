@@ -5,7 +5,7 @@ ConditionPathExists=%h/.local/state/arch/toggles/hypr/internal-monitor-disable.l
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/arch-hw-recover-internal-monitor
+ExecStart=/usr/bin/archctl hw recover internal monitor
 
 [Install]
 WantedBy=graphical-session-pre.target

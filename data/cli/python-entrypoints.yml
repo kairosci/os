@@ -394,6 +394,7 @@ entrypoints:
     group: hw
     name: recover internal monitor
     summary: Clear the disabled internal-monitor toggle when no external display is connected
+    generate_launcher: "false"
   - binary: arch-hw-nvidia
     module: hardware/nvidia
     function: main
