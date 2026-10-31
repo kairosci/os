@@ -14,6 +14,7 @@ This roadmap tracks the requested CLI, ISO, desktop, and release work as separat
 - PR #585 moves the clipboard and emoji menu launchers into `src/arch/cli/menu/launch.py`, with their exact `arch-shell` argv, timeout, statuses, and messages in YAML. With PR #585 integrated, the repository has 372 flat command files, 57 Python modules, and 82 Python entrypoints. Their existing binary names stay available through generated launchers for installed menu actions and user scripts.
 - PR #586 moves both Files launchers into Python, keeping application argv and the terminal-directory helper in YAML. PR #587 generalizes that module to `src/arch/cli/launch/dispatch.py` and migrates the tmux terminal launcher with its exact attach-or-create command in YAML. With PR #587 integrated, the repository has 369 flat command files, 58 Python modules, and 85 Python entrypoints.
 - PR #588 migrates emoji insertion into `src/arch/cli/menu/emoji_insert.py`. Clipboard and paste argv, timing, limits, statuses, and messages are YAML data; the clipboard provider runs in a dedicated process group and is terminated on every exit path. With PR #588 integrated, the repository has 368 flat command files, 59 Python modules, and 86 Python entrypoints.
+- The Arch shell user service starts from Hyprland autostart, remains under `Restart=always`, and its launcher retries Quickshell exits. PR #589 gives Hyprland a non-black clear color beneath the shell wallpaper so a missing layer does not clear to pure black; verify the recovery appearance in a disposable graphical session before closing the blank-desktop sprint.
 
 ## Sprints
 
@@ -67,7 +68,7 @@ A sprint is complete only when its implementation, caller updates, docs, and foc
 
 ### 12. Prevent blank desktop surfaces — in progress
 
-PR #584 gives the wallpaper layer an opaque theme-colored fallback and removes the intentional black startup cover. The shell process remains under the existing systemd restart policy and launcher supervisor. Verify the missing-wallpaper and shell-recovery states in a disposable graphical VM before closing this sprint; never restart the active desktop to perform that check.
+PR #584 gives the wallpaper layer an opaque theme-colored fallback and removes the intentional black startup cover. PR #589 sets Hyprland's compositor clear color to a visible dark gray, and the shell process remains under the existing systemd restart policy and launcher supervisor. Verify the missing-wallpaper and shell-recovery states in a disposable graphical VM before closing this sprint; never restart the active desktop to perform that check.
 
 ### 13. Move menu launch behavior into modules — implemented
 
@@ -81,6 +82,6 @@ PRs #586 and #587 move the Files and tmux terminal launch commands into `src/arc
 
 PR #587 moves the remaining `arch-launch-terminal-tmux` wrapper into the shared launch dispatcher. Its full argv, including the tmux attach-or-create expression, is YAML data; the Python module selects by generated entrypoint name and replaces itself with the configured launcher.
 
-### 16. Migrate emoji insertion — in progress
+### 16. Migrate emoji insertion — implemented
 
-PR #588 moves emoji insertion into a Python module. The clipboard provider is started in its own process group, receives bounded UTF-8 input, remains available through Shift+Insert, and is stopped in `finally` with a bounded TERM/KILL cleanup. Verify the existing menu test and the package entrypoint before integrating.
+PR #588 moves emoji insertion into a Python module. The clipboard provider is started in its own process group, receives bounded UTF-8 input, remains available through Shift+Insert, and is stopped in `finally` with a bounded TERM/KILL cleanup. The focused emoji test, strict Python type check, CLI contract suite, and menu package assembly passed before integration.
