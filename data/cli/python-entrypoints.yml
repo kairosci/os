@@ -48,6 +48,14 @@ entrypoints:
     summary: Wait for the desktop notification server to accept notifications
     args: "[timeout-seconds]"
     hidden: "true"
+  - binary: arch-notification-dismiss
+    module: notification/dismiss
+    function: main
+    group: notification
+    name: dismiss
+    summary: Dismiss a notification by summary substring
+    args: <summary>
+    pass_args: 'true'
   - binary: arch-notification-time
     module: notification/time
     function: main

@@ -3,7 +3,7 @@ domain = "desktop"
 package = "arch"
 sources = [
   "src/arch/commands/arch-notification-battery",
-  "src/arch/commands/arch-notification-dismiss",
+  "src/arch/cli/notification/dismiss.py",
   "src/arch/commands/arch-notification-send",
   "src/arch/cli/notification/time.py",
   "src/arch/cli/notification/wait.py",
@@ -16,8 +16,8 @@ source = "src/arch/commands/arch-notification-battery"
 target = "usr/share/arch/src/arch/commands/arch-notification-battery"
 
 [[output]]
-source = "src/arch/commands/arch-notification-dismiss"
-target = "usr/share/arch/src/arch/commands/arch-notification-dismiss"
+source = "src/arch/cli/notification/dismiss.py"
+target = "usr/share/arch/src/arch/cli/notification/dismiss.py"
 
 [[output]]
 source = "src/arch/commands/arch-notification-send"
