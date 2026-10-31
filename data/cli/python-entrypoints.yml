@@ -510,6 +510,13 @@ entrypoints:
     summary: Check whether a Hyprland toggle is disabled
     args: <flag-name>
     pass_args: 'true'
+  - binary: arch-hyprland-window-single-square-aspect-toggle
+    module: hyprland/toggle
+    function: aspect_toggle_main
+    group: hyprland
+    name: window single square aspect toggle
+    summary: Toggle the square aspect ratio for a single window
+    pass_args: 'true'
   - binary: arch-hyprland-workspace-layout-current
     module: hyprland/workspace_layout
     function: workspace_layout_current_main

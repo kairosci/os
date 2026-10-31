@@ -19,6 +19,12 @@ class Settings(TypedDict):
   source_directory: str
   actions: dict[str, str]
   reload_command: list[str]
+  localize_command: list[str]
+  notification_command: list[str]
+  aspect_toggle_name: str
+  aspect_toggle_usage: str
+  notification_glyph: str
+  notification_keys: dict[str, str]
   messages: dict[str, str]
 
 
@@ -46,6 +52,8 @@ def _settings() -> Settings:
   source_directory = raw.get("source_directory")
   actions = _string_mapping(raw.get("actions"), "actions")
   commands = raw.get("commands")
+  values = raw.get("values")
+  notifications = raw.get("notifications")
   messages = _string_mapping(raw.get("messages"), "messages")
   if (
     not isinstance(state_directory, str)
@@ -68,6 +76,24 @@ def _settings() -> Settings:
   if not isinstance(commands, dict):
     raise ValueError("invalid Hyprland toggle commands")
   reload_command = _string_list(commands.get("reload"), "reload command")
+  localize_command = _string_list(commands.get("localize"), "localize command")
+  notification_command = _string_list(commands.get("notification"), "notification command")
+  if not isinstance(values, dict) or not isinstance(notifications, dict):
+    raise ValueError("invalid Hyprland aspect toggle configuration")
+  aspect_toggle_name = values.get("aspect_toggle_name")
+  aspect_toggle_usage = messages.get("aspect_toggle_usage")
+  notification_glyph = notifications.get("glyph")
+  notification_keys = _string_mapping(notifications.get("keys"), "notification keys")
+  if (
+    not isinstance(aspect_toggle_name, str)
+    or not aspect_toggle_name
+    or not isinstance(aspect_toggle_usage, str)
+    or not aspect_toggle_usage
+    or not isinstance(notification_glyph, str)
+    or not notification_glyph
+    or not {"enabled", "disabled"} <= set(notification_keys)
+  ):
+    raise ValueError("incomplete Hyprland aspect toggle configuration")
   if not {"usage", "query_usage", "missing_flag", "read_error", "state_error"} <= set(messages):
     raise ValueError("incomplete Hyprland toggle messages")
   return {
@@ -76,6 +102,12 @@ def _settings() -> Settings:
     "source_directory": source_directory,
     "actions": actions,
     "reload_command": reload_command,
+    "localize_command": localize_command,
+    "notification_command": notification_command,
+    "aspect_toggle_name": aspect_toggle_name,
+    "aspect_toggle_usage": aspect_toggle_usage,
+    "notification_glyph": notification_glyph,
+    "notification_keys": notification_keys,
     "messages": messages,
   }
 
@@ -126,22 +158,17 @@ def _main(args: list[str], enabled: bool) -> int:
   return 0 if exists == enabled else 1
 
 
-def set_main(args: list[str]) -> int:
-  try:
-    settings = _settings()
-  except (KeyError, OSError, TypeError, ValueError, yaml.YAMLError):
-    print("Could not load Hyprland toggle configuration", file=sys.stderr)
-    return os.EX_CONFIG
+def _set(args: list[str], settings: Settings) -> tuple[int, str | None]:
   if not 1 <= len(args) <= 2:
     print(settings["messages"]["usage"], file=sys.stderr)
-    return 2
+    return 2, None
 
   name = args[0]
   actions = settings["actions"]
   action = args[1] if len(args) == 2 else actions["toggle"]
   if action not in {actions["enable"], actions["disable"], actions["toggle"]}:
     print(settings["messages"]["usage"], file=sys.stderr)
-    return 2
+    return 2, None
   report_status = action == actions["toggle"]
 
   try:
@@ -156,18 +183,68 @@ def set_main(args: list[str]) -> int:
       source = Path(os.environ["AP"]) / settings["source_directory"] / f"{name}{settings['filename_suffix']}"
       if not _enable(path, source):
         print(settings["messages"]["missing_flag"].format(name=name), file=sys.stderr)
-        return 1
-      if report_status:
-        print(settings["actions"]["enabled_output"])
+        return 1, None
+      status_output = settings["actions"]["enabled_output"] if report_status else None
     else:
       path.unlink(missing_ok=True)
-      if report_status:
-        print(settings["actions"]["disabled_output"])
+      status_output = settings["actions"]["disabled_output"] if report_status else None
     result = subprocess.run(settings["reload_command"], check=False, stdout=subprocess.DEVNULL)
   except (KeyError, OSError, TypeError, ValueError, yaml.YAMLError):
     print(settings["messages"]["state_error"], file=sys.stderr)
-    return os.EX_CANTCREAT
-  return result.returncode
+    return os.EX_CANTCREAT, None
+  return result.returncode, status_output
+
+
+def set_main(args: list[str]) -> int:
+  try:
+    settings = _settings()
+  except (KeyError, OSError, TypeError, ValueError, yaml.YAMLError):
+    print("Could not load Hyprland toggle configuration", file=sys.stderr)
+    return os.EX_CONFIG
+  status, status_output = _set(args, settings)
+  if status_output is not None:
+    print(status_output)
+  return status
+
+
+def aspect_toggle_main(arguments: list[str]) -> int:
+  try:
+    settings = _settings()
+  except (KeyError, OSError, TypeError, ValueError, yaml.YAMLError):
+    print("Could not load Hyprland toggle configuration", file=sys.stderr)
+    return os.EX_CONFIG
+  if arguments:
+    print(settings["aspect_toggle_usage"], file=sys.stderr)
+    return 2
+
+  status, state = _set([settings["aspect_toggle_name"]], settings)
+  if state is None:
+    return status
+  state_key = "enabled" if state == settings["actions"]["enabled_output"] else "disabled"
+  try:
+    localized = subprocess.run(
+      [*settings["localize_command"], settings["notification_keys"][state_key]],
+      check=False,
+      capture_output=True,
+    )
+  except OSError:
+    print(settings["messages"]["notification_error"], file=sys.stderr)
+    return os.EX_UNAVAILABLE
+  if localized.returncode != 0:
+    return localized.returncode
+  try:
+    notification = subprocess.run(
+      [
+        *settings["notification_command"],
+        settings["notification_glyph"],
+        localized.stdout.decode("utf-8", errors="surrogateescape").rstrip("\n"),
+      ],
+      check=False,
+    )
+  except OSError:
+    print(settings["messages"]["notification_error"], file=sys.stderr)
+    return os.EX_UNAVAILABLE
+  return notification.returncode
 
 
 def enabled_main(args: list[str]) -> int:
