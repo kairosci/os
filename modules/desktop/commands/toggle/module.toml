@@ -40,6 +40,10 @@ source = "src/arch/cli/toggle/crash_capture.py"
 target = "usr/share/arch/src/arch/cli/toggle/crash_capture.py"
 
 [[output]]
+source = "src/arch/cli/toggle/fullscreen_desktop.py"
+target = "usr/share/arch/src/arch/cli/toggle/fullscreen_desktop.py"
+
+[[output]]
 source = "src/arch/cli/toggle/idle.py"
 target = "usr/share/arch/src/arch/cli/toggle/idle.py"
 
@@ -50,10 +54,6 @@ target = "usr/share/arch/src/arch/cli/toggle/state.py"
 [[output]]
 source = "src/arch/commands/arch-toggle-hybrid-gpu"
 target = "usr/share/arch/src/arch/commands/arch-toggle-hybrid-gpu"
-
-[[output]]
-source = "src/arch/cli/toggle/fullscreen_desktop.py"
-target = "usr/share/arch/src/arch/cli/toggle/fullscreen_desktop.py"
 
 [[output]]
 source = "src/arch/cli/toggle/input_device.py"
