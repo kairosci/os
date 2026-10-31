@@ -350,7 +350,9 @@ builder:
     root_home: /root
     build_script: scripts/iso/container_build.py
     operation: container
-    bootstrap_command: 'pacman -Syu --noconfirm --needed "$@" && exec python3 "$ISO_CONTAINER_SCRIPT" "$ISO_CONTAINER_OPERATION"'
+    bootstrap_commands:
+      x86_64: 'pacman -Syu --noconfirm --needed "$@" && exec python3 "$ISO_CONTAINER_SCRIPT" "$ISO_CONTAINER_OPERATION"'
+      aarch64: 'install -m 0644 "{mount_path}/default/pacman/aarch64/mirrorlist-stable" /etc/pacman.d/mirrorlist && pacman -Syu --noconfirm --needed "$@" && exec python3 "$ISO_CONTAINER_SCRIPT" "$ISO_CONTAINER_OPERATION"'
     bootstrap_argument_zero: iso-container
     host_uid_environment: HOST_UID
     host_gid_environment: HOST_GID
