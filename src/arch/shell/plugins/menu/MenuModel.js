@@ -424,7 +424,7 @@ var GUARD_READERS = [
   "arch-bar get arch.clock format",
   "arch-bar get arch.clock verticalFormat",
   "arch-bar position",
-  "arch-channel-current",
+  "archctl channel current",
   "archctl default browser",
   "arch-default-editor",
   "arch-default-terminal",

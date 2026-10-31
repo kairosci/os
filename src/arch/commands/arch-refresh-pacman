@@ -37,7 +37,7 @@ if ! platform=$(arch-hw-platform); then
 fi
 templates=$(arch_pacman_templates "$platform") || exit 1
 if [[ -z $channel ]]; then
-  channel=$(arch-channel-current) || exit 1
+  channel=$(archctl channel current) || exit 1
   case "$channel" in
     stable | rc | edge) ;;
     # A linked checkout uses the edge packages, just like channel-set dev.

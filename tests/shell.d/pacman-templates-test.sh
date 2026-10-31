@@ -239,12 +239,13 @@ rm -rf "$work"
 source "$SHELL_TEST_DIR/fixtures/sudo-boundary-test.sh"
 copy_boundary_file bin/arch-refresh-pacman
 copy_boundary_file bin/arch-apply-pacman
-cat >"$SUDO_TEST_ROOT/src/arch/commands/arch-channel-current" <<'STUB'
+cat >"$SUDO_TEST_ROOT/bin/archctl" <<'STUB'
 #!/bin/bash
+[[ $* == "channel current" ]] || exit 2
 [[ ${SUDO_TEST_CHANNEL_FAIL:-0} != "1" ]] || exit 1
 echo "${SUDO_TEST_CHANNEL:-unknown}"
 STUB
-chmod +x "$SUDO_TEST_ROOT/src/arch/commands/arch-channel-current"
+chmod +x "$SUDO_TEST_ROOT/bin/archctl"
 
 refresh() {
   "$SUDO_TEST_ROOT/src/arch/commands/arch-refresh-pacman" "$@" >"$boundary_tmp/output" 2>&1
