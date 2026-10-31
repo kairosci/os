@@ -159,6 +159,7 @@ entrypoints:
     group: update
     name: confirm
     summary: Prompt for confirmation before starting an update
+    generate_launcher: "false"
   - binary: arch-update-status
     module: update/status
     function: main

@@ -19,7 +19,7 @@ def ensure_cli_entrypoints() -> Path:
   lock_path.parent.mkdir(parents=True, exist_ok=True)
   with lock_path.open("a", encoding="utf-8") as lock:
     fcntl.flock(lock, fcntl.LOCK_EX)
-    marker = CLI_BIN / "arch-update-confirm"
+    marker = CLI_BIN / "archctl"
     if (
       not marker.is_file()
       or (ROOT / "scripts/cli_entrypoints.py").stat().st_mtime_ns > marker.stat().st_mtime_ns

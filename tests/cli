@@ -11,7 +11,7 @@ TMPDIRS=()
 mkdir -p "$ROOT/build"
 (
   flock -x 9
-  if [[ ! -x $CLI_BIN/arch-update-confirm || $ROOT/scripts/cli_entrypoints.py -nt $CLI_BIN/arch-update-confirm || $ROOT/data/cli/python-entrypoints.yml -nt $CLI_BIN/arch-update-confirm || $ROOT/data/cli/groups.yml -nt $CLI_BIN/arch-update-confirm ]]; then
+  if [[ ! -x $CLI_BIN/archctl || $ROOT/scripts/cli_entrypoints.py -nt $CLI_BIN/archctl || $ROOT/data/cli/python-entrypoints.yml -nt $CLI_BIN/archctl || $ROOT/data/cli/groups.yml -nt $CLI_BIN/archctl ]]; then
     python3 "$ROOT/scripts/cli_entrypoints.py" generate --destination "$CLI_STAGE"
   fi
 ) 9>"$ROOT/build/test-cli-entrypoints.lock"

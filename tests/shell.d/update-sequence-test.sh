@@ -14,7 +14,7 @@ stub_bin="$SUDO_TEST_ROOT/src/arch/commands"
 steps=(
   arch-update-lock
   arch-update-requires-free-space
-  arch-update-confirm
+  archctl
   arch-update-pkg-prune
   arch-snapshot
   arch-update-stay-awake
@@ -69,7 +69,7 @@ expected_steps() {
   printf '%s\n' \
     arch-update-lock \
     arch-update-requires-free-space \
-    ${1:+arch-update-confirm} \
+    ${1:+archctl} \
     arch-update-pkg-prune \
     arch-snapshot \
     arch-update-stay-awake \

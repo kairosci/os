@@ -18,7 +18,7 @@ runtime_dir="$test_tmp/runtime"
 snapshot_marker="$test_tmp/snapshot"
 gum_marker="$test_tmp/gum"
 mkdir -p "$runtime_dir"
-for command in arch-update arch-update-requires-free-space arch-update-confirm arch-i18n; do
+for command in arch-update arch-update-requires-free-space arch-i18n; do
   rm -f "$stub_bin/$command"
   copy_boundary_file "src/arch/commands/$command"
 done
@@ -52,6 +52,10 @@ $body
 SH
   chmod +x "$stub_bin/$name"
 }
+
+write_stub archctl '
+[[ $1 == "update" && $2 == "confirm" ]] || exit 2
+AP="$ROOT" "$ROOT/src/arch/commands/archctl" "$@"'
 
 write_stub df '
 if (( TEST_DF_INVALID )); then
