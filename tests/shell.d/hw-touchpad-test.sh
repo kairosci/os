@@ -4,7 +4,8 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-touchpad="$ROOT/src/arch/commands/arch-hw-touchpad"
+export AP="$ROOT"
+touchpad="$ARCH_TEST_CLI_BIN/arch-hw-touchpad"
 
 require_command jq
 
@@ -41,7 +42,7 @@ event_device() {
 }
 
 detected() {
-  MICE="$1" ARCH_INPUT_CLASS_PATH="$input_class" PATH="$stub_bin:$PATH" bash "$touchpad"
+  MICE="$1" ARCH_INPUT_CLASS_PATH="$input_class" PATH="$stub_bin:$PATH" "$touchpad"
 }
 
 # Apple Silicon's trackpad is named after its MTP HID interface, so neither
