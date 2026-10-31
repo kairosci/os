@@ -21,8 +21,6 @@ sources = [
   "src/arch/commands/arch-hw-match-device-tree",
   "src/arch/commands/arch-hw-n1x",
   "src/arch/commands/arch-hw-nvidia-display",
-  "src/arch/commands/arch-hw-nvidia-gsp",
-  "src/arch/commands/arch-hw-nvidia-without-gsp",
   "src/arch/commands/arch-hw-platform",
   "src/arch/commands/arch-hw-recover-internal-monitor",
   "src/arch/commands/arch-hw-touchpad",
@@ -106,14 +104,6 @@ target = "usr/share/arch/src/arch/commands/arch-hw-n1x"
 [[output]]
 source = "src/arch/commands/arch-hw-nvidia-display"
 target = "usr/share/arch/src/arch/commands/arch-hw-nvidia-display"
-
-[[output]]
-source = "src/arch/commands/arch-hw-nvidia-gsp"
-target = "usr/share/arch/src/arch/commands/arch-hw-nvidia-gsp"
-
-[[output]]
-source = "src/arch/commands/arch-hw-nvidia-without-gsp"
-target = "usr/share/arch/src/arch/commands/arch-hw-nvidia-without-gsp"
 
 [[output]]
 source = "src/arch/commands/arch-hw-platform"

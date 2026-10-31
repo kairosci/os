@@ -4,3 +4,9 @@ paths:
 identifiers:
   vendor: "0x10de"
   display_class_prefix: "0x03"
+device_ids:
+  # GSP firmware starts with Turing at device ID 0x1e00.
+  gsp_minimum: 0x1e00
+  # Maxwell starts at 0x1340; Volta ends immediately before the GSP threshold.
+  legacy_minimum: 0x1340
+  legacy_maximum_exclusive: 0x1e00
