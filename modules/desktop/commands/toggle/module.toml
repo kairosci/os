@@ -13,7 +13,7 @@ sources = [
   "src/arch/cli/toggle/nightlight.py",
   "src/arch/cli/toggle/notification_silencing.py",
   "src/arch/cli/toggle/screensaver.py",
-  "src/arch/commands/arch-toggle-suspend",
+  "src/arch/cli/toggle/suspend.py",
 ]
 requires = [
   "desktop.commands",
@@ -22,6 +22,7 @@ requires = [
   "desktop.commands.hyprland",
   "desktop.commands.notification",
   "desktop.commands.osd",
+  "desktop.commands.sleep",
   "desktop.commands.shell",
   "system.runtime-data",
 ]
@@ -71,5 +72,5 @@ source = "src/arch/cli/toggle/screensaver.py"
 target = "usr/share/arch/src/arch/cli/toggle/screensaver.py"
 
 [[output]]
-source = "src/arch/commands/arch-toggle-suspend"
-target = "usr/share/arch/src/arch/commands/arch-toggle-suspend"
+source = "src/arch/cli/toggle/suspend.py"
+target = "usr/share/arch/src/arch/cli/toggle/suspend.py"

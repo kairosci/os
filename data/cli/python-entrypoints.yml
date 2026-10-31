@@ -629,6 +629,13 @@ entrypoints:
     name: screensaver
     summary: Toggle screensaver availability
     pass_args: 'true'
+  - binary: arch-toggle-suspend
+    module: toggle/suspend
+    function: main
+    group: toggle
+    name: suspend
+    summary: Toggle suspend availability in the system menu
+    pass_args: 'true'
   - binary: arch-theme-bg-current
     module: theme/info
     function: background_current_main

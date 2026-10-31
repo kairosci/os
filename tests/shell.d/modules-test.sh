@@ -198,6 +198,17 @@ for module_id in command_modules:
         ],
         [
             "desktop.commands",
+            "desktop.commands.hw",
+            "desktop.commands.i18n",
+            "desktop.commands.hyprland",
+            "desktop.commands.notification",
+            "desktop.commands.osd",
+            "desktop.commands.sleep",
+            "desktop.commands.shell",
+            "system.runtime-data",
+        ],
+        [
+            "desktop.commands",
             "desktop.commands.file",
             "desktop.commands.i18n",
             "desktop.commands.launch",
