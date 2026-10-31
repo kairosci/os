@@ -7,6 +7,7 @@ sources = [
   "src/arch/commands/arch-hw-aarch64-n1x",
   "src/arch/commands/arch-hw-aarch64-qualcomm",
   "src/arch/cli/hardware/architecture.py",
+  "src/arch/cli/hardware/nvidia.py",
   "src/arch/commands/arch-hw-apple-silicon",
   "src/arch/commands/arch-hw-clamshell",
   "src/arch/commands/arch-hw-display",
@@ -21,7 +22,6 @@ sources = [
   "src/arch/commands/arch-hw-match",
   "src/arch/commands/arch-hw-match-device-tree",
   "src/arch/commands/arch-hw-n1x",
-  "src/arch/commands/arch-hw-nvidia",
   "src/arch/commands/arch-hw-nvidia-display",
   "src/arch/commands/arch-hw-nvidia-gsp",
   "src/arch/commands/arch-hw-nvidia-without-gsp",
@@ -54,6 +54,10 @@ target = "usr/share/arch/src/arch/commands/arch-hw-aarch64-qualcomm"
 [[output]]
 source = "src/arch/cli/hardware/architecture.py"
 target = "usr/share/arch/src/arch/cli/hardware/architecture.py"
+
+[[output]]
+source = "src/arch/cli/hardware/nvidia.py"
+target = "usr/share/arch/src/arch/cli/hardware/nvidia.py"
 
 [[output]]
 source = "src/arch/commands/arch-hw-apple-silicon"
@@ -110,10 +114,6 @@ target = "usr/share/arch/src/arch/commands/arch-hw-match-device-tree"
 [[output]]
 source = "src/arch/commands/arch-hw-n1x"
 target = "usr/share/arch/src/arch/commands/arch-hw-n1x"
-
-[[output]]
-source = "src/arch/commands/arch-hw-nvidia"
-target = "usr/share/arch/src/arch/commands/arch-hw-nvidia"
 
 [[output]]
 source = "src/arch/commands/arch-hw-nvidia-display"

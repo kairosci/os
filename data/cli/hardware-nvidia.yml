@@ -1,0 +1,6 @@
+paths:
+  pci_devices: /sys/bus/pci/devices
+  override_environment: ARCH_PCI_DEVICES_PATH
+identifiers:
+  vendor: "0x10de"
+  display_class_prefix: "0x03"
