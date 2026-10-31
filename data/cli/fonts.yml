@@ -20,8 +20,8 @@ cjk:
   messages:
     default_language: en
     usage:
-      en: 'Usage: arch-font-cjk [jp|kr|sc|tc|hk|default]'
-      it: 'Uso: arch-font-cjk [jp|kr|sc|tc|hk|default]'
+      en: 'Usage: archctl font cjk [jp|kr|sc|tc|hk|default]'
+      it: 'Uso: archctl font cjk [jp|kr|sc|tc|hk|default]'
   configure:
     python: /usr/bin/python3
     script: default/input-methods/configure.py
