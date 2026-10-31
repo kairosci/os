@@ -52,8 +52,8 @@ wait_until "pipewire is running" 30 wpctl status
 pass "root filesystem is btrfs"
 
 # os reports its version
-arch-version >/dev/null || fail "arch-version works"
-pass "arch-version works"
+archctl version >/dev/null || fail "archctl version works"
+pass "archctl version works"
 
 # No failed units, system or user. ARCH_ACCEPTANCE_IGNORE_UNITS can hold a
 # regex of units to overlook (useful on dev machines; a fresh VM should be clean).

@@ -24,11 +24,12 @@ exit 1
 STUB
 chmod +x "$fake_bin/arch-cmd-missing"
 
-cat >"$fake_bin/arch-version" <<'STUB'
+cat >"$fake_bin/archctl" <<'STUB'
 #!/bin/bash
+[[ $1 == "version" ]] || exit 2
 echo 4.0.0
 STUB
-chmod +x "$fake_bin/arch-version"
+chmod +x "$fake_bin/archctl"
 
 # Snapper with no configs: list-configs prints only the CSV header.
 cat >"$fake_bin/snapper" <<'STUB'
