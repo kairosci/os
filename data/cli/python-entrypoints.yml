@@ -307,6 +307,7 @@ entrypoints:
     group: hw
     name: intel ptl
     summary: Detect whether the computer has an Intel Panther Lake GPU.
+    generate_launcher: "false"
   - binary: arch-hw-intel-sof
     module: hardware/intel
     function: intel_sof_main
@@ -407,6 +408,7 @@ entrypoints:
     group: hw
     name: nvidia display
     summary: Detect whether NVIDIA drives the display instead of a hybrid iGPU
+    generate_launcher: "false"
   - binary: arch-hw-nvidia-gsp
     module: hardware/nvidia
     function: gsp_main

@@ -1,7 +1,8 @@
 local paths = require("default.hypr.paths")
 
 local nvidia = paths.ap .. "/src/arch/commands/arch-hw-nvidia"
-local nvidia_display = paths.ap .. "/src/arch/commands/arch-hw-nvidia-display"
+local archctl = o.shell_quote(paths.ap .. "/src/arch/commands/archctl")
+local nvidia_display = archctl .. " hw nvidia display"
 local nvidia_gsp = paths.ap .. "/src/arch/commands/arch-hw-nvidia-gsp"
 local nvidia_without_gsp = paths.ap .. "/src/arch/commands/arch-hw-nvidia-without-gsp"
 
@@ -12,7 +13,7 @@ if o.shell_succeeds(o.shell_quote(nvidia)) then
   -- On hybrid laptops the display is wired to the iGPU, so forcing NVIDIA's
   -- VA-API/GLX drivers globally breaks Chromium-based browsers (black video).
   -- Only apply those when NVIDIA actually drives the display.
-  local nvidia_is_display = o.shell_succeeds(o.shell_quote(nvidia_display))
+  local nvidia_is_display = o.shell_succeeds(nvidia_display)
   if o.shell_succeeds(o.shell_quote(nvidia_gsp)) then
     hl.env("NVD_BACKEND", "direct")
     if nvidia_is_display then

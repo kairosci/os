@@ -15,7 +15,7 @@ intel_video_acceleration:
   legacy_packages: [libva-intel-driver]
 
 intel_panther_lake_fred:
-  hardware_check: [arch-hw-intel-ptl]
+  hardware_check: [archctl, hw, intel, ptl]
   target: /etc/limine-entry-tool.d/intel-panther-lake-fred.conf
   enabled_pattern: 'fred=on'
   content: "# Intel Panther Lake FRED support\nKERNEL_CMDLINE[default]+=\" fred=on\"\n"

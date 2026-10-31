@@ -29,7 +29,12 @@ while IFS='|' read -r description nvidia gsp without_gsp display expected_env de
 
   for check in "nvidia:$nvidia" "nvidia-gsp:$gsp" "nvidia-without-gsp:$without_gsp" "nvidia-display:$display"; do
     status=0
-    "arch-hw-${check%:*}" || status=$?
+    case ${check%:*} in
+      nvidia) archctl hw nvidia || status=$? ;;
+      nvidia-gsp) archctl hw nvidia gsp || status=$? ;;
+      nvidia-without-gsp) archctl hw nvidia without gsp || status=$? ;;
+      nvidia-display) archctl hw nvidia display || status=$? ;;
+    esac
     [[ $status == "${check#*:}" ]] || fail "$description: ${check%:*}" "expected ${check#*:}, got $status"
   done
 
