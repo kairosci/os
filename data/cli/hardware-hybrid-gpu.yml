@@ -1,0 +1,17 @@
+commands:
+  availability: [arch-cmd-present, supergfxctl]
+  query: [supergfxctl, -s]
+  timeout: [timeout, --kill-after=1s, 1s]
+paths:
+  pci_devices: /sys/bus/pci/devices
+  override_environment: ARCH_PCI_DEVICES_PATH
+  device_glob: '*'
+  class_attribute: class
+  attribute_encoding: ascii
+patterns:
+  display_controller_class_prefix: '0x03'
+settings:
+  hybrid_mode: Hybrid
+  minimum_display_controllers: 2
+  timeout_statuses: [124, 137]
+  query_timeout_seconds: 3
