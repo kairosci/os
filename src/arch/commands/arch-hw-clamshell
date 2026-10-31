@@ -1,7 +1,0 @@
-#!/bin/bash
-
-# arch:summary=Returns true when clamshell mode is active
-# arch:hidden=true
-
-# Clamshell = lid closed while driving one or more external monitors.
-arch-hw-laptop-closed && arch-hw-external-monitors

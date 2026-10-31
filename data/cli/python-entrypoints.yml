@@ -174,6 +174,13 @@ entrypoints:
     group: hw
     name: vm
     summary: Returns true when running in a virtual machine.
+  - binary: arch-hw-clamshell
+    module: hardware/clamshell
+    function: main
+    group: hw
+    name: clamshell
+    summary: Returns true when clamshell mode is active
+    hidden: "true"
   - binary: arch-hw-nvidia
     module: hardware/nvidia
     function: main

@@ -7,9 +7,9 @@ sources = [
   "src/arch/commands/arch-hw-aarch64-n1x",
   "src/arch/commands/arch-hw-aarch64-qualcomm",
   "src/arch/cli/hardware/architecture.py",
+  "src/arch/cli/hardware/clamshell.py",
   "src/arch/cli/hardware/nvidia.py",
   "src/arch/commands/arch-hw-apple-silicon",
-  "src/arch/commands/arch-hw-clamshell",
   "src/arch/commands/arch-hw-display",
   "src/arch/commands/arch-hw-external-monitors",
   "src/arch/commands/arch-hw-fingerprint",
@@ -56,16 +56,16 @@ source = "src/arch/cli/hardware/architecture.py"
 target = "usr/share/arch/src/arch/cli/hardware/architecture.py"
 
 [[output]]
+source = "src/arch/cli/hardware/clamshell.py"
+target = "usr/share/arch/src/arch/cli/hardware/clamshell.py"
+
+[[output]]
 source = "src/arch/cli/hardware/nvidia.py"
 target = "usr/share/arch/src/arch/cli/hardware/nvidia.py"
 
 [[output]]
 source = "src/arch/commands/arch-hw-apple-silicon"
 target = "usr/share/arch/src/arch/commands/arch-hw-apple-silicon"
-
-[[output]]
-source = "src/arch/commands/arch-hw-clamshell"
-target = "usr/share/arch/src/arch/commands/arch-hw-clamshell"
 
 [[output]]
 source = "src/arch/commands/arch-hw-display"
