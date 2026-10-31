@@ -9,12 +9,24 @@ home="$tmpdir/home"
 ap="$tmpdir/arch"
 
 mkdir -p "$home/.config/hypr" "$home/.config/arch" "$ap/config/hypr" \
-  "$ap/data/cli" "$ap/src/arch/commands" "$ap/src/arch/python" "$ap/default"
+  "$home/.config/tmux" "$ap/config/tmux" "$ap/data/cli" "$ap/scripts" \
+  "$ap/src/arch/commands" "$ap/src/arch/python" "$ap/default"
 printf 'en\n' >"$home/.config/arch/language"
 ln -s "$ROOT/data/cli/refresh-config.yml" "$ap/data/cli/refresh-config.yml"
+ln -s "$ROOT/data/cli/refresh-tmux.yml" "$ap/data/cli/refresh-tmux.yml"
+ln -s "$ROOT/scripts/cli_entrypoints.py" "$ap/scripts/cli_entrypoints.py"
 ln -s "$ROOT/src/arch/commands/arch-i18n" "$ap/src/arch/commands/arch-i18n"
 ln -s "$ROOT/src/arch/cli" "$ap/src/arch/cli"
 ln -s "$ROOT/default/i18n" "$ap/default/i18n"
+printf 'set -g mouse on\n' >"$ap/config/tmux/tmux.conf"
+
+restart_bin="$tmpdir/bin"
+mkdir -p "$restart_bin"
+cat >"$restart_bin/arch-restart-tmux" <<'EOF'
+#!/bin/bash
+printf restarted >"$MARKER"
+EOF
+chmod +x "$restart_bin/arch-restart-tmux"
 
 cat >"$ap/config/hypr/bindings.lua" <<'EOF'
 -- refreshed from AP
@@ -108,3 +120,11 @@ grep -Fq 'Not a shipped user config: hypr/missing.lua' "$tmpdir/err" ||
   fail "refresh-config reports missing shipped config"
 
 pass "refresh-config validates against AP/config"
+
+marker="$tmpdir/tmux-restarted"
+HOME="$home" AP="$ap" MARKER="$marker" PATH="$restart_bin:$PATH" \
+  "$ARCH_TEST_CLI_BIN/archctl" refresh tmux
+[[ $(<"$home/.config/tmux/tmux.conf") == 'set -g mouse on' ]] ||
+  fail "refresh tmux restores the shipped tmux config"
+[[ $(<"$marker") == restarted ]] || fail "refresh tmux restarts tmux after restoring its config"
+pass "refresh tmux restores its config and restarts tmux"
