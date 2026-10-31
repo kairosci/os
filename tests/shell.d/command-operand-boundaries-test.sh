@@ -138,6 +138,7 @@ PATH="$mock_bin:$PATH" "$ARCH_TEST_CLI_BIN/arch-hw-match" known-hardware ||
 pass "hw-match still accepts an ordinary hardware pattern"
 
 pkill_calls="$test_tmp/pkill-calls"
+setsid_calls="$test_tmp/setsid-calls"
 cat >"$mock_bin/pkill" <<'STUB'
 #!/bin/bash
 
@@ -154,13 +155,33 @@ exit 0
 STUB
 chmod +x "$mock_bin/pkill" "$mock_bin/setsid"
 
-PATH="$mock_bin:$PATH" ARCH_TEST_PKILL_CALLS="$pkill_calls" \
-  "$ROOT/src/arch/commands/arch-restart-app" "-9 kitty"
+PATH="$mock_bin:$ARCH_TEST_CLI_BIN:$PATH" ARCH_TEST_PKILL_CALLS="$pkill_calls" \
+  ARCH_TEST_SETSID_CALLS="$setsid_calls" "$ROOT/src/arch/commands/archctl" restart app "-9 kitty"
 
 pkill_argv=$(<"$pkill_calls")
 [[ $pkill_argv == $'<-x>\n<-->\n<-9 kitty>' ]] ||
   fail "restart-app treats the application name as one literal pkill pattern" "$pkill_argv"
 pass "restart-app treats the application name as one literal pkill pattern"
+[[ $(<"$setsid_calls") == $'<uwsm-app>\n<-->\n<-9 kitty>' ]] ||
+  fail "restart-app preserves application arguments without shell evaluation" "$(<"$setsid_calls")"
+pass "restart-app preserves application arguments without shell evaluation"
+: >"$pkill_calls"
+: >"$setsid_calls"
+if PATH="$mock_bin:$ARCH_TEST_CLI_BIN:$PATH" ARCH_TEST_PKILL_CALLS="$pkill_calls" \
+  ARCH_TEST_SETSID_CALLS="$setsid_calls" "$ARCH_TEST_CLI_BIN/arch-restart-app" >/dev/null 2>&1; then
+  fail "restart-app rejects a missing application name"
+fi
+[[ ! -s $pkill_calls && ! -s $setsid_calls ]] ||
+  fail "restart-app validates arguments before stopping or launching processes"
+pass "restart-app validates arguments before stopping or launching processes"
+: >"$pkill_calls"
+: >"$setsid_calls"
+PATH="$mock_bin:$ARCH_TEST_CLI_BIN:$PATH" ARCH_TEST_PKILL_CALLS="$pkill_calls" \
+  ARCH_TEST_SETSID_CALLS="$setsid_calls" "$ARCH_TEST_CLI_BIN/arch-restart-hyprsunset"
+[[ $(<"$pkill_calls") == $'<-x>\n<-->\n<hyprsunset>' && \
+  $(<"$setsid_calls") == $'<uwsm-app>\n<-->\n<hyprsunset>' ]] ||
+  fail "the hidden hyprsunset compatibility entrypoint uses the shared restart module"
+pass "the hidden hyprsunset compatibility entrypoint uses the shared restart module"
 
 fake_home="$test_tmp/home"
 editor_calls="$test_tmp/editor-calls"

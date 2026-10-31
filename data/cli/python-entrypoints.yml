@@ -396,12 +396,28 @@ entrypoints:
     summary: "Print a workspace layout: tiling or scrolling"
     args: "[workspace-id]"
     pass_args: 'true'
+  - binary: arch-restart-app
+    module: restart/app
+    function: restart_app_main
+    group: restart
+    name: app
+    summary: Restart an application through the user session launcher
+    args: <application-name> [application-args...]
+    examples: archctl restart app firefox
+    pass_args: 'true'
   - binary: arch-restart-hyprctl
     module: restart/hyprland
     function: main
     group: restart
     name: hyprctl
     summary: Reload hyprland configuration (used by the Arch theme switching).
+  - binary: arch-restart-hyprsunset
+    module: restart/app
+    function: restart_hyprsunset_main
+    group: restart
+    name: hyprsunset
+    summary: Restart the blue light filter service
+    hidden: 'true'
   - binary: arch-state
     module: state/store
     function: main
