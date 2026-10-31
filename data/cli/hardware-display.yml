@@ -1,0 +1,25 @@
+paths:
+  backlight_default: /sys/class/backlight
+  backlight_environment: ARCH_BACKLIGHT_PATH
+  platform_displays_default: /usr/share/arch-platform/displays.conf
+  platform_displays_environment: ARCH_DISPLAYS_CONF_PATH
+  encoding: utf-8
+directives:
+  fields: 2
+  skip: backlight-skip
+  prefer: backlight-prefer
+identifiers:
+  excluded_names: [appletb_backlight]
+  first_priority: gmux_backlight
+  later_priority_patterns: [amdgpu_bl*, intel_backlight, acpi_video*]
+  path_separator: /
+  dot_name: .
+  parent_name: ..
+  hidden_prefix: .
+limits:
+  platform_config_bytes: 65536
+  backlight_devices: 4096
+statuses:
+  found: 0
+  not_found: 1
+  invalid_configuration: 78

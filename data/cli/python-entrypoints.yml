@@ -254,6 +254,12 @@ entrypoints:
     name: fingerprint
     summary: Returns true when a fingerprint reader is present
     hidden: "true"
+  - binary: arch-hw-display
+    module: hardware/display
+    function: display_main
+    group: hw
+    name: display
+    summary: Print the most likely display backlight device
   - binary: arch-hw-nvidia
     module: hardware/nvidia
     function: main
