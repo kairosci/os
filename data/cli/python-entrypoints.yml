@@ -393,6 +393,7 @@ entrypoints:
     name: fingerprint
     summary: Returns true when a fingerprint reader is present
     hidden: "true"
+    generate_launcher: "false"
   - binary: arch-hw-display
     module: hardware/display
     function: display_main

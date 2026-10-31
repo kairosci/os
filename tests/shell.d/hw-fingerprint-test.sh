@@ -42,7 +42,7 @@ mkdir -p "$platform_root"
 hw_fingerprint() {
   ARCH_USB_DEVICES_PATH="$tmp_dir/devices" \
     ARCH_PLATFORM_FINGERPRINT_READERS_PATH="$platform_root/fingerprint-readers" \
-    "$ARCH_TEST_CLI_BIN/arch-hw-fingerprint"
+    "$ARCH_TEST_CLI_BIN/archctl" hw fingerprint
 }
 
 assert_detects() {

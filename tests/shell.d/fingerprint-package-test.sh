@@ -15,8 +15,9 @@ mkdir -p "$scratch/bin"
 export CALL_LOG="$scratch/calls"
 export PATH="$scratch/bin:$ROOT/src/arch/commands:$PATH"
 
-cat > "$scratch/bin/arch-hw-fingerprint" <<'STUB'
+cat > "$scratch/bin/archctl" <<'STUB'
 #!/bin/bash
+[[ $* == "hw fingerprint" ]] || exit 2
 exit "${HARDWARE_STATUS:-0}"
 STUB
 cat > "$scratch/bin/sudo" <<'STUB'
