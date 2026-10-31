@@ -43,8 +43,8 @@ set:
   messages:
     default_language: en
     usage:
-      en: 'Usage: arch-font-set <font-name>'
-      it: 'Uso: arch-font-set <nome-carattere>'
+      en: 'Usage: archctl font set <font-name>'
+      it: 'Uso: archctl font set <nome-carattere>'
     invalid_font:
       en: 'Font names may contain only letters, numbers, spaces, dots, underscores, and hyphens.'
       it: 'Il nome può contenere solo lettere, numeri, spazi, punti, trattini bassi e trattini.'

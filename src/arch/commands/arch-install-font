@@ -13,7 +13,7 @@ if [[ ${1-} == --apply ]]; then
     echo "Usage: arch-install-font --apply <package> <font-family>" >&2
     exit 2
   }
-  arch-pkg-add "$package" && fc-cache -f >/dev/null && arch-font-set "$family"
+  arch-pkg-add "$package" && fc-cache -f >/dev/null && archctl font set "$family"
   exit $?
 fi
 
@@ -25,7 +25,7 @@ if (( $# == 3 )); then
   printf -v package_arg '%q' "$package"
   printf -v family_arg '%q' "$family"
   exec arch-launch-terminal-with-presentation \
-    "echo ${install_message}; arch-pkg-add ${package_arg} && sleep 2 && arch-font-set ${family_arg}"
+    "echo ${install_message}; arch-pkg-add ${package_arg} && sleep 2 && archctl font set ${family_arg}"
 fi
 
 if (( $# != 0 )); then

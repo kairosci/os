@@ -115,3 +115,4 @@ PR #483 was closed when its base branch was deleted during integration. Its chan
 | #596 | Route power profile listing through the unified CLI |
 | #597 | Route power profile selection through the unified CLI |
 | #598 | Route the background session marker through the unified CLI |
+| #599 | Route font callers through the unified CLI |

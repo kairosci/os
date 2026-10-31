@@ -17,9 +17,11 @@ printf 'pkg:%s\n' "$*" >>"$ARCH_TEST_LOG"
 exit "${ARCH_TEST_PKG_STATUS:-0}"
 SH
 
-cat >"$mock_bin/arch-font-set" <<'SH'
+cat >"$mock_bin/archctl" <<'SH'
 #!/bin/bash
-printf 'font:%s\n' "$*" >>"$ARCH_TEST_LOG"
+if [[ $1 == font && $2 == set ]]; then
+  printf 'font:%s\n' "${*:3}" >>"$ARCH_TEST_LOG"
+fi
 SH
 
 for command in arch-pkg-aur-add arch-install-emacs arch-theme-set-vscode arch-install-gaming-gpu-lib32 arch-lifecycle-dispatch; do
@@ -153,7 +155,7 @@ bash "$ROOT/src/arch/commands/arch-install-font" "Cascadia Mono" "ttf-cascadia-m
 presentation_command=$(<"$ARCH_TEST_PRESENTATION")
 [[ $presentation_command == *'echo Installing\ Cascadia\ Mono...;'* ]] ||
   fail "install-font shell-quotes the display name" "$presentation_command"
-[[ $presentation_command == *'arch-font-set CaskaydiaMono\ Nerd\ Font'* ]] ||
+[[ $presentation_command == *'archctl font set CaskaydiaMono\ Nerd\ Font'* ]] ||
   fail "install-font shell-quotes a font family with spaces" "$presentation_command"
 : >"$ARCH_TEST_LOG"
 run_presentation

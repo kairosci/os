@@ -35,6 +35,7 @@ entrypoints:
     summary: Set the system monospace font
     args: <font-name>
     examples: 'archctl font list | archctl font set "CaskaydiaMono Nerd Font"'
+    generate_launcher: "false"
   - binary: arch-network-qr
     module: network/qr
     function: main
@@ -245,6 +246,7 @@ entrypoints:
     name: current
     summary: Show current monospace font
     examples: archctl font current
+    generate_launcher: "false"
   - binary: arch-font-list
     module: font/catalog
     function: list_main
@@ -252,6 +254,7 @@ entrypoints:
     name: list
     summary: List available monospace fonts
     examples: archctl font list | archctl font set "CaskaydiaMono Nerd Font"
+    generate_launcher: "false"
   - binary: arch-hook
     module: hook/runner
     function: run_main

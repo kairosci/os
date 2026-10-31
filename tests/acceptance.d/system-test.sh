@@ -70,7 +70,7 @@ verify_defaults() {
   [[ $(arch-theme-bg-current) != "Unknown" ]] || fail "a current background is configured"
   pass "a current background is configured"
 
-  [[ -n $(arch-font-current) ]] || fail "a monospace font is configured"
+  [[ -n $(archctl font current) ]] || fail "a monospace font is configured"
   pass "a monospace font is configured"
 
   [[ $(xdg-mime query default inode/directory) == "org.gnome.Nautilus.desktop" ]] || fail "directory MIME handling uses Nautilus"
