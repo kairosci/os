@@ -433,6 +433,7 @@ entrypoints:
     group: hw
     name: touchpad
     summary: Print the detected Hyprland touchpad or trackpad device name
+    generate_launcher: "false"
   - binary: arch-hw-webcam
     module: hardware/webcam
     function: main
