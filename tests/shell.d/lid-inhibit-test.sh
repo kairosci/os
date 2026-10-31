@@ -325,7 +325,7 @@ cat >"$fake_bin/socat" <<'SH'
 exec cat "$ARCH_TEST_EVENTS"
 SH
 
-for command in arch-hyprland-monitor-clamshell arch-hyprland-monitor-external-active; do
+for command in arch-hyprland-monitor-clamshell; do
   cat >"$fake_bin/$command" <<'SH'
 #!/bin/bash
 
@@ -336,8 +336,11 @@ done
 cat >"$fake_bin/archctl" <<'SH'
 #!/bin/bash
 
-[[ ${1:-} == hyprland && ${2:-} == monitor && ${3:-} == modeless && $# == 3 ]] || exit 2
-exit 1
+case "$*" in
+  "hyprland monitor modeless") exit 1 ;;
+  "hyprland monitor external active") exit 0 ;;
+  *) exit 2 ;;
+esac
 SH
 
 chmod +x "$fake_bin"/*

@@ -30,7 +30,7 @@ grep -F 'sync_clamshell_after_monitor_change' "$monitor_watch" >/dev/null
 grep -F 'socat -U - "UNIX-CONNECT:$SOCKET"' "$monitor_watch" >/dev/null
 pass "monitor watcher reconciles clamshell state on startup"
 
-grep -F 'arch-hw-laptop && arch-hyprland-monitor-external-active' "$monitor_watch" >/dev/null
+grep -F 'arch-hw-laptop && archctl hyprland monitor external active' "$monitor_watch" >/dev/null
 grep -F 'sync_poll_state' "$monitor_watch" >/dev/null
 grep -F 'done < <(socat' "$monitor_watch" >/dev/null
 pass "clamshell poll only runs on a docked laptop, not desktops or undocked laptops"
@@ -73,20 +73,20 @@ grep -F 'read_monitor_scale' "$clamshell" >/dev/null
 grep -F 'scale = $scale' "$clamshell" >/dev/null
 grep -F 'hyprctl dispatch "hl.dsp.dpms({ action = \"$action\", monitor = \"$INTERNAL\" })"' "$clamshell" >/dev/null
 grep -F 'hyprctl monitors all -j' "$clamshell" >/dev/null
-grep -F 'arch-hyprland-monitor-external-active' "$clamshell" >/dev/null
+grep -F 'archctl hyprland monitor external active' "$clamshell" >/dev/null
 grep -F 'archctl hw clamshell' "$clamshell" >/dev/null
 pass "clamshell monitor sync disables laptop output and force-recovers it"
 
 grep -F "hyprctl dispatch 'hl.dsp.dpms({ action = \"enable\" })' >/dev/null 2>&1 || true" "$monitor_internal" >/dev/null
 grep -F 'archctl hyprland monitor laptop' "$monitor_internal" >/dev/null
 grep -F 'hyprctl monitors all -j' "$monitor_laptop" >/dev/null
-grep -F 'arch-hyprland-monitor-external-active' "$monitor_internal" >/dev/null
+grep -F 'archctl hyprland monitor external active' "$monitor_internal" >/dev/null
 grep -F 'wake' "$monitor_internal" >/dev/null
 grep -F 'arch-hyprland-toggle-enabled $TOGGLE || return 0' "$monitor_internal" >/dev/null
 pass "internal monitor helper can re-enable disabled laptop displays"
 pass "internal monitor recovery only wakes displays when it re-enables one"
 
-grep -F 'arch-hyprland-monitor-external-active' "$monitor_mirror" >/dev/null
+grep -F 'archctl hyprland monitor external active' "$monitor_mirror" >/dev/null
 pass "internal mirror helper recovers when no active external display remains"
 
 grep -F 'switch:on:Lid Switch", nil, "arch-system-lid-close"' "$utilities" >/dev/null

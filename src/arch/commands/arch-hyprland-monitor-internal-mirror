@@ -56,7 +56,7 @@ toggle() {
 }
 
 recover() {
-  if ! arch-hyprland-monitor-external-active && arch-hyprland-toggle-enabled $TOGGLE; then
+  if ! archctl hyprland monitor external active && arch-hyprland-toggle-enabled $TOGGLE; then
     arch-hyprland-toggle $TOGGLE off
   fi
 }
