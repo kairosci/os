@@ -37,17 +37,25 @@ IGNORED_THEME_FILES=()
 
 FAILED_THEME_COMMANDS=()
 
-# Each command is an os command on the PATH this one already has, so it
-# runs directly rather than through a login shell that rereads the profile.
-# A background command would otherwise get /dev/null as stdin, and the browser
-# policy asks for a sudo password on stdin when it is a terminal.
+# Each group is an argv vector terminated by ::. Run it directly rather than
+# through a login shell that rereads the profile. A background command would
+# otherwise get /dev/null as stdin, and the browser policy asks for a sudo
+# password on stdin when it is a terminal.
 run_parallel() {
-  local command index
-  local -a commands=("$@") pids=()
+  local argument index
+  local -a command=() commands=() pids=()
 
-  for command in "${commands[@]}"; do
-    "$command" <&0 8>&- &
-    pids+=("$!")
+  for argument in "$@"; do
+    if [[ $argument == "::" ]]; then
+      if ((${#command[@]} > 0)); then
+        commands+=("${command[*]}")
+        "${command[@]}" <&0 8>&- &
+        pids+=("$!")
+        command=()
+      fi
+    else
+      command+=("$argument")
+    fi
   done
 
   for index in "${!pids[@]}"; do
@@ -448,23 +456,23 @@ flock -u 9
 # them, plus the window borders. These run as soon as
 # the theme is in place, alongside the wallpaper and bar transition.
 visible_theme_commands=(
-  arch-restart-terminal
-  arch-theme-set-foot
-  arch-theme-set-tmux
-  arch-restart-btop
-  arch-restart-helix
-  arch-theme-set-hunk
+  arch-restart-terminal ::
+  arch-theme-set-foot ::
+  arch-theme-set-tmux ::
+  arch-restart-btop ::
+  arch-restart-helix ::
+  arch-theme-set-hunk ::
 )
 
 # Configs other apps read on their next refresh or launch: GTK, the browser
 # policy, editors, agents and the keyboard backlight. Nothing on screen waits
 # for these.
 other_theme_commands=(
-  arch-theme-set-gnome
-  arch-theme-set-browser
-  arch-theme-set-vscode
-  arch-theme-set-obsidian
-  arch-theme-set-fcitx5
+  arch-theme-set-gnome ::
+  arch-theme-set-browser ::
+  arch-theme-set-vscode ::
+  arch-theme-set-obsidian ::
+  arch-theme-set-fcitx5 ::
 )
 
 theme_still_current() {
@@ -519,7 +527,7 @@ apply_other_theme_commands() {
 }
 
 if [[ $THEME_HEADLESS != "1" ]]; then
-  visible_theme_commands+=(arch-restart-hyprctl)
+  visible_theme_commands+=(archctl restart hyprctl ::)
   run_parallel "${visible_theme_commands[@]}"
 
   # A switch from the theme picker, the menu or a script returns once what is

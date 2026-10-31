@@ -529,6 +529,7 @@ entrypoints:
     group: restart
     name: hyprctl
     summary: Reload hyprland configuration (used by the Arch theme switching).
+    generate_launcher: "false"
   - binary: arch-restart-hyprsunset
     module: restart/app
     function: restart_hyprsunset_main

@@ -78,6 +78,7 @@ echo "notify: $*" >>"$TEST_LOG"
 STUB
 cat >"$commands/hyprctl" <<'STUB'
 #!/bin/bash
+[[ ${1:-} != reload ]] || echo arch-restart-hyprctl >>"$TEST_LOG"
 printf '{"bool":true}\n'
 STUB
 
