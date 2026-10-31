@@ -1,32 +1,67 @@
 from __future__ import annotations
 
 import os
-import subprocess
+import json
+import re
 import sys
+from itertools import islice
 from pathlib import Path
 from typing import TypedDict, cast
 
 import yaml
+from arch.cli.lib.bounded import run_bounded
 
 
 class Launcher(TypedDict):
   command: list[str]
-  working_directory: list[str]
+  working_directory: bool
+  terminal_directory: bool
+
+
+class TerminalDirectory(TypedDict):
+  active_window_command: list[str]
+  kitty_command: list[str]
+  active_pid_pattern: str
+  pid_pattern: str
+  runtime_directory_environment: str
+  home_environment: str
+  proc_root: str
+  shells_file: str
+  task_directory: str
+  children_filename: str
+  cwd_filename: str
+  executable_filename: str
+  kitty_socket_prefix: str
+  kitty_target_prefix: str
+  pid_option_prefix: str
+  directory_option_prefix: str
+  encoding: str
+  tabs_key: str
+  windows_key: str
+  cwd_key: str
+  active_window_timeout: int
+  kitty_timeout: int
+  cleanup_timeout: int
+  maximum_command_output: int
+  read_chunk_bytes: int
+  maximum_task_files: int
+  maximum_children_file_bytes: int
+  maximum_child_processes: int
+  maximum_shells_file_bytes: int
+  maximum_pid_digits: int
 
 
 class Statuses(TypedDict):
   configuration_error: int
   command_error: int
-  timeout: int
 
 
 class Settings(TypedDict):
   launchers: dict[str, Launcher]
-  working_directory_timeout: int
   statuses: Statuses
   command_error_message: str
-  timeout_message: str
   unknown_launcher_message: str
+  terminal_directory: TerminalDirectory
 
 
 def _mapping(value: object, label: str) -> dict[str, object]:
@@ -62,35 +97,220 @@ def _settings() -> Settings:
   for name, raw_launcher in raw_launchers.items():
     values = _mapping(raw_launcher, name)
     command = _strings(values.get("command"), f"{name}.command")
-    directory_command = values.get("working_directory")
-    if directory_command is None:
-      directory_command = []
-    elif not isinstance(directory_command, list) or not directory_command or not all(
-      isinstance(item, str) and item for item in directory_command
-    ):
-      raise ValueError(f"{name}.working_directory must be a non-empty argv list")
-    launchers[name] = {"command": command, "working_directory": cast(list[str], directory_command)}
-  timeouts = _mapping(document.get("timeouts"), "timeouts")
-  directory_timeout = timeouts.get("working_directory_seconds")
-  if type(directory_timeout) is not int or directory_timeout <= 0:
-    raise ValueError("timeouts.working_directory_seconds must be positive")
+    working_directory = values.get("working_directory", False)
+    terminal_directory = values.get("terminal_directory", False)
+    if not isinstance(working_directory, bool) or not isinstance(terminal_directory, bool):
+      raise ValueError(f"{name} directory options must be booleans")
+    if working_directory and terminal_directory:
+      raise ValueError(f"{name} cannot use both directory modes")
+    launchers[name] = {
+      "command": command,
+      "working_directory": working_directory,
+      "terminal_directory": terminal_directory,
+    }
   raw_statuses = _mapping(document.get("statuses"), "statuses")
   messages = _mapping(document.get("messages"), "messages")
+  directory = _mapping(document.get("terminal_directory"), "terminal_directory")
+  directory_commands = _mapping(directory.get("commands"), "terminal_directory.commands")
+  directory_values = _mapping(directory.get("values"), "terminal_directory.values")
+  directory_environment = _mapping(directory.get("environment"), "terminal_directory.environment")
+  directory_paths = _mapping(directory.get("paths"), "terminal_directory.paths")
+  directory_limits = _mapping(directory.get("limits"), "terminal_directory.limits")
+
+  def terminal_text(section: dict[str, object], key: str) -> str:
+    return _text(section.get(key), f"terminal_directory.{key}")
+
+  def terminal_integer(key: str) -> int:
+    value = directory_limits.get(key)
+    if type(value) is not int or value <= 0:
+      raise ValueError(f"terminal_directory.limits.{key} must be positive")
+    return value
+
+  terminal_directory: TerminalDirectory = {
+    "active_window_command": _strings(directory_commands.get("active_window"), "active_window"),
+    "kitty_command": _strings(directory_commands.get("kitty"), "kitty"),
+    "active_pid_pattern": terminal_text(directory_values, "active_pid_pattern"),
+    "pid_pattern": terminal_text(directory_values, "pid_pattern"),
+    "runtime_directory_environment": terminal_text(directory_environment, "runtime_directory"),
+    "home_environment": terminal_text(directory_environment, "home"),
+    "proc_root": terminal_text(directory_paths, "proc_root"),
+    "shells_file": terminal_text(directory_paths, "shells_file"),
+    "task_directory": terminal_text(directory_paths, "task_directory"),
+    "children_filename": terminal_text(directory_paths, "children_filename"),
+    "cwd_filename": terminal_text(directory_paths, "cwd_filename"),
+    "executable_filename": terminal_text(directory_paths, "executable_filename"),
+    "kitty_socket_prefix": terminal_text(directory_values, "kitty_socket_prefix"),
+    "kitty_target_prefix": terminal_text(directory_values, "kitty_target_prefix"),
+    "pid_option_prefix": terminal_text(directory_values, "pid_option_prefix"),
+    "directory_option_prefix": terminal_text(directory_values, "directory_option_prefix"),
+    "encoding": terminal_text(directory_values, "encoding"),
+    "tabs_key": terminal_text(directory_values, "tabs_key"),
+    "windows_key": terminal_text(directory_values, "windows_key"),
+    "cwd_key": terminal_text(directory_values, "cwd_key"),
+    "active_window_timeout": terminal_integer("active_window_timeout_seconds"),
+    "kitty_timeout": terminal_integer("kitty_timeout_seconds"),
+    "cleanup_timeout": terminal_integer("cleanup_timeout_seconds"),
+    "maximum_command_output": terminal_integer("maximum_command_output_bytes"),
+    "read_chunk_bytes": terminal_integer("read_chunk_bytes"),
+    "maximum_task_files": terminal_integer("maximum_task_files"),
+    "maximum_children_file_bytes": terminal_integer("maximum_children_file_bytes"),
+    "maximum_child_processes": terminal_integer("maximum_child_processes"),
+    "maximum_shells_file_bytes": terminal_integer("maximum_shells_file_bytes"),
+    "maximum_pid_digits": terminal_integer("maximum_pid_digits"),
+  }
+  try:
+    if re.compile(terminal_directory["active_pid_pattern"]).groups != 1:
+      raise ValueError("terminal_directory active PID pattern needs one capture")
+    re.compile(terminal_directory["pid_pattern"])
+  except re.error as error:
+    raise ValueError("terminal_directory PID pattern is invalid") from error
   return {
     "launchers": launchers,
-    "working_directory_timeout": directory_timeout,
     "statuses": {
       "configuration_error": _status(raw_statuses.get("configuration_error"), "configuration_error"),
       "command_error": _status(raw_statuses.get("command_error"), "command_error"),
-      "timeout": _status(raw_statuses.get("timeout"), "timeout"),
     },
     "command_error_message": _text(messages.get("command_error"), "messages.command_error"),
-    "timeout_message": _text(messages.get("timeout"), "messages.timeout"),
     "unknown_launcher_message": _text(messages.get("unknown_launcher"), "messages.unknown_launcher"),
+    "terminal_directory": terminal_directory,
   }
 
 
-def main() -> int:
+def _bounded_command(command: list[str], settings: Settings, timeout: int) -> bytes | None:
+  directory = settings["terminal_directory"]
+  try:
+    return run_bounded(
+      command,
+      timeout_seconds=timeout,
+      cleanup_timeout_seconds=directory["cleanup_timeout"],
+      max_output_bytes=directory["maximum_command_output"],
+      read_chunk_bytes=directory["read_chunk_bytes"],
+    )
+  except OSError:
+    return None
+
+
+def _valid_pid(value: str, settings: Settings) -> bool:
+  directory = settings["terminal_directory"]
+  if len(value) > directory["maximum_pid_digits"] or not re.fullmatch(directory["pid_pattern"], value):
+    return False
+  return int(value) > 0
+
+
+def _active_pid(settings: Settings) -> str | None:
+  directory = settings["terminal_directory"]
+  output = _bounded_command(
+    directory["active_window_command"], settings, directory["active_window_timeout"]
+  )
+  if output is None:
+    return None
+  text = output.decode(directory["encoding"], errors="surrogateescape")
+  for line in text.splitlines():
+    match = re.search(directory["active_pid_pattern"], line)
+    if match is not None:
+      pid = match.group(1)
+      if isinstance(pid, str) and _valid_pid(pid, settings):
+        return pid
+  return None
+
+
+def _kitty_cwd(socket: Path, settings: Settings) -> str:
+  directory = settings["terminal_directory"]
+  target = f"{directory['kitty_target_prefix']}{socket}"
+  command = [part.format(target=target) for part in directory["kitty_command"]]
+  output = _bounded_command(command, settings, directory["kitty_timeout"])
+  if output is None:
+    return ""
+  try:
+    windows = json.loads(output.decode(directory["encoding"], errors="strict"))
+  except (UnicodeError, json.JSONDecodeError):
+    return ""
+  if not isinstance(windows, list):
+    return ""
+  directories: list[str] = []
+  for window in windows:
+    if not isinstance(window, dict):
+      continue
+    tabs = window.get(directory["tabs_key"])
+    if not isinstance(tabs, list):
+      continue
+    for tab in tabs:
+      if not isinstance(tab, dict):
+        continue
+      entries = tab.get(directory["windows_key"])
+      if not isinstance(entries, list):
+        continue
+      for entry in entries:
+        if isinstance(entry, dict):
+          cwd = entry.get(directory["cwd_key"])
+          if isinstance(cwd, str) and cwd:
+            directories.append(cwd)
+  return "\n".join(directories)
+
+
+def _read_bounded(path: Path, maximum_bytes: int) -> bytes | None:
+  try:
+    with path.open("rb") as stream:
+      data = stream.read(maximum_bytes + 1)
+  except OSError:
+    return None
+  return data if len(data) <= maximum_bytes else None
+
+
+def _process_cwd(pid: str, settings: Settings) -> str:
+  directory = settings["terminal_directory"]
+  proc_root = Path(directory["proc_root"])
+  task_root = proc_root / pid / directory["task_directory"]
+  try:
+    tasks = list(islice(task_root.iterdir(), directory["maximum_task_files"] + 1))
+  except OSError:
+    return ""
+  if len(tasks) > directory["maximum_task_files"]:
+    return ""
+
+  children: set[int] = set()
+  for task in tasks:
+    data = _read_bounded(task / directory["children_filename"], directory["maximum_children_file_bytes"])
+    if data is None:
+      continue
+    text = data.decode(directory["encoding"], errors="surrogateescape")
+    for child in text.split():
+      if _valid_pid(child, settings):
+        children.add(int(child))
+        if len(children) > directory["maximum_child_processes"]:
+          return ""
+  if not children:
+    return ""
+
+  child_proc = proc_root / str(max(children))
+  try:
+    cwd = (child_proc / directory["cwd_filename"]).resolve(strict=True)
+    executable = (child_proc / directory["executable_filename"]).resolve(strict=True)
+  except (OSError, RuntimeError):
+    return ""
+  shells_data = _read_bounded(Path(directory["shells_file"]), directory["maximum_shells_file_bytes"])
+  if shells_data is None:
+    return ""
+  shells = shells_data.decode(directory["encoding"], errors="surrogateescape").splitlines()
+  return str(cwd) if str(executable) in shells else ""
+
+
+def _working_directory(settings: Settings, requested_pid: str | None = None) -> str:
+  directory = settings["terminal_directory"]
+  pid = requested_pid if requested_pid is not None else _active_pid(settings)
+  if pid is None or not _valid_pid(pid, settings):
+    return os.environ.get(directory["home_environment"], "")
+
+  runtime_directory = os.environ.get(directory["runtime_directory_environment"], "")
+  socket = Path(runtime_directory) / f"{directory['kitty_socket_prefix']}{pid}"
+  if socket.is_socket():
+    cwd = _kitty_cwd(socket, settings)
+  else:
+    cwd = _process_cwd(pid, settings)
+  return cwd if cwd and Path(cwd).is_dir() else os.environ.get(directory["home_environment"], "")
+
+
+def _launch(arguments: list[str]) -> int:
   try:
     settings = _settings()
   except (KeyError, OSError, TypeError, UnicodeError, ValueError, yaml.YAMLError) as error:
@@ -103,29 +323,30 @@ def main() -> int:
     return settings["statuses"]["configuration_error"]
 
   command = launcher["command"]
-  directory_command = launcher["working_directory"]
-  if directory_command:
-    try:
-      result = subprocess.run(
-        directory_command,
-        check=False,
-        capture_output=True,
-        encoding="utf-8",
-        errors="surrogateescape",
-        timeout=settings["working_directory_timeout"],
-      )
-    except subprocess.TimeoutExpired:
-      print(settings["timeout_message"], file=sys.stderr)
-      return settings["statuses"]["timeout"]
-    except OSError:
-      print(settings["command_error_message"], file=sys.stderr)
-      return settings["statuses"]["command_error"]
-    directory = result.stdout.rstrip("\n")
-    if directory:
-      command = [*command, directory]
+  directory_settings = settings["terminal_directory"]
+  if launcher["terminal_directory"]:
+    pid: str | None = None
+    remaining = list(arguments)
+    pid_prefix = directory_settings["pid_option_prefix"]
+    if remaining and remaining[0].startswith(pid_prefix):
+      pid = remaining.pop(0)[len(pid_prefix):]
+    cwd = _working_directory(settings, pid)
+    command = [*command, f"{directory_settings['directory_option_prefix']}{cwd}", *remaining]
+  elif launcher["working_directory"]:
+    command = [*command, _working_directory(settings)]
+  else:
+    command = [*command, *arguments]
 
   try:
     os.execvpe(command[0], command, os.environ)
   except OSError:
     print(settings["command_error_message"], file=sys.stderr)
     return settings["statuses"]["command_error"]
+
+
+def main() -> int:
+  return _launch([])
+
+
+def terminal_main(arguments: list[str]) -> int:
+  return _launch(arguments)

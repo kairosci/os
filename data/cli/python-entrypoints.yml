@@ -696,6 +696,14 @@ entrypoints:
     group: launch
     name: nautilus cwd
     summary: Launch Files in the active terminal's current directory
+  - binary: arch-launch-terminal
+    module: launch/dispatch
+    function: terminal_main
+    group: launch
+    name: terminal
+    summary: Launch a terminal in the active terminal's current directory
+    args: '[--pid=<terminal-pid>] [command...]'
+    pass_args: 'true'
   - binary: arch-launch-terminal-tmux
     module: launch/dispatch
     function: main

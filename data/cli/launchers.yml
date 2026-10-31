@@ -3,16 +3,51 @@ launchers:
     command: [setsid, uwsm-app, --, nautilus, --new-window]
   arch-launch-nautilus-cwd:
     command: [setsid, uwsm-app, --, nautilus, --new-window]
-    working_directory: [arch-cmd-terminal-cwd]
+    working_directory: true
   arch-launch-terminal-tmux:
-    command: [arch-launch-terminal, bash, -c, 'tmux attach || tmux new -s Work']
-timeouts:
-  working_directory_seconds: 3
+    command: [archctl, launch, terminal, bash, -c, 'tmux attach || tmux new -s Work']
+  arch-launch-terminal:
+    command: [setsid, uwsm-app, --, xdg-terminal-exec]
+    terminal_directory: true
+terminal_directory:
+  commands:
+    active_window: [hyprctl, activewindow]
+    kitty: [kitten, '@', --to, '{target}', ls, --match, 'state:focused']
+  paths:
+    proc_root: /proc
+    shells_file: /etc/shells
+    task_directory: task
+    children_filename: children
+    cwd_filename: cwd
+    executable_filename: exe
+  environment:
+    runtime_directory: XDG_RUNTIME_DIR
+    home: HOME
+  values:
+    active_pid_pattern: '^\s*pid:\s*([0-9]+)\s*$'
+    pid_pattern: '^[0-9]+$'
+    pid_option_prefix: --pid=
+    directory_option_prefix: --dir=
+    kitty_socket_prefix: arch-kitty-
+    kitty_target_prefix: 'unix:'
+    encoding: utf-8
+    tabs_key: tabs
+    windows_key: windows
+    cwd_key: cwd
+  limits:
+    active_window_timeout_seconds: 3
+    kitty_timeout_seconds: 3
+    cleanup_timeout_seconds: 1
+    maximum_command_output_bytes: 1048576
+    read_chunk_bytes: 4096
+    maximum_task_files: 256
+    maximum_children_file_bytes: 4096
+    maximum_child_processes: 8192
+    maximum_shells_file_bytes: 65536
+    maximum_pid_digits: 10
 statuses:
   configuration_error: 78
   command_error: 127
-  timeout: 124
 messages:
   command_error: 'Could not launch the configured command'
-  timeout: 'Could not read the terminal working directory in time'
   unknown_launcher: 'Unknown configured launcher'
