@@ -230,6 +230,12 @@ entrypoints:
     group: hw
     name: nvidia
     summary: Detect whether the computer has an NVIDIA GPU.
+  - binary: arch-hw-nvidia-display
+    module: hardware/nvidia
+    function: nvidia_display_main
+    group: hw
+    name: nvidia display
+    summary: Detect whether NVIDIA drives the display instead of a hybrid iGPU
   - binary: arch-hw-nvidia-gsp
     module: hardware/nvidia
     function: gsp_main

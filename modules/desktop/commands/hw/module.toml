@@ -20,7 +20,6 @@ sources = [
   "src/arch/commands/arch-hw-match",
   "src/arch/commands/arch-hw-match-device-tree",
   "src/arch/commands/arch-hw-n1x",
-  "src/arch/commands/arch-hw-nvidia-display",
   "src/arch/commands/arch-hw-platform",
   "src/arch/commands/arch-hw-recover-internal-monitor",
   "src/arch/commands/arch-hw-touchpad",
@@ -100,10 +99,6 @@ target = "usr/share/arch/src/arch/commands/arch-hw-match-device-tree"
 [[output]]
 source = "src/arch/commands/arch-hw-n1x"
 target = "usr/share/arch/src/arch/commands/arch-hw-n1x"
-
-[[output]]
-source = "src/arch/commands/arch-hw-nvidia-display"
-target = "usr/share/arch/src/arch/commands/arch-hw-nvidia-display"
 
 [[output]]
 source = "src/arch/commands/arch-hw-platform"
