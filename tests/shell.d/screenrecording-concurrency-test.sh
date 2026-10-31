@@ -74,9 +74,9 @@ cat >"$tmp/bin/arch-cmd-present" <<'SH'
 #!/bin/bash
 [[ $1 == "wf-recorder" ]]
 SH
-cat >"$tmp/bin/arch-hyprland-monitor-focused" <<'SH'
+cat >"$tmp/bin/archctl" <<'SH'
 #!/bin/bash
-echo Virtual-1
+[[ $* == "hyprland monitor focused" ]] && echo Virtual-1
 SH
 cat >"$tmp/bin/ffmpeg" <<'SH'
 #!/bin/bash

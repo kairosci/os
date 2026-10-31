@@ -10,7 +10,7 @@ if arch-toggle-enabled screensaver-off && [[ $1 != "force" ]]; then
   exit 1
 fi
 
-focused=$(arch-hyprland-monitor-focused)
+focused=$(archctl hyprland monitor focused)
 terminal=$(xdg-terminal-exec --print-id)
 
 case $terminal in

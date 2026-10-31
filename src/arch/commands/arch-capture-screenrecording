@@ -308,7 +308,7 @@ start_screenrecording() {
   # slurp + the kms backend, which avoids the EGL DMA-BUF modifier import
   # failures the portal path can hit on some configurations.
   if [[ $FULLSCREEN == "true" ]]; then
-    target="monitor:$(arch-hyprland-monitor-focused)"
+    target="monitor:$(archctl hyprland monitor focused)"
     capture_args=(-w "${target#monitor:}" -s "${RESOLUTION:-$(default_resolution)}")
   elif [[ ${ARCH_SCREENRECORD_USE_PORTAL:-false} == "true" ]]; then
     target="portal"
