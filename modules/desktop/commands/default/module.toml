@@ -2,7 +2,7 @@ id = "desktop.commands.default"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/arch/commands/arch-default-browser",
+  "src/arch/cli/default/browser.py",
   "src/arch/cli/default/editor.py",
   "src/arch/cli/default/dictation.py",
   "src/arch/cli/default/terminal.py",
@@ -10,8 +10,8 @@ sources = [
 requires = ["desktop.commands", "system.runtime-data"]
 
 [[output]]
-source = "src/arch/commands/arch-default-browser"
-target = "usr/share/arch/src/arch/commands/arch-default-browser"
+source = "src/arch/cli/default/browser.py"
+target = "usr/share/arch/src/arch/cli/default/browser.py"
 
 [[output]]
 source = "src/arch/cli/default/editor.py"

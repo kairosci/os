@@ -17,6 +17,7 @@ export XDG_CONFIG_DIRS="$test_tmp/etc"
 export XDG_DATA_HOME="$test_tmp/data"
 export XDG_DATA_DIRS="$test_tmp/system"
 export XDG_CURRENT_DESKTOP=Hyprland
+export AP="$ROOT"
 export PATH="$mock_bin:$ROOT/src/arch/commands:$PATH"
 unset BROWSER
 
@@ -39,12 +40,12 @@ grep -qxF "NoDisplay=true" "$applications/arch-browser.desktop" ||
   fail "the link entry stays out of the app launcher"
 pass "the link entry opens links through arch-launch-browser, out of the launcher's sight"
 
-arch-default-browser firefox || fail "setting the default browser succeeds behind the link entry"
+archctl default browser firefox || fail "setting the default browser succeeds behind the link entry"
 grep -qxF "x-scheme-handler/https=firefox.desktop" "$XDG_CONFIG_HOME/mimeapps.list" ||
   fail "setting the default browser records it in mimeapps.list" "$(cat "$XDG_CONFIG_HOME/mimeapps.list")"
 [[ $(arch-cmd-default-browser) == "firefox.desktop" ]] ||
   fail "the default browser is the one behind the link entry" "actual: $(arch-cmd-default-browser)"
-[[ $(arch-default-browser) == "firefox" ]] || fail "the default browser reads back by name"
+[[ $(archctl default browser) == "firefox" ]] || fail "the default browser reads back by name"
 pass "setting the default browser keeps the link entry in front of it"
 
 [[ $(xdg-mime query default x-scheme-handler/https) == "arch-browser.desktop" ]] ||
@@ -57,7 +58,7 @@ if command -v gio >/dev/null; then
 fi
 pass "xdg-open and the desktop portal send links to the link entry"
 
-arch-default-browser chromium || fail "changing the default browser succeeds behind the link entry"
+archctl default browser chromium || fail "changing the default browser succeeds behind the link entry"
 [[ $(arch-cmd-default-browser) == "chromium.desktop" ]] || fail "a change of default browser takes effect"
 pass "a change of default browser takes effect"
 

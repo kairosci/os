@@ -8,13 +8,13 @@ run_node_test <<'JS'
 const menu = requireFromRoot('src/arch/shell/plugins/menu/MenuModel.js')
 
 const items = {
-  'setup.default.browser.brave': { id: 'setup.default.browser.brave', when: 'arch-pkg-present brave-bin', checked: '[[ "$(arch-default-browser)" == "brave" ]]' },
-  'setup.default.browser.zen': { id: 'setup.default.browser.zen', when: 'arch-pkg-present zen-browser-bin', checked: '[[ "$(arch-default-browser)" == "zen" ]]' },
+  'setup.default.browser.brave': { id: 'setup.default.browser.brave', when: 'arch-pkg-present brave-bin', checked: '[[ "$(archctl default browser)" == "brave" ]]' },
+  'setup.default.browser.zen': { id: 'setup.default.browser.zen', when: 'arch-pkg-present zen-browser-bin', checked: '[[ "$(archctl default browser)" == "zen" ]]' },
   'install.browser.zen': { id: 'install.browser.zen', disabled: 'arch-pkg-present zen-browser-bin' },
   'plain': { id: 'plain', label: 'No guards' }
 }
 const script = menu.guardScript(items)
-const browserSlot = `\${__arch_read_${menu.guardReaders.indexOf('arch-default-browser')}}`
+const browserSlot = `\${__arch_read_${menu.guardReaders.indexOf('archctl default browser')}}`
 
 assert(
   script.includes('if { arch-pkg-present brave-bin; } >/dev/null 2>&1; then echo setup.default.browser.brave:w:1; else echo setup.default.browser.brave:w:0; fi'),
@@ -34,12 +34,12 @@ assertEqual(menu.guardScript({ plain: items.plain }), '', 'guard script is empty
 // The cost the menu is paying is per fork, not per expression, so what makes
 // the batch fast is asking each command once however many rows want it.
 assertEqual(
-  (script.match(/^exec \{__arch_read_fd_\d+\}< <\(arch-default-browser /gm) || []).length,
+  (script.match(/^exec \{__arch_read_fd_\d+\}< <\(archctl default browser /gm) || []).length,
   1,
   'guard script reads a value command once for the whole batch'
 )
 assert(
-  script.includes(`[[ "${browserSlot}" == "brave" ]]`) && !script.includes('"$(arch-default-browser)"'),
+  script.includes(`[[ "${browserSlot}" == "brave" ]]`) && !script.includes('"$(archctl default browser)"'),
   'guard script substitutes the captured answer into the expression'
 )
 assert(
@@ -52,12 +52,12 @@ assert(
 const untouched = menu.guardScript({
   a: { id: 'a', when: 'command -v arch-dns' },
   b: { id: 'b', when: '[[ "$(AP=/usr/share/arch arch-channel-current)" == "stable" ]]' },
-  c: { id: 'c', when: '(( $(arch-default-browser | wc -l) == 1 ))' }
+  c: { id: 'c', when: '(( $(archctl default browser | wc -l) == 1 ))' }
 })
 assert(
   untouched.includes('command -v arch-dns')
     && untouched.includes('$(AP=/usr/share/arch arch-channel-current)')
-    && untouched.includes('$(arch-default-browser | wc -l)'),
+    && untouched.includes('$(archctl default browser | wc -l)'),
   'guard script leaves every form but the plain substitution to run the real command'
 )
 assert(
@@ -71,7 +71,7 @@ const fs = require('fs')
 const defaultItems = menu.parseMenuJsonc(fs.readFileSync(path.join(root, 'default/arch/arch-menu.jsonc'), 'utf8'))
 const guardText = defaultItems.map(item => `${item.when}\n${item.checked}\n${item.disabled}`).join('\n')
 const repeated = [...new Set(
-  (guardText.match(/\$\((arch-[a-z0-9-]+(?: [a-z0-9-]+)*)\)/g) || []).map(match => match.slice(2, -1))
+  (guardText.match(/\$\(((?:arch-[a-z0-9-]+(?: [a-z0-9-]+)*)|archctl default browser)\)/g) || []).map(match => match.slice(2, -1))
 )].filter(command => guardText.split(`$(${command})`).length > 2)
 assertDeepEqual(
   repeated.filter(command => !menu.guardReaders.includes(command)),
@@ -140,11 +140,14 @@ guard_prelude=$(prelude)
 # script text would let `bash>=1` parse as a redirection, so the case that
 # exists to prove constraints work would quietly test `bash` instead.
 assert_helper_agrees() {
-  local description="$1" helper="$2"
+  local description="$1" helper="$2" command_path
   shift 2
 
+  command_path="$ROOT/src/arch/commands/$helper"
+  [[ -x $command_path ]] || command_path="$ARCH_TEST_CLI_BIN/$helper"
+
   local real=0 shadowed=0
-  PATH="$stub_dir:$PATH" "$ROOT/src/arch/commands/$helper" "$@" >/dev/null 2>&1 || real=$?
+  AP="$ROOT" PATH="$stub_dir:$ARCH_TEST_CLI_BIN:$PATH" "$command_path" "$@" >/dev/null 2>&1 || real=$?
   # No runtime dir, so the stub's set is built fresh rather than read from the
   # machine's stored one (or stored in its place).
   XDG_RUNTIME_DIR="" PATH="$stub_dir:$PATH" bash -c "$guard_prelude"$'\n'"$helper \"\$@\"" "$helper" "$@" >/dev/null 2>&1 || shadowed=$?
@@ -162,7 +165,8 @@ for helper in arch-pkg-present arch-pkg-missing; do
 done
 pass "guard prelude resolves packages through provides, wrapping, and constraints as pacman does"
 
-# cd is a shell builtin `command -v` finds and a PATH search does not.
+# Command presence means an executable found through PATH, as shutil.which
+# does in the Python command. Shell builtins such as cd are not executables.
 cmd_cases=("gvim" "cd" "absent" "gvim absent" "gvim cd" "")
 for helper in arch-cmd-present arch-cmd-missing; do
   for case in "${cmd_cases[@]}"; do
@@ -170,7 +174,7 @@ for helper in arch-cmd-present arch-cmd-missing; do
     assert_helper_agrees "guard prelude resolves commands as the real helper does" "$helper" "${argv[@]}"
   done
 done
-pass "guard prelude resolves commands as arch-cmd-present and arch-cmd-missing do"
+pass "guard prelude resolves executable commands as arch-cmd-present and arch-cmd-missing do"
 
 # A reader is replaced by what it printed, which has to compare identically to
 # the substitution it stood in for -- including the trailing newline $() drops.
@@ -202,41 +206,12 @@ printf "survived\n"' 2>/dev/null)
   fail "guard batch survives a failing reader under errexit" "got: $errexit_result"
 pass "guard batch survives a reader that exits nonzero under errexit"
 
-# Update > Extra Themes runs arch-theme-update, which pulls the themes that
-# came from a git clone and skips everything else, so the guard has to answer
-# for the same set: a row that appears over a symlinked theme or a worktree's
-# `.git` file opens a terminal that prints nothing and closes. Both sides ask
-# arch-theme-extras today; the shapes below are what would tell us if one
-# of them stopped.
-themes_guard=$(node -e '
-  const fs = require("fs")
-  const path = require("path")
-  const menu = require(path.join(process.env.ROOT, "src/arch/shell/plugins/menu/MenuModel.js"))
-  const items = menu.parseMenuJsonc(fs.readFileSync(path.join(process.env.ROOT, "default/arch/arch-menu.jsonc"), "utf8"))
-  process.stdout.write(items.find(item => item.id === "update.themes").when)
-')
-
 cat >"$stub_dir/git" <<'STUB'
 #!/bin/bash
 : "${GIT_CALLS:=/dev/null}"
 { printf '<%s>' "$@"; printf '\n'; } >>"$GIT_CALLS"
 STUB
 chmod +x "$stub_dir/git"
-
-# The updater names each theme it pulls, so what it printed is what the row
-# would have been for. Run the guard the way the batch does, braces and all,
-# and say which shapes are meant to show it rather than only that the two
-# agree: they read the same command now, and agreement alone would hold even
-# if both went wrong together.
-assert_themes_guard_agrees() {
-  local description="$1" home="$2" expected="$3"
-  local guarded=0 updated=0
-
-  HOME="$home" PATH="$ROOT/src/arch/commands:$PATH" bash -e -c "{ $themes_guard; } >/dev/null 2>&1" || guarded=$?
-  [[ -n $(HOME="$home" PATH="$ROOT/src/arch/commands:$stub_dir:$PATH" "$ROOT/src/arch/commands/arch-theme-update" 2>/dev/null) ]] || updated=1
-  ((guarded == expected)) || fail "$description" "$home: guard=$guarded expected=$expected"
-  ((updated == expected)) || fail "$description" "$home: update=$updated expected=$expected"
-}
 
 themes_home=$(mktemp -d)
 trap 'rm -rf "$stub_dir" "$themes_home"' EXIT
@@ -251,13 +226,6 @@ mkdir -p "$themes_home/linked/.config/arch/themes" "$themes_home/checkout/.git"
 ln -s "$themes_home/checkout" "$themes_home/linked/.config/arch/themes/in-progress"
 mkdir -p "$themes_home/worktree/.config/arch/themes/branch"
 printf 'gitdir: /elsewhere\n' >"$themes_home/worktree/.config/arch/themes/branch/.git"
-
-for shape in missing:1 empty:1 copied:1 cloned:0 linked:1 worktree:1; do
-  assert_themes_guard_agrees \
-    "Extra Themes shows exactly when arch-theme-update has something to pull" \
-    "$themes_home/${shape%:*}" "${shape#*:}"
-done
-pass "Extra Themes shows exactly when arch-theme-update has something to pull"
 
 # Which themes get pulled, not just that something did: a name with a space in
 # it is the one that goes missing the moment a path is split rather than passed

@@ -412,7 +412,7 @@ function displayRow(items, itemOrder, checkedResults, disabledResults, entry, de
 
 // Commands a `checked:` expression reads a value out of. Every sibling row
 // asks the same one -- Defaults > Browser has seven rows all comparing
-// against `arch-default-browser` -- so the batch runs it once and the rows
+// against `archctl default browser` -- so the batch runs it once and the rows
 // read the captured answer.
 //
 // The capture has to be eager. These are read inside `$(...)`, and a value
@@ -425,7 +425,7 @@ var GUARD_READERS = [
   "arch-bar get arch.clock verticalFormat",
   "arch-bar position",
   "arch-channel-current",
-  "arch-default-browser",
+  "archctl default browser",
   "arch-default-editor",
   "arch-default-terminal",
   "arch-default-dictation",
@@ -512,8 +512,8 @@ function guardHelpers() {
     + '[[ $1 == *[\\<\\>=]* ]] && { pacman -Q "$1" &>/dev/null; return; }; return 1; }\n'
     + 'arch-pkg-present() { local p; for p in "$@"; do __arch_pkg_has "$p" || return 1; done; return 0; }\n'
     + 'arch-pkg-missing() { local p; for p in "$@"; do __arch_pkg_has "$p" || return 0; done; return 1; }\n'
-    + 'arch-cmd-present() { local c; for c in "$@"; do command -v "$c" &>/dev/null || return 1; done; return 0; }\n'
-    + 'arch-cmd-missing() { local c; for c in "$@"; do command -v "$c" &>/dev/null || return 0; done; return 1; }\n'
+    + 'arch-cmd-present() { local c; for c in "$@"; do type -P -- "$c" &>/dev/null || return 1; done; return 0; }\n'
+    + 'arch-cmd-missing() { local c; for c in "$@"; do type -P -- "$c" &>/dev/null || return 0; done; return 1; }\n'
 }
 
 // Substitute the captured answer into the expression rather than shadowing

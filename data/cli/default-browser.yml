@@ -1,0 +1,71 @@
+limits:
+  arguments: 1
+  command_timeout_seconds: 5
+values:
+  install_flag: --install
+  localization_key: default.browserSet
+  default_route: [archctl, default, browser]
+commands:
+  read_default: [arch-cmd-default-browser]
+  command_missing: [arch-cmd-missing]
+  launch_installer: [arch-launch-terminal-with-presentation]
+  install_browser: [arch-install-browser]
+  set_default: [xdg-settings, set, default-web-browser]
+  localization: [arch-i18n]
+  notification: [arch-notification-send, -g]
+environment:
+  browser: BROWSER
+  desktop: XDG_CURRENT_DESKTOP
+  desktop_value: ""
+browsers:
+  chromium:
+    command: chromium
+    desktop_id: chromium.desktop
+    name: Chromium
+    glyph: 
+    installer: chromium
+  chrome:
+    command: google-chrome-stable
+    desktop_id: google-chrome.desktop
+    name: Chrome
+    glyph: 󰊯
+    installer: chrome
+  brave:
+    command: brave
+    desktop_id: brave-browser.desktop
+    name: Brave
+    glyph: 󰖟
+    installer: brave
+  brave-origin:
+    command: brave-origin
+    desktop_id: brave-origin.desktop
+    name: Brave Origin
+    glyph: 󰖟
+    installer: brave-origin
+  edge:
+    command: microsoft-edge-stable
+    desktop_id: microsoft-edge.desktop
+    name: Edge
+    glyph: 󰇩
+    installer: edge
+  firefox:
+    command: firefox
+    desktop_id: firefox.desktop
+    name: Firefox
+    glyph: 󰈹
+    installer: firefox
+  zen:
+    command: zen-browser
+    desktop_id: zen.desktop
+    name: Zen
+    glyph: 󰖟
+    installer: zen
+messages:
+  usage: 'Usage: archctl default browser [--install] <chromium|chrome|brave|brave-origin|edge|firefox|zen>'
+  command_error: 'Could not set the default browser.'
+statuses:
+  success: 0
+  invalid_arguments: 1
+  invalid_selection: 1
+  set_default_failed: 1
+  command_error: 127
