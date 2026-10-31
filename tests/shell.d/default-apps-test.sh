@@ -226,23 +226,23 @@ for entry in "${browser_cases[@]}"; do
   read -r selection command installer <<<"$entry"
   rm -f "$installed_dir/$command"
   : >"$install_log"
-  arch-default-browser --install "$selection"
+  archctl default browser --install "$selection"
   [[ $(<"$install_log") == "$installer" ]] || fail "$selection uses its browser installer"
-  [[ $(arch-default-browser) == "$selection" ]] || fail "$selection becomes the default browser after installation"
+  [[ $(archctl default browser) == "$selection" ]] || fail "$selection becomes the default browser after installation"
 done
 pass "browser defaults install every missing browser before selection"
 
 : >"$browser_env_log"
-BROWSER=arch-launch-browser XDG_CURRENT_DESKTOP=Hyprland arch-default-browser firefox
+BROWSER=arch-launch-browser XDG_CURRENT_DESKTOP=Hyprland archctl default browser firefox
 [[ $(<"$browser_env_log") == "|" ]] || fail "default browser selection clears session browser overrides before setting XDG state"
 pass "setting the default browser ignores inherited session overrides"
 
 : >"$install_log"
 : >"$setup_log"
 rm -f "$installed_dir/chromium"
-ARCH_TEST_REAL_BROWSER_INSTALL=true arch-default-browser --install chromium >/dev/null
+ARCH_TEST_REAL_BROWSER_INSTALL=true archctl default browser --install chromium >/dev/null
 [[ $(<"$install_log") == "pkg:chromium" ]] || fail "Chromium browser installer installs the package"
-[[ $(arch-default-browser) == "chromium" ]] || fail "Chromium becomes the default after its full installer succeeds"
+[[ $(archctl default browser) == "chromium" ]] || fail "Chromium becomes the default after its full installer succeeds"
 cmp -s "$ROOT/config/chromium-flags.conf" "$test_home/.config/chromium-flags.conf" ||
   fail "Chromium browser installer copies the default flags"
 grep -Fxq 'sudo:install -d -m 0755 -o root -g root /etc/chromium' "$setup_log" ||
@@ -267,9 +267,9 @@ pass "Chromium browser installer restores the complete os setup"
 : >"$install_log"
 : >"$setup_log"
 rm -f "$installed_dir/firefox"
-ARCH_TEST_REAL_BROWSER_INSTALL=true arch-default-browser --install firefox >/dev/null
+ARCH_TEST_REAL_BROWSER_INSTALL=true archctl default browser --install firefox >/dev/null
 [[ $(<"$install_log") == "pkg:firefox" ]] || fail "Firefox browser installer installs the package"
-[[ $(arch-default-browser) == "firefox" ]] || fail "Firefox becomes the default after its full installer succeeds"
+[[ $(archctl default browser) == "firefox" ]] || fail "Firefox becomes the default after its full installer succeeds"
 grep -Fxq 'sudo:install -d -m 0755 -o root -g root /usr/lib/firefox/distribution' "$setup_log" ||
   fail "Firefox browser installer creates its distribution directory"
 grep -Fxq 'sudo:find /usr/lib/firefox/distribution -mindepth 1 -maxdepth 1 ! -user root -exec rm -rf -- {} +' "$setup_log" ||
@@ -282,9 +282,9 @@ pass "Firefox browser installer restores the complete os setup"
 : >"$install_log"
 : >"$setup_log"
 rm -f "$installed_dir/zen-browser"
-ARCH_TEST_REAL_BROWSER_INSTALL=true arch-default-browser --install zen >/dev/null
+ARCH_TEST_REAL_BROWSER_INSTALL=true archctl default browser --install zen >/dev/null
 [[ $(<"$install_log") == "pkg:zen-browser-bin" ]] || fail "Zen browser installer installs the package"
-[[ $(arch-default-browser) == "zen" ]] || fail "Zen becomes the default after its full installer succeeds"
+[[ $(archctl default browser) == "zen" ]] || fail "Zen becomes the default after its full installer succeeds"
 grep -Fxq 'sudo:install -d -m 0755 -o root -g root /opt/zen-browser/distribution' "$setup_log" ||
   fail "Zen browser installer creates its distribution directory"
 grep -Fxq 'sudo:find /opt/zen-browser/distribution -mindepth 1 -maxdepth 1 ! -user root -exec rm -rf -- {} +' "$setup_log" ||
@@ -294,21 +294,21 @@ grep -Fxq "sudo:install -m 644 -o root -g root -T $ROOT/default/firefox/policies
 [[ -e $installed_dir/zen-browser ]] || fail "Zen browser installer marks zen-browser installed"
 pass "Zen browser installer restores the complete os setup"
 
-arch-default-browser zen
+archctl default browser zen
 rm -f "$installed_dir/chromium"
 if ARCH_TEST_REAL_BROWSER_INSTALL=true ARCH_TEST_INSTALL_FAIL=true \
-  arch-default-browser --install chromium >"$test_tmp/browser-package-failure" 2>&1; then
+  archctl default browser --install chromium >"$test_tmp/browser-package-failure" 2>&1; then
   fail "failed Chromium package installation returns an error"
 fi
-[[ $(arch-default-browser) == "zen" ]] || fail "failed Chromium package installation preserves the default browser"
+[[ $(archctl default browser) == "zen" ]] || fail "failed Chromium package installation preserves the default browser"
 [[ ! -e $installed_dir/chromium ]] || fail "failed Chromium package installation does not mark it installed"
 pass "failed Chromium package installation preserves the current default"
 
 if ARCH_TEST_REAL_BROWSER_INSTALL=true ARCH_TEST_SETUP_FAIL=sudo \
-  arch-default-browser --install chromium >"$test_tmp/browser-install-failure" 2>&1; then
+  archctl default browser --install chromium >"$test_tmp/browser-install-failure" 2>&1; then
   fail "failed Chromium setup returns an error"
 fi
-[[ $(arch-default-browser) == "zen" ]] || fail "failed Chromium setup preserves the default browser"
+[[ $(archctl default browser) == "zen" ]] || fail "failed Chromium setup preserves the default browser"
 grep -Fq 'Installing Chromium' "$test_tmp/browser-install-failure" ||
   fail "failed Chromium setup keeps progress visible in the terminal"
 pass "failed Chromium setup preserves the current default"
@@ -347,7 +347,7 @@ pass "editor aliases and legacy state values are preserved"
 
 : >"$install_log"
 : >"$terminal_log"
-arch-default-browser zen
+archctl default browser zen
 archctl default terminal kitty
 archctl default editor nvim
 [[ ! -s $install_log && ! -s $terminal_log ]] || fail "installed defaults skip installation"
