@@ -132,6 +132,13 @@ entrypoints:
     name: tmux
     summary: Restore the default tmux config and restart tmux
     pass_args: 'true'
+  - binary: arch-refresh-hyprsunset
+    module: refresh/actions
+    function: hyprsunset_main
+    group: refresh
+    name: hyprsunset
+    summary: Restore the default hyprsunset config and restart hyprsunset
+    pass_args: 'true'
   - binary: arch-sleep-disabled
     module: sleep/disabled
     function: main

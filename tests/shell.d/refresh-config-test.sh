@@ -13,7 +13,7 @@ mkdir -p "$home/.config/hypr" "$home/.config/arch" "$ap/config/hypr" \
   "$ap/src/arch/commands" "$ap/src/arch/python" "$ap/default"
 printf 'en\n' >"$home/.config/arch/language"
 ln -s "$ROOT/data/cli/refresh-config.yml" "$ap/data/cli/refresh-config.yml"
-ln -s "$ROOT/data/cli/refresh-tmux.yml" "$ap/data/cli/refresh-tmux.yml"
+ln -s "$ROOT/data/cli/refresh-actions.yml" "$ap/data/cli/refresh-actions.yml"
 ln -s "$ROOT/scripts/cli_entrypoints.py" "$ap/scripts/cli_entrypoints.py"
 ln -s "$ROOT/src/arch/commands/arch-i18n" "$ap/src/arch/commands/arch-i18n"
 ln -s "$ROOT/src/arch/cli" "$ap/src/arch/cli"
@@ -128,3 +128,23 @@ HOME="$home" AP="$ap" MARKER="$marker" PATH="$restart_bin:$PATH" \
   fail "refresh tmux restores the shipped tmux config"
 [[ $(<"$marker") == restarted ]] || fail "refresh tmux restarts tmux after restoring its config"
 pass "refresh tmux restores its config and restarts tmux"
+
+printf 'decoration = "shader"\n' >"$ap/config/hypr/hyprsunset.conf"
+hyprsunset_marker="$tmpdir/hyprsunset-restarted"
+hyprsunset_bin="$tmpdir/hyprsunset-bin"
+mkdir -p "$hyprsunset_bin"
+cat >"$hyprsunset_bin/archctl" <<'EOF'
+#!/bin/bash
+if [[ $* == "restart app hyprsunset" ]]; then
+  printf restarted >"$MARKER"
+else
+  exec "$ARCH_TEST_CLI_BIN/archctl" "$@"
+fi
+EOF
+chmod +x "$hyprsunset_bin/archctl"
+HOME="$home" AP="$ap" MARKER="$hyprsunset_marker" PATH="$hyprsunset_bin:$PATH" \
+  "$ARCH_TEST_CLI_BIN/archctl" refresh hyprsunset
+[[ $(<"$home/.config/hypr/hyprsunset.conf") == 'decoration = "shader"' ]] ||
+  fail "refresh hyprsunset restores the shipped config"
+[[ $(<"$hyprsunset_marker") == restarted ]] || fail "refresh hyprsunset restarts its service after restoring config"
+pass "refresh hyprsunset restores its config and restarts its service"
