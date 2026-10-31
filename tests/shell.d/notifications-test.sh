@@ -133,6 +133,36 @@ AP="$ROOT" WEATHER_LOG="$weather_log" PATH="$weather_bin:$PATH" \
   fail "weather command preserves the existing IPC arguments" "$(<"$weather_log")"
 pass "weather command preserves the existing IPC route"
 
+battery_bin="$tmp/battery-bin"
+battery_log="$tmp/battery-log"
+mkdir -p "$battery_bin"
+cat >"$battery_bin/arch-battery-status" <<'SH'
+#!/bin/bash
+printf '%s\n' "${BATTERY_STATUS:-}"
+SH
+cat >"$battery_bin/arch-notification-send" <<'SH'
+#!/bin/bash
+printf '%s\n' "$@" >"$BATTERY_LOG"
+SH
+chmod +x "$battery_bin/arch-battery-status" "$battery_bin/arch-notification-send"
+battery_status="85% available; touch $tmp/injected"
+env AP="$ROOT" BATTERY_STATUS="$battery_status" BATTERY_LOG="$battery_log" PATH="$battery_bin:$PATH" "$ARCH_TEST_CLI_BIN/arch-notification-battery" ||
+  fail "battery notification reports the configured status"
+[[ $(wc -l <"$battery_log") == 5 ]] || fail "battery notification sends exactly five arguments" "$(<"$battery_log")"
+[[ $(sed -n '1p' "$battery_log") == "-g" && $(sed -n '2p' "$battery_log") == "󰁹" &&
+   $(sed -n '3p' "$battery_log") == "-u" && $(sed -n '4p' "$battery_log") == "low" &&
+   $(sed -n '5p' "$battery_log") == "$battery_status" ]] ||
+  fail "battery notification forwards the status as one argument" "$(<"$battery_log")"
+[[ ! -e $tmp/injected ]] || fail "battery status is never evaluated as shell code"
+pass "battery notification preserves notification argv without shell evaluation"
+
+: >"$battery_log"
+if env AP="$ROOT" BATTERY_STATUS= BATTERY_LOG="$battery_log" PATH="$battery_bin:$PATH" "$ARCH_TEST_CLI_BIN/arch-notification-battery" >/dev/null 2>&1; then
+  fail "battery notification rejects an empty status"
+fi
+[[ ! -s $battery_log ]] || fail "battery notification does not send an empty status" "$(<"$battery_log")"
+pass "battery notification does not send an empty status"
+
 service="$ROOT/src/arch/shell/plugins/notifications/Service.qml"
 
 # The startup step that makes the state directory, run as the service runs

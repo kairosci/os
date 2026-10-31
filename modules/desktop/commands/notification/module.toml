@@ -2,7 +2,7 @@ id = "desktop.commands.notification"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/arch/commands/arch-notification-battery",
+  "src/arch/cli/notification/battery.py",
   "src/arch/cli/notification/dismiss.py",
   "src/arch/commands/arch-notification-send",
   "src/arch/cli/notification/time.py",
@@ -12,8 +12,8 @@ sources = [
 requires = ["desktop.commands", "system.runtime-data"]
 
 [[output]]
-source = "src/arch/commands/arch-notification-battery"
-target = "usr/share/arch/src/arch/commands/arch-notification-battery"
+source = "src/arch/cli/notification/battery.py"
+target = "usr/share/arch/src/arch/cli/notification/battery.py"
 
 [[output]]
 source = "src/arch/cli/notification/dismiss.py"

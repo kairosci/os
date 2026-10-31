@@ -1,0 +1,8 @@
+commands:
+  battery_status: [arch-battery-status]
+  notification: [arch-notification-send, -g, 󰁹, -u, low]
+timeout_seconds: 5
+failure_status: 1
+messages:
+  operation_error: Could not show the battery notification
+  empty_status: The battery status command returned no text
