@@ -13,8 +13,8 @@ exit_codes:
   timeout: 1
 messages:
   en:
-    usage: 'Usage: arch-notification-wait [timeout-seconds]'
+    usage: 'Usage: archctl notification wait [timeout-seconds]'
     invalid_timeout: 'Timeout must be an integer within the configured limit.'
   it:
-    usage: 'Uso: arch-notification-wait [secondi-timeout]'
+    usage: 'Uso: archctl notification wait [secondi-timeout]'
     invalid_timeout: 'Il timeout deve essere un intero entro il limite configurato.'

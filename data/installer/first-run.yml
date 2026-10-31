@@ -66,7 +66,7 @@ orchestrator:
   done_check: [arch-done, check, '{completion_marker}']
   done_mark: [arch-done, mark, '{completion_marker}']
   provision_user: [arch-provision-user]
-  notification_wait: [arch-notification-wait]
+  notification_wait: [archctl, notification, wait]
   messages:
     en:
       description: Run first-login user setup and notification hooks. By default this runs once per user.
