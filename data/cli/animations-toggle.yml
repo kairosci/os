@@ -1,0 +1,29 @@
+commands:
+  set_flag: [archctl, hyprland, toggle, no-animations]
+  localize: [arch-i18n]
+  notify: [archctl, notification, send, -g]
+values:
+  actions:
+    toggle: toggle
+    enable: on
+    disable: off
+    animations_on: off
+    animations_off: on
+    accepted: [toggle, on, off]
+  flag_enabled_output: on
+  notification_glyph: 󰗘
+  notification_keys:
+    enabled: animations.enabled
+    disabled: animations.disabled
+limits:
+  command_timeout_seconds: 5
+  cleanup_timeout_seconds: 1
+  maximum_output_bytes: 4096
+  read_chunk_bytes: 1024
+messages:
+  usage: 'Usage: archctl toggle animations [toggle|on|off]'
+  command_error: 'Could not change the animations setting'
+statuses:
+  success: 0
+  invalid_arguments: 2
+  command_error: 1
