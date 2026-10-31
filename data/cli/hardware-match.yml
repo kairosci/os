@@ -1,0 +1,5 @@
+commands:
+  grep: [grep, -qi, --]
+paths:
+  dmi_product_name: /sys/class/dmi/id/product_name
+  dmi_product_family: /sys/class/dmi/id/product_family

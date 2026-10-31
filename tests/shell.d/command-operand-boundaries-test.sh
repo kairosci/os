@@ -128,12 +128,12 @@ fi
 STUB
 chmod +x "$mock_bin/grep"
 
-if PATH="$mock_bin:$PATH" "$ROOT/src/arch/commands/arch-hw-match" --help; then
+if PATH="$mock_bin:$PATH" "$ARCH_TEST_CLI_BIN/arch-hw-match" --help; then
   fail "hw-match treats an option-shaped hardware pattern literally"
 fi
 pass "hw-match treats an option-shaped hardware pattern literally"
 
-PATH="$mock_bin:$PATH" "$ROOT/src/arch/commands/arch-hw-match" known-hardware ||
+PATH="$mock_bin:$PATH" "$ARCH_TEST_CLI_BIN/arch-hw-match" known-hardware ||
   fail "hw-match still accepts an ordinary hardware pattern"
 pass "hw-match still accepts an ordinary hardware pattern"
 
