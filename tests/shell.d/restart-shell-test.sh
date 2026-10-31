@@ -84,7 +84,7 @@ touch "$restart_root/src/arch/shell/shell.qml"
 ln -s "$ROOT/src/arch/commands/arch-shell" "$restart_bin/arch-shell"
 ln -s "$ROOT/src/arch/commands/arch-launch-shell" "$restart_bin/arch-launch-shell"
 ln -s "$ARCH_TEST_CLI_BIN/arch-cmd-missing" "$restart_bin/arch-cmd-missing"
-ln -s "$ARCH_TEST_CLI_BIN/arch-hyprland-session-locked" "$restart_bin/arch-hyprland-session-locked"
+ln -s "$ARCH_TEST_CLI_BIN/archctl" "$restart_bin/archctl"
 
 cat >"$restart_bin/qs" <<'SH'
 #!/bin/bash

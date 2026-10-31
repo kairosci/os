@@ -7,9 +7,10 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 fake_bin=$(mktemp -d)
 trap 'rm -rf "$fake_bin"' EXIT
 
-cat >"$fake_bin/arch-hyprland-session-locked" <<'SH'
+cat >"$fake_bin/archctl" <<'SH'
 #!/bin/bash
 
+[[ ${1:-} == hyprland && ${2:-} == session && ${3:-} == locked && $# == 3 ]] || exit 2
 exit "$ARCH_TEST_LOCKED"
 SH
 
