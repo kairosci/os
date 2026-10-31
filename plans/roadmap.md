@@ -13,6 +13,7 @@ This roadmap tracks the requested CLI, ISO, desktop, and release work as separat
 - PR #584 replaces the full-screen black startup cover and the wallpaper layer’s transparent clear surface with the active theme background color. The shell service is already continuously supervised by systemd and by its launcher (PR #560). The code path removes two causes of an all-black desktop, but live visual verification still needs an isolated graphical VM; it has not been run because the available checkout has no sibling `arch-iso` harness and the active desktop must not be interrupted.
 - PR #585 moves the clipboard and emoji menu launchers into `src/arch/cli/menu/launch.py`, with their exact `arch-shell` argv, timeout, statuses, and messages in YAML. With PR #585 integrated, the repository has 372 flat command files, 57 Python modules, and 82 Python entrypoints. Their existing binary names stay available through generated launchers for installed menu actions and user scripts.
 - PR #586 moves both Files launchers into Python, keeping application argv and the terminal-directory helper in YAML. PR #587 generalizes that module to `src/arch/cli/launch/dispatch.py` and migrates the tmux terminal launcher with its exact attach-or-create command in YAML. With PR #587 integrated, the repository has 369 flat command files, 58 Python modules, and 85 Python entrypoints.
+- PR #588 migrates emoji insertion into `src/arch/cli/menu/emoji_insert.py`. Clipboard and paste argv, timing, limits, statuses, and messages are YAML data; the clipboard provider runs in a dedicated process group and is terminated on every exit path. With PR #588 integrated, the repository has 368 flat command files, 59 Python modules, and 86 Python entrypoints.
 
 ## Sprints
 
@@ -22,7 +23,7 @@ PR #507 made `scrolling` the default and exposed `tiling` as the only alternate 
 
 ### 2. Inventory and classify CLI entrypoints
 
-For each executable in `src/arch/commands/`, record whether it is already backed by a Python module, still contains command behavior, or has callers that rely on its binary name. Eighty-five Python entrypoints are catalogued after PR #587, but the remaining 369 command files have not been classified. Keep the inventory generated from source metadata so it cannot silently drift.
+For each executable in `src/arch/commands/`, record whether it is already backed by a Python module, still contains command behavior, or has callers that rely on its binary name. Eighty-six Python entrypoints are catalogued after PR #588, but the remaining 368 command files have not been classified. Keep the inventory generated from source metadata so it cannot silently drift.
 
 ### 3. Move remaining command behavior into modules
 
@@ -70,12 +71,16 @@ PR #584 gives the wallpaper layer an opaque theme-colored fallback and removes t
 
 ### 13. Move menu launch behavior into modules — implemented
 
-PR #585 migrates the clipboard and emoji toggle launchers into one Python module. Their command arrays, timeout, and failure output are YAML data, while generated entrypoints preserve the executable names used by the default menu. Continue with neighboring menu and trigger commands only where their behavior is genuinely code rather than declarative data.
+PR #585 migrates the clipboard and emoji toggle launchers into one Python module; PR #588 migrates emoji insertion with a bounded UTF-8 input and cleanup of the transient clipboard process group. Command arrays, timing, limits, and failure output are YAML data, while generated entrypoints preserve the names used by the menu.
 
 ### 14. Migrate launch commands — implemented
 
 PRs #586 and #587 move the Files and tmux terminal launch commands into `src/arch/cli/launch/dispatch.py`, preserving generated binary names. The terminal directory comes from the existing helper with a configured timeout and remains one argument when it contains spaces. The tmux attach-or-create command is declared in YAML.
 
-### 15. Migrate the terminal tmux launcher — in progress
+### 15. Migrate the terminal tmux launcher — implemented
 
 PR #587 moves the remaining `arch-launch-terminal-tmux` wrapper into the shared launch dispatcher. Its full argv, including the tmux attach-or-create expression, is YAML data; the Python module selects by generated entrypoint name and replaces itself with the configured launcher.
+
+### 16. Migrate emoji insertion — in progress
+
+PR #588 moves emoji insertion into a Python module. The clipboard provider is started in its own process group, receives bounded UTF-8 input, remains available through Shift+Insert, and is stopped in `finally` with a bounded TERM/KILL cleanup. Verify the existing menu test and the package entrypoint before integrating.

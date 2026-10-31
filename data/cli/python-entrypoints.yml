@@ -580,6 +580,15 @@ entrypoints:
     name: emoji
     summary: Launch emojis
     examples: archctl menu emoji
+  - binary: arch-menu-emoji-insert
+    module: menu/emoji_insert
+    function: main
+    group: menu
+    name: emoji insert
+    summary: Insert an emoji into the focused application
+    args: <emoji>
+    hidden: 'true'
+    pass_args: 'true'
   - binary: arch-launch-nautilus
     module: launch/dispatch
     function: main
