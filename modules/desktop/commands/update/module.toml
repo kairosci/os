@@ -52,10 +52,6 @@ source = "src/arch/cli/update/confirm.py"
 target = "usr/share/arch/src/arch/cli/update/confirm.py"
 
 [[output]]
-source = "src/arch/cli/update/status.py"
-target = "usr/share/arch/src/arch/cli/update/status.py"
-
-[[output]]
 source = "src/arch/commands/arch-update-dev"
 target = "usr/share/arch/src/arch/commands/arch-update-dev"
 
@@ -98,6 +94,10 @@ target = "usr/share/arch/src/arch/commands/arch-update-requires-free-space"
 [[output]]
 source = "src/arch/commands/arch-update-restart"
 target = "usr/share/arch/src/arch/commands/arch-update-restart"
+
+[[output]]
+source = "src/arch/cli/update/status.py"
+target = "usr/share/arch/src/arch/cli/update/status.py"
 
 [[output]]
 source = "src/arch/commands/arch-update-stay-awake"
