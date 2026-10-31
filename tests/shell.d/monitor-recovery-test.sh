@@ -7,7 +7,7 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 monitor_watch="$ROOT/src/arch/commands/arch-hyprland-monitor-watch"
 monitor_internal="$ROOT/src/arch/commands/arch-hyprland-monitor-internal"
 monitor_mirror="$ROOT/src/arch/commands/arch-hyprland-monitor-internal-mirror"
-monitor_laptop="$ARCH_TEST_CLI_BIN/arch-hyprland-monitor-laptop"
+monitor_laptop="$ROOT/src/arch/cli/hyprland/monitors.py"
 system_wake="$ROOT/src/arch/commands/arch-system-wake"
 clamshell="$ROOT/src/arch/commands/arch-hyprland-monitor-clamshell"
 lock_service="$ROOT/src/arch/shell/plugins/lock/Service.qml"
@@ -77,7 +77,7 @@ grep -F 'arch-hw-clamshell' "$clamshell" >/dev/null
 pass "clamshell monitor sync disables laptop output and force-recovers it"
 
 grep -F "hyprctl dispatch 'hl.dsp.dpms({ action = \"enable\" })' >/dev/null 2>&1 || true" "$monitor_internal" >/dev/null
-grep -F 'arch-hyprland-monitor-laptop' "$monitor_internal" >/dev/null
+grep -F 'archctl hyprland monitor laptop' "$monitor_internal" >/dev/null
 grep -F 'hyprctl monitors all -j' "$monitor_laptop" >/dev/null
 grep -F 'arch-hyprland-monitor-external-active' "$monitor_internal" >/dev/null
 grep -F 'wake' "$monitor_internal" >/dev/null

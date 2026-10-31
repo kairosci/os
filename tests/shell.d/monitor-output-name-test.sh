@@ -29,7 +29,7 @@ make_stub arch-hyprland-toggle ':'
 make_stub arch-hyprland-monitor-internal ':'
 make_stub arch-hyprland-monitor-internal-mirror ':'
 make_stub arch-hw-clamshell 'exit 0'
-make_stub arch-hyprland-monitor-laptop 'printf "%s\n" "$LAPTOP_NAME"'
+make_stub archctl '[[ $* == "hyprland monitor laptop" ]] && printf "%s\n" "$LAPTOP_NAME"'
 make_stub hyprctl 'case "$1" in
   monitors) cat "$MONITORS_JSON" ;;
   eval) printf "%s\n" "$2" >>"$EVAL_LOG" ;;
