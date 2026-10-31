@@ -2,5 +2,5 @@
 
 # arch:summary=Overwrite the user config for hyprsunset with the Arch default and restart the service.
 
-arch-refresh-config hypr/hyprsunset.conf
+archctl refresh config hypr/hyprsunset.conf
 archctl restart app hyprsunset

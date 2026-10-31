@@ -130,6 +130,7 @@ entrypoints:
     name: config
     summary: Restore a shipped user config with an automatic backup
     args: <config-path>
+    generate_launcher: "false"
   - binary: arch-sleep-disabled
     module: sleep/disabled
     function: main
