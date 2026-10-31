@@ -12,7 +12,7 @@ This roadmap tracks the requested CLI, ISO, desktop, and release work as separat
 - The theme asset tree contains no keyboard image asset or keyboard-image reference. PR #539 removed Windows VM install and removal rows from the default menu; the existing command and user data remain untouched. Menu hierarchy, labels, focus behavior, and visual verification still need a broader review.
 - PR #584 replaces the full-screen black startup cover and the wallpaper layer’s transparent clear surface with the active theme background color. The shell service is already continuously supervised by systemd and by its launcher (PR #560). The code path removes two causes of an all-black desktop, but live visual verification still needs an isolated graphical VM; it has not been run because the available checkout has no sibling `arch-iso` harness and the active desktop must not be interrupted.
 - PR #585 moves the clipboard and emoji menu launchers into `src/arch/cli/menu/launch.py`, with their exact `arch-shell` argv, timeout, statuses, and messages in YAML. With PR #585 integrated, the repository has 372 flat command files, 57 Python modules, and 82 Python entrypoints. Their existing binary names stay available through generated launchers for installed menu actions and user scripts.
-- PR #586 moves both Nautilus launchers into `src/arch/cli/launch/files.py`; application argv and the terminal-directory helper are in YAML. The process is replaced directly with `setsid`, preserving the launch lifecycle, and the terminal path remains a single argv item even when it contains spaces. With PR #586 integrated, the repository has 370 flat command files, 58 Python modules, and 84 Python entrypoints.
+- PR #586 moves both Files launchers into Python, keeping application argv and the terminal-directory helper in YAML. PR #587 generalizes that module to `src/arch/cli/launch/dispatch.py` and migrates the tmux terminal launcher with its exact attach-or-create command in YAML. With PR #587 integrated, the repository has 369 flat command files, 58 Python modules, and 85 Python entrypoints.
 
 ## Sprints
 
@@ -22,7 +22,7 @@ PR #507 made `scrolling` the default and exposed `tiling` as the only alternate 
 
 ### 2. Inventory and classify CLI entrypoints
 
-For each executable in `src/arch/commands/`, record whether it is already backed by a Python module, still contains command behavior, or has callers that rely on its binary name. Eighty-four Python entrypoints are catalogued after PR #586, but the remaining 370 command files have not been classified. Keep the inventory generated from source metadata so it cannot silently drift.
+For each executable in `src/arch/commands/`, record whether it is already backed by a Python module, still contains command behavior, or has callers that rely on its binary name. Eighty-five Python entrypoints are catalogued after PR #587, but the remaining 369 command files have not been classified. Keep the inventory generated from source metadata so it cannot silently drift.
 
 ### 3. Move remaining command behavior into modules
 
@@ -68,10 +68,14 @@ A sprint is complete only when its implementation, caller updates, docs, and foc
 
 PR #584 gives the wallpaper layer an opaque theme-colored fallback and removes the intentional black startup cover. The shell process remains under the existing systemd restart policy and launcher supervisor. Verify the missing-wallpaper and shell-recovery states in a disposable graphical VM before closing this sprint; never restart the active desktop to perform that check.
 
-### 13. Move menu launch behavior into modules — in progress
+### 13. Move menu launch behavior into modules — implemented
 
 PR #585 migrates the clipboard and emoji toggle launchers into one Python module. Their command arrays, timeout, and failure output are YAML data, while generated entrypoints preserve the executable names used by the default menu. Continue with neighboring menu and trigger commands only where their behavior is genuinely code rather than declarative data.
 
-### 14. Migrate the Files launchers — in progress
+### 14. Migrate launch commands — implemented
 
-PR #586 moves both Files launch commands into the Python CLI while preserving their generated binary names. The active terminal directory is read through the existing helper with a configured timeout, then passed as one argument so paths with spaces remain intact. Continue migrating launch commands in focused groups while keeping application choices and command arguments in YAML.
+PRs #586 and #587 move the Files and tmux terminal launch commands into `src/arch/cli/launch/dispatch.py`, preserving generated binary names. The terminal directory comes from the existing helper with a configured timeout and remains one argument when it contains spaces. The tmux attach-or-create command is declared in YAML.
+
+### 15. Migrate the terminal tmux launcher — in progress
+
+PR #587 moves the remaining `arch-launch-terminal-tmux` wrapper into the shared launch dispatcher. Its full argv, including the tmux attach-or-create expression, is YAML data; the Python module selects by generated entrypoint name and replaces itself with the configured launcher.

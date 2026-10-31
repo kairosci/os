@@ -4,6 +4,8 @@ launchers:
   arch-launch-nautilus-cwd:
     command: [setsid, uwsm-app, --, nautilus, --new-window]
     working_directory: [arch-cmd-terminal-cwd]
+  arch-launch-terminal-tmux:
+    command: [arch-launch-terminal, bash, -c, 'tmux attach || tmux new -s Work']
 timeouts:
   working_directory_seconds: 3
 statuses:
@@ -11,5 +13,6 @@ statuses:
   command_error: 127
   timeout: 124
 messages:
-  command_error: 'Could not launch Files'
+  command_error: 'Could not launch the configured command'
   timeout: 'Could not read the terminal working directory in time'
+  unknown_launcher: 'Unknown configured launcher'
