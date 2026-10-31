@@ -239,6 +239,7 @@ entrypoints:
     args: '[jp|kr|sc|tc|hk|default]'
     examples: archctl font cjk | archctl font cjk jp | archctl font cjk default
     pass_args: 'true'
+    generate_launcher: "false"
   - binary: arch-font-current
     module: font/catalog
     function: current_main
