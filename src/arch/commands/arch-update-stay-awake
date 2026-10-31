@@ -28,7 +28,7 @@ arch_security_install_sudo_cleanup_traps
 arch_security_revoke_sudo_timestamp || exit 1
 arch_security_enable_no_update_sudo
 
-stay_awake_state="$HOME/.local/state/arch/indicators/stay-awake"
+stay_awake_state=""
 caller_uid=""
 state_base=""
 state_dir=""
@@ -397,7 +397,7 @@ stop_locked() {
         current_idle_owner=$(<"$stay_awake_state")
       fi
       if [[ $current_idle_owner == "$idle_owner" ]]; then
-        arch-toggle-idle allow-idle >/dev/null 2>&1 || true
+        archctl toggle idle allow-idle >/dev/null 2>&1 || true
       fi
     else
       echo "Ignoring unsafe os update idle ownership state." >&2
@@ -566,7 +566,7 @@ start_locked() {
     # The idle toggle uses this marker. Publish its owner in the same write so
     # cancellation cannot leave an unowned Stay Awake setting behind.
     if ! printf '%s\n' "$idle_owner" >"$stay_awake_state"; then
-      arch-toggle-idle allow-idle >/dev/null 2>&1 || true
+      archctl toggle idle allow-idle >/dev/null 2>&1 || true
       return 1
     fi
   fi
@@ -582,6 +582,7 @@ case "${1:-}" in
     ;;
 esac
 
+stay_awake_state=$(archctl toggle idle state-path)
 initialize_state_boundary
 exec {state_lock_fd}<"$state_base" || fail_state_boundary
 flock -x "$state_lock_fd" || fail_state_boundary

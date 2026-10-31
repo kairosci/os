@@ -57,7 +57,6 @@ SH
 }
 
 for command in \
-  arch-toggle-idle \
   pkexec \
   systemd-inhibit \
   arch-update-pkg-prune \
@@ -252,17 +251,26 @@ fi
 # reboot the machine, rather than relying on an EXIT trap during shutdown.
 write_stub arch-snapshot 'exit 0'
 write_stub arch-update-keyring 'exit 0'
-write_stub arch-toggle-idle '
-state_file="$SUDO_TEST_HOME/.local/state/arch/indicators/stay-awake"
-case "$1" in
-  stay-awake)
-    mkdir -p "$(dirname "$state_file")"
-    touch "$state_file"
-    ;;
-  allow-idle)
-    rm -f "$state_file"
-    ;;
-esac'
+write_stub archctl '
+if [[ ${1:-} == toggle && ${2:-} == idle ]]; then
+  if [[ ${3:-} == state-path ]]; then
+    printf '%s/.local/state/arch/indicators/stay-awake\n' "$SUDO_TEST_HOME"
+    exit 0
+  fi
+  state_file="$SUDO_TEST_HOME/.local/state/arch/indicators/stay-awake"
+  case "${3:-}" in
+    stay-awake)
+      mkdir -p "$(dirname "$state_file")"
+      touch "$state_file"
+      ;;
+    allow-idle)
+      rm -f "$state_file"
+      ;;
+    *) exit 2 ;;
+  esac
+else
+  "$ROOT/src/arch/commands/archctl" "$@"
+fi'
 write_stub arch-update-restart '
 state_file="$SUDO_TEST_HOME/.local/state/arch/indicators/stay-awake"
 if [[ ${1:-} == "--services-only" || ${EXPECT_STAY_AWAKE:-0} == "1" ]]; then

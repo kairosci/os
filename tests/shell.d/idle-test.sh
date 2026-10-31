@@ -85,15 +85,35 @@ trap 'rm -rf "$test_tmp"' EXIT
 
 test_home="$test_tmp/home"
 mkdir -p "$test_home"
+export PATH="$ARCH_TEST_CLI_ROUTER:$ROOT/src/arch/commands:$PATH"
+export AP="$ROOT"
 
-HOME="$test_home" "$ROOT/src/arch/commands/arch-toggle-idle" stay-awake >/dev/null
+HOME="$test_home" archctl toggle idle stay-awake >/dev/null
 [[ -f $test_home/.local/state/arch/indicators/stay-awake ]] || fail "Stay Awake toggle persists enabled state"
+[[ $(HOME="$test_home" archctl toggle idle state-path) == "$test_home/.local/state/arch/indicators/stay-awake" ]] ||
+  fail "Stay Awake state path comes from YAML configuration"
+[[ $(HOME="$test_home" archctl toggle idle status) == '{"enabled":true,"class":"enabled","tooltip":"Allow Idle Lock & Screensaver"}' ]] ||
+  fail "Stay Awake status is available through the Python route"
+HOME="$test_home" archctl toggle idle enabled || fail "Stay Awake enabled check returns success"
 
-HOME="$test_home" "$ROOT/src/arch/commands/arch-toggle-idle" allow-idle >/dev/null
+HOME="$test_home" archctl toggle idle toggle >/dev/null
 [[ ! -f $test_home/.local/state/arch/indicators/stay-awake ]] || fail "Stay Awake toggle persists disabled state"
+set +e
+HOME="$test_home" archctl toggle idle enabled >/dev/null 2>&1
+idle_enabled_status=$?
+set -e
+(( idle_enabled_status == 1 )) || fail "Stay Awake enabled check returns false for normal idle"
+[[ $(HOME="$test_home" archctl toggle idle) == "disabled" ]] || fail "default idle toggle enables Stay Awake"
+HOME="$test_home" archctl toggle idle off >/dev/null
+[[ ! -f $test_home/.local/state/arch/indicators/stay-awake ]] || fail "idle alias clears Stay Awake state"
 
-if rg -q 'arch-shell' "$ROOT/src/arch/commands/arch-toggle-idle"; then
-  fail "Stay Awake toggle avoids reentrant shell IPC"
+outside_state="$test_tmp/outside"
+symlink_home="$test_tmp/symlink-home"
+mkdir -p "$outside_state" "$symlink_home/.local/state/arch"
+ln -s "$outside_state" "$symlink_home/.local/state/arch/indicators"
+if HOME="$symlink_home" archctl toggle idle stay-awake >/dev/null 2>&1; then
+  fail "Stay Awake refuses a symlinked state directory"
 fi
+[[ ! -e $outside_state/stay-awake ]] || fail "Stay Awake does not write through a state-directory symlink"
 
-pass "Stay Awake toggle persists state without reentrant shell IPC"
+pass "Stay Awake toggle routes through Python and protects its configured state path"

@@ -91,10 +91,15 @@ while [[ ${1:-} == --* ]]; do shift; done
 exec "$@"
 SH
 
-cat >"$stub_bin/arch-toggle-idle" <<'SH'
+cat >"$stub_bin/archctl" <<'SH'
 #!/bin/bash
+[[ ${1:-} == toggle && ${2:-} == idle ]] || exit 2
+if [[ ${3:-} == state-path ]]; then
+  printf '%s/.local/state/arch/indicators/stay-awake\n' "$HOME"
+  exit 0
+fi
 state_file="$HOME/.local/state/arch/indicators/stay-awake"
-case "$1" in
+case "${3:-}" in
   stay-awake)
     mkdir -p "$(dirname "$state_file")"
     touch "$state_file"
@@ -105,7 +110,6 @@ case "$1" in
 esac
 SH
 chmod +x "$stub_bin"/*
-ln -s "$stub_bin/arch-toggle-idle" "$mapped_root/src/arch/commands/arch-toggle-idle"
 
 mapped_helper="$mapped_root/src/arch/commands/arch-update-stay-awake"
 cp "$ROOT/src/arch/commands/arch-update-stay-awake" "$mapped_helper"
