@@ -133,6 +133,15 @@ entrypoints:
     args: '[backend]'
     examples: archctl default dictation | archctl default dictation superwhisper
     pass_args: 'true'
+  - binary: arch-default-editor
+    module: default/editor
+    function: default_editor_main
+    group: default
+    name: editor
+    summary: Set the default editor used by Arch launchers
+    args: '[--install] [editor]'
+    examples: archctl default editor | archctl default editor helix
+    pass_args: 'true'
   - binary: arch-default-terminal
     module: default/terminal
     function: default_terminal_main

@@ -321,6 +321,17 @@ for entry in "${editor_cases[@]}"; do
 done
 pass "editor defaults install every missing editor before selection"
 
+editor_state="$HOME/.local/state/arch/defaults/editor"
+mkdir -p "$(dirname "$editor_state")"
+printf '%s\n' sublime_text >"$editor_state"
+[[ $(arch-default-editor) == "subl" ]] || fail "legacy Sublime Text state resolves to its current command"
+rm -f "$installed_dir/zeditor"
+: >"$install_log"
+arch-default-editor --install zeditor
+[[ $(<"$install_log") == "editor:zed" && $(arch-default-editor) == "zeditor" ]] ||
+  fail "the legacy Zed alias installs and selects the canonical backend"
+pass "editor aliases and legacy state values are preserved"
+
 : >"$install_log"
 : >"$terminal_log"
 arch-default-browser zen
