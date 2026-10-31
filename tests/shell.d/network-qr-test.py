@@ -12,7 +12,8 @@ from base_test import CLI_BIN, ROOT
 
 
 ROOT = Path(__file__).resolve().parents[2]
-COMMAND = CLI_BIN / "arch-network-qr"
+COMMAND = CLI_BIN / "archctl"
+ROUTE = ("network", "qr")
 EXPECTED_MATRIX = "100\n010\n001"
 
 
@@ -80,7 +81,7 @@ class NetworkQrTest(unittest.TestCase):
             QR_ROUTE_EXIT=route_exit,
         )
         return subprocess.run(
-            [str(COMMAND), *args],
+            [str(COMMAND), *ROUTE, *args],
             env=environment,
             check=False,
             capture_output=True,

@@ -43,6 +43,7 @@ entrypoints:
     name: qr
     summary: Generate a Wi-Fi QR matrix for the shell
     args: "[--meta] [interface]"
+    generate_launcher: "false"
   - binary: arch-notification-wait
     module: notification/wait
     function: main
