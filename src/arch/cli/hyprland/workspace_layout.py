@@ -7,7 +7,7 @@ import re
 import subprocess
 import sys
 import tempfile
-from typing import TypedDict, cast
+from typing import Literal, TypedDict, cast
 
 import yaml
 
@@ -414,7 +414,11 @@ def _notify(message_key: str, fallback_key: str, settings: Settings) -> None:
       pass
 
 
-def _report(message_key: str, status_key: str, settings: Settings) -> int:
+def _report(
+  message_key: str,
+  status_key: Literal["invalid_arguments", "command_failure", "configuration_error"],
+  settings: Settings,
+) -> int:
   print(settings["messages"][message_key], file=sys.stderr)
   return settings["statuses"][status_key]
 
