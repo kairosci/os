@@ -1,7 +1,7 @@
 // Load a notification-plugin JS module the way QML does: `.pragma library`
 // dropped, each `.import "X.js" as Alias` resolved to that module's scope.
 const fs = require('node:fs'), vm = require('node:vm'), path = require('node:path')
-const dir = path.join(__dirname, '..', '..', '..', 'src', 'shell', 'plugins', 'notifications')
+const dir = path.join(__dirname, '..', '..', '..', 'src', 'arch', 'shell', 'plugins', 'notifications')
 const cache = {}
 function load(name) {
   if (cache[name]) return cache[name]

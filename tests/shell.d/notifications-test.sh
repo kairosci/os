@@ -46,6 +46,40 @@ fi
 grep -q '^bus$' "$wait_log" || fail "notification wait checks D-Bus after shell IPC succeeds" "$(<"$wait_log")"
 pass "notification wait times out while the D-Bus server is unavailable"
 
+# The migrated notification command must bound its whole helper chain. A real
+# sleep binary stands in for an unresponsive first helper; the outer timeout
+# distinguishes the command's own failure from a process left blocked.
+time_root="$tmp/time-root"
+mkdir -p "$time_root/src/arch/cli/notification" "$time_root/data/cli"
+cp "$ROOT/src/arch/cli/notification/time.py" "$time_root/src/arch/cli/notification/time.py"
+cat >"$time_root/data/cli/notification-time.yml" <<'YAML'
+commands:
+  language: [sleep, "30"]
+  timestamp: [date, +%s]
+  date: [date, -d]
+  translation: [arch-i18n, time.now]
+  notification: [arch-notification-send, -g, test, -u, low]
+formats:
+  day_time: '+%A %H:%M'
+  day_month_year: '+%d %B %Y'
+  week_number: '+%V'
+timeout_seconds: 1
+statuses:
+  success: 0
+  failure: 1
+messages:
+  invalid_arguments: Invalid arguments
+  operation_error: Operation failed
+YAML
+if timeout 5s env AP="$time_root" "$ARCH_TEST_CLI_BIN/arch-notification-time" >"$tmp/time-error" 2>&1; then
+  fail "time notification rejects an unresponsive helper"
+else
+  status=$?
+  (( status == 1 )) || fail "time notification exits on its own deadline, not the outer timeout" "$status"
+fi
+grep -q '^Operation failed:' "$tmp/time-error" || fail "time notification reports the bounded helper failure" "$(<"$tmp/time-error")"
+pass "time notification bounds its complete helper chain"
+
 if LANG=it_IT.UTF-8 AP="$ROOT" "$ARCH_TEST_CLI_BIN/arch-notification-wait" invalid >"$tmp/wait-error" 2>&1; then
   fail "notification wait rejects a non-integer timeout"
 fi
