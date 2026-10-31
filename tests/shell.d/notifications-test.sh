@@ -91,6 +91,33 @@ if AP="$ROOT" "$ARCH_TEST_CLI_BIN/arch-notification-wait" 301 >/dev/null 2>&1; t
 fi
 pass "notification wait enforces the configured maximum timeout"
 
+dismiss_bin="$tmp/dismiss-bin"
+dismiss_log="$tmp/dismiss-log"
+mkdir -p "$dismiss_bin"
+cat >"$dismiss_bin/arch-shell" <<'SH'
+#!/bin/bash
+printf '%s\n' "$@" >"$DISMISS_LOG"
+SH
+chmod +x "$dismiss_bin/arch-shell"
+summary="summary with spaces; touch $tmp/injected"
+AP="$ROOT" DISMISS_LOG="$dismiss_log" PATH="$dismiss_bin:$PATH" \
+  "$ARCH_TEST_CLI_BIN/arch-notification-dismiss" "$summary" ignored ||
+  fail "notification dismiss forwards the selected summary"
+expected=$'-q\nnotifications\ndismiss\n'"$summary"
+[[ $(<"$dismiss_log") == "$expected" ]] || fail "notification dismiss preserves summary argv and ignores later arguments" "$(<"$dismiss_log")"
+[[ ! -e $tmp/injected ]] || fail "notification dismiss never evaluates the summary"
+pass "notification dismiss preserves summary argv without shell evaluation"
+
+if AP="$ROOT" "$ARCH_TEST_CLI_BIN/arch-notification-dismiss" >"$tmp/dismiss-usage" 2>&1; then
+  fail "notification dismiss rejects a missing summary"
+else
+  status=$?
+  (( status == 1 )) || fail "notification dismiss returns its configured usage status" "$status"
+fi
+grep -Fxq 'Usage: arch-notification-dismiss <summary>' "$tmp/dismiss-usage" ||
+  fail "notification dismiss prints its configured usage" "$(<"$tmp/dismiss-usage")"
+pass "notification dismiss validates its required summary"
+
 service="$ROOT/src/arch/shell/plugins/notifications/Service.qml"
 
 # The startup step that makes the state directory, run as the service runs
