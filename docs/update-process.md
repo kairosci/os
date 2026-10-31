@@ -29,4 +29,4 @@ The `arch.system-update` bar widget runs `archctl update available` at shell sta
 
 `arch-channel-set <stable|rc|edge|dev>` selects a package repository or links the runtime to a git checkout. Platform-specific pacman templates live under `default/pacman/`; `installer/helpers/pacman.sh` installs the matching config and mirrorlist and backs up files during a channel change. A channel change refuses a platform/channel pair without both templates.
 
-There is no runtime version file. `arch-version` derives the version from the installed package or linked checkout, while `arch-version-channel` reads the active pacman configuration.
+There is no runtime version file. `arch-version` derives the version from the installed package or linked checkout, while `archctl version channel` reads the active pacman configuration.

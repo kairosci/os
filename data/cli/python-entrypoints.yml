@@ -624,6 +624,7 @@ entrypoints:
     group: version
     name: channel
     summary: Print the active Arch mirror and package channel
+    generate_launcher: "false"
   - binary: arch-version-pkgs
     module: version/packages
     function: main

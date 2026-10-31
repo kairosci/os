@@ -106,8 +106,12 @@ for arg in "$@"; do printf "\t%s" "$arg" >>"$ARCH_CHANNEL_TEST_LOG"; done
 printf "\n" >>"$ARCH_CHANNEL_TEST_LOG"
 '
 
-write_stub arch-version-channel '#!/bin/bash
-printf "%s\n" "${ARCH_TEST_VERSION_CHANNEL:-unknown}"
+write_stub archctl '#!/bin/bash
+case "$*" in
+  "version channel") printf "%s\n" "${ARCH_TEST_VERSION_CHANNEL:-unknown}" ;;
+  "channel current") exec "$ARCH_TEST_CLI_BIN/archctl" channel current ;;
+  *) exit 2 ;;
+esac
 '
 
 write_stub pacman '#!/bin/bash
