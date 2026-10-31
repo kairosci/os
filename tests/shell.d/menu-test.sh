@@ -209,6 +209,11 @@ assertDeepEqual(
 )
 
 const defaultItems = menu.parseMenuJsonc(defaultMenuJsonc)
+assert(
+  !defaultMenuJsonc.includes('arch-launch-floating-terminal-with-presentation')
+    && fs.existsSync(path.join(root, 'src/arch/commands/arch-launch-terminal-with-presentation')),
+  'menu presentation actions use the installed tiled terminal launcher'
+)
 const defaultById = Object.fromEntries(defaultItems.map(item => [item.id, item]))
 
 // Needs the real menu: app rows sort after all menu items, and only at that

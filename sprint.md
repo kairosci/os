@@ -124,3 +124,4 @@ PR #483 was closed when its base branch was deleted during integration. Its chan
 | #605 | Route hardware battery checks through archctl |
 | #606 | Retire the notification dismissal flat launcher |
 | #607 | Route notification readiness through the unified CLI |
+| #608 | Repair menu terminal actions and retire the TUI launcher |

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# arch:summary=Remove all TUIs installed via arch-tui-install.
+# arch:summary=Remove all TUIs installed via archctl tui install.
 
 set -e
 
