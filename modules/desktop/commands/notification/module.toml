@@ -4,7 +4,7 @@ package = "arch"
 sources = [
   "src/arch/cli/notification/battery.py",
   "src/arch/cli/notification/dismiss.py",
-  "src/arch/commands/arch-notification-send",
+  "src/arch/cli/notification/send.py",
   "src/arch/cli/notification/time.py",
   "src/arch/cli/notification/wait.py",
   "src/arch/cli/notification/weather.py",
@@ -20,8 +20,8 @@ source = "src/arch/cli/notification/dismiss.py"
 target = "usr/share/arch/src/arch/cli/notification/dismiss.py"
 
 [[output]]
-source = "src/arch/commands/arch-notification-send"
-target = "usr/share/arch/src/arch/commands/arch-notification-send"
+source = "src/arch/cli/notification/send.py"
+target = "usr/share/arch/src/arch/cli/notification/send.py"
 
 [[output]]
 source = "src/arch/cli/notification/time.py"
