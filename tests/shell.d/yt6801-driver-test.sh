@@ -138,12 +138,11 @@ case "$command" in
       *) exit 90 ;;
     esac
     ;;
-  arch-notification-dismiss) ;;
   *) exit 90 ;;
 esac
 SH
 chmod +x "$stub_bin/stub"
-for command in lspci pacman lsmod readlink modinfo modprobe rmmod tee sudo arch-notification-dismiss; do
+for command in lspci pacman lsmod readlink modinfo modprobe rmmod tee sudo; do
   ln -s stub "$stub_bin/$command"
 done
 ln -s "$ROOT/src/arch/commands/arch-pkg-drop" "$stub_bin/arch-pkg-drop"

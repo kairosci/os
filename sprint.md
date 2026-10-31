@@ -122,3 +122,4 @@ PR #483 was closed when its base branch was deleted during integration. Its chan
 | #603 | Route Wi-Fi QR callers through the unified CLI |
 | #604 | Retire the notification flat launchers |
 | #605 | Route hardware battery checks through archctl |
+| #606 | Retire the notification dismissal flat launcher |

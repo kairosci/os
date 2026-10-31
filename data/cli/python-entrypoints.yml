@@ -61,6 +61,7 @@ entrypoints:
     summary: Dismiss a notification by summary substring
     args: <summary>
     pass_args: 'true'
+    generate_launcher: "false"
   - binary: arch-notification-send
     module: notification/send
     function: main

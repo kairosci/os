@@ -5,6 +5,6 @@ statuses:
   timeout: 124
   command_error: 127
 messages:
-  usage: 'Usage: arch-notification-dismiss <summary>'
+  usage: 'Usage: archctl notification dismiss <summary>'
   timeout: Notification dismissal timed out
   command_error: Could not dismiss notification
