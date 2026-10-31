@@ -20,7 +20,7 @@ conf=$root/etc/conf.d/wireless-regdom
 calls=$tmp/calls
 mkdir -p "$stub_bin" "$arch/bin" "$arch/src/arch/python/installer/hardware" "$arch/data/installer"
 
-ln -s "$ROOT/src/arch/commands/arch-cmd-present" "$arch/bin/arch-cmd-present"
+ln -s "$ARCH_TEST_CLI_BIN/arch-cmd-present" "$arch/bin/arch-cmd-present"
 ln -s "$ROOT/src/arch/cli" "$arch/src/arch/cli"
 ln -s "$ROOT/data/cli" "$arch/data/cli"
 cp "$ROOT/src/arch/python/installer/hardware/wireless_regdom.py" "$arch/src/arch/python/installer/hardware/wireless_regdom.py"

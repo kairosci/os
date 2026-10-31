@@ -90,7 +90,7 @@ for platform in $platforms; do
     cp "$templates/pacman-$channel.conf" "$work/pacman.conf"
     cp "$templates/mirrorlist-$channel" "$work/mirrorlist"
     said=$(ARCH_PACMAN_CONF="$work/pacman.conf" ARCH_PACMAN_MIRRORLIST="$work/mirrorlist" \
-      "$ROOT/src/arch/commands/arch-version-channel")
+      "$ARCH_TEST_CLI_BIN/arch-version-channel")
     [[ $said == "$channel" ]] || fail "$platform $channel: arch-version-channel names it" "$said"
   done
 done

@@ -2,7 +2,6 @@ id = "desktop.commands.hw"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/arch/commands/arch-hw-aarch64",
   "src/arch/commands/arch-hw-aarch64-apple",
   "src/arch/commands/arch-hw-aarch64-gb10",
   "src/arch/commands/arch-hw-aarch64-n1x",
@@ -30,18 +29,11 @@ sources = [
   "src/arch/commands/arch-hw-recover-internal-monitor",
   "src/arch/commands/arch-hw-touchpad",
   "src/arch/commands/arch-hw-touchscreen",
-  "src/arch/commands/arch-hw-vm",
   "src/arch/cli/hardware/virtualization.py",
   "src/arch/commands/arch-hw-vulkan",
-  "src/arch/commands/arch-hw-webcam",
   "src/arch/cli/hardware/webcam.py",
-  "src/arch/commands/arch-hw-x86",
 ]
 requires = ["desktop.commands", "system.runtime-data"]
-
-[[output]]
-source = "src/arch/commands/arch-hw-aarch64"
-target = "usr/share/arch/src/arch/commands/arch-hw-aarch64"
 
 [[output]]
 source = "src/arch/commands/arch-hw-aarch64-apple"
@@ -152,10 +144,6 @@ source = "src/arch/commands/arch-hw-touchscreen"
 target = "usr/share/arch/src/arch/commands/arch-hw-touchscreen"
 
 [[output]]
-source = "src/arch/commands/arch-hw-vm"
-target = "usr/share/arch/src/arch/commands/arch-hw-vm"
-
-[[output]]
 source = "src/arch/cli/hardware/virtualization.py"
 target = "usr/share/arch/src/arch/cli/hardware/virtualization.py"
 
@@ -164,13 +152,5 @@ source = "src/arch/commands/arch-hw-vulkan"
 target = "usr/share/arch/src/arch/commands/arch-hw-vulkan"
 
 [[output]]
-source = "src/arch/commands/arch-hw-webcam"
-target = "usr/share/arch/src/arch/commands/arch-hw-webcam"
-
-[[output]]
 source = "src/arch/cli/hardware/webcam.py"
 target = "usr/share/arch/src/arch/cli/hardware/webcam.py"
-
-[[output]]
-source = "src/arch/commands/arch-hw-x86"
-target = "usr/share/arch/src/arch/commands/arch-hw-x86"

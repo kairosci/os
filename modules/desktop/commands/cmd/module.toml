@@ -4,9 +4,7 @@ package = "arch"
 sources = [
   "src/arch/commands/arch-cmd-browser-handoff",
   "src/arch/commands/arch-cmd-default-browser",
-  "src/arch/commands/arch-cmd-missing",
   "src/arch/cli/command/presence.py",
-  "src/arch/commands/arch-cmd-present",
   "src/arch/commands/arch-cmd-terminal-cwd",
 ]
 requires = ["desktop.commands"]
@@ -20,16 +18,8 @@ source = "src/arch/commands/arch-cmd-default-browser"
 target = "usr/share/arch/src/arch/commands/arch-cmd-default-browser"
 
 [[output]]
-source = "src/arch/commands/arch-cmd-missing"
-target = "usr/share/arch/src/arch/commands/arch-cmd-missing"
-
-[[output]]
 source = "src/arch/cli/command/presence.py"
 target = "usr/share/arch/src/arch/cli/command/presence.py"
-
-[[output]]
-source = "src/arch/commands/arch-cmd-present"
-target = "usr/share/arch/src/arch/commands/arch-cmd-present"
 
 [[output]]
 source = "src/arch/commands/arch-cmd-terminal-cwd"

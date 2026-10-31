@@ -3,18 +3,12 @@ domain = "desktop"
 package = "arch"
 sources = [
   "src/arch/commands/arch-theme-bg-cache",
-  "src/arch/commands/arch-theme-bg-current",
   "src/arch/commands/arch-theme-bg-install",
-  "src/arch/commands/arch-theme-bg-next",
-  "src/arch/commands/arch-theme-bg-set",
   "src/arch/commands/arch-theme-bg-switcher",
   "src/arch/commands/arch-theme-color",
   "src/arch/commands/arch-theme-colors-from-alacritty",
-  "src/arch/commands/arch-theme-current",
-  "src/arch/commands/arch-theme-dir",
   "src/arch/commands/arch-theme-extras",
   "src/arch/commands/arch-theme-install",
-  "src/arch/commands/arch-theme-list",
   "src/arch/commands/arch-theme-osc",
   "src/arch/commands/arch-theme-refresh",
   "src/arch/commands/arch-theme-remove",
@@ -41,20 +35,8 @@ source = "src/arch/commands/arch-theme-bg-cache"
 target = "usr/share/arch/src/arch/commands/arch-theme-bg-cache"
 
 [[output]]
-source = "src/arch/commands/arch-theme-bg-current"
-target = "usr/share/arch/src/arch/commands/arch-theme-bg-current"
-
-[[output]]
 source = "src/arch/commands/arch-theme-bg-install"
 target = "usr/share/arch/src/arch/commands/arch-theme-bg-install"
-
-[[output]]
-source = "src/arch/commands/arch-theme-bg-next"
-target = "usr/share/arch/src/arch/commands/arch-theme-bg-next"
-
-[[output]]
-source = "src/arch/commands/arch-theme-bg-set"
-target = "usr/share/arch/src/arch/commands/arch-theme-bg-set"
 
 [[output]]
 source = "src/arch/commands/arch-theme-bg-switcher"
@@ -69,24 +51,12 @@ source = "src/arch/commands/arch-theme-colors-from-alacritty"
 target = "usr/share/arch/src/arch/commands/arch-theme-colors-from-alacritty"
 
 [[output]]
-source = "src/arch/commands/arch-theme-current"
-target = "usr/share/arch/src/arch/commands/arch-theme-current"
-
-[[output]]
-source = "src/arch/commands/arch-theme-dir"
-target = "usr/share/arch/src/arch/commands/arch-theme-dir"
-
-[[output]]
 source = "src/arch/commands/arch-theme-extras"
 target = "usr/share/arch/src/arch/commands/arch-theme-extras"
 
 [[output]]
 source = "src/arch/commands/arch-theme-install"
 target = "usr/share/arch/src/arch/commands/arch-theme-install"
-
-[[output]]
-source = "src/arch/commands/arch-theme-list"
-target = "usr/share/arch/src/arch/commands/arch-theme-list"
 
 [[output]]
 source = "src/arch/commands/arch-theme-osc"

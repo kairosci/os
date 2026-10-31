@@ -81,7 +81,7 @@ rm -rf "$rendered"
 # the hook obtained for itself cannot carry into the transaction.
 arch_security_revoke_sudo_timestamp
 PATH="$AP/default/arch/sudo-no-update:$user_path" \
-  "$AP/src/arch/commands/arch-hook" pre-refresh-pacman
+  arch-hook pre-refresh-pacman
 arch_security_revoke_sudo_timestamp
 
 # Stable and rc publish arch and arch-settings; the -dev pair is edge's.

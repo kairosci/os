@@ -138,7 +138,7 @@ if [[ ${1:-} == "-y" ]] || arch-update-confirm; then
   arch-update-restart --services-only
 
   # Hooks and mise run with the caller's PATH so user-installed tools resolve.
-  PATH="$user_path" "$AP/src/arch/commands/arch-hook" post-update
+  PATH="$user_path" arch-hook post-update
   PATH="$user_path" "$AP/src/arch/commands/arch-update-mise"
 
   # AUR builds run third-party PKGBUILD code, so they go last and never see the

@@ -3,16 +3,13 @@ domain = "desktop"
 package = "arch"
 sources = [
   "src/arch/commands/arch-hyprland-corners",
-  "src/arch/commands/arch-hyprland-focus-app",
   "src/arch/cli/hyprland/focus.py",
   "src/arch/commands/arch-hyprland-monitor-clamshell",
   "src/arch/commands/arch-hyprland-monitor-external-active",
-  "src/arch/commands/arch-hyprland-monitor-focused",
   "src/arch/cli/hyprland/monitors.py",
   "src/arch/commands/arch-hyprland-monitor-focused-apple",
   "src/arch/commands/arch-hyprland-monitor-internal",
   "src/arch/commands/arch-hyprland-monitor-internal-mirror",
-  "src/arch/commands/arch-hyprland-monitor-laptop",
   "src/arch/commands/arch-hyprland-monitor-modeless",
   "src/arch/commands/arch-hyprland-monitor-scaling",
   "src/arch/commands/arch-hyprland-monitor-watch",
@@ -40,10 +37,6 @@ source = "src/arch/commands/arch-hyprland-corners"
 target = "usr/share/arch/src/arch/commands/arch-hyprland-corners"
 
 [[output]]
-source = "src/arch/commands/arch-hyprland-focus-app"
-target = "usr/share/arch/src/arch/commands/arch-hyprland-focus-app"
-
-[[output]]
 source = "src/arch/cli/hyprland/focus.py"
 target = "usr/share/arch/src/arch/cli/hyprland/focus.py"
 
@@ -54,10 +47,6 @@ target = "usr/share/arch/src/arch/commands/arch-hyprland-monitor-clamshell"
 [[output]]
 source = "src/arch/commands/arch-hyprland-monitor-external-active"
 target = "usr/share/arch/src/arch/commands/arch-hyprland-monitor-external-active"
-
-[[output]]
-source = "src/arch/commands/arch-hyprland-monitor-focused"
-target = "usr/share/arch/src/arch/commands/arch-hyprland-monitor-focused"
 
 [[output]]
 source = "src/arch/cli/hyprland/monitors.py"
@@ -74,10 +63,6 @@ target = "usr/share/arch/src/arch/commands/arch-hyprland-monitor-internal"
 [[output]]
 source = "src/arch/commands/arch-hyprland-monitor-internal-mirror"
 target = "usr/share/arch/src/arch/commands/arch-hyprland-monitor-internal-mirror"
-
-[[output]]
-source = "src/arch/commands/arch-hyprland-monitor-laptop"
-target = "usr/share/arch/src/arch/commands/arch-hyprland-monitor-laptop"
 
 [[output]]
 source = "src/arch/commands/arch-hyprland-monitor-modeless"

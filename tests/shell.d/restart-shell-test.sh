@@ -17,7 +17,9 @@ trap cleanup EXIT
 
 wrapper_root="$test_tmp/wrapper-root"
 wrapper_bin="$test_tmp/wrapper-bin"
-mkdir -p "$wrapper_root/src/arch/shell" "$wrapper_bin"
+mkdir -p "$wrapper_root/src/arch/shell" "$wrapper_root/data" "$wrapper_bin"
+ln -s "$ROOT/src/arch/cli" "$wrapper_root/src/arch/cli"
+ln -s "$ROOT/data/cli" "$wrapper_root/data/cli"
 touch "$wrapper_root/src/arch/shell/shell.qml"
 
 cat >"$wrapper_bin/qs" <<'SH'
@@ -79,7 +81,7 @@ mkdir -p "$restart_root/src/arch/shell" "$restart_bin" "$runtime_dir"
 touch "$restart_root/src/arch/shell/shell.qml"
 ln -s "$ROOT/src/arch/commands/arch-shell" "$restart_bin/arch-shell"
 ln -s "$ROOT/src/arch/commands/arch-launch-shell" "$restart_bin/arch-launch-shell"
-ln -s "$ROOT/src/arch/commands/arch-cmd-missing" "$restart_bin/arch-cmd-missing"
+ln -s "$ARCH_TEST_CLI_BIN/arch-cmd-missing" "$restart_bin/arch-cmd-missing"
 ln -s "$ROOT/src/arch/commands/arch-hyprland-session-locked" "$restart_bin/arch-hyprland-session-locked"
 
 cat >"$restart_bin/qs" <<'SH'
