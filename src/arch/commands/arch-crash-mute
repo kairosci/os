@@ -66,7 +66,7 @@ arch-toggle "crash-ignore/$program" "$action" || exit 1
 
 # Report what is now true rather than what was asked for: the flag is what the
 # watcher reads, and a toggle does not say which way it went.
-if arch-toggle-enabled "crash-ignore/$program"; then
+if archctl toggle enabled "crash-ignore/$program"; then
   echo "Muted crash notifications for $program."
 else
   echo "Crash notifications for $program are back on."

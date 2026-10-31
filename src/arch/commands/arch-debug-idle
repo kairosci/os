@@ -51,7 +51,7 @@ if hyprctl clients -j 2>/dev/null | jq -e '.[] | select(.class == "org.arch.scre
   echo "running-window"
 elif pgrep -f '[o]rg.arch.screensaver' >/dev/null; then
   echo "running-process"
-elif arch-toggle-enabled screensaver-off; then
+elif archctl toggle enabled screensaver-off; then
   echo "disabled"
 else
   echo "stopped"

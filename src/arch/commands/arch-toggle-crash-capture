@@ -9,7 +9,7 @@ arch-toggle crash-capture-off
 
 # The unit checks the same flag with ConditionPathExists, so stopping and
 # starting only settles this session; the next login reads the flag itself.
-if arch-toggle-enabled crash-capture-off; then
+if archctl toggle enabled crash-capture-off; then
   systemctl --user stop arch-crash-watch.service
   archctl notification send -g "$CRASH_GLYPH" "$(arch-i18n crash.captureDisabled)"
 else

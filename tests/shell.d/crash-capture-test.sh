@@ -76,6 +76,9 @@ cat >"$watch_bin/archctl" <<'SH'
 if [[ ${1:-} == notification && ${2:-} == send ]]; then
   shift 2
   exec "$TEST_NOTIFICATION_COMMAND" "$@"
+elif [[ ${1:-} == toggle && ${2:-} == enabled ]]; then
+  [[ -f $HOME/.local/state/arch/toggles/$3 ]]
+  exit $?
 fi
 exit 0
 SH
@@ -126,7 +129,7 @@ run_watch() {
 # are then the guard that the user-visible mute and the watcher
 # reads have not drifted apart.
 mute() {
-  HOME="$watch_home" PATH="$ROOT/src/arch/commands:$PATH" \
+  HOME="$watch_home" AP="$ROOT" PATH="$ROOT/src/arch/commands:$PATH" \
     "$ROOT/src/arch/commands/arch-crash-mute" "$1" "$2" >/dev/null
 }
 
@@ -258,7 +261,7 @@ mute_home="$TMPDIR/mute-home"
 mkdir -p "$mute_home"
 
 crash_mute() {
-  HOME="$mute_home" PATH="$ROOT/src/arch/commands:$PATH" "$ROOT/src/arch/commands/arch-crash-mute" "$@"
+  HOME="$mute_home" AP="$ROOT" PATH="$ROOT/src/arch/commands:$PATH" "$ROOT/src/arch/commands/arch-crash-mute" "$@"
 }
 
 mute_flag() {

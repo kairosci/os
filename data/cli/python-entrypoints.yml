@@ -531,6 +531,15 @@ entrypoints:
     summary: Manage persistent state files for Arch toggles and settings.
     args: <set|clear> <state-name-or-pattern>
     hidden: 'true'
+  - binary: arch-toggle-enabled
+    module: toggle/state
+    function: enabled_main
+    group: toggle
+    name: enabled
+    summary: Check whether an Arch toggle is enabled
+    args: <flag-name>
+    examples: archctl toggle enabled screensaver-off
+    pass_args: 'true'
   - binary: arch-theme-bg-current
     module: theme/info
     function: background_current_main

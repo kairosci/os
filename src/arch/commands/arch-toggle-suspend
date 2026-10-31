@@ -9,7 +9,7 @@ fi
 
 arch-toggle suspend-off
 
-if arch-toggle-enabled suspend-off; then
+if archctl toggle enabled suspend-off; then
   archctl notification send -g 󰒲 "$(arch-i18n suspend.removedFromMenu)"
 else
   archctl notification send -g 󰒲 "$(arch-i18n suspend.availableInMenu)"

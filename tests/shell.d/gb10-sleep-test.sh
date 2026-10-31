@@ -100,13 +100,11 @@ pass "the suspend toggle and hibernation setup respect the disabled setting"
 guard() {
   grep -F "\"$1\"" "$menu" | sed -E 's/.*"when":"([^"]*)".*/\1/'
 }
-cat >"$scratch/bin/arch-toggle-enabled" <<'SH'
-#!/bin/bash
-[[ ${TEST_SUSPEND_OFF:-0} == 1 ]]
-SH
 cat >"$scratch/bin/archctl" <<'SH'
 #!/bin/bash
-if [[ ${1:-} == hibernation && ${2:-} == available ]]; then
+if [[ ${1:-} == toggle && ${2:-} == enabled ]]; then
+  [[ ${TEST_SUSPEND_OFF:-0} == 1 ]]
+elif [[ ${1:-} == hibernation && ${2:-} == available ]]; then
   [[ ${TEST_HIBERNATION_OFF:-0} != 1 ]]
 else
   exec "$ROOT/src/arch/commands/archctl" "$@"

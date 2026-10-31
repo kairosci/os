@@ -580,12 +580,6 @@ exec "$ROOT/src/arch/commands/archctl" "$@"
 EOF
 chmod +x "$FAKE_BIN/archctl"
 
-cat >"$FAKE_BIN/arch-toggle-enabled" <<'EOF'
-#!/bin/bash
-exit 1
-EOF
-chmod +x "$FAKE_BIN/arch-toggle-enabled"
-
 mkdir -p "$PI_TMPDIR/.vscode/extensions"
 generated_version="1.0.$(cksum "$PI_TMPDIR/.local/state/arch/current/theme/vscode-theme.json" | cut -d' ' -f1)"
 jq -n --arg key "local.arch-theme-$generated_version" '{($key):true}' >"$PI_TMPDIR/.vscode/extensions/.obsolete"
