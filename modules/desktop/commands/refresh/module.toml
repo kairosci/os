@@ -7,7 +7,6 @@ sources = [
   "src/arch/cli/refresh/config.py",
   "src/arch/cli/refresh/actions.py",
   "src/arch/commands/arch-refresh-hyprland",
-  "src/arch/commands/arch-refresh-hyprsunset",
   "src/arch/commands/arch-refresh-limine",
   "src/arch/commands/arch-refresh-pacman",
   "src/arch/commands/arch-refresh-plymouth",
@@ -35,10 +34,6 @@ target = "usr/share/arch/src/arch/cli/refresh/actions.py"
 [[output]]
 source = "src/arch/commands/arch-refresh-hyprland"
 target = "usr/share/arch/src/arch/commands/arch-refresh-hyprland"
-
-[[output]]
-source = "src/arch/commands/arch-refresh-hyprsunset"
-target = "usr/share/arch/src/arch/commands/arch-refresh-hyprsunset"
 
 [[output]]
 source = "src/arch/commands/arch-refresh-limine"

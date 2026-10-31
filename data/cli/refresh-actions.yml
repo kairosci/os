@@ -1,0 +1,13 @@
+actions:
+  tmux:
+    refresh_config: [archctl, refresh, config, tmux/tmux.conf]
+    restart: [arch-restart-tmux]
+    usage: 'Usage: archctl refresh tmux'
+  hyprsunset:
+    refresh_config: [archctl, refresh, config, hypr/hyprsunset.conf]
+    restart: [archctl, restart, app, hyprsunset]
+    usage: 'Usage: archctl refresh hyprsunset'
+statuses:
+  success: 0
+  failure: 1
+  invalid_arguments: 2

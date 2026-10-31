@@ -9,34 +9,36 @@ from typing import cast
 import yaml
 
 
-def _settings() -> tuple[list[str], list[str], str, dict[str, int]]:
+def _settings(action: str) -> tuple[list[str], list[str], str, dict[str, int]]:
   root = Path(os.environ["AP"])
-  raw: object = yaml.safe_load((root / "data/cli/refresh-tmux.yml").read_text(encoding="utf-8"))
+  raw: object = yaml.safe_load((root / "data/cli/refresh-actions.yml").read_text(encoding="utf-8"))
   if not isinstance(raw, dict):
-    raise ValueError("invalid tmux refresh configuration")
+    raise ValueError("invalid config refresh configuration")
   document = cast(dict[object, object], raw)
-  commands_raw = document.get("commands")
-  messages_raw = document.get("messages")
+  actions_raw = document.get("actions")
   statuses_raw = document.get("statuses")
-  if not all(isinstance(value, dict) for value in (commands_raw, messages_raw, statuses_raw)):
-    raise ValueError("invalid tmux refresh configuration")
-  commands = cast(dict[object, object], commands_raw)
-  messages = cast(dict[object, object], messages_raw)
+  if not isinstance(actions_raw, dict) or not isinstance(statuses_raw, dict):
+    raise ValueError("invalid config refresh configuration")
+  actions = cast(dict[object, object], actions_raw)
   statuses = cast(dict[object, object], statuses_raw)
-  refresh = commands.get("refresh_config")
-  restart = commands.get("restart_tmux")
-  usage = messages.get("usage")
+  action_raw = actions.get(action)
+  if not isinstance(action_raw, dict):
+    raise ValueError("invalid config refresh action")
+  action_settings = cast(dict[object, object], action_raw)
+  refresh = action_settings.get("refresh_config")
+  restart = action_settings.get("restart")
+  usage = action_settings.get("usage")
   if not isinstance(refresh, list) or not refresh or not all(isinstance(value, str) and value for value in refresh):
-    raise ValueError("invalid tmux refresh command")
+    raise ValueError("invalid config refresh command")
   if not isinstance(restart, list) or not restart or not all(isinstance(value, str) and value for value in restart):
-    raise ValueError("invalid tmux restart command")
+    raise ValueError("invalid config refresh restart command")
   if not isinstance(usage, str) or not usage:
-    raise ValueError("invalid tmux refresh message")
+    raise ValueError("invalid config refresh message")
   parsed_statuses: dict[str, int] = {}
   for name in ("success", "failure", "invalid_arguments"):
     value = statuses.get(name)
     if type(value) is not int or not 0 <= value <= 255:
-      raise ValueError("invalid tmux refresh status codes")
+      raise ValueError("invalid config refresh status codes")
     parsed_statuses[name] = value
   return (
     cast(list[str], refresh),
@@ -46,9 +48,9 @@ def _settings() -> tuple[list[str], list[str], str, dict[str, int]]:
   )
 
 
-def tmux_main(arguments: list[str]) -> int:
+def _main(action: str, arguments: list[str]) -> int:
   try:
-    refresh_command, restart_command, usage, statuses = _settings()
+    refresh_command, restart_command, usage, statuses = _settings(action)
   except (KeyError, OSError, TypeError, UnicodeError, ValueError, yaml.YAMLError):
     return os.EX_CONFIG
   if arguments:
@@ -59,3 +61,11 @@ def tmux_main(arguments: list[str]) -> int:
     return refreshed
   restarted = subprocess.run(restart_command, check=False).returncode
   return statuses["success"] if restarted == statuses["success"] else statuses["failure"]
+
+
+def tmux_main(arguments: list[str]) -> int:
+  return _main("tmux", arguments)
+
+
+def hyprsunset_main(arguments: list[str]) -> int:
+  return _main("hyprsunset", arguments)
