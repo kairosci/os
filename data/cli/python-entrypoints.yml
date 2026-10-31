@@ -580,3 +580,15 @@ entrypoints:
     name: emoji
     summary: Launch emojis
     examples: archctl menu emoji
+  - binary: arch-launch-nautilus
+    module: launch/files
+    function: main
+    group: launch
+    name: nautilus
+    summary: Launch Files
+  - binary: arch-launch-nautilus-cwd
+    module: launch/files
+    function: main
+    group: launch
+    name: nautilus cwd
+    summary: Launch Files in the active terminal's current directory

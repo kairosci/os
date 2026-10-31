@@ -55,3 +55,30 @@ SH
 cwd=$(PATH="$stub_bin:$PATH" XDG_RUNTIME_DIR="$test_tmp" "$ROOT/src/arch/commands/arch-cmd-terminal-cwd" "$terminal_pid" 2>&1)
 [[ $cwd == "$work_dir" ]] || fail "a terminal pid passed in finds its shell directory without hyprctl" "got: $cwd"
 pass "a terminal pid passed in finds its shell directory without hyprctl"
+
+cat >"$stub_bin/setsid" <<'SH'
+#!/bin/bash
+printf '%s\0' "$@" >"$LAUNCH_ARGS"
+exit "${LAUNCH_STATUS:-0}"
+SH
+cat >"$stub_bin/arch-cmd-terminal-cwd" <<'SH'
+#!/bin/bash
+printf '%s' "$LAUNCH_CWD"
+SH
+chmod +x "$stub_bin/setsid" "$stub_bin/arch-cmd-terminal-cwd"
+launch_args="$test_tmp/launch-args"
+
+AP="$ROOT" PATH="$stub_bin:$PATH" LAUNCH_ARGS="$launch_args" \
+  "$ARCH_TEST_CLI_BIN/arch-launch-nautilus" || fail "Files launcher starts successfully"
+mapfile -d '' -t actual_args <"$launch_args"
+[[ ${#actual_args[@]} == 4 && ${actual_args[0]} == uwsm-app && ${actual_args[1]} == -- &&
+  ${actual_args[2]} == nautilus && ${actual_args[3]} == --new-window ]] ||
+  fail "Files launcher preserves its application argv" "${actual_args[*]}"
+
+AP="$ROOT" PATH="$stub_bin:$PATH" LAUNCH_ARGS="$launch_args" LAUNCH_CWD="$work_dir" \
+  "$ARCH_TEST_CLI_BIN/arch-launch-nautilus-cwd" || fail "Files launcher in the terminal directory starts successfully"
+mapfile -d '' -t actual_args <"$launch_args"
+[[ ${#actual_args[@]} == 5 && ${actual_args[0]} == uwsm-app && ${actual_args[1]} == -- &&
+  ${actual_args[2]} == nautilus && ${actual_args[3]} == --new-window && ${actual_args[4]} == "$work_dir" ]] ||
+  fail "Files launcher forwards a path with spaces as one argv item" "${actual_args[*]}"
+pass "Files launchers preserve argv and the focused terminal directory"

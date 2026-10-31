@@ -1,0 +1,15 @@
+launchers:
+  arch-launch-nautilus:
+    command: [setsid, uwsm-app, --, nautilus, --new-window]
+  arch-launch-nautilus-cwd:
+    command: [setsid, uwsm-app, --, nautilus, --new-window]
+    working_directory: [arch-cmd-terminal-cwd]
+timeouts:
+  working_directory_seconds: 3
+statuses:
+  configuration_error: 78
+  command_error: 127
+  timeout: 124
+messages:
+  command_error: 'Could not launch Files'
+  timeout: 'Could not read the terminal working directory in time'

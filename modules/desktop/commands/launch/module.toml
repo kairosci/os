@@ -11,8 +11,6 @@ sources = [
   "src/arch/commands/arch-launch-docker-tui",
   "src/arch/commands/arch-launch-editor",
   "src/arch/commands/arch-launch-terminal-with-presentation",
-  "src/arch/commands/arch-launch-nautilus",
-  "src/arch/commands/arch-launch-nautilus-cwd",
   "src/arch/commands/arch-launch-or-focus",
   "src/arch/commands/arch-launch-or-focus-tui",
   "src/arch/commands/arch-launch-or-focus-webapp",
@@ -24,8 +22,9 @@ sources = [
   "src/arch/commands/arch-launch-terminal-tmux",
   "src/arch/commands/arch-launch-tui",
   "src/arch/commands/arch-launch-webapp",
+  "src/arch/cli/launch/files.py",
 ]
-requires = ["desktop.commands"]
+requires = ["desktop.commands", "system.runtime-data"]
 
 [[output]]
 source = "src/arch/commands/arch-launch-1password"
@@ -62,14 +61,6 @@ target = "usr/share/arch/src/arch/commands/arch-launch-editor"
 [[output]]
 source = "src/arch/commands/arch-launch-terminal-with-presentation"
 target = "usr/share/arch/src/arch/commands/arch-launch-terminal-with-presentation"
-
-[[output]]
-source = "src/arch/commands/arch-launch-nautilus"
-target = "usr/share/arch/src/arch/commands/arch-launch-nautilus"
-
-[[output]]
-source = "src/arch/commands/arch-launch-nautilus-cwd"
-target = "usr/share/arch/src/arch/commands/arch-launch-nautilus-cwd"
 
 [[output]]
 source = "src/arch/commands/arch-launch-or-focus"
@@ -114,3 +105,7 @@ target = "usr/share/arch/src/arch/commands/arch-launch-tui"
 [[output]]
 source = "src/arch/commands/arch-launch-webapp"
 target = "usr/share/arch/src/arch/commands/arch-launch-webapp"
+
+[[output]]
+source = "src/arch/cli/launch/files.py"
+target = "usr/share/arch/src/arch/cli/launch/files.py"
