@@ -19,7 +19,7 @@ Panel {
 
   // Address -> "connecting" | "disconnecting" | "forgetting".
   // The actual Bluetooth sequencing lives in the generated
-  // arch-bluetooth-device entrypoint;
+  // archctl bluetooth device route;
   // this map only keeps the panel responsive while BlueZ catches up.
   property var pendingActions: ({})
 
@@ -266,7 +266,7 @@ Panel {
   }
 
   function deviceCommand(action, address) {
-    return ["arch-bluetooth-device", action, address]
+    return ["archctl", "bluetooth", "device", action, address]
   }
 
   function runDeviceAction(device, action, pending) {
@@ -399,7 +399,7 @@ Panel {
   }
 
   // 'x' forgets remembered devices. For connected devices this first
-  // disconnects, then removes the BlueZ pairing record via arch-bluetooth-device.
+  // disconnects, then removes the BlueZ pairing record via archctl bluetooth device.
   function deleteSelected() {
     if (focusSection !== "known" && focusSection !== "connected") return
     var dev = deviceAt(focusSection, selectedIndex)
@@ -627,7 +627,7 @@ Panel {
   }
 
   // Not adapter.enabled: that writes BlueZ's Powered, which nothing persists, so
-  // the adapter came back on at the next boot. arch-bluetooth-power moves the
+  // the adapter came back on at the next boot. archctl bluetooth power moves the
   // rfkill soft block instead, which systemd-rfkill restores across reboots.
   // Powered still follows the block, so the switch and icon read it as before.
   //
@@ -636,7 +636,7 @@ Panel {
   // would re-read the old state and undo the first.
   function toggleBluetooth() {
     if (!adapter) return
-    Quickshell.execDetached(["arch-bluetooth-power", adapter.enabled ? "off" : "on"])
+    Quickshell.execDetached(["archctl", "bluetooth", "power", adapter.enabled ? "off" : "on"])
   }
 
   ShellIpc {

@@ -176,6 +176,7 @@ entrypoints:
     args: '[pair|connect|disconnect|forget] <address>'
     examples: archctl bluetooth device connect 00:11:22:33:44:55
     pass_args: 'true'
+    generate_launcher: "false"
   - binary: arch-bluetooth-power
     module: bluetooth/control
     function: power_main
@@ -184,6 +185,7 @@ entrypoints:
     summary: Turn Bluetooth on or off, remembered across reboots
     args: <on|off|toggle|is-on>
     pass_args: 'true'
+    generate_launcher: "false"
   - binary: arch-cmd-missing
     module: command/presence
     function: missing_main

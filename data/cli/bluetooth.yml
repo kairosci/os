@@ -3,7 +3,7 @@ commands:
   rfkill: [rfkill]
   timeout: [timeout]
   sleep: [sleep]
-  power: [arch-bluetooth-power]
+  power: [archctl, bluetooth, power]
   i18n: [arch-i18n]
   device:
     show: [show]
