@@ -147,7 +147,7 @@ def _run(settings: Settings, name: str, arguments: list[str] | None = None) -> b
 def _state_directory(settings: Settings) -> Path:
   state = settings["state"]
   xdg_home = os.environ.get("XDG_STATE_HOME")
-  if xdg_home:
+  if xdg_home is not None and xdg_home != "":
     return Path(xdg_home) / state["xdg_subdirectory"]
   return state["default_directory"]
 
