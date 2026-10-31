@@ -142,6 +142,13 @@ entrypoints:
     group: update
     name: confirm
     summary: Prompt for confirmation before starting an update
+  - binary: arch-update-status
+    module: update/status
+    function: main
+    group: update
+    name: status
+    summary: Clear the shell update indicator after an update
+    hidden: "true"
   - binary: arch-bluetooth-device
     module: bluetooth/control
     function: device_main

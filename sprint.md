@@ -105,3 +105,5 @@ PR #483 was closed when its base branch was deleted during integration. Its chan
 | #586 | Migrate Files launchers to Python |
 | #587 | Migrate terminal tmux launcher to Python |
 | #588 | Migrate emoji insertion to Python |
+| #589 | Keep compositor fallback visibly nonblack |
+| #590 | Migrate update status to Python |

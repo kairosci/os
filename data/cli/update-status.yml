@@ -1,0 +1,5 @@
+command: [arch-shell, -q, arch.system-update, clear]
+statuses:
+  command_error: 127
+messages:
+  command_error: Could not start the shell update status command.
