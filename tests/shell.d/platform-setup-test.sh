@@ -116,14 +116,14 @@ pass "x86: the user setup leaf is a no-op, even with Mac entrypoints on disk"
 first_bin=$tmp/first-bin
 first_root=$tmp/arch
 mkdir -p "$first_bin" "$tmp/home"
-cat >"$first_bin/arch-done" <<'SH'
+cat >"$first_bin/archctl" <<'SH'
 #!/bin/bash
-case "$1:$2" in
-  check:first-run-user) exit 1 ;;
-  mark:first-run-user) touch "$FIRST_RUN_MARKER" ;;
+case "$1:$2:$3" in
+  done:check:first-run-user) exit 1 ;;
+  done:mark:first-run-user) touch "$FIRST_RUN_MARKER" ;;
 esac
 SH
-for helper in arch-provision-user arch-hook-install archctl; do
+for helper in arch-provision-user arch-hook-install; do
   printf '#!/bin/bash\nexit 0\n' >"$first_bin/$helper"
 done
 chmod +x "$first_bin"/*

@@ -206,6 +206,7 @@ entrypoints:
     summary: Check or mark completed Arch setup tasks
     args: <check|mark|ensure> <name>
     hidden: 'true'
+    generate_launcher: "false"
   - binary: arch-default-browser
     module: default/browser
     function: default_browser_main

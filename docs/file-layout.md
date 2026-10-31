@@ -276,7 +276,7 @@ It only does the things `/etc/skel` can't:
   in `data/installer/user-setup.yml`.
 
 Idempotency marker: `~/.local/state/arch/done/finalize-user`, managed
-by `arch-done`.
+by `archctl done`.
 
 The ISO calls it as `arch-provision-user --force --first-install` in the
 target chroot as the install user, after `arch-apply-system` has finished
@@ -295,13 +295,13 @@ Runs once on first interactive login, after the user manager is live. The Python
 The configured steps install the fingerprint invitation Python hook, enable user systemd units individually, run `arch-lifecycle-dispatch setup-user`, apply GNOME/GTK/audio settings, show the welcome notification, and start the detached Wi-Fi/update notification worker. `arch-notification-wait` runs before the welcome and network notifications so they land on a live notification server. The unit list and commands are in the YAML file; unit `ConditionPath*` guards keep services inert when they do not apply.
 
 The entire sequence has one idempotency marker:
-`~/.local/state/arch/done/first-run-user`, managed by `arch-done`.
+`~/.local/state/arch/done/first-run-user`, managed by `archctl done`.
 Completed users exit before any first-run step. On failure the marker is not
 written and the sequence retries next login.
 
 Completion markers live under `~/.local/state/arch/done/`. Use
-`arch-done check <name>` to check one and `arch-done mark <name>` to record it.
-Use `arch-done ensure <name>` as a conditional when the guarded work should
+`archctl done check <name>` to check one and `archctl done mark <name>` to record it.
+Use `archctl done ensure <name>` as a conditional when the guarded work should
 run only once; it records completion before returning success.
 The Quattro upgrade completes graphical first-run for upgraded users and moves
 the legacy finalization marker from `~/.local/state/arch/` into `done/`.

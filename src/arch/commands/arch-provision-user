@@ -52,7 +52,7 @@ while (($#)); do
   esac
 done
 
-if arch-done check finalize-user && (( force == 0 )); then
+if archctl done check finalize-user && (( force == 0 )); then
   echo "User finalization already complete."
   exit 0
 fi
@@ -105,5 +105,5 @@ run_logged "$AP/src/arch/python/installer_user/all.py"
 arch-refresh-applications
 env -u BROWSER XDG_CURRENT_DESKTOP= xdg-settings set default-web-browser chromium.desktop
 
-arch-done mark finalize-user
+archctl done mark finalize-user
 echo "User finalization complete."
