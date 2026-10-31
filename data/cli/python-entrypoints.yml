@@ -418,6 +418,7 @@ entrypoints:
     group: hw
     name: nvidia
     summary: Detect whether the computer has an NVIDIA GPU.
+    generate_launcher: "false"
   - binary: arch-hw-nvidia-display
     module: hardware/nvidia
     function: nvidia_display_main
@@ -432,6 +433,7 @@ entrypoints:
     name: nvidia gsp
     summary: Detect whether an NVIDIA GPU has GSP firmware
     hidden: 'true'
+    generate_launcher: "false"
   - binary: arch-hw-nvidia-without-gsp
     module: hardware/nvidia
     function: without_gsp_main
@@ -439,6 +441,7 @@ entrypoints:
     name: nvidia without gsp
     summary: Detect an NVIDIA GPU without GSP firmware
     hidden: 'true'
+    generate_launcher: "false"
   - binary: arch-hw-touchpad
     module: hardware/touchpad
     function: touchpad_main
