@@ -1,4 +1,4 @@
 commands:
   predicates:
-    - arch-hw-laptop-closed
-    - arch-hw-external-monitors
+    - [arch-hw-laptop-closed]
+    - [archctl, hw, external, monitors]

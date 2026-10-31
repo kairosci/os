@@ -12,6 +12,7 @@ system_wake="$ROOT/src/arch/commands/arch-system-wake"
 clamshell="$ROOT/src/arch/commands/arch-hyprland-monitor-clamshell"
 lock_service="$ROOT/src/arch/shell/plugins/lock/Service.qml"
 hw_laptop_closed="$ROOT/src/arch/commands/arch-hw-laptop-closed"
+hw_clamshell="$ROOT/data/cli/hardware-clamshell.yml"
 utilities="$ROOT/default/hypr/bindings/utilities.lua"
 
 grep -F 'sleep "$delay"' "$monitor_watch" >/dev/null
@@ -53,7 +54,8 @@ pass "modeless recovery also runs after a config reload"
 grep -F 'arch-hyprland-reload-guard paused' "$monitor_watch" >/dev/null
 pass "modeless recovery does not reload into a package transaction"
 
-grep -F 'arch-hw-laptop-closed && arch-hw-external-monitors' "$hw_clamshell" >/dev/null
+grep -F -- '- [arch-hw-laptop-closed]' "$hw_clamshell" >/dev/null
+grep -F -- '- [archctl, hw, external, monitors]' "$hw_clamshell" >/dev/null
 grep -F 'org.freedesktop.login1.Manager LidClosed' "$hw_laptop_closed" >/dev/null
 grep -F 'ARCH_ACPI_LID_PATH:-/proc/acpi/button/lid' "$hw_laptop_closed" >/dev/null
 pass "clamshell helper detects closed-lid external monitor state"

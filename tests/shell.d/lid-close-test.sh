@@ -23,9 +23,10 @@ setup_scenario() {
 #!/bin/bash
 exit $closed
 SH
-  cat >"$mock_bin/arch-hw-external-monitors" <<SH
+  cat >"$mock_bin/archctl" <<SH
 #!/bin/bash
-exit $docked
+[[ \$* == "hw external monitors" ]] && exit $docked
+exit 1
 SH
   for command in arch-system-lock arch-hyprland-monitor-clamshell; do
     cat >"$mock_bin/$command" <<SH

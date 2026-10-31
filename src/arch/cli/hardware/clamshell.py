@@ -17,9 +17,19 @@ def _predicates() -> list[list[str]]:
   if not isinstance(commands, dict):
     raise ValueError("clamshell hardware commands must be a mapping")
   predicates = commands.get("predicates")
-  if not isinstance(predicates, list) or not predicates or not all(isinstance(command, str) and command for command in predicates):
-    raise ValueError("clamshell hardware predicates must be a non-empty list of commands")
-  return [[str(command)] for command in predicates]
+  if not isinstance(predicates, list) or not predicates:
+    raise ValueError("clamshell hardware predicates must be a non-empty list of argument lists")
+  parsed: list[list[str]] = []
+  for command in predicates:
+    if not isinstance(command, list) or not command:
+      raise ValueError("clamshell hardware predicates must be non-empty argument lists")
+    arguments: list[str] = []
+    for argument in command:
+      if not isinstance(argument, str) or not argument:
+        raise ValueError("clamshell hardware predicates must contain non-empty strings")
+      arguments.append(argument)
+    parsed.append(arguments)
+  return parsed
 
 
 def main() -> int:
