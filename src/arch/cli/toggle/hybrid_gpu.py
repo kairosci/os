@@ -91,8 +91,6 @@ def _stage_path(settings: dict[str, object], destination: str) -> str | None:
   )
   if result.returncode != 0:
     return None
-  if result.stdout is None:
-    return None
   stage = result.stdout.rstrip("\n")
   suffix_pattern = cast(str, cast(dict[object, object], settings["settings"])["temporary_suffix_pattern"])
   if not stage.startswith(prefix) or not re.fullmatch(suffix_pattern, stage.removeprefix(prefix)):
@@ -139,7 +137,7 @@ def _install_root_content(settings: dict[str, object], content: str, destination
 def _translate(settings: dict[str, object], key: str) -> str:
   keys = cast(dict[object, object], cast(dict[object, object], settings["settings"])["confirmation_keys"])
   result = _run([*_command(settings, "translate"), cast(str, keys[key])], capture=True)
-  return result.stdout.rstrip("\n") if result.stdout is not None else ""
+  return result.stdout.rstrip("\n")
 
 
 def _confirm(settings: dict[str, object], key: str) -> bool:
@@ -186,7 +184,7 @@ def _switch(settings: dict[str, object], mode: str) -> bool:
   values = cast(dict[object, object], settings["settings"])
   destination = cast(str, values["service_config"])
   result = _run([*_command(settings, "read_config"), destination], capture=True)
-  if result.returncode != 0 or result.stdout is None:
+  if result.returncode != 0:
     return False
   try:
     config = json.loads(result.stdout)
