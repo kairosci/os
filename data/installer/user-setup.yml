@@ -147,7 +147,7 @@ nouveau_cursor_setup:
     it:
       enabled: "Driver nouveau rilevato. Attivo il cursore software per mantenere visibile il puntatore."
 vm_setup:
-  predicate: [arch-hw-vm]
+  predicate: [archctl, hw, vm]
   files:
     - [default/hypr/toggles/no-animations.lua, .local/state/arch/toggles/hypr/no-animations.lua]
     - [default/hypr/toggles/window-opaque.lua, .local/state/arch/toggles/hypr/window-opaque.lua]

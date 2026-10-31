@@ -349,6 +349,7 @@ entrypoints:
     group: hw
     name: vm
     summary: Returns true when running in a virtual machine.
+    generate_launcher: "false"
   - binary: arch-hw-clamshell
     module: hardware/clamshell
     function: main
