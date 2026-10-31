@@ -62,5 +62,6 @@
 | #545 | Migrate NVIDIA hardware command to Python |
 | #546 | Record CLI hardware migration |
 | #547 | Migrate clamshell hardware command to Python |
+| #548 | Migrate Intel hardware predicates to Python |
 
 PR #483 was closed when its base branch was deleted during integration. Its change was rebased and merged as PR #499.

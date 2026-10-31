@@ -8,15 +8,13 @@ sources = [
   "src/arch/commands/arch-hw-aarch64-qualcomm",
   "src/arch/cli/hardware/architecture.py",
   "src/arch/cli/hardware/clamshell.py",
+  "src/arch/cli/hardware/intel.py",
   "src/arch/cli/hardware/nvidia.py",
   "src/arch/commands/arch-hw-apple-silicon",
   "src/arch/commands/arch-hw-display",
   "src/arch/commands/arch-hw-external-monitors",
   "src/arch/commands/arch-hw-fingerprint",
   "src/arch/commands/arch-hw-hybrid-gpu",
-  "src/arch/commands/arch-hw-intel",
-  "src/arch/commands/arch-hw-intel-ptl",
-  "src/arch/commands/arch-hw-intel-sof",
   "src/arch/commands/arch-hw-laptop",
   "src/arch/commands/arch-hw-laptop-closed",
   "src/arch/commands/arch-hw-match",
@@ -60,6 +58,10 @@ source = "src/arch/cli/hardware/clamshell.py"
 target = "usr/share/arch/src/arch/cli/hardware/clamshell.py"
 
 [[output]]
+source = "src/arch/cli/hardware/intel.py"
+target = "usr/share/arch/src/arch/cli/hardware/intel.py"
+
+[[output]]
 source = "src/arch/cli/hardware/nvidia.py"
 target = "usr/share/arch/src/arch/cli/hardware/nvidia.py"
 
@@ -82,18 +84,6 @@ target = "usr/share/arch/src/arch/commands/arch-hw-fingerprint"
 [[output]]
 source = "src/arch/commands/arch-hw-hybrid-gpu"
 target = "usr/share/arch/src/arch/commands/arch-hw-hybrid-gpu"
-
-[[output]]
-source = "src/arch/commands/arch-hw-intel"
-target = "usr/share/arch/src/arch/commands/arch-hw-intel"
-
-[[output]]
-source = "src/arch/commands/arch-hw-intel-ptl"
-target = "usr/share/arch/src/arch/commands/arch-hw-intel-ptl"
-
-[[output]]
-source = "src/arch/commands/arch-hw-intel-sof"
-target = "usr/share/arch/src/arch/commands/arch-hw-intel-sof"
 
 [[output]]
 source = "src/arch/commands/arch-hw-laptop"

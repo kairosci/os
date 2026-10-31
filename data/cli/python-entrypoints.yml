@@ -168,6 +168,24 @@ entrypoints:
     group: hw
     name: aarch64
     summary: Detect whether the CPU is aarch64 (every ARM machine, Apple Silicon included).
+  - binary: arch-hw-intel
+    module: hardware/intel
+    function: intel_main
+    group: hw
+    name: intel
+    summary: Detect whether the computer has an Intel CPU.
+  - binary: arch-hw-intel-ptl
+    module: hardware/intel
+    function: intel_ptl_main
+    group: hw
+    name: intel ptl
+    summary: Detect whether the computer has an Intel Panther Lake GPU.
+  - binary: arch-hw-intel-sof
+    module: hardware/intel
+    function: intel_sof_main
+    group: hw
+    name: intel sof
+    summary: Detect an Intel SOF-capable audio DSP.
   - binary: arch-hw-vm
     module: hardware/virtualization
     function: main
