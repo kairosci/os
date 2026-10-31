@@ -26,7 +26,7 @@ assert(service.includes('target: Hyprland') && service.includes('isCaptureEvent(
 assert(service.includes('eventDebounce.restart()'), 'service debounces event bursts into one probe')
 assert(service.includes('/src/arch/shell/plugins/services/remote-session/probe.py"'), 'service runs the shared Python probe')
 assert(service.includes('running: root.active') && service.includes('interval: 2000'), 'service polls only while a session is active, since the stop event is not reliable')
-assert(!service.includes('arch-notification-send'), 'a session is shown by the indicator alone, with no notification')
+assert(!service.includes('archctl notification send'), 'a session is shown by the indicator alone, with no notification')
 
 const indicator = read('src/arch/shell/plugins/bar/indicators/RemoteSession.qml')
 const widget = read('src/arch/shell/plugins/bar/widgets/Indicators.qml')

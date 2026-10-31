@@ -60,7 +60,7 @@ run() {
   local machine=$1 config_dir=$2
   shift 2
   : >"$CALL_LOG"
-  PATH="$scratch/hw/$machine/bin:$scratch/bin:$ROOT/src/arch/commands:$PATH" AP="$ROOT" \
+  PATH="$scratch/hw/$machine/bin:$scratch/bin:$ARCH_TEST_CLI_ROUTER:$ROOT/src/arch/commands:$PATH" AP="$ROOT" \
     ARCH_PROC_ROOT="$scratch/hw/$machine/proc" ARCH_SYS_ROOT="$scratch/hw/$machine/sys" \
     ARCH_SLEEP_CONFIG_DIR="$config_dir" "$@"
 }

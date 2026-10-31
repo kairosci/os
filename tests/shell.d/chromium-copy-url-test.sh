@@ -92,7 +92,7 @@ pass "fresh install registers the copy-url native messaging host"
 copied_url=$(bash -c '
   source "$1"
   wl-copy() { cat; }
-  arch-notification-send() { :; }
+  archctl() { [[ ${1:-} == notification && ${2:-} == send ]]; }
   copy_url "$2"
 ' bash "$ROOT/src/arch/commands/arch-chromium-copy-url-host" 'https://example.tests/path?q=one&name=two')
 

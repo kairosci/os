@@ -33,7 +33,7 @@ else
   picked=$(arch-file-select "${select_args[@]}") || status=$?
 
   if ((${status:-0} > 1)); then
-    arch-notification-send -g "" -u critical "$(arch-i18n share.couldNot)" "$(arch-i18n share.chooserClosed)"
+    archctl notification send -g "" -u critical "$(arch-i18n share.couldNot)" "$(arch-i18n share.chooserClosed)"
     exit 1
   fi
 

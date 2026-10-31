@@ -6,5 +6,5 @@
 weather=$(arch-weather-status 2>/dev/null) || true
 
 if [[ -n $weather && $weather != "Weather unavailable" ]]; then
-  arch-notification-send -u low "$weather"
+  archctl notification send -u low "$weather"
 fi

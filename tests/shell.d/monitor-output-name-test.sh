@@ -27,7 +27,12 @@ make_stub arch-hyprland-toggle-disabled 'exit 0'
 make_stub arch-hyprland-toggle ':'
 make_stub arch-hyprland-monitor-internal ':'
 make_stub arch-hyprland-monitor-internal-mirror ':'
-make_stub archctl 'case "$*" in
+make_stub archctl 'if [[ ${1:-} == notification && ${2:-} == send ]]; then
+  shift 2
+  notification_command=$(command -v arch-notification-send) || exit 127
+  exec "$notification_command" "$@"
+fi
+case "$*" in
   "hyprland monitor laptop") printf "%s\n" "$LAPTOP_NAME" ;;
   "hyprland monitor external active") exec "$ROOT/src/arch/commands/archctl" "$@" ;;
   "hw clamshell") exit 0 ;;
@@ -48,7 +53,7 @@ run_monitor() {
     LAPTOP_NAME="${LAPTOP_NAME:-eDP-1}" \
     MONITORS_JSON="$monitors_json" \
     EVAL_LOG="$eval_log" \
-    PATH="$stub_dir:$ROOT/src/arch/commands:$PATH" \
+    PATH="$stub_dir:$ARCH_TEST_CLI_ROUTER:$ROOT/src/arch/commands:$PATH" \
     "$ROOT/src/arch/commands/$command" "$@"
 }
 

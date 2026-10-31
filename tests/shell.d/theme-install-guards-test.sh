@@ -27,7 +27,7 @@ cat >"$mock_bin/gum" <<'SH'
 exit 1
 SH
 
-for command in arch-theme-set arch-notification-send arch-menu-select; do
+for command in arch-theme-set archctl arch-menu-select; do
   printf '#!/bin/bash\nprintf "%%s\\n" "$*" >>"$ARCH_TEST_THEME_CALLS"\nexit 0\n' >"$mock_bin/$command"
 done
 

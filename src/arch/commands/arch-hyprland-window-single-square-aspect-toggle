@@ -3,6 +3,6 @@
 # arch:summary=Toggle single-window square aspect ratio.
 
 case $(arch-hyprland-toggle single-window-aspect-ratio) in
-  on) arch-notification-send -g  "$(arch-i18n window.squareOn)" ;;
-  off) arch-notification-send -g  "$(arch-i18n window.squareOff)" ;;
+  on) archctl notification send -g  "$(arch-i18n window.squareOn)" ;;
+  off) archctl notification send -g  "$(arch-i18n window.squareOff)" ;;
 esac

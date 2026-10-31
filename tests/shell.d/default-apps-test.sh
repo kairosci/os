@@ -156,7 +156,7 @@ printf '#!/bin/bash\nexit 0\n' >"$mock_bin/arch-lifecycle-dispatch"
 chmod +x "$mock_bin"/*
 
 export HOME="$test_home"
-export PATH="$mock_bin:$ROOT/src/arch/commands:$PATH"
+export PATH="$mock_bin:$ARCH_TEST_CLI_ROUTER:$ROOT/src/arch/commands:$PATH"
 export AP="$ROOT"
 export ARCH_TEST_INSTALLED_DIR="$installed_dir"
 export ARCH_TEST_INSTALL_LOG="$install_log"

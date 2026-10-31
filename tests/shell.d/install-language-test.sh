@@ -55,7 +55,7 @@ pass "both finalization steps run, and read the preset as data"
 work=$scratch/seed
 mkdir -p "$work/stubs"
 export XDG_CONFIG_HOME=$work/config ARCH_LANGUAGE_FILE=$work/language SEED_LOG=$work/log
-for command in sudo pkexec locale-gen arch-notification-send dbus-update-activation-environment; do
+for command in sudo pkexec locale-gen archctl dbus-update-activation-environment; do
   printf '#!/bin/bash\necho "%s $*" >>"$SEED_LOG"\n' "$command" >"$work/stubs/$command"
 done
 chmod +x "$work/stubs/"*
@@ -63,7 +63,7 @@ seed() { : >"$SEED_LOG"; AP=$ROOT PATH="$work/stubs:$ROOT/src/arch/commands:$PAT
 seed it
 [[ $(<"$ARCH_LANGUAGE_FILE") == it ]] || fail "seeding persists the preset language"
 grep -qx 'export LANG=it_IT.UTF-8' "$XDG_CONFIG_HOME/uwsm/env.d/50-arch-language" || fail "seeding sets the session LANG for the first login"
-! grep -qE '^(sudo|pkexec|locale-gen|arch-notification-send) ' "$SEED_LOG" || fail "seeding elevates, generates and notifies nothing" "$(<"$SEED_LOG")"
+! grep -qE '^(sudo|pkexec|locale-gen|archctl notification send) ' "$SEED_LOG" || fail "seeding elevates, generates and notifies nothing" "$(<"$SEED_LOG")"
 if seed xx 2>/dev/null; then fail "seeding rejects unknown codes"; fi
 printf 'da\n' >"$ARCH_LANGUAGE_FILE"
 seed it

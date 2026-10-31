@@ -49,7 +49,7 @@ dbus:
   exec_hint: arch-exec-argv
   actions_count: 0
 messages:
-  usage: 'Usage: arch-notification-send [--app-name <app-name>] [-g <glyph>] [-u <low|normal|critical>] [-i <icon>] [-t <ms>] [-r <id>] [-p] [--image <path-or-uri>] <headline> [description] [--exec <program> [args...]]'
+  usage: 'Usage: archctl notification send [--app-name <app-name>] [-g <glyph>] [-u <low|normal|critical>] [-i <icon>] [-t <ms>] [-r <id>] [-p] [--image <path-or-uri>] <headline> [description] [--exec <program> [args...]]'
   missing_value: 'Missing value for {option}'
   invalid_numeric: 'Invalid {option} value ({expected} expected): {value}'
   unknown_option: 'Unknown option: {option}'

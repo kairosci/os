@@ -27,7 +27,7 @@ if ((${#files[@]} == 0)); then
   picked=$(arch-file-select --title "$(arch-i18n tailscale.sendToTitle "$name")" --multiple) || status=$?
 
   if ((${status:-0} > 1)); then
-    arch-notification-send -g "󰒊" -u critical "$(arch-i18n tailscale.sendFailed "$name")" \
+    archctl notification send -g "󰒊" -u critical "$(arch-i18n tailscale.sendFailed "$name")" \
       "$(arch-i18n share.chooserClosed)"
     exit 1
   fi
@@ -43,8 +43,8 @@ else
 fi
 
 if error=$(tailscale file cp --update-interval=0 -- "${files[@]}" "$machine:" 2>&1); then
-  arch-notification-send -g "󰒊" "$(arch-i18n tailscale.sent "$name")" "$what"
+  archctl notification send -g "󰒊" "$(arch-i18n tailscale.sent "$name")" "$what"
 else
-  arch-notification-send -g "󰒊" -u critical "$(arch-i18n tailscale.sendFailed "$name")" "${error:-$(arch-i18n tailscale.transferFailed)}"
+  archctl notification send -g "󰒊" -u critical "$(arch-i18n tailscale.sendFailed "$name")" "${error:-$(arch-i18n tailscale.transferFailed)}"
   exit 1
 fi

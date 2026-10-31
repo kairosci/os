@@ -71,7 +71,10 @@ for command in "$ROOT"/src/arch/commands/arch-restart-* "$ROOT"/src/arch/command
 done
 cat >"$commands/archctl" <<'STUB'
 #!/bin/bash
-if [[ ${1:-} == hook ]]; then
+if [[ ${1:-} == notification && ${2:-} == send ]]; then
+  shift 2
+  exec "$TEST_COMMANDS_DIR/arch-notification-send" "$@"
+elif [[ ${1:-} == hook ]]; then
   shift
   TEST_RETINT_NAME=arch-hook "$TEST_COMMANDS_DIR/retint" "$@"
 else

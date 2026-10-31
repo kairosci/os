@@ -98,7 +98,7 @@ report_unsecured() {
   printf 'arch-system-sleep-lock: suspending without a secure lock (%s)\n' \
     "$1" >&2
 
-  arch-notification-send -u critical -g 󰌾 \
+  archctl notification send -u critical -g 󰌾 \
     "$(arch-i18n lock.didNotLock)" \
     "$2" >/dev/null 2>&1 || true
 

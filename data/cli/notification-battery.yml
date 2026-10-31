@@ -1,6 +1,6 @@
 commands:
   battery_status: [archctl, battery, status]
-  notification: [arch-notification-send, -g, 󰁹, -u, low]
+  notification: [archctl, notification, send, -g, 󰁹, -u, low]
 timeout_seconds: 5
 failure_status: 1
 messages:

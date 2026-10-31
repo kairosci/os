@@ -16,7 +16,7 @@ off) arch-hyprland-toggle no-animations on ;;
 esac
 
 if arch-hyprland-toggle-enabled no-animations; then
-  arch-notification-send -g 󰗘 "$(arch-i18n animations.disabled)"
+  archctl notification send -g 󰗘 "$(arch-i18n animations.disabled)"
 else
-  arch-notification-send -g 󰗘 "$(arch-i18n animations.enabled)"
+  archctl notification send -g 󰗘 "$(arch-i18n animations.enabled)"
 fi

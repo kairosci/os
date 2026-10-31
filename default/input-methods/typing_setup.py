@@ -264,7 +264,7 @@ def main():
     else:
       configure_keyboard()
   except (OSError, ValueError, RuntimeError, subprocess.CalledProcessError) as error:
-    subprocess.run(["arch-notification-send", title + " could not be updated", str(error)], check=True)
+    subprocess.run(["archctl", "notification", "send", title + " could not be updated", str(error)], check=True)
     raise SystemExit(1)
 
 

@@ -47,7 +47,7 @@ function openExternalUrl(raw) {
   return safe ? Qt.openUrlExternally(safe) : false
 }
 
-// The arch-exec-argv hint (arch-notification-send --exec). Structural
+// The arch-exec-argv hint (archctl notification send --exec). Structural
 // only: fails closed on a malformed or oversized argv or a leading-dash
 // program, but does not judge intent. Any session-bus sender may set it (see
 // docs/notifications.md); Util.execArgv never re-parses it as a shell string.

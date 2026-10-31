@@ -16,7 +16,7 @@ wake() {
 on() {
   if arch-hyprland-toggle-enabled $TOGGLE; then
     arch-hyprland-toggle $TOGGLE off
-    arch-notification-send -g 󰍹 "$(arch-i18n monitor.laptopEnabled)"
+    archctl notification send -g 󰍹 "$(arch-i18n monitor.laptopEnabled)"
   fi
 
   wake
@@ -24,25 +24,25 @@ on() {
 
 off() {
   if [[ -z $INTERNAL ]]; then
-    arch-notification-send -g 󰍹 "$(arch-i18n monitor.noLaptopDisplay)"
+    archctl notification send -g 󰍹 "$(arch-i18n monitor.noLaptopDisplay)"
     exit 1
   fi
 
   # The name is written into generated Lua below, so only a plain connector
   # name may pass; anything else could execute on the next reload.
   if [[ ! $INTERNAL =~ ^[A-Za-z0-9._-]+$ ]]; then
-    arch-notification-send -g 󰍹 "$(arch-i18n monitor.unsafeName)"
+    archctl notification send -g 󰍹 "$(arch-i18n monitor.unsafeName)"
     exit 1
   fi
 
   if ! archctl hyprland monitor external active; then
-    arch-notification-send -g 󰍹 "$(arch-i18n monitor.onlyDisplay)"
+    archctl notification send -g 󰍹 "$(arch-i18n monitor.onlyDisplay)"
     exit 1
   fi
 
   if arch-hyprland-toggle-disabled $TOGGLE && arch-hyprland-toggle-disabled $MIRROR_TOGGLE; then
     printf 'hl.monitor({ output = "%s", disabled = true })\n' "$INTERNAL" >"$TOGGLE_FLAG"
-    arch-notification-send -g 󰍹 "$(arch-i18n monitor.laptopDisabled)"
+    archctl notification send -g 󰍹 "$(arch-i18n monitor.laptopDisabled)"
     hyprctl reload
   fi
 }

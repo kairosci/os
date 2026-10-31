@@ -62,9 +62,9 @@ show_reminders() {
   done < <(active_reminder_timers "$now")
 
   if [[ -z $body ]]; then
-    arch-notification-send -g 󰢌 "$(arch-i18n reminder.upcoming)" "$(arch-i18n reminder.none)"
+    archctl notification send -g 󰢌 "$(arch-i18n reminder.upcoming)" "$(arch-i18n reminder.none)"
   else
-    arch-notification-send -g 󰢌 "$(arch-i18n reminder.upcoming)" "${body%$'\n'}"
+    archctl notification send -g 󰢌 "$(arch-i18n reminder.upcoming)" "${body%$'\n'}"
   fi
 }
 
@@ -126,7 +126,7 @@ clear_reminders() {
 
   rm -f "$reminder_dir"/arch-reminder-*.message 2>/dev/null || true
   refresh_indicator
-  arch-notification-send -g 󰢌 "$(arch-i18n reminder.cleared)"
+  archctl notification send -g 󰢌 "$(arch-i18n reminder.cleared)"
 }
 
 usage() {
@@ -192,7 +192,7 @@ if [[ -n $custom_message ]]; then
 fi
 
 systemd-run --user --quiet --collect --on-active="${minutes}m" --unit="$unit" \
-  bash -c 'arch-notification-send -g 󰢌 "$(arch-i18n reminder.title)" "$1"; rm -f "$2"; arch-shell -q arch.indicators refresh >/dev/null 2>&1 || true' bash "$message" "$message_file"
+  bash -c 'archctl notification send -g 󰢌 "$(arch-i18n reminder.title)" "$1"; rm -f "$2"; arch-shell -q arch.indicators refresh >/dev/null 2>&1 || true' bash "$message" "$message_file"
 
 refresh_indicator
-arch-notification-send -g 󰢌 "$confirmation_title" "$confirmation"
+archctl notification send -g 󰢌 "$confirmation_title" "$confirmation"

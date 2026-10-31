@@ -12,7 +12,7 @@ home_dir="$tmpdir/home"
 toggles_dir="$home_dir/.local/state/arch/toggles/hypr"
 mkdir -p "$stub_dir" "$home_dir"
 
-for command in hyprctl arch-notification-send; do
+for command in hyprctl archctl; do
   printf '#!/bin/bash\nprintf "%%s\\n" "%s $*" >>"%s/commands.log"\n' "$command" "$tmpdir" >"$stub_dir/$command"
 done
 chmod +x "$stub_dir"/*

@@ -58,7 +58,7 @@ commands:
   timestamp: [date, +%s]
   date: [date, -d]
   translation: [arch-i18n, time.now]
-  notification: [arch-notification-send, -g, test, -u, low]
+  notification: [archctl, notification, send, -g, test, -u, low]
 formats:
   day_time: '+%A %H:%M'
   day_month_year: '+%d %B %Y'
@@ -138,6 +138,10 @@ battery_log="$tmp/battery-log"
 mkdir -p "$battery_bin"
 cat >"$battery_bin/archctl" <<'SH'
 #!/bin/bash
+if [[ ${1:-} == notification && ${2:-} == send ]]; then
+  shift 2
+  exec "$BATTERY_NOTIFICATION_COMMAND" "$@"
+fi
 printf '%s\n' "$@" >"$BATTERY_STATUS_ARGS"
 printf '%s\n' "${BATTERY_STATUS:-}"
 SH
@@ -146,9 +150,10 @@ cat >"$battery_bin/arch-notification-send" <<'SH'
 printf '%s\n' "$@" >"$BATTERY_LOG"
 SH
 chmod +x "$battery_bin/archctl" "$battery_bin/arch-notification-send"
+BATTERY_NOTIFICATION_COMMAND="$battery_bin/arch-notification-send"
 battery_status="85% available; touch $tmp/injected"
 battery_status_args="$tmp/battery-status-args"
-env AP="$ROOT" BATTERY_STATUS="$battery_status" BATTERY_STATUS_ARGS="$battery_status_args" BATTERY_LOG="$battery_log" PATH="$battery_bin:$PATH" "$ARCH_TEST_CLI_BIN/archctl" notification battery ||
+env AP="$ROOT" BATTERY_STATUS="$battery_status" BATTERY_STATUS_ARGS="$battery_status_args" BATTERY_LOG="$battery_log" BATTERY_NOTIFICATION_COMMAND="$BATTERY_NOTIFICATION_COMMAND" PATH="$battery_bin:$PATH" "$ARCH_TEST_CLI_BIN/archctl" notification battery ||
   fail "battery notification reports the configured status"
 [[ $(<"$battery_status_args") == $'battery\nstatus' ]] || fail "battery notification invokes the unified battery status route" "$(<"$battery_status_args")"
 [[ $(wc -l <"$battery_log") == 5 ]] || fail "battery notification sends exactly five arguments" "$(<"$battery_log")"
@@ -160,7 +165,7 @@ env AP="$ROOT" BATTERY_STATUS="$battery_status" BATTERY_STATUS_ARGS="$battery_st
 pass "battery notification preserves notification argv without shell evaluation"
 
 : >"$battery_log"
-if env AP="$ROOT" BATTERY_STATUS= BATTERY_STATUS_ARGS="$battery_status_args" BATTERY_LOG="$battery_log" PATH="$battery_bin:$PATH" "$ARCH_TEST_CLI_BIN/archctl" notification battery >/dev/null 2>&1; then
+if env AP="$ROOT" BATTERY_STATUS= BATTERY_STATUS_ARGS="$battery_status_args" BATTERY_LOG="$battery_log" BATTERY_NOTIFICATION_COMMAND="$BATTERY_NOTIFICATION_COMMAND" PATH="$battery_bin:$PATH" "$ARCH_TEST_CLI_BIN/archctl" notification battery >/dev/null 2>&1; then
   fail "battery notification rejects an empty status"
 fi
 [[ ! -s $battery_log ]] || fail "battery notification does not send an empty status" "$(<"$battery_log")"

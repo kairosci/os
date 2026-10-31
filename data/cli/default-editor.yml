@@ -16,7 +16,7 @@ commands:
   command_missing: [arch-cmd-missing]
   launch_installer: [arch-launch-terminal-with-presentation]
   launch_default: [archctl, default, editor]
-  notification: [arch-notification-send, -g]
+  notification: [archctl, notification, send, -g]
   localization: [arch-i18n]
 legacy:
   command_names:

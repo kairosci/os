@@ -75,7 +75,7 @@ Item {
       }
 
       if (!nextMinutes) {
-        Quickshell.execDetached([root.archPath + "/src/arch/commands/arch-notification-send", I18n.t("reminders.invalidTitle"), I18n.t("reminders.invalidBody")])
+        Quickshell.execDetached(["archctl", "notification", "send", I18n.t("reminders.invalidTitle"), I18n.t("reminders.invalidBody")])
         return
       }
 

@@ -32,7 +32,7 @@ announce() {
   # likely to be delivered is the one most worth reporting.
   archctl notification wait || return 1
 
-  arch-notification-send \
+  archctl notification send \
     --urgency critical \
     --glyph "$CRASH_GLYPH" \
     "$(arch-i18n crash.processCrashed "$comm")"
