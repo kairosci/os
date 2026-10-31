@@ -1,0 +1,23 @@
+commands:
+  set_state: [archctl, toggle, set]
+  localize: [arch-i18n]
+  notify: [archctl, notification, send, -g]
+values:
+  flag_name: screensaver-off
+  toggle_action: toggle
+  notification_glyph: 󱄄
+  notification_keys:
+    enabled: screensaver.enabled
+    disabled: screensaver.disabled
+limits:
+  command_timeout_seconds: 5
+  cleanup_timeout_seconds: 1
+  maximum_output_bytes: 4096
+  read_chunk_bytes: 1024
+messages:
+  usage: 'Usage: archctl toggle screensaver'
+  command_error: 'Could not change screensaver availability'
+statuses:
+  invalid_arguments: 2
+  command_error: 1
+  success: 0
