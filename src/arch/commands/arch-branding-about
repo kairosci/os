@@ -1,7 +1,0 @@
-#!/bin/bash
-
-# arch:summary=Use the screensaver branding for About
-
-set -euo pipefail
-
-exec arch-branding-screensaver "$@"
