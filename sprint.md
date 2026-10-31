@@ -95,5 +95,6 @@
 | #578 | Migrate battery notification command to Python |
 | #579 | Migrate notification sender to Python |
 | #580 | Migrate hibernation availability check to Python |
+| #581 | Migrate power profile listing to Python |
 
 PR #483 was closed when its base branch was deleted during integration. Its change was rebased and merged as PR #499.

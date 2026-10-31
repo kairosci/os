@@ -13,7 +13,13 @@ cat >"$tmp_dir/bin/powerprofilesctl" <<'EOF'
 #!/bin/bash
 
 if [[ $1 == "list" ]]; then
-  printf '  power-saver:\n* balanced:\n  performance:\n'
+  if [[ ${POWERPROFILES_TEST_MODE:-} == "slow" ]]; then
+    sleep 10
+  elif [[ ${POWERPROFILES_TEST_MODE:-} == "large" ]]; then
+    head -c 256 /dev/zero
+  else
+    printf '  power-saver:\n* balanced:\n  performance:\n'
+  fi
 elif [[ $1 == "set" ]]; then
   [[ ${POWERPROFILES_SET_FAIL:-0} == "0" ]] || exit 1
   printf '%s\n' "$2" >>"$POWERPROFILES_LOG"
@@ -32,9 +38,49 @@ fi
 EOF
 chmod +x "$tmp_dir/bin/busctl"
 
-export PATH="$tmp_dir/bin:$ROOT/src/arch/commands:$PATH"
+export AP="$ROOT"
+export PATH="$tmp_dir/bin:$ARCH_TEST_CLI_BIN:$ROOT/src/arch/commands:$PATH"
 export POWERPROFILES_LOG="$tmp_dir/calls"
 export ARCH_POWERPROFILES_STATE_DIR="$tmp_dir/state"
+
+profiles=$(arch-powerprofiles-list)
+[[ $profiles == $'performance\nbalanced\npower-saver' ]] || fail "power profile listing keeps the daemon order reversed" "$profiles"
+pass "power profile listing prints supported profiles in display order"
+
+active_profiles=$(arch-powerprofiles-list --active-state)
+[[ $active_profiles == $'performance\t0\nbalanced\t1\npower-saver\t0' ]] || fail "power profile listing reports the active profile" "$active_profiles"
+pass "power profile listing reports active state on request"
+
+if arch-powerprofiles-list unexpected >/dev/null 2>&1; then
+  fail "power profile listing rejects unknown arguments"
+fi
+pass "power profile listing rejects unknown arguments"
+
+profile_ap="$tmp_dir/profile-ap"
+mkdir -p "$profile_ap/data/cli"
+ln -s "$ROOT/src" "$profile_ap/src"
+cat >"$profile_ap/data/cli/powerprofiles-list.yml" <<EOF
+command: ['$tmp_dir/bin/powerprofilesctl', list]
+timeout_seconds: 1
+cleanup_timeout_seconds: 1
+max_output_bytes: 8
+profile_line_pattern: '^\\s*(?P<active>\\*)?\\s*(?P<name>[a-zA-Z0-9-]+):\\s*$'
+active_state_option: --active-state
+usage: 'Usage: arch-powerprofiles-list [--active-state]'
+statuses:
+  success: 0
+  invalid_arguments: 1
+EOF
+
+slow_output=$(timeout --kill-after=1s 4s env AP="$profile_ap" POWERPROFILES_TEST_MODE=slow \
+  "$ARCH_TEST_CLI_BIN/arch-powerprofiles-list") || fail "power profile listing returns when the daemon stalls"
+[[ -z $slow_output ]] || fail "a timed out power profile query returns no partial profiles" "$slow_output"
+pass "power profile listing bounds a stalled daemon request"
+
+large_output=$(AP="$profile_ap" POWERPROFILES_TEST_MODE=large "$ARCH_TEST_CLI_BIN/arch-powerprofiles-list") ||
+  fail "an oversized power profile response is rejected without failing the caller"
+[[ -z $large_output ]] || fail "an oversized power profile response is not retained" "$large_output"
+pass "power profile listing caps daemon output before parsing"
 
 "$ROOT/src/arch/commands/arch-powerprofiles-set" ac balanced
 [[ $(<"$tmp_dir/state/ac") == "balanced" ]] || fail "power profile stores AC preference"
