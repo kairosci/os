@@ -141,7 +141,7 @@ verify_progress() {
 echo -e "\e[32mSetting up fingerprint scanner for authentication.\n\e[0m"
 
 # Bail before installing anything if there's no reader to talk to.
-if ! arch-hw-fingerprint; then
+if ! archctl hw fingerprint; then
   echo -e "\e[31mNo fingerprint sensor detected.\e[0m"
   exit 1
 fi

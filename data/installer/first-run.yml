@@ -136,7 +136,7 @@ user_units:
     en: Input method defaults deferred; run archctl setup input after login.
     it: Configurazione del metodo di input rimandata; esegui archctl setup input dopo l'accesso.
 fingerprint_invitation:
-  hardware_check: [arch-hw-fingerprint]
+  hardware_check: [archctl, hw, fingerprint]
   pam_file: /etc/pam.d/arch-lock-fingerprint
   marker: [arch-done, ensure, fingerprint-setup-invitation]
   notification:

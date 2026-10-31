@@ -53,7 +53,7 @@ def main() -> int:
       log = work / "events"
       log.touch()
       marker = work / "hardware-present"
-      executable(bin_directory / "arch-hw-fingerprint", "#!/bin/bash\n[[ -f $TEST_HW_MARKER ]]\n")
+      executable(bin_directory / "archctl", "#!/bin/bash\n[[ $* == 'hw fingerprint' && -f $TEST_HW_MARKER ]]\n")
       executable(
         bin_directory / "arch-notification-send",
         '#!/bin/bash\nprintf \'%s\\0\' "$@" >>"$TEST_LOG"\nprintf \'\\0\' >>"$TEST_LOG"\n',

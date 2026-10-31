@@ -197,7 +197,7 @@
   "setup.plugin.remove": {"icon":"󰭌","label":"Remove Plugin","when":"compgen -G \"$HOME/.config/arch/plugins/*/manifest.json\"","action":"arch-menu-plugin remove"},
   "setup.security": {"icon":"","label":"Security"},
   "setup.config": {"icon":"","label":"Config"},
-  "setup.security.fingerprint": {"icon":"󰈷","label":"Fingerprint","when":"arch-hw-fingerprint","action":"arch-launch-terminal-with-presentation arch-setup-security-fingerprint"},
+  "setup.security.fingerprint": {"icon":"󰈷","label":"Fingerprint","when":"archctl hw fingerprint","action":"arch-launch-terminal-with-presentation arch-setup-security-fingerprint"},
   "setup.security.fido2": {"icon":"","label":"Fido2","action":"arch-launch-terminal-with-presentation arch-setup-security-fido2"},
   "setup.security.sshd": {"icon":"󰣀","label":"SSHD","action":"arch-launch-terminal-with-presentation arch-setup-security-sshd"},
   "setup.security.ssh-agent": {"icon":"󰣀","label":"SSH Agent","when":"! systemctl --user -q is-enabled gcr-ssh-agent.socket","action":"arch-launch-terminal-with-presentation arch-setup-security-ssh-agent"},
