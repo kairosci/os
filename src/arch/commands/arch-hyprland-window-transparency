@@ -61,4 +61,4 @@ flock -u 9
 hyprctl reload >/dev/null || exit 1
 arch-restart-terminal
 arch-theme-set-foot
-arch-restart-btop
+archctl restart btop

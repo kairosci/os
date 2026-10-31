@@ -144,6 +144,7 @@ cat >"$mock_bin/pkill" <<'STUB'
 
 : "${ARCH_TEST_PKILL_CALLS:?}"
 printf '<%s>\n' "$@" >"$ARCH_TEST_PKILL_CALLS"
+exit "${ARCH_TEST_PKILL_STATUS:-0}"
 STUB
 cat >"$mock_bin/setsid" <<'STUB'
 #!/bin/bash
@@ -182,6 +183,51 @@ PATH="$mock_bin:$ARCH_TEST_CLI_BIN:$PATH" ARCH_TEST_PKILL_CALLS="$pkill_calls" \
   $(<"$setsid_calls") == $'<uwsm-app>\n<-->\n<hyprsunset>' ]] ||
   fail "the hidden hyprsunset compatibility entrypoint uses the shared restart module"
 pass "the hidden hyprsunset compatibility entrypoint uses the shared restart module"
+
+PATH="$mock_bin:$ARCH_TEST_CLI_BIN:$PATH" ARCH_TEST_PKILL_CALLS="$pkill_calls" \
+  ARCH_TEST_PKILL_STATUS=1 "$ARCH_TEST_CLI_BIN/archctl" restart btop
+[[ $(<"$pkill_calls") == $'<-SIGUSR2>\n<-x>\n<btop>' ]] ||
+  fail "restart btop signals only btop and treats an absent process as a no-op" "$(<"$pkill_calls")"
+pass "restart btop preserves its signal and missing-process behavior"
+
+cat >"$mock_bin/pgrep" <<'STUB'
+#!/bin/bash
+printf '<%s>\n' "$@" >"$ARCH_TEST_PGREP_CALLS"
+exit "${ARCH_TEST_PGREP_STATUS:-0}"
+STUB
+cat >"$mock_bin/tmux" <<'STUB'
+#!/bin/bash
+printf '<%s>\n' "$@" >>"$ARCH_TEST_TMUX_CALLS"
+if [[ ${1:-} == "has-session" ]]; then
+  exit "${ARCH_TEST_TMUX_SESSION_STATUS:-0}"
+fi
+STUB
+chmod +x "$mock_bin/pgrep" "$mock_bin/tmux"
+
+pgrep_calls="$test_tmp/pgrep-calls"
+: >"$pkill_calls"
+PATH="$mock_bin:$ARCH_TEST_CLI_BIN:$PATH" ARCH_TEST_PGREP_CALLS="$pgrep_calls" \
+  ARCH_TEST_PGREP_STATUS=1 ARCH_TEST_PKILL_CALLS="$pkill_calls" \
+  "$ARCH_TEST_CLI_BIN/archctl" restart helix
+[[ $(<"$pgrep_calls") == $'<-x>\n<helix>' && ! -s $pkill_calls ]] ||
+  fail "restart helix leaves a missing editor alone"
+pass "restart helix skips a process that is not running"
+
+PATH="$mock_bin:$ARCH_TEST_CLI_BIN:$PATH" ARCH_TEST_PGREP_CALLS="$pgrep_calls" \
+  ARCH_TEST_PGREP_STATUS=0 ARCH_TEST_PKILL_CALLS="$pkill_calls" \
+  "$ARCH_TEST_CLI_BIN/archctl" restart helix
+[[ $(<"$pkill_calls") == $'<-USR1>\n<helix>' ]] ||
+  fail "restart helix signals a running editor with the configured signal"
+pass "restart helix reloads a running editor"
+
+tmux_calls="$test_tmp/tmux-calls"
+tmux_config_home="$test_tmp/tmux-config"
+mkdir -p "$tmux_config_home/tmux"
+PATH="$mock_bin:$ARCH_TEST_CLI_BIN:$PATH" XDG_CONFIG_HOME="$tmux_config_home" \
+  ARCH_TEST_TMUX_CALLS="$tmux_calls" "$ARCH_TEST_CLI_BIN/archctl" restart tmux
+[[ $(<"$tmux_calls") == $'<has-session>\n<source-file>\n<'"$tmux_config_home"'/tmux/tmux.conf>' ]] ||
+  fail "restart tmux reloads the config from XDG_CONFIG_HOME" "$(<"$tmux_calls")"
+pass "restart tmux reloads the configured tmux file"
 
 fake_home="$test_tmp/home"
 editor_calls="$test_tmp/editor-calls"

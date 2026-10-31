@@ -1,7 +1,7 @@
 actions:
   tmux:
     refresh_config: [archctl, refresh, config, tmux/tmux.conf]
-    restart: [arch-restart-tmux]
+    restart: [archctl, restart, tmux]
     usage: 'Usage: archctl refresh tmux'
   hyprsunset:
     refresh_config: [archctl, refresh, config, hypr/hyprsunset.conf]
