@@ -88,7 +88,7 @@ def main(arguments: list[str]) -> int:
     return os.EX_CONFIG
 
   if not arguments:
-    print(settings["messages"]["usage"], file=sys.stderr)
+    print(settings["messages"]["usage"])
     return settings["statuses"]["missing_argument"]
 
   try:
