@@ -5,7 +5,6 @@ sources = [
   "src/arch/commands/arch-hyprland-corners",
   "src/arch/cli/hyprland/focus.py",
   "src/arch/commands/arch-hyprland-monitor-clamshell",
-  "src/arch/commands/arch-hyprland-monitor-external-active",
   "src/arch/cli/hyprland/monitors.py",
   "src/arch/commands/arch-hyprland-monitor-internal",
   "src/arch/commands/arch-hyprland-monitor-internal-mirror",
@@ -41,10 +40,6 @@ target = "usr/share/arch/src/arch/cli/hyprland/focus.py"
 [[output]]
 source = "src/arch/commands/arch-hyprland-monitor-clamshell"
 target = "usr/share/arch/src/arch/commands/arch-hyprland-monitor-clamshell"
-
-[[output]]
-source = "src/arch/commands/arch-hyprland-monitor-external-active"
-target = "usr/share/arch/src/arch/commands/arch-hyprland-monitor-external-active"
 
 [[output]]
 source = "src/arch/cli/hyprland/monitors.py"
