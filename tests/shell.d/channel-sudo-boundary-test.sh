@@ -19,7 +19,7 @@ p = Path(sys.argv[1])
 p.write_text(p.read_text().replace('/usr/share/arch', sys.argv[2]))
 PY
 
-for command in arch-dev-link arch-dev-unlink arch-state gum git; do
+for command in arch-dev-link arch-dev-unlink archctl gum git; do
   cat >"$SUDO_TEST_ROOT/src/arch/commands/$command" <<'STUB'
 #!/bin/bash
 set -euo pipefail
@@ -119,7 +119,7 @@ reset_boundary
 wrapper="$SUDO_TEST_HOME/arch/default/arch/sudo-no-update/sudo"
 mv "$wrapper" "$boundary_tmp/saved-wrapper"
 if run_channel dev; then fail "an old checkout without the wrapper was accepted"; fi
-if grep -Eq '^step:arch-(dev-link|state)|^sudo -N ' "$SUDO_TEST_LOG"; then
+if grep -Eq '^step:arch-dev-link |^step:archctl state |^sudo -N ' "$SUDO_TEST_LOG"; then
   fail "an incompatible dev checkout changed the system before rejection"
 fi
 grep -q 'Update the checkout before switching to dev' "$boundary_tmp/output" || fail "stale checkout rejection lacks recovery guidance"
@@ -136,7 +136,7 @@ for required in src/arch/commands/arch-hw-platform installer/helpers/pacman.sh; 
     mv "$checkout/$required" "$boundary_tmp/saved-required"
     if SUDO_TEST_PLATFORM=$platform run_channel dev; then fail "$platform: a dev checkout without $required was accepted"; fi
     mv "$boundary_tmp/saved-required" "$checkout/$required"
-    if grep -Eq '^step:arch-(dev-link|state)|^step:pacman|^sudo -N ' "$SUDO_TEST_LOG"; then
+    if grep -Eq '^step:arch-dev-link |^step:archctl state |^step:pacman|^sudo -N ' "$SUDO_TEST_LOG"; then
       fail "$platform: a dev checkout without $required changed the system before rejection" "$(<"$SUDO_TEST_LOG")"
     fi
     grep -q "Update the checkout before switching to dev; on $platform it needs $required" "$boundary_tmp/output" ||
@@ -153,7 +153,7 @@ mv "$template" "$boundary_tmp/saved-template"
 reset_boundary
 if SUDO_TEST_PLATFORM=aarch64 run_channel dev; then fail "a dev checkout without its templates was accepted"; fi
 mv "$boundary_tmp/saved-template" "$template"
-if grep -Eq '^step:arch-(dev-link|state)|^step:pacman|^sudo -N ' "$SUDO_TEST_LOG"; then
+if grep -Eq '^step:arch-dev-link |^step:archctl state |^step:pacman|^sudo -N ' "$SUDO_TEST_LOG"; then
   fail "a dev checkout without its templates changed the system before rejection" "$(<"$SUDO_TEST_LOG")"
 fi
 grep -q "Update the checkout before switching to dev; it has no edge templates for aarch64" "$boundary_tmp/output" ||
@@ -179,7 +179,7 @@ grep -q "predates command-scoped sudo" "$boundary_tmp/output" || fail "an older 
 grep -Fq "Packages are switched to arch 4.0.5-1, arch-settings 4.0.5-1." "$boundary_tmp/output" || fail "an older packaged destination does not name what is installed" "$(<"$boundary_tmp/output")"
 grep -q "Run 'archctl update' from a new terminal to finish" "$boundary_tmp/output" || fail "an older packaged destination lacks recovery guidance" "$(<"$boundary_tmp/output")"
 grep -Fxq 'step:arch-dev-unlink --no-reboot' "$SUDO_TEST_LOG" || fail "the package switch was not completed before stopping" "$(<"$SUDO_TEST_LOG")"
-grep -Fxq 'step:arch-state set reboot-required' "$SUDO_TEST_LOG" || fail "leaving dev for an older release did not mark the reboot" "$(<"$SUDO_TEST_LOG")"
+grep -Fxq 'step:archctl state set reboot-required' "$SUDO_TEST_LOG" || fail "leaving dev for an older release did not mark the reboot" "$(<"$SUDO_TEST_LOG")"
 if grep -q '^step:arch-update ' "$SUDO_TEST_LOG"; then fail "an older packaged updater was launched from the hardened switch" "$(<"$SUDO_TEST_LOG")"; fi
 grep -q 'The channel switch did not complete' "$boundary_tmp/output" && fail "the stop was reported as an error needing a rerun" "$(<"$boundary_tmp/output")"
 assert_boundary_cold "older packaged destination"

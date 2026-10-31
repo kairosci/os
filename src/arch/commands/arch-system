@@ -46,7 +46,7 @@ esac
 exit_session() {
   arch-osd -i "$action" -m "$message" -d 5000
   if [[ $action != "logout" ]]; then
-    arch-state clear re*-required
+    archctl state clear re*-required
   fi
 
   # Proceed as soon as apps exit, with a bound for unresponsive windows.

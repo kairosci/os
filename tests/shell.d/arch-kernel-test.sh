@@ -28,7 +28,7 @@ install_kernels() {
 }
 
 # Unprivileged side: escalation records what it would run instead of running it.
-for tool in pkexec sudo arch-state arch-notification-send; do
+for tool in pkexec sudo archctl arch-notification-send; do
   cat > "$scratch/bin/$tool" <<SH
 #!/bin/bash
 printf '$tool %s\n' "\$*" >> "\$CALL_LOG"
@@ -165,7 +165,7 @@ reset_fixture
 [[ $(grep -c '^pkexec ' "$CALL_LOG") == "1" ]] || fail "the menu path escalates through pkexec once" "$(<"$CALL_LOG")"
 grep -Fxq "pkexec $ROOT/src/arch/commands/arch-kernel set linux" "$CALL_LOG" || fail "pkexec runs this command's root half" "$(<"$CALL_LOG")"
 ! grep -q '^sudo ' "$CALL_LOG" || fail "the menu path has no terminal for sudo"
-grep -Fxq 'arch-state set reboot-required' "$CALL_LOG" || fail "a switch asks for a reboot"
+grep -Fxq 'archctl state set reboot-required' "$CALL_LOG" || fail "a switch asks for a reboot"
 [[ $(grep -c '^arch-notification-send ' "$CALL_LOG") == "1" ]] || fail "only the finished switch is announced" "$(<"$CALL_LOG")"
 grep -Fxq 'arch-notification-send -g  -t 30000 Now using linux Reboot to use new default kernel --exec arch-system reboot' "$CALL_LOG" || fail "the notification names the kernel and reboots when clicked" "$(<"$CALL_LOG")"
 pass "picked from the menu, set authenticates once with pkexec and asks for a reboot"
@@ -174,7 +174,7 @@ reset_fixture
 if DIRECT_BOOT=1 "$command" set linux < /dev/null 2> "$scratch/output"; then
   fail "a switch is refused while Direct Boot bypasses the boot menu"
 fi
-! grep -Eq '^(pkexec|sudo|arch-state) ' "$CALL_LOG" || fail "Direct Boot refuses before any prompt or reboot request" "$(<"$CALL_LOG")"
+! grep -Eq '^(pkexec|sudo|archctl) ' "$CALL_LOG" || fail "Direct Boot refuses before any prompt or reboot request" "$(<"$CALL_LOG")"
 grep -Fq "Setup > Direct Boot" "$scratch/output" || fail "the refusal says how to turn Direct Boot off"
 grep -q '^arch-notification-send .*-u critical' "$CALL_LOG" || fail "picked from the menu, the refusal is a notification"
 pass "Direct Boot systems are told to turn it off instead of getting a switch that does nothing"
@@ -183,7 +183,7 @@ reset_fixture
 if ESCALATION_FAIL=1 "$command" set linux < /dev/null; then
   fail "a cancelled prompt fails the switch"
 fi
-! grep -q '^arch-state ' "$CALL_LOG" || fail "a cancelled switch does not ask for a reboot"
+! grep -q '^archctl ' "$CALL_LOG" || fail "a cancelled switch does not ask for a reboot"
 grep -Fxq "arch-notification-send -g  -u critical -t 30000 Couldn't switch to linux Retry in a terminal --exec arch-launch-terminal-with-presentation arch-kernel set linux" "$CALL_LOG" ||
   fail "a failed switch says so like a success does, and retries in a terminal when clicked" "$(<"$CALL_LOG")"
 pass "a cancelled or failed pkexec leaves no reboot request"

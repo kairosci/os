@@ -197,7 +197,7 @@ if [[ -n $dev_checkout ]]; then
   link_dev_checkout "$dev_checkout"
   export AP="$dev_checkout"
   arch_security_enable_no_update_sudo
-  arch-state set reboot-required
+  archctl state set reboot-required
 fi
 
 ARCH_UPDATE_USER_PATH="$user_path" arch-refresh-pacman "$pacman_channel"
@@ -212,7 +212,7 @@ if [[ -z $dev_checkout ]]; then
   export AP=/usr/share/arch
 
   if (( leaving_dev )); then
-    arch-state set reboot-required
+    archctl state set reboot-required
   fi
   arch_security_enable_no_update_sudo 2>/dev/null || stop_for_older_destination
 fi

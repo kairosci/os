@@ -55,7 +55,7 @@ if [[ $mode != "--reboot-only" ]]; then
       filename=$(basename "$file")
       service=$(echo "$filename" | sed 's/restart-\(.*\)-required/\1/')
       echo "Restarting $service"
-      arch-state clear "$filename"
+      archctl state clear "$filename"
       arch-restart-"$service"
     fi
   done

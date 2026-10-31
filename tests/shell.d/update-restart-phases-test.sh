@@ -6,7 +6,7 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 source "$SHELL_TEST_DIR/fixtures/sudo-boundary-test.sh"
 rm "$SUDO_TEST_ROOT/src/arch/commands/arch-update-restart"
 copy_boundary_file bin/arch-update-restart
-for step in arch-state arch-restart-sshd arch-restart-shell arch-system; do
+for step in archctl arch-restart-sshd arch-restart-shell arch-system; do
   ln -s test-step "$SUDO_TEST_ROOT/src/arch/commands/$step"
 done
 cat >"$SUDO_TEST_ROOT/src/arch/commands/gum" <<'STUB'

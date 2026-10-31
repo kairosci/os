@@ -567,6 +567,7 @@ entrypoints:
     summary: Manage persistent state files for Arch toggles and settings.
     args: <set|clear> <state-name-or-pattern>
     hidden: 'true'
+    generate_launcher: "false"
   - binary: arch-theme-bg-current
     module: theme/info
     function: background_current_main
