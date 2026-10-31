@@ -4,7 +4,6 @@ package = "arch"
 sources = [
   "src/arch/commands/arch-cmd-browser-handoff",
   "src/arch/cli/command/presence.py",
-  "src/arch/commands/arch-cmd-terminal-cwd",
 ]
 requires = ["desktop.commands"]
 
@@ -15,7 +14,3 @@ target = "usr/share/arch/src/arch/commands/arch-cmd-browser-handoff"
 [[output]]
 source = "src/arch/cli/command/presence.py"
 target = "usr/share/arch/src/arch/cli/command/presence.py"
-
-[[output]]
-source = "src/arch/commands/arch-cmd-terminal-cwd"
-target = "usr/share/arch/src/arch/commands/arch-cmd-terminal-cwd"
