@@ -105,7 +105,7 @@ for name in pkill killall; do
 done
 # Nor may it change system state over D-Bus: the battery service applies a
 # power profile when UPower reports one.
-for name in arch-powerprofiles-set powerprofilesctl; do
+for name in powerprofilesctl; do
   printf '#!/bin/bash\nexit 0\n' >"$stub_bin/$name"
   chmod +x "$stub_bin/$name"
 done

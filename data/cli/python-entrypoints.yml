@@ -112,6 +112,7 @@ entrypoints:
     args: '[autodetect|ac|battery] [power-saver|balanced|performance]'
     examples: 'archctl powerprofiles set ac balanced | archctl powerprofiles set autodetect'
     pass_args: 'true'
+    generate_launcher: "false"
   - binary: arch-refresh-config
     module: refresh/config
     function: main

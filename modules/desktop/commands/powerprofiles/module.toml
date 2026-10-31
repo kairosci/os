@@ -2,15 +2,10 @@ id = "desktop.commands.powerprofiles"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/arch/commands/arch-powerprofiles-init",
   "src/arch/cli/powerprofiles/list.py",
   "src/arch/cli/powerprofiles/set.py",
 ]
 requires = ["desktop.commands", "system.runtime-data"]
-
-[[output]]
-source = "src/arch/commands/arch-powerprofiles-init"
-target = "usr/share/arch/src/arch/commands/arch-powerprofiles-init"
 
 [[output]]
 source = "src/arch/cli/powerprofiles/list.py"

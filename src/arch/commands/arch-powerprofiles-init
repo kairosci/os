@@ -1,5 +1,0 @@
-#!/bin/bash
-
-# arch:summary=Set the correct power profile on boot based on current AC/battery state.
-
-exec arch-powerprofiles-set autodetect
