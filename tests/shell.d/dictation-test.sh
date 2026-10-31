@@ -63,9 +63,12 @@ else
   exit "${SERVICE_EXIT:-0}"
 fi
 SH
-cat > "$test_tmp/bin/arch-hw-vulkan" <<'SH'
+cat > "$test_tmp/bin/archctl" <<'SH'
 #!/bin/bash
-exit 1
+if [[ ${1:-} == hw && ${2:-} == vulkan ]]; then
+  exit 1
+fi
+exit "${SETUP_EXIT:-0}"
 SH
 cat > "$test_tmp/bin/gum" <<'SH'
 #!/bin/bash
