@@ -1,4 +1,20 @@
 entrypoints:
+  - binary: arch-pkg-missing
+    module: pkg/presence
+    function: missing_main
+    group: pkg
+    name: missing
+    summary: Check whether any of the named packages are missing
+    hidden: 'true'
+    pass_args: 'true'
+  - binary: arch-pkg-present
+    module: pkg/presence
+    function: present_main
+    group: pkg
+    name: present
+    summary: Check whether all of the named packages are installed
+    hidden: 'true'
+    pass_args: 'true'
   - binary: arch-theme-extras
     module: theme/extras
     function: main

@@ -27,7 +27,7 @@ source_path = source / source_name
 p=target/source_name
 p.parent.mkdir(parents=True,exist_ok=True)
 s=source_path.read_text().replace('$HOME', '$SUDO_TEST_HOME')
-for command in ['sudo','pkexec','pacman','arch-pkg-missing','systemd-inhibit','setpriv','snapper']:
+for command in ['sudo','pkexec','pacman','archctl','systemd-inhibit','setpriv','snapper']:
  s=s.replace('/usr/bin/'+command, str(target/'mock'/command))
 s=s.replace('PATH=/usr/bin:/usr/sbin:/bin:/sbin', 'PATH="'+str(target/'bin')+':/usr/bin:/usr/sbin:/bin:/sbin"')
 if name.name == 'arch-apply-pacman':

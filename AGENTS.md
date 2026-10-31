@@ -115,7 +115,7 @@ The experience should be the same on every platform. When a package or feature i
 Use these instead of raw shell commands:
 
 - `arch-cmd-missing` / `arch-cmd-present` - check for commands
-- `arch-pkg-missing` / `arch-pkg-present` - check for packages (don't use these if you can just use `arch-pkg-add`/`arch-pkg-drop`)
+- `archctl pkg missing` / `archctl pkg present` - check for packages (don't use these if you can just use `arch-pkg-add`/`arch-pkg-drop`)
 - `arch-pkg-add` - install packages from the configured pacman repos, Arch's included; use `arch-pkg-aur-add` for AUR packages
 - `arch-pkg-drop` - remove packages; use this instead of raw `pacman -R*`
 - `os notification send` - send desktop notifications; do not call `notify-send` directly

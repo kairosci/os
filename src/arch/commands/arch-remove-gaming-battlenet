@@ -18,7 +18,7 @@ update-desktop-database "$HOME/.local/share/applications" 2>/dev/null || true
 echo
 echo "Battle.net and its Proton prefix at $PREFIX have been removed."
 
-if arch-pkg-present umu-launcher; then
+if archctl pkg present umu-launcher; then
   echo
   if gum confirm --affirmative "$(arch-i18n common.yes)" --negative "$(arch-i18n common.no)" "$(arch-i18n battlenet.removeUmu)"; then
     arch-pkg-drop umu-launcher

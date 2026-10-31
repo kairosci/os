@@ -110,7 +110,7 @@ def configure_inputs():
 def load_engines(names, catalog):
   packages = sorted({package for name in names for package in setup.PRESETS.get(name, {}).get("packages", [])})
   absent = [package for package in packages
-            if subprocess.run(["arch-pkg-present", package], capture_output=True).returncode]
+            if subprocess.run(["archctl", "pkg", "present", package], capture_output=True).returncode]
   if absent or any(name not in setup.PRESETS for name in names):
     labels = ", ".join(catalog.get(name, name) for name in names)
     raise RuntimeError(f"Install {' '.join(absent) or 'its engine'} to use {labels}")

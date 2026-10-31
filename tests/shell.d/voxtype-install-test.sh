@@ -14,7 +14,6 @@ mkdir -p "$stub_bin" "$lib_path"
 for command in gum arch-pkg-drop arch-pkg-add hyprctl arch-restart-shell archctl systemctl; do
   printf '#!/bin/bash\nexit 0\n' >"$stub_bin/$command"
 done
-printf '#!/bin/bash\nexit 1\n' >"$stub_bin/arch-pkg-present"
 # Voxtype is already installed, so the install asks nothing and only sets it up.
 printf '#!/bin/bash\nexit 1\n' >"$stub_bin/arch-cmd-missing"
 printf '#!/bin/bash\nexit 0\n' >"$stub_bin/arch-dictation-use"

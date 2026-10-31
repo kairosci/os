@@ -8,16 +8,16 @@ run_node_test <<'JS'
 const menu = requireFromRoot('src/arch/shell/plugins/menu/MenuModel.js')
 
 const items = {
-  'setup.default.browser.brave': { id: 'setup.default.browser.brave', when: 'arch-pkg-present brave-bin', checked: '[[ "$(archctl default browser)" == "brave" ]]' },
-  'setup.default.browser.zen': { id: 'setup.default.browser.zen', when: 'arch-pkg-present zen-browser-bin', checked: '[[ "$(archctl default browser)" == "zen" ]]' },
-  'install.browser.zen': { id: 'install.browser.zen', disabled: 'arch-pkg-present zen-browser-bin' },
+  'setup.default.browser.brave': { id: 'setup.default.browser.brave', when: 'archctl pkg present brave-bin', checked: '[[ "$(archctl default browser)" == "brave" ]]' },
+  'setup.default.browser.zen': { id: 'setup.default.browser.zen', when: 'archctl pkg present zen-browser-bin', checked: '[[ "$(archctl default browser)" == "zen" ]]' },
+  'install.browser.zen': { id: 'install.browser.zen', disabled: 'archctl pkg present zen-browser-bin' },
   'plain': { id: 'plain', label: 'No guards' }
 }
 const script = menu.guardScript(items)
 const browserSlot = `\${__arch_read_${menu.guardReaders.indexOf('archctl default browser')}}`
 
 assert(
-  script.includes('if { arch-pkg-present brave-bin; } >/dev/null 2>&1; then echo setup.default.browser.brave:w:1; else echo setup.default.browser.brave:w:0; fi'),
+  script.includes('if { archctl pkg present brave-bin; } >/dev/null 2>&1; then echo setup.default.browser.brave:w:1; else echo setup.default.browser.brave:w:0; fi'),
   'guard script reports a when: as <id>:w:<0|1>'
 )
 assert(
@@ -25,7 +25,7 @@ assert(
   'guard script reports a checked: as <id>:c:<0|1>'
 )
 assert(
-  script.includes('if { arch-pkg-present zen-browser-bin; } >/dev/null 2>&1; then echo install.browser.zen:d:1; else echo install.browser.zen:d:0; fi'),
+  script.includes('if { archctl pkg present zen-browser-bin; } >/dev/null 2>&1; then echo install.browser.zen:d:1; else echo install.browser.zen:d:0; fi'),
   'guard script reports a disabled: as <id>:d:<0|1>'
 )
 assert(!/\bplain:[wcd]:/.test(script), 'guard script skips items with nothing to evaluate')
@@ -43,7 +43,7 @@ assert(
   'guard script substitutes the captured answer into the expression'
 )
 assert(
-  script.indexOf('__arch_read_') < script.indexOf('if { arch-pkg-present'),
+  script.indexOf('__arch_read_') < script.indexOf('if { archctl pkg present'),
   'guard script captures readers before any guard runs, since $() would trap a lazy memo in its subshell'
 )
 
@@ -141,16 +141,26 @@ guard_prelude=$(prelude)
 # exists to prove constraints work would quietly test `bash` instead.
 assert_helper_agrees() {
   local description="$1" helper="$2" command_path shadow_helper
-  local -a route=()
+  local -a route=() shadow_route=()
   shift 2
 
   shadow_helper=$helper
-  if [[ $helper == "archctl cmd missing" ]]; then
-    command_path="$ARCH_TEST_CLI_BIN/archctl"
+  if [[ $helper == "archctl pkg missing" ]]; then
+    command_path="$ROOT/src/arch/commands/archctl"
+    route=(pkg missing)
+    shadow_helper=archctl
+    shadow_route=(pkg missing)
+  elif [[ $helper == "archctl pkg present" ]]; then
+    command_path="$ROOT/src/arch/commands/archctl"
+    route=(pkg present)
+    shadow_helper=archctl
+    shadow_route=(pkg present)
+  elif [[ $helper == "archctl cmd missing" ]]; then
+    command_path="$ROOT/src/arch/commands/archctl"
     route=(cmd missing)
     shadow_helper=arch-cmd-missing
   elif [[ $helper == "archctl cmd present" ]]; then
-    command_path="$ARCH_TEST_CLI_BIN/archctl"
+    command_path="$ROOT/src/arch/commands/archctl"
     route=(cmd present)
     shadow_helper=arch-cmd-present
   else
@@ -162,14 +172,14 @@ assert_helper_agrees() {
   AP="$ROOT" PATH="$stub_dir:$ARCH_TEST_CLI_BIN:$PATH" "$command_path" "${route[@]}" "$@" >/dev/null 2>&1 || real=$?
   # No runtime dir, so the stub's set is built fresh rather than read from the
   # machine's stored one (or stored in its place).
-  XDG_RUNTIME_DIR="" PATH="$stub_dir:$PATH" bash -c "$guard_prelude"$'\n'"$shadow_helper \"\$@\"" "$shadow_helper" "$@" >/dev/null 2>&1 || shadowed=$?
+  XDG_RUNTIME_DIR="" PATH="$stub_dir:$PATH" bash -c "$guard_prelude"$'\n'"$shadow_helper \"\$@\"" "$shadow_helper" "${shadow_route[@]}" "$@" >/dev/null 2>&1 || shadowed=$?
   ((real == shadowed)) || fail "$description" "$helper $*: real=$real shadowed=$shadowed"
 }
 
 # vim, sh and xxd are provided rather than installed, and xxd only appears on a
 # wrapped continuation line; bash>=1 is a version constraint no set can answer.
 pkg_cases=("bash" "vim" "sh" "xxd" "absent" "bash vim" "bash absent" "bash>=1" "vim>=1" "")
-for helper in arch-pkg-present arch-pkg-missing; do
+for helper in "archctl pkg present" "archctl pkg missing"; do
   for case in "${pkg_cases[@]}"; do
     read -r -a argv <<<"$case"
     assert_helper_agrees "guard prelude resolves packages as pacman does" "$helper" "${argv[@]}"
@@ -305,9 +315,9 @@ cache_script=$(node -e '
   const path = require("path")
   const menu = require(path.join(process.env.ROOT, "src/arch/shell/plugins/menu/MenuModel.js"))
   process.stdout.write(menu.guardScript({
-    bash: { id: "bash", when: "arch-pkg-present bash" },
-    vim: { id: "vim", when: "arch-pkg-present vim" },
-    zen: { id: "zen", when: "arch-pkg-present zen-browser-bin" }
+    bash: { id: "bash", when: "archctl pkg present bash" },
+    vim: { id: "vim", when: "archctl pkg present vim" },
+    zen: { id: "zen", when: "archctl pkg present zen-browser-bin" }
   }))
 ')
 

@@ -2,8 +2,8 @@
 #
 # The fingerprint setup installs libfprint-git in place of stock libfprint. The
 # two conflict, so the swap has to happen inside one --ask 4 transaction, and a
-# rerun with everything installed must not touch pacman at all. The real
-# arch-pkg-missing runs; pacman and the privileged calls are stubbed.
+# rerun with everything installed must not touch pacman at all. Package checks,
+# pacman and the privileged calls are stubbed.
 
 set -euo pipefail
 
@@ -17,8 +17,17 @@ export PATH="$scratch/bin:$ROOT/src/arch/commands:$PATH"
 
 cat > "$scratch/bin/archctl" <<'STUB'
 #!/bin/bash
-[[ $* == "hw fingerprint" ]] || exit 2
-exit "${HARDWARE_STATUS:-0}"
+case "$1 $2" in
+  "hw fingerprint") exit "${HARDWARE_STATUS:-0}" ;;
+  "pkg missing")
+    shift 2
+    for package in "$@"; do
+      pacman -Q -- "$package" >/dev/null 2>&1 || exit 0
+    done
+    exit 1
+    ;;
+  *) exit 2 ;;
+esac
 STUB
 cat > "$scratch/bin/sudo" <<'STUB'
 #!/bin/bash
