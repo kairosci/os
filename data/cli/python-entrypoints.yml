@@ -227,6 +227,7 @@ entrypoints:
     args: '[--install] [chromium|chrome|brave|brave-origin|edge|firefox|zen]'
     examples: archctl default browser | archctl default browser firefox
     pass_args: 'true'
+    generate_launcher: 'false'
   - binary: arch-default-browser-desktop-id
     module: default/browser
     function: default_browser_desktop_id_main
@@ -235,6 +236,7 @@ entrypoints:
     summary: Print the desktop entry ID of the current browser
     hidden: 'true'
     pass_args: 'true'
+    generate_launcher: 'false'
   - binary: arch-default-dictation
     module: default/dictation
     function: default_dictation_main
@@ -244,6 +246,7 @@ entrypoints:
     args: '[backend]'
     examples: archctl default dictation | archctl default dictation superwhisper
     pass_args: 'true'
+    generate_launcher: 'false'
   - binary: arch-default-editor
     module: default/editor
     function: default_editor_main
@@ -253,6 +256,7 @@ entrypoints:
     args: '[--install] [editor]'
     examples: archctl default editor | archctl default editor helix
     pass_args: 'true'
+    generate_launcher: 'false'
   - binary: arch-default-terminal
     module: default/terminal
     function: default_terminal_main
@@ -262,6 +266,7 @@ entrypoints:
     args: '[--install] [terminal]'
     examples: archctl default terminal | archctl default terminal kitty
     pass_args: 'true'
+    generate_launcher: 'false'
   - binary: arch-font-cjk
     module: font/catalog
     function: cjk_main
