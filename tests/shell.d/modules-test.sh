@@ -181,7 +181,10 @@ for module_id in command_modules:
     assert len(module["sources"]) == len(module["outputs"]), module_id
     for source, output in zip(module["sources"], module["outputs"]):
         assert output == [source, f"usr/share/arch/{source}"], (module_id, source, output)
-assert modules["desktop.commands"]["sources"] == ["src/arch/commands/archctl"]
+assert modules["desktop.commands"]["sources"] == [
+    "src/arch/commands/archctl",
+    "src/arch/cli/lib/bounded.py",
+]
 PY
 pass "installation stages are declared as submodules of the shared installer contract"
 pass "settings, applications, and pre-install branding have independent module ownership"
