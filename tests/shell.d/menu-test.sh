@@ -4,6 +4,32 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
+menu_tmp=$(mktemp -d)
+trap 'rm -rf "$menu_tmp"' EXIT
+mkdir -p "$menu_tmp/bin"
+cat >"$menu_tmp/bin/arch-shell" <<'SH'
+#!/bin/bash
+printf '%s\0' "$@" >"$ARCH_MENU_LOG"
+exit "${ARCH_MENU_STATUS:-0}"
+SH
+chmod +x "$menu_tmp/bin/arch-shell"
+menu_args="$menu_tmp/args"
+
+status=0
+AP="$ROOT" PATH="$menu_tmp/bin:$PATH" ARCH_MENU_LOG="$menu_args" ARCH_MENU_STATUS=7 \
+  "$ARCH_TEST_CLI_BIN/arch-menu-clipboard" || status=$?
+[[ $status == 7 ]] || fail "clipboard menu launcher preserves the shell command status" "$status"
+mapfile -d '' -t actual_args <"$menu_args"
+[[ ${#actual_args[@]} == 3 && ${actual_args[0]} == shell && ${actual_args[1]} == toggle && ${actual_args[2]} == arch.clipboard ]] ||
+  fail "clipboard menu launcher sends its configured shell action" "${actual_args[*]}"
+
+AP="$ROOT" PATH="$menu_tmp/bin:$PATH" ARCH_MENU_LOG="$menu_args" ARCH_MENU_STATUS=0 \
+  "$ARCH_TEST_CLI_BIN/arch-menu-emoji" || fail "emoji menu launcher opens successfully"
+mapfile -d '' -t actual_args <"$menu_args"
+[[ ${#actual_args[@]} == 3 && ${actual_args[0]} == shell && ${actual_args[1]} == toggle && ${actual_args[2]} == arch.emojis ]] ||
+  fail "emoji menu launcher sends its configured shell action" "${actual_args[*]}"
+pass "clipboard and emoji menu launchers use their YAML actions"
+
 run_node_test <<'JS'
 const fs = require('fs')
 const menu = requireFromRoot('src/arch/shell/plugins/menu/MenuModel.js')

@@ -3,8 +3,6 @@ domain = "desktop"
 package = "arch"
 sources = [
   "src/arch/commands/arch-menu",
-  "src/arch/commands/arch-menu-clipboard",
-  "src/arch/commands/arch-menu-emoji",
   "src/arch/commands/arch-menu-emoji-insert",
   "src/arch/commands/arch-menu-file",
   "src/arch/commands/arch-menu-images",
@@ -15,20 +13,13 @@ sources = [
   "src/arch/commands/arch-menu-share",
   "src/arch/commands/arch-menu-timezone",
   "src/arch/commands/arch-menu-tmux-keybindings",
+  "src/arch/cli/menu/launch.py",
 ]
-requires = ["desktop.commands"]
+requires = ["desktop.commands", "system.runtime-data"]
 
 [[output]]
 source = "src/arch/commands/arch-menu"
 target = "usr/share/arch/src/arch/commands/arch-menu"
-
-[[output]]
-source = "src/arch/commands/arch-menu-clipboard"
-target = "usr/share/arch/src/arch/commands/arch-menu-clipboard"
-
-[[output]]
-source = "src/arch/commands/arch-menu-emoji"
-target = "usr/share/arch/src/arch/commands/arch-menu-emoji"
 
 [[output]]
 source = "src/arch/commands/arch-menu-emoji-insert"
@@ -69,3 +60,7 @@ target = "usr/share/arch/src/arch/commands/arch-menu-timezone"
 [[output]]
 source = "src/arch/commands/arch-menu-tmux-keybindings"
 target = "usr/share/arch/src/arch/commands/arch-menu-tmux-keybindings"
+
+[[output]]
+source = "src/arch/cli/menu/launch.py"
+target = "usr/share/arch/src/arch/cli/menu/launch.py"

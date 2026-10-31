@@ -1,6 +1,0 @@
-#!/bin/bash
-# arch:summary=Launch the clipboard manager
-# arch:group=menu
-# arch:examples=archctl menu clipboard
-
-arch-shell shell toggle arch.clipboard

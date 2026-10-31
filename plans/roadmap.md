@@ -11,6 +11,7 @@ This roadmap tracks the requested CLI, ISO, desktop, and release work as separat
 - PRs #542 and #555 keep every shipped window and layer rule, including global tiling and transparency defaults, in the user-editable `config/hypr/apps.yml`. Disktree tiles and maximizes into the active display's usable area instead of using a fixed pixel size. The YAML loader reports an invalid user file and applies packaged defaults so a typo does not disable the desktop's window rules. The menu overflow indicator and the event-driven battery glyph refresh have been integrated; the current charging glyph has not been visually checked on a machine connected to external power.
 - The theme asset tree contains no keyboard image asset or keyboard-image reference. PR #539 removed Windows VM install and removal rows from the default menu; the existing command and user data remain untouched. Menu hierarchy, labels, focus behavior, and visual verification still need a broader review.
 - PR #584 replaces the full-screen black startup cover and the wallpaper layer’s transparent clear surface with the active theme background color. The shell service is already continuously supervised by systemd and by its launcher (PR #560). The code path removes two causes of an all-black desktop, but live visual verification still needs an isolated graphical VM; it has not been run because the available checkout has no sibling `arch-iso` harness and the active desktop must not be interrupted.
+- PR #585 moves the clipboard and emoji menu launchers into `src/arch/cli/menu/launch.py`, with their exact `arch-shell` argv, timeout, statuses, and messages in YAML. Once integrated, the repository will have 372 flat command files, 57 Python modules, and 82 Python entrypoints. Their existing binary names stay available through generated launchers for installed menu actions and user scripts.
 
 ## Sprints
 
@@ -20,7 +21,7 @@ PR #507 made `scrolling` the default and exposed `tiling` as the only alternate 
 
 ### 2. Inventory and classify CLI entrypoints
 
-For each executable in `src/arch/commands/`, record whether it is already backed by a Python module, still contains command behavior, or has callers that rely on its binary name. Eighty Python entrypoints are catalogued after PR #583, but the remaining 374 command files have not been classified. Keep the inventory generated from source metadata so it cannot silently drift.
+For each executable in `src/arch/commands/`, record whether it is already backed by a Python module, still contains command behavior, or has callers that rely on its binary name. Eighty-two Python entrypoints are catalogued after PR #585, but the remaining 372 command files have not been classified. Keep the inventory generated from source metadata so it cannot silently drift.
 
 ### 3. Move remaining command behavior into modules
 
@@ -65,3 +66,7 @@ A sprint is complete only when its implementation, caller updates, docs, and foc
 ### 12. Prevent blank desktop surfaces — in progress
 
 PR #584 gives the wallpaper layer an opaque theme-colored fallback and removes the intentional black startup cover. The shell process remains under the existing systemd restart policy and launcher supervisor. Verify the missing-wallpaper and shell-recovery states in a disposable graphical VM before closing this sprint; never restart the active desktop to perform that check.
+
+### 13. Move menu launch behavior into modules — in progress
+
+PR #585 migrates the clipboard and emoji toggle launchers into one Python module. Their command arrays, timeout, and failure output are YAML data, while generated entrypoints preserve the executable names used by the default menu. Continue with neighboring menu and trigger commands only where their behavior is genuinely code rather than declarative data.

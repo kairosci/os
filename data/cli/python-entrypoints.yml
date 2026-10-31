@@ -566,3 +566,17 @@ entrypoints:
     group: version
     name: pkgs
     summary: Print when system packages were last upgraded
+  - binary: arch-menu-clipboard
+    module: menu/launch
+    function: main
+    group: menu
+    name: clipboard
+    summary: Launch the clipboard manager
+    examples: archctl menu clipboard
+  - binary: arch-menu-emoji
+    module: menu/launch
+    function: main
+    group: menu
+    name: emoji
+    summary: Launch emojis
+    examples: archctl menu emoji

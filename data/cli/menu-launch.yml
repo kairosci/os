@@ -1,0 +1,12 @@
+commands:
+  arch-menu-clipboard: [arch-shell, shell, toggle, arch.clipboard]
+  arch-menu-emoji: [arch-shell, shell, toggle, arch.emojis]
+timeout_seconds: 5
+statuses:
+  configuration_error: 78
+  timeout: 124
+  command_error: 127
+  signal_status_base: 128
+messages:
+  timeout: 'The shell did not respond before the menu request timed out'
+  command_error: 'Could not start the shell menu request'

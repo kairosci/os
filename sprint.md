@@ -101,3 +101,4 @@
 
 PR #483 was closed when its base branch was deleted during integration. Its change was rebased and merged as PR #499.
 | #584 | Keep a themed desktop visible during shell recovery |
+| #585 | Migrate clipboard and emoji menu launchers to Python |

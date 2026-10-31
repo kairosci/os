@@ -1,6 +1,0 @@
-#!/bin/bash
-# arch:summary=Launch emojis
-# arch:group=menu
-# arch:examples=archctl menu emoji
-
-arch-shell shell toggle arch.emojis
