@@ -18,12 +18,13 @@ This roadmap tracks the requested CLI, ISO, desktop, and release work as separat
 - PR #590 removes `arch-update-status` from the flat command directory and keeps its hidden route in Python entrypoint metadata. Its `arch-shell` argv is in YAML; the current catalog has 367 flat command files, 60 Python modules, and 87 entrypoints.
 - PR #591 disables the generated flat launcher for that route. `archctl update status` still resolves the Python module from its metadata, and package assembly removes the stale launcher from an existing test stage. This is the first command on the path to retiring flat compatibility binaries; the remaining migrated routes still generate launchers until their callers are moved.
 - PR #592 disables launcher generation for 11 additional Python routes with no in-repository binary callers. The catalog remains at 87 module routes; only 75 generate per-command launchers. Each remains available through the unified `archctl` router.
+- PR #593 routes the clipboard, emoji, and emoji insertion actions through `archctl` from YAML, the default menu, and QML, then disables their three flat launchers. There are now 72 generated launchers for 87 Python routes, with 367 remaining command source files.
 
 ## Sprints
 
 ### 1. Finish the public layout contract — integrated
 
-PR #507 made `scrolling` the default and exposed `tiling` as the only alternate public mode. Its configuration migration preserves existing workspace state and maps prior stored values to the supported modes. Keep this contract intact as CLI commands and menus are refined.
+PR #507 made `scrolling` the default and exposed `tiling` as the only alternate public mode. Its configuration migration preserves existing workspace state and maps prior stored values to the supported modes. PR #593 updates the menu regression assertion to expect only `scrolling` and `tiling`. Keep this contract intact as CLI commands and menus are refined.
 
 ### 2. Inventory and classify CLI entrypoints
 
@@ -75,7 +76,7 @@ PR #584 gives the wallpaper layer an opaque theme-colored fallback and removes t
 
 ### 13. Move menu launch behavior into modules — implemented
 
-PR #585 migrates the clipboard and emoji toggle launchers into one Python module; PR #588 migrates emoji insertion with a bounded UTF-8 input and cleanup of the transient clipboard process group. Command arrays, timing, limits, and failure output are YAML data, while generated entrypoints preserve the names used by the menu.
+PR #585 migrates the clipboard and emoji toggle launch behavior into one Python module; PR #588 migrates emoji insertion with bounded UTF-8 input and cleanup of the transient clipboard process group. PR #593 moves the default menu and QML callers to `archctl` routes and stops generating the three flat menu binaries. Command arrays, timing, limits, and failure output remain YAML data.
 
 ### 14. Migrate launch commands — implemented
 
@@ -95,4 +96,4 @@ PR #590 moves update status into `src/arch/cli/update/status.py`, with its confi
 
 ### 18. Retire generated flat CLI launchers — in progress
 
-The entrypoint generator now supports routes that do not emit a per-command binary. PR #591 disabled update status, and PR #592 disables 11 more routes without in-repository binary callers. Continue switching remaining callers to the unified router and disable each launcher; only remove the generator's compatibility output entirely after the remaining routes and package checks are adjusted.
+The entrypoint generator now supports routes that do not emit a per-command binary. PRs #591 and #592 disabled update status and 11 unused routes; PR #593 switches the clipboard and emoji callers to the unified router and disables their three launchers, leaving 72 generated launchers for 87 routes. Continue with the remaining in-repository callers before retiring generator compatibility output entirely.

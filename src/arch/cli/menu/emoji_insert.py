@@ -39,7 +39,6 @@ class Statuses(TypedDict):
 
 
 class Messages(TypedDict):
-  usage: str
   invalid_input: str
   command_error: str
 
@@ -83,12 +82,6 @@ def _status(value: object, label: str) -> int:
   return value
 
 
-def _text(value: object, label: str) -> str:
-  if not isinstance(value, str) or not value:
-    raise ValueError(f"{label} must be non-empty text")
-  return value
-
-
 def _settings() -> Settings:
   root = Path(os.environ["AP"])
   raw: object = yaml.safe_load((root / "data/cli/emoji-insert.yml").read_text(encoding="utf-8"))
@@ -122,11 +115,16 @@ def _settings() -> Settings:
       "command_error": _status(statuses.get("command_error"), "statuses.command_error"),
     },
     "messages": {
-      "usage": _text(messages.get("usage"), "messages.usage"),
-      "invalid_input": _text(messages.get("invalid_input"), "messages.invalid_input"),
-      "command_error": _text(messages.get("command_error"), "messages.command_error"),
+      "invalid_input": _message(messages.get("invalid_input"), "messages.invalid_input"),
+      "command_error": _message(messages.get("command_error"), "messages.command_error"),
     },
   }
+
+
+def _message(value: object, label: str) -> str:
+  if not isinstance(value, str) or not value:
+    raise ValueError(f"{label} must be non-empty text")
+  return value
 
 
 def _stop_process_group(process: subprocess.Popen[bytes], cleanup_seconds: int) -> None:

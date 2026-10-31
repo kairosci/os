@@ -15,6 +15,5 @@ statuses:
   configuration_error: 78
   command_error: 127
 messages:
-  usage: 'Usage: arch-menu-emoji-insert <emoji>'
   invalid_input: 'Emoji input is too large or cannot be encoded'
   command_error: 'Could not start the transient clipboard'
