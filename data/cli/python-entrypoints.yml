@@ -330,6 +330,14 @@ entrypoints:
     group: hyprland
     name: monitor laptop
     summary: Print the name of the built-in laptop display, including disabled outputs.
+  - binary: arch-hyprland-workspace-layout-current
+    module: hyprland/workspace_layout
+    function: workspace_layout_current_main
+    group: hyprland
+    name: workspace layout current
+    summary: "Print a workspace layout: tiling or scrolling"
+    args: "[workspace-id]"
+    pass_args: 'true'
   - binary: arch-restart-hyprctl
     module: restart/hyprland
     function: main

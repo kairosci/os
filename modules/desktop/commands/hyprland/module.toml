@@ -26,7 +26,7 @@ sources = [
   "src/arch/commands/arch-hyprland-window-transparency",
   "src/arch/commands/arch-hyprland-window-transparency-toggle",
   "src/arch/commands/arch-hyprland-window-width",
-  "src/arch/commands/arch-hyprland-workspace-layout-current",
+  "src/arch/cli/hyprland/workspace_layout.py",
   "src/arch/commands/arch-hyprland-workspace-layout-default",
   "src/arch/commands/arch-hyprland-workspace-layout-toggle",
 ]
@@ -129,8 +129,8 @@ source = "src/arch/commands/arch-hyprland-window-width"
 target = "usr/share/arch/src/arch/commands/arch-hyprland-window-width"
 
 [[output]]
-source = "src/arch/commands/arch-hyprland-workspace-layout-current"
-target = "usr/share/arch/src/arch/commands/arch-hyprland-workspace-layout-current"
+source = "src/arch/cli/hyprland/workspace_layout.py"
+target = "usr/share/arch/src/arch/cli/hyprland/workspace_layout.py"
 
 [[output]]
 source = "src/arch/commands/arch-hyprland-workspace-layout-default"
