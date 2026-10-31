@@ -82,7 +82,7 @@ HOME="$fake_home" "$ARCH_TEST_CLI_BIN/arch-hook" "sub/dir" >/dev/null 2>&1 || st
   fail "archctl hook refuses a hook name with a slash" "exit: $status"
 pass "archctl hook refuses a hook name with a slash"
 
-# --- arch-hook-install ------------------------------------------------------
+# --- archctl hook install --------------------------------------------------
 
 # The installer joins the type into ~/.config/arch/hooks/<type>.d before
 # mkdir/cp. The runner already refuses a slashed type; install must too, or a
@@ -94,19 +94,19 @@ cat >"$source_hook" <<'SH'
 true
 SH
 
-HOME="$fake_home" "$ARCH_TEST_CLI_BIN/arch-hook-install" post-update "$source_hook" >/dev/null
+HOME="$fake_home" "$ARCH_TEST_CLI_BIN/archctl" hook install post-update "$source_hook" >/dev/null
 [[ -f $fake_home/.config/arch/hooks/post-update.d/source-hook ]] ||
   fail "archctl hook install still installs a named hook"
 pass "archctl hook install still installs a named hook"
 
-HOME="$fake_home" "$ARCH_TEST_CLI_BIN/arch-hook-install" a..b "$source_hook" >/dev/null
+HOME="$fake_home" "$ARCH_TEST_CLI_BIN/archctl" hook install a..b "$source_hook" >/dev/null
 [[ -f $fake_home/.config/arch/hooks/a..b.d/source-hook ]] ||
   fail "archctl hook install accepts a hook name with dots in the middle"
 pass "archctl hook install accepts a hook name with dots in the middle"
 
 for name in . ..; do
   status=0
-  HOME="$fake_home" "$ARCH_TEST_CLI_BIN/arch-hook-install" "$name" "$source_hook" >/dev/null 2>&1 || status=$?
+  HOME="$fake_home" "$ARCH_TEST_CLI_BIN/archctl" hook install "$name" "$source_hook" >/dev/null 2>&1 || status=$?
   (( status == 2 )) ||
     fail "archctl hook install refuses a hook name of $name" "exit: $status"
   [[ ! -e $fake_home/.config/arch/hooks/${name}.d ]] ||
@@ -116,7 +116,7 @@ done
 
 # hooks/../../evil.d is ~/.config/evil.d. The guard must fire before mkdir.
 status=0
-HOME="$fake_home" "$ARCH_TEST_CLI_BIN/arch-hook-install" "../../evil" "$source_hook" >/dev/null 2>&1 || status=$?
+HOME="$fake_home" "$ARCH_TEST_CLI_BIN/archctl" hook install "../../evil" "$source_hook" >/dev/null 2>&1 || status=$?
 (( status == 2 )) ||
   fail "archctl hook install refuses a hook name with a dot-dot" "exit: $status"
 [[ ! -e $fake_home/.config/evil.d ]] ||
@@ -124,7 +124,7 @@ HOME="$fake_home" "$ARCH_TEST_CLI_BIN/arch-hook-install" "../../evil" "$source_h
 pass "archctl hook install refuses a hook name with a dot-dot"
 
 status=0
-HOME="$fake_home" "$ARCH_TEST_CLI_BIN/arch-hook-install" "sub/dir" "$source_hook" >/dev/null 2>&1 || status=$?
+HOME="$fake_home" "$ARCH_TEST_CLI_BIN/archctl" hook install "sub/dir" "$source_hook" >/dev/null 2>&1 || status=$?
 (( status == 2 )) ||
   fail "archctl hook install refuses a hook name with a slash" "exit: $status"
 [[ ! -e $fake_home/.config/arch/hooks/sub ]] ||
@@ -136,13 +136,18 @@ invalid_ap="$work_dir/invalid-hook-arch"
 mkdir -p "$invalid_ap/data/cli"
 ln -s "$ROOT/src" "$invalid_ap/src"
 printf '[]\n' >"$invalid_ap/data/cli/hooks.yml"
-for command in arch-hook arch-hook-install; do
-  status=0
-  output=$(AP="$invalid_ap" HOME="$fake_home" "$ARCH_TEST_CLI_BIN/$command" 2>&1) || status=$?
+check_invalid_hook_configuration() {
+  local route_label="$1"
+  shift
+  local status=0
+  local output=""
+  output=$(AP="$invalid_ap" HOME="$fake_home" "$ARCH_TEST_CLI_BIN/archctl" "$@" 2>&1) || status=$?
   (( status == 1 )) && [[ $output == *"Could not load hook configuration"* ]] ||
-    fail "$command reports malformed configuration without a traceback" "exit: $status" "$output"
-  pass "$command reports malformed configuration without a traceback"
-done
+    fail "archctl $route_label reports malformed configuration without a traceback" "exit: $status" "$output"
+  pass "archctl $route_label reports malformed configuration without a traceback"
+}
+check_invalid_hook_configuration hook hook example
+check_invalid_hook_configuration "hook install" hook install post-update "$source_hook"
 
 # --- arch-state -------------------------------------------------------------
 

@@ -107,7 +107,7 @@ orchestrator:
         network: pianifica le notifiche Wi-Fi e aggiornamenti
   steps:
     - id: fingerprint_hook
-      command: [arch-hook-install, post-update, '{ap}/src/arch/python/installer_user/first_run/fingerprint_invitation.py']
+      command: [archctl, hook, install, post-update, '{ap}/src/arch/python/installer_user/first_run/fingerprint_invitation.py']
     - id: user_units
       command: [python3, -I, '{ap}/src/arch/python/installer_user/first_run/commands.py', user_units]
     - id: platform_setup

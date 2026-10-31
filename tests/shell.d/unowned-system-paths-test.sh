@@ -57,12 +57,12 @@ packaged = "\n".join(p.read_text() for p in pkgs_root.glob("*/PKGBUILD"))
 # Commands that put a file somewhere, as opposed to reading one.
 # /etc is administrator territory that os legitimately edits. /usr is
 # package territory, where writing anything is the thing worth catching.
-# The command itself, not a word inside a longer name: arch-hook-install
+# The command itself, not a word inside a longer name: archctl hook install
 # copies a package's file out of /usr, which is reading it.
 writer = re.compile(r"(?<![\w.-])(tee|cp|install|ln)(?![\w.-])|>\s*/usr/")
 target = re.compile(r"/usr/[A-Za-z0-9._@/+-]+")
 for code, writes in (
-  ("arch-hook-install theme-set /usr/share/owe/10-owe-sync", False),
+  ("archctl hook install theme-set /usr/share/owe/10-owe-sync", False),
   ("sudo install -Dm644 10-owe-sync /usr/share/owe/10-owe-sync", True),
   ("cp -f hook /usr/lib/systemd/system-sleep/hook", True),
   ("printf x | sudo tee /usr/share/x/y", True),

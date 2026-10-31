@@ -123,7 +123,7 @@ case "$1:$2:$3" in
   done:mark:first-run-user) touch "$FIRST_RUN_MARKER" ;;
 esac
 SH
-for helper in arch-provision-user arch-hook-install; do
+for helper in arch-provision-user; do
   printf '#!/bin/bash\nexit 0\n' >"$first_bin/$helper"
 done
 chmod +x "$first_bin"/*
