@@ -108,7 +108,7 @@ expected=$'-q\nnotifications\ndismiss\n'"$summary"
 [[ ! -e $tmp/injected ]] || fail "notification dismiss never evaluates the summary"
 pass "notification dismiss preserves summary argv without shell evaluation"
 
-if AP="$ROOT" "$ARCH_TEST_CLI_BIN/arch-notification-dismiss" >"$tmp/dismiss-usage" 2>&1; then
+if AP="$ROOT" "$ARCH_TEST_CLI_BIN/arch-notification-dismiss" >"$tmp/dismiss-usage" 2>"$tmp/dismiss-usage-error"; then
   fail "notification dismiss rejects a missing summary"
 else
   status=$?
@@ -116,6 +116,7 @@ else
 fi
 grep -Fxq 'Usage: arch-notification-dismiss <summary>' "$tmp/dismiss-usage" ||
   fail "notification dismiss prints its configured usage" "$(<"$tmp/dismiss-usage")"
+[[ ! -s $tmp/dismiss-usage-error ]] || fail "notification dismiss keeps usage on standard output" "$(<"$tmp/dismiss-usage-error")"
 pass "notification dismiss validates its required summary"
 
 service="$ROOT/src/arch/shell/plugins/notifications/Service.qml"
