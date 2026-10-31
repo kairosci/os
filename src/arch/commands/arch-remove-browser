@@ -7,7 +7,7 @@
 
 set_fallback_default_browser() {
   local current_browser
-  current_browser=$(arch-cmd-default-browser)
+  current_browser=$(archctl default browser desktop-id)
 
   if [[ $current_browser != $1 ]]; then
     return

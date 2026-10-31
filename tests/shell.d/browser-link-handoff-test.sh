@@ -43,8 +43,8 @@ pass "the link entry opens links through arch-launch-browser, out of the launche
 archctl default browser firefox || fail "setting the default browser succeeds behind the link entry"
 grep -qxF "x-scheme-handler/https=firefox.desktop" "$XDG_CONFIG_HOME/mimeapps.list" ||
   fail "setting the default browser records it in mimeapps.list" "$(cat "$XDG_CONFIG_HOME/mimeapps.list")"
-[[ $(arch-cmd-default-browser) == "firefox.desktop" ]] ||
-  fail "the default browser is the one behind the link entry" "actual: $(arch-cmd-default-browser)"
+[[ $(archctl default browser desktop-id) == "firefox.desktop" ]] ||
+  fail "the default browser is the one behind the link entry"
 [[ $(archctl default browser) == "firefox" ]] || fail "the default browser reads back by name"
 pass "setting the default browser keeps the link entry in front of it"
 
@@ -59,10 +59,10 @@ fi
 pass "xdg-open and the desktop portal send links to the link entry"
 
 archctl default browser chromium || fail "changing the default browser succeeds behind the link entry"
-[[ $(arch-cmd-default-browser) == "chromium.desktop" ]] || fail "a change of default browser takes effect"
+[[ $(archctl default browser desktop-id) == "chromium.desktop" ]] || fail "a change of default browser takes effect"
 pass "a change of default browser takes effect"
 
 rm "$XDG_CONFIG_HOME/mimeapps.list"
-[[ $(arch-cmd-default-browser) != "arch-browser.desktop" ]] ||
+[[ $(archctl default browser desktop-id) != "arch-browser.desktop" ]] ||
   fail "the link entry is never taken for the browser, which would launch itself"
 pass "the link entry is never taken for the browser"
