@@ -28,7 +28,7 @@ run_laptop() {
     ARCH_ACPI_LID_PATH="$acpi_lid" \
     ARCH_INPUT_CLASS_PATH="$input_class" \
     PATH="$stub_bin:$PATH" \
-    "$ARCH_TEST_CLI_BIN/arch-hw-laptop"
+    "$ARCH_TEST_CLI_BIN/archctl" hw laptop
 }
 
 run_lid_closed() {

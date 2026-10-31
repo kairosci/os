@@ -67,7 +67,7 @@ fi
 # Only where logind would ignore a docked lid is there anything to stand in for.
 # An unanswered query changes nothing, for the same reason as above.
 wanted=0
-if (( in_use )) && arch-hw-laptop; then
+if (( in_use )) && archctl hw laptop; then
   docked_action=$(busctl get-property org.freedesktop.login1 /org/freedesktop/login1 \
     org.freedesktop.login1.Manager HandleLidSwitchDocked 2>/dev/null) || exit 0
   [[ -n $docked_action ]] || exit 0
