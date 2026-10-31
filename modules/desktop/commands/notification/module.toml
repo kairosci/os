@@ -5,11 +5,11 @@ sources = [
   "src/arch/commands/arch-notification-battery",
   "src/arch/commands/arch-notification-dismiss",
   "src/arch/commands/arch-notification-send",
-  "src/arch/commands/arch-notification-time",
+  "src/arch/cli/notification/time.py",
   "src/arch/cli/notification/wait.py",
   "src/arch/commands/arch-notification-weather",
 ]
-requires = ["desktop.commands"]
+requires = ["desktop.commands", "system.runtime-data"]
 
 [[output]]
 source = "src/arch/commands/arch-notification-battery"
@@ -24,8 +24,8 @@ source = "src/arch/commands/arch-notification-send"
 target = "usr/share/arch/src/arch/commands/arch-notification-send"
 
 [[output]]
-source = "src/arch/commands/arch-notification-time"
-target = "usr/share/arch/src/arch/commands/arch-notification-time"
+source = "src/arch/cli/notification/time.py"
+target = "usr/share/arch/src/arch/cli/notification/time.py"
 
 [[output]]
 source = "src/arch/cli/notification/wait.py"
