@@ -173,6 +173,14 @@ pass "os 4 upgrade reports an aborted run instead of exiting silently"
   fail "os 4 upgrade leaves the retired session processes running until reboot"
 pass "os 4 upgrade leaves the os 3 session alone until the reboot"
 
+retired_user_units=$(sed -n '/^retired_user_units=(/,/^)/p' "$upgrade_to_quattro")
+if grep -Fx '  arch-shell.service' <<<"$retired_user_units" >/dev/null; then
+  fail "os 4 upgrade keeps the arch shell under its supervisor"
+fi
+grep -F 'enable_user_unit arch-shell.service' "$upgrade_to_quattro" >/dev/null ||
+  fail "os 4 upgrade keeps the arch shell enabled for the next graphical session"
+pass "os 4 upgrade preserves arch-shell supervision across the session cutover"
+
 grep -F 'arch-bar defaults' "$upgrade_to_quattro" >/dev/null
 pass "os 4 upgrade restores service-aware bar defaults"
 

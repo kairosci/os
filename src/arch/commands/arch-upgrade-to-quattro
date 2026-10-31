@@ -1121,7 +1121,6 @@ retired_user_units=(
   mako.service
   arch-battery-monitor.service
   arch-battery-monitor.timer
-  arch-shell.service
   swayosd-server.service
   elephant.service
   app-walker@autostart.service
@@ -2195,6 +2194,7 @@ rm -f \
   "$HOME/.config/systemd/user/arch-shell.service" \
   "$HOME/.config/systemd/user/swayosd-server.service" \
   "$HOME/.config/systemd/user/elephant.service"
+enable_user_unit arch-shell.service
 rm -f \
   "$HOME/.local/state/arch/toggles/mako.ini" \
   "$HOME/.local/state/arch/toggles/waybar-off" \
