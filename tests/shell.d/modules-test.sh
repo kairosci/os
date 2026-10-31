@@ -176,6 +176,14 @@ for module_id in command_modules:
         ["desktop.commands", "system.runtime-data"],
         ["desktop.commands", "desktop.commands.version", "system.runtime-data"],
         ["desktop.commands", "desktop.commands.i18n", "system.runtime-data"],
+        [
+            "desktop.commands",
+            "desktop.commands.file",
+            "desktop.commands.i18n",
+            "desktop.commands.launch",
+            "desktop.commands.transcode",
+            "system.runtime-data",
+        ],
     )
     assert module["requires"] in allowed_requirements, (module_id, module["requires"])
     assert len(module["sources"]) == len(module["outputs"]), module_id

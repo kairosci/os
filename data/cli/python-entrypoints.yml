@@ -710,3 +710,11 @@ entrypoints:
     group: launch
     name: terminal tmux
     summary: Launch or attach to the Work tmux session in a terminal
+  - binary: arch-branding-screensaver
+    module: branding/screensaver
+    function: screensaver_main
+    group: branding
+    name: screensaver
+    summary: Edit, set, or reset screensaver branding
+    args: <image|text|reset>
+    pass_args: 'true'
