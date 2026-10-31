@@ -100,16 +100,16 @@ pass "missing current theme uses the selected locale"
 printf 'tokyo-night\n' >"$test_tmp/home/.local/state/arch/current/theme.name"
 
 user_dir=$(HOME="$test_tmp/home" AP="$test_tmp/theme-arch" LC_ALL= LC_MESSAGES=it_IT.UTF-8 \
-  "$ARCH_TEST_CLI_BIN/arch-theme-dir" tokyo-night)
+  "$ARCH_TEST_CLI_BIN/archctl" theme dir tokyo-night)
 [[ $user_dir == "$test_tmp/home/.config/arch/themes/tokyo-night" ]] || fail "theme directory prefers the user-installed copy" "$user_dir"
 bundled_dir=$(HOME="$test_tmp/home" AP="$test_tmp/theme-arch" \
-  "$ARCH_TEST_CLI_BIN/arch-theme-dir" blue-sky)
+  "$ARCH_TEST_CLI_BIN/archctl" theme dir blue-sky)
 [[ $bundled_dir == "$test_tmp/theme-arch/assets/themes/blue-sky" ]] || fail "theme directory falls back to the bundled copy" "$bundled_dir"
 if HOME="$test_tmp/home" AP="$test_tmp/theme-arch" LC_ALL= LC_MESSAGES=it_IT.UTF-8 \
-  "$ARCH_TEST_CLI_BIN/arch-theme-dir" ../../etc >"$test_tmp/theme-dir.out" 2>"$test_tmp/theme-dir.err"; then
+  "$ARCH_TEST_CLI_BIN/archctl" theme dir ../../etc >"$test_tmp/theme-dir.out" 2>"$test_tmp/theme-dir.err"; then
   fail "theme directory rejects path traversal"
 fi
-grep -Fx 'Uso: arch-theme-dir <nome-tema>' "$test_tmp/theme-dir.err" >/dev/null ||
+grep -Fx 'Uso: archctl theme dir <nome-tema>' "$test_tmp/theme-dir.err" >/dev/null ||
   fail "theme directory usage is localized"
 [[ ! -s $test_tmp/theme-dir.out ]] || fail "theme directory prints no path for invalid input"
 pass "theme directory prefers user themes, falls back to bundled themes and rejects traversal"

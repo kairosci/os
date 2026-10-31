@@ -13,7 +13,7 @@ if cmp -s "$AP/default/plymouth/logo.png" "$installed_logo"; then
 fi
 
 arch-plymouth-list | while read -r name; do
-  if cmp -s "$(arch-theme-dir "$name")/unlock.png" "$installed_logo"; then
+  if cmp -s "$(archctl theme dir "$name")/unlock.png" "$installed_logo"; then
     echo "$name"
     exit
   fi

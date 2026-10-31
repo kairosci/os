@@ -43,8 +43,8 @@ messages:
   fallback_environment: LANG
   locale_separators: ['.', '_', '@']
   usage:
-    en: "Usage: arch-theme-dir <theme-name>"
-    it: "Uso: arch-theme-dir <nome-tema>"
+    en: "Usage: archctl theme dir <theme-name>"
+    it: "Uso: archctl theme dir <nome-tema>"
   background_set_usage:
     en: "Usage: arch-theme-bg-set <path-to-media>"
     it: "Uso: arch-theme-bg-set <percorso-media>"

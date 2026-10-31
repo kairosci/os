@@ -60,14 +60,14 @@ verify_defaults() {
   [[ $(arch-default-editor) == "nvim" ]] || fail "Neovim is the default editor"
   pass "Neovim is the default editor"
 
-  [[ $(arch-theme-current) == "Cosmic" ]] || fail "Cosmic is the active theme"
+  [[ $(archctl theme current) == "Cosmic" ]] || fail "Cosmic is the active theme"
   pass "Cosmic is the active theme"
 
   [[ $(gsettings get org.gnome.desktop.interface icon-theme | tr -d "'") == "Cosmic" ]] ||
     fail "the Cosmic icon theme is active"
   pass "the Cosmic icon theme is active"
 
-  [[ $(arch-theme-bg-current) != "Unknown" ]] || fail "a current background is configured"
+  [[ $(archctl theme bg current) != "Unknown" ]] || fail "a current background is configured"
   pass "a current background is configured"
 
   [[ -n $(archctl font current) ]] || fail "a monospace font is configured"

@@ -10,7 +10,7 @@ mkdir -p "$preview_dir"
 ln -s "$AP/default/plymouth/preview-unlock.png" "$preview_dir/default.png"
 
 arch-plymouth-list | while read -r name; do
-  ln -s "$(arch-theme-dir "$name")/preview-unlock.png" "$preview_dir/$name.png" 2>/dev/null
+  ln -s "$(archctl theme dir "$name")/preview-unlock.png" "$preview_dir/$name.png" 2>/dev/null
 done
 
 current=$(arch-plymouth-current)
