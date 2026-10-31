@@ -4,7 +4,7 @@ Description=Announce process crashes
 After=graphical-session.target
 PartOf=graphical-session.target
 ConditionEnvironment=WAYLAND_DISPLAY
-# Set by arch-toggle-crash-capture. Checked here so a disabled watcher stays
+# Set by archctl toggle crash capture. Checked here so a disabled watcher stays
 # disabled across logins without the unit having to be disabled.
 ConditionPathExists=!%h/.local/state/arch/toggles/crash-capture-off
 
