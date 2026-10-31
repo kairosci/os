@@ -30,16 +30,16 @@ wait_until "background layer is on screen" 30 layer_on_screen "arch-background"
 # Hiding parks the bar off-screen without unmapping its layer surface, and
 # revealing brings that same surface back on-screen.
 restore_bar_visibility() {
-  arch-toggle-bar off >/dev/null 2>&1 || true
+  archctl toggle bar off >/dev/null 2>&1 || true
 }
 trap restore_bar_visibility EXIT
 
-arch-toggle-bar on
+archctl toggle bar on
 wait_until "hidden bar layer stays mapped" 15 layer_present "arch-bar"
 wait_until "hidden bar layer parks off screen" 15 layer_off_screen "arch-bar"
 screenshot "success-bar-hidden"
 
-arch-toggle-bar off
+archctl toggle bar off
 wait_until "revealed bar layer returns on screen" 15 layer_on_screen "arch-bar"
 screenshot "success-bar-revealed"
 trap - EXIT

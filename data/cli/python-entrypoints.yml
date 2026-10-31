@@ -599,6 +599,15 @@ entrypoints:
     args: "[toggle|on|off]"
     examples: 'archctl toggle animations | archctl toggle animations off | archctl toggle animations on'
     pass_args: 'true'
+  - binary: arch-toggle-bar
+    module: toggle/bar
+    function: main
+    group: toggle
+    name: bar
+    summary: Toggle bar visibility
+    args: '[on|off|toggle]'
+    examples: 'archctl toggle bar | archctl toggle bar off | archctl toggle bar on'
+    pass_args: 'true'
   - binary: arch-theme-bg-current
     module: theme/info
     function: background_current_main

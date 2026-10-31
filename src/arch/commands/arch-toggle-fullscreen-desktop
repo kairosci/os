@@ -23,5 +23,5 @@ case $ACTION in
     ;;
 esac
 
-arch-toggle-bar "$ACTION"
+archctl toggle bar "$ACTION"
 archctl hyprland toggle window-no-gaps "$ACTION"

@@ -3,7 +3,7 @@ domain = "desktop"
 package = "arch"
 sources = [
   "src/arch/cli/toggle/animations.py",
-  "src/arch/commands/arch-toggle-bar",
+  "src/arch/cli/toggle/bar.py",
   "src/arch/commands/arch-toggle-crash-capture",
   "src/arch/cli/toggle/state.py",
   "src/arch/commands/arch-toggle-fullscreen-desktop",
@@ -31,8 +31,8 @@ source = "src/arch/cli/toggle/animations.py"
 target = "usr/share/arch/src/arch/cli/toggle/animations.py"
 
 [[output]]
-source = "src/arch/commands/arch-toggle-bar"
-target = "usr/share/arch/src/arch/commands/arch-toggle-bar"
+source = "src/arch/cli/toggle/bar.py"
+target = "usr/share/arch/src/arch/cli/toggle/bar.py"
 
 [[output]]
 source = "src/arch/commands/arch-toggle-crash-capture"
