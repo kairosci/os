@@ -15,7 +15,7 @@ wake() {
 
 on() {
   if archctl hyprland toggle enabled $TOGGLE; then
-    arch-hyprland-toggle $TOGGLE off
+    archctl hyprland toggle $TOGGLE off
     archctl notification send -g 󰍹 "$(arch-i18n monitor.laptopEnabled)"
   fi
 
@@ -54,7 +54,7 @@ recover() {
   archctl hyprland monitor external active && return 0
   archctl hyprland toggle enabled $TOGGLE || return 0
 
-  arch-hyprland-toggle $TOGGLE off
+  archctl hyprland toggle $TOGGLE off
   wake
 }
 

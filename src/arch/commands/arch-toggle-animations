@@ -6,9 +6,9 @@
 
 # The flag records animations being off, so on and off swap on the way through.
 case ${1:-toggle} in
-toggle) arch-hyprland-toggle no-animations toggle ;;
-on) arch-hyprland-toggle no-animations off ;;
-off) arch-hyprland-toggle no-animations on ;;
+toggle) archctl hyprland toggle no-animations toggle ;;
+on) archctl hyprland toggle no-animations off ;;
+off) archctl hyprland toggle no-animations on ;;
 *)
   echo "Usage: arch-toggle-animations [toggle|on|off]" >&2
   exit 1

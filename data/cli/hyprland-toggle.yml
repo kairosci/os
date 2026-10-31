@@ -1,2 +1,17 @@
 home_relative_state_directory: .local/state/arch/toggles/hypr
 filename_suffix: .lua
+source_directory: default/hypr/toggles
+actions:
+  enable: "on"
+  disable: "off"
+  toggle: "toggle"
+  enabled_output: "on"
+  disabled_output: "off"
+commands:
+  reload: [hyprctl, reload]
+messages:
+  usage: "Usage: archctl hyprland toggle <flag-name> [on|off|toggle]"
+  query_usage: "Usage: archctl hyprland toggle enabled|disabled <flag-name>"
+  missing_flag: "Flag not found: {name}"
+  read_error: "Could not read Hyprland toggle state"
+  state_error: "Could not update Hyprland toggle state"

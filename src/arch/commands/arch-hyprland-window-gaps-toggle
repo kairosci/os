@@ -2,4 +2,4 @@
 
 # arch:summary=Toggles the window gaps globally between no gaps and the default.
 
-arch-hyprland-toggle window-no-gaps
+archctl hyprland toggle window-no-gaps
