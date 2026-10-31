@@ -91,7 +91,7 @@ Item {
 
   Process {
     id: deviceProc
-    command: ["arch-hw-display"]
+    command: ["archctl", "hw", "display"]
     running: true
     stdout: StdioCollector {
       waitForEnd: true

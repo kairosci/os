@@ -15,17 +15,16 @@ mkdir -p "$mock_bin" "$runtime_dir"
 
 cat >"$mock_bin/archctl" <<'SH'
 #!/bin/bash
+if [[ $* == "hw display" ]]; then
+  printf 'mock_backlight\n'
+  exit 0
+fi
 exit 1
 SH
 
 cat >"$mock_bin/arch-hyprland-monitor-focused" <<'SH'
 #!/bin/bash
 printf '%s\n' "${FOCUSED_MONITOR:-eDP-1}"
-SH
-
-cat >"$mock_bin/arch-hw-display" <<'SH'
-#!/bin/bash
-printf 'mock_backlight\n'
 SH
 
 cat >"$mock_bin/brightnessctl" <<'SH'

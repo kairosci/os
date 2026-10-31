@@ -399,6 +399,7 @@ entrypoints:
     group: hw
     name: display
     summary: Print the most likely display backlight device
+    generate_launcher: "false"
   - binary: arch-hw-recover-internal-monitor
     module: hardware/monitor_recovery
     function: recover_internal_monitor_main
