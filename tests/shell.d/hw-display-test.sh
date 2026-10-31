@@ -29,7 +29,7 @@ write_displays_conf() {
 hw_display() {
   ARCH_BACKLIGHT_PATH="$tmp_dir/backlight" \
     ARCH_DISPLAYS_CONF_PATH="$platform_root/displays.conf" \
-    "$ARCH_TEST_CLI_BIN/arch-hw-display"
+    "$ARCH_TEST_CLI_BIN/archctl" hw display
 }
 
 write_backlights intel_backlight
