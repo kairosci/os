@@ -631,6 +631,15 @@ entrypoints:
     args: '[toggle|stay-awake|allow-idle|enabled|status]'
     examples: 'archctl toggle idle | archctl toggle idle stay-awake | archctl toggle idle status'
     pass_args: 'true'
+  - binary: arch-toggle-fullscreen-desktop
+    module: toggle/fullscreen_desktop
+    function: main
+    group: toggle
+    name: fullscreen desktop
+    summary: Toggle fullscreen desktop mode for the bar and window gaps
+    args: '[toggle|on|off]'
+    examples: 'archctl toggle fullscreen desktop | archctl toggle fullscreen desktop off | archctl toggle fullscreen desktop on'
+    pass_args: 'true'
   - binary: arch-toggle-screensaver
     module: toggle/screensaver
     function: main

@@ -16,6 +16,7 @@ From the terminal, the same switches are `archctl toggle <thing>`. Run `archctl 
 | Crash capture | — | `archctl toggle crash-capture` |
 | Screensaver | — | `archctl toggle screensaver` |
 | Menu bar | `Super + Shift + Space` | `archctl toggle bar` |
+| Full-screen desktop | — | `archctl toggle fullscreen desktop` |
 | Touchpad | `XF86TouchpadToggle` | `archctl toggle touchpad` |
 | Touchscreen | — | `archctl toggle touchscreen` |
 | Suspend | — | `archctl toggle suspend` |

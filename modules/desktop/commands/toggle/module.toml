@@ -5,9 +5,9 @@ sources = [
   "src/arch/cli/toggle/animations.py",
   "src/arch/cli/toggle/bar.py",
   "src/arch/cli/toggle/crash_capture.py",
+  "src/arch/cli/toggle/fullscreen_desktop.py",
   "src/arch/cli/toggle/idle.py",
   "src/arch/cli/toggle/state.py",
-  "src/arch/commands/arch-toggle-fullscreen-desktop",
   "src/arch/commands/arch-toggle-hybrid-gpu",
   "src/arch/cli/toggle/input_device.py",
   "src/arch/cli/toggle/nightlight.py",
@@ -48,12 +48,12 @@ source = "src/arch/cli/toggle/state.py"
 target = "usr/share/arch/src/arch/cli/toggle/state.py"
 
 [[output]]
-source = "src/arch/commands/arch-toggle-fullscreen-desktop"
-target = "usr/share/arch/src/arch/commands/arch-toggle-fullscreen-desktop"
-
-[[output]]
 source = "src/arch/commands/arch-toggle-hybrid-gpu"
 target = "usr/share/arch/src/arch/commands/arch-toggle-hybrid-gpu"
+
+[[output]]
+source = "src/arch/cli/toggle/fullscreen_desktop.py"
+target = "usr/share/arch/src/arch/cli/toggle/fullscreen_desktop.py"
 
 [[output]]
 source = "src/arch/cli/toggle/input_device.py"
