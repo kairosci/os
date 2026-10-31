@@ -63,10 +63,10 @@ def _settings() -> dict[str, object]:
   accepted = cast(dict[str, object], result["actions"]).get("accepted")
   if not isinstance(accepted, list) or not accepted or not all(isinstance(action, str) for action in accepted):
     raise ValueError("invalid animations actions")
-  for name, value in cast(dict[str, object], result["limits"]).items():
+  for name, value in result["limits"].items():
     if type(value) is not int or value <= 0:
       raise ValueError(f"invalid animations limit: {name}")
-  for name, value in cast(dict[str, object], result["statuses"]).items():
+  for name, value in result["statuses"].items():
     if type(value) is not int or not 0 <= value <= 255:
       raise ValueError(f"invalid animations status: {name}")
   return result
@@ -130,4 +130,4 @@ def main(arguments: list[str]) -> int:
   if notification is None:
     print(messages["command_error"], file=sys.stderr)
     return statuses["command_error"]
-  return cast(int, statuses["success"])
+  return statuses["success"]
