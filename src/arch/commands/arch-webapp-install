@@ -236,7 +236,7 @@ fi
 
 # StartupWMClass lets the compositor match the window to this entry.
 if [[ -n $APP_URL ]]; then
-  printf 'StartupWMClass=%s\n' "$(desktop_string_escape "$(arch-webapp-window-class "$APP_URL")")" >>"$DESKTOP_FILE"
+  printf 'StartupWMClass=%s\n' "$(desktop_string_escape "$(archctl webapp window class "$APP_URL")")" >>"$DESKTOP_FILE"
 fi
 
 chmod +x "$DESKTOP_FILE"

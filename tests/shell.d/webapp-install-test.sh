@@ -4,6 +4,9 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
+export AP="$ROOT"
+export PATH="$ROOT/src/arch/commands:$PATH"
+
 tmpdir=$(mktemp -d)
 trap 'rm -rf "$tmpdir"' EXIT
 
@@ -40,8 +43,8 @@ for case in \
   "https://maps.google.com|chrome-maps.google.com__-Default" \
   "https://discord.com/channels/@me|chrome-discord.com__channels_@me-Default" \
   "https://Example.com:8443/a/b?x=1#y|chrome-example.com__a_b-Default"; do
-  [[ $("$ROOT/src/arch/commands/arch-webapp-window-class" "${case%%|*}") == "${case#*|}" ]] ||
-    fail "the window class of ${case%%|*} is ${case#*|}" "$("$ROOT/src/arch/commands/arch-webapp-window-class" "${case%%|*}")"
+  [[ $(archctl webapp window class "${case%%|*}") == "${case#*|}" ]] ||
+    fail "the window class of ${case%%|*} is ${case#*|}" "$(archctl webapp window class "${case%%|*}")"
 done
 pass "web app window classes follow Chromium's host and path naming"
 

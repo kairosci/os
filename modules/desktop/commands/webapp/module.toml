@@ -6,9 +6,9 @@ sources = [
   "src/arch/commands/arch-webapp-install",
   "src/arch/commands/arch-webapp-remove",
   "src/arch/commands/arch-webapp-remove-all",
-  "src/arch/commands/arch-webapp-window-class",
+  "src/arch/cli/webapp/window_class.py",
 ]
-requires = ["desktop.commands"]
+requires = ["desktop.commands", "system.runtime-data"]
 
 [[output]]
 source = "src/arch/commands/arch-webapp-handler-zoom"
@@ -27,5 +27,5 @@ source = "src/arch/commands/arch-webapp-remove-all"
 target = "usr/share/arch/src/arch/commands/arch-webapp-remove-all"
 
 [[output]]
-source = "src/arch/commands/arch-webapp-window-class"
-target = "usr/share/arch/src/arch/commands/arch-webapp-window-class"
+source = "src/arch/cli/webapp/window_class.py"
+target = "usr/share/arch/src/arch/cli/webapp/window_class.py"

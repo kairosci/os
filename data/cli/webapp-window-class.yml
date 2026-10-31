@@ -1,0 +1,12 @@
+window_class:
+  input_scheme: https
+  scheme_separator: '://'
+  empty_path: /
+  path_separator: /
+  path_replacement: _
+  output_template: chrome-{host}_{path}-Default
+messages:
+  usage: 'Usage: archctl webapp window class <url>'
+statuses:
+  success: 0
+  invalid_arguments: 2
