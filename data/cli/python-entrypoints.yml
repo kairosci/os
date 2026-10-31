@@ -48,6 +48,13 @@ entrypoints:
     summary: Wait for the desktop notification server to accept notifications
     args: "[timeout-seconds]"
     hidden: "true"
+  - binary: arch-notification-time
+    module: notification/time
+    function: main
+    group: notification
+    name: time
+    summary: Show the current time and date notification
+    pass_args: 'true'
   - binary: arch-power-present
     module: power/present
     function: main
