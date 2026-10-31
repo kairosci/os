@@ -11,7 +11,7 @@ import yaml
 
 class Commands(TypedDict):
   package_query: list[str]
-  version_channel: str
+  version_channel: list[str]
 
 
 class ChannelConfig(TypedDict):
@@ -53,7 +53,7 @@ def _settings() -> ChannelConfig:
   return {
     "commands": {
       "package_query": _text_list(commands.get("package_query"), "commands.package_query"),
-      "version_channel": _text(commands.get("version_channel"), "commands.version_channel"),
+      "version_channel": _text_list(commands.get("version_channel"), "commands.version_channel"),
     },
     "packaged_root_environment": _text(
       settings.get("packaged_root_environment"), "packaged_root_environment"
@@ -98,7 +98,7 @@ def channel_current_main() -> int:
 
     status, _ = _output([*settings["commands"]["package_query"], *settings["stable_packages"]])
     if status == 0:
-      status, channel = _output([settings["commands"]["version_channel"]])
+      status, channel = _output(settings["commands"]["version_channel"])
       if status == 0:
         channel = channel.split()[0] if channel else settings["unknown"]
         if channel in (settings["stable"], settings["release_candidate"]):

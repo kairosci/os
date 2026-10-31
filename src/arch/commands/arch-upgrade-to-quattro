@@ -52,7 +52,7 @@ valid_channel() {
 }
 
 # The channel the legacy install is already on, read the way
-# arch-version-channel reads it. Order matters: mirror.github.com/kairosci/os is a
+# archctl version channel reads it. Order matters: mirror.github.com/kairosci/os is a
 # substring of both of the others.
 detect_installed_channel() {
   [[ -f /etc/pacman.d/mirrorlist ]] || return 1

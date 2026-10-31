@@ -82,7 +82,7 @@ for platform in $platforms; do
 done
 pass "x86 and aarch64 have templates for stable, rc and edge and Apple Silicon for edge alone, each with its repositories in order and its channel's mirrors"
 
-# arch-version-channel names each template pair's channel: the menu's
+# archctl version channel names each template pair's channel: the menu's
 # checkmarks and a refresh with no channel go by it.
 for platform in $platforms; do
   templates=$(arch_pacman_templates "$platform")
@@ -90,11 +90,11 @@ for platform in $platforms; do
     cp "$templates/pacman-$channel.conf" "$work/pacman.conf"
     cp "$templates/mirrorlist-$channel" "$work/mirrorlist"
     said=$(ARCH_PACMAN_CONF="$work/pacman.conf" ARCH_PACMAN_MIRRORLIST="$work/mirrorlist" \
-      "$ARCH_TEST_CLI_BIN/arch-version-channel")
-    [[ $said == "$channel" ]] || fail "$platform $channel: arch-version-channel names it" "$said"
+      "$ARCH_TEST_CLI_BIN/archctl" version channel)
+    [[ $said == "$channel" ]] || fail "$platform $channel: archctl version channel names it" "$said"
   done
 done
-pass "arch-version-channel names the channel of every platform's templates"
+pass "archctl version channel names the channel of every platform's templates"
 
 # ── install finalization ─────────────────────────────────────────────────────
 
