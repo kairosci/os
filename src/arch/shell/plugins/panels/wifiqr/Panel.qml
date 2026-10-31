@@ -11,7 +11,7 @@ import "Model.js" as Model
 // heavy scrim. Esc or the scrim dismiss it.
 //
 // Standalone panel plugin: each summon regenerates the code via
-// arch-network-qr, which emits the interface, security, and SSID it
+// archctl network qr, which emits the interface, security, and SSID it
 // shared ahead of the module matrix — so a bare summon self-detects the
 // connection. The payload may pin the interface and pre-title the card:
 // {"iface": "wlan0", "ssid": "MyWifi"}.
@@ -125,8 +125,8 @@ Item {
       pwProc.running = false
     }
     qrProc.command = requestedIface
-      ? ["arch-network-qr", "--meta", requestedIface]
-      : ["arch-network-qr", "--meta"]
+      ? ["archctl", "network", "qr", "--meta", requestedIface]
+      : ["archctl", "network", "qr", "--meta"]
     qrProc.running = true
   }
 
