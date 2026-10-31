@@ -67,7 +67,7 @@ Images are decoded in the shell process like every other image it draws. A sende
 
 ## Silencing and snoozing
 
-Do Not Disturb is a boolean in `quiet.json`, toggled via `arch-shell notifications toggleDnd` / `setDnd` / `isDnd`; `arch-toggle-notification-silencing` wraps the toggle. A snooze is the same quiet with an end time, per source (`groupKey`) or for everything (key `*`, which replaces Do Not Disturb).
+Do Not Disturb is a boolean in `quiet.json`, toggled via `arch-shell notifications toggleDnd` / `setDnd` / `isDnd`; `archctl toggle notifications` toggles it and refreshes the indicator. A snooze is the same quiet with an end time, per source (`groupKey`) or for everything (key `*`, which replaces Do Not Disturb).
 
 Three kinds of notification get through every kind of quiet:
 

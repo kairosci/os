@@ -1,0 +1,15 @@
+commands:
+  toggle: [arch-shell, -q, notifications, toggleDnd]
+  refresh: [arch-shell, -q, arch.indicators, refresh]
+limits:
+  command_timeout_seconds: 5
+  cleanup_timeout_seconds: 1
+  maximum_output_bytes: 256
+  read_chunk_bytes: 128
+messages:
+  usage: 'Usage: archctl toggle notifications'
+  refresh_error: 'Could not refresh notification indicators'
+statuses:
+  invalid_arguments: 2
+  refresh_error: 1
+  success: 0

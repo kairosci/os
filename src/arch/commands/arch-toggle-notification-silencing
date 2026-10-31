@@ -1,6 +1,0 @@
-#!/bin/bash
-
-# arch:summary=Toggle notification do-not-disturb mode
-
-state=$(arch-shell notifications toggleDnd 2>/dev/null || echo "")
-arch-shell -q arch.indicators refresh
