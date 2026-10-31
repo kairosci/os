@@ -6,6 +6,7 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 test_tmp=$(mktemp -d)
 trap 'rm -rf "$test_tmp"' EXIT
+export AP="$ROOT"
 
 stub_bin="$test_tmp/bin"
 acpi_lid="$test_tmp/acpi/button/lid"
@@ -27,7 +28,7 @@ run_laptop() {
     ARCH_ACPI_LID_PATH="$acpi_lid" \
     ARCH_INPUT_CLASS_PATH="$input_class" \
     PATH="$stub_bin:$PATH" \
-    "$ROOT/src/arch/commands/arch-hw-laptop"
+    "$ARCH_TEST_CLI_BIN/arch-hw-laptop"
 }
 
 run_lid_closed() {

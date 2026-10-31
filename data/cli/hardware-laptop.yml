@@ -1,0 +1,13 @@
+paths:
+  acpi_lid_default: /proc/acpi/button/lid
+  acpi_lid_environment: ARCH_ACPI_LID_PATH
+  acpi_state_glob: '*/state'
+  input_class_default: /sys/class/input
+  input_class_environment: ARCH_INPUT_CLASS_PATH
+  input_switch_glob: '*/capabilities/sw'
+  chassis_type_default: /sys/class/dmi/id/chassis_type
+  chassis_type_environment: ARCH_DMI_CHASSIS_TYPE_PATH
+identifiers:
+  switch_capability_pattern: '[0-9a-fA-F]+'
+  lid_switch_mask: 1
+  laptop_chassis_types: ['8', '9', '10', '14', '30', '31', '32']
