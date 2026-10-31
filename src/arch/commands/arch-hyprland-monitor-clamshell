@@ -245,7 +245,7 @@ disable_internal() {
 arch-hyprland-monitor-internal recover >/dev/null 2>&1 || true
 arch-hyprland-monitor-internal-mirror recover >/dev/null 2>&1 || true
 
-if arch-hw-clamshell && arch-hyprland-monitor-external-active; then
+if archctl hw clamshell && arch-hyprland-monitor-external-active; then
   disable_internal
 else
   enable_internal

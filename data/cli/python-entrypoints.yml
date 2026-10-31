@@ -362,6 +362,7 @@ entrypoints:
     name: clamshell
     summary: Returns true when clamshell mode is active
     hidden: "true"
+    generate_launcher: "false"
   - binary: arch-hw-laptop
     module: hardware/laptop
     function: laptop_main

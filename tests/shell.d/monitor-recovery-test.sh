@@ -11,7 +11,6 @@ monitor_laptop="$ROOT/src/arch/cli/hyprland/monitors.py"
 system_wake="$ROOT/src/arch/commands/arch-system-wake"
 clamshell="$ROOT/src/arch/commands/arch-hyprland-monitor-clamshell"
 lock_service="$ROOT/src/arch/shell/plugins/lock/Service.qml"
-hw_clamshell="$ROOT/src/arch/commands/arch-hw-clamshell"
 hw_laptop_closed="$ROOT/src/arch/commands/arch-hw-laptop-closed"
 utilities="$ROOT/default/hypr/bindings/utilities.lua"
 
@@ -73,7 +72,7 @@ grep -F 'scale = $scale' "$clamshell" >/dev/null
 grep -F 'hyprctl dispatch "hl.dsp.dpms({ action = \"$action\", monitor = \"$INTERNAL\" })"' "$clamshell" >/dev/null
 grep -F 'hyprctl monitors all -j' "$clamshell" >/dev/null
 grep -F 'arch-hyprland-monitor-external-active' "$clamshell" >/dev/null
-grep -F 'arch-hw-clamshell' "$clamshell" >/dev/null
+grep -F 'archctl hw clamshell' "$clamshell" >/dev/null
 pass "clamshell monitor sync disables laptop output and force-recovers it"
 
 grep -F "hyprctl dispatch 'hl.dsp.dpms({ action = \"enable\" })' >/dev/null 2>&1 || true" "$monitor_internal" >/dev/null

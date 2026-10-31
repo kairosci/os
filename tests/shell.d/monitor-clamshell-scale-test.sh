@@ -48,17 +48,15 @@ SH
 
 cat >"$stub_bin/archctl" <<'SH'
 #!/bin/bash
-[[ $* == "hyprland monitor laptop" ]] && echo eDP-1
+case "$*" in
+  "hyprland monitor laptop") echo eDP-1 ;;
+  "hw clamshell") [[ ${ARCH_TEST_CLAMSHELL:-false} == "true" ]] ;;
+esac
 SH
 
 cat >"$stub_bin/arch-hyprland-monitor-external-active" <<'SH'
 #!/bin/bash
 [[ ${ARCH_TEST_EXTERNAL_ACTIVE:-false} == "true" ]]
-SH
-
-cat >"$stub_bin/arch-hw-clamshell" <<'SH'
-#!/bin/bash
-[[ ${ARCH_TEST_CLAMSHELL:-false} == "true" ]]
 SH
 
 chmod +x "$stub_bin"/*
