@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import os
 from pathlib import Path
+import re
 import subprocess
 import sys
 from typing import TypedDict
@@ -15,6 +16,7 @@ class Settings(TypedDict):
   paths: dict[str, str]
   patterns: dict[str, str]
   fields: dict[str, str]
+  monitor_status: dict[str, str]
 
 
 def _mapping(value: object, label: str) -> dict[object, object]:
@@ -43,6 +45,7 @@ def _settings() -> Settings:
   paths = _mapping(document.get("paths"), "paths")
   patterns = _mapping(document.get("patterns"), "patterns")
   fields = _mapping(document.get("fields"), "fields")
+  monitor_status = _mapping(document.get("monitor_status"), "monitor_status")
   return {
     "commands": {"hyprland_devices": _text_list(commands.get("hyprland_devices"), "commands.hyprland_devices")},
     "paths": {"vulkan_icd_directory": _text(paths.get("vulkan_icd_directory"), "paths.vulkan_icd_directory")},
@@ -51,6 +54,13 @@ def _settings() -> Settings:
       "touch": _text(fields.get("touch"), "fields.touch"),
       "tablets": _text(fields.get("tablets"), "fields.tablets"),
       "name": _text(fields.get("name"), "fields.name"),
+    },
+    "monitor_status": {
+      "directory_environment": _text(monitor_status.get("directory_environment"), "monitor_status.directory_environment"),
+      "default_directory": _text(monitor_status.get("default_directory"), "monitor_status.default_directory"),
+      "status_glob": _text(monitor_status.get("status_glob"), "monitor_status.status_glob"),
+      "internal_connector_pattern": _text(monitor_status.get("internal_connector_pattern"), "monitor_status.internal_connector_pattern"),
+      "connected_value": _text(monitor_status.get("connected_value"), "monitor_status.connected_value"),
     },
   }
 
@@ -99,4 +109,24 @@ def vulkan_main() -> int:
     return 0 if directory.is_dir() and next(directory.glob(settings["patterns"]["vulkan_icd"]), None) else 1
   except (KeyError, OSError, UnicodeError, TypeError, ValueError, yaml.YAMLError) as error:
     print(f"Could not detect Vulkan configuration: {error}", file=sys.stderr)
+    return os.EX_CONFIG
+
+
+def external_monitors_main() -> int:
+  try:
+    settings = _settings()["monitor_status"]
+    directory = Path(os.environ.get(settings["directory_environment"], settings["default_directory"]))
+    internal_connector = re.compile(settings["internal_connector_pattern"])
+    for status in directory.glob(settings["status_glob"]):
+      if not status.exists() or internal_connector.search(status.parent.name):
+        continue
+      try:
+        connected = status.read_text(encoding="utf-8").rstrip("\n")
+      except OSError:
+        continue
+      if connected == settings["connected_value"]:
+        return 0
+    return 1
+  except (KeyError, OSError, UnicodeError, TypeError, ValueError, re.error, yaml.YAMLError) as error:
+    print(f"Could not detect external monitors: {error}", file=sys.stderr)
     return os.EX_CONFIG

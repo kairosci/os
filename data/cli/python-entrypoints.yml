@@ -186,6 +186,13 @@ entrypoints:
     group: hw
     name: intel sof
     summary: Detect an Intel SOF-capable audio DSP.
+  - binary: arch-hw-external-monitors
+    module: hardware/misc
+    function: external_monitors_main
+    group: hw
+    name: external monitors
+    summary: Detect whether an external monitor is connected
+    hidden: 'true'
   - binary: arch-hw-touchscreen
     module: hardware/misc
     function: touchscreen_main

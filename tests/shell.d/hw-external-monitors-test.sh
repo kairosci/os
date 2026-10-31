@@ -24,7 +24,7 @@ write_connectors() {
 }
 
 has_external_monitor() {
-  ARCH_DRM_PATH="$drm_path" "$ROOT/src/arch/commands/arch-hw-external-monitors"
+  ARCH_DRM_PATH="$drm_path" "$ARCH_TEST_CLI_BIN/arch-hw-external-monitors"
 }
 
 write_connectors
