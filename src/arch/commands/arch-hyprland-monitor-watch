@@ -37,7 +37,7 @@ recover_modeless() {
     local delay=3 state reloaded unanswered=0
 
     while true; do
-      arch-hyprland-monitor-modeless
+      archctl hyprland monitor modeless
       state=$?
 
       # A monitor reporting a mode is recovered. One the compositor cannot speak
