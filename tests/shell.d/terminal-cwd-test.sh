@@ -69,14 +69,14 @@ chmod +x "$stub_bin/setsid" "$stub_bin/arch-cmd-terminal-cwd"
 launch_args="$test_tmp/launch-args"
 
 AP="$ROOT" PATH="$stub_bin:$PATH" LAUNCH_ARGS="$launch_args" \
-  "$ARCH_TEST_CLI_BIN/arch-launch-nautilus" || fail "Files launcher starts successfully"
+  "$ARCH_TEST_CLI_BIN/archctl" launch nautilus || fail "Files launcher starts successfully"
 mapfile -d '' -t actual_args <"$launch_args"
 [[ ${#actual_args[@]} == 4 && ${actual_args[0]} == uwsm-app && ${actual_args[1]} == -- &&
   ${actual_args[2]} == nautilus && ${actual_args[3]} == --new-window ]] ||
   fail "Files launcher preserves its application argv" "${actual_args[*]}"
 
 AP="$ROOT" PATH="$stub_bin:$PATH" LAUNCH_ARGS="$launch_args" LAUNCH_CWD="$work_dir" \
-  "$ARCH_TEST_CLI_BIN/arch-launch-nautilus-cwd" || fail "Files launcher in the terminal directory starts successfully"
+  "$ARCH_TEST_CLI_BIN/archctl" launch nautilus cwd || fail "Files launcher in the terminal directory starts successfully"
 mapfile -d '' -t actual_args <"$launch_args"
 [[ ${#actual_args[@]} == 5 && ${actual_args[0]} == uwsm-app && ${actual_args[1]} == -- &&
   ${actual_args[2]} == nautilus && ${actual_args[3]} == --new-window && ${actual_args[4]} == "$work_dir" ]] ||
@@ -90,7 +90,7 @@ exit "${LAUNCH_STATUS:-0}"
 SH
 chmod +x "$stub_bin/arch-launch-terminal"
 AP="$ROOT" PATH="$stub_bin:$PATH" LAUNCH_ARGS="$launch_args" \
-  "$ARCH_TEST_CLI_BIN/arch-launch-terminal-tmux" || fail "tmux terminal launcher starts successfully"
+  "$ARCH_TEST_CLI_BIN/archctl" launch terminal tmux || fail "tmux terminal launcher starts successfully"
 mapfile -d '' -t actual_args <"$launch_args"
 [[ ${#actual_args[@]} == 3 && ${actual_args[0]} == bash && ${actual_args[1]} == -c &&
   ${actual_args[2]} == 'tmux attach || tmux new -s Work' ]] ||
