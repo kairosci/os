@@ -74,5 +74,26 @@
 | #557 | Migrate DMI hardware matching to Python |
 | #558 | Migrate device tree hardware matching to Python |
 | #559 | Migrate touchpad detection to Python |
+| #560 | Supervise the Arch desktop shell |
+| #561 | Migrate fingerprint detection to Python |
+| #562 | Migrate backlight detection to Python |
+| #563 | Migrate monitor recovery to Python |
+| #564 | Migrate current workspace layout command to Python |
+| #565 | Migrate Apple monitor predicate to Python |
+| #566 | Migrate modeless monitor recovery query to Python |
+| #567 | Migrate active external monitor check to Python |
+| #568 | Migrate default dictation command to Python |
+| #569 | Migrate default terminal command to Python |
+| #570 | Migrate default editor command to Python |
+| #571 | Migrate default browser command to Python |
+| #572 | Split ISO release images into multiple parts |
+| #573 | Migrate application restart commands to Python |
+| #574 | Migrate notification time command to Python |
+| #575 | Migrate notification dismiss command to Python |
+| #576 | Preserve notification dismiss usage output |
+| #577 | Migrate weather notification command to Python |
+| #578 | Migrate battery notification command to Python |
+| #579 | Migrate notification sender to Python |
+| #580 | Migrate hibernation availability check to Python |
 
 PR #483 was closed when its base branch was deleted during integration. Its change was rebased and merged as PR #499.
