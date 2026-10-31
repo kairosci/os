@@ -8,3 +8,9 @@ fields:
   touch: touch
   tablets: tablets
   name: name
+monitor_status:
+  directory_environment: ARCH_DRM_PATH
+  default_directory: /sys/class/drm
+  status_glob: card*-*/status
+  internal_connector_pattern: '-(eDP|LVDS|DSI)-[^/]+$'
+  connected_value: connected

@@ -64,5 +64,6 @@
 | #547 | Migrate clamshell hardware command to Python |
 | #548 | Migrate Intel hardware predicates to Python |
 | #549 | Migrate Vulkan and touchscreen hardware commands to Python |
+| #550 | Migrate external monitor detection to Python |
 
 PR #483 was closed when its base branch was deleted during integration. Its change was rebased and merged as PR #499.
