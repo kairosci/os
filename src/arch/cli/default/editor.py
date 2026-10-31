@@ -25,12 +25,12 @@ class Settings(TypedDict):
   arguments: int
   command_timeout_seconds: int
   stored_value_characters: int
-  binary: str
   install_flag: str
   default_command: str
   localization_key: str
   command_missing: list[str]
   launch_installer: list[str]
+  launch_default: list[str]
   notification: list[str]
   localization: list[str]
   legacy_commands: dict[str, str]
@@ -101,12 +101,12 @@ def _settings() -> Settings:
     "arguments": _integer(limits.get("arguments")),
     "command_timeout_seconds": _integer(limits.get("command_timeout_seconds")),
     "stored_value_characters": _integer(limits.get("stored_value_characters")),
-    "binary": _text(values.get("binary")),
     "install_flag": _text(values.get("install_flag")),
     "default_command": _text(values.get("default_command")),
     "localization_key": _text(values.get("localization_key")),
     "command_missing": _strings(commands.get("command_missing")),
     "launch_installer": _strings(commands.get("launch_installer")),
+    "launch_default": _strings(commands.get("launch_default")),
     "notification": _strings(commands.get("notification")),
     "localization": _strings(commands.get("localization")),
     "legacy_commands": {key: _text(value) for key, value in legacy_commands.items()},
@@ -203,7 +203,7 @@ def default_editor_main(arguments: list[str]) -> int:
     if missing.returncode == settings["success"]:
       if not installing:
         return _run(
-          [*settings["launch_installer"], settings["binary"], settings["install_flag"], selection],
+          [*settings["launch_installer"], *settings["launch_default"], settings["install_flag"], selection],
           settings,
         ).returncode
       installed = _run(editor["installer"], settings)

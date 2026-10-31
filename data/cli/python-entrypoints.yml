@@ -234,6 +234,7 @@ entrypoints:
     args: '[--install] [editor]'
     examples: archctl default editor | archctl default editor helix
     pass_args: 'true'
+    generate_launcher: "false"
   - binary: arch-default-terminal
     module: default/terminal
     function: default_terminal_main
@@ -243,6 +244,7 @@ entrypoints:
     args: '[--install] [terminal]'
     examples: archctl default terminal | archctl default terminal kitty
     pass_args: 'true'
+    generate_launcher: "false"
   - binary: arch-font-cjk
     module: font/catalog
     function: cjk_main
