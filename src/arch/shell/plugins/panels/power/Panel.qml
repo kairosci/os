@@ -190,7 +190,7 @@ Panel {
 
   Process {
     id: batteryProc
-    command: ["arch-battery-status", "--shell"]
+    command: ["archctl", "battery", "status", "--shell"]
     stdout: StdioCollector { waitForEnd: true; onStreamFinished: root.updateKeyValue(text, "battery") }
   }
 
