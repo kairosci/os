@@ -30,7 +30,7 @@ announce() {
   # notification server down with it and a toast sent into that gap is lost.
   # Wait for the restarted shell to claim the name again: the crash least
   # likely to be delivered is the one most worth reporting.
-  arch-notification-wait || return 1
+  archctl notification wait || return 1
 
   arch-notification-send \
     --urgency critical \

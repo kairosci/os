@@ -53,6 +53,7 @@ entrypoints:
     summary: Wait for the desktop notification server to accept notifications
     args: "[timeout-seconds]"
     hidden: "true"
+    generate_launcher: "false"
   - binary: arch-notification-dismiss
     module: notification/dismiss
     function: main

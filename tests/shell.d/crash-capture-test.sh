@@ -71,7 +71,7 @@ cat >"$watch_bin/journalctl" <<'SH'
 cat "$JOURNAL_ENTRIES"
 SH
 
-cat >"$watch_bin/arch-notification-wait" <<'SH'
+cat >"$watch_bin/archctl" <<'SH'
 #!/bin/bash
 exit 0
 SH
@@ -81,7 +81,7 @@ cat >"$watch_bin/arch-notification-send" <<'SH'
 printf '%s\n' "$*" >>"$NOTIFY_LOG"
 SH
 
-chmod +x "$watch_bin/journalctl" "$watch_bin/arch-notification-wait" "$watch_bin/arch-notification-send"
+chmod +x "$watch_bin/journalctl" "$watch_bin/archctl" "$watch_bin/arch-notification-send"
 
 reset_entries() {
   : >"$JOURNAL_ENTRIES"
