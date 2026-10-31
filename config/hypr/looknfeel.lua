@@ -2,7 +2,7 @@
 
 -- Opt another application in to os's standard transparency.
 -- Find its class with: hyprctl clients
--- o.transparent_window("my-app")
+-- o.transparent_window("my-app") -- Uses the opacity in apps.yml.
 -- o.transparent_window("my-app", "0.9 0.85") -- Custom active/inactive opacity.
 
 -- https://wiki.hypr.land/Configuring/Basics/Variables/#general

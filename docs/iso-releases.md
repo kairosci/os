@@ -2,6 +2,8 @@
 
 GitHub release assets must stay below 2 GB. The release workflow builds each supported native architecture in its pinned Arch container, validates the ISO profile, and splits the resulting image into parts no larger than the configured limit. It publishes a JSON manifest with the size and SHA-256 checksum of the complete ISO and every part. The ISO build is restricted to that workflow; local commands only split existing images or download and assemble published ones. A manual workflow run builds a selected ref and stores a short-lived artifact without publishing by default; publishing requires an explicit option and an existing tag.
 
+The profile source is Python in `scripts/iso/profile/profiledef.py`; its values come from `data/iso/profile.yml`. During the CI build it renders a temporary `profiledef.sh`, the profile filename required by ArchISO's profile format ([profile documentation](https://github.com/archlinux/archiso/blob/master/docs/README.profile.rst)). The generated file is confined to the staged build profile and is not checked into the repository.
+
 Split an ISO into assets for a release:
 
 ```sh

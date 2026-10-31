@@ -1,0 +1,124 @@
+transparent_opacity: &transparent_opacity '0.985 0.96'
+transparent_tag: &transparent_tag '+transparent-window'
+window_rules:
+  - application: all-windows
+    match: {class: '.*'}
+    options: {tile: true, suppress_event: maximize}
+  - application: empty-xwayland-window
+    match: {class: '^$', title: '^$', xwayland: true, fullscreen: false, pin: false}
+    options: {no_focus: true}
+  - application: onepassword
+    match: {class: '^(1[pP]assword|com\.onepassword\.OnePassword)$'}
+    options: {no_screen_share: true}
+  - application: arch-shell
+    match: {class: '^org.quickshell$', title: '^os shell – dev gallery$'}
+    options: {maximize: true}
+  - application: battlenet
+    match: {class: '^steam_app_battlenet$', title: '^Battle\.net Setup$'}
+    options: {decorate: false, no_blur: true, no_shadow: true}
+  - application: bitwarden
+    match: {class: '^([bB]itwarden)$'}
+    options: {no_screen_share: true}
+  - application: bitwarden
+    match: {class: 'chrome-nngceckbapebfimnlniiiahkandclblb-Default'}
+    options: {no_screen_share: true}
+  - application: browser
+    match: {class: '((google-)?[cC]hrom(e|ium)|[bB]rave-browser|[mM]icrosoft-edge|Vivaldi-stable|helium)'}
+    options: {tag: '+chromium-based-browser'}
+  - application: browser
+    match: {class: '([fF]irefox|zen|librewolf)'}
+    options: {tag: '+firefox-based-browser'}
+  - application: browser
+    match: {tag: chromium-based-browser}
+    options: {tile: true}
+  - application: browser
+    match: {class: '(^.+-youtube\.com__.*$|^.+-app\.zoom\.us__wc_home.*$)'}
+    options: {tag: '-chromium-based-browser'}
+  - application: browser
+    match: {title: '.*is sharing.*'}
+    options: {workspace: 'special silent'}
+  - application: captive-portal
+    match: {class: '^chrome-ping\.omacom\.io__.*$'}
+    options: {tag: '-chromium-based-browser'}
+  - application: davinci-resolve
+    match: {class: '.*[Rr]esolve.*'}
+    options: {stay_focused: true, no_follow_mouse: true}
+  - application: davinci-resolve
+    match: {class: '.*[Rr]esolve.*', title: '^DaVinci Resolve( Studio)? - .+$'}
+    options: {fullscreen: true}
+  - application: davinci-resolve
+    match: {class: '.*[Rr]esolve.*', title: '^(DaVinci Resolve( Studio)? - .+|Project Manager|Preferences|Find Directory|Dialog)$'}
+    options: {stay_focused: false}
+  - application: disktree
+    match: {class: '^disktree$'}
+    options: {tile: true, maximize: true}
+  - application: geforce-now
+    match: {class: GeForceNOW}
+    options: {idle_inhibit: fullscreen}
+  - application: jetbrains
+    match: {class: '^(jetbrains-.*)$'}
+    options: {no_follow_mouse: true}
+  - application: localsend
+    match: {class: '(org\.localsend\.)?localsend(_app)?'}
+    options: {opacity: *transparent_opacity, tag: *transparent_tag}
+  - application: moonlight
+    match: {class: com.moonlight_stream.Moonlight}
+    options: {fullscreen: true, idle_inhibit: fullscreen}
+  - application: picture-in-picture
+    match: {title: '(Picture.?in.?[Pp]icture)'}
+    options: {tag: '+pip'}
+  - application: picture-in-picture
+    match: {tag: pip}
+    options: {border_size: 0}
+  - application: picture-in-picture
+    match: {tag: chromium-based-browser, title: '^Meet - .+'}
+    options: {border_size: 0}
+  - application: steam
+    match: {class: steam}
+    options: {idle_inhibit: fullscreen}
+  - application: steam
+    match: {class: steam, title: Friends List}
+    options: {size: [460, 800]}
+  - application: system
+    match: {class: org.arch.screensaver}
+    options: {fullscreen: true}
+  - application: system
+    match: {class: org.arch.screensaver}
+    options: {animation: slide}
+  - application: system
+    match: {class: org.arch.screensaver}
+    options: {workspace: 'special:screensaver silent'}
+  - application: system
+    match: {tag: noidle}
+    options: {idle_inhibit: always}
+  - application: telegram
+    match: {class: org.telegram.desktop}
+    options: {focus_on_activate: false}
+  - application: terminals
+    match: {class: '(Alacritty|kitty|com\.mitchellh\.ghostty|foot|org\.codeberg\.dnkl\.foot|wezterm|org\.arch\.terminal|org\.arch\.btop|TUI\..*)'}
+    options: {tag: '+terminal'}
+  - application: webcam-overlay
+    match: {class: '^WebcamOverlay-(small|medium|large)$', title: '^WebcamOverlay$'}
+    options: {no_initial_focus: true, no_dim: true}
+  - application: terminals
+    match: {tag: terminal}
+    options: {opacity: *transparent_opacity, tag: *transparent_tag}
+  - application: file-manager
+    match: {class: '(1[pP]assword|com\.onepassword\.OnePassword|org\.gnome\.Nautilus)'}
+    options: {opacity: *transparent_opacity, tag: *transparent_tag}
+  - application: transparent-mode
+    match: {tag: transparent}
+    options: {opacity: *transparent_opacity, tag: *transparent_tag}
+layer_rules:
+  - application: arch-bar
+    match: {namespace: arch-bar}
+    options: {no_anim: true, animation: none}
+  - application: arch-overlays
+    match: {namespace: '^(arch-menu|arch-image-selector|arch-emojis|arch-clipboard|arch-keyboard-panel|arch-osd|arch-reminders|arch-network-qr)$'}
+    options: {no_anim: true, animation: none}
+  - application: arch-backgrounds
+    match: {namespace: '^(arch-background|owe-background)$'}
+    options: {no_anim: true, animation: none}
+  - application: screenshot-selection
+    match: {namespace: selection}
+    options: {no_anim: true, animation: none}

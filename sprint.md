@@ -56,5 +56,6 @@
 | #537 | Filter ARM GRUB modules by package availability |
 | #538 | Remove CLI wrappers backed by Python modules |
 | #539 | Remove Windows VM from the desktop menu |
+| #541 | Migrate another set of CLI wrappers |
 
 PR #483 was closed when its base branch was deleted during integration. Its change was rebased and merged as PR #499.

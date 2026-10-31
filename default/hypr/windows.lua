@@ -1,26 +1,2 @@
--- See https://wiki.hypr.land/Configuring/Basics/Window-Rules/
-
--- Keep all application windows in the configured tiling layout.
-o.window(".*", { tile = true, suppress_event = "maximize" })
-
--- Fix some dragging issues with XWayland.
-o.window(
-  {
-    class = "^$",
-    title = "^$",
-    xwayland = true,
-    fullscreen = false,
-    pin = false,
-  },
-  { no_focus = true }
-)
-
--- App-specific tweaks and terminal tags.
+-- Window behavior is data in the user-editable Hyprland app rules file.
 require("default.hypr.apps")
-
--- Terminals (including TUIs) and these desktop apps opt in to transparency.
-o.transparent_window({ tag = "terminal" })
-o.transparent_window("(1[pP]assword|com\\.onepassword\\.OnePassword|org\\.gnome\\.Nautilus)")
-
--- The transparency hotkey opts otherwise opaque windows in with this tag.
-o.transparent_window({ tag = "transparent" })

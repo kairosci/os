@@ -6,9 +6,9 @@ This roadmap tracks the requested CLI, ISO, desktop, and release work as separat
 
 - `scripts/iso/` contains the CI-only native builder, checksum manifest, downloader, assembler, and release publisher. Workflow run `41133288654` built both x86_64 and AArch64 images successfully; its publish job was skipped. The GitHub repository currently has no releases, so a published multipart release has not yet been verified.
 - The profile is rendered from `data/iso/profile.yml` through `scripts/iso/profile/profiledef.py`. The builder creates a complete ISO and release parts capped at 1,900,000,000 bytes each, below GitHub's 2 GB per-asset limit. `scripts/iso/download.py` verifies release metadata and delegates checksum-checked assembly to `scripts/iso/parts.py`. The ISO includes `archinstall`, but this build evidence does not prove the repository's intended online, offline, and unattended target-install flows; those remain open for disposable-VM acceptance.
-- `src/arch/commands/` contains 441 command files and `src/arch/cli/` contains 28 Python modules. Thirteen entrypoints are declared in `data/cli/python-entrypoints.yml`; PR #538 removed their matching flat command files and generates package launchers from YAML. The remaining flat commands still need classification and migration before the requested cleanup is complete.
+- After PR #541, `src/arch/commands/` contains 412 command files and `src/arch/cli/` contains 28 Python modules. Forty-two entrypoints are declared in `data/cli/python-entrypoints.yml`; PRs #538 and #541 removed their matching source wrappers and generate package launchers from YAML. The remaining flat commands still need classification and migration before the requested cleanup is complete.
 - PR #507 established `scrolling` as the default and `tiling` as the only alternate public workspace mode. Stored legacy layout values are normalized during configuration loading; the compositor's internal layout names are implementation details.
-- PR #532 gives Disktree a per-application Hyprland rule that tiles and maximizes it. The repository does not yet provide the requested system-specific application configuration. The menu overflow indicator and the event-driven battery glyph refresh have been integrated; the current charging glyph has not been visually checked on a machine connected to external power.
+- PR #532 gives Disktree a per-application Hyprland rule that tiles and maximizes it. The current sprint moves Disktree and all shipped application window rules into the user-editable `config/hypr/apps.yml`; Disktree uses the active display's usable tiled area rather than a fixed pixel size. The menu overflow indicator and the event-driven battery glyph refresh have been integrated; the current charging glyph has not been visually checked on a machine connected to external power.
 - The theme asset tree contains no keyboard image asset or keyboard-image reference. PR #539 removed Windows VM install and removal rows from the default menu; the existing command and user data remain untouched. Menu hierarchy, labels, focus behavior, and visual verification still need a broader review.
 
 ## Sprints
@@ -19,7 +19,7 @@ PR #507 made `scrolling` the default and exposed `tiling` as the only alternate 
 
 ### 2. Inventory and classify CLI entrypoints
 
-For each executable in `src/arch/commands/`, record whether it is already backed by a Python module, still contains command behavior, or has callers that rely on its binary name. Thirteen Python entrypoints are catalogued today, but the complete 441-file command tree has not been classified. Keep the inventory generated from source metadata so it cannot silently drift.
+For each executable in `src/arch/commands/`, record whether it is already backed by a Python module, still contains command behavior, or has callers that rely on its binary name. Forty-two Python entrypoints are catalogued today, but the remaining 412 command files have not been classified. Keep the inventory generated from source metadata so it cannot silently drift.
 
 ### 3. Move remaining command behavior into modules
 
