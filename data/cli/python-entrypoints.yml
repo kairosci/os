@@ -475,6 +475,7 @@ entrypoints:
     summary: Return success if the focused or named Hyprland monitor is an Apple display.
     args: "[monitor]"
     pass_args: 'true'
+    generate_launcher: "false"
   - binary: arch-hyprland-monitor-external-active
     module: hyprland/monitors
     function: external_active_main

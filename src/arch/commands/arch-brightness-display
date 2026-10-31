@@ -36,7 +36,7 @@ monitor_is_internal() {
 }
 
 use_apple_display() {
-  arch-hyprland-monitor-focused-apple "$monitor"
+  archctl hyprland monitor focused apple "$monitor"
 }
 
 use_ddc_display() {
