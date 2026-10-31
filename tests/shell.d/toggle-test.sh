@@ -101,9 +101,12 @@ pass "animations toggle turns the no-animations flag the right way round"
 # A VM install starts without animations; other machines keep them.
 for virt in vm none; do
   rm -rf "$test_home/.local/state/arch/toggles/hypr"
-  printf '#!/bin/bash\n[[ %s == vm ]]\n' "$virt" >"$stub_bin/arch-hw-vm"
-  chmod +x "$stub_bin/arch-hw-vm"
-  HOME="$test_home" AP="$ROOT" PATH="$stub_bin:$PATH" \
+  cat >"$stub_bin/archctl" <<'SH'
+#!/bin/bash
+[[ ${1:-} == hw && ${2:-} == vm && $# == 2 && ${TEST_VIRT:-} == vm ]]
+SH
+  chmod +x "$stub_bin/archctl"
+  HOME="$test_home" AP="$ROOT" TEST_VIRT="$virt" PATH="$stub_bin:$PATH" \
     python3 -I "$ROOT/src/arch/python/installer_user/setup/vm.py" >/dev/null
   if [[ $virt == "vm" ]]; then
     [[ -f $animations_flag ]] || fail "a VM install turns animations off"
