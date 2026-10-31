@@ -281,7 +281,7 @@ source, assembled = map(Path, sys.argv[1:3])
 entrypoints = yaml.safe_load(Path(sys.argv[3]).read_text(encoding="utf-8"))["entrypoints"]
 excluded = {"arch-debug", "arch-debug-idle", "arch-upload-log"}
 source_commands = {path.name for path in source.iterdir() if path.is_file()} - excluded
-generated_commands = {entry["binary"] for entry in entrypoints if entry.get("generate_launcher", "true") == "true"}
+generated_commands = {entry["binary"] for entry in entrypoints if entry.get("generate_launcher", "false") == "true"}
 expected = source_commands | generated_commands
 actual = {path.name for path in assembled.iterdir() if path.is_file() or path.is_symlink()}
 assert actual == expected, (expected - actual, actual - expected)
@@ -291,7 +291,7 @@ for name in source_commands:
     assert stat.S_IMODE(original.stat().st_mode) == stat.S_IMODE(packaged.stat().st_mode), name
 for entry in entrypoints:
     packaged = assembled / entry["binary"]
-    if entry.get("generate_launcher", "true") == "false":
+    if entry.get("generate_launcher", "false") == "false":
         assert not packaged.exists(), entry["binary"]
         continue
     metadata = packaged.read_text(encoding="utf-8").splitlines()
@@ -300,7 +300,7 @@ for entry in entrypoints:
     assert f"# arch:summary={entry['summary']}" in metadata, entry["binary"]
     assert stat.S_IMODE(packaged.stat().st_mode) == 0o755, entry["binary"]
 PY
-pass "the runtime package assembles legacy commands and generates Python CLI launchers from YAML"
+pass "the runtime package assembles legacy commands and omits Python launchers unless explicitly enabled"
 
 python3 "$ROOT/scripts/modules.py" assemble --package arch-settings --destination "$stage/settings"
 for path in config default; do
@@ -366,7 +366,7 @@ expected["arch"].add("usr/share/arch/data/cli/group-descriptions.sh")
 expected["arch"].update(
     f"usr/share/arch/src/arch/commands/{entry['binary']}"
     for entry in entrypoints
-    if entry.get("generate_launcher", "true") == "true"
+    if entry.get("generate_launcher", "false") == "true"
 )
 
 for package, package_root in package_roots.items():
