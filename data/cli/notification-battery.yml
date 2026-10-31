@@ -3,6 +3,16 @@ commands:
   notification: [archctl, notification, send, -g, 󰁹, -u, low]
 timeout_seconds: 5
 failure_status: 1
+low_battery:
+  argument_count: 1
+  usage: 'Usage: archctl notification battery low <percentage>'
+  operation_error: Could not show the low battery warning or run its hook
+  commands:
+    title: [arch-i18n, battery.lowTitle]
+    body: [arch-i18n, battery.lowBody]
+    notification: [archctl, notification, send, -g, 󱐋, -u, critical]
+    notification_suffix: [-i, battery-caution, -t, '30000']
+    hook: [archctl, hook, battery-low]
 messages:
   operation_error: Could not show the battery notification
   empty_status: The battery status command returned no text

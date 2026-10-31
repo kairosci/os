@@ -72,6 +72,15 @@ entrypoints:
     name: battery
     summary: Show the current battery status notification
     pass_args: 'true'
+  - binary: arch-notification-battery-low
+    module: notification/battery
+    function: low_main
+    group: notification
+    name: battery low
+    summary: Warn about low battery and run its hooks
+    args: <percentage>
+    hidden: 'true'
+    pass_args: 'true'
   - binary: arch-notification-time
     module: notification/time
     function: main

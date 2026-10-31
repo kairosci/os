@@ -2,15 +2,10 @@ id = "desktop.commands.battery"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/arch/commands/arch-battery-low",
   "src/arch/cli/battery/present.py",
   "src/arch/cli/battery/status.py",
 ]
-requires = ["desktop.commands", "desktop.commands.i18n", "system.runtime-data"]
-
-[[output]]
-source = "src/arch/commands/arch-battery-low"
-target = "usr/share/arch/src/arch/commands/arch-battery-low"
+requires = ["desktop.commands", "system.runtime-data"]
 
 [[output]]
 source = "src/arch/cli/battery/present.py"
