@@ -112,6 +112,28 @@ assert(
   'app library launches desktop entries through gtk-launch in their own scope'
 )
 
+const tuiLaunchMatch = appLibraryQml.match(/function launch\(desktopId, name\) \{([\s\S]*?)\n  \}/)
+assert(tuiLaunchMatch, 'app library launch function exists')
+let tuiLaunchCommand = ''
+const tuiLaunch = new Function(
+  'root', 'Util', 'DesktopEntries',
+  `return function launch(desktopId, name) {${tuiLaunchMatch[1]}\n}`
+)({
+  beginLaunchFeedback: () => {},
+  terminalCommand: () => ['nvim', '--', 'a file'],
+}, {
+  execDetached: command => { tuiLaunchCommand = command },
+  shellQuote: value => `'${String(value).replace(/'/g, "'\\''")}'`,
+}, {
+  byId: id => id,
+})
+tuiLaunch('nvim.desktop', 'Neovim')
+assertEqual(
+  tuiLaunchCommand,
+  "archctl launch tui 'nvim' '--' 'a file'",
+  'app library routes terminal applications through archctl with arguments preserved'
+)
+
 assert(
   appLibraryQml.includes('Util.shellQuote(id + ".desktop")'),
   'app library launches by full file name so ids ending in .desktop (org.telegram.desktop) resolve'

@@ -91,7 +91,7 @@ Item {
     // then attribute the TUI to Neovim rather than its terminal.
     var command = root.terminalCommand(DesktopEntries.byId(id))
     if (command.length > 0) {
-      Util.execDetached("arch-launch-tui " + command.map(function(word) { return Util.shellQuote(word) }).join(" "))
+      Util.execDetached("archctl launch tui " + command.map(function(word) { return Util.shellQuote(word) }).join(" "))
       return
     }
     // Start gtk-launch inside a scope under app-graphical.slice so apps do not

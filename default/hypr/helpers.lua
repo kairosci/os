@@ -93,9 +93,9 @@ local function command_from(value, description)
     end
   elseif value.tui then
     if value.focus then
-      return "arch-launch-or-focus-tui " .. shell_quote(value.tui)
+      return "archctl launch tui focus " .. shell_quote(value.tui)
     else
-      return "arch-launch-tui " .. shell_quote(value.tui)
+      return "archctl launch tui " .. shell_quote(value.tui)
     end
   end
 
