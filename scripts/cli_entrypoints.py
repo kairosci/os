@@ -186,6 +186,6 @@ def main() -> int:
 if __name__ == "__main__":
   try:
     raise SystemExit(main())
-  except (OSError, UnicodeError, ValueError, yaml.YAMLError) as error:
+  except (OSError, UnicodeError, TypeError, ValueError, yaml.YAMLError) as error:
     print(error, file=sys.stderr)
     raise SystemExit(1)
