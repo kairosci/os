@@ -36,6 +36,7 @@ depends=(
   'jq'
   'git'
   'perl' # /usr/bin/arch-shell invokes perl directly
+  'python-yaml' # archctl reads its packaged route metadata at runtime
 
   # Update availability checks (checkupdates from pacman-contrib uses fakeroot)
   'fakeroot'
@@ -65,7 +66,6 @@ depends_aarch64=(
 makedepends=(
   'git'
   'python'
-  'python-yaml'
 )
 
 # Build only from the Arch fork checkout. Pulling upstream here would silently

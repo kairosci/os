@@ -184,6 +184,7 @@ for module_id in command_modules:
 assert modules["desktop.commands"]["sources"] == [
     "src/arch/commands/archctl",
     "src/arch/cli/lib/bounded.py",
+    "scripts/cli_entrypoints.py",
 ]
 PY
 pass "installation stages are declared as submodules of the shared installer contract"
@@ -256,6 +257,16 @@ pass "module validation rejects source symlinks that escape the repository or ha
 
 python3 "$ROOT/scripts/modules.py" assemble --package arch --destination "$stage/arch"
 python3 "$ROOT/scripts/cli_entrypoints.py" generate --destination "$stage/arch"
+runtime_root="$stage/arch/usr/share/arch"
+test -f "$runtime_root/scripts/cli_entrypoints.py" || fail "installed runtime includes the Python CLI dispatcher"
+AP="$runtime_root" "$stage/arch/usr/share/arch/src/arch/commands/archctl" iso --help >"$stage/iso-help"
+grep -F 'ISO release tools' "$stage/iso-help" >/dev/null || fail "installed archctl loads its ISO group metadata"
+printf 'iso-cli-package-fixture' >"$stage/iso-cli-package-fixture.iso"
+AP="$runtime_root" "$stage/arch/usr/share/arch/src/arch/commands/archctl" iso parts split \
+  "$stage/iso-cli-package-fixture.iso" --output-dir "$stage/iso-cli-package-assets"
+test -f "$stage/iso-cli-package-assets/iso-cli-package-fixture.iso.parts.json" ||
+  fail "installed ISO module splits an image through archctl"
+pass "installed archctl loads Python route metadata and ISO commands"
 for path in installer; do
   diff -r --no-dereference "$ROOT/$path" "$stage/arch/usr/share/arch/$path"
 done

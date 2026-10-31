@@ -1,7 +1,7 @@
 id = "desktop.commands"
 domain = "desktop"
 package = "arch"
-sources = ["src/arch/commands/archctl", "src/arch/cli/lib/bounded.py"]
+sources = ["src/arch/commands/archctl", "src/arch/cli/lib/bounded.py", "scripts/cli_entrypoints.py"]
 requires = ["system.settings"]
 
 [[output]]
@@ -11,3 +11,7 @@ target = "usr/share/arch/src/arch/commands/archctl"
 [[output]]
 source = "src/arch/cli/lib/bounded.py"
 target = "usr/share/arch/src/arch/cli/lib/bounded.py"
+
+[[output]]
+source = "scripts/cli_entrypoints.py"
+target = "usr/share/arch/scripts/cli_entrypoints.py"

@@ -1,0 +1,41 @@
+id = "desktop.commands.iso"
+domain = "desktop"
+package = "arch"
+sources = [
+  "src/arch/cli/iso/release.py",
+  "scripts/__init__.py",
+  "scripts/iso/__init__.py",
+  "scripts/iso/config.py",
+  "scripts/iso/download.py",
+  "scripts/iso/parts.py",
+  "scripts/iso/upload.py",
+]
+requires = ["desktop.commands", "system.runtime-data"]
+
+[[output]]
+source = "src/arch/cli/iso/release.py"
+target = "usr/share/arch/src/arch/cli/iso/release.py"
+
+[[output]]
+source = "scripts/__init__.py"
+target = "usr/share/arch/scripts/__init__.py"
+
+[[output]]
+source = "scripts/iso/__init__.py"
+target = "usr/share/arch/scripts/iso/__init__.py"
+
+[[output]]
+source = "scripts/iso/config.py"
+target = "usr/share/arch/scripts/iso/config.py"
+
+[[output]]
+source = "scripts/iso/download.py"
+target = "usr/share/arch/scripts/iso/download.py"
+
+[[output]]
+source = "scripts/iso/parts.py"
+target = "usr/share/arch/scripts/iso/parts.py"
+
+[[output]]
+source = "scripts/iso/upload.py"
+target = "usr/share/arch/scripts/iso/upload.py"
