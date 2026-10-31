@@ -218,6 +218,15 @@ entrypoints:
     summary: Check or mark completed Arch setup tasks
     args: <check|mark|ensure> <name>
     hidden: 'true'
+  - binary: arch-dev-ui-preview
+    module: dev/ui_preview
+    function: main
+    group: dev
+    name: ui preview
+    summary: Open the Arch shell UI component gallery
+    args: '[section]'
+    examples: archctl dev ui preview button
+    pass_args: 'true'
   - binary: arch-default-browser
     module: default/browser
     function: default_browser_main

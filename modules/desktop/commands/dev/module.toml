@@ -11,8 +11,8 @@ sources = [
   "src/arch/commands/arch-dev-pkg-test",
   "src/arch/commands/arch-dev-status",
   "src/arch/commands/arch-dev-theme-preview",
-  "src/arch/commands/arch-dev-ui-preview",
   "src/arch/commands/arch-dev-unlink",
+  "src/arch/cli/dev/ui_preview.py",
 ]
 requires = ["desktop.commands", "system.runtime-data"]
 
@@ -53,9 +53,9 @@ source = "src/arch/commands/arch-dev-theme-preview"
 target = "usr/share/arch/src/arch/commands/arch-dev-theme-preview"
 
 [[output]]
-source = "src/arch/commands/arch-dev-ui-preview"
-target = "usr/share/arch/src/arch/commands/arch-dev-ui-preview"
-
-[[output]]
 source = "src/arch/commands/arch-dev-unlink"
 target = "usr/share/arch/src/arch/commands/arch-dev-unlink"
+
+[[output]]
+source = "src/arch/cli/dev/ui_preview.py"
+target = "usr/share/arch/src/arch/cli/dev/ui_preview.py"

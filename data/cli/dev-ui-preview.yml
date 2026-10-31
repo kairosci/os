@@ -1,0 +1,13 @@
+command: [arch-shell, shell, summon, arch.dev-gallery]
+payload_key: section
+default_payload: '{}'
+maximum_section_length: 128
+messages:
+  invalid_arguments: 'Usage: archctl dev ui preview [section]'
+  section_too_long: 'The UI gallery section name is too long.'
+  command_error: 'Could not open the Arch shell UI gallery.'
+statuses:
+  success: 0
+  invalid_arguments: 2
+  command_error: 127
+  signal_status_base: 128
