@@ -32,7 +32,7 @@ safe_stage_path() {
   [[ $suffix =~ ^[[:alnum:]]{6}$ ]]
 }
 
-if arch-cmd-missing supergfxctl; then
+if archctl cmd missing supergfxctl; then
   arch-pkg-add supergfxctl
 
   # Create config before starting service to prevent hang on first boot

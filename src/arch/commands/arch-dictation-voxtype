@@ -6,7 +6,7 @@
 case "${1:-}" in
   start|toggle) voxtype record "$1" ;;
   stop)
-    if arch-cmd-missing voxtype || [[ $(voxtype status) == "stopped" ]]; then
+    if archctl cmd missing voxtype || [[ $(voxtype status) == "stopped" ]]; then
       exit 0
     else
       voxtype record stop

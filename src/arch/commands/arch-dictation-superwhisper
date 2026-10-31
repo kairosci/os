@@ -6,7 +6,7 @@
 case "${1:-}" in
   start) superwhisper start ;;
   stop)
-    if arch-cmd-missing superwhisper || ! systemctl --user is-active --quiet superwhisper.service; then
+    if archctl cmd missing superwhisper || ! systemctl --user is-active --quiet superwhisper.service; then
       exit 0
     else
       superwhisper stop

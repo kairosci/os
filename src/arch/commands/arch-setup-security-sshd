@@ -64,7 +64,7 @@ setup_sshd() {
 }
 
 open_firewall() {
-  if arch-cmd-missing ufw; then
+  if archctl cmd missing ufw; then
     echo "UFW is not installed; skipping firewall rule."
     return
   fi

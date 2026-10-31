@@ -19,7 +19,7 @@ fi
 
 backend=$(archctl default dictation) || exit 1
 adapter="arch-dictation-$backend"
-if arch-cmd-missing "$adapter"; then
+if archctl cmd missing "$adapter"; then
   echo "The selected dictation backend ($backend) is not installed." >&2
   exit 1
 fi
