@@ -319,7 +319,9 @@ Item {
         id: remapGuard
         window: panel
       }
-      color: "transparent"
+      color: Color.background
+      // Keep a themed opaque surface underneath the wallpaper so an absent or
+      // recovering image can never expose the compositor's black clear color.
       // Keep render updates enabled. The background layer has been observed to
       // lose its committed buffer while parked with updatesEnabled=false,
       // leaving a black desktop until arch-shell is restarted. A still

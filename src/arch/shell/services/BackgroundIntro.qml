@@ -214,7 +214,7 @@ Item {
 
       Rectangle {
         anchors.fill: parent
-        color: "black"
+        color: Commons.Color.background
         opacity: root.startupOpacity
       }
 
