@@ -25,13 +25,13 @@ class Settings(TypedDict):
   encoding: str
   arguments: int
   command_timeout_seconds: int
-  binary: str
   install_flag: str
   localization_key: str
   config_content: str
   read_default: list[str]
   command_missing: list[str]
   launch_installer: list[str]
+  launch_default: list[str]
   notification: list[str]
   localization: list[str]
   apps: dict[str, App]
@@ -95,13 +95,13 @@ def _settings() -> Settings:
     "encoding": _text(paths.get("encoding")),
     "arguments": _integer(limits.get("arguments")),
     "command_timeout_seconds": _integer(limits.get("command_timeout_seconds")),
-    "binary": _text(values.get("binary")),
     "install_flag": _text(values.get("install_flag")),
     "localization_key": _text(values.get("localization_key")),
     "config_content": _text(values.get("config_content")),
     "read_default": _strings(commands.get("read_default")),
     "command_missing": _strings(commands.get("command_missing")),
     "launch_installer": _strings(commands.get("launch_installer")),
+    "launch_default": _strings(commands.get("launch_default")),
     "notification": _strings(commands.get("notification")),
     "localization": _strings(commands.get("localization")),
     "apps": apps,
@@ -184,7 +184,7 @@ def default_terminal_main(arguments: list[str]) -> int:
     missing = _run([*settings["command_missing"], app["command"]], settings)
     if missing.returncode == settings["success"]:
       if not installing:
-        return _run([*settings["launch_installer"], settings["binary"], settings["install_flag"], selection], settings).returncode
+        return _run([*settings["launch_installer"], *settings["launch_default"], settings["install_flag"], selection], settings).returncode
       installed = _run(app["installer"], settings)
       if installed.returncode != settings["success"]:
         return installed.returncode

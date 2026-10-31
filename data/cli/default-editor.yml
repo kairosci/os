@@ -9,13 +9,13 @@ limits:
   command_timeout_seconds: 5
   stored_value_characters: 128
 values:
-  binary: arch-default-editor
   install_flag: --install
   default_command: nvim
   localization_key: default.editorSet
 commands:
   command_missing: [arch-cmd-missing]
   launch_installer: [arch-launch-terminal-with-presentation]
+  launch_default: [archctl, default, editor]
   notification: [arch-notification-send, -g]
   localization: [arch-i18n]
 legacy:
@@ -66,7 +66,7 @@ editors:
     glyph: 
     installer: [arch-pkg-add, neovim]
 messages:
-  usage: 'Usage: arch-default-editor [--install] <editor>'
+  usage: 'Usage: archctl default editor [--install] <editor>'
   config_error: 'Could not read the editor preference.'
   command_error: 'Could not run editor preference command.'
 statuses:

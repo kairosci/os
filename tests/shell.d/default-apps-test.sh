@@ -169,15 +169,12 @@ export ARCH_TEST_BROWSER_ENV_LOG="$browser_env_log"
 assert_missing_opens_installer() {
   local type=$1 expected_route
   local selection=$2
+  local -a command=(archctl default "$type")
 
-  if [[ $type == "browser" ]]; then
-    expected_route="archctl default browser --install $selection"
-  else
-    expected_route="arch-default-$type --install $selection"
-  fi
+  expected_route="archctl default $type --install $selection"
 
   : >"$terminal_log"
-  "arch-default-$type" "$selection"
+  "${command[@]}" "$selection"
   mapfile -d '' -t terminal_args <"$terminal_log"
   [[ ${terminal_args[*]} == "$expected_route" ]] ||
     fail "missing $selection opens its default installer in a terminal"
@@ -320,7 +317,7 @@ for entry in "${terminal_cases[@]}"; do
   read -r selection desktop_id <<<"$entry"
   rm -f "$installed_dir/$selection"
   : >"$install_log"
-  arch-default-terminal --install "$selection"
+  archctl default terminal --install "$selection"
   [[ $(<"$install_log") == "terminal:$selection" ]] || fail "$selection uses the terminal installer"
   [[ $(tail -n 1 "$test_home/.config/xdg-terminals.list") == "$desktop_id" ]] ||
     fail "$selection becomes the default terminal after installation"
@@ -331,35 +328,35 @@ for entry in "${editor_cases[@]}"; do
   read -r selection command installer <<<"$entry"
   rm -f "$installed_dir/$command"
   : >"$install_log"
-  arch-default-editor --install "$selection"
+  archctl default editor --install "$selection"
   [[ $(<"$install_log") == "$installer" ]] || fail "$selection uses its editor installer"
-  [[ $(arch-default-editor) == "$command" ]] || fail "$selection becomes the default editor after installation"
+  [[ $(archctl default editor) == "$command" ]] || fail "$selection becomes the default editor after installation"
 done
 pass "editor defaults install every missing editor before selection"
 
 editor_state="$HOME/.local/state/arch/defaults/editor"
 mkdir -p "$(dirname "$editor_state")"
 printf '%s\n' sublime_text >"$editor_state"
-[[ $(arch-default-editor) == "subl" ]] || fail "legacy Sublime Text state resolves to its current command"
+[[ $(archctl default editor) == "subl" ]] || fail "legacy Sublime Text state resolves to its current command"
 rm -f "$installed_dir/zeditor"
 : >"$install_log"
-arch-default-editor --install zeditor
-[[ $(<"$install_log") == "editor:zed" && $(arch-default-editor) == "zeditor" ]] ||
+archctl default editor --install zeditor
+[[ $(<"$install_log") == "editor:zed" && $(archctl default editor) == "zeditor" ]] ||
   fail "the legacy Zed alias installs and selects the canonical backend"
 pass "editor aliases and legacy state values are preserved"
 
 : >"$install_log"
 : >"$terminal_log"
 arch-default-browser zen
-arch-default-terminal kitty
-arch-default-editor nvim
+archctl default terminal kitty
+archctl default editor nvim
 [[ ! -s $install_log && ! -s $terminal_log ]] || fail "installed defaults skip installation"
 pass "installed defaults are selected immediately"
 
-previous_editor=$(arch-default-editor)
+previous_editor=$(archctl default editor)
 rm -f "$installed_dir/vim"
-if ARCH_TEST_INSTALL_FAIL=true arch-default-editor --install vim >"$test_tmp/install-failure" 2>&1; then
+if ARCH_TEST_INSTALL_FAIL=true archctl default editor --install vim >"$test_tmp/install-failure" 2>&1; then
   fail "failed default installation returns an error"
 fi
-[[ $(arch-default-editor) == "$previous_editor" ]] || fail "failed installation preserves the default"
+[[ $(archctl default editor) == "$previous_editor" ]] || fail "failed installation preserves the default"
 pass "failed installation preserves the current default"

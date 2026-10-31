@@ -54,10 +54,10 @@ verify_kernel_headers() {
 }
 
 verify_defaults() {
-  [[ $(arch-default-terminal) == "kitty" ]] || fail "Kitty is the default terminal"
+  [[ $(archctl default terminal) == "kitty" ]] || fail "Kitty is the default terminal"
   pass "Kitty is the default terminal"
 
-  [[ $(arch-default-editor) == "nvim" ]] || fail "Neovim is the default editor"
+  [[ $(archctl default editor) == "nvim" ]] || fail "Neovim is the default editor"
   pass "Neovim is the default editor"
 
   [[ $(archctl theme current) == "Cosmic" ]] || fail "Cosmic is the active theme"

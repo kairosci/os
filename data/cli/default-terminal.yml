@@ -8,7 +8,6 @@ limits:
   arguments: 1
   command_timeout_seconds: 5
 values:
-  binary: arch-default-terminal
   install_flag: --install
   localization_key: default.terminalSet
   config_content: |
@@ -19,6 +18,7 @@ commands:
   read_default: [xdg-terminal-exec, --print-id]
   command_missing: [arch-cmd-missing]
   launch_installer: [arch-launch-terminal-with-presentation]
+  launch_default: [archctl, default, terminal]
   notification: [arch-notification-send, -g]
   localization: [arch-i18n]
 apps:
@@ -47,7 +47,7 @@ apps:
     glyph: 
     installer: [arch-install-terminal, kitty]
 messages:
-  usage: 'Usage: arch-default-terminal [--install] [terminal]'
+  usage: 'Usage: archctl default terminal [--install] [terminal]'
   command_error: 'Could not run terminal preference command.'
 statuses:
   success: 0
