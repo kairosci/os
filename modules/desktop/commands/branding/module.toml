@@ -2,15 +2,10 @@ id = "desktop.commands.branding"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/arch/commands/arch-branding-about",
   "src/arch/commands/arch-branding-about-animation",
   "src/arch/commands/arch-branding-screensaver",
 ]
 requires = ["desktop.commands"]
-
-[[output]]
-source = "src/arch/commands/arch-branding-about"
-target = "usr/share/arch/src/arch/commands/arch-branding-about"
 
 [[output]]
 source = "src/arch/commands/arch-branding-about-animation"
