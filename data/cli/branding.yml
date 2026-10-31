@@ -1,0 +1,23 @@
+commands:
+  file_select: [arch-file-select, --title]
+  transcode_ascii: [arch-transcode-ascii]
+  launch_screensaver: [arch-launch-screensaver, force]
+  launch_editor: [arch-launch-editor]
+  localize: [arch-i18n]
+paths:
+  user_text: .config/arch/branding/screensaver.txt
+  default_text: assets/branding/logo.txt
+values:
+  image_localization_key: branding.pickScreensaverImage
+  image_extensions: [--extensions, png svg]
+  actions:
+    image: image
+    text: text
+    reset: reset
+messages:
+  usage: 'Usage: archctl branding screensaver <image|text|reset>'
+  command_error: 'Could not update screensaver branding.'
+statuses:
+  success: 0
+  invalid_arguments: 1
+  command_error: 127

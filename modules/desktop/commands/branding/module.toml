@@ -3,14 +3,21 @@ domain = "desktop"
 package = "arch"
 sources = [
   "src/arch/commands/arch-branding-about-animation",
-  "src/arch/commands/arch-branding-screensaver",
+  "src/arch/cli/branding/screensaver.py",
 ]
-requires = ["desktop.commands"]
+requires = [
+  "desktop.commands",
+  "desktop.commands.file",
+  "desktop.commands.i18n",
+  "desktop.commands.launch",
+  "desktop.commands.transcode",
+  "system.runtime-data",
+]
 
 [[output]]
 source = "src/arch/commands/arch-branding-about-animation"
 target = "usr/share/arch/src/arch/commands/arch-branding-about-animation"
 
 [[output]]
-source = "src/arch/commands/arch-branding-screensaver"
-target = "usr/share/arch/src/arch/commands/arch-branding-screensaver"
+source = "src/arch/cli/branding/screensaver.py"
+target = "usr/share/arch/src/arch/cli/branding/screensaver.py"
