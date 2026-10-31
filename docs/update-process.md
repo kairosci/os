@@ -23,7 +23,7 @@ The `arch` package installs an ALPM pre-transaction hook and `/usr/bin/arch-upda
 
 Updates do not rewrite files in user home directories. Pacman installs package-owned defaults and reports administrator edits through its normal `.pacnew`/`.pacsave` behavior. To overwrite a user config with the shipped default, the user explicitly runs `archctl refresh config <relative-path>`; that command creates a backup when the file changes.
 
-The `arch.system-update` bar widget runs `arch-update-available` at shell startup and every six hours. Clicking it opens the update flow in a tiled terminal.
+The `arch.system-update` bar widget runs `archctl update available` at shell startup and every six hours. Clicking it opens the update flow in a tiled terminal.
 
 ## Channels and versions
 

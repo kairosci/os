@@ -38,7 +38,7 @@ BarWidget {
 
   Process {
     id: updateProc
-    command: ["arch-update-available"]
+    command: ["archctl", "update", "available"]
     onExited: function(exitCode) {
       root.updateAvailable = exitCode === 0
     }

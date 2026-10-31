@@ -33,7 +33,7 @@ wifi:
     check: [checkupdates, --nocolor]
     no_updates_status: 2
     installed_path: /usr/share/arch
-    checkout_check: [arch-update-available]
+    checkout_check: [archctl, update, available]
   wifi_notification:
     command: [arch-notification-send, -u, critical, -g, 󰖩]
     action: [--exec, arch-shell, shell, toggle, arch.network]

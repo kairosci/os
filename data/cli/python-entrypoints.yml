@@ -151,6 +151,7 @@ entrypoints:
     group: update
     name: available
     summary: Check whether system updates are available
+    generate_launcher: "false"
   - binary: arch-update-confirm
     module: update/confirm
     function: main
