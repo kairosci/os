@@ -1,0 +1,61 @@
+commands:
+  package_missing: [archctl, cmd, missing, supergfxctl]
+  install_package: [arch-pkg-add, supergfxctl]
+  sudo: [sudo]
+  temp_file: [/usr/bin/mktemp, --]
+  install: [/usr/bin/install, -m]
+  install_root_owned: [-o, root, -g, root, -T]
+  publish: [/usr/bin/mv, -Tf, --]
+  remove: [/usr/bin/rm, -f, --]
+  make_directory: [mkdir, -p]
+  write_stage: [/usr/bin/tee, --]
+  set_stage_mode: [/usr/bin/chmod]
+  enable_service: [systemctl, enable, --now, supergfxd]
+  query_mode: [supergfxctl, -g]
+  read_config: [/usr/bin/cat]
+  delay: [sleep]
+  timeout: [timeout, --kill-after=1s]
+  confirm: [gum, confirm, --affirmative]
+  reboot: [arch-system, reboot]
+  translate: [arch-i18n]
+settings:
+  query_timeout_seconds: 3
+  query_attempts: 3
+  retry_delay_seconds: 1
+  temporary_suffix_pattern: '[A-Za-z0-9]{6}'
+  temporary_file_template: '{directory}/.{name}.arch.XXXXXX'
+  service_config: /etc/supergfxd.conf
+  service_config_data:
+    mode: Hybrid
+    vfio_enable: true
+    vfio_save: false
+    always_reboot: false
+    no_logind: false
+    logout_timeout_s: 180
+    hotplug_type: None
+  service_config_mode: '0644'
+  integrated_mode: Integrated
+  hybrid_mode: Hybrid
+  mode_key: mode
+  vfio_enable_key: vfio_enable
+  vfio_enable_value: true
+  json_indent: 2
+  startup_delay_source: default/systemd/system/supergfxd.service.d/delay-start.conf
+  startup_delay_destination: /etc/systemd/system/supergfxd.service.d/delay-start.conf
+  startup_delay_mode: '0644'
+  sleep_hook_source: default/systemd/system-sleep/force-igpu
+  sleep_hook_destination: /usr/lib/systemd/system-sleep/force-igpu
+  sleep_hook_mode: '0755'
+  drop_in_directory: /etc/systemd/system/supergfxd.service.d
+  sleep_hook_directory: /usr/lib/systemd/system-sleep
+  confirmation_keys:
+    yes: common.yes
+    no: common.no
+    enable_dedicated: gpu.enableDedicated
+    use_integrated: gpu.useIntegrated
+messages:
+  unavailable: 'supergfxd is not responding. Try again, or check: systemctl status supergfxd'
+  startup_delay_install_failed: Could not install the supergfxd startup-delay override
+  sleep_hook_install_failed: Could not install the force-igpu system-sleep hook
+  unknown_mode: Hybrid GPU not found or in unknown mode.
+  invalid_configuration: Invalid hybrid GPU toggle configuration
