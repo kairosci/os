@@ -1,0 +1,16 @@
+[Unit]
+Description=Arch desktop shell
+After=graphical-session.target
+PartOf=graphical-session.target
+StartLimitIntervalSec=0
+ConditionEnvironment=AP
+ConditionEnvironment=WAYLAND_DISPLAY
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/arch-launch-shell
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=graphical-session.target
