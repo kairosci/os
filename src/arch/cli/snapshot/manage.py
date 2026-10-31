@@ -97,20 +97,35 @@ def settings() -> Settings:
   values = _mapping(config.get("values"), "values")
   return {
     "actions": {
-      key: _text(actions.get(key), f"actions.{key}")
-      for key in ("create", "restore")
+      "create": _text(actions.get("create"), "actions.create"),
+      "restore": _text(actions.get("restore"), "actions.restore"),
     },
     "commands": {
-      key: _command(commands.get(key), f"commands.{key}")
-      for key in ("command_presence", "version", "list_configs", "create", "cleanup", "restore", "setup_guide")
+      "command_presence": _command(commands.get("command_presence"), "commands.command_presence"),
+      "version": _command(commands.get("version"), "commands.version"),
+      "list_configs": _command(commands.get("list_configs"), "commands.list_configs"),
+      "create": _command(commands.get("create"), "commands.create"),
+      "cleanup": _command(commands.get("cleanup"), "commands.cleanup"),
+      "restore": _command(commands.get("restore"), "commands.restore"),
+      "setup_guide": _command(commands.get("setup_guide"), "commands.setup_guide"),
     },
     "messages": {
-      key: _text(messages.get(key), f"messages.{key}")
-      for key in ("usage", "no_configs", "setup_guide", "create", "created", "command_failure", "color_warning", "color_success", "color_reset")
+      "usage": _text(messages.get("usage"), "messages.usage"),
+      "no_configs": _text(messages.get("no_configs"), "messages.no_configs"),
+      "setup_guide": _text(messages.get("setup_guide"), "messages.setup_guide"),
+      "create": _text(messages.get("create"), "messages.create"),
+      "created": _text(messages.get("created"), "messages.created"),
+      "command_failure": _text(messages.get("command_failure"), "messages.command_failure"),
+      "color_warning": _text(messages.get("color_warning"), "messages.color_warning"),
+      "color_success": _text(messages.get("color_success"), "messages.color_success"),
+      "color_reset": _text(messages.get("color_reset"), "messages.color_reset"),
     },
     "statuses": {
-      key: _integer(statuses.get(key), f"statuses.{key}")
-      for key in ("usage", "snapper_missing", "presence_missing", "presence_available", "command_failure")
+      "usage": _integer(statuses.get("usage"), "statuses.usage"),
+      "snapper_missing": _integer(statuses.get("snapper_missing"), "statuses.snapper_missing"),
+      "presence_missing": _integer(statuses.get("presence_missing"), "statuses.presence_missing"),
+      "presence_available": _integer(statuses.get("presence_available"), "statuses.presence_available"),
+      "command_failure": _integer(statuses.get("command_failure"), "statuses.command_failure"),
     },
     "values": {
       "csv_header_rows": _integer(values.get("csv_header_rows"), "values.csv_header_rows"),
