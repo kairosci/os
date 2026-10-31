@@ -29,7 +29,7 @@ backlight_brightness() {
   brightnessctl -d "$1" -m 2>/dev/null | awk -F, '{ gsub("%", "", $4); print $4; found=1 } END{ exit !found }'
 }
 
-[[ -n $monitor ]] || monitor="$(arch-hyprland-monitor-focused 2>/dev/null || true)"
+[[ -n $monitor ]] || monitor="$(archctl hyprland monitor focused 2>/dev/null || true)"
 
 monitor_is_internal() {
   [[ $monitor =~ ^(eDP|LVDS|DSI)- ]]

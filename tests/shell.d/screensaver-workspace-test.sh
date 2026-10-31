@@ -42,7 +42,10 @@ exec cat "$TEST_DIR/events"
 SH
 printf '#!/bin/bash\nexit 1\n' >"$tmpdir/bin/pgrep"
 printf '#!/bin/bash\nexit 1\n' >"$tmpdir/bin/arch-toggle-enabled"
-printf '#!/bin/bash\necho DP-1\n' >"$tmpdir/bin/arch-hyprland-monitor-focused"
+cat >"$tmpdir/bin/archctl" <<'SH'
+#!/bin/bash
+[[ $* == "hyprland monitor focused" ]] && printf 'DP-1\n'
+SH
 printf '#!/bin/bash\necho foot.desktop\n' >"$tmpdir/bin/xdg-terminal-exec"
 chmod +x "$tmpdir/bin/"*
 

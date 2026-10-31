@@ -313,9 +313,9 @@ cat >"$stub_bin/arch-capture-screenrecording-process" <<'SH'
 exit 1
 SH
 
-cat >"$stub_bin/arch-hyprland-monitor-focused" <<'SH'
+cat >"$stub_bin/archctl" <<'SH'
 #!/bin/bash
-printf 'DP-1\n'
+[[ $* == "hyprland monitor focused" ]] && printf 'DP-1\n'
 SH
 
 cat >"$stub_bin/gpu-screen-recorder" <<'SH'
@@ -332,7 +332,7 @@ cat >"$stub_bin/arch-shell" <<'SH'
 exit 0
 SH
 
-chmod +x "$stub_bin"/arch-capture-screenrecording-process "$stub_bin"/arch-hyprland-monitor-focused \
+chmod +x "$stub_bin"/arch-capture-screenrecording-process "$stub_bin"/archctl \
   "$stub_bin"/gpu-screen-recorder "$stub_bin"/arch-shell
 
 # Compare that name across the run rather than demanding it be absent: the

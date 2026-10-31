@@ -19,12 +19,11 @@ if [[ $* == "hw display" ]]; then
   printf 'mock_backlight\n'
   exit 0
 fi
+if [[ $* == "hyprland monitor focused" ]]; then
+  printf '%s\n' "${FOCUSED_MONITOR:-eDP-1}"
+  exit 0
+fi
 exit 1
-SH
-
-cat >"$mock_bin/arch-hyprland-monitor-focused" <<'SH'
-#!/bin/bash
-printf '%s\n' "${FOCUSED_MONITOR:-eDP-1}"
 SH
 
 cat >"$mock_bin/brightnessctl" <<'SH'
