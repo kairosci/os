@@ -47,7 +47,7 @@ version() {
     AP="${2:-$ROOT}" \
     ARCH_PACKAGED_ROOT="$ROOT" \
     PATH="$stub_bin:$PATH" \
-    "$ARCH_TEST_CLI_BIN/arch-version"
+    "$ARCH_TEST_CLI_BIN/archctl" version
 }
 
 [[ $(version arch) == "4.0.0-1" ]] || fail "version reports the stable package"
@@ -81,7 +81,7 @@ pass "version fails when no os package is installed"
 snapshot_desc=$(
   set -e
   PATH="$stub_bin:$PATH" ARCH_TEST_PACKAGES="" AP=/usr/share/arch \
-    bash -c 'DESC="$(arch-version 2>/dev/null || echo unknown)"; echo "$DESC"' 2>/dev/null
+    bash -c 'DESC="$(archctl version 2>/dev/null || echo unknown)"; echo "$DESC"' 2>/dev/null
 ) || fail "snapshot survives an unknown version"
 
 [[ $snapshot_desc == "unknown" ]] || fail "snapshot labels an unknown version" "actual: $snapshot_desc"

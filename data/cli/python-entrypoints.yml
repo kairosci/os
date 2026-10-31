@@ -621,6 +621,7 @@ entrypoints:
     group: version
     name: ''
     summary: Print the installed Arch version
+    generate_launcher: "false"
   - binary: arch-version-branch
     module: version/info
     function: version_branch_main
