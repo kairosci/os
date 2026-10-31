@@ -28,6 +28,7 @@ entrypoints:
     group: channel
     name: current
     summary: Print the active Arch package channel
+    generate_launcher: "false"
   - binary: arch-font-set
     module: font/set
     function: main

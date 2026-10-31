@@ -264,7 +264,7 @@ current_channel() {
     AP="$3" \
     ARCH_PACKAGED_ROOT="$ROOT" \
     PATH="$stub_bin:$ROOT/src/arch/commands:$PATH" \
-    "$ARCH_TEST_CLI_BIN/arch-channel-current"
+    "$ARCH_TEST_CLI_BIN/archctl" channel current
 }
 
 [[ $(current_channel stable stable "$ROOT") == "stable" ]] || fail "current channel detects stable"
