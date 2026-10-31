@@ -5,7 +5,7 @@ from __future__ import annotations
 import os
 import sys
 from pathlib import Path
-from typing import Any
+from typing import cast
 
 import yaml
 
@@ -19,11 +19,11 @@ def user_config_path() -> Path:
     return config_home / "hypr/apps.yml"
 
 
-def validate_value(value: Any, depth: int = 0) -> None:
+def validate_value(value: object, depth: int = 0) -> None:
     if depth > 16:
         raise ValueError("Hyprland app rules exceed the supported nesting depth")
     if isinstance(value, dict):
-        for key, child in value.items():
+        for key, child in cast(dict[object, object], value).items():
             if not isinstance(key, str) or not key:
                 raise ValueError("Hyprland app-rule keys must be non-empty strings")
             validate_value(child, depth + 1)
@@ -36,19 +36,22 @@ def validate_value(value: Any, depth: int = 0) -> None:
         )
 
 
-def validate_rules(rules: Any, name: str) -> None:
+def validate_rules(rules: object, name: str) -> None:
     if not isinstance(rules, list):
         raise TypeError(f"Hyprland {name} must be a list")
-    for rule in rules:
+    for raw_rule in cast(list[object], rules):
+        if not isinstance(raw_rule, dict):
+            raise TypeError(f"each Hyprland {name} entry must be a mapping")
+        rule = cast(dict[object, object], raw_rule)
         if (
-            not isinstance(rule, dict)
-            or set(rule) != {"application", "match", "options"}
+            set(rule) != {"application", "match", "options"}
             or not isinstance(rule["application"], str)
             or not rule["application"].strip()
             or not isinstance(rule["match"], dict)
             or not rule["match"]
             or not all(
-                isinstance(value, (str, bool)) for value in rule["match"].values()
+                isinstance(value, (str, bool))
+                for value in cast(dict[object, object], rule["match"]).values()
             )
             or not isinstance(rule["options"], dict)
             or not rule["options"]
@@ -59,11 +62,14 @@ def validate_rules(rules: Any, name: str) -> None:
         validate_value(rule)
 
 
-def read_configuration(path: Path) -> dict[str, Any]:
+def read_configuration(path: Path) -> dict[str, object]:
     if path.stat().st_size > 1_000_000:
         raise ValueError("Hyprland app-rule configuration is too large")
-    document = yaml.safe_load(path.read_text(encoding="utf-8"))
-    if not isinstance(document, dict) or set(document) != {
+    raw_document = yaml.safe_load(path.read_text(encoding="utf-8"))
+    if not isinstance(raw_document, dict):
+        raise TypeError("Hyprland app-rule configuration must be a mapping")
+    document = cast(dict[object, object], raw_document)
+    if set(document) != {
         "layer_rules",
         "transparent_opacity",
         "transparent_tag",
@@ -84,10 +90,15 @@ def read_configuration(path: Path) -> dict[str, Any]:
     validate_rules(document["window_rules"], "window_rules")
     validate_rules(document["layer_rules"], "layer_rules")
     validate_value(transparency)
-    return document
+    return {
+        "layer_rules": document["layer_rules"],
+        "transparent_opacity": transparency,
+        "transparent_tag": document["transparent_tag"],
+        "window_rules": document["window_rules"],
+    }
 
 
-def load_configuration() -> dict[str, Any]:
+def load_configuration() -> dict[str, object]:
     user_config = user_config_path()
     if not user_config.exists() and not user_config.is_symlink():
         return read_configuration(default_config_path())
@@ -122,7 +133,7 @@ def lua_string(value: str) -> str:
     return '"' + "".join(escaped) + '"'
 
 
-def lua_value(value: Any) -> str:
+def lua_value(value: object) -> str:
     if isinstance(value, str):
         return lua_string(value)
     if isinstance(value, bool):
@@ -130,12 +141,16 @@ def lua_value(value: Any) -> str:
     if isinstance(value, int):
         return str(value)
     if isinstance(value, list):
-        return "{" + ",".join(lua_value(item) for item in value) + "}"
+        return (
+            "{" + ",".join(lua_value(item) for item in cast(list[object], value)) + "}"
+        )
     if isinstance(value, dict):
+        fields = cast(dict[object, object], value)
         return (
             "{"
             + ",".join(
-                f"[{lua_string(key)}]={lua_value(item)}" for key, item in value.items()
+                f"[{lua_string(cast(str, key))}]={lua_value(item)}"
+                for key, item in fields.items()
             )
             + "}"
         )
