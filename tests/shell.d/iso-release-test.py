@@ -9,7 +9,7 @@ import subprocess
 import sys
 import tempfile
 
-from base_test import CLI_BIN, ROOT, fail_check, pass_check, test_environment
+from base_test import ROOT, fail_check, pass_check, test_environment
 
 
 sys.path.insert(0, str(ROOT))
@@ -37,7 +37,7 @@ with tempfile.TemporaryDirectory(prefix="arch-iso-parts-test-") as temporary:
   cli_assets = stage / "cli-release-assets"
   cli_result = subprocess.run(
     [
-      str(CLI_BIN / "archctl"),
+      str(ROOT / "src/arch/commands/archctl"),
       "iso",
       "parts",
       "split",
@@ -97,7 +97,7 @@ with tempfile.TemporaryDirectory(prefix="arch-iso-parts-test-") as temporary:
   download_dir = stage / "downloaded"
   download_result = subprocess.run(
     [
-      str(CLI_BIN / "archctl"),
+      str(ROOT / "src/arch/commands/archctl"),
       "iso",
       "download",
       "v-test",
@@ -112,7 +112,7 @@ with tempfile.TemporaryDirectory(prefix="arch-iso-parts-test-") as temporary:
     capture_output=True,
     text=True,
     env=test_environment(
-      PATH=str(fake_bin),
+      PATH=f"{fake_bin}:{os.environ.get('PATH', '')}",
       ISO_TEST_ASSET_DIR=str(github_assets),
       ISO_TEST_ASSET_METADATA=str(metadata),
     ),
