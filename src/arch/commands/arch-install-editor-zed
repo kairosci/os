@@ -1,8 +1,0 @@
-#!/bin/bash
-
-# arch:summary=Install and launch Zed Editor
-
-echo "Installing Zed Editor..."
-arch-pkg-add zed
-
-setsid uwsm-app -- gtk-launch dev.zed.Zed >/dev/null 2>&1 &

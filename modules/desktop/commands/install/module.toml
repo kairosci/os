@@ -16,7 +16,7 @@ sources = [
   "src/arch/commands/arch-install-editor-emacs",
   "src/arch/commands/arch-install-editor-helix",
   "src/arch/commands/arch-install-editor-vscode",
-  "src/arch/commands/arch-install-editor-zed",
+  "src/arch/cli/install/editor.py",
   "src/arch/commands/arch-install-font",
   "src/arch/commands/arch-install-gaming-battlenet",
   "src/arch/commands/arch-install-gaming-geforce-now",
@@ -97,8 +97,8 @@ source = "src/arch/commands/arch-install-editor-vscode"
 target = "usr/share/arch/src/arch/commands/arch-install-editor-vscode"
 
 [[output]]
-source = "src/arch/commands/arch-install-editor-zed"
-target = "usr/share/arch/src/arch/commands/arch-install-editor-zed"
+source = "src/arch/cli/install/editor.py"
+target = "usr/share/arch/src/arch/cli/install/editor.py"
 
 [[output]]
 source = "src/arch/commands/arch-install-font"

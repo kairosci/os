@@ -94,6 +94,7 @@ arch-pkg-add|arch-pkg-aur-add)
   firefox) command=firefox ;;
   zen-browser-bin) command=zen-browser ;;
   cursor-bin) command=cursor ;;
+  zed) command=zeditor ;;
   sublime-text-4) command=subl ;;
   vim) command=vim ;;
   neovim) command=nvim ;;
@@ -132,13 +133,17 @@ esac
 touch "$ARCH_TEST_INSTALLED_DIR/$command"
 SH
 
+cat >"$mock_bin/setsid" <<'SH'
+#!/bin/bash
+printf 'launch:%s\n' "$*" >>"$ARCH_TEST_INSTALL_LOG"
+SH
+
 for installer in \
   arch-pkg-add \
   arch-pkg-aur-add \
   arch-install-browser \
   arch-install-terminal \
   arch-install-editor-vscode \
-  arch-install-editor-zed \
   arch-install-editor-helix \
   arch-install-editor-emacs; do
   ln -s arch-test-installer "$mock_bin/$installer"
@@ -200,7 +205,7 @@ terminal_cases=(
 editor_cases=(
   'code code editor:vscode'
   'cursor cursor pkg:cursor-bin'
-  'zed zeditor editor:zed'
+  'zed zeditor pkg:zed'
   'sublime_text subl pkg:sublime-text-4'
   'helix helix editor:helix'
   'vim vim pkg:vim'
@@ -329,7 +334,16 @@ for entry in "${editor_cases[@]}"; do
   rm -f "$installed_dir/$command"
   : >"$install_log"
   archctl default editor --install "$selection"
-  [[ $(<"$install_log") == "$installer" ]] || fail "$selection uses its editor installer"
+  if [[ $selection == "zed" ]]; then
+    for ((attempt = 0; attempt < 100; attempt++)); do
+      grep -Fxq 'launch:uwsm-app -- gtk-launch dev.zed.Zed' "$install_log" && break
+      sleep 0.01
+    done
+    [[ $(<"$install_log") == $'pkg:zed\nlaunch:uwsm-app -- gtk-launch dev.zed.Zed' ]] ||
+      fail "Zed uses the unified installer route and launches after package installation" "$(<"$install_log")"
+  else
+    [[ $(<"$install_log") == "$installer" ]] || fail "$selection uses its editor installer"
+  fi
   [[ $(archctl default editor) == "$command" ]] || fail "$selection becomes the default editor after installation"
 done
 pass "editor defaults install every missing editor before selection"
@@ -341,7 +355,11 @@ printf '%s\n' sublime_text >"$editor_state"
 rm -f "$installed_dir/zeditor"
 : >"$install_log"
 archctl default editor --install zeditor
-[[ $(<"$install_log") == "editor:zed" && $(archctl default editor) == "zeditor" ]] ||
+for ((attempt = 0; attempt < 100; attempt++)); do
+  grep -Fxq 'launch:uwsm-app -- gtk-launch dev.zed.Zed' "$install_log" && break
+  sleep 0.01
+done
+[[ $(<"$install_log") == $'pkg:zed\nlaunch:uwsm-app -- gtk-launch dev.zed.Zed' && $(archctl default editor) == "zeditor" ]] ||
   fail "the legacy Zed alias installs and selects the canonical backend"
 pass "editor aliases and legacy state values are preserved"
 

@@ -242,7 +242,7 @@
   "install.service.chromium-account": {"icon":"","label":"Chromium Account","when":"[[ -f ~/.config/chromium-flags.conf ]]","disabled":"grep -q oauth2-client-id ~/.config/chromium-flags.conf","action":"arch-launch-terminal-with-presentation arch-install-chromium-google-account"},
   "install.editor.vscode": {"icon":"","label":"VSCode","disabled":"archctl pkg present visual-studio-code-bin","action":"arch-launch-terminal-with-presentation arch-install-editor-vscode"},
   "install.editor.cursor": {"icon":"","iconFont":"Arch","label":"Cursor","disabled":"archctl pkg present cursor-bin","action":"arch-install-and-launch Cursor cursor-bin cursor"},
-  "install.editor.zed": {"icon":"","label":"Zed","disabled":"archctl pkg present zed","action":"arch-launch-terminal-with-presentation arch-install-editor-zed"},
+  "install.editor.zed": {"icon":"","label":"Zed","disabled":"archctl pkg present zed","action":"arch-launch-terminal-with-presentation archctl install editor zed"},
   "install.editor.sublime": {"icon":"","label":"Sublime Text","disabled":"archctl pkg present sublime-text-4","action":"arch-install-and-launch 'Sublime Text' sublime-text-4 sublime_text"},
   "install.editor.helix": {"icon":"","label":"Helix","disabled":"archctl pkg present helix","action":"arch-launch-terminal-with-presentation arch-install-editor-helix"},
   "install.editor.vim": {"icon":"","label":"Vim","disabled":"archctl pkg present vim","action":"arch-install-app Vim vim"},
