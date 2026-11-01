@@ -9,7 +9,7 @@ sources = [
   "src/arch/cli/install/native_messaging.py",
   "src/arch/cli/install/chromium_copy_url.py",
   "src/arch/cli/install/chromium_ytdlp.py",
-  "src/arch/commands/arch-install-chromium-google-account",
+  "src/arch/cli/install/chromium_google_account.py",
   "src/arch/commands/arch-install-dev-env",
   "src/arch/commands/arch-install-dictation-superwhisper",
   "src/arch/commands/arch-install-dictation-voxtype",
@@ -70,8 +70,8 @@ source = "src/arch/cli/install/chromium_ytdlp.py"
 target = "usr/share/arch/src/arch/cli/install/chromium_ytdlp.py"
 
 [[output]]
-source = "src/arch/commands/arch-install-chromium-google-account"
-target = "usr/share/arch/src/arch/commands/arch-install-chromium-google-account"
+source = "src/arch/cli/install/chromium_google_account.py"
+target = "usr/share/arch/src/arch/cli/install/chromium_google_account.py"
 
 [[output]]
 source = "src/arch/commands/arch-install-dev-env"

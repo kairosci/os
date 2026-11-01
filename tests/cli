@@ -273,6 +273,9 @@ assert_output_contains "Copy URL host registration resolves through the Python r
 output=$("$CLI" install chromium yt-dlp --help)
 assert_output_contains "yt-dlp host registration resolves through the Python route" "$output" "arch install chromium yt-dlp"
 
+output=$("$CLI" install chromium google-account --help)
+assert_output_contains "Chromium Google account setup resolves through the Python route" "$output" "arch install chromium google-account"
+
 terminal_restart_tmp=""
 make_tmpdir terminal_restart_tmp
 terminal_restart_bin="$terminal_restart_tmp/bin"

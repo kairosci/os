@@ -280,6 +280,43 @@ grep -Fxq 'arch-theme-set-browser:' "$setup_log" ||
   fail "Chromium browser installer applies the current theme"
 pass "Chromium browser installer restores the complete os setup"
 
+account_home="$test_tmp/chromium-account"
+mkdir -p "$account_home/.config"
+printf '%s' '--user-managed-flag' >"$account_home/.config/chromium-flags.conf"
+for attempt in 1 2; do
+  HOME="$account_home" archctl install chromium google-account >/dev/null
+done
+python3 - "$ROOT/data/cli/install-chromium-google-account.yml" "$account_home/.config/chromium-flags.conf" <<'PYTHON'
+import sys
+from pathlib import Path
+import yaml
+
+settings = yaml.safe_load(Path(sys.argv[1]).read_text(encoding="utf-8"))
+contents = Path(sys.argv[2]).read_text(encoding="utf-8")
+assert contents.startswith("--user-managed-flag\n")
+assert all(contents.splitlines().count(flag) == 1 for flag in settings["flags"])
+PYTHON
+pass "Chromium Google account setup preserves existing flags and is idempotent"
+
+missing_account_home="$test_tmp/chromium-account-missing"
+mkdir -p "$missing_account_home"
+HOME="$missing_account_home" archctl install chromium google-account >/dev/null
+[[ ! -e $missing_account_home/.config/chromium-flags.conf ]] ||
+  fail "Chromium Google account setup does not create a missing browser config"
+pass "Chromium Google account setup leaves an absent browser config untouched"
+
+account_escape_home="$test_tmp/chromium-account-escape"
+account_escape_target="$test_tmp/chromium-flags-outside-home.conf"
+mkdir -p "$account_escape_home/.config"
+printf '%s' '--outside-user-flag' >"$account_escape_target"
+ln -s "$account_escape_target" "$account_escape_home/.config/chromium-flags.conf"
+if HOME="$account_escape_home" archctl install chromium google-account >/dev/null 2>&1; then
+  fail "Chromium Google account setup refuses a flags symlink outside the home"
+fi
+[[ $(<"$account_escape_target") == '--outside-user-flag' ]] ||
+  fail "Chromium Google account setup leaves an outside symlink target untouched"
+pass "Chromium Google account setup confines config writes to the home"
+
 : >"$install_log"
 : >"$setup_log"
 rm -f "$installed_dir/firefox"

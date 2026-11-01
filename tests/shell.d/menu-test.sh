@@ -395,7 +395,8 @@ assertEqual(
 // Chromium at all means no account to wire up, and that row stays hidden.
 assert(
   defaultById['install.service.chromium-account'].when === '[[ -f ~/.config/chromium-flags.conf ]]'
-    && defaultById['install.service.chromium-account'].disabled.includes('oauth2-client-id'),
+    && defaultById['install.service.chromium-account'].disabled.includes('oauth2-client-id')
+    && defaultById['install.service.chromium-account'].action === 'arch-launch-terminal-with-presentation archctl install chromium google-account',
   'menu keeps hiding Chromium Account without Chromium, and dims it once the account is set up'
 )
 assert(

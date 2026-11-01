@@ -707,6 +707,14 @@ entrypoints:
     summary: Register the yt-dlp native messaging host
     examples: archctl install chromium yt-dlp
     generate_launcher: 'false'
+  - binary: arch-install-chromium-google-account
+    module: install/chromium_google_account
+    function: install_chromium_google_account_main
+    group: install
+    name: chromium google-account
+    summary: Add the credentials needed for Chromium Google account sign-in
+    examples: archctl install chromium google-account
+    generate_launcher: 'false'
   - binary: arch-restart-btop
     module: restart/app
     function: restart_btop_main

@@ -1,0 +1,12 @@
+flags_file: .config/chromium-flags.conf
+flags:
+- --oauth2-client-id=77185425430.apps.googleusercontent.com
+- --oauth2-client-secret=OTJgUOQcT7lO7GsGZq2G4IlT
+messages:
+  installing: Installing Chromium Google account support...
+  ready: Now you can login to your Google Account in Chromium.
+  operation_error: 'Could not update Chromium Google account support: {error}'
+  configuration_error: 'Could not load Chromium Google account configuration: {error}'
+statuses:
+  success: 0
+  operation_failed: 1
