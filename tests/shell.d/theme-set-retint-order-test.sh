@@ -55,8 +55,8 @@ if [[ $name == arch-hook && -n ${TEST_SLOW_HOOK_THEME:-} && $2 == "$TEST_SLOW_HO
   echo "late output from the $2 hook" >&2
 fi
 # With TEST_HOOK_SWITCH, the theme-set hook switches to that theme itself.
-if [[ $name == arch-hook && -n ${TEST_HOOK_SWITCH:-} && $2 != "$TEST_HOOK_SWITCH" ]]; then
-  ARCH_THEME_WAIT=1 /bin/bash "$TEST_ROOT/src/arch/commands/arch-theme-set" "$TEST_HOOK_SWITCH" </dev/null >/dev/null 2>&1
+if [[ $name == arch-hook && -n ${TEST_HOOK_SWITCH:-} && -n ${2:-} && $2 != "$TEST_HOOK_SWITCH" ]]; then
+  env -u TEST_HOOK_SWITCH ARCH_THEME_WAIT=1 /bin/bash "$TEST_ROOT/src/arch/commands/arch-theme-set" "$TEST_HOOK_SWITCH" </dev/null >/dev/null 2>&1
 fi
 # The VS Code retint fails, except for TEST_VSCODE_OK_THEME.
 [[ $name != arch-theme-set-vscode || $(<"$TEST_STATE/theme.name") == "${TEST_VSCODE_OK_THEME:-}" ]]
@@ -77,7 +77,7 @@ if [[ ${1:-} == notification && ${2:-} == send ]]; then
 elif [[ ${1:-} == hook ]]; then
   shift
   TEST_RETINT_NAME=arch-hook "$TEST_COMMANDS_DIR/retint" "$@"
-elif [[ ${1:-} == restart && (${2:-} == btop || ${2:-} == helix) ]]; then
+elif [[ ${1:-} == restart && (${2:-} == terminal || ${2:-} == hyprctl || ${2:-} == btop || ${2:-} == helix) ]]; then
   echo "archctl $*" >>"$TEST_LOG"
 else
   exec "$ARCH_TEST_CLI_BIN/archctl" "$@"
@@ -135,7 +135,7 @@ wait_for_detached_work() {
 }
 
 TEST_VSCODE_OK_THEME=beta set_theme beta
-for command in arch-restart-terminal arch-theme-set-foot arch-theme-set-tmux 'archctl restart btop' 'archctl restart helix' arch-theme-set-gnome; do
+for command in 'archctl restart terminal' arch-theme-set-foot arch-theme-set-tmux 'archctl restart btop' 'archctl restart helix' arch-theme-set-gnome; do
   grep -qx "$command" "$log" || fail "$command retints during the native wallpaper transition" "$(cat "$log")"
 done
 grep -qx 'arch-theme-bg-cache' "$log" || fail "thumbnail warmup starts with the wallpaper transition"
@@ -146,7 +146,7 @@ pass "native wallpaper transitions do not block or reorder theme retints"
 
 rm -f "$test_tmp/release"
 ARCH_THEME_SKIP_BACKGROUND=1 set_theme beta
-grep -qx 'arch-restart-hyprctl' "$log" || fail "a switch without an intro reloads Hyprland before returning"
+grep -qx 'archctl restart hyprctl' "$log" || fail "a switch without an intro reloads Hyprland before returning"
 ! grep -qx 'arch-theme-set-browser' "$log" || fail "the browser retint does not hold up the switch"
 touch "$test_tmp/release"
 wait_for_detached_work

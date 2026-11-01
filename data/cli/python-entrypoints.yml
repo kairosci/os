@@ -648,6 +648,13 @@ entrypoints:
     name: wifi
     summary: Unblock Wi-Fi, enable NetworkManager radio, and show its state
     pass_args: 'true'
+  - binary: arch-restart-terminal
+    module: restart/terminal
+    function: main
+    group: restart
+    name: terminal
+    summary: Refresh supported terminal emulators after config changes
+    pass_args: 'true'
   - binary: arch-restart-btop
     module: restart/app
     function: restart_btop_main

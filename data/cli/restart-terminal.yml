@@ -1,0 +1,22 @@
+files:
+  - path: .config/alacritty/alacritty.toml
+    command: [touch, '{path}']
+processes:
+  - name: kitty
+    signal: USR1
+  - name: ghostty
+    signal: USR2
+commands:
+  process_probe: [pgrep, -x, '{process}']
+  process_reload: [killall, '-SIG{signal}', '{process}']
+limits:
+  command_timeout_seconds: 5
+  operation_timeout_seconds: 15
+messages:
+  usage: 'Usage: archctl restart terminal'
+  configuration_error: 'Could not load terminal restart configuration: {error}'
+  operation_error: 'Could not refresh terminal configuration: {error}'
+statuses:
+  success: 0
+  invalid_arguments: 2
+  operation_failed: 1

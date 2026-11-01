@@ -250,6 +250,70 @@ assert_output_contains "Bluetooth restart resolves through the Python route" "$o
 output=$("$CLI" restart wifi --help)
 assert_output_contains "Wi-Fi restart resolves through the Python route" "$output" "arch restart wifi"
 
+output=$("$CLI" restart terminal --help)
+assert_output_contains "terminal restart resolves through the Python route" "$output" "arch restart terminal"
+
+terminal_restart_tmp=""
+make_tmpdir terminal_restart_tmp
+terminal_restart_bin="$terminal_restart_tmp/bin"
+terminal_restart_home="$terminal_restart_tmp/home"
+terminal_restart_log="$terminal_restart_tmp/commands"
+terminal_restart_config="$terminal_restart_home/.config/alacritty/alacritty.toml"
+mkdir -p "$terminal_restart_bin" "${terminal_restart_config%/*}"
+: >"$terminal_restart_config"
+cat >"$terminal_restart_bin/touch" <<'SH'
+#!/bin/bash
+printf 'touch %s\n' "$*" >>"$TERMINAL_RESTART_LOG"
+SH
+cat >"$terminal_restart_bin/pgrep" <<'SH'
+#!/bin/bash
+printf 'pgrep %s\n' "$*" >>"$TERMINAL_RESTART_LOG"
+if [[ $2 == "kitty" ]]; then
+  if [[ ${TERMINAL_RESTART_HANG:-false} == "true" ]]; then
+    exec sleep 30
+  fi
+  exit "$TERMINAL_RESTART_KITTY_STATUS"
+fi
+exit "$TERMINAL_RESTART_GHOSTTY_STATUS"
+SH
+cat >"$terminal_restart_bin/killall" <<'SH'
+#!/bin/bash
+printf 'killall %s\n' "$*" >>"$TERMINAL_RESTART_LOG"
+SH
+chmod +x "$terminal_restart_bin/touch" "$terminal_restart_bin/pgrep" "$terminal_restart_bin/killall"
+TERMINAL_RESTART_LOG="$terminal_restart_log" TERMINAL_RESTART_KITTY_STATUS=0 TERMINAL_RESTART_GHOSTTY_STATUS=1 \
+  HOME="$terminal_restart_home" AP="$ROOT" PATH="$terminal_restart_bin:$PATH" "$CLI" restart terminal
+expected_terminal_restart=$(printf 'touch %s\npgrep -x kitty\nkillall -SIGUSR1 kitty\npgrep -x ghostty' "$terminal_restart_config")
+[[ $(<"$terminal_restart_log") == "$expected_terminal_restart" ]] ||
+  fail "terminal restart refreshes Alacritty and signals only running terminals"
+pass "terminal restart refreshes Alacritty and signals only running terminals"
+
+: >"$terminal_restart_log"
+python3 - "$terminal_restart_config" <<'PY'
+from pathlib import Path
+import sys
+
+Path(sys.argv[1]).unlink()
+PY
+TERMINAL_RESTART_LOG="$terminal_restart_log" TERMINAL_RESTART_KITTY_STATUS=1 TERMINAL_RESTART_GHOSTTY_STATUS=0 \
+  HOME="$terminal_restart_home" AP="$ROOT" PATH="$terminal_restart_bin:$PATH" "$CLI" restart terminal
+[[ $(<"$terminal_restart_log") == $'pgrep -x kitty\npgrep -x ghostty\nkillall -SIGUSR2 ghostty' ]] ||
+  fail "terminal restart skips absent Alacritty and reloads only a detected Ghostty process"
+pass "terminal restart skips absent Alacritty and reloads only a detected Ghostty process"
+
+: >"$terminal_restart_log"
+if TERMINAL_RESTART_LOG="$terminal_restart_log" TERMINAL_RESTART_HANG=true TERMINAL_RESTART_KITTY_STATUS=0 \
+  TERMINAL_RESTART_GHOSTTY_STATUS=0 HOME="$terminal_restart_home" AP="$ROOT" \
+  PATH="$terminal_restart_bin:$PATH" "$CLI" restart terminal >"$terminal_restart_tmp/output" 2>"$terminal_restart_tmp/error"; then
+  fail "terminal restart stops a hung process probe at its configured timeout"
+else
+  terminal_restart_status=$?
+  (( terminal_restart_status == 1 )) || fail "terminal restart reports its configured timeout status"
+fi
+[[ $(<"$terminal_restart_log") == "pgrep -x kitty" ]] ||
+  fail "terminal restart skips later probes after a timeout"
+pass "terminal restart bounds a hung process probe and skips later work"
+
 output=$("$CLI" system reboot --help)
 assert_output_contains "system command help is safe" "$output" "arch-system"
 

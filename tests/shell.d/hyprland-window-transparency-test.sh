@@ -13,7 +13,7 @@ state_home="$tmpdir/state"
 toggles_dir="$state_home/arch/toggles/hypr"
 mkdir -p "$stub_dir" "$home_dir"
 
-for command in hyprctl archctl arch-restart-terminal arch-theme-set-foot; do
+for command in hyprctl archctl arch-theme-set-foot; do
   printf '#!/bin/bash\nprintf "%%s\\n" "%s $*" >>"%s/commands.log"\n' "$command" "$tmpdir" >"$stub_dir/$command"
 done
 chmod +x "$stub_dir"/*
