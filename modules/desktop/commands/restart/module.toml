@@ -7,10 +7,10 @@ sources = [
   "src/arch/cli/restart/hyprland.py",
   "src/arch/cli/restart/app.py",
   "src/arch/cli/restart/bluetooth.py",
+  "src/arch/cli/restart/wifi.py",
   "src/arch/commands/arch-restart-shell",
   "src/arch/commands/arch-restart-terminal",
   "src/arch/commands/arch-restart-trackpad",
-  "src/arch/commands/arch-restart-wifi",
   "src/arch/cli/restart/xcompose.py",
 ]
 requires = ["desktop.commands"]
@@ -36,6 +36,10 @@ source = "src/arch/cli/restart/bluetooth.py"
 target = "usr/share/arch/src/arch/cli/restart/bluetooth.py"
 
 [[output]]
+source = "src/arch/cli/restart/wifi.py"
+target = "usr/share/arch/src/arch/cli/restart/wifi.py"
+
+[[output]]
 source = "src/arch/commands/arch-restart-shell"
 target = "usr/share/arch/src/arch/commands/arch-restart-shell"
 
@@ -46,10 +50,6 @@ target = "usr/share/arch/src/arch/commands/arch-restart-terminal"
 [[output]]
 source = "src/arch/commands/arch-restart-trackpad"
 target = "usr/share/arch/src/arch/commands/arch-restart-trackpad"
-
-[[output]]
-source = "src/arch/commands/arch-restart-wifi"
-target = "usr/share/arch/src/arch/commands/arch-restart-wifi"
 
 [[output]]
 source = "src/arch/cli/restart/xcompose.py"

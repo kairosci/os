@@ -641,6 +641,13 @@ entrypoints:
     name: bluetooth
     summary: Unblock Bluetooth and show the current radio block state
     pass_args: 'true'
+  - binary: arch-restart-wifi
+    module: restart/wifi
+    function: main
+    group: restart
+    name: wifi
+    summary: Unblock Wi-Fi, enable NetworkManager radio, and show its state
+    pass_args: 'true'
   - binary: arch-restart-btop
     module: restart/app
     function: restart_btop_main

@@ -357,7 +357,7 @@
   "update.config.tmux": {"icon":"","label":"Tmux","action":"arch-launch-terminal-with-presentation archctl refresh tmux"},
   "update.config.shell": {"icon":"󰍜","label":"Shell","action":"arch-launch-terminal-with-presentation arch-refresh-shell"},
   "update.hardware.audio": {"icon":"","label":"Audio","action":"arch-launch-terminal-with-presentation arch-restart-audio"},
-  "update.hardware.wifi": {"icon":"󱚾","label":"Wi-Fi","action":"arch-launch-terminal-with-presentation arch-restart-wifi"},
+  "update.hardware.wifi": {"icon":"󱚾","label":"Wi-Fi","action":"arch-launch-terminal-with-presentation archctl restart wifi"},
   "update.hardware.bluetooth": {"icon":"󰂯","label":"Bluetooth","action":"arch-launch-terminal-with-presentation archctl restart bluetooth"},
   "update.hardware.trackpad": {"icon":"󰟸","label":"Trackpad","action":"arch-launch-terminal-with-presentation arch-restart-trackpad"},
   "update.password.drive": {"icon":"","label":"Drive Encryption","action":"arch-launch-terminal-with-presentation arch-drive-password"},
