@@ -1,0 +1,29 @@
+host_name: com.arch.ytdlp
+host_source: src/arch/commands/arch-chromium-ytdlp-host
+manifest:
+  name: com.arch.ytdlp
+  description: os yt-dlp download host
+  type: stdio
+  allowed_origins:
+    - chrome-extension://dedjgknigfeelejglamclffonmophnfl/
+native_messaging_directory: NativeMessagingHosts
+browser_profiles:
+  - .config/chromium
+  - .config/google-chrome
+  - .config/google-chrome-beta
+  - .config/google-chrome-unstable
+  - .config/BraveSoftware/Brave-Browser
+  - .config/BraveSoftware/Brave-Browser-Beta
+  - .config/BraveSoftware/Brave-Browser-Nightly
+  - .config/BraveSoftware/Brave-Origin
+  - .config/BraveSoftware/Brave-Origin-Beta
+  - .config/BraveSoftware/Brave-Origin-Nightly
+  - .config/microsoft-edge
+  - .config/microsoft-edge-dev
+file_mode: 420
+messages:
+  configuration_error: 'Could not load yt-dlp host configuration: {error}'
+  operation_error: 'Could not register the yt-dlp native messaging host: {error}'
+statuses:
+  success: 0
+  operation_failed: 1

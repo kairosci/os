@@ -698,6 +698,15 @@ entrypoints:
     name: chromium copy-url
     summary: Register the Copy URL native messaging host
     examples: archctl install chromium copy-url
+    generate_launcher: 'false'
+  - binary: arch-install-chromium-ytdlp
+    module: install/chromium_ytdlp
+    function: install_chromium_ytdlp_main
+    group: install
+    name: chromium yt-dlp
+    summary: Register the yt-dlp native messaging host
+    examples: archctl install chromium yt-dlp
+    generate_launcher: 'false'
   - binary: arch-restart-btop
     module: restart/app
     function: restart_btop_main

@@ -62,7 +62,7 @@ xcompose:
 chromium_extensions:
   commands:
     - [archctl, install, chromium, copy-url]
-    - [arch-install-chromium-ytdlp]
+    - [archctl, install, chromium, yt-dlp]
 video_decode:
   command: [arch-install-video-decode]
 work_directories:

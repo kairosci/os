@@ -40,13 +40,15 @@ cp "$ROOT/config/chromium-flags.conf" "$ap/config/"
 for command in arch-pkg-add arch-pkg-aur-add arch-pkg-drop arch-install-gaming-gpu-lib32; do
   printf '#!/bin/bash\nprintf "%%s %%s\\n" "%s" "$*" >>"%s"\n' "$command" "$tmp/calls" >"$stub_bin/$command"
 done
-for command in arch-install-chromium-ytdlp arch-theme-set-browser setsid; do
+for command in arch-theme-set-browser setsid; do
   printf '#!/bin/bash\nexit 0\n' >"$stub_bin/$command"
 done
 cat >"$stub_bin/archctl" <<SH
 #!/bin/bash
 if [[ \$* == "install chromium copy-url" ]]; then
   printf 'install chromium copy-url\n' >>"$tmp/calls"
+elif [[ \$* == "install chromium yt-dlp" ]]; then
+  printf 'install chromium yt-dlp\n' >>"$tmp/calls"
 fi
 SH
 chmod +x "$stub_bin"/*

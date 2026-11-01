@@ -21,7 +21,7 @@ TMPDIR=$(mktemp -d)
 test_home="$TMPDIR/home"
 manifest_path="$test_home/.config/chromium/NativeMessagingHosts/com.arch.ytdlp.json"
 
-HOME="$test_home" AP="$ROOT" arch-install-chromium-ytdlp
+HOME="$test_home" AP="$ROOT" "$ROOT/src/arch/commands/archctl" install chromium yt-dlp
 
 [[ -f $manifest_path ]] || fail "yt-dlp native host installer creates fresh Chromium profile root"
 pass "yt-dlp native host installer creates fresh Chromium profile root"
@@ -195,8 +195,10 @@ done
 exit 0
 EOF
 
-cat >"$fake_root/src/arch/commands/arch-notification-send" <<'EOF'
+cat >"$fake_root/src/arch/commands/archctl" <<'EOF'
 #!/bin/bash
+[[ $1 == "notification" && $2 == "send" ]] || exit 1
+shift 2
 printf '%s\n' "$*" >>"$NOTIFY_ARGV_LOG"
 EOF
 

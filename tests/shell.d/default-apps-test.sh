@@ -158,7 +158,6 @@ done
 for setup_command in \
   arch-install-emacs \
   arch-theme-set-vscode \
-  arch-install-chromium-ytdlp \
   arch-theme-set-browser; do
   ln -s arch-test-setup-call "$mock_bin/$setup_command"
 done
@@ -275,7 +274,7 @@ if grep -E 'groupadd|usermod|arch-browser-policy' "$setup_log" >/dev/null; then
 fi
 [[ -f $test_home/.config/chromium/NativeMessagingHosts/com.arch.copy_url.json ]] ||
   fail "Chromium browser installer registers the Copy URL host"
-grep -Fxq 'arch-install-chromium-ytdlp:' "$setup_log" ||
+[[ -f $test_home/.config/chromium/NativeMessagingHosts/com.arch.ytdlp.json ]] ||
   fail "Chromium browser installer registers the yt-dlp host"
 grep -Fxq 'arch-theme-set-browser:' "$setup_log" ||
   fail "Chromium browser installer applies the current theme"
