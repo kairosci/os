@@ -161,7 +161,7 @@ def main(arguments: list[str]) -> int:
         return status
 
     modules = _run(settings["commands"]["module_list"], settings, capture_output=True)
-    if modules.returncode != settings["success"] or modules.stdout is None:
+    if modules.returncode != settings["success"]:
       return settings["operation_failed"]
     present = _run(
       [*settings["commands"]["module_match"], paths["module"]],
