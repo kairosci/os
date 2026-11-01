@@ -38,6 +38,22 @@ JS
   fail "copy-url extension manifest has the stable id" "$copy_url_id"
 pass "copy-url extension manifest has the stable id"
 
+python3 - "$ROOT/default/chromium/extensions/copy-url" <<'PYTHON'
+import json
+import struct
+import sys
+from pathlib import Path
+
+extension = Path(sys.argv[1])
+manifest = json.loads((extension / "manifest.json").read_text(encoding="utf-8"))
+for size, name in manifest["icons"].items():
+  icon = (extension / name).read_bytes()
+  assert icon.startswith(b"\x89PNG\r\n\x1a\n"), f"{name} is not a PNG"
+  width, height = struct.unpack(">II", icon[16:24])
+  assert (width, height) == (int(size), int(size)), f"{name} has unexpected dimensions"
+PYTHON
+pass "copy-url extension icons load as valid PNGs at their declared sizes"
+
 jq -e '
   .manifest_version == 3 and
   (.permissions | index("nativeMessaging")) and
