@@ -40,9 +40,15 @@ cp "$ROOT/config/chromium-flags.conf" "$ap/config/"
 for command in arch-pkg-add arch-pkg-aur-add arch-pkg-drop arch-install-gaming-gpu-lib32; do
   printf '#!/bin/bash\nprintf "%%s %%s\\n" "%s" "$*" >>"%s"\n' "$command" "$tmp/calls" >"$stub_bin/$command"
 done
-for command in arch-install-chromium-copy-url arch-install-chromium-ytdlp arch-theme-set-browser setsid; do
+for command in arch-install-chromium-ytdlp arch-theme-set-browser setsid; do
   printf '#!/bin/bash\nexit 0\n' >"$stub_bin/$command"
 done
+cat >"$stub_bin/archctl" <<SH
+#!/bin/bash
+if [[ \$* == "install chromium copy-url" ]]; then
+  printf 'install chromium copy-url\n' >>"$tmp/calls"
+fi
+SH
 chmod +x "$stub_bin"/*
 
 run() {
@@ -122,10 +128,10 @@ pass "x86: Steam installs and is removed as before, running no hook"
 gpu_bin=$tmp/gpu-bin
 mkdir -p "$gpu_bin"
 printf '#!/bin/bash\necho "00:02.0 VGA compatible controller: %s"\n' '${GPU:-Apple Inc. AGX}' >"$gpu_bin/lspci"
-printf '#!/bin/bash\nexit "${ARCH_X86:-0}"\n' >"$gpu_bin/arch-hw-x86"
 cat >"$gpu_bin/archctl" <<'SH'
 #!/bin/bash
 case "$*" in
+  "hw x86") exit "${ARCH_X86:-0}" ;;
   "hw nvidia gsp"|"hw nvidia without gsp") exit 1 ;;
   *) exit 2 ;;
 esac

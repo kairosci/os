@@ -16,7 +16,7 @@ fi
 archctl refresh config chromium-flags.conf
 
 # Install/refresh the native messaging hosts used by the bundled extensions
-arch-install-chromium-copy-url
+archctl install chromium copy-url
 arch-install-chromium-ytdlp
 
 # Re-install Google accounts if previously configured

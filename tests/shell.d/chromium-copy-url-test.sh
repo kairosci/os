@@ -61,7 +61,7 @@ TMPDIR=$(mktemp -d)
 test_home="$TMPDIR/home"
 native_manifest="$test_home/.config/chromium/NativeMessagingHosts/com.arch.copy_url.json"
 
-HOME="$test_home" AP="$ROOT" arch-install-chromium-copy-url
+HOME="$test_home" AP="$ROOT" "$ROOT/src/arch/commands/archctl" install chromium copy-url
 
 [[ -f $native_manifest ]] || fail "copy-url native host installer creates fresh Chromium profile root"
 jq -e --arg path "$ROOT/src/arch/commands/arch-chromium-copy-url-host" '

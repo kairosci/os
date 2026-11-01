@@ -6,7 +6,7 @@ sources = [
   "src/arch/commands/arch-install-app",
   "src/arch/commands/arch-install-browser",
   "src/arch/commands/arch-install-camera",
-  "src/arch/commands/arch-install-chromium-copy-url",
+  "src/arch/cli/install/chromium_copy_url.py",
   "src/arch/commands/arch-install-chromium-google-account",
   "src/arch/commands/arch-install-chromium-ytdlp",
   "src/arch/commands/arch-install-dev-env",
@@ -57,8 +57,8 @@ source = "src/arch/commands/arch-install-camera"
 target = "usr/share/arch/src/arch/commands/arch-install-camera"
 
 [[output]]
-source = "src/arch/commands/arch-install-chromium-copy-url"
-target = "usr/share/arch/src/arch/commands/arch-install-chromium-copy-url"
+source = "src/arch/cli/install/chromium_copy_url.py"
+target = "usr/share/arch/src/arch/cli/install/chromium_copy_url.py"
 
 [[output]]
 source = "src/arch/commands/arch-install-chromium-google-account"

@@ -158,7 +158,6 @@ done
 for setup_command in \
   arch-install-emacs \
   arch-theme-set-vscode \
-  arch-install-chromium-copy-url \
   arch-install-chromium-ytdlp \
   arch-theme-set-browser; do
   ln -s arch-test-setup-call "$mock_bin/$setup_command"
@@ -274,7 +273,7 @@ grep -Fxq 'sudo:find /etc/chromium/policies/managed -mindepth 1 -maxdepth 1 ! -u
 if grep -E 'groupadd|usermod|arch-browser-policy' "$setup_log" >/dev/null; then
   fail "Chromium browser installer does not create a browser-policy group" "$(cat "$setup_log")"
 fi
-grep -Fxq 'arch-install-chromium-copy-url:' "$setup_log" ||
+[[ -f $test_home/.config/chromium/NativeMessagingHosts/com.arch.copy_url.json ]] ||
   fail "Chromium browser installer registers the Copy URL host"
 grep -Fxq 'arch-install-chromium-ytdlp:' "$setup_log" ||
   fail "Chromium browser installer registers the yt-dlp host"

@@ -61,7 +61,7 @@ xcompose:
       invalid_identity: "I valori di identità per XCompose devono essere su una sola riga."
 chromium_extensions:
   commands:
-    - [arch-install-chromium-copy-url]
+    - [archctl, install, chromium, copy-url]
     - [arch-install-chromium-ytdlp]
 video_decode:
   command: [arch-install-video-decode]

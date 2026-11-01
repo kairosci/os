@@ -20,9 +20,10 @@ mkdir -p "$stub_bin" "$test_tmp/home" "$ap/installer/helpers" "$ap/config"
 printf 'browser_policy_setup_dir() { :; }\nas_root() { sudo "$@"; }\n' >"$ap/installer/helpers/browser-policy.sh"
 cp "$ROOT/config/chromium-flags.conf" "$ap/config/"
 
-for command in arch-pkg-add arch-pkg-aur-add arch-install-chromium-copy-url arch-install-chromium-ytdlp arch-theme-set-browser arch-lifecycle-dispatch; do
+for command in arch-pkg-add arch-pkg-aur-add arch-install-chromium-ytdlp arch-theme-set-browser arch-lifecycle-dispatch; do
   printf '#!/bin/bash\nexit 0\n' >"$stub_bin/$command"
 done
+printf '#!/bin/bash\n[[ $* == "install chromium copy-url" ]]\n' >"$stub_bin/archctl"
 cat >"$stub_bin/sudo" <<'SH'
 #!/bin/bash
 printf 'sudo:%s\n' "$*" >>"$TEST_LOG"
