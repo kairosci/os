@@ -4,7 +4,7 @@ This roadmap tracks the requested CLI, ISO, desktop, and release work as separat
 
 ## Current evidence
 
-- Current CLI inventory after PR #697: 322 flat command sources, 83 Python CLI modules, and 129 YAML routes. No source command has the same binary name as a Python route; generated launcher output remains opt-in and no current route requests one. Historical counts below describe earlier rollout states.
+- Current CLI inventory after PR #699: 321 flat command sources, 84 Python CLI modules, and 130 YAML routes. No source command has the same binary name as a Python route; generated launcher output remains opt-in and no current route requests one. Historical counts below describe earlier rollout states.
 
 - `scripts/iso/` contains the CI-only native builder, checksum manifest, downloader, assembler, and release publisher. Workflow run `41202718530` built both x86_64 and AArch64 images successfully; publishing was skipped. The complete image artifacts were about 1.82 GB and 1.74 GB, and each release-assets artifact contained three files, corresponding to two image parts plus a manifest with the configured 1,000,000,000-byte cap. No GitHub release has been published, so download and assembly from a published release remain unverified.
 - `scripts/iso/profile/profiledef.py` is the checked-in Python profile renderer and reads `data/iso/profile.yml`; the CI builder emits ArchISO's required `profiledef.sh` only inside its temporary staging profile. The builder creates a complete ISO and release parts capped at 1,000,000,000 bytes each, below GitHub's 2 GB per-asset limit. `scripts/iso/download.py` verifies release metadata and delegates checksum-checked assembly to `scripts/iso/parts.py`. The ISO includes `archinstall`, but this build evidence does not prove the repository's intended online, offline, and unattended target-install flows; those remain open for disposable-VM acceptance. The focused release test also covers splitter and download/assembly behavior against a simulated GitHub release without relying on generated build artifacts.
@@ -113,6 +113,12 @@ The TUI launch paths move `arch-launch-tui` and `arch-launch-or-focus-tui` into 
 
 PR #697 moves `arch-restart-xcompose` into the Python `archctl restart xcompose` route, configures its process commands, timeout, retry count, messages, and statuses in YAML, and updates menu, setup, docs, and package ownership. The route stops and verifies the current user’s fcitx5 process before starting the supervised service. The flat command source and package output are removed; no source binary overlaps a Python route.
 
-### 21. Bound the AUR availability check — in progress
+### 21. Bound the AUR availability check — integrated
 
 Move `arch-pkg-aur-accessible` into the Python `archctl pkg aur accessible` route and configure the curl request, total timeout, and statuses in YAML. Route the update step through `archctl`; an unavailable AUR skips third-party builds without blocking the rest of the system update. Remove the flat command source and package output.
+
+PR #699 integrated the bounded Python route, YAML request configuration, updated update caller, and removal of the flat source and package output.
+
+### 22. Migrate Bluetooth radio restart — in progress
+
+Move `arch-restart-bluetooth` into the Python `archctl restart bluetooth` route. Keep the rfkill argv, timeout, user messages, and statuses in YAML, update the menu, and remove the flat source and package output. Preserve the existing behavior: unblock Bluetooth and display its current block state.
