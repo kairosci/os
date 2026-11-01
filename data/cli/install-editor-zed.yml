@@ -1,0 +1,10 @@
+commands:
+  install_package: [arch-pkg-add, zed]
+  launch_application: [setsid, uwsm-app, --, gtk-launch, dev.zed.Zed]
+messages:
+  configuration_error: 'Could not load Zed installer configuration: {error}'
+  operation_error: 'Could not install and launch Zed Editor: {error}'
+  installing: 'Installing Zed Editor...'
+statuses:
+  success: 0
+  operation_failed: 1

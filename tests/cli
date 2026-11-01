@@ -255,6 +255,9 @@ assert_output_contains "Wi-Fi restart resolves through the Python route" "$outpu
 output=$("$CLI" restart terminal --help)
 assert_output_contains "terminal restart resolves through the Python route" "$output" "arch restart terminal"
 
+output=$("$CLI" install editor zed --help)
+assert_output_contains "Zed install resolves through the Python route" "$output" "arch install editor zed"
+
 terminal_restart_tmp=""
 make_tmpdir terminal_restart_tmp
 terminal_restart_bin="$terminal_restart_tmp/bin"

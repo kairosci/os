@@ -663,6 +663,13 @@ entrypoints:
     summary: Reset the trackpad driver
     requires_sudo: 'true'
     pass_args: 'true'
+  - binary: arch-install-editor-zed
+    module: install/editor
+    function: zed_main
+    group: install
+    name: editor zed
+    summary: Install and launch Zed Editor
+    examples: archctl install editor zed
   - binary: arch-restart-btop
     module: restart/app
     function: restart_btop_main

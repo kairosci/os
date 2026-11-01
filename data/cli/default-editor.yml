@@ -39,7 +39,7 @@ editors:
     command: zeditor
     name: Zed
     glyph: 
-    installer: [arch-install-editor-zed]
+    installer: [archctl, install, editor, zed]
   sublime_text:
     command: subl
     name: Sublime Text

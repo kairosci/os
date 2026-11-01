@@ -73,12 +73,29 @@ assert_detached_installer_launch() {
   pass "$script detaches its scoped desktop-entry launch"
 }
 
+assert_zed_python_installer_launch() {
+  : >"$ARCH_TEST_LOG"
+  output=$(AP="$ROOT" PATH="$mock_bin:$ROOT/src/arch/commands:$PATH" \
+    "$ROOT/src/arch/commands/archctl" install editor zed)
+  [[ $output == "Installing Zed Editor..." ]] || fail "Zed install route reports progress" "$output"
+  wait_for_launch 'launch:uwsm-app -- gtk-launch dev.zed.Zed' || fail "Zed install route launches its desktop entry"
+  [[ $(<"$ARCH_TEST_LOG") == $'pkg:zed\nlaunch:uwsm-app -- gtk-launch dev.zed.Zed' ]] ||
+    fail "Zed is installed before its launcher starts" "$(<"$ARCH_TEST_LOG")"
+  ! grep -Fq 'omazed' "$ARCH_TEST_LOG" || fail "the Zed installer does not install the retired integration package"
+  pass "Zed installs through the Python route before its desktop entry launches"
+
+  : >"$ARCH_TEST_LOG"
+  if ARCH_TEST_PKG_STATUS=1 AP="$ROOT" PATH="$mock_bin:$ROOT/src/arch/commands:$PATH" \
+    "$ROOT/src/arch/commands/archctl" install editor zed >/dev/null 2>&1; then
+    fail "Zed install route reports a package installation failure"
+  fi
+  [[ $(<"$ARCH_TEST_LOG") == "pkg:zed" ]] || fail "Zed install route does not launch after package installation fails"
+  pass "Zed install failures never start its desktop entry"
+}
+
 assert_detached_installer_launch arch-install-editor-emacs emacsclient
 assert_detached_installer_launch arch-install-editor-vscode code
-assert_detached_installer_launch arch-install-editor-zed dev.zed.Zed
-grep -Fxq 'pkg:zed' "$ARCH_TEST_LOG" || fail "the Zed installer uses the official Arch package"
-! grep -Fq 'omazed' "$ARCH_TEST_LOG" || fail "the Zed installer does not install the retired integration package"
-pass "the Zed installer uses only the official Arch package"
+assert_zed_python_installer_launch
 assert_detached_installer_launch arch-install-gaming-heroic heroic
 assert_detached_installer_launch arch-install-gaming-steam steam
 
