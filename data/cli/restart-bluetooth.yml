@@ -1,0 +1,14 @@
+commands:
+  - [rfkill, unblock, bluetooth]
+  - [rfkill, list, bluetooth]
+limits:
+  command_timeout_seconds: 5
+messages:
+  unblocking: 'Unblocking Bluetooth...'
+  usage: 'Usage: archctl restart bluetooth'
+  configuration_error: 'Could not load Bluetooth restart configuration: {error}'
+  operation_error: 'Could not update Bluetooth radio state: {error}'
+statuses:
+  success: 0
+  invalid_arguments: 2
+  operation_failed: 1

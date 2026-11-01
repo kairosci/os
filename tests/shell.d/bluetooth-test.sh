@@ -289,6 +289,13 @@ grep -qx "rfkill block bluetooth" "$multi_log" ||
   fail "bluetooth counts a secondary controller as on" "$(cat "$multi_log")"
 pass "bluetooth counts a secondary controller as on"
 
+restart_output=$(bluetooth_run no archctl restart bluetooth)
+[[ $restart_output == *"Unblocking Bluetooth..."* ]] ||
+  fail "the restart route explains the radio action" "$restart_output"
+[[ $(<"$device_tmp/log") == $'rfkill unblock bluetooth\nrfkill list bluetooth' ]] ||
+  fail "the restart route unblocks the radio and then prints its state" "$(<"$device_tmp/log")"
+pass "the restart route runs its bounded rfkill actions in order"
+
 # AutoEnable=false was the old attempt at persistence and never worked. Left set,
 # it would also keep bluetoothd from powering the adapter up after an unblock.
 grep -q 'AutoEnable=false' "$ROOT/data/installer/hardware.yml" &&

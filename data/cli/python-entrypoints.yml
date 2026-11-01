@@ -634,6 +634,13 @@ entrypoints:
     args: <application-name> [application-args...]
     examples: archctl restart app firefox
     pass_args: 'true'
+  - binary: arch-restart-bluetooth
+    module: restart/bluetooth
+    function: main
+    group: restart
+    name: bluetooth
+    summary: Unblock Bluetooth and show the current radio block state
+    pass_args: 'true'
   - binary: arch-restart-btop
     module: restart/app
     function: restart_btop_main
