@@ -15,7 +15,7 @@ sources = [
   "src/arch/commands/arch-install-docker-dbs",
   "src/arch/cli/install/emacs.py",
   "src/arch/cli/install/helix.py",
-  "src/arch/commands/arch-install-editor-vscode",
+  "src/arch/cli/install/vscode.py",
   "src/arch/cli/install/editor.py",
   "src/arch/commands/arch-install-font",
   "src/arch/commands/arch-install-gaming-battlenet",
@@ -93,8 +93,8 @@ source = "src/arch/cli/install/helix.py"
 target = "usr/share/arch/src/arch/cli/install/helix.py"
 
 [[output]]
-source = "src/arch/commands/arch-install-editor-vscode"
-target = "usr/share/arch/src/arch/commands/arch-install-editor-vscode"
+source = "src/arch/cli/install/vscode.py"
+target = "usr/share/arch/src/arch/cli/install/vscode.py"
 
 [[output]]
 source = "src/arch/cli/install/editor.py"

@@ -1,0 +1,31 @@
+commands:
+  install_package: [arch-pkg-add, visual-studio-code-bin]
+  apply_theme: [arch-theme-set-vscode]
+  launch_application: [setsid, uwsm-app, --, gtk-launch, code]
+files:
+  - path: .vscode/argv.json
+    mode: 420
+    contents: |
+      // This configuration file allows you to pass permanent command line arguments to VS Code.
+      // Only a subset of arguments is currently supported to reduce the likelihood of breaking
+      // the installation.
+      //
+      // PLEASE DO NOT CHANGE WITHOUT UNDERSTANDING THE IMPACT
+      //
+      // NOTE: Changing this file requires a restart of VS Code.
+      {
+        "password-store":"gnome-libsecret"
+      }
+  - path: .config/Code/User/settings.json
+    mode: 420
+    contents: |
+      {
+        "update.mode": "none"
+      }
+messages:
+  configuration_error: 'Could not load VS Code installer configuration: {error}'
+  operation_error: 'Could not install and launch VS Code: {error}'
+  installing: 'Installing VSCode...'
+statuses:
+  success: 0
+  operation_failed: 1
