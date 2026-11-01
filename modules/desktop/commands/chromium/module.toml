@@ -2,15 +2,15 @@ id = "desktop.commands.chromium"
 domain = "desktop"
 package = "arch"
 sources = [
-  "src/arch/commands/arch-chromium-add-feature",
+  "src/arch/cli/chromium/features.py",
   "src/arch/commands/arch-chromium-copy-url-host",
   "src/arch/commands/arch-chromium-ytdlp-host",
 ]
 requires = ["desktop.commands"]
 
 [[output]]
-source = "src/arch/commands/arch-chromium-add-feature"
-target = "usr/share/arch/src/arch/commands/arch-chromium-add-feature"
+source = "src/arch/cli/chromium/features.py"
+target = "usr/share/arch/src/arch/cli/chromium/features.py"
 
 [[output]]
 source = "src/arch/commands/arch-chromium-copy-url-host"

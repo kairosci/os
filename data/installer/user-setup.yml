@@ -64,7 +64,7 @@ chromium_extensions:
     - [archctl, install, chromium, copy-url]
     - [archctl, install, chromium, yt-dlp]
 video_decode:
-  command: [arch-install-video-decode]
+  command: [archctl, install, video, decode]
 work_directories:
   directories:
     - Work

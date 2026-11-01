@@ -276,6 +276,9 @@ assert_output_contains "yt-dlp host registration resolves through the Python rou
 output=$("$CLI" install chromium google-account --help)
 assert_output_contains "Chromium Google account setup resolves through the Python route" "$output" "arch install chromium google-account"
 
+output=$("$CLI" install video decode --help)
+assert_output_contains "Video decode setup resolves through the Python route" "$output" "arch install video decode"
+
 terminal_restart_tmp=""
 make_tmpdir terminal_restart_tmp
 terminal_restart_bin="$terminal_restart_tmp/bin"

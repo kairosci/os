@@ -35,7 +35,7 @@ copy_chromium_flags() {
   cp -f "$AP/config/chromium-flags.conf" "$1"
   archctl install chromium copy-url
   archctl install chromium yt-dlp
-  arch-install-video-decode
+  archctl install video decode
 }
 
 setup_firefox_wayland() {

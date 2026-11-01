@@ -4,7 +4,6 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
-helper="$ROOT/src/arch/commands/arch-install-video-decode"
 grep -Fq '  - setup/video_decode.py' "$ROOT/data/installer/user-setup.yml" ||
   fail "user setup runs the Python video decode module"
 test_tmp=$(mktemp -d)
@@ -158,13 +157,23 @@ run_helper "$home"
 pass "a missing Chromium flags file stays missing"
 
 home=$(new_home symlink)
-cp "$shipped" "$test_tmp/flags-target.conf"
-ln -s "$test_tmp/flags-target.conf" "$home/.config/chromium-flags.conf"
+cp "$shipped" "$home/flags-target.conf"
+ln -s "$home/flags-target.conf" "$home/.config/chromium-flags.conf"
 mkdir -p "$home/.config/mpv"
-printf '%s\n' 'volume=80' >"$test_tmp/mpv-target.conf"
-ln -s "$test_tmp/mpv-target.conf" "$home/.config/mpv/mpv.conf"
+printf '%s\n' 'volume=80' >"$home/mpv-target.conf"
+ln -s "$home/mpv-target.conf" "$home/.config/mpv/mpv.conf"
 run_helper "$home"
 [[ -L $home/.config/chromium-flags.conf && -L $home/.config/mpv/mpv.conf ]] || fail "symlinked config files stay symlinks"
-grep -Fxq -- "$features,AcceleratedVideoDecoder" "$test_tmp/flags-target.conf" || fail "the target of a symlinked Chromium file gets the feature"
-grep -Fxq -- "$hwdec" "$test_tmp/mpv-target.conf" || fail "the target of a symlinked mpv config gets the fallback"
+grep -Fxq -- "$features,AcceleratedVideoDecoder" "$home/flags-target.conf" || fail "the target of a symlinked Chromium file gets the feature"
+grep -Fxq -- "$hwdec" "$home/mpv-target.conf" || fail "the target of a symlinked mpv config gets the fallback"
 pass "symlinked config files stay symlinks and their targets get the settings"
+
+home=$(new_home symlink-escape)
+printf '%s\n' '--enable-features=AcceleratedVideoDecoder' >"$test_tmp/chromium-flags-outside-home.conf"
+ln -s "$test_tmp/chromium-flags-outside-home.conf" "$home/.config/chromium-flags.conf"
+if run_helper "$home" >/dev/null 2>&1; then
+  fail "video decode refuses a Chromium flags symlink outside the home"
+fi
+[[ $(<"$test_tmp/chromium-flags-outside-home.conf") == '--enable-features=AcceleratedVideoDecoder' ]] ||
+  fail "video decode leaves an outside Chromium flags target untouched"
+pass "video decode confines Chromium flags updates to the home"

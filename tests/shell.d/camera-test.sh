@@ -4,6 +4,8 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
+export AP="$ROOT"
+
 helper="$ROOT/src/arch/commands/arch-install-camera"
 leaf="$ROOT/src/arch/python/installer/hardware/qualcomm_camera.py"
 test_tmp=$(mktemp -d)
@@ -50,7 +52,7 @@ pass "a Snapdragon laptop gets Chromium's PipeWire camera once, even when the he
 
 home=$(new_home both)
 cp "$shipped" "$home/.config/chromium-flags.conf"
-HOME=$home bash "$ROOT/src/arch/commands/arch-install-video-decode"
+HOME="$home" AP="$ROOT" "$ROOT/src/arch/commands/archctl" install video decode
 HOME=$home bash "$helper"
 grep -Fxq -- "$features,AcceleratedVideoDecoder,WebRtcPipeWireCamera" "$home/.config/chromium-flags.conf" ||
   fail "the video and camera features share Chromium's feature list" "$(cat "$home/.config/chromium-flags.conf")"
@@ -66,7 +68,7 @@ HOME=$home bash "$helper"
 [[ ! -e $home/.config/chromium-flags.conf ]] || fail "a missing Chromium flags file stays missing"
 pass "a feature the user set and a missing flags file stay as they are"
 
-if HOME=$home bash "$ROOT/src/arch/commands/arch-chromium-add-feature" 'Foo/Bar' 2>/dev/null; then
+if HOME="$home" AP="$ROOT" "$ROOT/src/arch/commands/archctl" chromium add-feature 'Foo/Bar' 2>/dev/null; then
   fail "the feature helper refuses a name that isn't a Chromium feature"
 fi
 pass "the feature helper refuses a name that isn't a Chromium feature"

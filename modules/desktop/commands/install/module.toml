@@ -10,6 +10,7 @@ sources = [
   "src/arch/cli/install/chromium_copy_url.py",
   "src/arch/cli/install/chromium_ytdlp.py",
   "src/arch/cli/install/chromium_google_account.py",
+  "src/arch/cli/install/video_decode.py",
   "src/arch/commands/arch-install-dev-env",
   "src/arch/commands/arch-install-dictation-superwhisper",
   "src/arch/commands/arch-install-dictation-voxtype",
@@ -37,7 +38,6 @@ sources = [
   "src/arch/commands/arch-install-service-sunshine",
   "src/arch/commands/arch-install-service-tailscale",
   "src/arch/commands/arch-install-terminal",
-  "src/arch/commands/arch-install-video-decode",
 ]
 requires = ["desktop.commands"]
 
@@ -72,6 +72,10 @@ target = "usr/share/arch/src/arch/cli/install/chromium_ytdlp.py"
 [[output]]
 source = "src/arch/cli/install/chromium_google_account.py"
 target = "usr/share/arch/src/arch/cli/install/chromium_google_account.py"
+
+[[output]]
+source = "src/arch/cli/install/video_decode.py"
+target = "usr/share/arch/src/arch/cli/install/video_decode.py"
 
 [[output]]
 source = "src/arch/commands/arch-install-dev-env"
@@ -181,7 +185,3 @@ target = "usr/share/arch/src/arch/commands/arch-install-service-tailscale"
 [[output]]
 source = "src/arch/commands/arch-install-terminal"
 target = "usr/share/arch/src/arch/commands/arch-install-terminal"
-
-[[output]]
-source = "src/arch/commands/arch-install-video-decode"
-target = "usr/share/arch/src/arch/commands/arch-install-video-decode"

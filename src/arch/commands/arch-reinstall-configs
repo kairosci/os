@@ -29,4 +29,4 @@ fi
 
 # /etc/skel holds the shared defaults, so put the Snapdragon video decoding
 # settings back.
-arch-install-video-decode
+archctl install video decode
