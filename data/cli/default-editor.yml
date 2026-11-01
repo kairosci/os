@@ -59,7 +59,7 @@ editors:
     command: emacs
     name: Emacs
     glyph: 
-    installer: [arch-install-editor-emacs]
+    installer: [archctl, install, editor, emacs]
   nvim:
     command: nvim
     name: Neovim

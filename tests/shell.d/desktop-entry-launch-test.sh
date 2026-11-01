@@ -24,12 +24,23 @@ if [[ $1 == font && $2 == set ]]; then
 fi
 SH
 
-for command in arch-pkg-aur-add arch-install-emacs arch-theme-set-vscode arch-install-gaming-gpu-lib32 arch-lifecycle-dispatch; do
+for command in arch-theme-set-vscode arch-install-gaming-gpu-lib32 arch-lifecycle-dispatch; do
   cat >"$mock_bin/$command" <<'SH'
 #!/bin/bash
 exit 0
 SH
 done
+
+cat >"$mock_bin/arch-pkg-aur-add" <<'SH'
+#!/bin/bash
+printf 'pkg:%s\n' "$*" >>"$ARCH_TEST_LOG"
+exit "${ARCH_TEST_PKG_STATUS:-0}"
+SH
+
+cat >"$mock_bin/arch-install-emacs" <<'SH'
+#!/bin/bash
+printf 'setup:emacs\n' >>"$ARCH_TEST_LOG"
+SH
 
 cat >"$mock_bin/setsid" <<'SH'
 #!/bin/bash
@@ -93,8 +104,27 @@ assert_zed_python_installer_launch() {
   pass "Zed install failures never start its desktop entry"
 }
 
-assert_detached_installer_launch arch-install-editor-emacs emacsclient
 assert_detached_installer_launch arch-install-editor-vscode code
+assert_emacs_python_installer_launch() {
+  : >"$ARCH_TEST_LOG"
+  output=$(AP="$ROOT" PATH="$mock_bin:$ROOT/src/arch/commands:$PATH" \
+    "$ROOT/src/arch/commands/archctl" install editor emacs)
+  [[ $output == "Installing Emacs..." ]] || fail "Emacs install route reports progress" "$output"
+  wait_for_launch 'launch:uwsm-app -- gtk-launch emacsclient' || fail "Emacs install route launches its client"
+  [[ $(<"$ARCH_TEST_LOG") == $'pkg:arch-emacs\nsetup:emacs\nlaunch:uwsm-app -- gtk-launch emacsclient' ]] ||
+    fail "Emacs package is installed before its client starts" "$(<"$ARCH_TEST_LOG")"
+  pass "Emacs installs through the Python route before its client launches"
+
+  : >"$ARCH_TEST_LOG"
+  if ARCH_TEST_PKG_STATUS=1 AP="$ROOT" PATH="$mock_bin:$ROOT/src/arch/commands:$PATH" \
+    "$ROOT/src/arch/commands/archctl" install editor emacs >/dev/null 2>&1; then
+    fail "Emacs install route reports a package installation failure"
+  fi
+  [[ $(<"$ARCH_TEST_LOG") == "pkg:arch-emacs" ]] || fail "Emacs install route does not configure or launch after package failure"
+  pass "Emacs install failures never start its client"
+}
+
+assert_emacs_python_installer_launch
 assert_zed_python_installer_launch
 assert_detached_installer_launch arch-install-gaming-heroic heroic
 assert_detached_installer_launch arch-install-gaming-steam steam

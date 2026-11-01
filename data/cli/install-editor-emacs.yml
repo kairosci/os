@@ -1,0 +1,11 @@
+commands:
+  install_package: [arch-pkg-aur-add, arch-emacs]
+  configure: [arch-install-emacs]
+  launch_application: [setsid, uwsm-app, --, gtk-launch, emacsclient]
+messages:
+  configuration_error: 'Could not load Emacs installer configuration: {error}'
+  operation_error: 'Could not install and launch Emacs: {error}'
+  installing: 'Installing Emacs...'
+statuses:
+  success: 0
+  operation_failed: 1

@@ -96,6 +96,7 @@ arch-pkg-add|arch-pkg-aur-add)
   cursor-bin) command=cursor ;;
   zed) command=zeditor ;;
   helix) command=helix ;;
+  arch-emacs) command=emacs ;;
   sublime-text-4) command=subl ;;
   vim) command=vim ;;
   neovim) command=nvim ;;
@@ -151,11 +152,11 @@ for installer in \
   arch-pkg-aur-add \
   arch-install-browser \
   arch-install-terminal \
-  arch-install-editor-vscode \
-  arch-install-editor-emacs; do
+  arch-install-editor-vscode; do
   ln -s arch-test-installer "$mock_bin/$installer"
 done
 for setup_command in \
+  arch-install-emacs \
   arch-install-chromium-copy-url \
   arch-install-chromium-ytdlp \
   arch-theme-set-browser; do
@@ -216,7 +217,7 @@ editor_cases=(
   'sublime_text subl pkg:sublime-text-4'
   'helix helix pkg:helix'
   'vim vim pkg:vim'
-  'emacs emacs editor:emacs'
+  'emacs emacs pkg:arch-emacs'
   'nvim nvim pkg:neovim'
 )
 
@@ -354,6 +355,14 @@ for entry in "${editor_cases[@]}"; do
     [[ -L $test_home/.config/helix/themes/arch.toml ]] || fail "Helix links the current Arch theme"
     [[ $(<"$test_home/.config/helix/config.toml") == 'theme = "arch"' ]] || fail "Helix seeds its config only when missing"
     grep -Fxq 'alias hx="helix"' "$test_home/.bashrc" || fail "Helix adds the hx alias"
+  elif [[ $selection == "emacs" ]]; then
+    for ((attempt = 0; attempt < 100; attempt++)); do
+      grep -Fxq 'launch:uwsm-app -- gtk-launch emacsclient' "$install_log" && break
+      sleep 0.01
+    done
+    [[ $(<"$install_log") == $'pkg:arch-emacs\nlaunch:uwsm-app -- gtk-launch emacsclient' ]] ||
+      fail "Emacs installs before launching its client" "$(<"$install_log")"
+    grep -Fxq 'arch-install-emacs:' "$setup_log" || fail "Emacs setup runs before its client launches"
   else
     [[ $(<"$install_log") == "$installer" ]] || fail "$selection uses its editor installer"
   fi

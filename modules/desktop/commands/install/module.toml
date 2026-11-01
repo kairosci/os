@@ -13,7 +13,7 @@ sources = [
   "src/arch/commands/arch-install-dictation-superwhisper",
   "src/arch/commands/arch-install-dictation-voxtype",
   "src/arch/commands/arch-install-docker-dbs",
-  "src/arch/commands/arch-install-editor-emacs",
+  "src/arch/cli/install/emacs.py",
   "src/arch/cli/install/helix.py",
   "src/arch/commands/arch-install-editor-vscode",
   "src/arch/cli/install/editor.py",
@@ -85,8 +85,8 @@ source = "src/arch/commands/arch-install-docker-dbs"
 target = "usr/share/arch/src/arch/commands/arch-install-docker-dbs"
 
 [[output]]
-source = "src/arch/commands/arch-install-editor-emacs"
-target = "usr/share/arch/src/arch/commands/arch-install-editor-emacs"
+source = "src/arch/cli/install/emacs.py"
+target = "usr/share/arch/src/arch/cli/install/emacs.py"
 
 [[output]]
 source = "src/arch/cli/install/helix.py"
