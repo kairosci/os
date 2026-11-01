@@ -8,8 +8,8 @@ sources = [
   "src/arch/cli/restart/app.py",
   "src/arch/cli/restart/bluetooth.py",
   "src/arch/cli/restart/wifi.py",
+  "src/arch/cli/restart/terminal.py",
   "src/arch/commands/arch-restart-shell",
-  "src/arch/commands/arch-restart-terminal",
   "src/arch/commands/arch-restart-trackpad",
   "src/arch/cli/restart/xcompose.py",
 ]
@@ -40,12 +40,12 @@ source = "src/arch/cli/restart/wifi.py"
 target = "usr/share/arch/src/arch/cli/restart/wifi.py"
 
 [[output]]
-source = "src/arch/commands/arch-restart-shell"
-target = "usr/share/arch/src/arch/commands/arch-restart-shell"
+source = "src/arch/cli/restart/terminal.py"
+target = "usr/share/arch/src/arch/cli/restart/terminal.py"
 
 [[output]]
-source = "src/arch/commands/arch-restart-terminal"
-target = "usr/share/arch/src/arch/commands/arch-restart-terminal"
+source = "src/arch/commands/arch-restart-shell"
+target = "usr/share/arch/src/arch/commands/arch-restart-shell"
 
 [[output]]
 source = "src/arch/commands/arch-restart-trackpad"

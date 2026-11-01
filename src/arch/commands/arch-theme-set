@@ -456,7 +456,7 @@ flock -u 9
 # them, plus the window borders. These run as soon as
 # the theme is in place, alongside the wallpaper and bar transition.
 visible_theme_commands=(
-  arch-restart-terminal ::
+  archctl restart terminal ::
   arch-theme-set-foot ::
   arch-theme-set-tmux ::
   archctl restart btop ::

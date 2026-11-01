@@ -2369,7 +2369,7 @@ refresh_current_theme_after_upgrade() {
   # Headless theme refresh intentionally skips arch-theme-set's live post
   # hooks because one of them runs `hyprctl reload`. Still poke terminal
   # emulators so the active upgrade terminal picks up generated theme files.
-  run_as_user_arch arch-restart-terminal >/dev/null 2>&1 || true
+  run_as_user_arch archctl restart terminal >/dev/null 2>&1 || true
 
   # apply_system_transition purged user-owned color.json. Headless theme-set
   # skipped arch-theme-set-browser, so rewrite the colour here.
