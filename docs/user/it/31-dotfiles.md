@@ -17,7 +17,7 @@ Ecco un elenco dei file chiave in `~/.config` e cosa controllano:
 | `~/.config/hypr/autostart.lua` | Controlla i processi extra avviati con la sessione. |
 | `~/.config/arch/shell.json` | Controlla la shell Arch: posizione della barra, layout e widget, oltre a salvaschermo, blocco e tempi di inattività. |
 | `~/.config/foot/foot.ini` | Controlla il tuo terminale (foot è il predefinito). |
-| `~/.XCompose` | Definisce le tue emoji ad accesso rapido e il completamento automatico di nome/email. Assicurati di eseguire `arch-restart-xcompose` dopo aver apportato modifiche. |
+| `~/.XCompose` | Definisce le tue emoji ad accesso rapido e il completamento automatico di nome/email. Assicurati di eseguire `archctl restart xcompose` dopo aver apportato modifiche. |
 
 Se finisci per fare molte modifiche per personalizzare la tua configurazione, è una buona idea fare il backup di tutti questi dotfiles. [Stow è un ottimo modo per farlo](https://www.youtube.com/watch?v=NoFiYOqnC4o).
 

@@ -356,4 +356,4 @@ Puoi usare `Super + Ctrl + E` per mostrare un selettore emoji completo che mette
 | `Shift + CapsLock Space N` | Il tuo nome (come inserito in configurazione)  |
 | `Shift + CapsLock Space E` | La tua email (come inserita in configurazione)  |
 
-Puoi aggiungerne altri tuoi modificando `~/.XCompose`, poi eseguendo `arch-restart-xcompose` nel terminale per far rilevare le modifiche.
+Puoi aggiungerne altri tuoi modificando `~/.XCompose`, poi eseguendo `archctl restart xcompose` nel terminale per far rilevare le modifiche.

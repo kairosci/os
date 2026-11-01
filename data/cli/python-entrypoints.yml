@@ -652,6 +652,12 @@ entrypoints:
     group: restart
     name: hyprctl
     summary: Reload hyprland configuration (used by the Arch theme switching).
+  - binary: arch-restart-xcompose
+    module: restart/xcompose
+    function: main
+    group: restart
+    name: xcompose
+    summary: Restart the XCompose input method service to apply compose key settings
   - binary: arch-restart-hyprsunset
     module: restart/app
     function: restart_hyprsunset_main

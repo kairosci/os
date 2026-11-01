@@ -17,7 +17,7 @@ Here's a list of the key files in `~/.config` and what they control:
 | `~/.config/hypr/autostart.lua` | Controls extra processes started with the session. |
 | `~/.config/arch/shell.json` | Controls the Arch shell: bar position, layout, and widgets, plus screensaver, lock, and idle timings. |
 | `~/.config/foot/foot.ini` | Controls your terminal (foot is the default). |
-| `~/.XCompose` | Defines your quick-access emoji and name/email autocomplete. Make sure to run `arch-restart-xcompose` after making changes. |
+| `~/.XCompose` | Defines your quick-access emoji and name/email autocomplete. Make sure to run `archctl restart xcompose` after making changes. |
 
 If you end up making a lot of changes to tweak your own setup, it's a good idea to backup all these dotfiles. [Stow is a great way to do that](https://www.youtube.com/watch?v=NoFiYOqnC4o).
 

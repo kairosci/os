@@ -116,7 +116,7 @@ def load_engines(names, catalog):
     raise RuntimeError(f"Install {' '.join(absent) or 'its engine'} to use {labels}")
   # Fcitx discovers engines only at startup, so one installed while it was
   # running (by an update, say) needs a restart before it can be selected.
-  setup.run(["arch-restart-xcompose"])
+  setup.run(["archctl", "restart", "xcompose"])
   for name in names:
     setup.wait_ready(name)
 

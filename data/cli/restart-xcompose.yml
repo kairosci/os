@@ -1,0 +1,15 @@
+limits:
+  command_timeout_seconds: 5
+  retry_count: 2
+  poll_interval_milliseconds: 100
+commands:
+  stop_unit: [systemctl, --user, stop, arch-fcitx5.service]
+  kill_process: [pkill, -u, "{uid}", -x, fcitx5]
+  process_presence: [pgrep, -u, "{uid}", -x, fcitx5]
+  start_unit: [systemctl, --user, start, arch-fcitx5.service]
+messages:
+  configuration_error: Invalid XCompose restart configuration.
+  process_stop_error: Could not verify that fcitx5 stopped; input service was not restarted.
+statuses:
+  success: 0
+  operation_failed: 1

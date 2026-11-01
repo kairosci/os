@@ -108,3 +108,7 @@ PR #655 makes launcher generation opt-in; all 90 existing Python routes omit lau
 ### 19. Migrate TUI launchers
 
 The TUI launch paths move `arch-launch-tui` and `arch-launch-or-focus-tui` into `src/arch/cli/launch/dispatch.py`, routes the editor, app library, keybindings, About screen, and bar example through `archctl`, and removes both flat source files and package outputs. TUI argv, app ID rules, focus matching, Hyprland command templates, output bounds, timeouts, messages, and statuses are declared in YAML. The focus path uses bounded JSON from Hyprland and launches argument vectors without shell evaluation.
+
+### 20. Migrate XCompose restart — in progress
+
+Move `arch-restart-xcompose` into the Python `archctl restart xcompose` route, configure its process commands, timeout, retry count, messages, and statuses in YAML, and update menu, setup, docs, and package ownership. The route stops and verifies the current user’s fcitx5 process before starting the supervised service.

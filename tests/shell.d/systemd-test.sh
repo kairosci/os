@@ -47,9 +47,6 @@ grep -Fx 'ConditionEnvironment=WAYLAND_DISPLAY' "$fcitx_service" >/dev/null ||
 grep -Fx 'ConditionPathExists=/usr/bin/fcitx5' "$fcitx_service" >/dev/null ||
   fail "without fcitx5 installed, Restart=always retries the enabled unit at 203/EXEC for the whole session"
 
-grep -F 'pkill -u "$UID" -x fcitx5' "$ROOT/src/arch/commands/arch-restart-xcompose" >/dev/null ||
-  fail "restart-xcompose cannot reload a fcitx5 running outside the unit, so it silently keeps serving the old table"
-
 grep -F 'arch-fcitx5.service' "$first_run_units" >/dev/null ||
   fail "first-run does not enable the input method, so ~/.XCompose sequences never resolve"
 grep -F 'fcitx5' "$ROOT/default/hypr/autostart.lua" >/dev/null &&

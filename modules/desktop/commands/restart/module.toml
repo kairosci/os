@@ -11,7 +11,7 @@ sources = [
   "src/arch/commands/arch-restart-terminal",
   "src/arch/commands/arch-restart-trackpad",
   "src/arch/commands/arch-restart-wifi",
-  "src/arch/commands/arch-restart-xcompose",
+  "src/arch/cli/restart/xcompose.py",
 ]
 requires = ["desktop.commands"]
 
@@ -52,5 +52,5 @@ source = "src/arch/commands/arch-restart-wifi"
 target = "usr/share/arch/src/arch/commands/arch-restart-wifi"
 
 [[output]]
-source = "src/arch/commands/arch-restart-xcompose"
-target = "usr/share/arch/src/arch/commands/arch-restart-xcompose"
+source = "src/arch/cli/restart/xcompose.py"
+target = "usr/share/arch/src/arch/cli/restart/xcompose.py"

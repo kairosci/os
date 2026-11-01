@@ -46,7 +46,7 @@ xcompose:
   user_name_environment: ARCH_USER_NAME
   user_email_environment: ARCH_USER_EMAIL
   template: |-
-    # Run arch-restart-xcompose to apply changes
+    # Run archctl restart xcompose to apply changes
 
     # Include fast emoji access
     include "$ap/default/xcompose"
