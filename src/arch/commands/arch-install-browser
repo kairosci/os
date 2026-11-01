@@ -34,7 +34,7 @@ copy_chromium_flags() {
   mkdir -p ~/.config
   cp -f "$AP/config/chromium-flags.conf" "$1"
   archctl install chromium copy-url
-  arch-install-chromium-ytdlp
+  archctl install chromium yt-dlp
   arch-install-video-decode
 }
 
