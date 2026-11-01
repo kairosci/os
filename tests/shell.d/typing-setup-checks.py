@@ -1,11 +1,11 @@
 import importlib.util
 import json
 import os
-from pathlib import Path
 import subprocess
 import sys
 import tempfile
 import unittest
+from pathlib import Path
 from unittest.mock import patch
 
 ROOT = Path(os.environ["AP"])
@@ -13,9 +13,25 @@ sys.path.insert(0, str(ROOT / "default/input-methods"))
 spec = importlib.util.spec_from_file_location("typing_setup", ROOT / "default/input-methods/typing_setup.py")
 typing = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(typing)
+restart_spec = importlib.util.spec_from_file_location("restart_xcompose", ROOT / "src/arch/cli/restart/xcompose.py")
+restart_xcompose = importlib.util.module_from_spec(restart_spec)
+restart_spec.loader.exec_module(restart_xcompose)
 
 
 class TypingSetupTest(unittest.TestCase):
+  def test_xcompose_restart_stops_external_process_before_starting_unit(self):
+    calls = []
+
+    def run(command, timeout):
+      calls.append(command[0])
+      if command[0] == "pgrep":
+        return subprocess.CompletedProcess(command, 0 if calls.count("pgrep") == 1 else 1)
+      return subprocess.CompletedProcess(command, 0)
+
+    with patch.object(restart_xcompose, "_run", side_effect=run), patch.object(restart_xcompose.time, "sleep"):
+      self.assertEqual(restart_xcompose.main(), 0)
+    self.assertEqual(calls, ["systemctl", "pkill", "pgrep", "pgrep", "pgrep", "systemctl"])
+
   def test_variants_and_installer_binding_safety(self):
     self.assertEqual(typing.keyboard_values(["us:intl", "fr"]), ("us,fr", "intl,"))
     self.assertEqual(typing.keyboard_values(["ru:phonetic"]), ("us,ru", ",phonetic"))
@@ -82,7 +98,7 @@ class TypingSetupTest(unittest.TestCase):
     present = subprocess.CompletedProcess([], 0)
     with patch.object(typing.setup, "live_group", return_value=group), patch.object(typing.setup, "available_methods", return_value=[]), patch.object(typing.subprocess, "run", return_value=present), patch.object(typing.setup, "run") as run, patch.object(typing.setup, "wait_ready") as ready, patch.object(typing, "set_inputs") as save, patch.object(typing.setup, "font_default"):
       typing.save_inputs(["mozc"])
-    run.assert_called_once_with(["arch-restart-xcompose"])
+    run.assert_called_once_with(["archctl", "restart", "xcompose"])
     ready.assert_called_once_with("mozc")
     self.assertEqual(save.call_args.args[3], [["keyboard-us", ""], ["mozc", ""]])
 

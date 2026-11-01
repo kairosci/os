@@ -2054,7 +2054,7 @@ if [[ -n ${ARCH_USER_EMAIL//[[:space:]]/} ]]; then
 fi
 if [[ ! -f $HOME/.XCompose ]]; then
   cat >"$HOME/.XCompose" <<EOF
-# Run arch-restart-xcompose to apply changes
+# Run archctl restart xcompose to apply changes
 
 # Include fast emoji access
 include "/usr/share/arch/default/xcompose"
