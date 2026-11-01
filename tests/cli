@@ -279,6 +279,9 @@ assert_output_contains "Chromium Google account setup resolves through the Pytho
 output=$("$CLI" install video decode --help)
 assert_output_contains "Video decode setup resolves through the Python route" "$output" "arch install video decode"
 
+output=$("$CLI" install camera --help)
+assert_output_contains "Camera setup resolves through the Python route" "$output" "arch install camera"
+
 terminal_restart_tmp=""
 make_tmpdir terminal_restart_tmp
 terminal_restart_bin="$terminal_restart_tmp/bin"

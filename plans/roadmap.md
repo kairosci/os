@@ -4,7 +4,7 @@ This roadmap tracks the requested CLI, ISO, desktop, and release work as separat
 
 ## Current evidence
 
-- Current CLI inventory after PR #710: 309 flat command sources, 95 Python CLI modules, and 141 YAML routes. No source command has the same binary name as a Python route; migrated routes no longer generate flat launchers. Historical counts below describe earlier rollout states.
+- Current CLI inventory after PR #711: 307 flat command sources, 97 Python CLI modules, and 143 YAML routes. No source command has the same binary name as a Python route; migrated routes no longer generate flat launchers. Historical counts below describe earlier rollout states.
 
 - `scripts/iso/` contains the CI-only native builder, checksum manifest, downloader, assembler, and release publisher. Workflow run `41202718530` built both x86_64 and AArch64 images successfully; publishing was skipped. The complete image artifacts were about 1.82 GB and 1.74 GB, and each release-assets artifact contained three files, corresponding to two image parts plus a manifest with the configured 1,000,000,000-byte cap. No GitHub release has been published, so download and assembly from a published release remain unverified.
 - `scripts/iso/profile/profiledef.py` is the checked-in Python profile renderer and reads `data/iso/profile.yml`; the CI builder emits ArchISO's required `profiledef.sh` only inside its temporary staging profile. The builder creates a complete ISO and release parts capped at 1,000,000,000 bytes each, below GitHub's 2 GB per-asset limit. `scripts/iso/download.py` verifies release metadata and delegates checksum-checked assembly to `scripts/iso/parts.py`. The ISO includes `archinstall`, but this build evidence does not prove the repository's intended online, offline, and unattended target-install flows; those remain open for disposable-VM acceptance. The focused release test also covers splitter and download/assembly behavior against a simulated GitHub release without relying on generated build artifacts.
@@ -167,6 +167,10 @@ PR #709 moves `arch-install-chromium-ytdlp` into the Python `archctl install chr
 
 PR #710 moves `arch-install-chromium-google-account` into the Python `archctl install chromium google-account` route. The Chromium flags path, OAuth flags, messages, and statuses are in YAML. The menu and refresh callers use the route; the command preserves existing user flags, writes atomically within the home directory, and has no flat source or generated launcher.
 
-### 33. Migrate video decode and Chromium feature configuration — in progress
+### 33. Migrate video decode and Chromium feature configuration — integrated
 
-Move `arch-install-video-decode` and `arch-chromium-add-feature` into Python routes, keep the hardware predicate command, Chromium and mpv config paths and values, feature names, messages, and statuses in YAML, update camera, browser, refresh, reinstall, and first-run callers, then remove both flat sources and generated launchers.
+PR #711 moves `arch-install-video-decode` and `arch-chromium-add-feature` into Python routes, keeps the hardware predicate command, Chromium and mpv config paths and values, feature names, messages, and statuses in YAML, updates camera, browser, refresh, reinstall, and first-run callers, and removes both flat sources and generated launchers.
+
+### 34. Migrate Qualcomm camera configuration — in progress
+
+Move `arch-install-camera` into the Python `archctl install camera` route. Keep the Qualcomm hardware check and Chromium feature in YAML, update first-run setup, then remove the flat source, generated launcher, and package output.

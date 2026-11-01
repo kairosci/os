@@ -723,6 +723,14 @@ entrypoints:
     summary: Enable Snapdragon hardware video decoding in Chromium and mpv
     examples: archctl install video decode
     generate_launcher: 'false'
+  - binary: arch-install-camera
+    module: install/camera
+    function: install_camera_main
+    group: install
+    name: camera
+    summary: Enable Chromium's PipeWire camera capture on Snapdragon laptops
+    examples: archctl install camera
+    generate_launcher: 'false'
   - binary: arch-chromium-add-feature
     module: chromium/features
     function: main
