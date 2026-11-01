@@ -1,0 +1,31 @@
+commands:
+  module_list: [lsmod]
+  module_match: [grep, -q, --]
+  sudo: [sudo]
+  tee: [tee]
+  module_remove: [modprobe, -r]
+  module_load: [modprobe]
+  delay: [sleep]
+paths:
+  driver: /sys/bus/i2c/drivers/i2c_hid_acpi
+  devices: 'i2c-*'
+  device_name_pattern: '[A-Za-z0-9_][A-Za-z0-9_.:-]*'
+  unbind: /sys/bus/i2c/drivers/i2c_hid_acpi/unbind
+  bind: /sys/bus/i2c/drivers/i2c_hid_acpi/bind
+  module: intel_quicki2c
+limits:
+  command_timeout_seconds: 30
+  rebind_delay_seconds: 1
+messages:
+  usage: 'Usage: archctl restart trackpad'
+  configuration_error: 'Could not load trackpad restart configuration: {error}'
+  operation_error: 'Could not reset trackpad: {error}'
+  resetting: 'Resetting {device} via i2c_hid_acpi unbind/rebind...'
+  done: 'Done'
+  reloading_module: 'Reloading {module}...'
+  invalid_device_name: 'Unexpected trackpad device name'
+statuses:
+  success: 0
+  not_found: 1
+  invalid_arguments: 2
+  operation_failed: 1

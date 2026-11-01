@@ -118,6 +118,8 @@ pass "GPU lib32 installer keeps hyphenated canonical route"
 
 "$CLI" commands --json | jq -e '.commands[] | select(.binary == "arch-refresh-pacman" and .requires_sudo == true)' >/dev/null
 pass "sudo metadata marks sudo commands"
+"$CLI" commands --json | jq -e '.commands[] | select(.binary == "arch-restart-trackpad" and .requires_sudo == true)' >/dev/null
+pass "Python route metadata marks privileged commands"
 
 output=$("$CLI" theme --help)
 assert_output_contains "group help renders" "$output" "Theme commands"
@@ -313,6 +315,77 @@ fi
 [[ $(<"$terminal_restart_log") == "pgrep -x kitty" ]] ||
   fail "terminal restart skips later probes after a timeout"
 pass "terminal restart bounds a hung process probe and skips later work"
+
+trackpad_tmp=""
+make_tmpdir trackpad_tmp
+trackpad_ap="$trackpad_tmp/ap"
+trackpad_bin="$trackpad_tmp/bin"
+trackpad_driver="$trackpad_tmp/sys/bus/i2c/drivers/i2c_hid_acpi"
+trackpad_log="$trackpad_tmp/commands"
+mkdir -p "$trackpad_ap/data/cli" "$trackpad_ap/scripts" "$trackpad_bin" "$trackpad_driver/i2c-ELAN0001" \
+  "${trackpad_driver%/*}"
+ln -s "$ROOT/scripts/cli_entrypoints.py" "$trackpad_ap/scripts/cli_entrypoints.py"
+ln -s "$ROOT/src" "$trackpad_ap/src"
+cp "$ROOT/data/cli/restart-trackpad.yml" "$trackpad_ap/data/cli/restart-trackpad.yml"
+python3 - "$trackpad_ap/data/cli/restart-trackpad.yml" "$trackpad_driver" "$trackpad_tmp/sys/bus/i2c/drivers/i2c_hid_acpi/unbind" \
+  "$trackpad_tmp/sys/bus/i2c/drivers/i2c_hid_acpi/bind" <<'PY'
+from pathlib import Path
+import sys
+import yaml
+
+config_path, driver, unbind, bind = sys.argv[1:]
+config = yaml.safe_load(Path(config_path).read_text(encoding="utf-8"))
+config["paths"]["driver"] = driver
+config["paths"]["unbind"] = unbind
+config["paths"]["bind"] = bind
+Path(config_path).write_text(yaml.safe_dump(config, sort_keys=False), encoding="utf-8")
+PY
+: >"$trackpad_tmp/sys/bus/i2c/drivers/i2c_hid_acpi/unbind"
+: >"$trackpad_tmp/sys/bus/i2c/drivers/i2c_hid_acpi/bind"
+cat >"$trackpad_bin/sudo" <<'SH'
+#!/bin/bash
+printf 'sudo %s\n' "$*" >>"$TRACKPAD_RESTART_LOG"
+exec "$@"
+SH
+cat >"$trackpad_bin/lsmod" <<'SH'
+#!/bin/bash
+if [[ ${TRACKPAD_MODULE_ACTIVE:-false} == "true" ]]; then
+  printf 'intel_quicki2c 16384 0\n'
+fi
+SH
+cat >"$trackpad_bin/modprobe" <<'SH'
+#!/bin/bash
+printf 'modprobe %s\n' "$*" >>"$TRACKPAD_RESTART_LOG"
+SH
+cat >"$trackpad_bin/sleep" <<'SH'
+#!/bin/bash
+printf 'sleep %s\n' "$*" >>"$TRACKPAD_RESTART_LOG"
+SH
+chmod +x "$trackpad_bin/sudo" "$trackpad_bin/lsmod" "$trackpad_bin/modprobe" "$trackpad_bin/sleep"
+TRACKPAD_RESTART_LOG="$trackpad_log" TRACKPAD_MODULE_ACTIVE=true HOME="$trackpad_tmp/home" AP="$trackpad_ap" \
+  PATH="$trackpad_bin:$PATH" "$CLI" restart trackpad >"$trackpad_tmp/output"
+expected_trackpad_commands=$(printf 'sudo tee %s\nsleep 1\nsudo tee %s\nsudo modprobe -r intel_quicki2c\nmodprobe -r intel_quicki2c\nsudo modprobe intel_quicki2c\nmodprobe intel_quicki2c' \
+  "$trackpad_tmp/sys/bus/i2c/drivers/i2c_hid_acpi/unbind" \
+  "$trackpad_tmp/sys/bus/i2c/drivers/i2c_hid_acpi/bind")
+[[ $(<"$trackpad_log") == "$expected_trackpad_commands" ]] ||
+  fail "trackpad restart unbinds, delays, rebinds, and reloads the detected module"
+[[ $(<"$trackpad_tmp/sys/bus/i2c/drivers/i2c_hid_acpi/unbind") == "i2c-ELAN0001" && \
+  $(<"$trackpad_tmp/sys/bus/i2c/drivers/i2c_hid_acpi/bind") == "i2c-ELAN0001" ]] ||
+  fail "trackpad restart sends only a validated sysfs device name to the driver"
+pass "trackpad restart resets detected devices and the loaded driver module"
+
+: >"$trackpad_log"
+rmdir "$trackpad_driver/i2c-ELAN0001"
+mkdir "$trackpad_driver/i2c-;invalid"
+if TRACKPAD_RESTART_LOG="$trackpad_log" TRACKPAD_MODULE_ACTIVE=false HOME="$trackpad_tmp/home" AP="$trackpad_ap" \
+  PATH="$trackpad_bin:$PATH" "$CLI" restart trackpad >"$trackpad_tmp/invalid-output" 2>&1; then
+  fail "trackpad restart refuses invalid sysfs device names"
+else
+  trackpad_status=$?
+  (( trackpad_status == 1 )) || fail "invalid trackpad device names return the operation failure status"
+fi
+[[ ! -s $trackpad_log ]] || fail "invalid sysfs device names never reach privileged commands"
+pass "trackpad restart validates sysfs device names before sudo"
 
 output=$("$CLI" system reboot --help)
 assert_output_contains "system command help is safe" "$output" "arch-system"
