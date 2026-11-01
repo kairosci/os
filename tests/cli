@@ -267,6 +267,9 @@ assert_output_contains "Emacs install resolves through the Python route" "$outpu
 output=$("$CLI" install editor vscode --help)
 assert_output_contains "VS Code install resolves through the Python route" "$output" "arch install editor vscode"
 
+output=$("$CLI" install chromium copy-url --help)
+assert_output_contains "Copy URL host registration resolves through the Python route" "$output" "arch install chromium copy-url"
+
 terminal_restart_tmp=""
 make_tmpdir terminal_restart_tmp
 terminal_restart_bin="$terminal_restart_tmp/bin"

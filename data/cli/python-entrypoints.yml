@@ -691,6 +691,13 @@ entrypoints:
     name: editor vscode
     summary: Install and configure Visual Studio Code
     examples: archctl install editor vscode
+  - binary: arch-install-chromium-copy-url
+    module: install/chromium_copy_url
+    function: install_chromium_copy_url_main
+    group: install
+    name: chromium copy-url
+    summary: Register the Copy URL native messaging host
+    examples: archctl install chromium copy-url
   - binary: arch-restart-btop
     module: restart/app
     function: restart_btop_main
