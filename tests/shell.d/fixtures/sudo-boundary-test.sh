@@ -118,6 +118,9 @@ step=${0##*/}
 if [[ $step == "archctl" && ${1:-} == "hook" ]]; then
   step=arch-hook
   shift
+elif [[ $step == "archctl" && ${1:-} == "pkg" && ${2:-} == "aur" && ${3:-} == "accessible" ]]; then
+  step=arch-pkg-aur-accessible
+  shift 3
 fi
 printf 'step:%s %s\n' "$step" "$*" >>"$SUDO_TEST_LOG"
 if [[ $step == "systemd-run" ]]; then
@@ -167,7 +170,7 @@ case "$step" in
 esac
 STUB
 chmod +x "$SUDO_TEST_ROOT/src/arch/commands/test-step"
-for step in arch-update-lock archctl arch-update-pkg-prune arch-update-stay-awake arch-update-dev arch-update-boot arch-update-keyring arch-update-system-pkgs arch-hook arch-update-aur-pkgs arch-update-mise arch-update-orphan-pkgs arch-update-analyze-logs arch-shell arch-update-restart arch-pkg-aur-accessible pacman systemd-run cp yay; do
+for step in arch-update-lock archctl arch-update-pkg-prune arch-update-stay-awake arch-update-dev arch-update-boot arch-update-keyring arch-update-system-pkgs arch-hook arch-update-aur-pkgs arch-update-mise arch-update-orphan-pkgs arch-update-analyze-logs arch-shell arch-update-restart pacman systemd-run cp yay; do
   ln -s test-step "$SUDO_TEST_ROOT/src/arch/commands/$step"
 done
 ln -s ../bin/test-step "$SUDO_TEST_ROOT/mock/pacman"

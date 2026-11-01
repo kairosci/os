@@ -7,6 +7,12 @@ entrypoints:
     summary: Check whether any of the named packages are missing
     hidden: 'true'
     pass_args: 'true'
+  - binary: arch-pkg-aur-accessible
+    module: pkg/aur_accessible
+    function: main
+    group: pkg
+    name: aur accessible
+    summary: Check whether the AUR is reachable for package updates
   - binary: arch-pkg-present
     module: pkg/presence
     function: present_main

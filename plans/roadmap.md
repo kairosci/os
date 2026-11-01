@@ -112,3 +112,7 @@ The TUI launch paths move `arch-launch-tui` and `arch-launch-or-focus-tui` into 
 ### 20. Migrate XCompose restart — integrated
 
 PR #697 moves `arch-restart-xcompose` into the Python `archctl restart xcompose` route, configures its process commands, timeout, retry count, messages, and statuses in YAML, and updates menu, setup, docs, and package ownership. The route stops and verifies the current user’s fcitx5 process before starting the supervised service. The flat command source and package output are removed; no source binary overlaps a Python route.
+
+### 21. Bound the AUR availability check — in progress
+
+Move `arch-pkg-aur-accessible` into the Python `archctl pkg aur accessible` route and configure the curl request, total timeout, and statuses in YAML. Route the update step through `archctl`; an unavailable AUR skips third-party builds without blocking the rest of the system update. Remove the flat command source and package output.

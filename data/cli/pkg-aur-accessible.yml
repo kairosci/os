@@ -1,0 +1,19 @@
+commands:
+  check:
+    - curl
+    - --fail
+    - --silent
+    - --connect-timeout
+    - '2'
+    - --max-time
+    - '5'
+    - --max-filesize
+    - '65536'
+    - --user-agent
+    - arch-update
+    - 'https://aur.archlinux.org/rpc/?v=5&type=info&arg=base'
+limits:
+  timeout_seconds: 6
+statuses:
+  available: 0
+  unavailable: 1

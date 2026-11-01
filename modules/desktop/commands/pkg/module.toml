@@ -3,22 +3,18 @@ domain = "desktop"
 package = "arch"
 sources = [
   "src/arch/commands/arch-pkg-add",
-  "src/arch/commands/arch-pkg-aur-accessible",
   "src/arch/commands/arch-pkg-aur-add",
   "src/arch/commands/arch-pkg-defaults",
   "src/arch/commands/arch-pkg-drop",
   "src/arch/commands/arch-pkg-remove",
   "src/arch/cli/pkg/presence.py",
+  "src/arch/cli/pkg/aur_accessible.py",
 ]
 requires = ["desktop.commands", "system.runtime-data"]
 
 [[output]]
 source = "src/arch/commands/arch-pkg-add"
 target = "usr/share/arch/src/arch/commands/arch-pkg-add"
-
-[[output]]
-source = "src/arch/commands/arch-pkg-aur-accessible"
-target = "usr/share/arch/src/arch/commands/arch-pkg-aur-accessible"
 
 [[output]]
 source = "src/arch/commands/arch-pkg-aur-add"
@@ -39,3 +35,7 @@ target = "usr/share/arch/src/arch/commands/arch-pkg-remove"
 [[output]]
 source = "src/arch/cli/pkg/presence.py"
 target = "usr/share/arch/src/arch/cli/pkg/presence.py"
+
+[[output]]
+source = "src/arch/cli/pkg/aur_accessible.py"
+target = "usr/share/arch/src/arch/cli/pkg/aur_accessible.py"
