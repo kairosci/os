@@ -670,6 +670,13 @@ entrypoints:
     name: editor zed
     summary: Install and launch Zed Editor
     examples: archctl install editor zed
+  - binary: arch-install-editor-helix
+    module: install/helix
+    function: helix_main
+    group: install
+    name: editor helix
+    summary: Install Helix and configure its Arch theme
+    examples: archctl install editor helix
   - binary: arch-restart-btop
     module: restart/app
     function: restart_btop_main

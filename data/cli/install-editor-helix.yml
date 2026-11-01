@@ -1,0 +1,18 @@
+commands:
+  install_package: [arch-pkg-add, helix]
+  refresh_theme: [arch-theme-refresh]
+paths:
+  theme_source: .local/state/arch/current/theme/helix.toml
+  theme_link: .config/helix/themes/arch.toml
+  config: .config/helix/config.toml
+  shell_rc: .bashrc
+contents:
+  config: "theme = \"arch\"\n"
+  shell_alias: 'alias hx="helix"'
+messages:
+  configuration_error: 'Could not load Helix installer configuration: {error}'
+  operation_error: 'Could not install and configure Helix: {error}'
+  installing: 'Installing Helix...'
+statuses:
+  success: 0
+  operation_failed: 1
