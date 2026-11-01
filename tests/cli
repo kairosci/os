@@ -247,6 +247,9 @@ assert_output_contains "AUR availability check resolves through the Python route
 output=$("$CLI" restart bluetooth --help)
 assert_output_contains "Bluetooth restart resolves through the Python route" "$output" "arch restart bluetooth"
 
+output=$("$CLI" restart wifi --help)
+assert_output_contains "Wi-Fi restart resolves through the Python route" "$output" "arch restart wifi"
+
 output=$("$CLI" system reboot --help)
 assert_output_contains "system command help is safe" "$output" "arch-system"
 

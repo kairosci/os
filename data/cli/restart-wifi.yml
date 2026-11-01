@@ -1,0 +1,24 @@
+commands:
+  - argv: ["rfkill", "unblock", "wifi"]
+    ignore_failure: true
+  - argv: ["nmcli", "networking", "on"]
+    ignore_failure: true
+  - argv: ["nmcli", "radio", "wifi", "on"]
+    ignore_failure: true
+  - argv: ["nmcli", "device", "wifi", "rescan"]
+    ignore_failure: true
+    suppress_stderr: true
+  - argv: ["rfkill", "list", "wifi"]
+    ignore_failure: false
+limits:
+  command_timeout_seconds: 8
+  operation_timeout_seconds: 20
+messages:
+  unblocking: 'Unblocking wifi...'
+  usage: 'Usage: archctl restart wifi'
+  configuration_error: 'Could not load Wi-Fi restart configuration: {error}'
+  operation_error: 'Could not update Wi-Fi radio state: {error}'
+statuses:
+  success: 0
+  invalid_arguments: 2
+  operation_failed: 1

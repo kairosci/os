@@ -322,3 +322,54 @@ assertDeepEqual(
 assertEqual(network.headerDetail({ type: 'wifi', freq: '5745' }), '', 'network keeps wifi band state out of the hero')
 assertEqual(network.headerDetail({ type: 'ethernet', speed: '100' }), '100mbit', 'network keeps ethernet speed in the hero')
 JS
+
+wifi_tmp=$(mktemp -d)
+trap 'rm -rf "$wifi_tmp"' EXIT
+mkdir -p "$wifi_tmp/bin"
+cat >"$wifi_tmp/bin/network-command" <<'SH'
+#!/bin/bash
+printf '%s %s\n' "${0##*/}" "$*" >>"$WIFI_RESTART_LOG"
+if [[ ${WIFI_RESTART_HANG:-false} == "true" && ${0##*/} == "rfkill" && $* == "list wifi" ]]; then
+  exec sleep 5
+elif [[ ${0##*/} == "nmcli" && $* == "networking on" ]]; then
+  exit 4
+elif [[ ${0##*/} == "nmcli" && $* == "device wifi rescan" ]]; then
+  exit 5
+elif [[ ${0##*/} == "rfkill" && $* == "list wifi" ]]; then
+  printf '0: phy0: Wireless LAN\n\tSoft blocked: no\n\tHard blocked: no\n'
+fi
+SH
+chmod +x "$wifi_tmp/bin/network-command"
+ln -s network-command "$wifi_tmp/bin/rfkill"
+ln -s network-command "$wifi_tmp/bin/nmcli"
+WIFI_RESTART_LOG="$wifi_tmp/commands" AP="$ROOT" PATH="$wifi_tmp/bin:$PATH" archctl restart wifi >"$wifi_tmp/output"
+[[ $(<"$wifi_tmp/output") == $'Unblocking wifi...\n\n0: phy0: Wireless LAN\n\tSoft blocked: no\n\tHard blocked: no' ]] ||
+  fail "Wi-Fi restart keeps its notice and reports rfkill state" "$(<"$wifi_tmp/output")"
+[[ $(<"$wifi_tmp/commands") == $'rfkill unblock wifi\nnmcli networking on\nnmcli radio wifi on\nnmcli device wifi rescan\nrfkill list wifi' ]] ||
+  fail "Wi-Fi restart runs its bounded radio actions in order" "$(<"$wifi_tmp/commands")"
+pass "Wi-Fi restart runs configured actions and tolerates optional NetworkManager failures"
+
+mkdir -p "$wifi_tmp/config/data/cli"
+ln -s "$ROOT/src" "$wifi_tmp/config/src"
+ln -s "$ROOT/scripts" "$wifi_tmp/config/scripts"
+python3 - "$ROOT/data/cli/restart-wifi.yml" "$wifi_tmp/config/data/cli/restart-wifi.yml" <<'PY'
+from pathlib import Path
+import shutil
+import sys
+
+source, destination = map(Path, sys.argv[1:])
+shutil.copytree(source.parent, destination.parent, dirs_exist_ok=True)
+configuration = destination.read_text(encoding='utf-8')
+configuration = configuration.replace('command_timeout_seconds: 8', 'command_timeout_seconds: 1')
+configuration = configuration.replace('operation_timeout_seconds: 20', 'operation_timeout_seconds: 1')
+destination.write_text(configuration, encoding='utf-8')
+PY
+if WIFI_RESTART_LOG="$wifi_tmp/hang-commands" WIFI_RESTART_HANG=true AP="$wifi_tmp/config" PATH="$wifi_tmp/bin:$PATH" archctl restart wifi >"$wifi_tmp/hang-output" 2>"$wifi_tmp/hang-error"; then
+  fail "Wi-Fi restart stops a hung radio command at the configured timeout"
+else
+  status=$?
+  (( status == 1 )) || fail "Wi-Fi restart reports a bounded command failure" "$(<"$wifi_tmp/hang-error")"
+fi
+[[ $(<"$wifi_tmp/hang-commands") == $'rfkill unblock wifi\nnmcli networking on\nnmcli radio wifi on\nnmcli device wifi rescan\nrfkill list wifi' ]] ||
+  fail "Wi-Fi restart reaches the final status command before timing out" "$(<"$wifi_tmp/hang-commands")"
+pass "Wi-Fi restart bounds a hung radio command and stops subsequent actions"
