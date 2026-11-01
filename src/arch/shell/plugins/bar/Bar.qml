@@ -89,6 +89,9 @@ Item {
   property color barForeground: useTransparentForeground ? transparentForeground : themeForeground
   property bool foregroundAnimationEnabled: true
   property color background: Commons.Color.bar.background
+  // `opaque` is an explicit bar mode, even when a theme gives its color a
+  // translucent alpha for the glassy mode.
+  readonly property color solidBackground: Qt.rgba(background.r, background.g, background.b, 1.0)
   readonly property color glassBackground: Qt.rgba(background.r, background.g, background.b, Math.min(background.a, 0.35))
   property color urgent: Commons.Color.bar.active
 
@@ -1598,7 +1601,7 @@ Item {
 
     implicitWidth: root.vertical ? thickness : 0
     implicitHeight: root.vertical ? 0 : thickness
-    color: root.transparent ? "transparent" : (root.glassy ? root.glassBackground : root.background)
+    color: root.transparent ? "transparent" : (root.glassy ? root.glassBackground : root.solidBackground)
     surfaceFormat.opaque: false
     WlrLayershell.namespace: "arch-bar"
     // Screensavers are normal fullscreen clients, so keep this surface below
@@ -1902,7 +1905,7 @@ Item {
         y: modelData === "bottom" ? parent.height - edgeSize : 0
         width: edgeVertical ? edgeSize : parent.width
         height: edgeVertical ? parent.height : edgeSize
-        color: root.transparent ? "transparent" : root.background
+        color: root.transparent ? "transparent" : (root.glassy ? root.glassBackground : root.solidBackground)
         borderSpec: Border.flat(root.barForeground, 1)
         visible: opacity > 0
         opacity: root.barMoveCandidate === modelData ? (root.transparent ? 0.45 : 0.7) : 0
@@ -2069,7 +2072,7 @@ Item {
   component RoomOutline: BorderSurface {
     anchors.fill: parent
     anchors.margins: Style.space(1)
-    color: root.transparent ? "transparent" : root.background
+    color: root.transparent ? "transparent" : (root.glassy ? root.glassBackground : root.solidBackground)
     borderSpec: Border.flat(root.barForeground, 1)
     radius: Math.min(Style.cornerRadius, Math.min(width, height) / 2)
     opacity: root.transparent ? 0.22 : 0.32
