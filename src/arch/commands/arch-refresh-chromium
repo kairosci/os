@@ -26,4 +26,4 @@ fi
 
 # Put the Snapdragon video decoding settings back. Last, so a failure here is
 # the command's result.
-arch-install-video-decode
+archctl install video decode

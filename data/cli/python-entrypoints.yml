@@ -715,6 +715,24 @@ entrypoints:
     summary: Add the credentials needed for Chromium Google account sign-in
     examples: archctl install chromium google-account
     generate_launcher: 'false'
+  - binary: arch-install-video-decode
+    module: install/video_decode
+    function: install_video_decode_main
+    group: install
+    name: video decode
+    summary: Enable Snapdragon hardware video decoding in Chromium and mpv
+    examples: archctl install video decode
+    generate_launcher: 'false'
+  - binary: arch-chromium-add-feature
+    module: chromium/features
+    function: main
+    group: chromium
+    name: add-feature
+    summary: Add a feature to Chromium's enable-features flag
+    args: <feature>
+    hidden: 'true'
+    pass_args: 'true'
+    generate_launcher: 'false'
   - binary: arch-restart-btop
     module: restart/app
     function: restart_btop_main

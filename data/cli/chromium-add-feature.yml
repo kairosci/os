@@ -1,0 +1,11 @@
+flags_file: .config/chromium-flags.conf
+feature_argument: --enable-features
+messages:
+  usage: 'Usage: archctl chromium add-feature <feature>'
+  invalid_feature: 'Chromium feature names must contain only ASCII letters and digits.'
+  operation_error: 'Could not update Chromium feature configuration: {error}'
+statuses:
+  success: 0
+  invalid_arguments: 1
+  invalid_feature: 1
+  operation_failed: 1

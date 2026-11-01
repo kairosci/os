@@ -1,0 +1,16 @@
+hardware_check:
+  - arch-hw-aarch64-qualcomm
+mpv_file: .config/mpv/mpv.conf
+mpv_comment: '# Fall back to the Snapdragon video chip decoder (os)'
+mpv_option: hwdec
+mpv_value: auto-safe,v4l2m2m-copy
+mpv_default_profile: default
+mpv_file_mode: 420
+chromium_feature: AcceleratedVideoDecoder
+chromium_angle_argument: --use-angle=gles-egl
+messages:
+  configuration_error: 'Could not load video decode configuration: {error}'
+  operation_error: 'Could not configure video decoding: {error}'
+statuses:
+  success: 0
+  operation_failed: 1
