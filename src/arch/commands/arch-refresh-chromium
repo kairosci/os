@@ -21,7 +21,7 @@ archctl install chromium yt-dlp
 
 # Re-install Google accounts if previously configured
 if [[ $INSTALL_GOOGLE_ACCOUNTS == "true" ]]; then
-  arch-install-chromium-google-account
+  archctl install chromium google-account
 fi
 
 # Put the Snapdragon video decoding settings back. Last, so a failure here is
