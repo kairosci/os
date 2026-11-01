@@ -677,6 +677,13 @@ entrypoints:
     name: editor helix
     summary: Install Helix and configure its Arch theme
     examples: archctl install editor helix
+  - binary: arch-install-editor-emacs
+    module: install/emacs
+    function: emacs_main
+    group: install
+    name: editor emacs
+    summary: Install and launch Emacs
+    examples: archctl install editor emacs
   - binary: arch-restart-btop
     module: restart/app
     function: restart_btop_main

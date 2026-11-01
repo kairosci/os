@@ -4,7 +4,7 @@ This roadmap tracks the requested CLI, ISO, desktop, and release work as separat
 
 ## Current evidence
 
-- Current CLI inventory after PR #704: 315 flat command sources, 89 Python CLI modules, and 135 YAML routes. No source command has the same binary name as a Python route; generated launcher output remains opt-in and no current route requests one. Historical counts below describe earlier rollout states.
+- Current CLI inventory after PR #705: 314 flat command sources, 90 Python CLI modules, and 136 YAML routes. No source command has the same binary name as a Python route; generated launcher output remains opt-in and no current route requests one. Historical counts below describe earlier rollout states.
 
 - `scripts/iso/` contains the CI-only native builder, checksum manifest, downloader, assembler, and release publisher. Workflow run `41202718530` built both x86_64 and AArch64 images successfully; publishing was skipped. The complete image artifacts were about 1.82 GB and 1.74 GB, and each release-assets artifact contained three files, corresponding to two image parts plus a manifest with the configured 1,000,000,000-byte cap. No GitHub release has been published, so download and assembly from a published release remain unverified.
 - `scripts/iso/profile/profiledef.py` is the checked-in Python profile renderer and reads `data/iso/profile.yml`; the CI builder emits ArchISO's required `profiledef.sh` only inside its temporary staging profile. The builder creates a complete ISO and release parts capped at 1,000,000,000 bytes each, below GitHub's 2 GB per-asset limit. `scripts/iso/download.py` verifies release metadata and delegates checksum-checked assembly to `scripts/iso/parts.py`. The ISO includes `archinstall`, but this build evidence does not prove the repository's intended online, offline, and unattended target-install flows; those remain open for disposable-VM acceptance. The focused release test also covers splitter and download/assembly behavior against a simulated GitHub release without relying on generated build artifacts.
@@ -143,6 +143,10 @@ PR #703 moves `arch-restart-trackpad` into the Python `archctl restart trackpad`
 
 PR #704 moves `arch-install-editor-zed` into the Python `archctl install editor zed` route, keeps package and launch argv, progress/error messages, and statuses in YAML, updates the menu and default-editor installer route, and removes the flat source and package output.
 
-### 27. Migrate Helix editor installation — in progress
+### 27. Migrate Helix editor installation — integrated
 
-Move `arch-install-editor-helix` into the Python `archctl install editor helix` route. Keep package, theme refresh, user configuration, alias, messages, and statuses in YAML. Update the menu and default-editor installer route, then remove the flat source and package output.
+PR #705 moves `arch-install-editor-helix` into the Python `archctl install editor helix` route, keeps package, theme refresh, user configuration, alias, messages, and statuses in YAML, updates the menu and default-editor installer route, and removes the flat source and package output.
+
+### 28. Migrate Emacs editor installation — in progress
+
+Move `arch-install-editor-emacs` into the Python `archctl install editor emacs` route. Keep package and setup commands, launch argv, messages, and statuses in YAML. Update the menu and default-editor installer route, then remove the flat source and package output.

@@ -246,7 +246,7 @@
   "install.editor.sublime": {"icon":"","label":"Sublime Text","disabled":"archctl pkg present sublime-text-4","action":"arch-install-and-launch 'Sublime Text' sublime-text-4 sublime_text"},
   "install.editor.helix": {"icon":"","label":"Helix","disabled":"archctl pkg present helix","action":"arch-launch-terminal-with-presentation archctl install editor helix"},
   "install.editor.vim": {"icon":"","label":"Vim","disabled":"archctl pkg present vim","action":"arch-install-app Vim vim"},
-  "install.editor.emacs": {"icon":"","label":"Emacs","disabled":"archctl pkg present arch-emacs","action":"arch-launch-terminal-with-presentation arch-install-editor-emacs"},
+  "install.editor.emacs": {"icon":"","label":"Emacs","disabled":"archctl pkg present arch-emacs","action":"arch-launch-terminal-with-presentation archctl install editor emacs"},
   "install.terminal.alacritty": {"icon":"","label":"Alacritty","disabled":"archctl pkg present alacritty","action":"arch-launch-terminal-with-presentation 'arch-install-terminal alacritty'"},
   "install.terminal.foot": {"icon":"","label":"Foot","disabled":"archctl pkg present foot","action":"arch-launch-terminal-with-presentation 'arch-install-terminal foot'"},
   "install.terminal.ghostty": {"icon":"","label":"Ghostty","disabled":"archctl pkg present ghostty","action":"arch-launch-terminal-with-presentation 'arch-install-terminal ghostty'"},

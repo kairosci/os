@@ -261,6 +261,9 @@ assert_output_contains "Zed install resolves through the Python route" "$output"
 output=$("$CLI" install editor helix --help)
 assert_output_contains "Helix install resolves through the Python route" "$output" "arch install editor helix"
 
+output=$("$CLI" install editor emacs --help)
+assert_output_contains "Emacs install resolves through the Python route" "$output" "arch install editor emacs"
+
 terminal_restart_tmp=""
 make_tmpdir terminal_restart_tmp
 terminal_restart_bin="$terminal_restart_tmp/bin"
