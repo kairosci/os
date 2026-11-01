@@ -254,6 +254,7 @@ register_python_command() {
   local args="$7"
   local examples="$8"
   local hidden="$9"
+  local requires_sudo="${10}"
   local stem="${binary#arch-}"
   local fallback_route="arch ${stem//-/ }"
   local route="arch $group"
@@ -272,7 +273,7 @@ register_python_command() {
   COMMAND_USAGE["$binary"]="$route${args:+ $args}"
   COMMAND_ARGS["$binary"]="$args"
   COMMAND_EXAMPLES["$binary"]="$examples"
-  COMMAND_REQUIRES_SUDO["$binary"]="false"
+  COMMAND_REQUIRES_SUDO["$binary"]="$([[ $requires_sudo == "true" ]] && echo true || echo false)"
   COMMAND_HIDDEN["$binary"]="$([[ $hidden == "true" ]] && echo true || echo false)"
   COMMAND_HAS_SUMMARY["$binary"]="true"
   COMMAND_METADATA_ERRORS["$binary"]=""
@@ -293,6 +294,7 @@ load_python_commands() {
   local args=""
   local examples=""
   local hidden=""
+  local requires_sudo=""
   local records=""
 
   [[ $PYTHON_COMMANDS_LOADED == "true" ]] && return 0
@@ -305,14 +307,14 @@ load_python_commands() {
   fi
   records=$(python3 -I "$AP/scripts/cli_entrypoints.py" metadata) || return 1
   PYTHON_COMMANDS_LOADED="true"
-  while IFS=$'\x1f' read -r kind binary module function group name summary args examples hidden; do
+  while IFS=$'\x1f' read -r kind binary module function group name summary args examples hidden requires_sudo; do
     case "$kind" in
     group)
       GROUP_DESCRIPTIONS["$binary"]="$module"
       ;;
     command)
       [[ -n $binary ]] || continue
-      register_python_command "$binary" "$module" "$function" "$group" "$name" "$summary" "$args" "$examples" "$hidden"
+      register_python_command "$binary" "$module" "$function" "$group" "$name" "$summary" "$args" "$examples" "$hidden" "$requires_sudo"
       ;;
     *)
       return 1

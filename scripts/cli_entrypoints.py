@@ -6,9 +6,9 @@ from __future__ import annotations
 
 import argparse
 import importlib
+from pathlib import Path
 import re
 import sys
-from pathlib import Path
 from typing import cast
 
 import yaml
@@ -29,7 +29,7 @@ def load_entrypoints() -> list[dict[str, str]]:
   entries: list[dict[str, str]] = []
   names: set[str] = set()
   required_fields = {"binary", "module", "function", "group", "name", "summary"}
-  optional_fields = {"args", "examples", "generate_launcher", "hidden", "pass_args"}
+  optional_fields = {"args", "examples", "generate_launcher", "hidden", "pass_args", "requires_sudo"}
   for entry in document["entrypoints"]:
     if (
       not isinstance(entry, dict)
@@ -53,6 +53,7 @@ def load_entrypoints() -> list[dict[str, str]]:
       or entry.get("hidden", "false") not in {"true", "false"}
       or entry.get("generate_launcher", "false") not in {"true", "false"}
       or entry.get("pass_args", "false") not in {"true", "false"}
+      or entry.get("requires_sudo", "true") != "true"
     ):
       raise ValueError(f"invalid entrypoint metadata: {entry}")
     if entry["binary"] in names:
@@ -121,6 +122,8 @@ def generate(destination: Path) -> None:
       header.append(f"# arch:examples={entry['examples']}\n")
     if entry.get("hidden") == "true":
       header.append("# arch:hidden=true\n")
+    if entry.get("requires_sudo") == "true":
+      header.append("# arch:requires-sudo=true\n")
     call = f"{entry['function']}(sys.argv[1:])" if entry.get("pass_args") == "true" else f"{entry['function']}()"
     source = (
       "import os\n"
@@ -145,7 +148,7 @@ def emit_metadata() -> None:
     print("\x1f".join(("group", name, description)))
   for entry in load_entrypoints():
     print("\x1f".join(("command", *(entry.get(key, "") for key in (
-      "binary", "module", "function", "group", "name", "summary", "args", "examples", "hidden"
+      "binary", "module", "function", "group", "name", "summary", "args", "examples", "hidden", "requires_sudo"
     )))))
 
 

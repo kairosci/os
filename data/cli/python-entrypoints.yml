@@ -655,6 +655,14 @@ entrypoints:
     name: terminal
     summary: Refresh supported terminal emulators after config changes
     pass_args: 'true'
+  - binary: arch-restart-trackpad
+    module: restart/trackpad
+    function: main
+    group: restart
+    name: trackpad
+    summary: Reset the trackpad driver
+    requires_sudo: 'true'
+    pass_args: 'true'
   - binary: arch-restart-btop
     module: restart/app
     function: restart_btop_main

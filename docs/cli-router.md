@@ -6,8 +6,7 @@ registry to maintain — every executable `src/arch/commands/arch-*` file is a c
 its filename is its default route. Metadata comments in the file header refine
 how it presents and routes; the keys are documented in
 [`.agents/skills/command-metadata.md`](../.agents/skills/command-metadata.md).
-This document covers what that guide does not: how resolution and dispatch
-actually work.
+This document covers what that guide does not: how resolution and dispatch actually work. Python entrypoints use the same metadata in `data/cli/python-entrypoints.yml`; `requires_sudo: 'true'` marks a privileged route in command listings and in generated launcher headers.
 
 ## How a binary becomes routes
 
