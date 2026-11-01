@@ -29,7 +29,7 @@ editors:
     command: code
     name: VSCode
     glyph: 
-    installer: [arch-install-editor-vscode]
+    installer: [archctl, install, editor, vscode]
   cursor:
     command: cursor
     name: Cursor

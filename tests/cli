@@ -264,6 +264,9 @@ assert_output_contains "Helix install resolves through the Python route" "$outpu
 output=$("$CLI" install editor emacs --help)
 assert_output_contains "Emacs install resolves through the Python route" "$output" "arch install editor emacs"
 
+output=$("$CLI" install editor vscode --help)
+assert_output_contains "VS Code install resolves through the Python route" "$output" "arch install editor vscode"
+
 terminal_restart_tmp=""
 make_tmpdir terminal_restart_tmp
 terminal_restart_bin="$terminal_restart_tmp/bin"

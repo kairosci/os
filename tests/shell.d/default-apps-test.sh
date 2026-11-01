@@ -96,6 +96,7 @@ arch-pkg-add|arch-pkg-aur-add)
   cursor-bin) command=cursor ;;
   zed) command=zeditor ;;
   helix) command=helix ;;
+  visual-studio-code-bin) command=code ;;
   arch-emacs) command=emacs ;;
   sublime-text-4) command=subl ;;
   vim) command=vim ;;
@@ -151,12 +152,12 @@ for installer in \
   arch-pkg-add \
   arch-pkg-aur-add \
   arch-install-browser \
-  arch-install-terminal \
-  arch-install-editor-vscode; do
+  arch-install-terminal; do
   ln -s arch-test-installer "$mock_bin/$installer"
 done
 for setup_command in \
   arch-install-emacs \
+  arch-theme-set-vscode \
   arch-install-chromium-copy-url \
   arch-install-chromium-ytdlp \
   arch-theme-set-browser; do
@@ -211,7 +212,7 @@ terminal_cases=(
 )
 
 editor_cases=(
-  'code code editor:vscode'
+  'code code pkg:visual-studio-code-bin'
   'cursor cursor pkg:cursor-bin'
   'zed zeditor pkg:zed'
   'sublime_text subl pkg:sublime-text-4'
@@ -220,6 +221,10 @@ editor_cases=(
   'emacs emacs pkg:arch-emacs'
   'nvim nvim pkg:neovim'
 )
+
+mkdir -p "$test_home/.vscode" "$test_home/dotfiles"
+printf 'existing user file\n' >"$test_home/dotfiles/vscode-argv.json"
+ln -s "$test_home/dotfiles/vscode-argv.json" "$test_home/.vscode/argv.json"
 
 for entry in "${browser_cases[@]}"; do
   read -r selection command installer <<<"$entry"
@@ -363,12 +368,43 @@ for entry in "${editor_cases[@]}"; do
     [[ $(<"$install_log") == $'pkg:arch-emacs\nlaunch:uwsm-app -- gtk-launch emacsclient' ]] ||
       fail "Emacs installs before launching its client" "$(<"$install_log")"
     grep -Fxq 'arch-install-emacs:' "$setup_log" || fail "Emacs setup runs before its client launches"
+  elif [[ $selection == "code" ]]; then
+    for ((attempt = 0; attempt < 100; attempt++)); do
+      grep -Fxq 'launch:uwsm-app -- gtk-launch code' "$install_log" && break
+      sleep 0.01
+    done
+    [[ $(<"$install_log") == $'pkg:visual-studio-code-bin\nlaunch:uwsm-app -- gtk-launch code' ]] ||
+      fail "VS Code installs before launch" "$(<"$install_log")"
+    grep -Fq '"password-store":"gnome-libsecret"' "$test_home/.vscode/argv.json" ||
+      fail "VS Code uses the system secret store"
+    grep -Fq '"update.mode": "none"' "$test_home/.config/Code/User/settings.json" ||
+      fail "VS Code automatic updates are disabled"
+    grep -Fxq 'arch-theme-set-vscode:' "$setup_log" || fail "VS Code receives the current Arch theme"
   else
     [[ $(<"$install_log") == "$installer" ]] || fail "$selection uses its editor installer"
   fi
   [[ $(archctl default editor) == "$command" ]] || fail "$selection becomes the default editor after installation"
 done
 pass "editor defaults install every missing editor before selection"
+[[ -L $test_home/.vscode/argv.json ]] || fail "VS Code setup preserves the user config symlink"
+grep -Fq '"password-store":"gnome-libsecret"' "$test_home/dotfiles/vscode-argv.json" ||
+  fail "VS Code setup writes through an in-home user config symlink"
+pass "VS Code setup preserves in-home config symlinks"
+
+vscode_escape_home="$test_tmp/vscode-escape-home"
+vscode_escape_target="$test_tmp/external-vscode-argv.json"
+mkdir -p "$vscode_escape_home/.vscode"
+printf 'protected external file\n' >"$vscode_escape_target"
+ln -s "$vscode_escape_target" "$vscode_escape_home/.vscode/argv.json"
+: >"$install_log"
+if HOME="$vscode_escape_home" archctl install editor vscode >/dev/null 2>&1; then
+  fail "VS Code rejects a config symlink that escapes the home directory"
+fi
+[[ $(<"$vscode_escape_target") == "protected external file" ]] ||
+  fail "VS Code does not overwrite files through an external config symlink"
+[[ $(<"$install_log") == "pkg:visual-studio-code-bin" ]] ||
+  fail "VS Code does not configure or launch after rejecting an external path"
+pass "VS Code installer confines config writes to the home directory"
 
 printf 'theme = "user"\n' >"$test_home/.config/helix/config.toml"
 : >"$install_log"

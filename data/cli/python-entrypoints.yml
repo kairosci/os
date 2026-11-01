@@ -684,6 +684,13 @@ entrypoints:
     name: editor emacs
     summary: Install and launch Emacs
     examples: archctl install editor emacs
+  - binary: arch-install-editor-vscode
+    module: install/vscode
+    function: vscode_main
+    group: install
+    name: editor vscode
+    summary: Install and configure Visual Studio Code
+    examples: archctl install editor vscode
   - binary: arch-restart-btop
     module: restart/app
     function: restart_btop_main

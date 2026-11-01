@@ -24,12 +24,18 @@ if [[ $1 == font && $2 == set ]]; then
 fi
 SH
 
-for command in arch-theme-set-vscode arch-install-gaming-gpu-lib32 arch-lifecycle-dispatch; do
+for command in arch-install-gaming-gpu-lib32 arch-lifecycle-dispatch; do
   cat >"$mock_bin/$command" <<'SH'
 #!/bin/bash
 exit 0
 SH
 done
+
+cat >"$mock_bin/arch-theme-set-vscode" <<'SH'
+#!/bin/bash
+printf 'theme:vscode\n' >>"$ARCH_TEST_LOG"
+exit "${ARCH_TEST_THEME_STATUS:-0}"
+SH
 
 cat >"$mock_bin/arch-pkg-aur-add" <<'SH'
 #!/bin/bash
@@ -104,7 +110,36 @@ assert_zed_python_installer_launch() {
   pass "Zed install failures never start its desktop entry"
 }
 
-assert_detached_installer_launch arch-install-editor-vscode code
+assert_vscode_python_installer_launch() {
+  : >"$ARCH_TEST_LOG"
+  output=$(AP="$ROOT" PATH="$mock_bin:$ROOT/src/arch/commands:$PATH" \
+    "$ROOT/src/arch/commands/archctl" install editor vscode)
+  [[ $output == "Installing VSCode..." ]] || fail "VS Code install route reports progress" "$output"
+  wait_for_launch 'launch:uwsm-app -- gtk-launch code' || fail "VS Code install route launches its desktop entry"
+  [[ $(<"$ARCH_TEST_LOG") == $'pkg:visual-studio-code-bin\ntheme:vscode\nlaunch:uwsm-app -- gtk-launch code' ]] ||
+    fail "VS Code is installed and themed before its desktop entry launches" "$(<"$ARCH_TEST_LOG")"
+  pass "VS Code installs through the Python route before its desktop entry launches"
+
+  : >"$ARCH_TEST_LOG"
+  if ARCH_TEST_PKG_STATUS=1 AP="$ROOT" PATH="$mock_bin:$ROOT/src/arch/commands:$PATH" \
+    "$ROOT/src/arch/commands/archctl" install editor vscode >/dev/null 2>&1; then
+    fail "VS Code install route reports a package installation failure"
+  fi
+  [[ $(<"$ARCH_TEST_LOG") == "pkg:visual-studio-code-bin" ]] ||
+    fail "VS Code install route does not configure or launch after package failure"
+  pass "VS Code install failures never start its desktop entry"
+
+  : >"$ARCH_TEST_LOG"
+  if ARCH_TEST_THEME_STATUS=1 AP="$ROOT" PATH="$mock_bin:$ROOT/src/arch/commands:$PATH" \
+    "$ROOT/src/arch/commands/archctl" install editor vscode >/dev/null 2>&1; then
+    fail "VS Code install route reports a theme setup failure"
+  fi
+  [[ $(<"$ARCH_TEST_LOG") == $'pkg:visual-studio-code-bin\ntheme:vscode' ]] ||
+    fail "VS Code theme failure prevents its desktop entry from launching"
+  pass "VS Code theme failures never start its desktop entry"
+}
+
+assert_vscode_python_installer_launch
 assert_emacs_python_installer_launch() {
   : >"$ARCH_TEST_LOG"
   output=$(AP="$ROOT" PATH="$mock_bin:$ROOT/src/arch/commands:$PATH" \
