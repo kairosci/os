@@ -241,6 +241,9 @@ output=$("$CLI" pkg add --help)
 assert_output_contains "pkg add help resolves" "$output" "arch-pkg-add"
 assert_output_contains "pkg add help shows direct route" "$output" "arch pkg add <packages...>"
 
+output=$("$CLI" pkg aur accessible --help)
+assert_output_contains "AUR availability check resolves through the Python route" "$output" "arch pkg aur accessible"
+
 output=$("$CLI" system reboot --help)
 assert_output_contains "system command help is safe" "$output" "arch-system"
 

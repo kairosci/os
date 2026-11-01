@@ -4,6 +4,7 @@ set -euo pipefail
 
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 source "$SHELL_TEST_DIR/fixtures/sudo-boundary-test.sh"
+ln -sfn ../../../mock/sudo "$SUDO_TEST_ROOT/src/arch/commands/sudo"
 copy_boundary_file src/arch/commands/arch-update
 copy_boundary_file src/arch/commands/arch-refresh-pacman
 copy_boundary_file src/arch/commands/arch-apply-pacman
@@ -12,8 +13,31 @@ rm "$SUDO_TEST_ROOT/src/arch/commands/arch-update-aur-pkgs"
 copy_boundary_file src/arch/commands/arch-update-aur-pkgs
 export ARCH_UPDATE_LOGGED=1
 
+AP="$ROOT" python3 - <<'PY'
+import os
+from pathlib import Path
+import subprocess
+import sys
+from unittest.mock import patch
+
+import yaml
+
+root = Path(os.environ["AP"])
+sys.path.insert(0, str(root / "src"))
+from arch.cli.pkg import aur_accessible
+
+settings = yaml.safe_load((root / "data/cli/pkg-aur-accessible.yml").read_text(encoding="utf-8"))
+timeout = settings["limits"]["timeout_seconds"]
+with patch.object(subprocess, "run", side_effect=subprocess.TimeoutExpired(settings["commands"]["check"], timeout)) as run:
+  assert aur_accessible.main() == settings["statuses"]["unavailable"]
+assert run.call_args.args[0] == settings["commands"]["check"]
+assert run.call_args.kwargs["timeout"] == timeout
+PY
+pass "the AUR availability probe has a total timeout and skips cleanly on delay"
+
 run_update() {
-  "$SUDO_TEST_ROOT/src/arch/commands/arch-update" "$@" >"$boundary_tmp/output" 2>&1
+  PATH="$SUDO_TEST_ROOT/src/arch/commands:$PATH" \
+    "$SUDO_TEST_ROOT/src/arch/commands/arch-update" "$@" >"$boundary_tmp/output" 2>&1
 }
 
 for args in '-y' ''; do
@@ -35,16 +59,24 @@ assert [l for l in s[:prune] if l.startswith('sudo ') and l not in ('sudo -k','s
 assert 'sudo -v' not in s, s
 positions=[next(i for i,line in enumerate(s) if line.startswith(prefix)) for prefix in ['step:arch-update-system-pkgs','step:arch-update-restart --services-only','step:arch-hook post-update','step:arch-update-mise','step:yay','step:arch-update-stay-awake stop','step:arch-update-restart --reboot-only']]
 assert positions==sorted(positions), s
-yay=positions[5]
-# Everything before AUR shares the one authorization: plain sudo, no revokes.
-assert not any(line=='sudo -k' or line.startswith('sudo -N ') for line in s[auth:positions[4]]), s
+yay=positions[4]
+# Normal update steps share one authorization; third-party AUR builds start cold.
+assert not any(line=='sudo -k' or line.startswith('sudo -N ') for line in s[auth:positions[3]]), s
 assert 'sudo /usr/bin/true' in s[auth:positions[0]+1], s
 # AUR builds start from a revoked credential and cannot refresh one.
-assert 'sudo -k' in s[positions[4]:yay], s
+assert 'sudo -k' in s[positions[3]:yay], s
 assert not any(line.startswith('sudo ') and line!='sudo -k' and not line.startswith('sudo -N ') for line in s[yay:]), s
 PY
   pass "update $args authorizes once for everything but AUR, which runs cold last, and exits cold"
 done
+
+reset_boundary
+export SUDO_TEST_FAIL_STEP=arch-pkg-aur-accessible
+run_update -y || fail "an unavailable AUR does not fail the update" "$(<"$boundary_tmp/output")"
+assert_boundary_cold "unavailable AUR"
+if grep -q '^step:yay ' "$SUDO_TEST_LOG"; then fail "an unavailable AUR still starts package builds"; fi
+pass "an unavailable AUR skips third-party builds without stopping the system update"
+unset SUDO_TEST_FAIL_STEP
 
 for step in arch-update-system-pkgs yay arch-hook arch-update-mise; do
   reset_boundary
@@ -79,7 +111,8 @@ assert_boundary_cold "unsupported sudo"
 pass "unsupported sudo fails without running update steps"
 
 reset_boundary
-"$SUDO_TEST_ROOT/src/arch/commands/arch-refresh-pacman" stable >"$boundary_tmp/output" 2>&1 || fail "refresh failed" "$(<"$boundary_tmp/output")"
+PATH="$SUDO_TEST_ROOT/src/arch/commands:$PATH" \
+  "$SUDO_TEST_ROOT/src/arch/commands/arch-refresh-pacman" stable >"$boundary_tmp/output" 2>&1 || fail "refresh failed" "$(<"$boundary_tmp/output")"
 assert_boundary_cold "refresh"
 python3 - "$SUDO_TEST_LOG" <<'PY'
 import sys
@@ -96,7 +129,8 @@ pass "refresh runs the hook cold between the config re-sync and the transaction"
 for step in pacman arch-hook; do
   reset_boundary
   export SUDO_TEST_FAIL_STEP=$step
-  if "$SUDO_TEST_ROOT/src/arch/commands/arch-refresh-pacman" stable >"$boundary_tmp/output" 2>&1; then fail "refresh must propagate $step failure"; fi
+  if PATH="$SUDO_TEST_ROOT/src/arch/commands:$PATH" \
+    "$SUDO_TEST_ROOT/src/arch/commands/arch-refresh-pacman" stable >"$boundary_tmp/output" 2>&1; then fail "refresh must propagate $step failure"; fi
   assert_boundary_cold "failed refresh $step"
   pass "refresh revokes after $step failure"
 done
