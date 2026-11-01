@@ -95,6 +95,7 @@ arch-pkg-add|arch-pkg-aur-add)
   zen-browser-bin) command=zen-browser ;;
   cursor-bin) command=cursor ;;
   zed) command=zeditor ;;
+  helix) command=helix ;;
   sublime-text-4) command=subl ;;
   vim) command=vim ;;
   neovim) command=nvim ;;
@@ -138,13 +139,19 @@ cat >"$mock_bin/setsid" <<'SH'
 printf 'launch:%s\n' "$*" >>"$ARCH_TEST_INSTALL_LOG"
 SH
 
+cat >"$mock_bin/arch-theme-refresh" <<'SH'
+#!/bin/bash
+printf 'theme:refresh\n' >>"$ARCH_TEST_INSTALL_LOG"
+mkdir -p "$HOME/.local/state/arch/current/theme"
+printf 'theme = "arch"\n' >"$HOME/.local/state/arch/current/theme/helix.toml"
+SH
+
 for installer in \
   arch-pkg-add \
   arch-pkg-aur-add \
   arch-install-browser \
   arch-install-terminal \
   arch-install-editor-vscode \
-  arch-install-editor-helix \
   arch-install-editor-emacs; do
   ln -s arch-test-installer "$mock_bin/$installer"
 done
@@ -207,7 +214,7 @@ editor_cases=(
   'cursor cursor pkg:cursor-bin'
   'zed zeditor pkg:zed'
   'sublime_text subl pkg:sublime-text-4'
-  'helix helix editor:helix'
+  'helix helix pkg:helix'
   'vim vim pkg:vim'
   'emacs emacs editor:emacs'
   'nvim nvim pkg:neovim'
@@ -341,12 +348,35 @@ for entry in "${editor_cases[@]}"; do
     done
     [[ $(<"$install_log") == $'pkg:zed\nlaunch:uwsm-app -- gtk-launch dev.zed.Zed' ]] ||
       fail "Zed uses the unified installer route and launches after package installation" "$(<"$install_log")"
+  elif [[ $selection == "helix" ]]; then
+    [[ $(<"$install_log") == $'pkg:helix\ntheme:refresh' ]] ||
+      fail "Helix installs its package and refreshes the theme before setup" "$(<"$install_log")"
+    [[ -L $test_home/.config/helix/themes/arch.toml ]] || fail "Helix links the current Arch theme"
+    [[ $(<"$test_home/.config/helix/config.toml") == 'theme = "arch"' ]] || fail "Helix seeds its config only when missing"
+    grep -Fxq 'alias hx="helix"' "$test_home/.bashrc" || fail "Helix adds the hx alias"
   else
     [[ $(<"$install_log") == "$installer" ]] || fail "$selection uses its editor installer"
   fi
   [[ $(archctl default editor) == "$command" ]] || fail "$selection becomes the default editor after installation"
 done
 pass "editor defaults install every missing editor before selection"
+
+printf 'theme = "user"\n' >"$test_home/.config/helix/config.toml"
+: >"$install_log"
+archctl install editor helix >/dev/null
+[[ $(<"$install_log") == "pkg:helix" ]] || fail "Helix skips refreshing an already available theme"
+[[ $(<"$test_home/.config/helix/config.toml") == 'theme = "user"' ]] || fail "Helix preserves an existing user config"
+[[ $(grep -Fc 'alias hx="helix"' "$test_home/.bashrc") == 1 ]] || fail "Helix setup does not duplicate its shell alias"
+pass "Helix setup preserves existing config and remains idempotent"
+
+helix_failure_home="$test_tmp/helix-failure-home"
+mkdir -p "$helix_failure_home"
+if HOME="$helix_failure_home" ARCH_TEST_INSTALL_FAIL=true archctl install editor helix >/dev/null 2>&1; then
+  fail "Helix package installation failure returns an error"
+fi
+[[ ! -e $helix_failure_home/.config/helix && ! -e $helix_failure_home/.bashrc ]] ||
+  fail "failed Helix package installation makes no user configuration changes"
+pass "failed Helix installation leaves user configuration untouched"
 
 editor_state="$HOME/.local/state/arch/defaults/editor"
 mkdir -p "$(dirname "$editor_state")"

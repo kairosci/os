@@ -49,7 +49,7 @@ editors:
     command: helix
     name: Helix
     glyph: 
-    installer: [arch-install-editor-helix]
+    installer: [archctl, install, editor, helix]
   vim:
     command: vim
     name: Vim

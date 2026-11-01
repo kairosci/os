@@ -244,7 +244,7 @@
   "install.editor.cursor": {"icon":"","iconFont":"Arch","label":"Cursor","disabled":"archctl pkg present cursor-bin","action":"arch-install-and-launch Cursor cursor-bin cursor"},
   "install.editor.zed": {"icon":"","label":"Zed","disabled":"archctl pkg present zed","action":"arch-launch-terminal-with-presentation archctl install editor zed"},
   "install.editor.sublime": {"icon":"","label":"Sublime Text","disabled":"archctl pkg present sublime-text-4","action":"arch-install-and-launch 'Sublime Text' sublime-text-4 sublime_text"},
-  "install.editor.helix": {"icon":"","label":"Helix","disabled":"archctl pkg present helix","action":"arch-launch-terminal-with-presentation arch-install-editor-helix"},
+  "install.editor.helix": {"icon":"","label":"Helix","disabled":"archctl pkg present helix","action":"arch-launch-terminal-with-presentation archctl install editor helix"},
   "install.editor.vim": {"icon":"","label":"Vim","disabled":"archctl pkg present vim","action":"arch-install-app Vim vim"},
   "install.editor.emacs": {"icon":"","label":"Emacs","disabled":"archctl pkg present arch-emacs","action":"arch-launch-terminal-with-presentation arch-install-editor-emacs"},
   "install.terminal.alacritty": {"icon":"","label":"Alacritty","disabled":"archctl pkg present alacritty","action":"arch-launch-terminal-with-presentation 'arch-install-terminal alacritty'"},
