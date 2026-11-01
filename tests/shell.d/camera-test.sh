@@ -6,7 +6,6 @@ source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/base-test.sh"
 
 export AP="$ROOT"
 
-helper="$ROOT/src/arch/commands/arch-install-camera"
 leaf="$ROOT/src/arch/python/installer/hardware/qualcomm_camera.py"
 test_tmp=$(mktemp -d)
 trap 'rm -rf "$test_tmp"' EXIT
@@ -41,10 +40,23 @@ grep -Fq 'src/arch/python/installer/hardware/qualcomm_camera.py' "$ROOT/data/ins
   fail "hardware setup runs the Qualcomm camera package module"
 pass "hardware setup includes the Python Qualcomm camera package module"
 
+python3 - "$ROOT/data/installer/user-setup.yml" <<'PYTHON'
+import sys
+from pathlib import Path
+import yaml
+
+settings = yaml.safe_load(Path(sys.argv[1]).read_text(encoding="utf-8"))
+assert settings["qualcomm_camera_setup"]["command"] == ["archctl", "install", "camera"]
+PYTHON
+
+run_camera() {
+  HOME="$1" AP="$ROOT" "$ROOT/src/arch/commands/archctl" install camera
+}
+
 home=$(new_home shipped)
 cp "$shipped" "$home/.config/chromium-flags.conf"
-HOME=$home bash "$helper"
-HOME=$home bash "$helper"
+run_camera "$home"
+run_camera "$home"
 conf="$home/.config/chromium-flags.conf"
 grep -Fxq -- "$features,WebRtcPipeWireCamera" "$conf" || fail "Snapdragon Chromium keeps its features and adds WebRtcPipeWireCamera once" "$(cat "$conf")"
 (( $(grep -c -- '^--enable-features=' "$conf") == 1 )) || fail "Snapdragon Chromium keeps one feature list" "$(cat "$conf")"
@@ -53,18 +65,18 @@ pass "a Snapdragon laptop gets Chromium's PipeWire camera once, even when the he
 home=$(new_home both)
 cp "$shipped" "$home/.config/chromium-flags.conf"
 HOME="$home" AP="$ROOT" "$ROOT/src/arch/commands/archctl" install video decode
-HOME=$home bash "$helper"
+run_camera "$home"
 grep -Fxq -- "$features,AcceleratedVideoDecoder,WebRtcPipeWireCamera" "$home/.config/chromium-flags.conf" ||
   fail "the video and camera features share Chromium's feature list" "$(cat "$home/.config/chromium-flags.conf")"
 pass "the video and camera features share Chromium's feature list"
 
 home=$(new_home user-set)
 printf '%s\n' '--enable-features=WebRtcPipeWireCamera<Trial' >"$home/.config/chromium-flags.conf"
-HOME=$home bash "$helper"
+run_camera "$home"
 [[ $(cat "$home/.config/chromium-flags.conf") == '--enable-features=WebRtcPipeWireCamera<Trial' ]] ||
   fail "a camera feature the user set stays as it is" "$(cat "$home/.config/chromium-flags.conf")"
 home=$(new_home missing)
-HOME=$home bash "$helper"
+run_camera "$home"
 [[ ! -e $home/.config/chromium-flags.conf ]] || fail "a missing Chromium flags file stays missing"
 pass "a feature the user set and a missing flags file stay as they are"
 
@@ -76,7 +88,7 @@ pass "the feature helper refuses a name that isn't a Chromium feature"
 rm "$ARCH_TEST_QUALCOMM"
 home=$(new_home other)
 cp "$shipped" "$home/.config/chromium-flags.conf"
-HOME=$home bash "$helper"
+run_camera "$home"
 cmp -s "$shipped" "$home/.config/chromium-flags.conf" || fail "other machines keep Chromium's flags" "$(cat "$home/.config/chromium-flags.conf")"
 run_leaf() {
   AP="$ROOT" python3 -I "$leaf"

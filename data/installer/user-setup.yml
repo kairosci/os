@@ -157,4 +157,4 @@ vm_setup:
     it:
       detected: "Macchina virtuale rilevata. Disattivo animazioni e trasparenze."
 qualcomm_camera_setup:
-  command: [arch-install-camera]
+  command: [archctl, install, camera]

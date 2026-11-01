@@ -1,0 +1,9 @@
+hardware_check:
+  - arch-hw-aarch64-qualcomm
+chromium_feature: WebRtcPipeWireCamera
+messages:
+  configuration_error: 'Could not load camera setup configuration: {error}'
+  operation_error: 'Could not configure Chromium camera support: {error}'
+statuses:
+  success: 0
+  operation_failed: 1
